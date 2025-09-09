@@ -70,7 +70,7 @@
             />
           </div>
 
-          <div class="cptm-widget-actions-area">
+          <div class="cptm-widget-actions">
             <a
               v-if="canOpenSettings && selectedWidgets?.length"
               href="#"
@@ -92,18 +92,20 @@
       </div>
 
       <div class="cptm-widget-preview-area" v-if="hasDisplayedWidgets">
-        <template
-          v-if="displayedWidgets.includes('listing_title') && dragAxis === 'x'"
-        >
+        <!-- Special widgets that should be outside drag container when dragAxis is x -->
+        <template>
           <div
-            class="cptm-widget-preview-card cptm-widget-preview-card-listing_title"
+            v-for="widget in specialWidgets"
+            v-if="dragAxis === 'x' && hasSpecialWidgets"
+            :key="`special-${widget}`"
+            :class="`cptm-widget-preview-card cptm-widget-preview-card-${widget}`"
           >
             <component
-              :is="`${availableWidgets['listing_title'].type}-card-widget`"
-              :label="getWidgetLabel('listing_title')"
-              :icon="getWidgetIcon('listing_title')"
-              :widgetKey="'listing_title'"
-              :options="getWidgetOptions('listing_title')"
+              :is="`${availableWidgets[widget].type}-card-widget`"
+              :label="getWidgetLabel(widget)"
+              :icon="getWidgetIcon(widget)"
+              :widgetKey="widget"
+              :options="getWidgetOptions(widget)"
               :activeWidgets="activeWidgets"
               @update="handleActiveWidgetUpdate"
             />
@@ -123,9 +125,7 @@
           v-if="!readOnly && canDragAndDrop"
         >
           <Draggable
-            v-for="(widget, widget_index) in displayedWidgets.filter(
-              (w) => w !== 'listing_title',
-            )"
+            v-for="(widget, widget_index) in draggableWidgets"
             :key="widget_index"
             v-if="hasValidWidget(widget)"
             :data="{ widget, index: widget_index }"
@@ -303,6 +303,51 @@ export default {
   },
 
   computed: {
+    /**
+     * Configuration for special widgets that should be rendered outside drag container
+     * and maintain fixed positions in the selectedWidgets array
+     */
+    specialWidgetsConfig() {
+      return {
+        // Define special widgets and their fixed positions
+        widgets: ["listing_title"], // Add more special widgets here
+        positions: {
+          listing_title: 0, // Always at position 0
+          // Add more positions as needed:
+          // "another_special_widget": 1,
+          // "yet_another_widget": 2,
+        },
+      };
+    },
+
+    /**
+     * Get special widgets that should be rendered outside drag container
+     * Cached for performance - only recalculates when displayedWidgets changes
+     */
+    specialWidgets() {
+      const { widgets } = this.specialWidgetsConfig;
+      return this.displayedWidgets.filter((widget) => widgets.includes(widget));
+    },
+
+    /**
+     * Get draggable widgets (excluding special widgets)
+     * Cached for performance - only recalculates when displayedWidgets changes
+     */
+    draggableWidgets() {
+      const { widgets } = this.specialWidgetsConfig;
+      return this.displayedWidgets.filter(
+        (widget) => !widgets.includes(widget),
+      );
+    },
+
+    /**
+     * Check if we have special widgets that need special handling
+     * Cached for performance
+     */
+    hasSpecialWidgets() {
+      return this.specialWidgets.length > 0;
+    },
+
     hasSelectedWidgets() {
       return this.selectedWidgets?.length > 0;
     },
@@ -420,27 +465,19 @@ export default {
     },
 
     editWidget(widgetKey) {
-      console.log("@@editWidget", {
-        widgetKey,
-        widgetOptionsWindow: this.widgetOptionsWindow,
-      });
-
       // Check if click target is inside modal
       if (event?.target?.closest(".cptm-options-area")) {
-        console.log("Click inside modal - preventing editWidget");
         return;
       }
 
       // Check if widget is already active
       if (this.widgetOptionsWindow.widget === widgetKey) {
-        console.log("Widget already active - closing modal");
         this.$emit("close-option-window");
         return;
       }
 
       // Check if widget is editable
       if (!this.isEditable(widgetKey)) {
-        console.log("Widget is not editable:", widgetKey);
         return;
       }
 
@@ -449,12 +486,10 @@ export default {
     },
 
     handleModalClick(event) {
-      console.log("Modal clicked - preventing event bubbling");
       event.stopPropagation();
     },
 
     handleOptionsWindowClose() {
-      console.log("Options window close button clicked");
       this.$emit("close-option-window");
     },
 
@@ -466,30 +501,18 @@ export default {
       this.$emit("update-active-widget", { widgetKey, updatedWidget });
     },
 
-    // Get child payload for better drag and drop control
+    /**
+     * Get child payload for drag and drop operations
+     * Optimized to use cached computed properties for better performance
+     */
     getChildPayload(index) {
-      // For horizontal drag, we need to account for the filtered display
-      let widget;
-      if (
-        this.dragAxis === "x" &&
-        this.displayedWidgets.includes("listing_title")
-      ) {
-        // Filter out listing_title to match the template's filtered display
-        const filteredWidgets = this.displayedWidgets.filter(
-          (w) => w !== "listing_title",
-        );
-        widget = filteredWidgets[index];
-      } else {
-        widget = this.displayedWidgets[index];
-      }
+      // For horizontal drag with special widgets, use draggable widgets array
+      // Otherwise, use the full displayed widgets array
+      const widget =
+        this.dragAxis === "x" && this.hasSpecialWidgets
+          ? this.draggableWidgets[index]
+          : this.displayedWidgets[index];
 
-      console.log("@@getChildPayload", {
-        widget,
-        index,
-        dragAxis: this.dragAxis,
-        displayedWidgets: this.displayedWidgets,
-        hasListingTitle: this.displayedWidgets.includes("listing_title"),
-      });
       return {
         id: widget,
         index: index,
@@ -506,133 +529,141 @@ export default {
       if (payload && payload.id) {
         this.draggingWidget = payload.id;
       }
-      console.log("Drag started:", {
-        payload,
-        draggingWidget: this.draggingWidget,
-      });
     },
 
     // Handle drag end to reset drag states
     onWidgetDragEnd() {
-      console.log("Drag ended, resetting drag states", this.draggingWidget);
-
       // Set drag end state briefly before clearing
       if (this.draggingWidget) {
         this.dragEndWidget = this.draggingWidget;
       }
     },
 
-    // Widget Drop Handler
+    /**
+     * Handle widget drop operations with optimized performance and maintainability
+     * Supports both vertical and horizontal drag with special widget positioning
+     */
     onWidgetsDrop(dropResult) {
-      console.log("Drop result:", dropResult);
-      console.log("Drag axis:", this.dragAxis);
-      console.log("selectedWidgets:", this.selectedWidgets);
-
-      // Clear all drag states
+      // Clear drag states immediately
       this.draggingWidget = null;
       this.dragEndWidget = null;
 
       const { removedIndex, addedIndex } = dropResult;
-      if (removedIndex === null || addedIndex === null) return;
 
-      // Only allow reordering if drag-and-drop is enabled, not read-only, and has multiple widgets
+      // Validate drop operation
+      if (removedIndex === null || addedIndex === null) return;
       if (!this.canDragAndDrop || this.readOnly || !this.hasMultipleWidgets)
         return;
 
-      // Clone array to avoid mutation
-      const widgetsCopy = [...this.selectedWidgets];
-
-      // Determine target index for insertion
-      let targetIndex = addedIndex;
-
-      // Horizontal drag adjustments
-      if (this.dragAxis === "x") {
-        console.log("Horizontal drag - original array:", widgetsCopy);
-
-        // Check if selectedWidgets has listing_title or other special widgets
-        const specialWidgets = ["listing_title"];
-        const hasSpecialWidgets = specialWidgets.some((widget) =>
-          this.selectedWidgets.includes(widget),
-        );
-
-        if (hasSpecialWidgets) {
-          // For horizontal drag with special widgets, we need to map the drag indices
-          // to the original array since the template filters out listing_title
-
-          // Create a mapping of filtered indices to original indices
-          const filteredToOriginalMap = [];
-          const originalToFilteredMap = [];
-
-          widgetsCopy.forEach((widget, originalIndex) => {
-            if (!specialWidgets.includes(widget)) {
-              const filteredIndex = filteredToOriginalMap.length;
-              filteredToOriginalMap[filteredIndex] = originalIndex;
-              originalToFilteredMap[originalIndex] = filteredIndex;
-            }
-          });
-
-          // Map drag indices to original array indices
-          const originalRemovedIndex = filteredToOriginalMap[removedIndex];
-          const originalAddedIndex = filteredToOriginalMap[addedIndex];
-
-          console.log("Index mapping:", {
-            removedIndex,
-            addedIndex,
-            originalRemovedIndex,
-            originalAddedIndex,
-            filteredToOriginalMap,
-            widgetsCopy,
-          });
-
-          // Perform reordering on the original array using mapped indices
-          const [movedItem] = widgetsCopy.splice(originalRemovedIndex, 1);
-          widgetsCopy.splice(originalAddedIndex, 0, movedItem);
-
-          // Now ensure listing_title is at the top
-          const finalWidgets = [...widgetsCopy];
-
-          // Remove listing_title from its current position
-          const listingTitleIndex = finalWidgets.indexOf("listing_title");
-          if (listingTitleIndex > -1) {
-            finalWidgets.splice(listingTitleIndex, 1);
-          }
-
-          // Add listing_title to the top
-          finalWidgets.unshift("listing_title");
-
-          console.log(
-            "Final array after horizontal drop with special widgets:",
-            {
-              originalArray: this.selectedWidgets,
-              afterReorder: widgetsCopy,
-              finalArray: finalWidgets,
-              movedItem,
-              originalRemovedIndex,
-              originalAddedIndex,
-            },
-          );
-
-          // Emit updated array to parent
-          this.$emit("update", finalWidgets);
-          return;
-        }
-
-        // Clamp targetIndex within array bounds
-        targetIndex = Math.max(0, Math.min(targetIndex, widgetsCopy.length));
-      } else {
-        // Vertical drag adjustments (default)
-        console.log("Vertical drag - original array:", widgetsCopy);
-        targetIndex = Math.max(0, Math.min(targetIndex, widgetsCopy.length));
+      // Handle horizontal drag with special widgets
+      if (this.dragAxis === "x" && this.hasSpecialWidgets) {
+        this.handleHorizontalDropWithSpecialWidgets(dropResult);
+        return;
       }
 
-      // Remove moved item and insert at new position
+      // Handle standard drag operations (vertical or horizontal without special widgets)
+      this.handleStandardDrop(dropResult);
+    },
+
+    /**
+     * Handle horizontal drop operations when special widgets are present
+     * Optimized for performance with proper index mapping
+     */
+    handleHorizontalDropWithSpecialWidgets(dropResult) {
+      const { removedIndex, addedIndex } = dropResult;
+      const widgetsCopy = [...this.selectedWidgets];
+      const { widgets: specialWidgets, positions: specialWidgetPositions } =
+        this.specialWidgetsConfig;
+
+      // Create efficient index mapping for filtered array
+      const filteredToOriginalMap = this.createIndexMapping(
+        widgetsCopy,
+        specialWidgets,
+      );
+
+      // Map drag indices to original array indices
+      const originalRemovedIndex = filteredToOriginalMap[removedIndex];
+      const originalAddedIndex = filteredToOriginalMap[addedIndex];
+
+      // Perform reordering on original array
+      const [movedItem] = widgetsCopy.splice(originalRemovedIndex, 1);
+      widgetsCopy.splice(originalAddedIndex, 0, movedItem);
+
+      // Enforce special widget positions
+      const finalWidgets = this.enforceSpecialWidgetPositions(
+        widgetsCopy,
+        specialWidgets,
+        specialWidgetPositions,
+      );
+
+      this.$emit("update", finalWidgets);
+    },
+
+    /**
+     * Handle standard drop operations (vertical or horizontal without special widgets)
+     * Optimized for simplicity and performance
+     */
+    handleStandardDrop(dropResult) {
+      const { removedIndex, addedIndex } = dropResult;
+      const widgetsCopy = [...this.selectedWidgets];
+
+      // Clamp indices within array bounds
+      const targetIndex = Math.max(0, Math.min(addedIndex, widgetsCopy.length));
+
+      // Perform reordering
       const [movedItem] = widgetsCopy.splice(removedIndex, 1);
       widgetsCopy.splice(targetIndex, 0, movedItem);
 
-      console.log("Final array after drop:", widgetsCopy);
-
-      // Emit updated array to parent
       this.$emit("update", widgetsCopy);
+    },
+
+    /**
+     * Create efficient index mapping between filtered and original arrays
+     * Optimized for performance with single pass through array
+     */
+    createIndexMapping(originalArray, specialWidgets) {
+      const mapping = [];
+      let filteredIndex = 0;
+
+      for (let i = 0; i < originalArray.length; i++) {
+        if (!specialWidgets.includes(originalArray[i])) {
+          mapping[filteredIndex] = i;
+          filteredIndex++;
+        }
+      }
+
+      return mapping;
+    },
+
+    /**
+     * Enforce special widget positions in the final array
+     * Optimized for performance with efficient array operations
+     */
+    enforceSpecialWidgetPositions(
+      widgetsArray,
+      specialWidgets,
+      specialWidgetPositions,
+    ) {
+      const result = [...widgetsArray];
+
+      // Remove all special widgets from their current positions
+      specialWidgets.forEach((widget) => {
+        const index = result.indexOf(widget);
+        if (index > -1) {
+          result.splice(index, 1);
+        }
+      });
+
+      // Add special widgets back to their designated positions
+      // Sort by position to ensure correct insertion order
+      Object.entries(specialWidgetPositions)
+        .filter(([widget]) => specialWidgets.includes(widget))
+        .sort(([, posA], [, posB]) => posA - posB)
+        .forEach(([widget, position]) => {
+          result.splice(position, 0, widget);
+        });
+
+      return result;
     },
   },
 

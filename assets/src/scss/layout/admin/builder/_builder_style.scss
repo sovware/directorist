@@ -2964,7 +2964,12 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.cptm-widget-actions,
 .cptm-widget-actions-area {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   position: absolute;
   bottom: 0;

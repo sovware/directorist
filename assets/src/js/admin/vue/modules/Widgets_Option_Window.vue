@@ -312,13 +312,6 @@ export default {
         this.activeWidgetKey = widget_key; // set active
         this.activeWidget = this.widgetsList[widget_key];
         this.activeWidgetOptionType = this.activeWidget.options?.type?.value;
-        console.log("edit after chk", {
-          widget_key,
-          activeWidgetKey: this.activeWidgetKey,
-          activeWidgetOptionType: this.activeWidgetOptionType,
-          activeWidget: this.activeWidget,
-          widgetsList: this.widgetsList,
-        });
       }
     },
 
@@ -407,11 +400,6 @@ export default {
 
       // Add item at new position
       updatedWidgets.splice(addedIndex, 0, movedItem);
-      console.log("onElementsDrop", {
-        updatedWidgets,
-        removedIndex,
-        addedIndex,
-      });
 
       // Emit to parent to update prop
       this.$emit("update", { selectedWidgets: updatedWidgets });

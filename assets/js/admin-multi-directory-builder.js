@@ -15687,6 +15687,50 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    /**
+     * Configuration for special widgets that should be rendered outside drag container
+     * and maintain fixed positions in the selectedWidgets array
+     */
+    specialWidgetsConfig: function specialWidgetsConfig() {
+      return {
+        // Define special widgets and their fixed positions
+        widgets: ["listing_title"],
+        // Add more special widgets here
+        positions: {
+          listing_title: 0 // Always at position 0
+          // Add more positions as needed:
+          // "another_special_widget": 1,
+          // "yet_another_widget": 2,
+        }
+      };
+    },
+    /**
+     * Get special widgets that should be rendered outside drag container
+     * Cached for performance - only recalculates when displayedWidgets changes
+     */
+    specialWidgets: function specialWidgets() {
+      var widgets = this.specialWidgetsConfig.widgets;
+      return this.displayedWidgets.filter(function (widget) {
+        return widgets.includes(widget);
+      });
+    },
+    /**
+     * Get draggable widgets (excluding special widgets)
+     * Cached for performance - only recalculates when displayedWidgets changes
+     */
+    draggableWidgets: function draggableWidgets() {
+      var widgets = this.specialWidgetsConfig.widgets;
+      return this.displayedWidgets.filter(function (widget) {
+        return !widgets.includes(widget);
+      });
+    },
+    /**
+     * Check if we have special widgets that need special handling
+     * Cached for performance
+     */
+    hasSpecialWidgets: function hasSpecialWidgets() {
+      return this.specialWidgets.length > 0;
+    },
     hasSelectedWidgets: function hasSelectedWidgets() {
       var _this$selectedWidgets;
       return ((_this$selectedWidgets = this.selectedWidgets) === null || _this$selectedWidgets === void 0 ? void 0 : _this$selectedWidgets.length) > 0;
@@ -15783,38 +15827,28 @@ __webpack_require__.r(__webpack_exports__);
     },
     editWidget: function editWidget(widgetKey) {
       var _event;
-      console.log("@@editWidget", {
-        widgetKey: widgetKey,
-        widgetOptionsWindow: this.widgetOptionsWindow
-      });
-
       // Check if click target is inside modal
       if ((_event = event) !== null && _event !== void 0 && (_event = _event.target) !== null && _event !== void 0 && _event.closest(".cptm-options-area")) {
-        console.log("Click inside modal - preventing editWidget");
         return;
       }
 
       // Check if widget is already active
       if (this.widgetOptionsWindow.widget === widgetKey) {
-        console.log("Widget already active - closing modal");
         this.$emit("close-option-window");
         return;
       }
 
       // Check if widget is editable
       if (!this.isEditable(widgetKey)) {
-        console.log("Widget is not editable:", widgetKey);
         return;
       }
       this.$emit("activate-widget-options", widgetKey);
       this.$emit("edit-widget", widgetKey);
     },
     handleModalClick: function handleModalClick(event) {
-      console.log("Modal clicked - preventing event bubbling");
       event.stopPropagation();
     },
     handleOptionsWindowClose: function handleOptionsWindowClose() {
-      console.log("Options window close button clicked");
       this.$emit("close-option-window");
     },
     handleUpdateOptionWindow: function handleUpdateOptionWindow(payload) {
@@ -15828,26 +15862,14 @@ __webpack_require__.r(__webpack_exports__);
         updatedWidget: updatedWidget
       });
     },
-    // Get child payload for better drag and drop control
+    /**
+     * Get child payload for drag and drop operations
+     * Optimized to use cached computed properties for better performance
+     */
     getChildPayload: function getChildPayload(index) {
-      // For horizontal drag, we need to account for the filtered display
-      var widget;
-      if (this.dragAxis === "x" && this.displayedWidgets.includes("listing_title")) {
-        // Filter out listing_title to match the template's filtered display
-        var filteredWidgets = this.displayedWidgets.filter(function (w) {
-          return w !== "listing_title";
-        });
-        widget = filteredWidgets[index];
-      } else {
-        widget = this.displayedWidgets[index];
-      }
-      console.log("@@getChildPayload", {
-        widget: widget,
-        index: index,
-        dragAxis: this.dragAxis,
-        displayedWidgets: this.displayedWidgets,
-        hasListingTitle: this.displayedWidgets.includes("listing_title")
-      });
+      // For horizontal drag with special widgets, use draggable widgets array
+      // Otherwise, use the full displayed widgets array
+      var widget = this.dragAxis === "x" && this.hasSpecialWidgets ? this.draggableWidgets[index] : this.displayedWidgets[index];
       return {
         id: widget,
         index: index,
@@ -15863,127 +15885,135 @@ __webpack_require__.r(__webpack_exports__);
       if (payload && payload.id) {
         this.draggingWidget = payload.id;
       }
-      console.log("Drag started:", {
-        payload: payload,
-        draggingWidget: this.draggingWidget
-      });
     },
     // Handle drag end to reset drag states
     onWidgetDragEnd: function onWidgetDragEnd() {
-      console.log("Drag ended, resetting drag states", this.draggingWidget);
-
       // Set drag end state briefly before clearing
       if (this.draggingWidget) {
         this.dragEndWidget = this.draggingWidget;
       }
     },
-    // Widget Drop Handler
+    /**
+     * Handle widget drop operations with optimized performance and maintainability
+     * Supports both vertical and horizontal drag with special widget positioning
+     */
     onWidgetsDrop: function onWidgetsDrop(dropResult) {
-      var _this3 = this;
-      console.log("Drop result:", dropResult);
-      console.log("Drag axis:", this.dragAxis);
-      console.log("selectedWidgets:", this.selectedWidgets);
-
-      // Clear all drag states
+      // Clear drag states immediately
       this.draggingWidget = null;
       this.dragEndWidget = null;
       var removedIndex = dropResult.removedIndex,
         addedIndex = dropResult.addedIndex;
-      if (removedIndex === null || addedIndex === null) return;
 
-      // Only allow reordering if drag-and-drop is enabled, not read-only, and has multiple widgets
+      // Validate drop operation
+      if (removedIndex === null || addedIndex === null) return;
       if (!this.canDragAndDrop || this.readOnly || !this.hasMultipleWidgets) return;
 
-      // Clone array to avoid mutation
-      var widgetsCopy = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(this.selectedWidgets);
-
-      // Determine target index for insertion
-      var targetIndex = addedIndex;
-
-      // Horizontal drag adjustments
-      if (this.dragAxis === "x") {
-        console.log("Horizontal drag - original array:", widgetsCopy);
-
-        // Check if selectedWidgets has listing_title or other special widgets
-        var specialWidgets = ["listing_title"];
-        var hasSpecialWidgets = specialWidgets.some(function (widget) {
-          return _this3.selectedWidgets.includes(widget);
-        });
-        if (hasSpecialWidgets) {
-          // For horizontal drag with special widgets, we need to map the drag indices
-          // to the original array since the template filters out listing_title
-
-          // Create a mapping of filtered indices to original indices
-          var filteredToOriginalMap = [];
-          var originalToFilteredMap = [];
-          widgetsCopy.forEach(function (widget, originalIndex) {
-            if (!specialWidgets.includes(widget)) {
-              var filteredIndex = filteredToOriginalMap.length;
-              filteredToOriginalMap[filteredIndex] = originalIndex;
-              originalToFilteredMap[originalIndex] = filteredIndex;
-            }
-          });
-
-          // Map drag indices to original array indices
-          var originalRemovedIndex = filteredToOriginalMap[removedIndex];
-          var originalAddedIndex = filteredToOriginalMap[addedIndex];
-          console.log("Index mapping:", {
-            removedIndex: removedIndex,
-            addedIndex: addedIndex,
-            originalRemovedIndex: originalRemovedIndex,
-            originalAddedIndex: originalAddedIndex,
-            filteredToOriginalMap: filteredToOriginalMap,
-            widgetsCopy: widgetsCopy
-          });
-
-          // Perform reordering on the original array using mapped indices
-          var _widgetsCopy$splice = widgetsCopy.splice(originalRemovedIndex, 1),
-            _widgetsCopy$splice2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_widgetsCopy$splice, 1),
-            _movedItem = _widgetsCopy$splice2[0];
-          widgetsCopy.splice(originalAddedIndex, 0, _movedItem);
-
-          // Now ensure listing_title is at the top
-          var finalWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(widgetsCopy);
-
-          // Remove listing_title from its current position
-          var listingTitleIndex = finalWidgets.indexOf("listing_title");
-          if (listingTitleIndex > -1) {
-            finalWidgets.splice(listingTitleIndex, 1);
-          }
-
-          // Add listing_title to the top
-          finalWidgets.unshift("listing_title");
-          console.log("Final array after horizontal drop with special widgets:", {
-            originalArray: this.selectedWidgets,
-            afterReorder: widgetsCopy,
-            finalArray: finalWidgets,
-            movedItem: _movedItem,
-            originalRemovedIndex: originalRemovedIndex,
-            originalAddedIndex: originalAddedIndex
-          });
-
-          // Emit updated array to parent
-          this.$emit("update", finalWidgets);
-          return;
-        }
-
-        // Clamp targetIndex within array bounds
-        targetIndex = Math.max(0, Math.min(targetIndex, widgetsCopy.length));
-      } else {
-        // Vertical drag adjustments (default)
-        console.log("Vertical drag - original array:", widgetsCopy);
-        targetIndex = Math.max(0, Math.min(targetIndex, widgetsCopy.length));
+      // Handle horizontal drag with special widgets
+      if (this.dragAxis === "x" && this.hasSpecialWidgets) {
+        this.handleHorizontalDropWithSpecialWidgets(dropResult);
+        return;
       }
 
-      // Remove moved item and insert at new position
+      // Handle standard drag operations (vertical or horizontal without special widgets)
+      this.handleStandardDrop(dropResult);
+    },
+    /**
+     * Handle horizontal drop operations when special widgets are present
+     * Optimized for performance with proper index mapping
+     */
+    handleHorizontalDropWithSpecialWidgets: function handleHorizontalDropWithSpecialWidgets(dropResult) {
+      var removedIndex = dropResult.removedIndex,
+        addedIndex = dropResult.addedIndex;
+      var widgetsCopy = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(this.selectedWidgets);
+      var _this$specialWidgetsC = this.specialWidgetsConfig,
+        specialWidgets = _this$specialWidgetsC.widgets,
+        specialWidgetPositions = _this$specialWidgetsC.positions;
+
+      // Create efficient index mapping for filtered array
+      var filteredToOriginalMap = this.createIndexMapping(widgetsCopy, specialWidgets);
+
+      // Map drag indices to original array indices
+      var originalRemovedIndex = filteredToOriginalMap[removedIndex];
+      var originalAddedIndex = filteredToOriginalMap[addedIndex];
+
+      // Perform reordering on original array
+      var _widgetsCopy$splice = widgetsCopy.splice(originalRemovedIndex, 1),
+        _widgetsCopy$splice2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_widgetsCopy$splice, 1),
+        movedItem = _widgetsCopy$splice2[0];
+      widgetsCopy.splice(originalAddedIndex, 0, movedItem);
+
+      // Enforce special widget positions
+      var finalWidgets = this.enforceSpecialWidgetPositions(widgetsCopy, specialWidgets, specialWidgetPositions);
+      this.$emit("update", finalWidgets);
+    },
+    /**
+     * Handle standard drop operations (vertical or horizontal without special widgets)
+     * Optimized for simplicity and performance
+     */
+    handleStandardDrop: function handleStandardDrop(dropResult) {
+      var removedIndex = dropResult.removedIndex,
+        addedIndex = dropResult.addedIndex;
+      var widgetsCopy = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(this.selectedWidgets);
+
+      // Clamp indices within array bounds
+      var targetIndex = Math.max(0, Math.min(addedIndex, widgetsCopy.length));
+
+      // Perform reordering
       var _widgetsCopy$splice3 = widgetsCopy.splice(removedIndex, 1),
         _widgetsCopy$splice4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_widgetsCopy$splice3, 1),
         movedItem = _widgetsCopy$splice4[0];
       widgetsCopy.splice(targetIndex, 0, movedItem);
-      console.log("Final array after drop:", widgetsCopy);
-
-      // Emit updated array to parent
       this.$emit("update", widgetsCopy);
+    },
+    /**
+     * Create efficient index mapping between filtered and original arrays
+     * Optimized for performance with single pass through array
+     */
+    createIndexMapping: function createIndexMapping(originalArray, specialWidgets) {
+      var mapping = [];
+      var filteredIndex = 0;
+      for (var i = 0; i < originalArray.length; i++) {
+        if (!specialWidgets.includes(originalArray[i])) {
+          mapping[filteredIndex] = i;
+          filteredIndex++;
+        }
+      }
+      return mapping;
+    },
+    /**
+     * Enforce special widget positions in the final array
+     * Optimized for performance with efficient array operations
+     */
+    enforceSpecialWidgetPositions: function enforceSpecialWidgetPositions(widgetsArray, specialWidgets, specialWidgetPositions) {
+      var result = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(widgetsArray);
+
+      // Remove all special widgets from their current positions
+      specialWidgets.forEach(function (widget) {
+        var index = result.indexOf(widget);
+        if (index > -1) {
+          result.splice(index, 1);
+        }
+      });
+
+      // Add special widgets back to their designated positions
+      // Sort by position to ensure correct insertion order
+      Object.entries(specialWidgetPositions).filter(function (_ref2) {
+        var _ref3 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref2, 1),
+          widget = _ref3[0];
+        return specialWidgets.includes(widget);
+      }).sort(function (_ref4, _ref5) {
+        var _ref6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref4, 2),
+          posA = _ref6[1];
+        var _ref7 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref5, 2),
+          posB = _ref7[1];
+        return posA - posB;
+      }).forEach(function (_ref8) {
+        var _ref9 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref8, 2),
+          widget = _ref9[0],
+          position = _ref9[1];
+        result.splice(position, 0, widget);
+      });
+      return result;
     }
   },
   watch: {
@@ -17411,13 +17441,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.activeWidgetKey = widget_key; // set active
         this.activeWidget = this.widgetsList[widget_key];
         this.activeWidgetOptionType = (_this$activeWidget$op = this.activeWidget.options) === null || _this$activeWidget$op === void 0 || (_this$activeWidget$op = _this$activeWidget$op.type) === null || _this$activeWidget$op === void 0 ? void 0 : _this$activeWidget$op.value;
-        console.log("edit after chk", {
-          widget_key: widget_key,
-          activeWidgetKey: this.activeWidgetKey,
-          activeWidgetOptionType: this.activeWidgetOptionType,
-          activeWidget: this.activeWidget,
-          widgetsList: this.widgetsList
-        });
       }
     },
     // Trash Widget
@@ -17485,11 +17508,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
       // Add item at new position
       updatedWidgets.splice(addedIndex, 0, movedItem);
-      console.log("onElementsDrop", {
-        updatedWidgets: updatedWidgets,
-        removedIndex: removedIndex,
-        addedIndex: addedIndex
-      });
 
       // Emit to parent to update prop
       this.$emit("update", {
@@ -21173,10 +21191,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Insert Widget
     insertWidget: function insertWidget(payload, where) {
-      console.log("insertWidget", {
-        payload: payload,
-        where: where
-      });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
@@ -21233,11 +21247,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     for (var i = 0; i < pathKeys.length - 1; i++) {
       obj = obj[pathKeys[i]]; // Navigate deeper into the object
     }
-    console.log("@@handleUpdateSelectedWidgets - test", {
-      updatedWidgets: updatedWidgets,
-      pathKeys: pathKeys,
-      obj: obj
-    });
 
     // Update the selectedWidgets at the correct path
     obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
@@ -21777,11 +21786,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     for (var i = 0; i < pathKeys.length - 1; i++) {
       obj = obj[pathKeys[i]]; // Navigate deeper into the object
     }
-    console.log("@@handleUpdateSelectedWidgets - test", {
-      updatedWidgets: updatedWidgets,
-      pathKeys: pathKeys,
-      obj: obj
-    });
 
     // Update the selectedWidgets at the correct path
     obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
@@ -22723,10 +22727,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Insert Widget
     insertWidget: function insertWidget(payload, where) {
-      console.log("insertWidget", {
-        payload: payload,
-        where: where
-      });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
@@ -22783,11 +22783,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     for (var i = 0; i < pathKeys.length - 1; i++) {
       obj = obj[pathKeys[i]]; // Navigate deeper into the object
     }
-    console.log("@@handleUpdateSelectedWidgets - test", {
-      updatedWidgets: updatedWidgets,
-      pathKeys: pathKeys,
-      obj: obj
-    });
 
     // Update the selectedWidgets at the correct path
     obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
@@ -23250,10 +23245,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Insert Widget
     insertWidget: function insertWidget(payload, where) {
-      console.log("insertWidget", {
-        payload: payload,
-        where: where
-      });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
@@ -23310,11 +23301,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     for (var i = 0; i < pathKeys.length - 1; i++) {
       obj = obj[pathKeys[i]]; // Navigate deeper into the object
     }
-    console.log("@@handleUpdateSelectedWidgets - test", {
-      updatedWidgets: updatedWidgets,
-      pathKeys: pathKeys,
-      obj: obj
-    });
 
     // Update the selectedWidgets at the correct path
     obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
@@ -27588,7 +27574,7 @@ var render = function render() {
       }
     }
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "cptm-widget-actions-area"
+    staticClass: "cptm-widget-actions"
   }, [_vm.canOpenSettings && (_vm$selectedWidgets4 = _vm.selectedWidgets) !== null && _vm$selectedWidgets4 !== void 0 && _vm$selectedWidgets4.length ? _c('a', {
     staticClass: "cptm-widget-action-link",
     attrs: {
@@ -27617,21 +27603,24 @@ var render = function render() {
     staticClass: "las la-plus"
   })]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), _vm.hasDisplayedWidgets ? _c('div', {
     staticClass: "cptm-widget-preview-area"
-  }, [_vm.displayedWidgets.includes('listing_title') && _vm.dragAxis === 'x' ? [_c('div', {
-    staticClass: "cptm-widget-preview-card cptm-widget-preview-card-listing_title"
-  }, [_c("".concat(_vm.availableWidgets['listing_title'].type, "-card-widget"), {
-    tag: "component",
-    attrs: {
-      "label": _vm.getWidgetLabel('listing_title'),
-      "icon": _vm.getWidgetIcon('listing_title'),
-      "widgetKey": 'listing_title',
-      "options": _vm.getWidgetOptions('listing_title'),
-      "activeWidgets": _vm.activeWidgets
-    },
-    on: {
-      "update": _vm.handleActiveWidgetUpdate
-    }
-  })], 1)] : _vm._e(), _vm._v(" "), !_vm.readOnly && _vm.canDragAndDrop ? _c('Container', {
+  }, [_vm._l(_vm.specialWidgets, function (widget) {
+    return _vm.dragAxis === 'x' && _vm.hasSpecialWidgets ? _c('div', {
+      key: "special-".concat(widget),
+      class: "cptm-widget-preview-card cptm-widget-preview-card-".concat(widget)
+    }, [_c("".concat(_vm.availableWidgets[widget].type, "-card-widget"), {
+      tag: "component",
+      attrs: {
+        "label": _vm.getWidgetLabel(widget),
+        "icon": _vm.getWidgetIcon(widget),
+        "widgetKey": widget,
+        "options": _vm.getWidgetOptions(widget),
+        "activeWidgets": _vm.activeWidgets
+      },
+      on: {
+        "update": _vm.handleActiveWidgetUpdate
+      }
+    })], 1) : _vm._e();
+  }), _vm._v(" "), !_vm.readOnly && _vm.canDragAndDrop ? _c('Container', {
     class: ['cptm-widget-preview-container'],
     attrs: {
       "lock-axis": _vm.dragAxis,
@@ -27652,9 +27641,7 @@ var render = function render() {
         return _vm.onWidgetDragEnd();
       }
     }
-  }, _vm._l(_vm.displayedWidgets.filter(function (w) {
-    return w !== 'listing_title';
-  }), function (widget, widget_index) {
+  }, _vm._l(_vm.draggableWidgets, function (widget, widget_index) {
     return _vm.hasValidWidget(widget) ? _c('Draggable', {
       key: widget_index,
       class: ["dndrop-draggable-wrapper dndrop-draggable-wrapper-".concat(widget), {

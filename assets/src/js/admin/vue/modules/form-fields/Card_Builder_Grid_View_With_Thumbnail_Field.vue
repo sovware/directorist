@@ -1012,7 +1012,6 @@ export default {
 
     // Insert Widget
     insertWidget(payload, where) {
-      console.log("insertWidget", { payload, where });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
@@ -1091,12 +1090,6 @@ export default {
       for (let i = 0; i < pathKeys.length - 1; i++) {
         obj = obj[pathKeys[i]]; // Navigate deeper into the object
       }
-
-      console.log("@@handleUpdateSelectedWidgets - test", {
-        updatedWidgets,
-        pathKeys,
-        obj,
-      });
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;

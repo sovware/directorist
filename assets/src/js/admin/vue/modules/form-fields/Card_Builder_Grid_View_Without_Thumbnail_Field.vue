@@ -914,12 +914,6 @@ export default {
         obj = obj[pathKeys[i]]; // Navigate deeper into the object
       }
 
-      console.log("@@handleUpdateSelectedWidgets - test", {
-        updatedWidgets,
-        pathKeys,
-        obj,
-      });
-
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
     },

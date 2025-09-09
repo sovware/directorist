@@ -15802,6 +15802,10 @@ input:-webkit-autofill:active {
 .cptm-section.listings_card_list_view .cptm-card-preview-thumbnail {
   border-radius: 10px;
 }
+.cptm-section.listings_card_list_view .cptm-card-placeholder-top .cptm-widget-preview-card-listing_title,
+.cptm-section.listings_card_list_view .cptm-listing-card-preview-top .cptm-widget-preview-card-listing_title {
+  margin-bottom: 8px;
+}
 .cptm-section.new_listing_status {
   z-index: 11;
 }
@@ -23440,6 +23444,10 @@ input[type=radio]:checked::before {
 }
 .cptm-section.listings_card_list_view .cptm-card-preview-thumbnail {
   border-radius: 10px;
+}
+.cptm-section.listings_card_list_view .cptm-card-placeholder-top .cptm-widget-preview-card-listing_title,
+.cptm-section.listings_card_list_view .cptm-listing-card-preview-top .cptm-widget-preview-card-listing_title {
+  margin-bottom: 8px;
 }
 .cptm-section.new_listing_status {
   z-index: 11;
@@ -31367,6 +31375,10 @@ input[type=radio]:checked::before {
 }
 .cptm-section.listings_card_list_view .cptm-card-preview-thumbnail {
   border-radius: 10px;
+}
+.cptm-section.listings_card_list_view .cptm-card-placeholder-top .cptm-widget-preview-card-listing_title,
+.cptm-section.listings_card_list_view .cptm-listing-card-preview-top .cptm-widget-preview-card-listing_title {
+  margin-bottom: 8px;
 }
 .cptm-section.new_listing_status {
   z-index: 11;

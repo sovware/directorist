@@ -1421,6 +1421,12 @@ $light-gray: #f4f5f7;
     .cptm-card-preview-thumbnail {
       border-radius: 10px;
     }
+    .cptm-card-placeholder-top,
+    .cptm-listing-card-preview-top {
+      .cptm-widget-preview-card-listing_title {
+        margin-bottom: 8px;
+      }
+    }
   }
 
   &.new_listing_status {

@@ -2646,7 +2646,6 @@ class Builder_Data {
                                     ],
                                 ],
                             ],
-
                             'price' => [
                                 'type' => "badge",
                                 'label' => __( "Pricing", "directorist" ),

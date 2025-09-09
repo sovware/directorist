@@ -62,6 +62,7 @@
                 v-for="(
                   widget_key, widget_index
                 ) in placeholder.acceptedWidgets"
+                v-if="isWidgetAvailable(widget_key)"
                 :key="widget_index"
                 :data="{ widget_key }"
                 :class="{
@@ -590,11 +591,6 @@ export default {
     onSettingsDragStart(dragResult, placeholderIndex) {
       // Get the dragged item from the payload
       const draggedItem = dragResult.payload;
-      console.log("Settings drag started:", {
-        dragResult,
-        draggedItem,
-        placeholderIndex,
-      });
 
       if (
         draggedItem &&
@@ -682,31 +678,12 @@ export default {
         this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets[
           draggedItemIndex
         ];
-      console.log("getSettingsChildPayload:", {
-        draggedItemIndex,
-        placeholderIndex,
-        widgetKey,
-        widgetKeyType: typeof widgetKey,
-        allPlaceholderItems: this.allPlaceholderItems,
-        acceptedWidgets:
-          this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets,
-        specificWidget:
-          this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets[
-            draggedItemIndex
-          ],
-      });
 
       // Extract the actual widget key string from the object
       const extractedWidgetKey =
         typeof widgetKey === "object"
           ? widgetKey.widget_key || widgetKey.key
           : widgetKey;
-
-      console.log("Extracted widget key:", {
-        original: widgetKey,
-        extracted: extractedWidgetKey,
-        extractedType: typeof extractedWidgetKey,
-      });
 
       // Return the payload containing both pieces of data
       return {
@@ -1254,12 +1231,31 @@ export default {
     syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
       const updatePlaceholderItem = (placeholder, allPlaceholderItem) => {
         if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
-          placeholder.acceptedWidgets = [...allPlaceholderItem.acceptedWidgets];
+          // Filter acceptedWidgets to only include available widgets
+          const filteredAcceptedWidgets = (
+            allPlaceholderItem.acceptedWidgets || []
+          ).filter((widgetKey) => this.isWidgetAvailable(widgetKey));
+          placeholder.acceptedWidgets = [...filteredAcceptedWidgets];
+
+          // Filter selectedWidgets to only include available widgets
           let selectedWidgets = allPlaceholderItem.selectedWidgets || [];
           let selectedWidgetList = allPlaceholderItem.selectedWidgetList || [];
 
-          placeholder.selectedWidgets = [...selectedWidgets];
-          placeholder.selectedWidgetList = [...selectedWidgetList];
+          // Filter selectedWidgets based on available widgets
+          const filteredSelectedWidgets = selectedWidgets.filter(
+            (widget) =>
+              widget &&
+              widget.widget_key &&
+              this.isWidgetAvailable(widget.widget_key),
+          );
+
+          // Filter selectedWidgetList based on available widgets
+          const filteredSelectedWidgetList = selectedWidgetList.filter(
+            (widgetKey) => this.isWidgetAvailable(widgetKey),
+          );
+
+          placeholder.selectedWidgets = [...filteredSelectedWidgets];
+          placeholder.selectedWidgetList = [...filteredSelectedWidgetList];
         }
       };
 
@@ -1337,6 +1333,27 @@ export default {
     // Close the modal
     closeModal() {
       this.showModal = false;
+    },
+
+    // Check if widget is available (handles show_if conditions)
+    isWidgetAvailable(widgetKey) {
+      // Basic check if widget exists in available_widgets
+      if (!this.available_widgets[widgetKey]) {
+        return false;
+      }
+
+      const widget = this.available_widgets[widgetKey];
+
+      // If widget has show_if condition, check it
+      if (widget.show_if && typeof widget.show_if === "object") {
+        const showIfResult = this.checkShowIfCondition({
+          condition: widget.show_if,
+        });
+        return showIfResult.status;
+      }
+
+      // If no show_if condition, widget is available
+      return true;
     },
   },
 };

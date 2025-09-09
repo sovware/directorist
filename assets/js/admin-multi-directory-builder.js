@@ -16842,10 +16842,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       // this.$set(this.local_fields[field_key], "value", value);
       this.local_fields[field_key].value = value;
       // this.$emit("update", this.local_fields);
-
-      console.log("@@updateFieldData - options window", {
-        local_fields: this.local_fields
-      });
     }
   }
 });
@@ -23660,11 +23656,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     onSettingsDragStart: function onSettingsDragStart(dragResult, placeholderIndex) {
       // Get the dragged item from the payload
       var draggedItem = dragResult.payload;
-      console.log("Settings drag started:", {
-        dragResult: dragResult,
-        draggedItem: draggedItem,
-        placeholderIndex: placeholderIndex
-      });
       if (draggedItem && draggedItem.draggedItemIndex !== undefined && draggedItem.placeholderIndex !== undefined) {
         // Ensure we get a string widget key, not an object
         var widgetKey = draggedItem.widgetKey;
@@ -23736,25 +23727,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Get the payload for the settings child
     getSettingsChildPayload: function getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
-      var _this$allPlaceholderI, _this$allPlaceholderI2, _this$allPlaceholderI3;
+      var _this$allPlaceholderI;
       var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
-      console.log("getSettingsChildPayload:", {
-        draggedItemIndex: draggedItemIndex,
-        placeholderIndex: placeholderIndex,
-        widgetKey: widgetKey,
-        widgetKeyType: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey),
-        allPlaceholderItems: this.allPlaceholderItems,
-        acceptedWidgets: (_this$allPlaceholderI2 = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI2 === void 0 ? void 0 : _this$allPlaceholderI2.acceptedWidgets,
-        specificWidget: (_this$allPlaceholderI3 = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI3 === void 0 ? void 0 : _this$allPlaceholderI3.acceptedWidgets[draggedItemIndex]
-      });
 
       // Extract the actual widget key string from the object
       var extractedWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
-      console.log("Extracted widget key:", {
-        original: widgetKey,
-        extracted: extractedWidgetKey,
-        extractedType: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(extractedWidgetKey)
-      });
 
       // Return the payload containing both pieces of data
       return {
@@ -23772,7 +23749,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var draggedItemIndex = payload.draggedItemIndex,
         placeholderIndex = payload.placeholderIndex;
       if (removedIndex !== null || addedIndex !== null) {
-        var _this$allPlaceholderI4;
+        var _this$allPlaceholderI2;
         var destinationItemIndex;
         var destinationPlaceholderIndex;
         var sourceItemIndex = draggedItemIndex;
@@ -23786,7 +23763,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }
 
         // Get the widget key from the source placeholder
-        var widgetKey = (_this$allPlaceholderI4 = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI4 === void 0 ? void 0 : _this$allPlaceholderI4.acceptedWidgets[draggedItemIndex];
+        var widgetKey = (_this$allPlaceholderI2 = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI2 === void 0 ? void 0 : _this$allPlaceholderI2.acceptedWidgets[draggedItemIndex];
         if (widgetKey !== undefined) {
           if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
             // Moving within the same placeholder
@@ -24160,13 +24137,30 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Sync placeholders with allPlaceholderItems
     syncPlaceholdersWithAllPlaceholderItems: function syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
+      var _this6 = this;
       var updatePlaceholderItem = function updatePlaceholderItem(placeholder, allPlaceholderItem) {
         if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
-          placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(allPlaceholderItem.acceptedWidgets);
+          // Filter acceptedWidgets to only include available widgets
+          var filteredAcceptedWidgets = (allPlaceholderItem.acceptedWidgets || []).filter(function (widgetKey) {
+            return _this6.isWidgetAvailable(widgetKey);
+          });
+          placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredAcceptedWidgets);
+
+          // Filter selectedWidgets to only include available widgets
           var selectedWidgets = allPlaceholderItem.selectedWidgets || [];
           var selectedWidgetList = allPlaceholderItem.selectedWidgetList || [];
-          placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(selectedWidgets);
-          placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(selectedWidgetList);
+
+          // Filter selectedWidgets based on available widgets
+          var filteredSelectedWidgets = selectedWidgets.filter(function (widget) {
+            return widget && widget.widget_key && _this6.isWidgetAvailable(widget.widget_key);
+          });
+
+          // Filter selectedWidgetList based on available widgets
+          var filteredSelectedWidgetList = selectedWidgetList.filter(function (widgetKey) {
+            return _this6.isWidgetAvailable(widgetKey);
+          });
+          placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgets);
+          placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgetList);
         }
       };
       var _updatePlaceholders2 = function updatePlaceholders(placeholders) {
@@ -24224,6 +24218,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Close the modal
     closeModal: function closeModal() {
       this.showModal = false;
+    },
+    // Check if widget is available (handles show_if conditions)
+    isWidgetAvailable: function isWidgetAvailable(widgetKey) {
+      // Basic check if widget exists in available_widgets
+      if (!this.available_widgets[widgetKey]) {
+        return false;
+      }
+      var widget = this.available_widgets[widgetKey];
+
+      // If widget has show_if condition, check it
+      if (widget.show_if && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widget.show_if) === "object") {
+        var showIfResult = this.checkShowIfCondition({
+          condition: widget.show_if
+        });
+        return showIfResult.status;
+      }
+
+      // If no show_if condition, widget is available
+      return true;
     }
   }
 });
@@ -33154,7 +33167,7 @@ var render = function render() {
       }
     }, _vm._l(placeholder.acceptedWidgets, function (widget_key, widget_index) {
       var _placeholder$selected, _placeholder$accepted;
-      return _c('Draggable', {
+      return _vm.isWidgetAvailable(widget_key) ? _c('Draggable', {
         key: widget_index,
         class: {
           dragging: _vm.currentSettingsDraggingWidgetKey === widget_key
@@ -33225,7 +33238,7 @@ var render = function render() {
           },
           "close": _vm.closeWidgetOptionsWindow
         }
-      }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()]);
+      }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()]) : _vm._e();
     }), 1)], 1);
   }), 0)]], 2), _vm._v(" "), _c('div', {
     staticClass: "cptm-preview-placeholder"

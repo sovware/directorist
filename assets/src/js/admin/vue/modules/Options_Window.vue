@@ -122,10 +122,6 @@ export default {
       // this.$set(this.local_fields[field_key], "value", value);
       this.local_fields[field_key].value = value;
       // this.$emit("update", this.local_fields);
-
-      console.log("@@updateFieldData - options window", {
-        local_fields: this.local_fields,
-      });
     },
   },
 };

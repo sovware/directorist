@@ -44068,7 +44068,7 @@
 							return options_values.includes(value);
 						},
 						/* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 					},
 				};
@@ -64165,11 +64165,11 @@
 													},
 													[
 														_vm._v(
-															'\n            ' +
+															'\r\n            ' +
 																_vm._s(
 																	alert.message
 																) +
-																'\n        '
+																'\r\n        '
 														),
 													]
 												);

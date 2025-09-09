@@ -4,6 +4,7 @@
 import { Fill } from '@wordpress/components';
 import { useCallback, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { Icon, pencil } from '@wordpress/icons';
 
 /**
  * External dependencies
@@ -15,9 +16,8 @@ import React from 'react';
  * Internal dependencies
  */
 import { useAttributes } from '@wpmvc/dashboard';
+import Tab from '../../components/tab.tsx';
 import validateField from '../../controls/custom-field/validation.ts';
-import ElementorIcon from '../../icons/elementorIcon.tsx';
-import Tab from '../../Tab.tsx';
 import Feature from './feature.tsx';
 import General from './general.tsx';
 import Plan from './plan.tsx';
@@ -31,6 +31,26 @@ const editOrderInitialValues = {
 	featured_listing_count: 1,
 	is_featured_listing_unlimited: false,
 	plan_visibility: 'hidden',
+	available_feature: [
+		{
+			id: 1,
+			name: 'Title',
+			is_enabled: true,
+			is_show_in_pricing_table: true,
+			limit: 1,
+			value: "090909090",
+			collapsed: true,
+		},
+		{
+			id: 2,
+			name: 'Description',
+			is_enabled: true,
+			is_show_in_pricing_table: true,
+			limit: 1,
+			value: "877979797",
+			collapsed: true,
+		},
+	]
 	// should_validate: false,
 	// validationErrors: {}
 };
@@ -40,6 +60,29 @@ interface ExtendedFieldType extends FieldsType {
 }
 
 const basicFields: ExtendedFieldType = {
+	available_feature: {
+		type: 'repeater',
+		hideLabel: true,
+		// label: 'Repeater Field',
+		labelField: 'label',
+		// fixed: true,
+		showHeader: true,
+		quickFields: {
+			name: { type: 'label', label: 'Feature' },
+			is_enable: { type: 'switch', label: 'Enable feature' },
+			is_show_in_pricing_table: { type: 'switch', label: 'Show in price table' },
+		},
+		fields: {
+			repeaterText: { type: 'text', title: 'Feature', label: 'Repeater Text' },
+			repeaterNumber: { type: 'number', title: 'Enable Feature', label: 'Repeater Number' },
+		},
+		actions: (props) => {
+			console.log(props);
+			
+			return <Icon icon={ pencil } />;
+		},
+		description: 'Add multiple items',
+	}
 	// custom: {
 	//   type: 'custom',
 	//   label: 'Custom Field',
@@ -55,49 +98,50 @@ const basicFields: ExtendedFieldType = {
 	//     console.log('Custom field changed:', data.value);
 	//   }
 	// },
-	plan_name: {
-		type: 'text',
-		label: __('What’s the name of your plan?', 'directorist'),
-		description: __(
-			'This is the name of your plan that will be displayed to the users.',
-			'directorist'
-		),
-		validation: {
-			required: true,
-			min_length: 3,
-			max_length: 50,
-			callback: (value, attributes) => {
-				console.log(value, attributes);
-				return null;
-			},
-		},
-	},
+
+	// plan_name: {
+	// 	type: 'text',
+	// 	label: __('What’s the name of your plan?', 'directorist'),
+	// 	description: __(
+	// 		'This is the name of your plan that will be displayed to the users.',
+	// 		'directorist'
+	// 	),
+	// 	validation: {
+	// 		required: true,
+	// 		min_length: 3,
+	// 		max_length: 50,
+	// 		callback: (value, attributes) => {
+	// 			console.log(value, attributes);
+	// 			return null;
+	// 		},
+	// 	},
+	// },
 	// description: {
 	//   type: "text",
 	//   label: __("Short Description", "directorist")
 	// },
-	directory_type: {
-		type: 'n_radio',
-		label: __('Select directory type', 'directorist'),
-		variation: 'boxed-right',
-		validation: {
-			required: true,
-		},
-		options: [
-			{
-				label: 'Jobs',
-				value: 'jobs',
-				icon: <ElementorIcon />,
-				renderRadio: ([option, props]) => <>Hello</>,
-			},
-			{
-				label: 'Restaurant',
-				value: 'restaurant',
-				icon: <ElementorIcon />,
-				renderRadio: ([option, props]) => <>Hello</>,
-			},
-		],
-	},
+	// directory_type: {
+	// 	type: 'n_radio',
+	// 	label: __('Select directory type', 'directorist'),
+	// 	variation: 'boxed-right',
+	// 	validation: {
+	// 		required: true,
+	// 	},
+	// 	options: [
+	// 		{
+	// 			label: 'Jobs',
+	// 			value: 'jobs',
+	// 			icon: <ElementorIcon />,
+	// 			renderRadio: ([option, props]) => <>Hello</>,
+	// 		},
+	// 		{
+	// 			label: 'Restaurant',
+	// 			value: 'restaurant',
+	// 			icon: <ElementorIcon />,
+	// 			renderRadio: ([option, props]) => <>Hello</>,
+	// 		},
+	// 	],
+	// },
 	// listing_count: {
 	//   type: "number",
 	//   label: __("How many listings for this package?", "directorist"),
@@ -161,7 +205,7 @@ export default function Edit() {
 	});
 	const [errors, setErrors] = useAttributes({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
-
+	
 	// Handle form submission
 	const handleSubmit = useCallback(
 		async (e: React.FormEvent) => {

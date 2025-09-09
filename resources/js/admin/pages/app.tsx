@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import validateField from '../controls/custom-field/validation';
 import DocIcon from '../icons/DocIcon';
 import QuestionCircleIcon from '../icons/QuestionCircleIcon';
-import OrderEdit from './orders/edit';
+// import OrderEdit from './orders/edit';
 import Orders from './orders';
+import Edit from './pricing';
 
 const actionItems: MenuItemsType = {
 	documentation: {
@@ -80,7 +81,8 @@ export default function App() {
 		},
 		{
 			path: '/edit/:id',
-			element: <OrderEdit />,
+			element: <Edit />,
+			// element: <OrderEdit />,
 		},
 	];
 

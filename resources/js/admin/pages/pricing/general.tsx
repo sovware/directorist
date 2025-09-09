@@ -7,12 +7,11 @@ import { applyFilters } from '@wordpress/hooks';
  * External dependencies
  */
 import { FieldsType } from '@wpmvc/fields/build-types/types/field';
-import React from 'react';
 
 /**
  * Internal dependencies
  */
-import Card from '../../card.tsx';
+import Card from '../../components/card.tsx';
 import Controls from '../../controls/index.tsx';
 import ElementorIcon from '../../icons/elementorIcon.tsx';
 import Layout from './layout.tsx';

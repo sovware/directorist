@@ -205,7 +205,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
         slidesPerView: 6,
         spaceBetween: 10,
-        loop: false,
+        loop: true,
         freeMode: true,
         navigation: {
           nextEl: ".directorist-swiper__nav--next-single-listing-thumb",

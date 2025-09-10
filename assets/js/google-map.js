@@ -27,20 +27,6 @@
 					);
 				/* Add listing google map */
 
-				/**
-				 * FIXED: Pin dragging accuracy issue
-				 *
-				 * Previous issue: When dragging the map pin, Google Maps would sometimes select a nearby location
-				 * instead of the exact point due to geocoding transformations.
-				 *
-				 * Solution:
-				 * - Store exact coordinates from drag/click events without geocoding transformation
-				 * - Use geocoding only for address display purposes
-				 * - Preserve original coordinates in input fields
-				 *
-				 * This matches the behavior of OpenStreetMap implementation which works correctly.
-				 */
-
 				var $ = jQuery;
 
 				// Add Listing Map Initialize

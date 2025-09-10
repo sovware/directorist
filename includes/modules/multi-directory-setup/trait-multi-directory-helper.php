@@ -264,6 +264,11 @@ trait Multi_Directory_Helper {
             self::update_validated_term_meta( $args['term_id'], $key, $value );
         }
 
+        // Sync search form fields with submission form fields if submission form fields were updated
+        if ( isset( $fields['submission_form_fields'] ) ) {
+            self::sync_search_form_fields_with_submission( $args['term_id'], $fields['submission_form_fields'] );
+        }
+
         $response['status']['status_log']['term_updated'] = [
             'type'    => 'success',
             'message' => __( 'The directory has been updated successfully', 'directorist' ),
@@ -272,6 +277,68 @@ trait Multi_Directory_Helper {
         do_action( 'directorist_after_update_directory_type', (int) $term_id );
 
         return $response;
+    }
+
+    // sync_search_form_fields_with_submission
+    public static function sync_search_form_fields_with_submission( $term_id, $submission_form_fields ) {
+        $search_form_fields = get_term_meta( $term_id, 'search_form_fields', true );
+        
+        if ( empty( $search_form_fields ) || ! is_array( $search_form_fields ) ) {
+            return;
+        }
+        
+        $has_changes = false;
+        
+        // Clean up orphaned fields
+        if ( ! empty( $search_form_fields['fields'] ) ) {
+            foreach ( $search_form_fields['fields'] as $key => $value ) {
+                if ( ! is_array( $value ) ) {
+                    continue;
+                }
+                
+                $form_key = isset( $value['original_widget_key'] ) ? $value['original_widget_key'] : '';
+                
+                // If the referenced submission field doesn't exist, remove this search field
+                if ( $form_key && empty( $submission_form_fields['fields'][ $form_key ] ) ) {
+                    unset( $search_form_fields['fields'][ $key ] );
+                    $has_changes = true;
+                }
+            }
+        }
+        
+        // Clean up orphaned fields from groups
+        if ( ! empty( $search_form_fields['groups'] ) ) {
+            foreach ( $search_form_fields['groups'] as &$group ) {
+                if ( ! empty( $group['fields'] ) && is_array( $group['fields'] ) ) {
+                    $original_count = count( $group['fields'] );
+                    $group['fields'] = array_filter(
+                        $group['fields'], function( $field ) use ( $search_form_fields ) {
+                            return isset( $search_form_fields['fields'][ $field ] );
+                        } 
+                    );
+                    
+                    // Re-index the array to maintain proper indexing
+                    $group['fields'] = array_values( $group['fields'] );
+                    
+                    if ( count( $group['fields'] ) !== $original_count ) {
+                        $has_changes = true;
+                    }
+                }
+            }
+        }
+        
+        // Update the cleaned search form fields if there were changes
+        if ( $has_changes ) {
+            update_term_meta( $term_id, 'search_form_fields', $search_form_fields );
+            
+            // Log the sync for debugging purposes
+            error_log(
+                sprintf( 
+                    'Directorist: Synced search form fields with submission form for directory ID %d', 
+                    $term_id 
+                ) 
+            );
+        }
     }
 
     // maybe_serialize

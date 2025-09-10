@@ -5,17 +5,19 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.6
+Stable tag: 8.4.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Create Business Directory, Job Listings, Classified Ads, and More with this versatile WordPress directory plugin.
+Build any type of directory website such as a business directory, job directory, classifieds directory, and more with this WordPress directory plugin.
 
-==Turn your ideas into a profitable directory effortlessly.==
+== Description ==
 
-Create and grow your business directory, classified listings, job boards, event directories, membership directory, service marketplaces, or real estate portals—Directorist simplifies it all.
+Create and grow your business directory, classified listings, job directory, event directory, membership directory, service marketplace, or real estate directory with ease using Directorist.
 
 [Try Demo](https://directorist.com/demos/) | [Extensions](https://directorist.com/extensions/) | [Themes](https://directorist.com/themes/) | [Documentation](https://directorist.com/documentation/directorist/) | [Roadmap](https://directorist.com/roadmap/)
+
+==Turn your ideas into a profitable directory effortlessly.==
 
 Powered by AI, Directorist is the ultimate directory plugin that helps you create, manage, and monetize listings with ease. Built-in SEO optimization ensures your directories rank higher and attract organic traffic, while seamless payment integrations let you monetize effortlessly through paid listings, subscriptions, and premium features.
 
@@ -285,9 +287,12 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-8.4.6 - Sep 1, 2025
+8.4.7 - Sep 9, 2025
+- Tweak JS and CSS
 
-### Fixed
+8.4.6 - Sep 9, 2025
+
+**Fixed**
 - Map disable issue on single listing. (#2471)
 - Placeholder not fully displayed in Add Listing Form (Multi Select). (#2470)
 - Category field box resizing issue in Add Listing Form. (#2469)

@@ -16,7 +16,7 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
 
 	fields.forEach((field) => {
 		const fieldCategory = relations[field];
-		
+
 		// Try multiple selectors to find the field
 		let $field = null;
 		const selectors = [
@@ -24,7 +24,7 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
 			`[name="custom_field[${field}][]"]`,
 			`[name*="${field}"]`,
 			`[data-field-key="${field}"]`,
-			`[id*="${field}"]`
+			`[id*="${field}"]`,
 		];
 
 		for (const selector of selectors) {
@@ -39,7 +39,9 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
 		}
 
 		// Check if the field category matches any of the selected categories
-		const shouldShow = categoryArray.some(category => Number(category) === Number(fieldCategory));
+		const shouldShow = categoryArray.some(
+			(category) => Number(category) === Number(fieldCategory)
+		);
 
 		if (shouldShow) {
 			$field.prop('disabled', false);
@@ -69,12 +71,12 @@ export default function initSearchCategoryCustomFields($) {
 		'.directorist-search-contents',
 		'.directorist-archive-contents',
 		'.directorist-search-form',
-		'.directorist-add-listing-form'
+		'.directorist-add-listing-form',
 	];
 
-	containers.forEach(containerSelector => {
+	containers.forEach((containerSelector) => {
 		const $container = $(containerSelector);
-		
+
 		if ($container.length) {
 			// Bind events to all category selects within this container
 			$container.on(
@@ -96,7 +98,10 @@ export default function initSearchCategoryCustomFields($) {
 						attributes = $(document.body).data('atts');
 					}
 
-					if (!attributes || !attributes.category_custom_fields_relations) {
+					if (
+						!attributes ||
+						!attributes.category_custom_fields_relations
+					) {
 						return;
 					}
 
@@ -108,8 +113,8 @@ export default function initSearchCategoryCustomFields($) {
 						}
 						// Convert string values to numbers and filter out empty values
 						categories = categories
-							.map(cat => Number(cat))
-							.filter(cat => cat > 0); // Filter out 0, null, undefined, etc.
+							.map((cat) => Number(cat))
+							.filter((cat) => cat > 0); // Filter out 0, null, undefined, etc.
 					} else {
 						categories = [];
 					}
@@ -128,18 +133,19 @@ export default function initSearchCategoryCustomFields($) {
 				.find(
 					'.directorist-category-select, .directorist-search-category select, .bdas-category-search'
 				)
-				.each(function() {
+				.each(function () {
 					$(this).trigger('change');
 				});
 		}
 	});
 
 	// Also handle global category selects that might not be in specific containers
-	const globalSelectors = '.directorist-category-select, .directorist-search-category select, .bdas-category-search';
-	
-	$(document).on('change', globalSelectors, function(event) {
+	const globalSelectors =
+		'.directorist-category-select, .directorist-search-category select, .bdas-category-search';
+
+	$(document).on('change', globalSelectors, function (event) {
 		const $this = $(this);
-		
+
 		// Only handle if not already handled by container-specific handlers
 		if (!event.isDefaultPrevented()) {
 			const $form = $this.parents('form');
@@ -160,8 +166,8 @@ export default function initSearchCategoryCustomFields($) {
 					categories = [categories];
 				}
 				categories = categories
-					.map(cat => Number(cat))
-					.filter(cat => cat > 0);
+					.map((cat) => Number(cat))
+					.filter((cat) => cat > 0);
 			} else {
 				categories = [];
 			}

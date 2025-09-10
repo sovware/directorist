@@ -1230,6 +1230,17 @@ We look forward to seeing you soon'
             $mail = $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
             if ( $mail ) {
                 delete_user_meta( $user_id, '_atbdp_generated_password' );
+                /**
+                 * Fires after a registration confirmation email is sent to a new user.
+                 *
+                 * @since 8.4.6
+                 *
+                 * @param int    $user_id   The user ID.
+                 * @param object $user      WP_User object.
+                 * @param string $sub       The email subject.
+                 * @param string $body      The email body.
+                 */
+                do_action( 'directorist_after_user_registration_confirmation_email_sent', $user_id, $user, $sub, $body );
             }
         }
 

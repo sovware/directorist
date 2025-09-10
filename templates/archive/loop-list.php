@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.0
+ * @version 8.4.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -20,6 +20,17 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
     <section class="directorist-listing-single__content">
 
         <div class="directorist-listing-single__info">
+            
+            <?php
+            /**
+             * Fires before rendering the listing header section in list view.
+             *
+             * @since 8.4.6
+             * @param object $listings The listings object containing loop data.
+             */
+            do_action( 'directorist_loop_list_info_before_header', $listings );
+            ?>
+
             <div class="directorist-listing-single__info__top-right">
                 <header class="directorist-listing-single__info__top">
                     <?php $listings->render_loop_fields( $loop_fields['body']['top'], 'div', 'div' ); ?>
@@ -30,13 +41,44 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
                     </div>
                 </div>
             </div>
+            
+            <?php
+            /**
+             * Fires immediately after the listing header section in list view.
+             *
+             * @since 8.4.6
+             * @param object $listings The listings object containing loop data.
+             */
+            do_action( 'directorist_loop_list_info_after_header', $listings );
+            ?>
+
             <ul class="directorist-listing-single__info__list">
                 <?php $listings->render_loop_fields( $loop_fields['body']['bottom'], '', '' ); ?>
             </ul>
 
+            <?php
+            /**
+             * Fires before displaying the listing excerpt in list view.
+             *
+             * @since 8.4.6
+             * @param object $listings The listings object containing loop data.
+             */
+            do_action( 'directorist_loop_list_info_before_excerpt', $listings );
+            ?>
+
             <?php if ( ! empty( $loop_fields['body']['excerpt'] ) ) : ?>
                 <?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ?>
             <?php endif; ?>
+
+            <?php
+            /**
+             * Fires after the listing excerpt is rendered in list view.
+             *
+             * @since 8.4.6
+             * @param object $listings The listings object containing loop data.
+             */
+            do_action( 'directorist_loop_list_info_after_excerpt', $listings );
+            ?>
         </div>
 
         <footer class="directorist-listing-single__meta">

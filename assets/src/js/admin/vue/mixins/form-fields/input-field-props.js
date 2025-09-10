@@ -70,6 +70,10 @@ export default {
 			type: [String, Number],
 			default: '',
 		},
+		sublabel: {
+			type: [String, Number],
+			default: '',
+		},
 		labelType: {
 			type: [String],
 			default: 'span',

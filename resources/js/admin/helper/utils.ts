@@ -1,3 +1,5 @@
+
+import type { BadgeVariant } from '@wpmvc/components/build-types/gutenberg/badge/type';
 // Define interfaces for the user objects
 interface WordPressUser {
 	ID?: number;
@@ -88,3 +90,23 @@ export function formatDate(
 
 	return dataObject.toLocaleString(formatType, mergedOptions);
 }
+
+
+/**
+ * Map subscription status to Badge variant
+ */
+const STATUS_TO_BADGE_VARIANT: Record<string, BadgeVariant> = {
+	paid: 'success',
+	pending: 'warning',
+	failed: 'error',
+	cancelled: 'error',
+	refunded: 'default',
+	unpaid: 'warning',
+	expired: 'error',
+};
+
+export function getBadgeVariantByStatus(status: string): BadgeVariant {
+	return STATUS_TO_BADGE_VARIANT[status] ?? 'default';
+}
+
+export { STATUS_TO_BADGE_VARIANT };

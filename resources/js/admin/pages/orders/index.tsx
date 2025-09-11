@@ -9,11 +9,12 @@ import { __ } from '@wordpress/i18n';
 import { Column } from '@wpmvc/components/build-types/gutenberg/table/types';
 import { Table } from '@wpmvc/dashboard';
 import moment from 'moment';
-import React from 'react';
 
 /**
  * Internal dependencies
  */
+import { STATUSES } from '@/admin/constants/status';
+import { getBadgeVariantByStatus } from '@/admin/helper/utils';
 import Badge from '../../components/badge';
 import { OrderTableContainer, UserInfoContainer, UserLink } from './styles';
 import { displayPrice } from '@/admin/helper/payment';
@@ -37,16 +38,8 @@ const columns: Column[] = [
 		label: __('Status', 'directorist'),
 		render: ({ item }) => {
 			return (
-				<Badge
-					variant={
-						item?.status === 'pending'
-							? 'warning'
-							: item?.status === 'completed'
-								? 'success'
-								: 'error'
-					}
-				>
-					{item?.status}
+				<Badge variant={ getBadgeVariantByStatus( item.status ) } className='directorist-badge'>
+					{ STATUSES[ item.status ] }
 				</Badge>
 			);
 		},
@@ -67,7 +60,7 @@ const columns: Column[] = [
 		id: 'order_type',
 		label: __('Order Type', 'directorist'),
 		render: ({ item }) => {
-			return <Badge variant={'success'}>{item?.order_type}</Badge>;
+			return <Badge variant={'success'} className='directorist-badge'>{item?.order_type}</Badge>;
 		},
 	},
 	{

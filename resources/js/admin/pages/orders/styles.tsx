@@ -20,10 +20,6 @@ export const OrderTableContainer = styled.div`
 	padding: 24px;
 	.dataviews-view-table {
 		color: var(--color-gray-500);
-		thead th {
-			background-color: #f9f9f9;
-			border-bottom: 1px solid #dddddd;
-		}
 	}
 	.dataviews__view-actions,
 	.dataviews-filters__container {
@@ -37,11 +33,5 @@ export const OrderTableContainer = styled.div`
 
 	.directorist-order-total-amount {
 		color: var(--color-gray-900);
-	}
-	.dataviews-view-table
-		tr
-		.dataviews-item-actions
-		.components-button:not(.dataviews-all-actions-button) {
-		opacity: 1;
 	}
 `;

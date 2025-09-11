@@ -1,1 +1,30 @@
 @import "@wordpress/dataviews/build-style/style.css";
+
+// Table Typograpphy Style
+.dataviews-view-table{
+    tr{
+        td{
+            color: var(--color-gray-900);
+        }
+        .dataviews-item-actions{
+            .components-button:not(.dataviews-all-actions-button) {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.dataviews__search{
+    .components-input-control__container{
+        background-color: #F0F0F0;
+        border-radius: 2px;
+    }
+}
+
+// Table Badge Style
+.dataviews-view-table{
+    .directorist-badge{
+        padding: 6px 8px;
+        text-transform: math-auto;
+    }
+}

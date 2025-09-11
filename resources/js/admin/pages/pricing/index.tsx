@@ -94,6 +94,21 @@ const basicFields: ExtendedFieldType = {
 		},
 		description: 'Add multiple items',
 	},
+	options: {
+		type: 'repeater',
+		label: __( 'Single Choice Items', 'formgent' ),
+		// allowDuplication: false,
+		onChange: ()=>{},
+		// hideLabel: true,
+		labelField: 'label',
+		showFieldInHeader: true,
+		quickFields: {
+			label: {
+				type: 'text',
+			},
+		},
+		showActionTooltip: true,
+	},
 	// custom: {
 	//   type: 'custom',
 	//   label: 'Custom Field',

@@ -6,6 +6,7 @@ use Directorist\WpMVC\Enqueue\Enqueue;
 
 if ( 'at_biz_dir_page_directorist-orders' === $hook_suffix ) {
     Enqueue::style( 'directorist/admin-order-dataview', 'build/css/style-admin-order', ['wp-components'] );
+    Enqueue::style( 'directorist/admin-order', 'build/css/admin-order' );
     Enqueue::script( 'directorist/admin-order', 'build/js/admin/order' );
 
     $c_position = directorist_get_currency_position();
@@ -19,4 +20,5 @@ if ( 'at_biz_dir_page_directorist-orders' === $hook_suffix ) {
             'symbol'          => $symbol,
         ] 
     );
+    wp_enqueue_style( 'directorist-admin-style' );
 }

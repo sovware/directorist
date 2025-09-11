@@ -30,7 +30,9 @@ class Activation {
                 $table->tiny_integer( "is_featured_listing" )->default( 0 );
                 $table->decimal( "amount", 10, 2 )->default( 0.00 );
                 $table->string( "currency", 10 )->default( "USD" );
+                $table->string( "coupon_code" )->nullable();
                 $table->decimal( "coupon_discount", 10, 2 )->default( 0.00 );
+                $table->string( "coupon_discount_type" )->nullable();
                 $table->decimal( "final_amount", 10, 2 )->default( 0.00 );
                 $table->enum( "status", OrderStatus::all() )->default( OrderStatus::PENDING );
                 $table->timestamp( "expires_at" )->nullable();

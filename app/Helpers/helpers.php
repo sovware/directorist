@@ -22,7 +22,7 @@ function directorist_get_checkout_types(): array {
 }
 
 function directorist_price( $price ) {
-    return atbdp_display_price( $price );
+    return atbdp_display_price( $price, false, '', '', '', false );
 }
 
 function directorist_currency(): string {

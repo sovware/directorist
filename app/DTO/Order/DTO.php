@@ -23,6 +23,12 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
 
     private string $currency;
 
+    private ?string $coupon_code;
+
+    private ?float $coupon_discount;
+
+    private ?string $coupon_discount_type; // fixed, percentage
+
     private float $final_amount;
 
     private string $status;
@@ -205,6 +211,72 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
      */
     public function set_currency( string $currency ): self {
         $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of coupon_code
+     *
+     * @return ?string
+     */
+    public function get_coupon_code(): ?string {
+        return $this->coupon_code;
+    }
+
+    /**
+     * Set the value of coupon_code
+     *
+     * @param ?string $coupon_code 
+     *
+     * @return self
+     */
+    public function set_coupon_code( ?string $coupon_code ): self {
+        $this->coupon_code = $coupon_code;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of coupon_discount
+     *
+     * @return ?float
+     */
+    public function get_coupon_discount(): ?float {
+        return $this->coupon_discount;
+    }
+
+    /**
+     * Set the value of coupon_discount
+     *
+     * @param ?float $coupon_discount 
+     *
+     * @return self
+     */
+    public function set_coupon_discount( ?float $coupon_discount ): self {
+        $this->coupon_discount = $coupon_discount;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of coupon_discount_type
+     *
+     * @return ?string
+     */
+    public function get_coupon_discount_type(): ?string {
+        return $this->coupon_discount_type;
+    }
+
+    /**
+     * Set the value of coupon_discount_type
+     *
+     * @param ?string $coupon_discount_type 
+     *
+     * @return self
+     */
+    public function set_coupon_discount_type( ?string $coupon_discount_type ): self {
+        $this->coupon_discount_type = $coupon_discount_type;
 
         return $this;
     }

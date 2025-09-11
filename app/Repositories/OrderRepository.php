@@ -35,7 +35,7 @@ class OrderRepository extends Repository {
                     if ( is_int( stripos( 'featured listing', $search_term ) ) ) {
                         $query->or_where( 'd_order.is_featured_listing', 1 );
                     }
-                } 
+                }
             );
         }
 
@@ -51,7 +51,9 @@ class OrderRepository extends Repository {
 
         $orders = array_map(
             function( $order ) {
-                $order->payment_method = $this->get_payment_method_title( $order->payment->method );
+                if ( ! empty( $order->payment ) ) {
+                    $order->payment_method = $this->get_payment_method_title( $order->payment->method );
+                }
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
@@ -70,7 +72,9 @@ class OrderRepository extends Repository {
      * @throws Exception If the insert operation fails.
      */
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
-        $dto->set_final_amount( $dto->get_amount() );
+        if ( ! $dto->is_initialized( 'final_amount' ) ) {
+            $dto->set_final_amount( $dto->get_amount() );
+        }
 
         // do_action( 'directorist_before_order_create', $dto );
         
@@ -145,6 +149,9 @@ class OrderRepository extends Repository {
             ->set_amount( $order->amount )
             ->set_currency( $order->currency )
             ->set_final_amount( $order->final_amount )
+            ->set_coupon_code( $order->coupon_code )
+            ->set_coupon_discount( $order->coupon_discount )
+            ->set_coupon_discount_type( $order->coupon_discount_type )
             ->set_status( $order->status )
             ->set_created_at( new DateTime( $order->created_at ) );
         

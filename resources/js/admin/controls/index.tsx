@@ -6,7 +6,7 @@ import Radio from './radio';
 const components = {
 	text: Text,
 	n_radio: Radio,
-	label: Label
+	label: Label,
 	// clipboard: Clipboard,
 	// number: Number,
 	// checkbox: Checkbox

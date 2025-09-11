@@ -7,6 +7,4 @@
  */
 import styled from 'styled-components';
 
-export const StyledLabel = styled.span`
-	
-`;
+export const StyledLabel = styled.span``;

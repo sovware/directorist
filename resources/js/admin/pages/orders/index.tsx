@@ -16,6 +16,7 @@ import React from 'react';
  */
 import Badge from '../../components/badge';
 import { OrderTableContainer, UserInfoContainer, UserLink } from './styles';
+import { displayPrice } from '@/admin/helper/payment';
 
 const columns: Column[] = [
 	{
@@ -56,7 +57,8 @@ const columns: Column[] = [
 		render: ({ item }) => {
 			return (
 				<span className="directorist-order-total-amount">
-					{item.final_amount} {item.currency}
+					{displayPrice(item.final_amount, item.currency)}
+					{/* {item.final_amount} {item.currency} */}
 				</span>
 			);
 		},

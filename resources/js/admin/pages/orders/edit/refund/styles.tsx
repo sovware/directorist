@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const RefundSummaryContainer = styled.div`
 	display: flex;
@@ -41,7 +41,6 @@ export const RefundSummaryContainer = styled.div`
 		color: var(--color-gray-900);
 	}
 `;
-
 
 export const RefundTable = styled.div`
 	> div {

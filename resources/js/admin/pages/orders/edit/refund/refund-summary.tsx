@@ -3,7 +3,13 @@ import ChartCircleIcon from '@/admin/icons/ChartCircleIcon';
 import CheckCircleIcon from '@/admin/icons/CheckCircleIcon';
 import { RefundSummaryContainer } from './styles';
 
-export default function RefundSummary({ refundsData, availableRefundAmount }: { refundsData: any, availableRefundAmount: any }) {
+export default function RefundSummary({
+	refundsData,
+	availableRefundAmount,
+}: {
+	refundsData: any;
+	availableRefundAmount: any;
+}) {
 	return (
 		<RefundSummaryContainer>
 			<div className="directorist-refund-summary-item">

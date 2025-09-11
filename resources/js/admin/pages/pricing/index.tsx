@@ -38,7 +38,7 @@ const editOrderInitialValues = {
 			is_enabled: true,
 			is_show_in_pricing_table: true,
 			limit: 1,
-			value: "090909090",
+			value: '090909090',
 			collapsed: true,
 		},
 		{
@@ -47,10 +47,10 @@ const editOrderInitialValues = {
 			is_enabled: true,
 			is_show_in_pricing_table: true,
 			limit: 1,
-			value: "877979797",
+			value: '877979797',
 			collapsed: true,
 		},
-	]
+	],
 	// should_validate: false,
 	// validationErrors: {}
 };
@@ -70,19 +70,30 @@ const basicFields: ExtendedFieldType = {
 		quickFields: {
 			name: { type: 'label', label: 'Feature' },
 			is_enable: { type: 'switch', label: 'Enable feature' },
-			is_show_in_pricing_table: { type: 'switch', label: 'Show in price table' },
+			is_show_in_pricing_table: {
+				type: 'switch',
+				label: 'Show in price table',
+			},
 		},
 		fields: {
-			repeaterText: { type: 'text', title: 'Feature', label: 'Repeater Text' },
-			repeaterNumber: { type: 'number', title: 'Enable Feature', label: 'Repeater Number' },
+			repeaterText: {
+				type: 'text',
+				title: 'Feature',
+				label: 'Repeater Text',
+			},
+			repeaterNumber: {
+				type: 'number',
+				title: 'Enable Feature',
+				label: 'Repeater Number',
+			},
 		},
 		actions: (props) => {
 			console.log(props);
-			
-			return <Icon icon={ pencil } />;
+
+			return <Icon icon={pencil} />;
 		},
 		description: 'Add multiple items',
-	}
+	},
 	// custom: {
 	//   type: 'custom',
 	//   label: 'Custom Field',
@@ -205,7 +216,7 @@ export default function Edit() {
 	});
 	const [errors, setErrors] = useAttributes({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	
+
 	// Handle form submission
 	const handleSubmit = useCallback(
 		async (e: React.FormEvent) => {

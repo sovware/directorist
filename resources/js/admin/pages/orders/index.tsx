@@ -14,10 +14,10 @@ import moment from 'moment';
  * Internal dependencies
  */
 import { STATUSES } from '@/admin/constants/status';
+import { displayPrice } from '@/admin/helper/payment';
 import { getBadgeVariantByStatus } from '@/admin/helper/utils';
 import Badge from '../../components/badge';
 import { OrderTableContainer, UserInfoContainer, UserLink } from './styles';
-import { displayPrice } from '@/admin/helper/payment';
 
 const columns: Column[] = [
 	{
@@ -60,7 +60,7 @@ const columns: Column[] = [
 		id: 'order_type',
 		label: __('Order Type', 'directorist'),
 		render: ({ item }) => {
-			return <Badge variant={'success'} className='directorist-badge'>{item?.order_type}</Badge>;
+			return <Badge variant={'info'} className='directorist-badge'>{item?.order_type}</Badge>;
 		},
 	},
 	{
@@ -78,7 +78,7 @@ const columns: Column[] = [
 					>
 						{item.user_display_name}
 					</UserLink>
-					<div>{item.user_email}</div>
+					<span className='directorist-table-text-light'>{item.user_email}</span>
 				</UserInfoContainer>
 			);
 		},
@@ -87,7 +87,7 @@ const columns: Column[] = [
 		id: 'date',
 		label: __('Order Date', 'directorist'),
 		render: ({ item }) => {
-			return <span>{moment(item.created_at).format('MMM D, YYYY')}</span>;
+			return <span className='directorist-table-text-light'>{moment(item.created_at).format('MMM D, YYYY')}</span>;
 		},
 	},
 ];

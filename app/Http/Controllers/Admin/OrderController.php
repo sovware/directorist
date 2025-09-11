@@ -31,13 +31,13 @@ class OrderController {
         $validator->validate(
             [
                 "page"     => "numeric",
-                "per_page" => "numeric",
+                "perPage" => "numeric",
                 "search"   => "string"
             ]
         );
 
         $page = (int) $request->get_param( "page" );
-        $per_page = (int) $request->get_param( "per_page" );
+        $per_page = (int) $request->get_param( "perPage" );
         $search = (string) $request->get_param( "search" );
 
         $dto = (new Read)->set_page( $page )->set_per_page( $per_page )->set_search( $search );

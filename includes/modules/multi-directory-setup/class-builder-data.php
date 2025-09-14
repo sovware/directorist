@@ -2053,12 +2053,12 @@ class Builder_Data {
 
             'footer' => [
                 'right' => [
-                    'maxWidget'       => 1,
+                    'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
                 ],
 
                 'left'  => [
-                    'maxWidget'       => 1,
+                    'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
                 ],
             ],

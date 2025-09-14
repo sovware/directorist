@@ -32306,7 +32306,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.thumbnail.bottom_left.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_bottom_left'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_bottom_left'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32350,7 +32351,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.thumbnail.bottom_right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_bottom_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_bottom_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32474,8 +32476,7 @@ var render = function render() {
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_top'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "canDragAndDrop": true,
-      "dragAxis": 'x'
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32570,7 +32571,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.left.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_footer_left'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32617,7 +32619,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_footer_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32821,8 +32824,7 @@ var render = function render() {
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_quick_info'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_quick_info'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "canDragAndDrop": true,
-      "dragAxis": 'x'
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32914,7 +32916,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.left.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_footer_left'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_footer_left'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32961,7 +32964,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_footer_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_footer_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33478,8 +33482,7 @@ var render = function render() {
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_top'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "canDragAndDrop": true,
-      "dragAxis": 'x'
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33625,7 +33628,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.left.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_footer_left'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33672,7 +33676,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_footer_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33753,8 +33758,7 @@ var render = function render() {
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_top'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_top'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "canDragAndDrop": true,
-      "dragAxis": 'x'
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33902,7 +33906,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.left.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_footer_left'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_footer_left'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33949,7 +33954,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.footer.right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_footer_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_footer_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {

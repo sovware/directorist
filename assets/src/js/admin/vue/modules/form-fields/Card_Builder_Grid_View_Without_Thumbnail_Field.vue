@@ -133,8 +133,7 @@
                 getActiveOptionWindowStatus('no_thumbnail_body_quick_info')
               "
               :widgetOptionsWindow="widgetOptionsWindow"
-              :canDragAndDrop="true"
-              :dragAxis="'x'"
+              :canOpenSettings="true"
               @insert-widget="
                 insertWidget($event, local_layout.body.quick_info)
               "
@@ -215,6 +214,7 @@
                   getActiveOptionWindowStatus('no_thumbnail_footer_left')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
+                :canOpenSettings="true"
                 @insert-widget="insertWidget($event, local_layout.footer.left)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.left)"
@@ -256,6 +256,7 @@
                   getActiveOptionWindowStatus('no_thumbnail_footer_right')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
+                :canOpenSettings="true"
                 @insert-widget="insertWidget($event, local_layout.footer.right)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.right)"

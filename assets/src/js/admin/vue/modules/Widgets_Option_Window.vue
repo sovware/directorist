@@ -63,7 +63,9 @@
               <span
                 class="cptm-form-builder-field-list-item-edit"
                 :class="activeWidgetKey === widget_key ? 'active' : ''"
-                v-if="isEditable(widget)"
+                v-if="
+                  isEditable(widget) && widget.widget_key !== 'listing_title'
+                "
                 @click.prevent="edit(widget_key)"
               >
                 <span class="uil uil-pen"></span>
@@ -249,7 +251,12 @@ export default {
     isEditable(widget) {
       if (!widget || typeof widget !== "object" || widget.type === "avatar")
         return false;
-      if (!widget.options || typeof widget.options !== "object") return false;
+      if (
+        !widget.options ||
+        typeof widget.options !== "object" ||
+        widget.options.length === 0
+      )
+        return false;
 
       // Add more custom checks if needed
       return true;

@@ -18,6 +18,7 @@
 
       <div class="cptm-widget-actions-area" v-if="!readOnly" @click.stop>
         <div class="cptm-widget-actions-wrap">
+          <!-- Widgets Option Window -->
           <div
             class="cptm-widget-action-modal-container cptm-widget-option-modal-container"
             :class="{
@@ -45,6 +46,8 @@
               @close="$emit('close-widgets-option-window')"
             />
           </div>
+
+          <!-- Widgets Picker Window -->
           <div
             class="cptm-widget-action-modal-container cptm-widget-insert-modal-container"
             :class="{
@@ -70,6 +73,7 @@
             />
           </div>
 
+          <!-- Widgets Actions -->
           <div class="cptm-widget-actions">
             <a
               v-if="canOpenSettings && selectedWidgets?.length"
@@ -91,6 +95,7 @@
         </div>
       </div>
 
+      <!-- Widgets Preview Area -->
       <div class="cptm-widget-preview-area" v-if="hasDisplayedWidgets">
         <!-- Special widgets that should be outside drag container when dragAxis is x -->
         <template>
@@ -111,6 +116,8 @@
             />
           </div>
         </template>
+
+        <!-- With Drag and Drop Preview -->
         <Container
           @drop="onWidgetsDrop($event)"
           @drag-start="onWidgetDragStart($event)"
@@ -188,6 +195,7 @@
           </Draggable>
         </Container>
 
+        <!-- Without Drag and Drop Preview -->
         <div
           class="cptm-widget-preview-container"
           v-if="!canDragAndDrop && !readOnly"

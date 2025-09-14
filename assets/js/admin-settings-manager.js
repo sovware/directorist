@@ -17285,7 +17285,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Check if the widget is editable
     isEditable: function isEditable(widget) {
       if (!widget || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(widget) !== "object" || widget.type === "avatar") return false;
-      if (!widget.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(widget.options) !== "object") return false;
+      if (!widget.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(widget.options) !== "object" || widget.options.length === 0) return false;
 
       // Add more custom checks if needed
       return true;
@@ -20823,19 +20823,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       local_layout: {
         thumbnail: {
           top_right: {
-            label: "Add Element",
+            label: "Top Right",
             selectedWidgets: []
           },
           top_left: {
-            label: "Add Element",
+            label: "Top Left",
             selectedWidgets: []
           },
           bottom_right: {
-            label: "Add Element",
+            label: "Bottom Right",
             selectedWidgets: []
           },
           bottom_left: {
-            label: "Add Element",
+            label: "Bottom Left",
             selectedWidgets: []
           },
           avatar: {
@@ -20845,9 +20845,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         },
         body: {
           top: {
+            label: "Top",
             selectedWidgets: ["listing_title"]
           },
           bottom: {
+            label: "Bottom",
             selectedWidgets: []
           }
         },
@@ -29665,7 +29667,7 @@ var render = function render() {
       class: widget === null || widget === void 0 ? void 0 : widget.icon
     })]), _vm._v(" "), _c('span', {
       staticClass: "cptm-form-builder-field-list-item-label"
-    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), _vm.isEditable(widget) ? _c('span', {
+    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), _vm.isEditable(widget) && widget.widget_key !== 'listing_title' ? _c('span', {
       staticClass: "cptm-form-builder-field-list-item-edit",
       class: _vm.activeWidgetKey === widget_key ? 'active' : '',
       on: {

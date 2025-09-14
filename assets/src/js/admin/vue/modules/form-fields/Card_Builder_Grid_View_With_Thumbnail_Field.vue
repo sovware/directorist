@@ -707,19 +707,19 @@ export default {
       local_layout: {
         thumbnail: {
           top_right: {
-            label: "Add Element",
+            label: "Top Right",
             selectedWidgets: [],
           },
           top_left: {
-            label: "Add Element",
+            label: "Top Left",
             selectedWidgets: [],
           },
           bottom_right: {
-            label: "Add Element",
+            label: "Bottom Right",
             selectedWidgets: [],
           },
           bottom_left: {
-            label: "Add Element",
+            label: "Bottom Left",
             selectedWidgets: [],
           },
           avatar: {
@@ -730,9 +730,11 @@ export default {
 
         body: {
           top: {
+            label: "Top",
             selectedWidgets: ["listing_title"],
           },
           bottom: {
+            label: "Bottom",
             selectedWidgets: [],
           },
         },

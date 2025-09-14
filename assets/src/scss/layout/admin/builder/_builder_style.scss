@@ -608,7 +608,7 @@ $light-gray: #f4f5f7;
   background-color: #f9fafb;
   font-style: italic;
   transition: all ease-in-out 300ms;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
   &:first-child {
     margin-top: 0;
@@ -1328,9 +1328,10 @@ $light-gray: #f4f5f7;
 
       .cptm-placeholder-block {
         background: #f3f4f6;
-        border: 1.5px dashed #a1a9b2;
+        border: 1px dashed #d2d6db;
         border-radius: 4px;
         min-height: 72px;
+        padding-bottom: 32px;
       }
     }
     .cptm-form-group-tab-list {
@@ -3398,7 +3399,6 @@ input[type="radio"].cptm-radio {
       }
       .cptm-widget-preview-card,
       .dndrop-draggable-wrapper-listing_title {
-        width: 100%;
         transform: unset !important;
       }
       .dndrop-draggable-wrapper-listing_title {
@@ -3466,7 +3466,7 @@ input[type="radio"].cptm-radio {
   padding: 8px;
   position: relative;
   background: #a1a9b2;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   transition: all ease-in-out 300ms;
   box-sizing: border-box;
   border-radius: 4px;
@@ -3710,6 +3710,7 @@ input[type="radio"].cptm-radio {
     .cptm-listing-card-preview-footer {
       .cptm-placeholder-block {
         padding: 4px;
+        padding-bottom: 32px;
       }
       .cptm-widget-card-wrap {
         padding: 0;
@@ -3794,7 +3795,7 @@ input[type="radio"].cptm-radio {
   .cptm-placeholder-block {
     height: 64px;
     width: 64px;
-    padding: 8px;
+    padding: 8px !important;
     margin: 0 !important;
     min-height: unset !important;
     border-radius: 50% !important;
@@ -4107,7 +4108,12 @@ input[type="radio"].cptm-radio {
     display: flex;
     gap: 12px;
     .cptm-placeholder-block {
-      padding: 4px;
+      padding: 4px !important;
+    }
+    .cptm-listing-card-quick-actions {
+      .cptm-placeholder-block {
+        padding-bottom: 32px !important;
+      }
     }
   }
   .cptm-listing-card-preview-body {
@@ -4221,6 +4227,7 @@ input[type="radio"].cptm-radio {
     align-items: center;
     flex-wrap: wrap;
     .cptm-widget-card-inline-wrap,
+    .cptm-widget-badge-wrapper,
     .cptm-widget-card {
       font-size: 14px;
       font-weight: 500;
@@ -4287,9 +4294,14 @@ input[type="radio"].cptm-radio {
     box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
     box-sizing: border-box;
     transition: all ease-in-out 300ms;
+    &.active,
     &:hover {
       background: #f3f4f6;
       border-color: #d2d6db;
+      .cptm-list-item-actions {
+        opacity: 1;
+        visibility: visible;
+      }
     }
     &.active {
       .cptm-list-item-edit {
@@ -4316,6 +4328,9 @@ input[type="radio"].cptm-radio {
     .cptm-list-item-actions {
       display: flex;
       align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all ease-in-out 300ms;
       .cptm-list-item-action {
         display: inline-flex;
         align-items: center;

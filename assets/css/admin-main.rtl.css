@@ -14905,7 +14905,7 @@ input:-webkit-autofill:active {
   font-style: italic;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   -webkit-box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
           box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
 }
@@ -15712,9 +15712,10 @@ input:-webkit-autofill:active {
 }
 .cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-placeholder-block {
   background: #f3f4f6;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   border-radius: 4px;
   min-height: 72px;
+  padding-bottom: 32px;
 }
 .cptm-section.listings_card_grid_view .cptm-form-group-tab-list, .cptm-section.listings_card_list_view .cptm-form-group-tab-list {
   display: -webkit-box;
@@ -18223,7 +18224,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .cptm-widget-preview-card,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .dndrop-draggable-wrapper-listing_title {
-  width: 100%;
   -webkit-transform: unset !important;
           transform: unset !important;
 }
@@ -18288,7 +18288,7 @@ input[type=radio].cptm-radio {
   padding: 8px;
   position: relative;
   background: #a1a9b2;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
   -webkit-box-sizing: border-box;
@@ -18594,6 +18594,7 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-widget.list-view-with-thumbnail .cptm-listing-card-preview-footer .cptm-placeholder-block {
   padding: 4px;
+  padding-bottom: 32px;
 }
 .cptm-card-preview-widget.list-view-with-thumbnail .cptm-listing-card-preview-footer .cptm-widget-card-wrap {
   padding: 0;
@@ -18692,7 +18693,7 @@ input[type=radio].cptm-radio {
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   height: 64px;
   width: 64px;
-  padding: 8px;
+  padding: 8px !important;
   margin: 0 !important;
   min-height: unset !important;
   border-radius: 50% !important;
@@ -19092,7 +19093,10 @@ input[type=radio].cptm-radio {
   gap: 12px;
 }
 .grid-view-without-thumbnail .cptm-card-placeholder-top .cptm-placeholder-block {
-  padding: 4px;
+  padding: 4px !important;
+}
+.grid-view-without-thumbnail .cptm-card-placeholder-top .cptm-listing-card-quick-actions .cptm-placeholder-block {
+  padding-bottom: 32px !important;
 }
 .grid-view-without-thumbnail .cptm-listing-card-preview-body {
   display: -webkit-box;
@@ -19270,6 +19274,7 @@ input[type=radio].cptm-radio {
           flex-wrap: wrap;
 }
 .cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-card-inline-wrap,
+.cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-badge-wrapper,
 .cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-card {
   font-size: 14px;
   font-weight: 500;
@@ -19365,9 +19370,13 @@ input[type=radio].cptm-radio {
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
 }
-.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover {
+.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active, .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover {
   background: #f3f4f6;
   border-color: #d2d6db;
+}
+.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active .cptm-list-item-actions, .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover .cptm-list-item-actions {
+  opacity: 1;
+  visibility: visible;
 }
 .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active .cptm-list-item-edit {
   background: #e5e7eb;
@@ -19413,6 +19422,10 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
 }
 .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card .cptm-list-item-actions .cptm-list-item-action {
   display: -webkit-inline-box;
@@ -22614,7 +22627,7 @@ input[type=radio]:checked::before {
   font-style: italic;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   -webkit-box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
           box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
 }
@@ -23421,9 +23434,10 @@ input[type=radio]:checked::before {
 }
 .cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-placeholder-block {
   background: #f3f4f6;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   border-radius: 4px;
   min-height: 72px;
+  padding-bottom: 32px;
 }
 .cptm-section.listings_card_grid_view .cptm-form-group-tab-list, .cptm-section.listings_card_list_view .cptm-form-group-tab-list {
   display: -webkit-box;
@@ -25932,7 +25946,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .cptm-widget-preview-card,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .dndrop-draggable-wrapper-listing_title {
-  width: 100%;
   -webkit-transform: unset !important;
           transform: unset !important;
 }
@@ -25997,7 +26010,7 @@ input[type=radio].cptm-radio {
   padding: 8px;
   position: relative;
   background: #a1a9b2;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
   -webkit-box-sizing: border-box;
@@ -26303,6 +26316,7 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-widget.list-view-with-thumbnail .cptm-listing-card-preview-footer .cptm-placeholder-block {
   padding: 4px;
+  padding-bottom: 32px;
 }
 .cptm-card-preview-widget.list-view-with-thumbnail .cptm-listing-card-preview-footer .cptm-widget-card-wrap {
   padding: 0;
@@ -26401,7 +26415,7 @@ input[type=radio].cptm-radio {
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   height: 64px;
   width: 64px;
-  padding: 8px;
+  padding: 8px !important;
   margin: 0 !important;
   min-height: unset !important;
   border-radius: 50% !important;
@@ -26801,7 +26815,10 @@ input[type=radio].cptm-radio {
   gap: 12px;
 }
 .grid-view-without-thumbnail .cptm-card-placeholder-top .cptm-placeholder-block {
-  padding: 4px;
+  padding: 4px !important;
+}
+.grid-view-without-thumbnail .cptm-card-placeholder-top .cptm-listing-card-quick-actions .cptm-placeholder-block {
+  padding-bottom: 32px !important;
 }
 .grid-view-without-thumbnail .cptm-listing-card-preview-body {
   display: -webkit-box;
@@ -26979,6 +26996,7 @@ input[type=radio].cptm-radio {
           flex-wrap: wrap;
 }
 .cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-card-inline-wrap,
+.cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-badge-wrapper,
 .cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-card {
   font-size: 14px;
   font-weight: 500;
@@ -27074,9 +27092,13 @@ input[type=radio].cptm-radio {
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
 }
-.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover {
+.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active, .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover {
   background: #f3f4f6;
   border-color: #d2d6db;
+}
+.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active .cptm-list-item-actions, .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover .cptm-list-item-actions {
+  opacity: 1;
+  visibility: visible;
 }
 .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active .cptm-list-item-edit {
   background: #e5e7eb;
@@ -27122,6 +27144,10 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
 }
 .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card .cptm-list-item-actions .cptm-list-item-action {
   display: -webkit-inline-box;
@@ -30611,7 +30637,7 @@ input[type=radio]:checked::before {
   font-style: italic;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   -webkit-box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
           box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
 }
@@ -31418,9 +31444,10 @@ input[type=radio]:checked::before {
 }
 .cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-placeholder-block {
   background: #f3f4f6;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   border-radius: 4px;
   min-height: 72px;
+  padding-bottom: 32px;
 }
 .cptm-section.listings_card_grid_view .cptm-form-group-tab-list, .cptm-section.listings_card_list_view .cptm-form-group-tab-list {
   display: -webkit-box;
@@ -33929,7 +33956,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .cptm-widget-preview-card,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .dndrop-draggable-wrapper-listing_title {
-  width: 100%;
   -webkit-transform: unset !important;
           transform: unset !important;
 }
@@ -33994,7 +34020,7 @@ input[type=radio].cptm-radio {
   padding: 8px;
   position: relative;
   background: #a1a9b2;
-  border: 1.5px dashed #a1a9b2;
+  border: 1px dashed #d2d6db;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
   -webkit-box-sizing: border-box;
@@ -34300,6 +34326,7 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-widget.list-view-with-thumbnail .cptm-listing-card-preview-footer .cptm-placeholder-block {
   padding: 4px;
+  padding-bottom: 32px;
 }
 .cptm-card-preview-widget.list-view-with-thumbnail .cptm-listing-card-preview-footer .cptm-widget-card-wrap {
   padding: 0;
@@ -34398,7 +34425,7 @@ input[type=radio].cptm-radio {
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   height: 64px;
   width: 64px;
-  padding: 8px;
+  padding: 8px !important;
   margin: 0 !important;
   min-height: unset !important;
   border-radius: 50% !important;
@@ -34798,7 +34825,10 @@ input[type=radio].cptm-radio {
   gap: 12px;
 }
 .grid-view-without-thumbnail .cptm-card-placeholder-top .cptm-placeholder-block {
-  padding: 4px;
+  padding: 4px !important;
+}
+.grid-view-without-thumbnail .cptm-card-placeholder-top .cptm-listing-card-quick-actions .cptm-placeholder-block {
+  padding-bottom: 32px !important;
 }
 .grid-view-without-thumbnail .cptm-listing-card-preview-body {
   display: -webkit-box;
@@ -34976,6 +35006,7 @@ input[type=radio].cptm-radio {
           flex-wrap: wrap;
 }
 .cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-card-inline-wrap,
+.cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-badge-wrapper,
 .cptm-listing-card-preview-footer .cptm-widget-preview-area .cptm-widget-card {
   font-size: 14px;
   font-weight: 500;
@@ -35071,9 +35102,13 @@ input[type=radio].cptm-radio {
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
 }
-.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover {
+.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active, .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover {
   background: #f3f4f6;
   border-color: #d2d6db;
+}
+.cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active .cptm-list-item-actions, .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card:hover .cptm-list-item-actions {
+  opacity: 1;
+  visibility: visible;
 }
 .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card.active .cptm-list-item-edit {
   background: #e5e7eb;
@@ -35119,6 +35154,10 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
 }
 .cptm-listing-card-preview-body-placeholder .cptm-widget-preview-card .cptm-list-item-actions .cptm-list-item-action {
   display: -webkit-inline-box;

@@ -1,4 +1,5 @@
 import Card from '@/admin/components/card';
+import { __ } from '@wordpress/i18n';
 import { InfoBox } from './style';
 
 type DetailsProps = {
@@ -11,20 +12,23 @@ export default function CustomerInfo({ order }: DetailsProps) {
 			<InfoBox>
 				<li className="directorist-infobox-item">
 					<span className="directorist-infobox-item-label">
-						John Doe
+						{order?.user?.display_name}
 					</span>
 					<span className="directorist-infobox-item-text">
-						farukahmed78@gmail.com
+						{order?.user?.user_email}
 					</span>
 				</li>
-				<li className="directorist-infobox-item">
-					<span className="directorist-infobox-item-label">
-						Phone Number
-					</span>
-					<span className="directorist-infobox-item-text">
-						+880 1771544556
-					</span>
-				</li>
+				{
+					order?.user?.phone &&
+					<li className="directorist-infobox-item">
+						<span className="directorist-infobox-item-label">
+							{__('Phone Number', 'directorist')}
+						</span>
+						<span className="directorist-infobox-item-text">
+							{order?.user?.phone}
+						</span>
+					</li>
+				}
 			</InfoBox>
 		</Card>
 	);

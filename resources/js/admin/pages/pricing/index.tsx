@@ -88,7 +88,6 @@ const basicFields: ExtendedFieldType = {
 			},
 		},
 		actions: (props) => {
-			console.log(props);
 
 			return <Icon icon={pencil} />;
 		},

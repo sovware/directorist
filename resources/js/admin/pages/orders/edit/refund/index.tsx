@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External dependencies
@@ -15,6 +15,7 @@ import { FieldsType } from '@wpmvc/fields/build-types/types/field';
  * Internal dependencies
  */
 import Badge from '@/admin/components/badge';
+import { getBadgeVariantByStatus } from '@/admin/helper/utils';
 import AngleDownIcon from '@/admin/icons/AngleDownIcon';
 import AngleUpIcon from '@/admin/icons/AngleUpIcon';
 import RefundSummary from './refund-summary';
@@ -31,13 +32,8 @@ const columns = [
 		render: ({ item }: { item: any }) => {
 			return (
 				<Badge
-					variant={
-						item?.status === 'pending'
-							? 'warning'
-							: item?.status === 'completed'
-								? 'success'
-								: 'error'
-					}
+					className='directorist-badge'
+					variant={ getBadgeVariantByStatus(item?.status) }
 				>
 					{item?.status}
 				</Badge>

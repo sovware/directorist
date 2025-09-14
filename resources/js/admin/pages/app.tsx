@@ -8,7 +8,7 @@ import DocIcon from '../icons/DocIcon';
 import QuestionCircleIcon from '../icons/QuestionCircleIcon';
 // import OrderEdit from './orders/edit';
 import Orders from './orders';
-import Edit from './pricing';
+import OrderEdit from './orders/edit';
 
 const actionItems: MenuItemsType = {
 	documentation: {
@@ -81,8 +81,8 @@ export default function App() {
 		},
 		{
 			path: '/edit/:id',
-			element: <Edit />,
-			// element: <OrderEdit />,
+			// element: <Edit />,
+			element: <OrderEdit />,
 		},
 	];
 

@@ -26,7 +26,7 @@ const CardHeader = styled.div`
 	display: flex;
 	align-items: center;
 	padding: 20px 32px;
-	border-bottom: 1px solid var(--directorist-color-light);
+	border-bottom: 1px solid var(--color-light);
 `;
 
 const CardFooter = styled.div``;
@@ -83,3 +83,4 @@ export default function Card({
 
 // Export types for external use
 export type { CardProps };
+

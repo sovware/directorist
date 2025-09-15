@@ -31221,13 +31221,23 @@ var render = function render() {
   }) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('span', {
     staticClass: "cptm-form-builder-group-field-item-label"
   }, [_c('span', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.widgetTitle)
+    staticClass: "cptm-title-wrapper"
+  }, [_vm._v("\n              " + _vm._s(_vm.widgetTitle) + "\n              "), _vm.alert ? _c('span', {
+    staticClass: "cptm-title-info",
+    attrs: {
+      "data-label": _vm.alert.message
     }
-  }), _vm._v(" "), _vm.widgetSubtitle ? _c('span', {
+  }, [_c('span', {
+    staticClass: "cptm-title-info-icon las la-info-circle"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "cptm-title-info-text",
+    domProps: {
+      "innerHTML": _vm._s(_vm.alert.message)
+    }
+  })]) : _vm._e()]), _vm._v(" "), _vm.widgetSubtitle ? _c('span', {
     staticClass: "cptm-form-builder-group-field-item-subtitle"
   }, [_vm._v("\n              (" + _vm._s(_vm.widgetSubtitle) + ")\n            ")]) : _vm._e(), _vm._v(" "), _vm.widgetInfo ? _c('span', {
-    staticClass: "cptm-title-info",
+    staticClass: "cptm-title-info-tooltip",
     attrs: {
       "data-info": _vm.widgetInfo
     }

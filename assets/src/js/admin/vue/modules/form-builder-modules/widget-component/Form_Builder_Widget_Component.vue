@@ -48,7 +48,20 @@
               ></span>
             </span>
             <span class="cptm-form-builder-group-field-item-label">
-              <span v-html="widgetTitle"></span>
+              <span class="cptm-title-wrapper">
+                {{ widgetTitle }}
+                <span
+                  v-if="alert"
+                  class="cptm-title-info"
+                  :data-label="alert.message"
+                >
+                  <span class="cptm-title-info-icon las la-info-circle"></span>
+                  <span
+                    class="cptm-title-info-text"
+                    v-html="alert.message"
+                  ></span>
+                </span>
+              </span>
               <span
                 v-if="widgetSubtitle"
                 class="cptm-form-builder-group-field-item-subtitle"
@@ -57,7 +70,7 @@
               </span>
               <span
                 v-if="widgetInfo"
-                class="cptm-title-info"
+                class="cptm-title-info-tooltip"
                 :data-info="widgetInfo"
               >
                 <span

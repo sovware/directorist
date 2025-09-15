@@ -1487,11 +1487,6 @@ class Builder_Data {
                     ],
                     'fields' => [
                         'text' => [
-                            'field_label'       => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Featured',
-                            ],
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
@@ -1542,11 +1537,6 @@ class Builder_Data {
                     ],
                     'fields' => [
                         'text' => [
-                            'field_label'       => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'New',
-                            ],
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
@@ -1597,11 +1587,6 @@ class Builder_Data {
                     ],
                     'fields' => [
                         'text' => [
-                            'field_label'       => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Popular',
-                            ],
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
@@ -2609,6 +2594,21 @@ class Builder_Data {
                                 'type' => "button",
                                 'label' => __( "Back", "directorist" ),
                                 'icon' => 'las la-arrow-left',
+                                'options' => [
+                                    'title' => __( "Back Settings", "directorist" ),
+                                    'fields' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Back',
+                                        ],
+                                        'icon' => [
+                                            'type' => "icon",
+                                            'label' => __( "Icon", "directorist" ),
+                                            'value' => 'las la-arrow-left',
+                                        ],
+                                    ],
+                                ],
                             ],
                             'title' => [
                                 'type' => "title",
@@ -2645,6 +2645,21 @@ class Builder_Data {
                                 'type' => "button",
                                 'label' => __( "Bookmark", "directorist" ),
                                 'icon' => 'las la-heart',
+                                'options' => [
+                                    'title' => __( "Bookmark Settings", "directorist" ),
+                                    'fields' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Bookmark',
+                                        ],
+                                        'icon' => [
+                                            'type' => "icon",
+                                            'label' => __( "Icon", "directorist" ),
+                                            'value' => 'las la-heart',
+                                        ],
+                                    ],
+                                ],
                             ],
                             'share' => [
                                 'type' => "badge",
@@ -2653,6 +2668,11 @@ class Builder_Data {
                                 'options' => [
                                     'title' => __( "Share Settings", "directorist" ),
                                     'fields' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Share',
+                                        ],
                                         'icon' => [
                                             'type' => "icon",
                                             'label' => __( "Icon", "directorist" ),
@@ -2668,6 +2688,11 @@ class Builder_Data {
                                 'options' => [
                                     'title' => __( "Report Settings", "directorist" ),
                                     'fields' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Report',
+                                        ],
                                         'icon' => [
                                             'type' => "icon",
                                             'label' => __( "Icon", "directorist" ),

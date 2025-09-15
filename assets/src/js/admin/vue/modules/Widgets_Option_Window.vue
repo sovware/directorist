@@ -304,10 +304,7 @@ export default {
       if (field_key === "field_icon" || field_key === "icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
-      } else if (field_key === "field_label" || field_key === "label") {
-        this.activeWidget.label = value;
-        this.availableWidgets[this.activeWidgetKey].label = value;
-      }
+      } 
 
       // Emit updated activeWidget to parent
       this.$emit("update-active-widget", {

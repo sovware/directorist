@@ -34,8 +34,8 @@
           :style="{
             color: fields?.text?.text_color?.value || '',
           }"
-          v-if="fields?.text?.text_label?.value || label"
-          >{{ fields?.text?.text_label?.value || label }}</span
+          v-if="label"
+          >{{ label }}</span
         >
         <span
           class="cptm-widget-badge-trash"

@@ -5,9 +5,19 @@
     <div
       class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
     >
-      <span class="cptm-widget-badge-icon" :class="displayIcon" v-if="displayIcon"></span>
-      <span class="cptm-widget-badge-label" v-if="displayLabel">{{ displayLabel }}</span>
-      <span class="cptm-widget-badge-trash" @click.stop="$emit('trash')" v-if="!readOnly">
+      <span
+        class="cptm-widget-badge-icon"
+        :class="displayIcon"
+        v-if="displayIcon"
+      ></span>
+      <span class="cptm-widget-badge-label" v-if="displayLabel">{{
+        displayLabel
+      }}</span>
+      <span
+        class="cptm-widget-badge-trash"
+        @click.stop="$emit('trash')"
+        v-if="!readOnly"
+      >
         <span class="las la-times"></span>
       </span>
     </div>

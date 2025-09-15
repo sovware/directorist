@@ -17490,9 +17490,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (field_key === "field_icon" || field_key === "icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
-      } else if (field_key === "field_label" || field_key === "label") {
-        this.activeWidget.label = value;
-        this.availableWidgets[this.activeWidgetKey].label = value;
       }
 
       // Emit updated activeWidget to parent
@@ -30246,7 +30243,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
 var render = function render() {
-  var _vm$fields, _vm$fields2, _vm$fields3, _vm$fields4, _vm$fields5, _vm$fields6, _vm$fields7;
+  var _vm$fields, _vm$fields2, _vm$fields3, _vm$fields4, _vm$fields5;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -30273,12 +30270,12 @@ var render = function render() {
     style: {
       color: ((_vm$fields4 = _vm.fields) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text_color) === null || _vm$fields4 === void 0 ? void 0 : _vm$fields4.value) || ''
     }
-  }) : _vm._e(), _vm._v(" "), (_vm$fields5 = _vm.fields) !== null && _vm$fields5 !== void 0 && (_vm$fields5 = _vm$fields5.text) !== null && _vm$fields5 !== void 0 && (_vm$fields5 = _vm$fields5.text_label) !== null && _vm$fields5 !== void 0 && _vm$fields5.value || _vm.label ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label",
     style: {
-      color: ((_vm$fields6 = _vm.fields) === null || _vm$fields6 === void 0 || (_vm$fields6 = _vm$fields6.text) === null || _vm$fields6 === void 0 || (_vm$fields6 = _vm$fields6.text_color) === null || _vm$fields6 === void 0 ? void 0 : _vm$fields6.value) || ''
+      color: ((_vm$fields5 = _vm.fields) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text_color) === null || _vm$fields5 === void 0 ? void 0 : _vm$fields5.value) || ''
     }
-  }, [_vm._v(_vm._s(((_vm$fields7 = _vm.fields) === null || _vm$fields7 === void 0 || (_vm$fields7 = _vm$fields7.text) === null || _vm$fields7 === void 0 || (_vm$fields7 = _vm$fields7.text_label) === null || _vm$fields7 === void 0 ? void 0 : _vm$fields7.value) || _vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {

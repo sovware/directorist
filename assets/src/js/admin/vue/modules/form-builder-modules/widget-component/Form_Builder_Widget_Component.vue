@@ -224,6 +224,20 @@ export default {
       return icon;
     },
 
+    widgetInfo() {
+      let info = "";
+
+      if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].info) {
+        info = this.activeWidgets[this.widgetKey].info;
+      }
+
+      if (!info.length && this.current_widget && this.current_widget.info) {
+        info = this.current_widget.info;
+      }
+
+      return info;
+    },
+
     widgetIconType() {
       let iconType = "";
 

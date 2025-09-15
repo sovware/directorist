@@ -29,23 +29,23 @@
 
         <confirmation-modal v-bind="confirmation" @cancel="confirmationOnCancel()" />
 
-        <form-field-validatior 
-            :section-id="sectionId"
-            :field-id="fieldId"
-            :root="root"
-            :value="value" 
-            :rules="rules" 
-            v-model="validationLog" 
-            @validate="$emit( 'validate', $event )"
-        />
-    </div>
+    <form-field-validatior
+      :section-id="sectionId"
+      :field-id="fieldId"
+      :root="root"
+      :value="value"
+      :rules="rules"
+      v-model="validationLog"
+      @validate="$emit('validate', $event)"
+    />
+  </div>
 </template>
 
 <script>
-import toggle_feild from './../../../../mixins/form-fields/toggle-field';
+import toggle_feild from "./../../../../mixins/form-fields/toggle-field";
 
 export default {
-    name: 'toggle-field-theme-default',
-    mixins: [ toggle_feild ],
-}
+  name: "toggle-field-theme-default",
+  mixins: [toggle_feild],
+};
 </script>

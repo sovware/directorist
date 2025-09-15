@@ -5,17 +5,19 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.5
+Stable tag: 8.4.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Create Business Directory, Job Listings, Classified Ads, and More with this versatile WordPress directory plugin.
+Build any type of directory website such as a business directory, job directory, classifieds directory, and more with this WordPress directory plugin.
 
-==Turn your ideas into a profitable directory effortlessly.==
+== Description ==
 
-Create and grow your business directory, classified listings, job boards, event directories, membership directory, service marketplaces, or real estate portals—Directorist simplifies it all.
+Create and grow your business directory, classified listings, job directory, event directory, membership directory, service marketplace, or real estate directory with ease using Directorist.
 
 [Try Demo](https://directorist.com/demos/) | [Extensions](https://directorist.com/extensions/) | [Themes](https://directorist.com/themes/) | [Documentation](https://directorist.com/documentation/directorist/) | [Roadmap](https://directorist.com/roadmap/)
+
+==Turn your ideas into a profitable directory effortlessly.==
 
 Powered by AI, Directorist is the ultimate directory plugin that helps you create, manage, and monetize listings with ease. Built-in SEO optimization ensures your directories rank higher and attract organic traffic, while seamless payment integrations let you monetize effortlessly through paid listings, subscriptions, and premium features.
 
@@ -285,7 +287,46 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-8.4.5 - July 22, 2025
+= 8.4.8 - Sep 23, 2025 =
+
+**Fixed**
+ - Improved highlight for the select input list. (#2485)
+ - Fixed listing slider and carousel settings overlay issue. (#2482)
+ - Implemented intelligent Plus Code removal for Google Maps addresses. (#2478)
+ - Ensured independent functionality for multiple .bdas-category-search instances without conflicts. (#2473)
+ - Fixed carousel disappearing after scrolling past 20 photos. (#2472)
+ - Adjusted relevant listings transition speed from 1s to 3s. (#2468)
+ - Bricks Builder integration for custom single listing pages. (#2484)
+
+= 8.4.7 - Sep 9, 2025 =
+- Tweak JS and CSS
+
+= 8.4.6 - Sep 9, 2025 =
+
+**Fixed**
+- Map disable issue on single listing. (#2471)
+- Placeholder not fully displayed in Add Listing Form (Multi Select). (#2470)
+- Category field box resizing issue in Add Listing Form. (#2469)
+- Category icon not properly showing in map view. (#2465)
+- Custom field select value on listing card. (#2462)
+- Loading more translation issue. (#2459)
+- PHP 8 deprecated error issue. (#2458)
+- Schema error issue. (#2455)
+- Enter key press issue on instant search. (#2454)
+- Spelling issue in filter hooks. (#2452)
+- Account block styling issue. (#2467)
+- Layout issue when taxonomy title is too long. (#2442)
+
+**Changed**
+- Global columns optimization for responsive layout with clean CSS. (#2436)
+- Wrapped default CSS with `.directorist-content-active` selector. (#2419)
+- Added `directorist_is_multiple_review_enabled` hook to manage multiple reviews. (#2453)
+- Added filter hook to modify the find & replace contents in email. (#2450)
+- Added hooks for email notifications: `directorist_guest_submission_email_notification` and `directorist_after_user_registration_confirmation_email_sent`. (#2464)
+- Added Action hooks in Grid & List loop (before/after header & excerpt). (#2476)
+- Single listing slider thumb shows only when there are multiple items. (#2394)
+
+= 8.4.5 - July 22, 2025 =
 
 **Changed**
  - Introduced show/hide password toggle on the login form. (#2415)
@@ -309,12 +350,12 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 **Security**
  - Applied WordPress coding standards using PHPCS across the entire codebase. Addressed numerous potential vulnerabilities by improving input validation, data sanitization, and output escaping to enhance overall plugin security and code quality. (#2379)
 
-8.4.4 - Jun 26, 2025
+= 8.4.4 - Jun 26, 2025 =
 
 **New**
  - 🎉 **Formgent Integration** — You can now add a Formgent form to the Single Listing page via the Directorist builder. This allows visitors to submit forms (such as inquiries or feedback) directly from the listing page.
 
-8.4.3 - May 22, 2025
+= 8.4.3 - May 22, 2025 =
 
 **Changed**
  - Refactored beta version detection logic to avoid dependency on `get_plugin_data()` and improve performance. (#2367)
@@ -323,10 +364,10 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Nonce validation issue in guest listing submission fixed to improve security and form handling. (#2354)
  - `preg_replace()` deprecation notice on the dashboard fixed for PHP 8.1+ compatibility. (#2351)
 
-8.4.2 - May 20, 2025
+= 8.4.2 - May 20, 2025 =
  - Tweak JS and CSS
 
-8.4.1 - May 20, 2025
+= 8.4.1 - May 20, 2025 =
 
 **Changed**
  - Hook to customize the email "From Name" and prevent forced values. (#2344)

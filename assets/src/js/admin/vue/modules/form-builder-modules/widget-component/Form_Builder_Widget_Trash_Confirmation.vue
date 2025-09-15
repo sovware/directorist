@@ -7,15 +7,15 @@
     <div class="cptm-widget-trash-confirmation-modal" @click.stop>
       <h2>Are you sure you want to proceed?</h2>
       <p>
-        Removing "<strong>{{ widgetName }}</strong
-        >" field will also remove it from the single and search pages.
+        Deleting "<strong>{{ widgetName }}</strong
+        >" {{reviewDeleteTitle}}
       </p>
-      <button @click="confirmDelete">Yes, delete</button>
+      <button @click="confirmDelete">{{ reviewDeleteMsg }}</button>
       <button
         class="cptm-widget-trash-confirmation-modal-action-btn__cancel"
         @click="cancelDelete"
       >
-        Cancel
+      {{ reviewCancelBtnText }}
       </button>
     </div>
   </div>
@@ -32,6 +32,18 @@ export default {
     widgetName: {
       type: String,
       default: "",
+    },
+    reviewDeleteTitle: {
+      type: String,
+      default: 'field will also remove it from the single and search pages.',
+    },
+    reviewDeleteMsg: {
+      type: String,
+      default: 'Yes, Delete it!',
+    },
+    reviewCancelBtnText: {
+      type: String,
+      default: 'Cancel',
     },
   },
   mounted() {

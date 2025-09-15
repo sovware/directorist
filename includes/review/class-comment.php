@@ -114,7 +114,7 @@ class Comment {
                 }
 
                 // Validate if sharing multiple reviews
-                if ( ! $rating_is_missing && directorist_user_review_exists( $author_email, $post_id ) ) {
+                if ( ! $rating_is_missing && directorist_user_review_exists( $author_email, $post_id ) && ! directorist_is_multiple_review_enabled() ) {
                     $errors[] = __( '<strong>Error</strong>: You already shared a review.', 'directorist' );
                 }
 
@@ -125,7 +125,7 @@ class Comment {
 
             do_action( 'directorist_review_validate_data', $comment_data );
         } catch ( Exception $e ) {
-            wp_die( wp_kses_post( $e->getMessage() ) );
+            wp_die( wp_kses_post( $e->getMessage() ?? '' ) );
             exit;
         }
 

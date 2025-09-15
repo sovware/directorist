@@ -132,14 +132,50 @@ class Schema {
         return $fields;
     }
 
+    /**
+     * Print schema markup in footer.
+     *
+     * @since 8.4.6
+     */
     public static function print_schema() {
         $schema = static::get_schema();
         if ( ! $schema ) {
             return;
         }
 
-        $schema = wp_json_encode( $schema );
-        echo '<script type="application/ld+json">' . esc_html( $schema ) . '</script>';
+        // Clean schema data before encoding
+        $schema = static::clean_schema_data( $schema );
+        
+        // Encode to JSON with proper options
+        $json_schema = wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+        
+        // Check for JSON encoding errors
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            error_log( 'Directorist Schema JSON Error: ' . json_last_error_msg() );
+            return;
+        }
+        
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe because wp_json_encode handles encoding
+        echo '<script type="application/ld+json">' . $json_schema . '</script>';
+    }
+
+    /**
+     * Clean schema data by removing empty values.
+     *
+     * @param array $data Schema data.
+     * @return array Cleaned schema data.
+     */
+    private static function clean_schema_data( $data ) {
+        if ( is_array( $data ) ) {
+            foreach ( $data as $key => $value ) {
+                if ( empty( $value ) && $value !== '0' && $value !== 0 ) {
+                    unset( $data[ $key ] );
+                } elseif ( is_array( $value ) ) {
+                    $data[ $key ] = static::clean_schema_data( $value );
+                }
+            }
+        }
+        return $data;
     }
 
     /**
@@ -431,7 +467,7 @@ class Schema {
             $phone = '+' . substr( $phone, 2 );
         }
 
-        if ( $phone[0] !== '+' ) {
+        if ( ! empty( $phone ) && $phone[0] !== '+' ) {
             $phone = static::get_country_code() . $phone;
         }
 

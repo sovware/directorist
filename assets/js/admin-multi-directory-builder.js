@@ -17490,6 +17490,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (field_key === "field_icon" || field_key === "icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
+      } else if (field_key === "field_label" || field_key === "label") {
+        this.activeWidget.label = value;
+        this.availableWidgets[this.activeWidgetKey].label = value;
       }
 
       // Emit updated activeWidget to parent
@@ -18067,6 +18070,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    /**
+     * Display Icon
+     * @returns {String}
+     */
     displayIcon: function displayIcon() {
       if (!this.options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
         // console.log( 'no options' );
@@ -18085,6 +18092,13 @@ __webpack_require__.r(__webpack_exports__);
         return this.icon;
       }
       return this.options.fields.icon.value;
+    },
+    /**
+     * Display Label
+     * @returns {String}
+     */
+    displayLabel: function displayLabel() {
+      return this.options.fields.label.value || this.label;
     }
   }
 });
@@ -29983,6 +29997,9 @@ var render = function render() {
     }, [_vm._v("\n        " + _vm._s(info.text) + "\n      ")]);
   }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.widgetsList).length ? _c('Container', {
     staticClass: "cptm-form-builder-field-list",
+    class: {
+      'cptm-widget-options-container-draggable': Object.keys(_vm.widgetsList).length > 1
+    },
     attrs: {
       "group-name": "card-widget-options",
       "drag-handle-selector": ".options-drag-handle",
@@ -30229,7 +30246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
 var render = function render() {
-  var _vm$fields, _vm$fields2, _vm$fields3, _vm$fields4, _vm$fields5;
+  var _vm$fields, _vm$fields2, _vm$fields3, _vm$fields4, _vm$fields5, _vm$fields6, _vm$fields7;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -30256,12 +30273,12 @@ var render = function render() {
     style: {
       color: ((_vm$fields4 = _vm.fields) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text_color) === null || _vm$fields4 === void 0 ? void 0 : _vm$fields4.value) || ''
     }
-  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), (_vm$fields5 = _vm.fields) !== null && _vm$fields5 !== void 0 && (_vm$fields5 = _vm$fields5.text) !== null && _vm$fields5 !== void 0 && (_vm$fields5 = _vm$fields5.text_label) !== null && _vm$fields5 !== void 0 && _vm$fields5.value || _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label",
     style: {
-      color: ((_vm$fields5 = _vm.fields) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text_color) === null || _vm$fields5 === void 0 ? void 0 : _vm$fields5.value) || ''
+      color: ((_vm$fields6 = _vm.fields) === null || _vm$fields6 === void 0 || (_vm$fields6 = _vm$fields6.text) === null || _vm$fields6 === void 0 || (_vm$fields6 = _vm$fields6.text_color) === null || _vm$fields6 === void 0 ? void 0 : _vm$fields6.value) || ''
     }
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
+  }, [_vm._v(_vm._s(((_vm$fields7 = _vm.fields) === null || _vm$fields7 === void 0 || (_vm$fields7 = _vm$fields7.text) === null || _vm$fields7 === void 0 || (_vm$fields7 = _vm$fields7.text_label) === null || _vm$fields7 === void 0 ? void 0 : _vm$fields7.value) || _vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -30427,9 +30444,9 @@ var render = function render() {
   }, [_vm.displayIcon ? _c('span', {
     staticClass: "cptm-widget-badge-icon",
     class: _vm.displayIcon
-  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), _vm.displayLabel ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
+  }, [_vm._v(_vm._s(_vm.displayLabel))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -33113,7 +33130,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "no_thumbnail_body_quick_info",
-      "containerClass": "cptm-card-preview-top-right-placeholder cptm-card-dark",
+      "containerClass": "cptm-card-preview-quick-info-placeholder cptm-card-dark",
       "label": _vm.local_layout.body.quick_info.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,

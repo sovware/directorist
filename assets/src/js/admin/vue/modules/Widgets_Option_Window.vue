@@ -36,6 +36,10 @@
         group-name="card-widget-options"
         drag-handle-selector=".options-drag-handle"
         class="cptm-form-builder-field-list"
+        :class="{
+          'cptm-widget-options-container-draggable':
+            Object.keys(widgetsList).length > 1,
+        }"
         v-if="Object.keys(widgetsList).length"
         :get-ghost-parent="getGhostParent"
       >
@@ -300,6 +304,9 @@ export default {
       if (field_key === "field_icon" || field_key === "icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
+      } else if (field_key === "field_label" || field_key === "label") {
+        this.activeWidget.label = value;
+        this.availableWidgets[this.activeWidgetKey].label = value;
       }
 
       // Emit updated activeWidget to parent

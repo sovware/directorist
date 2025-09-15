@@ -1487,6 +1487,11 @@ class Builder_Data {
                     ],
                     'fields' => [
                         'text' => [
+                            'field_label'       => [
+                                'type'  => 'text',
+                                'label' => __( 'Label', 'directorist' ),
+                                'value' => 'Featured',
+                            ],
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
@@ -1537,6 +1542,11 @@ class Builder_Data {
                     ],
                     'fields' => [
                         'text' => [
+                            'field_label'       => [
+                                'type'  => 'text',
+                                'label' => __( 'Label', 'directorist' ),
+                                'value' => 'New',
+                            ],
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
@@ -1587,6 +1597,11 @@ class Builder_Data {
                     ],
                     'fields' => [
                         'text' => [
+                            'field_label'       => [
+                                'type'  => 'text',
+                                'label' => __( 'Label', 'directorist' ),
+                                'value' => 'Popular',
+                            ],
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
@@ -1623,6 +1638,21 @@ class Builder_Data {
                     'label' => __( 'Favorite', 'directorist' ),
                     'icon'  => 'las la-heart',
                     'hook'  => 'atbdp_favorite_badge',
+                    'options' => [
+                        'title'  => __( 'Favorite Badge Settings', 'directorist' ),
+                        'fields' => [
+                            'icon' => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-heart',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => __( 'Label', 'directorist' ),
+                                'value' => 'Favorite',
+                            ],
+                        ],
+                    ],
                 ],
 
                 'view_count'        => [

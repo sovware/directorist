@@ -34,10 +34,14 @@
           :style="{
             color: fields?.text?.text_color?.value || '',
           }"
-          v-if="label"
-          >{{ label }}</span
+          v-if="fields?.text?.text_label?.value || label"
+          >{{ fields?.text?.text_label?.value || label }}</span
         >
-        <span class="cptm-widget-badge-trash" @click.stop="$emit('trash')" v-if="!readOnly">
+        <span
+          class="cptm-widget-badge-trash"
+          @click.stop="$emit('trash')"
+          v-if="!readOnly"
+        >
           <span class="las la-times"></span>
         </span>
       </span>

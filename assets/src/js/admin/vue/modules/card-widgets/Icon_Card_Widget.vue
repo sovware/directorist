@@ -6,7 +6,7 @@
       class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
     >
       <span class="cptm-widget-badge-icon" :class="displayIcon" v-if="displayIcon"></span>
-      <span class="cptm-widget-badge-label" v-if="label">{{ label }}</span>
+      <span class="cptm-widget-badge-label" v-if="displayLabel">{{ displayLabel }}</span>
       <span class="cptm-widget-badge-trash" @click.stop="$emit('trash')" v-if="!readOnly">
         <span class="las la-times"></span>
       </span>
@@ -40,6 +40,10 @@ export default {
   },
 
   computed: {
+    /**
+     * Display Icon
+     * @returns {String}
+     */
     displayIcon() {
       if (!this.options && typeof this.options !== "object") {
         // console.log( 'no options' );
@@ -68,6 +72,14 @@ export default {
       }
 
       return this.options.fields.icon.value;
+    },
+
+    /**
+     * Display Label
+     * @returns {String}
+     */
+    displayLabel() {
+      return this.options.fields.label.value || this.label;
     },
   },
 };

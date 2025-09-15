@@ -119,7 +119,7 @@
           <div class="cptm-listing-card-preview-body">
             <card-widget-placeholder
               id="no_thumbnail_body_quick_info"
-              containerClass="cptm-card-preview-top-right-placeholder cptm-card-dark"
+              containerClass="cptm-card-preview-quick-info-placeholder cptm-card-dark"
               :label="local_layout.body.quick_info.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"

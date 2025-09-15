@@ -16636,6 +16636,49 @@ div[draggable=true].cptm-form-builder-group-header-content {
   font-size: 20px;
   color: #141921;
 }
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info {
+  position: relative;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:before {
+  content: attr(data-info);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 180px;
+  max-width: 180px;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: #141921;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 4px;
+  border-bottom: 6px solid #141921;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:hover:after {
+  opacity: 1;
+  visibility: visible;
+}
 .cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-header-actions .cptm-form-builder-header-action-link {
   font-size: 18px;
   color: #747c89;
@@ -24497,6 +24540,49 @@ div[draggable=true].cptm-form-builder-group-header-content {
 .cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-form-builder-group-field-item-icon {
   font-size: 20px;
   color: #141921;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info {
+  position: relative;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:before {
+  content: attr(data-info);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 180px;
+  max-width: 180px;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: #141921;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 4px;
+  border-bottom: 6px solid #141921;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:hover:after {
+  opacity: 1;
+  visibility: visible;
 }
 .cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-header-actions .cptm-form-builder-header-action-link {
   font-size: 18px;
@@ -32647,6 +32733,49 @@ div[draggable=true].cptm-form-builder-group-header-content {
 .cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-form-builder-group-field-item-icon {
   font-size: 20px;
   color: #141921;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info {
+  position: relative;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:before {
+  content: attr(data-info);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 180px;
+  max-width: 180px;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: #141921;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 4px;
+  border-bottom: 6px solid #141921;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-title .cptm-title-info:hover:after {
+  opacity: 1;
+  visibility: visible;
 }
 .cptm-form-builder-group-field-item-header .cptm-form-builder-group-field-item-header-actions .cptm-form-builder-header-action-link {
   font-size: 18px;

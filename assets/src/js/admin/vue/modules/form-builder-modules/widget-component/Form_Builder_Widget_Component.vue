@@ -1,11 +1,10 @@
 <template>
   <draggable-list-item
-    v-if="
-      widget_fields && Object.keys(widget_fields).length > 0 && canMoveWidget
-    "
+    v-if="widget_fields && Object.keys(widget_fields).length > 0"
     :drag-handle="'.cptm-form-builder-group-field-item-drag'"
     @drag-start="$emit('drag-start')"
     @drag-end="$emit('drag-end')"
+    :can-drag="canMoveWidget"
   >
     <div
       class="cptm-form-builder-group-field-item"
@@ -14,7 +13,10 @@
       <!-- Widget Header -->
       <div class="cptm-form-builder-group-field-item-header">
         <!-- Drag Handle -->
-        <div class="cptm-form-builder-group-field-item-drag">
+        <div
+          class="cptm-form-builder-group-field-item-drag"
+          v-if="canMoveWidget"
+        >
           <span aria-hidden="true" class="uil uil-draggabledots"></span>
         </div>
 
@@ -34,7 +36,10 @@
           </div>
 
           <h4 class="cptm-form-builder-group-field-item-title">
-            <span class="cptm-form-builder-group-field-item-icon">
+            <span
+              class="cptm-form-builder-group-field-item-icon"
+              v-if="widgetIcon"
+            >
               <span v-if="widgetIconType !== 'svg'" :class="widgetIcon"></span>
               <span
                 v-else-if="widgetIconType === 'svg'"
@@ -51,14 +56,12 @@
                 ({{ widgetSubtitle }})
               </span>
               <span
-                v-if="alert"
+                v-if="widgetInfo"
                 class="cptm-title-info"
-                :data-label="alert.message"
+                :data-info="widgetInfo"
               >
-                <span class="cptm-title-info-icon las la-info-circle"></span>
                 <span
-                  class="cptm-title-info-text"
-                  v-html="alert.message"
+                  class="cptm-title-info-icon uil uil-question-circle"
                 ></span>
               </span>
             </span>
@@ -227,7 +230,10 @@ export default {
     widgetInfo() {
       let info = "";
 
-      if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].info) {
+      if (
+        this.activeWidgets[this.widgetKey] &&
+        this.activeWidgets[this.widgetKey].info
+      ) {
         info = this.activeWidgets[this.widgetKey].info;
       }
 

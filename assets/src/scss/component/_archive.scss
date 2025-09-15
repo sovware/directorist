@@ -4,10 +4,6 @@
 	.directorist-archive-items .directorist-pagination {
 		margin-top: 35px;
 	}
-	.gm-style-iw-chr,
-	.gm-style-iw-tc {
-		display: none;
-	}
 
 	@media screen and (max-width: 575px) {
 		.directorist-archive-contents__top {
@@ -19,6 +15,13 @@
 		.directorist-type-nav__link .directorist-icon-mask {
 			display: none;
 		}
+	}
+}
+
+.atbdp-map {
+	.gm-style-iw-chr,
+	.gm-style-iw-tc {
+		display: none;
 	}
 }
 
@@ -648,7 +651,7 @@
 			}
 		}
 
-		.directorist-color-picker-wrap{
+		.directorist-color-picker-wrap {
 			.wp-picker-container {
 				.wp-picker-input-wrap {
 					margin-bottom: 0;

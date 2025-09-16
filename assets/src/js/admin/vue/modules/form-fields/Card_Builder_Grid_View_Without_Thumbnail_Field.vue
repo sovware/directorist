@@ -554,7 +554,7 @@ export default {
           },
           title: {
             label: "Title",
-            selectedWidgets: ["listing_title"],
+            selectedWidgets: [],
           },
           quick_actions: {
             label: "Top Right",

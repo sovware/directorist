@@ -1995,7 +1995,7 @@ class Builder_Data {
                 'top'     => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [ 'listing_title', "rating", "pricing" ],
-                    "selectedWidgets" => ['listing_title'],
+                    "selectedWidgets" => [],
                 ],
                 'bottom'  => [
                     'maxWidget'       => 0,
@@ -2039,7 +2039,7 @@ class Builder_Data {
                 'title'         => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['listing_title'],
-                    "selectedWidgets" => ['listing_title'],
+                    "selectedWidgets" => [],
                 ],
                 'quick_actions' => [
                     'maxWidget'       => 3,
@@ -2095,7 +2095,7 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['listing_title', 'rating', 'pricing'],
-                    "selectedWidgets" => ['listing_title'],
+                    "selectedWidgets" => [],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
@@ -2142,7 +2142,7 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['listing_title', 'rating', 'pricing'],
-                    "selectedWidgets"   => ['listing_title'],
+                    "selectedWidgets"   => [],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),

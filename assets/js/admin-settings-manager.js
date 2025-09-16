@@ -20993,7 +20993,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         body: {
           top: {
             label: "Top",
-            selectedWidgets: ["listing_title"]
+            selectedWidgets: []
           },
           bottom: {
             label: "Bottom",
@@ -21536,7 +21536,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           title: {
             label: "Title",
-            selectedWidgets: ["listing_title"]
+            selectedWidgets: []
           },
           quick_actions: {
             label: "Top Right",
@@ -22526,7 +22526,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         body: {
           top: {
             label: "Body Top",
-            selectedWidgets: ["listing_title"]
+            selectedWidgets: []
           },
           right: {
             label: "Body Right",
@@ -23040,7 +23040,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         body: {
           top: {
             label: "Body Top",
-            selectedWidgets: ["listing_title"]
+            selectedWidgets: []
           },
           right: {
             label: "Body Right",

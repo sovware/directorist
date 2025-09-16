@@ -16846,6 +16846,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     fields: {
       type: Object
     },
+    widget: {
+      type: String,
+      default: ""
+    },
     active: {
       type: Boolean,
       default: false
@@ -16857,6 +16861,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     bottomAchhor: {
       type: Boolean,
       default: false
+    },
+    // Add activeWidget prop to get the complete widget data
+    activeWidget: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     }
   },
   created: function created() {
@@ -16893,7 +16904,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var keys = {};
       Object.keys(this.local_fields).forEach(function (key) {
         var field = _this.local_fields[key];
-        keys[key] = "".concat(key, "-").concat(field.value || field.id || field.updated || Date.now());
+        // Use a stable key based on field properties, excluding dynamic values
+        keys[key] = "".concat(key, "-").concat(field.id || field.type || key);
       });
       return keys;
     }
@@ -16910,10 +16922,34 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     },
     updateFieldData: function updateFieldData(value, field_key) {
-      // Use Vue.set to ensure reactivity
-      // this.$set(this.local_fields[field_key], "value", value);
+      var _this$activeWidget$op,
+        _this2 = this;
+      // Update the field value
       this.local_fields[field_key].value = value;
-      // this.$emit("update", this.local_fields);
+
+      // Create the complete updated widget data
+      var updatedWidget = _objectSpread(_objectSpread({}, this.activeWidget), {}, {
+        options: _objectSpread(_objectSpread({}, this.activeWidget.options), {}, {
+          fields: _objectSpread(_objectSpread({}, (_this$activeWidget$op = this.activeWidget.options) === null || _this$activeWidget$op === void 0 ? void 0 : _this$activeWidget$op.fields), this.local_fields)
+        })
+      });
+
+      // Sync root-level widget properties with options.fields values
+      // This ensures that if widget.label exists, it gets updated from widget.options.fields.label
+      Object.keys(this.local_fields).forEach(function (fieldKey) {
+        var fieldValue = _this2.local_fields[fieldKey].value;
+
+        // Update root-level widget property if it exists (dynamic comparison)
+        if (updatedWidget.hasOwnProperty(fieldKey)) {
+          updatedWidget[fieldKey] = fieldValue;
+        }
+      });
+
+      // Emit the ready widget data to parent (like Widgets_Option_Window)
+      this.$emit("update", {
+        widgetKey: this.widget,
+        updatedWidget: updatedWidget
+      });
     }
   }
 });
@@ -24712,42 +24748,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     } catch (error) {
       this.handleError("Error toggling widget in selected widgets", error);
     }
-  }), "editWidget", function editWidget(key) {
-    try {
-      if (key === this.widgetOptionsWindow.widget) {
-        this.closeWidgetOptionsWindow();
-        return;
-      }
-      if (typeof this.active_widgets[key] === "undefined") {
-        this.handleError("Widget ".concat(key, " not found in active widgets"));
-        return;
-      }
-      if (!this.active_widgets[key].options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(this.active_widgets[key].options) !== "object") {
-        this.handleError("Widget ".concat(key, " has no options"));
-        return;
-      }
-      this.widgetOptionsWindow = _objectSpread({
-        animation: "cptm-animation-flip",
-        widget: key
-      }, this.active_widgets[key].options);
-      this.active_insert_widget_key = "";
-    } catch (error) {
-      this.handleError("Error editing widget", error);
-    }
-  }), "updateWidgetOptionsData", function updateWidgetOptionsData(data, optionsWindow) {
-    try {
-      // Implementation for updating widget options
-      // This method can be extended based on requirements
-      this._dataChanged = true;
-    } catch (error) {
-      this.handleError("Error updating widget options data", error);
-    }
-  }), "closeWidgetOptionsWindow", function closeWidgetOptionsWindow() {
-    try {
-      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-    } catch (error) {
-      this.handleError("Error closing widget options window", error);
-    }
   }), "getActiveInsertWindowStatus", function getActiveInsertWindowStatus(currentItemKey) {
     try {
       return currentItemKey === this.active_insert_widget_key;
@@ -24769,7 +24769,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     }
   }), "widgetOptionsWindowActiveStatus", function widgetOptionsWindowActiveStatus(widgetKey) {
     return this.widgetOptionsWindow.widget === widgetKey && typeof this.active_widgets[widgetKey] !== "undefined";
-  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "widgetCardOptionsWindowActiveStatus", function widgetCardOptionsWindowActiveStatus() {
+  }), "widgetCardOptionsWindowActiveStatus", function widgetCardOptionsWindowActiveStatus() {
     return this.widgetCardOptionsWindow.widget !== "";
   }), "processAvailableWidgets", function processAvailableWidgets() {
     try {
@@ -24861,11 +24861,24 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             continue;
           }
           widgets_template.options.fields[option_key] = widget.options.fields[option_key];
+
+          // Check if the option key matches a root-level widget property
+          // If it matches, update the root-level property with the field value
+          if (widgets_template.hasOwnProperty(option_key)) {
+            var fieldValue = widget.options.fields[option_key];
+            // Only update if the field has a value property (for form fields)
+            if (fieldValue && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(fieldValue) === "object" && fieldValue.hasOwnProperty("value")) {
+              widgets_template[option_key] = fieldValue.value;
+            } else if (fieldValue !== undefined) {
+              widgets_template[option_key] = fieldValue;
+            }
+          }
         }
       }
 
       // Set the widget data in the active_widgets object
       vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this6.active_widgets, widget.widget_name, widgets_template);
+      vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this6.available_widgets, widget.widget_name, widgets_template);
     };
     var importWidgets = function importWidgets(placeholder, destination) {
       if (!_this6.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
@@ -24924,7 +24937,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     });
     this.placeholders = newPlaceholders;
     this.allPlaceholderItems = newAllPlaceholders;
-  }), "importWidgets", function importWidgets() {
+  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "importWidgets", function importWidgets() {
     if (!this.isTruthyObject(this.widgets)) {
       return;
     }
@@ -25157,7 +25170,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     };
     _updatePlaceholders3(placeholders);
     return placeholders;
-  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "editWidget", function editWidget(key) {
+  }), "editWidget", function editWidget(key) {
     if (key === this.widgetOptionsWindow.widget) {
       this.closeWidgetOptionsWindow();
       return;
@@ -25172,18 +25185,36 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     this.widgetOptionsWindow.widget = key;
     this.active_insert_widget_key = "";
   }), "updateWidgetOptionsData", function updateWidgetOptionsData(data, options_window) {
-    return;
+    try {
+      if (!data || !data.widgetKey || !data.updatedWidget) {
+        return;
+      }
+      var widgetKey = data.widgetKey;
+      var updatedWidget = data.updatedWidget;
+
+      // Update the active widget with the complete updated widget data
+      if (this.active_widgets[widgetKey]) {
+        // Replace the entire widget with the updated data
+        this.$set(this.active_widgets, widgetKey, updatedWidget);
+
+        // Also update available_widgets to keep them in sync
+        if (this.available_widgets[widgetKey]) {
+          this.$set(this.available_widgets, widgetKey, updatedWidget);
+        }
+
+        // Mark data as changed
+        this._dataChanged = true;
+      }
+    } catch (error) {
+      this.handleError("Error updating widget options data", error);
+    }
   }), "closeWidgetOptionsWindow", function closeWidgetOptionsWindow() {
     this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-  }), "getActiveInsertWindowStatus", function getActiveInsertWindowStatus(current_item_key) {
+  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "getActiveInsertWindowStatus", function getActiveInsertWindowStatus(current_item_key) {
     if (current_item_key === this.active_insert_widget_key) {
       return true;
     }
     return false;
-  }), "openModal", function openModal() {
-    this.showModal = true;
-  }), "closeModal", function closeModal() {
-    this.showModal = false;
   }), "syncSelectedWidgets", function syncSelectedWidgets(allPlaceholderItems, placeholders) {
     try {
       var allItemsMap = allPlaceholderItems.reduce(function (acc, item) {
@@ -28370,7 +28401,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_text_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/text-field */ "./assets/src/js/admin/vue/mixins/form-fields/text-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'text-field-theme-default',
+  name: "text-field-theme-default",
   mixins: [_mixins_form_fields_text_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -34451,7 +34482,8 @@ var render = function render() {
         staticClass: "cptm-elements-settings__group__options"
       }, [_c('options-window', _vm._b({
         attrs: {
-          "active": _vm.widgetOptionsWindowActiveStatus(widget_key)
+          "active": _vm.widgetOptionsWindowActiveStatus(widget_key),
+          "activeWidget": _vm.active_widgets[widget_key]
         },
         on: {
           "update": function update($event) {
@@ -39086,7 +39118,7 @@ var render = function render() {
       "innerHTML": _vm._s(_vm.description)
     }
   }) : _vm._e(), _vm._v(" "), ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.filteredValue) !== 'object' ? true : false) ? _c('input', {
-    staticClass: "cptm-form-control",
+    staticClass: "cptm-form-control tttt",
     class: _vm.formControlClass,
     attrs: {
       "type": _vm.input_type,

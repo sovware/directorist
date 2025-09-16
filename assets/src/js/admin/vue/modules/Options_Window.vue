@@ -51,6 +51,10 @@ export default {
     fields: {
       type: Object,
     },
+    widget: {
+      type: String,
+      default: "",
+    },
     active: {
       type: Boolean,
       default: false,
@@ -62,6 +66,11 @@ export default {
     bottomAchhor: {
       type: Boolean,
       default: false,
+    },
+    // Add activeWidget prop to get the complete widget data
+    activeWidget: {
+      type: Object,
+      default: () => ({}),
     },
   },
 
@@ -97,8 +106,8 @@ export default {
       const keys = {};
       Object.keys(this.local_fields).forEach((key) => {
         const field = this.local_fields[key];
-        keys[key] =
-          `${key}-${field.value || field.id || field.updated || Date.now()}`;
+        // Use a stable key based on field properties, excluding dynamic values
+        keys[key] = `${key}-${field.id || field.type || key}`;
       });
       return keys;
     },
@@ -118,10 +127,37 @@ export default {
     },
 
     updateFieldData(value, field_key) {
-      // Use Vue.set to ensure reactivity
-      // this.$set(this.local_fields[field_key], "value", value);
+      // Update the field value
       this.local_fields[field_key].value = value;
-      // this.$emit("update", this.local_fields);
+
+      // Create the complete updated widget data
+      const updatedWidget = {
+        ...this.activeWidget,
+        options: {
+          ...this.activeWidget.options,
+          fields: {
+            ...this.activeWidget.options?.fields,
+            ...this.local_fields,
+          },
+        },
+      };
+
+      // Sync root-level widget properties with options.fields values
+      // This ensures that if widget.label exists, it gets updated from widget.options.fields.label
+      Object.keys(this.local_fields).forEach((fieldKey) => {
+        const fieldValue = this.local_fields[fieldKey].value;
+
+        // Update root-level widget property if it exists (dynamic comparison)
+        if (updatedWidget.hasOwnProperty(fieldKey)) {
+          updatedWidget[fieldKey] = fieldValue;
+        }
+      });
+
+      // Emit the ready widget data to parent (like Widgets_Option_Window)
+      this.$emit("update", {
+        widgetKey: this.widget,
+        updatedWidget: updatedWidget,
+      });
     },
   },
 };

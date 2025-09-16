@@ -146,6 +146,7 @@
                   <options-window
                     :active="widgetOptionsWindowActiveStatus(widget_key)"
                     v-bind="widgetOptionsWindow"
+                    :activeWidget="active_widgets[widget_key]"
                     @update="
                       updateWidgetOptionsData($event, widgetOptionsWindow)
                     "
@@ -1923,71 +1924,6 @@ export default {
     // ===========================================
 
     /**
-     * Edit widget with validation
-     * @param {String} key - Widget key
-     * @public
-     */
-    editWidget(key) {
-      try {
-        if (key === this.widgetOptionsWindow.widget) {
-          this.closeWidgetOptionsWindow();
-          return;
-        }
-
-        if (typeof this.active_widgets[key] === "undefined") {
-          this.handleError(`Widget ${key} not found in active widgets`);
-          return;
-        }
-
-        if (
-          !this.active_widgets[key].options ||
-          typeof this.active_widgets[key].options !== "object"
-        ) {
-          this.handleError(`Widget ${key} has no options`);
-          return;
-        }
-
-        this.widgetOptionsWindow = {
-          animation: "cptm-animation-flip",
-          widget: key,
-          ...this.active_widgets[key].options,
-        };
-
-        this.active_insert_widget_key = "";
-      } catch (error) {
-        this.handleError("Error editing widget", error);
-      }
-    },
-
-    /**
-     * Update widget options data
-     * @param {Object} data - Widget data
-     * @param {Object} optionsWindow - Options window
-     * @public
-     */
-    updateWidgetOptionsData(data, optionsWindow) {
-      try {
-        // Implementation for updating widget options
-        // This method can be extended based on requirements
-        this._dataChanged = true;
-      } catch (error) {
-        this.handleError("Error updating widget options data", error);
-      }
-    },
-
-    /**
-     * Close widget options window
-     * @public
-     */
-    closeWidgetOptionsWindow() {
-      try {
-        this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-      } catch (error) {
-        this.handleError("Error closing widget options window", error);
-      }
-    },
-
-    /**
      * Get active insert window status
      * @param {String} currentItemKey - Current item key
      * @returns {Boolean} Is active
@@ -2172,11 +2108,28 @@ export default {
 
             widgets_template.options.fields[option_key] =
               widget.options.fields[option_key];
+
+            // Check if the option key matches a root-level widget property
+            // If it matches, update the root-level property with the field value
+            if (widgets_template.hasOwnProperty(option_key)) {
+              const fieldValue = widget.options.fields[option_key];
+              // Only update if the field has a value property (for form fields)
+              if (
+                fieldValue &&
+                typeof fieldValue === "object" &&
+                fieldValue.hasOwnProperty("value")
+              ) {
+                widgets_template[option_key] = fieldValue.value;
+              } else if (fieldValue !== undefined) {
+                widgets_template[option_key] = fieldValue;
+              }
+            }
           }
         }
 
         // Set the widget data in the active_widgets object
         Vue.set(this.active_widgets, widget.widget_name, widgets_template);
+        Vue.set(this.available_widgets, widget.widget_name, widgets_template);
       };
 
       const importWidgets = (placeholder, destination) => {
@@ -2629,7 +2582,30 @@ export default {
 
     // Update Widget Options
     updateWidgetOptionsData(data, options_window) {
-      return;
+      try {
+        if (!data || !data.widgetKey || !data.updatedWidget) {
+          return;
+        }
+
+        const widgetKey = data.widgetKey;
+        const updatedWidget = data.updatedWidget;
+
+        // Update the active widget with the complete updated widget data
+        if (this.active_widgets[widgetKey]) {
+          // Replace the entire widget with the updated data
+          this.$set(this.active_widgets, widgetKey, updatedWidget);
+
+          // Also update available_widgets to keep them in sync
+          if (this.available_widgets[widgetKey]) {
+            this.$set(this.available_widgets, widgetKey, updatedWidget);
+          }
+
+          // Mark data as changed
+          this._dataChanged = true;
+        }
+      } catch (error) {
+        this.handleError("Error updating widget options data", error);
+      }
     },
 
     // Close Widget Options Window
@@ -2644,16 +2620,6 @@ export default {
       }
 
       return false;
-    },
-
-    // Open the modal
-    openModal() {
-      this.showModal = true;
-    },
-
-    // Close the modal
-    closeModal() {
-      this.showModal = false;
     },
 
     /**

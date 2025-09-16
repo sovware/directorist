@@ -79,7 +79,7 @@
               v-if="canOpenSettings && selectedWidgets?.length"
               href="#"
               class="cptm-widget-action-link"
-              @click.prevent="$emit('open-widgets-option-window')"
+              @click.prevent="handleSettingsClick"
             >
               <span class="las la-cog"></span>
             </a>
@@ -87,7 +87,7 @@
               v-if="canAddMore"
               href="#"
               class="cptm-widget-action-link"
-              @click.prevent="$emit('open-widgets-picker-window')"
+              @click.prevent="handleInsertClick"
             >
               <span class="las la-plus"></span>
             </a>
@@ -507,6 +507,32 @@ export default {
 
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$emit("update-active-widget", { widgetKey, updatedWidget });
+    },
+
+    /**
+     * Handle settings button click with modal mutual exclusion
+     * Closes insert modal if open, then opens settings modal
+     */
+    handleSettingsClick() {
+      // Close insert modal if it's open
+      if (this.showWidgetsPickerWindow) {
+        this.$emit("close-widgets-picker-window");
+      }
+      // Open settings modal
+      this.$emit("open-widgets-option-window");
+    },
+
+    /**
+     * Handle insert button click with modal mutual exclusion
+     * Closes settings modal if open, then opens insert modal
+     */
+    handleInsertClick() {
+      // Close settings modal if it's open
+      if (this.showWidgetsOptionWindow) {
+        this.$emit("close-widgets-option-window");
+      }
+      // Open insert modal
+      this.$emit("open-widgets-picker-window");
     },
 
     /**

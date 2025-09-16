@@ -15935,6 +15935,30 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     /**
+     * Handle settings button click with modal mutual exclusion
+     * Closes insert modal if open, then opens settings modal
+     */
+    handleSettingsClick: function handleSettingsClick() {
+      // Close insert modal if it's open
+      if (this.showWidgetsPickerWindow) {
+        this.$emit("close-widgets-picker-window");
+      }
+      // Open settings modal
+      this.$emit("open-widgets-option-window");
+    },
+    /**
+     * Handle insert button click with modal mutual exclusion
+     * Closes settings modal if open, then opens insert modal
+     */
+    handleInsertClick: function handleInsertClick() {
+      // Close settings modal if it's open
+      if (this.showWidgetsOptionWindow) {
+        this.$emit("close-widgets-option-window");
+      }
+      // Open insert modal
+      this.$emit("open-widgets-picker-window");
+    },
+    /**
      * Get child payload for drag and drop operations
      * Optimized to use cached computed properties for better performance
      */
@@ -28448,7 +28472,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.preventDefault();
-        return _vm.$emit('open-widgets-option-window');
+        return _vm.handleSettingsClick.apply(null, arguments);
       }
     }
   }, [_c('span', {
@@ -28461,7 +28485,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.preventDefault();
-        return _vm.$emit('open-widgets-picker-window');
+        return _vm.handleInsertClick.apply(null, arguments);
       }
     }
   }, [_c('span', {

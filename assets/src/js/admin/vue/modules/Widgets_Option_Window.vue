@@ -72,7 +72,7 @@
                 "
                 @click.prevent="edit(widget_key)"
               >
-                <span class="uil uil-pen"></span>
+                <span class="las la-cog"></span>
               </span>
               <span
                 class="cptm-form-builder-field-list-item-action"
@@ -304,7 +304,7 @@ export default {
       if (field_key === "field_icon" || field_key === "icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
-      } 
+      }
 
       // Emit updated activeWidget to parent
       this.$emit("update-active-widget", {

@@ -1427,12 +1427,6 @@ $light-gray: #f4f5f7;
     .cptm-card-preview-thumbnail {
       border-radius: 10px;
     }
-    .cptm-card-placeholder-top,
-    .cptm-listing-card-preview-top {
-      .cptm-widget-preview-card-listing_title {
-        margin-bottom: 8px;
-      }
-    }
   }
 
   &.new_listing_status {
@@ -2344,22 +2338,24 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
     .cptm-form-builder-field-list-item-drag {
       cursor: move;
     }
-    .cptm-form-builder-field-list-item-edit {
+    .cptm-form-builder-field-list-item-edit,
+    .cptm-form-builder-field-list-item-action {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
       color: #747c89;
       border-radius: 6px;
       cursor: pointer;
-      &.active {
-        color: #383f47;
-        background: #e5e7eb;
+      transition: all ease-in-out 300ms;
+      &.active,
+      &:hover {
+        color: #0e3bf2;
       }
     }
     .cptm-form-builder-field-list-item-action {
-      cursor: pointer;
+      &:hover {
+        color: #d94a4a;
+      }
     }
 
     .cptm-widget-options-container {
@@ -3262,6 +3258,7 @@ input[type="radio"].cptm-radio {
   }
 
   &.cptm-widget-title-card-wrap {
+    position: relative;
     width: 100%;
     display: flex;
     gap: 8px;
@@ -3292,6 +3289,28 @@ input[type="radio"].cptm-radio {
           line-height: 1.15;
           color: #141921;
         }
+      }
+    }
+    .cptm-widget-badge-trash {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      font-size: 14px;
+      color: #d94a4a;
+      background: #ffffff;
+      border: 1px solid #d94a4a;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all ease-in-out 300ms;
+      &:hover {
+        color: #ffffff;
+        background: #d94a4a;
       }
     }
   }
@@ -4204,7 +4223,9 @@ input[type="radio"].cptm-radio {
     .cptm-option-card {
       &:before {
         top: unset;
-        bottom: -7px;
+        bottom: -6px;
+        border-bottom: unset;
+        border-top: 7px solid #ffffff;
       }
     }
   }
@@ -4247,6 +4268,11 @@ input[type="radio"].cptm-radio {
     .cptm-listing-card-quick-actions {
       .cptm-placeholder-block {
         padding-bottom: 32px !important;
+      }
+    }
+    .cptm-widget-preview-card-listing_title {
+      .cptm-widget-badge-trash {
+        right: 0;
       }
     }
   }
@@ -6161,6 +6187,16 @@ input[type="radio"] {
     ul {
       margin: 0;
       padding: 0;
+      &:empty {
+        position: relative;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:before {
+          content: "No Items Found";
+        }
+      }
 
       li {
         margin-bottom: 0;

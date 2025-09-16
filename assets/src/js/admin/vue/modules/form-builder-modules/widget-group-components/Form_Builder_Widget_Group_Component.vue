@@ -141,7 +141,11 @@ export default {
     },
 
     canExpand() {
-      return this.groupData.fields.length > 0;
+      const expandStatus =
+        this.groupData.fields.length > 0 ||
+        this.groupData?.type === "general_group";
+
+      return expandStatus;
     },
 
     canShowWidgetDropPlaceholder() {

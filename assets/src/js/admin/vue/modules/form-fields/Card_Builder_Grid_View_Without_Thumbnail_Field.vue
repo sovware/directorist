@@ -55,11 +55,22 @@
                 :selectedWidgets="local_layout.body.title.selectedWidgets"
                 :maxWidget="local_layout.body.title.maxWidget"
                 :widgetOptionsWindow="widgetOptionsWindow"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('no_thumbnail_body_title')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('no_thumbnail_body_title')
+                "
                 @edit-widget="editWidget($event)"
+                @insert-widget="insertWidget($event, local_layout.body.title)"
                 @trash-widget="trashWidget($event, local_layout.body.title)"
                 @toggle-widget-status="
                   toggleWidgetStatus(local_layout.body.title)
                 "
+                @open-widgets-picker-window="
+                  toggleInsertWindow('no_thumbnail_body_title')
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
               />
             </div>
 

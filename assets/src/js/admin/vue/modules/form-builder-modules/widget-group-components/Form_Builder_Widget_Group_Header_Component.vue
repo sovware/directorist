@@ -34,7 +34,8 @@
               <span
                 v-html="groupData.icon"
                 v-if="groupData?.icon_type === 'svg'"
-              ></span>
+              >
+              </span>
               <span aria-hidden="true" :class="groupData?.icon" v-else></span>
             </span>
             <span class="cptm-form-builder-group-title-label">

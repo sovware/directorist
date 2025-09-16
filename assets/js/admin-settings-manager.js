@@ -19602,7 +19602,9 @@ __webpack_require__.r(__webpack_exports__);
       return draggable;
     },
     canExpand: function canExpand() {
-      return this.groupData.fields.length > 0;
+      var _this$groupData;
+      var expandStatus = this.groupData.fields.length > 0 || ((_this$groupData = this.groupData) === null || _this$groupData === void 0 ? void 0 : _this$groupData.type) === "general_group";
+      return expandStatus;
     },
     canShowWidgetDropPlaceholder: function canShowWidgetDropPlaceholder() {
       var show = true;
@@ -29626,7 +29628,7 @@ var render = function render() {
         }
       }
     }, [_c('span', {
-      staticClass: "uil uil-pen"
+      staticClass: "las la-cog"
     })]) : _vm._e(), _vm._v(" "), _c('span', {
       staticClass: "cptm-form-builder-field-list-item-action",
       on: {
@@ -30446,7 +30448,17 @@ var render = function render() {
         }
       }
     }, 'component', field, false)) : _vm._e()], 1);
-  }), 0) : _vm._e()]);
+  }), 0) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-trash-alt"
+  })]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32646,17 +32658,28 @@ var render = function render() {
       "acceptedWidgets": _vm.local_layout.body.title.acceptedWidgets,
       "selectedWidgets": _vm.local_layout.body.title.selectedWidgets,
       "maxWidget": _vm.local_layout.body.title.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_title'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_title')
     },
     on: {
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
+      },
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.title);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.title);
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.title);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('no_thumbnail_body_title');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
       }
     }
   })], 1), _vm._v(" "), _c('div', {

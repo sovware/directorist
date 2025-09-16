@@ -28,6 +28,14 @@
         />
       </div>
     </div>
+
+    <span
+      class="cptm-widget-badge-trash"
+      @click.stop="$emit('trash')"
+      v-if="!readOnly"
+    >
+      <span class="las la-trash-alt"></span>
+    </span>
   </div>
 </template>
 

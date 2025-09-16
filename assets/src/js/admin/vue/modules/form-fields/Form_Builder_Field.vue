@@ -654,6 +654,7 @@ export default {
     // sanitizeActiveWidgetGroups
     sanitizeActiveWidgetGroups(_active_widget_groups) {
       let active_widget_groups = _active_widget_groups;
+
       if (!Array.isArray(active_widget_groups)) {
         active_widget_groups = [];
       }

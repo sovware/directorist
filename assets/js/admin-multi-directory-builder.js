@@ -23484,7 +23484,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _methods;
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
@@ -23695,156 +23694,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       placeholdersMap: {},
       placeholders: [],
       allPlaceholderItems: [],
-      showModal: false
+      showModal: false,
+      errors: {
+        hasError: false,
+        lastError: null,
+        errorCount: 0
+      },
+      _dataChanged: false,
+      _cachedOutputData: null,
+      _widgetAvailabilityCache: null,
+      _debounceTimer: null
     };
   },
-  methods: (_methods = {
-    // ===========================================
-    // WIDGET DATA PROCESSING METHODS
-    // ===========================================
-    /**
-     * Get widget data for a placeholder
-     * @param {Object} placeholderData - Placeholder data
-     * @returns {Array} Widget data array
-     * @private
-     */
-    getWidgetData: function getWidgetData(placeholderData) {
-      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(placeholderData) !== "object") {
-        return null;
-      }
-      var data = [];
-      var acceptedWidgets = placeholderData.acceptedWidgets || [];
-      var selectedWidgets = placeholderData.selectedWidgets || [];
-      var selectedWidgetList = placeholderData.selectedWidgetList || [];
-
-      // Sort the selectedWidgetList & selectedWidgets based on acceptedWidgets order
-      selectedWidgetList.sort(function (a, b) {
-        return acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b);
-      });
-      selectedWidgets.sort(function (a, b) {
-        return acceptedWidgets.indexOf(a.widget_key) - acceptedWidgets.indexOf(b.widget_key);
-      });
-
-      // Filter out invalid widgets (without widget_key)
-      var validWidgets = selectedWidgets.map(function (widget, index) {
-        if (widget.widget_key) return widget;
-
-        // Fallback: Use `selectedWidgetList` if available
-        var widget_name = selectedWidgetList === null || selectedWidgetList === void 0 ? void 0 : selectedWidgetList[index];
-        return widget_name ? _objectSpread({
-          widget_key: widget_name
-        }, widget) : null;
-      }).filter(function (widget) {
-        return widget && widget.widget_key;
-      }); // Remove invalid items
-      var _iterator4 = _createForOfIteratorHelper(validWidgets),
-        _step4;
-      try {
-        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-          var widget = _step4.value;
-          var widget_name = widget.widget_key;
-          if (!this.active_widgets[widget_name] || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(this.active_widgets[widget_name]) !== "object") {
-            continue;
-          }
-          var widget_data = {};
-
-          // Extract widget data, excluding unnecessary keys
-          for (var key in this.active_widgets[widget_name]) {
-            widget_data[key] = this.active_widgets[widget_name][key];
-          }
-
-          // Process widget options if available
-          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(this.active_widgets[widget_name].options) === "object" && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(this.active_widgets[widget_name].options.fields) === "object") {
-            var widget_options = this.active_widgets[widget_name].options.fields;
-            for (var option in widget_options) {
-              var _widget_data$options;
-              if (option === "icon" && widget_data.icon) {
-                var _widget_options$optio, _widget_options$optio2;
-                // update widget data
-                widget_data.icon = (_widget_options$optio = widget_options[option]) === null || _widget_options$optio === void 0 ? void 0 : _widget_options$optio.value;
-                // update icon on available widgets
-                this.available_widgets[widget_name].icon = (_widget_options$optio2 = widget_options[option]) === null || _widget_options$optio2 === void 0 ? void 0 : _widget_options$optio2.value;
-              }
-              if (widget_data !== null && widget_data !== void 0 && (_widget_data$options = widget_data.options) !== null && _widget_data$options !== void 0 && _widget_data$options.fields) {
-                // update widget data fields
-                widget_data.options.fields[option] = widget_options[option];
-                // update fields on available widgets
-                this.available_widgets[widget_name].options.fields[option] = widget_options[option];
-              }
-            }
-          }
-          data.push(widget_data);
-        }
-      } catch (err) {
-        _iterator4.e(err);
-      } finally {
-        _iterator4.f();
-      }
-      return data;
-    },
-    /**
-     * Process placeholders data for output
-     * @param {Array} placeholders - Placeholders to process
-     * @returns {Array} Processed output data
-     * @private
-     */
-    processPlaceholdersForOutput: function processPlaceholdersForOutput(placeholders) {
-      var output = [];
-      var _iterator5 = _createForOfIteratorHelper(placeholders),
-        _step5;
-      try {
-        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-          var placeholder = _step5.value;
-          if ("placeholder_item" === placeholder.type) {
-            var data = this.getWidgetData(placeholder);
-            output.push({
-              type: placeholder.type,
-              placeholderKey: placeholder.placeholderKey,
-              label: placeholder.label,
-              selectedWidgets: data,
-              acceptedWidgets: placeholder.acceptedWidgets,
-              selectedWidgetList: placeholder.selectedWidgetList
-            });
-            continue;
-          }
-          if ("placeholder_group" === placeholder.type) {
-            var subGroupsData = [];
-            var _iterator6 = _createForOfIteratorHelper(placeholder.placeholders),
-              _step6;
-            try {
-              for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-                var subPlaceholder = _step6.value;
-                var _data2 = this.getWidgetData(subPlaceholder);
-                subGroupsData.push({
-                  type: placeholder.type ? placeholder.type : "placeholder_item",
-                  placeholderKey: subPlaceholder.placeholderKey,
-                  label: subPlaceholder.label,
-                  selectedWidgets: _data2,
-                  acceptedWidgets: subPlaceholder.acceptedWidgets,
-                  selectedWidgetList: subPlaceholder.selectedWidgetList
-                });
-                continue;
-              }
-            } catch (err) {
-              _iterator6.e(err);
-            } finally {
-              _iterator6.f();
-            }
-            output.push({
-              type: placeholder.type,
-              placeholderKey: placeholder.placeholderKey,
-              placeholders: subGroupsData
-            });
-            continue;
-          }
-        }
-      } catch (err) {
-        _iterator5.e(err);
-      } finally {
-        _iterator5.f();
-      }
-      return output;
-    },
+  methods: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])({
     // ===========================================
     // INITIALIZATION & LIFECYCLE METHODS
     // ===========================================
@@ -24069,665 +23931,837 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // DATA PROCESSING METHODS
     // ===========================================
     /**
-     * Process placeholders data with optimization
-     * @param {Array} placeholders - Placeholders to process
-     * @returns {Array} Processed data
+     * Get widget data with optimization
+     * @param {Object} placeholderData - Placeholder data
+     * @returns {Array} Widget data
      * @private
      */
-    processPlaceholdersData: function processPlaceholdersData(placeholders) {
-      if (!this.isValidObject(placeholders, "array")) {
+    getWidgetData: function getWidgetData(placeholderData) {
+      if (!this.isValidObject(placeholderData)) {
         return [];
       }
-      var output = [];
-      var _iterator7 = _createForOfIteratorHelper(placeholders),
-        _step7;
+      var acceptedWidgets = placeholderData.acceptedWidgets || [];
+      var selectedWidgets = placeholderData.selectedWidgets || [];
+      var selectedWidgetList = placeholderData.selectedWidgetList || [];
+
+      // Sort widgets based on accepted order
+      var sortedSelectedWidgetList = this.sortWidgetsByAcceptedOrder(selectedWidgetList, acceptedWidgets);
+      var sortedSelectedWidgets = this.sortWidgetsByAcceptedOrder(selectedWidgets, acceptedWidgets, "widget_key");
+
+      // Filter and process valid widgets
+      var validWidgets = this.filterValidWidgets(sortedSelectedWidgets, selectedWidgetList);
+      return this.processValidWidgets(validWidgets);
+    },
+    /**
+     * Sort widgets by accepted order
+     * @param {Array} widgets - Widgets to sort
+     * @param {Array} acceptedOrder - Accepted order array
+     * @param {String} keyField - Key field for comparison
+     * @returns {Array} Sorted widgets
+     * @private
+     */
+    sortWidgetsByAcceptedOrder: function sortWidgetsByAcceptedOrder(widgets, acceptedOrder) {
+      var keyField = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      if (!this.isValidObject(widgets, "array") || !this.isValidObject(acceptedOrder, "array")) {
+        return widgets;
+      }
+      return widgets.sort(function (a, b) {
+        var aKey = keyField ? a[keyField] : a;
+        var bKey = keyField ? b[keyField] : b;
+        return acceptedOrder.indexOf(aKey) - acceptedOrder.indexOf(bKey);
+      });
+    },
+    /**
+     * Filter valid widgets
+     * @param {Array} selectedWidgets - Selected widgets
+     * @param {Array} selectedWidgetList - Selected widget list
+     * @returns {Array} Valid widgets
+     * @private
+     */
+    filterValidWidgets: function filterValidWidgets(selectedWidgets, selectedWidgetList) {
+      return selectedWidgets.map(function (widget, index) {
+        if (widget && widget.widget_key) {
+          return widget;
+        }
+
+        // Fallback to selectedWidgetList
+        var widgetName = selectedWidgetList === null || selectedWidgetList === void 0 ? void 0 : selectedWidgetList[index];
+        return widgetName ? _objectSpread({
+          widget_key: widgetName
+        }, widget) : null;
+      }).filter(function (widget) {
+        return widget && widget.widget_key;
+      });
+    },
+    /**
+     * Process valid widgets data
+     * @param {Array} validWidgets - Valid widgets
+     * @returns {Array} Processed widget data
+     * @private
+     */
+    processValidWidgets: function processValidWidgets(validWidgets) {
+      var data = [];
+      var _iterator4 = _createForOfIteratorHelper(validWidgets),
+        _step4;
       try {
-        for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-          var placeholder = _step7.value;
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var widget = _step4.value;
           try {
-            if (placeholder.type === "placeholder_item") {
-              var data = this.getWidgetData(placeholder);
-              output.push({
-                type: placeholder.type,
-                placeholderKey: placeholder.placeholderKey,
-                label: placeholder.label,
-                selectedWidgets: data,
-                acceptedWidgets: placeholder.acceptedWidgets,
-                selectedWidgetList: placeholder.selectedWidgetList
-              });
-            } else if (placeholder.type === "placeholder_group") {
-              var subGroupsData = this.processPlaceholderGroup(placeholder);
-              output.push({
-                type: placeholder.type,
-                placeholderKey: placeholder.placeholderKey,
-                placeholders: subGroupsData
-              });
+            var widgetName = widget.widget_key;
+            if (!this.active_widgets[widgetName] || !this.isValidObject(this.active_widgets[widgetName])) {
+              continue;
+            }
+            var widgetData = this.extractWidgetData(widgetName);
+            if (widgetData) {
+              data.push(widgetData);
             }
           } catch (error) {
-            this.handleError("Error processing placeholder ".concat(placeholder.placeholderKey), error);
+            this.handleError("Error processing widget ".concat(widget.widget_key), error);
           }
         }
       } catch (err) {
-        _iterator7.e(err);
+        _iterator4.e(err);
       } finally {
-        _iterator7.f();
+        _iterator4.f();
       }
-      return output;
+      return data;
     },
     /**
-     * Process placeholder group data
-     * @param {Object} placeholder - Placeholder group
-     * @returns {Array} Processed sub-placeholders
+     * Extract widget data with options processing
+     * @param {String} widgetName - Widget name
+     * @returns {Object|null} Widget data
      * @private
      */
-    processPlaceholderGroup: function processPlaceholderGroup(placeholder) {
-      var subGroupsData = [];
-      if (placeholder.placeholders && this.isValidObject(placeholder.placeholders, "array")) {
-        var _iterator8 = _createForOfIteratorHelper(placeholder.placeholders),
-          _step8;
-        try {
-          for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
-            var subPlaceholder = _step8.value;
-            var data = this.getWidgetData(subPlaceholder);
-            subGroupsData.push({
-              type: placeholder.type || "placeholder_item",
-              placeholderKey: subPlaceholder.placeholderKey,
-              label: subPlaceholder.label,
-              selectedWidgets: data,
-              acceptedWidgets: subPlaceholder.acceptedWidgets,
-              selectedWidgetList: subPlaceholder.selectedWidgetList
-            });
-          }
-        } catch (err) {
-          _iterator8.e(err);
-        } finally {
-          _iterator8.f();
-        }
+    extractWidgetData: function extractWidgetData(widgetName) {
+      var activeWidget = this.active_widgets[widgetName];
+      if (!activeWidget) return null;
+      var widgetData = this.safeClone(activeWidget);
+
+      // Process widget options if available
+      if (this.isValidObject(activeWidget.options) && this.isValidObject(activeWidget.options.fields)) {
+        this.processWidgetOptions(widgetName, widgetData, activeWidget.options.fields);
       }
-      return subGroupsData;
-    }
-  }, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "getWidgetData", function getWidgetData(placeholderData) {
-    if (!this.isValidObject(placeholderData)) {
-      return [];
-    }
-    var acceptedWidgets = placeholderData.acceptedWidgets || [];
-    var selectedWidgets = placeholderData.selectedWidgets || [];
-    var selectedWidgetList = placeholderData.selectedWidgetList || [];
-
-    // Sort widgets based on accepted order
-    var sortedSelectedWidgetList = this.sortWidgetsByAcceptedOrder(selectedWidgetList, acceptedWidgets);
-    var sortedSelectedWidgets = this.sortWidgetsByAcceptedOrder(selectedWidgets, acceptedWidgets, "widget_key");
-
-    // Filter and process valid widgets
-    var validWidgets = this.filterValidWidgets(sortedSelectedWidgets, selectedWidgetList);
-    return this.processValidWidgets(validWidgets);
-  }), "sortWidgetsByAcceptedOrder", function sortWidgetsByAcceptedOrder(widgets, acceptedOrder) {
-    var keyField = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-    if (!this.isValidObject(widgets, "array") || !this.isValidObject(acceptedOrder, "array")) {
-      return widgets;
-    }
-    return widgets.sort(function (a, b) {
-      var aKey = keyField ? a[keyField] : a;
-      var bKey = keyField ? b[keyField] : b;
-      return acceptedOrder.indexOf(aKey) - acceptedOrder.indexOf(bKey);
-    });
-  }), "filterValidWidgets", function filterValidWidgets(selectedWidgets, selectedWidgetList) {
-    return selectedWidgets.map(function (widget, index) {
-      if (widget && widget.widget_key) {
-        return widget;
-      }
-
-      // Fallback to selectedWidgetList
-      var widgetName = selectedWidgetList === null || selectedWidgetList === void 0 ? void 0 : selectedWidgetList[index];
-      return widgetName ? _objectSpread({
-        widget_key: widgetName
-      }, widget) : null;
-    }).filter(function (widget) {
-      return widget && widget.widget_key;
-    });
-  }), "processValidWidgets", function processValidWidgets(validWidgets) {
-    var data = [];
-    var _iterator9 = _createForOfIteratorHelper(validWidgets),
-      _step9;
-    try {
-      for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
-        var widget = _step9.value;
+      return widgetData;
+    },
+    /**
+     * Process widget options
+     * @param {String} widgetName - Widget name
+     * @param {Object} widgetData - Widget data
+     * @param {Object} widgetOptions - Widget options
+     * @private
+     */
+    processWidgetOptions: function processWidgetOptions(widgetName, widgetData, widgetOptions) {
+      for (var option in widgetOptions) {
         try {
-          var widgetName = widget.widget_key;
-          if (!this.active_widgets[widgetName] || !this.isValidObject(this.active_widgets[widgetName])) {
-            continue;
+          var _widgetData$options;
+          if (option === "icon" && widgetData.icon) {
+            var _widgetOptions$option, _widgetOptions$option2;
+            widgetData.icon = ((_widgetOptions$option = widgetOptions[option]) === null || _widgetOptions$option === void 0 ? void 0 : _widgetOptions$option.value) || widgetData.icon;
+            this.available_widgets[widgetName].icon = ((_widgetOptions$option2 = widgetOptions[option]) === null || _widgetOptions$option2 === void 0 ? void 0 : _widgetOptions$option2.value) || widgetData.icon;
           }
-          var widgetData = this.extractWidgetData(widgetName);
-          if (widgetData) {
-            data.push(widgetData);
+          if (widgetData !== null && widgetData !== void 0 && (_widgetData$options = widgetData.options) !== null && _widgetData$options !== void 0 && _widgetData$options.fields) {
+            widgetData.options.fields[option] = widgetOptions[option];
+            this.available_widgets[widgetName].options.fields[option] = widgetOptions[option];
           }
         } catch (error) {
-          this.handleError("Error processing widget ".concat(widget.widget_key), error);
+          this.handleError("Error processing widget option ".concat(option), error);
         }
       }
-    } catch (err) {
-      _iterator9.e(err);
-    } finally {
-      _iterator9.f();
-    }
-    return data;
-  }), "extractWidgetData", function extractWidgetData(widgetName) {
-    var activeWidget = this.active_widgets[widgetName];
-    if (!activeWidget) return null;
-    var widgetData = this.safeClone(activeWidget);
-
-    // Process widget options if available
-    if (this.isValidObject(activeWidget.options) && this.isValidObject(activeWidget.options.fields)) {
-      this.processWidgetOptions(widgetName, widgetData, activeWidget.options.fields);
-    }
-    return widgetData;
-  }), "processWidgetOptions", function processWidgetOptions(widgetName, widgetData, widgetOptions) {
-    for (var option in widgetOptions) {
+    },
+    // ===========================================
+    // LEGACY METHODS (Maintained for compatibility)
+    // ===========================================
+    /**
+     * Legacy init method for backward compatibility
+     * @deprecated Use initializeComponent() instead
+     * @public
+     */
+    init: function init() {
+      this.initializeComponent();
+    },
+    // ===========================================
+    // DRAG AND DROP METHODS
+    // ===========================================
+    /**
+     * Get child payload for drag operations
+     * @param {Number} index - Item index
+     * @returns {Object|null} Payload data
+     * @public
+     */
+    getChildPayload: function getChildPayload(index) {
       try {
-        var _widgetData$options;
-        if (option === "icon" && widgetData.icon) {
-          var _widgetOptions$option, _widgetOptions$option2;
-          widgetData.icon = ((_widgetOptions$option = widgetOptions[option]) === null || _widgetOptions$option === void 0 ? void 0 : _widgetOptions$option.value) || widgetData.icon;
-          this.available_widgets[widgetName].icon = ((_widgetOptions$option2 = widgetOptions[option]) === null || _widgetOptions$option2 === void 0 ? void 0 : _widgetOptions$option2.value) || widgetData.icon;
-        }
-        if (widgetData !== null && widgetData !== void 0 && (_widgetData$options = widgetData.options) !== null && _widgetData$options !== void 0 && _widgetData$options.fields) {
-          widgetData.options.fields[option] = widgetOptions[option];
-          this.available_widgets[widgetName].options.fields[option] = widgetOptions[option];
-        }
+        var draggablePlaceholders = this.placeholders.filter(function (placeholder) {
+          return placeholder.type === "placeholder_item";
+        });
+        return draggablePlaceholders[index] || null;
       } catch (error) {
-        this.handleError("Error processing widget option ".concat(option), error);
+        this.handleError("Error getting child payload", error);
+        return null;
       }
-    }
-  }), "init", function init() {
-    this.initializeComponent();
-  }), "getChildPayload", function getChildPayload(index) {
-    try {
-      var draggablePlaceholders = this.placeholders.filter(function (placeholder) {
-        return placeholder.type === "placeholder_item";
-      });
-      return draggablePlaceholders[index] || null;
-    } catch (error) {
-      this.handleError("Error getting child payload", error);
-      return null;
-    }
-  }), "onDragStart", function onDragStart(dragResult) {
-    try {
-      var draggedItem = dragResult === null || dragResult === void 0 ? void 0 : dragResult.payload;
-      if (draggedItem && draggedItem.placeholderKey) {
-        this.dragState.currentDraggingIndex = draggedItem.placeholderKey;
-        this.dragState.isDragging = true;
-      }
-    } catch (error) {
-      this.handleError("Error in drag start", error);
-    }
-  }), "onDragEnd", function onDragEnd() {
-    try {
-      this.dragState.currentDraggingIndex = null;
-      this.dragState.isDragging = false;
-    } catch (error) {
-      this.handleError("Error in drag end", error);
-    }
-  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "onSettingsDragStart", function onSettingsDragStart(dragResult, placeholderIndex) {
-    try {
-      var draggedItem = dragResult === null || dragResult === void 0 ? void 0 : dragResult.payload;
-      if (draggedItem && typeof draggedItem.draggedItemIndex !== "undefined" && typeof draggedItem.placeholderIndex !== "undefined") {
-        var widgetKey = draggedItem.widgetKey;
-        this.dragState.currentSettingsDraggingWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
-      }
-    } catch (error) {
-      this.handleError("Error in settings drag start", error);
-    }
-  }), "onSettingsDragEnd", function onSettingsDragEnd() {
-    try {
-      this.dragState.currentSettingsDraggingWidgetKey = null;
+    },
+    /**
+     * Reorder widgets within the same placeholder
+     * @param {Number} placeholderIndex - Placeholder index
+     * @param {Number} sourceIndex - Source index
+     * @param {Number} destinationIndex - Destination index
+     * @private
+     */
+    reorderWidgetsWithinPlaceholder: function reorderWidgetsWithinPlaceholder(placeholderIndex, sourceIndex, destinationIndex) {
+      var placeholder = this.allPlaceholderItems[placeholderIndex];
+      if (!placeholder) return;
+      var widgets = placeholder.acceptedWidgets;
+      var selectedWidgets = placeholder.selectedWidgets;
+      var selectedWidgetList = placeholder.selectedWidgetList;
 
-      // Clean up dragging classes
+      // Move widget in acceptedWidgets
+      var _widgets$splice = widgets.splice(sourceIndex, 1),
+        _widgets$splice2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_widgets$splice, 1),
+        movedWidget = _widgets$splice2[0];
+      widgets.splice(destinationIndex, 0, movedWidget);
+
+      // Update selectedWidgetList if widget is selected
+      if (selectedWidgetList && selectedWidgetList.includes(movedWidget)) {
+        var selectedIndex = selectedWidgetList.indexOf(movedWidget);
+        selectedWidgetList.splice(selectedIndex, 1);
+        selectedWidgetList.splice(destinationIndex, 0, movedWidget);
+      }
+
+      // Reorder selectedWidgets
+      if (selectedWidgets) {
+        selectedWidgets.sort(function (a, b) {
+          return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
+        });
+      }
+
+      // Sync placeholders
+      this.placeholders = this.syncPlaceholdersWithAllPlaceholderItems(this.allPlaceholderItems, this.placeholders);
+    },
+    /**
+     * Move widget between different placeholders
+     * @param {Number} sourcePlaceholderIndex - Source placeholder index
+     * @param {Number} destinationPlaceholderIndex - Destination placeholder index
+     * @param {Number} sourceIndex - Source index
+     * @param {Number} destinationIndex - Destination index
+     * @private
+     */
+    moveWidgetBetweenPlaceholders: function moveWidgetBetweenPlaceholders(sourcePlaceholderIndex, destinationPlaceholderIndex, sourceIndex, destinationIndex) {
+      // Implementation for moving widgets between placeholders
+      // This is a complex operation that requires careful data management
+      console.warn("Moving widgets between placeholders is not yet implemented");
+    },
+    // ===========================================
+    // DATA SYNCHRONIZATION METHODS
+    // ===========================================
+    /**
+     * Sync allPlaceholderItems with current placeholders
+     * @private
+     */
+    syncAllPlaceholderItems: function syncAllPlaceholderItems() {
+      var _this3 = this;
+      try {
+        var newAllPlaceholderItems = [];
+        this.placeholders.forEach(function (placeholder) {
+          if (placeholder.type === "placeholder_item") {
+            var matchedItem = _this3.allPlaceholderItems.find(function (item) {
+              return item.placeholderKey === placeholder.placeholderKey;
+            });
+            if (matchedItem) {
+              newAllPlaceholderItems.push(matchedItem);
+            }
+          } else if (placeholder.type === "placeholder_group") {
+            placeholder.placeholders.forEach(function (subPlaceholder) {
+              var matchedItem = _this3.allPlaceholderItems.find(function (item) {
+                return item.placeholderKey === subPlaceholder.placeholderKey;
+              });
+              if (matchedItem) {
+                newAllPlaceholderItems.push(matchedItem);
+              }
+            });
+          }
+        });
+        this.allPlaceholderItems = newAllPlaceholderItems;
+      } catch (error) {
+        this.handleError("Error syncing allPlaceholderItems", error);
+      }
+    },
+    // Handle drag start event
+    onDragStart: function onDragStart(dragResult) {
+      // Get the dragged item from the payload
+      var draggedItem = dragResult.payload;
+      if (draggedItem && draggedItem.placeholderKey) {
+        this.currentDraggingIndex = draggedItem.placeholderKey;
+      }
+    },
+    // Handle drag end event
+    onDragEnd: function onDragEnd() {
+      this.currentDraggingIndex = null;
+    },
+    // Handle settings drag start event
+    onSettingsDragStart: function onSettingsDragStart(dragResult, placeholderIndex) {
+      // Get the dragged item from the payload
+      var draggedItem = dragResult.payload;
+      if (draggedItem && draggedItem.draggedItemIndex !== undefined && draggedItem.placeholderIndex !== undefined) {
+        // Ensure we get a string widget key, not an object
+        var widgetKey = draggedItem.widgetKey;
+        this.currentSettingsDraggingWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
+      }
+    },
+    // Handle settings drag end event
+    onSettingsDragEnd: function onSettingsDragEnd() {
+      this.currentSettingsDraggingWidgetKey = null;
+
+      // Remove dragging class from all dndrop-draggable-wrapper elements
       this.$nextTick(function () {
         var draggableWrappers = document.querySelectorAll(".dndrop-draggable-wrapper");
         draggableWrappers.forEach(function (wrapper) {
           wrapper.classList.remove("dragging");
         });
       });
-    } catch (error) {
-      this.handleError("Error in settings drag end", error);
-    }
-  }), "onDrop", function onDrop(dropResult) {
-    try {
+    },
+    // Handle the drop event
+    onDrop: function onDrop(dropResult) {
+      var _this4 = this;
       var draggablePlaceholders = this.placeholders.filter(function (placeholder) {
         return placeholder.type === "placeholder_item";
       });
+
+      // Update only the filtered placeholders
       var updatedPlaceholders = (0,_helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_6__.applyDrag)(draggablePlaceholders, dropResult);
 
-      // Update placeholders with new order
+      // Map the updated placeholders back to their original positions in the full array
       this.placeholders = this.placeholders.map(function (placeholder) {
         if (placeholder.type === "placeholder_item") {
-          return updatedPlaceholders.shift();
+          return updatedPlaceholders.shift(); // Replace with the updated item
         }
-        return placeholder;
+        return placeholder; // Keep other placeholders unchanged
       });
 
-      // Sync allPlaceholderItems
-      this.syncAllPlaceholderItems();
-      this._dataChanged = true;
-    } catch (error) {
-      this.handleError("Error in drop operation", error);
-    }
-  }), "getSettingsChildPayload", function getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
-    try {
-      var _this$allPlaceholderI;
-      var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
-      var extractedWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
-      return {
-        draggedItemIndex: draggedItemIndex,
-        placeholderIndex: placeholderIndex,
-        widgetKey: extractedWidgetKey
-      };
-    } catch (error) {
-      this.handleError("Error getting settings child payload", error);
-      return {
-        draggedItemIndex: draggedItemIndex,
-        placeholderIndex: placeholderIndex,
-        widgetKey: null
-      };
-    }
-  }), "onElementsDrop", function onElementsDrop(dropResult, placeholderIndex) {
-    try {
-      var removedIndex = dropResult.removedIndex,
-        addedIndex = dropResult.addedIndex,
-        payload = dropResult.payload;
-      var draggedItemIndex = payload.draggedItemIndex,
-        sourcePlaceholderIndex = payload.placeholderIndex;
-      if (removedIndex === null && addedIndex === null) {
-        return;
-      }
-      var destinationItemIndex = addedIndex;
-      var destinationPlaceholderIndex = placeholderIndex;
-      if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
-        this.reorderWidgetsWithinPlaceholder(sourcePlaceholderIndex, draggedItemIndex, destinationItemIndex);
-      } else if (destinationPlaceholderIndex !== null) {
-        this.moveWidgetBetweenPlaceholders(sourcePlaceholderIndex, destinationPlaceholderIndex, draggedItemIndex, destinationItemIndex);
-      }
-      this._dataChanged = true;
-    } catch (error) {
-      this.handleError("Error in elements drop", error);
-    }
-  }), "reorderWidgetsWithinPlaceholder", function reorderWidgetsWithinPlaceholder(placeholderIndex, sourceIndex, destinationIndex) {
-    var placeholder = this.allPlaceholderItems[placeholderIndex];
-    if (!placeholder) return;
-    var widgets = placeholder.acceptedWidgets;
-    var selectedWidgets = placeholder.selectedWidgets;
-    var selectedWidgetList = placeholder.selectedWidgetList;
-
-    // Move widget in acceptedWidgets
-    var _widgets$splice = widgets.splice(sourceIndex, 1),
-      _widgets$splice2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_widgets$splice, 1),
-      movedWidget = _widgets$splice2[0];
-    widgets.splice(destinationIndex, 0, movedWidget);
-
-    // Update selectedWidgetList if widget is selected
-    if (selectedWidgetList && selectedWidgetList.includes(movedWidget)) {
-      var selectedIndex = selectedWidgetList.indexOf(movedWidget);
-      selectedWidgetList.splice(selectedIndex, 1);
-      selectedWidgetList.splice(destinationIndex, 0, movedWidget);
-    }
-
-    // Reorder selectedWidgets
-    if (selectedWidgets) {
-      selectedWidgets.sort(function (a, b) {
-        return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
-      });
-    }
-
-    // Sync placeholders
-    this.placeholders = this.syncPlaceholdersWithAllPlaceholderItems(this.allPlaceholderItems, this.placeholders);
-  }), "moveWidgetBetweenPlaceholders", function moveWidgetBetweenPlaceholders(sourcePlaceholderIndex, destinationPlaceholderIndex, sourceIndex, destinationIndex) {
-    // Implementation for moving widgets between placeholders
-    // This is a complex operation that requires careful data management
-    console.warn("Moving widgets between placeholders is not yet implemented");
-  }), "syncAllPlaceholderItems", function syncAllPlaceholderItems() {
-    var _this3 = this;
-    try {
+      // Sync allPlaceholderItems with the updated placeholders
       var newAllPlaceholderItems = [];
+
+      // Iterate over placeholders to update the newAllPlaceholderItems array
       this.placeholders.forEach(function (placeholder) {
         if (placeholder.type === "placeholder_item") {
-          var matchedItem = _this3.allPlaceholderItems.find(function (item) {
+          // Find the matching item from allPlaceholderItems
+          var matchedItem = _this4.allPlaceholderItems.find(function (item) {
             return item.placeholderKey === placeholder.placeholderKey;
-          });
-          if (matchedItem) {
-            newAllPlaceholderItems.push(matchedItem);
-          }
-        } else if (placeholder.type === "placeholder_group") {
-          placeholder.placeholders.forEach(function (subPlaceholder) {
-            var matchedItem = _this3.allPlaceholderItems.find(function (item) {
-              return item.placeholderKey === subPlaceholder.placeholderKey;
-            });
-            if (matchedItem) {
-              newAllPlaceholderItems.push(matchedItem);
-            }
-          });
-        }
-      });
-      this.allPlaceholderItems = newAllPlaceholderItems;
-    } catch (error) {
-      this.handleError("Error syncing allPlaceholderItems", error);
-    }
-  }), "syncPlaceholdersWithAllPlaceholderItems", function syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
-    var _this4 = this;
-    try {
-      var updatePlaceholderItem = function updatePlaceholderItem(placeholder, allPlaceholderItem) {
-        if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
-          // Filter acceptedWidgets to only include available widgets
-          var filteredAcceptedWidgets = (allPlaceholderItem.acceptedWidgets || []).filter(function (widgetKey) {
-            return _this4.isWidgetAvailable(widgetKey);
-          });
-          placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredAcceptedWidgets);
-
-          // Filter selectedWidgets to only include available widgets
-          var selectedWidgets = allPlaceholderItem.selectedWidgets || [];
-          var selectedWidgetList = allPlaceholderItem.selectedWidgetList || [];
-          var filteredSelectedWidgets = selectedWidgets.filter(function (widget) {
-            return widget && widget.widget_key && _this4.isWidgetAvailable(widget.widget_key);
-          });
-          var filteredSelectedWidgetList = selectedWidgetList.filter(function (widgetKey) {
-            return _this4.isWidgetAvailable(widgetKey);
-          });
-          placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgets);
-          placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgetList);
-        }
-      };
-      var _updatePlaceholders = function updatePlaceholders(placeholders) {
-        placeholders && placeholders.forEach(function (placeholder) {
-          if (placeholder.type === "placeholder_group") {
-            _updatePlaceholders(placeholder.placeholders);
-          } else if (placeholder.type === "placeholder_item") {
-            var matchingItem = allPlaceholderItems.find(function (item) {
-              return item.placeholderKey === placeholder.placeholderKey;
-            });
-            if (matchingItem) {
-              updatePlaceholderItem(placeholder, matchingItem);
-            }
-          }
-        });
-      };
-      _updatePlaceholders(placeholders);
-      return placeholders;
-    } catch (error) {
-      this.handleError("Error syncing placeholders", error);
-      return placeholders;
-    }
-  }), "onDragStart", function onDragStart(dragResult) {
-    // Get the dragged item from the payload
-    var draggedItem = dragResult.payload;
-    if (draggedItem && draggedItem.placeholderKey) {
-      this.currentDraggingIndex = draggedItem.placeholderKey;
-    }
-  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "onDragEnd", function onDragEnd() {
-    this.currentDraggingIndex = null;
-  }), "onSettingsDragStart", function onSettingsDragStart(dragResult, placeholderIndex) {
-    // Get the dragged item from the payload
-    var draggedItem = dragResult.payload;
-    if (draggedItem && draggedItem.draggedItemIndex !== undefined && draggedItem.placeholderIndex !== undefined) {
-      // Ensure we get a string widget key, not an object
-      var widgetKey = draggedItem.widgetKey;
-      this.currentSettingsDraggingWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
-    }
-  }), "onSettingsDragEnd", function onSettingsDragEnd() {
-    this.currentSettingsDraggingWidgetKey = null;
-
-    // Remove dragging class from all dndrop-draggable-wrapper elements
-    this.$nextTick(function () {
-      var draggableWrappers = document.querySelectorAll(".dndrop-draggable-wrapper");
-      draggableWrappers.forEach(function (wrapper) {
-        wrapper.classList.remove("dragging");
-      });
-    });
-  }), "onDrop", function onDrop(dropResult) {
-    var _this5 = this;
-    var draggablePlaceholders = this.placeholders.filter(function (placeholder) {
-      return placeholder.type === "placeholder_item";
-    });
-
-    // Update only the filtered placeholders
-    var updatedPlaceholders = (0,_helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_6__.applyDrag)(draggablePlaceholders, dropResult);
-
-    // Map the updated placeholders back to their original positions in the full array
-    this.placeholders = this.placeholders.map(function (placeholder) {
-      if (placeholder.type === "placeholder_item") {
-        return updatedPlaceholders.shift(); // Replace with the updated item
-      }
-      return placeholder; // Keep other placeholders unchanged
-    });
-
-    // Sync allPlaceholderItems with the updated placeholders
-    var newAllPlaceholderItems = [];
-
-    // Iterate over placeholders to update the newAllPlaceholderItems array
-    this.placeholders.forEach(function (placeholder) {
-      if (placeholder.type === "placeholder_item") {
-        // Find the matching item from allPlaceholderItems
-        var matchedItem = _this5.allPlaceholderItems.find(function (item) {
-          return item.placeholderKey === placeholder.placeholderKey;
-        });
-
-        // If a matched item is found, push it to newAllPlaceholderItems
-        if (matchedItem) {
-          newAllPlaceholderItems.push(matchedItem); // Push only the matchedItem
-        }
-      } else if (placeholder.type === "placeholder_group") {
-        // Iterate over subPlaceholders for a group
-        placeholder.placeholders.forEach(function (subPlaceholder) {
-          var matchedItem = _this5.allPlaceholderItems.find(function (item) {
-            return item.placeholderKey === subPlaceholder.placeholderKey;
           });
 
           // If a matched item is found, push it to newAllPlaceholderItems
           if (matchedItem) {
             newAllPlaceholderItems.push(matchedItem); // Push only the matchedItem
           }
-        });
-      }
-    });
+        } else if (placeholder.type === "placeholder_group") {
+          // Iterate over subPlaceholders for a group
+          placeholder.placeholders.forEach(function (subPlaceholder) {
+            var matchedItem = _this4.allPlaceholderItems.find(function (item) {
+              return item.placeholderKey === subPlaceholder.placeholderKey;
+            });
 
-    // Update allPlaceholderItems with the new array
-    this.allPlaceholderItems = newAllPlaceholderItems;
-  }), "getSettingsChildPayload", function getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
-    var _this$allPlaceholderI2;
-    var widgetKey = (_this$allPlaceholderI2 = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI2 === void 0 ? void 0 : _this$allPlaceholderI2.acceptedWidgets[draggedItemIndex];
-
-    // Extract the actual widget key string from the object
-    var extractedWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
-
-    // Return the payload containing both pieces of data
-    return {
-      draggedItemIndex: draggedItemIndex,
-      placeholderIndex: placeholderIndex,
-      // Extract the actual widget key string from the object
-      widgetKey: extractedWidgetKey
-    };
-  }), "onElementsDrop", function onElementsDrop(dropResult, placeholder_index) {
-    var removedIndex = dropResult.removedIndex,
-      addedIndex = dropResult.addedIndex,
-      payload = dropResult.payload;
-    var draggedItemIndex = payload.draggedItemIndex,
-      placeholderIndex = payload.placeholderIndex;
-    if (removedIndex !== null || addedIndex !== null) {
-      var _this$allPlaceholderI3;
-      var destinationItemIndex;
-      var destinationPlaceholderIndex;
-      var sourceItemIndex = draggedItemIndex;
-      var sourcePlaceholderIndex = placeholderIndex;
-      if (addedIndex !== null) {
-        destinationItemIndex = addedIndex;
-        destinationPlaceholderIndex = placeholder_index;
-      } else {
-        destinationItemIndex = null;
-        destinationPlaceholderIndex = null;
-      }
-
-      // Get the widget key from the source placeholder
-      var widgetKey = (_this$allPlaceholderI3 = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI3 === void 0 ? void 0 : _this$allPlaceholderI3.acceptedWidgets[draggedItemIndex];
-      if (widgetKey !== undefined) {
-        if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
-          // Moving within the same placeholder
-          var widgets = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets;
-          var selectedWidgets = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgets;
-          var selectedWidgetList = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList;
-
-          // Remove the widget from the source position
-          var _widgets$splice3 = widgets.splice(sourceItemIndex, 1),
-            _widgets$splice4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_widgets$splice3, 1),
-            movedWidget = _widgets$splice4[0];
-
-          // Insert the widget at the destination position
-          widgets.splice(destinationItemIndex, 0, movedWidget);
-
-          // Update selectedWidgetList position based on acceptedWidgets
-          var selectedWidgetIndex = selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
-          if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
-            // Remove the widget from the selected position
-            selectedWidgetList.splice(selectedWidgetIndex, 1);
-
-            // Insert the widget at the new position
-            var newSelectedIndex = widgets.indexOf(movedWidget);
-            selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
-          }
-
-          // Reorder `selectedWidgets` based on `selectedWidgetList`
-          selectedWidgets && selectedWidgets.sort(function (a, b) {
-            return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
+            // If a matched item is found, push it to newAllPlaceholderItems
+            if (matchedItem) {
+              newAllPlaceholderItems.push(matchedItem); // Push only the matchedItem
+            }
           });
-
-          // Update Placeholders
-          var updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(this.allPlaceholderItems, this.placeholders || []);
-          this.placeholders = updatedPlaceholders;
-        } else if (destinationPlaceholderIndex !== null) {
-          // Moving between different placeholders
-          // this.allPlaceholderItems[destinationPlaceholderIndex].selectedWidgetList.splice(destinationItemIndex, 0, widgetKey);
-          // this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList.splice(sourceItemIndex, 1);
         }
-      }
-    } else {
-      return;
-    }
-  }), "importWidgets", function importWidgets() {
-    try {
-      if (!this.isValidObject(this.widgets)) {
+      });
+
+      // Update allPlaceholderItems with the new array
+      this.allPlaceholderItems = newAllPlaceholderItems;
+    },
+    // Get the payload for the settings child
+    getSettingsChildPayload: function getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
+      var _this$allPlaceholderI;
+      var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
+
+      // Extract the actual widget key string from the object
+      var extractedWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
+
+      // Return the payload containing both pieces of data
+      return {
+        draggedItemIndex: draggedItemIndex,
+        placeholderIndex: placeholderIndex,
+        // Extract the actual widget key string from the object
+        widgetKey: extractedWidgetKey
+      };
+    },
+    // Handle the drop event on elements
+    onElementsDrop: function onElementsDrop(dropResult, placeholder_index) {
+      var removedIndex = dropResult.removedIndex,
+        addedIndex = dropResult.addedIndex,
+        payload = dropResult.payload;
+      var draggedItemIndex = payload.draggedItemIndex,
+        placeholderIndex = payload.placeholderIndex;
+      if (removedIndex !== null || addedIndex !== null) {
+        var _this$allPlaceholderI2;
+        var destinationItemIndex;
+        var destinationPlaceholderIndex;
+        var sourceItemIndex = draggedItemIndex;
+        var sourcePlaceholderIndex = placeholderIndex;
+        if (addedIndex !== null) {
+          destinationItemIndex = addedIndex;
+          destinationPlaceholderIndex = placeholder_index;
+        } else {
+          destinationItemIndex = null;
+          destinationPlaceholderIndex = null;
+        }
+
+        // Get the widget key from the source placeholder
+        var widgetKey = (_this$allPlaceholderI2 = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI2 === void 0 ? void 0 : _this$allPlaceholderI2.acceptedWidgets[draggedItemIndex];
+        if (widgetKey !== undefined) {
+          if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
+            // Moving within the same placeholder
+            var widgets = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets;
+            var selectedWidgets = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgets;
+            var selectedWidgetList = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList;
+
+            // Remove the widget from the source position
+            var _widgets$splice3 = widgets.splice(sourceItemIndex, 1),
+              _widgets$splice4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_widgets$splice3, 1),
+              movedWidget = _widgets$splice4[0];
+
+            // Insert the widget at the destination position
+            widgets.splice(destinationItemIndex, 0, movedWidget);
+
+            // Update selectedWidgetList position based on acceptedWidgets
+            var selectedWidgetIndex = selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
+            if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
+              // Remove the widget from the selected position
+              selectedWidgetList.splice(selectedWidgetIndex, 1);
+
+              // Insert the widget at the new position
+              var newSelectedIndex = widgets.indexOf(movedWidget);
+              selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
+            }
+
+            // Reorder `selectedWidgets` based on `selectedWidgetList`
+            selectedWidgets && selectedWidgets.sort(function (a, b) {
+              return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
+            });
+
+            // Update Placeholders
+            var updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(this.allPlaceholderItems, this.placeholders || []);
+            this.placeholders = updatedPlaceholders;
+          } else if (destinationPlaceholderIndex !== null) {
+            // Moving between different placeholders
+            // this.allPlaceholderItems[destinationPlaceholderIndex].selectedWidgetList.splice(destinationItemIndex, 0, widgetKey);
+            // this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList.splice(sourceItemIndex, 1);
+          }
+        }
+      } else {
         return;
       }
-      this.available_widgets = Object.freeze(this.safeClone(this.widgets));
-      this.clearWidgetAvailabilityCache();
-      this._dataChanged = true;
-    } catch (error) {
-      this.handleError("Error importing widgets", error);
-    }
-  }), "importCardOptions", function importCardOptions() {
-    try {
-      if (!this.isValidObject(this.cardOptions)) {
+    },
+    // ===========================================
+    // LEGACY COMPATIBILITY METHODS
+    // ===========================================
+    /**
+     * Legacy method for backward compatibility
+     * @deprecated Use isValidObject instead
+     * @param {*} obj - Object to check
+     * @returns {Boolean} Is truthy object
+     */
+    isTruthyObject: function isTruthyObject(obj) {
+      return this.isValidObject(obj);
+    },
+    /**
+     * Check if string is valid JSON
+     * @param {String} string - String to check
+     * @returns {Boolean} Is valid JSON
+     * @public
+     */
+    isJSON: function isJSON(string) {
+      try {
+        JSON.parse(string);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    },
+    // ===========================================
+    // UI INTERACTION METHODS
+    // ===========================================
+    /**
+     * Open modal
+     * @public
+     */
+    openModal: function openModal() {
+      try {
+        this.showModal = true;
+      } catch (error) {
+        this.handleError("Error opening modal", error);
+      }
+    },
+    /**
+     * Close modal
+     * @public
+     */
+    closeModal: function closeModal() {
+      try {
+        this.showModal = false;
+      } catch (error) {
+        this.handleError("Error closing modal", error);
+      }
+    },
+    // ===========================================
+    // LEGACY METHODS (Maintained for compatibility)
+    // ===========================================
+    /**
+     * Legacy widget options window active status
+     * @deprecated Use windows.widgetOptions.isActive instead
+     * @param {String} widgetKey - Widget key
+     * @returns {Boolean} Is active
+     */
+    widgetOptionsWindowActiveStatus: function widgetOptionsWindowActiveStatus(widgetKey) {
+      return this.widgetOptionsWindow.widget === widgetKey && typeof this.active_widgets[widgetKey] !== "undefined";
+    },
+    /**
+     * Legacy widget card options window active status
+     * @deprecated Use windows.widgetCardOptions.isActive instead
+     * @returns {Boolean} Is active
+     */
+    widgetCardOptionsWindowActiveStatus: function widgetCardOptionsWindowActiveStatus() {
+      return this.widgetCardOptionsWindow.widget !== "";
+    },
+    /**
+     * Process available widgets with show_if conditions
+     * @returns {Object} Processed available widgets
+     * @private
+     */
+    processAvailableWidgets: function processAvailableWidgets() {
+      try {
+        var availableWidgets = this.safeClone(this.available_widgets);
+        for (var widget in availableWidgets) {
+          availableWidgets[widget].widget_name = widget;
+          availableWidgets[widget].widget_key = widget;
+
+          // Check show_if condition
+          if (this.isValidObject(availableWidgets[widget].show_if)) {
+            var showIfResult = this.checkShowIfCondition({
+              condition: availableWidgets[widget].show_if
+            });
+            var mainWidget = availableWidgets[widget];
+            delete availableWidgets[widget];
+            if (showIfResult && showIfResult.status) {
+              var widgetKeys = [];
+              var _iterator5 = _createForOfIteratorHelper(showIfResult.matched_data),
+                _step5;
+              try {
+                for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+                  var matchedField = _step5.value;
+                  var widgetCopy = this.safeClone(mainWidget);
+                  var currentKey = widgetKeys.includes(widget) ? "".concat(widget, "_").concat(widgetKeys.length + 1) : widget;
+                  widgetCopy.widget_key = currentKey;
+                  if (matchedField.widget_key) {
+                    widgetCopy.widget_key = matchedField.widget_key;
+                  }
+                  if (typeof matchedField.label === "string" && matchedField.label.length) {
+                    widgetCopy.label = matchedField.label;
+                  }
+                  availableWidgets[currentKey] = widgetCopy;
+                  widgetKeys.push(currentKey);
+                }
+              } catch (err) {
+                _iterator5.e(err);
+              } finally {
+                _iterator5.f();
+              }
+            }
+          }
+        }
+        return availableWidgets;
+      } catch (error) {
+        this.handleError("Error processing available widgets", error);
+        return this.available_widgets;
+      }
+    },
+    // ===========================================
+    // DATA IMPORT METHODS (Legacy)
+    // ===========================================
+    /**
+     * Import Old Data
+     * @public
+     */
+    importOldData: function importOldData() {
+      var _this5 = this;
+      var value = JSON.parse(JSON.stringify(this.value));
+      if (!Array.isArray(value)) {
+        return;
+      }
+      var newPlaceholders = [];
+      var newAllPlaceholders = [];
+
+      // Import Layout
+      // -------------------------
+      var addActiveWidget = function addActiveWidget(widget) {
+        // Ensure that the widget exists in the available widgets
+        if (!_this5.theAvailableWidgets[widget.widget_name]) {
+          console.error("Widget ".concat(widget.widget_name, " not found in available widgets."));
+          return; // Exit if widget is not available
+        }
+        var widgets_template = _objectSpread({}, _this5.theAvailableWidgets[widget.widget_name]);
+        var has_widget_options = false;
+        if (widgets_template.options && widgets_template.options.fields) {
+          has_widget_options = true;
+        }
+
+        // Iterate over the properties of widgets_template and copy values from widget
+        for (var root_option in widgets_template) {
+          if ("options" === root_option) {
+            continue;
+          }
+
+          // Ensure that the value exists in the widget and is not undefined
+          if (typeof widget[root_option] === "undefined") {
+            continue;
+          }
+          widgets_template[root_option] = widget[root_option];
+        }
+
+        // Handle widget options fields
+        if (has_widget_options) {
+          for (var option_key in widgets_template.options.fields) {
+            var _widget$options;
+            if (typeof ((_widget$options = widget.options) === null || _widget$options === void 0 ? void 0 : _widget$options.fields[option_key]) === "undefined") {
+              continue;
+            }
+            widgets_template.options.fields[option_key] = widget.options.fields[option_key];
+
+            // Check if the option key matches a root-level widget property
+            // If it matches, update the root-level property with the field value
+            if (widgets_template.hasOwnProperty(option_key)) {
+              var fieldValue = widget.options.fields[option_key];
+              // Only update if the field has a value property (for form fields)
+              if (fieldValue && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(fieldValue) === "object" && fieldValue.hasOwnProperty("value")) {
+                widgets_template[option_key] = fieldValue.value;
+              } else if (fieldValue !== undefined) {
+                widgets_template[option_key] = fieldValue;
+              }
+            }
+          }
+        }
+
+        // Set the widget data in the active_widgets object
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this5.active_widgets, widget.widget_name, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this5.available_widgets, widget.widget_name, widgets_template);
+      };
+      var importWidgets = function importWidgets(placeholder, destination) {
+        if (!_this5.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+          return;
+        }
+        var newPlaceholder = JSON.parse(JSON.stringify(_this5.placeholdersMap[placeholder.placeholderKey]));
+        if (placeholder.acceptedWidgets) {
+          newPlaceholder.acceptedWidgets = placeholder.acceptedWidgets;
+        }
+        if (placeholder.selectedWidgets) {
+          newPlaceholder.selectedWidgets = placeholder.selectedWidgets;
+          newPlaceholder.selectedWidgetList = placeholder.selectedWidgets.map(function (widget) {
+            return widget.widget_name;
+          });
+        }
+        newPlaceholder.maxWidget = typeof newPlaceholder.maxWidget !== "undefined" ? parseInt(newPlaceholder.maxWidget) : 0;
+        newAllPlaceholders.push(newPlaceholder);
+        var targetPlaceholderIndex = destination.length;
+        destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
+
+        // Add active widgets based on selectedWidgets
+        placeholder.selectedWidgets.forEach(function (widget) {
+          if (typeof widget !== "undefined" && typeof _this5.available_widgets[widget.widget_name] !== "undefined") {
+            addActiveWidget(widget);
+          }
+        });
+      };
+      value.forEach(function (placeholder, index) {
+        if (!_this5.isTruthyObject(placeholder)) {
+          return;
+        }
+        if ("placeholder_item" === placeholder.type) {
+          // if (!Array.isArray(placeholder.selectedWidgets)) {
+          //   return;
+          // }
+
+          importWidgets(placeholder, newPlaceholders);
+          return;
+        }
+        if ("placeholder_group" === placeholder.type) {
+          if (!_this5.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+            return;
+          }
+          var newPlaceholder = JSON.parse(JSON.stringify(_this5.placeholdersMap[placeholder.placeholderKey]));
+          newPlaceholder.placeholders = [];
+          var targetPlaceholderIndex = _this5.placeholders.length;
+          newPlaceholders.splice(targetPlaceholderIndex, 0, newPlaceholder);
+          placeholder.placeholders.forEach(function (subPlaceholder) {
+            // if (!Array.isArray(subPlaceholder.selectedWidgets)) {
+            //   return;
+            // }
+
+            importWidgets(subPlaceholder, newPlaceholders[index].placeholders);
+          });
+        }
+      });
+      this.placeholders = newPlaceholders;
+      this.allPlaceholderItems = newAllPlaceholders;
+    },
+    // Import Widgets
+    importWidgets: function importWidgets() {
+      if (!this.isTruthyObject(this.widgets)) {
+        return;
+      }
+      this.available_widgets = this.widgets;
+    },
+    // Import Card Options
+    importCardOptions: function importCardOptions() {
+      if (!this.isTruthyObject(this.cardOptions)) {
         return;
       }
       for (var section in this.card_options) {
-        if (this.isValidObject(this.cardOptions[section])) {
-          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(this.card_options, section, this.safeClone(this.cardOptions[section]));
+        if (!this.isTruthyObject(this.cardOptions[section])) {
+          return;
         }
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(this.card_options, section, JSON.parse(JSON.stringify(this.cardOptions[section])));
       }
-    } catch (error) {
-      this.handleError("Error importing card options", error);
-    }
-  }), "importPlaceholders", function importPlaceholders() {
-    try {
+    },
+    // Import Placeholders
+    importPlaceholders: function importPlaceholders() {
+      var _this6 = this;
       this.allPlaceholderItems = [];
-      if (!this.isValidObject(this.layout, "array") || this.layout.length === 0) {
+      if (!Array.isArray(this.layout)) {
         return;
       }
+      if (!this.layout.length) {
+        return;
+      }
+      var sanitizePlaceholderData = function sanitizePlaceholderData(placeholder) {
+        if (!_this6.isTruthyObject(placeholder)) {
+          placeholder = {};
+        }
+        if (typeof placeholder.label === "undefined") {
+          placeholder.label = "";
+        }
+        return placeholder;
+      };
       var sanitizedPlaceholders = [];
-      var _iterator0 = _createForOfIteratorHelper(this.layout),
-        _step0;
+      var _iterator6 = _createForOfIteratorHelper(this.layout),
+        _step6;
       try {
-        for (_iterator0.s(); !(_step0 = _iterator0.n()).done;) {
-          var placeholder = _step0.value;
-          if (!this.isValidObject(placeholder)) {
-            continue;
-          }
-          var processedPlaceholder = this.processPlaceholder(placeholder);
-          if (processedPlaceholder) {
-            sanitizedPlaceholders.push(processedPlaceholder);
-          }
+        var _loop = function _loop() {
+            var placeholder = _step6.value;
+            if (!_this6.isTruthyObject(placeholder)) {
+              return 0; // continue
+            }
+            var placeholderItem = placeholder;
+            if (typeof placeholderItem.type === "undefined") {
+              placeholderItem.type = "placeholder_item";
+            }
+            if (typeof placeholderItem.placeholderKey === "undefined") {
+              return 0; // continue
+            }
+            if (_this6.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)) {
+              return 0; // continue
+            }
+            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this6.placeholdersMap, placeholderItem.placeholderKey, placeholderItem);
+            if (placeholderItem.type === "placeholder_item") {
+              var placeholderItemData = sanitizePlaceholderData(placeholderItem);
+              if (placeholderItemData) {
+                sanitizedPlaceholders.push(placeholderItemData);
+                _this6.allPlaceholderItems.push(placeholderItemData);
+              }
+              return 0; // continue
+            }
+            if (placeholderItem.type === "placeholder_group") {
+              if (typeof placeholderItem.placeholders === "undefined") {
+                return 0; // continue
+              }
+              if (!Array.isArray(placeholderItem.placeholders)) {
+                return 0; // continue
+              }
+              if (!placeholderItem.placeholders.length) {
+                return 0; // continue
+              }
+              placeholderItem.placeholders.forEach(function (placeholderSubItem, subPlaceholderIndex) {
+                if (_this6.placeholdersMap.hasOwnProperty(placeholderSubItem.placeholderKey)) {
+                  placeholderItem.placeholders.splice(subPlaceholderIndex, 1);
+                  return;
+                }
+                vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this6.placeholdersMap, placeholderSubItem.placeholderKey, placeholderSubItem);
+                var placeholderItemData = sanitizePlaceholderData(placeholderSubItem);
+                if (placeholderItemData) {
+                  placeholderItem.placeholders.splice(subPlaceholderIndex, 1, placeholderItemData);
+                  _this6.allPlaceholderItems.push(placeholderItemData);
+                }
+              });
+              if (placeholderItem.placeholders.length) {
+                sanitizedPlaceholders.push(placeholderItem);
+              }
+            }
+          },
+          _ret;
+        for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+          _ret = _loop();
+          if (_ret === 0) continue;
         }
       } catch (err) {
-        _iterator0.e(err);
+        _iterator6.e(err);
       } finally {
-        _iterator0.f();
+        _iterator6.f();
       }
       this.placeholders = sanitizedPlaceholders;
-      this._dataChanged = true;
-    } catch (error) {
-      this.handleError("Error importing placeholders", error);
-    }
-  }), "isTruthyObject", function isTruthyObject(obj) {
-    return this.isValidObject(obj);
-  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "isJSON", function isJSON(string) {
-    try {
-      JSON.parse(string);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }), "handleWidgetSwitch", function handleWidgetSwitch(event, widgetKey, placeholderIndex) {
-    try {
+    },
+    // Handle widget toggle from UI
+    handleWidgetSwitch: function handleWidgetSwitch(event, widget_key, placeholder_index) {
       var _placeholder$selected;
-      var placeholder = this.allPlaceholderItems[placeholderIndex];
+      var placeholder = this.allPlaceholderItems[placeholder_index];
+
+      // Return if placeholder is not found
       if (!placeholder) {
-        this.handleError("Placeholder not found at index ".concat(placeholderIndex));
         return;
       }
 
-      // Prevent exceeding maxWidget limit
+      // Prevent selecting more than maxWidget
       if (event.target.checked && placeholder.maxWidget > 0 && ((_placeholder$selected = placeholder.selectedWidgets) === null || _placeholder$selected === void 0 ? void 0 : _placeholder$selected.length) >= placeholder.maxWidget) {
-        event.preventDefault();
+        event.preventDefault(); // Prevent the checkbox from being checked
         return;
       }
       var isChecked = event.target.checked;
-      this.toggleWidgetInSelectedWidgets(widgetKey, placeholderIndex, isChecked);
 
-      // Sync placeholders
+      // Toggle widget in selectedWidgets
+      this.toggleWidgetInSelectedWidgets(widget_key, placeholder_index, isChecked);
+
+      // Sync selectedWidgets between allPlaceholderItems and placeholders
       this.placeholders = this.syncSelectedWidgets(this.allPlaceholderItems, this.placeholders);
-      this._dataChanged = true;
-    } catch (error) {
-      this.handleError("Error handling widget switch", error);
-    }
-  }), "toggleWidgetInSelectedWidgets", function toggleWidgetInSelectedWidgets(widgetKey, placeholderIndex, isChecked) {
-    try {
-      var placeholder = this.allPlaceholderItems[placeholderIndex];
+    },
+    // Add/remove widget from selectedWidgets & active_widgets
+    toggleWidgetInSelectedWidgets: function toggleWidgetInSelectedWidgets(widget_key, placeholder_index, isChecked) {
+      var placeholder = this.allPlaceholderItems[placeholder_index];
       var acceptedWidgets = placeholder.acceptedWidgets || [];
       var selectedWidgets = placeholder.selectedWidgets || [];
       var selectedWidgetList = placeholder.selectedWidgetList || [];
-
-      // Ensure selectedWidgets is an array
       if (!Array.isArray(selectedWidgets)) {
-        selectedWidgets = Object.values(selectedWidgets);
+        selectedWidgets = Object.values(selectedWidgets); // Convert object to array if needed
       }
       if (isChecked) {
-        // Add widget if not already selected
+        // Add widget if it does not exist
         if (!selectedWidgets.some(function (widget) {
-          return widget.widget_key === widgetKey;
+          return widget.widget_key === widget_key;
         })) {
-          var widgetIndex = acceptedWidgets.indexOf(widgetKey);
+          var widgetIndex = acceptedWidgets.indexOf(widget_key);
           if (widgetIndex !== -1) {
-            selectedWidgetList.push(widgetKey);
-            selectedWidgets.push(this.theAvailableWidgets[widgetKey]);
+            selectedWidgetList.push(widget_key);
+            selectedWidgets.push(this.theAvailableWidgets[widget_key]);
           }
         }
       } else {
-        // Remove widget
+        // Remove widget if unchecked
         selectedWidgets = selectedWidgets.filter(function (widget) {
-          return widget.widget_key !== widgetKey;
+          return widget.widget_key !== widget_key;
         });
         selectedWidgetList = selectedWidgetList.filter(function (widget) {
-          return widget !== widgetKey;
+          return widget !== widget_key;
         });
       }
 
-      // Sort widgets by accepted order
+      // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order
       selectedWidgetList.sort(function (a, b) {
         return acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b);
       });
@@ -24735,493 +24769,24 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         return acceptedWidgets.indexOf(a.widget_key) - acceptedWidgets.indexOf(b.widget_key);
       });
 
-      // Update data
-      this.$set(this.allPlaceholderItems[placeholderIndex], "selectedWidgets", selectedWidgets);
-      this.$set(this.allPlaceholderItems[placeholderIndex], "selectedWidgetList", selectedWidgetList);
+      // Update selectedWidgets array
+      this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgets", selectedWidgets);
+      this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgetList", selectedWidgetList);
 
-      // Update active widgets
+      // Update active_widgets separately
       if (isChecked) {
-        this.$set(this.active_widgets, widgetKey, this.theAvailableWidgets[widgetKey]);
+        this.$set(this.active_widgets, widget_key, this.theAvailableWidgets[widget_key]);
       } else {
-        this.$delete(this.active_widgets, widgetKey);
+        this.$delete(this.active_widgets, widget_key);
       }
-    } catch (error) {
-      this.handleError("Error toggling widget in selected widgets", error);
-    }
-  }), "getActiveInsertWindowStatus", function getActiveInsertWindowStatus(currentItemKey) {
-    try {
-      return currentItemKey === this.active_insert_widget_key;
-    } catch (error) {
-      this.handleError("Error getting active insert window status", error);
-      return false;
-    }
-  }), "openModal", function openModal() {
-    try {
-      this.showModal = true;
-    } catch (error) {
-      this.handleError("Error opening modal", error);
-    }
-  }), "closeModal", function closeModal() {
-    try {
-      this.showModal = false;
-    } catch (error) {
-      this.handleError("Error closing modal", error);
-    }
-  }), "widgetOptionsWindowActiveStatus", function widgetOptionsWindowActiveStatus(widgetKey) {
-    return this.widgetOptionsWindow.widget === widgetKey && typeof this.active_widgets[widgetKey] !== "undefined";
-  }), "widgetCardOptionsWindowActiveStatus", function widgetCardOptionsWindowActiveStatus() {
-    return this.widgetCardOptionsWindow.widget !== "";
-  }), "processAvailableWidgets", function processAvailableWidgets() {
-    try {
-      var availableWidgets = this.safeClone(this.available_widgets);
-      for (var widget in availableWidgets) {
-        availableWidgets[widget].widget_name = widget;
-        availableWidgets[widget].widget_key = widget;
-
-        // Check show_if condition
-        if (this.isValidObject(availableWidgets[widget].show_if)) {
-          var showIfResult = this.checkShowIfCondition({
-            condition: availableWidgets[widget].show_if
-          });
-          var mainWidget = availableWidgets[widget];
-          delete availableWidgets[widget];
-          if (showIfResult && showIfResult.status) {
-            var widgetKeys = [];
-            var _iterator1 = _createForOfIteratorHelper(showIfResult.matched_data),
-              _step1;
-            try {
-              for (_iterator1.s(); !(_step1 = _iterator1.n()).done;) {
-                var matchedField = _step1.value;
-                var widgetCopy = this.safeClone(mainWidget);
-                var currentKey = widgetKeys.includes(widget) ? "".concat(widget, "_").concat(widgetKeys.length + 1) : widget;
-                widgetCopy.widget_key = currentKey;
-                if (matchedField.widget_key) {
-                  widgetCopy.widget_key = matchedField.widget_key;
-                }
-                if (typeof matchedField.label === "string" && matchedField.label.length) {
-                  widgetCopy.label = matchedField.label;
-                }
-                availableWidgets[currentKey] = widgetCopy;
-                widgetKeys.push(currentKey);
-              }
-            } catch (err) {
-              _iterator1.e(err);
-            } finally {
-              _iterator1.f();
-            }
-          }
-        }
-      }
-      return availableWidgets;
-    } catch (error) {
-      this.handleError("Error processing available widgets", error);
-      return this.available_widgets;
-    }
-  }), "importOldData", function importOldData() {
-    var _this6 = this;
-    var value = JSON.parse(JSON.stringify(this.value));
-    if (!Array.isArray(value)) {
-      return;
-    }
-    var newPlaceholders = [];
-    var newAllPlaceholders = [];
-
-    // Import Layout
-    // -------------------------
-    var addActiveWidget = function addActiveWidget(widget) {
-      // Ensure that the widget exists in the available widgets
-      if (!_this6.theAvailableWidgets[widget.widget_name]) {
-        console.error("Widget ".concat(widget.widget_name, " not found in available widgets."));
-        return; // Exit if widget is not available
-      }
-      var widgets_template = _objectSpread({}, _this6.theAvailableWidgets[widget.widget_name]);
-      var has_widget_options = false;
-      if (widgets_template.options && widgets_template.options.fields) {
-        has_widget_options = true;
-      }
-
-      // Iterate over the properties of widgets_template and copy values from widget
-      for (var root_option in widgets_template) {
-        if ("options" === root_option) {
-          continue;
-        }
-
-        // Ensure that the value exists in the widget and is not undefined
-        if (typeof widget[root_option] === "undefined") {
-          continue;
-        }
-        widgets_template[root_option] = widget[root_option];
-      }
-
-      // Handle widget options fields
-      if (has_widget_options) {
-        for (var option_key in widgets_template.options.fields) {
-          var _widget$options;
-          if (typeof ((_widget$options = widget.options) === null || _widget$options === void 0 ? void 0 : _widget$options.fields[option_key]) === "undefined") {
-            continue;
-          }
-          widgets_template.options.fields[option_key] = widget.options.fields[option_key];
-
-          // Check if the option key matches a root-level widget property
-          // If it matches, update the root-level property with the field value
-          if (widgets_template.hasOwnProperty(option_key)) {
-            var fieldValue = widget.options.fields[option_key];
-            // Only update if the field has a value property (for form fields)
-            if (fieldValue && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(fieldValue) === "object" && fieldValue.hasOwnProperty("value")) {
-              widgets_template[option_key] = fieldValue.value;
-            } else if (fieldValue !== undefined) {
-              widgets_template[option_key] = fieldValue;
-            }
-          }
-        }
-      }
-
-      // Set the widget data in the active_widgets object
-      vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this6.active_widgets, widget.widget_name, widgets_template);
-      vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this6.available_widgets, widget.widget_name, widgets_template);
-    };
-    var importWidgets = function importWidgets(placeholder, destination) {
-      if (!_this6.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
-        return;
-      }
-      var newPlaceholder = JSON.parse(JSON.stringify(_this6.placeholdersMap[placeholder.placeholderKey]));
-      if (placeholder.acceptedWidgets) {
-        newPlaceholder.acceptedWidgets = placeholder.acceptedWidgets;
-      }
-      if (placeholder.selectedWidgets) {
-        newPlaceholder.selectedWidgets = placeholder.selectedWidgets;
-        newPlaceholder.selectedWidgetList = placeholder.selectedWidgets.map(function (widget) {
-          return widget.widget_name;
-        });
-      }
-      newPlaceholder.maxWidget = typeof newPlaceholder.maxWidget !== "undefined" ? parseInt(newPlaceholder.maxWidget) : 0;
-      newAllPlaceholders.push(newPlaceholder);
-      var targetPlaceholderIndex = destination.length;
-      destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
-
-      // Add active widgets based on selectedWidgets
-      placeholder.selectedWidgets.forEach(function (widget) {
-        if (typeof widget !== "undefined" && typeof _this6.available_widgets[widget.widget_name] !== "undefined") {
-          addActiveWidget(widget);
-        }
-      });
-    };
-    value.forEach(function (placeholder, index) {
-      if (!_this6.isTruthyObject(placeholder)) {
-        return;
-      }
-      if ("placeholder_item" === placeholder.type) {
-        // if (!Array.isArray(placeholder.selectedWidgets)) {
-        //   return;
-        // }
-
-        importWidgets(placeholder, newPlaceholders);
-        return;
-      }
-      if ("placeholder_group" === placeholder.type) {
-        if (!_this6.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
-          return;
-        }
-        var newPlaceholder = JSON.parse(JSON.stringify(_this6.placeholdersMap[placeholder.placeholderKey]));
-        newPlaceholder.placeholders = [];
-        var targetPlaceholderIndex = _this6.placeholders.length;
-        newPlaceholders.splice(targetPlaceholderIndex, 0, newPlaceholder);
-        placeholder.placeholders.forEach(function (subPlaceholder) {
-          // if (!Array.isArray(subPlaceholder.selectedWidgets)) {
-          //   return;
-          // }
-
-          importWidgets(subPlaceholder, newPlaceholders[index].placeholders);
-        });
-      }
-    });
-    this.placeholders = newPlaceholders;
-    this.allPlaceholderItems = newAllPlaceholders;
-  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "importWidgets", function importWidgets() {
-    if (!this.isTruthyObject(this.widgets)) {
-      return;
-    }
-    this.available_widgets = this.widgets;
-  }), "importCardOptions", function importCardOptions() {
-    if (!this.isTruthyObject(this.cardOptions)) {
-      return;
-    }
-    for (var section in this.card_options) {
-      if (!this.isTruthyObject(this.cardOptions[section])) {
-        return;
-      }
-      vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(this.card_options, section, JSON.parse(JSON.stringify(this.cardOptions[section])));
-    }
-  }), "importPlaceholders", function importPlaceholders() {
-    var _this7 = this;
-    this.allPlaceholderItems = [];
-    if (!Array.isArray(this.layout)) {
-      return;
-    }
-    if (!this.layout.length) {
-      return;
-    }
-    var sanitizePlaceholderData = function sanitizePlaceholderData(placeholder) {
-      if (!_this7.isTruthyObject(placeholder)) {
-        placeholder = {};
-      }
-      if (typeof placeholder.label === "undefined") {
-        placeholder.label = "";
-      }
-      return placeholder;
-    };
-    var sanitizedPlaceholders = [];
-    var _iterator10 = _createForOfIteratorHelper(this.layout),
-      _step10;
-    try {
-      var _loop = function _loop() {
-          var placeholder = _step10.value;
-          if (!_this7.isTruthyObject(placeholder)) {
-            return 0; // continue
-          }
-          var placeholderItem = placeholder;
-          if (typeof placeholderItem.type === "undefined") {
-            placeholderItem.type = "placeholder_item";
-          }
-          if (typeof placeholderItem.placeholderKey === "undefined") {
-            return 0; // continue
-          }
-          if (_this7.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)) {
-            return 0; // continue
-          }
-          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this7.placeholdersMap, placeholderItem.placeholderKey, placeholderItem);
-          if (placeholderItem.type === "placeholder_item") {
-            var placeholderItemData = sanitizePlaceholderData(placeholderItem);
-            if (placeholderItemData) {
-              sanitizedPlaceholders.push(placeholderItemData);
-              _this7.allPlaceholderItems.push(placeholderItemData);
-            }
-            return 0; // continue
-          }
-          if (placeholderItem.type === "placeholder_group") {
-            if (typeof placeholderItem.placeholders === "undefined") {
-              return 0; // continue
-            }
-            if (!Array.isArray(placeholderItem.placeholders)) {
-              return 0; // continue
-            }
-            if (!placeholderItem.placeholders.length) {
-              return 0; // continue
-            }
-            placeholderItem.placeholders.forEach(function (placeholderSubItem, subPlaceholderIndex) {
-              if (_this7.placeholdersMap.hasOwnProperty(placeholderSubItem.placeholderKey)) {
-                placeholderItem.placeholders.splice(subPlaceholderIndex, 1);
-                return;
-              }
-              vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this7.placeholdersMap, placeholderSubItem.placeholderKey, placeholderSubItem);
-              var placeholderItemData = sanitizePlaceholderData(placeholderSubItem);
-              if (placeholderItemData) {
-                placeholderItem.placeholders.splice(subPlaceholderIndex, 1, placeholderItemData);
-                _this7.allPlaceholderItems.push(placeholderItemData);
-              }
-            });
-            if (placeholderItem.placeholders.length) {
-              sanitizedPlaceholders.push(placeholderItem);
-            }
-          }
-        },
-        _ret;
-      for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-        _ret = _loop();
-        if (_ret === 0) continue;
-      }
-    } catch (err) {
-      _iterator10.e(err);
-    } finally {
-      _iterator10.f();
-    }
-    this.placeholders = sanitizedPlaceholders;
-  }), "handleWidgetSwitch", function handleWidgetSwitch(event, widget_key, placeholder_index) {
-    var _placeholder$selected2;
-    var placeholder = this.allPlaceholderItems[placeholder_index];
-
-    // Return if placeholder is not found
-    if (!placeholder) {
-      return;
-    }
-
-    // Prevent selecting more than maxWidget
-    if (event.target.checked && placeholder.maxWidget > 0 && ((_placeholder$selected2 = placeholder.selectedWidgets) === null || _placeholder$selected2 === void 0 ? void 0 : _placeholder$selected2.length) >= placeholder.maxWidget) {
-      event.preventDefault(); // Prevent the checkbox from being checked
-      return;
-    }
-    var isChecked = event.target.checked;
-
-    // Toggle widget in selectedWidgets
-    this.toggleWidgetInSelectedWidgets(widget_key, placeholder_index, isChecked);
-
-    // Sync selectedWidgets between allPlaceholderItems and placeholders
-    this.placeholders = this.syncSelectedWidgets(this.allPlaceholderItems, this.placeholders);
-  }), "toggleWidgetInSelectedWidgets", function toggleWidgetInSelectedWidgets(widget_key, placeholder_index, isChecked) {
-    var placeholder = this.allPlaceholderItems[placeholder_index];
-    var acceptedWidgets = placeholder.acceptedWidgets || [];
-    var selectedWidgets = placeholder.selectedWidgets || [];
-    var selectedWidgetList = placeholder.selectedWidgetList || [];
-    if (!Array.isArray(selectedWidgets)) {
-      selectedWidgets = Object.values(selectedWidgets); // Convert object to array if needed
-    }
-    if (isChecked) {
-      // Add widget if it does not exist
-      if (!selectedWidgets.some(function (widget) {
-        return widget.widget_key === widget_key;
-      })) {
-        var widgetIndex = acceptedWidgets.indexOf(widget_key);
-        if (widgetIndex !== -1) {
-          selectedWidgetList.push(widget_key);
-          selectedWidgets.push(this.theAvailableWidgets[widget_key]);
-        }
-      }
-    } else {
-      // Remove widget if unchecked
-      selectedWidgets = selectedWidgets.filter(function (widget) {
-        return widget.widget_key !== widget_key;
-      });
-      selectedWidgetList = selectedWidgetList.filter(function (widget) {
-        return widget !== widget_key;
-      });
-    }
-
-    // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order
-    selectedWidgetList.sort(function (a, b) {
-      return acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b);
-    });
-    selectedWidgets.sort(function (a, b) {
-      return acceptedWidgets.indexOf(a.widget_key) - acceptedWidgets.indexOf(b.widget_key);
-    });
-
-    // Update selectedWidgets array
-    this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgets", selectedWidgets);
-    this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgetList", selectedWidgetList);
-
-    // Update active_widgets separately
-    if (isChecked) {
-      this.$set(this.active_widgets, widget_key, this.theAvailableWidgets[widget_key]);
-    } else {
-      this.$delete(this.active_widgets, widget_key);
-    }
-  }), "syncSelectedWidgets", function syncSelectedWidgets(allPlaceholderItems, placeholders) {
-    var allItemsMap = allPlaceholderItems.reduce(function (acc, item) {
-      acc[item.placeholderKey] = item;
-      return acc;
-    }, {});
-    var _updatePlaceholders2 = function updatePlaceholders(placeholders) {
-      return placeholders.map(function (placeholder) {
-        if (allItemsMap[placeholder.placeholderKey]) {
-          var selectedWidgets = allItemsMap[placeholder.placeholderKey].selectedWidgets || [];
-          var selectedWidgetList = allItemsMap[placeholder.placeholderKey].selectedWidgetList || [];
-          if (!Array.isArray(selectedWidgetList)) {
-            selectedWidgetList = Object.values(selectedWidgetList);
-          }
-          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "selectedWidgets", selectedWidgets);
-          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "selectedWidgetList", selectedWidgetList);
-        }
-        if (placeholder.type === "placeholder_group" && placeholder.placeholders) {
-          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "placeholders", _updatePlaceholders2(placeholder.placeholders));
-        }
-        return placeholder;
-      });
-    };
-    return _updatePlaceholders2(placeholders);
-  }), "syncPlaceholdersWithAllPlaceholderItems", function syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
-    var _this8 = this;
-    var updatePlaceholderItem = function updatePlaceholderItem(placeholder, allPlaceholderItem) {
-      if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
-        // Filter acceptedWidgets to only include available widgets
-        var filteredAcceptedWidgets = (allPlaceholderItem.acceptedWidgets || []).filter(function (widgetKey) {
-          return _this8.isWidgetAvailable(widgetKey);
-        });
-        placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredAcceptedWidgets);
-
-        // Filter selectedWidgets to only include available widgets
-        var selectedWidgets = allPlaceholderItem.selectedWidgets || [];
-        var selectedWidgetList = allPlaceholderItem.selectedWidgetList || [];
-
-        // Filter selectedWidgets based on available widgets
-        var filteredSelectedWidgets = selectedWidgets.filter(function (widget) {
-          return widget && widget.widget_key && _this8.isWidgetAvailable(widget.widget_key);
-        });
-
-        // Filter selectedWidgetList based on available widgets
-        var filteredSelectedWidgetList = selectedWidgetList.filter(function (widgetKey) {
-          return _this8.isWidgetAvailable(widgetKey);
-        });
-        placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgets);
-        placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgetList);
-      }
-    };
-    var _updatePlaceholders3 = function updatePlaceholders(placeholders) {
-      placeholders && placeholders.forEach(function (placeholder) {
-        if (placeholder.type === "placeholder_group") {
-          _updatePlaceholders3(placeholder.placeholders);
-        } else if (placeholder.type === "placeholder_item") {
-          var matchingItem = allPlaceholderItems.find(function (item) {
-            return item.placeholderKey === placeholder.placeholderKey;
-          });
-          if (matchingItem) {
-            updatePlaceholderItem(placeholder, matchingItem);
-          }
-        }
-      });
-    };
-    _updatePlaceholders3(placeholders);
-    return placeholders;
-  }), "editWidget", function editWidget(key) {
-    if (key === this.widgetOptionsWindow.widget) {
-      this.closeWidgetOptionsWindow();
-      return;
-    }
-    if (typeof this.active_widgets[key] === "undefined") {
-      return;
-    }
-    if (!this.active_widgets[key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(this.active_widgets[key].options) !== "object") {
-      return;
-    }
-    this.widgetOptionsWindow = _objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), this.active_widgets[key].options);
-    this.widgetOptionsWindow.widget = key;
-    this.active_insert_widget_key = "";
-  }), "updateWidgetOptionsData", function updateWidgetOptionsData(data, options_window) {
-    try {
-      if (!data || !data.widgetKey || !data.updatedWidget) {
-        return;
-      }
-      var widgetKey = data.widgetKey;
-      var updatedWidget = data.updatedWidget;
-
-      // Update the active widget with the complete updated widget data
-      if (this.active_widgets[widgetKey]) {
-        // Replace the entire widget with the updated data
-        this.$set(this.active_widgets, widgetKey, updatedWidget);
-
-        // Also update available_widgets to keep them in sync
-        if (this.available_widgets[widgetKey]) {
-          this.$set(this.available_widgets, widgetKey, updatedWidget);
-        }
-
-        // Mark data as changed
-        this._dataChanged = true;
-      }
-    } catch (error) {
-      this.handleError("Error updating widget options data", error);
-    }
-  }), "closeWidgetOptionsWindow", function closeWidgetOptionsWindow() {
-    this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-  }), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_methods, "getActiveInsertWindowStatus", function getActiveInsertWindowStatus(current_item_key) {
-    if (current_item_key === this.active_insert_widget_key) {
-      return true;
-    }
-    return false;
-  }), "syncSelectedWidgets", function syncSelectedWidgets(allPlaceholderItems, placeholders) {
-    try {
+    },
+    // Sync selectedWidgets across placeholders
+    syncSelectedWidgets: function syncSelectedWidgets(allPlaceholderItems, placeholders) {
       var allItemsMap = allPlaceholderItems.reduce(function (acc, item) {
         acc[item.placeholderKey] = item;
         return acc;
       }, {});
-      var _updatePlaceholders4 = function updatePlaceholders(placeholders) {
+      var _updatePlaceholders = function updatePlaceholders(placeholders) {
         return placeholders.map(function (placeholder) {
           if (allItemsMap[placeholder.placeholderKey]) {
             var selectedWidgets = allItemsMap[placeholder.placeholderKey].selectedWidgets || [];
@@ -25233,58 +24798,116 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "selectedWidgetList", selectedWidgetList);
           }
           if (placeholder.type === "placeholder_group" && placeholder.placeholders) {
-            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "placeholders", _updatePlaceholders4(placeholder.placeholders));
+            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "placeholders", _updatePlaceholders(placeholder.placeholders));
           }
           return placeholder;
         });
       };
-      return _updatePlaceholders4(placeholders);
-    } catch (error) {
-      this.handleError("Error syncing selected widgets", error);
-      return placeholders;
-    }
-  }), "isWidgetAvailable", function isWidgetAvailable(widgetKey) {
-    if (!widgetKey || typeof widgetKey !== "string") {
-      return false;
-    }
+      return _updatePlaceholders(placeholders);
+    },
+    // Sync placeholders with allPlaceholderItems
+    syncPlaceholdersWithAllPlaceholderItems: function syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
+      var _this7 = this;
+      var updatePlaceholderItem = function updatePlaceholderItem(placeholder, allPlaceholderItem) {
+        if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
+          // Filter acceptedWidgets to only include available widgets
+          var filteredAcceptedWidgets = (allPlaceholderItem.acceptedWidgets || []).filter(function (widgetKey) {
+            return _this7.isWidgetAvailable(widgetKey);
+          });
+          placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredAcceptedWidgets);
 
-    // Check cache first
-    if (this._widgetAvailabilityCache && this._widgetAvailabilityCache.has(widgetKey)) {
-      return this._widgetAvailabilityCache.get(widgetKey);
-    }
-    var isAvailable = this.checkWidgetAvailability(widgetKey);
+          // Filter selectedWidgets to only include available widgets
+          var selectedWidgets = allPlaceholderItem.selectedWidgets || [];
+          var selectedWidgetList = allPlaceholderItem.selectedWidgetList || [];
 
-    // Cache result
-    if (!this._widgetAvailabilityCache) {
-      this._widgetAvailabilityCache = new Map();
-    }
-    this._widgetAvailabilityCache.set(widgetKey, isAvailable);
-    return isAvailable;
-  }), "checkWidgetAvailability", function checkWidgetAvailability(widgetKey) {
-    try {
-      // Basic check if widget exists
-      if (!this.available_widgets[widgetKey]) {
-        return false;
-      }
-      var widget = this.available_widgets[widgetKey];
+          // Filter selectedWidgets based on available widgets
+          var filteredSelectedWidgets = selectedWidgets.filter(function (widget) {
+            return widget && widget.widget_key && _this7.isWidgetAvailable(widget.widget_key);
+          });
 
-      // Check show_if condition if present
-      if (widget.show_if && this.isValidObject(widget.show_if)) {
-        var showIfResult = this.checkShowIfCondition({
-          condition: widget.show_if
+          // Filter selectedWidgetList based on available widgets
+          var filteredSelectedWidgetList = selectedWidgetList.filter(function (widgetKey) {
+            return _this7.isWidgetAvailable(widgetKey);
+          });
+          placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgets);
+          placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredSelectedWidgetList);
+        }
+      };
+      var _updatePlaceholders2 = function updatePlaceholders(placeholders) {
+        placeholders && placeholders.forEach(function (placeholder) {
+          if (placeholder.type === "placeholder_group") {
+            _updatePlaceholders2(placeholder.placeholders);
+          } else if (placeholder.type === "placeholder_item") {
+            var matchingItem = allPlaceholderItems.find(function (item) {
+              return item.placeholderKey === placeholder.placeholderKey;
+            });
+            if (matchingItem) {
+              updatePlaceholderItem(placeholder, matchingItem);
+            }
+          }
         });
-        return showIfResult && showIfResult.status === true;
+      };
+      _updatePlaceholders2(placeholders);
+      return placeholders;
+    },
+    // Edit Widget
+    editWidget: function editWidget(key) {
+      if (key === this.widgetOptionsWindow.widget) {
+        this.closeWidgetOptionsWindow();
+        return;
       }
-      return true;
-    } catch (error) {
-      this.handleError("Error checking widget availability for ".concat(widgetKey), error);
+      if (typeof this.active_widgets[key] === "undefined") {
+        return;
+      }
+      if (!this.active_widgets[key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(this.active_widgets[key].options) !== "object") {
+        return;
+      }
+      this.widgetOptionsWindow = _objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), this.active_widgets[key].options);
+      this.widgetOptionsWindow.widget = key;
+      this.active_insert_widget_key = "";
+    },
+    // Update Widget Options
+    updateWidgetOptionsData: function updateWidgetOptionsData(data, options_window) {
+      try {
+        if (!data || !data.widgetKey || !data.updatedWidget) {
+          return;
+        }
+        var widgetKey = data.widgetKey;
+        var updatedWidget = data.updatedWidget;
+
+        // Update the active widget with the complete updated widget data
+        if (this.active_widgets[widgetKey]) {
+          // Replace the entire widget with the updated data
+          this.$set(this.active_widgets, widgetKey, updatedWidget);
+
+          // Also update available_widgets to keep them in sync
+          if (this.available_widgets[widgetKey]) {
+            this.$set(this.available_widgets, widgetKey, updatedWidget);
+          }
+
+          // Mark data as changed
+          this._dataChanged = true;
+        }
+      } catch (error) {
+        this.handleError("Error updating widget options data", error);
+      }
+    },
+    // Close Widget Options Window
+    closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
+      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+    },
+    // Get Active Insert Window Status
+    getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
+      if (current_item_key === this.active_insert_widget_key) {
+        return true;
+      }
       return false;
     }
-  }), "clearWidgetAvailabilityCache", function clearWidgetAvailabilityCache() {
+  }, "clearWidgetAvailabilityCache", function clearWidgetAvailabilityCache() {
     if (this._widgetAvailabilityCache) {
       this._widgetAvailabilityCache.clear();
     }
-  }))
+  })
 });
 
 /***/ }),

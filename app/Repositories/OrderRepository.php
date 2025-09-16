@@ -27,7 +27,6 @@ class OrderRepository extends Repository {
             $query->where(
                 function( $query ) use ( $search_term ) {
                     $query->where( 'd_order.status', 'like', '%' . $search_term . '%' )
-                        ->or_where( 'd_order.final_amount', 'like', '%' . $search_term . '%' )
                         ->or_where( 'users.user_email', 'like', '%' . $search_term . '%' )
                         ->or_where( 'users.display_name', 'like', '%' . $search_term . '%' );
 
@@ -54,6 +53,12 @@ class OrderRepository extends Repository {
                 if ( ! empty( $order->payment ) ) {
                     $order->payment_method = $this->get_payment_method_title( $order->payment->method );
                 }
+
+                $order->total = $order->sub_total;
+
+                if ( ! empty( $order->tax_type ) ) {
+                    $order->total += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+                }
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
@@ -72,10 +77,6 @@ class OrderRepository extends Repository {
      * @throws Exception If the insert operation fails.
      */
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
-        if ( ! $dto->is_initialized( 'final_amount' ) ) {
-            $dto->set_final_amount( $dto->get_amount() );
-        }
-
         // do_action( 'directorist_before_order_create', $dto );
         
         $order_id = parent::create( $dto );
@@ -132,6 +133,12 @@ class OrderRepository extends Repository {
             $order->payment_method = 'N/A';
         }
 
+        $order->total = $order->sub_total;
+
+        if ( ! empty( $order->tax_type ) ) {
+            $order->total += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+        }
+
         return apply_filters( 'directorist_order_data', $order );
     }
 
@@ -148,10 +155,12 @@ class OrderRepository extends Repository {
             ->set_is_featured_listing( $order->is_featured_listing )
             ->set_amount( $order->amount )
             ->set_currency( $order->currency )
-            ->set_final_amount( $order->final_amount )
             ->set_coupon_code( $order->coupon_code )
             ->set_coupon_discount( $order->coupon_discount )
             ->set_coupon_discount_type( $order->coupon_discount_type )
+            ->set_tax_type( $order->tax_type ?? '' )
+            ->set_tax_rate( $order->tax_rate ?? 0.0 )
+            ->set_sub_total( $order->sub_total )
             ->set_status( $order->status )
             ->set_created_at( new DateTime( $order->created_at ) );
         

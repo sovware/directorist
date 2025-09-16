@@ -5,6 +5,8 @@ defined( "ABSPATH" ) || exit;
 require_once __DIR__ . '/app.php';
 require_once __DIR__ . '/repositories.php';
 
+use Directorist\App\DTO\Order\DTO as OrderDTO;
+
 function directorist_get_checkout_page_link( string $checkout_type, array $query_args = [] ) {
     $link    = home_url(); // default url
     $page_id = get_directorist_option( 'checkout_page' );
@@ -40,4 +42,17 @@ function directorist_payment_receipt_page_link( $order_id ) {
 function directorist_get_order_by_id( $order_id ) {
     $order_repository = directorist_order_repository();
     return $order_repository->get_by_id( $order_id );
+}
+
+function directorist_calculate_tax_amount( string $tax_type, float $tax_rate, float $sub_total ): float {
+    if ( $tax_rate <= 0 ) {
+        return 0;
+    }
+
+    if ( $tax_type === 'percent' ) {
+        return round( ( $tax_rate * $sub_total ) / 100, 2 );
+    } else {
+        // flat/fixed tax
+        return round( $tax_rate, 2 );
+    }
 }

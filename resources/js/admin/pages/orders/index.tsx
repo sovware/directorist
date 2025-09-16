@@ -45,13 +45,12 @@ const columns: Column[] = [
 		},
 	},
 	{
-		id: 'total_amount',
+		id: 'total',
 		label: __('Total Amount', 'directorist'),
 		render: ({ item }) => {
 			return (
 				<span className="directorist-order-total-amount">
-					{displayPrice(item.final_amount, item.currency)}
-					{/* {item.final_amount} {item.currency} */}
+					{displayPrice(item.total, item.currency)}
 				</span>
 			);
 		},

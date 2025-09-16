@@ -29,7 +29,11 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
 
     private ?string $coupon_discount_type; // fixed, percentage
 
-    private float $final_amount;
+    private string $tax_type; // percent, fixed
+
+    private float $tax_rate;
+
+    private float $sub_total;
 
     private string $status;
 
@@ -282,23 +286,67 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     }
 
     /**
-     * Get the value of final_amount
+     * Get the value of tax_type
      *
-     * @return float
+     * @return string
      */
-    public function get_final_amount(): float {
-        return $this->final_amount;
+    public function get_tax_type(): string {
+        return $this->tax_type;
     }
 
     /**
-     * Set the value of final_amount
+     * Set the value of tax_type
      *
-     * @param float $final_amount 
+     * @param string $tax_type 
      *
      * @return self
      */
-    public function set_final_amount( float $final_amount ): self {
-        $this->final_amount = $final_amount;
+    public function set_tax_type( string $tax_type ): self {
+        $this->tax_type = $tax_type;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tax_rate
+     *
+     * @return float
+     */
+    public function get_tax_rate(): float {
+        return $this->tax_rate;
+    }
+
+    /**
+     * Set the value of tax_rate
+     *
+     * @param float $tax_rate 
+     *
+     * @return self
+     */
+    public function set_tax_rate( float $tax_rate ): self {
+        $this->tax_rate = $tax_rate;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sub_total
+     *
+     * @return float
+     */
+    public function get_sub_total(): float {
+        return $this->sub_total;
+    }
+
+    /**
+     * Set the value of sub_total
+     *
+     * @param float $sub_total 
+     *
+     * @return self
+     */
+    public function set_sub_total( float $sub_total ): self {
+        $this->sub_total = $sub_total;
 
         return $this;
     }

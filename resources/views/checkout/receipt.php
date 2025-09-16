@@ -74,7 +74,7 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Amount', 'directorist' ); ?></td>
                                     <td>
                                     <?php
-                                    echo wp_kses_post( directorist_price( $order->get_final_amount() ) );
+                                    echo wp_kses_post( directorist_price( $order->get_sub_total() ) );
                                     ?>
                                     </td>
                                 </tr>
@@ -127,7 +127,7 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                 <tr class="directorsit-payment-table-total">
                                     <td class="directorist-payment-table__title"><?php esc_html_e( 'Total amount', 'directorist' ); ?></td>
                                     <td>
-                                        <?php echo wp_kses_post( directorist_price( $order->get_final_amount() ) ); ?>
+                                        <?php echo wp_kses_post( directorist_price( $order->get_sub_total() ) ); ?>
                                     </td>
                                 </tr>
                                 </tbody>

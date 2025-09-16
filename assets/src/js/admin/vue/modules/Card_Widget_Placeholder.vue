@@ -97,26 +97,6 @@
 
       <!-- Widgets Preview Area -->
       <div class="cptm-widget-preview-area" v-if="hasDisplayedWidgets">
-        <!-- Special widgets that should be outside drag container when dragAxis is x -->
-        <template>
-          <div
-            v-for="widget in specialWidgets"
-            v-if="dragAxis === 'x' && hasSpecialWidgets"
-            :key="`special-${widget}`"
-            :class="`cptm-widget-preview-card cptm-widget-preview-card-${widget}`"
-          >
-            <component
-              :is="`${availableWidgets[widget].type}-card-widget`"
-              :label="getWidgetLabel(widget)"
-              :icon="getWidgetIcon(widget)"
-              :widgetKey="widget"
-              :options="getWidgetOptions(widget)"
-              :activeWidgets="activeWidgets"
-              @update="handleActiveWidgetUpdate"
-            />
-          </div>
-        </template>
-
         <!-- With Drag and Drop Preview -->
         <Container
           @drop="onWidgetsDrop($event)"
@@ -132,7 +112,7 @@
           v-if="!readOnly && canDragAndDrop"
         >
           <Draggable
-            v-for="(widget, widget_index) in draggableWidgets"
+            v-for="(widget, widget_index) in displayedWidgets"
             :key="widget_index"
             v-if="hasValidWidget(widget)"
             :data="{ widget, index: widget_index }"
@@ -311,51 +291,6 @@ export default {
   },
 
   computed: {
-    /**
-     * Configuration for special widgets that should be rendered outside drag container
-     * and maintain fixed positions in the selectedWidgets array
-     */
-    specialWidgetsConfig() {
-      return {
-        // Define special widgets and their fixed positions
-        widgets: ["listing_title"], // Add more special widgets here
-        positions: {
-          listing_title: 0, // Always at position 0
-          // Add more positions as needed:
-          // "another_special_widget": 1,
-          // "yet_another_widget": 2,
-        },
-      };
-    },
-
-    /**
-     * Get special widgets that should be rendered outside drag container
-     * Cached for performance - only recalculates when displayedWidgets changes
-     */
-    specialWidgets() {
-      const { widgets } = this.specialWidgetsConfig;
-      return this.displayedWidgets.filter((widget) => widgets.includes(widget));
-    },
-
-    /**
-     * Get draggable widgets (excluding special widgets)
-     * Cached for performance - only recalculates when displayedWidgets changes
-     */
-    draggableWidgets() {
-      const { widgets } = this.specialWidgetsConfig;
-      return this.displayedWidgets.filter(
-        (widget) => !widgets.includes(widget),
-      );
-    },
-
-    /**
-     * Check if we have special widgets that need special handling
-     * Cached for performance
-     */
-    hasSpecialWidgets() {
-      return this.specialWidgets.length > 0;
-    },
-
     hasSelectedWidgets() {
       return this.selectedWidgets?.length > 0;
     },
@@ -537,15 +472,9 @@ export default {
 
     /**
      * Get child payload for drag and drop operations
-     * Optimized to use cached computed properties for better performance
      */
     getChildPayload(index) {
-      // For horizontal drag with special widgets, use draggable widgets array
-      // Otherwise, use the full displayed widgets array
-      const widget =
-        this.dragAxis === "x" && this.hasSpecialWidgets
-          ? this.draggableWidgets[index]
-          : this.displayedWidgets[index];
+      const widget = this.displayedWidgets[index];
 
       return {
         id: widget,
@@ -570,12 +499,12 @@ export default {
       // Set drag end state briefly before clearing
       if (this.draggingWidget) {
         this.dragEndWidget = this.draggingWidget;
+        this.draggingWidget = null;
       }
     },
 
     /**
      * Handle widget drop operations with optimized performance and maintainability
-     * Supports both vertical and horizontal drag with special widget positioning
      */
     onWidgetsDrop(dropResult) {
       // Clear drag states immediately
@@ -589,48 +518,8 @@ export default {
       if (!this.canDragAndDrop || this.readOnly || !this.hasMultipleWidgets)
         return;
 
-      // Handle horizontal drag with special widgets
-      if (this.dragAxis === "x" && this.hasSpecialWidgets) {
-        this.handleHorizontalDropWithSpecialWidgets(dropResult);
-        return;
-      }
-
-      // Handle standard drag operations (vertical or horizontal without special widgets)
+      // Handle standard drag operations
       this.handleStandardDrop(dropResult);
-    },
-
-    /**
-     * Handle horizontal drop operations when special widgets are present
-     * Optimized for performance with proper index mapping
-     */
-    handleHorizontalDropWithSpecialWidgets(dropResult) {
-      const { removedIndex, addedIndex } = dropResult;
-      const widgetsCopy = [...this.selectedWidgets];
-      const { widgets: specialWidgets, positions: specialWidgetPositions } =
-        this.specialWidgetsConfig;
-
-      // Create efficient index mapping for filtered array
-      const filteredToOriginalMap = this.createIndexMapping(
-        widgetsCopy,
-        specialWidgets,
-      );
-
-      // Map drag indices to original array indices
-      const originalRemovedIndex = filteredToOriginalMap[removedIndex];
-      const originalAddedIndex = filteredToOriginalMap[addedIndex];
-
-      // Perform reordering on original array
-      const [movedItem] = widgetsCopy.splice(originalRemovedIndex, 1);
-      widgetsCopy.splice(originalAddedIndex, 0, movedItem);
-
-      // Enforce special widget positions
-      const finalWidgets = this.enforceSpecialWidgetPositions(
-        widgetsCopy,
-        specialWidgets,
-        specialWidgetPositions,
-      );
-
-      this.$emit("update", finalWidgets);
     },
 
     /**
@@ -649,55 +538,6 @@ export default {
       widgetsCopy.splice(targetIndex, 0, movedItem);
 
       this.$emit("update", widgetsCopy);
-    },
-
-    /**
-     * Create efficient index mapping between filtered and original arrays
-     * Optimized for performance with single pass through array
-     */
-    createIndexMapping(originalArray, specialWidgets) {
-      const mapping = [];
-      let filteredIndex = 0;
-
-      for (let i = 0; i < originalArray.length; i++) {
-        if (!specialWidgets.includes(originalArray[i])) {
-          mapping[filteredIndex] = i;
-          filteredIndex++;
-        }
-      }
-
-      return mapping;
-    },
-
-    /**
-     * Enforce special widget positions in the final array
-     * Optimized for performance with efficient array operations
-     */
-    enforceSpecialWidgetPositions(
-      widgetsArray,
-      specialWidgets,
-      specialWidgetPositions,
-    ) {
-      const result = [...widgetsArray];
-
-      // Remove all special widgets from their current positions
-      specialWidgets.forEach((widget) => {
-        const index = result.indexOf(widget);
-        if (index > -1) {
-          result.splice(index, 1);
-        }
-      });
-
-      // Add special widgets back to their designated positions
-      // Sort by position to ensure correct insertion order
-      Object.entries(specialWidgetPositions)
-        .filter(([widget]) => specialWidgets.includes(widget))
-        .sort(([, posA], [, posB]) => posA - posB)
-        .forEach(([widget, position]) => {
-          result.splice(position, 0, widget);
-        });
-
-      return result;
     },
   },
 

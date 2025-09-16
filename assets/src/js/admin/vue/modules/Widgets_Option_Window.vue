@@ -32,6 +32,8 @@
       </div>
 
       <Container
+        ref="container"
+        :key="dragDropKey"
         @drop="onElementsDrop($event)"
         group-name="card-widget-options"
         drag-handle-selector=".options-drag-handle"
@@ -170,8 +172,18 @@ export default {
   },
 
   watch: {
-    selectedWidgets() {
-      this.localSelectedWidgets = this.selectedWidgets;
+    selectedWidgets: {
+      handler() {
+        this.localSelectedWidgets = this.selectedWidgets;
+        // Force reinitialize drag and drop after DOM updates
+        this.$nextTick(() => {
+          // Small delay to ensure DOM is fully updated
+          setTimeout(() => {
+            this.reinitializeDragAndDrop();
+          }, 50);
+        });
+      },
+      deep: true,
     },
   },
 
@@ -234,6 +246,7 @@ export default {
       activeWidget: {},
       activeWidgetKey: "",
       activeWidgetOptionType: "",
+      dragDropKey: 0, // Key to force reinitialization of drag and drop
     };
   },
 
@@ -416,6 +429,13 @@ export default {
       this.$emit("update", { selectedWidgets: updatedWidgets });
 
       return;
+    },
+
+    // Reinitialize drag and drop functionality
+    reinitializeDragAndDrop() {
+      // Force vue-dndrop to reinitialize by changing the key
+      // This ensures drag and drop works immediately after adding new items
+      this.dragDropKey += 1;
     },
   },
 };

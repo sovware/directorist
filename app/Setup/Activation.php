@@ -7,6 +7,7 @@ defined( "ABSPATH" ) || exit;
 use Directorist\App\Enums\Order\Status as OrderStatus;
 use Directorist\App\Enums\Payment\Status as PaymentStatus;
 use Directorist\App\Enums\Refund\Status as RefundStatus;
+use Directorist\App\Enums\Order\TaxType as TaxType;
 use Directorist\WpMVC\Database\Schema\Blueprint;
 use Directorist\WpMVC\Database\Schema\Schema;
 
@@ -30,8 +31,12 @@ class Activation {
                 $table->tiny_integer( "is_featured_listing" )->default( 0 );
                 $table->decimal( "amount", 10, 2 )->default( 0.00 );
                 $table->string( "currency", 10 )->default( "USD" );
+                $table->string( "coupon_code" )->nullable();
                 $table->decimal( "coupon_discount", 10, 2 )->default( 0.00 );
-                $table->decimal( "final_amount", 10, 2 )->default( 0.00 );
+                $table->string( "coupon_discount_type" )->nullable();
+                $table->decimal( "tax_rate", 10, 2 )->default( 0.00 );
+                $table->enum( "tax_type", TaxType::all() )->nullable();
+                $table->decimal( "sub_total", 10, 2 )->default( 0.00 );
                 $table->enum( "status", OrderStatus::all() )->default( OrderStatus::PENDING );
                 $table->timestamp( "expires_at" )->nullable();
                 $table->timestamps();

@@ -4,6 +4,7 @@ namespace Directorist\App\Repositories;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\Models\Post;
 use Directorist\App\DTO\Order\DTO;
 use Directorist\App\DTO\Order\Read;
 use Directorist\App\Helpers\DateTime;
@@ -26,7 +27,6 @@ class OrderRepository extends Repository {
             $query->where(
                 function( $query ) use ( $search_term ) {
                     $query->where( 'd_order.status', 'like', '%' . $search_term . '%' )
-                        ->or_where( 'd_order.final_amount', 'like', '%' . $search_term . '%' )
                         ->or_where( 'users.user_email', 'like', '%' . $search_term . '%' )
                         ->or_where( 'users.display_name', 'like', '%' . $search_term . '%' );
 
@@ -34,7 +34,7 @@ class OrderRepository extends Repository {
                     if ( is_int( stripos( 'featured listing', $search_term ) ) ) {
                         $query->or_where( 'd_order.is_featured_listing', 1 );
                     }
-                } 
+                }
             );
         }
 
@@ -50,9 +50,15 @@ class OrderRepository extends Repository {
 
         $orders = array_map(
             function( $order ) {
-                $payment_method_title  = get_directorist_option( "{$order->payment->method}_title" );
-                $order->payment_method = ! empty( $payment_method_title ) ? $payment_method_title : $order->payment_method;
-                
+                if ( ! empty( $order->payment ) ) {
+                    $order->payment_method = $this->get_payment_method_title( $order->payment->method );
+                }
+
+                $order->total = $order->sub_total;
+
+                if ( ! empty( $order->tax_type ) ) {
+                    $order->total += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+                }
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
@@ -71,8 +77,6 @@ class OrderRepository extends Repository {
      * @throws Exception If the insert operation fails.
      */
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
-        $dto->set_final_amount( $dto->get_amount() );
-
         // do_action( 'directorist_before_order_create', $dto );
         
         $order_id = parent::create( $dto );
@@ -108,7 +112,7 @@ class OrderRepository extends Repository {
     }
 
     public function single( $id ) {
-        return $this->get_query_builder()->with(
+        $order = $this->get_query_builder()->select( 'd_order.*', 'directorist_listing.post_title as listing_title' )->with(
             [
                 'user'     => function( $query ) {
                     $query->select( 'ID', 'user_email', 'display_name' );
@@ -117,7 +121,25 @@ class OrderRepository extends Repository {
                     $query->order_by_desc( 'id' );
                 }
             ]
-        )->where( 'd_order.id', $id )->first();
+        )->left_join( Post::get_table_name() . ' as directorist_listing', 'd_order.listing_id', '=', 'directorist_listing.ID' )->where( 'd_order.id', $id )->first();
+
+        if ( ! $order ) {
+            return null;
+        }
+
+        if ( ! empty( $order->payments[0] ) ) {
+            $order->payment_method = $this->get_payment_method_title( $order->payments[0]->method );
+        } else {
+            $order->payment_method = 'N/A';
+        }
+
+        $order->total = $order->sub_total;
+
+        if ( ! empty( $order->tax_type ) ) {
+            $order->total += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+        }
+
+        return apply_filters( 'directorist_order_data', $order );
     }
 
     public function to_dto( $order ) {
@@ -133,7 +155,12 @@ class OrderRepository extends Repository {
             ->set_is_featured_listing( $order->is_featured_listing )
             ->set_amount( $order->amount )
             ->set_currency( $order->currency )
-            ->set_final_amount( $order->final_amount )
+            ->set_coupon_code( $order->coupon_code )
+            ->set_coupon_discount( $order->coupon_discount )
+            ->set_coupon_discount_type( $order->coupon_discount_type )
+            ->set_tax_type( $order->tax_type ?? '' )
+            ->set_tax_rate( $order->tax_rate ?? 0.0 )
+            ->set_sub_total( $order->sub_total )
             ->set_status( $order->status )
             ->set_created_at( new DateTime( $order->created_at ) );
         
@@ -146,5 +173,10 @@ class OrderRepository extends Repository {
         }
 
         return $dto;
+    }
+
+    private function get_payment_method_title( $payment_method ) {
+        $payment_method_title = get_directorist_option( "{$payment_method}_title" );
+        return ! empty( $payment_method_title ) ? $payment_method_title : $payment_method;
     }
 }

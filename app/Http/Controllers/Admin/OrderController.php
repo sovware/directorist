@@ -4,6 +4,7 @@ namespace Directorist\App\Http\Controllers\Admin;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\Enums\Order\Status as OrderStatus;
 use Directorist\App\DTO\Order\Read;
 use Directorist\App\DTO\Order\DTO;
 use Directorist\App\Repositories\OrderRepository;
@@ -30,13 +31,13 @@ class OrderController {
         $validator->validate(
             [
                 "page"     => "numeric",
-                "per_page" => "numeric",
+                "perPage" => "numeric",
                 "search"   => "string"
             ]
         );
 
         $page = (int) $request->get_param( "page" );
-        $per_page = (int) $request->get_param( "per_page" );
+        $per_page = (int) $request->get_param( "perPage" );
         $search = (string) $request->get_param( "search" );
 
         $dto = (new Read)->set_page( $page )->set_per_page( $per_page )->set_search( $search );
@@ -132,7 +133,7 @@ class OrderController {
     public function update_status(Validator $validator, WP_REST_Request $request) {
         $validator->validate([
             'id' => 'numeric',
-            'status' => "required|accepted:pending,paid,failed,cancelled,expired",
+            'status' => "required|accepted:". implode(',', OrderStatus::all()),
         ]);
 
         $dto = new DTO;

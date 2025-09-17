@@ -1,16 +1,30 @@
-const path = require( 'path' );
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const path = require('path');
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const devHost = 'directorist.local';
 
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'js/admin/order': './resources/js/admin/order/index.tsx',
-		'js/frontend/payment-receipt': './resources/js/frontend/payment-receipt.js',
+		'css/admin-order': './resources/sass/app.scss',
+		'js/admin/order': './resources/js/admin/pages/index.tsx',
+		'js/frontend/payment-receipt':
+			'./resources/js/frontend/payment-receipt.js',
 	},
 	output: {
 		...defaultConfig.output,
-		path: path.resolve( __dirname, './assets/build/' ),
+		path: path.resolve(__dirname, './assets/build/'),
+	},
+	resolve: {
+		...defaultConfig.resolve,
+		alias: {
+			...(defaultConfig.resolve && defaultConfig.resolve.alias
+				? defaultConfig.resolve.alias
+				: {}),
+			'@babel/runtime': path.dirname(
+				require.resolve('@babel/runtime/package.json')
+			),
+			'@': path.resolve(__dirname, 'resources/js/'),
+		},
 	},
 	devServer: {
 		devMiddleware: {
@@ -27,5 +41,5 @@ module.exports = {
 			},
 		},
 		headers: { 'Access-Control-Allow-Origin': '*' },
-	}
+	},
 };

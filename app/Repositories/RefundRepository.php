@@ -64,16 +64,22 @@ class RefundRepository extends Repository {
             throw new Exception( esc_html__( "Order not found" ) );
         }
 
+        $total = $order->get_sub_total();
+
+        if ( ! empty( $order->get_tax_rate() ) ) {
+            $total += directorist_calculate_tax_amount( $order->get_tax_type(), $order->get_tax_rate(), $order->get_sub_total() );
+        }
+
         // Calculate total amount already refunded for this order
         $already_refunded = $this->get_order_total_refunded( $dto->get_order_id() );
 
         // Prevent refunding if order is already fully refunded
-        if ( $already_refunded >= $order->get_final_amount() ) {
+        if ( $already_refunded >= $total ) {
             throw new Exception( esc_html__( "Order is already refunded" ) );
         }
 
         // Calculate remaining amount that can still be refunded
-        $remaining_amount = abs( $order->get_final_amount() - $already_refunded );
+        $remaining_amount = abs( $total - $already_refunded );
 
         // Validate that refund amount doesn't exceed remaining refundable amount
         if ( $remaining_amount < $dto->get_amount() ) {
@@ -91,7 +97,7 @@ class RefundRepository extends Repository {
         $remaining_amount = $already_refunded + $dto->get_amount();
 
         // If order is now fully refunded, update order status to REFUNDED
-        if ( $remaining_amount === $order->get_final_amount() ) {
+        if ( $remaining_amount === $total ) {
             $dto = ( new OrderDTO )->set_id( $order->get_id() )->set_status( OrderStatus::REFUNDED );
             $this->order_repository->update( $dto );
         }

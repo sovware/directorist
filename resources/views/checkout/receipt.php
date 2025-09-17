@@ -74,7 +74,7 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Amount', 'directorist' ); ?></td>
                                     <td>
                                     <?php
-                                    echo directorist_price( $order->get_final_amount() );
+                                    echo wp_kses_post( directorist_price( $order->get_sub_total() ) );
                                     ?>
                                     </td>
                                 </tr>
@@ -105,26 +105,21 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                             <?php } ?>
                                         </td>
                                         <td>
-                                                <?php echo directorist_price( $order_item['price'] );
+                                                <?php echo wp_kses_post( directorist_price( $order_item['price'] ) );
                                                 ?>
                                         </td>
                                     </tr>
                                     <?php } }
-                                if ( ! empty( $discount ) ) { ?>
-                                <tr>
-                                    <td class="directorist-payment-table__title"><?php esc_html_e( 'Subtotal', 'directorist' ); ?></td>
-                                    <td>
-                                        <?php
-                                        echo directorist_price( $order->get_amount() );
-                                        ?>
-                                    </td>
-                                </tr>
+                                if ( ! empty( $order->get_coupon_discount() ) ) { ?>
                                 <tr>
                                     <td class="directorist-payment-table__title"><?php esc_html_e( 'Discount', 'directorist' ); ?></td>
                                     <td>
                                         <?php
-                                        $output = $before . atbdp_format_payment_amount( $discount ) . $after ;
-                                        echo wp_kses_post( $output );
+                                        if ( $order->get_coupon_discount_type() == 'percentage' ) {
+                                            echo '- ' . $order->get_coupon_discount() . '%';
+                                        } else {
+                                            echo '- ' . wp_kses_post( directorist_price( $order->get_coupon_discount() ) );
+                                        }
                                         ?>
                                     </td>
                                 </tr>
@@ -132,7 +127,7 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                 <tr class="directorsit-payment-table-total">
                                     <td class="directorist-payment-table__title"><?php esc_html_e( 'Total amount', 'directorist' ); ?></td>
                                     <td>
-                                        <?php echo directorist_price( $order->get_final_amount() ); ?>
+                                        <?php echo wp_kses_post( directorist_price( $order->get_sub_total() ) ); ?>
                                     </td>
                                 </tr>
                                 </tbody>

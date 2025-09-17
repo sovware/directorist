@@ -6744,7 +6744,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
 .directorist-content-active .select2-container--default .select2-results__option--highlighted {
   font-weight: 500;
   color: var(--directorist-color-primary) !important;
-  background-color: transparent !important;
+  background-color: transparent;
 }
 .directorist-content-active .select2-container--default .select2-results__message {
   margin-bottom: 10px !important;
@@ -6766,6 +6766,10 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
   width: 100% !important;
   padding: 0 !important;
   border: none !important;
+}
+.directorist-content-active .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.1) !important;
+  font-weight: 400;
 }
 .directorist-content-active .select2-container--default.select2-container--open .select2-results__option {
   margin: 0;
@@ -6840,7 +6844,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
   color: var(--directorist-color-body);
 }
 .directorist-content-active .select2-container--default .directorist-select2-addons-area .directorist-icon-mask:after {
-  background-color: var(--directorist-color-body);
+  background-color: var(--directorist-color-body) !important;
 }
 
 .custom-checkbox input {
@@ -8889,13 +8893,15 @@ body.stop-scrolling {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px;
+  margin: 15px -15px 0;
 }
 .directorist-map-coordinates .directorist-form-group {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  padding-right: 15px;
+  padding-left: 15px;
   max-width: 290px;
 }
 .directorist-map-coordinates__generate {
@@ -9037,8 +9043,8 @@ body.stop-scrolling {
   width: 16px;
   height: 16px;
   background-color: var(--directorist-color-marker-icon);
-  -webkit-mask-image: url(../js/../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
-          mask-image: url(../js/../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+  -webkit-mask: url(../js/../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+          mask: url(../js/../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
 }
 .directorist-form-map-field .atbd_map_shape:hover:before {
   opacity: 1;

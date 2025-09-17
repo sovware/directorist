@@ -1,6 +1,35 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./assets/src/js/global/components/debounce.js":
+/*!*****************************************************!*\
+  !*** ./assets/src/js/global/components/debounce.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ debounce; }
+/* harmony export */ });
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+      args = arguments;
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+/***/ }),
+
 /***/ "./assets/src/js/global/components/select2-custom-control.js":
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
@@ -571,6 +600,157 @@ window.addEventListener('load', function () {
     }
   });
 });
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/category-custom-fields.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/js/public/components/category-custom-fields.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ initSearchCategoryCustomFields; }
+/* harmony export */ });
+// Search Category Change
+function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
+  var fields = Object.keys(relations);
+  var wrappers = ['.directorist-advanced-filter__advanced__element', '.directorist-search-modal__input', '.directorist-search-field'];
+  if (!fields.length) {
+    return;
+  }
+
+  // Convert categories to array if it's not already
+  var categoryArray = Array.isArray(categories) ? categories : [categories];
+  fields.forEach(function (field) {
+    var fieldCategory = relations[field];
+
+    // Try multiple selectors to find the field
+    var $field = null;
+    var selectors = ["[name=\"custom_field[".concat(field, "]\"]"), "[name=\"custom_field[".concat(field, "][]\"]"), "[name*=\"".concat(field, "\"]"), "[data-field-key=\"".concat(field, "\"]"), "[id*=\"".concat(field, "\"]")];
+    for (var _i = 0, _selectors = selectors; _i < _selectors.length; _i++) {
+      var selector = _selectors[_i];
+      $field = $container.find(selector);
+      if ($field.length > 0) {
+        break;
+      }
+    }
+    if (!$field || !$field.length) {
+      return;
+    }
+
+    // Check if the field category matches any of the selected categories
+    var shouldShow = categoryArray.some(function (category) {
+      return Number(category) === Number(fieldCategory);
+    });
+    if (shouldShow) {
+      $field.prop('disabled', false);
+      wrappers.forEach(function (wrapper) {
+        var $wrapper = $field.closest(wrapper);
+        if ($wrapper.length) {
+          $wrapper.show();
+        }
+      });
+    } else {
+      $field.prop('disabled', true);
+      wrappers.forEach(function (wrapper) {
+        var $wrapper = $field.closest(wrapper);
+        if ($wrapper.length) {
+          $wrapper.hide();
+        }
+      });
+    }
+  });
+}
+function initSearchCategoryCustomFields($) {
+  // Handle multiple search forms and containers
+  var containers = ['.directorist-search-contents', '.directorist-archive-contents', '.directorist-search-form', '.directorist-add-listing-form'];
+  containers.forEach(function (containerSelector) {
+    var $container = $(containerSelector);
+    if ($container.length) {
+      // Bind events to all category selects within this container
+      $container.on('change', '.directorist-category-select, .directorist-search-category select, .bdas-category-search', function (event) {
+        var $this = $(this);
+        var $form = $this.parents('form');
+        var categories = $this.val();
+        var attributes = $form.data('atts');
+
+        // If form doesn't have attributes, try container
+        if (!attributes) {
+          attributes = $container.data('atts');
+        }
+
+        // If still no attributes, try document body
+        if (!attributes) {
+          attributes = $(document.body).data('atts');
+        }
+        if (!attributes || !attributes.category_custom_fields_relations) {
+          return;
+        }
+
+        // Handle both single and multiple category selections
+        if (categories) {
+          // Convert to array if it's a single value
+          if (!Array.isArray(categories)) {
+            categories = [categories];
+          }
+          // Convert string values to numbers and filter out empty values
+          categories = categories.map(function (cat) {
+            return Number(cat);
+          }).filter(function (cat) {
+            return cat > 0;
+          }); // Filter out 0, null, undefined, etc.
+        } else {
+          categories = [];
+        }
+
+        // Use the specific container for field search to avoid conflicts
+        hideAllCustomFieldsExceptSelected(attributes.category_custom_fields_relations, categories, $container);
+      });
+
+      // Trigger change event on page load for all category selects in this container
+      $container.find('.directorist-category-select, .directorist-search-category select, .bdas-category-search').each(function () {
+        $(this).trigger('change');
+      });
+    }
+  });
+
+  // Also handle global category selects that might not be in specific containers
+  var globalSelectors = '.directorist-category-select, .directorist-search-category select, .bdas-category-search';
+  $(document).on('change', globalSelectors, function (event) {
+    var $this = $(this);
+
+    // Only handle if not already handled by container-specific handlers
+    if (!event.isDefaultPrevented()) {
+      var $form = $this.parents('form');
+      var categories = $this.val();
+      var attributes = $form.data('atts');
+      if (!attributes) {
+        attributes = $(document.body).data('atts');
+      }
+      if (!attributes || !attributes.category_custom_fields_relations) {
+        return;
+      }
+
+      // Handle both single and multiple category selections
+      if (categories) {
+        if (!Array.isArray(categories)) {
+          categories = [categories];
+        }
+        categories = categories.map(function (cat) {
+          return Number(cat);
+        }).filter(function (cat) {
+          return cat > 0;
+        });
+      } else {
+        categories = [];
+      }
+      hideAllCustomFieldsExceptSelected(attributes.category_custom_fields_relations, categories, $(document.body));
+    }
+  });
+}
 
 /***/ }),
 
@@ -1249,9 +1429,926 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************!*\
   !*** ./assets/src/js/public/components/instantSearch.js ***!
   \**********************************************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/.pnpm/babel-loader@8.4.1_@babel+core@7.28.3_webpack@5.101.3/node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/assets/src/js/public/components/instantSearch.js: Unexpected token (765:0)\n\n\u001b[0m \u001b[90m 763 |\u001b[39m \u001b[90m\t*/\u001b[39m\n \u001b[90m 764 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 765 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m     |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 766 |\u001b[39m   \u001b[90m// sidebar on keyup searching\u001b[39m\n \u001b[90m 767 |\u001b[39m   $(\u001b[32m\"body\"\u001b[39m)\u001b[33m.\u001b[39mon(\n \u001b[90m 768 |\u001b[39m     \u001b[32m\"keyup\"\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n    at constructor (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:367:19)\n    at JSXParserMixin.raise (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:6630:19)\n    at JSXParserMixin.unexpected (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:6650:16)\n    at JSXParserMixin.parseExprAtom (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11447:16)\n    at JSXParserMixin.parseExprAtom (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:4797:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11081:23)\n    at JSXParserMixin.parseUpdate (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11066:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11046:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10899:61)\n    at JSXParserMixin.parseExprOps (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10904:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10881:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10831:21)\n    at JSXParserMixin.parseExpressionBase (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10784:23)\n    at /Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10780:39\n    at JSXParserMixin.allowInAnd (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12427:16)\n    at JSXParserMixin.parseExpression (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10780:17)\n    at JSXParserMixin.parseStatementContent (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12900:23)\n    at JSXParserMixin.parseStatementLike (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12772:17)\n    at JSXParserMixin.parseStatementListItem (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12752:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:13321:61)\n    at JSXParserMixin.parseBlockBody (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:13314:10)\n    at JSXParserMixin.parseBlock (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:13302:10)\n    at JSXParserMixin.parseFunctionBody (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12106:24)\n    at JSXParserMixin.parseFunctionBodyAndFinish (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12092:10)\n    at /Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:13450:12\n    at JSXParserMixin.withSmartMixTopicForbiddingContext (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12409:14)\n    at JSXParserMixin.parseFunction (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:13449:10)\n    at JSXParserMixin.parseFunctionOrFunctionSent (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11569:17)\n    at JSXParserMixin.parseExprAtom (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11342:21)\n    at JSXParserMixin.parseExprAtom (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:4797:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11081:23)\n    at JSXParserMixin.parseUpdate (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11066:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11046:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10899:61)\n    at JSXParserMixin.parseExprOps (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10904:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10881:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10831:21)\n    at /Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10800:39\n    at JSXParserMixin.allowInAnd (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12432:12)\n    at JSXParserMixin.parseMaybeAssignAllowIn (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10800:17)\n    at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:12499:17)\n    at JSXParserMixin.parseParenAndDistinguishExpression (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11679:28)\n    at JSXParserMixin.parseExprAtom (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11331:23)\n    at JSXParserMixin.parseExprAtom (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:4797:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11081:23)\n    at JSXParserMixin.parseUpdate (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11066:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:11046:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10899:61)\n    at JSXParserMixin.parseExprOps (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10904:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/mdalamin/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/.pnpm/@babel+parser@7.28.3/node_modules/@babel/parser/lib/index.js:10881:23)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/.pnpm/@babel+runtime@7.28.3/node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/.pnpm/@babel+runtime@7.28.3/node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/.pnpm/@babel+runtime@7.28.3/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _category_custom_fields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./category-custom-fields */ "./assets/src/js/public/components/category-custom-fields.js");
+
+
+
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+(function ($) {
+  /** 
+  	Global Variables 
+  */
+
+  // Globally accessible form_data
+  var form_data = {};
+
+  // Scrolling Pagination
+  var scrollingPage = 1;
+  var infinitePaginationIsLoading = false;
+  var infinitePaginationCompleted = false;
+
+  /** 
+  	Main Functions 
+  */
+
+  // Perform Instant Search
+  function performInstantSearch(searchElement) {
+    // get parent element
+    var searchElm = searchElement.closest('.directorist-instant-search');
+
+    // Instant Search Data
+    var instant_search_data = prepareInstantSearchData(searchElm);
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: 'POST',
+      data: instant_search_data,
+      beforeSend: function beforeSend() {
+        var _searchElm$offset;
+        searchElm.find('.directorist-advanced-filter__form .directorist-btn-sm').attr('disabled', true);
+        searchElm.find('.directorist-archive-items').addClass('atbdp-form-fade');
+        searchElm.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show').hide();
+        if (((_searchElm$offset = searchElm.offset()) === null || _searchElm$offset === void 0 ? void 0 : _searchElm$offset.top) > 0) {
+          $(document).scrollTop(searchElm.offset().top);
+        }
+        closeAllSearchModal();
+      },
+      success: function success(html) {
+        if (html.search_result) {
+          searchElm.find('.directorist-header-found-title, .dsa-save-search-container').remove();
+          if (html.header_title) {
+            searchElm.find('.directorist-listings-header__left').append(html.header_title);
+            searchElm.find('.directorist-header-found-title span').text(html.count);
+          }
+          searchElm.find('.directorist-archive-items').replaceWith(html.search_result).removeClass('atbdp-form-fade');
+          searchElm.find('.directorist-advanced-filter__form .directorist-btn-sm').attr('disabled', false);
+          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
+          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+
+          // Optional: Update meta title
+          var new_meta_title = '';
+          if (html.category_name) new_meta_title += html.category_name;
+          if (html.location_name) new_meta_title += (new_meta_title ? ' within ' : '') + html.location_name;
+          if (form_data.address) new_meta_title += (form_data.in_cat || form_data.in_loc ? ' near ' : '') + form_data.address;
+          document.title = new_meta_title ? "".concat(new_meta_title, " | ").concat(directorist.site_name) : directorist.site_name;
+        }
+
+        // Initialize scrolling status
+        scrollingPage = 1;
+        infinitePaginationCompleted = false;
+      }
+    });
+  }
+
+  // Perform Instant Search for directory type change
+  function onDirectoryChange(searchElement) {
+    // get parent element
+    var searchElm = searchElement.closest('.directorist-instant-search');
+
+    // Instant Search Data
+    var instant_search_data = prepareInstantSearchData(searchElm);
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: 'POST',
+      data: instant_search_data,
+      beforeSend: function beforeSend() {
+        searchElm.addClass('atbdp-form-fade');
+      },
+      success: function success(html) {
+        if (html.directory_type) {
+          searchElm.replaceWith(html.directory_type);
+          searchElm.find('.atbdp-form-fade').removeClass('atbdp-form-fade');
+          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
+          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+
+          // SearchForm Item in Single Category Location Page Init
+          singleCategoryLocationInit();
+
+          // Category Custom Field Assigned Init
+          (0,_category_custom_fields__WEBPACK_IMPORTED_MODULE_4__["default"])($);
+        }
+
+        // Initialize scrolling status
+        scrollingPage = 1;
+        infinitePaginationCompleted = false;
+      }
+    });
+  }
+
+  // AJAX call to load more listings
+  function loadMoreListings(searchElement) {
+    var loadingDiv;
+    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+
+    // get parent element
+    var searchElm = searchElement.closest('.directorist-instant-search');
+
+    // Instant Search Data
+    var preparedData = prepareInstantSearchData(searchElm);
+
+    // make ajax data
+    var instant_search_data = _objectSpread(_objectSpread({}, preparedData), {}, {
+      paged: scrollingPage
+    });
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: 'POST',
+      data: instant_search_data,
+      beforeSend: function beforeSend() {
+        loadingDiv = $('<div>', {
+          class: 'directorist-on-scroll-loading'
+        }).append($('<div>', {
+          class: 'directorist-spinner'
+        }), $('<span>').text(directorist.loading_more_text));
+        container.append(loadingDiv);
+      },
+      success: function success(html) {
+        if (loadingDiv) loadingDiv.remove();
+        if (html.count > 0) {
+          container.append(html.render_listings);
+        } else {
+          infinitePaginationCompleted = true;
+        }
+        triggerCustomEvents();
+      },
+      complete: function complete() {
+        infinitePaginationIsLoading = false;
+        if (loadingDiv) loadingDiv.remove();
+      }
+    });
+  }
+
+  /**
+     	Helper Functions  
+   	**/
+
+  // Prepare Instant Search Data
+  function prepareInstantSearchData(searchElm) {
+    // Get data-atts
+    var instant_search_atts = searchElm.data('atts');
+
+    // Make ajax data
+    var instant_search_data = _objectSpread(_objectSpread({}, form_data), {}, {
+      action: 'directorist_instant_search',
+      _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
+      data_atts: instant_search_atts
+    });
+    return instant_search_data;
+  }
+
+  // Update or retain existing keys in form_data
+  function updateFormData(newData) {
+    Object.entries(newData).forEach(function (_ref) {
+      var _ref2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref, 2),
+        key = _ref2[0],
+        value = _ref2[1];
+      if (value === undefined || value === null || value === '' || Array.isArray(value) && value.length === 0 || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === 'object' && !Array.isArray(value) && Object.keys(value).length === 0) {
+        delete form_data[key];
+      } else {
+        form_data[key] = value;
+      }
+    });
+  }
+
+  // Reset form_data
+  function resetFormData() {
+    Object.entries(form_data).forEach(function (_ref3) {
+      var _ref4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref3, 2),
+        key = _ref4[0],
+        value = _ref4[1];
+      delete form_data[key];
+    });
+  }
+
+  // Update search URL with form data
+  function update_instant_search_url(form_data) {
+    if (!history.pushState) return;
+    var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+    var query = '';
+    var appendQuery = function appendQuery(key, value) {
+      if (value !== undefined && value !== null && value !== '' && (!Array.isArray(value) || value.length)) {
+        if (Array.isArray(value) && value.length) {
+          query += (query.length ? '&' : '?') + "".concat(key, "=").concat(value);
+        } else {
+          query += (query.length ? '&' : '?') + "".concat(key, "=").concat(encodeURIComponent(value));
+        }
+      }
+    };
+
+    // These keys will be ignored
+    // and will not be appended to the URL
+    // when updating the URL
+    var ignoreKeys = ['data_atts', 'custom_field', 'current_page_id', 'action', '_nonce'];
+
+    // Handle all form_data keys dynamically
+    Object.entries(form_data).forEach(function (_ref5) {
+      var _ref6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref5, 2),
+        key = _ref6[0],
+        value = _ref6[1];
+      if (ignoreKeys.includes(key)) return;
+
+      // Handle default page
+      if (key === 'paged' && Number(value) === 1) {
+        return; // ❌ Skip default page 1
+      }
+
+      // Handle price & address fields specifically
+      if (key === 'price' && Array.isArray(value)) {
+        appendQuery('price[0]', value[0] > 0 ? value[0] : '');
+        appendQuery('price[1]', value[1] > 0 ? value[1] : '');
+      } else if ((key === 'cityLat' || key === 'cityLng') && !form_data.address) {
+        return; // ❌ Skip lat/lng if no address
+      } else {
+        appendQuery(key, value);
+      }
+    });
+
+    // Handle custom_field
+    if (form_data.custom_field && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(form_data.custom_field) === 'object') {
+      Object.entries(form_data.custom_field).forEach(function (_ref7) {
+        var _ref8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref7, 2),
+          key = _ref8[0],
+          val = _ref8[1];
+        // Skip if key starts with "custom-number" and value is "0-0"
+        if (key.startsWith('custom-number') && val === '0-0') {
+          return;
+        }
+        appendQuery(key, val);
+      });
+    }
+    var finalUrl = query ? newurl + query : newurl;
+    window.history.pushState({
+      path: finalUrl
+    }, '', finalUrl);
+  }
+
+  // Check required fields are valid or not
+  function checkRequiredFields(searchElm) {
+    // Select all required inputs and selects inside searchElm
+    var requiredInputs = searchElm.find('input[required], select[required], textarea[required]');
+    var requiredFieldsAreValid = true;
+    requiredInputs.each(function () {
+      var $el = $(this);
+      var tagName = $el.prop('tagName').toLowerCase();
+      var type = $el.attr('type');
+      if (tagName === 'input') {
+        if (type === 'checkbox' || type === 'radio') {
+          // For checkboxes/radios, at least one with this name must be checked
+          var name = $el.attr('name');
+          var checked = searchElm.find("input[name=\"".concat(name, "\"]:checked")).length > 0;
+          if (!checked) {
+            requiredFieldsAreValid = false;
+            return false; // break .each loop early
+          }
+        } else {
+          // For other input types, value must not be empty
+          if (!$el.val()) {
+            requiredFieldsAreValid = false;
+            return false;
+          }
+        }
+      } else if (tagName === 'select' || tagName === 'textarea') {
+        // Select or textarea must have a value
+        if (!$el.val()) {
+          requiredFieldsAreValid = false;
+          return false;
+        }
+      }
+    });
+    return requiredFieldsAreValid;
+  }
+
+  //  Build form_data from searchElm inputs.
+  function buildFormData(searchElm) {
+    var tag = [];
+    var price = [];
+    var custom_field = {};
+    var search_by_rating = [];
+
+    // Collect selected tags
+    searchElm.find('input[name^="in_tag["]:checked').each(function (_, el) {
+      tag.push($(el).val());
+    });
+
+    // Collect selected ratings
+    searchElm.find('input[name^="search_by_rating["]:checked').each(function (_, el) {
+      search_by_rating.push($(el).val());
+    });
+
+    // Collect price values
+    searchElm.find('input[name^="price["]').each(function (_, el) {
+      price.push($(el).val());
+    });
+
+    // Check if **any** price is greater than 0
+    var hasValidPrice = price.some(function (val) {
+      return val > 0;
+    });
+    if (!hasValidPrice) {
+      price = []; // Reset price if no valid price found
+    }
+
+    // Collect custom field values
+    searchElm.find('[name^="custom_field"]').each(function (_, el) {
+      var $el = $(el);
+      var name = $el.attr('name');
+      var type = $el.attr('type');
+      var match = name.match(/^custom_field\[(.+?)\]/);
+      var post_id = match ? match[1] : '';
+      if (!post_id) return;
+      if (type === 'radio') {
+        var checked = searchElm.find("input[name=\"custom_field[".concat(post_id, "]\"]:checked")).val();
+        if (checked) custom_field[post_id] = checked;
+      } else if (type === 'checkbox') {
+        var values = [];
+        searchElm.find("input[name=\"custom_field[".concat(post_id, "][]\"]:checked")).each(function () {
+          var val = $(this).val();
+          if (val) values.push(val);
+        });
+        if (values.length) custom_field[post_id] = values;
+      } else {
+        var value = $el.val();
+        if (value && value !== '0-0') custom_field[post_id] = value;
+      }
+    });
+
+    // Collect basic form values
+    var q = searchElm.find('input[name="q"]').val();
+    var in_cat = searchElm.find('.directorist-category-select').val();
+    var in_loc = searchElm.find('.directorist-location-select').val();
+    var price_range = searchElm.find("input[name='price_range']:checked").val();
+    var address = searchElm.find('input[name="address"]').val();
+    var zip = searchElm.find('input[name="zip"]').val();
+    var fax = searchElm.find('input[name="fax"]').val();
+    var email = searchElm.find('input[name="email"]').val();
+    var website = searchElm.find('input[name="website"]').val();
+    var phone = searchElm.find('input[name="phone"]').val();
+    var phone2 = searchElm.find('input[name="phone2"]').val();
+    var view = form_data.view;
+    var paged = form_data.paged;
+
+    // Get directory type
+    var directory_type = searchElm.find('input[name="directory_type"]').val();
+
+    // Update form_data
+    updateFormData({
+      q: q,
+      in_cat: in_cat,
+      in_loc: in_loc,
+      in_tag: tag,
+      price: price,
+      price_range: price_range,
+      search_by_rating: search_by_rating,
+      address: address,
+      zip: zip,
+      fax: fax,
+      email: email,
+      website: website,
+      phone: phone,
+      phone2: phone2,
+      custom_field: custom_field,
+      view: view,
+      paged: paged,
+      directory_type: directory_type
+    });
+
+    // open_now checkbox
+    var open_now_val = searchElm.find('input[name="open_now"]').is(':checked') ? searchElm.find('input[name="open_now"]').val() : undefined;
+    updateFormData({
+      open_now: open_now_val
+    });
+    var radius_search_based_on = searchElm.find('.directorist-radius_search_based_on').val();
+
+    // Check if the address or zip code is present to update miles, lat, and lng
+    if (radius_search_based_on === 'address' && address) {
+      updateFormData({
+        cityLat: searchElm.find('#cityLat').val(),
+        cityLng: searchElm.find('#cityLng').val(),
+        miles: searchElm.find('input[name="miles"]').val()
+      });
+    } else if (radius_search_based_on === 'zip' && zip) {
+      updateFormData({
+        zip_cityLat: searchElm.find('.zip-cityLat').val(),
+        zip_cityLng: searchElm.find('.zip-cityLng').val(),
+        miles: searchElm.find('input[name="miles"]').val()
+      });
+    } else {
+      updateFormData({
+        cityLat: undefined,
+        cityLng: undefined,
+        zip_cityLat: undefined,
+        zip_cityLng: undefined,
+        miles: undefined
+      });
+    }
+
+    // Paging: get current page number, default 1 if not found
+    var page = parseInt(form_data.paged, 10) || 1;
+    updateFormData({
+      paged: page > 1 ? page : undefined
+    });
+
+    // Update URL with form data
+    update_instant_search_url(form_data);
+  }
+
+  // Build form data without required value
+  function buildFormDataWithoutRequired() {
+    var notRequiredFields = ['view', 'sort', 'paged'];
+    Object.entries(form_data).forEach(function (_ref9) {
+      var _ref0 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref9, 2),
+        key = _ref0[0],
+        value = _ref0[1];
+      if (!notRequiredFields.includes(key)) {
+        delete form_data[key];
+      }
+    });
+
+    // Update URL with form data
+    update_instant_search_url(form_data);
+  }
+
+  // Perform Instant Search with required value
+  function performInstantSearchWithRequiredValue(searchElm) {
+    // Build form data
+    buildFormData(searchElm);
+
+    // Check required fields
+    var allRequiredFieldsAreValid = checkRequiredFields(searchElm);
+
+    // If required fields are valid, proceed with filtering
+    if (allRequiredFieldsAreValid) {
+      performInstantSearch(searchElm);
+    }
+  }
+
+  // Perform Instant Search without required value
+  function performInstantSearchWithoutRequiredValue(searchElm) {
+    // Check required fields
+    var allRequiredFieldsAreValid = checkRequiredFields(searchElm);
+
+    // If required fields are valid, proceed with filtering
+    if (allRequiredFieldsAreValid) {
+      // Build form data
+      buildFormData(searchElm);
+      performInstantSearch(searchElm);
+    } else {
+      // Build form data without required value
+      buildFormDataWithoutRequired();
+
+      // Filter Listing
+      performInstantSearch(searchElm);
+    }
+  }
+
+  // Handle Infinite Scroll
+  function handleScroll() {
+    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+    if (!container.length || infinitePaginationIsLoading) {
+      return;
+    }
+    var containerBottom = container.offset().top + container.outerHeight();
+    var scrollBottom = window.scrollY + window.innerHeight;
+    if (scrollBottom >= containerBottom) {
+      infinitePaginationIsLoading = true;
+      scrollingPage++;
+
+      // get parent element
+      var instantSearchElement = $('.directorist-instant-search');
+      // get active form
+      var activeForm = getActiveForm(instantSearchElement);
+
+      // build form_data
+      buildFormData(activeForm);
+
+      // Load more listings
+      loadMoreListings(activeForm);
+    }
+  }
+
+  // Close all search modal
+  function closeAllSearchModal() {
+    var searchModalElement = document.querySelectorAll('.directorist-search-modal');
+    searchModalElement.forEach(function (modal) {
+      var modalOverlay = modal.querySelector('.directorist-search-modal__overlay');
+      var modalContent = modal.querySelector('.directorist-search-modal__contents');
+      var modalBodyOverlay = document.querySelector('.directorist-content-active');
+
+      // Overlay Style
+      if (modalOverlay) {
+        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden; transition: 0.5s ease';
+        // remove overlay class on body
+        modalBodyOverlay.classList.remove('directorist-overlay-active');
+      }
+
+      // Modal Content Style
+      if (modalContent) {
+        modalContent.style.cssText = 'opacity: 0; visibility: hidden; bottom: -200px;';
+      }
+    });
+  }
+
+  // Determine the active form
+  function getActiveForm(instantSearchElement) {
+    var sidebarListing = instantSearchElement.find('.listing-with-sidebar');
+    var advancedForm = instantSearchElement.find('.directorist-advanced-filter__form');
+    var searchForm = instantSearchElement.find('.directorist-search-form');
+    return sidebarListing.length ? instantSearchElement : screen.width > 575 ? advancedForm : searchForm;
+  }
+
+  // Get directory type
+  function getDirectoryType(directoryTypeLink) {
+    var _directoryTypeLink$at;
+    var typeMatch = (_directoryTypeLink$at = directoryTypeLink.attr('href')) === null || _directoryTypeLink$at === void 0 ? void 0 : _directoryTypeLink$at.match(/type=([^&]+)/);
+    return typeMatch ? typeMatch[1] : '';
+  }
+
+  // Get view as
+  function getViewAs(viewAsLink) {
+    var _viewAsLink$attr;
+    var viewMatch = (_viewAsLink$attr = viewAsLink.attr('href')) === null || _viewAsLink$attr === void 0 ? void 0 : _viewAsLink$attr.match(/view=([^&]+)/);
+    return viewMatch ? viewMatch[1] : '';
+  }
+
+  // Get sort value
+  function getSortValue(sortByLink) {
+    var sort_href = sortByLink.attr('data-link');
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
+    return sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
+  }
+
+  // Trigger custom events
+  function triggerCustomEvents() {
+    window.dispatchEvent(new Event('directorist-instant-search-reloaded'));
+    window.dispatchEvent(new Event('directorist-reload-listings-map-archive'));
+  }
+
+  // Range Slider searching observer
+  function initObserver() {
+    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-custom-range-slider__value input');
+    targetNodes.forEach(function (targetNode) {
+      var searchElm = $(targetNode.closest('form'));
+      if (targetNode) {
+        var timeout;
+        var observerCallback = function observerCallback(mutationList, observer) {
+          var _iterator = _createForOfIteratorHelper(mutationList),
+            _step;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var mutation = _step.value;
+              if (mutation.attributeName == 'value') {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                  // Instant search with required value
+                  performInstantSearchWithRequiredValue(searchElm);
+                }, 250);
+              }
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        };
+        var observer = new MutationObserver(observerCallback);
+        observer.observe(targetNode, {
+          attributes: true,
+          childList: true,
+          subtree: true
+        });
+      }
+    });
+  }
+
+  // Single Location Category Page Search Form Item Disable
+  function singleCategoryLocationInit() {
+    var directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+    if (!directoristArchiveContents) {
+      return;
+    }
+    var directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
+    var _JSON$parse = JSON.parse(directoristDataAttributes),
+      shortcode = _JSON$parse.shortcode,
+      location = _JSON$parse.location,
+      category = _JSON$parse.category;
+    if (shortcode === 'directorist_category' && category.trim() !== '') {
+      var categorySelect = document.querySelector('.directorist-search-form .directorist-category-select');
+      if (categorySelect) {
+        categorySelect.closest('.directorist-search-category').classList.add('directorist-search-form__single-category');
+      }
+    }
+    if (shortcode === 'directorist_location' && location.trim() !== '') {
+      var locationSelect = document.querySelector('.directorist-search-form .directorist-location-select');
+      if (locationSelect) {
+        locationSelect.closest('.directorist-search-location').classList.add('directorist-search-form__single-location');
+      }
+    }
+  }
+
+  /** 
+  	Event Listeners 
+  */
+
+  // sidebar on keyup searching
+  $('body').on('keyup', '.directorist-instant-search .listing-with-sidebar form', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    if ($(e.target).closest('.directorist-custom-range-slider__value').length > 0 || e.key === 'Enter' && e.target.value === '') {
+      return; // Skip search for this element
+    }
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 250));
+
+  // sidebar on change searching - radio/checkbox/location/range
+  $('body').on('change', ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 250));
+
+  // sidebar on change searching - zipcode/location
+  $('body').on('change', '.directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // If it's a location field, ensure it has a value before triggering the filter
+    if ($(this).hasClass('directorist-search-location')) {
+      var locationField = $(this).find('input[name="address"]');
+      if (!locationField.val()) {
+        return;
+      }
+    }
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 250));
+
+  // sidebar on change searching - select
+  $('body').on('change', '.directorist-instant-search .listing-with-sidebar select', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    if (!$(this).val()) {
+      return; // Skip search if the value is empty
+    }
+    e.preventDefault();
+    var searchElm = $(this).val() && $(this).closest('.listing-with-sidebar');
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 250));
+
+  // sidebar on change searching - color
+  window.addEventListener('directorist-color-changed', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    var input = e.detail.input;
+    var searchElm = $(input).closest('.listing-with-sidebar');
+    if (!searchElm.length) return;
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 250));
+
+  // sidebar on click searching - location icon
+  $('body').on('click', '.directorist-instant-search .listing-with-sidebar .directorist-filter-location-icon', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 1000));
+
+  // Clear Input Value
+  $('body').on('click', '.directorist-instant-search .listing-with-sidebar .directorist-search-field__btn--clear', function (e) {
+    // Clear Color Field Value
+    var irisPicker = $(this).closest('.directorist-search-field.directorist-color').find('input.wp-picker-clear');
+    if (irisPicker !== null) {
+      irisPicker.click();
+    }
+    var $searchField = $(this).closest('.directorist-search-field');
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // Clear text, email, number, select fields etc
+    $searchField.find('input:not([type="checkbox"]):not([type="radio"]):not(.wp-picker-clear), select').val('');
+
+    // Clear checkboxes
+    $searchField.find('input[type="checkbox"]').prop('checked', false);
+
+    // Clear radio buttons
+    $searchField.find('input[type="radio"]').prop('checked', false);
+
+    // Proceed if form exists
+    if (searchElm.length) {
+      performInstantSearchWithRequiredValue(searchElm);
+    }
+  });
+
+  // Directorist instant search reset
+  $('body').on('click', '.directorist-instant-search .listing-with-sidebar  .directorist-btn-reset-js', function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.directorist-instant-search');
+    // Get active form
+    var activeForm = getActiveForm(searchElm);
+
+    // ✅ only update `page`, preserve others
+    updateFormData({
+      paged: 1
+    });
+
+    // ✅ Define Filter Listing debounced function
+    var debouncedResetSearch = (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function () {
+      // Build form data
+      buildFormData(activeForm);
+      performInstantSearch(activeForm);
+    }, 250);
+
+    // Reset Search after resetting form value
+    debouncedResetSearch();
+  });
+
+  // Directorist instant search submit
+  $('body').on('submit', '.directorist-instant-search form', function (e) {
+    e.preventDefault();
+    var _this = $(this);
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(_this);
+  });
+
+  // Directorist instant search submit - for advanced filter
+  $('body').on('submit', '.widget .default-ad-search:not(.directorist_single) .directorist-advanced-filter__form', function (e) {
+    if ($('.directorist-instant-search').length) {
+      e.preventDefault();
+      var _this = $(this);
+
+      // Instant search with required value
+      performInstantSearchWithRequiredValue(_this);
+    }
+  });
+
+  // Directorist type changes
+  $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function (e) {
+    e.preventDefault();
+
+    // Check if the clicked item is already active
+    if ($(this).closest('.directorist-type-nav__list li').hasClass('directorist-type-nav__list__current')) {
+      return; // Skip if already active
+    }
+
+    // get parent element
+    var searchElm = $(this).closest('.directorist-instant-search');
+
+    // reset form data
+    resetFormData();
+
+    // Get directory_type
+    var directory_type = getDirectoryType($(this));
+
+    // ✅ only update `directory_type`, preserve others
+    updateFormData({
+      directory_type: directory_type
+    });
+
+    // Update URL with form data
+    update_instant_search_url(form_data);
+
+    // Set the directory_type value in the input
+    $(this).closest('.directorist-instant-search').find('input[name="directory_type"]').val(directory_type);
+
+    // Get active form
+    var activeForm = getActiveForm(searchElm);
+
+    // Instant search for directory type change
+    onDirectoryChange(activeForm);
+  });
+
+  // Directorist view as changes
+  $('body').on('click', '.directorist-instant-search .directorist-viewas .directorist-viewas__item', function (e) {
+    e.preventDefault();
+
+    // Check if the clicked item is already active
+    if ($(this).hasClass('active')) {
+      return; // Skip if already active
+    }
+
+    // get parent element
+    var searchElm = $(this).closest('.directorist-instant-search');
+
+    // get view as value
+    var view = getViewAs($(this));
+    // ✅ only update `view`, preserve others
+    updateFormData({
+      view: view
+    });
+
+    // Get active form
+    var activeForm = getActiveForm(searchElm);
+
+    // Instant search without required value
+    performInstantSearchWithoutRequiredValue(activeForm);
+  });
+
+  // Directorist sort by changes
+  $('body').on('click', '.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js', function (e) {
+    e.preventDefault();
+
+    // toggle active class
+    $(this).addClass('active').siblings('.directorist-dropdown__links__single-js').removeClass('active');
+
+    // get parent element
+    var searchElm = $(this).closest('.directorist-instant-search');
+
+    // get sort value
+    var sort = getSortValue($(this));
+    // ✅ only update `sort`, preserve others
+    updateFormData({
+      sort: sort
+    });
+
+    // get active form
+    var activeForm = getActiveForm(searchElm);
+
+    // Instant search without required value
+    performInstantSearchWithoutRequiredValue(activeForm);
+  });
+
+  // Directorist pagination changes
+  $('body').on('click', '.directorist-instant-search .directorist-pagination .page-numbers', function (e) {
+    e.preventDefault();
+    var page = form_data.paged || 1;
+    var currentPage = $(this).text();
+    if (currentPage) {
+      page = parseInt(currentPage);
+    } else if ($(this).hasClass('next')) {
+      page = parseInt(page) + 1;
+    } else if ($(this).hasClass('prev')) {
+      page = parseInt(page) - 1;
+    }
+    // ✅ only update `sort`, preserve others
+    updateFormData({
+      paged: page
+    });
+
+    // get parent element
+    var searchElm = $(this).closest('.directorist-instant-search');
+
+    // get active form
+    var activeForm = getActiveForm(searchElm);
+
+    // Instant search without required value
+    performInstantSearchWithoutRequiredValue(activeForm);
+  });
+
+  // Submit on sidebar form
+  if ($('.directorist-instant-search').length === 0) {
+    $('body').on('submit', '.listing-with-sidebar .directorist-basic-search, .listing-with-sidebar .directorist-advanced-search', function (e) {
+      e.preventDefault();
+      var basic_data = $('.listing-with-sidebar .directorist-basic-search').serialize();
+      var advanced_data = $('.listing-with-sidebar .directorist-advanced-search').serialize();
+      var action_value = $('.directorist-advanced-search').attr('action');
+      var url = action_value + '?' + basic_data + '&' + advanced_data;
+      window.location.href = url;
+    });
+  }
+
+  // Prevent disabled links from being clicked
+  $('body').on('click', '.disabled-link', function (e) {
+    e.preventDefault();
+  });
+
+  // Prevent default action for dropdown links
+  $('.directorist-instant-search .directorist-dropdown__links__single-js').off('click');
+
+  // Initialize Infinite Scroll
+  window.addEventListener('scroll', function () {
+    if (infinitePaginationCompleted) {
+      scrollingPage = 1;
+      return;
+    }
+    handleScroll();
+  });
+
+  // Initialize the observer for single category location
+  window.addEventListener('load', function () {
+    (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(initObserver(), 250);
+    singleCategoryLocationInit();
+  });
+})(jQuery);
 
 /***/ }),
 
@@ -2308,7 +3405,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_masonry__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/masonry */ "./assets/src/js/public/components/masonry.js");
 /* harmony import */ var _components_masonry__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_masonry__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _components_instantSearch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/instantSearch */ "./assets/src/js/public/components/instantSearch.js");
-/* harmony import */ var _components_instantSearch__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_instantSearch__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__);

@@ -16123,10 +16123,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           flex: 1;
   gap: 6px;
   width: 100%;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 .directorist-content-active .directorist-listing-single__info__top__left {
   display: -webkit-box;
@@ -17619,7 +17615,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-primary);
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__header .directorist-listing-tagline {
-  margin-bottom: 0;
+  margin: 0;
 }
 .directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single__info {
   padding: 10px 22px 0;

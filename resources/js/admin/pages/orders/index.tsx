@@ -50,7 +50,7 @@ const columns: Column[] = [
 		render: ({ item }) => {
 			return (
 				<span className="directorist-order-total-amount">
-					{displayPrice(item.total, item.currency)}
+					{displayPrice(item.total_amount, item.currency)}
 				</span>
 			);
 		},

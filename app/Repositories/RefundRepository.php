@@ -27,7 +27,7 @@ class RefundRepository extends Repository {
     }
 
     public function get( Read $dto ): array {
-        $query = $this->get_query_builder();
+        $query = $this->get_query_builder()->where( 'order_id', $dto->get_order_id() );
 
         if ( $dto->get_search() ) {
             $query->where( 'reason', 'like', '%' . $dto->get_search() . '%' );

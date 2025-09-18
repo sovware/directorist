@@ -54,10 +54,10 @@ class OrderRepository extends Repository {
                     $order->payment_method = $this->get_payment_method_title( $order->payment->method );
                 }
 
-                $order->total = $order->sub_total;
+                $order->total_amount = $order->sub_total;
 
                 if ( ! empty( $order->tax_type ) ) {
-                    $order->total += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+                    $order->total_amount += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
                 }
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
@@ -133,10 +133,10 @@ class OrderRepository extends Repository {
             $order->payment_method = 'N/A';
         }
 
-        $order->total = $order->sub_total;
+        $order->total_amount = $order->sub_total;
 
         if ( ! empty( $order->tax_type ) ) {
-            $order->total += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+            $order->total_amount += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
         }
 
         return apply_filters( 'directorist_order_data', $order );

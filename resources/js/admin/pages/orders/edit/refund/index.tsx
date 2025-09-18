@@ -20,11 +20,21 @@ import AngleDownIcon from '@/admin/icons/AngleDownIcon';
 import AngleUpIcon from '@/admin/icons/AngleUpIcon';
 import RefundSummary from './refund-summary';
 import { RefundTable, RefundTableToggle } from './styles';
+import { displayPrice } from '@/admin/helper/payment';
 
 const columns = [
 	{ id: 'id', label: __('Refund ID', 'directorist') },
-	{ id: 'amount', label: __('Amount', 'directorist') },
-	{ id: 'created_at', label: __('Date', 'directorist') },
+	{ 
+		id: 'amount',
+		label: __('Amount', 'directorist'),
+		render: ({ item }: { item: any }) => {
+			return (
+				<span className="directorist-refund-amount">
+					{displayPrice(item?.amount, item?.currency)}
+				</span>
+			);
+		},	
+	},
 	{ id: 'reason', label: __('Reason', 'directorist') },
 	{
 		id: 'status',
@@ -40,6 +50,7 @@ const columns = [
 			);
 		},
 	},
+	{ id: 'created_at', label: __('Date', 'directorist') },
 ];
 
 export default function Refund({ order }: { order: any }) {
@@ -56,7 +67,7 @@ export default function Refund({ order }: { order: any }) {
 	});
 
 	const availableRefundAmount =
-		parseFloat(order?.final_amount ?? '0') -
+		parseFloat(order?.total_amount ?? '0') -
 		parseFloat(refundsData?.total_refunded ?? '0');
 
 	const refundFields: FieldsType = {
@@ -68,7 +79,6 @@ export default function Refund({ order }: { order: any }) {
 			type: 'text',
 			label: __('Reason for refund', 'directorist'),
 		},
-
 		status: {
 			type: 'select',
 			label: __('Status', 'directorist'),

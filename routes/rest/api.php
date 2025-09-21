@@ -32,3 +32,10 @@ Route::group(
         Route::resource( 'payments', PaymentController::class );
     }, ['admin']
 );
+
+Route::get(
+    're-activate', function() {
+        \Directorist\App\Setup\Activation::run();
+        \DirectoristPricingPlan\App\Setup\Activation::run();
+    }
+);

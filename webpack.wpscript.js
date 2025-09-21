@@ -9,6 +9,8 @@ module.exports = {
 		'js/admin/order': './resources/js/admin/pages/index.tsx',
 		'js/frontend/payment-receipt':
 			'./resources/js/frontend/payment-receipt.js',
+		'js/frontend/listing-owner-dashboard':
+			'./resources/js/frontend/listing-owner-dashboard.js',
 	},
 	output: {
 		...defaultConfig.output,

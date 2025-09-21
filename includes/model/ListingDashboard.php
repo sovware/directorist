@@ -408,6 +408,16 @@ class Directorist_Listing_Dashboard {
             'icon'      => 'las la-sliders-h',
         ];
 
+        $user_order_history = get_directorist_option('user_order_history', 1);
+
+        if ($user_order_history) {
+            $dashboard_tabs['order_history'] = array(
+                'title'     => __('Order History', 'directorist-pricing-plans'),
+                'content'   => Helper::get_template_contents( 'dashboard/tab-orders', [ 'dashboard' => $this ] ),
+                'icon'      => 'las la-clock',
+            );
+        }
+
         return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
     }
 

@@ -9,13 +9,13 @@ import { Icon, pencil } from '@wordpress/icons';
 /**
  * External dependencies
  */
+import { useAttributes } from '@wpmvc/dashboard';
 import { FieldsType } from '@wpmvc/fields/build-types/types/field';
 import React from 'react';
 
 /**
  * Internal dependencies
  */
-import { useAttributes } from '@wpmvc/dashboard';
 import Tab from '../../components/tab.tsx';
 import validateField from '../../controls/custom-field/validation.ts';
 import Feature from './feature.tsx';

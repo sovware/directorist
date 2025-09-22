@@ -23,7 +23,14 @@ export interface FieldValidation {
 
 export const validators: Record<string, ValidatorFn> = {
 	required: (value) => {
-		if (!value || value.trim() === '') {
+		// Consider empty string, null/undefined, empty array/object as missing; 0 is valid
+		if (
+			value === null ||
+			value === undefined ||
+			(typeof value === 'string' && value.trim() === '') ||
+			(Array.isArray(value) && value.length === 0) ||
+			(typeof value === 'object' && !Array.isArray(value) && !(value instanceof Date) && Object.keys(value).length === 0)
+		) {
 			return 'This field is required';
 		}
 		return null;

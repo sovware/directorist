@@ -8,7 +8,6 @@ import { debounce } from '@wordpress/compose';
  * Internal dependencies
  */
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
-import React from 'react';
 import styled, { css } from 'styled-components';
 import validateField from '../custom-field/validation';
 import { NumberFieldType } from './types';
@@ -60,7 +59,6 @@ export default function Number(props: NumberFieldType) {
 
 	useEffect(() => {
 		if (attributes?.should_validate) {
-			console.log(attributes[attrKey]);
 
 			performValidation(attributes[attrKey]);
 		}

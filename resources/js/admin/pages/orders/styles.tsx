@@ -19,7 +19,7 @@ export const UserLink = styled.a`
 export const OrderTableContainer = styled.div`
 	padding: 24px;
 	.dataviews-view-table {
-		color: var(--color-gray-500);
+		color: var(--wpmvc-gray-500);
 	}
 	.dataviews__view-actions,
 	.dataviews-filters__container {
@@ -32,6 +32,6 @@ export const OrderTableContainer = styled.div`
 	}
 
 	.directorist-order-total-amount {
-		color: var(--color-gray-900);
+		color: var(--wpmvc-gray-900);
 	}
 `;

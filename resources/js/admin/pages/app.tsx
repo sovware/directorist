@@ -28,17 +28,6 @@ const actionItems: MenuItemsType = {
 };
 
 const ThemeWrapper = styled.div`
-	--color-primary-500: #3e62f5;
-	--color-gray-900: #141921;
-	--color-gray-700: #757577;
-	--color-gray-600: #4d5761;
-	--color-gray-500: #747c89;
-	--color-gray-400: #A1A9B2;
-	--color-gray-300: #d2d6db;
-	--color-gray-200: #e5e7eb;
-
-	--color-error-500: #D94A4A;
-
 	--color-light: #e7ecee;
 `;
 
@@ -97,6 +86,7 @@ export default function App() {
 				rootPaths={[]}
 				colors={{
 					primary: '#3e62f5',
+					error: '#D94A4A',
 					gray: '#141921',
 				}}
 				header={{

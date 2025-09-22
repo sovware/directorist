@@ -24,6 +24,6 @@ Route::group(
 Route::get(
     're-activate', function() {
         \Directorist\App\Setup\Activation::run();
-        (new \DirectoristPricingPlan\Database\Setup)->execute();
+        ( new \DirectoristPricingPlan\Database\Setup )->execute();
     }
 );

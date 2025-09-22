@@ -117,6 +117,14 @@ class OrderRepository extends Repository {
         return $order_id;
     }
 
+    public function create_many( array $dtos ) {
+        return $this->get_query_builder()->insert(
+            array_map(function( $dto ) {
+                return $this->process_values( $dto->to_array() );
+            }, $dtos)
+        );
+    }
+
     /**
      * Update an existing order.
      *

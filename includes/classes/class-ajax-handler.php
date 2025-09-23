@@ -1491,7 +1491,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
              * @param array $_POST The POST data
              * @return array The placeholders for the contact owner email
              */
-            $placeholders = apply_filters( 'directorist_contact_owner_email_placeholders', $placeholders, $_POST);
+            $placeholders = apply_filters( 'directorist_contact_owner_email_placeholders', $placeholders, $_POST );
 
             if ( 'listing_email' == $user_email ) {
                 $to = $listing_email;
@@ -1587,7 +1587,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
              * @param array $_POST The POST data
              * @return array The placeholders for the contact admin email
              */
-            $placeholders = apply_filters( 'directorist_contact_admin_email_placeholders', $placeholders, $_POST);
+            $placeholders = apply_filters( 'directorist_contact_admin_email_placeholders', $placeholders, $_POST );
 
             $send_emails   = ATBDP()->email->get_admin_email_list();
             $to            = ! empty( $send_emails ) ? $send_emails : get_bloginfo( 'admin_email' );

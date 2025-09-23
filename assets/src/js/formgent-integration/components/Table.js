@@ -71,50 +71,6 @@ export default function Tables({ items }) {
 
 	const fields = [
 		{
-			id: 'enquiry',
-			label: 'Enquiry',
-			render: ({ item }) => {
-				return (
-					<div className="directorist-table-enquiry">
-						<h2>{item.title}</h2>
-						<p>{item.enquiry_prefix}</p>
-
-						<div className="directorist-table-enquiry-action">
-							<a
-								href="#"
-								className="directorist-table-enquiry-view"
-								onClick={(e) => {
-									e.preventDefault();
-									setSelectedItem(item);
-									setIsViewModalOpen(true);
-								}}
-							>
-								View
-							</a>
-							<a
-								href="#"
-								className="directorist-table-enquiry-send-email"
-							>
-								Send Email
-							</a>
-						</div>
-					</div>
-				);
-			},
-		},
-		{
-			id: 'listing',
-			label: 'Listing',
-			render: ({ item }) => {
-				return (
-					<div className="directorist-table-enquiry-listing">
-						<h2>{item.listing_title}</h2>
-						<span>{item.received_at}</span>
-					</div>
-				);
-			},
-		},
-		{
 			id: 'sender',
 			label: 'Sender',
 			render: ({ item }) => {
@@ -134,6 +90,49 @@ export default function Tables({ items }) {
 				);
 			},
 		},
+		// {
+		// 	id: 'enquiry',
+		// 	label: 'Enquiry',
+		// 	render: ({ item }) => {
+		// 		return (
+		// 			<div className="directorist-table-enquiry">
+		// 				<h2>{item.title}</h2>
+		// 				<p>{item.enquiry_prefix}</p>
+
+		// 				<div className="directorist-table-enquiry-action">
+		// 					<a
+		// 						href="#"
+		// 						className="directorist-table-enquiry-view"
+		// 						onClick={(e) => {
+		// 							e.preventDefault();
+		// 							setSelectedItem(item);
+		// 							setIsViewModalOpen(true);
+		// 						}}
+		// 					>
+		// 						View
+		// 					</a>
+		// 					<a
+		// 						href="#"
+		// 						className="directorist-table-enquiry-send-email"
+		// 					>
+		// 						Send Email
+		// 					</a>
+		// 				</div>
+		// 			</div>
+		// 		);
+		// 	},
+		// },
+		{
+			id: 'listing',
+			label: 'Listing',
+			render: ({ item }) => {
+				return (
+					<div className="directorist-table-enquiry-listing">
+						<h2>{item.listing_title}</h2>
+					</div>
+				);
+			},
+		},
 		{
 			id: 'status',
 			label: 'Status',
@@ -148,6 +147,10 @@ export default function Tables({ items }) {
 					</div>
 				);
 			},
+		},
+		{
+			id: 'received_at',
+			label: 'Enquired At',
 		},
 	];
 

@@ -66,6 +66,9 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
         }
 
         public function get_responses( $request ) {
+            $page = absint( $request->get_param( 'page' ) );
+            $per_page = absint( $request->get_param( 'per_page' ) );
+
             $query = $this->get_responses_query();
             $count_query = clone $query;
             
@@ -73,7 +76,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 'user', function( $query ) {
                     $query->select( 'ID', 'user_email', 'display_name' );
                 } 
-            )->get();
+            )->pagination( $page, $per_page );
 
             return [
                 'total' => $count_query->count(),

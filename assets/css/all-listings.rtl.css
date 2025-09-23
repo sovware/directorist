@@ -307,7 +307,7 @@
   font-size: 14px;
 }
 
-.entry-content .directorist-search-contents {
+.directorist-content-active .entry-content .directorist-search-contents {
   width: 100% !important;
   max-width: 100% !important;
   -webkit-box-sizing: border-box;
@@ -810,7 +810,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
 .directorist-content-active .select2-container--default .select2-results__option--highlighted {
   font-weight: 500;
   color: var(--directorist-color-primary) !important;
-  background-color: transparent !important;
+  background-color: transparent;
 }
 .directorist-content-active .select2-container--default .select2-results__message {
   margin-bottom: 10px !important;
@@ -828,18 +828,23 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
 }
 .directorist-content-active .select2-container--default .select2-selection--multiple .select2-selection__rendered li .select2-search__field {
   margin: 0;
-  max-width: 100px;
+  max-width: none;
   width: 100% !important;
   padding: 0 !important;
   border: none !important;
+}
+.directorist-content-active .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.1) !important;
+  font-weight: 400;
 }
 .directorist-content-active .select2-container--default.select2-container--open .select2-results__option {
   margin: 0;
 }
 .directorist-content-active .select2-container--default.select2-container--open .select2-results__option[aria-selected=true] {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--directorist-color-primary);
-  background-color: transparent;
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.1);
+  pointer-events: none;
 }
 .directorist-content-active .select2-container--default.select2-container--open .select2-results__option .directorist-select2-contents {
   display: -webkit-box;
@@ -905,7 +910,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
   color: var(--directorist-color-body);
 }
 .directorist-content-active .select2-container--default .directorist-select2-addons-area .directorist-icon-mask:after {
-  background-color: var(--directorist-color-body);
+  background-color: var(--directorist-color-body) !important;
 }
 
 .custom-checkbox input {

@@ -46,6 +46,37 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     'callback' => [ $this, 'delete_responses' ],
                 ] 
             );
+
+            register_rest_route(
+                'directorist', '/formgent/responses/read', [
+                    'methods' => 'POST',
+                    'callback' => [ $this, 'read_responses' ],
+                ] 
+            );
+        }
+
+        public function read_responses( $request ) {
+            $response_id = absint( $request->get_param( 'id' ) );
+
+            if ( empty( $response_id ) ) {
+                return rest_ensure_response(
+                    [ 
+                        'success' => false,
+                        'message' => __( 'Response not found.', 'directorist' ),
+                    ] 
+                );
+            }
+
+            $response = $this->get_responses_query()->where( 'response.id', $response_id )->first();
+
+            if ( empty( $response ) ) {
+                return rest_ensure_response( [ 'success' => false, 'message' => __( 'Response not found.', 'directorist' ) ] );
+            }
+
+            $response_repository = formgent_response_repository();
+            $response_repository->update_read( $response_id, 1 );
+
+            return rest_ensure_response( [ 'success' => true, 'message' => __( 'Response has been marked as read successfully.', 'directorist' ) ] );
         }
 
         public function delete_responses( $request ) {

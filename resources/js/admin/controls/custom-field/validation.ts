@@ -36,6 +36,31 @@ export const validators: Record<string, ValidatorFn> = {
 		return null;
 	},
 
+	conditional_required: (
+		value,
+		condition: (attributes: Record<string, any>) => boolean,
+		attributes: Record<string, any>
+	) => {
+		// console.log(typeof condition, condition(attributes), attributes);
+		if (typeof condition === 'function' && condition(attributes)) {
+			
+			
+			if (
+				value === null ||
+				value === undefined ||
+				(typeof value === 'string' && value.trim() === '') ||
+			(Array.isArray(value) && value.length === 0) ||
+			(typeof value === 'object' &&
+			  !Array.isArray(value) &&
+			  !(value instanceof Date) &&
+			  Object.keys(value).length === 0)
+		  ) {
+			return 'This field is required';
+		  }
+		}
+		return null;
+	},
+
 	email: (value) => {
 		if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
 			return 'Please enter a valid email address';
@@ -141,11 +166,12 @@ export const validateField = (
 	attributes: Record<string, any> = {}
 ): ValidationResult => {
 	if (!field?.validation) return { isValid: true, errors: [] };
-
+	
 	const errors: string[] = [];
 
 	Object.entries(field.validation).forEach(([rule, ruleValue]) => {
-		if (typeof ruleValue === 'function') {
+		if (typeof ruleValue === 'function' && rule !== 'conditional_required' ) {
+			// console.log(value, field, attributes);
 			try {
 				const error = (ruleValue as ValidatorFn)(
 					value,
@@ -160,10 +186,19 @@ export const validateField = (
 				errors.push('Validation error occurred');
 			}
 		} else if (validators[rule]) {
-			const error = validators[rule](value, ruleValue);
-			if (error) {
-				errors.push(error);
+			//console.log(value, field, attributes);
+			if (typeof ruleValue === 'function') {
+				const error = validators[rule](value, ruleValue, attributes);
+				// console.log('error', error);
+				
+				if (error) {
+					errors.push(error);
+				}
+			}else{
+				const error = validators[rule](value, ruleValue);
+				if (error) errors.push(error);
 			}
+			
 		} else if (rule === 'regex' && Array.isArray(ruleValue)) {
 			const [pattern, message] = ruleValue;
 			const error = validators.regex(value, pattern, message);

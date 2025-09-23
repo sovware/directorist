@@ -39,22 +39,30 @@ export default function App() {
 		attributes,
 		errors,
 		setErrors,
+	}: {
+		value: any;
+		field: any;
+		fieldKey: string;
+		attributes: Record<string, any>;
+		errors: Record<string, string[]>;
+		setErrors: (next: Record<string, string[]>) => void;
 	}) => {
 		if (!field?.validation) return;
 
 		// Use the validation module
 		const errorResult = validateField(value, field, attributes);
-
-		const updatedValidationErrors = { ...errors };
+		
 		if (errorResult?.errors?.length > 0) {
-			updatedValidationErrors[fieldKey] = errorResult?.errors;
+			setErrors({
+				...errors,
+				[fieldKey]: errorResult?.errors
+			});
 		} else {
-			updatedValidationErrors[fieldKey] = [];
+			setErrors({
+				[fieldKey]: []
+			});
 		}
-
-		setErrors(updatedValidationErrors);
-	};
-
+	}
 	addAction(
 		'wpmvc-field-on-blur',
 		'directorist-form-validation',

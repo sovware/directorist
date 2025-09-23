@@ -600,6 +600,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             if ( directorist_is_archive_template_enabled() && $category_base ) {
                 $args['rewrite'] = [
                     'slug' => $category_base,
+                    'hierarchical' => true,
                 ];
             }
 

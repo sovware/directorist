@@ -19,6 +19,7 @@
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
       :icon="widgetIcon"
+      :info="widgetInfo"
       :iconType="widgetIconType"
       :expanded="expandState"
       :alert="alert"
@@ -201,6 +202,20 @@ export default {
       }
 
       return icon;
+    },
+
+    widgetInfo() {
+      let info = "";
+
+      if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].info) {
+        info = this.activeWidgets[this.widgetKey].info;
+      }
+
+      if (!info.length && this.current_widget && this.current_widget.info) {
+        info = this.current_widget.info;
+      }
+
+      return info;
     },
 
     widgetIconType() {

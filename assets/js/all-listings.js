@@ -1029,7 +1029,7 @@
 				// Search Category Change
 				function hideAllCustomFieldsExceptSelected(
 					relations,
-					category,
+					categories,
 					$container
 				) {
 					var fields = Object.keys(relations);
@@ -1041,17 +1041,47 @@
 					if (!fields.length) {
 						return;
 					}
+
+					// Convert categories to array if it's not already
+					var categoryArray = Array.isArray(categories)
+						? categories
+						: [categories];
 					fields.forEach(function (field) {
 						var fieldCategory = relations[field];
-						var $field = $container.find(
-							'[name="custom_field['.concat(field, ']"]')
-						);
-						if (!$field.length) {
-							$field = $container.find(
-								'[name="custom_field['.concat(field, '][]"]')
-							);
+
+						// Try multiple selectors to find the field
+						var $field = null;
+						var selectors = [
+							'[name="custom_field['.concat(field, ']"]'),
+							'[name="custom_field['.concat(field, '][]"]'),
+							'[name*="'.concat(field, '"]'),
+							'[data-field-key="'.concat(field, '"]'),
+							'[id*="'.concat(field, '"]'),
+						];
+						for (
+							var _i = 0, _selectors = selectors;
+							_i < _selectors.length;
+							_i++
+						) {
+							var selector = _selectors[_i];
+							$field = $container.find(selector);
+							if ($field.length > 0) {
+								break;
+							}
 						}
-						if (category === fieldCategory) {
+						if (!$field || !$field.length) {
+							return;
+						}
+
+						// Check if the field category matches any of the selected categories
+						var shouldShow = categoryArray.some(
+							function (category) {
+								return (
+									Number(category) === Number(fieldCategory)
+								);
+							}
+						);
+						if (shouldShow) {
 							$field.prop('disabled', false);
 							wrappers.forEach(function (wrapper) {
 								var $wrapper = $field.closest(wrapper);
@@ -1071,55 +1101,125 @@
 					});
 				}
 				function initSearchCategoryCustomFields($) {
-					var _$pageContainer;
-					var $searchPageContainer = $(
-						'.directorist-search-contents'
-					);
-					var $archivePageContainer = $(
-						'.directorist-archive-contents'
-					);
-					var $pageContainer;
-					if ($searchPageContainer.length) {
-						$pageContainer = $searchPageContainer;
-					} else if ($archivePageContainer.length) {
-						$pageContainer = $archivePageContainer;
-					}
-					if (
-						(_$pageContainer = $pageContainer) !== null &&
-						_$pageContainer !== void 0 &&
-						_$pageContainer.length
-					) {
-						// let $fieldsContainer = null;
+					// Handle multiple search forms and containers
+					var containers = [
+						'.directorist-search-contents',
+						'.directorist-archive-contents',
+						'.directorist-search-form',
+						'.directorist-add-listing-form',
+					];
+					containers.forEach(function (containerSelector) {
+						var $container = $(containerSelector);
+						if ($container.length) {
+							// Bind events to all category selects within this container
+							$container.on(
+								'change',
+								'.directorist-category-select, .directorist-search-category select, .bdas-category-search',
+								function (event) {
+									var $this = $(this);
+									var $form = $this.parents('form');
+									var categories = $this.val();
+									var attributes = $form.data('atts');
 
-						$pageContainer.on(
-							'change',
-							'.directorist-category-select, .directorist-search-category select',
-							function (event) {
-								var $this = $(this);
-								var $form = $this.parents('form');
-								var category = Number($this.val());
-								var attributes = $form.data('atts');
-								if (!attributes) {
-									attributes = $pageContainer.data('atts');
+									// If form doesn't have attributes, try container
+									if (!attributes) {
+										attributes = $container.data('atts');
+									}
+
+									// If still no attributes, try document body
+									if (!attributes) {
+										attributes = $(document.body).data(
+											'atts'
+										);
+									}
+									if (
+										!attributes ||
+										!attributes.category_custom_fields_relations
+									) {
+										return;
+									}
+
+									// Handle both single and multiple category selections
+									if (categories) {
+										// Convert to array if it's a single value
+										if (!Array.isArray(categories)) {
+											categories = [categories];
+										}
+										// Convert string values to numbers and filter out empty values
+										categories = categories
+											.map(function (cat) {
+												return Number(cat);
+											})
+											.filter(function (cat) {
+												return cat > 0;
+											}); // Filter out 0, null, undefined, etc.
+									} else {
+										categories = [];
+									}
+
+									// Use the specific container for field search to avoid conflicts
+									hideAllCustomFieldsExceptSelected(
+										attributes.category_custom_fields_relations,
+										categories,
+										$container
+									);
 								}
-								if (
-									!attributes.category_custom_fields_relations
-								) {
-									return;
-								}
-								hideAllCustomFieldsExceptSelected(
-									attributes.category_custom_fields_relations,
-									category,
-									$(document.body)
-								);
+							);
+
+							// Trigger change event on page load for all category selects in this container
+							$container
+								.find(
+									'.directorist-category-select, .directorist-search-category select, .bdas-category-search'
+								)
+								.each(function () {
+									$(this).trigger('change');
+								});
+						}
+					});
+
+					// Also handle global category selects that might not be in specific containers
+					var globalSelectors =
+						'.directorist-category-select, .directorist-search-category select, .bdas-category-search';
+					$(document).on('change', globalSelectors, function (event) {
+						var $this = $(this);
+
+						// Only handle if not already handled by container-specific handlers
+						if (!event.isDefaultPrevented()) {
+							var $form = $this.parents('form');
+							var categories = $this.val();
+							var attributes = $form.data('atts');
+							if (!attributes) {
+								attributes = $(document.body).data('atts');
 							}
-						);
-						$pageContainer
-							.find(
-								'.directorist-category-select, .directorist-search-category select'
-							)
-							.trigger('change');
-					}
+							if (
+								!attributes ||
+								!attributes.category_custom_fields_relations
+							) {
+								return;
+							}
+
+							// Handle both single and multiple category selections
+							if (categories) {
+								if (!Array.isArray(categories)) {
+									categories = [categories];
+								}
+								categories = categories
+									.map(function (cat) {
+										return Number(cat);
+									})
+									.filter(function (cat) {
+										return cat > 0;
+									});
+							} else {
+								categories = [];
+							}
+							hideAllCustomFieldsExceptSelected(
+								attributes.category_custom_fields_relations,
+								categories,
+								$(document.body)
+							);
+						}
+					});
 				}
 
 				/***/
@@ -2555,7 +2655,9 @@
 									$('<div>', {
 										class: 'directorist-spinner',
 									}),
-									$('<span>').text('Loading more...')
+									$('<span>').text(
+										directorist.loading_more_text
+									)
 								);
 								container.append(loadingDiv);
 							},
@@ -2584,7 +2686,7 @@
 						// Get data-atts
 						var instant_search_atts = searchElm.data('atts');
 
-						// make ajax data
+						// Make ajax data
 						var instant_search_data = _objectSpread(
 							_objectSpread({}, form_data),
 							{},
@@ -2907,6 +3009,11 @@
 						var view = form_data.view;
 						var paged = form_data.paged;
 
+						// Get directory type
+						var directory_type = searchElm
+							.find('input[name="directory_type"]')
+							.val();
+
 						// Update form_data
 						updateFormData({
 							q: q,
@@ -2926,6 +3033,7 @@
 							custom_field: custom_field,
 							view: view,
 							paged: paged,
+							directory_type: directory_type,
 						});
 
 						// open_now checkbox
@@ -3289,7 +3397,8 @@
 							if (
 								$(e.target).closest(
 									'.directorist-custom-range-slider__value'
-								).length > 0
+								).length > 0 ||
+								(e.key === 'Enter' && e.target.value === '')
 							) {
 								return; // Skip search for this element
 							}
@@ -3426,10 +3535,8 @@
 							var $searchField = $(this).closest(
 								'.directorist-search-field'
 							);
-							var $form = $(
-								document.querySelector(
-									'.directorist-instant-search .listing-with-sidebar form'
-								)
+							var searchElm = $(this).closest(
+								'.listing-with-sidebar'
 							);
 
 							// Clear text, email, number, select fields etc
@@ -3450,8 +3557,10 @@
 								.prop('checked', false);
 
 							// Proceed if form exists
-							if ($form.length) {
-								performInstantSearchWithRequiredValue($form);
+							if (searchElm.length) {
+								performInstantSearchWithRequiredValue(
+									searchElm
+								);
 							}
 						}
 					);
@@ -3473,16 +3582,18 @@
 								paged: 1,
 							});
 
-							// Build form data
-							buildFormData(activeForm);
-
-							// Filter Listing
-							(0,
+							// ✅ Define Filter Listing debounced function
+							var debouncedResetSearch = (0,
 							_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__[
 								'default'
-							])(function (e) {
+							])(function () {
+								// Build form data
+								buildFormData(activeForm);
 								performInstantSearch(activeForm);
 							}, 250);
+
+							// Reset Search after resetting form value
+							debouncedResetSearch();
 						}
 					);
 
@@ -3540,8 +3651,9 @@
 							// reset form data
 							resetFormData();
 
-							// get directory_type
+							// Get directory_type
 							var directory_type = getDirectoryType($(this));
+
 							// ✅ only update `directory_type`, preserve others
 							updateFormData({
 								directory_type: directory_type,
@@ -3549,6 +3661,12 @@
 
 							// Update URL with form data
 							update_instant_search_url(form_data);
+
+							// Set the directory_type value in the input
+							$(this)
+								.closest('.directorist-instant-search')
+								.find('input[name="directory_type"]')
+								.val(directory_type);
 
 							// Get active form
 							var activeForm = getActiveForm(searchElm);
@@ -5071,22 +5189,6 @@
 				/***/
 			},
 
-		/***/ './assets/src/scss/layout/public/main-style.scss':
-			/*!*******************************************************!*\
-  !*** ./assets/src/scss/layout/public/main-style.scss ***!
-  \*******************************************************/
-			/***/ function (
-				__unused_webpack_module,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				// extracted by mini-css-extract-plugin
-
-				/***/
-			},
-
 		/***/ './node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js':
 			/*!*********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
@@ -5743,10 +5845,15 @@
   !*** ./assets/src/js/public/modules/all-listings.js ***!
   \******************************************************/
 		__webpack_require__.r(__webpack_exports__);
-		/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__ =
-			__webpack_require__(
-				/*! ../../../scss/layout/public/main-style.scss */ './assets/src/scss/layout/public/main-style.scss'
-			);
+		Object(
+			(function webpackMissingModule() {
+				var e = new Error(
+					"Cannot find module '../../../scss/layout/public/main-style.scss'"
+				);
+				e.code = 'MODULE_NOT_FOUND';
+				throw e;
+			})()
+		);
 		/* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_1__ =
 			__webpack_require__(
 				/*! ../components/general */ './assets/src/js/public/components/general.js'

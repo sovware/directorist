@@ -184,7 +184,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 					class: 'directorist-on-scroll-loading',
 				}).append(
 					$('<div>', { class: 'directorist-spinner' }),
-					$('<span>').text('Loading more...')
+					$('<span>').text(directorist.loading_more_text)
 				);
 				container.append(loadingDiv);
 			},
@@ -215,7 +215,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		// Get data-atts
 		const instant_search_atts = searchElm.data('atts');
 
-		// make ajax data
+		// Make ajax data
 		const instant_search_data = {
 			...form_data,
 			action: 'directorist_instant_search',
@@ -456,6 +456,11 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		const view = form_data.view;
 		const paged = form_data.paged;
 
+		// Get directory type
+		const directory_type = searchElm
+			.find('input[name="directory_type"]')
+			.val();
+
 		// Update form_data
 		updateFormData({
 			q,
@@ -475,6 +480,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			custom_field,
 			view,
 			paged,
+			directory_type,
 		});
 
 		// open_now checkbox
@@ -763,7 +769,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		debounce(function (e) {
 			if (
 				$(e.target).closest('.directorist-custom-range-slider__value')
-					.length > 0
+					.length > 0 ||
+				(e.key === 'Enter' && e.target.value === '')
 			) {
 				return; // Skip search for this element
 			}
@@ -871,11 +878,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			}
 
 			let $searchField = $(this).closest('.directorist-search-field');
-			let $form = $(
-				document.querySelector(
-					'.directorist-instant-search .listing-with-sidebar form'
-				)
-			);
+
+			var searchElm = $(this).closest('.listing-with-sidebar');
 
 			// Clear text, email, number, select fields etc
 			$searchField
@@ -891,8 +895,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			$searchField.find('input[type="radio"]').prop('checked', false);
 
 			// Proceed if form exists
-			if ($form.length) {
-				performInstantSearchWithRequiredValue($form);
+			if (searchElm.length) {
+				performInstantSearchWithRequiredValue(searchElm);
 			}
 		}
 	);
@@ -910,13 +914,16 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			// ✅ only update `page`, preserve others
 			updateFormData({ paged: 1 });
 
-			// Build form data
-			buildFormData(activeForm);
+			// ✅ Define Filter Listing debounced function
+			const debouncedResetSearch = debounce(function () {
+				// Build form data
+				buildFormData(activeForm);
 
-			// Filter Listing
-			debounce(function (e) {
 				performInstantSearch(activeForm);
 			}, 250);
+
+			// Reset Search after resetting form value
+			debouncedResetSearch();
 		}
 	);
 
@@ -966,13 +973,20 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			// reset form data
 			resetFormData();
 
-			// get directory_type
+			// Get directory_type
 			const directory_type = getDirectoryType($(this));
+
 			// ✅ only update `directory_type`, preserve others
 			updateFormData({ directory_type });
 
 			// Update URL with form data
 			update_instant_search_url(form_data);
+
+			// Set the directory_type value in the input
+			$(this)
+				.closest('.directorist-instant-search')
+				.find('input[name="directory_type"]')
+				.val(directory_type);
 
 			// Get active form
 			const activeForm = getActiveForm(searchElm);

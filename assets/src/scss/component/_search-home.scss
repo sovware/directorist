@@ -372,13 +372,6 @@
 			&:not(:last-child) {
 				border-right: 1px solid var(--directorist-color-border);
 			}
-			@media screen and (max-width: 575px) {
-				.select2-container
-					.directorist-select2-addons-area
-					.directorist-select2-dropdown-toggle {
-					right: -15px;
-				}
-			}
 
 			@include e(btn) {
 				@include m(clear) {
@@ -402,12 +395,17 @@
 					padding-right: 45px;
 				}
 
-				.select2-container
+				.select2-container {
+					.select2-selection {
+						width: 100%;
+					}
+
 					.directorist-select2-addons-area
-					.directorist-select2-dropdown-toggle {
-					right: 15px;
-					@media screen and (max-width: 575px) {
-						right: 0;
+						.directorist-select2-dropdown-toggle {
+						right: 15px;
+						@media screen and (max-width: 575px) {
+							right: 5px;
+						}
 					}
 				}
 
@@ -423,6 +421,7 @@
 				}
 				.directorist-select {
 					~ .directorist-search-field__btn--clear {
+						bottom: 10px;
 						@media screen and (max-width: 575px) {
 							right: 25px !important;
 						}
@@ -430,13 +429,22 @@
 				}
 				.directorist-color-picker-wrap {
 					top: 12px;
-					~.directorist-search-field__btn--clear {
+					~ .directorist-search-field__btn--clear {
 						bottom: 0;
 					}
 					@media screen and (max-width: 575px) {
 						top: 0;
-						~.directorist-search-field__btn--clear {
+						~ .directorist-search-field__btn--clear {
 							bottom: unset;
+						}
+					}
+				}
+				&:not(.input-has-noLabel) {
+					.directorist-select {
+						~ .directorist-search-field__btn--clear {
+							@media screen and (max-width: 575px) {
+								right: 10px !important;
+							}
 						}
 					}
 				}
@@ -580,6 +588,19 @@
 					}
 				}
 
+				.select2-container {
+					&.select2-container--default .select2-selection--single {
+						width: 100%;
+					}
+					.directorist-select2-addons-area
+						.directorist-select2-dropdown-toggle {
+						position: absolute;
+						right: 5px;
+						padding: 0;
+						width: auto;
+					}
+				}
+
 				&.input-has-value,
 				&.input-is-focused {
 					padding: 0;
@@ -618,7 +639,7 @@
 					}
 					.directorist-filter-location-icon {
 						~ .directorist-search-field__btn--clear {
-							right: 10px;
+							right: 25px;
 						}
 					}
 					.directorist-select,
@@ -645,15 +666,10 @@
 					&.directorist-icon-right .directorist-input-icon {
 						right: -20px;
 						bottom: 12px;
-					}
-
-					.select2-container
-						.directorist-select2-addons-area
-						.directorist-select2-dropdown-toggle {
-						position: absolute;
-						right: 5px;
-						padding: 0;
-						width: auto;
+						&.directorist-filter-location-icon {
+							right: 0;
+							bottom: 8px;
+						}
 					}
 				}
 				&.input-has-value {

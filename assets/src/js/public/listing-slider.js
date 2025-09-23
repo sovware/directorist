@@ -257,7 +257,7 @@
 				{
 					slidesPerView: 6,
 					spaceBetween: 10,
-					loop: false,
+					loop: true,
 					freeMode: true,
 					navigation: {
 						nextEl: `.directorist-swiper__nav--next-single-listing-thumb`,
@@ -387,9 +387,11 @@
 				swiperCarouselSingleListing.classList.add(
 					'slider-has-one-item'
 				);
-				if (swiperListingThumb) {
-					swiperListingThumb.style.display = 'none';
-				}
+			}
+
+			// Show thumbnail slider if slider has more items
+			if (swiperListingThumb && sliderItemsCount.length > 1) {
+				swiperListingThumb.style.display = 'block';
 			}
 
 			// Add Styles

@@ -2397,7 +2397,22 @@ function atbdp_guest_submission( $guest_email ) {
     do_action( 'atbdp_user_registration_completed', $user_id );
 
     wp_new_user_notification( $user_id, null, 'admin' ); // send activation to the admin
-    ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
+    
+    /**
+     * Filters whether to send the guest submission email notification.
+     *
+     * Returning false will prevent the email notification
+     * from being sent to the guest user after a new listing submission.
+     *
+     * @since 8.4.6
+     *
+     * @param bool $notify  Whether to send the notification. Default true.
+     * @param int  $user_id The ID of the user who submitted the listing.
+     */
+    $notify = apply_filters( 'directorist_guest_submission_email_notification', true, $user_id );
+    if ( $notify ) {
+        ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
+    }
 }
 
 function atbdp_get_listing_attachment_ids( $listing_id ) {

@@ -26,13 +26,6 @@ class CheckoutController {
             ] 
         );
 
-        $payment_gateway    = $request->get_param( 'payment_gateway' );
-        $payment_processors = directorist_get_payment_processors();
-
-        if ( ! isset( $payment_processors[$payment_gateway] ) || ! class_exists( $payment_processors[$payment_gateway] ) ) {
-            throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
-        }
-
         $checkout_type = $request->get_param( 'checkout_type' );
 
         do_action( 'directorist_checkout_validation', $checkout_type, $request, $validator );
@@ -44,26 +37,43 @@ class CheckoutController {
 
         do_action( 'directorist_checkout_create_order', $dto, $checkout_type, $request );
 
+        if ( $dto->get_amount() > 0 ) {
+            $payment_gateway    = $request->get_param( 'payment_gateway' );
+            $payment_processors = directorist_get_payment_processors();
+
+            if ( ! isset( $payment_processors[$payment_gateway] ) || ! class_exists( $payment_processors[$payment_gateway] ) ) {
+                throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
+            }
+
+            $processor_instance = directorist_make( $payment_processors[$payment_gateway] );
+
+            if ( ! $processor_instance instanceof PaymentInterface ) {
+                throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
+            }
+        }
+
         $repository = directorist_order_repository();
         $repository->create( $dto );
 
-        $redirect_url = null;
-
         if ( $dto->get_amount() == 0 ) {
-            directorist_order_repository()->update( ( new DTO )->set_id( $dto->get_id() )->set_status( Status::PAID ) );
-        } else {
-            $processor_instance = directorist_make( $payment_processors[$payment_gateway] );
+            $repository->update( ( new DTO )->set_id( $dto->get_id() )->set_status( Status::PAID ) );
 
-            if ( $processor_instance instanceof PaymentInterface ) {
-                $redirect_url = $processor_instance->pay( $dto );
-            }
+            return Response::send(
+                [
+                    "redirect_url" => $this->get_redirect_url( $dto )
+                ]
+            );
         }
 
         return Response::send(
             [
-                "redirect_url" => $redirect_url ?? apply_filters( 'atbdp_payment_receipt_page_link', \ATBDP_Permalink::get_payment_receipt_page_link( $dto->get_id() ), $dto->get_id() )
+                "redirect_url" => $processor_instance->pay( $dto ) ?? $this->get_redirect_url( $dto )
             ]
         );
+    }
+
+    protected function get_redirect_url( DTO $dto ): string {
+        return apply_filters( 'atbdp_payment_receipt_page_link', \ATBDP_Permalink::get_payment_receipt_page_link( $dto->get_id() ), $dto->get_id() );
     }
 
     public function retry_payment( Validator $validator, WP_REST_Request $request ): array {
@@ -109,7 +119,7 @@ class CheckoutController {
 
         return Response::send(
             [
-                "redirect_url" => $redirect_url ?? apply_filters( 'atbdp_payment_receipt_page_link', \ATBDP_Permalink::get_payment_receipt_page_link( $order->get_id() ), $order->get_id() )
+                "redirect_url" => $redirect_url ?? $this->get_redirect_url( $order )
             ]
         );
     }

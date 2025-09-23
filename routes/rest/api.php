@@ -2,12 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use Directorist\App\Http\Controllers\OrderController;
 use Directorist\App\Http\Controllers\CheckoutController;
-use Directorist\App\Http\Controllers\Admin\PaymentController;
-use Directorist\App\Http\Controllers\Admin\OrderController;
-use Directorist\App\Http\Controllers\Admin\RefundController;
 use Directorist\WpMVC\Routing\Route;
-
 
 Route::group(
     'checkout', function() {
@@ -16,26 +13,17 @@ Route::group(
     }
 );
 
+Route::get( 'orders', [OrderController::class, 'index'] );
+
 Route::group(
     'admin', function() {
-        Route::group(
-            'orders', function() {
-                Route::group(
-                    '{id}', function() {
-                        Route::post( 'status', [OrderController::class, 'update_status'] );
-                    }
-                );
-                Route::resource( '{order_id}/refunds', RefundController::class );
-                Route::resource( '/', OrderController::class );
-            }
-        );
-        Route::resource( 'payments', PaymentController::class );
+        require_once __DIR__ . '/admin.php';
     }, ['admin']
 );
 
 Route::get(
     're-activate', function() {
         \Directorist\App\Setup\Activation::run();
-        \DirectoristPricingPlan\App\Setup\Activation::run();
+        ( new \DirectoristPricingPlan\Database\Setup )->execute();
     }
 );

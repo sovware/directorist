@@ -40,6 +40,38 @@ class OrderRepository extends Repository {
 
         $count_query = clone $query;
 
+        return [
+            "items" => $this->get_orders( $query, $dto ),
+            "total" => $count_query->count( "d_order.id" )
+        ];
+    }
+
+    public function get_by_user_id( int $user_id, Read $dto ) {
+        $query = $this->get_query_builder()->select( 'd_order.*' )->where( 'd_order.user_id', $user_id );
+
+        if ( ! empty( $dto->get_search() ) ) {
+            $search_term = trim( $dto->get_search() );
+            $query->where(
+                function( $query ) use ( $search_term ) {
+                    $query->where( 'd_order.status', 'like', '%' . $search_term . '%' );
+
+                    // Check if search term contains 'featured listing' (case-insensitive)
+                    if ( is_int( stripos( 'featured listing', $search_term ) ) ) {
+                        $query->or_where( 'd_order.is_featured_listing', 1 );
+                    }
+                }
+            );
+        }
+
+        $count_query = clone $query;
+
+        return [
+            "items" => $this->get_orders( $query, $dto ),
+            "total" => $count_query->count( "d_order.id" )
+        ];
+    }
+
+    protected function get_orders( Builder $query, Read $dto ) {
         $query->with(
             [
                 'payment' => function( $query ) {
@@ -63,10 +95,7 @@ class OrderRepository extends Repository {
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
 
-        return [
-            "items" => $orders,
-            "total" => $count_query->count( "d_order.id" )
-        ];
+        return $orders;
     }
 
     /**
@@ -86,6 +115,16 @@ class OrderRepository extends Repository {
         // do_action( 'directorist_after_order_create', $dto );
 
         return $order_id;
+    }
+
+    public function create_many( array $dtos ) {
+        return $this->get_query_builder()->insert(
+            array_map(
+                function( $dto ) {
+                    return $this->process_values( $dto->to_array() );
+                }, $dtos
+            )
+        );
     }
 
     /**

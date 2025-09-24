@@ -1253,10 +1253,96 @@
 					};
 					var fields = [
 						{
-							id: 'sender',
-							label: 'Sender',
+							id: 'enquiry',
+							label: 'Enquiry',
 							render: function render(_ref2) {
 								var item = _ref2.item;
+								return (0,
+								_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+									'div',
+									{
+										className: 'directorist-table-enquiry',
+									},
+									(0,
+									_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+										'h2',
+										null,
+										item.title
+									),
+									(0,
+									_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+										'p',
+										null,
+										item.enquiry_prefix
+									),
+									(0,
+									_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+										'div',
+										{
+											className:
+												'directorist-table-enquiry-action',
+										},
+										(0,
+										_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+											'a',
+											{
+												href: '#',
+												className:
+													'directorist-table-enquiry-view',
+												onClick: function onClick(e) {
+													e.preventDefault();
+													setSelectedItem(item);
+													setIsViewModalOpen(true);
+												},
+											},
+											'View'
+										),
+										(0,
+										_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+											'a',
+											{
+												href: '#',
+												className:
+													'directorist-table-enquiry-send-email',
+											},
+											'Send Email'
+										)
+									)
+								);
+							},
+						},
+						{
+							id: 'listing',
+							label: 'Listing',
+							render: function render(_ref3) {
+								var item = _ref3.item;
+								return (0,
+								_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+									'div',
+									{
+										className:
+											'directorist-table-enquiry-listing',
+									},
+									(0,
+									_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+										'h2',
+										null,
+										item.listing_title
+									),
+									(0,
+									_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+										'span',
+										null,
+										item.received_at
+									)
+								);
+							},
+						},
+						{
+							id: 'sender',
+							label: 'Sender',
+							render: function render(_ref4) {
+								var item = _ref4.item;
 								return (0,
 								_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
 									'div',
@@ -1303,64 +1389,11 @@
 								);
 							},
 						},
-						// {
-						// 	id: 'enquiry',
-						// 	label: 'Enquiry',
-						// 	render: ({ item }) => {
-						// 		return (
-						// 			<div className="directorist-table-enquiry">
-						// 				<h2>{item.title}</h2>
-						// 				<p>{item.enquiry_prefix}</p>
-
-						// 				<div className="directorist-table-enquiry-action">
-						// 					<a
-						// 						href="#"
-						// 						className="directorist-table-enquiry-view"
-						// 						onClick={(e) => {
-						// 							e.preventDefault();
-						// 							setSelectedItem(item);
-						// 							setIsViewModalOpen(true);
-						// 						}}
-						// 					>
-						// 						View
-						// 					</a>
-						// 					<a
-						// 						href="#"
-						// 						className="directorist-table-enquiry-send-email"
-						// 					>
-						// 						Send Email
-						// 					</a>
-						// 				</div>
-						// 			</div>
-						// 		);
-						// 	},
-						// },
-						{
-							id: 'listing',
-							label: 'Listing',
-							render: function render(_ref3) {
-								var item = _ref3.item;
-								return (0,
-								_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
-									'div',
-									{
-										className:
-											'directorist-table-enquiry-listing',
-									},
-									(0,
-									_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
-										'h2',
-										null,
-										item.listing_title
-									)
-								);
-							},
-						},
 						{
 							id: 'status',
 							label: 'Status',
-							render: function render(_ref4) {
-								var item = _ref4.item;
+							render: function render(_ref5) {
+								var item = _ref5.item;
 								return (0,
 								_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
 									'div',
@@ -1381,10 +1414,6 @@
 									)
 								);
 							},
-						},
-						{
-							id: 'received_at',
-							label: 'Enquired At',
 						},
 					];
 					return (0,

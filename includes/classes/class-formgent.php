@@ -1,5 +1,6 @@
 <?php
 
+use FormGent\App\DTO\ResponseSingleDTO;
 use FormGent\App\Models\Post;
 use FormGent\App\Models\Response;
 use FormGent\App\Models\ResponseMeta;
@@ -53,6 +54,33 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     'callback' => [ $this, 'read_responses' ],
                 ] 
             );
+
+            register_rest_route(
+                'directorist', '/formgent/responses/single', [
+                    'methods' => 'GET',
+                    'callback' => [ $this, 'single_response' ],
+                ] 
+            );
+        }
+
+        public function single_response( $request ) {
+            $response_id = absint( $request->get_param( 'id' ) );
+
+            if ( empty( $response_id ) ) {
+                return rest_ensure_response( [ 'success' => false, 'message' => __( 'Response not found.', 'directorist' ) ] );
+            }
+
+            $response = $this->get_responses_query()->where( 'response.id', $response_id )->first();
+
+            if ( empty( $response ) ) {
+                return rest_ensure_response( [ 'success' => false, 'message' => __( 'Response not found.', 'directorist' ) ] );
+            }
+
+            $dto = ( new ResponseSingleDTO )->set_form_id( $response->form_id )->set_is_completed( 1 );
+
+            $response = formgent_response_repository()->get_single( $dto, $response_id );
+
+            return rest_ensure_response( [ 'success' => true, 'response' => $response ] );
         }
 
         public function read_responses( $request ) {
@@ -141,7 +169,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 } 
             )->left_join(
                 Post::get_table_name() . ' as post', function( $join ) {
-                        $join->on_column( 'post.ID', 'response_meta.meta_value' )->on( 'post.post_author', get_current_user_id() );
+                        $join->on_column( 'post.ID', 'response_meta.meta_value' )->on( 'post.post_author', 1 );
                 }
             )->where_not_is_null( 'post.post_author' )->where( 'response.is_completed', 1 );
         }

@@ -143,6 +143,13 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 } 
             )->pagination( $page, $per_page );
 
+            $responses = array_map(
+                function( $response ) {
+                    $response->user->profile_url = get_avatar_url( isset( $response->user->user_email ) ? $response->user->user_email : '' );
+                    return $response;
+                }, $responses
+            );
+
             return [
                 'total' => $count_query->count(),
                 'responses' => $responses

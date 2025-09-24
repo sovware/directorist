@@ -80,7 +80,13 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
 
             $response = formgent_response_repository()->get_single( $dto, $response_id );
 
-            return rest_ensure_response( [ 'success' => true, 'response' => $response ] );
+            $form = formgent_get_form_by_id( $response->form_id );
+
+            $fields_settings = formgent_get_form_fields( $form );
+            $response_controller = formgent_singleton( \FormGent\App\Http\Controllers\Admin\ResponseController::class );
+            $fields          = $response_controller->prepare_fields( $fields_settings );
+
+            return rest_ensure_response( [ 'success' => true, 'response' => $response, 'fields' => $fields ] );
         }
 
         public function read_responses( $request ) {

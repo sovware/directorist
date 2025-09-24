@@ -1824,7 +1824,7 @@ class Directorist_Listings {
             if ( ! $this->disable_single_listing ) {
                 $image = $link_start . $image . $link_end;
             }
-            return $image;
+            return apply_filters( 'directorist_loop_get_the_thumbnail', $image);
         }
 
         $thumbnail_img_id = array_filter(

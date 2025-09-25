@@ -1,24 +1,24 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useEffect, useMemo, useState } from '@wordpress/element';
 import { Fill, SelectControl } from '@wordpress/components';
+import { useEffect, useMemo, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External dependencies
  */
-import { registerValuesStore, useValuesStoreData } from '@wpmvc/data';
 import { Button } from '@wpmvc/components';
+import { registerValuesStore, useValuesStoreData } from '@wpmvc/data';
 import styled from 'styled-components';
 
 /**
  * Internal dependencies
  */
 import { getUser } from '@/admin/helper/utils';
+import { useGetId } from '@/admin/hooks/useGetId';
 import AngleLeftIcon from '@/admin/icons/AngleLeftIcon';
 import AngleRightIcon from '@/admin/icons/AngleRightIcon';
-import { useGetId } from '@/admin/hooks/useGetId';
 import CustomerInfo from './customer-info';
 import ListingDetails from './listing-details';
 import OrderDetails from './order-details';
@@ -51,6 +51,10 @@ const SingleOrderHeader = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding-top: 40px;
+	.directorist-single-plan-logo{
+		line-height: 0;
+	}
 `;
 
 const HeaderBreadcrumb = styled.div`
@@ -138,7 +142,7 @@ export default function OrderEdit({}: EditProps) {
 			<Fill name="wpmvc-header">
 				<SingleOrderHeader>
 					<HeaderBreadcrumb>
-						<a href="#" className="directorist-single-order-back">
+						<a href="#" className="directorist-single-plan-logo">
 							<AngleLeftIcon />
 						</a>
 						<ul>

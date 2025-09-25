@@ -119,9 +119,11 @@ class OrderRepository extends Repository {
 
     public function create_many( array $dtos ) {
         return $this->get_query_builder()->insert(
-            array_map(function( $dto ) {
-                return $this->process_values( $dto->to_array() );
-            }, $dtos)
+            array_map(
+                function( $dto ) {
+                    return $this->process_values( $dto->to_array() );
+                }, $dtos
+            )
         );
     }
 

@@ -106,8 +106,6 @@ export default function App() {
 						/>
 					),
 					actionItems,
-					menuItems: actionItems
-
 				}}
 				routes={
 					applyFilters(

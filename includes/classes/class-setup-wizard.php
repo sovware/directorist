@@ -1031,7 +1031,7 @@ class Directorist_Setup_Wizard {
                                 <li class="<?php echo esc_attr( $step_two ); ?>"></li>
                                 <li class="<?php echo esc_attr( $step_three ); ?>"></li>
                         </ul>
-                        <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4',  'Step', $active_number ), 'directorist' ); ?></span>
+                        <span class="step-count"><?php printf( esc_html__( 'Step %d of 4', 'directorist' ), $active_number ); ?></span>
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__close__btn">

@@ -1,24 +1,25 @@
 /**
  * WordPress dependencies
  */
-import { Fill, SelectControl } from '@wordpress/components';
+import apiFetch from '@wordpress/api-fetch';
+import { Fill } from '@wordpress/components';
 import { useEffect, useMemo, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
  * External dependencies
  */
-import { Button } from '@wpmvc/components';
-import { registerValuesStore, useValuesStoreData } from '@wpmvc/data';
+import { Button, Select } from '@wpmvc/components';
+import { registerValuesStore, useValuesStore, useValuesStoreData } from '@wpmvc/data';
 import styled from 'styled-components';
 
 /**
  * Internal dependencies
  */
-import { getUser } from '@/admin/helper/utils';
 import { useGetId } from '@/admin/hooks/useGetId';
 import AngleLeftIcon from '@/admin/icons/AngleLeftIcon';
 import AngleRightIcon from '@/admin/icons/AngleRightIcon';
+import { doAction } from '@wordpress/hooks';
 import CustomerInfo from './customer-info';
 import ListingDetails from './listing-details';
 import OrderDetails from './order-details';
@@ -103,14 +104,60 @@ const StatusSelection = styled.div`
 	.components-input-control__backdrop {
 		display: none;
 	}
+	.wpmvc__control{
+		border: 0 none;
+		min-height: 24px;
+		background-color: transparent;
+		border-radius: 0px;
+		&.wpmvc__control--is-focused{
+			box-shadow: 0 0;
+		}
+		.wpmvc__value-container{
+			padding-right: 0;
+			min-width: 80px;
+		}
+	}
 `;
 
 type EditProps = {
 	order?: any;
 };
 
+const orderStatusOptions = [
+	{
+		label: __('Pending', 'directorist'),
+		value: 'pending',
+	},
+	{
+		label: __('Re-funded', 'directorist'),
+		value: 'refunded',
+	},
+	{
+		label: __('Failed', 'directorist'),
+		value: 'failed',
+	},
+	{
+		label: __('Cancelled', 'directorist'),
+		value: 'cancelled',
+	},
+	{
+		label: __('Unpaid', 'directorist'),
+		value: 'unpaid',
+	},
+	{
+		label: __('Expired', 'directorist'),
+		value: 'expired',
+	},
+	{
+		label: __('Paid', 'directorist'),
+		value: 'paid',
+	},
+]
+
 export default function OrderEdit({}: EditProps) {
 	const [loading, setLoading] = useState(true);
+	const [orderStatus, setOrderStatus] = useState('pending');
+	const [isSaving, setIsSaving] = useState(false);
 	const orderId = useGetId();
 
 	const singleOrderRoute = useMemo(
@@ -122,6 +169,13 @@ export default function OrderEdit({}: EditProps) {
 		name: 'directorist/single-order',
 		path: singleOrderRoute,
 	});
+
+	const { refresh } = useValuesStore(
+		{
+			name: 'directorist/single-order',
+			path: singleOrderRoute,
+		}
+	);
 
 	const { data, isResolved } = useValuesStoreData({
 		name: 'directorist/single-order',
@@ -135,15 +189,42 @@ export default function OrderEdit({}: EditProps) {
 	useEffect(() => {
 		if (loading && isOrderResolved) {
 			setLoading(false);
+			setOrderStatus(order?.status)
 		}
 	}, [isOrderResolved, loading]);
 
-	const user = getUser(order?.user);
-	const dateFormatOptions = {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-	};
+	const saveOrderStatus = async () => {
+		if (!orderId) {
+			console.log("Order id is misssing");
+			return;
+		}
+
+		setIsSaving(true);
+
+		try {
+			await apiFetch({
+				path: `directorist/admin/orders/${orderId}/status`,
+				method: 'POST',
+				data: {
+					status: orderStatus,
+				},
+			});
+			doAction( 'wpmvc-toast', {
+				message: __( 'Order status updated successfully', 'directorist-pricing-plans' ),
+			} );
+			refresh();
+
+		} catch (error) {
+			console.error('Failed to update order status:', error);
+			doAction( 'wpmvc-toast', {
+				type: 'error',
+				message: __( 'Oppps! Something went wrong', 'directorist-pricing-plans' ),
+			} );
+		} finally {
+			setIsSaving(false);
+			refresh();
+		}
+	}
 
 	return (
 		<>
@@ -166,41 +247,25 @@ export default function OrderEdit({}: EditProps) {
 					<HeaderAction>
 						<StatusSelection>
 							<span>{__('Order Status:', 'directorist')}</span>
-							<SelectControl
-								options={[
-									{
-										label: __('Pending', 'directorist'),
-										value: 'pending',
-									},
-									{
-										label: __('Re-funded', 'directorist'),
-										value: 'refunded',
-									},
-									{
-										label: __('Failed', 'directorist'),
-										value: 'failed',
-									},
-									{
-										label: __('Cancelled', 'directorist'),
-										value: 'cancelled',
-									},
-									{
-										label: __('Unpaid', 'directorist'),
-										value: 'unpaid',
-									},
-									{
-										label: __('Expired', 'directorist'),
-										value: 'expired',
-									},
-									{
-										label: __('Paid', 'directorist'),
-										value: 'paid',
-									},
-								]}
+							<Select
+								options={ orderStatusOptions }
+								onChange={(option: any) => {
+									console.log(option);
+									
+									setOrderStatus(option.value);
+								}}
+								isSearchable= {false}
+								defaultValue={orderStatusOptions.filter(items=> items.value === orderStatus)}
+								isDisabled={isSaving}
 							/>
 						</StatusSelection>
-						<Button variant="primary">
-							{__('Save Order', 'directorist')}
+						<Button 
+							variant="primary" 
+							onClick={saveOrderStatus}
+							isBusy={isSaving}
+							disabled={isSaving}
+						>
+							{isSaving ? __('Saving...', 'directorist') : __('Save Order', 'directorist')}
 						</Button>
 					</HeaderAction>
 				</SingleOrderHeader>

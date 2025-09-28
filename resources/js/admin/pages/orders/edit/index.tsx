@@ -51,7 +51,6 @@ const SingleOrderHeader = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding-top: 40px;
 	.directorist-single-plan-logo{
 		line-height: 0;
 	}
@@ -68,6 +67,15 @@ const HeaderBreadcrumb = styled.div`
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		li{
+			display: flex;
+			align-items: center;
+			margin-bottom: 0;
+			svg{
+				position: relative;
+				top: 2px;
+			}
+		}
 	}
 `;
 

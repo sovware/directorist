@@ -1,5 +1,26 @@
 @import "@wordpress/dataviews/build-style/style.css";
 
+.wpmvc-header{
+    .components-button{
+        &:hover{
+            svg{
+                fill: var(--wpmvc-primary-500);
+                path{
+                    fill: var(--wpmvc-primary-500);
+                }
+            }
+        }
+        svg{
+            width: 14px;
+            height: 14px;;
+        }
+        &.has-icon{
+            border-radius: 4px;
+            border: 1px solid rgba(75, 85, 99, 0.10);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+    }
+}
 // Table Typograpphy Style
 .dataviews-view-table{
     tr{

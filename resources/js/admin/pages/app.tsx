@@ -7,6 +7,7 @@ import validateField from '../controls/custom-field/validation';
 import DocIcon from '../icons/DocIcon';
 import QuestionCircleIcon from '../icons/QuestionCircleIcon';
 // import OrderEdit from './orders/edit';
+import CommentIcon from '../icons/CommentIcon';
 import Orders from './orders';
 import OrderEdit from './orders/edit';
 
@@ -23,7 +24,7 @@ const actionItems: MenuItemsType = {
 	},
 	feedback: {
 		path: 'https://directorist.com/dashboard/#feedback',
-		icon: <i className="la la-comment"></i>,
+		icon: <CommentIcon />,
 	},
 };
 

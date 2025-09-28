@@ -1928,7 +1928,7 @@ export default {
 
           // Update both active_widgets and available_widgets
           this.updateWidgetData(widgetKey, processedWidget);
-          
+
           // Mark data as changed
           this._dataChanged = true;
         }
@@ -1976,12 +1976,25 @@ export default {
         // Add each field from options.fields to the root level
         for (const fieldKey in promotedWidget.options.fields) {
           if (promotedWidget.options.fields.hasOwnProperty(fieldKey)) {
-            const fieldValue = promotedWidget.options.fields[fieldKey];
+            const fieldObject = promotedWidget.options.fields[fieldKey];
 
             // Validate field structure before promoting
-            if (this.isValidFieldForPromotion(fieldValue)) {
-              // Deep clone the field value to avoid reference issues
-              promotedWidget[fieldKey] = this.safeClone(fieldValue);
+            if (this.isValidFieldForPromotion(fieldObject)) {
+              // If field has a 'value' property, promote only the value
+              if (
+                this.isValidObject(fieldObject) &&
+                fieldObject.hasOwnProperty("value")
+              ) {
+                // Convert value to boolean (1 or 0) if it's a boolean
+                let promotedValue = fieldObject.value;
+                if (typeof promotedValue === "boolean") {
+                  promotedValue = promotedValue ? 1 : 0;
+                }
+                promotedWidget[fieldKey] = promotedValue;
+              } else {
+                // Fallback: promote the entire field object if no value property
+                promotedWidget[fieldKey] = this.safeClone(fieldObject);
+              }
             }
           }
         }

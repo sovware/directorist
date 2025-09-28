@@ -5084,7 +5084,7 @@ body.wp-admin {
 
     &[data-flow="bottom-left"]::after,
     &[data-flow="bottom-right"]::after {
-      top: calc(100% + 6px);
+      top: calc(100% + 5px);
     }
 
     &[data-flow="top-left"]::before,

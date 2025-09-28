@@ -5238,7 +5238,7 @@ body.wp-admin {
   bottom: calc(100% + 6px);
 }
 .directorist-row-tooltip[data-tooltip][data-flow=bottom-left]::after, .directorist-row-tooltip[data-tooltip][data-flow=bottom-right]::after {
-  top: calc(100% + 6px);
+  top: calc(100% + 5px);
 }
 .directorist-row-tooltip[data-tooltip][data-flow=top-left]::before, .directorist-row-tooltip[data-tooltip][data-flow=top-right]::before {
   bottom: 100%;
@@ -16445,6 +16445,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   color: #747c89;
   background-color: #f9fafb;
   border-radius: 6px 0 0 6px;
+  cursor: move;
 }
 .cptm-form-builder-group-field-item .cptm-form-builder-group-field-item-header-content {
   display: -webkit-box;
@@ -16770,6 +16771,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   -webkit-flex-grow: unset;
       -ms-flex-positive: unset;
           flex-grow: unset;
+  cursor: move;
 }
 
 .cptm-form-builder-field-list {
@@ -17585,7 +17587,7 @@ input[type=radio].cptm-radio {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   position: absolute;
-  top: -7px;
+  top: -6px;
   right: 22px;
 }
 .cptm-option-card.cptm-animation-flip {
@@ -19210,7 +19212,7 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-bottom-left .cptm-widget-option-modal-container .cptm-option-card:before {
   top: unset;
-  bottom: -7px;
+  bottom: -6px;
 }
 
 .cptm-card-preview-bottom-left-placeholder {
@@ -20229,7 +20231,6 @@ input[type=radio].cptm-radio {
   height: 100%;
 }
 .cptm-preview-image-upload.cptm-preview-image-upload--show .cptm-thumbnail {
-  margin: 0;
   position: relative;
 }
 .cptm-preview-image-upload.cptm-preview-image-upload--show .cptm-thumbnail:after {
@@ -21456,8 +21457,7 @@ input[type=radio]:checked::before {
   background: transparent;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: move;
 }
 .cptm-preview-placeholder__card .draggable-item .cptm-drag-element:hover {
   color: #1e1e1e;
@@ -22003,8 +22003,7 @@ input[type=radio]:checked::before {
   background: transparent;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: move;
 }
 .cptm-elements-settings__group__single .drag-icon:hover {
   color: #1e1e1e;
@@ -24657,6 +24656,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   color: #747c89;
   background-color: #f9fafb;
   border-radius: 6px 0 0 6px;
+  cursor: move;
 }
 .cptm-form-builder-group-field-item .cptm-form-builder-group-field-item-header-content {
   display: -webkit-box;
@@ -24982,6 +24982,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   -webkit-flex-grow: unset;
       -ms-flex-positive: unset;
           flex-grow: unset;
+  cursor: move;
 }
 
 .cptm-form-builder-field-list {
@@ -25797,7 +25798,7 @@ input[type=radio].cptm-radio {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   position: absolute;
-  top: -7px;
+  top: -6px;
   right: 22px;
 }
 .cptm-option-card.cptm-animation-flip {
@@ -27422,7 +27423,7 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-bottom-left .cptm-widget-option-modal-container .cptm-option-card:before {
   top: unset;
-  bottom: -7px;
+  bottom: -6px;
 }
 
 .cptm-card-preview-bottom-left-placeholder {
@@ -28441,7 +28442,6 @@ input[type=radio].cptm-radio {
   height: 100%;
 }
 .cptm-preview-image-upload.cptm-preview-image-upload--show .cptm-thumbnail {
-  margin: 0;
   position: relative;
 }
 .cptm-preview-image-upload.cptm-preview-image-upload--show .cptm-thumbnail:after {
@@ -29668,8 +29668,7 @@ input[type=radio]:checked::before {
   background: transparent;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: move;
 }
 .cptm-preview-placeholder__card .draggable-item .cptm-drag-element:hover {
   color: #1e1e1e;
@@ -30215,8 +30214,7 @@ input[type=radio]:checked::before {
   background: transparent;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: move;
 }
 .cptm-elements-settings__group__single .drag-icon:hover {
   color: #1e1e1e;
@@ -33157,6 +33155,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   color: #747c89;
   background-color: #f9fafb;
   border-radius: 6px 0 0 6px;
+  cursor: move;
 }
 .cptm-form-builder-group-field-item .cptm-form-builder-group-field-item-header-content {
   display: -webkit-box;
@@ -33482,6 +33481,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   -webkit-flex-grow: unset;
       -ms-flex-positive: unset;
           flex-grow: unset;
+  cursor: move;
 }
 
 .cptm-form-builder-field-list {
@@ -34297,7 +34297,7 @@ input[type=radio].cptm-radio {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   position: absolute;
-  top: -7px;
+  top: -6px;
   right: 22px;
 }
 .cptm-option-card.cptm-animation-flip {
@@ -35922,7 +35922,7 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-bottom-left .cptm-widget-option-modal-container .cptm-option-card:before {
   top: unset;
-  bottom: -7px;
+  bottom: -6px;
 }
 
 .cptm-card-preview-bottom-left-placeholder {
@@ -36941,7 +36941,6 @@ input[type=radio].cptm-radio {
   height: 100%;
 }
 .cptm-preview-image-upload.cptm-preview-image-upload--show .cptm-thumbnail {
-  margin: 0;
   position: relative;
 }
 .cptm-preview-image-upload.cptm-preview-image-upload--show .cptm-thumbnail:after {
@@ -38168,8 +38167,7 @@ input[type=radio]:checked::before {
   background: transparent;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: move;
 }
 .cptm-preview-placeholder__card .draggable-item .cptm-drag-element:hover {
   color: #1e1e1e;
@@ -38715,8 +38713,7 @@ input[type=radio]:checked::before {
   background: transparent;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: move;
 }
 .cptm-elements-settings__group__single .drag-icon:hover {
   color: #1e1e1e;

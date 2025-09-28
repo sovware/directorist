@@ -1960,6 +1960,7 @@ div[draggable="true"].cptm-form-builder-group-header-content {
     color: #747c89;
     background-color: #f9fafb;
     border-radius: 6px 0 0 6px;
+    cursor: move;
   }
   .cptm-form-builder-group-field-item-header-content {
     display: flex;
@@ -2223,6 +2224,7 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   height: 100%;
   text-align: center;
   flex-grow: unset;
+  cursor: move;
 }
 
 .cptm-form-builder-field-list {
@@ -2930,7 +2932,7 @@ input[type="radio"].cptm-radio {
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     position: absolute;
-    top: -7px;
+    top: -6px;
     right: 22px;
   }
 
@@ -4195,7 +4197,7 @@ input[type="radio"].cptm-radio {
     .cptm-option-card {
       &:before {
         top: unset;
-        bottom: -7px;
+        bottom: -6px;
       }
     }
   }
@@ -5014,7 +5016,6 @@ input[type="radio"].cptm-radio {
     height: 100%;
 
     .cptm-thumbnail {
-      margin: 0;
       position: relative;
 
       &:after {
@@ -5969,7 +5970,7 @@ input[type="radio"] {
         color: #747c89;
         background: transparent;
         transition: all ease 0.3s;
-        cursor: grab;
+        cursor: move;
         &:hover {
           color: #1e1e1e;
         }
@@ -6480,7 +6481,7 @@ input[type="radio"] {
         color: #747c89;
         background: transparent;
         transition: all ease 0.3s;
-        cursor: grab;
+        cursor: move;
         &:hover {
           color: #1e1e1e;
         }

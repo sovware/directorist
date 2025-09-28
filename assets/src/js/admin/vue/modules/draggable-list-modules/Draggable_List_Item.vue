@@ -51,9 +51,7 @@
   
     computed: {
       listItemStyle() {
-        let style = {
-          cursor: this.canDrag ? "move" : "",
-        };
+        let style = {};
   
         if (this.dragging && "move" === this.dragType) {
           style.height = "0";

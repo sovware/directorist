@@ -7755,6 +7755,7 @@ body.modal-overlay-enabled:before {
 .directorist-swiper .swiper-slide > div,
 .directorist-swiper .swiper-slide > a {
   width: 100%;
+  height: 100%;
 }
 .directorist-swiper__nav {
   position: absolute;

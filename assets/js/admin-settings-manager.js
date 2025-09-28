@@ -18528,9 +18528,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     listItemStyle: function listItemStyle() {
-      var style = {
-        cursor: this.canDrag ? "move" : ""
-      };
+      var style = {};
       if (this.dragging && "move" === this.dragType) {
         style.height = "0";
         style.padding = "0";

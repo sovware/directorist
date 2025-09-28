@@ -13,7 +13,7 @@
   "lint-staged": {
     "*.{css,scss,js}": [
       "yarn format",
-      "yarn add"
+      "git add"
     ],
     "*.php": [
       "composer format"

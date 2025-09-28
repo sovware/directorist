@@ -2144,4 +2144,32 @@ div.dataviews-view-list {
 	border-bottom: 1px solid #e0e0e0;
 }
 
+.directorist-formgent-table-modal h1 {
+	font-size: 22px;
+	font-weight: 600;
+	margin: 0 0 10px 0;
+}
+.directorist-formgent-table-modal p {
+	font-size: 16px;
+	font-weight: 400;
+	margin: 0 0 20px 0;
+}
+.directorist-formgent-table-modal .directorist-formgent-table-modal-action {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+	gap: 10px;
+}
+
+#helpgent-toast div[role="status"] {
+	font-size: 16px;
+	font-family: inherit;
+	font-weight: 400;
+}
+
 /*# sourceMappingURL=formgent-integration.css.map*/

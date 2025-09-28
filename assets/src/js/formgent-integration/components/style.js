@@ -329,6 +329,10 @@ const EnquiryDetailsModalStyle = styled.div`
 		background: none;
 		cursor: pointer;
 		transition: 0.3s ease;
+		&.directorist-btn-disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
 	}
 	.directorist-enquiry-modal-btn-delete {
 		margin-left: auto;

@@ -1,568 +1,78 @@
+/**
+ * WordPress dependencies
+ */
+import { useState, useEffect } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import Inbox from '../icons/Inbox';
 import Envelope from '../icons/Envelope';
 import Calendar from '../icons/Calendar';
 import Check from '../icons/Check';
-import Trash from '../icons/Trash';
 import { EnquiriesComponentStyle } from './style';
 import Tables from './Table';
+import {
+	fetchEnquiryKPIs,
+	fetchAllEnquiries,
+	refreshEnquiryData,
+} from '../utils/enquiryUtils';
 
 const EnquiriesComponent = ({ data = {} }) => {
-	const strings = data.strings || {};
+	const [responseKPIs, setResponseKPIs] = useState({});
+	const [responses, setResponses] = useState([]);
+
+	//get response KPIs
+	useEffect(() => {
+		fetchEnquiryKPIs().then((data) => {
+			console.log('KPIs response:', data);
+			setResponseKPIs(data);
+		});
+	}, []);
+
+	useEffect(() => {
+		fetchAllEnquiries().then((data) => {
+			console.log('Responses response:', data);
+			setResponses(data);
+		});
+	}, []);
 
 	const enquiryStats = [
 		{
 			icon: <Inbox />,
 			title: 'Total Enquiries',
-			value: 8,
+			value: responseKPIs.total || 0,
 			type: 'total',
 		},
 		{
 			icon: <Envelope />,
 			title: 'New Messages',
-			value: 4,
+			value: responseKPIs.unread || 0,
 			type: 'new',
 		},
 		{
 			icon: <Calendar />,
 			title: 'This Week',
-			value: 3,
+			value: responseKPIs.this_week || 0,
 			type: 'this-week',
 		},
 		{
 			icon: <Check />,
 			title: 'Total Resolved',
-			value: 1,
+			value: responseKPIs.read || 0,
 			type: 'resolved',
 		},
 	];
 
-	// dummy data
-	const items = [
-		{
-			id: '441',
-			title: 'Inquiry about availability',
-			enquiry_prefix:
-				"Hi, I'm interested in the co-working space. Could you please let me know about availability and pricing for...",
-			listing_title: 'Tsukishima Monja Street',
-			listing_url: 'https://example.com',
-			received_at: '2025-08-28 10:57:36',
-			sender_name: 'John Doe',
-			sender_email: 'john.doe@example.com',
-			sender_avatar: 'https://placehold.co/32x32',
-			status: 'new',
-			answers: [
-				{
-					id: '1729',
-					response_id: '2160',
-					field_name: 'name',
-					field_type: 'name',
-					value: null,
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [
-						{
-							id: '1748',
-							parent_id: '1729',
-							field_name: 'first_name',
-							field_type: 'text',
-							value: 'Axel',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'First Name',
-						},
-						{
-							id: '1749',
-							parent_id: '1729',
-							field_name: 'middle_name',
-							field_type: 'text',
-							value: 'Kane David',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'Middle Name',
-						},
-						{
-							id: '1750',
-							parent_id: '1729',
-							field_name: 'last_name',
-							field_type: 'text',
-							value: 'Mendez',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'Last Name',
-						},
-					],
-					label: 'What is your name?',
-				},
-				{
-					id: '1730',
-					response_id: '2160',
-					field_name: 'email',
-					field_type: 'email',
-					value: 'vukitys@mailinator.com',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'What is your email?',
-				},
-				{
-					id: '1731',
-					response_id: '2160',
-					field_name: 'text',
-					field_type: 'text',
-					value: 'Laudantium aliquip ',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Text',
-				},
-				{
-					id: '1732',
-					response_id: '2160',
-					field_name: 'textarea',
-					field_type: 'textarea',
-					value: 'Modi asperiores repu',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Textarea',
-				},
-				{
-					id: '1733',
-					response_id: '2160',
-					field_name: 'number',
-					field_type: 'number',
-					value: '741',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Number',
-				},
-				{
-					id: '1734',
-					response_id: '2160',
-					field_name: 'phone-number',
-					field_type: 'phone-number',
-					value: '+18037751678',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Phone Number',
-				},
-				{
-					id: '1735',
-					response_id: '2160',
-					field_name: 'dropdown',
-					field_type: 'dropdown',
-					value: '_DjWzj7UuFgHNxzvACBn8',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Dropdown',
-					option_label: 'New Option',
-				},
-				{
-					id: '1736',
-					response_id: '2160',
-					field_name: 'single-choice',
-					field_type: 'single-choice',
-					value: 'default_value',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Single Choice',
-					option_label: 'New Option',
-				},
-				{
-					id: '1737',
-					response_id: '2160',
-					field_name: 'multiple-choice',
-					field_type: 'multiple-choice',
-					value: '["new_option_1756802706420"]',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Multi Choice',
-					options: [
-						{
-							label: 'New Option',
-							value: 'new_option_1756802706420',
-						},
-					],
-				},
-				{
-					id: '1738',
-					response_id: '2160',
-					field_name: 'address',
-					field_type: 'address',
-					value: null,
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [
-						{
-							id: '1751',
-							parent_id: '1738',
-							field_name: 'address_line_one',
-							field_type: 'text',
-							value: '86 Cowley Freeway',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'Address line 1',
-						},
-						{
-							id: '1752',
-							parent_id: '1738',
-							field_name: 'address_line_two',
-							field_type: 'text',
-							value: 'Accusantium pariatur',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'Address line 2',
-						},
-						{
-							id: '1753',
-							parent_id: '1738',
-							field_name: 'city',
-							field_type: 'text',
-							value: 'Est architecto do v',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'City',
-						},
-						{
-							id: '1754',
-							parent_id: '1738',
-							field_name: 'state',
-							field_type: 'text',
-							value: 'Reprehenderit tempor',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'State / Province',
-						},
-						{
-							id: '1755',
-							parent_id: '1738',
-							field_name: 'zip_code',
-							field_type: 'text',
-							value: '24313',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'Postal code / Zip Code',
-						},
-						{
-							id: '1756',
-							parent_id: '1738',
-							field_name: 'country',
-							field_type: 'dropdown',
-							value: 'AL',
-							created_at: '2025-09-02 15:25:55',
-							updated_at: null,
-							label: 'Country',
-							option_label: 'Albania',
-						},
-					],
-					label: 'Address',
-				},
-				{
-					id: '1739',
-					response_id: '2160',
-					field_name: 'google-map',
-					field_type: 'google-map',
-					value: '{"map":{"lat":38.627427999999988,"lng":-90.198243899999994},"address":"St. Louis, MO"}',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Google Map',
-				},
-				{
-					id: '1741',
-					response_id: '2160',
-					field_name: 'website',
-					field_type: 'website',
-					value: 'https://www.sojifitezixota.org',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Website',
-				},
-				{
-					id: '1742',
-					response_id: '2160',
-					field_name: 'input-masking',
-					field_type: 'input-masking',
-					value: 'Quaerat voluptatem a',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Input Masking',
-				},
-				{
-					id: '1743',
-					response_id: '2160',
-					field_name: 'repeater',
-					field_type: 'repeater',
-					value: [
-						{
-							text: {
-								field_name: 'text',
-								label: 'Text',
-								field_type: 'text',
-								value: 'Dolor elit qui maxi',
-							},
-							number: {
-								field_name: 'number',
-								label: 'Number',
-								field_type: 'number',
-								value: 512,
-							},
-						},
-						{
-							text: {
-								field_name: 'text',
-								label: 'Text',
-								field_type: 'text',
-								value: 'werwer',
-							},
-							number: {
-								field_name: 'number',
-								label: 'Number',
-								field_type: 'number',
-								value: 324231,
-							},
-						},
-					],
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Repeater',
-				},
-				{
-					id: '1744',
-					response_id: '2160',
-					field_name: 'file-upload',
-					field_type: 'file-upload',
-					value: [
-						'https://formgent.local/wp-content/uploads/2025/09/medium-shot-man-wearing-vr-glasses.jpg',
-					],
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'File Upload',
-				},
-				{
-					id: '1745',
-					response_id: '2160',
-					field_name: 'rating',
-					field_type: 'rating',
-					value: '4',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Rating',
-					rating_limit: 5,
-					rating_icon: 'star',
-				},
-				{
-					id: '1746',
-					response_id: '2160',
-					field_name: 'date-picker',
-					field_type: 'date-picker',
-					value: '09-03-25',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Date Picker',
-				},
-				{
-					id: '1747',
-					response_id: '2160',
-					field_name: 'digital-signature',
-					field_type: 'digital-signature',
-					value: 'https://formgent.local/wp-content/uploads/2025/09/signature.jpg',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Signature',
-				},
-			],
-		},
-		{
-			id: '442',
-			title: 'Question about the property',
-			enquiry_prefix:
-				'Hello, your apartment looks lovely! I was wondering what your pet policy is for small dogs?',
-			listing_title: 'Miami Pet Resort',
-			listing_url: 'https://example.com',
-			received_at: '2025-08-28 10:57:36',
-			sender_name: 'Jane Doe',
-			sender_email: 'jane.doe@example.com',
-			sender_avatar: 'https://placehold.co/32x32',
-			status: 'read',
-			answers: [
-				{
-					id: '1730',
-					response_id: '2160',
-					field_name: 'email',
-					field_type: 'email',
-					value: 'vukitys@mailinator.com',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'What is your email?',
-				},
-				{
-					id: '1731',
-					response_id: '2160',
-					field_name: 'text',
-					field_type: 'text',
-					value: 'John Doe',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'What is your name?',
-				},
-				{
-					id: '1732',
-					response_id: '2160',
-					field_name: 'textarea',
-					field_type: 'textarea',
-					value: "Hello, I'm interested in the property. Could you please let me know about the pricing for next month? I'm looking for a 2 bedroom apartment. I'm interested in the property. Could you please let me know about the pricing for next month?",
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Message',
-				},
-				{
-					id: '1733',
-					response_id: '2160',
-					field_name: 'number',
-					field_type: 'number',
-					value: '1000',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: "What's your budget?",
-				},
-			],
-		},
-		{
-			id: '443',
-			title: 'Request for a quote',
-			enquiry_prefix:
-				"Hi, I'm interested in the property. Could you please let me know about the pricing for next month?",
-			listing_title: 'Luxury Villa at Dubai',
-			listing_url: 'https://example.com',
-			received_at: '2025-08-28 10:57:36',
-			sender_name: 'John Doe',
-			sender_email: 'john.doe@example.com',
-			sender_avatar: 'https://placehold.co/32x32',
-			status: 'resolved',
-			answers: [
-				{
-					id: '1730',
-					response_id: '2160',
-					field_name: 'email',
-					field_type: 'email',
-					value: 'vukitys@mailinator.com',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'What is your email?',
-				},
-				{
-					id: '1731',
-					response_id: '2160',
-					field_name: 'text',
-					field_type: 'text',
-					value: 'Laudantium aliquip ',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Text',
-				},
-				{
-					id: '1732',
-					response_id: '2160',
-					field_name: 'textarea',
-					field_type: 'textarea',
-					value: 'Modi asperiores repu',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Textarea',
-				},
-				{
-					id: '1733',
-					response_id: '2160',
-					field_name: 'number',
-					field_type: 'number',
-					value: '741',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Number',
-				},
-				{
-					id: '1734',
-					response_id: '2160',
-					field_name: 'phone-number',
-					field_type: 'phone-number',
-					value: '+18037751678',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Phone Number',
-				},
-			],
-		},
-		{
-			id: '444',
-			title: 'Feedback about the property',
-			enquiry_prefix:
-				"Hi, I'm interested in the property. Could you please let me know about the pricing for next month?",
-			listing_title: 'Hotel Paradise Beach Resort',
-			received_at: '2025-08-28 10:57:36',
-			listing_url: 'https://example.com',
-			sender_name: 'John Doe',
-			sender_email: 'john.doe@example.com',
-			sender_avatar: 'https://placehold.co/32x32',
-			status: 'new',
-			answers: [
-				{
-					id: '1730',
-					response_id: '2160',
-					field_name: 'email',
-					field_type: 'email',
-					value: 'vukitys@mailinator.com',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'What is your email?',
-				},
-				{
-					id: '1731',
-					response_id: '2160',
-					field_name: 'text',
-					field_type: 'text',
-					value: 'Laudantium aliquip ',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Message subject',
-				},
-				{
-					id: '1732',
-					response_id: '2160',
-					field_name: 'textarea',
-					field_type: 'textarea',
-					value: 'Modi asperiores repu',
-					created_at: '2025-09-02 15:25:55',
-					updated_at: null,
-					children: [],
-					label: 'Message',
-				},
-			],
-		},
-	];
+	const handleRefresh = async () => {
+		try {
+			const { responses, kpis } = await refreshEnquiryData();
+			setResponses(responses);
+			setResponseKPIs(kpis);
+		} catch (error) {
+			console.error('Error refreshing data:', error);
+		}
+	};
 
 	return (
 		<EnquiriesComponentStyle className="directorist-enquiries-container">
@@ -591,7 +101,10 @@ const EnquiriesComponent = ({ data = {} }) => {
 			</div>
 
 			<div className="directorist-enquiries-table">
-				<Tables items={items} />
+				<Tables
+					items={responses?.responses}
+					handleTableRefresh={handleRefresh}
+				/>
 			</div>
 		</EnquiriesComponentStyle>
 	);

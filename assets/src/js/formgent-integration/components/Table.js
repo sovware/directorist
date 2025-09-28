@@ -2,12 +2,26 @@
  * WordPress dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
 import { Table } from '@wpmvc/components';
 import CheckIcon from '../icons/Check';
-import TrashIcon from '../icons/Trash';
-import EnquiryDetailsModal from './EnquiryDetailsModal';
 
-export default function Tables({ items }) {
+/**
+ * Internal dependencies
+ */
+import EnquiryDetailsModal from './EnquiryDetailsModal';
+import {
+	markEnquiryAsRead,
+	deleteEnquiry,
+	sendEmailToUser,
+	getStatusBadgeClass,
+} from '../utils/enquiryUtils';
+
+export default function Tables(props) {
+	const { items, handleTableRefresh } = props;
 	const [perPage, setPerPage] = useState(10);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [currentPage, setCurrentPage] = useState(1);
@@ -57,17 +71,20 @@ export default function Tables({ items }) {
 
 	// switch case for status badge
 	const statusBadge = (status) => {
-		switch (status) {
-			case 'new':
-				return 'warning';
+		const badgeClass = getStatusBadgeClass(status);
+		switch (badgeClass) {
 			case 'read':
 				return 'primary';
-			case 'resolved':
-				return 'success';
+			case 'unread':
+				return 'warning';
 			default:
 				return 'primary';
 		}
 	};
+
+	function getEnquiryStats(status) {
+		return status === '0' ? 'new' : 'read';
+	}
 
 	const fields = [
 		{
@@ -85,7 +102,7 @@ export default function Tables({ items }) {
 								className="directorist-table-enquiry-view"
 								onClick={(e) => {
 									e.preventDefault();
-									setSelectedItem(item);
+									setSelectedItem(item.id);
 									setIsViewModalOpen(true);
 								}}
 							>
@@ -94,6 +111,10 @@ export default function Tables({ items }) {
 							<a
 								href="#"
 								className="directorist-table-enquiry-send-email"
+								onClick={(e) => {
+									e.preventDefault();
+									handleSendEmail(item);
+								}}
 							>
 								Send Email
 							</a>
@@ -109,7 +130,7 @@ export default function Tables({ items }) {
 				return (
 					<div className="directorist-table-enquiry-listing">
 						<h2>{item.listing_title}</h2>
-						<span>{item.received_at}</span>
+						<span>{item.created_at}</span>
 					</div>
 				);
 			},
@@ -122,13 +143,13 @@ export default function Tables({ items }) {
 					<div className="directorist-table-enquiry-sender">
 						<div className="directorist-table-enquiry-sender-avatar">
 							<img
-								src={item.sender_avatar}
-								alt={item.sender_name}
+								src={item.user.profile_url}
+								alt={item.user.display_name}
 							/>
 						</div>
 						<div className="directorist-table-enquiry-sender-info">
-							<h2>{item.sender_name}</h2>
-							<p>{item.sender_email}</p>
+							<h2>{item.user.display_name}</h2>
+							<p>{item.user.user_email}</p>
 						</div>
 					</div>
 				);
@@ -141,9 +162,9 @@ export default function Tables({ items }) {
 				return (
 					<div className="directorist-table-enquiry-status">
 						<span
-							className={`directorist-badge directorist-badge-${statusBadge(item.status)}`}
+							className={`directorist-badge directorist-badge-${statusBadge(item.is_read)}`}
 						>
-							{item.status}
+							{getEnquiryStats(item.is_read)}
 						</span>
 					</div>
 				);
@@ -151,41 +172,71 @@ export default function Tables({ items }) {
 		},
 	];
 
+	// Simplified handler functions using utility functions
+	const handleMarkAsRead = (item) => {
+		markEnquiryAsRead(item, handleTableRefresh);
+	};
+
+	const handleDeleteItem = (item) => {
+		deleteEnquiry(item, handleTableRefresh);
+	};
+
+	const handleSendEmail = (item) => {
+		sendEmailToUser(item);
+	};
+
+	function handleCancelDeleteAlert(item) {
+		item.closeModal();
+	}
+
 	return (
 		<>
 			<Table
 				actions={[
 					{
-						RenderModal: () => {
+						RenderModal: (item) => {
 							return (
-								<div>
-									<h1>Item masked as read</h1>
+								<div className="directorist-formgent-table-modal">
+									<h1>Are you sure to delete this item?</h1>
+									<p>This action cannot be undone.</p>
+									<div className="directorist-formgent-table-modal-action">
+										<button
+											onClick={() =>
+												handleDeleteItem(item)
+											}
+											className="directorist-btn directorist-btn-danger"
+										>
+											Delete
+										</button>
+										<button
+											onClick={() =>
+												handleCancelDeleteAlert(item)
+											}
+											className="directorist-btn directorist-btn-light"
+										>
+											Cancel
+										</button>
+									</div>
 								</div>
 							);
 						},
 						hideModalHeader: true,
-						icon: <CheckIcon />,
-						id: 'mark-as-read',
-						isPrimary: true,
-						label: 'Mark as read',
-						modalFocusOnMount: 'firstContentElement',
-						supportsBulk: true,
-					},
-					{
-						RenderModal: () => {
-							return (
-								<div>
-									<h1>Are you sure to delete this item?</h1>
-								</div>
-							);
-						},
-						hideModalHeader: false,
-						icon: <TrashIcon />,
 						id: 'delete',
-						isPrimary: true,
 						label: 'Delete',
 						modalFocusOnMount: 'firstContentElement',
-						supportsBulk: true,
+						supportsBulk: false,
+					},
+					{
+						callback: (item) => {
+							handleMarkAsRead(item);
+						},
+						id: 'mark-as-read',
+						icon: <CheckIcon />,
+						label: 'Mark as read',
+						supportsBulk: false,
+						isEligible: (item) => {
+							return item.is_read === '0';
+						},
 					},
 				]}
 				items={paginatedItems}
@@ -232,6 +283,10 @@ export default function Tables({ items }) {
 					setSelectedItem(null);
 				}}
 				statusBadge={statusBadge}
+				enquiries={items}
+				handleMarkAsRead={handleMarkAsRead}
+				handleDeleteItem={handleDeleteItem}
+				handleSendEmail={handleSendEmail}
 			/>
 		</>
 	);

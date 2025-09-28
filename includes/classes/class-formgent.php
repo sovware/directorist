@@ -17,7 +17,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
 
         public function after_create_form_response_token( $response_token, $dto, \WP_REST_Request $wp_rest_request ) {
             $external_data = $wp_rest_request->get_param( 'external_data' );
-    
+
             if ( empty( $external_data['listing_id'] ) ) {
                 return;
             }
@@ -31,35 +31,35 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 'directorist', '/formgent/responses', [
                     'methods' => 'GET',
                     'callback' => [ $this, 'get_responses' ],
-                ] 
+                ]
             );
 
             register_rest_route(
                 'directorist', '/formgent/responses/kpis', [
                     'methods' => 'GET',
                     'callback' => [ $this, 'get_kpis' ],
-                ] 
+                ]
             );
 
             register_rest_route(
                 'directorist', '/formgent/responses', [
                     'methods' => 'DELETE',
                     'callback' => [ $this, 'delete_responses' ],
-                ] 
+                ]
             );
 
             register_rest_route(
                 'directorist', '/formgent/responses/read', [
                     'methods' => 'POST',
                     'callback' => [ $this, 'read_responses' ],
-                ] 
+                ]
             );
 
             register_rest_route(
                 'directorist', '/formgent/responses/single', [
                     'methods' => 'GET',
                     'callback' => [ $this, 'single_response' ],
-                ] 
+                ]
             );
         }
 
@@ -94,10 +94,10 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
 
             if ( empty( $response_id ) ) {
                 return rest_ensure_response(
-                    [ 
+                    [
                         'success' => false,
                         'message' => __( 'Response not found.', 'directorist' ),
-                    ] 
+                    ]
                 );
             }
 
@@ -118,10 +118,10 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
 
             if ( empty( $response_id ) ) {
                 return rest_ensure_response(
-                    [ 
+                    [
                         'success' => false,
                         'message' => __( 'Response not found.', 'directorist' ),
-                    ] 
+                    ]
                 );
             }
 
@@ -136,11 +136,11 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
 
             $query = $this->get_responses_query();
             $count_query = clone $query;
-            
+
             $responses = $query->select( 'response.*', 'post.post_title as listing_title', 'post.post_author as listing_owner' )->with(
                 'user', function( $query ) {
                     $query->select( 'ID', 'user_email', 'display_name' );
-                } 
+                }
             )->pagination( $page, $per_page );
 
             $responses = array_map(
@@ -166,11 +166,11 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             $this_week_query->where( 'response.created_at', '>=', date( 'Y-m-d', strtotime( 'this week' ) ) );
             $un_read_query->where( 'response.is_read', 0 );
             $read_query->where( 'response.is_read', 1 );
-    
+
             return [
                 'total' => $count_query->count(),
                 'this_week' => $this_week_query->count(),
-                'un_read' => $un_read_query->count(),
+                'unread' => $un_read_query->count(),
                 'read' => $read_query->count(),
             ];
         }
@@ -179,7 +179,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             return Response::query( 'response' )->join(
                 ResponseMeta::get_table_name() . ' as response_meta', function( $join ) {
                     $join->on_column( 'response_meta.response_id', 'response.id' )->on( 'response_meta.meta_key', 'listing_id' );
-                } 
+                }
             )->left_join(
                 Post::get_table_name() . ' as post', function( $join ) {
                         $join->on_column( 'post.ID', 'response_meta.meta_value' )->on( 'post.post_author', 1 );

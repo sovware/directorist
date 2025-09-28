@@ -1,5 +1,6 @@
 import { render, createElement, createRoot } from '@wordpress/element';
 import EnquiriesComponent from './components/EnquiriesComponent';
+import './notification'; // Import notification system
 import './index.scss';
 
 // Initialize the React app when DOM is ready

@@ -85,6 +85,7 @@ export default function App() {
 				columns={columns}
 				create={{ status: false }}
 				edit={{ status: false }}
+				destroy={{ status: false }}
 			/>
 		</OrderTableContainer>
 	);

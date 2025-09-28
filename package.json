@@ -12,7 +12,8 @@
   },
   "lint-staged": {
     "*.{css,scss,js}": [
-      "yarn format"
+      "yarn format",
+      "yarn add"
     ],
     "*.php": [
       "composer format"

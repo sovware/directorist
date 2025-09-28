@@ -24687,7 +24687,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Update active_widgets separately
       if (isChecked) {
-        this.$set(this.active_widgets, widget_key, this.theAvailableWidgets[widget_key]);
+        var widgetToAdd = this.theAvailableWidgets[widget_key];
+
+        // Apply field promotion for badges widget during initial creation
+        var processedWidget = this.shouldPromoteFieldsToRoot(widget_key, widgetToAdd) ? this.promoteFieldsToRoot(widgetToAdd) : widgetToAdd;
+        this.$set(this.active_widgets, widget_key, processedWidget);
       } else {
         this.$delete(this.active_widgets, widget_key);
       }
@@ -24789,19 +24793,90 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
         // Update the active widget with the complete updated widget data
         if (this.active_widgets[widgetKey]) {
-          // Replace the entire widget with the updated data
-          this.$set(this.active_widgets, widgetKey, updatedWidget);
+          var processedWidget = updatedWidget;
 
-          // Also update available_widgets to keep them in sync
-          if (this.available_widgets[widgetKey]) {
-            this.$set(this.available_widgets, widgetKey, updatedWidget);
+          // Special handling for badges widget - add fields to root level
+          if (this.shouldPromoteFieldsToRoot(widgetKey, updatedWidget)) {
+            processedWidget = this.promoteFieldsToRoot(updatedWidget);
           }
+
+          // Update both active_widgets and available_widgets
+          this.updateWidgetData(widgetKey, processedWidget);
 
           // Mark data as changed
           this._dataChanged = true;
         }
       } catch (error) {
         this.handleError("Error updating widget options data", error);
+      }
+    },
+    /**
+     * Check if widget fields should be promoted to root level
+     * @param {String} widgetKey - Widget key
+     * @param {Object} widget - Widget object
+     * @returns {Boolean} Should promote fields
+     * @private
+     */
+    shouldPromoteFieldsToRoot: function shouldPromoteFieldsToRoot(widgetKey, widget) {
+      return widgetKey === "badges" && this.isValidObject(widget) && this.isValidObject(widget.options) && this.isValidObject(widget.options.fields) && Object.keys(widget.options.fields).length > 0;
+    },
+    /**
+     * Promote widget options fields to root level
+     * @param {Object} widget - Widget object
+     * @returns {Object} Widget with promoted fields
+     * @private
+     */
+    promoteFieldsToRoot: function promoteFieldsToRoot(widget) {
+      try {
+        // Create deep clone to avoid mutation
+        var promotedWidget = this.safeClone(widget);
+
+        // Validate that options.fields exists and is an object
+        if (!this.isValidObject(promotedWidget.options) || !this.isValidObject(promotedWidget.options.fields)) {
+          return promotedWidget;
+        }
+
+        // Add each field from options.fields to the root level
+        for (var fieldKey in promotedWidget.options.fields) {
+          if (promotedWidget.options.fields.hasOwnProperty(fieldKey)) {
+            var fieldValue = promotedWidget.options.fields[fieldKey];
+
+            // Validate field structure before promoting
+            if (this.isValidFieldForPromotion(fieldValue)) {
+              // Deep clone the field value to avoid reference issues
+              promotedWidget[fieldKey] = this.safeClone(fieldValue);
+            }
+          }
+        }
+        return promotedWidget;
+      } catch (error) {
+        this.handleError("Error promoting fields to root", error);
+        return widget; // Return original widget on error
+      }
+    },
+    /**
+     * Validate if a field is suitable for promotion to root level
+     * @param {*} fieldValue - Field value to validate
+     * @returns {Boolean} Is valid for promotion
+     * @private
+     */
+    isValidFieldForPromotion: function isValidFieldForPromotion(fieldValue) {
+      // Allow objects, primitives, but exclude functions and undefined
+      return fieldValue !== null && fieldValue !== undefined && typeof fieldValue !== "function";
+    },
+    /**
+     * Update widget data in both active_widgets and available_widgets
+     * @param {String} widgetKey - Widget key
+     * @param {Object} widget - Widget data
+     * @private
+     */
+    updateWidgetData: function updateWidgetData(widgetKey, widget) {
+      // Update active_widgets
+      this.$set(this.active_widgets, widgetKey, widget);
+
+      // Also update available_widgets to keep them in sync
+      if (this.available_widgets[widgetKey]) {
+        this.$set(this.available_widgets, widgetKey, widget);
       }
     },
     // Close Widget Options Window

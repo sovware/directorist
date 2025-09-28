@@ -49,4 +49,12 @@ $currency_symbol         = atbdp_currency_symbol( directorist_get_currency() );
             <option value="bellow_economy" <?php selected( $price_range, 'bellow_economy' ); ?>><?php echo esc_html( sprintf( __( 'Cheap (%s)', 'directorist' ), str_repeat( $currency_symbol, 1 ) ) ); ?></option>
         </select>
     <?php } ?>
+
+    <?php if ( $data['pricing_type'] === 'price_unit' ) :?>
+        <input type="hidden" name="atbd_listing_pricing" value="price">
+    <?php endif; ?>
+
+    <?php if ( $data['pricing_type'] === 'price_range' ) :?>
+        <input type="hidden" name="atbd_listing_pricing" value="range">
+    <?php endif; ?>
 </div>

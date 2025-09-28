@@ -26,6 +26,10 @@ class Directorist_Listing_Author {
 
     public $current_listing_type;
 
+    public $type_align;
+
+    public $type_display;
+
     private function __construct() {
         $this->prepare_data();
     }
@@ -76,6 +80,10 @@ class Directorist_Listing_Author {
         $this->listing_types        = $this->get_listing_types();
         $this->current_listing_type = $this->get_current_listing_type();
         $this->columns              = (int) atbdp_calculate_column( get_directorist_option( 'all_listing_columns', 3 ) );
+
+        // Initialize type navigation properties with default values
+        $this->type_align = 'center';
+        $this->type_display = 'column';
 
         $this->id = $this->extract_user_id( get_query_var( 'author_id' ) );
 

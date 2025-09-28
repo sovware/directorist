@@ -356,7 +356,7 @@
 		}
 		@include e(filter) {
 			display: flex;
-			align-items: baseline;
+			align-items: center;
 			justify-content: space-between;
 			flex-wrap: wrap;
 			gap: 30px;
@@ -406,7 +406,6 @@
 		.directorist-dropdown {
 			@include e(toggle) {
 				position: relative;
-				top: -10px;
 				gap: 10px;
 				background: transparent !important;
 				border: none;

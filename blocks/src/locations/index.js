@@ -136,9 +136,9 @@ registerBlockType(metadata.name, {
 						) : (
 							''
 						)}
-						<Divider />
+
 						<SelectControl
-							label={__('View as', 'directorist')}
+							label={__('Default View', 'directorist')}
 							labelPosition="side"
 							value={view}
 							options={[
@@ -156,45 +156,54 @@ registerBlockType(metadata.name, {
 							}
 							className="directorist-gb-fixed-control"
 						/>
-						{view === 'grid' ? (
-							<SelectControl
-								label={__('Location Per Row', 'directorist')}
-								labelPosition="side"
-								value={columns}
-								options={[
-									{
-										label: __('1 Column', 'directorist'),
-										value: 1,
-									},
-									{
-										label: __('2 Columns', 'directorist'),
-										value: 2,
-									},
-									{
-										label: __('3 Columns', 'directorist'),
-										value: 3,
-									},
-									{
-										label: __('4 Columns', 'directorist'),
-										value: 4,
-									},
-									{
-										label: __('6 Columns', 'directorist'),
-										value: 6,
-									},
-								]}
-								onChange={(newState) =>
-									setAttributes({
-										columns: Number(newState),
-									})
-								}
-								className="directorist-gb-fixed-control"
-							/>
-						) : (
-							''
-						)}
-						<Divider />
-
+						<SelectControl
+							label={__('Columns', 'directorist')}
+							labelPosition="side"
+							value={columns}
+							options={[
+								{
+									label: __('1 Column', 'directorist'),
+									value: 1,
+								},
+								{
+									label: __('2 Columns', 'directorist'),
+									value: 2,
+								},
+								{
+									label: __('3 Columns', 'directorist'),
+									value: 3,
+								},
+								{
+									label: __('4 Columns', 'directorist'),
+									value: 4,
+								},
+								{
+									label: __('6 Columns', 'directorist'),
+									value: 6,
+								},
+							]}
+							onChange={(newState) =>
+								setAttributes({
+									columns: Number(newState),
+								})
+							}
+							className="directorist-gb-fixed-control"
+						/>
+						<TextControl
+							label={__('Number Of Locations', 'directorist')}
+							type="number"
+							value={loc_per_page}
+							onChange={(newState) =>
+								setAttributes({
+									loc_per_page: Number(newState),
+								})
+							}
+							className="directorist-gb-fixed-control"
+							help={__(
+								'Set the number of locations to show.',
+								'directorist'
+							)}
+						/>
 						<SelectControl
 							label={__('Order By', 'directorist')}
 							labelPosition="side"
@@ -235,7 +244,7 @@ registerBlockType(metadata.name, {
 							''
 						)}
 						<SelectControl
-							label={__('Location Order', 'directorist')}
+							label={__('Order', 'directorist')}
 							labelPosition="side"
 							value={order}
 							options={[

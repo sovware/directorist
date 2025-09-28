@@ -404,9 +404,10 @@
 	}
 	.directorist-icon-mask {
 		&:after {
-			width: 9px;
+			width: 16px;
 			height: 16px;
 			background-color: var(--directorist-color-marker-icon);
+			mask-image: url("../../../../icons/font-awesome/svgs/solid/map-pin.svg");
 		}
 	}
 	&:hover {

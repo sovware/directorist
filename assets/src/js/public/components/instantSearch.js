@@ -184,7 +184,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 					class: 'directorist-on-scroll-loading',
 				}).append(
 					$('<div>', { class: 'directorist-spinner' }),
-					$('<span>').text('Loading more...')
+					$('<span>').text(directorist.loading_more_text)
 				);
 				container.append(loadingDiv);
 			},
@@ -769,7 +769,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		debounce(function (e) {
 			if (
 				$(e.target).closest('.directorist-custom-range-slider__value')
-					.length > 0
+					.length > 0 ||
+				(e.key === 'Enter' && e.target.value === '')
 			) {
 				return; // Skip search for this element
 			}
@@ -877,11 +878,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			}
 
 			let $searchField = $(this).closest('.directorist-search-field');
-			//   let $form = $(
-			//     document.querySelector(
-			//       ".directorist-instant-search .listing-with-sidebar form",
-			//     ),
-			//   );
 
 			var searchElm = $(this).closest('.listing-with-sidebar');
 

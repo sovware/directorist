@@ -163,7 +163,7 @@ class Walker extends Walker_Comment {
                 <?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
                 <div class="directorist-review-single__actions">
                     <?php
-                    echo wp_kses_post( $comment_reply_link );
+                    echo wp_kses_post( $comment_reply_link ?? '' );
 
                     $edit_link = directorist_get_comment_edit_link(
                         array_merge(
@@ -178,7 +178,7 @@ class Walker extends Walker_Comment {
 
                     if ( $edit_link ) {
 
-                        echo wp_kses_post( $edit_link );
+                        echo wp_kses_post( $edit_link ?? '' );
                         
                     }
                     ?>

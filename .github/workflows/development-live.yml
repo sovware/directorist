@@ -1,0 +1,71 @@
+name: Build Development & Release
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy - development-live.com
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 🏗️ Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.19.0'
+        cache: 'npm'
+        cache-dependency-path: 'package-lock.json'
+
+    - name: 📦 Install dependencies
+      run: npm ci
+
+    - name: 🔨 Build production assets
+      run: npm run prod
+
+    - name: ✅ Validate build
+      run: |
+        echo "Checking if critical files exist..."
+        test -f "directorist-base.php" || exit 1
+        test -d "assets" || exit 1
+        echo "Build validation passed"
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.DEVELOPMENT_LIVE_FTP_SERVER }}
+        username: ${{ secrets.DEVELOPMENT_LIVE_FTP_USER }}
+        password: ${{ secrets.DEVELOPMENT_LIVE_FTP_PASS }}
+        server-dir: ${{ secrets.DEVELOPMENT_LIVE_FTP_PATH }}
+        timeout: 30000
+        log-level: minimal
+        exclude: |
+            node_modules/**
+            .git/**
+            .github/**
+            .husky/**
+            **/.*
+            **/*.md
+            **/*.config.js
+            **/package*.json
+            **/composer.*
+            **/webpack.*.js
+            **/phpcs.xml
+            **/tests/**
+            **/dev-*/** 
+            **/*-test/**
+            **/*-beta/**
+            **/scss/**
+            **/sass/**
+            **/*.map
+            **/yarn.lock
+            **/tsconfig.json
+            **/LICENSE
+            **/readme.txt
+            **/todo.txt
+            **/artisan
+            **/none
+            **/Installable

@@ -3,7 +3,7 @@ name: Build Development & Release
 on:
   push:
     branches:
-      - development
+      - live-workflow-update
 
 jobs:
   web-deploy:

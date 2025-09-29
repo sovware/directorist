@@ -24352,9 +24352,13 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           }
         }
 
+        // Apply field promotion logic during initialization
+        var shouldPromote = _this5.shouldPromoteFieldsToRoot(widget.widget_name, widgets_template);
+        var processedWidget = shouldPromote ? _this5.promoteFieldsToRoot(widgets_template) : widgets_template;
+
         // Set the widget data in the active_widgets object
-        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this5.active_widgets, widget.widget_name, widgets_template);
-        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this5.available_widgets, widget.widget_name, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this5.active_widgets, widget.widget_name, processedWidget);
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this5.available_widgets, widget.widget_name, processedWidget);
       };
       var importWidgets = function importWidgets(placeholder, destination) {
         if (!_this5.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
@@ -24588,8 +24592,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (isChecked) {
         var widgetToAdd = this.theAvailableWidgets[widget_key];
 
-        // Apply field promotion for badges widget during initial creation
-        var processedWidget = this.shouldPromoteFieldsToRoot(widget_key, widgetToAdd) ? this.promoteFieldsToRoot(widgetToAdd) : widgetToAdd;
+        // Apply field promotion for widgets with options.fields.value during initial creation
+        var shouldPromote = this.shouldPromoteFieldsToRoot(widget_key, widgetToAdd);
+        var processedWidget = shouldPromote ? this.promoteFieldsToRoot(widgetToAdd) : widgetToAdd;
         this.$set(this.active_widgets, widget_key, processedWidget);
       } else {
         this.$delete(this.active_widgets, widget_key);
@@ -24694,7 +24699,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         if (this.active_widgets[widgetKey]) {
           var processedWidget = updatedWidget;
 
-          // Special handling for badges widget - add fields to root level
+          // Special handling for widgets with options.fields.value - add fields to root level
           if (this.shouldPromoteFieldsToRoot(widgetKey, updatedWidget)) {
             processedWidget = this.promoteFieldsToRoot(updatedWidget);
           }
@@ -24717,7 +24722,22 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     shouldPromoteFieldsToRoot: function shouldPromoteFieldsToRoot(widgetKey, widget) {
-      return widgetKey === "badges" && this.isValidObject(widget) && this.isValidObject(widget.options) && this.isValidObject(widget.options.fields) && Object.keys(widget.options.fields).length > 0;
+      // Check if widget has valid structure
+      if (!this.isValidObject(widget) || !this.isValidObject(widget.options) || !this.isValidObject(widget.options.fields) || Object.keys(widget.options.fields).length === 0) {
+        return false;
+      }
+
+      // Check if any field in options.fields has a 'value' property
+      // This indicates the field should be promoted to root level
+      for (var fieldKey in widget.options.fields) {
+        if (widget.options.fields.hasOwnProperty(fieldKey)) {
+          var fieldObject = widget.options.fields[fieldKey];
+          if (this.isValidObject(fieldObject) && fieldObject.hasOwnProperty("value")) {
+            return true;
+          }
+        }
+      }
+      return false;
     },
     /**
      * Promote widget options fields to root level

@@ -1448,9 +1448,18 @@ export default {
           }
         }
 
+        // Apply field promotion logic during initialization
+        const shouldPromote = this.shouldPromoteFieldsToRoot(
+          widget.widget_name,
+          widgets_template,
+        );
+        const processedWidget = shouldPromote
+          ? this.promoteFieldsToRoot(widgets_template)
+          : widgets_template;
+
         // Set the widget data in the active_widgets object
-        Vue.set(this.active_widgets, widget.widget_name, widgets_template);
-        Vue.set(this.available_widgets, widget.widget_name, widgets_template);
+        Vue.set(this.active_widgets, widget.widget_name, processedWidget);
+        Vue.set(this.available_widgets, widget.widget_name, processedWidget);
       };
 
       const importWidgets = (placeholder, destination) => {
@@ -1774,14 +1783,14 @@ export default {
       if (isChecked) {
         const widgetToAdd = this.theAvailableWidgets[widget_key];
 
-        // Apply field promotion for badges widget during initial creation
-        const processedWidget = this.shouldPromoteFieldsToRoot(
+        // Apply field promotion for widgets with options.fields.value during initial creation
+        const shouldPromote = this.shouldPromoteFieldsToRoot(
           widget_key,
           widgetToAdd,
-        )
+        );
+        const processedWidget = shouldPromote
           ? this.promoteFieldsToRoot(widgetToAdd)
           : widgetToAdd;
-
         this.$set(this.active_widgets, widget_key, processedWidget);
       } else {
         this.$delete(this.active_widgets, widget_key);
@@ -1921,7 +1930,7 @@ export default {
         if (this.active_widgets[widgetKey]) {
           let processedWidget = updatedWidget;
 
-          // Special handling for badges widget - add fields to root level
+          // Special handling for widgets with options.fields.value - add fields to root level
           if (this.shouldPromoteFieldsToRoot(widgetKey, updatedWidget)) {
             processedWidget = this.promoteFieldsToRoot(updatedWidget);
           }
@@ -1945,13 +1954,31 @@ export default {
      * @private
      */
     shouldPromoteFieldsToRoot(widgetKey, widget) {
-      return (
-        widgetKey === "badges" &&
-        this.isValidObject(widget) &&
-        this.isValidObject(widget.options) &&
-        this.isValidObject(widget.options.fields) &&
-        Object.keys(widget.options.fields).length > 0
-      );
+      // Check if widget has valid structure
+      if (
+        !this.isValidObject(widget) ||
+        !this.isValidObject(widget.options) ||
+        !this.isValidObject(widget.options.fields) ||
+        Object.keys(widget.options.fields).length === 0
+      ) {
+        return false;
+      }
+
+      // Check if any field in options.fields has a 'value' property
+      // This indicates the field should be promoted to root level
+      for (const fieldKey in widget.options.fields) {
+        if (widget.options.fields.hasOwnProperty(fieldKey)) {
+          const fieldObject = widget.options.fields[fieldKey];
+          if (
+            this.isValidObject(fieldObject) &&
+            fieldObject.hasOwnProperty("value")
+          ) {
+            return true;
+          }
+        }
+      }
+
+      return false;
     },
 
     /**

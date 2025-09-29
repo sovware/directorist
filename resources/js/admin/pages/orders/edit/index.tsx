@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
-import { Fill } from '@wordpress/components';
+import { Fill, Slot } from '@wordpress/components';
 import { useEffect, useMemo, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -25,7 +25,6 @@ import ListingDetails from './listing-details';
 import OrderDetails from './order-details';
 import PaymentLog from './payment-log';
 import Refund from './refund';
-import Subscription from './subscription';
 
 const SingleOrderContainer = styled.div`
 	padding: 30px 48px;
@@ -274,7 +273,15 @@ export default function OrderEdit({}: EditProps) {
 				<ContainerLeft>
 					<OrderDetails order={order} />
 					{order && <Refund order={order} />}
-					{order && <Subscription order={order} />}
+					<Slot name="directorist-order-refund-after">
+						{
+							( fills: any)=>{
+								if(fills.length){
+									return fills;
+								}
+							}
+						}
+					</Slot>
 				</ContainerLeft>
 				<ContainerRight>
 					<CustomerInfo order={order} />

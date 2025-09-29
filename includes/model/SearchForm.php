@@ -57,7 +57,15 @@ class Directorist_Listing_Search_Form {
 
     public $default_directory_type;
 
-    // Common - Search Shortcode and Listing Header
+    public $type_align;
+
+    public $type_display;
+
+    public $category_align;
+
+    public $text_align;
+
+     // Common - Search Shortcode and Listing Header
     public $has_reset_filters_button;
 
     public $has_apply_filters_button;
@@ -89,6 +97,15 @@ class Directorist_Listing_Search_Form {
         $this->type = $type;
         $this->atts = $atts;
 
+        $align = ! empty( $this->atts['align'] ) ? $this->atts['align'] : 'center';
+        $display = ! empty( $this->atts['type_nav_display'] ) ? $this->atts['type_nav_display'] : 'column';
+        $category_align = ! empty( $this->atts['category_align'] ) ? $this->atts['category_align'] : 'center';
+        $text_align = "text-" . ( ! empty( $this->atts['title_align'] ) ? $this->atts['title_align'] : 'center' );
+
+        $this->type_align = $align;
+        $this->type_display = $display;
+        $this->category_align = $category_align;
+        $this->text_align = $text_align;
         $this->set_default_options();
 
         // Search form shortcode

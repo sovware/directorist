@@ -13,6 +13,7 @@ import { list, grid } from '@wordpress/icons';
 
 import {
 	PanelBody,
+	PanelRow,
 	SelectControl,
 	ToggleControl,
 	TextControl,
@@ -29,7 +30,18 @@ import metadata from './block.json';
 import getLogo from './../logo';
 
 const Placeholder = () => getPlaceholder('locations-grid');
-
+const Divider = () => (
+	<PanelRow>
+		<hr
+			style={{
+				width: '100%',
+				border: 0,
+				borderTop: '1px solid #ddd',
+				margin: '8px 0 16px 0',
+			}}
+		/>
+	</PanelRow>
+);
 registerBlockType(metadata.name, {
 	icon: getLogo(),
 
@@ -250,6 +262,24 @@ registerBlockType(metadata.name, {
 							}
 							className="directorist-gb-fixed-control"
 						/>
+						<Divider />
+						<TextControl
+							label={__('Number Of Locations', 'directorist')}
+							type="number"
+							value={loc_per_page}
+							onChange={(newState) =>
+								setAttributes({
+									loc_per_page: Number(newState),
+								})
+							}
+							className="directorist-gb-fixed-control"
+							help={__(
+								'Set the number of locations to show.',
+								'directorist'
+							)}
+						/>
+						<Divider />
+
 						<ToggleControl
 							label={__(
 								'Logged In User Can View Only',

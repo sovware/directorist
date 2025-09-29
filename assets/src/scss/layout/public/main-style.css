@@ -6905,8 +6905,8 @@ body.modal-overlay-enabled:before {
 	visibility: visible;
 }
 
-/*** 
-	Directorist Custom Range Slider Styling; 
+/***
+	Directorist Custom Range Slider Styling;
 ***/
 .directorist-custom-range-slider-target,
 .directorist-custom-range-slider-target * {
@@ -6944,7 +6944,7 @@ body.modal-overlay-enabled:before {
 	transform-style: flat;
 }
 
-/* Give origins 0 height/width so they don't interfere 
+/* Give origins 0 height/width so they don't interfere
 * with clicking the connect elements. */
 .directorist-custom-range-slider-vertical
 	.directorist-custom-range-slider-origin {

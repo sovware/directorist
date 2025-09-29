@@ -14,18 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <div class="<?php Helper::directorist_container_fluid(); ?>">
 
-        <?php do_action( 'directorist_search_listing_before_title' ); ?>
+        <?php
+        do_action( 'directorist_search_listing_before_title' );
+        
+        ?>
 
         <?php if ( $searchform->show_title_subtitle && ( $searchform->search_bar_title || $searchform->search_bar_sub_title ) ) : ?>
 
             <div class="directorist-search-top">
 
                 <?php if ( $searchform->search_bar_title ) : ?>
-                    <h2 class="directorist-search-top__title"><?php echo esc_html( $searchform->search_bar_title ); ?></h2>
+                    <h2 class="directorist-search-top__title <?php echo esc_attr( $searchform->text_align ); ?>"><?php echo esc_html( $searchform->search_bar_title ); ?></h2>
                 <?php endif; ?>
 
                 <?php if ( $searchform->search_bar_sub_title ) : ?>
-                    <p class="directorist-search-top__subtitle"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
+                    <p class="directorist-search-top__subtitle <?php echo esc_attr( $searchform->text_align ); ?>"><?php echo esc_html( $searchform->search_bar_sub_title ); ?></p>
                 <?php endif; ?>
 
             </div>

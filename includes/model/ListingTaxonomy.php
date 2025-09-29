@@ -54,6 +54,10 @@ class Directorist_Listing_Taxonomy {
 
     public $current_page;
 
+    public $type_align;
+
+    public $type_display;
+
     public function __construct( $atts = [], $type = 'category' ) {
 
         $categories_view = get_directorist_option( 'display_categories_as', 'grid' );
@@ -82,6 +86,8 @@ class Directorist_Listing_Taxonomy {
                 'redirect_page_url'           => '',
                 'directory_type'              => '',
                 'default_directory_type'      => '',
+                'align'                       => 'center',
+                'type_nav_display'            => 'column',
             ], $atts
         );
 
@@ -104,6 +110,13 @@ class Directorist_Listing_Taxonomy {
         $this->show_count = ( 'category' == $type ) ? $categories_show_count : $locations_show_count;
         $this->hide_empty = ( 'category' == $type ) ? $categories_hide_empty : $locations_hide_empty;
         $this->depth      = ( $type == 'category' ) ? get_directorist_option( 'categories_depth_number', 1 ) : get_directorist_option( 'locations_depth_number', 1 );
+        
+        $align = ! empty( $this->atts['align'] ) ? $this->atts['align'] : 'center';
+        $display = ! empty( $this->atts['type_nav_display'] ) ? $this->atts['type_nav_display'] : 'column';
+        
+        $this->type_align = $align;
+        $this->type_display = $display;
+        
         $this->listing_types              = $this->get_listing_types();
         $this->current_listing_type       = $this->get_current_listing_type();
         $this->set_terms();

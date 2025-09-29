@@ -60,6 +60,54 @@
     "sidebar": {
       "type": "string",
       "default": ""
+    },
+    "ids": {
+      "type": "string",
+      "default": ""
+    },
+    "featured_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "popular_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "display_preview_image": {
+      "type": "boolean",
+      "default": true
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    },
+    "type_nav_display": {
+      "type": "string",
+      "default": "column"
+    },
+    "advanced_filter": {
+      "type": "boolean",
+      "default": false
+    },
+    "category": {
+      "type": "string",
+      "default": ""
+    },
+    "location": {
+      "type": "string",
+      "default": ""
+    },
+    "tag": {
+      "type": "string",
+      "default": ""
+    },
+    "directory_type": {
+      "type": "string",
+      "default": ""
+    },
+    "default_directory_type": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {

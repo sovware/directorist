@@ -640,18 +640,18 @@
 }
 
 .directorist-map-coordinates {
-  padding: 0 0 15px 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: 15px -15px 0;
+	padding: 0 0 15px 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin: 15px -15px 0;
 
-  .directorist-form-group {
-    flex: 1;
-    padding-left: 15px;
-    padding-right: 15px;
-    max-width: 290px;
-  }
+	.directorist-form-group {
+		flex: 1;
+		padding-left: 15px;
+		padding-right: 15px;
+		max-width: 290px;
+	}
 
 	@include e(generate) {
 		flex: 0 0 100% !important;
@@ -749,43 +749,43 @@
 		display: none;
 	}
 
-  .atbd_map_shape {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    border-radius: 100%;
-    &:before {
-      content: "";
-      position: absolute;
-      left: -20px;
-      top: -20px;
-      width: 0;
-      height: 0;
-      opacity: 0;
-      visibility: hidden;
-      border-radius: 50%;
-      transition: all 0.3s ease-in-out;
-      border: none;
-    }
-    .directorist-icon-mask {
-      &:after {
-        width: 16px;
-        height: 16px;
-        background-color: var(--directorist-color-marker-icon);
-        mask: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
-      }
-    }
-    &:hover {
-      &:before {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-  }
+	.atbd_map_shape {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		border-radius: 100%;
+		&:before {
+			content: "";
+			position: absolute;
+			left: -20px;
+			top: -20px;
+			width: 0;
+			height: 0;
+			opacity: 0;
+			visibility: hidden;
+			border-radius: 50%;
+			transition: all 0.3s ease-in-out;
+			border: none;
+		}
+		.directorist-icon-mask {
+			&:after {
+				width: 16px;
+				height: 16px;
+				background-color: var(--directorist-color-marker-icon);
+				mask: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
+			}
+		}
+		&:hover {
+			&:before {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+	}
 }
 
 /* EZ Media Upload */

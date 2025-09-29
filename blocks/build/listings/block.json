@@ -4,7 +4,7 @@
   "category": "directorist-blocks-collection",
   "version": "1.0.0",
   "name": "directorist/all-listing",
-  "title": "Listings",
+  "title": "All Listings",
   "description": "Create directory listing grid view, list view or map view.",
   "attributes": {
     "view": {
@@ -106,6 +106,18 @@
     "sidebar": {
       "type": "string",
       "default": ""
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    },
+    "type_nav_display": {
+      "type": "string",
+      "default": "column"
+    },
+    "pagination_type": {
+      "type": "string",
+      "default": "numbered"
     }
   },
   "supports": {

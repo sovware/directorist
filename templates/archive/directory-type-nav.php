@@ -15,23 +15,34 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $current_directory_type = ( ! empty( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '' );
 
 do_action( 'directorist_before_listing_types', $listings );
+
 ?>
+
 <div class="directorist-type-nav">
-    <ul class="directorist-type-nav__list">
+    <ul class="directorist-type-nav_list--<?php echo esc_attr( $listings->type_align ); ?> directorist-type-nav__list">
 
         <?php if ( ! empty( $all_types ) ) : ?>
 
             <li class="list-inline-item <?php echo ( $listings->current_listing_type === 'all' || 'all' === $current_directory_type ) ? 'directorist-type-nav__list__current' : ''; ?>">
-                <a class="directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( 'all' ) ); ?>">
+                <a class="directorist-type-nav__link--<?php echo esc_attr( $listings->type_display ); ?> directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( 'all' ) ); ?>">
                 <?php directorist_icon( 'fa fa-grip-horizontal' ); ?> <?php esc_html_e( 'All', 'directorist' ); ?></a>
             </li>
 
         <?php endif; ?>
 
-        <?php foreach ( $listings->listing_types as $id => $value ) : ?>
+        <?php
+        $listing_types = $listings->listing_types;
+
+        uasort(
+            $listing_types, function ( $a, $b ) {
+                return strcasecmp( $a['name'], $b['name'] ); // case-insensitive comparison
+            }
+        );
+        foreach ( $listing_types as $id => $value ) :
+            ?>
 
             <li class="<?php echo ( ( $listings->current_listing_type === $value['term']->term_id && 'all' !== $current_directory_type ) ? 'directorist-type-nav__list__current' : '' ); ?>">
-                <a class="directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( $value['term']->slug ) ); ?>" data-listing_type="<?php echo esc_attr( $value['term']->slug ); ?>" data-listing_type_id="<?php echo esc_attr( $value['term']->term_id ); ?>"><?php directorist_icon( $value['data']['icon'] );?> <?php echo esc_html( $value['name'] );?></a>
+                <a class="directorist-type-nav__link--<?php echo esc_attr( $listings->type_display ); ?> directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( $value['term']->slug ) ); ?>" data-listing_type="<?php echo esc_attr( $value['term']->slug ); ?>" data-listing_type_id="<?php echo esc_attr( $value['term']->term_id ); ?>"><?php directorist_icon( $value['data']['icon'] );?> <?php echo esc_html( $value['name'] );?></a>
             </li>
 
         <?php endforeach; ?>

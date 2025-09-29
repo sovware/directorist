@@ -1,6 +1,6 @@
 // Search Home Styles
 .directorist-search-top {
-	text-align: center;
+	// text-align: center;
 	margin-bottom: 34px;
 
 	@include e(title) {
@@ -8,13 +8,32 @@
 		font-size: 36px;
 		font-weight: 500;
 		margin-bottom: 18px;
+
+		&.text-center {
+			text-align: center;
+		}
+		&.text-left {
+			text-align: left;
+		}
+		&.text-right {
+			text-align: right;
+		}
 	}
 
 	@include e(subtitle) {
 		color: var(--directorist-color-body);
 		font-size: 18px;
 		opacity: 0.8;
-		text-align: center;
+
+		&.text-center {
+			text-align: center;
+		}
+		&.text-left {
+			text-align: left;
+		}
+		&.text-right {
+			text-align: right;
+		}
 	}
 }
 .directorist-search-contents {
@@ -399,8 +418,9 @@
 					.select2-selection {
 						width: 100%;
 					}
-					
-					.directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+
+					.directorist-select2-addons-area
+						.directorist-select2-dropdown-toggle {
 						right: 15px;
 						@media screen and (max-width: 575px) {
 							right: 5px;
@@ -428,24 +448,24 @@
 				}
 				.directorist-color-picker-wrap {
 					top: 12px;
-					~.directorist-search-field__btn--clear {
+					~ .directorist-search-field__btn--clear {
 						bottom: 0;
 					}
 					@media screen and (max-width: 575px) {
 						top: 0;
-						~.directorist-search-field__btn--clear {
+						~ .directorist-search-field__btn--clear {
 							bottom: unset;
 						}
 					}
 				}
 				&:not(.input-has-noLabel) {
 					.directorist-select {
-					~ .directorist-search-field__btn--clear {
-						@media screen and (max-width: 575px) {
-							right: 10px !important;
+						~ .directorist-search-field__btn--clear {
+							@media screen and (max-width: 575px) {
+								right: 10px !important;
+							}
 						}
 					}
-				}
 				}
 				&.atbdp-form-fade:after {
 					margin-top: 3px;
@@ -591,7 +611,8 @@
 					&.select2-container--default .select2-selection--single {
 						width: 100%;
 					}
-					.directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+					.directorist-select2-addons-area
+						.directorist-select2-dropdown-toggle {
 						position: absolute;
 						right: 5px;
 						padding: 0;
@@ -666,7 +687,7 @@
 						bottom: 12px;
 						&.directorist-filter-location-icon {
 							right: 0;
-        					bottom: 8px;
+							bottom: 8px;
 						}
 					}
 				}
@@ -1112,11 +1133,39 @@
 			}
 			.directorist-icon-mask {
 				display: inline-block;
-				margin: 0 0 7px;
 				&:after {
 					width: 20px;
 					height: 20px;
 					background-color: var(--directorist-color-body);
+				}
+			}
+
+			&.directorist-type-nav__link--column {
+				flex-direction: column;
+				align-items: center;
+				.directorist-icon-mask {
+					margin-bottom: 5px;
+				}
+			}
+			&.directorist-type-nav__link--column-reverse {
+				flex-direction: column-reverse;
+				align-items: center;
+				.directorist-icon-mask {
+					margin-top: 5px;
+				}
+			}
+			&.directorist-type-nav__link--row {
+				flex-direction: row;
+				align-items: center;
+				.directorist-icon-mask {
+					margin-right: 5px;
+				}
+			}
+			&.directorist-type-nav__link--row-reverse {
+				flex-direction: row-reverse;
+				align-items: center;
+				.directorist-icon-mask {
+					margin-left: 5px;
 				}
 			}
 		}
@@ -1132,6 +1181,16 @@
 				visibility: visible;
 			}
 		}
+	}
+
+	&.directorist-type-nav_list--start {
+		justify-content: flex-start;
+	}
+	&.directorist-type-nav_list--center {
+		justify-content: center;
+	}
+	&.directorist-type-nav_list--end {
+		justify-content: flex-end;
 	}
 }
 .directorist-search-form-wrap .directorist-listing-type-selection {
@@ -1182,7 +1241,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		justify-content: center;
 		gap: 20px 35px;
 		margin: 0;
 		list-style: none;
@@ -1191,6 +1249,16 @@
 			overflow-x: auto;
 			flex-wrap: nowrap;
 			justify-content: flex-start;
+		}
+
+		&.justify-content_left {
+			justify-content: flex-start;
+		}
+		&.justify-content_center {
+			justify-content: center;
+		}
+		&.justify-content_right {
+			justify-content: flex-end;
 		}
 	}
 	li a {

@@ -6,13 +6,14 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
 ?>
 
 <div class="directorist-listing-category-top">
 
     <h3><?php echo esc_html( $title ); ?></h3>
 
-    <ul>
+    <ul class="justify-content_<?php echo esc_attr( $searchform->category_align ); ?>">
         <?php foreach ( $top_categories as $cat ) : ?>
 
             <li>

@@ -44,6 +44,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"type_nav_display": {
+      "type": "string",
+      "default": "column"
+    },
 		"default_directory_type": {
 			"type": "string",
 			"default": ""

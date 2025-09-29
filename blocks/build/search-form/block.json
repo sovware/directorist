@@ -52,6 +52,10 @@
       "type": "string",
       "default": "overlapping"
     },
+    "search_button_text": {
+      "type": "string",
+      "default": "Search Listing"
+    },
     "logged_in_user_only": {
       "type": "boolean",
       "default": false
@@ -67,6 +71,22 @@
     "default_directory_type": {
       "type": "string",
       "default": ""
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    },
+    "category_align": {
+      "type": "string",
+      "default": "center"
+    },
+    "title_align": {
+      "type": "string",
+      "default": "center"
+    },
+    "type_nav_display": {
+      "type": "string",
+      "default": "column"
     }
   },
   "supports": {

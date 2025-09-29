@@ -13,6 +13,7 @@ import { list, grid } from '@wordpress/icons';
 
 import {
 	PanelBody,
+	PanelRow,
 	SelectControl,
 	ToggleControl,
 	TextControl,
@@ -29,6 +30,19 @@ import metadata from './block.json';
 import getLogo from './../logo';
 
 const Placeholder = () => getPlaceholder('categories-grid');
+
+const Divider = () => (
+	<PanelRow>
+		<hr
+			style={{
+				width: '100%',
+				border: 0,
+				borderTop: '1px solid #ddd',
+				margin: '8px 0 16px 0',
+			}}
+		/>
+	</PanelRow>
+);
 
 registerBlockType(metadata.name, {
 	icon: getLogo(),
@@ -247,6 +261,23 @@ registerBlockType(metadata.name, {
 							onChange={(order) => setAttributes({ order })}
 							className="directorist-gb-fixed-control"
 						/>
+						<Divider />
+						<TextControl
+							label={__('Number of Categories', 'directorist')}
+							type="number"
+							value={cat_per_page}
+							onChange={(perPage) =>
+								setAttributes({
+									cat_per_page: Number(perPage),
+								})
+							}
+							className="directorist-gb-fixed-control"
+							help={__(
+								'Set the number of categories to show.',
+								'directorist'
+							)}
+						/>
+						<Divider />
 						<ToggleControl
 							label={__(
 								'LoggedIn User Can View Only',

@@ -44,6 +44,8 @@ class Directorist_Listings {
 
     public $show_pagination;
 
+    public $pagination_type;
+
     public $header;
 
     public $header_title;
@@ -214,6 +216,10 @@ class Directorist_Listings {
 
     public $display_phone_map;
 
+    public $type_align;
+
+    public $type_display;
+
     protected $deferred_data = [];
 
     protected $deferred_props = [
@@ -229,6 +235,12 @@ class Directorist_Listings {
 
         $current_page = ! empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
 
+        $align = ! empty( $this->atts['align'] ) ? $this->atts['align'] : 'center';
+        $display = ! empty( $this->atts['type_nav_display'] ) ? $this->atts['type_nav_display'] : 'column';
+
+        $this->type_align = $align;
+        $this->type_display = $display;
+        
         if ( 'search_result' === $this->type || ( 'instant_search' == $this->type && 'search_result' === $current_page ) ) {
             $this->update_search_options();
         }
@@ -419,6 +431,7 @@ class Directorist_Listings {
         $this->order                    = $this->params['order'];
         $this->listings_per_page        = (int) $this->params['listings_per_page'];
         $this->show_pagination          = $this->params['show_pagination'] == 'yes' ? true : false;
+        $this->pagination_type          = $this->params['pagination_type'];
         $this->header                   = $this->params['header'] == 'yes' ? true : false;
         $this->header_title             = $this->params['header_title'];
         $this->categories               = ! empty( $this->params['category'] ) ? explode( ',', $this->params['category'] ) : '';
@@ -1973,8 +1986,8 @@ class Directorist_Listings {
 
     public function pagination_infinite_scroll_class() {
         return ! empty( $this->show_pagination )
-        && isset( $this->options['pagination_type'] )
-        && $this->options['pagination_type'] === 'infinite_scroll'
+        && isset( $this->pagination_type )
+        && $this->pagination_type === 'infinite_scroll'
         ? 'directorist-infinite-scroll'
         : '';
     }
@@ -2024,7 +2037,7 @@ class Directorist_Listings {
             'directorist-archive-contents directorist-contents-wrap directorist-w-100',
         ];
 
-        if ( 'yes' === $this->instant_search ) {
+        if ( 'yes' === $this->instant_search || 'infinite_scroll' === $this->pagination_type ) {
             $classes[] = 'directorist-instant-search';
         }
 

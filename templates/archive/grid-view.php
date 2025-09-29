@@ -24,7 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             </div>
 
             <?php
-            if ( $listings->show_pagination && 'numbered' === $listings->options['pagination_type'] ) {
+            
+            if ( $listings->show_pagination && 'numbered' === $listings->pagination_type ) {
 
                 do_action( 'directorist_before_listings_pagination' );
 

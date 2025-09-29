@@ -320,6 +320,14 @@ function directorist_register_blocks_common_assets() {
 add_action( 'enqueue_block_assets', 'directorist_register_blocks_common_assets' );
 
 function _directorist_render_editor_signin_signup_template( $attributes = [] ) {
+    // Add the same check as in Account.php for consistent behavior
+    if ( is_user_logged_in() && apply_filters( 'directorist_account_page_accessible', true ) ) {
+        $error_message = sprintf( __( 'The account page is only accessible to logged-out users.<a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );
+        ob_start();
+        ATBDP()->helper->show_login_message( apply_filters( 'atbdp_registration_page_registered_msg', $error_message ) );
+        return ob_get_clean();
+    }
+    
     ob_start();
     include_once __DIR__ . '/templates/signin-signup.php';
     return ob_get_clean();

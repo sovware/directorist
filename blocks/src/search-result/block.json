@@ -1,82 +1,119 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"category": "directorist-blocks-collection",
-	"version": "1.0.0",
-	"title": "Search Result",
-	"name": "directorist/search-result",
-	"description": "Create directory search result grid view, list view or map view.",
-	"keywords": [ "all listings", "search", "result", "form" ],
-	"attributes": {
-		"view": {
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "category": "directorist-blocks-collection",
+  "version": "1.0.0",
+  "title": "Search Result",
+  "name": "directorist/search-result",
+  "description": "Create directory search result grid view, list view or map view.",
+  "keywords": ["all listings", "search", "result", "form"],
+  "attributes": {
+    "view": {
+      "type": "string",
+      "default": "grid"
+    },
+    "orderby": {
+      "type": "string",
+      "default": "date"
+    },
+    "order": {
+      "type": "string",
+      "default": "desc"
+    },
+    "category": {
+      "type": "string",
+      "default": ""
+    },
+    "location": {
+      "type": "string",
+      "default": ""
+    },
+    "tag": {
+      "type": "string",
+      "default": ""
+    },
+    "advanced_filter": {
+      "type": "boolean",
+      "default": false
+    },
+    "listings_per_page": {
+      "type": "number",
+      "default": 6
+    },
+    "show_pagination": {
+      "type": "boolean",
+      "default": false
+    },
+    "header": {
+      "type": "boolean",
+      "default": true
+    },
+    "header_title": {
+      "type": "string",
+      "default": "Search Result"
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "featured_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "popular_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "logged_in_user_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "map_height": {
+      "type": "number",
+      "default": 500
+    },
+    "map_zoom_level": {
+      "type": "number",
+      "default": 0
+    },
+    "sidebar": {
+      "type": "string",
+      "default": ""
+    },
+    "display_preview_image": {
+      "type": "boolean",
+      "default": true
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    },
+    "type_nav_display": {
+      "type": "string",
+      "default": "column"
+    },    
+    "directory_type": {
 			"type": "string",
-			"default": "grid"
+			"default": ""
 		},
-		"orderby": {
-			"type": "string",
-			"default": "date"
-		},
-		"order": {
-			"type": "string",
-			"default": "desc"
-		},
-		"listings_per_page": {
-			"type": "number",
-			"default": 6
-		},
-		"show_pagination": {
-			"type": "boolean",
-			"default": false
-		},
-		"header": {
-			"type": "boolean",
-			"default": true
-		},
-		"header_title": {
-			"type": "string",
-			"default": "Search Result"
-		},
-		"columns": {
-			"type": "number",
-			"default": 3
-		},
-		"featured_only": {
-			"type": "boolean",
-			"default": false
-		},
-		"popular_only": {
-			"type": "boolean",
-			"default": false
-		},
-		"logged_in_user_only": {
-			"type": "boolean",
-			"default": false
-		},
-		"map_height": {
-			"type": "number",
-			"default": 500
-		},
-		"map_zoom_level": {
-			"type": "number",
-			"default": 0
-		},
-		"sidebar": {
+		"default_directory_type": {
 			"type": "string",
 			"default": ""
 		}
-	},
-	"supports": {
-		"html": false
-	},
-	"editorScript": [
-		"file:./index.js",
-		"jquery-masonry",
-		"directorist-swiper",
-		"directorist-select2-script",
-		"directorist-all-listings",
-		"directorist-listing-slider",
-		"directorist-search-form",
-		"directorist-openstreet-map",
-		"directorist-google-map"
-	]
+
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": [
+    "file:./index.js",
+    "jquery-masonry",
+    "directorist-swiper",
+    "directorist-select2-script",
+    "directorist-all-listings",
+    "directorist-listing-slider",
+    "directorist-search-form",
+    "directorist-openstreet-map",
+    "directorist-google-map"
+  ]
 }

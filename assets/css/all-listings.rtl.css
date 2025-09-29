@@ -19087,6 +19087,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-single-listing-quick-action {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   gap: 8px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;

@@ -263,6 +263,8 @@
 
 // Single Listing Actions
 .directorist-single-listing-quick-action {
+  width: 100%;
+  display: flex;
   gap: 8px;
   flex-wrap: wrap;
   @media screen and (max-width: 767px) {

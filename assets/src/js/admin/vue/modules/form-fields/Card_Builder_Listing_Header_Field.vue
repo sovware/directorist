@@ -61,9 +61,8 @@
               <Draggable
                 v-for="(
                   widget_key, widget_index
-                ) in placeholder.acceptedWidgets"
-                v-if="isWidgetAvailable(widget_key)"
-                :key="widget_index"
+                ) in getAvailableWidgetsForPlaceholder(placeholder)"
+                :key="`${placeholder_index}_${widget_key}_${widget_index}`"
                 :data="{ widget_key }"
                 :class="{
                   dragging: currentSettingsDraggingWidgetKey === widget_key,
@@ -304,6 +303,10 @@ export default {
     this.$emit("update", this.output_data);
   },
 
+  beforeDestroy() {
+    this.cleanup();
+  },
+
   watch: {
     output_data() {
       this.$emit("update", this.output_data);
@@ -364,60 +367,83 @@ export default {
       return output;
     },
 
-    // available widgets as a reactive computed object
+    // available widgets as a reactive computed object - OPTIMIZED
     theAvailableWidgets() {
-      let available_widgets = JSON.parse(
-        JSON.stringify(this.available_widgets),
-      );
+      // Use shallow clone instead of deep clone for better performance
+      const available_widgets = { ...this.available_widgets };
+      const processedWidgets = {};
 
-      for (let widget in available_widgets) {
-        available_widgets[widget].widget_name = widget;
-        available_widgets[widget].widget_key = widget;
+      for (const widgetKey in available_widgets) {
+        const widget = available_widgets[widgetKey];
 
-        // Check show if condition
-        let show_if_cond_state = null;
+        // Create optimized widget object with minimal cloning
+        const optimizedWidget = {
+          ...widget,
+          widget_name: widgetKey,
+          widget_key: widgetKey,
+        };
 
-        if (this.isObject(available_widgets[widget].show_if)) {
-          show_if_cond_state = this.checkShowIfCondition({
-            condition: available_widgets[widget].show_if,
+        // Check show_if condition only if it exists
+        if (this.isObject(widget.show_if)) {
+          const showIfResult = this.checkShowIfCondition({
+            condition: widget.show_if,
           });
-          let main_widget = available_widgets[widget];
 
-          delete available_widgets[widget];
+          if (showIfResult && showIfResult.status) {
+            // Process matched fields more efficiently
+            showIfResult.matched_data.forEach((matchedField, index) => {
+              const currentKey =
+                index === 0 ? widgetKey : `${widgetKey}_${index + 1}`;
+              const finalKey = matchedField.widget_key || currentKey;
 
-          if (show_if_cond_state.status) {
-            let widget_keys = [];
-            for (let matched_field of show_if_cond_state.matched_data) {
-              let _main_widget = JSON.parse(JSON.stringify(main_widget));
-              let current_key = widget_keys.includes(widget)
-                ? widget + "_" + (widget_keys.length + 1)
-                : widget;
-              _main_widget.widget_key = current_key;
-
-              if (matched_field.widget_key) {
-                _main_widget.widget_key = matched_field.widget_key;
-              }
-
-              if (
-                typeof matched_field.label === "string" &&
-                matched_field.label.length
-              ) {
-                _main_widget.label = matched_field.label;
-              }
-
-              available_widgets[current_key] = _main_widget;
-              widget_keys.push(current_key);
-            }
+              processedWidgets[finalKey] = {
+                ...optimizedWidget,
+                widget_key: finalKey,
+                label: matchedField.label || optimizedWidget.label,
+              };
+            });
           }
+        } else {
+          processedWidgets[widgetKey] = optimizedWidget;
         }
       }
 
-      return available_widgets;
+      return processedWidgets;
     },
 
     // video modal content
     modalContent() {
       return this.video;
+    },
+
+    // Optimized method to get available widgets for a placeholder
+    getAvailableWidgetsForPlaceholder() {
+      return (placeholder) => {
+        if (!placeholder || !placeholder.acceptedWidgets) {
+          return [];
+        }
+
+        // Use cached result if available
+        const cacheKey = `widgets_${placeholder.placeholderKey}`;
+        if (
+          this._placeholderWidgetsCache &&
+          this._placeholderWidgetsCache[cacheKey]
+        ) {
+          return this._placeholderWidgetsCache[cacheKey];
+        }
+
+        const availableWidgets = placeholder.acceptedWidgets.filter(
+          (widgetKey) => this.isWidgetAvailable(widgetKey),
+        );
+
+        // Cache the result
+        if (!this._placeholderWidgetsCache) {
+          this._placeholderWidgetsCache = {};
+        }
+        this._placeholderWidgetsCache[cacheKey] = availableWidgets;
+
+        return availableWidgets;
+      };
     },
   },
 
@@ -469,6 +495,7 @@ export default {
       _dataChanged: false,
       _cachedOutputData: null,
       _widgetAvailabilityCache: null,
+      _placeholderWidgetsCache: null,
       _debounceTimer: null,
     };
   },
@@ -507,7 +534,7 @@ export default {
     },
 
     /**
-     * Cleanup resources to prevent memory leaks
+     * Cleanup resources to prevent memory leaks - ENHANCED
      * @private
      */
     cleanup() {
@@ -519,8 +546,14 @@ export default {
       // Remove event listeners
       this.removeEventListeners();
 
-      // Clear caches
+      // Clear all caches
       this._cachedOutputData = null;
+      this._placeholderWidgetsCache = null;
+
+      if (this._widgetAvailabilityCache) {
+        this._widgetAvailabilityCache.clear();
+        this._widgetAvailabilityCache = null;
+      }
     },
 
     /**
@@ -597,13 +630,26 @@ export default {
     },
 
     /**
-     * Deep clone with error handling
+     * Optimized clone with error handling and performance improvements
      * @param {*} obj - Object to clone
+     * @param {Boolean} deep - Whether to perform deep clone
      * @returns {*} Cloned object
      * @private
      */
-    safeClone(obj) {
+    safeClone(obj, deep = true) {
+      if (obj === null || obj === undefined) return obj;
+
       try {
+        if (!deep) {
+          return Array.isArray(obj) ? [...obj] : { ...obj };
+        }
+
+        // Use structuredClone if available (modern browsers)
+        if (typeof structuredClone !== "undefined") {
+          return structuredClone(obj);
+        }
+
+        // Fallback to JSON method for deep cloning
         return JSON.parse(JSON.stringify(obj));
       } catch (error) {
         this.handleError("Failed to clone object", error);
@@ -636,7 +682,7 @@ export default {
     // ===========================================
 
     /**
-     * Check if widget is available with caching
+     * Check if widget is available with enhanced caching
      * @param {String} widgetKey - Widget key to check
      * @returns {Boolean} Is widget available
      * @public
@@ -646,21 +692,25 @@ export default {
         return false;
       }
 
-      // Check cache first
-      if (
-        this._widgetAvailabilityCache &&
-        this._widgetAvailabilityCache.has(widgetKey)
-      ) {
-        return this._widgetAvailabilityCache.get(widgetKey);
+      // Initialize cache if not exists
+      if (!this._widgetAvailabilityCache) {
+        this._widgetAvailabilityCache = new Map();
+      }
+
+      // Check cache first with timestamp validation
+      const cached = this._widgetAvailabilityCache.get(widgetKey);
+      if (cached && Date.now() - cached.timestamp < 30000) {
+        // 30 second cache
+        return cached.value;
       }
 
       const isAvailable = this.checkWidgetAvailability(widgetKey);
 
-      // Cache result
-      if (!this._widgetAvailabilityCache) {
-        this._widgetAvailabilityCache = new Map();
-      }
-      this._widgetAvailabilityCache.set(widgetKey, isAvailable);
+      // Cache result with timestamp
+      this._widgetAvailabilityCache.set(widgetKey, {
+        value: isAvailable,
+        timestamp: Date.now(),
+      });
 
       return isAvailable;
     },
@@ -713,7 +763,7 @@ export default {
     // ===========================================
 
     /**
-     * Get widget data with optimization
+     * Get widget data with enhanced optimization
      * @param {Object} placeholderData - Placeholder data
      * @returns {Array} Widget data
      * @private
@@ -723,18 +773,31 @@ export default {
         return [];
       }
 
-      const acceptedWidgets = placeholderData.acceptedWidgets || [];
-      const selectedWidgets = placeholderData.selectedWidgets || [];
-      const selectedWidgetList = placeholderData.selectedWidgetList || [];
+      const {
+        acceptedWidgets = [],
+        selectedWidgets = [],
+        selectedWidgetList = [],
+      } = placeholderData;
 
-      // Sort widgets based on accepted order
-      const sortedSelectedWidgetList = this.sortWidgetsByAcceptedOrder(
+      // Early return if no widgets to process
+      if (!selectedWidgets.length && !selectedWidgetList.length) {
+        return [];
+      }
+
+      // Create a map for O(1) lookup instead of O(n) indexOf operations
+      const acceptedWidgetsMap = new Map();
+      acceptedWidgets.forEach((widget, index) => {
+        acceptedWidgetsMap.set(widget, index);
+      });
+
+      // Sort widgets based on accepted order using map lookup
+      const sortedSelectedWidgetList = this.sortWidgetsByAcceptedOrderOptimized(
         selectedWidgetList,
-        acceptedWidgets,
+        acceptedWidgetsMap,
       );
-      const sortedSelectedWidgets = this.sortWidgetsByAcceptedOrder(
+      const sortedSelectedWidgets = this.sortWidgetsByAcceptedOrderOptimized(
         selectedWidgets,
-        acceptedWidgets,
+        acceptedWidgetsMap,
         "widget_key",
       );
 
@@ -748,7 +811,33 @@ export default {
     },
 
     /**
-     * Sort widgets by accepted order
+     * Sort widgets by accepted order - OPTIMIZED VERSION
+     * @param {Array} widgets - Widgets to sort
+     * @param {Map} acceptedOrderMap - Accepted order map for O(1) lookup
+     * @param {String} keyField - Key field for comparison
+     * @returns {Array} Sorted widgets
+     * @private
+     */
+    sortWidgetsByAcceptedOrderOptimized(
+      widgets,
+      acceptedOrderMap,
+      keyField = null,
+    ) {
+      if (!this.isValidObject(widgets, "array") || !acceptedOrderMap) {
+        return widgets;
+      }
+
+      return widgets.sort((a, b) => {
+        const aKey = keyField ? a[keyField] : a;
+        const bKey = keyField ? b[keyField] : b;
+        const aIndex = acceptedOrderMap.get(aKey) ?? Number.MAX_SAFE_INTEGER;
+        const bIndex = acceptedOrderMap.get(bKey) ?? Number.MAX_SAFE_INTEGER;
+        return aIndex - bIndex;
+      });
+    },
+
+    /**
+     * Sort widgets by accepted order - LEGACY VERSION (for backward compatibility)
      * @param {Array} widgets - Widgets to sort
      * @param {Array} acceptedOrder - Accepted order array
      * @param {String} keyField - Key field for comparison
@@ -989,7 +1078,7 @@ export default {
     // ===========================================
 
     /**
-     * Sync allPlaceholderItems with current placeholders
+     * Sync allPlaceholderItems with current placeholders - ENHANCED
      * @private
      */
     syncAllPlaceholderItems() {
@@ -1002,7 +1091,24 @@ export default {
               (item) => item.placeholderKey === placeholder.placeholderKey,
             );
             if (matchedItem) {
-              newAllPlaceholderItems.push(matchedItem);
+              // Update the matched item with current placeholder data
+              const updatedItem = {
+                ...matchedItem,
+                selectedWidgets:
+                  placeholder.selectedWidgets || matchedItem.selectedWidgets,
+                selectedWidgetList:
+                  placeholder.selectedWidgetList ||
+                  matchedItem.selectedWidgetList,
+                acceptedWidgets:
+                  placeholder.acceptedWidgets || matchedItem.acceptedWidgets,
+                label: placeholder.label || matchedItem.label,
+                type: placeholder.type || matchedItem.type,
+                maxWidget:
+                  placeholder.maxWidget !== undefined
+                    ? placeholder.maxWidget
+                    : matchedItem.maxWidget,
+              };
+              newAllPlaceholderItems.push(updatedItem);
             }
           } else if (placeholder.type === "placeholder_group") {
             placeholder.placeholders.forEach((subPlaceholder) => {
@@ -1010,7 +1116,26 @@ export default {
                 (item) => item.placeholderKey === subPlaceholder.placeholderKey,
               );
               if (matchedItem) {
-                newAllPlaceholderItems.push(matchedItem);
+                // Update the matched item with current subPlaceholder data
+                const updatedItem = {
+                  ...matchedItem,
+                  selectedWidgets:
+                    subPlaceholder.selectedWidgets ||
+                    matchedItem.selectedWidgets,
+                  selectedWidgetList:
+                    subPlaceholder.selectedWidgetList ||
+                    matchedItem.selectedWidgetList,
+                  acceptedWidgets:
+                    subPlaceholder.acceptedWidgets ||
+                    matchedItem.acceptedWidgets,
+                  label: subPlaceholder.label || matchedItem.label,
+                  type: subPlaceholder.type || matchedItem.type,
+                  maxWidget:
+                    subPlaceholder.maxWidget !== undefined
+                      ? subPlaceholder.maxWidget
+                      : matchedItem.maxWidget,
+                };
+                newAllPlaceholderItems.push(updatedItem);
               }
             });
           }
@@ -1020,6 +1145,17 @@ export default {
       } catch (error) {
         this.handleError("Error syncing allPlaceholderItems", error);
       }
+    },
+
+    /**
+     * Force synchronization of allPlaceholderItems after drag operations
+     * @public
+     */
+    forceSyncAllPlaceholderItems() {
+      this.syncAllPlaceholderItems();
+      // Clear caches to ensure fresh data
+      this.clearWidgetAvailabilityCache();
+      this._placeholderWidgetsCache = null;
     },
 
     // Handle drag start event
@@ -1088,7 +1224,7 @@ export default {
         return placeholder; // Keep other placeholders unchanged
       });
 
-      // Sync allPlaceholderItems with the updated placeholders
+      // Sync allPlaceholderItems with the updated placeholders - FIXED
       let newAllPlaceholderItems = [];
 
       // Iterate over placeholders to update the newAllPlaceholderItems array
@@ -1099,9 +1235,29 @@ export default {
             (item) => item.placeholderKey === placeholder.placeholderKey,
           );
 
-          // If a matched item is found, push it to newAllPlaceholderItems
+          // If a matched item is found, update it with the new placeholder data
           if (matchedItem) {
-            newAllPlaceholderItems.push(matchedItem); // Push only the matchedItem
+            // Create updated item with new order and data from placeholder
+            const updatedItem = {
+              ...matchedItem,
+              // Update with any changes from the placeholder
+              selectedWidgets:
+                placeholder.selectedWidgets || matchedItem.selectedWidgets,
+              selectedWidgetList:
+                placeholder.selectedWidgetList ||
+                matchedItem.selectedWidgetList,
+              acceptedWidgets:
+                placeholder.acceptedWidgets || matchedItem.acceptedWidgets,
+              // Preserve other properties
+              placeholderKey: placeholder.placeholderKey,
+              label: placeholder.label || matchedItem.label,
+              type: placeholder.type || matchedItem.type,
+              maxWidget:
+                placeholder.maxWidget !== undefined
+                  ? placeholder.maxWidget
+                  : matchedItem.maxWidget,
+            };
+            newAllPlaceholderItems.push(updatedItem);
           }
         } else if (placeholder.type === "placeholder_group") {
           // Iterate over subPlaceholders for a group
@@ -1110,9 +1266,28 @@ export default {
               (item) => item.placeholderKey === subPlaceholder.placeholderKey,
             );
 
-            // If a matched item is found, push it to newAllPlaceholderItems
+            // If a matched item is found, update it with the new subPlaceholder data
             if (matchedItem) {
-              newAllPlaceholderItems.push(matchedItem); // Push only the matchedItem
+              const updatedItem = {
+                ...matchedItem,
+                // Update with any changes from the subPlaceholder
+                selectedWidgets:
+                  subPlaceholder.selectedWidgets || matchedItem.selectedWidgets,
+                selectedWidgetList:
+                  subPlaceholder.selectedWidgetList ||
+                  matchedItem.selectedWidgetList,
+                acceptedWidgets:
+                  subPlaceholder.acceptedWidgets || matchedItem.acceptedWidgets,
+                // Preserve other properties
+                placeholderKey: subPlaceholder.placeholderKey,
+                label: subPlaceholder.label || matchedItem.label,
+                type: subPlaceholder.type || matchedItem.type,
+                maxWidget:
+                  subPlaceholder.maxWidget !== undefined
+                    ? subPlaceholder.maxWidget
+                    : matchedItem.maxWidget,
+              };
+              newAllPlaceholderItems.push(updatedItem);
             }
           });
         }
@@ -1120,6 +1295,9 @@ export default {
 
       // Update allPlaceholderItems with the new array
       this.allPlaceholderItems = newAllPlaceholderItems;
+
+      // Force synchronization to ensure data consistency
+      this.forceSyncAllPlaceholderItems();
     },
 
     // Get the payload for the settings child
@@ -1215,6 +1393,9 @@ export default {
               );
 
             this.placeholders = updatedPlaceholders;
+
+            // Force synchronization to ensure allPlaceholderItems is updated
+            this.forceSyncAllPlaceholderItems();
           } else if (destinationPlaceholderIndex !== null) {
             // Moving between different placeholders
             // this.allPlaceholderItems[destinationPlaceholderIndex].selectedWidgetList.splice(destinationItemIndex, 0, widgetKey);
@@ -1989,8 +2170,8 @@ export default {
      */
     promoteFieldsToRoot(widget) {
       try {
-        // Create deep clone to avoid mutation
-        const promotedWidget = this.safeClone(widget);
+        // Use shallow clone first, only deep clone when necessary
+        const promotedWidget = this.safeClone(widget, false);
 
         // Validate that options.fields exists and is an object
         if (
@@ -2000,28 +2181,31 @@ export default {
           return promotedWidget;
         }
 
-        // Add each field from options.fields to the root level
-        for (const fieldKey in promotedWidget.options.fields) {
-          if (promotedWidget.options.fields.hasOwnProperty(fieldKey)) {
-            const fieldObject = promotedWidget.options.fields[fieldKey];
+        const fields = promotedWidget.options.fields;
+        const fieldKeys = Object.keys(fields);
 
-            // Validate field structure before promoting
-            if (this.isValidFieldForPromotion(fieldObject)) {
-              // If field has a 'value' property, promote only the value
-              if (
-                this.isValidObject(fieldObject) &&
-                fieldObject.hasOwnProperty("value")
-              ) {
-                // Convert value to boolean (1 or 0) if it's a boolean
-                let promotedValue = fieldObject.value;
-                if (typeof promotedValue === "boolean") {
-                  promotedValue = promotedValue ? 1 : 0;
-                }
-                promotedWidget[fieldKey] = promotedValue;
-              } else {
-                // Fallback: promote the entire field object if no value property
-                promotedWidget[fieldKey] = this.safeClone(fieldObject);
-              }
+        // Process fields more efficiently
+        for (let i = 0; i < fieldKeys.length; i++) {
+          const fieldKey = fieldKeys[i];
+          const fieldObject = fields[fieldKey];
+
+          // Validate field structure before promoting
+          if (this.isValidFieldForPromotion(fieldObject)) {
+            // If field has a 'value' property, promote only the value
+            if (
+              this.isValidObject(fieldObject) &&
+              fieldObject.hasOwnProperty("value")
+            ) {
+              // Convert value to boolean (1 or 0) if it's a boolean
+              promotedWidget[fieldKey] =
+                typeof fieldObject.value === "boolean"
+                  ? fieldObject.value
+                    ? 1
+                    : 0
+                  : fieldObject.value;
+            } else {
+              // Fallback: promote the entire field object if no value property
+              promotedWidget[fieldKey] = this.safeClone(fieldObject, false);
             }
           }
         }

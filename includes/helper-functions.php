@@ -4770,6 +4770,12 @@ function directorist_get_listing_gallery_images( $listing_id = 0 ) {
     return $images;
 }
 
+function directorist_is_guest_user( $user_id = 0 ) {
+	$user_type = get_user_meta( $user_id, '_user_type', true );
+
+	return ( 'guest' === $user_type );
+}
+
 function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );

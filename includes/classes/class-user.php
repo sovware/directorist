@@ -529,7 +529,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             /**
              * Return if email is already verified
              */
-            if ( ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
+            if ( directorist_is_guest_user( $user->ID ) || ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
                 return $user;
             }
 

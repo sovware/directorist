@@ -4780,3 +4780,7 @@ function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );
 }
+
+function directorist_get_temp_upload_dir() {
+	return 'directorist_temp_uploads';
+}

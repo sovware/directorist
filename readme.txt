@@ -287,7 +287,12 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.4.8 - Sep 23, 2025 =
+= 8.4.8 - Oct 5, 2025 =
+
+**Changed**
+- Added hooks to control dashboard and login page redirects. (#2521)
+- Added hooks to the contact owner form. (#2516)
+- Improved mobile experience by keeping the Add Listing accordion expanded. (#2517)
 
 **Fixed**
  - Improved highlight for the select input list. (#2485)
@@ -297,6 +302,8 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Fixed carousel disappearing after scrolling past 20 photos. (#2472)
  - Adjusted relevant listings transition speed from 1s to 3s. (#2468)
  - Bricks Builder integration for custom single listing pages. (#2484)
+ - Fixed price range issue. (#2509)
+ - Fixed multiple JavaScript issues in the contact owner form, including form reset, alert colors, button re-enable, and correct callback response handling. (#2516)
 
 = 8.4.7 - Sep 9, 2025 =
 - Tweak JS and CSS

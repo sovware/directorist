@@ -428,8 +428,14 @@ $(function () {
 				const $visible = $(visible);
 
 				$visible.removeAttr('style');
-				$visible.find('.directorist-content-module__title').show();
-				$visible.find('.directorist-content-module__contents').show();
+				$visible
+					.find('.directorist-content-module__title')
+					.show()
+					.addClass('opened');
+				$visible
+					.find('.directorist-content-module__contents')
+					.show()
+					.addClass('active');
 
 				$(`a[href="#${$visible.attr('id')}"]`).show();
 			}
@@ -441,10 +447,14 @@ $(function () {
 
 				if ($hidable.find('.directorist-form-group:visible').length) {
 					$hidable.removeAttr('style');
-					$hidable.find('.directorist-content-module__title').show();
+					$hidable
+						.find('.directorist-content-module__title')
+						.show()
+						.addClass('opened');
 					$hidable
 						.find('.directorist-content-module__contents')
-						.show();
+						.show()
+						.addClass('active');
 
 					$(`a[href="#${$hidable.attr('id')}"]`).show();
 				} else {
@@ -456,10 +466,14 @@ $(function () {
 						border: 0,
 						overflow: 'hidden',
 					});
-					$hidable.find('.directorist-content-module__title').hide();
+					$hidable
+						.find('.directorist-content-module__title')
+						.hide()
+						.removeClass('opened');
 					$hidable
 						.find('.directorist-content-module__contents')
-						.hide();
+						.hide()
+						.removeClass('active');
 
 					$(`a[href="#${$hidable.attr('id')}"]`).hide();
 				}
@@ -1422,6 +1436,14 @@ function defaultAddListing() {
 
 // Add Listing Accordion
 function addListingAccordion() {
+	// Set default state to open for all content modules
+	$(
+		'.directorist-add-listing-form .directorist-content-module__title'
+	).addClass('opened');
+	$(
+		'.directorist-add-listing-form .directorist-content-module__contents'
+	).addClass('active');
+
 	$('body').on(
 		'click',
 		'.directorist-add-listing-form .directorist-content-module__title',

@@ -444,10 +444,39 @@ class Directorist_Single_Listing {
             return $content;
         }
 
+        // Check if page is built with Bricks and render content
+        $bricks_content = $this->get_bricks_content( $page_id );
+        if ( ! empty( $bricks_content ) ) {
+            return $bricks_content;
+        }
+
         $content = get_post_field( 'post_content', $page_id ); // Raw content
         $content = $this->filter_single_listing_content( $content ); // Actual content after running several filters
 
         return $content;
+    }
+
+    private function get_bricks_content( $page_id ) {
+        if ( ! class_exists( '\Bricks\Helpers' ) || ! class_exists( '\Bricks\Frontend' ) ) {
+            return false;
+        }
+
+        if ( ! \Bricks\Helpers::render_with_bricks( $page_id ) ) {
+            return false;
+        }
+
+        $bricks_meta_key = defined( 'BRICKS_DB_PAGE_CONTENT' ) ? BRICKS_DB_PAGE_CONTENT : '_bricks_page_content_2';
+        $bricks_data = get_post_meta( $page_id, $bricks_meta_key, true );
+        
+        if ( empty( $bricks_data ) || ! is_array( $bricks_data ) ) {
+            return false;
+        }
+
+        try {
+            return \Bricks\Frontend::render_data( $bricks_data );
+        } catch ( \Exception $e ) {
+            return false;
+        }
     }
 
     private function filter_single_listing_content( $content ) {
@@ -1288,7 +1317,7 @@ class Directorist_Single_Listing {
             'cat_icon'              => $cat_icon,
         );
 
-        return json_encode( $args );
+        return json_encode( $args, JSON_HEX_QUOT | JSON_HEX_APOS | JSON_HEX_AMP );
     }
 
     public function get_review_template() {

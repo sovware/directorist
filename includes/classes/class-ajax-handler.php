@@ -1483,6 +1483,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 '==TODAY=='         => date_i18n( $date_format, $current_time ),
                 '==NOW=='           => date_i18n( $date_format . ' ' . $time_format, $current_time ),
             ];
+
+            /**
+             * Filter the placeholders for the contact owner email
+             * @since 8.4.8
+             * @param array $placeholders The placeholders for the contact owner email
+             * @param array $_POST The POST data
+             * @return array The placeholders for the contact owner email
+             */
+            $placeholders = apply_filters( 'directorist_contact_owner_email_placeholders', $placeholders, $_POST );
+
             if ( 'listing_email' == $user_email ) {
                 $to = $listing_email;
             } else {
@@ -1520,7 +1530,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 'site_name'      => $site_name,
             ];
 
-            do_action( 'directorist_email_on_send_contact_messaage_to_listing_owner', $action_args );
+            /**
+             * Fires after a contact message is sent to the listing owner.
+             *
+             * @since 8.4.6
+             *
+             * @param array $action_args Arguments related to the sent contact message.
+             */
+            do_action( 'directorist_email_on_send_contact_message_to_listing_owner', $action_args );
 
             return $is_sent;
         }
@@ -1562,11 +1579,32 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 '{today}'         => date_i18n( $date_format, $current_time ),
                 '{now}'           => date_i18n( $date_format . ' ' . $time_format, $current_time ),
             ];
+
+            /**
+             * Filter the placeholders for the contact admin email
+             * @since 8.4.8
+             * @param array $placeholders The placeholders for the contact admin email
+             * @param array $_POST The POST data
+             * @return array The placeholders for the contact admin email
+             */
+            $placeholders = apply_filters( 'directorist_contact_admin_email_placeholders', $placeholders, $_POST );
+
             $send_emails   = ATBDP()->email->get_admin_email_list();
             $to            = ! empty( $send_emails ) ? $send_emails : get_bloginfo( 'admin_email' );
             $subject       = __( '{site_name} Contact via {listing_title}', 'directorist' );
             $subject       = strtr( $subject, $placeholders );
             $message       = __( "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary.", 'directorist' );
+
+            /**
+             * Filter the message for the contact admin email
+             * @since 8.4.8
+             * @param string $message The message for the contact admin email
+             * @param array $placeholders The placeholders for the contact admin email
+             * @param array $_POST The POST data
+             * @return string The message for the contact admin email
+             */
+            $message       = apply_filters( 'directorist_contact_admin_email_message', $message, $_POST );
+
             $message       = strtr( $message, $placeholders );
             $headers       = "From: {$name} <{$email}>\r\n";
             $headers      .= "Reply-To: {$email}\r\n";
@@ -1595,7 +1633,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 'site_name'     => $site_name,
             ];
 
-            do_action( 'directorist_email_on_send_contact_messaage_to_admin', $action_args );
+            /**
+             * Fires after a contact message is sent to the site administrator from a listing.
+             *
+             * @since 8.4.6
+             *
+             * @param array $action_args Arguments related to the sent contact message.
+             */
+            do_action( 'directorist_email_on_send_contact_message_to_admin', $action_args );
 
             return $is_sent;
         }
@@ -1671,7 +1716,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             echo wp_json_encode(
                 [
-                    'error' => 1,
+                    'error' => 0,
                     'message' => __( 'Your message sent successfully.', 'directorist' )
                 ]
             );

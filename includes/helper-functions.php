@@ -4436,7 +4436,7 @@ function directorist_delete_dir( $dir ) {
  */
 function directorist_delete_temporary_upload_dirs() {
     $upload_dir = wp_get_upload_dir();
-    $temp_dir   = trailingslashit( $upload_dir['basedir'] ) . 'directorist_temp_uploads/';
+    $temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() );
 
     if ( ! file_exists( $temp_dir ) ) {
         return;
@@ -4457,6 +4457,10 @@ function directorist_delete_temporary_upload_dirs() {
             }
         }
     }
+}
+
+function directorist_get_temp_upload_dir() {
+	return 'directorist_temp_uploads';
 }
 
 /**
@@ -4779,8 +4783,4 @@ function directorist_is_guest_user( $user_id = 0 ) {
 function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );
-}
-
-function directorist_get_temp_upload_dir() {
-	return 'directorist_temp_uploads';
 }

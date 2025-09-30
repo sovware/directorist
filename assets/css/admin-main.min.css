@@ -9558,15 +9558,13 @@ body.stop-scrolling {
 	-webkit-align-items: center;
 	-ms-flex-align: center;
 	align-items: center;
-	margin: 15px -15px 0;
+	gap: 10px;
 }
 .directorist-map-coordinates .directorist-form-group {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	-ms-flex: 1;
 	flex: 1;
-	padding-left: 15px;
-	padding-right: 15px;
 	max-width: 290px;
 }
 .directorist-map-coordinates__generate {
@@ -9716,8 +9714,8 @@ body.stop-scrolling {
 	width: 16px;
 	height: 16px;
 	background-color: var(--directorist-color-marker-icon);
-	-webkit-mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
-	mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+	-webkit-mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+	mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
 }
 .directorist-form-map-field .atbd_map_shape:hover:before {
 	opacity: 1;

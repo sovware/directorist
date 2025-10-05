@@ -60,6 +60,18 @@ const HeaderBreadcrumb = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	.directorist-single-plan-logo{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 0;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		margin-right: 10px;
+		border: 1px solid rgba(75, 85, 99, 0.10);
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	}
 	ul {
 		display: flex;
 		align-items: center;
@@ -88,7 +100,7 @@ const HeaderAction = styled.div`
 const StatusSelection = styled.div`
 	display: flex;
 	align-items: center;
-	border-radius: 2px;
+	border-radius: 4px;
 	padding: 0 8px 0 12px;
 	height: 34px;
 	border: 1px solid rgba(20, 25, 33, 0.1);

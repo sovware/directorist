@@ -52,3 +52,11 @@
         text-transform: math-auto;
     }
 }
+
+// Button style
+.components-button{
+    &.is-primary,
+    &.is-secondary{
+        border-radius: 4px;
+    }
+}

@@ -1813,3 +1813,16 @@
     font-weight: 400;
     color: var(--wpmvc-gray-600);
 }
+
+
+//User Dashboard subscription
+.directorist-user-dashboard-subscriptions{
+  >div{
+    font-family: inherit;
+  }
+  .components-card__header {
+    .components-text.components-heading{
+      font-size: 16px;
+    }
+  }
+}

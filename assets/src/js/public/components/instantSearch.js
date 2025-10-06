@@ -456,10 +456,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		const view = form_data.view;
 		const paged = form_data.paged;
 
-		// Get directory type
-		const directory_type = searchElm
-			.find('input[name="directory_type"]')
-			.val();
+		// Get directory type - look in the parent container to ensure it's found regardless of form
+		const directory_type =
+			searchElm.find('input[name="directory_type"]').val() ||
+			searchElm
+				.closest('.directorist-instant-search')
+				.find('input[name="directory_type"]')
+				.val();
 
 		// Update form_data
 		updateFormData({
@@ -639,7 +642,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		});
 	}
 
-	// Determine the active form
+	// Determine the active form - prioritize forms that have directory_type input
 	function getActiveForm(instantSearchElement) {
 		const sidebarListing = instantSearchElement.find(
 			'.listing-with-sidebar'
@@ -650,11 +653,33 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		const searchForm = instantSearchElement.find(
 			'.directorist-search-form'
 		);
-		return sidebarListing.length
-			? instantSearchElement
-			: screen.width > 575
-				? advancedForm
-				: searchForm;
+
+		// If sidebar listing exists, use the main container
+		if (sidebarListing.length) {
+			return instantSearchElement;
+		}
+
+		// Check which form has directory_type input and prioritize that
+		const advancedFormHasDirectoryType =
+			advancedForm.find('input[name="directory_type"]').length > 0;
+		const searchFormHasDirectoryType =
+			searchForm.find('input[name="directory_type"]').length > 0;
+
+		// Prioritize form that has directory_type input
+		if (advancedFormHasDirectoryType && !searchFormHasDirectoryType) {
+			return advancedForm;
+		} else if (
+			searchFormHasDirectoryType &&
+			!advancedFormHasDirectoryType
+		) {
+			return searchForm;
+		} else if (advancedFormHasDirectoryType && searchFormHasDirectoryType) {
+			// Both have directory_type, use screen width as fallback
+			return screen.width > 575 ? advancedForm : searchForm;
+		} else {
+			// Neither has directory_type, use screen width as fallback
+			return screen.width > 575 ? advancedForm : searchForm;
+		}
 	}
 
 	// Get directory type

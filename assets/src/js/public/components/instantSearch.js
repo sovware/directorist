@@ -642,44 +642,47 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		});
 	}
 
-	// Determine the active form - prioritize forms that have directory_type input
+	// Determine the active form with intelligent fallback strategy
 	function getActiveForm(instantSearchElement) {
-		const sidebarListing = instantSearchElement.find(
-			'.listing-with-sidebar'
-		);
-		const advancedForm = instantSearchElement.find(
-			'.directorist-advanced-filter__form'
-		);
-		const searchForm = instantSearchElement.find(
-			'.directorist-search-form'
-		);
+		const forms = {
+			sidebar: instantSearchElement.find('.listing-with-sidebar'),
+			advanced: instantSearchElement.find(
+				'.directorist-advanced-filter__form'
+			),
+			search: instantSearchElement.find('.directorist-search-form'),
+		};
 
-		// If sidebar listing exists, use the main container
-		if (sidebarListing.length) {
+		// Early return for sidebar listings
+		if (forms.sidebar.length) {
 			return instantSearchElement;
 		}
 
-		// Check which form has directory_type input and prioritize that
-		const advancedFormHasDirectoryType =
-			advancedForm.find('input[name="directory_type"]').length > 0;
-		const searchFormHasDirectoryType =
-			searchForm.find('input[name="directory_type"]').length > 0;
+		// Create form candidates with metadata
+		const candidates = [
+			{
+				form: forms.advanced,
+				hasDirectoryType:
+					forms.advanced.find('input[name="directory_type"]').length >
+					0,
+			},
+			{
+				form: forms.search,
+				hasDirectoryType:
+					forms.search.find('input[name="directory_type"]').length >
+					0,
+			},
+		].filter((candidate) => candidate.form.length > 0);
 
-		// Prioritize form that has directory_type input
-		if (advancedFormHasDirectoryType && !searchFormHasDirectoryType) {
-			return advancedForm;
-		} else if (
-			searchFormHasDirectoryType &&
-			!advancedFormHasDirectoryType
-		) {
-			return searchForm;
-		} else if (advancedFormHasDirectoryType && searchFormHasDirectoryType) {
-			// Both have directory_type, use screen width as fallback
-			return screen.width > 575 ? advancedForm : searchForm;
-		} else {
-			// Neither has directory_type, use screen width as fallback
-			return screen.width > 575 ? advancedForm : searchForm;
+		// Smart selection: prioritize forms with directory_type, fallback to responsive behavior
+		const formWithDirectoryType = candidates.find(
+			(c) => c.hasDirectoryType
+		);
+		if (formWithDirectoryType) {
+			return formWithDirectoryType.form;
 		}
+
+		// Fallback: use responsive selection if no directory_type found
+		return screen.width > 575 ? forms.advanced : forms.search;
 	}
 
 	// Get directory type

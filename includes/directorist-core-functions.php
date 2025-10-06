@@ -55,11 +55,11 @@ function directorist_is_admin_notifiable_event( $event ) {
 }
 
 function directorist_get_user_types() {
-	$user_types = array(
-		'general' => __( 'User', 'directorist' ),
-		'author'  => __( 'Author', 'directorist' ),
-		'guest'   => __( 'Guest', 'directorist' ),
-	);
+    $user_types = array(
+        'general' => __( 'User', 'directorist' ),
+        'author'  => __( 'Author', 'directorist' ),
+        'guest'   => __( 'Guest', 'directorist' ),
+    );
 
-	return apply_filters('directorist_get_user_types', $user_types );
+    return apply_filters( 'directorist_get_user_types', $user_types );
 }

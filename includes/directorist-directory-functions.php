@@ -20,8 +20,8 @@ function directorist_get_listing_form_fields( $directory_id ) {
     $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
 
     if ( empty( $form_data ) || empty( $form_data['fields'] ) ) {
-		return array();
-	}
+        return array();
+    }
 
     $_fields   = directorist_get_var( $form_data['fields'], [] );
     $_groups   = directorist_get_var( $form_data['groups'], [] );
@@ -42,10 +42,10 @@ function directorist_get_listing_form_fields( $directory_id ) {
     }
 
     // Remove listing type field if pricing plan is disabled.
-	// Otherwise it causes validation error.
-	if ( ! atbdp_pricing_plan_is_enabled() ) {
-		unset( $fields['listing_type'] );
-	}
+    // Otherwise it causes validation error.
+    if ( ! atbdp_pricing_plan_is_enabled() ) {
+        unset( $fields['listing_type'] );
+    }
 
     return $fields;
 }

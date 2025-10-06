@@ -779,34 +779,34 @@ class Directorist_Listing_Form {
     }
 
     public function build_form_data( $directory_id ) {
-		$form_data = array();
+        $form_data = array();
 
-		if ( ! $directory_id ) {
-			return $form_data;
-		}
+        if ( ! $directory_id ) {
+            return $form_data;
+        }
 
-		// $submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
+        // $submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
 
-		$form_fields = directorist_get_listing_form_fields( $directory_id );
-		$field_groups = directorist_get_listing_form_groups( $directory_id );
+        $form_fields = directorist_get_listing_form_fields( $directory_id );
+        $field_groups = directorist_get_listing_form_groups( $directory_id );
 
-		foreach ( $field_groups as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
+        foreach ( $field_groups as $group ) {
+            $section           = $group;
+            $section['fields'] = array();
 
-			foreach ( $group['fields'] as $field ) {
-				if ( ! isset( $form_fields[ $field ] ) ) {
-					continue;
-				}
+            foreach ( $group['fields'] as $field ) {
+                if ( ! isset( $form_fields[ $field ] ) ) {
+                    continue;
+                }
 
-				$section['fields'][ $field ] = $form_fields[ $field ];
-			}
+                $section['fields'][ $field ] = $form_fields[ $field ];
+            }
 
-			$form_data[] = $section;
-		}
+            $form_data[] = $section;
+        }
 
-		return $form_data;
-	}
+        return $form_data;
+    }
 
     public function get_map_data() {
         $p_id = $this->get_add_listing_id();

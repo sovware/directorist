@@ -168,7 +168,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
                     if ( in_array( $schema_key, array( 'categories', 'locations', 'tags' ), true ) ) {
                         $_POST['tax_input'] = array_merge(
-                            $_POST['tax_input'],
+                            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
+                            $_POST['tax_input'] ?? array(),
                             array(
                                 $post_key => $this->transform_taxonomy_data( $schema_key, $request['fields'][ $schema_key ] )
                             )
@@ -191,6 +192,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
                     if ( in_array( $schema_key, array( 'categories', 'locations', 'tags' ), true ) ) {
                         $_POST['tax_input'] = array_merge(
+                            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
                             $_POST['tax_input'],
                             array(
                                 $post_key => $this->transform_taxonomy_data( $schema_key, $request[ $schema_key ] )
@@ -256,7 +258,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
     public function create_item( $request ) {
         $this->hydrate_global_post( $request );
-
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         $controller_response = SubmissionController::submit( wp_unslash( $_POST ), 'api' );
 
         if ( is_wp_error( $controller_response ) ) {
@@ -294,6 +296,7 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
         $this->hydrate_global_post( $request );
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         $controller_response = SubmissionController::submit( wp_unslash( $_POST ), 'api' );
 
         if ( is_wp_error( $controller_response ) ) {

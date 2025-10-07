@@ -720,20 +720,10 @@ $(function () {
 			var fieldValuePairs = $form.serializeArray();
 
 			// Append Form Fields Values
-			var _iterator4 = _createForOfIteratorHelper(fieldValuePairs),
-				_step4;
-			try {
-				for (_iterator4.s(); !(_step4 = _iterator4.n()).done; ) {
-					var field = _step4.value;
-					form_data.append(field.name, field.value);
-				}
-
-				// Upload existing image
-			} catch (err) {
-				_iterator4.e(err);
-			} finally {
-				_iterator4.f();
+			for ( const field of fieldValuePairs ) {
+				form_data.append( field.name, field.value );
 			}
+			
 			if (mediaUploaders.length) {
 				var _loop = function _loop() {
 					var uploader = _mediaUploaders2[_i3];

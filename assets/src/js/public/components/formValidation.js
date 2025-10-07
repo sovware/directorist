@@ -66,7 +66,7 @@
 			$.each(form_data, function (index, elem) {
 				data[elem.name] = elem.value;
 			});
-			
+
 			$.post(
 				directorist.ajaxurl,
 				data,
@@ -95,11 +95,11 @@
 					setTimeout(function () {
 						status_area.html('');
 					}, 5000);
-				}, 'json')
-				.always(function() {
-					submit_button.prop('disabled', false);
-				}
-			);
+				},
+				'json'
+			).always(function () {
+				submit_button.prop('disabled', false);
+			});
 		});
 
 		$('#atbdp-contact-form,#directorist-contact-owner-form').removeAttr(

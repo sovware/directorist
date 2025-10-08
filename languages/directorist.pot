@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-14 04:33+0000\n"
+"POT-Creation-Date: 2025-10-08 04:09+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -434,23 +434,23 @@ msgstr ""
 msgid "StackOverFLow"
 msgstr ""
 
-#: ../includes/class-helper.php:308, ../includes/class-helper.php:328
+#: ../includes/class-helper.php:322, ../includes/class-helper.php:342
 msgid "Skimming"
 msgstr ""
 
-#: ../includes/class-helper.php:313
+#: ../includes/class-helper.php:327
 msgid "Moderate"
 msgstr ""
 
-#: ../includes/class-helper.php:318
+#: ../includes/class-helper.php:332
 msgid "Economy"
 msgstr ""
 
-#: ../includes/class-helper.php:323
+#: ../includes/class-helper.php:337
 msgid "Cheap"
 msgstr ""
 
-#: ../includes/class-helper.php:853
+#: ../includes/class-helper.php:867
 msgid "The plugin is not installed."
 msgstr ""
 
@@ -1148,15 +1148,15 @@ msgstr ""
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:375, ../includes/classes/class-ajax-handler.php:1401, ../includes/classes/class-ajax-handler.php:1628, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
+#: ../includes/classes/class-ajax-handler.php:375, ../includes/classes/class-ajax-handler.php:1401, ../includes/classes/class-ajax-handler.php:1659, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:393, ../includes/classes/class-settings-panel.php:3931, ../includes/classes/class-user.php:598
+#: ../includes/classes/class-ajax-handler.php:393, ../includes/classes/class-settings-panel.php:3931, ../includes/classes/class-user.php:624
 msgid "User"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:405, ../includes/classes/class-custom-post.php:368, ../includes/classes/class-user.php:596
+#: ../includes/classes/class-ajax-handler.php:405, ../includes/classes/class-custom-post.php:368, ../includes/classes/class-user.php:622
 msgid "Author"
 msgstr ""
 
@@ -1256,31 +1256,31 @@ msgstr ""
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1426, ../includes/classes/class-ajax-handler.php:1644
+#: ../includes/classes/class-ajax-handler.php:1426, ../includes/classes/class-ajax-handler.php:1675
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1431, ../includes/classes/class-ajax-handler.php:1689
+#: ../includes/classes/class-ajax-handler.php:1431, ../includes/classes/class-ajax-handler.php:1720
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1574
+#: ../includes/classes/class-ajax-handler.php:1594
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1576
+#: ../includes/classes/class-ajax-handler.php:1596
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1784
+#: ../includes/classes/class-ajax-handler.php:1815
 msgid "User not logged in."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1796
+#: ../includes/classes/class-ajax-handler.php:1827
 msgid "Invalid nonce."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1801
+#: ../includes/classes/class-ajax-handler.php:1832
 msgid "No listing ID found."
 msgstr ""
 
@@ -3772,7 +3772,7 @@ msgstr ""
 msgid "Already have an account?"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3044, ../includes/elementor/user-login.php:14, ../templates/listing-form/quick-login.php:41
+#: ../includes/classes/class-settings-panel.php:3044, ../includes/elementor/user-login.php:14, ../templates/listing-form/quick-login.php:47
 msgid "Login"
 msgstr ""
 
@@ -4778,35 +4778,40 @@ msgstr ""
 msgid "Directorist data update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:211
+#. translators: %1$s: Privacy Policy URL, %2$s: Terms of Service URL
+#: ../includes/classes/class-upgrade.php:112
+msgid "I have read and agree to the <a href=\"%1$s\" target=\"_blank\">Privacy Policy</a> and <a href=\"%2$s\" target=\"_blank\">Terms of Service</a>"
+msgstr ""
+
+#: ../includes/classes/class-upgrade.php:330
 msgid "Listings Slider Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:215
+#: ../includes/classes/class-upgrade.php:334
 msgid "Enable Footer Thumbnail"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:239, ../includes/modules/multi-directory-setup/class-builder-data.php:1154, ../includes/modules/multi-directory-setup/class-builder-data.php:2411, ../includes/modules/multi-directory-setup/class-builder-data.php:2443
+#: ../includes/classes/class-upgrade.php:358, ../includes/modules/multi-directory-setup/class-builder-data.php:1154, ../includes/modules/multi-directory-setup/class-builder-data.php:2411, ../includes/modules/multi-directory-setup/class-builder-data.php:2443
 msgid "Listing Title Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:243, ../includes/modules/multi-directory-setup/class-builder-data.php:1158, ../includes/modules/multi-directory-setup/class-builder-data.php:2420, ../includes/modules/multi-directory-setup/class-builder-data.php:2447
+#: ../includes/classes/class-upgrade.php:362, ../includes/modules/multi-directory-setup/class-builder-data.php:1158, ../includes/modules/multi-directory-setup/class-builder-data.php:2420, ../includes/modules/multi-directory-setup/class-builder-data.php:2447
 msgid "Show Tagline"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:360
+#: ../includes/classes/class-upgrade.php:479
 msgid "Dismiss this notice."
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:414
+#: ../includes/classes/class-upgrade.php:533
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with <a href=\"%s\" target=\"_blank\">some cool new features</a>. You are using <b style=\"color:#dba617\">%s outdated extension(s)</b> which are incompatible with Directorist v8.0. Please update the following outdated extensions:<br>%s</p><br>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:421, ../includes/classes/class-upgrade.php:457
+#: ../includes/classes/class-upgrade.php:540, ../includes/classes/class-upgrade.php:576
 msgid "<p class=\"directorist__notice_new_action\">Mistakenly updated? Use <a target=\"_blank\" href=\"%s\">WP Rollback</a> to install your old Directorist</p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:454
+#: ../includes/classes/class-upgrade.php:573
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Theme Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.Please update <a target=\"_blank\" href=\"%s\">%s theme</a> </p>"
 msgstr ""
 
@@ -4826,7 +4831,7 @@ msgstr ""
 msgid "Mark as email unverified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:297, ../includes/classes/class-user.php:619
+#: ../includes/classes/class-user.php:297, ../includes/classes/class-user.php:645
 msgid "Email Verified?"
 msgstr ""
 
@@ -4860,83 +4865,83 @@ msgstr ""
 msgid "Resend confirmation email"
 msgstr ""
 
-#: ../includes/classes/class-user.php:600, ../includes/payments/functions.php:47, ../includes/modules/multi-directory-setup/class-builder-data.php:2081, ../includes/modules/multi-directory-setup/class-builder-data.php:2097, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/classes/class-user.php:626, ../includes/payments/functions.php:47, ../includes/modules/multi-directory-setup/class-builder-data.php:2081, ../includes/modules/multi-directory-setup/class-builder-data.php:2097, ../templates/dashboard/tab-my-listings.php:28
 msgid "Pending"
 msgstr ""
 
-#: ../includes/classes/class-user.php:601
+#: ../includes/classes/class-user.php:627
 msgid "Approve"
 msgstr ""
 
-#: ../includes/classes/class-user.php:602
+#: ../includes/classes/class-user.php:628
 msgid "Deny"
 msgstr ""
 
-#: ../includes/classes/class-user.php:621
+#: ../includes/classes/class-user.php:647
 msgid "User Type"
 msgstr ""
 
-#: ../includes/classes/class-user.php:763
+#: ../includes/classes/class-user.php:789
 msgid "Required form field is missing. Please fill all required fields."
 msgstr ""
 
-#: ../includes/classes/class-user.php:767
+#: ../includes/classes/class-user.php:793
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:771
+#: ../includes/classes/class-user.php:797
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:774
+#: ../includes/classes/class-user.php:800
 msgid "Sorry, space is not allowed in username!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:777
+#: ../includes/classes/class-user.php:803
 msgid "Sorry, the username you entered is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:781
+#: ../includes/classes/class-user.php:807
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/classes/class-user.php:785
+#: ../includes/classes/class-user.php:811
 msgid "Privacy field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:788, ../includes/classes/class-user.php:792
+#: ../includes/classes/class-user.php:814, ../includes/classes/class-user.php:818
 msgid "Terms and Condition field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:796
+#: ../includes/classes/class-user.php:822
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:799
+#: ../includes/classes/class-user.php:825
 msgid "Email Already in use"
 msgstr ""
 
-#: ../includes/classes/class-user.php:803
+#: ../includes/classes/class-user.php:829
 msgid "First Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:808
+#: ../includes/classes/class-user.php:834
 msgid "Last Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:814
+#: ../includes/classes/class-user.php:840
 msgid "Website is not a valid URL"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1086
+#: ../includes/classes/class-user.php:1112
 msgid "Password should be matched and more than five character"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1105
+#: ../includes/classes/class-user.php:1131
 msgid "Oops! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-user.php:1101
+#: ../includes/classes/class-user.php:1127
 msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
@@ -5840,7 +5845,7 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: ../includes/review/class-builder.php:42, ../includes/modules/multi-directory-setup/class-builder-data.php:449
+#: ../includes/review/class-builder.php:45, ../includes/modules/multi-directory-setup/class-builder-data.php:449
 msgid "I have read and agree to the <a href=\"%s\" target=\"_blank\">Privacy Policy</a> and <a href=\"%s\" target=\"_blank\">Terms of Service</a>"
 msgstr ""
 
@@ -8994,7 +8999,11 @@ msgstr ""
 msgid "user@email.com"
 msgstr ""
 
-#: ../templates/listing-form/quick-login.php:45
+#: ../templates/listing-form/quick-login.php:38
+msgid "Forgot your password?"
+msgstr ""
+
+#: ../templates/listing-form/quick-login.php:51
 msgid "Continue"
 msgstr ""
 
@@ -9082,7 +9091,7 @@ msgstr ""
 msgid "View Profile"
 msgstr ""
 
-#: ../templates/single/section-contact_listings_owner.php:57
+#: ../templates/single/section-contact_listings_owner.php:59
 msgid "Submit now"
 msgstr ""
 

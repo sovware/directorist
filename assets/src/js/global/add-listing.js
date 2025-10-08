@@ -720,10 +720,10 @@ $(function () {
 			var fieldValuePairs = $form.serializeArray();
 
 			// Append Form Fields Values
-			for ( const field of fieldValuePairs ) {
-				form_data.append( field.name, field.value );
+			for (const field of fieldValuePairs) {
+				form_data.append(field.name, field.value);
 			}
-			
+
 			if (mediaUploaders.length) {
 				var _loop = function _loop() {
 					var uploader = _mediaUploaders2[_i3];

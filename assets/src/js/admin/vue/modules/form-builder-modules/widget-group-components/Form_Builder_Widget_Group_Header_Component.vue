@@ -23,7 +23,7 @@
               :class="
                 widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'
               "
-              @click.prevent="$emit('toggle-expand-widgets')"
+              @click.prevent="$emit('toggle-expand-widgets', groupKey)"
             >
               <span aria-hidden="true" class="uil uil-angle-down"></span>
             </a>
@@ -66,13 +66,21 @@
     </draggable-list-item>
 
     <!-- Group Header Body -->
-    <slide-up-down :active="groupFieldsExpandState" :duration="500" class="cptm-form-builder-group-options-wrapper">
+    <slide-up-down
+      :active="groupFieldsExpandState"
+      :duration="500"
+      class="cptm-form-builder-group-options-wrapper"
+    >
       <div class="cptm-form-builder-group-options">
         <div class="cptm-form-builder-group-options-header">
           <h3 class="cptm-form-builder-group-options-header-title">
             Configure section
           </h3>
-          <a href="#" class="cptm-form-builder-group-options-header-close" @click.prevent="toggleGroupFieldsExpand">
+          <a
+            href="#"
+            class="cptm-form-builder-group-options-header-close"
+            @click.prevent="toggleGroupFieldsExpand"
+          >
             <span aria-hidden="true" class="uil uil-times"></span>
           </a>
         </div>
@@ -106,6 +114,9 @@ export default {
 
   props: {
     groupData: {
+      default: "",
+    },
+    groupKey: {
       default: "",
     },
     groupSettings: {

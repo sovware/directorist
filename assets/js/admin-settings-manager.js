@@ -19485,10 +19485,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     currentDraggingWidget: {
       default: ""
+    },
+    expandedGroupKey: {
+      default: null
     }
   },
   created: function created() {
     this.setup();
+  },
+  watch: {
+    expandedGroupKey: function expandedGroupKey(newExpandedKey) {
+      // If another group was expanded, collapse this one
+      if (newExpandedKey !== null && newExpandedKey !== this.groupKey) {
+        this.widgetsExpanded = false;
+      }
+    }
   },
   computed: {
     widgetsExpandState: function widgetsExpandState() {
@@ -19524,7 +19535,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      widgetsExpanded: true,
+      widgetsExpanded: false,
       untrashableWidgets: {},
       activeWidgetsInfo: {},
       detectedUntrashableWidgets: []
@@ -19549,8 +19560,13 @@ __webpack_require__.r(__webpack_exports__);
     updateDetectedUntrashableWidgets: function updateDetectedUntrashableWidgets(widget_key) {
       this.detectedUntrashableWidgets.push(widget_key);
     },
-    toggleExpandWidgets: function toggleExpandWidgets() {
+    toggleExpandWidgets: function toggleExpandWidgets(groupKey) {
       this.widgetsExpanded = !this.widgetsExpanded;
+
+      // Emit the groupKey to parent for accordion behavior
+      if (this.widgetsExpanded) {
+        this.$emit("group-expanded", groupKey);
+      }
     },
     isDroppable: function isDroppable(widget_index) {
       if (!this.currentDraggingWidget) {
@@ -19635,6 +19651,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   props: {
     groupData: {
+      default: ""
+    },
+    groupKey: {
       default: ""
     },
     groupSettings: {
@@ -25318,6 +25337,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       isEnabledGroupDragging: true,
       currentDraggingGroup: null,
       currentDraggingWidget: null,
+      expandedGroupKey: null,
+      // Track which group is currently expanded
+
       listing_type_id: null,
       showModal: false
     };
@@ -25675,6 +25697,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     handleGroupDragEnd: function handleGroupDragEnd() {
       this.currentDraggingGroup = null;
       this.isEnabledGroupDragging = true;
+    },
+    handleGroupExpanded: function handleGroupExpanded(groupKey) {
+      // Update the expanded group key - this will trigger child components to collapse if they're not the expanded one
+      this.expandedGroupKey = groupKey;
     },
     handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
       var dropped_in = {
@@ -31322,7 +31348,8 @@ var render = function render() {
       "can-expand": _vm.canExpand,
       "can-trash": _vm.canTrashGroup,
       "draggable": _vm.canDrag,
-      "current-dragging-group": _vm.currentDraggingGroup
+      "current-dragging-group": _vm.currentDraggingGroup,
+      "group-key": _vm.groupKey
     },
     on: {
       "update-group-field": function updateGroupField($event) {
@@ -31470,7 +31497,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.preventDefault();
-        return _vm.$emit('toggle-expand-widgets');
+        return _vm.$emit('toggle-expand-widgets', _vm.groupKey);
       }
     }
   }, [_c('span', {
@@ -34727,7 +34754,8 @@ var render = function render() {
         "widget-is-dragging": _vm.widgetIsDragging,
         "current-dragging-group": _vm.currentDraggingGroup,
         "current-dragging-widget": _vm.currentDraggingWidget,
-        "is-enabled-group-dragging": _vm.isEnabledGroupDragging
+        "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
+        "expanded-group-key": _vm.expandedGroupKey
       },
       on: {
         "update-group-field": function updateGroupField($event) {
@@ -34755,6 +34783,7 @@ var render = function render() {
         "group-drag-end": function groupDragEnd($event) {
           return _vm.handleGroupDragEnd();
         },
+        "group-expanded": _vm.handleGroupExpanded,
         "append-widget": function appendWidget($event) {
           return _vm.handleAppendWidget(widget_group_key);
         }

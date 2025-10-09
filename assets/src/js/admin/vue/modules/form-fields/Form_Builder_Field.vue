@@ -117,6 +117,7 @@
                 :current-dragging-group="currentDraggingGroup"
                 :current-dragging-widget="currentDraggingWidget"
                 :is-enabled-group-dragging="isEnabledGroupDragging"
+                :expanded-group-key="expandedGroupKey"
                 @update-group-field="updateGroupField(widget_group_key, $event)"
                 @update-widget-field="updateWidgetField"
                 @trash-widget="trashWidget(widget_group_key, $event)"
@@ -128,6 +129,7 @@
                 @drop-widget="handleWidgetDrop(widget_group_key, $event)"
                 @group-drag-start="handleGroupDragStart(widget_group_key)"
                 @group-drag-end="handleGroupDragEnd()"
+                @group-expanded="handleGroupExpanded"
                 @append-widget="handleAppendWidget(widget_group_key)"
               />
             </draggable-list-item-wrapper>
@@ -588,6 +590,8 @@ export default {
 
       currentDraggingGroup: null,
       currentDraggingWidget: null,
+
+      expandedGroupKey: null, // Track which group is currently expanded
 
       listing_type_id: null,
 
@@ -1101,6 +1105,11 @@ export default {
     handleGroupDragEnd() {
       this.currentDraggingGroup = null;
       this.isEnabledGroupDragging = true;
+    },
+
+    handleGroupExpanded(groupKey) {
+      // Update the expanded group key - this will trigger child components to collapse if they're not the expanded one
+      this.expandedGroupKey = groupKey;
     },
 
     handleGroupDrop(widget_group_key, payload) {

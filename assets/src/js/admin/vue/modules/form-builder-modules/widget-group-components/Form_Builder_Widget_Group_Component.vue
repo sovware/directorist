@@ -8,6 +8,7 @@
       :can-trash="canTrashGroup"
       :draggable="canDrag"
       :current-dragging-group="currentDraggingGroup"
+      :group-key="groupKey"
       @update-group-field="$emit('update-group-field', $event)"
       @toggle-expand-widgets="toggleExpandWidgets"
       @trash-group="$emit('trash-group')"
@@ -100,10 +101,22 @@ export default {
     currentDraggingWidget: {
       default: "",
     },
+    expandedGroupKey: {
+      default: null,
+    },
   },
 
   created() {
     this.setup();
+  },
+
+  watch: {
+    expandedGroupKey(newExpandedKey) {
+      // If another group was expanded, collapse this one
+      if (newExpandedKey !== null && newExpandedKey !== this.groupKey) {
+        this.widgetsExpanded = false;
+      }
+    },
   },
 
   computed: {
@@ -164,7 +177,7 @@ export default {
 
   data() {
     return {
-      widgetsExpanded: true,
+      widgetsExpanded: false,
       untrashableWidgets: {},
       activeWidgetsInfo: {},
       detectedUntrashableWidgets: [],
@@ -195,8 +208,13 @@ export default {
       this.detectedUntrashableWidgets.push(widget_key);
     },
 
-    toggleExpandWidgets() {
+    toggleExpandWidgets(groupKey) {
       this.widgetsExpanded = !this.widgetsExpanded;
+
+      // Emit the groupKey to parent for accordion behavior
+      if (this.widgetsExpanded) {
+        this.$emit("group-expanded", groupKey);
+      }
     },
 
     isDroppable(widget_index) {

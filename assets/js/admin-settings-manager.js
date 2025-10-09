@@ -38833,7 +38833,7 @@ var render = function render() {
       "innerHTML": _vm._s(_vm.description)
     }
   }) : _vm._e(), _vm._v(" "), ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.filteredValue) !== 'object' ? true : false) ? _c('input', {
-    staticClass: "cptm-form-control tttt",
+    staticClass: "cptm-form-control",
     class: _vm.formControlClass,
     attrs: {
       "type": _vm.input_type,

@@ -14214,7 +14214,7 @@ input:-webkit-autofill:active {
   padding: 0 20px;
   background: white;
   min-height: 60px;
-  border-bottom: 16px solid #f3f4f6;
+  border-bottom: 1px solid #E5E7EB;
   position: fixed;
   right: 0;
   top: 32px;
@@ -14253,7 +14253,7 @@ input:-webkit-autofill:active {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px 20px;
+  gap: 10px 24px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -14394,14 +14394,55 @@ input:-webkit-autofill:active {
   margin: 0;
 }
 
+.directorist-type-name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #141921;
+  line-height: 16px;
+}
+.directorist-type-name span {
+  font-size: 20px;
+  color: #747C89;
+}
+
+.directorist-type-name-editable {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+}
+.directorist-type-name-editable span {
+  font-size: 20px;
+  color: #747C89;
+}
+
 .directorist-directory-type-bottom {
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 203px);
+  height: calc(100% - 110px);
+  overflow-y: auto;
+  z-index: 1;
   background: white;
-  margin-top: 76px;
-  border-radius: 10px;
+  margin-top: 67px;
+  border-radius: 8px 8px 0 0;
   border: 1px solid #e5e7eb;
   -webkit-box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
           box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
-  overflow: hidden;
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-bottom {
@@ -14423,7 +14464,7 @@ input:-webkit-autofill:active {
   -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
-  border-radius: 10px 10px 0 0;
+  border-radius: 8px 8px 0 0;
   overflow-x: auto;
   z-index: 100;
   -webkit-box-sizing: border-box;
@@ -15235,7 +15276,6 @@ input:-webkit-autofill:active {
   background-color: #fff;
 }
 .atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation {
-  max-width: 658px;
   margin: 0 auto;
   border-radius: 6px 6px 0 0;
   position: relative;
@@ -17464,9 +17504,11 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  width: calc(100% - 40px);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   margin: 0 auto 6px;
-  padding: 7px 20px;
+  padding: 7px;
   background: #f9fafb;
   border-radius: 6px;
   -webkit-box-sizing: border-box;
@@ -21723,7 +21765,7 @@ input[type=radio]:checked::before {
   position: sticky;
   top: 60px;
   height: 100%;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 167px);
   overflow: auto;
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;
@@ -21913,7 +21955,6 @@ input[type=radio]:checked::before {
 .cptm-elements-settings {
   width: 100%;
   max-width: 372px;
-  height: calc(100vh + 78px);
   overflow-y: auto;
   scrollbar-width: 6px;
   border-right: 1px solid #e5e7eb;
@@ -22425,7 +22466,7 @@ input[type=radio]:checked::before {
   padding: 0 20px;
   background: white;
   min-height: 60px;
-  border-bottom: 16px solid #f3f4f6;
+  border-bottom: 1px solid #E5E7EB;
   position: fixed;
   right: 0;
   top: 32px;
@@ -22464,7 +22505,7 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px 20px;
+  gap: 10px 24px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -22605,14 +22646,55 @@ input[type=radio]:checked::before {
   margin: 0;
 }
 
+.directorist-type-name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #141921;
+  line-height: 16px;
+}
+.directorist-type-name span {
+  font-size: 20px;
+  color: #747C89;
+}
+
+.directorist-type-name-editable {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+}
+.directorist-type-name-editable span {
+  font-size: 20px;
+  color: #747C89;
+}
+
 .directorist-directory-type-bottom {
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 203px);
+  height: calc(100% - 110px);
+  overflow-y: auto;
+  z-index: 1;
   background: white;
-  margin-top: 76px;
-  border-radius: 10px;
+  margin-top: 67px;
+  border-radius: 8px 8px 0 0;
   border: 1px solid #e5e7eb;
   -webkit-box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
           box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
-  overflow: hidden;
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-bottom {
@@ -22634,7 +22716,7 @@ input[type=radio]:checked::before {
   -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
-  border-radius: 10px 10px 0 0;
+  border-radius: 8px 8px 0 0;
   overflow-x: auto;
   z-index: 100;
   -webkit-box-sizing: border-box;
@@ -23446,7 +23528,6 @@ input[type=radio]:checked::before {
   background-color: #fff;
 }
 .atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation {
-  max-width: 658px;
   margin: 0 auto;
   border-radius: 6px 6px 0 0;
   position: relative;
@@ -25675,9 +25756,11 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  width: calc(100% - 40px);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   margin: 0 auto 6px;
-  padding: 7px 20px;
+  padding: 7px;
   background: #f9fafb;
   border-radius: 6px;
   -webkit-box-sizing: border-box;
@@ -29934,7 +30017,7 @@ input[type=radio]:checked::before {
   position: sticky;
   top: 60px;
   height: 100%;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 167px);
   overflow: auto;
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;
@@ -30124,7 +30207,6 @@ input[type=radio]:checked::before {
 .cptm-elements-settings {
   width: 100%;
   max-width: 372px;
-  height: calc(100vh + 78px);
   overflow-y: auto;
   scrollbar-width: 6px;
   border-right: 1px solid #e5e7eb;
@@ -30924,7 +31006,7 @@ input[type=radio]:checked::before {
   padding: 0 20px;
   background: white;
   min-height: 60px;
-  border-bottom: 16px solid #f3f4f6;
+  border-bottom: 1px solid #E5E7EB;
   position: fixed;
   right: 0;
   top: 32px;
@@ -30963,7 +31045,7 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px 20px;
+  gap: 10px 24px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -31104,14 +31186,55 @@ input[type=radio]:checked::before {
   margin: 0;
 }
 
+.directorist-type-name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #141921;
+  line-height: 16px;
+}
+.directorist-type-name span {
+  font-size: 20px;
+  color: #747C89;
+}
+
+.directorist-type-name-editable {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+}
+.directorist-type-name-editable span {
+  font-size: 20px;
+  color: #747C89;
+}
+
 .directorist-directory-type-bottom {
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 203px);
+  height: calc(100% - 110px);
+  overflow-y: auto;
+  z-index: 1;
   background: white;
-  margin-top: 76px;
-  border-radius: 10px;
+  margin-top: 67px;
+  border-radius: 8px 8px 0 0;
   border: 1px solid #e5e7eb;
   -webkit-box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
           box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
-  overflow: hidden;
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-bottom {
@@ -31133,7 +31256,7 @@ input[type=radio]:checked::before {
   -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
-  border-radius: 10px 10px 0 0;
+  border-radius: 8px 8px 0 0;
   overflow-x: auto;
   z-index: 100;
   -webkit-box-sizing: border-box;
@@ -31945,7 +32068,6 @@ input[type=radio]:checked::before {
   background-color: #fff;
 }
 .atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation {
-  max-width: 658px;
   margin: 0 auto;
   border-radius: 6px 6px 0 0;
   position: relative;
@@ -34174,9 +34296,11 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  width: calc(100% - 40px);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   margin: 0 auto 6px;
-  padding: 7px 20px;
+  padding: 7px;
   background: #f9fafb;
   border-radius: 6px;
   -webkit-box-sizing: border-box;
@@ -38433,7 +38557,7 @@ input[type=radio]:checked::before {
   position: sticky;
   top: 60px;
   height: 100%;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 167px);
   overflow: auto;
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;
@@ -38623,7 +38747,6 @@ input[type=radio]:checked::before {
 .cptm-elements-settings {
   width: 100%;
   max-width: 372px;
-  height: calc(100vh + 78px);
   overflow-y: auto;
   scrollbar-width: 6px;
   border-right: 1px solid #e5e7eb;

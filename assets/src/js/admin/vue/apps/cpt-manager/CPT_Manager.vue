@@ -23,7 +23,7 @@
               fill="currentColor"
             />
           </svg>
-          All Directories
+          Back
         </a>
         <!-- atbdp-cptm-header -->
         <div
@@ -31,12 +31,23 @@
           data-tooltip="Click here to rename the directory."
           data-flow="bottom"
         >
-          <component
-            v-if="options.name && options.name.type"
-            :is="options.name.type + '-field'"
-            v-bind="options.name"
-            @update="updateOptionsField({ field: 'name', value: $event })"
-          />
+          <div class="directorist-type-name-editable" v-if="isEditableName">   
+            <component
+              v-if="options.name && options.name.type"
+              :is="options.name.type + '-field'"
+              v-bind="options.name"
+              @update="updateOptionsField({ field: 'name', value: $event })"
+            />
+            <span class="la la-check" @click="toggleEditableButton"></span>
+          </div>
+          <span 
+            class="directorist-type-name" 
+            v-if="!isEditableName" 
+            @click="toggleEditableButton"
+          >
+            {{ options.name.value }}
+            <span class="la la-pen"></span>
+          </span>
         </div>
       </div>
       <div class="directorist-directory-type-top-right">
@@ -148,11 +159,16 @@ export default {
         },
       },
       enabled_multi_directory: null,
+      isEditableName: false,
     };
   },
 
   methods: {
     ...mapGetters(["getFieldsValue"]),
+
+    toggleEditableButton() {
+      this.isEditableName = !this.isEditableName;
+    },
 
     setupSaveOnKeyboardInput() {
       addEventListener("keydown", (event) => {

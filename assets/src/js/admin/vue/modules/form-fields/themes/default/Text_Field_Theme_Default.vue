@@ -11,7 +11,7 @@
     ></p>
 
     <input
-      class="cptm-form-control tttt"
+      class="cptm-form-control"
       :class="formControlClass"
       v-if="typeof filteredValue !== 'object' ? true : false"
       :type="input_type"

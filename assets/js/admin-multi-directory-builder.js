@@ -15374,10 +15374,14 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
           isDisabled: false
         }
       },
-      enabled_multi_directory: null
+      enabled_multi_directory: null,
+      isEditableName: false
     };
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(["getFieldsValue"])), {}, {
+    toggleEditableButton: function toggleEditableButton() {
+      this.isEditableName = !this.isEditableName;
+    },
     setupSaveOnKeyboardInput: function setupSaveOnKeyboardInput() {
       var _this = this;
       addEventListener("keydown", function (event) {
@@ -28349,12 +28353,14 @@ var render = function render() {
       "d": "M7.51556 1.38019C7.80032 1.66495 7.80032 2.12663 7.51556 2.41139L3.65616 6.27079H12.1041C12.5068 6.27079 12.8333 6.59725 12.8333 6.99996C12.8333 7.40267 12.5068 7.72913 12.1041 7.72913H3.65616L7.51556 11.5885C7.80032 11.8733 7.80032 12.335 7.51556 12.6197C7.2308 12.9045 6.76912 12.9045 6.48436 12.6197L1.38019 7.51556C1.09544 7.2308 1.09544 6.76912 1.38019 6.48436L6.48436 1.38019C6.76912 1.09544 7.2308 1.09544 7.51556 1.38019Z",
       "fill": "currentColor"
     }
-  })]), _vm._v("\n        All Directories\n      ")]) : _vm._e(), _vm._v(" "), _c('div', {
+  })]), _vm._v("\n        Back\n      ")]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "directorist-row-tooltip",
     attrs: {
       "data-tooltip": "Click here to rename the directory.",
       "data-flow": "bottom"
     }
+  }, [_vm.isEditableName ? _c('div', {
+    staticClass: "directorist-type-name-editable"
   }, [_vm.options.name && _vm.options.name.type ? _c(_vm.options.name.type + '-field', _vm._b({
     tag: "component",
     on: {
@@ -28365,7 +28371,19 @@ var render = function render() {
         });
       }
     }
-  }, 'component', _vm.options.name, false)) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+  }, 'component', _vm.options.name, false)) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "la la-check",
+    on: {
+      "click": _vm.toggleEditableButton
+    }
+  })], 1) : _vm._e(), _vm._v(" "), !_vm.isEditableName ? _c('span', {
+    staticClass: "directorist-type-name",
+    on: {
+      "click": _vm.toggleEditableButton
+    }
+  }, [_vm._v("\n          " + _vm._s(_vm.options.name.value) + "\n          "), _c('span', {
+    staticClass: "la la-pen"
+  })]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "directorist-directory-type-top-right"
   }, [_c('button', {
     staticClass: "cptm-btn cptm-btn-primary",
@@ -38902,7 +38920,7 @@ var render = function render() {
       "innerHTML": _vm._s(_vm.description)
     }
   }) : _vm._e(), _vm._v(" "), ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.filteredValue) !== 'object' ? true : false) ? _c('input', {
-    staticClass: "cptm-form-control tttt",
+    staticClass: "cptm-form-control",
     class: _vm.formControlClass,
     attrs: {
       "type": _vm.input_type,

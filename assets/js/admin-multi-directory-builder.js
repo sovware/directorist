@@ -29059,7 +29059,7 @@ var render = function render() {
     on: {
       "click": _vm.toggleAdvanced
     }
-  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? "Basic" : "Advanced") + "\n  ")]) : _vm._e()], 2) : _vm._e();
+  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? "Basic options" : "Advanced options") + "\n  ")]) : _vm._e()], 2) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -31620,13 +31620,34 @@ var render = function render() {
       "aria-hidden": "true"
     }
   })])]) : _vm._e()])])]), _vm._v(" "), _c('slide-up-down', {
+    staticClass: "cptm-form-builder-group-options-wrapper",
     attrs: {
       "active": _vm.groupFieldsExpandState,
       "duration": 500
     }
   }, [_c('div', {
     staticClass: "cptm-form-builder-group-options"
-  }, [_c('field-list-component', {
+  }, [_c('div', {
+    staticClass: "cptm-form-builder-group-options-header"
+  }, [_c('h3', {
+    staticClass: "cptm-form-builder-group-options-header-title"
+  }, [_vm._v("\n          Configure section\n        ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-form-builder-group-options-header-close",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.toggleGroupFieldsExpand.apply(null, arguments);
+      }
+    }
+  }, [_c('span', {
+    staticClass: "uil uil-times",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]), _vm._v(" "), _c('field-list-component', {
     attrs: {
       "field-list": _vm.finalGroupFields,
       "value": _vm.groupData

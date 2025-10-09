@@ -66,8 +66,16 @@
     </draggable-list-item>
 
     <!-- Group Header Body -->
-    <slide-up-down :active="groupFieldsExpandState" :duration="500">
+    <slide-up-down :active="groupFieldsExpandState" :duration="500" class="cptm-form-builder-group-options-wrapper">
       <div class="cptm-form-builder-group-options">
+        <div class="cptm-form-builder-group-options-header">
+          <h3 class="cptm-form-builder-group-options-header-title">
+            Configure section
+          </h3>
+          <a href="#" class="cptm-form-builder-group-options-header-close" @click.prevent="toggleGroupFieldsExpand">
+            <span aria-hidden="true" class="uil uil-times"></span>
+          </a>
+        </div>
         <field-list-component
           :field-list="finalGroupFields"
           :value="groupData"

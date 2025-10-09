@@ -1718,6 +1718,7 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-form-builder-group-header-section {
+  position: relative;
   &.expanded {
     .cptm-form-builder-group-header {
       border-radius: 6px 6px 0 0;
@@ -1726,6 +1727,45 @@ $light-gray: #f4f5f7;
     }
     .cptm-form-builder-group-title-icon {
       background-color: #d8e0fd;
+    }
+  }
+  .cptm-form-builder-group-options-wrapper {
+    position: absolute;
+    top: calc(100% - 12px);
+    right: 55px;
+    width: 100%;
+    max-width: 460px;
+    height: 100%;
+    z-index: 9;
+    .cptm-form-builder-group-options {
+      padding: 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      box-shadow: 0 8px 16px rgba(16, 24, 40, 0.10);
+      .cptm-form-builder-group-options-header {
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .cptm-form-builder-group-options-header-title {
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: 600;
+        color: #2C3239;
+        margin: 0;
+      }
+      .cptm-form-builder-group-options-header-close {
+        color: #2C3239;
+        span {
+          font-size: 20px;
+        }
+      }
+      .directorist-form-fields-area {
+        padding: 24px;
+      }
     }
   }
 }
@@ -1908,11 +1948,10 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   .cptm-form-builder-group-options__advanced-toggle {
     font-size: 13px;
     font-weight: 500;
-    color: #2e94fa;
+    color: $primary;
     background: transparent;
     border: none;
     padding: 0;
-    text-decoration: underline;
     display: block;
     margin-top: -7px;
     cursor: pointer;
@@ -2088,13 +2127,16 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   color: #747c89;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  outline: none;
   transition: all ease-in-out 300ms;
 
   &:hover,
   &:focus,
   &:active {
     color: #141921;
+    background-color: #F3F4F6;
+    border-color: #e5e7eb;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
   }
 
   &.disabled {
@@ -3052,7 +3094,7 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-option-card-header {
-  padding: 5px 16px;
+  padding: 8px 16px;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -3066,11 +3108,10 @@ input[type="radio"].cptm-radio {
   flex-grow: 1;
   margin: 0;
   text-align: left;
-
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 24px;
-  color: #000000d9;
+  color: #141921;
 }
 
 .cptm-header-action-area {
@@ -4034,16 +4075,17 @@ input[type="radio"].cptm-radio {
     bottom: -18px;
     left: 50%;
     transform: translateX(-50%);
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 14px;
     color: #d94a4a;
     background: #ffffff;
     border: 1px solid #d94a4a;
     border-radius: 50%;
+    box-sizing: border-box;
     cursor: pointer;
     transition: all ease 0.3s;
     &:hover {
@@ -6636,6 +6678,7 @@ input[type="radio"] {
         background: #fff;
         box-shadow: 0 6px 8px 2px #1018281a;
         .cptm-option-card-header {
+          padding: 0;
           border-radius: 8px 8px 0 0;
           background: transparent;
           .cptm-option-card-header-title-section {

@@ -19000,6 +19000,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     untrashableWidgets: {
       default: ""
+    },
+    isExpanded: {
+      type: Boolean,
+      default: false
     }
   },
   created: function created() {
@@ -19077,7 +19081,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return iconType;
     },
     expandState: function expandState() {
-      var state = this.expanded;
+      var state = this.isExpanded;
       if (!this.isEnabledGroupDragging) {
         state = false;
       }
@@ -19119,7 +19123,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     return {
       current_widget: "",
       widget_fields: "",
-      expanded: false,
       widgetIsDragging: false,
       activeWidgetsIsUpdating: false,
       showConfirmationModal: false,
@@ -19220,7 +19223,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.widget_fields = this.current_widget.options;
     },
     toggleExpand: function toggleExpand() {
-      this.expanded = !this.expanded;
+      this.$emit("toggle-expand");
     },
     checkIfHasUntrashableWidget: function checkIfHasUntrashableWidget(widget_group, widget_name, widget_child_name) {
       if (!this.untrashableWidgets) {
@@ -19538,7 +19541,8 @@ __webpack_require__.r(__webpack_exports__);
       widgetsExpanded: false,
       untrashableWidgets: {},
       activeWidgetsInfo: {},
-      detectedUntrashableWidgets: []
+      detectedUntrashableWidgets: [],
+      expandedWidgetKey: null
     };
   },
   methods: {
@@ -19566,6 +19570,17 @@ __webpack_require__.r(__webpack_exports__);
       // Emit the groupKey to parent for accordion behavior
       if (this.widgetsExpanded) {
         this.$emit("group-expanded", groupKey);
+      } else {
+        // Collapse all widgets when group is collapsed
+        this.expandedWidgetKey = null;
+      }
+    },
+    handleWidgetToggleExpand: function handleWidgetToggleExpand(widgetKey) {
+      // Toggle: if clicking the same widget, collapse it; otherwise expand the new one
+      if (this.expandedWidgetKey === widgetKey) {
+        this.expandedWidgetKey = null;
+      } else {
+        this.expandedWidgetKey = widgetKey;
       }
     },
     isDroppable: function isDroppable(widget_index) {
@@ -31399,9 +31414,13 @@ var render = function render() {
         "avilable-widgets": _vm.avilableWidgets,
         "group-data": _vm.groupData,
         "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
-        "untrashable-widgets": _vm.untrashableWidgets
+        "untrashable-widgets": _vm.untrashableWidgets,
+        "is-expanded": _vm.expandedWidgetKey === widget_key
       },
       on: {
+        "toggle-expand": function toggleExpand($event) {
+          return _vm.handleWidgetToggleExpand(widget_key);
+        },
         "found-untrashable-widget": function foundUntrashableWidget($event) {
           return _vm.updateDetectedUntrashableWidgets(widget_key);
         },

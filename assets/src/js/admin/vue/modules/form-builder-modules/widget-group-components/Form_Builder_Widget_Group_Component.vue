@@ -46,6 +46,8 @@
             :group-data="groupData"
             :is-enabled-group-dragging="isEnabledGroupDragging"
             :untrashable-widgets="untrashableWidgets"
+            :is-expanded="expandedWidgetKey === widget_key"
+            @toggle-expand="handleWidgetToggleExpand(widget_key)"
             @found-untrashable-widget="
               updateDetectedUntrashableWidgets(widget_key)
             "
@@ -181,6 +183,7 @@ export default {
       untrashableWidgets: {},
       activeWidgetsInfo: {},
       detectedUntrashableWidgets: [],
+      expandedWidgetKey: null,
     };
   },
 
@@ -214,6 +217,18 @@ export default {
       // Emit the groupKey to parent for accordion behavior
       if (this.widgetsExpanded) {
         this.$emit("group-expanded", groupKey);
+      } else {
+        // Collapse all widgets when group is collapsed
+        this.expandedWidgetKey = null;
+      }
+    },
+
+    handleWidgetToggleExpand(widgetKey) {
+      // Toggle: if clicking the same widget, collapse it; otherwise expand the new one
+      if (this.expandedWidgetKey === widgetKey) {
+        this.expandedWidgetKey = null;
+      } else {
+        this.expandedWidgetKey = widgetKey;
       }
     },
 

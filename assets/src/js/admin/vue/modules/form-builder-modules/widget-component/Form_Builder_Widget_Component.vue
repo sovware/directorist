@@ -155,6 +155,10 @@ export default {
     untrashableWidgets: {
       default: "",
     },
+    isExpanded: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   created() {
@@ -268,7 +272,7 @@ export default {
     },
 
     expandState() {
-      let state = this.expanded;
+      let state = this.isExpanded;
 
       if (!this.isEnabledGroupDragging) {
         state = false;
@@ -326,7 +330,6 @@ export default {
     return {
       current_widget: "",
       widget_fields: "",
-      expanded: false,
       widgetIsDragging: false,
 
       activeWidgetsIsUpdating: false,
@@ -475,7 +478,7 @@ export default {
     },
 
     toggleExpand() {
-      this.expanded = !this.expanded;
+      this.$emit("toggle-expand");
     },
 
     checkIfHasUntrashableWidget(widget_group, widget_name, widget_child_name) {

@@ -28499,11 +28499,14 @@ var render = function render() {
           return _vm.swichNav(index);
         }
       }
-    }, [nav.icon ? _c('span', {
+    }, [nav.icon && nav.icon_type === 'svg' ? _c('span', {
       staticClass: "cptm-header-nav__icon",
       domProps: {
         "innerHTML": _vm._s(nav.icon)
       }
+    }) : _vm._e(), _vm._v(" "), nav.icon && nav.icon_type !== 'svg' ? _c('span', {
+      staticClass: "cptm-header-nav__icon",
+      class: nav.icon
     }) : _vm._e(), _vm._v(" "), _c('span', {
       staticClass: "cptm-header-nav__label",
       domProps: {
@@ -29560,11 +29563,14 @@ var render = function render() {
           return _vm.swichNav(index);
         }
       }
-    }, [nav.icon ? _c('span', {
+    }, [nav.icon && nav.icon_type == 'svg' ? _c('span', {
       staticClass: "cptm-sub-nav__item-icon",
       domProps: {
         "innerHTML": _vm._s(nav.icon)
       }
+    }) : _vm._e(), _vm._v(" "), nav.icon && nav.icon_type !== 'svg' ? _c('span', {
+      staticClass: "cptm-sub-nav__item-icon",
+      class: nav.icon
     }) : _vm._e(), _vm._v("\n        " + _vm._s(nav.label) + "\n        "), nav.learn_more ? _c('span', {
       staticClass: "directorist-row-tooltip cptm-sub-nav__item-tooltip",
       attrs: {

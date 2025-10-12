@@ -103,7 +103,7 @@ return apply_filters(
 
         'tagline' => [
             'label'   => __( 'Tagline', 'directorist' ),
-            'icon'    => 'uil uil-text-fields',
+            'icon'    => 'las la-text-height',
             'show'    => true,
             'options' => [
                 'type' => [
@@ -796,7 +796,7 @@ return apply_filters(
 
         'social_info' => [
             'label'   => 'Social Info',
-            'icon'    => 'uil uil-users-alt',
+            'icon'    => 'las la-users',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -923,7 +923,7 @@ return apply_filters(
 
         'terms_privacy' => [
             'label'   => __( 'Terms & Privacy', 'directorist' ),
-            'icon'    => 'uil uil-text-fields',
+            'icon'    => 'las la-text-height',
             'show'    => true,
             'options' => [
                 'type' => [

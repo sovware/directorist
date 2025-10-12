@@ -14,8 +14,13 @@
         >
           <span
             class="cptm-sub-nav__item-icon"
+            v-if="nav.icon && nav.icon_type == 'svg'"
             v-html="nav.icon"
-            v-if="nav.icon"
+          ></span>
+          <span
+            class="cptm-sub-nav__item-icon"
+            :class="nav.icon"
+            v-if="nav.icon && nav.icon_type !== 'svg'"
           ></span>
           {{ nav.label }}
           <span

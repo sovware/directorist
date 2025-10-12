@@ -1,1 +1,1 @@
-import "../components/categoryLocation";
+import '../components/categoryLocation';

@@ -1,0 +1,24 @@
+# Global
+*                                                                 @vairafiq
+
+# Templates
+/includes/model/                                                  @kowsar89
+/templates/                                                       @kowsar89
+
+# Elementor
+/includes/elementor/                                              @kowsar89
+
+# Gutenberg
+/includes/gutenberg/                                              @obiPlabon
+
+# Appsero
+/includes/modules/appsero/                                        @obiPlabon
+
+# Others
+/includes/classes/class-shortcode.php                             @kowsar89
+/includes/classes/class-template-hooks.php                        @kowsar89
+/includes/classes/class-extension.php                             @syedgalib
+/includes/classes/class-settings-panel.php                        @syedgalib
+/includes/data-store/                                             @syedgalib
+/includes/modules/multi-directory-setup/                          @syedgalib
+/assets/src/js/admin/vue/                                         @syedgalib

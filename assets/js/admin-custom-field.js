@@ -2,27 +2,27 @@
 /*!*********************************************!*\
   !*** ./assets/src/js/admin/custom-field.js ***!
   \*********************************************/
-window.addEventListener("load", function () {
+window.addEventListener('load', function () {
   (function ($) {
-    $("table.posts #the-list, table.pages #the-list").sortable({
-      items: "tr",
-      axis: "y",
+    $('table.posts #the-list, table.pages #the-list').sortable({
+      items: 'tr',
+      axis: 'y',
       helper: fixHelper,
       update: function update() {
         $.post(ajaxurl, {
-          action: "update-menu-order",
-          order: $("#the-list").sortable("serialize")
+          action: 'update-menu-order',
+          order: $('#the-list').sortable('serialize')
         });
       }
     });
-    $("table.tags #the-list").sortable({
-      items: "tr",
-      axis: "y",
+    $('table.tags #the-list').sortable({
+      items: 'tr',
+      axis: 'y',
       helper: fixHelper,
       update: function update() {
         $.post(ajaxurl, {
-          action: "update-menu-order-tags",
-          order: $("#the-list").sortable("serialize")
+          action: 'update-menu-order-tags',
+          order: $('#the-list').sortable('serialize')
         });
       }
     });

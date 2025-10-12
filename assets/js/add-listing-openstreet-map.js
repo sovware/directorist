@@ -43,7 +43,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var $ = jQuery;
 function get_dom_data(selector, parent) {
-  selector = ".directorist-dom-data-" + selector;
+  selector = '.directorist-dom-data-' + selector;
   if (!parent) {
     parent = document;
   }
@@ -51,7 +51,7 @@ function get_dom_data(selector, parent) {
   if (!el || !el.dataset.value) {
     return {};
   }
-  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == "1";
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
   try {
     var value = atob(el.dataset.value);
     return JSON.parse(value);
@@ -66,20 +66,20 @@ function convertToSelect2(selector) {
   var $selector = $(selector);
   var args = {
     allowClear: true,
-    width: "100%",
+    width: '100%',
     templateResult: function templateResult(data) {
       if (!data.id) {
         return data.text;
       }
-      var iconURI = $(data.element).data("icon");
+      var iconURI = $(data.element).data('icon');
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
-      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== "undefined" && iconURI !== "" ? modifiedText : originalText, "</div>"));
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
+      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
       return $state;
     }
   };
-  var options = $selector.find("option");
+  var options = $selector.find('option');
   if (options.length && options[0].textContent.length) {
     args.placeholder = options[0].textContent;
   }
@@ -162,17 +162,17 @@ __webpack_require__.r(__webpack_exports__);
   // Add focus class to the parent field of .directorist-location-js
   function addFocusClass(location) {
     // Get the parent field of .directorist-location-js
-    var parentField = location.closest(".directorist-search-field");
+    var parentField = location.closest('.directorist-search-field');
 
     // Add the 'input-is-focused' class if not already present
-    if (parentField && !parentField.hasClass("input-is-focused")) {
-      parentField.addClass("input-is-focused");
+    if (parentField && !parentField.hasClass('input-is-focused')) {
+      parentField.addClass('input-is-focused');
     }
   }
 
   // Add Listing Map Initialize
   function initAddListingMap() {
-    var mapData = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_1__.get_dom_data)("map_data");
+    var mapData = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_1__.get_dom_data)('map_data');
 
     // Localized Data
     var loc_default_latitude = parseFloat(mapData.default_latitude);
@@ -185,15 +185,15 @@ __webpack_require__.r(__webpack_exports__);
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
     function mapLeaflet(lat, lon) {
       // @todo @kowsar / remove later. fix js error
-      if ($("#gmap").length == 0) {
+      if ($('#gmap').length == 0) {
         return;
       }
       var fontAwesomeIcon = L.divIcon({
         html: "<div class=\"atbd_map_shape\">".concat(loc_map_icon, "</div>"),
         iconSize: [20, 20],
-        className: "myDivIcon"
+        className: 'myDivIcon'
       });
-      var mymap = L.map("gmap").setView([lat, lon], loc_map_zoom_level);
+      var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
 
       // Create draggable marker
       var marker = L.marker([lat, lon], {
@@ -202,59 +202,59 @@ __webpack_require__.r(__webpack_exports__);
       }).addTo(mymap);
 
       // Trigger AJAX request when marker is dropped
-      marker.on("dragend", function (e) {
+      marker.on('dragend', function (e) {
         var position = marker.getLatLng();
-        $("#manual_lat").val(position.lat);
-        $("#manual_lng").val(position.lng);
+        $('#manual_lat').val(position.lat);
+        $('#manual_lng').val(position.lng);
 
         // Make AJAX request after the drag ends (marker drop)
         $.ajax({
           url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(position.lng, "&lat=").concat(position.lat),
-          type: "GET",
+          type: 'GET',
           data: {},
           success: function success(data) {
-            $(".directorist-location-js").val(data.display_name);
-            addFocusClass($(".directorist-location-js"));
+            $('.directorist-location-js').val(data.display_name);
+            addFocusClass($('.directorist-location-js'));
           },
           error: function error() {
-            $(".directorist-location-js").val("Location not found");
-            addFocusClass($(".directorist-location-js"));
+            $('.directorist-location-js').val('Location not found');
+            addFocusClass($('.directorist-location-js'));
           }
         });
       });
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(mymap);
       function toggleFullscreen() {
-        var mapContainer = document.getElementById("gmap");
-        var fullScreenEnable = document.querySelector("#gmap_full_screen_button .fullscreen-enable");
-        var fullScreenDisable = document.querySelector("#gmap_full_screen_button .fullscreen-disable");
+        var mapContainer = document.getElementById('gmap');
+        var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');
+        var fullScreenDisable = document.querySelector('#gmap_full_screen_button .fullscreen-disable');
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
           if (mapContainer.requestFullscreen) {
             mapContainer.requestFullscreen();
-            fullScreenEnable.style.display = "none";
-            fullScreenDisable.style.display = "block";
+            fullScreenEnable.style.display = 'none';
+            fullScreenDisable.style.display = 'block';
           } else if (mapContainer.webkitRequestFullscreen) {
             mapContainer.webkitRequestFullscreen();
           }
         } else {
           if (document.exitFullscreen) {
             document.exitFullscreen();
-            fullScreenDisable.style.display = "none";
-            fullScreenEnable.style.display = "block";
+            fullScreenDisable.style.display = 'none';
+            fullScreenEnable.style.display = 'block';
           } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
           }
         }
       }
-      $("body").on("click", "#gmap_full_screen_button", function (event) {
+      $('body').on('click', '#gmap_full_screen_button', function (event) {
         event.preventDefault();
         toggleFullscreen();
       });
     }
-    $(".directorist-location-js").each(function (id, elm) {
-      var result_container = $(elm).siblings(".address_result");
-      $(elm).on("keyup", (0,_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function (event) {
+    $('.directorist-location-js').each(function (id, elm) {
+      var result_container = $(elm).siblings('.address_result');
+      $(elm).on('keyup', (0,_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function (event) {
         event.preventDefault();
         var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
 
@@ -262,33 +262,33 @@ __webpack_require__.r(__webpack_exports__);
         if (blockedKeyCodes.includes(event.keyCode)) {
           return;
         }
-        var locationAddressField = $(this).parent(".directorist-form-address-field");
+        var locationAddressField = $(this).parent('.directorist-form-address-field');
         var search = $(elm).val();
         if (search.length < 3) {
           result_container.css({
-            display: "none"
+            display: 'none'
           });
         } else {
-          locationAddressField.addClass("atbdp-form-fade");
+          locationAddressField.addClass('atbdp-form-fade');
           result_container.css({
-            display: "block"
+            display: 'block'
           });
           $.ajax({
             url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
-            type: "GET",
+            type: 'GET',
             data: {},
             success: function success(data) {
-              var res = "";
+              var res = '';
               for (var i = 0; i < data.length; i++) {
                 res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].display_name, "</a></li>");
               }
-              result_container.find("ul").html(res);
+              result_container.find('ul').html(res);
               if (res.length) {
                 result_container.show();
               } else {
                 result_container.hide();
               }
-              locationAddressField.removeClass("atbdp-form-fade");
+              locationAddressField.removeClass('atbdp-form-fade');
             }
           });
         }
@@ -299,47 +299,47 @@ __webpack_require__.r(__webpack_exports__);
     mapLeaflet(lat, lon);
 
     // Add Map on Add Listing Multistep
-    $("body").on("click", ".multistep-wizard__btn", function (event) {
-      if (document.getElementById("osm")) {
-        document.getElementById("osm").innerHTML = "<div id='gmap'></div>";
+    $('body').on('click', '.multistep-wizard__btn', function (event) {
+      if (document.getElementById('osm')) {
+        document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
         mapLeaflet(lat, lon);
       }
     });
-    $("body").on("click", ".directorist-form-address-field .address_result ul li a", function (event) {
-      if (document.getElementById("osm")) {
-        document.getElementById("osm").innerHTML = "<div id='gmap'></div>";
+    $('body').on('click', '.directorist-form-address-field .address_result ul li a', function (event) {
+      if (document.getElementById('osm')) {
+        document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
       }
       event.preventDefault();
       var text = $(this).text(),
-        lat = $(this).data("lat"),
-        lon = $(this).data("lon");
-      $("#manual_lat").val(lat);
-      $("#manual_lng").val(lon);
-      $(this).closest(".address_result").siblings(".directorist-location-js").val(text);
-      $(".address_result").css({
-        display: "none"
+        lat = $(this).data('lat'),
+        lon = $(this).data('lon');
+      $('#manual_lat').val(lat);
+      $('#manual_lng').val(lon);
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
+        display: 'none'
       });
       mapLeaflet(lat, lon);
     });
-    $("body").on("click", ".location-names ul li a", function (event) {
+    $('body').on('click', '.location-names ul li a', function (event) {
       event.preventDefault();
       var text = $(this).text();
-      $(this).closest(".address_result").siblings(".directorist-location-js").val(text);
-      $(".address_result").css({
-        display: "none"
+      $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
+      $('.address_result').css({
+        display: 'none'
       });
     });
-    $("body").on("click", "#generate_admin_map", function (event) {
+    $('body').on('click', '#generate_admin_map', function (event) {
       event.preventDefault();
-      document.getElementById("osm").innerHTML = "<div id='gmap'></div>";
-      mapLeaflet($("#manual_lat").val(), $("#manual_lng").val());
+      document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+      mapLeaflet($('#manual_lat').val(), $('#manual_lng').val());
     });
 
     // Popup controller by keyboard
     var index = 0;
-    $(".directorist-location-js").on("keyup", function (event) {
+    $('.directorist-location-js').on('keyup', function (event) {
       event.preventDefault();
-      var length = $("#directorist.atbd_wrapper .address_result ul li a").length;
+      var length = $('#directorist.atbd_wrapper .address_result ul li a').length;
       if (event.keyCode === 40) {
         index++;
         if (index > length) {
@@ -351,11 +351,11 @@ __webpack_require__.r(__webpack_exports__);
           index = length;
         }
       }
-      if ($("#directorist.atbd_wrapper .address_result ul li a").length > 0) {
-        $("#directorist.atbd_wrapper .address_result ul li a").removeClass("active");
-        $($("#directorist.atbd_wrapper .address_result ul li a")[index]).addClass("active");
+      if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
+        $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active');
+        $($('#directorist.atbd_wrapper .address_result ul li a')[index]).addClass('active');
         if (event.keyCode === 13) {
-          $($("#directorist.atbd_wrapper .address_result ul li a")[index]).click();
+          $($('#directorist.atbd_wrapper .address_result ul li a')[index]).click();
           event.preventDefault();
           index = 0;
           return false;
@@ -368,15 +368,15 @@ __webpack_require__.r(__webpack_exports__);
   });
 
   // Add Listing Map on Elementor EditMode
-  $(window).on("elementor/frontend/init", function () {
+  $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
-      if ($("body").hasClass("elementor-editor-active")) {
+      if ($('body').hasClass('elementor-editor-active')) {
         initAddListingMap();
       }
     }, 3000);
   });
-  $("body").on("click", function (e) {
-    if ($("body").hasClass("elementor-editor-active") && e.target.nodeName !== "A" && e.target.nodeName !== "BUTTON") {
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initAddListingMap();
     }
   });

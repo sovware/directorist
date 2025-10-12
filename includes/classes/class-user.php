@@ -554,39 +554,13 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             $signin_page_id = (int) get_directorist_option( 'signin_signup_page' );
 
             if ( $dashbord_page_id && ! is_user_logged_in() && is_page( $dashbord_page_id ) ) {
-
-                /**
-                 * Filter to prevent forced redirect on dashboard page when user is logged out.
-                 *
-                 * @since 8.4.8
-                 *
-                 * @param bool $prevent_redirect Whether to prevent the redirect. Default false.
-                 * @param int  $dashboard_page_id The dashboard page ID.
-                 */
-                $prevent_redirect = apply_filters( 'directorist_allow_guest_access_to_dashboard', false, $dashbord_page_id );
-
-                if ( ! $prevent_redirect ) {
-                    wp_safe_redirect( ATBDP_Permalink::get_signin_signup_page_link() );
-                    exit;
-                }
+                wp_safe_redirect( ATBDP_Permalink::get_signin_signup_page_link() );
+                exit;
             }
 
             if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) && empty( $_GET ) ) {
-
-                /**
-                 * Filter to prevent forced redirect from login/registration page when user is logged in.
-                 *
-                 * @since 8.4.8
-                 *
-                 * @param bool $prevent_redirect Whether to prevent the redirect. Default false.
-                 * @param int  $signin_page_id The signin/signup page ID.
-                 */
-                $prevent_redirect = apply_filters( 'directorist_allow_logged_in_user_access_to_login_page', false, $signin_page_id );
-
-                if ( ! $prevent_redirect ) {
-                    wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
-                    exit;
-                }
+                wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
+                exit;
             }
 
             $registration_page = get_directorist_option( 'custom_registration' );

@@ -164,32 +164,32 @@ __webpack_require__.r(__webpack_exports__);
 
 jQuery(document).ready(function ($) {
   var query_string = function (a) {
-    if (a == "") return {};
+    if (a == '') return {};
     var b = {};
     for (var i = 0; i < a.length; ++i) {
-      var p = a[i].split("=", 2);
-      if (p.length == 1) b[p[0]] = "";else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+      var p = a[i].split('=', 2);
+      if (p.length == 1) b[p[0]] = '';else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, ' '));
     }
     return b;
-  }(window.location.search.substr(1).split("&"));
-  $("body").on("change", ".directorist_directory_type_in_import", function () {
+  }(window.location.search.substr(1).split('&'));
+  $('body').on('change', '.directorist_directory_type_in_import', function () {
     admin_listing_form($(this).val());
   });
   function admin_listing_form(directory_type) {
     var file_id = query_string.file_id;
     var delimiter = query_string.delimiter;
     $.ajax({
-      type: "post",
+      type: 'post',
       url: directorist_admin.ajaxurl,
       data: {
-        action: "directorist_update_csv_columns_to_listing_fields_table",
+        action: 'directorist_update_csv_columns_to_listing_fields_table',
         directory_type: directory_type,
         delimiter: delimiter,
         directorist_nonce: directorist_admin.directorist_nonce,
         file_id: file_id
       },
       beforeSend: function beforeSend() {
-        $("#directorist-type-preloader").show();
+        $('#directorist-type-preloader').show();
       },
       success: function success(response) {
         if (response.error) {
@@ -198,74 +198,74 @@ jQuery(document).ready(function ($) {
           });
           return;
         }
-        $(".atbdp-importer-mapping-table").remove();
-        $(".directory_type_wrapper").after(response);
+        $('.atbdp-importer-mapping-table').remove();
+        $('.directory_type_wrapper').after(response);
       },
       complete: function complete() {
-        $("#directorist-type-preloader").hide();
+        $('#directorist-type-preloader').hide();
       }
     });
   }
-  $("#atbdp_csv_step_two").on("submit", function (e) {
+  $('#atbdp_csv_step_two').on('submit', function (e) {
     e.preventDefault();
-    $(".atbdp-importer-mapping-table-wrapper").fadeOut(300);
-    $(".directorist-importer__importing").fadeIn(300);
-    $(this).parent(".csv-fields").fadeOut(300);
-    $(".atbdp-mapping-step").removeClass("active").addClass("done");
-    $(".atbdp-progress-step").addClass("active");
-    $(".importer-details").html("1/".concat($(this).data("total")));
-    $(".directorist-importer-length").css("width", "10%");
-    $(".directorist-importer-progress").val(10);
-    var configFields = $(".directorist-listings-importer-config-field");
+    $('.atbdp-importer-mapping-table-wrapper').fadeOut(300);
+    $('.directorist-importer__importing').fadeIn(300);
+    $(this).parent('.csv-fields').fadeOut(300);
+    $('.atbdp-mapping-step').removeClass('active').addClass('done');
+    $('.atbdp-progress-step').addClass('active');
+    $('.importer-details').html("1/".concat($(this).data('total')));
+    $('.directorist-importer-length').css('width', '10%');
+    $('.directorist-importer-progress').val(10);
+    var configFields = $('.directorist-listings-importer-config-field');
     var _runImporter = function runImporter() {
       var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var form_data = new FormData();
-      form_data.set("action", "directorist_import_listings");
-      form_data.set("_position", position);
-      form_data.set("_offset", offset);
-      form_data.set("directorist_nonce", directorist_admin.directorist_nonce);
+      form_data.set('action', 'directorist_import_listings');
+      form_data.set('_position', position);
+      form_data.set('_offset', offset);
+      form_data.set('directorist_nonce', directorist_admin.directorist_nonce);
 
       // Get Config Fields Value
       if (configFields.length) {
         configFields.each(function (index, item) {
-          var key = $(item).attr("name");
+          var key = $(item).attr('name');
           var value = $(item).val();
           form_data.append(key, value);
         });
       }
       var map_elm = null;
-      if ($("select.atbdp_map_to").length) {
-        map_elm = $("select.atbdp_map_to");
+      if ($('select.atbdp_map_to').length) {
+        map_elm = $('select.atbdp_map_to');
       }
-      if ($("input.atbdp_map_to").length) {
-        map_elm = $("input.atbdp_map_to");
+      if ($('input.atbdp_map_to').length) {
+        map_elm = $('input.atbdp_map_to');
       }
-      var directory_type = $("#directory_type").val();
+      var directory_type = $('#directory_type').val();
       if (directory_type) {
-        form_data.append("directory_type", directory_type);
+        form_data.append('directory_type', directory_type);
       }
       if (map_elm) {
         var log = [];
         map_elm.each(function () {
-          var name = $(this).attr("name");
+          var name = $(this).attr('name');
           var value = $(this).val();
-          var postFields = ["listing_status", "listing_title", "listing_content", "listing_img", "directory_type"];
-          var taxonomyFields = ["category", "location", "tag"];
+          var postFields = ['listing_status', 'listing_title', 'listing_content', 'listing_img', 'directory_type'];
+          var taxonomyFields = ['category', 'location', 'tag'];
           if (postFields.includes(value)) {
             form_data.append(value, name);
             log.push((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, value, name));
           } else if (taxonomyFields.includes(value)) {
             form_data.append("tax_input[".concat(value, "]"), name);
             log.push((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, "tax_input[".concat(value, "]"), name));
-          } else if (value != "") {
+          } else if (value != '') {
             form_data.append("meta[".concat(value, "]"), name);
             log.push((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, "meta[".concat(value, "]"), name));
           }
         });
       }
       $.ajax({
-        method: "POST",
+        method: 'POST',
         processData: false,
         contentType: false,
         // async: false,
@@ -279,10 +279,10 @@ jQuery(document).ready(function ($) {
             return;
           }
           var percentage = response.position / response.total * 100;
-          $(".importer-details").html("".concat(Math.min(response.position, response.total), "/").concat(response.total));
-          $(".directorist-importer-length").css("width", percentage + "%");
-          $(".directorist-importer-progress").val(percentage);
-          console.log(response.logs.join("\n"));
+          $('.importer-details').html("".concat(Math.min(response.position, response.total), "/").concat(response.total));
+          $('.directorist-importer-length').css('width', percentage + '%');
+          $('.directorist-importer-progress').val(percentage);
+          console.log(response.logs.join('\n'));
           if (!response.done) {
             _runImporter(response.position, response.offset);
           } else {
@@ -298,9 +298,9 @@ jQuery(document).ready(function ($) {
   });
 
   /* csv upload */
-  $("#upload").change(function (e) {
+  $('#upload').change(function (e) {
     var filename = e.target.files[0].name;
-    $(".csv-upload .file-name").html(filename);
+    $('.csv-upload .file-name').html(filename);
   });
 });
 }();

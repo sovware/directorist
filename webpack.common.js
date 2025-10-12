@@ -3,33 +3,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { commonEntries } = require('./webpack-entry-list.js');
 
-// Plugin to suppress specific warnings
-class SuppressWarningsPlugin {
-	constructor(warningsToSuppress) {
-		this.warningsToSuppress = warningsToSuppress;
-	}
-
-	apply(compiler) {
-		compiler.hooks.afterCompile.tap(
-			'SuppressWarningsPlugin',
-			(compilation) => {
-				compilation.warnings = compilation.warnings.filter(
-					(warning) => {
-						return !this.warningsToSuppress.some(
-							(suppressPattern) => {
-								return (
-									warning.message &&
-									warning.message.includes(suppressPattern)
-								);
-							}
-						);
-					}
-				);
-			}
-		);
-	}
-}
-
 const commonConfig = {
 	resolve: {
 		extensions: ['.js', '.vue'],
@@ -37,10 +10,7 @@ const commonConfig = {
 			vue$: 'vue/dist/vue.esm.js',
 		},
 	},
-	plugins: [
-		new VueLoaderPlugin(),
-		new SuppressWarningsPlugin(['mixed-decls deprecation is obsolete']),
-	],
+	plugins: [new VueLoaderPlugin()],
 	module: {
 		rules: [
 			// Loading Images
@@ -119,7 +89,6 @@ const commonConfig = {
 									'global-builtin',
 									'legacy-js-api',
 								],
-								quietDeps: true,
 							},
 						},
 					},

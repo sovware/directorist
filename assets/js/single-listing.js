@@ -12,32 +12,32 @@ $(document).ready(function () {
   modalToggle();
 });
 function modalToggle() {
-  $(".atbdp_recovery_pass").on("click", function (e) {
+  $('.atbdp_recovery_pass').on('click', function (e) {
     e.preventDefault();
-    $("#recover-pass-modal").slideToggle().show();
+    $('#recover-pass-modal').slideToggle().show();
   });
 
   // Contact form [on modal closed]
-  $("#atbdp-contact-modal").on("hidden.bs.modal", function (e) {
-    $("#atbdp-contact-message").val("");
-    $("#atbdp-contact-message-display").html("");
+  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-contact-message').val('');
+    $('#atbdp-contact-message-display').html('');
   });
 
   // Template Restructured
   // Modal
-  var directoristModal = document.querySelector(".directorist-modal-js");
-  $("body").on("click", ".directorist-btn-modal-js", function (e) {
+  var directoristModal = document.querySelector('.directorist-modal-js');
+  $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
-    var data_target = $(this).attr("data-directorist_target");
-    document.querySelector(".".concat(data_target)).classList.add("directorist-show");
+    var data_target = $(this).attr('data-directorist_target');
+    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
   });
-  $("body").on("click", ".directorist-modal-close-js", function (e) {
+  $('body').on('click', '.directorist-modal-close-js', function (e) {
     e.preventDefault();
-    $(this).closest(".directorist-modal-js").removeClass("directorist-show");
+    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
   });
-  $(document).bind("click", function (e) {
+  $(document).bind('click', function (e) {
     if (e.target == directoristModal) {
-      directoristModal.classList.remove("directorist-show");
+      directoristModal.classList.remove('directorist-show');
     }
   });
 }
@@ -52,21 +52,21 @@ function modalToggle() {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_alert_executed === "undefined") {
+  if (typeof window.directorist_alert_executed === 'undefined') {
     window.directorist_alert_executed = true;
   } else {
     return;
   }
-  window.addEventListener("load", function () {
+  window.addEventListener('load', function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
-    var newUrl = getUrl.replace("notice=1", "");
-    if ($(".directorist-alert__close") !== null) {
-      $(".directorist-alert__close").each(function (i, e) {
-        $(e).on("click", function (e) {
+    var newUrl = getUrl.replace('notice=1', '');
+    if ($('.directorist-alert__close') !== null) {
+      $('.directorist-alert__close').each(function (i, e) {
+        $(e).on('click', function (e) {
           e.preventDefault();
           history.pushState({}, null, newUrl);
-          $(this).closest(".directorist-alert").remove();
+          $(this).closest('.directorist-alert').remove();
         });
       });
     }
@@ -83,30 +83,30 @@ function modalToggle() {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_dropdown_executed === "undefined") {
+  if (typeof window.directorist_dropdown_executed === 'undefined') {
     window.directorist_dropdown_executed = true;
   } else {
     return;
   }
-  window.addEventListener("load", function () {
+  window.addEventListener('load', function () {
     /* custom dropdown */
-    var atbdDropdown = document.querySelectorAll(".directorist-dropdown-select");
+    var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
 
     // toggle dropdown
     var clickCount = 0;
     if (atbdDropdown !== null) {
       atbdDropdown.forEach(function (el) {
-        el.querySelector(".directorist-dropdown-select-toggle").addEventListener("click", function (e) {
+        el.querySelector('.directorist-dropdown-select-toggle').addEventListener('click', function (e) {
           e.preventDefault();
           clickCount++;
           if (clickCount % 2 === 1) {
-            document.querySelectorAll(".directorist-dropdown-select-items").forEach(function (elem) {
-              elem.classList.remove("directorist-dropdown-select-show");
+            document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elem) {
+              elem.classList.remove('directorist-dropdown-select-show');
             });
-            el.querySelector(".directorist-dropdown-select-items").classList.add("directorist-dropdown-select-show");
+            el.querySelector('.directorist-dropdown-select-items').classList.add('directorist-dropdown-select-show');
           } else {
-            document.querySelectorAll(".directorist-dropdown-select-items").forEach(function (elem) {
-              elem.classList.remove("directorist-dropdown-select-show");
+            document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elem) {
+              elem.classList.remove('directorist-dropdown-select-show');
             });
           }
         });
@@ -114,82 +114,82 @@ function modalToggle() {
     }
 
     // remvoe toggle when click outside
-    document.body.addEventListener("click", function (e) {
-      if (e.target.getAttribute("data-drop-toggle") !== "directorist-dropdown-select-toggle") {
+    document.body.addEventListener('click', function (e) {
+      if (e.target.getAttribute('data-drop-toggle') !== 'directorist-dropdown-select-toggle') {
         clickCount = 0;
-        document.querySelectorAll(".directorist-dropdown-select-items").forEach(function (el) {
-          el.classList.remove("directorist-dropdown-select-show");
+        document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (el) {
+          el.classList.remove('directorist-dropdown-select-show');
         });
       }
     });
 
     //custom select
-    var atbdSelect = document.querySelectorAll(".atbd-drop-select");
+    var atbdSelect = document.querySelectorAll('.atbd-drop-select');
     if (atbdSelect !== null) {
       atbdSelect.forEach(function (el) {
-        el.querySelectorAll(".directorist-dropdown-select-items").forEach(function (item) {
-          item.addEventListener("click", function (e) {
+        el.querySelectorAll('.directorist-dropdown-select-items').forEach(function (item) {
+          item.addEventListener('click', function (e) {
             e.preventDefault();
-            el.querySelector(".directorist-dropdown-select-toggle").textContent = e.target.textContent;
-            el.querySelectorAll(".directorist-dropdown-select-items").forEach(function (elm) {
-              elm.classList.remove("atbd-active");
+            el.querySelector('.directorist-dropdown-select-toggle').textContent = e.target.textContent;
+            el.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elm) {
+              elm.classList.remove('atbd-active');
             });
-            item.classList.add("atbd-active");
+            item.classList.add('atbd-active');
           });
         });
       });
     }
 
     // Dropdown
-    $("body").on("click", ".directorist-dropdown .directorist-dropdown-toggle", function (e) {
+    $('body').on('click', '.directorist-dropdown .directorist-dropdown-toggle', function (e) {
       e.preventDefault();
-      $(this).siblings(".directorist-dropdown-option").toggle();
+      $(this).siblings('.directorist-dropdown-option').toggle();
     });
 
     // Select Option after click
-    $("body").on("click", ".directorist-dropdown .directorist-dropdown-option ul li a", function (e) {
+    $('body').on('click', '.directorist-dropdown .directorist-dropdown-option ul li a', function (e) {
       e.preventDefault();
       var optionText = $(this).html();
-      $(this).children(".directorist-dropdown-toggle__text").html(optionText);
-      $(this).closest(".directorist-dropdown-option").siblings(".directorist-dropdown-toggle").children(".directorist-dropdown-toggle__text").html(optionText);
-      $(".directorist-dropdown-option").hide();
+      $(this).children('.directorist-dropdown-toggle__text').html(optionText);
+      $(this).closest('.directorist-dropdown-option').siblings('.directorist-dropdown-toggle').children('.directorist-dropdown-toggle__text').html(optionText);
+      $('.directorist-dropdown-option').hide();
     });
 
     // Hide Clicked Anywhere
-    $(document).bind("click", function (e) {
+    $(document).bind('click', function (e) {
       var clickedDOM = $(e.target);
-      if (!clickedDOM.parents().hasClass("directorist-dropdown")) $(".directorist-dropdown-option").hide();
+      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
     });
 
     //atbd_dropdown
-    $(document).on("click", ".atbd_dropdown", function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
-    $("body").on("click", ".atbd_dropdown-toggle", function (e) {
+    $('body').on('click', '.atbd_dropdown-toggle', function (e) {
       e.preventDefault();
     });
 
     // Directorist Dropdown
-    $("body").on("click", ".directorist-dropdown-js .directorist-dropdown__toggle-js", function (e) {
+    $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
       e.preventDefault();
-      if (!$(this).siblings(".directorist-dropdown__links-js").is(":visible")) {
-        $(".directorist-dropdown__links").hide();
+      if (!$(this).siblings('.directorist-dropdown__links-js').is(':visible')) {
+        $('.directorist-dropdown__links').hide();
       }
-      $(this).siblings(".directorist-dropdown__links-js").toggle();
+      $(this).siblings('.directorist-dropdown__links-js').toggle();
     });
-    $("body").on("click", function (e) {
-      if (!e.target.closest(".directorist-dropdown-js")) {
-        $(".directorist-dropdown__links-js").hide();
+    $('body').on('click', function (e) {
+      if (!e.target.closest('.directorist-dropdown-js')) {
+        $('.directorist-dropdown__links-js').hide();
       }
     });
   });
@@ -205,74 +205,74 @@ function modalToggle() {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_favorite_executed === "undefined") {
+  if (typeof window.directorist_favorite_executed === 'undefined') {
     window.directorist_favorite_executed = true;
   } else {
     return;
   }
-  window.addEventListener("load", function () {
+  window.addEventListener('load', function () {
     // Add or Remove from favourites
-    $(".directorist-action-bookmark").on("click", function (e) {
+    $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
-        action: "atbdp_public_add_remove_favorites",
+        action: 'atbdp_public_add_remove_favorites',
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data("listing_id")
+        post_id: $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
-          $(".directorist-action-bookmark").html(response);
+          $('.directorist-action-bookmark').html(response);
         }
       });
     });
-    $(".directorist-favourite-remove-btn").each(function () {
-      $(this).on("click", function (event) {
+    $('.directorist-favourite-remove-btn').each(function () {
+      $(this).on('click', function (event) {
         event.preventDefault();
         var data = {
-          action: "atbdp-favourites-all-listing",
+          action: 'atbdp-favourites-all-listing',
           directorist_nonce: directorist.directorist_nonce,
-          post_id: $(this).data("listing_id")
+          post_id: $(this).data('listing_id')
         };
-        $(".directorist-favorite-tooltip").hide();
+        $('.directorist-favorite-tooltip').hide();
         $.post(directorist.ajaxurl, data, function (response) {
-          var post_id = data["post_id"].toString();
-          var staElement = $(".directorist_favourite_" + post_id);
-          if ("false" === response) {
+          var post_id = data['post_id'].toString();
+          var staElement = $('.directorist_favourite_' + post_id);
+          if ('false' === response) {
             staElement.remove();
           }
         });
       });
     });
-    $("body").on("click", ".directorist-mark-as-favorite__btn", function (event) {
+    $('body').on('click', '.directorist-mark-as-favorite__btn', function (event) {
       event.preventDefault();
       var data = {
-        action: "atbdp-favourites-all-listing",
+        action: 'atbdp-favourites-all-listing',
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data("listing_id")
+        post_id: $(this).data('listing_id')
       };
-      var fav_tooltip_success = "<span>" + directorist.i18n_text.added_favourite + "</span>";
-      var fav_tooltip_warning = "<span>" + directorist.i18n_text.please_login + "</span>";
-      $(".directorist-favorite-tooltip").hide();
+      var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
+      var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
+      $('.directorist-favorite-tooltip').hide();
       $.post(directorist.ajax_url, data, function (response) {
-        var post_id = data["post_id"].toString();
-        var staElement = $(".directorist-fav_" + post_id);
-        var data_id = staElement.attr("data-listing_id");
-        if (response === "login_required") {
-          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-          staElement.children(".directorist-favorite-tooltip").fadeIn();
+        var post_id = data['post_id'].toString();
+        var staElement = $('.directorist-fav_' + post_id);
+        var data_id = staElement.attr('data-listing_id');
+        if (response === 'login_required') {
+          staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_warning);
+          staElement.children('.directorist-favorite-tooltip').fadeIn();
           setTimeout(function () {
-            staElement.children(".directorist-favorite-tooltip").children("span").remove();
+            staElement.children('.directorist-favorite-tooltip').children('span').remove();
           }, 3000);
-        } else if ("false" === response) {
-          staElement.removeClass("directorist-added-to-favorite");
-          $(".directorist-favorite-tooltip span").remove();
+        } else if ('false' === response) {
+          staElement.removeClass('directorist-added-to-favorite');
+          $('.directorist-favorite-tooltip span').remove();
         } else {
           if (data_id === post_id) {
-            staElement.addClass("directorist-added-to-favorite");
-            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-            staElement.children(".directorist-favorite-tooltip").fadeIn();
+            staElement.addClass('directorist-added-to-favorite');
+            staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_success);
+            staElement.children('.directorist-favorite-tooltip').fadeIn();
             setTimeout(function () {
-              staElement.children(".directorist-favorite-tooltip").children("span").remove();
+              staElement.children('.directorist-favorite-tooltip').children('span').remove();
             }, 3000);
           }
         }
@@ -289,38 +289,38 @@ function modalToggle() {
   \**************************************************************/
 /***/ (function() {
 
-window.addEventListener("load", function () {
+window.addEventListener('load', function () {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_select_executed === "undefined") {
+  if (typeof window.directorist_select_executed === 'undefined') {
     window.directorist_select_executed = true;
   } else {
     return;
   }
   //custom select
-  var atbdSelect = document.querySelectorAll(".atbd-drop-select");
+  var atbdSelect = document.querySelectorAll('.atbd-drop-select');
   if (atbdSelect !== null) {
     atbdSelect.forEach(function (el) {
-      el.querySelectorAll(".atbd-dropdown-item").forEach(function (item) {
-        item.addEventListener("click", function (e) {
+      el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
           e.preventDefault();
-          el.querySelector(".atbd-dropdown-toggle").textContent = item.textContent;
-          el.querySelectorAll(".atbd-dropdown-item").forEach(function (elm) {
-            elm.classList.remove("atbd-active");
+          el.querySelector('.atbd-dropdown-toggle').textContent = item.textContent;
+          el.querySelectorAll('.atbd-dropdown-item').forEach(function (elm) {
+            elm.classList.remove('atbd-active');
           });
-          item.classList.add("atbd-active");
+          item.classList.add('atbd-active');
         });
       });
     });
   }
 
   // select data-status
-  var atbdSelectData = document.querySelectorAll(".atbd-drop-select.with-sort");
+  var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
   atbdSelectData.forEach(function (el) {
-    el.querySelectorAll(".atbd-dropdown-item").forEach(function (item) {
-      var atbd_dropdown = el.querySelector(".atbd-dropdown-toggle");
-      var dropdown_item = item.getAttribute("data-status");
-      item.addEventListener("click", function (e) {
-        atbd_dropdown.setAttribute("data-status", "".concat(dropdown_item));
+    el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
+      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
+      var dropdown_item = item.getAttribute('data-status');
+      item.addEventListener('click', function (e) {
+        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
       });
     });
   });
@@ -335,47 +335,47 @@ window.addEventListener("load", function () {
 /***/ (function() {
 
 (function ($) {
-  window.addEventListener("load", function () {
-    $("#directorist-report-abuse-form").on("submit", function (e) {
-      $(".directorist-report-abuse-modal button[type=submit]").addClass("directorist-btn-loading");
+  window.addEventListener('load', function () {
+    $('#directorist-report-abuse-form').on('submit', function (e) {
+      $('.directorist-report-abuse-modal button[type=submit]').addClass('directorist-btn-loading');
       // Check for errors
       if (!e.isDefaultPrevented()) {
         e.preventDefault();
         // Post via AJAX
         var data = {
-          action: "atbdp_public_report_abuse",
+          action: 'atbdp_public_report_abuse',
           directorist_nonce: directorist.directorist_nonce,
-          post_id: $("#atbdp-post-id").val(),
-          message: $("#directorist-report-message").val()
+          post_id: $('#atbdp-post-id').val(),
+          message: $('#directorist-report-message').val()
         };
         $.post(directorist.ajaxurl, data, function (response) {
           if (1 == response.error) {
-            $("#directorist-report-abuse-message-display").addClass("text-danger").html(response.message);
+            $('#directorist-report-abuse-message-display').addClass('text-danger').html(response.message);
           } else {
-            $("#directorist-report-message").val("");
-            $("#directorist-report-abuse-message-display").addClass("text-success").html(response.message);
+            $('#directorist-report-message').val('');
+            $('#directorist-report-abuse-message-display').addClass('text-success').html(response.message);
           }
-          $(".directorist-report-abuse-modal button[type=submit]").removeClass("directorist-btn-loading");
-        }, "json");
+          $('.directorist-report-abuse-modal button[type=submit]').removeClass('directorist-btn-loading');
+        }, 'json');
       }
     });
-    $("#atbdp-report-abuse-form").removeAttr("novalidate");
+    $('#atbdp-report-abuse-form').removeAttr('novalidate');
 
     // Validate contact form
-    $(".directorist-contact-owner-form").on("submit", function (e) {
+    $('.directorist-contact-owner-form').on('submit', function (e) {
       e.preventDefault();
-      var $form = $(this);
+      var form = $(this);
       var submit_button = $(this).find('button[type="submit"]');
-      var status_area = $(this).find(".directorist-contact-message-display");
+      var status_area = $(this).find('.directorist-contact-message-display');
 
       // Show loading message
-      var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + directorist.waiting_msg + " </div>";
+      var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + directorist.waiting_msg + ' </div>';
       status_area.html(msg);
 
       // Serialize form data
-      var form_data = $form.serializeArray();
+      var form_data = form.serializeArray();
       var data = {
-        action: "atbdp_public_send_contact_email",
+        action: 'atbdp_public_send_contact_email',
         directorist_nonce: directorist.directorist_nonce
       };
 
@@ -383,29 +383,30 @@ window.addEventListener("load", function () {
       $.each(form_data, function (index, elem) {
         data[elem.name] = elem.value;
       });
+      submit_button.prop('disabled', true);
       $.post(directorist.ajaxurl, data, function (response) {
-        submit_button.prop("disabled", false);
+        submit_button.prop('disabled', false);
         if (1 == response.error) {
           atbdp_contact_submitted = false;
 
           // Show error message
-          var msg = '<div class="directorist-alert directorist-alert-danger"><i class="fas fa-exclamation-triangle"></i> ' + response.message + "</div>";
+          var msg = '<div class="atbdp-alert alert-danger-light"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         } else {
-          $form.trigger("reset");
+          name.val('');
+          message.val('');
+          contact_email.val('');
 
           // Show success message
-          var msg = '<div class="directorist-alert directorist-alert-success"><i class="fas fa-check-circle"></i> ' + response.message + "</div>";
+          var msg = '<div class="atbdp-alert alert-success-light"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         }
         setTimeout(function () {
-          status_area.html("");
+          status_area.html('');
         }, 5000);
-      }, "json").always(function () {
-        submit_button.prop("disabled", false);
-      });
+      }, 'json');
     });
-    $("#atbdp-contact-form,#directorist-contact-owner-form").removeAttr("novalidate");
+    $('#atbdp-contact-form,#directorist-contact-owner-form').removeAttr('novalidate');
   });
 })(jQuery);
 
@@ -419,21 +420,21 @@ window.addEventListener("load", function () {
 
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
-  window.addEventListener("load", function () {
-    if ($(".directorist-listing-no-thumb").innerWidth() <= 220) {
-      $(".directorist-listing-no-thumb").addClass("directorist-listing-no-thumb--fix");
+  window.addEventListener('load', function () {
+    if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
+      $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
     }
     // Auhtor Profile Listing responsive fix
-    if ($(".directorist-author-listing-content").innerWidth() <= 750) {
-      $(".directorist-author-listing-content").addClass("directorist-author-listing-grid--fix");
+    if ($('.directorist-author-listing-content').innerWidth() <= 750) {
+      $('.directorist-author-listing-content').addClass('directorist-author-listing-grid--fix');
     }
     // Directorist Archive responsive fix
-    if ($(".directorist-archive-grid-view").innerWidth() <= 500) {
-      $(".directorist-archive-grid-view").addClass("directorist-archive-grid--fix");
+    if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
+      $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
     }
 
     // Back Button to go back to the previous page
-    $("body").on("click", ".directorist-btn__back", function (e) {
+    $('body').on('click', '.directorist-btn__back', function (e) {
       window.history.back();
     });
   });
@@ -448,20 +449,20 @@ window.addEventListener("load", function () {
 /***/ (function() {
 
 (function ($) {
-  window.addEventListener("load", function () {
-    if ($(".directorist-single-contents-area").length > 0) {
+  window.addEventListener('load', function () {
+    if ($('.directorist-single-contents-area').length > 0) {
       var listing_id = directorist.current_page_id; // listing id
-      var storage_key = "directorist_listing_views"; // Key for session storage
+      var storage_key = 'directorist_listing_views'; // Key for session storage
 
       // Check if the user has already viewed this listing during the session.
       var viewed_listings = JSON.parse(sessionStorage.getItem(storage_key)) || {};
       if (!viewed_listings[listing_id]) {
         // Send an AJAX request to track the view for this specific listing.
         $.ajax({
-          type: "POST",
+          type: 'POST',
           url: directorist.ajaxurl,
           data: {
-            action: "directorist_track_listing_views",
+            action: 'directorist_track_listing_views',
             listing_id: listing_id,
             directorist_nonce: directorist.directorist_nonce
           },
@@ -489,25 +490,25 @@ window.addEventListener("load", function () {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_loginjs_executed === "undefined") {
+  if (typeof window.directorist_loginjs_executed === 'undefined') {
     window.directorist_loginjs_executed = true;
   } else {
     return;
   }
   function initPasswordToggle() {
-    var passwordGroups = document.querySelectorAll(".directorist-password-group");
+    var passwordGroups = document.querySelectorAll('.directorist-password-group');
     passwordGroups.forEach(function (group) {
-      var passwordInput = group.querySelector(".directorist-password-group-input");
-      var togglePassword = group.querySelector(".directorist-password-group-toggle");
-      var eyeIcon = group.querySelector(".directorist-password-group-eyeIcon");
+      var passwordInput = group.querySelector('.directorist-password-group-input');
+      var togglePassword = group.querySelector('.directorist-password-group-toggle');
+      var eyeIcon = group.querySelector('.directorist-password-group-eyeIcon');
       if (passwordInput && togglePassword) {
-        togglePassword.addEventListener("click", function () {
-          var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-          passwordInput.setAttribute("type", type);
+        togglePassword.addEventListener('click', function () {
+          var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
 
           // Toggle eye icon (simple swap for open/closed)
           if (eyeIcon) {
-            if (type === "text") {
+            if (type === 'text') {
               eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t\t<line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
             } else {
               eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
@@ -519,78 +520,78 @@ window.addEventListener("load", function () {
   }
 
   // Call the function after DOM is ready
-  document.addEventListener("DOMContentLoaded", initPasswordToggle);
+  document.addEventListener('DOMContentLoaded', initPasswordToggle);
 
   // Trigger reset on form change
-  $(".directorist-authentication__btn").on("click", function () {
+  $('.directorist-authentication__btn').on('click', function () {
     // Reset all forms with the specified class
-    $(".directorist__authentication__signin").each(function () {
+    $('.directorist__authentication__signin').each(function () {
       this.reset(); // Reset the individual form
     });
 
     // Reset error and warning messages
-    $("#directorist__authentication__login p.status").hide().empty();
+    $('#directorist__authentication__login p.status').hide().empty();
   });
-  window.addEventListener("load", function () {
+  window.addEventListener('load', function () {
     // Perform AJAX login on form submit
-    $("form#directorist__authentication__login").on("submit", function (e) {
+    $('form#directorist__authentication__login').on('submit', function (e) {
       e.preventDefault();
       var $this = $(this);
-      var $button = $(this).find(".directorist-authentication__form__btn");
-      $button.addClass("directorist-btn-loading"); // Added loading class
+      var $button = $(this).find('.directorist-authentication__form__btn');
+      $button.addClass('directorist-btn-loading'); // Added loading class
 
-      $("#directorist__authentication__login p.status").show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + "</span></div>");
+      $('#directorist__authentication__login p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
       var form_data = {
-        action: "ajaxlogin",
-        username: $this.find("#username").val(),
-        password: $this.find("#password").val(),
-        rememberme: $this.find("#keep_signed_in").is(":checked") ? 1 : 0,
-        security: $this.find("#security").val()
+        action: 'ajaxlogin',
+        username: $this.find('#username').val(),
+        password: $this.find('#password').val(),
+        rememberme: $this.find('#keep_signed_in').is(':checked') ? 1 : 0,
+        security: $this.find('#security').val()
       };
       $.ajax({
-        type: "POST",
-        dataType: "json",
+        type: 'POST',
+        dataType: 'json',
         url: directorist.ajax_url,
         data: form_data,
         success: function success(data) {
           // Removed loading class
           setTimeout(function () {
-            return $button.removeClass("directorist-btn-loading");
+            return $button.removeClass('directorist-btn-loading');
           }, 1000);
-          if ("nonce_faild" in data && data.nonce_faild) {
-            $("p.status").html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + "</span></div>");
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
           if (data.loggedin == true) {
-            $("p.status").html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + "</span></div>");
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
             document.location.href = directorist.redirect_url;
           } else {
-            $("p.status").html('<div class="directorist-alert directorist-alert-danger"><span>' + data.message + "</span></div>");
+            $('p.status').html('<div class="directorist-alert directorist-alert-danger"><span>' + data.message + '</span></div>');
           }
         },
         error: function error(data) {
-          if ("nonce_faild" in data && data.nonce_faild) {
-            $("p.status").html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + "</span></div>");
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }
-          $("p.status").show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + "</span></div>");
+          $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
         }
       });
       e.preventDefault();
     });
-    $("form#directorist__authentication__login .status").on("click", "a", function (e) {
+    $('form#directorist__authentication__login .status').on('click', 'a', function (e) {
       e.preventDefault();
-      if ($(this).attr("href") === "#atbdp_recovery_pass") {
-        $("#recover-pass-modal").slideDown().show();
+      if ($(this).attr('href') === '#atbdp_recovery_pass') {
+        $('#recover-pass-modal').slideDown().show();
         window.scrollTo({
-          top: $("#recover-pass-modal").offset().top - 100,
-          behavior: "smooth"
+          top: $('#recover-pass-modal').offset().top - 100,
+          behavior: 'smooth'
         });
       } else {
-        location.href = $(this).attr("href");
+        location.href = $(this).attr('href');
       }
     });
 
     // Alert users to login (only if applicable)
-    $(".atbdp-require-login, .directorist-action-report-not-loggedin").on("click", function (e) {
+    $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
       e.preventDefault();
       alert(directorist.login_alert_message);
       return false;
@@ -599,21 +600,21 @@ window.addEventListener("load", function () {
     // Remove URL params to avoid show message again and again
     var current_url = location.href;
     var url = new URL(current_url);
-    url.searchParams.delete("registration_status");
-    url.searchParams.delete("errors");
+    url.searchParams.delete('registration_status');
+    url.searchParams.delete('errors');
     // url.searchParams.delete('key');
-    url.searchParams.delete("password_reset");
-    url.searchParams.delete("confirm_mail");
+    url.searchParams.delete('password_reset');
+    url.searchParams.delete('confirm_mail');
     // url.searchParams.delete('user');
-    url.searchParams.delete("verification");
-    url.searchParams.delete("send_verification_email");
+    url.searchParams.delete('verification');
+    url.searchParams.delete('send_verification_email');
     window.history.pushState(null, null, url.toString());
 
     // Authentication Form Toggle
-    $("body").on("click", ".directorist-authentication__btn, .directorist-authentication__toggle", function (e) {
+    $('body').on('click', '.directorist-authentication__btn, .directorist-authentication__toggle', function (e) {
       e.preventDefault();
-      $(".directorist-login-wrapper").toggleClass("active");
-      $(".directorist-registration-wrapper").toggleClass("active");
+      $('.directorist-login-wrapper').toggleClass('active');
+      $('.directorist-registration-wrapper').toggleClass('active');
     });
   });
 })(jQuery);
@@ -656,23 +657,23 @@ __webpack_require__.r(__webpack_exports__);
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-window.addEventListener("load", function () {
+window.addEventListener('load', function () {
   (function ($) {
-    "use strict";
+    'use strict';
 
     var ReplyFormObserver = /*#__PURE__*/function () {
       function ReplyFormObserver() {
         var _this = this;
         (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ReplyFormObserver);
         this.init();
-        $(document).on("directorist_review_updated", function () {
+        $(document).on('directorist_review_updated', function () {
           return _this.init();
         });
       }
       return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ReplyFormObserver, [{
         key: "init",
         value: function init() {
-          var node = document.querySelector(".commentlist");
+          var node = document.querySelector('.commentlist');
           if (node) {
             this.observe(node);
           }
@@ -697,34 +698,34 @@ window.addEventListener("load", function () {
               var mutation = _step.value;
               var target = mutation.target;
               if (mutation.removedNodes) {
-                target.classList.remove("directorist-form-added");
+                target.classList.remove('directorist-form-added');
                 var _iterator2 = _createForOfIteratorHelper(mutation.removedNodes),
                   _step2;
                 try {
                   for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
                     var node = _step2.value;
-                    if (!node.id || node.id !== "respond") {
+                    if (!node.id || node.id !== 'respond') {
                       continue;
                     }
-                    var criteria = node.querySelector(".directorist-review-criteria");
+                    var criteria = node.querySelector('.directorist-review-criteria');
                     if (criteria) {
-                      criteria.style.display = "";
+                      criteria.style.display = '';
                     }
-                    var ratings = node.querySelectorAll(".directorist-review-criteria-select");
+                    var ratings = node.querySelectorAll('.directorist-review-criteria-select');
                     var _iterator3 = _createForOfIteratorHelper(ratings),
                       _step3;
                     try {
                       for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
                         var rating = _step3.value;
-                        rating.removeAttribute("disabled");
+                        rating.removeAttribute('disabled');
                       }
                     } catch (err) {
                       _iterator3.e(err);
                     } finally {
                       _iterator3.f();
                     }
-                    node.querySelector("#submit").innerHTML = "Submit Review";
-                    node.querySelector("#comment").setAttribute("placeholder", "Leave a review");
+                    node.querySelector('#submit').innerHTML = 'Submit Review';
+                    node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
                     //console.log(node.querySelector('#comment'))
                   }
                 } catch (err) {
@@ -733,23 +734,23 @@ window.addEventListener("load", function () {
                   _iterator2.f();
                 }
               }
-              var form = target.querySelector("#commentform");
+              var form = target.querySelector('#commentform');
               if (form) {
-                target.classList.add("directorist-form-added");
-                var isReview = target.classList.contains("review");
-                var isEditing = target.classList.contains("directorist-form-editing");
+                target.classList.add('directorist-form-added');
+                var isReview = target.classList.contains('review');
+                var isEditing = target.classList.contains('directorist-form-editing');
                 if (!isReview || isReview && !isEditing) {
-                  var _criteria = form.querySelector(".directorist-review-criteria");
+                  var _criteria = form.querySelector('.directorist-review-criteria');
                   if (_criteria) {
-                    _criteria.style.display = "none";
+                    _criteria.style.display = 'none';
                   }
-                  var _ratings = form.querySelectorAll(".directorist-review-criteria-select");
+                  var _ratings = form.querySelectorAll('.directorist-review-criteria-select');
                   var _iterator4 = _createForOfIteratorHelper(_ratings),
                     _step4;
                   try {
                     for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
                       var _rating = _step4.value;
-                      _rating.setAttribute("disabled", "disabled");
+                      _rating.setAttribute('disabled', 'disabled');
                     }
                   } catch (err) {
                     _iterator4.e(err);
@@ -757,12 +758,12 @@ window.addEventListener("load", function () {
                     _iterator4.f();
                   }
                 }
-                var alert = form.querySelector(".directorist-alert");
+                var alert = form.querySelector('.directorist-alert');
                 if (alert) {
-                  alert.style.display = "none";
+                  alert.style.display = 'none';
                 }
-                form.querySelector("#submit").innerHTML = "Submit Reply";
-                form.querySelector("#comment").setAttribute("placeholder", "Leave your reply");
+                form.querySelector('#submit').innerHTML = 'Submit Reply';
+                form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply');
               }
             }
           } catch (err) {
@@ -781,7 +782,7 @@ window.addEventListener("load", function () {
       return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CommentEditHandler, [{
         key: "init",
         value: function init() {
-          $(document).on("submit", "#directorist-form-comment-edit", this.onSubmit);
+          $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
         }
       }, {
         key: "onSubmit",
@@ -789,44 +790,44 @@ window.addEventListener("load", function () {
           event.preventDefault();
           var $form = $(event.target);
           var originalButtonLabel = $form.find('[type="submit"]').val();
-          $(document).trigger("directorist_review_before_submit", $form);
+          $(document).trigger('directorist_review_before_submit', $form);
           var formData = new FormData($form[0]);
 
           // Apply the filter
-          formData = wp.hooks.applyFilters("directorist_add_review_form_data", formData, "directorist-advanced-review");
+          formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
           var updateComment = $.ajax({
-            url: $form.attr("action"),
-            type: "POST",
+            url: $form.attr('action'),
+            type: 'POST',
             contentType: false,
             cache: false,
             processData: false,
             data: formData
           });
-          $form.find("#comment").prop("disabled", true);
-          $form.find('[type="submit"]').prop("disabled", true).val("loading");
+          $form.find('#comment').prop('disabled', true);
+          $form.find('[type="submit"]').prop('disabled', true).val('loading');
           var commentID = $form.find('input[name="comment_id"]').val();
-          var $wrap = $("#div-comment-" + commentID);
-          $wrap.addClass("directorist-comment-edit-request");
+          var $wrap = $('#div-comment-' + commentID);
+          $wrap.addClass('directorist-comment-edit-request');
           updateComment.done(function (data, status, request) {
-            if (typeof data !== "string" && !data.success) {
-              $wrap.removeClass("directorist-comment-edit-request");
+            if (typeof data !== 'string' && !data.success) {
+              $wrap.removeClass('directorist-comment-edit-request');
               CommentEditHandler.showError($form, data.data.html);
               return;
             }
-            var body = $("<div></div>");
+            var body = $('<div></div>');
             body.append(data);
-            var comment_section = ".directorist-review-container";
+            var comment_section = '.directorist-review-container';
             var comments = body.find(comment_section);
             $(comment_section).replaceWith(comments);
-            $(document).trigger("directorist_review_updated", data);
-            var commentTop = $("#comment-" + commentID).offset().top;
-            if ($("body").hasClass("admin-bar")) {
-              commentTop = commentTop - $("#wpadminbar").height();
+            $(document).trigger('directorist_review_updated', data);
+            var commentTop = $('#comment-' + commentID).offset().top;
+            if ($('body').hasClass('admin-bar')) {
+              commentTop = commentTop - $('#wpadminbar').height();
             }
 
             // scroll to comment
             if (commentID) {
-              $("body, html").animate({
+              $('body, html').animate({
                 scrollTop: commentTop
               }, 600);
             }
@@ -835,15 +836,15 @@ window.addEventListener("load", function () {
             CommentEditHandler.showError($form, data.responseText);
           });
           updateComment.always(function () {
-            $form.find("#comment").prop("disabled", false);
-            $form.find('[type="submit"]').prop("disabled", false).val(originalButtonLabel);
+            $form.find('#comment').prop('disabled', false);
+            $form.find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
           });
-          $(document).trigger("directorist_review_after_submit", $form);
+          $(document).trigger('directorist_review_after_submit', $form);
         }
       }], [{
         key: "showError",
         value: function showError($form, msg) {
-          $form.find(".directorist-alert").remove();
+          $form.find('.directorist-alert').remove();
           $form.prepend(msg);
         }
       }]);
@@ -857,13 +858,13 @@ window.addEventListener("load", function () {
         key: "init",
         value: function init() {
           var t = setTimeout(function () {
-            if ($(".directorist-review-container").length) {
-              $(document).off("submit", "#commentform");
+            if ($('.directorist-review-container').length) {
+              $(document).off('submit', '#commentform');
             }
             clearTimeout(t);
           }, 2000);
-          $(document).off("submit", ".directorist-review-container #commentform");
-          $(document).on("submit", ".directorist-review-container #commentform", this.onSubmit);
+          $(document).off('submit', '.directorist-review-container #commentform');
+          $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
         }
       }, {
         key: "onSubmit",
@@ -871,38 +872,38 @@ window.addEventListener("load", function () {
           var _this2 = this;
           event.preventDefault();
           console.log(wp.hooks);
-          var form = $(".directorist-review-container #commentform");
+          var form = $('.directorist-review-container #commentform');
           var originalButtonLabel = form.find('[type="submit"]').val();
-          $(document).trigger("directorist_review_before_submit", form);
+          $(document).trigger('directorist_review_before_submit', form);
           var formData = new FormData(form[0]);
 
           // Apply the filter
-          formData = wp.hooks.applyFilters("directorist_add_review_form_data", formData, "directorist-advanced-review");
+          formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
           var do_comment = $.ajax({
-            url: form.attr("action"),
-            type: "POST",
+            url: form.attr('action'),
+            type: 'POST',
             contentType: false,
             cache: false,
             processData: false,
             data: formData
           });
-          $("#comment").prop("disabled", true);
-          form.find('[type="submit"]').prop("disabled", true).val("loading");
+          $('#comment').prop('disabled', true);
+          form.find('[type="submit"]').prop('disabled', true).val('loading');
           do_comment.done(function (data, status, request) {
-            var body = $("<div></div>");
+            var body = $('<div></div>');
             body.append(data);
-            var comment_section = ".directorist-review-container";
+            var comment_section = '.directorist-review-container';
             var comments = body.find(comment_section);
-            var errorMsg = body.find(".wp-die-message");
+            var errorMsg = body.find('.wp-die-message');
             if (errorMsg.length > 0) {
               CommentAddReplyHandler.showError(form, errorMsg);
-              $(document).trigger("directorist_review_update_failed");
+              $(document).trigger('directorist_review_update_failed');
               return;
             }
             $(comment_section).replaceWith(comments);
-            $(document).trigger("directorist_review_updated", data);
-            var newComment = comments.find(".commentlist li:first-child");
-            var newCommentId = newComment.attr("id");
+            $(document).trigger('directorist_review_updated', data);
+            var newComment = comments.find('.commentlist li:first-child');
+            var newCommentId = newComment.attr('id');
 
             // // catch the new comment id by comparing to old dom.
             // commentsLists.each(
@@ -916,56 +917,56 @@ window.addEventListener("load", function () {
 
             // console.log(newComment, newCommentId)
 
-            var commentTop = $("#" + newCommentId).offset().top;
-            if ($("body").hasClass("admin-bar")) {
-              commentTop = commentTop - $("#wpadminbar").height();
+            var commentTop = $('#' + newCommentId).offset().top;
+            if ($('body').hasClass('admin-bar')) {
+              commentTop = commentTop - $('#wpadminbar').height();
             }
 
             // scroll to comment
             if (newCommentId) {
-              $("body, html").animate({
+              $('body, html').animate({
                 scrollTop: commentTop
               }, 600);
             }
           });
           do_comment.fail(function (data) {
-            var body = $("<div></div>");
+            var body = $('<div></div>');
             body.append(data.responseText);
             console.log(data);
-            CommentAddReplyHandler.showError(form, body.find(".wp-die-message"));
-            $(document).trigger("directorist_review_update_failed");
+            CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
+            $(document).trigger('directorist_review_update_failed');
             if (data.status === 403 || data.status === 401) {
-              $(document).off("submit", ".directorist-review-container #commentform", _this2.onSubmit);
-              $("#comment").prop("disabled", false);
-              form.find('[type="submit"]').prop("disabled", false).click();
+              $(document).off('submit', '.directorist-review-container #commentform', _this2.onSubmit);
+              $('#comment').prop('disabled', false);
+              form.find('[type="submit"]').prop('disabled', false).click();
             }
           });
           do_comment.always(function () {
-            $("#comment").prop("disabled", false);
-            $("#commentform").find('[type="submit"]').prop("disabled", false).val(originalButtonLabel);
+            $('#comment').prop('disabled', false);
+            $('#commentform').find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
           });
-          $(document).trigger("directorist_review_after_submit", form);
+          $(document).trigger('directorist_review_after_submit', form);
         }
       }], [{
         key: "getErrorMsg",
         value: function getErrorMsg($dom) {
-          if ($dom.find("p").length) {
-            $dom = $dom.find("p");
+          if ($dom.find('p').length) {
+            $dom = $dom.find('p');
           }
-          var words = $dom.text().split(":");
+          var words = $dom.text().split(':');
           if (words.length > 1) {
             words.shift();
           }
-          return words.join(" ").trim();
+          return words.join(' ').trim();
         }
       }, {
         key: "showError",
         value: function showError(form, $dom) {
-          if (form.find(".directorist-alert").length) {
-            form.find(".directorist-alert").remove();
+          if (form.find('.directorist-alert').length) {
+            form.find('.directorist-alert').remove();
           }
-          var $error = $("<div />", {
-            class: "directorist-alert directorist-alert-danger"
+          var $error = $('<div />', {
+            class: 'directorist-alert directorist-alert-danger'
           }).html(CommentAddReplyHandler.getErrorMsg($dom));
           form.prepend($error);
         }
@@ -981,16 +982,16 @@ window.addEventListener("load", function () {
       return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CommentsManager, [{
         key: "initStarRating",
         value: function initStarRating() {
-          $(".directorist-review-criteria-select").barrating({
-            theme: "fontawesome-stars"
+          $('.directorist-review-criteria-select').barrating({
+            theme: 'fontawesome-stars'
           });
         }
       }, {
         key: "cancelOthersEditMode",
         value: function cancelOthersEditMode(currentCommentId) {
-          $(".directorist-comment-editing").each(function (index, comment) {
-            var $cancelButton = $(comment).find(".directorist-js-cancel-comment-edit");
-            if ($cancelButton.data("commentid") != currentCommentId) {
+          $('.directorist-comment-editing').each(function (index, comment) {
+            var $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
+            if ($cancelButton.data('commentid') != currentCommentId) {
               $cancelButton.click();
             }
           });
@@ -998,7 +999,7 @@ window.addEventListener("load", function () {
       }, {
         key: "cancelReplyMode",
         value: function cancelReplyMode() {
-          var replyLink = document.querySelector(".directorist-review-content #cancel-comment-reply-link");
+          var replyLink = document.querySelector('.directorist-review-content #cancel-comment-reply-link');
           replyLink && replyLink.click();
         }
       }, {
@@ -1006,60 +1007,60 @@ window.addEventListener("load", function () {
         value: function addEventListeners() {
           var _this3 = this;
           var self = this;
-          this.$doc.on("directorist_review_updated", function (event) {
+          this.$doc.on('directorist_review_updated', function (event) {
             _this3.initStarRating();
           });
-          this.$doc.on("directorist_comment_edit_form_loaded", function (event) {
+          this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
             _this3.initStarRating();
           });
-          this.$doc.on("click", 'a[href="#respond"]', function (event) {
+          this.$doc.on('click', 'a[href="#respond"]', function (event) {
             // First cancle the reply form then scroll to review form. Order matters.
             _this3.cancelReplyMode();
             _this3.onWriteReivewClick(event);
           });
-          this.$doc.on("click", ".directorist-js-edit-comment", function (event) {
+          this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
             event.preventDefault();
             var $target = $(event.target);
-            var $wrap = $target.parents("#div-comment-" + $target.data("commentid"));
-            $wrap.addClass("directorist-comment-edit-request");
+            var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
+            $wrap.addClass('directorist-comment-edit-request');
             $.ajax({
-              url: $target.attr("href"),
+              url: $target.attr('href'),
               data: {
-                post_id: $target.data("postid"),
-                comment_id: $target.data("commentid")
+                post_id: $target.data('postid'),
+                comment_id: $target.data('commentid')
               },
               setContent: false,
-              method: "GET",
-              reload: "strict",
+              method: 'GET',
+              reload: 'strict',
               success: function success(response) {
-                $target.prop("disabled", true);
-                $target.parents("#div-comment-" + $target.data("commentid")).find(".directorist-review-single__info").append(response.data.html);
-                $wrap.removeClass("directorist-comment-edit-request").addClass("directorist-comment-editing");
-                self.cancelOthersEditMode($target.data("commentid"));
+                $target.prop('disabled', true);
+                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__info').append(response.data.html);
+                $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
+                self.cancelOthersEditMode($target.data('commentid'));
                 self.cancelReplyMode();
-                var $editForm = $("#directorist-form-comment-edit");
-                $editForm.find("textarea").focus();
-                self.$doc.trigger("directorist_comment_edit_form_loaded", $target.data("commentid"));
+                var $editForm = $('#directorist-form-comment-edit');
+                $editForm.find('textarea').focus();
+                self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
               }
             });
           });
-          this.$doc.on("click", ".directorist-js-cancel-comment-edit", function (event) {
+          this.$doc.on('click', '.directorist-js-cancel-comment-edit', function (event) {
             event.preventDefault();
             var $target = $(event.target);
-            var $wrap = $target.parents("#div-comment-" + $target.data("commentid"));
-            $wrap.removeClass(["directorist-comment-edit-request", "directorist-comment-editing"]).find("form").remove();
-            $wrap.find(".directorist-js-edit-comment").prop("disabled", false);
+            var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
+            $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
+            $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
           });
         }
       }, {
         key: "onWriteReivewClick",
         value: function onWriteReivewClick(event) {
           event.preventDefault();
-          var scrollTop = $("#respond").offset().top;
-          if ($("body").hasClass("admin-bar")) {
-            scrollTop = scrollTop - $("#wpadminbar").height();
+          var scrollTop = $('#respond').offset().top;
+          if ($('body').hasClass('admin-bar')) {
+            scrollTop = scrollTop - $('#wpadminbar').height();
           }
-          $("body, html").animate({
+          $('body, html').animate({
             scrollTop: scrollTop
           }, 600);
         }
@@ -1084,12 +1085,12 @@ window.addEventListener("load", function () {
   \**************************************************************/
 /***/ (function() {
 
-window.addEventListener("load", function () {
+window.addEventListener('load', function () {
   (function ($) {
     //Star rating
-    if ($(".directorist-review-criteria-select").length) {
-      $(".directorist-review-criteria-select").barrating({
-        theme: "fontawesome-stars"
+    if ($('.directorist-review-criteria-select').length) {
+      $('.directorist-review-criteria-select').barrating({
+        theme: 'fontawesome-stars'
       });
     }
   })(jQuery);

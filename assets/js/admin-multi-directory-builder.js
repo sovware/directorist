@@ -218,22 +218,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].directive("click-outside", {
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].directive('click-outside', {
   priority: 700,
   bind: function bind() {
     var self = this;
     this.event = function (event) {
-      console.log("emitting event");
+      console.log('emitting event');
       self.vm.$emit(self.expression, event);
     };
-    this.el.addEventListener("click", this.stopProp);
-    document.body.addEventListener("click", this.event);
+    this.el.addEventListener('click', this.stopProp);
+    document.body.addEventListener('click', this.event);
   },
   unbind: function unbind() {
-    console.log("unbind");
-    "sho";
-    this.el.removeEventListener("click", this.stopProp);
-    document.body.removeEventListener("click", this.event);
+    console.log('unbind');
+    'sho';
+    this.el.removeEventListener('click', this.stopProp);
+    document.body.removeEventListener('click', this.event);
   },
   stopProp: function stopProp(event) {
     event.stopPropagation();
@@ -247,7 +247,7 @@ requireComponent.keys().forEach(function (fileName) {
   // Get PascalCase name of component
   var componentName = lodash_upperFirst__WEBPACK_IMPORTED_MODULE_1___default()(lodash_camelCase__WEBPACK_IMPORTED_MODULE_2___default()(
   // Gets the file name regardless of folder depth
-  fileName.split("/").pop().replace(/\.\w+$/, "")));
+  fileName.split('/').pop().replace(/\.\w+$/, '')));
 
   // console.log( componentName );
 
@@ -275,7 +275,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 
 function applyDrag(arr, dragResult) {
-  console.log("1", {
+  console.log('1', {
     arr: arr,
     dragResult: dragResult
   });
@@ -323,14 +323,14 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_4__["default"], _validator__WEBPACK_IMPORTED_MODULE_2__["default"], _helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   created: function created() {
     this.setup();
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
-    config: "config"
+    config: 'config'
   })),
   data: function data() {
     return {
@@ -338,7 +338,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       option_fields: null,
       local_value: {},
       button: {
-        label: "",
+        label: '',
         is_processing: false,
         is_disabled: false
       }
@@ -359,7 +359,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
         return;
       }
       for (var field_key in this.value) {
-        if (typeof this.option_fields[field_key] === "undefined") {
+        if (typeof this.option_fields[field_key] === 'undefined') {
           continue;
         }
         this.option_fields[field_key].value = this.value[field_key];
@@ -368,7 +368,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
     updateOptionData: function updateOptionData(value) {
       this.local_value = value;
       if (this.saveOptionData) {
-        this.$emit("update", this.local_value);
+        this.$emit('update', this.local_value);
       }
     },
     submitAjaxRequest: function submitAjaxRequest() {
@@ -378,16 +378,16 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
 
       // console.log( 'submitAjaxRequest' );
 
-      var ajax_url = this.config && this.config.submission && this.config.submission.url ? this.config.submission.url : "";
+      var ajax_url = this.config && this.config.submission && this.config.submission.url ? this.config.submission.url : '';
       var action = this.action;
       if (!ajax_url) {
         return;
       }
       var form_data = new FormData();
-      form_data.append("action", action);
+      form_data.append('action', action);
 
       // Append if has option field
-      if (this.local_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.local_value) === "object" && Object.keys(this.local_value)) {
+      if (this.local_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.local_value) === 'object' && Object.keys(this.local_value)) {
         for (var field_key in this.local_value) {
           form_data.append(field_key, this.local_value[field_key]);
         }
@@ -404,13 +404,13 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
         message = response.data.message ? response.data.message : message;
         if (response.data.success && message) {
           message = {
-            type: "success",
+            type: 'success',
             message: message
           };
         } else {
-          var msg = message ? message : "Sorry, something went wrong";
+          var msg = message ? message : 'Sorry, something went wrong';
           message = {
-            type: "error",
+            type: 'error',
             message: msg
           };
         }
@@ -424,8 +424,8 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       }).catch(function (error) {
         console.log(error);
         var message = {
-          type: "error",
-          message: "Sorry, something went wrong"
+          type: 'error',
+          message: 'Sorry, something went wrong'
         };
         self.validation_message = message;
         setTimeout(function () {
@@ -452,7 +452,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "button-example-field",
+  name: 'button-example-field',
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -511,7 +511,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!active_widgets_keys.length) {
         return;
       }
-      if (!(this.local_layout && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.local_layout) === "object")) {
+      if (!(this.local_layout && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.local_layout) === 'object')) {
         return;
       }
 
@@ -534,12 +534,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       console.log(this.local_layout);
       for (var section_key in this.local_layout) {
         var section = this.local_layout[section_key];
-        if (!(section && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(section) === "object")) {
+        if (!(section && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(section) === 'object')) {
           continue;
         }
         for (var sub_section_key in section) {
           var sub_section = section[sub_section_key];
-          if (!(sub_section && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(sub_section) === "object")) {
+          if (!(sub_section && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(sub_section) === 'object')) {
             continue;
           }
           if (!(sub_section.selectedWidgets && Array.isArray(sub_section.selectedWidgets))) {
@@ -599,16 +599,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_4__["default"], _helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   created: function created() {
     this.local_value = this.filtereValue(this.value);
-    this.$emit("update", this.local_value);
+    this.$emit('update', this.local_value);
   },
   watch: {
     local_value: function local_value() {
-      this.$emit("update", this.local_value);
+      this.$emit('update', this.local_value);
     },
     hasOptionsSource: function hasOptionsSource() {
       var has_deprecated_value = this.hasDeprecatedValue(this.local_value);
@@ -618,33 +618,33 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    fields: "fields"
+    fields: 'fields'
   })), {}, {
     theOptions: function theOptions() {
       if (this.hasOptionsSource) {
         return this.hasOptionsSource;
       }
-      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== 'object') {
         return this.defaultOption ? [this.defaultOption] : [];
       }
       return this.options;
     },
     hasOptionsSource: function hasOptionsSource() {
-      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
+      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== 'object') {
         return false;
       }
-      if (typeof this.optionsSource.where !== "string") {
+      if (typeof this.optionsSource.where !== 'string') {
         return false;
       }
       var terget_fields = this.getTergetFields({
         path: this.optionsSource.where
       });
-      var id_prefix = typeof this.optionsSource.id_prefix === "string" ? this.optionsSource.id_prefix + "-" : this.name + "-";
-      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      var id_prefix = typeof this.optionsSource.id_prefix === 'string' ? this.optionsSource.id_prefix + '-' : this.name + '-';
+      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var filter_by = null;
-      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
+      if (typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length) {
         filter_by = this.optionsSource.filter_by;
       }
       if (filter_by) {
@@ -653,7 +653,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       }
       var has_sourcemap = false;
-      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === "object") {
+      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === 'object') {
         has_sourcemap = true;
       }
       if (!has_sourcemap && !filter_by) {
@@ -665,7 +665,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (filter_by) {
         terget_fields = this.filterDataByValue(terget_fields, filter_by);
       }
-      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var i = 0;
@@ -674,7 +674,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var option = _step.value;
-          var id = typeof option.id !== "undefined" ? option.id : "";
+          var id = typeof option.id !== 'undefined' ? option.id : '';
           terget_fields[i].id = id_prefix + id;
           i++;
         }
@@ -704,7 +704,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return this.local_value.includes(this.getValue(option));
     },
     getValue: function getValue(option) {
-      return typeof option.value !== "undefined" ? option.value : "";
+      return typeof option.value !== 'undefined' ? option.value : '';
     },
     getTheOptions: function getTheOptions() {
       return JSON.parse(JSON.stringify(this.theOptions));
@@ -714,7 +714,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         return [];
       }
       var options_values = this.theOptions.map(function (option) {
-        if (typeof option.value !== "undefined") {
+        if (typeof option.value !== 'undefined') {
           return option.value;
         }
       });
@@ -723,19 +723,19 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       });
     },
     hasDeprecatedValue: function hasDeprecatedValue(values) {
-      if (!values && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(values) !== "object") {
+      if (!values && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(values) !== 'object') {
         return [];
       }
       var flatten_values = JSON.parse(JSON.stringify(values));
       var options_values = this.theOptions.map(function (option) {
-        if (typeof option.value !== "undefined") {
+        if (typeof option.value !== 'undefined') {
           return option.value;
         }
       });
       var deprecated_value = flatten_values.filter(function (value_elm) {
         return !options_values.includes(value_elm);
       });
-      if (!deprecated_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(deprecated_value) !== "object") {
+      if (!deprecated_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(deprecated_value) !== 'object') {
         return false;
       }
       if (!deprecated_value.length) {
@@ -774,28 +774,28 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
-    "v-input-colorpicker": (vue_native_color_picker__WEBPACK_IMPORTED_MODULE_1___default())
+    'v-input-colorpicker': (vue_native_color_picker__WEBPACK_IMPORTED_MODULE_1___default())
   },
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   created: function created() {
-    if (typeof this.value !== "string") {
+    if (typeof this.value !== 'string') {
       return;
     }
     this.local_value = this.value;
   },
   watch: {
     local_value: function local_value() {
-      this.$emit("update", this.local_value);
+      this.$emit('update', this.local_value);
     }
   },
   computed: {
     formGroupClass: function formGroupClass() {
       var validation_classes = this.validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
       return _objectSpread(_objectSpread({}, validation_classes), {}, {
-        "cptm-mb-0": "hidden" === this.input_type ? true : false
+        'cptm-mb-0': 'hidden' === this.input_type ? true : false
       });
     },
     formControlClass: function formControlClass() {
@@ -808,7 +808,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   data: function data() {
     return {
-      local_value: "#000000",
+      local_value: '#000000',
       validationLog: {}
     };
   }
@@ -835,7 +835,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
 var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "export-data-field",
+  name: 'export-data-field',
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"], _helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   created: function created() {
     if (this.buttonLabel && this.buttonLabel.length) {
@@ -844,7 +844,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
   },
   data: function data() {
     return {
-      button_label: "Export",
+      button_label: 'Export',
       isPreparingExportFile: false,
       validation_message: null
     };
@@ -856,10 +856,10 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
         return;
       }
       switch (this.exportAs) {
-        case "csv":
+        case 'csv':
           this.export_CSV();
           break;
-        case "json":
+        case 'json':
           this.export_JSON();
           break;
         default:
@@ -869,12 +869,12 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
     },
     prepareExportFile: function prepareExportFile() {
       var data = new FormData();
-      data.append("action", this.prepareExportFileFrom);
-      if (this.nonce && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.nonce) === "object" && this.nonce.key && this.nonce.value) {
+      data.append('action', this.prepareExportFileFrom);
+      if (this.nonce && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.nonce) === 'object' && this.nonce.key && this.nonce.value) {
         data.append(this.nonce.key, this.nonce.value);
       }
       if (this.isPreparingExportFile) {
-        console.log("Please wait...");
+        console.log('Please wait...');
         return;
       }
       var button_label_default = this.button_label;
@@ -900,7 +900,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       });
     },
     downloadURI: function downloadURI(name, uri) {
-      var link = document.createElement("a");
+      var link = document.createElement('a');
       link.download = name;
       link.href = uri;
       document.body.appendChild(link);
@@ -911,16 +911,16 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       if (!Array.isArray(this.data)) {
         return;
       }
-      var dataStr = "data:text/csv;charset=utf-8,";
+      var dataStr = 'data:text/csv;charset=utf-8,';
       var tr_count = 0;
-      var delimeter = ",";
+      var delimeter = ',';
       var table = this.justifyTable(this.data);
       var _iterator = _createForOfIteratorHelper(table),
         _step;
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var tr = _step.value;
-          if (!tr || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(tr) !== "object") {
+          if (!tr || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(tr) !== 'object') {
             continue;
           }
 
@@ -931,17 +931,17 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
               header_row_array.push("\"".concat(td, "\""));
             }
             var header_row = header_row_array.join(delimeter);
-            dataStr += header_row + "\r\n";
+            dataStr += header_row + '\r\n';
           }
 
           // Body Row
           var body_row_array = [];
           for (var _td in tr) {
-            var data = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(tr[_td]) === "object" ? "" : tr[_td];
+            var data = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(tr[_td]) === 'object' ? '' : tr[_td];
             body_row_array.push("\"".concat(data, "\""));
           }
           var body_row = body_row_array.join(delimeter);
-          dataStr += body_row + "\r\n";
+          dataStr += body_row + '\r\n';
           tr_count++;
         }
       } catch (err) {
@@ -950,19 +950,19 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
         _iterator.f();
       }
       var dataUri = encodeURI(dataStr);
-      var exportFileDefaultName = this.exportFileName + ".csv";
-      var linkElement = document.createElement("a");
-      linkElement.setAttribute("href", dataUri);
-      linkElement.setAttribute("download", exportFileDefaultName);
+      var exportFileDefaultName = this.exportFileName + '.csv';
+      var linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
       linkElement.click();
     },
     export_JSON: function export_JSON() {
       var dataStr = JSON.stringify(this.data);
-      var dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
-      var exportFileDefaultName = this.exportFileName + ".json";
-      var linkElement = document.createElement("a");
-      linkElement.setAttribute("href", dataUri);
-      linkElement.setAttribute("download", exportFileDefaultName);
+      var dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+      var exportFileDefaultName = this.exportFileName + '.json';
+      var linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
       linkElement.click();
     },
     justifyTable: function justifyTable(table) {
@@ -982,7 +982,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       table.forEach(function (item, index) {
         var tr = {};
         for (var key in modal_tr) {
-          tr[key] = item[key] ? item[key] : "";
+          tr[key] = item[key] ? item[key] : '';
         }
         justify_table.push(tr);
       });
@@ -1012,17 +1012,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "export-field",
+  name: 'export-field',
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   props: {
     label: {
       type: String,
       required: false,
-      default: ""
+      default: ''
     }
   },
   data: function data() {
@@ -1030,15 +1030,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       validation_message: null
     };
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(["getFieldsValue"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['getFieldsValue'])), {}, {
     exportJSON: function exportJSON() {
       // console.log( this.getFieldsValue() );
       var dataStr = JSON.stringify(this.getFieldsValue());
-      var dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
-      var exportFileDefaultName = this.exportFileName + ".json";
-      var linkElement = document.createElement("a");
-      linkElement.setAttribute("href", dataUri);
-      linkElement.setAttribute("download", exportFileDefaultName);
+      var dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+      var exportFileDefaultName = this.exportFileName + '.json';
+      var linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
       linkElement.click();
     }
   })
@@ -1065,7 +1065,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
-    config: "config"
+    config: 'config'
   })), {}, {
     canChange: function canChange() {
       var is_changeable = false;
@@ -1077,7 +1077,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
         is_changeable = change_if_cond.status;
       }
-      this.$emit("is-changeable", is_changeable);
+      this.$emit('is-changeable', is_changeable);
       return is_changeable;
     },
     canShow: function canShow() {
@@ -1090,20 +1090,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
         is_changeable = show_if_cond.status;
       }
-      this.$emit("is-changeable", is_changeable);
+      this.$emit('is-changeable', is_changeable);
       return is_changeable;
     }
   }),
   methods: {
     getTheTheme: function getTheTheme(field) {
-      var the_theme = "default";
+      var the_theme = 'default';
       if (this.config && this.config.fields_theme) {
         the_theme = this.config.fields_theme;
       }
-      if (this.theme && "default" !== this.theme) {
+      if (this.theme && 'default' !== this.theme) {
         the_theme = this.theme;
       }
-      return field + "-theme-" + the_theme;
+      return field + '-theme-' + the_theme;
     }
   }
 });
@@ -1131,17 +1131,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "import-field",
+  name: 'import-field',
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_2__["default"], _helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   props: {
     label: {
       type: String,
       required: false,
-      default: ""
+      default: ''
     },
     validation: {
       type: Array,
@@ -1153,7 +1153,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       validation_message: null
     };
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(["getFieldsValue"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(['getFieldsValue'])), {}, {
     importJSON: function importJSON(event) {
       var reader = new FileReader();
       reader.onload = this.onReaderLoad;
@@ -1162,11 +1162,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     onReaderLoad: function onReaderLoad(event) {
       var json_data = JSON.parse(event.target.result);
       var self = this;
-      if (!(json_data && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(json_data) === "object")) {
-        console.log("Invalid JSON");
+      if (!(json_data && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(json_data) === 'object')) {
+        console.log('Invalid JSON');
         this.validation_message = {
-          type: "error",
-          message: "Invalid JSON"
+          type: 'error',
+          message: 'Invalid JSON'
         };
         setTimeout(function () {
           self.validation_message = null;
@@ -1185,10 +1185,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       //     self.validation_message = null;
       // }, 5000);
 
-      this.$store.commit("importFields", fields);
-      this.$emit("do-action", {
-        action: "updateData",
-        component: "root"
+      this.$store.commit('importFields', fields);
+      this.$emit('do-action', {
+        action: 'updateData',
+        component: 'root'
       });
     }
   })
@@ -1208,15 +1208,15 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     sectionId: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     fieldId: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     fieldKey: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     root: {
       required: false
@@ -1235,7 +1235,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     theme: {
       type: String,
-      default: "default"
+      default: 'default'
     },
     confirmBeforeChange: {
       required: false
@@ -1266,23 +1266,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     type: {
       type: String,
-      default: ""
+      default: ''
     },
     icon: {
       type: String,
-      default: ""
+      default: ''
     },
     label: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     sublabel: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     labelType: {
       type: [String],
-      default: "span"
+      default: 'span'
     },
     disable: {
       type: Boolean,
@@ -1290,15 +1290,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     shortcodes: {
       type: [Array, String],
-      default: ""
+      default: ''
     },
     buttonLabel: {
       type: String,
-      default: ""
+      default: ''
     },
     buttonClass: {
       type: String,
-      default: ""
+      default: ''
     },
     copyButtonLabel: {
       type: String,
@@ -1306,22 +1306,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     exportFileName: {
       type: String,
-      default: "data"
+      default: 'data'
     },
     restorData: {
       required: false
     },
     buttonLabelOnProcessing: {
       type: String,
-      default: ""
+      default: ''
     },
     action: {
       type: String,
-      default: ""
+      default: ''
     },
     url: {
       type: String,
-      default: ""
+      default: ''
     },
     openInNewTab: {
       type: Boolean,
@@ -1329,30 +1329,30 @@ __webpack_require__.r(__webpack_exports__);
     },
     title: {
       type: [String],
-      default: ""
+      default: ''
     },
     description: {
       type: [String],
-      default: ""
+      default: ''
     },
     id: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     name: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     multi_directory_status: {
       type: String,
-      default: ""
+      default: ''
     },
     schema: {
       type: String,
-      default: ""
+      default: ''
     },
     value: {
-      default: ""
+      default: ''
     },
     options: {
       required: false
@@ -1370,19 +1370,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     placeholder: {
       type: [String, Number],
-      default: ""
+      default: ''
     },
     infoTextForNoOption: {
       type: String,
-      default: "Nothing available"
+      default: 'Nothing available'
     },
     cols: {
       type: [String, Number],
-      default: "30"
+      default: '30'
     },
     rows: {
       type: [String, Number],
-      default: "10"
+      default: '10'
     },
     min: {
       type: [String, Number],
@@ -1404,15 +1404,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectButtonLabel: {
       type: String,
-      default: "Select"
+      default: 'Select'
     },
     changeButtonLabel: {
       type: String,
-      default: "Change"
+      default: 'Change'
     },
     prepareExportFileFrom: {
       type: String,
-      default: ""
+      default: ''
     },
     rules: {
       required: false
@@ -1493,18 +1493,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_4__["default"], _helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   created: function created() {
-    if (typeof this.value === "string" || typeof this.value === "number") {
+    if (typeof this.value === 'string' || typeof this.value === 'number') {
       this.local_value = this.value;
     }
-    this.$emit("update", this.local_value);
+    this.$emit('update', this.local_value);
   },
   watch: {
     local_value: function local_value() {
-      this.$emit("update", this.local_value);
+      this.$emit('update', this.local_value);
     },
     hasOptionsSource: function hasOptionsSource() {
       var has_deprecated_value = this.hasDeprecatedValue(this.local_value);
@@ -1514,38 +1514,38 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    fields: "fields"
+    fields: 'fields'
   })), {}, {
     theOptions: function theOptions() {
       if (this.hasOptionsSource) {
         return this.hasOptionsSource;
       }
-      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== 'object') {
         return this.defaultOption ? [this.defaultOption] : [];
       }
       return this.options;
     },
     hasOptionsSource: function hasOptionsSource() {
-      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
+      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== 'object') {
         return false;
       }
-      if (typeof this.optionsSource.where !== "string") {
+      if (typeof this.optionsSource.where !== 'string') {
         return false;
       }
       var terget_fields = this.getTergetFields(this.optionsSource.where);
-      var id_prefix = typeof this.optionsSource.id_prefix === "string" ? this.optionsSource.id_prefix + "-" : this.name + "-";
-      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      var id_prefix = typeof this.optionsSource.id_prefix === 'string' ? this.optionsSource.id_prefix + '-' : this.name + '-';
+      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var filter_by = null;
-      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
+      if (typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length) {
         filter_by = this.optionsSource.filter_by;
       }
       if (filter_by) {
         filter_by = this.getTergetFields(this.optionsSource.filter_by);
       }
       var has_sourcemap = false;
-      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === "object") {
+      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === 'object') {
         has_sourcemap = true;
       }
       if (!has_sourcemap && !filter_by) {
@@ -1557,7 +1557,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (filter_by) {
         terget_fields = this.filterDataByValue(terget_fields, filter_by);
       }
-      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var i = 0;
@@ -1566,7 +1566,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var option = _step.value;
-          var id = typeof option.id !== "undefined" ? option.id : "";
+          var id = typeof option.id !== 'undefined' ? option.id : '';
           terget_fields[i].id = id_prefix + id;
           i++;
         }
@@ -1584,7 +1584,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }),
   data: function data() {
     return {
-      local_value: "",
+      local_value: '',
       validationLog: {}
     };
   },
@@ -1594,13 +1594,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return this.local_value.includes(this.getValue(option));
     },
     getValue: function getValue(option) {
-      return typeof option.value !== "undefined" ? option.value : "";
+      return typeof option.value !== 'undefined' ? option.value : '';
     },
     getTheOptions: function getTheOptions() {
       return JSON.parse(JSON.stringify(this.theOptions));
     },
     filtereValue: function filtereValue(value) {
-      if (!value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) !== "object") {
+      if (!value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) !== 'object') {
         return [];
       }
       console.log(value);
@@ -1611,19 +1611,19 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
     },
     hasDeprecatedValue: function hasDeprecatedValue(values) {
-      if (!values && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(values) !== "object") {
+      if (!values && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(values) !== 'object') {
         return [];
       }
       var flatten_values = JSON.parse(JSON.stringify(values));
       var options_values = this.theOptions.map(function (option) {
-        if (typeof option.value !== "undefined") {
+        if (typeof option.value !== 'undefined') {
           return option.value;
         }
       });
       var deprecated_value = flatten_values.filter(function (value_elm) {
         return !options_values.includes(value_elm);
       });
-      if (!deprecated_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(deprecated_value) !== "object") {
+      if (!deprecated_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(deprecated_value) !== 'object') {
         return false;
       }
       if (!deprecated_value.length) {
@@ -1659,15 +1659,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   created: function created() {
     this.range_value = this.value;
   },
   watch: {
     range_value: function range_value() {
-      this.$emit("update", this.range_value);
+      this.$emit('update', this.range_value);
     }
   },
   computed: {
@@ -1688,13 +1688,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var total = max - min;
       var p = current_position * 100 / total;
       return {
-        width: p + "%"
+        width: p + '%'
       };
     },
     formGroupClass: function formGroupClass() {
       var validation_classes = this.validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
       return _objectSpread(_objectSpread({}, validation_classes), {}, {
-        "cptm-mb-0": "hidden" === this.input_type ? true : false
+        'cptm-mb-0': 'hidden' === this.input_type ? true : false
       });
     }
   },
@@ -1736,17 +1736,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "restore-field",
+  name: 'restore-field',
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_2__["default"], _helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   props: {
     label: {
       type: String,
       required: false,
-      default: ""
+      default: ''
     }
   },
   data: function data() {
@@ -1754,14 +1754,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       validation_message: null
     };
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(["getFieldsValue"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(['getFieldsValue'])), {}, {
     restore: function restore() {
       var self = this;
-      if (!(this.restorData && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.restorData) === "object")) {
-        console.log("Invalid Data");
+      if (!(this.restorData && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.restorData) === 'object')) {
+        console.log('Invalid Data');
         this.validation_message = {
-          type: "error",
-          message: "Invalid Data"
+          type: 'error',
+          message: 'Invalid Data'
         };
         setTimeout(function () {
           self.validation_message = null;
@@ -1772,10 +1772,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       for (var field in this.restorData) {
         fields[field] = this.maybeJSON(this.restorData[field]);
       }
-      this.$store.commit("importFields", fields);
-      this.$emit("do-action", {
-        action: "updateData",
-        component: "root"
+      this.$store.commit('importFields', fields);
+      this.$emit('do-action', {
+        action: 'updateData',
+        component: 'root'
       });
       setTimeout(function () {
         self.validation_message = null;
@@ -1809,30 +1809,30 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_4__["default"], _helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   model: {
-    prop: "value",
-    event: "update"
+    prop: 'value',
+    event: 'update'
   },
   created: function created() {
     this.setup();
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    fields: "fields"
+    fields: 'fields'
   })), {}, {
     theDefaultOption: function theDefaultOption() {
-      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
+      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
         return this.defaultOption;
       }
       return {
-        value: "",
-        label: "Select..."
+        value: '',
+        label: 'Select...'
       };
     },
     theCurrentOptionLabel: function theCurrentOptionLabel() {
       if (!this.optionsInObject) {
-        return "";
+        return '';
       }
-      if (typeof this.optionsInObject[this.value] === "undefined") {
-        return this.theDefaultOption.value == this.value && this.theDefaultOption.label ? this.theDefaultOption.label : "";
+      if (typeof this.optionsInObject[this.value] === 'undefined') {
+        return this.theDefaultOption.value == this.value && this.theDefaultOption.label ? this.theDefaultOption.label : '';
       }
       return this.optionsInObject[this.value];
     },
@@ -1840,26 +1840,26 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (this.hasOptionsSource) {
         return this.parseOptions(this.hasOptionsSource);
       }
-      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== 'object') {
         return this.defaultOption ? [this.defaultOption] : [];
       }
       return this.parseOptions(this.options);
     },
     hasOptionsSource: function hasOptionsSource() {
-      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
+      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== 'object') {
         return false;
       }
-      if (typeof this.optionsSource.where !== "string") {
+      if (typeof this.optionsSource.where !== 'string') {
         return false;
       }
       var terget_fields = this.getTergetFields({
         path: this.optionsSource.where
       });
-      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var filter_by = null;
-      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
+      if (typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length) {
         filter_by = this.optionsSource.filter_by;
       }
       if (filter_by) {
@@ -1868,7 +1868,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       }
       var has_sourcemap = false;
-      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === "object") {
+      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === 'object') {
         has_sourcemap = true;
       }
       if (!has_sourcemap && !filter_by) {
@@ -1880,7 +1880,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (filter_by) {
         terget_fields = this.filterDataByValue(terget_fields, filter_by);
       }
-      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       return terget_fields;
@@ -1901,20 +1901,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     setup: function setup() {
-      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
+      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
         this.default_option = this.defaultOption;
       }
       this.optionsInObject = this.convertOptionsToObject();
       if (!this.valueIsValid(this.value)) {
-        this.$emit("update", "");
+        this.$emit('update', '');
       }
       var self = this;
-      document.addEventListener("click", function () {
+      document.addEventListener('click', function () {
         self.show_option_modal = false;
       });
     },
     update_value: function update_value(value) {
-      this.$emit("update", value);
+      this.$emit('update', value);
     },
     updateOption: function updateOption(value) {
       this.update_value(value);
@@ -1939,7 +1939,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     parseOptions: function parseOptions(options) {
       return options.map(function (item) {
         return _objectSpread(_objectSpread({}, item), {}, {
-          value: typeof item.value !== "undefined" ? "".concat(item.value) : ""
+          value: typeof item.value !== 'undefined' ? "".concat(item.value) : ''
         });
       });
     },
@@ -1949,17 +1949,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var option_object = {};
       for (var option in this.theOptions) {
-        if (typeof this.theOptions[option].value === "undefined") {
+        if (typeof this.theOptions[option].value === 'undefined') {
           continue;
         }
-        var label = this.theOptions[option].label ? this.theOptions[option].label : "";
+        var label = this.theOptions[option].label ? this.theOptions[option].label : '';
         option_object[this.theOptions[option].value] = label;
       }
       return option_object;
     }
     /* syncValidationWithLocalState( validation_log ) {
-            return validation_log;
-        } */
+              return validation_log;
+          } */
   }
 });
 
@@ -1987,8 +1987,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"], _helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   model: {
-    prop: "value",
-    event: "update"
+    prop: 'value',
+    event: 'update'
   },
   computed: {
     shortcode: function shortcode() {
@@ -1999,7 +1999,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var _this$validationLog;
       var validation_classes = (_this$validationLog = this.validationLog) !== null && _this$validationLog !== void 0 && _this$validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
       return _objectSpread(_objectSpread({}, validation_classes), {}, {
-        "cptm-mb-0": "hidden" === this.input_type ? true : false
+        'cptm-mb-0': 'hidden' === this.input_type ? true : false
       });
     },
     formControlClass: function formControlClass() {
@@ -2012,7 +2012,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   data: function data() {
     return {
-      successMsg: "",
+      successMsg: '',
       generateShortcode: false
     };
   },
@@ -2025,7 +2025,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var filter = _step.value;
-          if (typeof this[filter.type] !== "function") continue;
+          if (typeof this[filter.type] !== 'function') continue;
           filterd_value = this[filter.type](filterd_value, filter);
         }
       } catch (err) {
@@ -2038,25 +2038,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     replace: function replace(value, args) {
       if (!args.find && !args.find_regex) return value;
       if (!args.replace && !args.replace_from) return value;
-      var replace_text = "";
-      var pattern_find = "";
+      var replace_text = '';
+      var pattern_find = '';
       if (args.find) {
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
-      if (args.replace && typeof args.replace === "string") {
+      if (args.replace && typeof args.replace === 'string') {
         replace_text = args.replace;
       }
-      if (args.replace_from && typeof args.replace_from === "string") {
+      if (args.replace_from && typeof args.replace_from === 'string') {
         replace_text = this.getTergetFields({
           root: this.root,
           path: args.replace_from
         });
       }
       if (args.look_for) {
-        var pattern_look_for = new RegExp(args.look_for, "g");
+        var pattern_look_for = new RegExp(args.look_for, 'g');
         var subject = pattern_look_for.exec(value);
         if (!subject) return value;
         if (Array.isArray(subject)) {
@@ -2071,12 +2071,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     lowercase: function lowercase(value, args) {
       if (!args.find && !args.find_regex) return value;
-      var pattern_find = "";
+      var pattern_find = '';
       if (args.find) {
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       var subject = pattern_find.exec(value);
       if (!subject) return value;
@@ -2093,21 +2093,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var range = document.body.createTextRange();
         range.moveToElementText(this.$refs.shortcode);
         range.select().createTextRange();
-        document.execCommand("copy");
-        this.successMsg = "Copied to clipboard";
+        document.execCommand('copy');
+        this.successMsg = 'Copied to clipboard';
         setTimeout(this.clearSuccessMessage, 2000);
       } else if (window.getSelection) {
         var range = document.createRange();
         range.selectNode(this.$refs.shortcode);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        document.execCommand("copy");
-        this.successMsg = "Copied to clipboard";
+        document.execCommand('copy');
+        this.successMsg = 'Copied to clipboard';
         setTimeout(this.clearSuccessMessage, 2000);
       }
     },
     clearSuccessMessage: function clearSuccessMessage() {
-      this.successMsg = "";
+      this.successMsg = '';
     },
     generate: function generate() {
       this.generateShortcode = true;
@@ -2145,7 +2145,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var _this$validationLog;
       var validation_classes = (_this$validationLog = this.validationLog) !== null && _this$validationLog !== void 0 && _this$validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
       return _objectSpread(_objectSpread({}, validation_classes), {}, {
-        "cptm-mb-0": "hidden" === this.input_type ? true : false
+        'cptm-mb-0': 'hidden' === this.input_type ? true : false
       });
     },
     formControlClass: function formControlClass() {
@@ -2165,14 +2165,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   data: function data() {
     return {
       shortcodes_list: [],
-      successMsg: "",
+      successMsg: '',
       dirty: false
     };
   },
   methods: {
     generateShortcode: function generateShortcode() {
       this.shortcodes_list = [];
-      if (typeof this.shortcodes === "string") {
+      if (typeof this.shortcodes === 'string') {
         this.dirty = true;
         this.shortcodes_list.push(this.shortcodes);
         return;
@@ -2183,11 +2183,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var shortcode_item = _step.value;
-            if (typeof shortcode_item === "string") {
+            if (typeof shortcode_item === 'string') {
               this.shortcodes_list.push(shortcode_item);
               continue;
             }
-            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(shortcode_item) === "object") {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(shortcode_item) === 'object') {
               if (!shortcode_item.shortcode) {
                 continue;
               }
@@ -2195,7 +2195,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               if (shortcode_item.mapAtts) {
                 _shortcode = this.applyAttsMapping(shortcode_item);
               }
-              if (typeof _shortcode === "string") {
+              if (typeof _shortcode === 'string') {
                 this.shortcodes_list.push(_shortcode);
                 continue;
               }
@@ -2214,7 +2214,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     applyAttsMapping: function applyAttsMapping(shortcode_args) {
       if (!shortcode_args.shortcode) {
-        return "";
+        return '';
       }
       if (!shortcode_args.mapAtts) {
         return shortcode_args.shortcode;
@@ -2269,7 +2269,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
             var cond = _step3.value;
             var _key = source[cond.key];
-            if (typeof _key !== "string") {
+            if (typeof _key !== 'string') {
               continue;
             }
             if (cond.applyFilter) {
@@ -2356,7 +2356,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
           var filter = _step6.value;
-          if (typeof this[filter.type] !== "function") continue;
+          if (typeof this[filter.type] !== 'function') continue;
           filterd_value = this[filter.type](filterd_value, filter);
         }
       } catch (err) {
@@ -2369,25 +2369,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     replace: function replace(value, args) {
       if (!args.find && !args.find_regex) return value;
       if (!args.replace && !args.replace_from) return value;
-      var replace_text = "";
-      var pattern_find = "";
+      var replace_text = '';
+      var pattern_find = '';
       if (args.find) {
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
-      if (args.replace && typeof args.replace === "string") {
+      if (args.replace && typeof args.replace === 'string') {
         replace_text = args.replace;
       }
-      if (args.replace_from && typeof args.replace_from === "string") {
+      if (args.replace_from && typeof args.replace_from === 'string') {
         replace_text = this.getTergetFields({
           root: this.root,
           path: args.replace_from
         });
       }
       if (args.look_for) {
-        var pattern_look_for = new RegExp(args.look_for, "g");
+        var pattern_look_for = new RegExp(args.look_for, 'g');
         var subject = pattern_look_for.exec(value);
         if (!subject) return value;
         if (Array.isArray(subject)) {
@@ -2404,12 +2404,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (!args.find && !args.find_regex) {
         return value.toLowerCase();
       }
-      var pattern_find = "";
+      var pattern_find = '';
       if (args.find) {
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       if (!pattern_find) {
         return value.toLowerCase();
@@ -2425,7 +2425,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     copyToClip: function copyToClip(ref, index) {
       var ref_elm = ref ? this.$refs[ref] : null;
-      ref_elm = typeof index === "number" ? this.$refs[ref][index] : ref_elm;
+      ref_elm = typeof index === 'number' ? this.$refs[ref][index] : ref_elm;
       if (!ref_elm) {
         return;
       }
@@ -2434,21 +2434,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var range = document.body.createTextRange();
         range.moveToElementText(ref_elm);
         range.select().createTextRange();
-        document.execCommand("copy");
-        this.successMsg = "Copied";
+        document.execCommand('copy');
+        this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       } else if (window.getSelection) {
         var range = document.createRange();
         range.selectNode(ref_elm);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        document.execCommand("copy");
-        this.successMsg = "Copied";
+        document.execCommand('copy');
+        this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       }
     },
     clearSuccessMessage: function clearSuccessMessage() {
-      this.successMsg = "";
+      this.successMsg = '';
     },
     generate: function generate() {
       this.hasShortcode = true;
@@ -2484,18 +2484,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_4__["default"], _helpers_js__WEBPACK_IMPORTED_MODULE_3__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   created: function created() {
-    if (typeof this.value === "string" || typeof this.value === "number") {
+    if (typeof this.value === 'string' || typeof this.value === 'number') {
       this.local_value = this.value;
     }
-    this.$emit("update", this.local_value);
+    this.$emit('update', this.local_value);
   },
   watch: {
     local_value: function local_value() {
-      this.$emit("update", this.local_value);
+      this.$emit('update', this.local_value);
     },
     hasOptionsSource: function hasOptionsSource() {
       var has_deprecated_value = this.hasDeprecatedValue(this.local_value);
@@ -2505,38 +2505,38 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    fields: "fields"
+    fields: 'fields'
   })), {}, {
     theOptions: function theOptions() {
       if (this.hasOptionsSource) {
         return this.hasOptionsSource;
       }
-      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== 'object') {
         return this.defaultOption ? [this.defaultOption] : [];
       }
       return this.options;
     },
     hasOptionsSource: function hasOptionsSource() {
-      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
+      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== 'object') {
         return false;
       }
-      if (typeof this.optionsSource.where !== "string") {
+      if (typeof this.optionsSource.where !== 'string') {
         return false;
       }
       var terget_fields = this.getTergetFields(this.optionsSource.where);
-      var id_prefix = typeof this.optionsSource.id_prefix === "string" ? this.optionsSource.id_prefix + "-" : this.name + "-";
-      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      var id_prefix = typeof this.optionsSource.id_prefix === 'string' ? this.optionsSource.id_prefix + '-' : this.name + '-';
+      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var filter_by = null;
-      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
+      if (typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length) {
         filter_by = this.optionsSource.filter_by;
       }
       if (filter_by) {
         filter_by = this.getTergetFields(this.optionsSource.filter_by);
       }
       var has_sourcemap = false;
-      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === "object") {
+      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === 'object') {
         has_sourcemap = true;
       }
       if (!has_sourcemap && !filter_by) {
@@ -2548,7 +2548,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (filter_by) {
         terget_fields = this.filterDataByValue(terget_fields, filter_by);
       }
-      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var i = 0;
@@ -2557,7 +2557,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var option = _step.value;
-          var id = typeof option.id !== "undefined" ? option.id : "";
+          var id = typeof option.id !== 'undefined' ? option.id : '';
           terget_fields[i].id = id_prefix + id;
           i++;
         }
@@ -2575,7 +2575,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }),
   data: function data() {
     return {
-      local_value: "",
+      local_value: '',
       validationLog: {}
     };
   },
@@ -2584,31 +2584,31 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return this.local_value.includes(this.getValue(option));
     },
     getValue: function getValue(option) {
-      return typeof option.value !== "undefined" ? option.value : "";
+      return typeof option.value !== 'undefined' ? option.value : '';
     },
     getTheOptions: function getTheOptions() {
       return JSON.parse(JSON.stringify(this.theOptions));
     },
     filtereValue: function filtereValue(value) {
-      if (!value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) !== "object") {
+      if (!value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) !== 'object') {
         return [];
       }
       return [];
     },
     hasDeprecatedValue: function hasDeprecatedValue(values) {
-      if (!values && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(values) !== "object") {
+      if (!values && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(values) !== 'object') {
         return [];
       }
       var flatten_values = JSON.parse(JSON.stringify(values));
       var options_values = this.theOptions.map(function (option) {
-        if (typeof option.value !== "undefined") {
+        if (typeof option.value !== 'undefined') {
           return option.value;
         }
       });
       var deprecated_value = flatten_values.filter(function (value_elm) {
         return !options_values.includes(value_elm);
       });
-      if (!deprecated_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(deprecated_value) !== "object") {
+      if (!deprecated_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(deprecated_value) !== 'object') {
         return false;
       }
       if (!deprecated_value.length) {
@@ -2644,8 +2644,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   model: {
-    prop: "value",
-    event: "update"
+    prop: 'value',
+    event: 'update'
   },
   computed: {
     filteredValue: function filteredValue() {
@@ -2653,27 +2653,27 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     input_type: function input_type() {
       var supported_types = {
-        "text-field": "text",
-        "number-field": "number",
-        "password-field": "password",
-        "date-field": "date",
-        "hidden-field": "hidden",
-        text: "text",
-        number: "number",
-        password: "password",
-        date: "date",
-        hidden: "hidden"
+        'text-field': 'text',
+        'number-field': 'number',
+        'password-field': 'password',
+        'date-field': 'date',
+        'hidden-field': 'hidden',
+        text: 'text',
+        number: 'number',
+        password: 'password',
+        date: 'date',
+        hidden: 'hidden'
       };
-      if (typeof supported_types[this.type] !== "undefined") {
+      if (typeof supported_types[this.type] !== 'undefined') {
         return supported_types[this.type];
       }
-      return "text";
+      return 'text';
     },
     formGroupClass: function formGroupClass() {
       var _this$validationLog;
       var validation_classes = (_this$validationLog = this.validationLog) !== null && _this$validationLog !== void 0 && _this$validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
       return _objectSpread(_objectSpread({}, validation_classes), {}, {
-        "cptm-mb-0": "hidden" === this.input_type ? true : false
+        'cptm-mb-0': 'hidden' === this.input_type ? true : false
       });
     },
     formControlClass: function formControlClass() {
@@ -2691,7 +2691,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     decodeEntity: function decodeEntity(inputStr) {
-      var textarea = document.createElement("textarea");
+      var textarea = document.createElement('textarea');
       textarea.innerHTML = inputStr;
       return textarea.value;
     }
@@ -2717,22 +2717,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   computed: {
     input_type: function input_type() {
       var supported_types = {
-        "text-field": "text",
-        "number-field": "number",
-        "password-field": "password",
-        "date-field": "date",
-        "hidden-field": "hidden"
+        'text-field': 'text',
+        'number-field': 'number',
+        'password-field': 'password',
+        'date-field': 'date',
+        'hidden-field': 'hidden'
       };
-      if (typeof supported_types[this.type] !== "undefined") {
+      if (typeof supported_types[this.type] !== 'undefined') {
         return supported_types[this.type];
       }
-      return "text";
+      return 'text';
     },
     formGroupClass: function formGroupClass() {
       var validation_classes = this.validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
@@ -2741,7 +2741,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   watch: {
     local_value: function local_value() {
-      this.$emit("update", this.local_value);
+      this.$emit('update', this.local_value);
     }
   },
   created: function created() {
@@ -2749,7 +2749,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   data: function data() {
     return {
-      local_value: "",
+      local_value: '',
       validationLog: {}
     };
   }
@@ -2776,14 +2776,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   created: function created() {
-    if (typeof this.value !== "undefined") {
-      this.local_value = true === this.value || "true" === this.value || 1 === this.value || "1" === this.value ? true : false;
+    if (typeof this.value !== 'undefined') {
+      this.local_value = true === this.value || 'true' === this.value || 1 === this.value || '1' === this.value ? true : false;
     }
-    this.$emit("update", this.local_value);
+    this.$emit('update', this.local_value);
     this.setup();
   },
   computed: {
@@ -2801,12 +2801,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
 
       // check if show
-      if (typeof this.componets.link.show !== "undefined" && !this.componets.link.show) {
+      if (typeof this.componets.link.show !== 'undefined' && !this.componets.link.show) {
         return false;
       }
 
       // showIfValueIs
-      if (typeof this.componets.link.showIfValueIs === "undefined") {
+      if (typeof this.componets.link.showIfValueIs === 'undefined') {
         return true;
       }
       if (this.local_value != this.componets.link.showIfValueIs) {
@@ -2816,7 +2816,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     compLinkClass: function compLinkClass() {
       var button_type = this.comp.link.type;
-      return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, "cptm-" + button_type, true);
+      return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, 'cptm-' + button_type, true);
     },
     formGroupClass: function formGroupClass() {
       var validation_classes = this.validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
@@ -2829,10 +2829,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       comp: {
         link: {
           enable: false,
-          label: "Link",
-          type: "success",
-          url: "#",
-          target: "_self"
+          label: 'Link',
+          type: 'success',
+          url: '#',
+          target: '_self'
         }
       },
       confirmation: {
@@ -2865,7 +2865,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     },
     setupConfirmationModal: function setupConfirmationModal() {
-      if (!(this.confirmationModal && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.confirmationModal) === "object")) {
+      if (!(this.confirmationModal && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.confirmationModal) === 'object')) {
         return;
       }
       if (!Object.keys(this.confirmationModal)) {
@@ -2878,7 +2878,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var self = this;
       var updateData = function updateData() {
         self.local_value = !self.local_value;
-        self.$emit("update", self.local_value);
+        self.$emit('update', self.local_value);
         self.handleDataOnChange();
       };
       this.handleDataBeforeChange(updateData);
@@ -2905,10 +2905,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       // return false;
     },
     confirmationOnConfirm: function confirmationOnConfirm(callback) {
-      if (typeof callback !== "function") {
+      if (typeof callback !== 'function') {
         return;
       }
-      console.log("confirmationOnConfirm");
+      console.log('confirmationOnConfirm');
       callback();
     },
     confirmationOnCancel: function confirmationOnCancel() {
@@ -2924,16 +2924,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (cachedData.value == this.local_value) {
         return;
       }
-      if (!(task && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(task) === "object")) {
+      if (!(task && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(task) === 'object')) {
         return;
       }
       if (!task.action) {
         return;
       }
-      if (typeof task.action !== "string") {
+      if (typeof task.action !== 'string') {
         return;
       }
-      this.$emit("do-action", task);
+      this.$emit('do-action', task);
     }
   }
 });
@@ -2957,8 +2957,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   model: {
-    prop: "value",
-    event: "input"
+    prop: 'value',
+    event: 'input'
   },
   computed: {
     theThumbnail: function theThumbnail() {
@@ -2971,7 +2971,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return false;
     },
     thumbnailSrc: function thumbnailSrc() {
-      if (this.thumbnail_src === "") {
+      if (this.thumbnail_src === '') {
         // return this.defaultImg;
       }
       return this.thumbnail_src;
@@ -2989,7 +2989,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   watch: {
     theThumbnail: function theThumbnail() {
-      this.$emit("update", this.theThumbnail);
+      this.$emit('update', this.theThumbnail);
     }
   },
   created: function created() {
@@ -2998,7 +2998,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   data: function data() {
     return {
       file_frame: null,
-      thumbnail_src: "",
+      thumbnail_src: '',
       validationLog: {}
     };
   },
@@ -3008,23 +3008,23 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.thumbnail_src = this.value;
       }
       this.createTheMediaFrame();
-      this.$emit("update", this.theThumbnail);
+      this.$emit('update', this.theThumbnail);
     },
     createTheMediaFrame: function createTheMediaFrame() {
       var self = this;
 
       // Create the media frame.
       this.file_frame = wp.media.frames.file_frame = wp.media({
-        title: "Select a image to upload",
+        title: 'Select a image to upload',
         button: {
-          text: "Use this image"
+          text: 'Use this image'
         },
         multiple: false
       });
 
       // When an image is selected, run a callback.
-      this.file_frame.on("select", function () {
-        var attachment = self.file_frame.state().get("selection").first().toJSON();
+      this.file_frame.on('select', function () {
+        var attachment = self.file_frame.state().get('selection').first().toJSON();
         self.thumbnail_src = attachment.url;
       });
     },
@@ -3037,8 +3037,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.createTheMediaFrame();
     },
     deleteThumbnail: function deleteThumbnail() {
-      console.log("Delete Thumb");
-      this.thumbnail_src = "";
+      console.log('Delete Thumb');
+      this.thumbnail_src = '';
     }
   }
 });
@@ -3066,9 +3066,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    fields: "fields",
-    cached_fields: "cached_fields",
-    highlighted_field_key: "highlighted_field_key"
+    fields: 'fields',
+    cached_fields: 'cached_fields',
+    highlighted_field_key: 'highlighted_field_key'
   })),
   methods: {
     doAction: function doAction(payload, component_key) {
@@ -3076,10 +3076,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         return;
       }
       if (this[payload.component] !== component_key) {
-        this.$emit("do-action", payload);
+        this.$emit('do-action', payload);
         return;
       }
-      if (typeof this[payload.action] !== "function") {
+      if (typeof this[payload.action] !== 'function') {
         return;
       }
       this[payload.action](payload.args);
@@ -3093,13 +3093,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return JSON.parse(data);
     },
     isObject: function isObject(the_var) {
-      if (typeof the_var === "undefined") {
+      if (typeof the_var === 'undefined') {
         return false;
       }
       if (the_var === null) {
         return false;
       }
-      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(the_var) !== "object") {
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(the_var) !== 'object') {
         return false;
       }
       if (Array.isArray(the_var)) {
@@ -3111,18 +3111,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return this.highlighted_field_key === field_key;
     },
     getOptionID: function getOptionID(option, field_index, section_index) {
-      var option_id = "";
+      var option_id = '';
       if (section_index) {
         option_id = section_index;
       }
       if (this.fieldId) {
-        option_id = option_id + "_" + this.fieldId;
+        option_id = option_id + '_' + this.fieldId;
       }
-      if (typeof option.id !== "undefined") {
-        option_id = option_id + "_" + option.id;
+      if (typeof option.id !== 'undefined') {
+        option_id = option_id + '_' + option.id;
       }
-      if (typeof field_index !== "undefined") {
-        option_id = option_id + "_" + field_index;
+      if (typeof field_index !== 'undefined') {
+        option_id = option_id + '_' + field_index;
       }
       return option_id;
     },
@@ -3132,7 +3132,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var mapped_data = flatten_data.map(function (element) {
         var item = {};
         for (var key in flatten_map) {
-          if (typeof element[key] !== "undefined") {
+          if (typeof element[key] !== 'undefined') {
             item[key] = element[flatten_map[key]];
           }
         }
@@ -3141,8 +3141,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return mapped_data;
     },
     filterDataByValue: function filterDataByValue(data, value) {
-      var value_is_array = value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === "object" ? true : false;
-      var value_is_text = typeof value === "string" || typeof value === "number" ? true : false;
+      var value_is_array = value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === 'object' ? true : false;
+      var value_is_text = typeof value === 'string' || typeof value === 'number' ? true : false;
       var flatten_data = JSON.parse(JSON.stringify(data));
       return flatten_data.filter(function (item) {
         if (value_is_text && value === item.value) {
@@ -3175,7 +3175,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var item = _step.value;
-          if (item.key === "value" && item.compare === "=") {
+          if (item.key === 'value' && item.compare === '=') {
             // Compare the value
             if (conditionField && conditionField.value === item.value) {
               isChangeable = true;
@@ -3271,8 +3271,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var failed_cond_count = 0;
       var success_cond_count = 0;
-      var accepted_comparison = ["and", "or"];
-      var compare = "and";
+      var accepted_comparison = ['and', 'or'];
+      var compare = 'and';
       var matched_data = [];
       var state = {
         status: false,
@@ -3290,7 +3290,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (!this.isObject(target_field)) {
         return state;
       }
-      if (typeof condition.compare === "string" && accepted_comparison.indexOf(condition.compare)) {
+      if (typeof condition.compare === 'string' && accepted_comparison.indexOf(condition.compare)) {
         compare = condition.compare;
       }
       var _iterator5 = _createForOfIteratorHelper(condition.conditions),
@@ -3298,32 +3298,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
           var sub_condition = _step5.value;
-          if (typeof sub_condition.key !== "string") {
+          if (typeof sub_condition.key !== 'string') {
             continue;
           }
-          var sub_condition_field_path = sub_condition.key.split(".");
+          var sub_condition_field_path = sub_condition.key.split('.');
           var sub_condition_field = null;
           var sub_condition_error = 0;
-          var sub_compare = typeof sub_condition.compare === "string" ? sub_condition.compare : "=";
+          var sub_compare = typeof sub_condition.compare === 'string' ? sub_condition.compare : '=';
           if (!sub_condition_field_path.length) {
             continue;
           }
 
           // ---
-          if (sub_condition_field_path[0] !== "_any") {
+          if (sub_condition_field_path[0] !== '_any') {
             sub_condition_field = target_field[sub_condition_field_path[0]];
-            var is_hidden = typeof target_field.hidden !== "undefined" ? target_field.hidden : false;
+            var is_hidden = typeof target_field.hidden !== 'undefined' ? target_field.hidden : false;
             if (sub_condition_field_path.length > 1 && !this.isObject(sub_condition_field)) {
               sub_condition_error++;
             }
             if (sub_condition_field_path.length > 1 && !sub_condition_error) {
               sub_condition_field = target_field[sub_condition_field_path[0]][sub_condition_field_path[1]];
-              is_hidden = typeof target_field[sub_condition_field_path[0]].hidden !== "undefined" ? target_field[sub_condition_field_path[0]].hidden : false;
+              is_hidden = typeof target_field[sub_condition_field_path[0]].hidden !== 'undefined' ? target_field[sub_condition_field_path[0]].hidden : false;
             }
             if (is_hidden) {
               sub_condition_error++;
             }
-            if (typeof sub_condition_field === "undefined") {
+            if (typeof sub_condition_field === 'undefined') {
               sub_condition_error++;
             }
             if (sub_condition_error) {
@@ -3344,7 +3344,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           }
 
           // Check if has _any condition
-          if (sub_condition_field_path[0] === "_any") {
+          if (sub_condition_field_path[0] === '_any') {
             var failed_any_cond_count = 0;
             var success_any_cond_count = 0;
             for (var field in target_field) {
@@ -3356,7 +3356,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               if (sub_condition_field_path.length > 1 && !any_cond_error) {
                 sub_condition_field = sub_condition_field[sub_condition_field_path[1]];
               }
-              if (typeof sub_condition_field === "undefined") {
+              if (typeof sub_condition_field === 'undefined') {
                 any_cond_error++;
               }
               if (any_cond_error) {
@@ -3390,10 +3390,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var status = false;
       switch (compare) {
-        case "and":
+        case 'and':
           status = failed_cond_count ? false : true;
           break;
-        case "or":
+        case 'or':
           status = success_cond_count ? true : false;
           break;
       }
@@ -3407,81 +3407,81 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     checkComparison: function checkComparison(payload) {
       var args = {
-        data_a: "",
-        data_b: "",
-        compare: "="
+        data_a: '',
+        data_b: '',
+        compare: '='
       };
       Object.assign(args, payload);
       var status = false;
       switch (args.compare) {
-        case "=":
+        case '=':
           status = args.data_a == args.data_b ? true : false;
           break;
-        case "==":
+        case '==':
           status = args.data_a === args.data_b ? true : false;
           break;
-        case "!=":
+        case '!=':
           status = args.data_a !== args.data_b ? true : false;
           break;
-        case "not":
+        case 'not':
           status = args.data_a !== args.data_b ? true : false;
           break;
-        case ">":
+        case '>':
           status = args.data_a > args.data_b ? true : false;
           break;
-        case "<":
+        case '<':
           status = args.data_a < args.data_b ? true : false;
           break;
-        case ">=":
+        case '>=':
           status = args.data_a >= args.data_b ? true : false;
           break;
-        case "<=":
+        case '<=':
           status = args.data_a <= args.data_b ? true : false;
           break;
       }
       return status;
     },
     getFormFieldName: function getFormFieldName(field_type) {
-      return field_type + "-field";
+      return field_type + '-field';
     },
     updateFieldValue: function updateFieldValue(field_key, value) {
-      this.$store.commit("updateFieldValue", {
+      this.$store.commit('updateFieldValue', {
         field_key: field_key,
         value: value
       });
     },
     updateFieldValidationState: function updateFieldValidationState(field_key, value) {
-      this.$store.commit("updateFieldData", {
+      this.$store.commit('updateFieldData', {
         field_key: field_key,
-        option_key: "validationState",
+        option_key: 'validationState',
         value: value
       });
     },
     updateFieldData: function updateFieldData(field_key, option_key, value) {
-      this.$store.commit("updateFieldData", {
+      this.$store.commit('updateFieldData', {
         field_key: field_key,
         option_key: option_key,
         value: value
       });
     },
     getActiveClass: function getActiveClass(item_index, active_index) {
-      return item_index === active_index ? "active" : "";
+      return item_index === active_index ? 'active' : '';
     },
     getTergetFields: function getTergetFields(payload) {
       var args = {
         root: this.fields,
-        path: ""
+        path: ''
       };
       if (this.isObject(payload)) {
         Object.assign(args, payload);
       }
-      if (typeof args.path !== "string") {
+      if (typeof args.path !== 'string') {
         return null;
       }
       var terget_field = null;
-      var terget_fields = args.path.split(".");
+      var terget_fields = args.path.split('.');
       var terget_missmatched = false;
-      if (terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) === "object") {
+      if (terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) === 'object') {
         terget_field = this.fields;
         var _iterator6 = _createForOfIteratorHelper(terget_fields),
           _step6;
@@ -3491,15 +3491,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             if (!key.length) {
               continue;
             }
-            if ("self" === key) {
+            if ('self' === key) {
               terget_field = args.root;
               continue;
             }
-            if (typeof terget_field[key] === "undefined") {
+            if (typeof terget_field[key] === 'undefined') {
               terget_missmatched = true;
               break;
             }
-            if (typeof terget_field[key].isVisible !== "undefined" && !terget_field[key].isVisible) {
+            if (typeof terget_field[key].isVisible !== 'undefined' && !terget_field[key].isVisible) {
               terget_missmatched = true;
               break;
             }
@@ -3517,7 +3517,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return JSON.parse(JSON.stringify(terget_field));
     },
     getSanitizedProps: function getSanitizedProps(props) {
-      if (props && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(props) === "object") {
+      if (props && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(props) === 'object') {
         var _props = JSON.parse(JSON.stringify(props));
         delete _props.value;
         return _props;
@@ -3528,8 +3528,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   data: function data() {
     return {
       default_option: {
-        value: "",
-        label: "Select..."
+        value: '',
+        label: 'Select...'
       }
     };
   }
@@ -3566,18 +3566,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var validation_log = {
         invalid_value: {
           has_error: false,
-          error_msg: "The field has invalid value"
+          error_msg: 'The field has invalid value'
         },
         duplicate_value: {
           has_error: false,
-          error_msg: "The field must be unique"
+          error_msg: 'The field must be unique'
         }
       };
       validation_log = this.syncValidationWithProps(validation_log);
       if (this.hasInvalidValue()) {
-        validation_log["invalid_value"].has_error = true;
+        validation_log['invalid_value'].has_error = true;
       }
-      if (typeof this.syncValidationWithLocalState === "function") {
+      if (typeof this.syncValidationWithLocalState === 'function') {
         validation_log = this.syncValidationWithLocalState(validation_log);
       }
 
@@ -3594,7 +3594,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         if (this.validationLog[status_key].has_error) {
           the_status.has_error = true;
           the_status.messages.push({
-            type: "error",
+            type: 'error',
             message: this.validationLog[status_key].error_msg
           });
         }
@@ -3602,7 +3602,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return the_status;
     },
     validationMessages: function validationMessages() {
-      if (!this.validationStatus.messages || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.validationStatus.messages) !== "object") {
+      if (!this.validationStatus.messages || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.validationStatus.messages) !== 'object') {
         return false;
       }
       if (!this.validationStatus.messages.length) {
@@ -3612,7 +3612,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     validationClass: function validationClass() {
       return {
-        "cpt-has-error": this.validationStatus.has_error
+        'cpt-has-error': this.validationStatus.has_error
       };
     },
     formGroupClass: function formGroupClass() {
@@ -3621,25 +3621,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     syncValidationWithProps: function syncValidationWithProps(validation_log) {
-      if (this.validation && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.validation) === "object") {
+      if (this.validation && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.validation) === 'object') {
         var _iterator = _createForOfIteratorHelper(this.validation),
           _step;
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var validation_item = _step.value;
-            if (typeof validation_item.error_key === "undefined") {
+            if (typeof validation_item.error_key === 'undefined') {
               continue;
             }
-            if (typeof validation_log[validation_item.error_key] === "undefined") {
+            if (typeof validation_log[validation_item.error_key] === 'undefined') {
               validation_log[validation_item.error_key] = {
-                error_msg: ""
+                error_msg: ''
               };
             }
             validation_log[validation_item.error_key].has_error = true;
-            if (typeof validation_item.has_error !== "undefined") {
+            if (typeof validation_item.has_error !== 'undefined') {
               validation_log[validation_item.error_key].has_error = validation_item.has_error;
             }
-            if (typeof validation_item.error_msg !== "undefined") {
+            if (typeof validation_item.error_msg !== 'undefined') {
               validation_log[validation_item.error_key].error_msg = validation_item.error_msg;
             }
           }
@@ -3653,10 +3653,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     hasInvalidValue: function hasInvalidValue() {
       var match_found = false;
-      if (this.default_option && typeof this.default_option.value !== "undefined" && this.local_value === this.default_option.value) {
+      if (this.default_option && typeof this.default_option.value !== 'undefined' && this.local_value === this.default_option.value) {
         return false;
       }
-      if (!this.theOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.theOptions) !== "object") {
+      if (!this.theOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.theOptions) !== 'object') {
         return false;
       }
       var _iterator2 = _createForOfIteratorHelper(this.theOptions),
@@ -3664,7 +3664,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var option = _step2.value;
-          if (typeof option.options !== "undefined") {
+          if (typeof option.options !== 'undefined') {
             var _iterator3 = _createForOfIteratorHelper(option.options),
               _step3;
             try {
@@ -3718,7 +3718,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     this.validate();
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    fields: "fields"
+    fields: 'fields'
   })), {}, {
     validationMessages: function validationMessages() {
       if (!this.validationState) {
@@ -3727,7 +3727,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (!this.validationState.log) {
         return false;
       }
-      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.validationState.log) !== "object") {
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.validationState.log) !== 'object') {
         return false;
       }
       if (!Object.keys(this.validationState.log).length) {
@@ -3748,7 +3748,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     validationClass: function validationClass() {
       return {
-        "cpt-has-error": this.validationMessages.length
+        'cpt-has-error': this.validationMessages.length
       };
     },
     formGroupClass: function formGroupClass() {
@@ -3769,24 +3769,24 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var error_count = 0;
       for (var rule in this.rules) {
         switch (rule) {
-          case "required":
+          case 'required':
             var status = this.checkRequired(this.value, this.rules[rule]);
             if (!status.valid) {
-              validation_log["required"] = status.log;
+              validation_log['required'] = status.log;
               error_count++;
             }
             break;
-          case "min":
+          case 'min':
             var status = this.checkMin(this.value, this.rules[rule]);
             if (!status.valid) {
-              validation_log["min"] = status.log;
+              validation_log['min'] = status.log;
               error_count++;
             }
             break;
-          case "max":
+          case 'max':
             var status = this.checkMax(this.value, this.rules[rule]);
             if (!status.valid) {
-              validation_log["max"] = status.log;
+              validation_log['max'] = status.log;
               error_count++;
             }
             break;
@@ -3796,7 +3796,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         hasError: error_count > 0 ? true : false,
         log: validation_log
       };
-      this.$emit("validate", validation_status);
+      this.$emit('validate', validation_status);
     },
     // checkRequired
     checkRequired: function checkRequired(value, arg) {
@@ -3809,8 +3809,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (this.isEmpty(value)) {
         status.valid = false;
         status.log = {
-          type: "error",
-          message: "The field is required"
+          type: 'error',
+          message: 'The field is required'
         };
         return status;
       }
@@ -3831,8 +3831,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (Number.isNaN(value_in_number)) {
         status.valid = false;
         status.log = {
-          type: "error",
-          message: "The field must be number"
+          type: 'error',
+          message: 'The field must be number'
         };
         return status;
       }
@@ -3841,8 +3841,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (value_in_number < arg) {
         status.valid = false;
         status.log = {
-          type: "error",
-          message: "The field must be minimum of " + arg
+          type: 'error',
+          message: 'The field must be minimum of ' + arg
         };
         return status;
       }
@@ -3863,8 +3863,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (Number.isNaN(value_in_number)) {
         status.valid = false;
         status.log = {
-          type: "error",
-          message: "The field must be number"
+          type: 'error',
+          message: 'The field must be number'
         };
         return status;
       }
@@ -3873,18 +3873,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (value_in_number > arg) {
         status.valid = false;
         status.log = {
-          type: "error",
-          message: "The field must be maximum of " + arg
+          type: 'error',
+          message: 'The field must be maximum of ' + arg
         };
         return status;
       }
       return status;
     },
     isEmpty: function isEmpty(value) {
-      if (typeof value === "string" && !value.length) {
+      if (typeof value === 'string' && !value.length) {
         return true;
       }
-      if (typeof value === "number" && !value.toString().length) {
+      if (typeof value === 'number' && !value.toString().length) {
         return true;
       }
       if (!value) {
@@ -12182,7 +12182,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     options: {},
     cachedOptions: {},
     config: {},
-    highlighted_field_key: "",
+    highlighted_field_key: '',
     metaKeys: {},
     deprecatedMetaKeys: [],
     sidebarNavigation: {},
@@ -12195,7 +12195,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
       var prepare_section_fields = function prepare_section_fields(args) {
         var sections = args.sections;
         var menu_key = args.menu_key;
-        var submenu_key = args.submenu_key ? args.submenu_key : "";
+        var submenu_key = args.submenu_key ? args.submenu_key : '';
         for (var section_key in sections) {
           if (sections[section_key].fields) {
             var _iterator = _createForOfIteratorHelper(sections[section_key].fields),
@@ -12208,9 +12208,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
                 }
                 var hash = menu_key;
                 if (submenu_key) {
-                  hash = hash + "__" + submenu_key;
+                  hash = hash + '__' + submenu_key;
                 }
-                hash = hash + "__" + section_key + "__" + field_key;
+                hash = hash + '__' + section_key + '__' + field_key;
                 state.cached_fields[field_key].layout_path = {
                   menu_key: menu_key,
                   submenu_key: submenu_key,
@@ -12229,7 +12229,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
       };
       for (var menu_key in state.layouts) {
         var status = 0 === menu_count ? true : false;
-        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key], "active", status);
+        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key], 'active', status);
         if (state.layouts[menu_key].sections) {
           prepare_section_fields({
             menu_key: menu_key,
@@ -12240,7 +12240,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
           var submenu_count = 0;
           for (var submenu_key in state.layouts[menu_key].submenu) {
             var _status = 0 === menu_count && 0 === submenu_count ? true : false;
-            vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu_key], "active", _status);
+            vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu_key], 'active', _status);
             submenu_count++;
             if (state.layouts[menu_key].submenu[submenu_key].sections) {
               prepare_section_fields({
@@ -12258,7 +12258,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
       state.cached_fields = JSON.parse(JSON.stringify(state.fields));
     },
     resetHighlightedFieldKey: function resetHighlightedFieldKey(state) {
-      state.highlighted_field_key = "";
+      state.highlighted_field_key = '';
     },
     updateCachedFieldData: function updateCachedFieldData(state, payload) {
       state.cached_fields[payload.key].value = payload.value;
@@ -12266,9 +12266,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     swichToNav: function swichToNav(state, payload) {
       var menu_key = payload.menu_key;
       var submenu_key = payload.submenu_key;
-      state.highlighted_field_key = "";
+      state.highlighted_field_key = '';
       var highlight_active_field = function highlight_active_field(hash) {
-        var hash_paths = hash.split("__");
+        var hash_paths = hash.split('__');
         var index = hash_paths.length - 1;
         var field_key = hash_paths[index];
         if (!state.cached_fields[field_key]) {
@@ -12282,26 +12282,26 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 
       // Active Top Menu
       for (var menu in state.layouts) {
-        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu], "active", false);
+        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu], 'active', false);
       }
-      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key], "active", true);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key], 'active', true);
 
       // Active Sub Menu
       if (!submenu_key && state.layouts[menu_key].submenu) {
         var submenu_keys = Object.keys(state.layouts[menu_key].submenu);
         submenu_key = Array.isArray(submenu_keys) ? submenu_keys[0] : null;
       }
-      var hash = payload.hash ? "#" + payload.hash : "#" + menu_key;
+      var hash = payload.hash ? '#' + payload.hash : '#' + menu_key;
       if (!submenu_key) {
         window.location.hash = hash;
         highlight_active_field(hash, submenu_key);
         return;
       }
       for (var submenu in state.layouts[menu_key].submenu) {
-        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu], "active", false);
+        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu], 'active', false);
       }
-      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu_key], "active", true);
-      hash = payload.hash ? "#" + payload.hash : "#" + menu_key + "__" + submenu_key;
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.layouts[menu_key].submenu[submenu_key], 'active', true);
+      hash = payload.hash ? '#' + payload.hash : '#' + menu_key + '__' + submenu_key;
       highlight_active_field(hash);
       window.location.hash = hash;
     },
@@ -12339,7 +12339,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
       state.form_fields = value;
     },
     updateFieldValue: function updateFieldValue(state, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[payload.field_key], "value", payload.value);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[payload.field_key], 'value', payload.value);
     },
     updateFieldData: function updateFieldData(state, payload) {
       vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[payload.field_key], payload.option_key, payload.value);
@@ -12350,13 +12350,13 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     importFields: function importFields(state, importing_fields) {
       for (var field_key in importing_fields) {
         var importValue = importing_fields[field_key];
-        if (typeof importValue === "undefined") {
+        if (typeof importValue === 'undefined') {
           continue;
         }
 
         // Skip if the field is not in the state
         if (state.fields[field_key]) {
-          vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[field_key], "value", importValue);
+          vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[field_key], 'value', importValue);
         } else {
           continue;
         }
@@ -12395,16 +12395,16 @@ function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var isObject = function isObject(value) {
-  return value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === "object" && !Array.isArray(value);
+  return value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === 'object' && !Array.isArray(value);
 };
 function findObjectItem(path, data, defaultValue) {
-  if (typeof path !== "string") {
+  if (typeof path !== 'string') {
     return defaultValue;
   }
   if (!isObject(data)) {
     return defaultValue;
   }
-  var pathItems = path.split(".");
+  var pathItems = path.split('.');
   var targetItem = data;
   var _iterator = _createForOfIteratorHelper(pathItems),
     _step;
@@ -12427,7 +12427,7 @@ function findObjectItem(path, data, defaultValue) {
   return targetItem;
 }
 function directoristRequestHeaders() {
-  if (window.directorist && window.directorist.request_headers && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(window.directorist.request_headers) === "object" && !Array.isArray(window.directorist.request_headers)) {
+  if (window.directorist && window.directorist.request_headers && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(window.directorist.request_headers) === 'object' && !Array.isArray(window.directorist.request_headers)) {
     var headers = {};
     for (var key in window.directorist.request_headers) {
       headers["Directorist-".concat(key)] = window.directorist.request_headers[key];
@@ -26715,7 +26715,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
   }
 });
@@ -34745,7 +34745,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: 'cptm-' + alert.type
-    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -63122,14 +63122,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].component("slide-up-down", vue_slide_up_down__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide_up_down__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 
-window.addEventListener("load", function () {
-  var cpt_manager_el = document.getElementById("atbdp-cpt-manager");
+window.addEventListener('load', function () {
+  var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
   if (cpt_manager_el) {
-    var encodedBuilderData = cpt_manager_el.getAttribute("data-builder-data");
+    var encodedBuilderData = cpt_manager_el.getAttribute('data-builder-data');
     var builderData = atob(encodedBuilderData);
     try {
       builderData = JSON.parse(builderData);
@@ -63137,20 +63137,20 @@ window.addEventListener("load", function () {
       builderData = [];
     }
     new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
-      el: "#atbdp-cpt-manager",
+      el: '#atbdp-cpt-manager',
       store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_5__["default"],
       components: {
-        "cpt-manager": _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+        'cpt-manager': _vue_apps_cpt_manager_CPT_Manager_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
       },
       data: function data() {
         return {
-          id: typeof builderData.id !== "undefined" ? builderData.id : 0,
-          fields: typeof builderData.fields !== "undefined" ? builderData.fields : [],
-          layouts: typeof builderData.layouts !== "undefined" ? builderData.layouts : [],
-          options: typeof builderData.options !== "undefined" ? builderData.options : {
-            test: "asas"
+          id: typeof builderData.id !== 'undefined' ? builderData.id : 0,
+          fields: typeof builderData.fields !== 'undefined' ? builderData.fields : [],
+          layouts: typeof builderData.layouts !== 'undefined' ? builderData.layouts : [],
+          options: typeof builderData.options !== 'undefined' ? builderData.options : {
+            test: 'asas'
           },
-          config: typeof builderData.config !== "undefined" ? builderData.config : {}
+          config: typeof builderData.config !== 'undefined' ? builderData.config : {}
         };
       }
     });

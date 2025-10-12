@@ -9,12 +9,12 @@
 
 // author sorting
 (function ($) {
-  window.addEventListener("load", function () {
+  window.addEventListener('load', function () {
     /* Masonry layout */
     function authorsMasonry() {
-      var authorsCard = $(".directorist-authors__cards");
+      var authorsCard = $('.directorist-authors__cards');
       $(authorsCard).each(function (id, elm) {
-        var authorsCardRow = $(elm).find(".directorist-row");
+        var authorsCardRow = $(elm).find('.directorist-row');
         var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
           $(authorMasonryInit).masonry({
             percentPosition: true,
@@ -29,28 +29,28 @@
     var alphabetValue;
 
     /* authors nav default active item */
-    if ($(".directorist-authors__nav").length) {
-      $(".directorist-authors__nav ul li:first-child").addClass("active");
+    if ($('.directorist-authors__nav').length) {
+      $('.directorist-authors__nav ul li:first-child').addClass('active');
     }
     /* authors nav item */
-    $("body").on("click", ".directorist-alphabet", function (e) {
+    $('body').on('click', '.directorist-alphabet', function (e) {
       e.preventDefault();
       var _this = $(this);
-      var alphabet = $(this).attr("data-alphabet");
-      $("body").addClass("atbdp-form-fade");
+      var alphabet = $(this).attr('data-alphabet');
+      $('body').addClass('atbdp-form-fade');
       $.ajax({
-        method: "POST",
+        method: 'POST',
         url: directorist.ajaxurl,
         data: {
-          action: "directorist_author_alpha_sorting",
-          _nonce: $(this).attr("data-nonce"),
-          alphabet: $(this).attr("data-alphabet")
+          action: 'directorist_author_alpha_sorting',
+          _nonce: $(this).attr('data-nonce'),
+          alphabet: $(this).attr('data-alphabet')
         },
         success: function success(response) {
-          $("#directorist-all-authors").empty().append(response);
-          $("body").removeClass("atbdp-form-fade");
-          $("." + alphabet).parent().addClass("active");
-          alphabetValue = $(_this).attr("data-alphabet");
+          $('#directorist-all-authors').empty().append(response);
+          $('body').removeClass('atbdp-form-fade');
+          $('.' + alphabet).parent().addClass('active');
+          alphabetValue = $(_this).attr('data-alphabet');
           authorsMasonry();
         },
         error: function error(_error) {
@@ -60,32 +60,32 @@
     });
 
     /* authors pagination */
-    $("body").on("click", ".directorist-authors-pagination a", function (e) {
+    $('body').on('click', '.directorist-authors-pagination a', function (e) {
       e.preventDefault();
       var paged = $(this).text();
-      if ($(this).hasClass("prev")) {
-        paged = parseInt($(".directorist-authors-pagination .current").text()) - 1;
+      if ($(this).hasClass('prev')) {
+        paged = parseInt($('.directorist-authors-pagination .current').text()) - 1;
       }
-      if ($(this).hasClass("next")) {
-        paged = parseInt($(".directorist-authors-pagination .current").text()) + 1;
+      if ($(this).hasClass('next')) {
+        paged = parseInt($('.directorist-authors-pagination .current').text()) + 1;
       }
-      $("body").addClass("atbdp-form-fade");
+      $('body').addClass('atbdp-form-fade');
       var getAlphabetValue = alphabetValue;
       $.ajax({
-        method: "POST",
+        method: 'POST',
         url: directorist.ajaxurl,
         data: {
-          action: "directorist_author_pagination",
+          action: 'directorist_author_pagination',
           paged: paged
         },
         success: function success(response) {
-          $("body").removeClass("atbdp-form-fade");
-          $("#directorist-all-authors").empty().append(response);
+          $('body').removeClass('atbdp-form-fade');
+          $('#directorist-all-authors').empty().append(response);
           authorsMasonry();
-          if (document.querySelector("." + getAlphabetValue) !== null) {
-            document.querySelector("." + getAlphabetValue).closest("li").classList.add("active");
-          } else if ($(".directorist-authors__nav").length) {
-            $(".directorist-authors__nav ul li:first-child").addClass("active");
+          if (document.querySelector('.' + getAlphabetValue) !== null) {
+            document.querySelector('.' + getAlphabetValue).closest('li').classList.add('active');
+          } else if ($('.directorist-authors__nav').length) {
+            $('.directorist-authors__nav ul li:first-child').addClass('active');
           }
         },
         error: function error(_error2) {

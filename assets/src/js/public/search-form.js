@@ -17,7 +17,7 @@ class ViewportAwareDropdown {
 			positioningDelay: 10,
 			mutationDelay: 50,
 			animationDelay: 300,
-			...options
+			...options,
 		};
 		this.observer = null;
 		this.isInitialized = false;
@@ -32,31 +32,41 @@ class ViewportAwareDropdown {
 	}
 
 	bindEvents() {
-		const debouncedResize = debounce(() => this.updateVisibleDropdowns(), 100);
-		const debouncedScroll = debounce(() => this.updateVisibleDropdowns(), 50);
-		
+		const debouncedResize = debounce(
+			() => this.updateVisibleDropdowns(),
+			100
+		);
+		const debouncedScroll = debounce(
+			() => this.updateVisibleDropdowns(),
+			50
+		);
+
 		window.addEventListener('resize', debouncedResize);
 		window.addEventListener('scroll', debouncedScroll);
 	}
 
 	positionDropdown(trigger) {
-		const dropdown = trigger.parentElement.querySelector(this.options.dropdownClass);
+		const dropdown = trigger.parentElement.querySelector(
+			this.options.dropdownClass
+		);
 		if (!dropdown) return;
 
 		dropdown.classList.remove(this.options.upwardClass);
-		
+
 		const triggerRect = trigger.getBoundingClientRect();
 		const dropdownHeight = dropdown.offsetHeight;
 		const dropdownWidth = dropdown.offsetWidth;
 		const viewportHeight = window.innerHeight;
 		const viewportWidth = window.innerWidth;
-		
+
 		const spaceBelow = viewportHeight - triggerRect.bottom;
 		const spaceAbove = triggerRect.top;
 		const spaceRight = viewportWidth - triggerRect.left;
 		const spaceLeft = triggerRect.right;
 
-		const needsUpward = spaceBelow < dropdownHeight + this.options.offset && spaceAbove > spaceBelow;
+		const needsUpward =
+			spaceBelow < dropdownHeight + this.options.offset &&
+			spaceAbove > spaceBelow;
 		const needsLeft = spaceRight < dropdownWidth && spaceLeft > spaceRight;
 
 		if (needsUpward) {
@@ -67,8 +77,9 @@ class ViewportAwareDropdown {
 	}
 
 	setDropdownPosition(dropdown, upward, left) {
-		const isRTL = document.dir === 'rtl' || document.documentElement.dir === 'rtl';
-		
+		const isRTL =
+			document.dir === 'rtl' || document.documentElement.dir === 'rtl';
+
 		Object.assign(dropdown.style, {
 			position: 'absolute',
 			top: upward ? '' : '100%',
@@ -76,15 +87,19 @@ class ViewportAwareDropdown {
 			left: (left && !isRTL) || (!left && isRTL) ? 'auto' : '0',
 			right: (left && !isRTL) || (!left && isRTL) ? '0' : 'auto',
 			transform: '',
-			[upward ? 'marginBottom' : 'marginTop']: `${this.options.offset}px`
+			[upward ? 'marginBottom' : 'marginTop']: `${this.options.offset}px`,
 		});
 	}
 
 	updateVisibleDropdowns() {
-		const visibleDropdowns = document.querySelectorAll(`${this.options.dropdownClass}.${this.options.activeClass}`);
-		
+		const visibleDropdowns = document.querySelectorAll(
+			`${this.options.dropdownClass}.${this.options.activeClass}`
+		);
+
 		visibleDropdowns.forEach((dropdown) => {
-			const trigger = dropdown.parentElement.querySelector(this.options.triggerClass);
+			const trigger = dropdown.parentElement.querySelector(
+				this.options.triggerClass
+			);
 			if (trigger) {
 				this.positionDropdown(trigger);
 			}
@@ -93,29 +108,47 @@ class ViewportAwareDropdown {
 
 	setupMutationObserver() {
 		if (this.observer) return;
-		
+
 		this.observer = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
-				if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+				if (
+					mutation.type === 'attributes' &&
+					mutation.attributeName === 'class'
+				) {
 					const target = mutation.target;
-					if (target.classList.contains(this.options.dropdownClass) && 
-						target.classList.contains(this.options.activeClass)) {
-						const trigger = target.parentElement.querySelector(this.options.triggerClass);
+					if (
+						target.classList.contains(this.options.dropdownClass) &&
+						target.classList.contains(this.options.activeClass)
+					) {
+						const trigger = target.parentElement.querySelector(
+							this.options.triggerClass
+						);
 						if (trigger) {
-							setTimeout(() => this.positionDropdown(trigger), this.options.mutationDelay);
+							setTimeout(
+								() => this.positionDropdown(trigger),
+								this.options.mutationDelay
+							);
 						}
 					}
 				}
-				
+
 				if (mutation.type === 'childList') {
 					mutation.addedNodes.forEach((node) => {
 						if (node.nodeType === Node.ELEMENT_NODE) {
-							const dropdowns = node.querySelectorAll ? 
-								node.querySelectorAll(this.options.dropdownClass) : 
-								(node.matches && node.matches(this.options.dropdownClass) ? [node] : []);
-							
+							const dropdowns = node.querySelectorAll
+								? node.querySelectorAll(
+										this.options.dropdownClass
+									)
+								: node.matches &&
+									  node.matches(this.options.dropdownClass)
+									? [node]
+									: [];
+
 							dropdowns.forEach((dropdown) => {
-								const trigger = dropdown.parentElement.querySelector(this.options.triggerClass);
+								const trigger =
+									dropdown.parentElement.querySelector(
+										this.options.triggerClass
+									);
 								if (trigger) {
 									this.attachDropdownEvents(trigger);
 								}
@@ -130,30 +163,38 @@ class ViewportAwareDropdown {
 			childList: true,
 			subtree: true,
 			attributes: true,
-			attributeFilter: ['class']
+			attributeFilter: ['class'],
 		});
 	}
 
 	attachDropdownEvents(trigger) {
 		if (trigger.dataset.viewportDropdownAttached) return;
-		
+
 		trigger.addEventListener('click', (e) => {
-			setTimeout(() => this.positionDropdown(e.target), this.options.positioningDelay);
+			setTimeout(
+				() => this.positionDropdown(e.target),
+				this.options.positioningDelay
+			);
 		});
-		
+
 		trigger.dataset.viewportDropdownAttached = 'true';
 	}
 
 	initializeAllDropdowns() {
-		const allTriggers = document.querySelectorAll(this.options.triggerClass);
-		
+		const allTriggers = document.querySelectorAll(
+			this.options.triggerClass
+		);
+
 		allTriggers.forEach((trigger) => {
 			this.attachDropdownEvents(trigger);
 		});
 	}
 
 	position(trigger) {
-		const element = typeof trigger === 'string' ? document.querySelector(trigger) : trigger;
+		const element =
+			typeof trigger === 'string'
+				? document.querySelector(trigger)
+				: trigger;
 		if (element) this.positionDropdown(element);
 	}
 
@@ -324,10 +365,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					dropDownContent.slideUp();
 				}
 				// Hide all other open contents
-				$('.directorist-search-basic-dropdown-content.dropdown-content-show')
+				$(
+					'.directorist-search-basic-dropdown-content.dropdown-content-show'
+				)
 					.not(dropDownContent)
-					.each(function() {
-						$(this).removeClass('dropdown-content-show dropdown-upward').slideUp();
+					.each(function () {
+						$(this)
+							.removeClass(
+								'dropdown-content-show dropdown-upward'
+							)
+							.slideUp();
 					});
 			}
 		);
@@ -345,11 +392,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			);
 
 			if (!dropDownRoot.length) {
-				dropDownParent.each(function() {
+				dropDownParent.each(function () {
 					$(this).removeClass('input-is-focused');
 				});
-				dropDownContent.each(function() {
-					$(this).removeClass('dropdown-content-show dropdown-upward').slideUp();
+				dropDownContent.each(function () {
+					$(this)
+						.removeClass('dropdown-content-show dropdown-upward')
+						.slideUp();
 				});
 			}
 		});

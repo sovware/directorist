@@ -1517,8 +1517,8 @@ $(function () {
           var visible = _step.value;
           var $visible = $(visible);
           $visible.removeAttr('style');
-          $visible.find('.directorist-content-module__title').show();
-          $visible.find('.directorist-content-module__contents').show();
+          $visible.find('.directorist-content-module__title').show().addClass('opened');
+          $visible.find('.directorist-content-module__contents').show().addClass('active');
           $("a[href=\"#".concat($visible.attr('id'), "\"]")).show();
         }
       } catch (err) {
@@ -1536,8 +1536,8 @@ $(function () {
           var $hidable = $(hidable);
           if ($hidable.find('.directorist-form-group:visible').length) {
             $hidable.removeAttr('style');
-            $hidable.find('.directorist-content-module__title').show();
-            $hidable.find('.directorist-content-module__contents').show();
+            $hidable.find('.directorist-content-module__title').show().addClass('opened');
+            $hidable.find('.directorist-content-module__contents').show().addClass('active');
             $("a[href=\"#".concat($hidable.attr('id'), "\"]")).show();
           } else {
             $hidable.css({
@@ -1548,8 +1548,8 @@ $(function () {
               border: 0,
               overflow: 'hidden'
             });
-            $hidable.find('.directorist-content-module__title').hide();
-            $hidable.find('.directorist-content-module__contents').hide();
+            $hidable.find('.directorist-content-module__title').hide().removeClass('opened');
+            $hidable.find('.directorist-content-module__contents').hide().removeClass('active');
             $("a[href=\"#".concat($hidable.attr('id'), "\"]")).hide();
           }
         }
@@ -2246,6 +2246,9 @@ function defaultAddListing() {
 
 // Add Listing Accordion
 function addListingAccordion() {
+  // Set default state to open for all content modules
+  $('.directorist-add-listing-form .directorist-content-module__title').addClass('opened');
+  $('.directorist-add-listing-form .directorist-content-module__contents').addClass('active');
   $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
     e.preventDefault();
     var windowScreen = window.innerWidth;

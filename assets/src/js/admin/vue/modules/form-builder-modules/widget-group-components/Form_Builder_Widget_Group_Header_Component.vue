@@ -1,7 +1,7 @@
 <template>
   <div
     class="cptm-form-builder-group-header-section"
-    :class="widgetsExpanded || groupFieldsExpandState ? 'expanded' : ''"
+    :class="widgetsExpanded ? 'expanded' : ''"
   >
     <!-- Group Header Top -->
     <draggable-list-item
@@ -16,12 +16,12 @@
         </div>
 
         <div class="cptm-form-builder-group-header-content">
-          <div class="cptm-form-builder-header-toggle" v-if="canExpand">
+          <div class="cptm-form-builder-header-toggle">
             <a
               href="#"
               class="cptm-form-builder-header-toggle-link"
               :class="
-                widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'
+                widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up' + ' ' + (canExpand ? '' : 'disabled')
               "
               @click.prevent="$emit('toggle-expand-widgets', groupKey)"
             >
@@ -50,7 +50,7 @@
               v-if="groupFields && typeof groupFields === 'object'"
               @click.prevent="toggleGroupFieldsExpand"
             >
-              <span class="fa fa-cog" aria-hidden="true"></span>
+              <span class="la la-cog" aria-hidden="true"></span>
             </a>
             <a
               href="#"

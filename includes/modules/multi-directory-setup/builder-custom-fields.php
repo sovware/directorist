@@ -383,7 +383,7 @@ return apply_filters(
 
         'date' => [
             'label'   => __( 'Date', 'directorist' ),
-            'icon'    => 'uil uil-calender',
+            'icon'    => 'la la-calendar',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

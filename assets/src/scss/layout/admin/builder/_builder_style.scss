@@ -2164,6 +2164,10 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   &.action-collapse-down {
     color: $primary;
   }
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .action-collapse-up span,

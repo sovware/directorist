@@ -313,7 +313,7 @@ class Builder_Data {
                         'review'                 => [
                             'type'    => 'section',
                             'label'   => __( 'Review', 'directorist' ),
-                            'icon'    => 'las la-star',
+                            'icon'    => 'la la-star-o',
                             'options' => [
                                 'custom_block_id'      => [
                                     'type'  => 'text',
@@ -1081,7 +1081,7 @@ class Builder_Data {
                     'widgets'       => [
                         'review'        => [
                             'label'   => 'Review',
-                            'icon'    => 'las la-star',
+                            'icon'    => 'la la-star-o',
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
@@ -1451,7 +1451,7 @@ class Builder_Data {
                 'pricing'           => [
                     'type'    => 'price',
                     'label'   => __( 'Pricing', 'directorist' ),
-                    'icon'    => 'las la-dollar-sign',
+                    'icon'    => 'la la-file-invoice-dollar',
                     'hook'    => 'atbdp_single_listings_price',
                     'show_if' => [
                         'where'      => 'submission_form_fields.value.fields',
@@ -1465,13 +1465,13 @@ class Builder_Data {
                     'type'  => 'rating',
                     'label' => __( 'Rating', 'directorist' ),
                     'hook'  => 'atbdp_listings_rating',
-                    'icon'  => 'las la-star',
+                    'icon'  => 'la la-star-o',
                 ],
 
                 'featured_badge'    => [
                     'type'  => 'badge',
                     'label' => __( 'Featured', 'directorist' ),
-                    'icon'  => 'uil uil-star',
+                    'icon'  => 'la la-star-o',
                     'hook'  => 'atbdp_featured_badge',
                     'options' => [
                         'type' => [
@@ -1502,7 +1502,7 @@ class Builder_Data {
                             'field_icon' => [
                                 'type'  => 'icon',
                                 'label'  => __( 'Change Icon', 'directorist' ),
-                                'value' => 'uil uil-star',
+                                'value' => 'la la-star-o',
                             ],
                             'icon_color' => [
                                 'type'          => 'color',
@@ -1521,7 +1521,7 @@ class Builder_Data {
                 'new_badge'         => [
                     'type'  => 'badge',
                     'label' => __( 'New', 'directorist' ),
-                    'icon'  => 'uil uil-bolt',
+                    'icon'  => 'la la-bolt',
                     'hook'  => 'atbdp_new_badge',
                     'options' => [
                         'type' => [
@@ -1552,7 +1552,7 @@ class Builder_Data {
                             'field_icon' => [
                                 'type'  => 'icon',
                                 'label'  => __( 'Change Icon', 'directorist' ),
-                                'value' => 'uil uil-bolt',
+                                'value' => 'la la-bolt',
                             ],
                             'icon_color' => [
                                 'type'          => 'color',
@@ -1571,7 +1571,7 @@ class Builder_Data {
                 'popular_badge'     => [
                     'type'  => 'badge',
                     'label' => __( 'Popular', 'directorist' ),
-                    'icon'  => 'uil uil-fire',
+                    'icon'  => 'la la-fire',
                     'hook'  => 'atbdp_popular_badge',
                     'options' => [
                         'type' => [
@@ -1602,7 +1602,7 @@ class Builder_Data {
                             'field_icon' => [
                                 'type'  => 'icon',
                                 'label'  => __( 'Change Icon', 'directorist' ),
-                                'value' => 'uil uil-fire',
+                                'value' => 'la la-fire',
                             ],
                             'icon_color' => [
                                 'type'          => 'color',
@@ -2591,7 +2591,7 @@ class Builder_Data {
                             'back' => [
                                 'type' => "button",
                                 'label' => __( "Back", "directorist" ),
-                                'icon' => 'las la-arrow-left',
+                                'icon' => 'la la-arrow-left',
                                 'options' => [
                                     'title' => __( "Back Settings", "directorist" ),
                                     'fields' => [
@@ -2611,7 +2611,7 @@ class Builder_Data {
                             'title' => [
                                 'type' => "title",
                                 'label' => __( "Listing Title", "directorist" ),
-                                'icon' => 'las la-heading',
+                                'icon' => 'la la-heading',
                                 'options' => [
                                     'title' => __( "Listing Title Settings", "directorist" ),
                                     'fields' => [
@@ -2642,7 +2642,7 @@ class Builder_Data {
                             'bookmark' => [
                                 'type' => "button",
                                 'label' => __( "Bookmark", "directorist" ),
-                                'icon' => 'las la-heart',
+                                'icon' => 'la la-heart-o',
                                 'options' => [
                                     'title' => __( "Bookmark Settings", "directorist" ),
                                     'fields' => [
@@ -2654,7 +2654,7 @@ class Builder_Data {
                                         'icon' => [
                                             'type' => "icon",
                                             'label' => __( "Icon", "directorist" ),
-                                            'value' => 'las la-heart',
+                                            'value' => 'la la-heart-o',
                                         ],
                                     ],
                                 ],
@@ -2662,7 +2662,7 @@ class Builder_Data {
                             'share' => [
                                 'type' => "badge",
                                 'label' => __( "Share", "directorist" ),
-                                'icon' => 'las la-share',
+                                'icon' => 'la la-share-square',
                                 'options' => [
                                     'title' => __( "Share Settings", "directorist" ),
                                     'fields' => [
@@ -2674,7 +2674,7 @@ class Builder_Data {
                                         'icon' => [
                                             'type' => "icon",
                                             'label' => __( "Icon", "directorist" ),
-                                            'value' => 'las la-share',
+                                            'value' => 'la la-share-square',
                                         ],
                                     ],
                                 ],
@@ -2682,7 +2682,7 @@ class Builder_Data {
                             'report' => [
                                 'type' => "badge",
                                 'label' => __( "Report", "directorist" ),
-                                'icon' => 'las la-flag',
+                                'icon' => 'la la-flag',
                                 'options' => [
                                     'title' => __( "Report Settings", "directorist" ),
                                     'fields' => [
@@ -2694,7 +2694,7 @@ class Builder_Data {
                                         'icon' => [
                                             'type' => "icon",
                                             'label' => __( "Icon", "directorist" ),
-                                            'value' => 'las la-flag',
+                                            'value' => 'la la-flag',
                                         ],
                                     ],
                                 ],
@@ -2702,12 +2702,12 @@ class Builder_Data {
                             'price' => [
                                 'type' => "badge",
                                 'label' => __( "Pricing", "directorist" ),
-                                'icon' => 'las la-dollar-sign',
+                                'icon' => 'la la-file-invoice-dollar',
                             ],
                             'badges' => [
                                 'type' => "badge",
                                 'label' => __( "Badges", "directorist" ),
-                                'icon' => 'uil uil-text-fields',
+                                'icon' => 'la la-circle-notch',
                                 'options' => [
                                     'title' => __( "Badge Settings", "directorist" ),
                                     'fields' => [
@@ -2732,12 +2732,13 @@ class Builder_Data {
                             'ratings_count' => [
                                 'type' => "ratings-count",
                                 'label' => __( "Rating", "directorist" ),
-                                'icon' => 'las la-star',
+                                'icon' => 'la la-star-o',
                             ],
                             'category' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Category", "directorist" ),
-                                'icon' => 'las la-folder',
+                                'icon' => 'la la-folder-open
+',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [
@@ -2748,7 +2749,7 @@ class Builder_Data {
                             'location' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Location", "directorist" ),
-                                'icon' => 'las la-map-marker',
+                                'icon' => 'la la-map-marked-alt',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [

@@ -45,7 +45,7 @@ return apply_filters(
 
         'description' => [
             'label'   => __( 'Description', 'directorist' ),
-            'icon'    => 'uil uil-align-left',
+            'icon'    => 'la la-align-left',
             'show'    => true,
             'options' => [
                 'type' => [
@@ -144,7 +144,7 @@ return apply_filters(
 
         'pricing' => [
             'label'   => __( 'Pricing', 'directorist' ),
-            'icon'    => 'uil uil-bill',
+            'icon'    => 'la la-file-invoice-dollar',
             'options' => [
                 'field_key' => [
                     'type'  => 'hidden',
@@ -264,7 +264,7 @@ return apply_filters(
 
         'excerpt' => [
             'label'   => __( 'Excerpt', 'directorist' ),
-            'icon'    => 'uil uil-paragraph',
+            'icon'    => 'la la-paragraph',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -303,7 +303,7 @@ return apply_filters(
 
         'location' => [
             'label'   => 'Location',
-            'icon'    => 'uil uil-map-marker',
+            'icon'    => 'la la-map-marker',
             'options' => [
                 'field_key' => [
                     'type'  => 'hidden',
@@ -425,7 +425,7 @@ return apply_filters(
 
         'category' => [
             'label'   => __( 'Category', 'directorist' ),
-            'icon'    => 'uil uil-folder-open',
+            'icon'    => 'la la-folder-open',
             'options' => [
                 'field_key' => [
                     'type'  => 'hidden',
@@ -480,7 +480,7 @@ return apply_filters(
 
         'map' => [
             'label'   => __( 'Map', 'directorist' ),
-            'icon'    => 'uil uil-map',
+            'icon'    => 'la la-map',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -513,7 +513,7 @@ return apply_filters(
 
         'address' => [
             'label'   => __( 'Address', 'directorist' ),
-            'icon'    => 'uil uil-map-pin',
+            'icon'    => 'la la-map-pin',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -552,7 +552,7 @@ return apply_filters(
 
         'zip' => [
             'label'   => __( 'Zip or Post Code', 'directorist' ),
-            'icon'    => 'uil uil-map-pin',
+            'icon'    => 'la la-map-pin',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -591,7 +591,7 @@ return apply_filters(
 
         'phone' => [
             'label'   => 'Phone',
-            'icon'    => 'uil uil-phone',
+            'icon'    => 'la la-phone',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -635,7 +635,7 @@ return apply_filters(
 
         'phone2' => [
             'label'   => 'Phone 2',
-            'icon'    => 'uil uil-phone',
+            'icon'    => 'la la-phone',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -679,7 +679,7 @@ return apply_filters(
 
         'fax' => [
             'label'   => 'Fax',
-            'icon'    => 'uil uil-print',
+            'icon'    => 'la la-print',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -718,7 +718,7 @@ return apply_filters(
 
         'email' => [
             'label'   => 'Email',
-            'icon'    => 'uil uil-envelope',
+            'icon'    => 'la la-envelope',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -757,7 +757,7 @@ return apply_filters(
 
         'website' => [
             'label'   => 'Website',
-            'icon'    => 'uil uil-globe',
+            'icon'    => 'la la-globe',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -830,7 +830,7 @@ return apply_filters(
 
         'image_upload' => [
             'label'   => __( 'Images', 'directorist' ),
-            'icon'    => 'uil uil-image',
+            'icon'    => 'la la-image',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -884,7 +884,7 @@ return apply_filters(
 
         'video' => [
             'label'   => 'Video',
-            'icon'    => 'uil uil-video',
+            'icon'    => 'la la-video',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

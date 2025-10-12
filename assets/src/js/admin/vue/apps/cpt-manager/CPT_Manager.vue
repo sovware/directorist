@@ -31,7 +31,7 @@
           data-tooltip="Click here to rename the directory."
           data-flow="bottom"
         >
-          <div class="directorist-type-name-editable" v-if="isEditableName">   
+          <div class="directorist-type-name-editable" v-if="isEditableName || !options.name.value">   
             <component
               v-if="options.name && options.name.type"
               :is="options.name.type + '-field'"
@@ -42,7 +42,7 @@
           </div>
           <span 
             class="directorist-type-name" 
-            v-if="!isEditableName" 
+            v-if="!isEditableName && options.name.value" 
             @click="toggleEditableButton"
           >
             {{ options.name.value }}

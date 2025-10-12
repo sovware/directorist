@@ -16701,6 +16701,10 @@ div[draggable=true].cptm-form-builder-group-header-content {
 .cptm-form-builder-header-toggle-link.action-collapse-down {
   color: #3e62f5;
 }
+.cptm-form-builder-header-toggle-link.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 .action-collapse-up span,
 .action-collapse-up span::before {
@@ -25051,6 +25055,10 @@ div[draggable=true].cptm-form-builder-group-header-content {
 }
 .cptm-form-builder-header-toggle-link.action-collapse-down {
   color: #3e62f5;
+}
+.cptm-form-builder-header-toggle-link.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .action-collapse-up span,
@@ -33690,6 +33698,10 @@ div[draggable=true].cptm-form-builder-group-header-content {
 }
 .cptm-form-builder-header-toggle-link.action-collapse-down {
   color: #3e62f5;
+}
+.cptm-form-builder-header-toggle-link.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .action-collapse-up span,

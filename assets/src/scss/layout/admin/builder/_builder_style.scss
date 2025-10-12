@@ -3899,29 +3899,34 @@ input[type="radio"].cptm-radio {
     }
 
     .cptm-widget-preview-card-user_avatar {
+      .cptm-widget-card-wrap {
+        min-width: 100px;
+      }
       .cptm-widget-card {
         display: flex;
         align-items: center;
         border-radius: 4px;
         background: #ffffff;
-        border: 1px solid #d2d6db;
+        border: 1px solid #e5e7eb;
+        box-sizing: border-box;
       }
       .cptm-placeholder-author-thumb {
         width: 100%;
+        padding: 0 10px;
         display: flex;
-        gap: 8px;
+        gap: 16px;
         align-items: center;
         justify-content: space-between;
         > svg {
-          width: 30px;
-          height: 30px;
+          width: 20px;
+          height: 20px;
         }
         .cptm-placeholder-author-thumb-trash {
           position: unset;
           transform: unset;
-          width: 22px;
-          height: 22px;
-          font-size: 14px;
+          width: 20px;
+          height: 20px;
+          font-size: 12px;
         }
       }
     }

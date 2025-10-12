@@ -7367,7 +7367,6 @@ body.logged-in.directorist-content-active
 	font-weight: 600;
 	color: var(--directorist-color-primary);
 	background-color: rgba(var(--directorist-color-primary-rgb), 0.1);
-	pointer-events: none;
 }
 .directorist-content-active
 	.select2-container--default.select2-container--open

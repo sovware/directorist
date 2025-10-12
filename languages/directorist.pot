@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-30 03:45+0000\n"
+"POT-Creation-Date: 2025-10-12 03:39+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -3772,7 +3772,7 @@ msgstr ""
 msgid "Already have an account?"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3044, ../includes/elementor/user-login.php:14, ../templates/listing-form/quick-login.php:41, ../__build/directorist/directorist/includes/classes/class-settings-panel.php:3044, ../__build/directorist/directorist/includes/elementor/user-login.php:14, ../__build/directorist/directorist/templates/listing-form/quick-login.php:41
+#: ../includes/classes/class-settings-panel.php:3044, ../includes/elementor/user-login.php:14, ../templates/listing-form/quick-login.php:47, ../__build/directorist/directorist/includes/classes/class-settings-panel.php:3044, ../__build/directorist/directorist/includes/elementor/user-login.php:14, ../__build/directorist/directorist/templates/listing-form/quick-login.php:47
 msgid "Login"
 msgstr ""
 
@@ -5845,7 +5845,7 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: ../includes/review/class-builder.php:42, ../includes/modules/multi-directory-setup/class-builder-data.php:449, ../__build/directorist/directorist/includes/review/class-builder.php:42, ../__build/directorist/directorist/includes/modules/multi-directory-setup/class-builder-data.php:449
+#: ../includes/review/class-builder.php:45, ../includes/modules/multi-directory-setup/class-builder-data.php:449, ../__build/directorist/directorist/includes/review/class-builder.php:45, ../__build/directorist/directorist/includes/modules/multi-directory-setup/class-builder-data.php:449
 msgid "I have read and agree to the <a href=\"%s\" target=\"_blank\">Privacy Policy</a> and <a href=\"%s\" target=\"_blank\">Terms of Service</a>"
 msgstr ""
 
@@ -8999,7 +8999,11 @@ msgstr ""
 msgid "user@email.com"
 msgstr ""
 
-#: ../templates/listing-form/quick-login.php:45, ../__build/directorist/directorist/templates/listing-form/quick-login.php:45
+#: ../templates/listing-form/quick-login.php:38, ../__build/directorist/directorist/templates/listing-form/quick-login.php:38
+msgid "Forgot your password?"
+msgstr ""
+
+#: ../templates/listing-form/quick-login.php:51, ../__build/directorist/directorist/templates/listing-form/quick-login.php:51
 msgid "Continue"
 msgstr ""
 

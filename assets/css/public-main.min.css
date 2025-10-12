@@ -855,7 +855,6 @@ body.logged-in.directorist-content-active
 	font-weight: 600;
 	color: var(--directorist-color-primary);
 	background-color: rgba(var(--directorist-color-primary-rgb), 0.1);
-	pointer-events: none;
 }
 .directorist-content-active
 	.select2-container--default.select2-container--open
@@ -8136,14 +8135,27 @@ body.modal-overlay-enabled:before {
 	width: var(--gallery-crop-width, 740px);
 	max-width: 100%;
 	margin: 10px auto 0;
-	border-radius: 12px;
 	overflow: auto;
 	height: auto;
 	display: none;
 }
+@media screen and (min-width: 768px) {
+	.directorist-single-listing-slider-thumb {
+		border-radius: 12px;
+	}
+}
+@media screen and (max-width: 768px) {
+	.directorist-single-listing-slider-thumb {
+		border-radius: 8px;
+	}
+}
 .directorist-single-listing-slider-thumb .swiper-wrapper {
-	gap: 10px;
 	height: auto;
+}
+@media screen and (min-width: 768px) {
+	.directorist-single-listing-slider-thumb .swiper-wrapper {
+		gap: 10px;
+	}
 }
 .directorist-single-listing-slider-thumb .directorist-swiper__navigation,
 .directorist-single-listing-slider-thumb .directorist-swiper__pagination {
@@ -8151,16 +8163,30 @@ body.modal-overlay-enabled:before {
 }
 .directorist-single-listing-slider-thumb .swiper-slide {
 	position: relative;
-	height: 90px;
 	cursor: pointer;
-	margin: 0 !important;
+}
+@media screen and (min-width: 768px) {
+	.directorist-single-listing-slider-thumb .swiper-slide {
+		margin: 0 !important;
+		height: 90px;
+	}
 }
 .directorist-single-listing-slider-thumb .swiper-slide img {
 	width: 100%;
 	height: 100%;
 	-o-object-fit: cover;
 	object-fit: cover;
-	border-radius: 14px;
+}
+@media screen and (min-width: 768px) {
+	.directorist-single-listing-slider-thumb .swiper-slide img {
+		border-radius: 14px;
+	}
+}
+@media screen and (max-width: 768px) {
+	.directorist-single-listing-slider-thumb .swiper-slide img {
+		border-radius: 8px;
+		aspect-ratio: 16/9;
+	}
 }
 .directorist-single-listing-slider-thumb .swiper-slide:before {
 	content: "";
@@ -8169,13 +8195,22 @@ body.modal-overlay-enabled:before {
 	position: absolute;
 	top: 0;
 	left: 0;
-	border-radius: 14px;
 	background-color: rgba(0, 0, 0, 0.3);
 	z-index: 1;
 	-webkit-transition: opacity 0.3s ease;
 	transition: opacity 0.3s ease;
 	opacity: 0;
 	visibility: hidden;
+}
+@media screen and (min-width: 768px) {
+	.directorist-single-listing-slider-thumb .swiper-slide:before {
+		border-radius: 12px;
+	}
+}
+@media screen and (max-width: 768px) {
+	.directorist-single-listing-slider-thumb .swiper-slide:before {
+		border-radius: 8px;
+	}
 }
 .directorist-single-listing-slider-thumb
 	.swiper-slide.swiper-slide-thumb-active:before,

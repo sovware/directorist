@@ -183,6 +183,7 @@ $light-gray: #f4f5f7;
 .directorist-directory-type-bottom {
   position: fixed;
   bottom: 0;
+  right: 20px;
   width: calc(100% - 204px);
   height: calc(100% - 115px);
   overflow-y: auto;
@@ -244,13 +245,25 @@ $light-gray: #f4f5f7;
   &.folded {
     .directorist-directory-type-top {
       width: calc(100% - 78px);
+      @media only screen and (max-width: 782px) {
+        width: calc(100% - 40px);
+      }
+    }
+    .directorist-directory-type-bottom {
+      width: calc(100% - 80px);
+
+      @media only screen and (max-width: 782px) {
+        right: 10px;
+        width: calc(100% - 22px);
+        height: calc(100% - 135px);
+      }
     }
 
     .directorist-directory-type-bottom .cptm-header-navigation {
       width: calc(100% - 78px);
       @media only screen and (max-width: 782px) {
-        width: calc(100% - 22px);
-        top: 122px;
+        width: 100%;
+        border-width: 0 0 1px 0;
       }
     }
   }

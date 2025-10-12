@@ -1,2 +1,2 @@
 //General Components
-import '../components/author';
+import "../components/author";

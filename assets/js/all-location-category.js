@@ -7,22 +7,22 @@
   \*************************************************************/
 /***/ (function() {
 
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   var $ = jQuery;
 
   /* Make sure the codes in this file runs only once, even if enqueued twice */
-  if (typeof window.directorist_catloc_executed === 'undefined') {
+  if (typeof window.directorist_catloc_executed === "undefined") {
     window.directorist_catloc_executed = true;
   } else {
     return;
   }
 
   /* Category card grid three width/height adjustment */
-  var categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
+  var categoryCard = document.querySelectorAll(".directorist-categories__single--style-three");
   if (categoryCard) {
     categoryCard.forEach(function (elm) {
       var categoryCardWidth = elm.offsetWidth;
-      elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
+      elm.style.setProperty("--directorist-category-box-width", "".concat(categoryCardWidth, "px"));
     });
   }
 
@@ -30,56 +30,56 @@ window.addEventListener('load', function () {
   function categoryDropdown(selector, parent) {
     var categoryListToggle = document.querySelectorAll(selector);
     categoryListToggle.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var categoryName = item.querySelector('.directorist-taxonomy-list__name');
+      item.addEventListener("click", function (e) {
+        var categoryName = item.querySelector(".directorist-taxonomy-list__name");
         if (e.target !== categoryName) {
           e.preventDefault();
-          this.classList.toggle('directorist-taxonomy-list__toggle--open');
+          this.classList.toggle("directorist-taxonomy-list__toggle--open");
         }
       });
     });
   }
-  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
-  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+  categoryDropdown(".directorist-taxonomy-list-one .directorist-taxonomy-list__toggle", ".directorist-taxonomy-list-one .directorist-taxonomy-list");
+  categoryDropdown(".directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle", ".directorist-taxonomy-list-one .directorist-taxonomy-list");
 
   // Taxonomy Ajax
-  $(document).on('click', '.directorist-categories .directorist-pagination a', function (e) {
-    taxonomyPagination(e, $(this), '.directorist-categories');
+  $(document).on("click", ".directorist-categories .directorist-pagination a", function (e) {
+    taxonomyPagination(e, $(this), ".directorist-categories");
   });
-  $(document).on('click', '.directorist-location .directorist-pagination a', function (e) {
-    taxonomyPagination(e, $(this), '.directorist-location');
+  $(document).on("click", ".directorist-location .directorist-pagination a", function (e) {
+    taxonomyPagination(e, $(this), ".directorist-location");
   });
   function taxonomyPagination(event, clickedElement, containerSelector) {
     event.preventDefault();
-    var pageNumber = (clickedElement === null || clickedElement === void 0 ? void 0 : clickedElement.attr('data-page')) || 1;
+    var pageNumber = (clickedElement === null || clickedElement === void 0 ? void 0 : clickedElement.attr("data-page")) || 1;
     var container = clickedElement.closest(containerSelector);
-    var containerAttributes = container ? $(container).data('attrs') : {};
+    var containerAttributes = container ? $(container).data("attrs") : {};
     $.ajax({
       url: directorist.ajax_url,
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       data: {
-        action: 'directorist_taxonomy_pagination',
+        action: "directorist_taxonomy_pagination",
         nonce: directorist.directorist_nonce,
         page: parseInt(pageNumber),
         attrs: containerAttributes
       },
       beforeSend: function beforeSend() {
-        $(containerSelector).addClass('atbdp-form-fade');
+        $(containerSelector).addClass("atbdp-form-fade");
       },
       success: function success(response) {
         var _tempContainer$queryS, _tempContainer$queryS2;
         if (!(response !== null && response !== void 0 && response.success)) {
-          console.error('Failed to load taxonomy content');
+          console.error("Failed to load taxonomy content");
           return;
         }
-        var tempContainer = document.createElement('div');
+        var tempContainer = document.createElement("div");
         tempContainer.innerHTML = response.data.content;
         // Handle both category and location wrappers
-        var taxonomyWrapper = document.querySelector('.taxonomy-category-wrapper');
-        var locationWrapper = document.querySelector('.taxonomy-location-wrapper');
-        var updatedCategoryContent = (_tempContainer$queryS = tempContainer.querySelector('.taxonomy-category-wrapper')) === null || _tempContainer$queryS === void 0 ? void 0 : _tempContainer$queryS.innerHTML;
-        var updatedLocationContent = (_tempContainer$queryS2 = tempContainer.querySelector('.taxonomy-location-wrapper')) === null || _tempContainer$queryS2 === void 0 ? void 0 : _tempContainer$queryS2.innerHTML;
+        var taxonomyWrapper = document.querySelector(".taxonomy-category-wrapper");
+        var locationWrapper = document.querySelector(".taxonomy-location-wrapper");
+        var updatedCategoryContent = (_tempContainer$queryS = tempContainer.querySelector(".taxonomy-category-wrapper")) === null || _tempContainer$queryS === void 0 ? void 0 : _tempContainer$queryS.innerHTML;
+        var updatedLocationContent = (_tempContainer$queryS2 = tempContainer.querySelector(".taxonomy-location-wrapper")) === null || _tempContainer$queryS2 === void 0 ? void 0 : _tempContainer$queryS2.innerHTML;
         if (taxonomyWrapper && updatedCategoryContent) {
           taxonomyWrapper.innerHTML = updatedCategoryContent;
         }
@@ -87,12 +87,12 @@ window.addEventListener('load', function () {
           locationWrapper.innerHTML = updatedLocationContent;
         }
         if (!taxonomyWrapper && !locationWrapper) {
-          console.error('Required elements not found in response');
+          console.error("Required elements not found in response");
           return;
         }
       },
       complete: function complete() {
-        $(containerSelector).removeClass('atbdp-form-fade');
+        $(containerSelector).removeClass("atbdp-form-fade");
       }
     });
   }

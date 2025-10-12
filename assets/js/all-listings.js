@@ -40,10 +40,10 @@ function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var $ = jQuery;
-window.addEventListener('load', waitAndInit);
-window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
-window.addEventListener('directorist-type-change', waitAndInit);
-window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
+window.addEventListener("load", waitAndInit);
+window.addEventListener("directorist-search-form-nav-tab-reloaded", waitAndInit);
+window.addEventListener("directorist-type-change", waitAndInit);
+window.addEventListener("directorist-instant-search-reloaded", waitAndInit);
 function waitAndInit() {
   setTimeout(init, 0);
 }
@@ -57,28 +57,28 @@ function init() {
   selec2_add_custom_close_button_if_needed();
 
   // Add custom close button if field contains value on change
-  $('.select2-hidden-accessible').on('change', function (e) {
-    var value = $(this).children('option:selected').val();
+  $(".select2-hidden-accessible").on("change", function (e) {
+    var value = $(this).children("option:selected").val();
     if (!value) {
       return;
     }
     selec2_add_custom_close_button($(this));
-    var selectItems = this.parentElement.querySelectorAll('.select2-selection__choice');
+    var selectItems = this.parentElement.querySelectorAll(".select2-selection__choice");
     selectItems.forEach(function (item) {
       item.childNodes && item.childNodes.forEach(function (node) {
         if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
           var originalString = node.textContent;
-          var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+          var modifiedString = originalString.replace(/^[\s\xa0]+/, "");
           node.textContent = modifiedString;
           item.title = modifiedString;
         }
       });
     });
-    var customSelectItem = this.parentElement.querySelector('.select2-selection__rendered');
+    var customSelectItem = this.parentElement.querySelector(".select2-selection__rendered");
     customSelectItem.childNodes && customSelectItem.childNodes.forEach(function (node) {
       if (node.nodeType && node.nodeType === Node.TEXT_NODE) {
         var originalString = node.textContent;
-        var modifiedString = originalString.replace(/^[\s\xa0]+/, '');
+        var modifiedString = originalString.replace(/^[\s\xa0]+/, "");
         node.textContent = modifiedString;
       }
     });
@@ -86,50 +86,50 @@ function init() {
 }
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
-  $('.select2-selection__arrow').css({
-    display: 'none'
+  $(".select2-selection__arrow").css({
+    display: "none"
   });
-  var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
+  var addon_container = selec2_get_addon_container(".select2-hidden-accessible");
   if (!addon_container) {
     return;
   }
-  var dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
+  var dropdown = addon_container.find(".directorist-select2-dropdown-toggle");
   if (!dropdown.length) {
     // Add Dropdown Toggle Button
-    var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/chevron-down.svg';
-    var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+    var iconURL = directorist.assets_url + "icons/font-awesome/svgs/solid/chevron-down.svg";
+    var iconHTML = directorist.icon_markup.replace("##URL##", iconURL).replace("##CLASS##", "");
     var dropdownHTML = "<span class=\"directorist-select2-addon directorist-select2-dropdown-toggle\">".concat(iconHTML, "</span>");
     addon_container.append(dropdownHTML);
   }
-  var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
+  var selec2_custom_dropdown = addon_container.find(".directorist-select2-dropdown-toggle");
 
   // Toggle --is-open class
-  $('.select2-hidden-accessible').on('select2:open', function (e) {
-    var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
-    dropdown_btn.addClass('--is-open');
+  $(".select2-hidden-accessible").on("select2:open", function (e) {
+    var dropdown_btn = $(this).next().find(".directorist-select2-dropdown-toggle");
+    dropdown_btn.addClass("--is-open");
   });
-  $('.select2-hidden-accessible').on('select2:close', function (e) {
-    var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
-    dropdown_btn.removeClass('--is-open');
-    var dropdownParent = $(this).closest('.directorist-search-field');
-    var renderTitle = $(this).next().find('.select2-selection__rendered').attr('title');
+  $(".select2-hidden-accessible").on("select2:close", function (e) {
+    var dropdown_btn = $(this).next().find(".directorist-select2-dropdown-toggle");
+    dropdown_btn.removeClass("--is-open");
+    var dropdownParent = $(this).closest(".directorist-search-field");
+    var renderTitle = $(this).next().find(".select2-selection__rendered").attr("title");
 
     // Check if renderTitle is empty and remove the focus class if so
     if (!renderTitle) {
-      dropdownParent.removeClass('input-is-focused');
+      dropdownParent.removeClass("input-is-focused");
     } else {
-      dropdownParent.addClass('input-has-value');
+      dropdownParent.addClass("input-has-value");
     }
   });
 
   // Toggle Dropdown
-  selec2_custom_dropdown.on('click', function (e) {
-    var isOpen = $(this).hasClass('--is-open');
-    var field = $(this).closest('.select2-container').siblings('select:enabled');
+  selec2_custom_dropdown.on("click", function (e) {
+    var isOpen = $(this).hasClass("--is-open");
+    var field = $(this).closest(".select2-container").siblings("select:enabled");
     if (isOpen) {
-      field.select2('close');
+      field.select2("close");
     } else {
-      field.select2('open');
+      field.select2("open");
     }
   });
 
@@ -137,7 +137,7 @@ function selec2_add_custom_dropdown_toggle_button() {
   selec2_adjust_space_for_addons();
 }
 function selec2_add_custom_close_button_if_needed() {
-  var select2_fields = $('.select2-hidden-accessible');
+  var select2_fields = $(".select2-hidden-accessible");
   if (!select2_fields && !select2_fields.length) {
     return;
   }
@@ -146,7 +146,7 @@ function selec2_add_custom_close_button_if_needed() {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var field = _step.value;
-      var value = $(field).children('option:selected').val();
+      var value = $(field).children("option:selected").val();
       if (!value) {
         continue;
       }
@@ -160,8 +160,8 @@ function selec2_add_custom_close_button_if_needed() {
 }
 function selec2_add_custom_close_button(field) {
   // Remove Default
-  $('.select2-selection__clear').css({
-    display: 'none'
+  $(".select2-selection__clear").css({
+    display: "none"
   });
   var addon_container = selec2_get_addon_container(field);
   if (!(addon_container && addon_container.length)) {
@@ -169,17 +169,17 @@ function selec2_add_custom_close_button(field) {
   }
 
   // Remove if already exists
-  addon_container.find('.directorist-select2-dropdown-close').remove();
+  addon_container.find(".directorist-select2-dropdown-close").remove();
 
   // Add
-  var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/times.svg';
-  var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+  var iconURL = directorist.assets_url + "icons/font-awesome/svgs/solid/times.svg";
+  var iconHTML = directorist.icon_markup.replace("##URL##", iconURL).replace("##CLASS##", "");
   addon_container.prepend("<span class=\"directorist-select2-addon directorist-select2-dropdown-close\">".concat(iconHTML, "</span>"));
-  var selec2_custom_close = addon_container.find('.directorist-select2-dropdown-close');
-  selec2_custom_close.on('click', function (e) {
-    var field = $(this).closest('.select2-container').siblings('select:enabled');
-    field.val(null).trigger('change');
-    addon_container.find('.directorist-select2-dropdown-close').remove();
+  var selec2_custom_close = addon_container.find(".directorist-select2-dropdown-close");
+  selec2_custom_close.on("click", function (e) {
+    var field = $(this).closest(".select2-container").siblings("select:enabled");
+    field.val(null).trigger("change");
+    addon_container.find(".directorist-select2-dropdown-close").remove();
     selec2_adjust_space_for_addons();
   });
 
@@ -193,37 +193,37 @@ function selec2_remove_custom_close_button(field) {
   }
 
   // Remove
-  addon_container.find('.directorist-select2-dropdown-close').remove();
+  addon_container.find(".directorist-select2-dropdown-close").remove();
 
   // Adjust space for addons
   selec2_adjust_space_for_addons();
 }
 function selec2_get_addon_container(field) {
-  var container = field ? $(field).next('.select2-container') : $('.select2-container');
-  container = $(container).find('.directorist-select2-addons-area');
+  var container = field ? $(field).next(".select2-container") : $(".select2-container");
+  container = $(container).find(".directorist-select2-addons-area");
   if (!container.length) {
-    $('.select2-container').append('<span class="directorist-select2-addons-area"></span>');
-    container = $('.select2-container').find('.directorist-select2-addons-area');
+    $(".select2-container").append('<span class="directorist-select2-addons-area"></span>');
+    container = $(".select2-container").find(".directorist-select2-addons-area");
   }
-  var container = field ? $(field).next('.select2-container') : null;
+  var container = field ? $(field).next(".select2-container") : null;
   if (!container) {
     return null;
   }
-  var addonsArea = $(container).find('.directorist-select2-addons-area');
+  var addonsArea = $(container).find(".directorist-select2-addons-area");
   if (!addonsArea.length) {
     container.append('<span class="directorist-select2-addons-area"></span>');
-    return container.find('.directorist-select2-addons-area');
+    return container.find(".directorist-select2-addons-area");
   }
   return addonsArea;
 }
 function selec2_adjust_space_for_addons() {
-  var container = $('.select2-container').find('.directorist-select2-addons-area');
+  var container = $(".select2-container").find(".directorist-select2-addons-area");
   if (!container.length) {
     return;
   }
   var width = container.outerWidth();
-  $('.select2-container').find('.select2-selection__rendered').css({
-    'padding-right': width + 'px'
+  $(".select2-container").find(".select2-selection__rendered").css({
+    "padding-right": width + "px"
   });
 }
 
@@ -247,16 +247,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 var $ = jQuery;
-window.addEventListener('load', initSelect2);
-document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
-document.body.addEventListener('directorist-reload-select2-fields', initSelect2);
-window.addEventListener('directorist-instant-search-reloaded', initSelect2);
+window.addEventListener("load", initSelect2);
+document.body.addEventListener("directorist-search-form-nav-tab-reloaded", initSelect2);
+document.body.addEventListener("directorist-reload-select2-fields", initSelect2);
+window.addEventListener("directorist-instant-search-reloaded", initSelect2);
 
 // Init Static Select 2 Fields
 function initSelect2() {
-  var selectors = ['.directorist-select select', '#directorist-select-js',
+  var selectors = [".directorist-select select", "#directorist-select-js",
   // Not found in any template
-  '#directorist-search-category-js',
+  "#directorist-search-category-js",
   // Not found in any template
   // '#directorist-select-st-s-js',
   // '#directorist-select-sn-s-js',
@@ -267,11 +267,11 @@ function initSelect2() {
   // '#directorist-select-th-e-js',
   // '#directorist-select-fr-s-js',
   // '#directorist-select-fr-e-js',
-  '.select-basic',
+  ".select-basic",
   // Not found in any template
-  '#loc-type', '#cat-type', '#at_biz_dir-category', '.bdas-location-search',
+  "#loc-type", "#cat-type", "#at_biz_dir-category", ".bdas-location-search",
   // Not found in any template
-  '.bdas-category-search' // Not found in any template
+  ".bdas-category-search" // Not found in any template
   ];
   selectors.forEach(function (selector) {
     return (0,_lib_helper__WEBPACK_IMPORTED_MODULE_1__.convertToSelect2)(selector);
@@ -283,73 +283,73 @@ function initSelect2() {
 function initMaybeLazyLoadedTaxonomySelect2() {
   var restBase = "".concat(directorist.rest_url, "directorist/v1");
   maybeLazyLoadCategories({
-    selector: '.directorist-search-category select',
+    selector: ".directorist-search-category select",
     url: "".concat(restBase, "/listings/categories")
   });
   maybeLazyLoadCategories({
-    selector: '.directorist-form-categories-field select',
+    selector: ".directorist-form-categories-field select",
     url: "".concat(restBase, "/listings/categories")
   });
   maybeLazyLoadLocations({
-    selector: '.directorist-search-location select',
+    selector: ".directorist-search-location select",
     url: "".concat(restBase, "/listings/locations")
   });
   maybeLazyLoadLocations({
-    selector: '.directorist-form-location-field select',
+    selector: ".directorist-form-location-field select",
     url: "".concat(restBase, "/listings/locations")
   });
   maybeLazyLoadTags({
-    selector: '.directorist-form-tag-field select',
+    selector: ".directorist-form-tag-field select",
     url: "".concat(restBase, "/listings/tags")
   });
 }
 function maybeLazyLoadCategories(args) {
   maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
-    taxonomy: 'categories'
+    taxonomy: "categories"
   }), args));
 }
 function maybeLazyLoadLocations(args) {
   maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
-    taxonomy: 'locations'
+    taxonomy: "locations"
   }), args));
 }
 function maybeLazyLoadTags(args) {
   maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
-    taxonomy: 'tags'
+    taxonomy: "tags"
   }), args));
 }
 
 // maybeLazyLoadTaxonomyTermsSelect2
 function maybeLazyLoadTaxonomyTermsSelect2(args) {
   var defaults = {
-    selector: '',
-    url: '',
-    taxonomy: 'tags'
+    selector: "",
+    url: "",
+    taxonomy: "tags"
   };
   args = _objectSpread(_objectSpread({}, defaults), args);
   if (!args.selector) {
     return;
   }
   var $el = $(args.selector);
-  var $addListing = $el.closest('.directorist-add-listing-form');
-  var canCreate = $el.data('allow_new');
-  var maxLength = $el.data('max');
+  var $addListing = $el.closest(".directorist-add-listing-form");
+  var canCreate = $el.data("allow_new");
+  var maxLength = $el.data("max");
   var directoryId = 0;
-  if (args.taxonomy !== 'tags') {
-    var $searchForm = $el.closest('.directorist-search-form');
-    var $archivePage = $el.closest('.directorist-archive-contents');
+  if (args.taxonomy !== "tags") {
+    var $searchForm = $el.closest(".directorist-search-form");
+    var $archivePage = $el.closest(".directorist-archive-contents");
     var $directory = $addListing.find('input[name="directory_type"]');
     var $navListItem = null;
 
     // If search page
     if ($searchForm.length) {
-      $navListItem = $searchForm.find('.directorist-listing-type-selection__link--current');
+      $navListItem = $searchForm.find(".directorist-listing-type-selection__link--current");
     }
     if ($archivePage.length) {
-      $navListItem = $archivePage.find('.directorist-type-nav__list li.directorist-type-nav__list__current .directorist-type-nav__link');
+      $navListItem = $archivePage.find(".directorist-type-nav__list li.directorist-type-nav__list__current .directorist-type-nav__link");
     }
     if ($navListItem && $navListItem.length) {
-      directoryId = Number($navListItem.data('listing_type_id'));
+      directoryId = Number($navListItem.data("listing_type_id"));
     }
     if ($directory.length) {
       directoryId = $directory.val();
@@ -363,7 +363,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
     allowClear: true,
     tags: canCreate,
     maximumSelectionLength: maxLength,
-    width: '100%',
+    width: "100%",
     escapeMarkup: function escapeMarkup(text) {
       return text;
     },
@@ -373,7 +373,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       }
 
       // Fetch the data-icon attribute
-      var iconURI = $(data.element).attr('data-icon');
+      var iconURI = $(data.element).attr("data-icon");
 
       // Get the original text
       var originalText = data.text;
@@ -386,7 +386,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       originalText = originalText.trim();
 
       // Construct the icon element
-      var iconElm = iconURI ? "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(iconURI, "')\"></i>") : '';
+      var iconElm = iconURI ? "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(iconURI, "')\"></i>") : "";
 
       // Prepare the combined text (icon + text)
       var combinedText = iconElm + originalText;
@@ -397,7 +397,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       // Determine the level based on space count
       var level = Math.floor(spaceCount / 8) + 1; // 8 spaces = level 2, 16 spaces = level 3, etc.
       if (level > 1) {
-        $state.addClass('item-level-' + level); // Add class for the level (e.g., level-1, level-2, etc.)
+        $state.addClass("item-level-" + level); // Add class for the level (e.g., level-1, level-2, etc.)
       }
       $state.html(combinedText); // Set the combined content (icon + text)
 
@@ -407,7 +407,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
   if (directorist.lazy_load_taxonomy_fields) {
     select2Options.ajax = {
       url: args.url,
-      dataType: 'json',
+      dataType: "json",
       cache: true,
       delay: 250,
       data: function data(params) {
@@ -442,7 +442,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       transport: function transport(params, success, failure) {
         var $request = $.ajax(params);
         $request.then(function (data, textStatus, jqXHR) {
-          var totalPage = Number(jqXHR.getResponseHeader('x-wp-totalpages'));
+          var totalPage = Number(jqXHR.getResponseHeader("x-wp-totalpages"));
           var paginationMore = currentPage < totalPage;
           var items = data.map(function (item) {
             var text = item.name;
@@ -470,14 +470,14 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       if (!$el.length || !selectedId) {
         return;
       }
-      var selectedIds = "".concat(selectedId).split(',');
-      var selectedLabels = selectedLabel ? "".concat(selectedLabel).split(',') : [];
+      var selectedIds = "".concat(selectedId).split(",");
+      var selectedLabels = selectedLabel ? "".concat(selectedLabel).split(",") : [];
       selectedIds.forEach(function (id, index) {
-        var label = selectedLabels.length >= index + 1 ? selectedLabels[index] : '';
+        var label = selectedLabels.length >= index + 1 ? selectedLabels[index] : "";
         var option = new Option(label, id, true, true);
         $el.append(option);
         $el.trigger({
-          type: 'select2:select',
+          type: "select2:select",
           params: {
             data: {
               id: id,
@@ -487,7 +487,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
         });
       });
     }
-    setupSelectedItems($el, $el.data('selected-id'), $el.data('selected-label'));
+    setupSelectedItems($el, $el.data("selected-id"), $el.data("selected-label"));
   }
 }
 
@@ -507,7 +507,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var $ = jQuery;
 function get_dom_data(selector, parent) {
-  selector = '.directorist-dom-data-' + selector;
+  selector = ".directorist-dom-data-" + selector;
   if (!parent) {
     parent = document;
   }
@@ -515,7 +515,7 @@ function get_dom_data(selector, parent) {
   if (!el || !el.dataset.value) {
     return {};
   }
-  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == "1";
   try {
     var value = atob(el.dataset.value);
     return JSON.parse(value);
@@ -530,20 +530,20 @@ function convertToSelect2(selector) {
   var $selector = $(selector);
   var args = {
     allowClear: true,
-    width: '100%',
+    width: "100%",
     templateResult: function templateResult(data) {
       if (!data.id) {
         return data.text;
       }
-      var iconURI = $(data.element).data('icon');
+      var iconURI = $(data.element).data("icon");
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
-      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== "undefined" && iconURI !== "" ? modifiedText : originalText, "</div>"));
       return $state;
     }
   };
-  var options = $selector.find('option');
+  var options = $selector.find("option");
   if (options.length && options[0].textContent.length) {
     args.placeholder = options[0].textContent;
   }
@@ -560,41 +560,41 @@ function convertToSelect2(selector) {
 /***/ (function() {
 
 // Archive Sidebar
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   var body = document.body;
 
   // Toggle sidebar and update toggle button's active state
   function toggleSidebar(toggleBtn, archiveSidebar) {
-    archiveSidebar.classList.toggle('listing-with-sidebar__sidebar--open');
-    toggleBtn.classList.toggle('directorist-archive-sidebar-toggle--active');
-    body.classList.toggle('modal-overlay-enabled');
+    archiveSidebar.classList.toggle("listing-with-sidebar__sidebar--open");
+    toggleBtn.classList.toggle("directorist-archive-sidebar-toggle--active");
+    body.classList.toggle("modal-overlay-enabled");
   }
 
   // Close sidebar and reset toggle button's active state
   function closeSidebar(toggleBtn, archiveSidebar) {
-    archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
-    toggleBtn.classList.remove('directorist-archive-sidebar-toggle--active');
-    body.classList.remove('modal-overlay-enabled');
+    archiveSidebar.classList.remove("listing-with-sidebar__sidebar--open");
+    toggleBtn.classList.remove("directorist-archive-sidebar-toggle--active");
+    body.classList.remove("modal-overlay-enabled");
   }
 
   // Toggle or close sidebar when toggle/close button is clicked
-  body.addEventListener('click', function (e) {
+  body.addEventListener("click", function (e) {
     var targetElement = e.target;
-    var toggleBtn = targetElement.closest('.directorist-archive-sidebar-toggle');
-    var closeBtn = targetElement.closest('.directorist-advanced-filter__close');
+    var toggleBtn = targetElement.closest(".directorist-archive-sidebar-toggle");
+    var closeBtn = targetElement.closest(".directorist-advanced-filter__close");
     if (toggleBtn) {
-      var sidebar = toggleBtn.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
+      var sidebar = toggleBtn.closest(".listing-with-sidebar").querySelector(".listing-with-sidebar__sidebar");
       toggleSidebar(toggleBtn, sidebar);
     } else if (closeBtn) {
-      var _sidebar = closeBtn.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
-      var _toggleBtn = _sidebar.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
+      var _sidebar = closeBtn.closest(".listing-with-sidebar").querySelector(".listing-with-sidebar__sidebar");
+      var _toggleBtn = _sidebar.closest(".listing-with-sidebar").querySelector(".directorist-archive-sidebar-toggle");
       closeSidebar(_toggleBtn, _sidebar);
-    } else if (body.classList.contains('modal-overlay-enabled') && !targetElement.closest('.listing-with-sidebar__sidebar')) {
+    } else if (body.classList.contains("modal-overlay-enabled") && !targetElement.closest(".listing-with-sidebar__sidebar")) {
       // Check directorist color picker is available or not
-      var directoristColorPicker = body.querySelector('.listing-with-sidebar__sidebar--open .wp-color-result');
+      var directoristColorPicker = body.querySelector(".listing-with-sidebar__sidebar--open .wp-color-result");
       if (directoristColorPicker) return;
-      document.querySelectorAll('.listing-with-sidebar__sidebar--open').forEach(function (sidebar) {
-        var toggleBtn = sidebar.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
+      document.querySelectorAll(".listing-with-sidebar__sidebar--open").forEach(function (sidebar) {
+        var toggleBtn = sidebar.closest(".listing-with-sidebar").querySelector(".directorist-archive-sidebar-toggle");
         closeSidebar(toggleBtn, sidebar);
       });
     }
@@ -617,7 +617,7 @@ __webpack_require__.r(__webpack_exports__);
 // Search Category Change
 function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
   var fields = Object.keys(relations);
-  var wrappers = ['.directorist-advanced-filter__advanced__element', '.directorist-search-modal__input', '.directorist-search-field'];
+  var wrappers = [".directorist-advanced-filter__advanced__element", ".directorist-search-modal__input", ".directorist-search-field"];
   if (!fields.length) {
     return;
   }
@@ -646,7 +646,7 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
       return Number(category) === Number(fieldCategory);
     });
     if (shouldShow) {
-      $field.prop('disabled', false);
+      $field.prop("disabled", false);
       wrappers.forEach(function (wrapper) {
         var $wrapper = $field.closest(wrapper);
         if ($wrapper.length) {
@@ -654,7 +654,7 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
         }
       });
     } else {
-      $field.prop('disabled', true);
+      $field.prop("disabled", true);
       wrappers.forEach(function (wrapper) {
         var $wrapper = $field.closest(wrapper);
         if ($wrapper.length) {
@@ -666,25 +666,25 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
 }
 function initSearchCategoryCustomFields($) {
   // Handle multiple search forms and containers
-  var containers = ['.directorist-search-contents', '.directorist-archive-contents', '.directorist-search-form', '.directorist-add-listing-form'];
+  var containers = [".directorist-search-contents", ".directorist-archive-contents", ".directorist-search-form", ".directorist-add-listing-form"];
   containers.forEach(function (containerSelector) {
     var $container = $(containerSelector);
     if ($container.length) {
       // Bind events to all category selects within this container
-      $container.on('change', '.directorist-category-select, .directorist-search-category select, .bdas-category-search', function (event) {
+      $container.on("change", ".directorist-category-select, .directorist-search-category select, .bdas-category-search", function (event) {
         var $this = $(this);
-        var $form = $this.parents('form');
+        var $form = $this.parents("form");
         var categories = $this.val();
-        var attributes = $form.data('atts');
+        var attributes = $form.data("atts");
 
         // If form doesn't have attributes, try container
         if (!attributes) {
-          attributes = $container.data('atts');
+          attributes = $container.data("atts");
         }
 
         // If still no attributes, try document body
         if (!attributes) {
-          attributes = $(document.body).data('atts');
+          attributes = $(document.body).data("atts");
         }
         if (!attributes || !attributes.category_custom_fields_relations) {
           return;
@@ -711,24 +711,24 @@ function initSearchCategoryCustomFields($) {
       });
 
       // Trigger change event on page load for all category selects in this container
-      $container.find('.directorist-category-select, .directorist-search-category select, .bdas-category-search').each(function () {
-        $(this).trigger('change');
+      $container.find(".directorist-category-select, .directorist-search-category select, .bdas-category-search").each(function () {
+        $(this).trigger("change");
       });
     }
   });
 
   // Also handle global category selects that might not be in specific containers
-  var globalSelectors = '.directorist-category-select, .directorist-search-category select, .bdas-category-search';
-  $(document).on('change', globalSelectors, function (event) {
+  var globalSelectors = ".directorist-category-select, .directorist-search-category select, .bdas-category-search";
+  $(document).on("change", globalSelectors, function (event) {
     var $this = $(this);
 
     // Only handle if not already handled by container-specific handlers
     if (!event.isDefaultPrevented()) {
-      var $form = $this.parents('form');
+      var $form = $this.parents("form");
       var categories = $this.val();
-      var attributes = $form.data('atts');
+      var attributes = $form.data("atts");
       if (!attributes) {
-        attributes = $(document.body).data('atts');
+        attributes = $(document.body).data("atts");
       }
       if (!attributes || !attributes.category_custom_fields_relations) {
         return;
@@ -760,22 +760,22 @@ function initSearchCategoryCustomFields($) {
   \*************************************************************/
 /***/ (function() {
 
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   var $ = jQuery;
 
   /* Make sure the codes in this file runs only once, even if enqueued twice */
-  if (typeof window.directorist_catloc_executed === 'undefined') {
+  if (typeof window.directorist_catloc_executed === "undefined") {
     window.directorist_catloc_executed = true;
   } else {
     return;
   }
 
   /* Category card grid three width/height adjustment */
-  var categoryCard = document.querySelectorAll('.directorist-categories__single--style-three');
+  var categoryCard = document.querySelectorAll(".directorist-categories__single--style-three");
   if (categoryCard) {
     categoryCard.forEach(function (elm) {
       var categoryCardWidth = elm.offsetWidth;
-      elm.style.setProperty('--directorist-category-box-width', "".concat(categoryCardWidth, "px"));
+      elm.style.setProperty("--directorist-category-box-width", "".concat(categoryCardWidth, "px"));
     });
   }
 
@@ -783,56 +783,56 @@ window.addEventListener('load', function () {
   function categoryDropdown(selector, parent) {
     var categoryListToggle = document.querySelectorAll(selector);
     categoryListToggle.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        var categoryName = item.querySelector('.directorist-taxonomy-list__name');
+      item.addEventListener("click", function (e) {
+        var categoryName = item.querySelector(".directorist-taxonomy-list__name");
         if (e.target !== categoryName) {
           e.preventDefault();
-          this.classList.toggle('directorist-taxonomy-list__toggle--open');
+          this.classList.toggle("directorist-taxonomy-list__toggle--open");
         }
       });
     });
   }
-  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
-  categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+  categoryDropdown(".directorist-taxonomy-list-one .directorist-taxonomy-list__toggle", ".directorist-taxonomy-list-one .directorist-taxonomy-list");
+  categoryDropdown(".directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle", ".directorist-taxonomy-list-one .directorist-taxonomy-list");
 
   // Taxonomy Ajax
-  $(document).on('click', '.directorist-categories .directorist-pagination a', function (e) {
-    taxonomyPagination(e, $(this), '.directorist-categories');
+  $(document).on("click", ".directorist-categories .directorist-pagination a", function (e) {
+    taxonomyPagination(e, $(this), ".directorist-categories");
   });
-  $(document).on('click', '.directorist-location .directorist-pagination a', function (e) {
-    taxonomyPagination(e, $(this), '.directorist-location');
+  $(document).on("click", ".directorist-location .directorist-pagination a", function (e) {
+    taxonomyPagination(e, $(this), ".directorist-location");
   });
   function taxonomyPagination(event, clickedElement, containerSelector) {
     event.preventDefault();
-    var pageNumber = (clickedElement === null || clickedElement === void 0 ? void 0 : clickedElement.attr('data-page')) || 1;
+    var pageNumber = (clickedElement === null || clickedElement === void 0 ? void 0 : clickedElement.attr("data-page")) || 1;
     var container = clickedElement.closest(containerSelector);
-    var containerAttributes = container ? $(container).data('attrs') : {};
+    var containerAttributes = container ? $(container).data("attrs") : {};
     $.ajax({
       url: directorist.ajax_url,
-      type: 'POST',
-      dataType: 'json',
+      type: "POST",
+      dataType: "json",
       data: {
-        action: 'directorist_taxonomy_pagination',
+        action: "directorist_taxonomy_pagination",
         nonce: directorist.directorist_nonce,
         page: parseInt(pageNumber),
         attrs: containerAttributes
       },
       beforeSend: function beforeSend() {
-        $(containerSelector).addClass('atbdp-form-fade');
+        $(containerSelector).addClass("atbdp-form-fade");
       },
       success: function success(response) {
         var _tempContainer$queryS, _tempContainer$queryS2;
         if (!(response !== null && response !== void 0 && response.success)) {
-          console.error('Failed to load taxonomy content');
+          console.error("Failed to load taxonomy content");
           return;
         }
-        var tempContainer = document.createElement('div');
+        var tempContainer = document.createElement("div");
         tempContainer.innerHTML = response.data.content;
         // Handle both category and location wrappers
-        var taxonomyWrapper = document.querySelector('.taxonomy-category-wrapper');
-        var locationWrapper = document.querySelector('.taxonomy-location-wrapper');
-        var updatedCategoryContent = (_tempContainer$queryS = tempContainer.querySelector('.taxonomy-category-wrapper')) === null || _tempContainer$queryS === void 0 ? void 0 : _tempContainer$queryS.innerHTML;
-        var updatedLocationContent = (_tempContainer$queryS2 = tempContainer.querySelector('.taxonomy-location-wrapper')) === null || _tempContainer$queryS2 === void 0 ? void 0 : _tempContainer$queryS2.innerHTML;
+        var taxonomyWrapper = document.querySelector(".taxonomy-category-wrapper");
+        var locationWrapper = document.querySelector(".taxonomy-location-wrapper");
+        var updatedCategoryContent = (_tempContainer$queryS = tempContainer.querySelector(".taxonomy-category-wrapper")) === null || _tempContainer$queryS === void 0 ? void 0 : _tempContainer$queryS.innerHTML;
+        var updatedLocationContent = (_tempContainer$queryS2 = tempContainer.querySelector(".taxonomy-location-wrapper")) === null || _tempContainer$queryS2 === void 0 ? void 0 : _tempContainer$queryS2.innerHTML;
         if (taxonomyWrapper && updatedCategoryContent) {
           taxonomyWrapper.innerHTML = updatedCategoryContent;
         }
@@ -840,12 +840,12 @@ window.addEventListener('load', function () {
           locationWrapper.innerHTML = updatedLocationContent;
         }
         if (!taxonomyWrapper && !locationWrapper) {
-          console.error('Required elements not found in response');
+          console.error("Required elements not found in response");
           return;
         }
       },
       complete: function complete() {
-        $(containerSelector).removeClass('atbdp-form-fade');
+        $(containerSelector).removeClass("atbdp-form-fade");
       }
     });
   }
@@ -862,17 +862,17 @@ window.addEventListener('load', function () {
 /* Initialize wpColorPicker */
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_colorPicker_executed === 'undefined') {
+  if (typeof window.directorist_colorPicker_executed === "undefined") {
     window.directorist_colorPicker_executed = true;
   } else {
     return;
   }
-  window.addEventListener('load', function () {
+  window.addEventListener("load", function () {
     /* Initialize wp color picker */
     function colorPickerInit() {
-      var wpColorPickers = document.querySelectorAll('.directorist-color-picker-wrap');
+      var wpColorPickers = document.querySelectorAll(".directorist-color-picker-wrap");
       wpColorPickers.forEach(function (wrap) {
-        var $pickerInput = $(wrap).find('.directorist-color-picker');
+        var $pickerInput = $(wrap).find(".directorist-color-picker");
         if ($pickerInput) {
           if ($.fn.wpColorPicker) {
             $pickerInput.wpColorPicker({
@@ -880,18 +880,18 @@ window.addEventListener('load', function () {
                 var color = ui.color.toString();
 
                 // Dispatch custom event
-                var colorChangeEvent = new CustomEvent('directorist-color-changed', {
+                var colorChangeEvent = new CustomEvent("directorist-color-changed", {
                   detail: {
                     color: color,
                     input: event.target,
-                    form: event.target.closest('form')
+                    form: event.target.closest("form")
                   }
                 });
                 window.dispatchEvent(colorChangeEvent);
               }
             });
           } else {
-            console.warn('wpColorPicker is NOT available!');
+            console.warn("wpColorPicker is NOT available!");
           }
         }
       });
@@ -899,7 +899,7 @@ window.addEventListener('load', function () {
     colorPickerInit();
 
     /* Initialize on Directory type change */
-    window.addEventListener('directorist-instant-search-reloaded', colorPickerInit);
+    window.addEventListener("directorist-instant-search-reloaded", colorPickerInit);
   });
 })(jQuery);
 
@@ -913,21 +913,21 @@ window.addEventListener('load', function () {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_alert_executed === 'undefined') {
+  if (typeof window.directorist_alert_executed === "undefined") {
     window.directorist_alert_executed = true;
   } else {
     return;
   }
-  window.addEventListener('load', function () {
+  window.addEventListener("load", function () {
     /* Directorist alert dismiss */
     var getUrl = window.location.href;
-    var newUrl = getUrl.replace('notice=1', '');
-    if ($('.directorist-alert__close') !== null) {
-      $('.directorist-alert__close').each(function (i, e) {
-        $(e).on('click', function (e) {
+    var newUrl = getUrl.replace("notice=1", "");
+    if ($(".directorist-alert__close") !== null) {
+      $(".directorist-alert__close").each(function (i, e) {
+        $(e).on("click", function (e) {
           e.preventDefault();
           history.pushState({}, null, newUrl);
-          $(this).closest('.directorist-alert').remove();
+          $(this).closest(".directorist-alert").remove();
         });
       });
     }
@@ -944,30 +944,30 @@ window.addEventListener('load', function () {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_dropdown_executed === 'undefined') {
+  if (typeof window.directorist_dropdown_executed === "undefined") {
     window.directorist_dropdown_executed = true;
   } else {
     return;
   }
-  window.addEventListener('load', function () {
+  window.addEventListener("load", function () {
     /* custom dropdown */
-    var atbdDropdown = document.querySelectorAll('.directorist-dropdown-select');
+    var atbdDropdown = document.querySelectorAll(".directorist-dropdown-select");
 
     // toggle dropdown
     var clickCount = 0;
     if (atbdDropdown !== null) {
       atbdDropdown.forEach(function (el) {
-        el.querySelector('.directorist-dropdown-select-toggle').addEventListener('click', function (e) {
+        el.querySelector(".directorist-dropdown-select-toggle").addEventListener("click", function (e) {
           e.preventDefault();
           clickCount++;
           if (clickCount % 2 === 1) {
-            document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elem) {
-              elem.classList.remove('directorist-dropdown-select-show');
+            document.querySelectorAll(".directorist-dropdown-select-items").forEach(function (elem) {
+              elem.classList.remove("directorist-dropdown-select-show");
             });
-            el.querySelector('.directorist-dropdown-select-items').classList.add('directorist-dropdown-select-show');
+            el.querySelector(".directorist-dropdown-select-items").classList.add("directorist-dropdown-select-show");
           } else {
-            document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elem) {
-              elem.classList.remove('directorist-dropdown-select-show');
+            document.querySelectorAll(".directorist-dropdown-select-items").forEach(function (elem) {
+              elem.classList.remove("directorist-dropdown-select-show");
             });
           }
         });
@@ -975,82 +975,82 @@ window.addEventListener('load', function () {
     }
 
     // remvoe toggle when click outside
-    document.body.addEventListener('click', function (e) {
-      if (e.target.getAttribute('data-drop-toggle') !== 'directorist-dropdown-select-toggle') {
+    document.body.addEventListener("click", function (e) {
+      if (e.target.getAttribute("data-drop-toggle") !== "directorist-dropdown-select-toggle") {
         clickCount = 0;
-        document.querySelectorAll('.directorist-dropdown-select-items').forEach(function (el) {
-          el.classList.remove('directorist-dropdown-select-show');
+        document.querySelectorAll(".directorist-dropdown-select-items").forEach(function (el) {
+          el.classList.remove("directorist-dropdown-select-show");
         });
       }
     });
 
     //custom select
-    var atbdSelect = document.querySelectorAll('.atbd-drop-select');
+    var atbdSelect = document.querySelectorAll(".atbd-drop-select");
     if (atbdSelect !== null) {
       atbdSelect.forEach(function (el) {
-        el.querySelectorAll('.directorist-dropdown-select-items').forEach(function (item) {
-          item.addEventListener('click', function (e) {
+        el.querySelectorAll(".directorist-dropdown-select-items").forEach(function (item) {
+          item.addEventListener("click", function (e) {
             e.preventDefault();
-            el.querySelector('.directorist-dropdown-select-toggle').textContent = e.target.textContent;
-            el.querySelectorAll('.directorist-dropdown-select-items').forEach(function (elm) {
-              elm.classList.remove('atbd-active');
+            el.querySelector(".directorist-dropdown-select-toggle").textContent = e.target.textContent;
+            el.querySelectorAll(".directorist-dropdown-select-items").forEach(function (elm) {
+              elm.classList.remove("atbd-active");
             });
-            item.classList.add('atbd-active');
+            item.classList.add("atbd-active");
           });
         });
       });
     }
 
     // Dropdown
-    $('body').on('click', '.directorist-dropdown .directorist-dropdown-toggle', function (e) {
+    $("body").on("click", ".directorist-dropdown .directorist-dropdown-toggle", function (e) {
       e.preventDefault();
-      $(this).siblings('.directorist-dropdown-option').toggle();
+      $(this).siblings(".directorist-dropdown-option").toggle();
     });
 
     // Select Option after click
-    $('body').on('click', '.directorist-dropdown .directorist-dropdown-option ul li a', function (e) {
+    $("body").on("click", ".directorist-dropdown .directorist-dropdown-option ul li a", function (e) {
       e.preventDefault();
       var optionText = $(this).html();
-      $(this).children('.directorist-dropdown-toggle__text').html(optionText);
-      $(this).closest('.directorist-dropdown-option').siblings('.directorist-dropdown-toggle').children('.directorist-dropdown-toggle__text').html(optionText);
-      $('.directorist-dropdown-option').hide();
+      $(this).children(".directorist-dropdown-toggle__text").html(optionText);
+      $(this).closest(".directorist-dropdown-option").siblings(".directorist-dropdown-toggle").children(".directorist-dropdown-toggle__text").html(optionText);
+      $(".directorist-dropdown-option").hide();
     });
 
     // Hide Clicked Anywhere
-    $(document).bind('click', function (e) {
+    $(document).bind("click", function (e) {
       var clickedDOM = $(e.target);
-      if (!clickedDOM.parents().hasClass('directorist-dropdown')) $('.directorist-dropdown-option').hide();
+      if (!clickedDOM.parents().hasClass("directorist-dropdown")) $(".directorist-dropdown-option").hide();
     });
 
     //atbd_dropdown
-    $(document).on('click', '.atbd_dropdown', function (e) {
-      if ($(this).attr('class') === 'atbd_dropdown') {
+    $(document).on("click", ".atbd_dropdown", function (e) {
+      if ($(this).attr("class") === "atbd_dropdown") {
         e.preventDefault();
-        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
-        $(this).toggleClass('atbd_drop--active');
+        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
+        $(this).toggleClass("atbd_drop--active");
         e.stopPropagation();
       }
     });
-    $(document).on('click', function (e) {
-      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
-        $('.atbd_dropdown').removeClass('atbd_drop--active');
+    $(document).on("click", function (e) {
+      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
+        $(".atbd_dropdown").removeClass("atbd_drop--active");
       }
     });
-    $('body').on('click', '.atbd_dropdown-toggle', function (e) {
+    $("body").on("click", ".atbd_dropdown-toggle", function (e) {
       e.preventDefault();
     });
 
     // Directorist Dropdown
-    $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
+    $("body").on("click", ".directorist-dropdown-js .directorist-dropdown__toggle-js", function (e) {
       e.preventDefault();
-      if (!$(this).siblings('.directorist-dropdown__links-js').is(':visible')) {
-        $('.directorist-dropdown__links').hide();
+      if (!$(this).siblings(".directorist-dropdown__links-js").is(":visible")) {
+        $(".directorist-dropdown__links").hide();
       }
-      $(this).siblings('.directorist-dropdown__links-js').toggle();
+      $(this).siblings(".directorist-dropdown__links-js").toggle();
     });
-    $('body').on('click', function (e) {
-      if (!e.target.closest('.directorist-dropdown-js')) {
-        $('.directorist-dropdown__links-js').hide();
+    $("body").on("click", function (e) {
+      if (!e.target.closest(".directorist-dropdown-js")) {
+        $(".directorist-dropdown__links-js").hide();
       }
     });
   });
@@ -1066,74 +1066,74 @@ window.addEventListener('load', function () {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_favorite_executed === 'undefined') {
+  if (typeof window.directorist_favorite_executed === "undefined") {
     window.directorist_favorite_executed = true;
   } else {
     return;
   }
-  window.addEventListener('load', function () {
+  window.addEventListener("load", function () {
     // Add or Remove from favourites
-    $('.directorist-action-bookmark').on('click', function (e) {
+    $(".directorist-action-bookmark").on("click", function (e) {
       e.preventDefault();
       var data = {
-        action: 'atbdp_public_add_remove_favorites',
+        action: "atbdp_public_add_remove_favorites",
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data('listing_id')
+        post_id: $(this).data("listing_id")
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
-          $('.directorist-action-bookmark').html(response);
+          $(".directorist-action-bookmark").html(response);
         }
       });
     });
-    $('.directorist-favourite-remove-btn').each(function () {
-      $(this).on('click', function (event) {
+    $(".directorist-favourite-remove-btn").each(function () {
+      $(this).on("click", function (event) {
         event.preventDefault();
         var data = {
-          action: 'atbdp-favourites-all-listing',
+          action: "atbdp-favourites-all-listing",
           directorist_nonce: directorist.directorist_nonce,
-          post_id: $(this).data('listing_id')
+          post_id: $(this).data("listing_id")
         };
-        $('.directorist-favorite-tooltip').hide();
+        $(".directorist-favorite-tooltip").hide();
         $.post(directorist.ajaxurl, data, function (response) {
-          var post_id = data['post_id'].toString();
-          var staElement = $('.directorist_favourite_' + post_id);
-          if ('false' === response) {
+          var post_id = data["post_id"].toString();
+          var staElement = $(".directorist_favourite_" + post_id);
+          if ("false" === response) {
             staElement.remove();
           }
         });
       });
     });
-    $('body').on('click', '.directorist-mark-as-favorite__btn', function (event) {
+    $("body").on("click", ".directorist-mark-as-favorite__btn", function (event) {
       event.preventDefault();
       var data = {
-        action: 'atbdp-favourites-all-listing',
+        action: "atbdp-favourites-all-listing",
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data('listing_id')
+        post_id: $(this).data("listing_id")
       };
-      var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
-      var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
-      $('.directorist-favorite-tooltip').hide();
+      var fav_tooltip_success = "<span>" + directorist.i18n_text.added_favourite + "</span>";
+      var fav_tooltip_warning = "<span>" + directorist.i18n_text.please_login + "</span>";
+      $(".directorist-favorite-tooltip").hide();
       $.post(directorist.ajax_url, data, function (response) {
-        var post_id = data['post_id'].toString();
-        var staElement = $('.directorist-fav_' + post_id);
-        var data_id = staElement.attr('data-listing_id');
-        if (response === 'login_required') {
-          staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_warning);
-          staElement.children('.directorist-favorite-tooltip').fadeIn();
+        var post_id = data["post_id"].toString();
+        var staElement = $(".directorist-fav_" + post_id);
+        var data_id = staElement.attr("data-listing_id");
+        if (response === "login_required") {
+          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
+          staElement.children(".directorist-favorite-tooltip").fadeIn();
           setTimeout(function () {
-            staElement.children('.directorist-favorite-tooltip').children('span').remove();
+            staElement.children(".directorist-favorite-tooltip").children("span").remove();
           }, 3000);
-        } else if ('false' === response) {
-          staElement.removeClass('directorist-added-to-favorite');
-          $('.directorist-favorite-tooltip span').remove();
+        } else if ("false" === response) {
+          staElement.removeClass("directorist-added-to-favorite");
+          $(".directorist-favorite-tooltip span").remove();
         } else {
           if (data_id === post_id) {
-            staElement.addClass('directorist-added-to-favorite');
-            staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_success);
-            staElement.children('.directorist-favorite-tooltip').fadeIn();
+            staElement.addClass("directorist-added-to-favorite");
+            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
+            staElement.children(".directorist-favorite-tooltip").fadeIn();
             setTimeout(function () {
-              staElement.children('.directorist-favorite-tooltip').children('span').remove();
+              staElement.children(".directorist-favorite-tooltip").children("span").remove();
             }, 3000);
           }
         }
@@ -1150,38 +1150,38 @@ window.addEventListener('load', function () {
   \**************************************************************/
 /***/ (function() {
 
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_select_executed === 'undefined') {
+  if (typeof window.directorist_select_executed === "undefined") {
     window.directorist_select_executed = true;
   } else {
     return;
   }
   //custom select
-  var atbdSelect = document.querySelectorAll('.atbd-drop-select');
+  var atbdSelect = document.querySelectorAll(".atbd-drop-select");
   if (atbdSelect !== null) {
     atbdSelect.forEach(function (el) {
-      el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-        item.addEventListener('click', function (e) {
+      el.querySelectorAll(".atbd-dropdown-item").forEach(function (item) {
+        item.addEventListener("click", function (e) {
           e.preventDefault();
-          el.querySelector('.atbd-dropdown-toggle').textContent = item.textContent;
-          el.querySelectorAll('.atbd-dropdown-item').forEach(function (elm) {
-            elm.classList.remove('atbd-active');
+          el.querySelector(".atbd-dropdown-toggle").textContent = item.textContent;
+          el.querySelectorAll(".atbd-dropdown-item").forEach(function (elm) {
+            elm.classList.remove("atbd-active");
           });
-          item.classList.add('atbd-active');
+          item.classList.add("atbd-active");
         });
       });
     });
   }
 
   // select data-status
-  var atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
+  var atbdSelectData = document.querySelectorAll(".atbd-drop-select.with-sort");
   atbdSelectData.forEach(function (el) {
-    el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
-      var atbd_dropdown = el.querySelector('.atbd-dropdown-toggle');
-      var dropdown_item = item.getAttribute('data-status');
-      item.addEventListener('click', function (e) {
-        atbd_dropdown.setAttribute('data-status', "".concat(dropdown_item));
+    el.querySelectorAll(".atbd-dropdown-item").forEach(function (item) {
+      var atbd_dropdown = el.querySelector(".atbd-dropdown-toggle");
+      var dropdown_item = item.getAttribute("data-status");
+      item.addEventListener("click", function (e) {
+        atbd_dropdown.setAttribute("data-status", "".concat(dropdown_item));
       });
     });
   });
@@ -1197,25 +1197,25 @@ window.addEventListener('load', function () {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_sorting_executed === 'undefined') {
+  if (typeof window.directorist_sorting_executed === "undefined") {
     window.directorist_sorting_executed = true;
   } else {
     return;
   }
-  window.addEventListener('load', function () {
+  window.addEventListener("load", function () {
     // Sorting Js
-    if (!$('.directorist-instant-search').length) {
-      $('.directorist-dropdown__links__single-js').click(function (e) {
+    if (!$(".directorist-instant-search").length) {
+      $(".directorist-dropdown__links__single-js").click(function (e) {
         e.preventDefault();
-        var href = $(this).attr('data-link');
-        $('#directorsit-listing-sort').attr('action', href);
-        $('#directorsit-listing-sort').submit();
+        var href = $(this).attr("data-link");
+        $("#directorsit-listing-sort").attr("action", href);
+        $("#directorsit-listing-sort").submit();
       });
     }
 
     //sorting toggle
-    $('.sorting span').on('click', function () {
-      $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+    $(".sorting span").on("click", function () {
+      $(this).toggleClass("fa-sort-amount-asc fa-sort-amount-desc");
     });
   });
 })(jQuery);
@@ -1230,21 +1230,21 @@ window.addEventListener('load', function () {
 
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
-  window.addEventListener('load', function () {
-    if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
-      $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
+  window.addEventListener("load", function () {
+    if ($(".directorist-listing-no-thumb").innerWidth() <= 220) {
+      $(".directorist-listing-no-thumb").addClass("directorist-listing-no-thumb--fix");
     }
     // Auhtor Profile Listing responsive fix
-    if ($('.directorist-author-listing-content').innerWidth() <= 750) {
-      $('.directorist-author-listing-content').addClass('directorist-author-listing-grid--fix');
+    if ($(".directorist-author-listing-content").innerWidth() <= 750) {
+      $(".directorist-author-listing-content").addClass("directorist-author-listing-grid--fix");
     }
     // Directorist Archive responsive fix
-    if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
-      $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
+    if ($(".directorist-archive-grid-view").innerWidth() <= 500) {
+      $(".directorist-archive-grid-view").addClass("directorist-archive-grid--fix");
     }
 
     // Back Button to go back to the previous page
-    $('body').on('click', '.directorist-btn__back', function (e) {
+    $("body").on("click", ".directorist-btn__back", function (e) {
       window.history.back();
     });
   });
@@ -1261,22 +1261,22 @@ window.addEventListener('load', function () {
 (function ($) {
   /* Responsive grid control */
   $(document).ready(function () {
-    var d_wrapper = $('#directorist.atbd_wrapper');
-    var columnLeft = $('.atbd_col_left.col-lg-8');
-    var columnRight = $('.directorist.col-lg-4');
-    var tabColumn = $('.atbd_dashboard_wrapper .tab-content .tab-pane .col-lg-4');
+    var d_wrapper = $("#directorist.atbd_wrapper");
+    var columnLeft = $(".atbd_col_left.col-lg-8");
+    var columnRight = $(".directorist.col-lg-4");
+    var tabColumn = $(".atbd_dashboard_wrapper .tab-content .tab-pane .col-lg-4");
     var w_size = d_wrapper.width();
     if (w_size >= 500 && w_size <= 735) {
-      columnLeft.toggleClass('col-lg-8');
-      columnRight.toggleClass('col-lg-4');
+      columnLeft.toggleClass("col-lg-8");
+      columnRight.toggleClass("col-lg-4");
     }
     if (w_size <= 600) {
-      d_wrapper.addClass('size-xs');
-      tabColumn.toggleClass('col-lg-4');
+      d_wrapper.addClass("size-xs");
+      tabColumn.toggleClass("col-lg-4");
     }
-    var listing_size = $('.atbd_dashboard_wrapper .atbd_single_listing').width();
+    var listing_size = $(".atbd_dashboard_wrapper .atbd_single_listing").width();
     if (listing_size < 200) {
-      $('.atbd_single_listing .db_btn_area').addClass('db_btn_area--sm');
+      $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
     }
   });
 })(jQuery);
@@ -1321,7 +1321,7 @@ __webpack_require__.r(__webpack_exports__);
   Date.createFromMysql = function (mysql_string) {
     var t,
       result = null;
-    if (typeof mysql_string === 'string') {
+    if (typeof mysql_string === "string") {
       t = mysql_string.split(/[- :]/);
 
       //when t[3], t[4] and t[5] are missing they defaults to zero
@@ -1343,24 +1343,24 @@ __webpack_require__.r(__webpack_exports__);
   /*This function handles all ajax request*/
   function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
     var data;
-    if (ActionName) data = 'action=' + ActionName;
-    if (arg) data = arg + '&action=' + ActionName;
+    if (ActionName) data = "action=" + ActionName;
+    if (arg) data = arg + "&action=" + ActionName;
     if (arg && !ActionName) data = arg;
     //data = data ;
 
     var n = data.search(directorist.nonceName);
     if (n < 0) {
-      data = data + '&' + directorist.nonceName + '=' + directorist.nonce;
+      data = data + "&" + directorist.nonceName + "=" + directorist.nonce;
     }
     jQuery.ajax({
-      type: 'post',
+      type: "post",
       url: directorist.ajaxurl,
       data: data,
       beforeSend: function beforeSend() {
         jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
       },
       success: function success(data) {
-        jQuery('.atbdp_ajax_loading').remove();
+        jQuery(".atbdp_ajax_loading").remove();
         CallBackHandler(data);
       }
     });
@@ -1378,9 +1378,9 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   /* Listing No Image Controller */
-  $('.atbd_listing_no_image .atbd_lower_badge').each(function (i, elm) {
+  $(".atbd_listing_no_image .atbd_lower_badge").each(function (i, elm) {
     if (!$.trim($(elm).html()).length) {
-      $(this).addClass('atbd-no-spacing');
+      $(this).addClass("atbd-no-spacing");
     }
   });
 })(jQuery);
@@ -1395,8 +1395,8 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   //adding temporary css class to post draft page
-  if ($('.edit_btn_wrap .atbdp_float_active').length) {
-    $('body').addClass('atbd_post_draft');
+  if ($(".edit_btn_wrap .atbdp_float_active").length) {
+    $("body").addClass("atbd_post_draft");
   }
 })(jQuery);
 
@@ -1413,11 +1413,11 @@ __webpack_require__.r(__webpack_exports__);
   function print_static_rating($star_number) {
     var v;
     if ($star_number) {
-      v = '<ul>';
+      v = "<ul>";
       for (var i = 1; i <= 5; i++) {
         v += i <= $star_number ? "<li><span class='directorist-rate-active'></span></li>" : "<li><span class='directorist-rate-disable'></span></li>";
       }
-      v += '</ul>';
+      v += "</ul>";
     }
     return v;
   }
@@ -1450,7 +1450,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 (function ($) {
   /** 
-  	Global Variables 
+  Global Variables 
   */
 
   // Globally accessible form_data
@@ -1462,25 +1462,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   var infinitePaginationCompleted = false;
 
   /** 
-  	Main Functions 
+  Main Functions 
   */
 
   // Perform Instant Search
   function performInstantSearch(searchElement) {
     // get parent element
-    var searchElm = searchElement.closest('.directorist-instant-search');
+    var searchElm = searchElement.closest(".directorist-instant-search");
 
     // Instant Search Data
     var instant_search_data = prepareInstantSearchData(searchElm);
     $.ajax({
       url: directorist.ajaxurl,
-      type: 'POST',
+      type: "POST",
       data: instant_search_data,
       beforeSend: function beforeSend() {
         var _searchElm$offset;
-        searchElm.find('.directorist-advanced-filter__form .directorist-btn-sm').attr('disabled', true);
-        searchElm.find('.directorist-archive-items').addClass('atbdp-form-fade');
-        searchElm.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show').hide();
+        searchElm.find(".directorist-advanced-filter__form .directorist-btn-sm").attr("disabled", true);
+        searchElm.find(".directorist-archive-items").addClass("atbdp-form-fade");
+        searchElm.find(".directorist-header-bar .directorist-advanced-filter").removeClass("directorist-advanced-filter--show").hide();
         if (((_searchElm$offset = searchElm.offset()) === null || _searchElm$offset === void 0 ? void 0 : _searchElm$offset.top) > 0) {
           $(document).scrollTop(searchElm.offset().top);
         }
@@ -1488,21 +1488,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       },
       success: function success(html) {
         if (html.search_result) {
-          searchElm.find('.directorist-header-found-title, .dsa-save-search-container').remove();
+          searchElm.find(".directorist-header-found-title, .dsa-save-search-container").remove();
           if (html.header_title) {
-            searchElm.find('.directorist-listings-header__left').append(html.header_title);
-            searchElm.find('.directorist-header-found-title span').text(html.count);
+            searchElm.find(".directorist-listings-header__left").append(html.header_title);
+            searchElm.find(".directorist-header-found-title span").text(html.count);
           }
-          searchElm.find('.directorist-archive-items').replaceWith(html.search_result).removeClass('atbdp-form-fade');
-          searchElm.find('.directorist-advanced-filter__form .directorist-btn-sm').attr('disabled', false);
-          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
-          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+          searchElm.find(".directorist-archive-items").replaceWith(html.search_result).removeClass("atbdp-form-fade");
+          searchElm.find(".directorist-advanced-filter__form .directorist-btn-sm").attr("disabled", false);
+          window.dispatchEvent(new CustomEvent("directorist-instant-search-reloaded"));
+          window.dispatchEvent(new CustomEvent("directorist-reload-listings-map-archive"));
 
           // Optional: Update meta title
-          var new_meta_title = '';
+          var new_meta_title = "";
           if (html.category_name) new_meta_title += html.category_name;
-          if (html.location_name) new_meta_title += (new_meta_title ? ' within ' : '') + html.location_name;
-          if (form_data.address) new_meta_title += (form_data.in_cat || form_data.in_loc ? ' near ' : '') + form_data.address;
+          if (html.location_name) new_meta_title += (new_meta_title ? " within " : "") + html.location_name;
+          if (form_data.address) new_meta_title += (form_data.in_cat || form_data.in_loc ? " near " : "") + form_data.address;
           document.title = new_meta_title ? "".concat(new_meta_title, " | ").concat(directorist.site_name) : directorist.site_name;
         }
 
@@ -1516,23 +1516,23 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Perform Instant Search for directory type change
   function onDirectoryChange(searchElement) {
     // get parent element
-    var searchElm = searchElement.closest('.directorist-instant-search');
+    var searchElm = searchElement.closest(".directorist-instant-search");
 
     // Instant Search Data
     var instant_search_data = prepareInstantSearchData(searchElm);
     $.ajax({
       url: directorist.ajaxurl,
-      type: 'POST',
+      type: "POST",
       data: instant_search_data,
       beforeSend: function beforeSend() {
-        searchElm.addClass('atbdp-form-fade');
+        searchElm.addClass("atbdp-form-fade");
       },
       success: function success(html) {
         if (html.directory_type) {
           searchElm.replaceWith(html.directory_type);
-          searchElm.find('.atbdp-form-fade').removeClass('atbdp-form-fade');
-          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
-          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+          searchElm.find(".atbdp-form-fade").removeClass("atbdp-form-fade");
+          window.dispatchEvent(new CustomEvent("directorist-instant-search-reloaded"));
+          window.dispatchEvent(new CustomEvent("directorist-reload-listings-map-archive"));
 
           // SearchForm Item in Single Category Location Page Init
           singleCategoryLocationInit();
@@ -1551,10 +1551,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // AJAX call to load more listings
   function loadMoreListings(searchElement) {
     var loadingDiv;
-    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+    var container = $(".directorist-infinite-scroll .directorist-container-fluid .directorist-row");
 
     // get parent element
-    var searchElm = searchElement.closest('.directorist-instant-search');
+    var searchElm = searchElement.closest(".directorist-instant-search");
 
     // Instant Search Data
     var preparedData = prepareInstantSearchData(searchElm);
@@ -1565,14 +1565,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
     $.ajax({
       url: directorist.ajaxurl,
-      type: 'POST',
+      type: "POST",
       data: instant_search_data,
       beforeSend: function beforeSend() {
-        loadingDiv = $('<div>', {
-          class: 'directorist-on-scroll-loading'
-        }).append($('<div>', {
-          class: 'directorist-spinner'
-        }), $('<span>').text(directorist.loading_more_text));
+        loadingDiv = $("<div>", {
+          class: "directorist-on-scroll-loading"
+        }).append($("<div>", {
+          class: "directorist-spinner"
+        }), $("<span>").text(directorist.loading_more_text));
         container.append(loadingDiv);
       },
       success: function success(html) {
@@ -1592,17 +1592,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }
 
   /**
-     	Helper Functions  
-   	**/
+    	Helper Functions  
+  	**/
 
   // Prepare Instant Search Data
   function prepareInstantSearchData(searchElm) {
     // Get data-atts
-    var instant_search_atts = searchElm.data('atts');
+    var instant_search_atts = searchElm.data("atts");
 
     // Make ajax data
     var instant_search_data = _objectSpread(_objectSpread({}, form_data), {}, {
-      action: 'directorist_instant_search',
+      action: "directorist_instant_search",
       _nonce: directorist.ajax_nonce,
       current_page_id: directorist.current_page_id,
       data_atts: instant_search_atts
@@ -1616,7 +1616,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var _ref2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref, 2),
         key = _ref2[0],
         value = _ref2[1];
-      if (value === undefined || value === null || value === '' || Array.isArray(value) && value.length === 0 || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === 'object' && !Array.isArray(value) && Object.keys(value).length === 0) {
+      if (value === undefined || value === null || value === "" || Array.isArray(value) && value.length === 0 || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === "object" && !Array.isArray(value) && Object.keys(value).length === 0) {
         delete form_data[key];
       } else {
         form_data[key] = value;
@@ -1637,14 +1637,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Update search URL with form data
   function update_instant_search_url(form_data) {
     if (!history.pushState) return;
-    var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname;
-    var query = '';
+    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    var query = "";
     var appendQuery = function appendQuery(key, value) {
-      if (value !== undefined && value !== null && value !== '' && (!Array.isArray(value) || value.length)) {
+      if (value !== undefined && value !== null && value !== "" && (!Array.isArray(value) || value.length)) {
         if (Array.isArray(value) && value.length) {
-          query += (query.length ? '&' : '?') + "".concat(key, "=").concat(value);
+          query += (query.length ? "&" : "?") + "".concat(key, "=").concat(value);
         } else {
-          query += (query.length ? '&' : '?') + "".concat(key, "=").concat(encodeURIComponent(value));
+          query += (query.length ? "&" : "?") + "".concat(key, "=").concat(encodeURIComponent(value));
         }
       }
     };
@@ -1652,7 +1652,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // These keys will be ignored
     // and will not be appended to the URL
     // when updating the URL
-    var ignoreKeys = ['data_atts', 'custom_field', 'current_page_id', 'action', '_nonce'];
+    var ignoreKeys = ["data_atts", "custom_field", "current_page_id", "action", "_nonce"];
 
     // Handle all form_data keys dynamically
     Object.entries(form_data).forEach(function (_ref5) {
@@ -1662,15 +1662,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (ignoreKeys.includes(key)) return;
 
       // Handle default page
-      if (key === 'paged' && Number(value) === 1) {
+      if (key === "paged" && Number(value) === 1) {
         return; // ❌ Skip default page 1
       }
 
       // Handle price & address fields specifically
-      if (key === 'price' && Array.isArray(value)) {
-        appendQuery('price[0]', value[0] > 0 ? value[0] : '');
-        appendQuery('price[1]', value[1] > 0 ? value[1] : '');
-      } else if ((key === 'cityLat' || key === 'cityLng') && !form_data.address) {
+      if (key === "price" && Array.isArray(value)) {
+        appendQuery("price[0]", value[0] > 0 ? value[0] : "");
+        appendQuery("price[1]", value[1] > 0 ? value[1] : "");
+      } else if ((key === "cityLat" || key === "cityLng") && !form_data.address) {
         return; // ❌ Skip lat/lng if no address
       } else {
         appendQuery(key, value);
@@ -1678,13 +1678,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
 
     // Handle custom_field
-    if (form_data.custom_field && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(form_data.custom_field) === 'object') {
+    if (form_data.custom_field && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(form_data.custom_field) === "object") {
       Object.entries(form_data.custom_field).forEach(function (_ref7) {
         var _ref8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref7, 2),
           key = _ref8[0],
           val = _ref8[1];
         // Skip if key starts with "custom-number" and value is "0-0"
-        if (key.startsWith('custom-number') && val === '0-0') {
+        if (key.startsWith("custom-number") && val === "0-0") {
           return;
         }
         appendQuery(key, val);
@@ -1693,22 +1693,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var finalUrl = query ? newurl + query : newurl;
     window.history.pushState({
       path: finalUrl
-    }, '', finalUrl);
+    }, "", finalUrl);
   }
 
   // Check required fields are valid or not
   function checkRequiredFields(searchElm) {
     // Select all required inputs and selects inside searchElm
-    var requiredInputs = searchElm.find('input[required], select[required], textarea[required]');
+    var requiredInputs = searchElm.find("input[required], select[required], textarea[required]");
     var requiredFieldsAreValid = true;
     requiredInputs.each(function () {
       var $el = $(this);
-      var tagName = $el.prop('tagName').toLowerCase();
-      var type = $el.attr('type');
-      if (tagName === 'input') {
-        if (type === 'checkbox' || type === 'radio') {
+      var tagName = $el.prop("tagName").toLowerCase();
+      var type = $el.attr("type");
+      if (tagName === "input") {
+        if (type === "checkbox" || type === "radio") {
           // For checkboxes/radios, at least one with this name must be checked
-          var name = $el.attr('name');
+          var name = $el.attr("name");
           var checked = searchElm.find("input[name=\"".concat(name, "\"]:checked")).length > 0;
           if (!checked) {
             requiredFieldsAreValid = false;
@@ -1721,7 +1721,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             return false;
           }
         }
-      } else if (tagName === 'select' || tagName === 'textarea') {
+      } else if (tagName === "select" || tagName === "textarea") {
         // Select or textarea must have a value
         if (!$el.val()) {
           requiredFieldsAreValid = false;
@@ -1765,15 +1765,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Collect custom field values
     searchElm.find('[name^="custom_field"]').each(function (_, el) {
       var $el = $(el);
-      var name = $el.attr('name');
-      var type = $el.attr('type');
+      var name = $el.attr("name");
+      var type = $el.attr("type");
       var match = name.match(/^custom_field\[(.+?)\]/);
-      var post_id = match ? match[1] : '';
+      var post_id = match ? match[1] : "";
       if (!post_id) return;
-      if (type === 'radio') {
+      if (type === "radio") {
         var checked = searchElm.find("input[name=\"custom_field[".concat(post_id, "]\"]:checked")).val();
         if (checked) custom_field[post_id] = checked;
-      } else if (type === 'checkbox') {
+      } else if (type === "checkbox") {
         var values = [];
         searchElm.find("input[name=\"custom_field[".concat(post_id, "][]\"]:checked")).each(function () {
           var val = $(this).val();
@@ -1782,14 +1782,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         if (values.length) custom_field[post_id] = values;
       } else {
         var value = $el.val();
-        if (value && value !== '0-0') custom_field[post_id] = value;
+        if (value && value !== "0-0") custom_field[post_id] = value;
       }
     });
 
     // Collect basic form values
     var q = searchElm.find('input[name="q"]').val();
-    var in_cat = searchElm.find('.directorist-category-select').val();
-    var in_loc = searchElm.find('.directorist-location-select').val();
+    var in_cat = searchElm.find(".directorist-category-select").val();
+    var in_loc = searchElm.find(".directorist-location-select").val();
     var price_range = searchElm.find("input[name='price_range']:checked").val();
     var address = searchElm.find('input[name="address"]').val();
     var zip = searchElm.find('input[name="zip"]').val();
@@ -1827,23 +1827,23 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
 
     // open_now checkbox
-    var open_now_val = searchElm.find('input[name="open_now"]').is(':checked') ? searchElm.find('input[name="open_now"]').val() : undefined;
+    var open_now_val = searchElm.find('input[name="open_now"]').is(":checked") ? searchElm.find('input[name="open_now"]').val() : undefined;
     updateFormData({
       open_now: open_now_val
     });
-    var radius_search_based_on = searchElm.find('.directorist-radius_search_based_on').val();
+    var radius_search_based_on = searchElm.find(".directorist-radius_search_based_on").val();
 
     // Check if the address or zip code is present to update miles, lat, and lng
-    if (radius_search_based_on === 'address' && address) {
+    if (radius_search_based_on === "address" && address) {
       updateFormData({
-        cityLat: searchElm.find('#cityLat').val(),
-        cityLng: searchElm.find('#cityLng').val(),
+        cityLat: searchElm.find("#cityLat").val(),
+        cityLng: searchElm.find("#cityLng").val(),
         miles: searchElm.find('input[name="miles"]').val()
       });
-    } else if (radius_search_based_on === 'zip' && zip) {
+    } else if (radius_search_based_on === "zip" && zip) {
       updateFormData({
-        zip_cityLat: searchElm.find('.zip-cityLat').val(),
-        zip_cityLng: searchElm.find('.zip-cityLng').val(),
+        zip_cityLat: searchElm.find(".zip-cityLat").val(),
+        zip_cityLng: searchElm.find(".zip-cityLng").val(),
         miles: searchElm.find('input[name="miles"]').val()
       });
     } else {
@@ -1868,7 +1868,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Build form data without required value
   function buildFormDataWithoutRequired() {
-    var notRequiredFields = ['view', 'sort', 'paged'];
+    var notRequiredFields = ["view", "sort", "paged"];
     Object.entries(form_data).forEach(function (_ref9) {
       var _ref0 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref9, 2),
         key = _ref0[0],
@@ -1917,7 +1917,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Handle Infinite Scroll
   function handleScroll() {
-    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+    var container = $(".directorist-infinite-scroll .directorist-container-fluid .directorist-row");
     if (!container.length || infinitePaginationIsLoading) {
       return;
     }
@@ -1928,7 +1928,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       scrollingPage++;
 
       // get parent element
-      var instantSearchElement = $('.directorist-instant-search');
+      var instantSearchElement = $(".directorist-instant-search");
       // get active form
       var activeForm = getActiveForm(instantSearchElement);
 
@@ -1942,66 +1942,66 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Close all search modal
   function closeAllSearchModal() {
-    var searchModalElement = document.querySelectorAll('.directorist-search-modal');
+    var searchModalElement = document.querySelectorAll(".directorist-search-modal");
     searchModalElement.forEach(function (modal) {
-      var modalOverlay = modal.querySelector('.directorist-search-modal__overlay');
-      var modalContent = modal.querySelector('.directorist-search-modal__contents');
-      var modalBodyOverlay = document.querySelector('.directorist-content-active');
+      var modalOverlay = modal.querySelector(".directorist-search-modal__overlay");
+      var modalContent = modal.querySelector(".directorist-search-modal__contents");
+      var modalBodyOverlay = document.querySelector(".directorist-content-active");
 
       // Overlay Style
       if (modalOverlay) {
-        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden; transition: 0.5s ease';
+        modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
         // remove overlay class on body
-        modalBodyOverlay.classList.remove('directorist-overlay-active');
+        modalBodyOverlay.classList.remove("directorist-overlay-active");
       }
 
       // Modal Content Style
       if (modalContent) {
-        modalContent.style.cssText = 'opacity: 0; visibility: hidden; bottom: -200px;';
+        modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
       }
     });
   }
 
   // Determine the active form
   function getActiveForm(instantSearchElement) {
-    var sidebarListing = instantSearchElement.find('.listing-with-sidebar');
-    var advancedForm = instantSearchElement.find('.directorist-advanced-filter__form');
-    var searchForm = instantSearchElement.find('.directorist-search-form');
+    var sidebarListing = instantSearchElement.find(".listing-with-sidebar");
+    var advancedForm = instantSearchElement.find(".directorist-advanced-filter__form");
+    var searchForm = instantSearchElement.find(".directorist-search-form");
     return sidebarListing.length ? instantSearchElement : screen.width > 575 ? advancedForm : searchForm;
   }
 
   // Get directory type
   function getDirectoryType(directoryTypeLink) {
     var _directoryTypeLink$at;
-    var typeMatch = (_directoryTypeLink$at = directoryTypeLink.attr('href')) === null || _directoryTypeLink$at === void 0 ? void 0 : _directoryTypeLink$at.match(/type=([^&]+)/);
-    return typeMatch ? typeMatch[1] : '';
+    var typeMatch = (_directoryTypeLink$at = directoryTypeLink.attr("href")) === null || _directoryTypeLink$at === void 0 ? void 0 : _directoryTypeLink$at.match(/type=([^&]+)/);
+    return typeMatch ? typeMatch[1] : "";
   }
 
   // Get view as
   function getViewAs(viewAsLink) {
     var _viewAsLink$attr;
-    var viewMatch = (_viewAsLink$attr = viewAsLink.attr('href')) === null || _viewAsLink$attr === void 0 ? void 0 : _viewAsLink$attr.match(/view=([^&]+)/);
-    return viewMatch ? viewMatch[1] : '';
+    var viewMatch = (_viewAsLink$attr = viewAsLink.attr("href")) === null || _viewAsLink$attr === void 0 ? void 0 : _viewAsLink$attr.match(/view=([^&]+)/);
+    return viewMatch ? viewMatch[1] : "";
   }
 
   // Get sort value
   function getSortValue(sortByLink) {
-    var sort_href = sortByLink.attr('data-link');
-    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
-    return sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
+    var sort_href = sortByLink.attr("data-link");
+    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : "";
+    return sort_by && sort_by.length ? sort_by[0].replace(/sort=/, "") : "";
   }
 
   // Trigger custom events
   function triggerCustomEvents() {
-    window.dispatchEvent(new Event('directorist-instant-search-reloaded'));
-    window.dispatchEvent(new Event('directorist-reload-listings-map-archive'));
+    window.dispatchEvent(new Event("directorist-instant-search-reloaded"));
+    window.dispatchEvent(new Event("directorist-reload-listings-map-archive"));
   }
 
   // Range Slider searching observer
   function initObserver() {
-    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-custom-range-slider__value input');
+    var targetNodes = document.querySelectorAll(".directorist-instant-search .directorist-custom-range-slider__value input");
     targetNodes.forEach(function (targetNode) {
-      var searchElm = $(targetNode.closest('form'));
+      var searchElm = $(targetNode.closest("form"));
       if (targetNode) {
         var timeout;
         var observerCallback = function observerCallback(mutationList, observer) {
@@ -2010,7 +2010,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var mutation = _step.value;
-              if (mutation.attributeName == 'value') {
+              if (mutation.attributeName == "value") {
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                   // Instant search with required value
@@ -2036,61 +2036,61 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Single Location Category Page Search Form Item Disable
   function singleCategoryLocationInit() {
-    var directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+    var directoristArchiveContents = document.querySelector(".directorist-archive-contents");
     if (!directoristArchiveContents) {
       return;
     }
-    var directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
+    var directoristDataAttributes = directoristArchiveContents.getAttribute("data-atts");
     var _JSON$parse = JSON.parse(directoristDataAttributes),
       shortcode = _JSON$parse.shortcode,
       location = _JSON$parse.location,
       category = _JSON$parse.category;
-    if (shortcode === 'directorist_category' && category.trim() !== '') {
-      var categorySelect = document.querySelector('.directorist-search-form .directorist-category-select');
+    if (shortcode === "directorist_category" && category.trim() !== "") {
+      var categorySelect = document.querySelector(".directorist-search-form .directorist-category-select");
       if (categorySelect) {
-        categorySelect.closest('.directorist-search-category').classList.add('directorist-search-form__single-category');
+        categorySelect.closest(".directorist-search-category").classList.add("directorist-search-form__single-category");
       }
     }
-    if (shortcode === 'directorist_location' && location.trim() !== '') {
-      var locationSelect = document.querySelector('.directorist-search-form .directorist-location-select');
+    if (shortcode === "directorist_location" && location.trim() !== "") {
+      var locationSelect = document.querySelector(".directorist-search-form .directorist-location-select");
       if (locationSelect) {
-        locationSelect.closest('.directorist-search-location').classList.add('directorist-search-form__single-location');
+        locationSelect.closest(".directorist-search-location").classList.add("directorist-search-form__single-location");
       }
     }
   }
 
   /** 
-  	Event Listeners 
+  Event Listeners 
   */
 
   // sidebar on keyup searching
-  $('body').on('keyup', '.directorist-instant-search .listing-with-sidebar form', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    if ($(e.target).closest('.directorist-custom-range-slider__value').length > 0 || e.key === 'Enter' && e.target.value === '') {
+  $("body").on("keyup", ".directorist-instant-search .listing-with-sidebar form", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    if ($(e.target).closest(".directorist-custom-range-slider__value").length > 0 || e.key === "Enter" && e.target.value === "") {
       return; // Skip search for this element
     }
     e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
+    var searchElm = $(this).closest(".listing-with-sidebar");
 
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
 
   // sidebar on change searching - radio/checkbox/location/range
-  $('body').on('change', ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+  $("body").on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
     e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
+    var searchElm = $(this).closest(".listing-with-sidebar");
 
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
 
   // sidebar on change searching - zipcode/location
-  $('body').on('change', '.directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+  $("body").on("change", ".directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
     e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
+    var searchElm = $(this).closest(".listing-with-sidebar");
 
     // If it's a location field, ensure it has a value before triggering the filter
-    if ($(this).hasClass('directorist-search-location')) {
+    if ($(this).hasClass("directorist-search-location")) {
       var locationField = $(this).find('input[name="address"]');
       if (!locationField.val()) {
         return;
@@ -2102,22 +2102,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }, 250));
 
   // sidebar on change searching - select
-  $('body').on('change', '.directorist-instant-search .listing-with-sidebar select', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+  $("body").on("change", ".directorist-instant-search .listing-with-sidebar select", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
     e.preventDefault();
     if (!$(this).val()) {
       return; // Skip search if the value is empty
     }
     e.preventDefault();
-    var searchElm = $(this).val() && $(this).closest('.listing-with-sidebar');
+    var searchElm = $(this).val() && $(this).closest(".listing-with-sidebar");
 
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
 
   // sidebar on change searching - color
-  window.addEventListener('directorist-color-changed', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+  window.addEventListener("directorist-color-changed", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
     var input = e.detail.input;
-    var searchElm = $(input).closest('.listing-with-sidebar');
+    var searchElm = $(input).closest(".listing-with-sidebar");
     if (!searchElm.length) return;
 
     // Instant search with required value
@@ -2125,32 +2125,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }, 250));
 
   // sidebar on click searching - location icon
-  $('body').on('click', '.directorist-instant-search .listing-with-sidebar .directorist-filter-location-icon', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+  $("body").on("click", ".directorist-instant-search .listing-with-sidebar .directorist-filter-location-icon", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
     e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
+    var searchElm = $(this).closest(".listing-with-sidebar");
 
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 1000));
 
   // Clear Input Value
-  $('body').on('click', '.directorist-instant-search .listing-with-sidebar .directorist-search-field__btn--clear', function (e) {
+  $("body").on("click", ".directorist-instant-search .listing-with-sidebar .directorist-search-field__btn--clear", function (e) {
     // Clear Color Field Value
-    var irisPicker = $(this).closest('.directorist-search-field.directorist-color').find('input.wp-picker-clear');
+    var irisPicker = $(this).closest(".directorist-search-field.directorist-color").find("input.wp-picker-clear");
     if (irisPicker !== null) {
       irisPicker.click();
     }
-    var $searchField = $(this).closest('.directorist-search-field');
-    var searchElm = $(this).closest('.listing-with-sidebar');
+    var $searchField = $(this).closest(".directorist-search-field");
+    var searchElm = $(this).closest(".listing-with-sidebar");
 
     // Clear text, email, number, select fields etc
-    $searchField.find('input:not([type="checkbox"]):not([type="radio"]):not(.wp-picker-clear), select').val('');
+    $searchField.find('input:not([type="checkbox"]):not([type="radio"]):not(.wp-picker-clear), select').val("");
 
     // Clear checkboxes
-    $searchField.find('input[type="checkbox"]').prop('checked', false);
+    $searchField.find('input[type="checkbox"]').prop("checked", false);
 
     // Clear radio buttons
-    $searchField.find('input[type="radio"]').prop('checked', false);
+    $searchField.find('input[type="radio"]').prop("checked", false);
 
     // Proceed if form exists
     if (searchElm.length) {
@@ -2159,9 +2159,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Directorist instant search reset
-  $('body').on('click', '.directorist-instant-search .listing-with-sidebar  .directorist-btn-reset-js', function (e) {
+  $("body").on("click", ".directorist-instant-search .listing-with-sidebar  .directorist-btn-reset-js", function (e) {
     e.preventDefault();
-    var searchElm = $(this).closest('.directorist-instant-search');
+    var searchElm = $(this).closest(".directorist-instant-search");
     // Get active form
     var activeForm = getActiveForm(searchElm);
 
@@ -2182,7 +2182,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Directorist instant search submit
-  $('body').on('submit', '.directorist-instant-search form', function (e) {
+  $("body").on("submit", ".directorist-instant-search form", function (e) {
     e.preventDefault();
     var _this = $(this);
 
@@ -2191,8 +2191,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Directorist instant search submit - for advanced filter
-  $('body').on('submit', '.widget .default-ad-search:not(.directorist_single) .directorist-advanced-filter__form', function (e) {
-    if ($('.directorist-instant-search').length) {
+  $("body").on("submit", ".widget .default-ad-search:not(.directorist_single) .directorist-advanced-filter__form", function (e) {
+    if ($(".directorist-instant-search").length) {
       e.preventDefault();
       var _this = $(this);
 
@@ -2202,16 +2202,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Directorist type changes
-  $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function (e) {
+  $("body").on("click", ".directorist-instant-search .directorist-type-nav__link", function (e) {
     e.preventDefault();
 
     // Check if the clicked item is already active
-    if ($(this).closest('.directorist-type-nav__list li').hasClass('directorist-type-nav__list__current')) {
+    if ($(this).closest(".directorist-type-nav__list li").hasClass("directorist-type-nav__list__current")) {
       return; // Skip if already active
     }
 
     // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
+    var searchElm = $(this).closest(".directorist-instant-search");
 
     // reset form data
     resetFormData();
@@ -2228,7 +2228,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     update_instant_search_url(form_data);
 
     // Set the directory_type value in the input
-    $(this).closest('.directorist-instant-search').find('input[name="directory_type"]').val(directory_type);
+    $(this).closest(".directorist-instant-search").find('input[name="directory_type"]').val(directory_type);
 
     // Get active form
     var activeForm = getActiveForm(searchElm);
@@ -2238,16 +2238,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Directorist view as changes
-  $('body').on('click', '.directorist-instant-search .directorist-viewas .directorist-viewas__item', function (e) {
+  $("body").on("click", ".directorist-instant-search .directorist-viewas .directorist-viewas__item", function (e) {
     e.preventDefault();
 
     // Check if the clicked item is already active
-    if ($(this).hasClass('active')) {
+    if ($(this).hasClass("active")) {
       return; // Skip if already active
     }
 
     // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
+    var searchElm = $(this).closest(".directorist-instant-search");
 
     // get view as value
     var view = getViewAs($(this));
@@ -2264,14 +2264,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Directorist sort by changes
-  $('body').on('click', '.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js', function (e) {
+  $("body").on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js", function (e) {
     e.preventDefault();
 
     // toggle active class
-    $(this).addClass('active').siblings('.directorist-dropdown__links__single-js').removeClass('active');
+    $(this).addClass("active").siblings(".directorist-dropdown__links__single-js").removeClass("active");
 
     // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
+    var searchElm = $(this).closest(".directorist-instant-search");
 
     // get sort value
     var sort = getSortValue($(this));
@@ -2288,15 +2288,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Directorist pagination changes
-  $('body').on('click', '.directorist-instant-search .directorist-pagination .page-numbers', function (e) {
+  $("body").on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function (e) {
     e.preventDefault();
     var page = form_data.paged || 1;
     var currentPage = $(this).text();
     if (currentPage) {
       page = parseInt(currentPage);
-    } else if ($(this).hasClass('next')) {
+    } else if ($(this).hasClass("next")) {
       page = parseInt(page) + 1;
-    } else if ($(this).hasClass('prev')) {
+    } else if ($(this).hasClass("prev")) {
       page = parseInt(page) - 1;
     }
     // ✅ only update `sort`, preserve others
@@ -2305,7 +2305,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
 
     // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
+    var searchElm = $(this).closest(".directorist-instant-search");
 
     // get active form
     var activeForm = getActiveForm(searchElm);
@@ -2315,27 +2315,27 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Submit on sidebar form
-  if ($('.directorist-instant-search').length === 0) {
-    $('body').on('submit', '.listing-with-sidebar .directorist-basic-search, .listing-with-sidebar .directorist-advanced-search', function (e) {
+  if ($(".directorist-instant-search").length === 0) {
+    $("body").on("submit", ".listing-with-sidebar .directorist-basic-search, .listing-with-sidebar .directorist-advanced-search", function (e) {
       e.preventDefault();
-      var basic_data = $('.listing-with-sidebar .directorist-basic-search').serialize();
-      var advanced_data = $('.listing-with-sidebar .directorist-advanced-search').serialize();
-      var action_value = $('.directorist-advanced-search').attr('action');
-      var url = action_value + '?' + basic_data + '&' + advanced_data;
+      var basic_data = $(".listing-with-sidebar .directorist-basic-search").serialize();
+      var advanced_data = $(".listing-with-sidebar .directorist-advanced-search").serialize();
+      var action_value = $(".directorist-advanced-search").attr("action");
+      var url = action_value + "?" + basic_data + "&" + advanced_data;
       window.location.href = url;
     });
   }
 
   // Prevent disabled links from being clicked
-  $('body').on('click', '.disabled-link', function (e) {
+  $("body").on("click", ".disabled-link", function (e) {
     e.preventDefault();
   });
 
   // Prevent default action for dropdown links
-  $('.directorist-instant-search .directorist-dropdown__links__single-js').off('click');
+  $(".directorist-instant-search .directorist-dropdown__links__single-js").off("click");
 
   // Initialize Infinite Scroll
-  window.addEventListener('scroll', function () {
+  window.addEventListener("scroll", function () {
     if (infinitePaginationCompleted) {
       scrollingPage = 1;
       return;
@@ -2344,7 +2344,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   });
 
   // Initialize the observer for single category location
-  window.addEventListener('load', function () {
+  window.addEventListener("load", function () {
     (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(initObserver(), 250);
     singleCategoryLocationInit();
   });
@@ -2358,25 +2358,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   \***********************************************************/
 /***/ (function() {
 
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   /* custom dropdown */
-  var atbdDropdown = document.querySelectorAll('.atbd-dropdown');
+  var atbdDropdown = document.querySelectorAll(".atbd-dropdown");
 
   // toggle dropdown
   var clickCount = 0;
   if (atbdDropdown !== null) {
     atbdDropdown.forEach(function (el) {
-      el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
+      el.querySelector(".atbd-dropdown-toggle").addEventListener("click", function (e) {
         e.preventDefault();
         clickCount++;
         if (clickCount % 2 === 1) {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
-            el.classList.remove('atbd-show');
+          document.querySelectorAll(".atbd-dropdown-items").forEach(function (el) {
+            el.classList.remove("atbd-show");
           });
-          el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
+          el.querySelector(".atbd-dropdown-items").classList.add("atbd-show");
         } else {
-          document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
-            el.classList.remove('atbd-show');
+          document.querySelectorAll(".atbd-dropdown-items").forEach(function (el) {
+            el.classList.remove("atbd-show");
           });
         }
       });
@@ -2384,11 +2384,11 @@ window.addEventListener('load', function () {
   }
 
   // remvoe toggle when click outside
-  document.body.addEventListener('click', function (e) {
-    if (e.target.getAttribute('data-drop-toggle') !== 'atbd-toggle') {
+  document.body.addEventListener("click", function (e) {
+    if (e.target.getAttribute("data-drop-toggle") !== "atbd-toggle") {
       clickCount = 0;
-      document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
-        el.classList.remove('atbd-show');
+      document.querySelectorAll(".atbd-dropdown-items").forEach(function (el) {
+        el.classList.remove("atbd-show");
       });
     }
   });
@@ -2404,7 +2404,7 @@ window.addEventListener('load', function () {
 
 // DOM Mutation observer
 function initObserver() {
-  var targetNode = document.querySelector('.directorist-archive-contents');
+  var targetNode = document.querySelector(".directorist-archive-contents");
   var observer = new MutationObserver(initMasonry);
   if (targetNode) {
     observer.observe(targetNode, {
@@ -2419,7 +2419,7 @@ function initMasonry() {
   function authorsMasonry(selector) {
     var authorsCard = $(selector);
     $(authorsCard).each(function (id, elm) {
-      var authorsCardRow = $(elm).find('.directorist-masonry');
+      var authorsCardRow = $(elm).find(".directorist-masonry");
       var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
         $(authorMasonryInit).masonry({
           percentPosition: true,
@@ -2428,10 +2428,10 @@ function initMasonry() {
       });
     });
   }
-  authorsMasonry('.directorist-archive-grid-view');
+  authorsMasonry(".directorist-archive-grid-view");
 }
-window.addEventListener('load', initObserver);
-window.addEventListener('load', initMasonry);
+window.addEventListener("load", initObserver);
+window.addEventListener("load", initMasonry);
 
 /***/ }),
 
@@ -2471,23 +2471,23 @@ __webpack_require__.r(__webpack_exports__);
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   (function ($) {
-    'use strict';
+    "use strict";
 
     var ReplyFormObserver = /*#__PURE__*/function () {
       function ReplyFormObserver() {
         var _this = this;
         (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ReplyFormObserver);
         this.init();
-        $(document).on('directorist_review_updated', function () {
+        $(document).on("directorist_review_updated", function () {
           return _this.init();
         });
       }
       return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ReplyFormObserver, [{
         key: "init",
         value: function init() {
-          var node = document.querySelector('.commentlist');
+          var node = document.querySelector(".commentlist");
           if (node) {
             this.observe(node);
           }
@@ -2512,34 +2512,34 @@ window.addEventListener('load', function () {
               var mutation = _step.value;
               var target = mutation.target;
               if (mutation.removedNodes) {
-                target.classList.remove('directorist-form-added');
+                target.classList.remove("directorist-form-added");
                 var _iterator2 = _createForOfIteratorHelper(mutation.removedNodes),
                   _step2;
                 try {
                   for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
                     var node = _step2.value;
-                    if (!node.id || node.id !== 'respond') {
+                    if (!node.id || node.id !== "respond") {
                       continue;
                     }
-                    var criteria = node.querySelector('.directorist-review-criteria');
+                    var criteria = node.querySelector(".directorist-review-criteria");
                     if (criteria) {
-                      criteria.style.display = '';
+                      criteria.style.display = "";
                     }
-                    var ratings = node.querySelectorAll('.directorist-review-criteria-select');
+                    var ratings = node.querySelectorAll(".directorist-review-criteria-select");
                     var _iterator3 = _createForOfIteratorHelper(ratings),
                       _step3;
                     try {
                       for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
                         var rating = _step3.value;
-                        rating.removeAttribute('disabled');
+                        rating.removeAttribute("disabled");
                       }
                     } catch (err) {
                       _iterator3.e(err);
                     } finally {
                       _iterator3.f();
                     }
-                    node.querySelector('#submit').innerHTML = 'Submit Review';
-                    node.querySelector('#comment').setAttribute('placeholder', 'Leave a review');
+                    node.querySelector("#submit").innerHTML = "Submit Review";
+                    node.querySelector("#comment").setAttribute("placeholder", "Leave a review");
                     //console.log(node.querySelector('#comment'))
                   }
                 } catch (err) {
@@ -2548,23 +2548,23 @@ window.addEventListener('load', function () {
                   _iterator2.f();
                 }
               }
-              var form = target.querySelector('#commentform');
+              var form = target.querySelector("#commentform");
               if (form) {
-                target.classList.add('directorist-form-added');
-                var isReview = target.classList.contains('review');
-                var isEditing = target.classList.contains('directorist-form-editing');
+                target.classList.add("directorist-form-added");
+                var isReview = target.classList.contains("review");
+                var isEditing = target.classList.contains("directorist-form-editing");
                 if (!isReview || isReview && !isEditing) {
-                  var _criteria = form.querySelector('.directorist-review-criteria');
+                  var _criteria = form.querySelector(".directorist-review-criteria");
                   if (_criteria) {
-                    _criteria.style.display = 'none';
+                    _criteria.style.display = "none";
                   }
-                  var _ratings = form.querySelectorAll('.directorist-review-criteria-select');
+                  var _ratings = form.querySelectorAll(".directorist-review-criteria-select");
                   var _iterator4 = _createForOfIteratorHelper(_ratings),
                     _step4;
                   try {
                     for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
                       var _rating = _step4.value;
-                      _rating.setAttribute('disabled', 'disabled');
+                      _rating.setAttribute("disabled", "disabled");
                     }
                   } catch (err) {
                     _iterator4.e(err);
@@ -2572,12 +2572,12 @@ window.addEventListener('load', function () {
                     _iterator4.f();
                   }
                 }
-                var alert = form.querySelector('.directorist-alert');
+                var alert = form.querySelector(".directorist-alert");
                 if (alert) {
-                  alert.style.display = 'none';
+                  alert.style.display = "none";
                 }
-                form.querySelector('#submit').innerHTML = 'Submit Reply';
-                form.querySelector('#comment').setAttribute('placeholder', 'Leave your reply');
+                form.querySelector("#submit").innerHTML = "Submit Reply";
+                form.querySelector("#comment").setAttribute("placeholder", "Leave your reply");
               }
             }
           } catch (err) {
@@ -2596,7 +2596,7 @@ window.addEventListener('load', function () {
       return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CommentEditHandler, [{
         key: "init",
         value: function init() {
-          $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
+          $(document).on("submit", "#directorist-form-comment-edit", this.onSubmit);
         }
       }, {
         key: "onSubmit",
@@ -2604,44 +2604,44 @@ window.addEventListener('load', function () {
           event.preventDefault();
           var $form = $(event.target);
           var originalButtonLabel = $form.find('[type="submit"]').val();
-          $(document).trigger('directorist_review_before_submit', $form);
+          $(document).trigger("directorist_review_before_submit", $form);
           var formData = new FormData($form[0]);
 
           // Apply the filter
-          formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
+          formData = wp.hooks.applyFilters("directorist_add_review_form_data", formData, "directorist-advanced-review");
           var updateComment = $.ajax({
-            url: $form.attr('action'),
-            type: 'POST',
+            url: $form.attr("action"),
+            type: "POST",
             contentType: false,
             cache: false,
             processData: false,
             data: formData
           });
-          $form.find('#comment').prop('disabled', true);
-          $form.find('[type="submit"]').prop('disabled', true).val('loading');
+          $form.find("#comment").prop("disabled", true);
+          $form.find('[type="submit"]').prop("disabled", true).val("loading");
           var commentID = $form.find('input[name="comment_id"]').val();
-          var $wrap = $('#div-comment-' + commentID);
-          $wrap.addClass('directorist-comment-edit-request');
+          var $wrap = $("#div-comment-" + commentID);
+          $wrap.addClass("directorist-comment-edit-request");
           updateComment.done(function (data, status, request) {
-            if (typeof data !== 'string' && !data.success) {
-              $wrap.removeClass('directorist-comment-edit-request');
+            if (typeof data !== "string" && !data.success) {
+              $wrap.removeClass("directorist-comment-edit-request");
               CommentEditHandler.showError($form, data.data.html);
               return;
             }
-            var body = $('<div></div>');
+            var body = $("<div></div>");
             body.append(data);
-            var comment_section = '.directorist-review-container';
+            var comment_section = ".directorist-review-container";
             var comments = body.find(comment_section);
             $(comment_section).replaceWith(comments);
-            $(document).trigger('directorist_review_updated', data);
-            var commentTop = $('#comment-' + commentID).offset().top;
-            if ($('body').hasClass('admin-bar')) {
-              commentTop = commentTop - $('#wpadminbar').height();
+            $(document).trigger("directorist_review_updated", data);
+            var commentTop = $("#comment-" + commentID).offset().top;
+            if ($("body").hasClass("admin-bar")) {
+              commentTop = commentTop - $("#wpadminbar").height();
             }
 
             // scroll to comment
             if (commentID) {
-              $('body, html').animate({
+              $("body, html").animate({
                 scrollTop: commentTop
               }, 600);
             }
@@ -2650,15 +2650,15 @@ window.addEventListener('load', function () {
             CommentEditHandler.showError($form, data.responseText);
           });
           updateComment.always(function () {
-            $form.find('#comment').prop('disabled', false);
-            $form.find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
+            $form.find("#comment").prop("disabled", false);
+            $form.find('[type="submit"]').prop("disabled", false).val(originalButtonLabel);
           });
-          $(document).trigger('directorist_review_after_submit', $form);
+          $(document).trigger("directorist_review_after_submit", $form);
         }
       }], [{
         key: "showError",
         value: function showError($form, msg) {
-          $form.find('.directorist-alert').remove();
+          $form.find(".directorist-alert").remove();
           $form.prepend(msg);
         }
       }]);
@@ -2672,13 +2672,13 @@ window.addEventListener('load', function () {
         key: "init",
         value: function init() {
           var t = setTimeout(function () {
-            if ($('.directorist-review-container').length) {
-              $(document).off('submit', '#commentform');
+            if ($(".directorist-review-container").length) {
+              $(document).off("submit", "#commentform");
             }
             clearTimeout(t);
           }, 2000);
-          $(document).off('submit', '.directorist-review-container #commentform');
-          $(document).on('submit', '.directorist-review-container #commentform', this.onSubmit);
+          $(document).off("submit", ".directorist-review-container #commentform");
+          $(document).on("submit", ".directorist-review-container #commentform", this.onSubmit);
         }
       }, {
         key: "onSubmit",
@@ -2686,38 +2686,38 @@ window.addEventListener('load', function () {
           var _this2 = this;
           event.preventDefault();
           console.log(wp.hooks);
-          var form = $('.directorist-review-container #commentform');
+          var form = $(".directorist-review-container #commentform");
           var originalButtonLabel = form.find('[type="submit"]').val();
-          $(document).trigger('directorist_review_before_submit', form);
+          $(document).trigger("directorist_review_before_submit", form);
           var formData = new FormData(form[0]);
 
           // Apply the filter
-          formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
+          formData = wp.hooks.applyFilters("directorist_add_review_form_data", formData, "directorist-advanced-review");
           var do_comment = $.ajax({
-            url: form.attr('action'),
-            type: 'POST',
+            url: form.attr("action"),
+            type: "POST",
             contentType: false,
             cache: false,
             processData: false,
             data: formData
           });
-          $('#comment').prop('disabled', true);
-          form.find('[type="submit"]').prop('disabled', true).val('loading');
+          $("#comment").prop("disabled", true);
+          form.find('[type="submit"]').prop("disabled", true).val("loading");
           do_comment.done(function (data, status, request) {
-            var body = $('<div></div>');
+            var body = $("<div></div>");
             body.append(data);
-            var comment_section = '.directorist-review-container';
+            var comment_section = ".directorist-review-container";
             var comments = body.find(comment_section);
-            var errorMsg = body.find('.wp-die-message');
+            var errorMsg = body.find(".wp-die-message");
             if (errorMsg.length > 0) {
               CommentAddReplyHandler.showError(form, errorMsg);
-              $(document).trigger('directorist_review_update_failed');
+              $(document).trigger("directorist_review_update_failed");
               return;
             }
             $(comment_section).replaceWith(comments);
-            $(document).trigger('directorist_review_updated', data);
-            var newComment = comments.find('.commentlist li:first-child');
-            var newCommentId = newComment.attr('id');
+            $(document).trigger("directorist_review_updated", data);
+            var newComment = comments.find(".commentlist li:first-child");
+            var newCommentId = newComment.attr("id");
 
             // // catch the new comment id by comparing to old dom.
             // commentsLists.each(
@@ -2731,56 +2731,56 @@ window.addEventListener('load', function () {
 
             // console.log(newComment, newCommentId)
 
-            var commentTop = $('#' + newCommentId).offset().top;
-            if ($('body').hasClass('admin-bar')) {
-              commentTop = commentTop - $('#wpadminbar').height();
+            var commentTop = $("#" + newCommentId).offset().top;
+            if ($("body").hasClass("admin-bar")) {
+              commentTop = commentTop - $("#wpadminbar").height();
             }
 
             // scroll to comment
             if (newCommentId) {
-              $('body, html').animate({
+              $("body, html").animate({
                 scrollTop: commentTop
               }, 600);
             }
           });
           do_comment.fail(function (data) {
-            var body = $('<div></div>');
+            var body = $("<div></div>");
             body.append(data.responseText);
             console.log(data);
-            CommentAddReplyHandler.showError(form, body.find('.wp-die-message'));
-            $(document).trigger('directorist_review_update_failed');
+            CommentAddReplyHandler.showError(form, body.find(".wp-die-message"));
+            $(document).trigger("directorist_review_update_failed");
             if (data.status === 403 || data.status === 401) {
-              $(document).off('submit', '.directorist-review-container #commentform', _this2.onSubmit);
-              $('#comment').prop('disabled', false);
-              form.find('[type="submit"]').prop('disabled', false).click();
+              $(document).off("submit", ".directorist-review-container #commentform", _this2.onSubmit);
+              $("#comment").prop("disabled", false);
+              form.find('[type="submit"]').prop("disabled", false).click();
             }
           });
           do_comment.always(function () {
-            $('#comment').prop('disabled', false);
-            $('#commentform').find('[type="submit"]').prop('disabled', false).val(originalButtonLabel);
+            $("#comment").prop("disabled", false);
+            $("#commentform").find('[type="submit"]').prop("disabled", false).val(originalButtonLabel);
           });
-          $(document).trigger('directorist_review_after_submit', form);
+          $(document).trigger("directorist_review_after_submit", form);
         }
       }], [{
         key: "getErrorMsg",
         value: function getErrorMsg($dom) {
-          if ($dom.find('p').length) {
-            $dom = $dom.find('p');
+          if ($dom.find("p").length) {
+            $dom = $dom.find("p");
           }
-          var words = $dom.text().split(':');
+          var words = $dom.text().split(":");
           if (words.length > 1) {
             words.shift();
           }
-          return words.join(' ').trim();
+          return words.join(" ").trim();
         }
       }, {
         key: "showError",
         value: function showError(form, $dom) {
-          if (form.find('.directorist-alert').length) {
-            form.find('.directorist-alert').remove();
+          if (form.find(".directorist-alert").length) {
+            form.find(".directorist-alert").remove();
           }
-          var $error = $('<div />', {
-            class: 'directorist-alert directorist-alert-danger'
+          var $error = $("<div />", {
+            class: "directorist-alert directorist-alert-danger"
           }).html(CommentAddReplyHandler.getErrorMsg($dom));
           form.prepend($error);
         }
@@ -2796,16 +2796,16 @@ window.addEventListener('load', function () {
       return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CommentsManager, [{
         key: "initStarRating",
         value: function initStarRating() {
-          $('.directorist-review-criteria-select').barrating({
-            theme: 'fontawesome-stars'
+          $(".directorist-review-criteria-select").barrating({
+            theme: "fontawesome-stars"
           });
         }
       }, {
         key: "cancelOthersEditMode",
         value: function cancelOthersEditMode(currentCommentId) {
-          $('.directorist-comment-editing').each(function (index, comment) {
-            var $cancelButton = $(comment).find('.directorist-js-cancel-comment-edit');
-            if ($cancelButton.data('commentid') != currentCommentId) {
+          $(".directorist-comment-editing").each(function (index, comment) {
+            var $cancelButton = $(comment).find(".directorist-js-cancel-comment-edit");
+            if ($cancelButton.data("commentid") != currentCommentId) {
               $cancelButton.click();
             }
           });
@@ -2813,7 +2813,7 @@ window.addEventListener('load', function () {
       }, {
         key: "cancelReplyMode",
         value: function cancelReplyMode() {
-          var replyLink = document.querySelector('.directorist-review-content #cancel-comment-reply-link');
+          var replyLink = document.querySelector(".directorist-review-content #cancel-comment-reply-link");
           replyLink && replyLink.click();
         }
       }, {
@@ -2821,60 +2821,60 @@ window.addEventListener('load', function () {
         value: function addEventListeners() {
           var _this3 = this;
           var self = this;
-          this.$doc.on('directorist_review_updated', function (event) {
+          this.$doc.on("directorist_review_updated", function (event) {
             _this3.initStarRating();
           });
-          this.$doc.on('directorist_comment_edit_form_loaded', function (event) {
+          this.$doc.on("directorist_comment_edit_form_loaded", function (event) {
             _this3.initStarRating();
           });
-          this.$doc.on('click', 'a[href="#respond"]', function (event) {
+          this.$doc.on("click", 'a[href="#respond"]', function (event) {
             // First cancle the reply form then scroll to review form. Order matters.
             _this3.cancelReplyMode();
             _this3.onWriteReivewClick(event);
           });
-          this.$doc.on('click', '.directorist-js-edit-comment', function (event) {
+          this.$doc.on("click", ".directorist-js-edit-comment", function (event) {
             event.preventDefault();
             var $target = $(event.target);
-            var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
-            $wrap.addClass('directorist-comment-edit-request');
+            var $wrap = $target.parents("#div-comment-" + $target.data("commentid"));
+            $wrap.addClass("directorist-comment-edit-request");
             $.ajax({
-              url: $target.attr('href'),
+              url: $target.attr("href"),
               data: {
-                post_id: $target.data('postid'),
-                comment_id: $target.data('commentid')
+                post_id: $target.data("postid"),
+                comment_id: $target.data("commentid")
               },
               setContent: false,
-              method: 'GET',
-              reload: 'strict',
+              method: "GET",
+              reload: "strict",
               success: function success(response) {
-                $target.prop('disabled', true);
-                $target.parents('#div-comment-' + $target.data('commentid')).find('.directorist-review-single__info').append(response.data.html);
-                $wrap.removeClass('directorist-comment-edit-request').addClass('directorist-comment-editing');
-                self.cancelOthersEditMode($target.data('commentid'));
+                $target.prop("disabled", true);
+                $target.parents("#div-comment-" + $target.data("commentid")).find(".directorist-review-single__info").append(response.data.html);
+                $wrap.removeClass("directorist-comment-edit-request").addClass("directorist-comment-editing");
+                self.cancelOthersEditMode($target.data("commentid"));
                 self.cancelReplyMode();
-                var $editForm = $('#directorist-form-comment-edit');
-                $editForm.find('textarea').focus();
-                self.$doc.trigger('directorist_comment_edit_form_loaded', $target.data('commentid'));
+                var $editForm = $("#directorist-form-comment-edit");
+                $editForm.find("textarea").focus();
+                self.$doc.trigger("directorist_comment_edit_form_loaded", $target.data("commentid"));
               }
             });
           });
-          this.$doc.on('click', '.directorist-js-cancel-comment-edit', function (event) {
+          this.$doc.on("click", ".directorist-js-cancel-comment-edit", function (event) {
             event.preventDefault();
             var $target = $(event.target);
-            var $wrap = $target.parents('#div-comment-' + $target.data('commentid'));
-            $wrap.removeClass(['directorist-comment-edit-request', 'directorist-comment-editing']).find('form').remove();
-            $wrap.find('.directorist-js-edit-comment').prop('disabled', false);
+            var $wrap = $target.parents("#div-comment-" + $target.data("commentid"));
+            $wrap.removeClass(["directorist-comment-edit-request", "directorist-comment-editing"]).find("form").remove();
+            $wrap.find(".directorist-js-edit-comment").prop("disabled", false);
           });
         }
       }, {
         key: "onWriteReivewClick",
         value: function onWriteReivewClick(event) {
           event.preventDefault();
-          var scrollTop = $('#respond').offset().top;
-          if ($('body').hasClass('admin-bar')) {
-            scrollTop = scrollTop - $('#wpadminbar').height();
+          var scrollTop = $("#respond").offset().top;
+          if ($("body").hasClass("admin-bar")) {
+            scrollTop = scrollTop - $("#wpadminbar").height();
           }
-          $('body, html').animate({
+          $("body, html").animate({
             scrollTop: scrollTop
           }, 600);
         }
@@ -2899,12 +2899,12 @@ window.addEventListener('load', function () {
   \**************************************************************/
 /***/ (function() {
 
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
   (function ($) {
     //Star rating
-    if ($('.directorist-review-criteria-select').length) {
-      $('.directorist-review-criteria-select').barrating({
-        theme: 'fontawesome-stars'
+    if ($(".directorist-review-criteria-select").length) {
+      $(".directorist-review-criteria-select").barrating({
+        theme: "fontawesome-stars"
       });
     }
   })(jQuery);
@@ -2941,7 +2941,7 @@ jQuery(function ($) {
         id = _Object$entries$_i[0],
         count = _Object$entries$_i[1];
       var $el = $(".directorist-view-count[data-id=\"".concat(id, "\"]"));
-      var $elIcon = $el.find('.directorist-icon-mask');
+      var $elIcon = $el.find(".directorist-icon-mask");
       if ($elIcon.length) {
         $elIcon[0].nextSibling.textContent = count;
       } else {
@@ -2950,14 +2950,14 @@ jQuery(function ($) {
     }
   };
   var ids = [];
-  $('.directorist-view-count[data-id]').each(function (i, item) {
+  $(".directorist-view-count[data-id]").each(function (i, item) {
     ids.push(+item.dataset.id);
   });
   if (ids.length === 0) {
     return;
   }
   var CACHE_EXPIRATION = 1000 * 60 * 60 * 5; // 5 hours.
-  var cache = (_window$localStorage = window.localStorage) === null || _window$localStorage === void 0 ? void 0 : _window$localStorage.getItem('directorist_view_count');
+  var cache = (_window$localStorage = window.localStorage) === null || _window$localStorage === void 0 ? void 0 : _window$localStorage.getItem("directorist_view_count");
   var hasCache = false;
   if (cache) {
     var _cache, _cache2;
@@ -2975,7 +2975,7 @@ jQuery(function ($) {
     }
   }
   $.post(directorist.ajax_url, {
-    action: 'directorist_update_view_count',
+    action: "directorist_update_view_count",
     nonce: directorist.directorist_nonce,
     ids: ids
   }, function (response) {
@@ -2988,7 +2988,7 @@ jQuery(function ($) {
     if (hasCache) {
       response.data.view_count = _objectSpread(_objectSpread({}, cache.viewCount), response.data.view_count);
     }
-    (_window$localStorage2 = window.localStorage) === null || _window$localStorage2 === void 0 || _window$localStorage2.setItem('directorist_view_count', JSON.stringify({
+    (_window$localStorage2 = window.localStorage) === null || _window$localStorage2 === void 0 || _window$localStorage2.setItem("directorist_view_count", JSON.stringify({
       lastUpdated: Date.now(),
       viewCount: response.data.view_count
     }));

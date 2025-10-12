@@ -1,0 +1,11 @@
+{
+  "overrides": [
+    {
+      "files": ["*.css", "*.scss"],
+      "options": {
+        "singleQuote": false,
+        "quoteProps": "as-needed"
+      }
+    }
+  ]
+}

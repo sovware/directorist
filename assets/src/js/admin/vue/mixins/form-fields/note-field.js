@@ -1,15 +1,15 @@
-import validator from '../validation';
-import props from './input-field-props.js';
+import validator from "../validation";
+import props from "./input-field-props.js";
 
 export default {
-	mixins: [props, validator],
-	created() {},
+  mixins: [props, validator],
+  created() {},
 
-	computed: {},
+  computed: {},
 
-	data() {
-		return {};
-	},
+  data() {
+    return {};
+  },
 
-	methods: {},
+  methods: {},
 };

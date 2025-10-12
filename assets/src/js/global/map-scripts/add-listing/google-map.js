@@ -1,343 +1,333 @@
 /* Add listing google map */
 
-import { get_dom_data } from './../../../lib/helper';
+import { get_dom_data } from "./../../../lib/helper";
 
 var $ = jQuery;
 
 // Add Listing Map Initialize
 export function initAddListingMap() {
-	if (
-		typeof google === 'undefined' ||
-		!google.maps ||
-		!google.maps.Geocoder
-	) {
-		return;
-	}
+  if (typeof google === "undefined" || !google.maps || !google.maps.Geocoder) {
+    return;
+  }
 
-	if ($('#gmap').length) {
-		var localized_data = get_dom_data('map_data');
+  if ($("#gmap").length) {
+    var localized_data = get_dom_data("map_data");
 
-		// initialize all vars here to avoid hoisting related misunderstanding.
-		let map;
-		let autocomplete;
-		let address_input;
-		let markers;
-		let $manual_lat;
-		let $manual_lng;
-		let saved_lat_lng;
+    // initialize all vars here to avoid hoisting related misunderstanding.
+    let map;
+    let autocomplete;
+    let address_input;
+    let markers;
+    let $manual_lat;
+    let $manual_lng;
+    let saved_lat_lng;
 
-		// Localized Data
-		const loc_default_latitude = parseFloat(
-			localized_data.default_latitude
-		);
-		const loc_default_longitude = parseFloat(
-			localized_data.default_longitude
-		);
-		let loc_manual_lat = parseFloat(localized_data.manual_lat);
-		let loc_manual_lng = parseFloat(localized_data.manual_lng);
-		const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+    // Localized Data
+    const loc_default_latitude = parseFloat(localized_data.default_latitude);
+    const loc_default_longitude = parseFloat(localized_data.default_longitude);
+    let loc_manual_lat = parseFloat(localized_data.manual_lat);
+    let loc_manual_lng = parseFloat(localized_data.manual_lng);
+    const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
 
-		const searchIcon = `<i class="directorist-icon-mask"></i>`;
-		const markerShape = document.createElement('div');
-		markerShape.className = 'atbd_map_shape';
-		markerShape.innerHTML = searchIcon;
+    const searchIcon = `<i class="directorist-icon-mask"></i>`;
+    const markerShape = document.createElement("div");
+    markerShape.className = "atbd_map_shape";
+    markerShape.innerHTML = searchIcon;
 
-		loc_manual_lat = isNaN(loc_manual_lat)
-			? loc_default_latitude
-			: loc_manual_lat;
-		loc_manual_lng = isNaN(loc_manual_lng)
-			? loc_default_longitude
-			: loc_manual_lng;
+    loc_manual_lat = isNaN(loc_manual_lat)
+      ? loc_default_latitude
+      : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng)
+      ? loc_default_longitude
+      : loc_manual_lng;
 
-		$manual_lat = $('#manual_lat');
-		$manual_lng = $('#manual_lng');
+    $manual_lat = $("#manual_lat");
+    $manual_lng = $("#manual_lng");
 
-		saved_lat_lng = {
-			lat: loc_manual_lat,
-			lng: loc_manual_lng,
-		};
+    saved_lat_lng = {
+      lat: loc_manual_lat,
+      lng: loc_manual_lng,
+    };
 
-		// default is London city
-		((markers = []), // initialize the array to keep track all the marker
-			(address_input = document.getElementById('address')));
-		if (address_input !== null) {
-			address_input.addEventListener('focus', geolocate);
-		}
+    // default is London city
+    ((markers = []), // initialize the array to keep track all the marker
+      (address_input = document.getElementById("address")));
+    if (address_input !== null) {
+      address_input.addEventListener("focus", geolocate);
+    }
 
-		const geocoder = new google.maps.Geocoder();
+    const geocoder = new google.maps.Geocoder();
 
-		// This function will help to get the current location of the user
-		function markerDragInit(marker) {
-			marker.addListener('dragend', (event) => {
-				// Get exact coordinates from the marker position
-				const exactLat = event.latLng.lat();
-				const exactLng = event.latLng.lng();
+    // This function will help to get the current location of the user
+    function markerDragInit(marker) {
+      marker.addListener("dragend", (event) => {
+        // Get exact coordinates from the marker position
+        const exactLat = event.latLng.lat();
+        const exactLng = event.latLng.lng();
 
-				// Set the exact coordinates to input fields (no geocoding transformation)
-				$manual_lat.val(exactLat);
-				$manual_lng.val(exactLng);
+        // Set the exact coordinates to input fields (no geocoding transformation)
+        $manual_lat.val(exactLat);
+        $manual_lng.val(exactLng);
 
-				// Optional: Update address field with reverse geocoding for display only
-				// This doesn't affect the stored coordinates
-				geocodeAddressForDisplay(geocoder, exactLat, exactLng);
-			});
-		}
+        // Optional: Update address field with reverse geocoding for display only
+        // This doesn't affect the stored coordinates
+        geocodeAddressForDisplay(geocoder, exactLat, exactLng);
+      });
+    }
 
-		// Helper function to format address by removing plus code and using address components
-		function formatAddress(result) {
-			if (!result || !result.address_components) {
-				return '';
-			}
+    // Helper function to format address by removing plus code and using address components
+    function formatAddress(result) {
+      if (!result || !result.address_components) {
+        return "";
+      }
 
-			// Check if first element contains plus code (has '+' character)
-			let components = result.address_components;
-			if (
-				components.length > 0 &&
-				components[0].long_name &&
-				components[0].long_name.includes('+')
-			) {
-				components = components.slice(1);
-			}
+      // Check if first element contains plus code (has '+' character)
+      let components = result.address_components;
+      if (
+        components.length > 0 &&
+        components[0].long_name &&
+        components[0].long_name.includes("+")
+      ) {
+        components = components.slice(1);
+      }
 
-			// Join long_names with commas
-			return components.map((c) => c.long_name).join(', ');
-		}
+      // Join long_names with commas
+      return components.map((c) => c.long_name).join(", ");
+    }
 
-		// Function to geocode address for display purposes only (doesn't modify coordinates)
-		function geocodeAddressForDisplay(geocoder, lat, lng) {
-			const latLng = new google.maps.LatLng(lat, lng);
-			const opt = {
-				location: latLng,
-			};
+    // Function to geocode address for display purposes only (doesn't modify coordinates)
+    function geocodeAddressForDisplay(geocoder, lat, lng) {
+      const latLng = new google.maps.LatLng(lat, lng);
+      const opt = {
+        location: latLng,
+      };
 
-			geocoder.geocode(opt, function (results, status) {
-				if (status === 'OK' && results[0]) {
-					// Clean the address by removing plus code prefix if present
-					const cleanedAddress = formatAddress(results[0]);
-					address_input.value = cleanedAddress;
-				}
-			});
-		}
+      geocoder.geocode(opt, function (results, status) {
+        if (status === "OK" && results[0]) {
+          // Clean the address by removing plus code prefix if present
+          const cleanedAddress = formatAddress(results[0]);
+          address_input.value = cleanedAddress;
+        }
+      });
+    }
 
-		// this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
-		function geolocate() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(function (position) {
-					const geolocation = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-					};
-					const circle = new google.maps.Circle({
-						center: geolocation,
-						radius: position.coords.accuracy,
-					});
-					autocomplete.setBounds(circle.getBounds());
-				});
-			}
-		}
+    // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
+    function geolocate() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          const circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy,
+          });
+          autocomplete.setBounds(circle.getBounds());
+        });
+      }
+    }
 
-		function initAutocomplete() {
-			// Create the autocomplete object, restricting the search to geographical
-			let opt = {
-				types: ['geocode'],
-				componentRestrictions: {
-					country: directorist.restricted_countries,
-				},
-			};
-			const options = directorist.countryRestriction
-				? opt
-				: {
-						types: [],
-					};
+    function initAutocomplete() {
+      // Create the autocomplete object, restricting the search to geographical
+      let opt = {
+        types: ["geocode"],
+        componentRestrictions: {
+          country: directorist.restricted_countries,
+        },
+      };
+      const options = directorist.countryRestriction
+        ? opt
+        : {
+            types: [],
+          };
 
-			// location types.
-			autocomplete = new google.maps.places.Autocomplete(
-				address_input,
-				options
-			);
+      // location types.
+      autocomplete = new google.maps.places.Autocomplete(
+        address_input,
+        options,
+      );
 
-			// When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
-			autocomplete.addListener('place_changed', fillInAddress);
-		}
+      // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
+      autocomplete.addListener("place_changed", fillInAddress);
+    }
 
-		function fillInAddress() {
-			// Get the place details from the autocomplete object.
-			const place = autocomplete.getPlace();
+    function fillInAddress() {
+      // Get the place details from the autocomplete object.
+      const place = autocomplete.getPlace();
 
-			// set the value of input field to save them to the database
-			$manual_lat.val(place.geometry.location.lat());
-			$manual_lng.val(place.geometry.location.lng());
-			map.setCenter(place.geometry.location);
-			const marker = new google.maps.marker.AdvancedMarkerElement({
-				map,
-				position: place.geometry.location,
-				gmpDraggable: true,
-				content: markerShape,
-				title: localized_data.marker_title,
-			});
+      // set the value of input field to save them to the database
+      $manual_lat.val(place.geometry.location.lat());
+      $manual_lng.val(place.geometry.location.lng());
+      map.setCenter(place.geometry.location);
+      const marker = new google.maps.marker.AdvancedMarkerElement({
+        map,
+        position: place.geometry.location,
+        gmpDraggable: true,
+        content: markerShape,
+        title: localized_data.marker_title,
+      });
 
-			// Delete Previous Marker
-			deleteMarker();
+      // Delete Previous Marker
+      deleteMarker();
 
-			// add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-			markers.push(marker);
-			markerDragInit(marker);
-		}
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+      markers.push(marker);
+      markerDragInit(marker);
+    }
 
-		initAutocomplete(); // start google map place auto complete API call
+    initAutocomplete(); // start google map place auto complete API call
 
-		// Map Initialize
-		function initMap() {
-			/* Create new map instance */
-			map = new google.maps.Map(document.getElementById('gmap'), {
-				zoom: loc_map_zoom_level,
-				center: saved_lat_lng,
-				mapId: 'add_listing_map',
-			});
+    // Map Initialize
+    function initMap() {
+      /* Create new map instance */
+      map = new google.maps.Map(document.getElementById("gmap"), {
+        zoom: loc_map_zoom_level,
+        center: saved_lat_lng,
+        mapId: "add_listing_map",
+      });
 
-			const marker = new google.maps.marker.AdvancedMarkerElement({
-				map,
-				position: saved_lat_lng,
-				gmpDraggable: true,
-				content: markerShape,
-				title: localized_data.marker_title,
-			});
+      const marker = new google.maps.marker.AdvancedMarkerElement({
+        map,
+        position: saved_lat_lng,
+        gmpDraggable: true,
+        content: markerShape,
+        title: localized_data.marker_title,
+      });
 
-			markers.push(marker);
+      markers.push(marker);
 
-			document
-				.getElementById('generate_admin_map')
-				.addEventListener('click', function (e) {
-					e.preventDefault();
-					geocodeAddress(geocoder, map);
-				});
+      document
+        .getElementById("generate_admin_map")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          geocodeAddress(geocoder, map);
+        });
 
-			// This event listener calls addMarker() when the map is clicked.
-			marker.addListener('click', (event) => {
-				deleteMarker(); // at first remove previous marker and then set new marker;
+      // This event listener calls addMarker() when the map is clicked.
+      marker.addListener("click", (event) => {
+        deleteMarker(); // at first remove previous marker and then set new marker;
 
-				// Get exact coordinates from the click position
-				const exactLat = event.latLng.lat();
-				const exactLng = event.latLng.lng();
+        // Get exact coordinates from the click position
+        const exactLat = event.latLng.lat();
+        const exactLng = event.latLng.lng();
 
-				// Set the exact coordinates to input fields (no geocoding transformation)
-				$manual_lat.val(exactLat);
-				$manual_lng.val(exactLng);
+        // Set the exact coordinates to input fields (no geocoding transformation)
+        $manual_lat.val(exactLat);
+        $manual_lng.val(exactLng);
 
-				// Optional: Update address field with reverse geocoding for display only
-				geocodeAddressForDisplay(geocoder, exactLat, exactLng);
+        // Optional: Update address field with reverse geocoding for display only
+        geocodeAddressForDisplay(geocoder, exactLat, exactLng);
 
-				// add the marker to the given map.
-				addMarker(event.latLng, map);
-			});
+        // add the marker to the given map.
+        addMarker(event.latLng, map);
+      });
 
-			markerDragInit(marker);
-		}
+      markerDragInit(marker);
+    }
 
-		/*
-		 * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
-		 * */
+    /*
+     * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
+     * */
 
-		function geocodeAddress(geocoder, resultsMap) {
-			const lat = parseFloat(document.getElementById('manual_lat').value);
-			const lng = parseFloat(document.getElementById('manual_lng').value);
-			const latLng = new google.maps.LatLng(lat, lng);
-			const opt = {
-				location: latLng,
-			};
+    function geocodeAddress(geocoder, resultsMap) {
+      const lat = parseFloat(document.getElementById("manual_lat").value);
+      const lng = parseFloat(document.getElementById("manual_lng").value);
+      const latLng = new google.maps.LatLng(lat, lng);
+      const opt = {
+        location: latLng,
+      };
 
-			geocoder.geocode(opt, function (results, status) {
-				if (status === 'OK') {
-					// Keep the original exact coordinates (don't modify them)
-					$manual_lat.val(lat);
-					$manual_lng.val(lng);
+      geocoder.geocode(opt, function (results, status) {
+        if (status === "OK") {
+          // Keep the original exact coordinates (don't modify them)
+          $manual_lat.val(lat);
+          $manual_lng.val(lng);
 
-					// Center map on the exact coordinates
-					resultsMap.setCenter(latLng);
+          // Center map on the exact coordinates
+          resultsMap.setCenter(latLng);
 
-					const marker = new google.maps.marker.AdvancedMarkerElement(
-						{
-							map: resultsMap,
-							position: latLng, // Use original coordinates
-							gmpDraggable: true,
-							content: markerShape,
-							title: localized_data.marker_title,
-						}
-					);
+          const marker = new google.maps.marker.AdvancedMarkerElement({
+            map: resultsMap,
+            position: latLng, // Use original coordinates
+            gmpDraggable: true,
+            content: markerShape,
+            title: localized_data.marker_title,
+          });
 
-					deleteMarker();
-					// add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-					markers.push(marker);
+          deleteMarker();
+          // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+          markers.push(marker);
 
-					// Clean the address by removing plus code prefix if present
-					const cleanedAddress = formatAddress(results[0]);
-					address_input.value = cleanedAddress;
+          // Clean the address by removing plus code prefix if present
+          const cleanedAddress = formatAddress(results[0]);
+          address_input.value = cleanedAddress;
 
-					markerDragInit(marker);
-				} else {
-					alert(localized_data.geocode_error_msg + status);
-				}
-			});
-		}
+          markerDragInit(marker);
+        } else {
+          alert(localized_data.geocode_error_msg + status);
+        }
+      });
+    }
 
-		initMap();
+    initMap();
 
-		// adding features of creating marker manually on the map on add listing page.
-		/* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    // adding features of creating marker manually on the map on add listing page.
+    /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var labelIndex = 0; */
 
-		// Adds a marker to the map.
-		function addMarker(location, map) {
-			// Add the marker at the clicked location, and add the next-available label;
+    // Adds a marker to the map.
+    function addMarker(location, map) {
+      // Add the marker at the clicked location, and add the next-available label;
 
-			// from the array of alphabetical characters.
-			const marker = new google.maps.marker.AdvancedMarkerElement({
-				map,
-				position: location,
-				gmpDraggable: true,
-				content: markerShape,
-				title: localized_data.marker_title,
-			});
+      // from the array of alphabetical characters.
+      const marker = new google.maps.marker.AdvancedMarkerElement({
+        map,
+        position: location,
+        gmpDraggable: true,
+        content: markerShape,
+        title: localized_data.marker_title,
+      });
 
-			// add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-			markers.push(marker);
-			markerDragInit(marker);
-		}
+      // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+      markers.push(marker);
+      markerDragInit(marker);
+    }
 
-		// Delete Marker
-		$('#delete_marker').on('click', function (e) {
-			e.preventDefault();
-			deleteMarker();
-		});
+    // Delete Marker
+    $("#delete_marker").on("click", function (e) {
+      e.preventDefault();
+      deleteMarker();
+    });
 
-		function deleteMarker() {
-			for (let i = 0; i < markers.length; i++) {
-				markers[i].setMap(null);
-			}
-			markers = [];
-		}
-	}
+    function deleteMarker() {
+      for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+      markers = [];
+    }
+  }
 }
 
 $(document).ready(function () {
-	initAddListingMap();
+  initAddListingMap();
 });
 
 // Add Listing Map on Elementor EditMode
-$(window).on('elementor/frontend/init', function () {
-	setTimeout(function () {
-		if ($('body').hasClass('elementor-editor-active')) {
-			initAddListingMap();
-		}
-	}, 3000);
+$(window).on("elementor/frontend/init", function () {
+  setTimeout(function () {
+    if ($("body").hasClass("elementor-editor-active")) {
+      initAddListingMap();
+    }
+  }, 3000);
 });
 
-$('body').on('click', function (e) {
-	if (
-		$('body').hasClass('elementor-editor-active') &&
-		e.target.nodeName !== 'A' &&
-		e.target.nodeName !== 'BUTTON'
-	) {
-		initAddListingMap();
-	}
+$("body").on("click", function (e) {
+  if (
+    $("body").hasClass("elementor-editor-active") &&
+    e.target.nodeName !== "A" &&
+    e.target.nodeName !== "BUTTON"
+  ) {
+    initAddListingMap();
+  }
 });

@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var $ = jQuery;
 function get_dom_data(selector, parent) {
-  selector = '.directorist-dom-data-' + selector;
+  selector = ".directorist-dom-data-" + selector;
   if (!parent) {
     parent = document;
   }
@@ -23,7 +23,7 @@ function get_dom_data(selector, parent) {
   if (!el || !el.dataset.value) {
     return {};
   }
-  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == "1";
   try {
     var value = atob(el.dataset.value);
     return JSON.parse(value);
@@ -38,20 +38,20 @@ function convertToSelect2(selector) {
   var $selector = $(selector);
   var args = {
     allowClear: true,
-    width: '100%',
+    width: "100%",
     templateResult: function templateResult(data) {
       if (!data.id) {
         return data.text;
       }
-      var iconURI = $(data.element).data('icon');
+      var iconURI = $(data.element).data("icon");
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
-      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== "undefined" && iconURI !== "" ? modifiedText : originalText, "</div>"));
       return $state;
     }
   };
-  var options = $selector.find('option');
+  var options = $selector.find("option");
   if (options.length && options[0].textContent.length) {
     args.placeholder = options[0].textContent;
   }
@@ -135,11 +135,11 @@ var $ = jQuery;
 
 // Add Listing Map Initialize
 function initAddListingMap() {
-  if (typeof google === 'undefined' || !google.maps || !google.maps.Geocoder) {
+  if (typeof google === "undefined" || !google.maps || !google.maps.Geocoder) {
     return;
   }
-  if ($('#gmap').length) {
-    var localized_data = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('map_data');
+  if ($("#gmap").length) {
+    var localized_data = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)("map_data");
 
     // initialize all vars here to avoid hoisting related misunderstanding.
     var map;
@@ -157,13 +157,13 @@ function initAddListingMap() {
     var loc_manual_lng = parseFloat(localized_data.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-    var markerShape = document.createElement('div');
-    markerShape.className = 'atbd_map_shape';
+    var markerShape = document.createElement("div");
+    markerShape.className = "atbd_map_shape";
     markerShape.innerHTML = searchIcon;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-    $manual_lat = $('#manual_lat');
-    $manual_lng = $('#manual_lng');
+    $manual_lat = $("#manual_lat");
+    $manual_lng = $("#manual_lng");
     saved_lat_lng = {
       lat: loc_manual_lat,
       lng: loc_manual_lng
@@ -172,15 +172,15 @@ function initAddListingMap() {
     // default is London city
     markers = [],
     // initialize the array to keep track all the marker
-    address_input = document.getElementById('address');
+    address_input = document.getElementById("address");
     if (address_input !== null) {
-      address_input.addEventListener('focus', geolocate);
+      address_input.addEventListener("focus", geolocate);
     }
     var geocoder = new google.maps.Geocoder();
 
     // This function will help to get the current location of the user
     function markerDragInit(marker) {
-      marker.addListener('dragend', function (event) {
+      marker.addListener("dragend", function (event) {
         // Get exact coordinates from the marker position
         var exactLat = event.latLng.lat();
         var exactLng = event.latLng.lng();
@@ -198,19 +198,19 @@ function initAddListingMap() {
     // Helper function to format address by removing plus code and using address components
     function formatAddress(result) {
       if (!result || !result.address_components) {
-        return '';
+        return "";
       }
 
       // Check if first element contains plus code (has '+' character)
       var components = result.address_components;
-      if (components.length > 0 && components[0].long_name && components[0].long_name.includes('+')) {
+      if (components.length > 0 && components[0].long_name && components[0].long_name.includes("+")) {
         components = components.slice(1);
       }
 
       // Join long_names with commas
       return components.map(function (c) {
         return c.long_name;
-      }).join(', ');
+      }).join(", ");
     }
 
     // Function to geocode address for display purposes only (doesn't modify coordinates)
@@ -220,7 +220,7 @@ function initAddListingMap() {
         location: latLng
       };
       geocoder.geocode(opt, function (results, status) {
-        if (status === 'OK' && results[0]) {
+        if (status === "OK" && results[0]) {
           // Clean the address by removing plus code prefix if present
           var cleanedAddress = formatAddress(results[0]);
           address_input.value = cleanedAddress;
@@ -247,7 +247,7 @@ function initAddListingMap() {
     function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
       var opt = {
-        types: ['geocode'],
+        types: ["geocode"],
         componentRestrictions: {
           country: directorist.restricted_countries
         }
@@ -260,7 +260,7 @@ function initAddListingMap() {
       autocomplete = new google.maps.places.Autocomplete(address_input, options);
 
       // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
-      autocomplete.addListener('place_changed', fillInAddress);
+      autocomplete.addListener("place_changed", fillInAddress);
     }
     function fillInAddress() {
       // Get the place details from the autocomplete object.
@@ -290,10 +290,10 @@ function initAddListingMap() {
     // Map Initialize
     function initMap() {
       /* Create new map instance */
-      map = new google.maps.Map(document.getElementById('gmap'), {
+      map = new google.maps.Map(document.getElementById("gmap"), {
         zoom: loc_map_zoom_level,
         center: saved_lat_lng,
-        mapId: 'add_listing_map'
+        mapId: "add_listing_map"
       });
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
@@ -303,13 +303,13 @@ function initAddListingMap() {
         title: localized_data.marker_title
       });
       markers.push(marker);
-      document.getElementById('generate_admin_map').addEventListener('click', function (e) {
+      document.getElementById("generate_admin_map").addEventListener("click", function (e) {
         e.preventDefault();
         geocodeAddress(geocoder, map);
       });
 
       // This event listener calls addMarker() when the map is clicked.
-      marker.addListener('click', function (event) {
+      marker.addListener("click", function (event) {
         deleteMarker(); // at first remove previous marker and then set new marker;
 
         // Get exact coordinates from the click position
@@ -334,14 +334,14 @@ function initAddListingMap() {
      * */
 
     function geocodeAddress(geocoder, resultsMap) {
-      var lat = parseFloat(document.getElementById('manual_lat').value);
-      var lng = parseFloat(document.getElementById('manual_lng').value);
+      var lat = parseFloat(document.getElementById("manual_lat").value);
+      var lng = parseFloat(document.getElementById("manual_lng").value);
       var latLng = new google.maps.LatLng(lat, lng);
       var opt = {
         location: latLng
       };
       geocoder.geocode(opt, function (results, status) {
-        if (status === 'OK') {
+        if (status === "OK") {
           // Keep the original exact coordinates (don't modify them)
           $manual_lat.val(lat);
           $manual_lng.val(lng);
@@ -373,7 +373,7 @@ function initAddListingMap() {
 
     // adding features of creating marker manually on the map on add listing page.
     /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-          var labelIndex = 0; */
+        var labelIndex = 0; */
 
     // Adds a marker to the map.
     function addMarker(location, map) {
@@ -394,7 +394,7 @@ function initAddListingMap() {
     }
 
     // Delete Marker
-    $('#delete_marker').on('click', function (e) {
+    $("#delete_marker").on("click", function (e) {
       e.preventDefault();
       deleteMarker();
     });
@@ -411,15 +411,15 @@ $(document).ready(function () {
 });
 
 // Add Listing Map on Elementor EditMode
-$(window).on('elementor/frontend/init', function () {
+$(window).on("elementor/frontend/init", function () {
   setTimeout(function () {
-    if ($('body').hasClass('elementor-editor-active')) {
+    if ($("body").hasClass("elementor-editor-active")) {
       initAddListingMap();
     }
   }, 3000);
 });
-$('body').on('click', function (e) {
-  if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+$("body").on("click", function (e) {
+  if ($("body").hasClass("elementor-editor-active") && e.target.nodeName !== "A" && e.target.nodeName !== "BUTTON") {
     initAddListingMap();
   }
 });

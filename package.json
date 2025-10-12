@@ -12,11 +12,10 @@
   },
   "lint-staged": {
     "*.{css,scss,js}": [
-      "yarn format",
-      "git add"
+     
     ],
     "*.php": [
-      "composer format"
+      
     ]
   },
   "repository": {

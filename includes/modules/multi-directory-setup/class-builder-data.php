@@ -2958,10 +2958,8 @@ class Builder_Data {
                     'submenu' => [
                         'listing_header'   => [
                             'label'     => __( 'Listing Header', 'directorist' ),
-                            'icon'    => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.5 14.166H15.8333" stroke="#4D5761" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-                                <path d="M2.5 17.5H10" stroke="#4D5761" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-                                <path d="M17.5 2.5V10.8333H2.5V2.5H17.5Z" stroke="#4D5761" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                            'icon'    => '<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 0V1.5H0.5V3H2V18H3.5V3H18.5V1.5H3.5V0H2ZM5 4.5V13.5H17V4.5H5ZM6.5 6H15.5V12H6.5V6Z" fill="#141921"/>
                             </svg>',
                             'container' => 'full-width',
                             'learn_more' => [
@@ -2981,12 +2979,8 @@ class Builder_Data {
                         ],
                         'contents'         => [
                             'label'     => __( 'Contents', 'directorist' ),
-                            'icon'    => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.5 3.75H15.8333" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
-                                <path d="M7.5 7.91602H11.6667" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
-                                <path d="M7.5 12.084H15.8333" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
-                                <path d="M7.5 16.25H11.6667" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
-                                <path d="M4.1665 2.5V17.5" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            'icon'    => '<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.25 0.75V17.25H16.75V0.75H0.25ZM1.75 2.25H15.25V15.75H1.75V2.25ZM4.75 5.25V12.75H6.25V5.25H4.75ZM7.75 5.25V6.75H12.25V5.25H7.75ZM7.75 8.25V9.75H12.25V8.25H7.75ZM7.75 11.25V12.75H12.25V11.25H7.75Z" fill="#4D5761"/>
                             </svg>',
                             'container' => 'full-width',
                             'video' => [
@@ -3015,10 +3009,8 @@ class Builder_Data {
                         ],
                         'similar_listings' => [
                             'label'    => __( 'Custom Single Listing Page', 'directorist' ),
-                            'icon'    => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.9165 1.66602L2.9165 0.916016C2.50229 0.916016 2.1665 1.2518 2.1665 1.66602L2.9165 1.66602ZM17.0832 1.66602H17.8332C17.8332 1.2518 17.4974 0.916017 17.0832 0.916017V1.66602ZM2.9165 18.3327H2.1665C2.1665 18.5316 2.24552 18.7224 2.38617 18.863C2.52682 19.0037 2.71759 19.0827 2.9165 19.0827V18.3327ZM11.2498 18.3327V19.0827H11.5605L11.7802 18.863L11.2498 18.3327ZM17.0832 12.4993L17.6135 13.0297L17.8332 12.81V12.4993H17.0832ZM11.2498 12.4993V11.7493H10.4998V12.4993H11.2498ZM2.9165 1.66602L2.9165 2.41602L17.0832 2.41602V1.66602V0.916017L2.9165 0.916016L2.9165 1.66602ZM2.9165 18.3327H3.6665L3.6665 1.66602L2.9165 1.66602L2.1665 1.66602L2.1665 18.3327H2.9165ZM2.9165 18.3327V19.0827H11.2498V18.3327V17.5827H2.9165V18.3327ZM17.0832 12.4993H17.8332V1.66602H17.0832H16.3332V12.4993H17.0832ZM11.2498 18.3327L11.7802 18.863L17.6135 13.0297L17.0832 12.4993L16.5528 11.969L10.7195 17.8024L11.2498 18.3327ZM11.2498 18.3327H11.9998V12.4993H11.2498H10.4998V18.3327H11.2498ZM11.2498 12.4993V13.2493H17.0832V12.4993V11.7493H11.2498V12.4993Z" fill="#4D5761"/>
-                                <path d="M6.6665 5.83398H13.3332" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
-                                <path d="M6.6665 9.16602H9.99984" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            'icon'    => '<svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0.25V19.75H15V5.19531L14.7891 4.96094L10.2891 0.460938L10.0547 0.25H0ZM1.5 1.75H9V6.25H13.5V18.25H1.5V1.75ZM10.5 2.82812L12.4219 4.75H10.5V2.82812ZM3.75 7.75V9.25H11.25V7.75H3.75ZM3.75 10.75V12.25H11.25V10.75H3.75ZM3.75 13.75V15.25H11.25V13.75H3.75Z" fill="#4D5761"/>
                             </svg>',
                             'container' => 'short-wide',
                             'sections' => [

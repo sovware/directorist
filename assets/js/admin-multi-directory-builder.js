@@ -18299,6 +18299,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ratings-count-card-widget",
   props: {
+    icon: {
+      type: String,
+      default: ""
+    },
     label: {
       type: String,
       default: ""

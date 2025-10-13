@@ -25,6 +25,11 @@
 export default {
   name: "ratings-count-card-widget",
   props: {
+    icon: {
+      type: String,
+      default: "",
+    },
+
     label: {
       type: String,
       default: "",

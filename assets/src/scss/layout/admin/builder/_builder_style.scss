@@ -6722,6 +6722,9 @@ input[type="radio"] {
         margin: 0;
         background: #fff;
         box-shadow: 0 6px 8px 2px #1018281a;
+        &:before {
+          right: 60px;
+        }
         .cptm-option-card-header {
           padding: 0;
           border-radius: 8px 8px 0 0;

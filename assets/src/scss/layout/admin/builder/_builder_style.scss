@@ -1166,7 +1166,7 @@ $light-gray: #f4f5f7;
   &.submission_form_fields {
     .cptm-form-builder-active-fields-container {
       height: 100%;
-      padding-bottom: 162px;
+      padding-bottom: 400px;
       box-sizing: border-box;
     }
   }
@@ -1551,6 +1551,7 @@ $light-gray: #f4f5f7;
 .cptm-form-builder-content {
   height: auto;
   flex-grow: 1;
+  background: #f3f4f6;
   border-left: 1px solid #e5e7eb;
   .cptm-form-builder-action {
     border-bottom: 1px solid #e5e7eb;
@@ -3039,6 +3040,9 @@ input[type="radio"].cptm-radio {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  @media only screen and (max-width: 1199px) {
+    flex-direction: column;
+  }
 }
 
 .cptm-options-area {
@@ -6560,6 +6564,9 @@ input[type="radio"] {
   scrollbar-width: 6px;
   border-right: 1px solid #e5e7eb;
   scrollbar-color: #d2d6db #f3f4f6;
+  @media only screen and (max-width: 1199px) {
+    max-width: 100%;
+  }
   @include e(header) {
     display: flex;
     gap: 20px;

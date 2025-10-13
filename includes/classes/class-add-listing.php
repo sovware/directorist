@@ -621,6 +621,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                         continue;
                     }
 
+                    $image    = sanitize_file_name( $image );
                     $filepath = $temp_dir . $image;
 
                     if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {

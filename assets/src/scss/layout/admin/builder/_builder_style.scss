@@ -892,7 +892,7 @@ $light-gray: #f4f5f7;
   display: block;
   transition: all ease-in-out 300ms;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 // ====================
@@ -4442,7 +4442,7 @@ input[type="radio"].cptm-radio {
     transform: unset;
   }
   .cptm-listing-card-quick-actions {
-    width: 120px;
+    width: 135px;
   }
   .cptm-listing-card-title {
     flex: 1;
@@ -6386,7 +6386,7 @@ input[type="radio"] {
   position: sticky;
   top: 60px;
   height: 100%;
-  max-height: calc(100vh - 167px);
+  max-height: calc(100vh - 212px);
   overflow: auto;
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;

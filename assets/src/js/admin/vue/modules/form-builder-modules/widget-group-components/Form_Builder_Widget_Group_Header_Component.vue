@@ -21,7 +21,9 @@
               href="#"
               class="cptm-form-builder-header-toggle-link"
               :class="
-                widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up' + ' ' + (canExpand ? '' : 'disabled')
+                widgetsExpanded
+                  ? 'action-collapse-down'
+                  : 'action-collapse-up' + ' ' + (canExpand ? '' : 'disabled')
               "
               @click.prevent="$emit('toggle-expand-widgets', groupKey)"
             >
@@ -149,6 +151,9 @@ export default {
     forceExpandStateTo: {
       default: "",
     },
+    expandedGroupFieldsKey: {
+      default: null,
+    },
   },
 
   created() {
@@ -163,7 +168,8 @@ export default {
 
   computed: {
     groupFieldsExpandState() {
-      let state = this.groupFieldsExpanded;
+      // Check if this group is the one that should be expanded based on parent state
+      let state = this.expandedGroupFieldsKey === this.groupKey;
 
       if ("expand" === this.forceExpandStateTo) {
         state = true;
@@ -181,7 +187,6 @@ export default {
     return {
       finalGroupFields: {},
       header_title_component_props: {},
-      groupFieldsExpanded: false,
       groupExpandedDropdown: false,
       showConfirmationModal: false,
       groupName: "",
@@ -232,7 +237,10 @@ export default {
     },
 
     toggleGroupFieldsExpand() {
-      this.groupFieldsExpanded = !this.groupFieldsExpanded;
+      // Emit event to parent to handle accordion behavior
+      // If this group is already expanded, collapse it (pass null), otherwise expand it
+      const newExpandedKey = this.groupFieldsExpandState ? null : this.groupKey;
+      this.$emit("toggle-group-fields-expand", newExpandedKey);
     },
 
     toggleGroupExpandedDropdown() {

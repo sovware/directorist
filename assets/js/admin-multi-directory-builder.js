@@ -19633,6 +19633,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     expandedGroupKey: {
       default: null
+    },
+    expandedGroupFieldsKey: {
+      default: null
     }
   },
   created: function created() {
@@ -19724,6 +19727,10 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.expandedWidgetKey = widgetKey;
       }
+    },
+    handleToggleGroupFieldsExpand: function handleToggleGroupFieldsExpand(expandedKey) {
+      // Emit to parent to handle accordion behavior for group fields
+      this.$emit("group-fields-expanded", expandedKey);
     },
     isDroppable: function isDroppable(widget_index) {
       if (!this.currentDraggingWidget) {
@@ -19842,6 +19849,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     forceExpandStateTo: {
       default: ""
+    },
+    expandedGroupFieldsKey: {
+      default: null
     }
   },
   created: function created() {
@@ -19854,7 +19864,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   computed: {
     groupFieldsExpandState: function groupFieldsExpandState() {
-      var state = this.groupFieldsExpanded;
+      // Check if this group is the one that should be expanded based on parent state
+      var state = this.expandedGroupFieldsKey === this.groupKey;
       if ("expand" === this.forceExpandStateTo) {
         state = true;
       }
@@ -19868,7 +19879,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     return {
       finalGroupFields: {},
       header_title_component_props: {},
-      groupFieldsExpanded: false,
       groupExpandedDropdown: false,
       showConfirmationModal: false,
       groupName: ""
@@ -19902,7 +19912,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return (0,_helper__WEBPACK_IMPORTED_MODULE_1__.findObjectItem)("".concat(widgetGroup, ".").concat(widgetName, ".options"), avilableWidgets, null);
     },
     toggleGroupFieldsExpand: function toggleGroupFieldsExpand() {
-      this.groupFieldsExpanded = !this.groupFieldsExpanded;
+      // Emit event to parent to handle accordion behavior
+      // If this group is already expanded, collapse it (pass null), otherwise expand it
+      var newExpandedKey = this.groupFieldsExpandState ? null : this.groupKey;
+      this.$emit("toggle-group-fields-expand", newExpandedKey);
     },
     toggleGroupExpandedDropdown: function toggleGroupExpandedDropdown() {
       this.groupExpandedDropdown = !this.groupExpandedDropdown;
@@ -25496,6 +25509,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       currentDraggingWidget: null,
       expandedGroupKey: null,
       // Track which group is currently expanded
+      expandedGroupFieldsKey: null,
+      // Track which group has its fields/config expanded
 
       listing_type_id: null,
       showModal: false
@@ -25858,6 +25873,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     handleGroupExpanded: function handleGroupExpanded(groupKey) {
       // Update the expanded group key - this will trigger child components to collapse if they're not the expanded one
       this.expandedGroupKey = groupKey;
+    },
+    handleGroupFieldsExpanded: function handleGroupFieldsExpanded(groupKey) {
+      // Update the expanded group fields key to implement accordion behavior for group configuration sections
+      this.expandedGroupFieldsKey = groupKey;
     },
     handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
       var dropped_in = {
@@ -31505,6 +31524,7 @@ var render = function render() {
         return _vm.$emit('update-group-field', $event);
       },
       "toggle-expand-widgets": _vm.toggleExpandWidgets,
+      "toggle-group-fields-expand": _vm.handleToggleGroupFieldsExpand,
       "trash-group": function trashGroup($event) {
         return _vm.$emit('trash-group');
       },
@@ -34907,7 +34927,8 @@ var render = function render() {
         "current-dragging-group": _vm.currentDraggingGroup,
         "current-dragging-widget": _vm.currentDraggingWidget,
         "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
-        "expanded-group-key": _vm.expandedGroupKey
+        "expanded-group-key": _vm.expandedGroupKey,
+        "expanded-group-fields-key": _vm.expandedGroupFieldsKey
       },
       on: {
         "update-group-field": function updateGroupField($event) {
@@ -34936,6 +34957,7 @@ var render = function render() {
           return _vm.handleGroupDragEnd();
         },
         "group-expanded": _vm.handleGroupExpanded,
+        "group-fields-expanded": _vm.handleGroupFieldsExpanded,
         "append-widget": function appendWidget($event) {
           return _vm.handleAppendWidget(widget_group_key);
         }

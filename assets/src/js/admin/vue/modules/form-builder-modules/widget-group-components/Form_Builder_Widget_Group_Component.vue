@@ -11,6 +11,7 @@
       :group-key="groupKey"
       @update-group-field="$emit('update-group-field', $event)"
       @toggle-expand-widgets="toggleExpandWidgets"
+      @toggle-group-fields-expand="handleToggleGroupFieldsExpand"
       @trash-group="$emit('trash-group')"
       @drag-start="$emit('group-drag-start')"
       @drag-end="$emit('group-drag-end')"
@@ -104,6 +105,9 @@ export default {
       default: "",
     },
     expandedGroupKey: {
+      default: null,
+    },
+    expandedGroupFieldsKey: {
       default: null,
     },
   },
@@ -230,6 +234,11 @@ export default {
       } else {
         this.expandedWidgetKey = widgetKey;
       }
+    },
+
+    handleToggleGroupFieldsExpand(expandedKey) {
+      // Emit to parent to handle accordion behavior for group fields
+      this.$emit("group-fields-expanded", expandedKey);
     },
 
     isDroppable(widget_index) {

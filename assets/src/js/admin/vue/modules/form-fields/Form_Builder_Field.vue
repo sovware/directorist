@@ -23,9 +23,18 @@
           @click.prevent="openModal()"
           v-if="video"
         >
-        <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.5 0V12H17V9.46875L21.5 11.7188V0.28125L17 2.53125V0H0.5ZM2 1.5H15.5V10.5H2V1.5ZM20 2.71875V9.28125L17 7.78125V4.21875L20 2.71875Z" fill="#2C3239"/>
-        </svg>
+          <svg
+            width="22"
+            height="12"
+            viewBox="0 0 22 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.5 0V12H17V9.46875L21.5 11.7188V0.28125L17 2.53125V0H0.5ZM2 1.5H15.5V10.5H2V1.5ZM20 2.71875V9.28125L17 7.78125V4.21875L20 2.71875Z"
+              fill="#2C3239"
+            />
+          </svg>
           Learn
         </a>
       </div>
@@ -107,6 +116,7 @@
                 :current-dragging-widget="currentDraggingWidget"
                 :is-enabled-group-dragging="isEnabledGroupDragging"
                 :expanded-group-key="expandedGroupKey"
+                :expanded-group-fields-key="expandedGroupFieldsKey"
                 @update-group-field="updateGroupField(widget_group_key, $event)"
                 @update-widget-field="updateWidgetField"
                 @trash-widget="trashWidget(widget_group_key, $event)"
@@ -119,6 +129,7 @@
                 @group-drag-start="handleGroupDragStart(widget_group_key)"
                 @group-drag-end="handleGroupDragEnd()"
                 @group-expanded="handleGroupExpanded"
+                @group-fields-expanded="handleGroupFieldsExpanded"
                 @append-widget="handleAppendWidget(widget_group_key)"
               />
             </draggable-list-item-wrapper>
@@ -581,6 +592,7 @@ export default {
       currentDraggingWidget: null,
 
       expandedGroupKey: null, // Track which group is currently expanded
+      expandedGroupFieldsKey: null, // Track which group has its fields/config expanded
 
       listing_type_id: null,
 
@@ -1099,6 +1111,11 @@ export default {
     handleGroupExpanded(groupKey) {
       // Update the expanded group key - this will trigger child components to collapse if they're not the expanded one
       this.expandedGroupKey = groupKey;
+    },
+
+    handleGroupFieldsExpanded(groupKey) {
+      // Update the expanded group fields key to implement accordion behavior for group configuration sections
+      this.expandedGroupFieldsKey = groupKey;
     },
 
     handleGroupDrop(widget_group_key, payload) {

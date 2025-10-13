@@ -158,18 +158,34 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 				return data.text;
 			}
 
-			// Fetch the data-icon attribute
-			const iconURI = $(data.element).attr('data-icon');
+			// Get icon from data object or element attribute
+			let iconURI = data.icon || '';
+			if (!iconURI && data.element) {
+				iconURI = $(data.element).attr('data-icon') || '';
+			}
 
-			// Get the original text
-			let originalText = data.text;
+			// Get level from data object or element attribute
+			let level = 0;
+			if (data.level !== undefined && data.level !== null) {
+				level = parseInt(data.level);
+			} else if (data.element) {
+				const dataLevel = $(data.element).attr('data-level');
+				if (dataLevel !== undefined && dataLevel !== null) {
+					level = parseInt(dataLevel);
+				} else {
+					// Fallback to space count for non-lazy-loaded items
+					const leadingSpaces = data.text.match(/^\s+/);
+					const spaceCount = leadingSpaces
+						? leadingSpaces[0].length
+						: 0;
+					if (spaceCount > 0) {
+						level = Math.floor(spaceCount / 8);
+					}
+				}
+			}
 
-			// Match and count leading spaces
-			const leadingSpaces = originalText.match(/^\s+/);
-			const spaceCount = leadingSpaces ? leadingSpaces[0].length : 0;
-
-			// Trim leading spaces from the original text
-			originalText = originalText.trim();
+			// Get the original text and trim spaces
+			let originalText = data.text.trim();
 
 			// Construct the icon element
 			const iconElm = iconURI
@@ -184,13 +200,13 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 				'<div class="directorist-select2-contents"></div>'
 			);
 
-			// Determine the level based on space count
-			let level = Math.floor(spaceCount / 8) + 1; // 8 spaces = level 2, 16 spaces = level 3, etc.
-			if (level > 1) {
-				$state.addClass('item-level-' + level); // Add class for the level (e.g., level-1, level-2, etc.)
+			// Add level class and padding for hierarchy
+			if (level > 0) {
+				$state.addClass('item-level-' + (level + 1));
+				$state.css('padding-left', level * 20 + 'px');
 			}
 
-			$state.html(combinedText); // Set the combined content (icon + text)
+			$state.html(combinedText);
 
 			return $state;
 		},
@@ -249,12 +265,14 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 							let text = item.name;
 
 							if (!$addListing.length && params.data.search) {
-								text = `${item.name} (${item.count})`;
+								text = `${text} (${item.count})`;
 							}
 
 							return {
 								id: item.id,
 								text,
+								level: item.level || 0,
+								icon: item.icon || '',
 							};
 						});
 

@@ -54,6 +54,7 @@ class Categories_Controller extends Terms_Controller {
             'icon'        => $icon,
             'directory'   => null,
             'count'       => (int) $item->count,
+            'level'       => $this->get_term_hierarchy_level( $item->term_id ),
         ];
 
         // Category directory type.
@@ -96,6 +97,145 @@ class Categories_Controller extends Terms_Controller {
          * @param WP_REST_Request   $request   Request used to generate the response.
          */
         return apply_filters( "directorist_rest_prepare_{$this->taxonomy}", $response, $item, $request );
+    }
+
+    /**
+     * Get the hierarchy level of a term.
+     *
+     * @param int $term_id Term ID.
+     * @param int $level   Current level.
+     * @return int Hierarchy level (0 for top-level categories).
+     */
+    protected function get_term_hierarchy_level( $term_id, $level = 0 ) {
+        $term = get_term( $term_id, $this->taxonomy );
+
+        if ( ! $term || is_wp_error( $term ) || ! $term->parent ) {
+            return $level;
+        }
+
+        return $this->get_term_hierarchy_level( $term->parent, $level + 1 );
+    }
+
+    /**
+     * Sort terms in hierarchical order.
+     * Children appear immediately after their parent.
+     *
+     * @param array $terms Array of term objects.
+     * @return array Hierarchically sorted terms.
+     */
+    protected function sort_terms_hierarchically( $terms ) {
+        if ( empty( $terms ) ) {
+            return $terms;
+        }
+
+        $sorted = [];
+        $children = [];
+
+        // Group terms by parent.
+        foreach ( $terms as $term ) {
+            if ( $term->parent == 0 ) {
+                $sorted[] = $term;
+            } else {
+                if ( ! isset( $children[ $term->parent ] ) ) {
+                    $children[ $term->parent ] = [];
+                }
+                $children[ $term->parent ][] = $term;
+            }
+        }
+
+        // Recursively add children after parents.
+        $result = [];
+        foreach ( $sorted as $parent ) {
+            $result[] = $parent;
+            $this->add_children_recursively( $parent->term_id, $children, $result );
+        }
+
+        return $result;
+    }
+
+    /**
+     * Recursively add children terms.
+     *
+     * @param int   $parent_id Parent term ID.
+     * @param array $children  Array of children grouped by parent ID.
+     * @param array &$result   Result array (passed by reference).
+     */
+    protected function add_children_recursively( $parent_id, $children, &$result ) {
+        if ( ! isset( $children[ $parent_id ] ) ) {
+            return;
+        }
+
+        foreach ( $children[ $parent_id ] as $child ) {
+            $result[] = $child;
+            $this->add_children_recursively( $child->term_id, $children, $result );
+        }
+    }
+
+    /**
+     * Get terms associated with a taxonomy.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_REST_Response|WP_Error
+     */
+    public function get_items( $request ) {
+        $response = parent::get_items( $request );
+
+        // Don't sort if there's an error or no data.
+        if ( is_wp_error( $response ) ) {
+            return $response;
+        }
+
+        // Get the data from response.
+        $data = $response->get_data();
+
+        // If we have terms, we need to get the actual term objects and sort them.
+        if ( ! empty( $data ) ) {
+            $taxonomy      = $this->taxonomy;
+            $prepared_args = $this->prepare_query_args( $request );
+            
+            // Get all terms without pagination for sorting.
+            $all_args = $prepared_args;
+            unset( $all_args['number'] );
+            unset( $all_args['offset'] );
+
+            if ( ! empty( $request['directory'] ) ) {
+                $terms = get_terms( $taxonomy, $all_args );
+                $queried_directories = ( is_array( $request['directory'] ) ) ? $request['directory'] : [ $request['directory'] ];
+
+                $terms = array_filter(
+                    $terms, function( $term ) use( $queried_directories ) {
+                        $directories = get_term_meta( $term->term_id, '_directory_type', true );
+                        if ( empty( $directories ) || ! is_array( $directories ) ) {
+                            return false;
+                        }
+                        $exists = array_intersect( $queried_directories, $directories );
+                        return ( count( $exists ) > 0 );
+                    }
+                );
+            } else {
+                $terms = get_terms( $taxonomy, $all_args );
+            }
+
+            // Sort hierarchically.
+            $sorted_terms = $this->sort_terms_hierarchically( $terms );
+
+            // Apply pagination to sorted terms.
+            $offset = $prepared_args['offset'] ? $prepared_args['offset'] : 0;
+            $per_page = $prepared_args['number'];
+            $paged_terms = array_slice( $sorted_terms, $offset, $per_page );
+
+            // Rebuild response data.
+            $new_data = [];
+            foreach ( $paged_terms as $term ) {
+                $item_response = $this->prepare_item_for_response( $term, $request );
+                $new_data[] = $this->prepare_response_for_collection( $item_response );
+            }
+
+            // Update response data.
+            $response->set_data( $new_data );
+        }
+
+        return $response;
     }
 
     /**
@@ -217,6 +357,12 @@ class Categories_Controller extends Terms_Controller {
                 ],
                 'count' => [
                     'description' => __( 'Number of published listings for the resource.', 'directorist' ),
+                    'type'        => 'integer',
+                    'context'     => [ 'view', 'edit' ],
+                    'readonly'    => true,
+                ],
+                'level' => [
+                    'description' => __( 'The hierarchy level of the category (0 for top-level).', 'directorist' ),
                     'type'        => 'integer',
                     'context'     => [ 'view', 'edit' ],
                     'readonly'    => true,

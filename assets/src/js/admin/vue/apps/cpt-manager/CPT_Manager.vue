@@ -1,9 +1,7 @@
 <template>
   <div class="directorist-directory-type atbdp-cpt-manager">
     <div class="directorist-directory-type-top">
-      <div 
-        class="directorist-directory-type-top-left"
-      >
+      <div class="directorist-directory-type-top-left">
         <a
           href="edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
           class="directorist-back-directory"
@@ -31,22 +29,25 @@
           data-tooltip="Click here to rename the directory."
           data-flow="bottom"
         >
-          <div class="directorist-type-name-editable" v-if="isEditableName || !options.name.value">   
+          <div
+            class="directorist-type-name-editable"
+            v-if="isEditableName || !options.name.value"
+            @click="ensureEditableMode"
+          >
             <component
               v-if="options.name && options.name.type"
               :is="options.name.type + '-field'"
               v-bind="options.name"
               @update="updateOptionsField({ field: 'name', value: $event })"
+              ref="editableNameField"
             />
-            <span class="la la-check" @click="toggleEditableButton"></span>
           </div>
-          <span 
-            class="directorist-type-name" 
-            v-if="!isEditableName && options.name.value" 
-            @click="toggleEditableButton"
+          <span
+            class="directorist-type-name"
+            v-if="!isEditableName && options.name.value"
           >
             {{ options.name.value }}
-            <span class="la la-pen"></span>
+            <span class="la la-pen" @click.stop="openEditableMode"></span>
           </span>
         </div>
       </div>
@@ -143,7 +144,13 @@ export default {
     this.setupClosingWarning();
     this.setupSaveOnKeyboardInput();
 
-    this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
+    this.enabled_multi_directory =
+      directorist_admin.enabled_multi_directory === "1";
+  },
+
+  beforeDestroy() {
+    // Clean up click outside listener when component is destroyed
+    document.removeEventListener("click", this.handleClickOutside);
   },
 
   data() {
@@ -166,13 +173,50 @@ export default {
   methods: {
     ...mapGetters(["getFieldsValue"]),
 
-    toggleEditableButton() {
-      this.isEditableName = !this.isEditableName;
+    ensureEditableMode() {
+      // Only set up the listener if not already in editable mode
+      if (!this.isEditableName) {
+        this.isEditableName = true;
+        // Add click outside listener after a small delay to avoid immediate trigger
+        setTimeout(() => {
+          document.addEventListener("click", this.handleClickOutside);
+        }, 100);
+      }
+    },
+
+    openEditableMode() {
+      this.isEditableName = true;
+      // Add click outside listener after a small delay to avoid immediate trigger
+      setTimeout(() => {
+        document.addEventListener("click", this.handleClickOutside);
+      }, 100);
+    },
+
+    closeEditableMode() {
+      this.isEditableName = false;
+      // Remove click outside listener
+      document.removeEventListener("click", this.handleClickOutside);
+    },
+
+    handleClickOutside(event) {
+      // Check if the editable field exists
+      if (!this.$refs.editableNameField) {
+        return;
+      }
+
+      // Get the DOM element (component.$el for Vue components)
+      const editableElement =
+        this.$refs.editableNameField.$el || this.$refs.editableNameField;
+
+      // Check if click is outside the editable field
+      if (editableElement && !editableElement.contains(event.target)) {
+        this.closeEditableMode();
+      }
     },
 
     setupSaveOnKeyboardInput() {
       addEventListener("keydown", (event) => {
-        if ( ( event.metaKey || event.ctrlKey ) && 's' === event.key ) {
+        if ((event.metaKey || event.ctrlKey) && "s" === event.key) {
           event.preventDefault();
           this.saveData();
         }
@@ -370,9 +414,8 @@ export default {
         Array.isArray(value)
       ) {
         let json_encoded_value = JSON.stringify(value);
-        let base64_encoded_value = this.encodeUnicodedToBase64(
-          json_encoded_value
-        );
+        let base64_encoded_value =
+          this.encodeUnicodedToBase64(json_encoded_value);
         value = base64_encoded_value;
       }
 
@@ -388,8 +431,8 @@ export default {
           /%([0-9A-F]{2})/g,
           function toSolidBytes(match, p1) {
             return String.fromCharCode("0x" + p1);
-          }
-        )
+          },
+        ),
       );
     },
   },

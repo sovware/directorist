@@ -15362,6 +15362,10 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
     this.setupSaveOnKeyboardInput();
     this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
   },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up click outside listener when component is destroyed
+    document.removeEventListener("click", this.handleClickOutside);
+  },
   data: function data() {
     return {
       listing_type_id: null,
@@ -15379,15 +15383,50 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
     };
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(["getFieldsValue"])), {}, {
-    toggleEditableButton: function toggleEditableButton() {
-      this.isEditableName = !this.isEditableName;
+    ensureEditableMode: function ensureEditableMode() {
+      var _this = this;
+      // Only set up the listener if not already in editable mode
+      if (!this.isEditableName) {
+        this.isEditableName = true;
+        // Add click outside listener after a small delay to avoid immediate trigger
+        setTimeout(function () {
+          document.addEventListener("click", _this.handleClickOutside);
+        }, 100);
+      }
+    },
+    openEditableMode: function openEditableMode() {
+      var _this2 = this;
+      this.isEditableName = true;
+      // Add click outside listener after a small delay to avoid immediate trigger
+      setTimeout(function () {
+        document.addEventListener("click", _this2.handleClickOutside);
+      }, 100);
+    },
+    closeEditableMode: function closeEditableMode() {
+      this.isEditableName = false;
+      // Remove click outside listener
+      document.removeEventListener("click", this.handleClickOutside);
+    },
+    handleClickOutside: function handleClickOutside(event) {
+      // Check if the editable field exists
+      if (!this.$refs.editableNameField) {
+        return;
+      }
+
+      // Get the DOM element (component.$el for Vue components)
+      var editableElement = this.$refs.editableNameField.$el || this.$refs.editableNameField;
+
+      // Check if click is outside the editable field
+      if (editableElement && !editableElement.contains(event.target)) {
+        this.closeEditableMode();
+      }
     },
     setupSaveOnKeyboardInput: function setupSaveOnKeyboardInput() {
-      var _this = this;
+      var _this3 = this;
       addEventListener("keydown", function (event) {
-        if ((event.metaKey || event.ctrlKey) && 's' === event.key) {
+        if ((event.metaKey || event.ctrlKey) && "s" === event.key) {
           event.preventDefault();
-          _this.saveData();
+          _this3.saveData();
         }
       });
     },
@@ -15452,22 +15491,22 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       }
     },
     handleSaveData: function handleSaveData(callback) {
-      var _this2 = this;
+      var _this4 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
         var addListingURL, urlWithListingType;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 1;
-              return _this2.saveData();
+              return _this4.saveData();
             case 1:
               if (typeof callback === "function") {
-                callback(_this2.$store.state);
+                callback(_this4.$store.state);
               }
 
               // Get Add Listing URL from Object
               addListingURL = directorist_admin.add_listing_url; // Append the listing_type_id to the URL as a query parameter
-              urlWithListingType = "".concat(addListingURL, "?directory_type=").concat(_this2.listing_type_id); // Open the URL with the listing_type_id parameter
+              urlWithListingType = "".concat(addListingURL, "?directory_type=").concat(_this4.listing_type_id); // Open the URL with the listing_type_id parameter
               window.open(urlWithListingType, "_blank");
             case 2:
             case "end":
@@ -28401,8 +28440,12 @@ var render = function render() {
       "data-flow": "bottom"
     }
   }, [_vm.isEditableName || !_vm.options.name.value ? _c('div', {
-    staticClass: "directorist-type-name-editable"
+    staticClass: "directorist-type-name-editable",
+    on: {
+      "click": _vm.ensureEditableMode
+    }
   }, [_vm.options.name && _vm.options.name.type ? _c(_vm.options.name.type + '-field', _vm._b({
+    ref: "editableNameField",
     tag: "component",
     on: {
       "update": function update($event) {
@@ -28412,18 +28455,16 @@ var render = function render() {
         });
       }
     }
-  }, 'component', _vm.options.name, false)) : _vm._e(), _vm._v(" "), _c('span', {
-    staticClass: "la la-check",
-    on: {
-      "click": _vm.toggleEditableButton
-    }
-  })], 1) : _vm._e(), _vm._v(" "), !_vm.isEditableName && _vm.options.name.value ? _c('span', {
-    staticClass: "directorist-type-name",
-    on: {
-      "click": _vm.toggleEditableButton
-    }
+  }, 'component', _vm.options.name, false)) : _vm._e()], 1) : _vm._e(), _vm._v(" "), !_vm.isEditableName && _vm.options.name.value ? _c('span', {
+    staticClass: "directorist-type-name"
   }, [_vm._v("\n          " + _vm._s(_vm.options.name.value) + "\n          "), _c('span', {
-    staticClass: "la la-pen"
+    staticClass: "la la-pen",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.openEditableMode.apply(null, arguments);
+      }
+    }
   })]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "directorist-directory-type-top-right"
   }, [_c('button', {

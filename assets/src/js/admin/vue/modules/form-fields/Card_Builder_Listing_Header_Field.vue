@@ -77,9 +77,10 @@
                     <!-- Display icon only if it exists -->
                     <span
                       v-if="available_widgets[widget_key].icon"
+                      class="cptm-elements-settings__group__single__label__icon"
                       :class="available_widgets[widget_key].icon"
                     ></span>
-                    <span v-if="available_widgets[widget_key]">{{
+                    <span v-if="available_widgets[widget_key]" class="cptm-elements-settings__group__single__label__text">{{
                       available_widgets[widget_key].label
                     }}</span>
                     <span v-else>Unknown Widget</span>

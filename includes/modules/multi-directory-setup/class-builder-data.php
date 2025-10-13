@@ -1540,12 +1540,12 @@ class Builder_Data {
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
-                                'value'         => '#747c89',
+                                'value'         => '#141921',
                             ],
                             'text_background' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#f3f4f6',
+                                'value'         => '#ffffff',
                             ],
                         ],
                         'icon' => [
@@ -1590,12 +1590,12 @@ class Builder_Data {
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
-                                'value'         => '#747c89',
+                                'value'         => '#141921',
                             ],
                             'text_background' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#f3f4f6',
+                                'value'         => '#ffffff',
                             ],
                         ],
                         'icon' => [
@@ -1621,7 +1621,7 @@ class Builder_Data {
                 'favorite_badge'    => [
                     'type'  => 'icon',
                     'label' => __( 'Favorite', 'directorist' ),
-                    'icon'  => 'las la-heart',
+                    'icon'  => 'la la-heart-o',
                     'hook'  => 'atbdp_favorite_badge',
                     'options' => [
                         'title'  => __( 'Favorite Badge Settings', 'directorist' ),
@@ -1629,7 +1629,7 @@ class Builder_Data {
                             'icon' => [
                                 'type'  => 'icon',
                                 'label' => __( 'Icon', 'directorist' ),
-                                'value' => 'las la-heart',
+                                'value' => 'la la-heart-o',
                             ],
                             'label' => [
                                 'type'  => 'text',

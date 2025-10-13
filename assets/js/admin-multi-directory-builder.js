@@ -34314,8 +34314,11 @@ var render = function render() {
       }) : _vm._e(), _vm._v(" "), _c('span', {
         staticClass: "cptm-elements-settings__group__single__label"
       }, [_vm.available_widgets[widget_key].icon ? _c('span', {
+        staticClass: "cptm-elements-settings__group__single__label__icon",
         class: _vm.available_widgets[widget_key].icon
-      }) : _vm._e(), _vm._v(" "), _vm.available_widgets[widget_key] ? _c('span', [_vm._v(_vm._s(_vm.available_widgets[widget_key].label))]) : _c('span', [_vm._v("Unknown Widget")])]), _vm._v(" "), _c('div', {
+      }) : _vm._e(), _vm._v(" "), _vm.available_widgets[widget_key] ? _c('span', {
+        staticClass: "cptm-elements-settings__group__single__label__text"
+      }, [_vm._v(_vm._s(_vm.available_widgets[widget_key].label))]) : _c('span', [_vm._v("Unknown Widget")])]), _vm._v(" "), _c('div', {
         staticClass: "cptm-elements-settings__group__single__action"
       }, [_vm.available_widgets[widget_key].options ? _c('span', {
         staticClass: "cptm-elements-settings__group__single__edit",

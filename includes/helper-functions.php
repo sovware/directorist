@@ -1722,7 +1722,7 @@ function directorist_clean_post( $var ) {
  * @since    4.0
  *
  */
-function the_atbdp_favourites_link( $post_id = 0, $label = '' ) {
+function the_atbdp_favourites_link( $post_id = 0 ) {
     if ( $post_id == 0 ) {
         global $post;
         $post_id = $post->ID;
@@ -1730,9 +1730,9 @@ function the_atbdp_favourites_link( $post_id = 0, $label = '' ) {
 
     $favourites = directorist_get_user_favorites( get_current_user_id() );
     if ( in_array( $post_id, $favourites ) ) {
-        return directorist_icon( 'las la-heart', false, 'directorist-added-to-favorite' ) . $label;
+        return directorist_icon( 'las la-heart', false, 'directorist-added-to-favorite' );
     } else {
-        return directorist_icon( 'las la-heart', false ) . $label;
+        return directorist_icon( 'las la-heart', false );
     }
 }
 

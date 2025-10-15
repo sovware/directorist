@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-13 11:11+0000\n"
+"POT-Creation-Date: 2025-10-15 11:05+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1148,7 +1148,7 @@ msgstr ""
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:375, ../includes/classes/class-ajax-handler.php:1401, ../includes/classes/class-ajax-handler.php:1659, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
+#: ../includes/classes/class-ajax-handler.php:375, ../includes/classes/class-ajax-handler.php:1402, ../includes/classes/class-ajax-handler.php:1660, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
@@ -1212,75 +1212,75 @@ msgstr ""
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1042, ../includes/classes/class-ajax-handler.php:1084
+#: ../includes/classes/class-ajax-handler.php:1043, ../includes/classes/class-ajax-handler.php:1085
 msgid "You are not allowed to perform this operation"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1046, ../includes/classes/class-ajax-handler.php:1071, ../includes/classes/class-ajax-handler.php:1075, ../includes/classes/class-ajax-handler.php:1088
+#: ../includes/classes/class-ajax-handler.php:1047, ../includes/classes/class-ajax-handler.php:1072, ../includes/classes/class-ajax-handler.php:1076, ../includes/classes/class-ajax-handler.php:1089
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1068
+#: ../includes/classes/class-ajax-handler.php:1069
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1109
+#: ../includes/classes/class-ajax-handler.php:1110
 msgid "Preferences updated successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1200, ../includes/classes/class-ajax-handler.php:1273, ../includes/review/class-email.php:76
+#: ../includes/classes/class-ajax-handler.php:1201, ../includes/classes/class-ajax-handler.php:1274, ../includes/review/class-email.php:76
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1203
+#: ../includes/classes/class-ajax-handler.php:1204
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1276
+#: ../includes/classes/class-ajax-handler.php:1277
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1381, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
+#: ../includes/classes/class-ajax-handler.php:1382, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1384, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
+#: ../includes/classes/class-ajax-handler.php:1385, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1411
+#: ../includes/classes/class-ajax-handler.php:1412
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1418
+#: ../includes/classes/class-ajax-handler.php:1419
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1426, ../includes/classes/class-ajax-handler.php:1675
+#: ../includes/classes/class-ajax-handler.php:1427, ../includes/classes/class-ajax-handler.php:1676
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1431, ../includes/classes/class-ajax-handler.php:1720
+#: ../includes/classes/class-ajax-handler.php:1432, ../includes/classes/class-ajax-handler.php:1721
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1594
+#: ../includes/classes/class-ajax-handler.php:1595
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1596
+#: ../includes/classes/class-ajax-handler.php:1597
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1815
+#: ../includes/classes/class-ajax-handler.php:1816
 msgid "User not logged in."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1827
+#: ../includes/classes/class-ajax-handler.php:1828
 msgid "Invalid nonce."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1832
+#: ../includes/classes/class-ajax-handler.php:1833
 msgid "No listing ID found."
 msgstr ""
 
@@ -7578,7 +7578,7 @@ msgstr ""
 msgid "Bookmark Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2665, ../templates/single/fields/share.php:15
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2665
 msgid "Share"
 msgstr ""
 
@@ -7586,7 +7586,7 @@ msgstr ""
 msgid "Share Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2685, ../templates/single/fields/report.php:16, ../templates/single/fields/report.php:13
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2685, ../templates/single/fields/report.php:16
 msgid "Report"
 msgstr ""
 

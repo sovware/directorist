@@ -55,33 +55,33 @@ export default {
      * @returns {String}
      */
     displayIcon() {
-      if (!this.options && typeof this.options !== "object") {
+      if (!this.options || typeof this.options !== "object") {
         // console.log( 'no options' );
         return this.icon;
       }
 
-      if (!this.options.fields && typeof this.options.fields !== "object") {
+      if (!this.options?.fields || typeof this.options?.fields !== "object") {
         // console.log( 'no fields' );
         return this.icon;
       }
 
       if (
-        !this.options.fields.icon &&
-        typeof this.options.fields.icon !== "object"
+        !this.options?.fields?.icon &&
+        typeof this.options?.fields?.icon !== "object"
       ) {
         // console.log( 'no icon', this.options );
         return this.icon;
       }
 
       if (
-        typeof this.options.fields.icon.value !== "string" &&
-        !this.options.fields.icon.value.length
+        typeof this.options?.fields?.icon?.value !== "string" &&
+        !this.options?.fields?.icon?.value?.length
       ) {
         // console.log( 'empty icon' );
         return this.icon;
       }
 
-      return this.options.fields.icon.value;
+      return this.options?.fields?.icon?.value;
     },
 
     /**
@@ -89,7 +89,7 @@ export default {
      * @returns {String}
      */
     displayLabel() {
-      return this.options.fields.label.value || this.label;
+      return this.options?.fields?.label?.value || this.label;
     },
   },
 };

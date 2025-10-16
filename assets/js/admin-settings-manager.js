@@ -17919,30 +17919,32 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String}
      */
     displayIcon: function displayIcon() {
-      if (!this.options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
+      var _this$options, _this$options2, _this$options3, _this$options4, _this$options5, _this$options6, _this$options7;
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
         // console.log( 'no options' );
         return this.icon;
       }
-      if (!this.options.fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options.fields) !== "object") {
+      if (!((_this$options = this.options) !== null && _this$options !== void 0 && _this$options.fields) || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])((_this$options2 = this.options) === null || _this$options2 === void 0 ? void 0 : _this$options2.fields) !== "object") {
         // console.log( 'no fields' );
         return this.icon;
       }
-      if (!this.options.fields.icon && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options.fields.icon) !== "object") {
+      if (!((_this$options3 = this.options) !== null && _this$options3 !== void 0 && (_this$options3 = _this$options3.fields) !== null && _this$options3 !== void 0 && _this$options3.icon) && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])((_this$options4 = this.options) === null || _this$options4 === void 0 || (_this$options4 = _this$options4.fields) === null || _this$options4 === void 0 ? void 0 : _this$options4.icon) !== "object") {
         // console.log( 'no icon', this.options );
         return this.icon;
       }
-      if (typeof this.options.fields.icon.value !== "string" && !this.options.fields.icon.value.length) {
+      if (typeof ((_this$options5 = this.options) === null || _this$options5 === void 0 || (_this$options5 = _this$options5.fields) === null || _this$options5 === void 0 || (_this$options5 = _this$options5.icon) === null || _this$options5 === void 0 ? void 0 : _this$options5.value) !== "string" && !((_this$options6 = this.options) !== null && _this$options6 !== void 0 && (_this$options6 = _this$options6.fields) !== null && _this$options6 !== void 0 && (_this$options6 = _this$options6.icon) !== null && _this$options6 !== void 0 && (_this$options6 = _this$options6.value) !== null && _this$options6 !== void 0 && _this$options6.length)) {
         // console.log( 'empty icon' );
         return this.icon;
       }
-      return this.options.fields.icon.value;
+      return (_this$options7 = this.options) === null || _this$options7 === void 0 || (_this$options7 = _this$options7.fields) === null || _this$options7 === void 0 || (_this$options7 = _this$options7.icon) === null || _this$options7 === void 0 ? void 0 : _this$options7.value;
     },
     /**
      * Display Label
      * @returns {String}
      */
     displayLabel: function displayLabel() {
-      return this.options.fields.label.value || this.label;
+      var _this$options8;
+      return ((_this$options8 = this.options) === null || _this$options8 === void 0 || (_this$options8 = _this$options8.fields) === null || _this$options8 === void 0 || (_this$options8 = _this$options8.label) === null || _this$options8 === void 0 ? void 0 : _this$options8.value) || this.label;
     }
   }
 });

@@ -1473,49 +1473,6 @@ class Builder_Data {
                     'label' => __( 'Featured', 'directorist' ),
                     'icon'  => 'la la-star-o',
                     'hook'  => 'atbdp_featured_badge',
-                    'options' => [
-                        'type' => [
-                            'type'    => 'radio',
-                            'name'    => 'atbdp_featured_badge_type',
-                            'label'   => __( 'Badge Style', 'directorist' ),
-                            'value'   => 'icon',
-                            'options' => [
-                                ['id' => 'atbdp_featured_badge_text', 'label' => __( 'Text Style', 'directorist' ), 'value' => 'text'],
-                                ['id' => 'atbdp_featured_badge_icon', 'label' => __( 'Icon Style', 'directorist' ), 'value' => 'icon'],
-                            ],
-                        ],
-                    ],
-                    'fields' => [
-                        'text' => [
-                            'text_color' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Text Color', 'directorist' ),
-                                'value'         => '#141921',
-                            ],
-                            'text_background' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#ffffff',
-                            ],
-                        ],
-                        'icon' => [
-                            'field_icon' => [
-                                'type'  => 'icon',
-                                'label'  => __( 'Change Icon', 'directorist' ),
-                                'value' => 'la la-star-o',
-                            ],
-                            'icon_color' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Icon Color', 'directorist' ),
-                                'value'         => '#ffffff',
-                            ],
-                            'icon_background' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#F28100',
-                            ],
-                        ],
-                    ]
                 ],
 
                 'new_badge'         => [
@@ -1523,49 +1480,6 @@ class Builder_Data {
                     'label' => __( 'New', 'directorist' ),
                     'icon'  => 'la la-bolt',
                     'hook'  => 'atbdp_new_badge',
-                    'options' => [
-                        'type' => [
-                            'type'    => 'radio',
-                            'name'    => 'atbdp_featured_badge_type',
-                            'label'   => __( 'Badge Style', 'directorist' ),
-                            'value'   => 'icon',
-                            'options' => [
-                                ['id' => 'atbdp_featured_badge_text', 'label' => __( 'Text Style', 'directorist' ), 'value' => 'text'],
-                                ['id' => 'atbdp_featured_badge_icon', 'label' => __( 'Icon Style', 'directorist' ), 'value' => 'icon'],
-                            ],
-                        ],
-                    ],
-                    'fields' => [
-                        'text' => [
-                            'text_color' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Text Color', 'directorist' ),
-                                'value'         => '#141921',
-                            ],
-                            'text_background' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#ffffff',
-                            ],
-                        ],
-                        'icon' => [
-                            'field_icon' => [
-                                'type'  => 'icon',
-                                'label'  => __( 'Change Icon', 'directorist' ),
-                                'value' => 'la la-bolt',
-                            ],
-                            'icon_color' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Icon Color', 'directorist' ),
-                                'value'         => '#ffffff',
-                            ],
-                            'icon_background' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#2C99FF',
-                            ],
-                        ],
-                    ]
                 ],
 
                 'popular_badge'     => [
@@ -1573,49 +1487,6 @@ class Builder_Data {
                     'label' => __( 'Popular', 'directorist' ),
                     'icon'  => 'la la-fire',
                     'hook'  => 'atbdp_popular_badge',
-                    'options' => [
-                        'type' => [
-                            'type'    => 'radio',
-                            'name'    => 'atbdp_featured_badge_type',
-                            'label'   => __( 'Badge Style', 'directorist' ),
-                            'value'   => 'icon',
-                            'options' => [
-                                ['id' => 'atbdp_featured_badge_text', 'label' => __( 'Text Style', 'directorist' ), 'value' => 'text'],
-                                ['id' => 'atbdp_featured_badge_icon', 'label' => __( 'Icon Style', 'directorist' ), 'value' => 'icon'],
-                            ],
-                        ],
-                    ],
-                    'fields' => [
-                        'text' => [
-                            'text_color' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Text Color', 'directorist' ),
-                                'value'         => '#141921',
-                            ],
-                            'text_background' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#ffffff',
-                            ],
-                        ],
-                        'icon' => [
-                            'field_icon' => [
-                                'type'  => 'icon',
-                                'label'  => __( 'Change Icon', 'directorist' ),
-                                'value' => 'la la-fire',
-                            ],
-                            'icon_color' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Icon Color', 'directorist' ),
-                                'value'         => '#ffffff',
-                            ],
-                            'icon_background' => [
-                                'type'          => 'color',
-                                'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#F80718',
-                            ],
-                        ],
-                    ]
                 ],
 
                 'favorite_badge'    => [
@@ -1623,21 +1494,6 @@ class Builder_Data {
                     'label' => __( 'Favorite', 'directorist' ),
                     'icon'  => 'la la-heart-o',
                     'hook'  => 'atbdp_favorite_badge',
-                    'options' => [
-                        'title'  => __( 'Favorite Badge Settings', 'directorist' ),
-                        'fields' => [
-                            'icon' => [
-                                'type'  => 'icon',
-                                'label' => __( 'Icon', 'directorist' ),
-                                'value' => 'la la-heart-o',
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Favorite',
-                            ],
-                        ],
-                    ],
                 ],
 
                 'view_count'        => [

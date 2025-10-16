@@ -21095,11 +21095,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         },
         body: {
           top: {
-            label: "Top",
+            label: "Body Top",
             selectedWidgets: []
           },
           bottom: {
-            label: "Bottom",
+            label: "Body Bottom",
             selectedWidgets: []
           }
         },

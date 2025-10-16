@@ -618,7 +618,6 @@ $light-gray: #f4f5f7;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-weight: 500;
     font-size: 15px !important;
 
     &:hover {
@@ -998,7 +997,6 @@ $light-gray: #f4f5f7;
           color: $primary;
           background: transparent;
           svg path {
-            fill: $primary;
             stroke: $primary;
           }
           &:before {
@@ -1374,6 +1372,7 @@ $light-gray: #f4f5f7;
       }
       .cptm-form-group {
         flex: 1;
+        margin: 0;
       }
       .cptm-card-preview-widget {
         max-width: unset;
@@ -2191,7 +2190,8 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   transform: rotate(0);
 }
 
-.action-collapse-down span {
+.action-collapse-down span,
+.action-collapse-down span::before {
   transition: all ease-in-out 300ms;
   transform: rotate(180deg);
 }
@@ -2996,7 +2996,7 @@ input[type="radio"].cptm-radio {
     color: #4d5761;
     border-radius: 0 4px 4px 0;
     svg path {
-      fill: #4d5761;
+      stroke: #4d5761;
     }
     &:hover {
       background: #f9f9f9;
@@ -3011,7 +3011,7 @@ input[type="radio"].cptm-radio {
       width: 24px;
       height: 24px;
       path {
-        fill: #4d5761;
+        stroke: #4d5761;
       }
     }
   }
@@ -3020,12 +3020,12 @@ input[type="radio"].cptm-radio {
     background: #ffffff;
     .cptm-sub-nav__item-icon {
       svg path {
-        fill: #141921;
+        stroke: #141921;
       }
     }
     .cptm-sub-nav__item-tooltip {
       svg path {
-        fill: #141921;
+        stroke: #141921;
       }
     }
   }
@@ -3744,7 +3744,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-placeholder-block {
   position: relative;
-  padding: 12px;
+  padding: 8px;
   background: #a1a9b2;
   border: 1px dashed #d2d6db;
   transition: all ease-in-out 300ms;
@@ -3989,7 +3989,7 @@ input[type="radio"].cptm-radio {
         flex: 1;
       }
       .cptm-card-placeholder-top-right {
-        width: 117px;
+        width: 127px;
       }
     }
     .cptm-listing-card-preview-footer {
@@ -4431,6 +4431,9 @@ input[type="radio"].cptm-radio {
     .cptm-placeholder-block {
       min-height: 48px !important;
     }
+    .cptm-listing-card-preview-body-placeholder {
+      min-height: 160px !important;
+    }
   }
   .cptm-listing-card-preview-footer {
     display: flex;
@@ -4502,7 +4505,7 @@ input[type="radio"].cptm-radio {
       }
     }
     .cptm-listing-card-preview-top-right {
-      width: 117px;
+      width: 127px;
     }
   }
   .cptm-listing-card-preview-body {
@@ -5288,14 +5291,14 @@ input[type="radio"].cptm-radio {
   &::after {
     content: "";
     display: inline-block;
-    width: 30%;
-    height: calc(100% - 10px);
+    width: 14px;
+    height: calc(100% - 6px);
     background-color: #fff;
     border-radius: 50%;
     position: absolute;
     top: 0;
     left: 0;
-    margin: 5px;
+    margin: 3px 4px;
     transition: all ease-in-out 300ms;
   }
 
@@ -5304,7 +5307,7 @@ input[type="radio"].cptm-radio {
 
     &::after {
       left: 100%;
-      transform: translateX(calc(-100% - 10px));
+      transform: translateX(calc(-100% - 8px));
     }
   }
 }
@@ -6027,7 +6030,7 @@ input[type="radio"] {
       }
 
       &.listing-title-placeholder {
-        padding: 12px 16px;
+        padding: 13px 8px;
       }
     }
 
@@ -6097,7 +6100,7 @@ input[type="radio"] {
     .draggable-item {
       display: flex;
       gap: 20px;
-      align-items: center;
+      align-items: flex-start;
       flex-direction: row;
       margin-right: 8px;
 
@@ -6109,6 +6112,7 @@ input[type="radio"] {
         height: 20px;
         font-size: 20px;
         color: #747c89;
+        margin-top: 15px;
         background: transparent;
         transition: all ease 0.3s;
         cursor: move;
@@ -6560,6 +6564,7 @@ input[type="radio"] {
 .cptm-elements-settings {
   width: 100%;
   max-width: 372px;
+  padding: 0 20px;
   overflow-y: auto;
   scrollbar-width: 6px;
   border-right: 1px solid #e5e7eb;
@@ -6572,7 +6577,7 @@ input[type="radio"] {
     gap: 20px;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 24px 0;
+    padding: 18px 0 8px;
     @include e(title) {
       font-size: 16px;
       line-height: 24px;
@@ -6581,11 +6586,8 @@ input[type="radio"] {
       margin: 0;
     }
   }
-  @include e(content) {
-    margin-top: -8px;
-  }
   @include e(group) {
-    padding: 20px;
+    padding: 20px 0;
     border-bottom: 1px solid #e5e7eb;
     .dndrop-draggable-wrapper {
       position: relative;
@@ -6602,7 +6604,6 @@ input[type="radio"] {
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.48px;
-      text-transform: uppercase;
       color: #747c89;
       margin-bottom: 15px;
     }

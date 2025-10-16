@@ -730,11 +730,11 @@ export default {
 
         body: {
           top: {
-            label: "Top",
+            label: "Body Top",
             selectedWidgets: [],
           },
           bottom: {
-            label: "Bottom",
+            label: "Body Bottom",
             selectedWidgets: [],
           },
         },

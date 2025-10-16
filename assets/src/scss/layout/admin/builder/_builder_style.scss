@@ -4699,7 +4699,7 @@ input[type="radio"].cptm-radio {
     gap: 8px;
     flex-direction: column;
     .cptm-widget-preview-card {
-      width: 100%;
+      justify-content: flex-end;
     }
   }
 

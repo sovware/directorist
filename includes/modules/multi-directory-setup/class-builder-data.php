@@ -2336,9 +2336,7 @@ class Builder_Data {
                     'value'           => [
                         'groups' => [
                             [
-                                'label'     => __( 'Basic Search Form', 'directorist' ),
-                                'icon_type' => 'svg',
-                                'icon' => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 17.5L13.875 13.875M9.16667 5C11.4679 5 13.3333 6.86548 13.3333 9.16667M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', 
+                                'label'     => __( 'Basic Search Form', 'directorist' ), 
                                 'lock'      => true,
                                 'draggable' => false,
                                 'type'      => 'general_group',
@@ -2346,8 +2344,6 @@ class Builder_Data {
                             ],
                             [
                                 'label'     => __( 'Advanced Search Form', 'directorist' ),
-                                'icon_type' => 'svg',
-                                'icon' => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.66602L12.5 6.66602M12.5 6.66602C12.5 8.04673 13.6193 9.16602 15 9.16602C16.3807 9.16602 17.5 8.04673 17.5 6.66602C17.5 5.2853 16.3807 4.16602 15 4.16602C13.6193 4.16602 12.5 5.2853 12.5 6.66602ZM7.5 13.3327L17.5 13.3327M7.5 13.3327C7.5 14.7134 6.38071 15.8327 5 15.8327C3.61929 15.8327 2.5 14.7134 2.5 13.3327C2.5 11.952 3.61929 10.8327 5 10.8327C6.38071 10.8327 7.5 11.952 7.5 13.3327Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', 
                                 'lock'      => true,
                                 'draggable' => false,
                                 'type'      => 'general_group',

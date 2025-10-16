@@ -1348,6 +1348,9 @@ $light-gray: #f4f5f7;
         background: #f3f4f6;
         border: 1px solid #f3f4f6;
         border-radius: 8px;
+        .tab-field {
+          margin: 0;
+        }
       }
       .cptm-card-top-area-content {
         display: flex;
@@ -1372,7 +1375,6 @@ $light-gray: #f4f5f7;
       }
       .cptm-form-group {
         flex: 1;
-        margin: 0;
       }
       .cptm-card-preview-widget {
         max-width: unset;
@@ -2184,14 +2186,14 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   }
 }
 
-.action-collapse-up span,
-.action-collapse-up span::before {
+.action-collapse-up span {
+  display: flex;
   transition: all ease-in-out 300ms;
   transform: rotate(0);
 }
 
-.action-collapse-down span,
-.action-collapse-down span::before {
+.action-collapse-down span {
+  display: flex;
   transition: all ease-in-out 300ms;
   transform: rotate(180deg);
 }

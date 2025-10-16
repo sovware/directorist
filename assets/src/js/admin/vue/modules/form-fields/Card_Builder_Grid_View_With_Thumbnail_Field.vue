@@ -1002,6 +1002,11 @@ export default {
         return;
       }
 
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
 
@@ -1012,6 +1017,11 @@ export default {
         return;
       }
 
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
 

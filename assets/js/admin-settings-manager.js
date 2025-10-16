@@ -20636,6 +20636,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
     // Toggle Option Window
@@ -20644,6 +20650,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
     // Insert Widget
@@ -21205,6 +21217,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
     // Toggle Option Window
@@ -21213,6 +21231,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
     // Insert Widget
@@ -21756,6 +21780,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
     // Toggle Option Window
@@ -21764,6 +21794,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
     // Insert Widget
@@ -22241,6 +22277,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
     // Toggle Option Window
@@ -22249,6 +22291,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
     // Insert Widget
@@ -22741,6 +22789,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
     // Toggle Option Window
@@ -22749,6 +22803,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
     // Insert Widget
@@ -23259,6 +23319,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
     // Toggle Option Window
@@ -23267,6 +23333,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.active_option_widget_key = "";
         return;
       }
+
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
     // Insert Widget

@@ -57,13 +57,22 @@
               </div>
 
               <div class="cptm-card-preview-thumbnail-bg">
-                <svg width="100" height="80" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="100"
+                  height="80"
+                  viewBox="0 0 100 80"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <g opacity="0.2" clip-path="url(#clip0_9916_95736)">
-                    <path d="M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z" fill="#4D5761"/>
+                    <path
+                      d="M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z"
+                      fill="#4D5761"
+                    />
                   </g>
                   <defs>
                     <clipPath id="clip0_9916_95736">
-                      <rect width="100" height="80" fill="white"/>
+                      <rect width="100" height="80" fill="white" />
                     </clipPath>
                   </defs>
                 </svg>
@@ -780,6 +789,11 @@ export default {
         return;
       }
 
+      // Close all other modals before opening insert window
+      this.active_option_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the insert window
       this.active_insert_widget_key = current_item_key;
     },
 
@@ -790,6 +804,11 @@ export default {
         return;
       }
 
+      // Close all other modals before opening option window
+      this.active_insert_widget_key = "";
+      this.closeWidgetOptionsWindow();
+
+      // Open the option window
       this.active_option_widget_key = current_item_key;
     },
 

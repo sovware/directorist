@@ -2208,7 +2208,7 @@ if ( ! function_exists( 'tract_duplicate_review' ) ) {
 }
 
 function search_category_location_filter( $settings, $taxonomy_id, $prefix = '' ) {
-    $lazy_load_taxonomy_fields = get_directorist_option( 'lazy_load_taxonomy_fields', false, true );
+    $lazy_load_taxonomy_fields = false;
 
     if ( ! empty( $lazy_load_taxonomy_fields ) ) {
         return '';

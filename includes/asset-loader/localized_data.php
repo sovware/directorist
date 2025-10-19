@@ -127,7 +127,7 @@ class Localized_Data {
             'currentDate'                     => get_the_date(),
             'enable_reviewer_content'         => $enable_reviewer_content,
             'add_listing_data'                => self::get_add_listings_data(),
-            'lazy_load_taxonomy_fields'       => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
+            'lazy_load_taxonomy_fields'       => false,
             'current_page_id'                 => get_the_ID(),
             'icon_markup'                     => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
             'search_form_default_label'       => __( 'Label', 'directorist' ),

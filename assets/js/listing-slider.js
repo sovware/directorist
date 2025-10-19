@@ -381,6 +381,7 @@
 						spaceBetween: 10,
 						loop: true,
 						freeMode: true,
+						watchSlidesProgress: true,
 						navigation: {
 							nextEl: '.directorist-swiper__nav--next-single-listing-thumb',
 							prevEl: '.directorist-swiper__nav--prev-single-listing-thumb',
@@ -392,23 +393,24 @@
 						},
 						breakpoints: {
 							0: {
-								slidesPerView: 1,
-								spaceBetween: 0,
+								slidesPerView: 3,
+								spaceBetween: 5,
 							},
 							480: {
-								slidesPerView: 2,
+								slidesPerView: 4,
+								spaceBetween: 8,
 							},
-							767: {
-								slidesPerView: 3,
+							768: {
+								slidesPerView: 4,
+								spaceBetween: 10,
+							},
+							1024: {
+								slidesPerView: 5,
+								spaceBetween: 10,
 							},
 							1200: {
-								slidesPerView: 4,
-							},
-							1440: {
-								slidesPerView: 5,
-							},
-							1600: {
 								slidesPerView: 6,
+								spaceBetween: 10,
 							},
 						},
 					}

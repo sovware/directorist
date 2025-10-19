@@ -3345,9 +3345,653 @@
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/core/esm/__chunks/2CHYBBFH.js':
+		/***/ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js':
 			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/2CHYBBFH.js ***!
+  !*** ./node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js ***!
+  \*************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ canUseDOM: function () {
+							return /* binding */ canUseDOM;
+						},
+						/* harmony export */ contains: function () {
+							return /* binding */ contains;
+						},
+						/* harmony export */ getActiveElement: function () {
+							return /* binding */ getActiveElement;
+						},
+						/* harmony export */ getDocument: function () {
+							return /* binding */ getDocument;
+						},
+						/* harmony export */ getPopupItemRole: function () {
+							return /* binding */ getPopupItemRole;
+						},
+						/* harmony export */ getPopupRole: function () {
+							return /* binding */ getPopupRole;
+						},
+						/* harmony export */ getScrollingElement: function () {
+							return /* binding */ getScrollingElement;
+						},
+						/* harmony export */ getTextboxSelection: function () {
+							return /* binding */ getTextboxSelection;
+						},
+						/* harmony export */ getTextboxValue: function () {
+							return /* binding */ getTextboxValue;
+						},
+						/* harmony export */ getWindow: function () {
+							return /* binding */ getWindow;
+						},
+						/* harmony export */ isButton: function () {
+							return /* binding */ isButton;
+						},
+						/* harmony export */ isFrame: function () {
+							return /* binding */ isFrame;
+						},
+						/* harmony export */ isPartiallyHidden: function () {
+							return /* binding */ isPartiallyHidden;
+						},
+						/* harmony export */ isTextField: function () {
+							return /* binding */ isTextField;
+						},
+						/* harmony export */ isTextbox: function () {
+							return /* binding */ isTextbox;
+						},
+						/* harmony export */ isVisible: function () {
+							return /* binding */ isVisible;
+						},
+						/* harmony export */ scrollIntoViewIfNeeded:
+							function () {
+								return /* binding */ scrollIntoViewIfNeeded;
+							},
+						/* harmony export */ setSelectionRange: function () {
+							return /* binding */ setSelectionRange;
+						},
+						/* harmony export */ sortBasedOnDOMPosition:
+							function () {
+								return /* binding */ sortBasedOnDOMPosition;
+							},
+						/* harmony export */
+					}
+				);
+				('use client');
+
+				// src/utils/dom.ts
+				var canUseDOM = checkIsBrowser();
+				function checkIsBrowser() {
+					var _a;
+					return (
+						typeof window !== 'undefined' &&
+						!!((_a = window.document) == null
+							? void 0
+							: _a.createElement)
+					);
+				}
+				function getDocument(node) {
+					if (!node) return document;
+					if ('self' in node) return node.document;
+					return node.ownerDocument || document;
+				}
+				function getWindow(node) {
+					if (!node) return self;
+					if ('self' in node) return node.self;
+					return getDocument(node).defaultView || window;
+				}
+				function getActiveElement(node, activeDescendant = false) {
+					const { activeElement } = getDocument(node);
+					if (
+						!(activeElement == null
+							? void 0
+							: activeElement.nodeName)
+					) {
+						return null;
+					}
+					if (
+						isFrame(activeElement) &&
+						activeElement.contentDocument
+					) {
+						return getActiveElement(
+							activeElement.contentDocument.body,
+							activeDescendant
+						);
+					}
+					if (activeDescendant) {
+						const id = activeElement.getAttribute(
+							'aria-activedescendant'
+						);
+						if (id) {
+							const element =
+								getDocument(activeElement).getElementById(id);
+							if (element) {
+								return element;
+							}
+						}
+					}
+					return activeElement;
+				}
+				function contains(parent, child) {
+					return parent === child || parent.contains(child);
+				}
+				function isFrame(element) {
+					return element.tagName === 'IFRAME';
+				}
+				function isButton(element) {
+					const tagName = element.tagName.toLowerCase();
+					if (tagName === 'button') return true;
+					if (tagName === 'input' && element.type) {
+						return buttonInputTypes.indexOf(element.type) !== -1;
+					}
+					return false;
+				}
+				var buttonInputTypes = [
+					'button',
+					'color',
+					'file',
+					'image',
+					'reset',
+					'submit',
+				];
+				function isVisible(element) {
+					if (typeof element.checkVisibility === 'function') {
+						return element.checkVisibility();
+					}
+					const htmlElement = element;
+					return (
+						htmlElement.offsetWidth > 0 ||
+						htmlElement.offsetHeight > 0 ||
+						element.getClientRects().length > 0
+					);
+				}
+				function isTextField(element) {
+					try {
+						const isTextInput =
+							element instanceof HTMLInputElement &&
+							element.selectionStart !== null;
+						const isTextArea = element.tagName === 'TEXTAREA';
+						return isTextInput || isTextArea || false;
+					} catch (_error) {
+						return false;
+					}
+				}
+				function isTextbox(element) {
+					return element.isContentEditable || isTextField(element);
+				}
+				function getTextboxValue(element) {
+					if (isTextField(element)) {
+						return element.value;
+					}
+					if (element.isContentEditable) {
+						const range = getDocument(element).createRange();
+						range.selectNodeContents(element);
+						return range.toString();
+					}
+					return '';
+				}
+				function getTextboxSelection(element) {
+					let start = 0;
+					let end = 0;
+					if (isTextField(element)) {
+						start = element.selectionStart || 0;
+						end = element.selectionEnd || 0;
+					} else if (element.isContentEditable) {
+						const selection = getDocument(element).getSelection();
+						if (
+							(selection == null
+								? void 0
+								: selection.rangeCount) &&
+							selection.anchorNode &&
+							contains(element, selection.anchorNode) &&
+							selection.focusNode &&
+							contains(element, selection.focusNode)
+						) {
+							const range = selection.getRangeAt(0);
+							const nextRange = range.cloneRange();
+							nextRange.selectNodeContents(element);
+							nextRange.setEnd(
+								range.startContainer,
+								range.startOffset
+							);
+							start = nextRange.toString().length;
+							nextRange.setEnd(
+								range.endContainer,
+								range.endOffset
+							);
+							end = nextRange.toString().length;
+						}
+					}
+					return { start, end };
+				}
+				function getPopupRole(element, fallback) {
+					const allowedPopupRoles = [
+						'dialog',
+						'menu',
+						'listbox',
+						'tree',
+						'grid',
+					];
+					const role =
+						element == null ? void 0 : element.getAttribute('role');
+					if (role && allowedPopupRoles.indexOf(role) !== -1) {
+						return role;
+					}
+					return fallback;
+				}
+				function getPopupItemRole(element, fallback) {
+					var _a;
+					const itemRoleByPopupRole = {
+						menu: 'menuitem',
+						listbox: 'option',
+						tree: 'treeitem',
+					};
+					const popupRole = getPopupRole(element);
+					if (!popupRole) return fallback;
+					const key = popupRole;
+					return (_a = itemRoleByPopupRole[key]) != null
+						? _a
+						: fallback;
+				}
+				function scrollIntoViewIfNeeded(element, arg) {
+					if (
+						isPartiallyHidden(element) &&
+						'scrollIntoView' in element
+					) {
+						element.scrollIntoView(arg);
+					}
+				}
+				function getScrollingElement(element) {
+					if (!element) return null;
+					const isScrollableOverflow = (overflow) => {
+						if (overflow === 'auto') return true;
+						if (overflow === 'scroll') return true;
+						return false;
+					};
+					if (
+						element.clientHeight &&
+						element.scrollHeight > element.clientHeight
+					) {
+						const { overflowY } = getComputedStyle(element);
+						if (isScrollableOverflow(overflowY)) return element;
+					} else if (
+						element.clientWidth &&
+						element.scrollWidth > element.clientWidth
+					) {
+						const { overflowX } = getComputedStyle(element);
+						if (isScrollableOverflow(overflowX)) return element;
+					}
+					return (
+						getScrollingElement(element.parentElement) ||
+						document.scrollingElement ||
+						document.body
+					);
+				}
+				function isPartiallyHidden(element) {
+					const elementRect = element.getBoundingClientRect();
+					const scroller = getScrollingElement(element);
+					if (!scroller) return false;
+					const scrollerRect = scroller.getBoundingClientRect();
+					const isHTML = scroller.tagName === 'HTML';
+					const scrollerTop = isHTML
+						? scrollerRect.top + scroller.scrollTop
+						: scrollerRect.top;
+					const scrollerBottom = isHTML
+						? scroller.clientHeight
+						: scrollerRect.bottom;
+					const scrollerLeft = isHTML
+						? scrollerRect.left + scroller.scrollLeft
+						: scrollerRect.left;
+					const scrollerRight = isHTML
+						? scroller.clientWidth
+						: scrollerRect.right;
+					const top = elementRect.top < scrollerTop;
+					const left = elementRect.left < scrollerLeft;
+					const bottom = elementRect.bottom > scrollerBottom;
+					const right = elementRect.right > scrollerRight;
+					return top || left || bottom || right;
+				}
+				function setSelectionRange(element, ...args) {
+					if (/text|search|password|tel|url/i.test(element.type)) {
+						element.setSelectionRange(...args);
+					}
+				}
+				function sortBasedOnDOMPosition(items, getElement) {
+					const pairs = items.map((item, index) => [index, item]);
+					let isOrderDifferent = false;
+					pairs.sort(([indexA, a], [indexB, b]) => {
+						const elementA = getElement(a);
+						const elementB = getElement(b);
+						if (elementA === elementB) return 0;
+						if (!elementA || !elementB) return 0;
+						if (isElementPreceding(elementA, elementB)) {
+							if (indexA > indexB) {
+								isOrderDifferent = true;
+							}
+							return -1;
+						}
+						if (indexA < indexB) {
+							isOrderDifferent = true;
+						}
+						return 1;
+					});
+					if (isOrderDifferent) {
+						return pairs.map(([_, item]) => item);
+					}
+					return items;
+				}
+				function isElementPreceding(a, b) {
+					return Boolean(
+						b.compareDocumentPosition(a) &
+							Node.DOCUMENT_POSITION_PRECEDING
+					);
+				}
+
+				/***/
+			},
+
+		/***/ './node_modules/@ariakit/core/esm/__chunks/3YLGPPWQ.js':
+			/*!*************************************************************!*\
+  !*** ./node_modules/@ariakit/core/esm/__chunks/3YLGPPWQ.js ***!
+  \*************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ __objRest: function () {
+							return /* binding */ __objRest;
+						},
+						/* harmony export */ __spreadProps: function () {
+							return /* binding */ __spreadProps;
+						},
+						/* harmony export */ __spreadValues: function () {
+							return /* binding */ __spreadValues;
+						},
+						/* harmony export */
+					}
+				);
+				('use client');
+				var __defProp = Object.defineProperty;
+				var __defProps = Object.defineProperties;
+				var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+				var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+				var __hasOwnProp = Object.prototype.hasOwnProperty;
+				var __propIsEnum = Object.prototype.propertyIsEnumerable;
+				var __defNormalProp = (obj, key, value) =>
+					key in obj
+						? __defProp(obj, key, {
+								enumerable: true,
+								configurable: true,
+								writable: true,
+								value,
+							})
+						: (obj[key] = value);
+				var __spreadValues = (a, b) => {
+					for (var prop in b || (b = {}))
+						if (__hasOwnProp.call(b, prop))
+							__defNormalProp(a, prop, b[prop]);
+					if (__getOwnPropSymbols)
+						for (var prop of __getOwnPropSymbols(b)) {
+							if (__propIsEnum.call(b, prop))
+								__defNormalProp(a, prop, b[prop]);
+						}
+					return a;
+				};
+				var __spreadProps = (a, b) =>
+					__defProps(a, __getOwnPropDescs(b));
+				var __objRest = (source, exclude) => {
+					var target = {};
+					for (var prop in source)
+						if (
+							__hasOwnProp.call(source, prop) &&
+							exclude.indexOf(prop) < 0
+						)
+							target[prop] = source[prop];
+					if (source != null && __getOwnPropSymbols)
+						for (var prop of __getOwnPropSymbols(source)) {
+							if (
+								exclude.indexOf(prop) < 0 &&
+								__propIsEnum.call(source, prop)
+							)
+								target[prop] = source[prop];
+						}
+					return target;
+				};
+
+				/***/
+			},
+
+		/***/ './node_modules/@ariakit/core/esm/__chunks/43IPP2F4.js':
+			/*!*************************************************************!*\
+  !*** ./node_modules/@ariakit/core/esm/__chunks/43IPP2F4.js ***!
+  \*************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ createDisclosureStore:
+							function () {
+								return /* binding */ createDisclosureStore;
+							},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ./EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
+					);
+				/* harmony import */ var _PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./PBFD2E7P.js */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
+					);
+				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/core/esm/__chunks/3YLGPPWQ.js'
+					);
+				('use client');
+
+				// src/disclosure/disclosure-store.ts
+				function createDisclosureStore(props = {}) {
+					const store = (0,
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.mergeStore)(
+						props.store,
+						(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.omit)(
+							props.disclosure,
+							['contentElement', 'disclosureElement']
+						)
+					);
+					(0,
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.throwOnConflictingProps)(
+						props,
+						store
+					);
+					const syncState = store == null ? void 0 : store.getState();
+					const open = (0,
+					_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
+						props.open,
+						syncState == null ? void 0 : syncState.open,
+						props.defaultOpen,
+						false
+					);
+					const animated = (0,
+					_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
+						props.animated,
+						syncState == null ? void 0 : syncState.animated,
+						false
+					);
+					const initialState = {
+						open,
+						animated,
+						animating: !!animated && open,
+						mounted: open,
+						contentElement: (0,
+						_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
+							syncState == null
+								? void 0
+								: syncState.contentElement,
+							null
+						),
+						disclosureElement: (0,
+						_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
+							syncState == null
+								? void 0
+								: syncState.disclosureElement,
+							null
+						),
+					};
+					const disclosure = (0,
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.createStore)(
+						initialState,
+						store
+					);
+					(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.setup)(
+						disclosure,
+						() =>
+							(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.sync)(
+								disclosure,
+								['animated', 'animating'],
+								(state) => {
+									if (state.animated) return;
+									disclosure.setState('animating', false);
+								}
+							)
+					);
+					(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.setup)(
+						disclosure,
+						() =>
+							(0,
+							_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.subscribe)(
+								disclosure,
+								['open'],
+								() => {
+									if (!disclosure.getState().animated) return;
+									disclosure.setState('animating', true);
+								}
+							)
+					);
+					(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.setup)(
+						disclosure,
+						() =>
+							(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.sync)(
+								disclosure,
+								['open', 'animating'],
+								(state) => {
+									disclosure.setState(
+										'mounted',
+										state.open || state.animating
+									);
+								}
+							)
+					);
+					return (0,
+					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_2__.__spreadProps)(
+						(0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_2__.__spreadValues)(
+							{},
+							disclosure
+						),
+						{
+							disclosure: props.disclosure,
+							setOpen: (value) =>
+								disclosure.setState('open', value),
+							show: () => disclosure.setState('open', true),
+							hide: () => disclosure.setState('open', false),
+							toggle: () =>
+								disclosure.setState('open', (open2) => !open2),
+							stopAnimation: () =>
+								disclosure.setState('animating', false),
+							setContentElement: (value) =>
+								disclosure.setState('contentElement', value),
+							setDisclosureElement: (value) =>
+								disclosure.setState('disclosureElement', value),
+						}
+					);
+				}
+
+				/***/
+			},
+
+		/***/ './node_modules/@ariakit/core/esm/__chunks/7PRQYBBV.js':
+			/*!*************************************************************!*\
+  !*** ./node_modules/@ariakit/core/esm/__chunks/7PRQYBBV.js ***!
+  \*************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ addItemToArray: function () {
+							return /* binding */ addItemToArray;
+						},
+						/* harmony export */ flatten2DArray: function () {
+							return /* binding */ flatten2DArray;
+						},
+						/* harmony export */ reverseArray: function () {
+							return /* binding */ reverseArray;
+						},
+						/* harmony export */ toArray: function () {
+							return /* binding */ toArray;
+						},
+						/* harmony export */
+					}
+				);
+				('use client');
+
+				// src/utils/array.ts
+				function toArray(arg) {
+					if (Array.isArray(arg)) {
+						return arg;
+					}
+					return typeof arg !== 'undefined' ? [arg] : [];
+				}
+				function addItemToArray(array, item, index = -1) {
+					if (!(index in array)) {
+						return [...array, item];
+					}
+					return [
+						...array.slice(0, index),
+						item,
+						...array.slice(index),
+					];
+				}
+				function flatten2DArray(array) {
+					const flattened = [];
+					for (const row of array) {
+						flattened.push(...row);
+					}
+					return flattened;
+				}
+				function reverseArray(array) {
+					return array.slice().reverse();
+				}
+
+				/***/
+			},
+
+		/***/ './node_modules/@ariakit/core/esm/__chunks/C34RJTDU.js':
+			/*!*************************************************************!*\
+  !*** ./node_modules/@ariakit/core/esm/__chunks/C34RJTDU.js ***!
   \*************************************************************/
 			/***/ function (
 				__unused_webpack___webpack_module__,
@@ -3369,13 +4013,13 @@
 					__webpack_require__(
 						/*! ./7PRQYBBV.js */ './node_modules/@ariakit/core/esm/__chunks/7PRQYBBV.js'
 					);
-				/* harmony import */ var _EO4GVUA4_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _K2KIGYQU_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ./EO4GVUA4.js */ './node_modules/@ariakit/core/esm/__chunks/EO4GVUA4.js'
+						/*! ./K2KIGYQU.js */ './node_modules/@ariakit/core/esm/__chunks/K2KIGYQU.js'
 					);
-				/* harmony import */ var _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! ./BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ./EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
@@ -3519,7 +4163,7 @@
 					const syncState =
 						(_a = props.store) == null ? void 0 : _a.getState();
 					const collection = (0,
-					_EO4GVUA4_js__WEBPACK_IMPORTED_MODULE_1__.createCollectionStore)(
+					_K2KIGYQU_js__WEBPACK_IMPORTED_MODULE_1__.createCollectionStore)(
 						props
 					);
 					const activeId = (0,
@@ -3612,15 +4256,15 @@
 						}
 					);
 					const composite = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.createStore)(
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.createStore)(
 						initialState,
 						collection,
 						props.store
 					);
-					(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						composite,
 						() =>
-							(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+							(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 								composite,
 								['renderedItems', 'activeId'],
 								(state) => {
@@ -3860,148 +4504,9 @@
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/core/esm/__chunks/3YLGPPWQ.js':
+		/***/ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js':
 			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/3YLGPPWQ.js ***!
-  \*************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ __objRest: function () {
-							return /* binding */ __objRest;
-						},
-						/* harmony export */ __spreadProps: function () {
-							return /* binding */ __spreadProps;
-						},
-						/* harmony export */ __spreadValues: function () {
-							return /* binding */ __spreadValues;
-						},
-						/* harmony export */
-					}
-				);
-				('use client');
-				var __defProp = Object.defineProperty;
-				var __defProps = Object.defineProperties;
-				var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-				var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-				var __hasOwnProp = Object.prototype.hasOwnProperty;
-				var __propIsEnum = Object.prototype.propertyIsEnumerable;
-				var __defNormalProp = (obj, key, value) =>
-					key in obj
-						? __defProp(obj, key, {
-								enumerable: true,
-								configurable: true,
-								writable: true,
-								value,
-							})
-						: (obj[key] = value);
-				var __spreadValues = (a, b) => {
-					for (var prop in b || (b = {}))
-						if (__hasOwnProp.call(b, prop))
-							__defNormalProp(a, prop, b[prop]);
-					if (__getOwnPropSymbols)
-						for (var prop of __getOwnPropSymbols(b)) {
-							if (__propIsEnum.call(b, prop))
-								__defNormalProp(a, prop, b[prop]);
-						}
-					return a;
-				};
-				var __spreadProps = (a, b) =>
-					__defProps(a, __getOwnPropDescs(b));
-				var __objRest = (source, exclude) => {
-					var target = {};
-					for (var prop in source)
-						if (
-							__hasOwnProp.call(source, prop) &&
-							exclude.indexOf(prop) < 0
-						)
-							target[prop] = source[prop];
-					if (source != null && __getOwnPropSymbols)
-						for (var prop of __getOwnPropSymbols(source)) {
-							if (
-								exclude.indexOf(prop) < 0 &&
-								__propIsEnum.call(source, prop)
-							)
-								target[prop] = source[prop];
-						}
-					return target;
-				};
-
-				/***/
-			},
-
-		/***/ './node_modules/@ariakit/core/esm/__chunks/7PRQYBBV.js':
-			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/7PRQYBBV.js ***!
-  \*************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ addItemToArray: function () {
-							return /* binding */ addItemToArray;
-						},
-						/* harmony export */ flatten2DArray: function () {
-							return /* binding */ flatten2DArray;
-						},
-						/* harmony export */ reverseArray: function () {
-							return /* binding */ reverseArray;
-						},
-						/* harmony export */ toArray: function () {
-							return /* binding */ toArray;
-						},
-						/* harmony export */
-					}
-				);
-				('use client');
-
-				// src/utils/array.ts
-				function toArray(arg) {
-					if (Array.isArray(arg)) {
-						return arg;
-					}
-					return typeof arg !== 'undefined' ? [arg] : [];
-				}
-				function addItemToArray(array, item, index = -1) {
-					if (!(index in array)) {
-						return [...array, item];
-					}
-					return [
-						...array.slice(0, index),
-						item,
-						...array.slice(index),
-					];
-				}
-				function flatten2DArray(array) {
-					const flattened = [];
-					for (const row of array) {
-						flattened.push(...row);
-					}
-					return flattened;
-				}
-				function reverseArray(array) {
-					return array.slice().reverse();
-				}
-
-				/***/
-			},
-
-		/***/ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js':
-			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js ***!
+  !*** ./node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js ***!
   \*************************************************************/
 			/***/ function (
 				__unused_webpack___webpack_module__,
@@ -4295,16 +4800,18 @@
 					return getInternal(store, 'pick')(...args);
 				}
 				function mergeStore(...stores) {
-					const initialState = stores.reduce((state, store2) => {
-						var _a;
+					var _a;
+					const initialState = {};
+					for (const store2 of stores) {
 						const nextState =
 							(_a = store2 == null ? void 0 : store2.getState) ==
 							null
 								? void 0
 								: _a.call(store2);
-						if (!nextState) return state;
-						return Object.assign(state, nextState);
-					}, {});
+						if (nextState) {
+							Object.assign(initialState, nextState);
+						}
+					}
 					const store = createStore(initialState, ...stores);
 					return Object.assign({}, ...stores, store);
 				}
@@ -4355,358 +4862,9 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js':
+		/***/ './node_modules/@ariakit/core/esm/__chunks/K2KIGYQU.js':
 			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js ***!
-  \*************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ canUseDOM: function () {
-							return /* binding */ canUseDOM;
-						},
-						/* harmony export */ contains: function () {
-							return /* binding */ contains;
-						},
-						/* harmony export */ getActiveElement: function () {
-							return /* binding */ getActiveElement;
-						},
-						/* harmony export */ getDocument: function () {
-							return /* binding */ getDocument;
-						},
-						/* harmony export */ getPopupItemRole: function () {
-							return /* binding */ getPopupItemRole;
-						},
-						/* harmony export */ getPopupRole: function () {
-							return /* binding */ getPopupRole;
-						},
-						/* harmony export */ getScrollingElement: function () {
-							return /* binding */ getScrollingElement;
-						},
-						/* harmony export */ getTextboxSelection: function () {
-							return /* binding */ getTextboxSelection;
-						},
-						/* harmony export */ getTextboxValue: function () {
-							return /* binding */ getTextboxValue;
-						},
-						/* harmony export */ getWindow: function () {
-							return /* binding */ getWindow;
-						},
-						/* harmony export */ isButton: function () {
-							return /* binding */ isButton;
-						},
-						/* harmony export */ isFrame: function () {
-							return /* binding */ isFrame;
-						},
-						/* harmony export */ isPartiallyHidden: function () {
-							return /* binding */ isPartiallyHidden;
-						},
-						/* harmony export */ isTextField: function () {
-							return /* binding */ isTextField;
-						},
-						/* harmony export */ isTextbox: function () {
-							return /* binding */ isTextbox;
-						},
-						/* harmony export */ isVisible: function () {
-							return /* binding */ isVisible;
-						},
-						/* harmony export */ scrollIntoViewIfNeeded:
-							function () {
-								return /* binding */ scrollIntoViewIfNeeded;
-							},
-						/* harmony export */ setSelectionRange: function () {
-							return /* binding */ setSelectionRange;
-						},
-						/* harmony export */ sortBasedOnDOMPosition:
-							function () {
-								return /* binding */ sortBasedOnDOMPosition;
-							},
-						/* harmony export */
-					}
-				);
-				('use client');
-
-				// src/utils/dom.ts
-				var canUseDOM = checkIsBrowser();
-				function checkIsBrowser() {
-					var _a;
-					return (
-						typeof window !== 'undefined' &&
-						!!((_a = window.document) == null
-							? void 0
-							: _a.createElement)
-					);
-				}
-				function getDocument(node) {
-					if (!node) return document;
-					if ('self' in node) return node.document;
-					return node.ownerDocument || document;
-				}
-				function getWindow(node) {
-					if (!node) return self;
-					if ('self' in node) return node.self;
-					return getDocument(node).defaultView || window;
-				}
-				function getActiveElement(node, activeDescendant = false) {
-					const { activeElement } = getDocument(node);
-					if (
-						!(activeElement == null
-							? void 0
-							: activeElement.nodeName)
-					) {
-						return null;
-					}
-					if (
-						isFrame(activeElement) &&
-						activeElement.contentDocument
-					) {
-						return getActiveElement(
-							activeElement.contentDocument.body,
-							activeDescendant
-						);
-					}
-					if (activeDescendant) {
-						const id = activeElement.getAttribute(
-							'aria-activedescendant'
-						);
-						if (id) {
-							const element =
-								getDocument(activeElement).getElementById(id);
-							if (element) {
-								return element;
-							}
-						}
-					}
-					return activeElement;
-				}
-				function contains(parent, child) {
-					return parent === child || parent.contains(child);
-				}
-				function isFrame(element) {
-					return element.tagName === 'IFRAME';
-				}
-				function isButton(element) {
-					const tagName = element.tagName.toLowerCase();
-					if (tagName === 'button') return true;
-					if (tagName === 'input' && element.type) {
-						return buttonInputTypes.indexOf(element.type) !== -1;
-					}
-					return false;
-				}
-				var buttonInputTypes = [
-					'button',
-					'color',
-					'file',
-					'image',
-					'reset',
-					'submit',
-				];
-				function isVisible(element) {
-					if (typeof element.checkVisibility === 'function') {
-						return element.checkVisibility();
-					}
-					const htmlElement = element;
-					return (
-						htmlElement.offsetWidth > 0 ||
-						htmlElement.offsetHeight > 0 ||
-						element.getClientRects().length > 0
-					);
-				}
-				function isTextField(element) {
-					try {
-						const isTextInput =
-							element instanceof HTMLInputElement &&
-							element.selectionStart !== null;
-						const isTextArea = element.tagName === 'TEXTAREA';
-						return isTextInput || isTextArea || false;
-					} catch (error) {
-						return false;
-					}
-				}
-				function isTextbox(element) {
-					return element.isContentEditable || isTextField(element);
-				}
-				function getTextboxValue(element) {
-					if (isTextField(element)) {
-						return element.value;
-					}
-					if (element.isContentEditable) {
-						const range = getDocument(element).createRange();
-						range.selectNodeContents(element);
-						return range.toString();
-					}
-					return '';
-				}
-				function getTextboxSelection(element) {
-					let start = 0;
-					let end = 0;
-					if (isTextField(element)) {
-						start = element.selectionStart || 0;
-						end = element.selectionEnd || 0;
-					} else if (element.isContentEditable) {
-						const selection = getDocument(element).getSelection();
-						if (
-							(selection == null
-								? void 0
-								: selection.rangeCount) &&
-							selection.anchorNode &&
-							contains(element, selection.anchorNode) &&
-							selection.focusNode &&
-							contains(element, selection.focusNode)
-						) {
-							const range = selection.getRangeAt(0);
-							const nextRange = range.cloneRange();
-							nextRange.selectNodeContents(element);
-							nextRange.setEnd(
-								range.startContainer,
-								range.startOffset
-							);
-							start = nextRange.toString().length;
-							nextRange.setEnd(
-								range.endContainer,
-								range.endOffset
-							);
-							end = nextRange.toString().length;
-						}
-					}
-					return { start, end };
-				}
-				function getPopupRole(element, fallback) {
-					const allowedPopupRoles = [
-						'dialog',
-						'menu',
-						'listbox',
-						'tree',
-						'grid',
-					];
-					const role =
-						element == null ? void 0 : element.getAttribute('role');
-					if (role && allowedPopupRoles.indexOf(role) !== -1) {
-						return role;
-					}
-					return fallback;
-				}
-				function getPopupItemRole(element, fallback) {
-					var _a;
-					const itemRoleByPopupRole = {
-						menu: 'menuitem',
-						listbox: 'option',
-						tree: 'treeitem',
-					};
-					const popupRole = getPopupRole(element);
-					if (!popupRole) return fallback;
-					const key = popupRole;
-					return (_a = itemRoleByPopupRole[key]) != null
-						? _a
-						: fallback;
-				}
-				function scrollIntoViewIfNeeded(element, arg) {
-					if (
-						isPartiallyHidden(element) &&
-						'scrollIntoView' in element
-					) {
-						element.scrollIntoView(arg);
-					}
-				}
-				function getScrollingElement(element) {
-					if (!element) return null;
-					const isScrollableOverflow = (overflow) => {
-						if (overflow === 'auto') return true;
-						if (overflow === 'scroll') return true;
-						return false;
-					};
-					if (
-						element.clientHeight &&
-						element.scrollHeight > element.clientHeight
-					) {
-						const { overflowY } = getComputedStyle(element);
-						if (isScrollableOverflow(overflowY)) return element;
-					} else if (
-						element.clientWidth &&
-						element.scrollWidth > element.clientWidth
-					) {
-						const { overflowX } = getComputedStyle(element);
-						if (isScrollableOverflow(overflowX)) return element;
-					}
-					return (
-						getScrollingElement(element.parentElement) ||
-						document.scrollingElement ||
-						document.body
-					);
-				}
-				function isPartiallyHidden(element) {
-					const elementRect = element.getBoundingClientRect();
-					const scroller = getScrollingElement(element);
-					if (!scroller) return false;
-					const scrollerRect = scroller.getBoundingClientRect();
-					const isHTML = scroller.tagName === 'HTML';
-					const scrollerTop = isHTML
-						? scrollerRect.top + scroller.scrollTop
-						: scrollerRect.top;
-					const scrollerBottom = isHTML
-						? scroller.clientHeight
-						: scrollerRect.bottom;
-					const scrollerLeft = isHTML
-						? scrollerRect.left + scroller.scrollLeft
-						: scrollerRect.left;
-					const scrollerRight = isHTML
-						? scroller.clientWidth
-						: scrollerRect.right;
-					const top = elementRect.top < scrollerTop;
-					const left = elementRect.left < scrollerLeft;
-					const bottom = elementRect.bottom > scrollerBottom;
-					const right = elementRect.right > scrollerRight;
-					return top || left || bottom || right;
-				}
-				function setSelectionRange(element, ...args) {
-					if (/text|search|password|tel|url/i.test(element.type)) {
-						element.setSelectionRange(...args);
-					}
-				}
-				function sortBasedOnDOMPosition(items, getElement) {
-					const pairs = items.map((item, index) => [index, item]);
-					let isOrderDifferent = false;
-					pairs.sort(([indexA, a], [indexB, b]) => {
-						const elementA = getElement(a);
-						const elementB = getElement(b);
-						if (elementA === elementB) return 0;
-						if (!elementA || !elementB) return 0;
-						if (isElementPreceding(elementA, elementB)) {
-							if (indexA > indexB) {
-								isOrderDifferent = true;
-							}
-							return -1;
-						}
-						if (indexA < indexB) {
-							isOrderDifferent = true;
-						}
-						return 1;
-					});
-					if (isOrderDifferent) {
-						return pairs.map(([_, item]) => item);
-					}
-					return items;
-				}
-				function isElementPreceding(a, b) {
-					return Boolean(
-						b.compareDocumentPosition(a) &
-							Node.DOCUMENT_POSITION_PRECEDING
-					);
-				}
-
-				/***/
-			},
-
-		/***/ './node_modules/@ariakit/core/esm/__chunks/EO4GVUA4.js':
-			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/EO4GVUA4.js ***!
+  !*** ./node_modules/@ariakit/core/esm/__chunks/K2KIGYQU.js ***!
   \*************************************************************/
 			/***/ function (
 				__unused_webpack___webpack_module__,
@@ -4725,13 +4883,13 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ./DTR5TSDJ.js */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! ./37JWRFYW.js */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
-				/* harmony import */ var _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ./BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ./EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
@@ -4766,7 +4924,7 @@ If there's a particular need for this, please submit a feature request at https:
 						parentElement = parentElement.parentElement;
 					}
 					return (0,
-					_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.getDocument)(
+					_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.getDocument)(
 						parentElement
 					).body;
 				}
@@ -4778,7 +4936,7 @@ If there's a particular need for this, please submit a feature request at https:
 				function createCollectionStore(props = {}) {
 					var _a;
 					(0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.throwOnConflictingProps)(
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.throwOnConflictingProps)(
 						props,
 						props.store
 					);
@@ -4806,36 +4964,36 @@ If there's a particular need for this, please submit a feature request at https:
 					};
 					const syncPrivateStore = getPrivateStore(props.store);
 					const privateStore = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
 						{ items, renderedItems: initialState.renderedItems },
 						syncPrivateStore
 					);
 					const collection = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
 						initialState,
 						props.store
 					);
 					const sortItems = (renderedItems) => {
 						const sortedItems = (0,
-						_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.sortBasedOnDOMPosition)(
+						_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.sortBasedOnDOMPosition)(
 							renderedItems,
 							(i) => i.element
 						);
 						privateStore.setState('renderedItems', sortedItems);
 						collection.setState('renderedItems', sortedItems);
 					};
-					(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.setup)(
+					(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.setup)(
 						collection,
 						() =>
-							(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.init)(
+							(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.init)(
 								privateStore
 							)
 					);
-					(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.setup)(
+					(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.setup)(
 						privateStore,
 						() => {
 							return (0,
-							_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.batch)(
+							_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.batch)(
 								privateStore,
 								['items'],
 								(state) => {
@@ -4844,11 +5002,11 @@ If there's a particular need for this, please submit a feature request at https:
 							);
 						}
 					);
-					(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.setup)(
+					(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.setup)(
 						privateStore,
 						() => {
 							return (0,
-							_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.batch)(
+							_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.batch)(
 								privateStore,
 								['renderedItems'],
 								(state) => {
@@ -5001,175 +5159,9 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/core/esm/__chunks/FZZ2AVHF.js':
+		/***/ './node_modules/@ariakit/core/esm/__chunks/MD3RIO2T.js':
 			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/FZZ2AVHF.js ***!
-  \*************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ createDialogStore: function () {
-							return /* binding */ createDialogStore;
-						},
-						/* harmony export */
-					}
-				);
-				/* harmony import */ var _RCQ5P4YE_js__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! ./RCQ5P4YE.js */ './node_modules/@ariakit/core/esm/__chunks/RCQ5P4YE.js'
-					);
-				('use client');
-
-				// src/dialog/dialog-store.ts
-				function createDialogStore(props = {}) {
-					return (0,
-					_RCQ5P4YE_js__WEBPACK_IMPORTED_MODULE_0__.createDisclosureStore)(
-						props
-					);
-				}
-
-				/***/
-			},
-
-		/***/ './node_modules/@ariakit/core/esm/__chunks/JTLIIJ4U.js':
-			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/JTLIIJ4U.js ***!
-  \*************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ createHovercardStore: function () {
-							return /* binding */ createHovercardStore;
-						},
-						/* harmony export */
-					}
-				);
-				/* harmony import */ var _ME2CUF3F_js__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! ./ME2CUF3F.js */ './node_modules/@ariakit/core/esm/__chunks/ME2CUF3F.js'
-					);
-				/* harmony import */ var _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
-					);
-				/* harmony import */ var _PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! ./PBFD2E7P.js */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
-					);
-				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__ =
-					__webpack_require__(
-						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/core/esm/__chunks/3YLGPPWQ.js'
-					);
-				('use client');
-
-				// src/hovercard/hovercard-store.ts
-				function createHovercardStore(props = {}) {
-					var _a;
-					const syncState =
-						(_a = props.store) == null ? void 0 : _a.getState();
-					const popover = (0,
-					_ME2CUF3F_js__WEBPACK_IMPORTED_MODULE_0__.createPopoverStore)(
-						(0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
-								{},
-								props
-							),
-							{
-								placement: (0,
-								_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
-									props.placement,
-									syncState == null
-										? void 0
-										: syncState.placement,
-									'bottom'
-								),
-							}
-						)
-					);
-					const timeout = (0,
-					_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
-						props.timeout,
-						syncState == null ? void 0 : syncState.timeout,
-						500
-					);
-					const initialState = (0,
-					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
-						(0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
-							{},
-							popover.getState()
-						),
-						{
-							timeout,
-							showTimeout: (0,
-							_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
-								props.showTimeout,
-								syncState == null
-									? void 0
-									: syncState.showTimeout
-							),
-							hideTimeout: (0,
-							_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
-								props.hideTimeout,
-								syncState == null
-									? void 0
-									: syncState.hideTimeout
-							),
-							autoFocusOnShow: (0,
-							_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
-								syncState == null
-									? void 0
-									: syncState.autoFocusOnShow,
-								false
-							),
-						}
-					);
-					const hovercard = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
-						initialState,
-						popover,
-						props.store
-					);
-					return (0,
-					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
-						(0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
-								{},
-								popover
-							),
-							hovercard
-						),
-						{
-							setAutoFocusOnShow: (value) =>
-								hovercard.setState('autoFocusOnShow', value),
-						}
-					);
-				}
-
-				/***/
-			},
-
-		/***/ './node_modules/@ariakit/core/esm/__chunks/ME2CUF3F.js':
-			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/ME2CUF3F.js ***!
+  !*** ./node_modules/@ariakit/core/esm/__chunks/MD3RIO2T.js ***!
   \*************************************************************/
 			/***/ function (
 				__unused_webpack___webpack_module__,
@@ -5187,13 +5179,13 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _FZZ2AVHF_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _RZDDWCDV_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ./FZZ2AVHF.js */ './node_modules/@ariakit/core/esm/__chunks/FZZ2AVHF.js'
+						/*! ./RZDDWCDV.js */ './node_modules/@ariakit/core/esm/__chunks/RZDDWCDV.js'
 					);
-				/* harmony import */ var _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ./BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ./EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
@@ -5215,9 +5207,9 @@ If there's a particular need for this, please submit a feature request at https:
 							['popover']
 						);
 					const store = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.mergeStore)(
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.mergeStore)(
 						props.store,
-						(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.omit)(
+						(0, _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.omit)(
 							otherPopover,
 							[
 								'arrowElement',
@@ -5229,13 +5221,13 @@ If there's a particular need for this, please submit a feature request at https:
 						)
 					);
 					(0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.throwOnConflictingProps)(
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.throwOnConflictingProps)(
 						props,
 						store
 					);
 					const syncState = store == null ? void 0 : store.getState();
 					const dialog = (0,
-					_FZZ2AVHF_js__WEBPACK_IMPORTED_MODULE_0__.createDialogStore)(
+					_RZDDWCDV_js__WEBPACK_IMPORTED_MODULE_0__.createDialogStore)(
 						(0,
 						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
 							(0,
@@ -5287,7 +5279,7 @@ If there's a particular need for this, please submit a feature request at https:
 						}
 					);
 					const popover = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
 						initialState,
 						dialog,
 						store
@@ -5316,6 +5308,80 @@ If there's a particular need for this, please submit a feature request at https:
 									Symbol('rendered')
 								),
 						}
+					);
+				}
+
+				/***/
+			},
+
+		/***/ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js':
+			/*!*************************************************************!*\
+  !*** ./node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js ***!
+  \*************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ isApple: function () {
+							return /* binding */ isApple;
+						},
+						/* harmony export */ isFirefox: function () {
+							return /* binding */ isFirefox;
+						},
+						/* harmony export */ isMac: function () {
+							return /* binding */ isMac;
+						},
+						/* harmony export */ isSafari: function () {
+							return /* binding */ isSafari;
+						},
+						/* harmony export */ isTouchDevice: function () {
+							return /* binding */ isTouchDevice;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var _37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ./37JWRFYW.js */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
+					);
+				('use client');
+
+				// src/utils/platform.ts
+				function isTouchDevice() {
+					return (
+						_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
+						!!navigator.maxTouchPoints
+					);
+				}
+				function isApple() {
+					if (!_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM)
+						return false;
+					return /mac|iphone|ipad|ipod/i.test(navigator.platform);
+				}
+				function isSafari() {
+					return (
+						_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
+						isApple() &&
+						/apple/i.test(navigator.vendor)
+					);
+				}
+				function isFirefox() {
+					return (
+						_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
+						/firefox\//i.test(navigator.userAgent)
+					);
+				}
+				function isMac() {
+					return (
+						_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
+						navigator.platform.startsWith('Mac') &&
+						!isTouchDevice()
 					);
 				}
 
@@ -5559,9 +5625,9 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js':
+		/***/ './node_modules/@ariakit/core/esm/__chunks/RZDDWCDV.js':
 			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js ***!
+  !*** ./node_modules/@ariakit/core/esm/__chunks/RZDDWCDV.js ***!
   \*************************************************************/
 			/***/ function (
 				__unused_webpack___webpack_module__,
@@ -5573,69 +5639,32 @@ If there's a particular need for this, please submit a feature request at https:
 				/* harmony export */ __webpack_require__.d(
 					__webpack_exports__,
 					{
-						/* harmony export */ isApple: function () {
-							return /* binding */ isApple;
-						},
-						/* harmony export */ isFirefox: function () {
-							return /* binding */ isFirefox;
-						},
-						/* harmony export */ isMac: function () {
-							return /* binding */ isMac;
-						},
-						/* harmony export */ isSafari: function () {
-							return /* binding */ isSafari;
-						},
-						/* harmony export */ isTouchDevice: function () {
-							return /* binding */ isTouchDevice;
+						/* harmony export */ createDialogStore: function () {
+							return /* binding */ createDialogStore;
 						},
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _43IPP2F4_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ./DTR5TSDJ.js */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! ./43IPP2F4.js */ './node_modules/@ariakit/core/esm/__chunks/43IPP2F4.js'
 					);
 				('use client');
 
-				// src/utils/platform.ts
-				function isTouchDevice() {
-					return (
-						_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
-						!!navigator.maxTouchPoints
-					);
-				}
-				function isApple() {
-					if (!_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM)
-						return false;
-					return /mac|iphone|ipad|ipod/i.test(navigator.platform);
-				}
-				function isSafari() {
-					return (
-						_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
-						isApple() &&
-						/apple/i.test(navigator.vendor)
-					);
-				}
-				function isFirefox() {
-					return (
-						_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
-						/firefox\//i.test(navigator.userAgent)
-					);
-				}
-				function isMac() {
-					return (
-						_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.canUseDOM &&
-						navigator.platform.startsWith('Mac') &&
-						!isTouchDevice()
+				// src/dialog/dialog-store.ts
+				function createDialogStore(props = {}) {
+					return (0,
+					_43IPP2F4_js__WEBPACK_IMPORTED_MODULE_0__.createDisclosureStore)(
+						props
 					);
 				}
 
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/core/esm/__chunks/RCQ5P4YE.js':
+		/***/ './node_modules/@ariakit/core/esm/__chunks/X2ASWIQW.js':
 			/*!*************************************************************!*\
-  !*** ./node_modules/@ariakit/core/esm/__chunks/RCQ5P4YE.js ***!
+  !*** ./node_modules/@ariakit/core/esm/__chunks/X2ASWIQW.js ***!
   \*************************************************************/
 			/***/ function (
 				__unused_webpack___webpack_module__,
@@ -5647,141 +5676,114 @@ If there's a particular need for this, please submit a feature request at https:
 				/* harmony export */ __webpack_require__.d(
 					__webpack_exports__,
 					{
-						/* harmony export */ createDisclosureStore:
-							function () {
-								return /* binding */ createDisclosureStore;
-							},
+						/* harmony export */ createHovercardStore: function () {
+							return /* binding */ createHovercardStore;
+						},
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _MD3RIO2T_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ./BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ./MD3RIO2T.js */ './node_modules/@ariakit/core/esm/__chunks/MD3RIO2T.js'
 					);
-				/* harmony import */ var _PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
+					);
+				/* harmony import */ var _PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! ./PBFD2E7P.js */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
 					);
-				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/core/esm/__chunks/3YLGPPWQ.js'
 					);
 				('use client');
 
-				// src/disclosure/disclosure-store.ts
-				function createDisclosureStore(props = {}) {
-					const store = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.mergeStore)(
-						props.store,
-						(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.omit)(
-							props.disclosure,
-							['contentElement', 'disclosureElement']
+				// src/hovercard/hovercard-store.ts
+				function createHovercardStore(props = {}) {
+					var _a;
+					const syncState =
+						(_a = props.store) == null ? void 0 : _a.getState();
+					const popover = (0,
+					_MD3RIO2T_js__WEBPACK_IMPORTED_MODULE_0__.createPopoverStore)(
+						(0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
+								{},
+								props
+							),
+							{
+								placement: (0,
+								_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
+									props.placement,
+									syncState == null
+										? void 0
+										: syncState.placement,
+									'bottom'
+								),
+							}
 						)
 					);
-					(0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.throwOnConflictingProps)(
-						props,
-						store
+					const timeout = (0,
+					_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
+						props.timeout,
+						syncState == null ? void 0 : syncState.timeout,
+						500
 					);
-					const syncState = store == null ? void 0 : store.getState();
-					const open = (0,
-					_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
-						props.open,
-						syncState == null ? void 0 : syncState.open,
-						props.defaultOpen,
-						false
-					);
-					const animated = (0,
-					_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
-						props.animated,
-						syncState == null ? void 0 : syncState.animated,
-						false
-					);
-					const initialState = {
-						open,
-						animated,
-						animating: !!animated && open,
-						mounted: open,
-						contentElement: (0,
-						_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
-							syncState == null
-								? void 0
-								: syncState.contentElement,
-							null
-						),
-						disclosureElement: (0,
-						_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__.defaultValue)(
-							syncState == null
-								? void 0
-								: syncState.disclosureElement,
-							null
-						),
-					};
-					const disclosure = (0,
-					_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.createStore)(
-						initialState,
-						store
-					);
-					(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.setup)(
-						disclosure,
-						() =>
-							(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.sync)(
-								disclosure,
-								['animated', 'animating'],
-								(state) => {
-									if (state.animated) return;
-									disclosure.setState('animating', false);
-								}
-							)
-					);
-					(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.setup)(
-						disclosure,
-						() =>
-							(0,
-							_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.subscribe)(
-								disclosure,
-								['open'],
-								() => {
-									if (!disclosure.getState().animated) return;
-									disclosure.setState('animating', true);
-								}
-							)
-					);
-					(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.setup)(
-						disclosure,
-						() =>
-							(0, _BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.sync)(
-								disclosure,
-								['open', 'animating'],
-								(state) => {
-									disclosure.setState(
-										'mounted',
-										state.open || state.animating
-									);
-								}
-							)
-					);
-					return (0,
-					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_2__.__spreadProps)(
+					const initialState = (0,
+					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
 						(0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_2__.__spreadValues)(
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
 							{},
-							disclosure
+							popover.getState()
 						),
 						{
-							disclosure: props.disclosure,
-							setOpen: (value) =>
-								disclosure.setState('open', value),
-							show: () => disclosure.setState('open', true),
-							hide: () => disclosure.setState('open', false),
-							toggle: () =>
-								disclosure.setState('open', (open2) => !open2),
-							stopAnimation: () =>
-								disclosure.setState('animating', false),
-							setContentElement: (value) =>
-								disclosure.setState('contentElement', value),
-							setDisclosureElement: (value) =>
-								disclosure.setState('disclosureElement', value),
+							timeout,
+							showTimeout: (0,
+							_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
+								props.showTimeout,
+								syncState == null
+									? void 0
+									: syncState.showTimeout
+							),
+							hideTimeout: (0,
+							_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
+								props.hideTimeout,
+								syncState == null
+									? void 0
+									: syncState.hideTimeout
+							),
+							autoFocusOnShow: (0,
+							_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__.defaultValue)(
+								syncState == null
+									? void 0
+									: syncState.autoFocusOnShow,
+								false
+							),
+						}
+					);
+					const hovercard = (0,
+					_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
+						initialState,
+						popover,
+						props.store
+					);
+					return (0,
+					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
+						(0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadValues)(
+								{},
+								popover
+							),
+							hovercard
+						),
+						{
+							setAutoFocusOnShow: (value) =>
+								hovercard.setState('autoFocusOnShow', value),
 						}
 					);
 				}
@@ -5809,9 +5811,9 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ../__chunks/EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
@@ -5827,7 +5829,7 @@ If there's a particular need for this, please submit a feature request at https:
 				function createCheckboxStore(props = {}) {
 					var _a;
 					(0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.throwOnConflictingProps)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.throwOnConflictingProps)(
 						props,
 						props.store
 					);
@@ -5843,7 +5845,7 @@ If there's a particular need for this, please submit a feature request at https:
 						),
 					};
 					const checkbox = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_0__.createStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_0__.createStore)(
 						initialState,
 						props.store
 					);
@@ -5884,21 +5886,21 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_QAGXQEUG_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_O6E4ZWCP_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/QAGXQEUG.js */ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js'
+						/*! ../__chunks/O6E4ZWCP.js */ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js'
 					);
-				/* harmony import */ var _chunks_ME2CUF3F_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_MD3RIO2T_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/ME2CUF3F.js */ './node_modules/@ariakit/core/esm/__chunks/ME2CUF3F.js'
+						/*! ../__chunks/MD3RIO2T.js */ './node_modules/@ariakit/core/esm/__chunks/MD3RIO2T.js'
 					);
-				/* harmony import */ var _chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! ../__chunks/2CHYBBFH.js */ './node_modules/@ariakit/core/esm/__chunks/2CHYBBFH.js'
+						/*! ../__chunks/C34RJTDU.js */ './node_modules/@ariakit/core/esm/__chunks/C34RJTDU.js'
 					);
-				/* harmony import */ var _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
-						/*! ../__chunks/BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ../__chunks/EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
@@ -5913,9 +5915,9 @@ If there's a particular need for this, please submit a feature request at https:
 				// src/combobox/combobox-store.ts
 				var isTouchSafari =
 					(0,
-					_chunks_QAGXQEUG_js__WEBPACK_IMPORTED_MODULE_0__.isSafari)() &&
+					_chunks_O6E4ZWCP_js__WEBPACK_IMPORTED_MODULE_0__.isSafari)() &&
 					(0,
-					_chunks_QAGXQEUG_js__WEBPACK_IMPORTED_MODULE_0__.isTouchDevice)();
+					_chunks_O6E4ZWCP_js__WEBPACK_IMPORTED_MODULE_0__.isTouchDevice)();
 				function createComboboxStore(_a = {}) {
 					var _b = _a,
 						{ tag } = _b,
@@ -5925,16 +5927,16 @@ If there's a particular need for this, please submit a feature request at https:
 							['tag']
 						);
 					const store = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.mergeStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.mergeStore)(
 						props.store,
 						(0,
-						_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.pick)(
+						_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.pick)(
 							tag,
 							['value', 'rtl']
 						)
 					);
 					(0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.throwOnConflictingProps)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.throwOnConflictingProps)(
 						props,
 						store
 					);
@@ -5948,7 +5950,7 @@ If there's a particular need for this, please submit a feature request at https:
 						null
 					);
 					const composite = (0,
-					_chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_2__.createCompositeStore)(
+					_chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_2__.createCompositeStore)(
 						(0,
 						_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_5__.__spreadProps)(
 							(0,
@@ -6002,7 +6004,7 @@ If there's a particular need for this, please submit a feature request at https:
 						)
 					);
 					const popover = (0,
-					_chunks_ME2CUF3F_js__WEBPACK_IMPORTED_MODULE_1__.createPopoverStore)(
+					_chunks_MD3RIO2T_js__WEBPACK_IMPORTED_MODULE_1__.createPopoverStore)(
 						(0,
 						_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_5__.__spreadProps)(
 							(0,
@@ -6075,7 +6077,7 @@ If there's a particular need for this, please submit a feature request at https:
 						}
 					);
 					const combobox = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.createStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.createStore)(
 						initialState,
 						composite,
 						popover,
@@ -6083,11 +6085,11 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 					if (isTouchSafari) {
 						(0,
-						_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
+						_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
 							combobox,
 							() =>
 								(0,
-								_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
+								_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
 									combobox,
 									['virtualFocus'],
 									() => {
@@ -6099,14 +6101,14 @@ If there's a particular need for this, please submit a feature request at https:
 								)
 						);
 					}
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
 						combobox,
 						() => {
 							if (!tag) return;
 							return (0,
 							_chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_4__.chain)(
 								(0,
-								_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
+								_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
 									combobox,
 									['selectedValue'],
 									(state) => {
@@ -6116,7 +6118,7 @@ If there's a particular need for this, please submit a feature request at https:
 									}
 								),
 								(0,
-								_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
+								_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
 									tag,
 									['values'],
 									(state) => {
@@ -6129,11 +6131,11 @@ If there's a particular need for this, please submit a feature request at https:
 							);
 						}
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
 						combobox,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
 								combobox,
 								['resetValueOnHide', 'mounted'],
 								(state) => {
@@ -6143,11 +6145,11 @@ If there's a particular need for this, please submit a feature request at https:
 								}
 							)
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
 						combobox,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
 								combobox,
 								['open'],
 								(state) => {
@@ -6157,11 +6159,11 @@ If there's a particular need for this, please submit a feature request at https:
 								}
 							)
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
 						combobox,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.sync)(
 								combobox,
 								['moves', 'activeId'],
 								(state, prevState) => {
@@ -6174,11 +6176,11 @@ If there's a particular need for this, please submit a feature request at https:
 								}
 							)
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.setup)(
 						combobox,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_3__.batch)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_3__.batch)(
 								combobox,
 								['moves', 'renderedItems'],
 								(state, prev) => {
@@ -6249,17 +6251,17 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_JTLIIJ4U_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_X2ASWIQW_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/JTLIIJ4U.js */ './node_modules/@ariakit/core/esm/__chunks/JTLIIJ4U.js'
+						/*! ../__chunks/X2ASWIQW.js */ './node_modules/@ariakit/core/esm/__chunks/X2ASWIQW.js'
 					);
-				/* harmony import */ var _chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/2CHYBBFH.js */ './node_modules/@ariakit/core/esm/__chunks/2CHYBBFH.js'
+						/*! ../__chunks/C34RJTDU.js */ './node_modules/@ariakit/core/esm/__chunks/C34RJTDU.js'
 					);
-				/* harmony import */ var _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! ../__chunks/BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ../__chunks/EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
@@ -6282,15 +6284,15 @@ If there's a particular need for this, please submit a feature request at https:
 						);
 					const parentIsMenubar = !!menubar && !parent;
 					const store = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.mergeStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.mergeStore)(
 						props.store,
 						(0,
-						_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.pick)(
+						_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.pick)(
 							parent,
 							['values']
 						),
 						(0,
-						_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.omit)(
+						_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.omit)(
 							combobox,
 							[
 								'arrowElement',
@@ -6302,13 +6304,13 @@ If there's a particular need for this, please submit a feature request at https:
 						)
 					);
 					(0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.throwOnConflictingProps)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.throwOnConflictingProps)(
 						props,
 						store
 					);
 					const syncState = store.getState();
 					const composite = (0,
-					_chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_1__.createCompositeStore)(
+					_chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_1__.createCompositeStore)(
 						(0,
 						_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
 							(0,
@@ -6328,7 +6330,7 @@ If there's a particular need for this, please submit a feature request at https:
 						)
 					);
 					const hovercard = (0,
-					_chunks_JTLIIJ4U_js__WEBPACK_IMPORTED_MODULE_0__.createHovercardStore)(
+					_chunks_X2ASWIQW_js__WEBPACK_IMPORTED_MODULE_0__.createHovercardStore)(
 						(0,
 						_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
 							(0,
@@ -6386,17 +6388,17 @@ If there's a particular need for this, please submit a feature request at https:
 						}
 					);
 					const menu = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.createStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.createStore)(
 						initialState,
 						composite,
 						hovercard,
 						store
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						menu,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 								menu,
 								['mounted'],
 								(state) => {
@@ -6405,11 +6407,11 @@ If there's a particular need for this, please submit a feature request at https:
 								}
 							)
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						menu,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 								parent,
 								['orientation'],
 								(state) => {
@@ -6503,13 +6505,13 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/2CHYBBFH.js */ './node_modules/@ariakit/core/esm/__chunks/2CHYBBFH.js'
+						/*! ../__chunks/C34RJTDU.js */ './node_modules/@ariakit/core/esm/__chunks/C34RJTDU.js'
 					);
-				/* harmony import */ var _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ../__chunks/EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
@@ -6532,7 +6534,7 @@ If there's a particular need for this, please submit a feature request at https:
 					const syncState =
 						(_a2 = props.store) == null ? void 0 : _a2.getState();
 					const composite = (0,
-					_chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_0__.createCompositeStore)(
+					_chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_0__.createCompositeStore)(
 						(0,
 						_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
 							(0,
@@ -6570,7 +6572,7 @@ If there's a particular need for this, please submit a feature request at https:
 						}
 					);
 					const radio = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
 						initialState,
 						composite,
 						props.store
@@ -6615,17 +6617,17 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/2CHYBBFH.js */ './node_modules/@ariakit/core/esm/__chunks/2CHYBBFH.js'
+						/*! ../__chunks/C34RJTDU.js */ './node_modules/@ariakit/core/esm/__chunks/C34RJTDU.js'
 					);
-				/* harmony import */ var _chunks_EO4GVUA4_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_K2KIGYQU_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/EO4GVUA4.js */ './node_modules/@ariakit/core/esm/__chunks/EO4GVUA4.js'
+						/*! ../__chunks/K2KIGYQU.js */ './node_modules/@ariakit/core/esm/__chunks/K2KIGYQU.js'
 					);
-				/* harmony import */ var _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! ../__chunks/BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ../__chunks/EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
@@ -6659,22 +6661,22 @@ If there's a particular need for this, please submit a feature request at https:
 						'focusWrap',
 					];
 					const store = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.mergeStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.mergeStore)(
 						props.store,
 						(0,
-						_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.omit)(
+						_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.omit)(
 							parentComposite,
 							independentKeys
 						),
 						(0,
-						_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.omit)(
+						_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.omit)(
 							combobox,
 							independentKeys
 						)
 					);
 					const syncState = store == null ? void 0 : store.getState();
 					const composite = (0,
-					_chunks_2CHYBBFH_js__WEBPACK_IMPORTED_MODULE_0__.createCompositeStore)(
+					_chunks_C34RJTDU_js__WEBPACK_IMPORTED_MODULE_0__.createCompositeStore)(
 						(0,
 						_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
 							(0,
@@ -6716,7 +6718,7 @@ If there's a particular need for this, please submit a feature request at https:
 						)
 					);
 					const panels = (0,
-					_chunks_EO4GVUA4_js__WEBPACK_IMPORTED_MODULE_1__.createCollectionStore)();
+					_chunks_K2KIGYQU_js__WEBPACK_IMPORTED_MODULE_1__.createCollectionStore)();
 					const initialState = (0,
 					_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
 						(0,
@@ -6744,16 +6746,16 @@ If there's a particular need for this, please submit a feature request at https:
 						}
 					);
 					const tab = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.createStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.createStore)(
 						initialState,
 						composite,
 						store
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						tab,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 								tab,
 								['moves'],
 								() => {
@@ -6770,11 +6772,11 @@ If there's a particular need for this, please submit a feature request at https:
 							)
 					);
 					let syncActiveId = true;
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						tab,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.batch)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.batch)(
 								tab,
 								['selectedId'],
 								(state, prev) => {
@@ -6791,11 +6793,11 @@ If there's a particular need for this, please submit a feature request at https:
 								}
 							)
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						tab,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 								tab,
 								['selectedId', 'renderedItems'],
 								(state) => {
@@ -6824,18 +6826,18 @@ If there's a particular need for this, please submit a feature request at https:
 								}
 							)
 					);
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						tab,
 						() =>
 							(0,
-							_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+							_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 								tab,
 								['renderedItems'],
 								(state) => {
 									const tabs = state.renderedItems;
 									if (!tabs.length) return;
 									return (0,
-									_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+									_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 										panels,
 										['renderedItems'],
 										(state2) => {
@@ -6866,7 +6868,7 @@ If there's a particular need for this, please submit a feature request at https:
 							)
 					);
 					let selectedIdFromSelectedValue = null;
-					(0, _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
+					(0, _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.setup)(
 						tab,
 						() => {
 							const backupSelectedId = () => {
@@ -6887,13 +6889,13 @@ If there's a particular need for this, please submit a feature request at https:
 								return (0,
 								_chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_3__.chain)(
 									(0,
-									_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+									_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 										parentComposite,
 										['value'],
 										backupSelectedId
 									),
 									(0,
-									_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+									_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 										parentComposite,
 										['mounted'],
 										restoreSelectedId
@@ -6904,13 +6906,13 @@ If there's a particular need for this, please submit a feature request at https:
 							return (0,
 							_chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_3__.chain)(
 								(0,
-								_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+								_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 									combobox,
 									['selectedValue'],
 									backupSelectedId
 								),
 								(0,
-								_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
+								_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_2__.sync)(
 									combobox,
 									['mounted'],
 									restoreSelectedId
@@ -6964,13 +6966,13 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_JTLIIJ4U_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_X2ASWIQW_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/JTLIIJ4U.js */ './node_modules/@ariakit/core/esm/__chunks/JTLIIJ4U.js'
+						/*! ../__chunks/X2ASWIQW.js */ './node_modules/@ariakit/core/esm/__chunks/X2ASWIQW.js'
 					);
-				/* harmony import */ var _chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/BCALMBPZ.js */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! ../__chunks/EWA2WL6G.js */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var _chunks_PBFD2E7P_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
@@ -6997,7 +6999,7 @@ If there's a particular need for this, please submit a feature request at https:
 					const syncState =
 						(_a = props.store) == null ? void 0 : _a.getState();
 					const hovercard = (0,
-					_chunks_JTLIIJ4U_js__WEBPACK_IMPORTED_MODULE_0__.createHovercardStore)(
+					_chunks_X2ASWIQW_js__WEBPACK_IMPORTED_MODULE_0__.createHovercardStore)(
 						(0,
 						_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_3__.__spreadProps)(
 							(0,
@@ -7050,7 +7052,7 @@ If there's a particular need for this, please submit a feature request at https:
 						}
 					);
 					const tooltip = (0,
-					_chunks_BCALMBPZ_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
+					_chunks_EWA2WL6G_js__WEBPACK_IMPORTED_MODULE_1__.createStore)(
 						initialState,
 						hovercard,
 						props.store
@@ -7126,13 +7128,13 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_QAGXQEUG_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_O6E4ZWCP_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/QAGXQEUG.js */ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js'
+						/*! ../__chunks/O6E4ZWCP.js */ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js'
 					);
-				/* harmony import */ var _chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/DTR5TSDJ.js */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! ../__chunks/37JWRFYW.js */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
@@ -7145,7 +7147,7 @@ If there's a particular need for this, please submit a feature request at https:
 					return Boolean(
 						event.currentTarget &&
 							!(0,
-							_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_1__.contains)(
+							_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_1__.contains)(
 								event.currentTarget,
 								event.target
 							)
@@ -7158,7 +7160,7 @@ If there's a particular need for this, please submit a feature request at https:
 					const element = event.currentTarget;
 					if (!element) return false;
 					const isAppleDevice = (0,
-					_chunks_QAGXQEUG_js__WEBPACK_IMPORTED_MODULE_0__.isApple)();
+					_chunks_O6E4ZWCP_js__WEBPACK_IMPORTED_MODULE_0__.isApple)();
 					if (isAppleDevice && !event.metaKey) return false;
 					if (!isAppleDevice && !event.ctrlKey) return false;
 					const tagName = element.tagName.toLowerCase();
@@ -7233,7 +7235,7 @@ If there's a particular need for this, please submit a feature request at https:
 					return (
 						!relatedTarget ||
 						!(0,
-						_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_1__.contains)(
+						_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_1__.contains)(
 							containerElement,
 							relatedTarget
 						)
@@ -7402,9 +7404,9 @@ If there's a particular need for this, please submit a feature request at https:
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ../__chunks/DTR5TSDJ.js */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! ../__chunks/37JWRFYW.js */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
@@ -7426,7 +7428,7 @@ If there's a particular need for this, please submit a feature request at https:
 					if (!element.matches(selector)) return false;
 					if (
 						!(0,
-						_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.isVisible)(
+						_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.isVisible)(
 							element
 						)
 					)
@@ -7447,7 +7449,7 @@ If there's a particular need for this, please submit a feature request at https:
 					if (!radioGroup) return true;
 					if (!('length' in radioGroup)) return true;
 					const activeElement = (0,
-					_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
+					_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
 						element
 					);
 					if (!activeElement) return true;
@@ -7468,7 +7470,7 @@ If there's a particular need for this, please submit a feature request at https:
 					focusableElements.forEach((element, i) => {
 						if (
 							(0,
-							_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.isFrame)(
+							_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.isFrame)(
 								element
 							) &&
 							element.contentDocument
@@ -7511,7 +7513,7 @@ If there's a particular need for this, please submit a feature request at https:
 					tabbableElements.forEach((element, i) => {
 						if (
 							(0,
-							_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.isFrame)(
+							_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.isFrame)(
 								element
 							) &&
 							element.contentDocument
@@ -7582,7 +7584,7 @@ If there's a particular need for this, please submit a feature request at https:
 					fallbackToFocusable
 				) {
 					const activeElement = (0,
-					_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
+					_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
 						container
 					);
 					const allFocusable = getAllFocusableIn(
@@ -7619,7 +7621,7 @@ If there's a particular need for this, please submit a feature request at https:
 					fallbackToFocusable
 				) {
 					const activeElement = (0,
-					_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
+					_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
 						container
 					);
 					const allFocusable = getAllFocusableIn(
@@ -7660,7 +7662,7 @@ If there's a particular need for this, please submit a feature request at https:
 				}
 				function hasFocus(element) {
 					const activeElement = (0,
-					_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
+					_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
 						element
 					);
 					if (!activeElement) return false;
@@ -7673,13 +7675,13 @@ If there's a particular need for this, please submit a feature request at https:
 				}
 				function hasFocusWithin(element) {
 					const activeElement = (0,
-					_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
+					_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.getActiveElement)(
 						element
 					);
 					if (!activeElement) return false;
 					if (
 						(0,
-						_chunks_DTR5TSDJ_js__WEBPACK_IMPORTED_MODULE_0__.contains)(
+						_chunks_37JWRFYW_js__WEBPACK_IMPORTED_MODULE_0__.contains)(
 							element,
 							activeElement
 						)
@@ -7796,7 +7798,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
@@ -7808,7 +7810,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js'
+						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ =
 					__webpack_require__(
@@ -8666,7 +8668,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
@@ -9196,7 +9198,7 @@ If there's a particular need for this, please submit a feature request at https:
 				);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				('use client');
 
@@ -9384,7 +9386,7 @@ If there's a particular need for this, please submit a feature request at https:
 				);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				('use client');
 
@@ -9418,6 +9420,575 @@ If there's a particular need for this, please submit a feature request at https:
 					};
 					return removeHiddenDismiss;
 				}
+
+				/***/
+			},
+
+		/***/ './node_modules/@ariakit/react-core/esm/__chunks/73HKIOBA.js':
+			/*!*******************************************************************!*\
+  !*** ./node_modules/@ariakit/react-core/esm/__chunks/73HKIOBA.js ***!
+  \*******************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ Hovercard: function () {
+							return /* binding */ Hovercard;
+						},
+						/* harmony export */ useHovercard: function () {
+							return /* binding */ useHovercard;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var _X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ./X7QOZUD3.js */ './node_modules/@ariakit/react-core/esm/__chunks/X7QOZUD3.js'
+					);
+				/* harmony import */ var _7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./7Z7JH52O.js */ './node_modules/@ariakit/react-core/esm/__chunks/7Z7JH52O.js'
+					);
+				/* harmony import */ var _OXP7NBTN_js__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ./OXP7NBTN.js */ './node_modules/@ariakit/react-core/esm/__chunks/OXP7NBTN.js'
+					);
+				/* harmony import */ var _NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ./NI3IVY7K.js */ './node_modules/@ariakit/react-core/esm/__chunks/NI3IVY7K.js'
+					);
+				/* harmony import */ var _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__ =
+					__webpack_require__(
+						/*! ./VOQWLFSQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/VOQWLFSQ.js'
+					);
+				/* harmony import */ var _5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__ =
+					__webpack_require__(
+						/*! ./5GGHRIN3.js */ './node_modules/@ariakit/react-core/esm/__chunks/5GGHRIN3.js'
+					);
+				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__ =
+					__webpack_require__(
+						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/3YLGPPWQ.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/events */ './node_modules/@ariakit/core/esm/utils/events.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_9__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/focus */ './node_modules/@ariakit/core/esm/utils/focus.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_11__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
+					);
+				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ =
+					__webpack_require__(
+						/*! react */ './node_modules/react/index.js'
+					);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ =
+					__webpack_require__(
+						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
+					);
+				('use client');
+
+				// src/hovercard/hovercard.tsx
+
+				var TagName = 'div';
+				function isMovingOnHovercard(target, card, anchor, nested) {
+					if (
+						(0,
+						_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_9__.hasFocusWithin)(
+							card
+						)
+					)
+						return true;
+					if (!target) return false;
+					if (
+						(0,
+						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__.contains)(
+							card,
+							target
+						)
+					)
+						return true;
+					if (
+						anchor &&
+						(0,
+						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__.contains)(
+							anchor,
+							target
+						)
+					)
+						return true;
+					if (
+						nested == null
+							? void 0
+							: nested.some((card2) =>
+									isMovingOnHovercard(target, card2, anchor)
+								)
+					) {
+						return true;
+					}
+					return false;
+				}
+				function useAutoFocusOnHide(_a) {
+					var _b = _a,
+						{ store } = _b,
+						props = (0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__objRest)(
+							_b,
+							['store']
+						);
+					const [autoFocusOnHide, setAutoFocusOnHide] = (0,
+					react__WEBPACK_IMPORTED_MODULE_12__.useState)(false);
+					const mounted = store.useState('mounted');
+					(0, react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
+						if (!mounted) {
+							setAutoFocusOnHide(false);
+						}
+					}, [mounted]);
+					const onFocusProp = props.onFocus;
+					const onFocus = (0,
+					_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(
+						(event) => {
+							onFocusProp == null ? void 0 : onFocusProp(event);
+							if (event.defaultPrevented) return;
+							setAutoFocusOnHide(true);
+						}
+					);
+					const finalFocusRef = (0,
+					react__WEBPACK_IMPORTED_MODULE_12__.useRef)(null);
+					(0, react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
+						return (0,
+						_ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_11__.sync)(
+							store,
+							['anchorElement'],
+							(state) => {
+								finalFocusRef.current = state.anchorElement;
+							}
+						);
+					}, []);
+					props = (0,
+					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadProps)(
+						(0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
+							{
+								autoFocusOnHide,
+								finalFocus: finalFocusRef,
+							},
+							props
+						),
+						{
+							onFocus,
+						}
+					);
+					return props;
+				}
+				var NestedHovercardContext = (0,
+				react__WEBPACK_IMPORTED_MODULE_12__.createContext)(null);
+				var useHovercard = (0,
+				_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__.createHook)(
+					function useHovercard2(_a) {
+						var _b = _a,
+							{
+								store,
+								modal = false,
+								portal = !!modal,
+								hideOnEscape = true,
+								hideOnHoverOutside = true,
+								disablePointerEventsOnApproach = !!hideOnHoverOutside,
+							} = _b,
+							props = (0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__objRest)(
+								_b,
+								[
+									'store',
+									'modal',
+									'portal',
+									'hideOnEscape',
+									'hideOnHoverOutside',
+									'disablePointerEventsOnApproach',
+								]
+							);
+						const context = (0,
+						_7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__.useHovercardProviderContext)();
+						store = store || context;
+						(0,
+						_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.invariant)(
+							store,
+							true &&
+								'Hovercard must receive a `store` prop or be wrapped in a HovercardProvider component.'
+						);
+						const ref = (0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useRef)(null);
+						const [nestedHovercards, setNestedHovercards] = (0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useState)([]);
+						const hideTimeoutRef = (0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useRef)(0);
+						const enterPointRef = (0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useRef)(null);
+						const { portalRef, domReady } = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.usePortalRef)(
+							portal,
+							props.portalRef
+						);
+						const isMouseMoving = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useIsMouseMoving)();
+						const mayHideOnHoverOutside = !!hideOnHoverOutside;
+						const hideOnHoverOutsideProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useBooleanEvent)(
+							hideOnHoverOutside
+						);
+						const mayDisablePointerEvents =
+							!!disablePointerEventsOnApproach;
+						const disablePointerEventsProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useBooleanEvent)(
+							disablePointerEventsOnApproach
+						);
+						const open = store.useState('open');
+						const mounted = store.useState('mounted');
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
+							if (!domReady) return;
+							if (!mounted) return;
+							if (
+								!mayHideOnHoverOutside &&
+								!mayDisablePointerEvents
+							)
+								return;
+							const element = ref.current;
+							if (!element) return;
+							const onMouseMove = (event) => {
+								if (!store) return;
+								if (!isMouseMoving()) return;
+								const { anchorElement, hideTimeout, timeout } =
+									store.getState();
+								const enterPoint = enterPointRef.current;
+								const [target] = event.composedPath();
+								const anchor = anchorElement;
+								if (
+									isMovingOnHovercard(
+										target,
+										element,
+										anchor,
+										nestedHovercards
+									)
+								) {
+									enterPointRef.current =
+										target &&
+										anchor &&
+										(0,
+										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__.contains)(
+											anchor,
+											target
+										)
+											? (0,
+												_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getEventPoint)(
+													event
+												)
+											: null;
+									window.clearTimeout(hideTimeoutRef.current);
+									hideTimeoutRef.current = 0;
+									return;
+								}
+								if (hideTimeoutRef.current) return;
+								if (enterPoint) {
+									const currentPoint = (0,
+									_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getEventPoint)(
+										event
+									);
+									const polygon = (0,
+									_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getElementPolygon)(
+										element,
+										enterPoint
+									);
+									if (
+										(0,
+										_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.isPointInPolygon)(
+											currentPoint,
+											polygon
+										)
+									) {
+										enterPointRef.current = currentPoint;
+										if (!disablePointerEventsProp(event))
+											return;
+										event.preventDefault();
+										event.stopPropagation();
+										return;
+									}
+								}
+								if (!hideOnHoverOutsideProp(event)) return;
+								hideTimeoutRef.current = window.setTimeout(
+									() => {
+										hideTimeoutRef.current = 0;
+										store == null ? void 0 : store.hide();
+									},
+									hideTimeout != null ? hideTimeout : timeout
+								);
+							};
+							return (0,
+							_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.chain)(
+								(0,
+								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
+									'mousemove',
+									onMouseMove,
+									true
+								),
+								() => clearTimeout(hideTimeoutRef.current)
+							);
+						}, [
+							store,
+							isMouseMoving,
+							domReady,
+							mounted,
+							mayHideOnHoverOutside,
+							mayDisablePointerEvents,
+							nestedHovercards,
+							disablePointerEventsProp,
+							hideOnHoverOutsideProp,
+						]);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
+							if (!domReady) return;
+							if (!mounted) return;
+							if (!mayDisablePointerEvents) return;
+							const disableEvent = (event) => {
+								const element = ref.current;
+								if (!element) return;
+								const enterPoint = enterPointRef.current;
+								if (!enterPoint) return;
+								const polygon = (0,
+								_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getElementPolygon)(
+									element,
+									enterPoint
+								);
+								if (
+									(0,
+									_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.isPointInPolygon)(
+										(0,
+										_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getEventPoint)(
+											event
+										),
+										polygon
+									)
+								) {
+									if (!disablePointerEventsProp(event))
+										return;
+									event.preventDefault();
+									event.stopPropagation();
+								}
+							};
+							return (0,
+							_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.chain)(
+								// Note: we may need to add pointer events here in the future.
+								(0,
+								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
+									'mouseenter',
+									disableEvent,
+									true
+								),
+								(0,
+								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
+									'mouseover',
+									disableEvent,
+									true
+								),
+								(0,
+								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
+									'mouseout',
+									disableEvent,
+									true
+								),
+								(0,
+								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
+									'mouseleave',
+									disableEvent,
+									true
+								)
+							);
+						}, [
+							domReady,
+							mounted,
+							mayDisablePointerEvents,
+							disablePointerEventsProp,
+						]);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
+							if (!domReady) return;
+							if (open) return;
+							store == null
+								? void 0
+								: store.setAutoFocusOnShow(false);
+						}, [store, domReady, open]);
+						const openRef = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useLiveRef)(
+							open
+						);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
+							if (!domReady) return;
+							return () => {
+								if (!openRef.current) {
+									store == null
+										? void 0
+										: store.setAutoFocusOnShow(false);
+								}
+							};
+						}, [store, domReady]);
+						const registerOnParent = (0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useContext)(
+							NestedHovercardContext
+						);
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useSafeLayoutEffect)(() => {
+							if (modal) return;
+							if (!portal) return;
+							if (!mounted) return;
+							if (!domReady) return;
+							const element = ref.current;
+							if (!element) return;
+							return registerOnParent == null
+								? void 0
+								: registerOnParent(element);
+						}, [modal, portal, mounted, domReady]);
+						const registerNestedHovercard = (0,
+						react__WEBPACK_IMPORTED_MODULE_12__.useCallback)(
+							(element) => {
+								setNestedHovercards((prevElements) => [
+									...prevElements,
+									element,
+								]);
+								const parentUnregister =
+									registerOnParent == null
+										? void 0
+										: registerOnParent(element);
+								return () => {
+									setNestedHovercards((prevElements) =>
+										prevElements.filter(
+											(item) => item !== element
+										)
+									);
+									parentUnregister == null
+										? void 0
+										: parentUnregister();
+								};
+							},
+							[registerOnParent]
+						);
+						props = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useWrapElement)(
+							props,
+							(element) =>
+								/* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(
+									_7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__.HovercardScopedContextProvider,
+									{
+										value: store,
+										children: /* @__PURE__ */ (0,
+										react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(
+											NestedHovercardContext.Provider,
+											{
+												value: registerNestedHovercard,
+												children: element,
+											}
+										),
+									}
+								),
+							[store, registerNestedHovercard]
+						);
+						props = (0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadProps)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
+								{},
+								props
+							),
+							{
+								ref: (0,
+								_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useMergeRefs)(
+									ref,
+									props.ref
+								),
+							}
+						);
+						props = useAutoFocusOnHide(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
+								{ store },
+								props
+							)
+						);
+						const autoFocusOnShow = store.useState(
+							(state) => modal || state.autoFocusOnShow
+						);
+						props = (0,
+						_OXP7NBTN_js__WEBPACK_IMPORTED_MODULE_2__.usePopover)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadProps)(
+								(0,
+								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
+									{
+										store,
+										modal,
+										portal,
+										autoFocusOnShow,
+									},
+									props
+								),
+								{
+									portalRef,
+									hideOnEscape(event) {
+										if (
+											(0,
+											_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.isFalsyBooleanCallback)(
+												hideOnEscape,
+												event
+											)
+										)
+											return false;
+										requestAnimationFrame(() => {
+											requestAnimationFrame(() => {
+												store == null
+													? void 0
+													: store.hide();
+											});
+										});
+										return true;
+									},
+								}
+							)
+						);
+						return props;
+					}
+				);
+				var Hovercard = (0,
+				_NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_3__.createDialogComponent)(
+					(0, _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__.forwardRef)(
+						function Hovercard2(props) {
+							const htmlProps = useHovercard(props);
+							return (0,
+							_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__.createElement)(
+								TagName,
+								htmlProps
+							);
+						}
+					),
+					_7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__.useHovercardProviderContext
+				);
 
 				/***/
 			},
@@ -9756,7 +10327,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_collection_collection_store__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! @ariakit/core/collection/collection-store */ './node_modules/@ariakit/core/esm/__chunks/EO4GVUA4.js'
+						/*! @ariakit/core/collection/collection-store */ './node_modules/@ariakit/core/esm/__chunks/K2KIGYQU.js'
 					);
 				('use client');
 
@@ -9856,7 +10427,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
@@ -10199,7 +10770,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_composite_composite_store__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
-						/*! @ariakit/core/composite/composite-store */ './node_modules/@ariakit/core/esm/__chunks/2CHYBBFH.js'
+						/*! @ariakit/core/composite/composite-store */ './node_modules/@ariakit/core/esm/__chunks/C34RJTDU.js'
 					);
 				('use client');
 
@@ -10473,7 +11044,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_8__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_9__ =
 					__webpack_require__(
@@ -10938,1562 +11509,6 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/react-core/esm/__chunks/C6DAL6ZN.js':
-			/*!*******************************************************************!*\
-  !*** ./node_modules/@ariakit/react-core/esm/__chunks/C6DAL6ZN.js ***!
-  \*******************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ Popover: function () {
-							return /* binding */ Popover;
-						},
-						/* harmony export */ usePopover: function () {
-							return /* binding */ usePopover;
-						},
-						/* harmony export */
-					}
-				);
-				/* harmony import */ var _CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! ./CAGBPNDP.js */ './node_modules/@ariakit/react-core/esm/__chunks/CAGBPNDP.js'
-					);
-				/* harmony import */ var _Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./Y67KZUMI.js */ './node_modules/@ariakit/react-core/esm/__chunks/Y67KZUMI.js'
-					);
-				/* harmony import */ var _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! ./VOQWLFSQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/VOQWLFSQ.js'
-					);
-				/* harmony import */ var _5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__ =
-					__webpack_require__(
-						/*! ./5GGHRIN3.js */ './node_modules/@ariakit/react-core/esm/__chunks/5GGHRIN3.js'
-					);
-				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__ =
-					__webpack_require__(
-						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/3YLGPPWQ.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_5__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
-					);
-				/* harmony import */ var _floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__ =
-					__webpack_require__(
-						/*! @floating-ui/dom */ './node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs'
-					);
-				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ =
-					__webpack_require__(
-						/*! react */ './node_modules/react/index.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ =
-					__webpack_require__(
-						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
-					);
-				('use client');
-
-				// src/popover/popover.tsx
-
-				var TagName = 'div';
-				function createDOMRect(x = 0, y = 0, width = 0, height = 0) {
-					if (typeof DOMRect === 'function') {
-						return new DOMRect(x, y, width, height);
-					}
-					const rect = {
-						x,
-						y,
-						width,
-						height,
-						top: y,
-						right: x + width,
-						bottom: y + height,
-						left: x,
-					};
-					return (0,
-					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
-						(0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
-							{},
-							rect
-						),
-						{ toJSON: () => rect }
-					);
-				}
-				function getDOMRect(anchorRect) {
-					if (!anchorRect) return createDOMRect();
-					const { x, y, width, height } = anchorRect;
-					return createDOMRect(x, y, width, height);
-				}
-				function getAnchorElement(anchorElement, getAnchorRect) {
-					const contextElement = anchorElement || void 0;
-					return {
-						contextElement,
-						getBoundingClientRect: () => {
-							const anchor = anchorElement;
-							const anchorRect =
-								getAnchorRect == null
-									? void 0
-									: getAnchorRect(anchor);
-							if (anchorRect || !anchor) {
-								return getDOMRect(anchorRect);
-							}
-							return anchor.getBoundingClientRect();
-						},
-					};
-				}
-				function isValidPlacement(flip2) {
-					return /^(?:top|bottom|left|right)(?:-(?:start|end))?$/.test(
-						flip2
-					);
-				}
-				function roundByDPR(value) {
-					const dpr = window.devicePixelRatio || 1;
-					return Math.round(value * dpr) / dpr;
-				}
-				function getOffsetMiddleware(arrowElement, props) {
-					return (0,
-					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.offset)(
-						({ placement }) => {
-							var _a;
-							const arrowOffset =
-								((arrowElement == null
-									? void 0
-									: arrowElement.clientHeight) || 0) / 2;
-							const finalGutter =
-								typeof props.gutter === 'number'
-									? props.gutter + arrowOffset
-									: (_a = props.gutter) != null
-										? _a
-										: arrowOffset;
-							const hasAlignment = !!placement.split('-')[1];
-							return {
-								crossAxis: !hasAlignment ? props.shift : void 0,
-								mainAxis: finalGutter,
-								alignmentAxis: props.shift,
-							};
-						}
-					);
-				}
-				function getFlipMiddleware(props) {
-					if (props.flip === false) return;
-					const fallbackPlacements =
-						typeof props.flip === 'string'
-							? props.flip.split(' ')
-							: void 0;
-					(0,
-					_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_5__.invariant)(
-						!fallbackPlacements ||
-							fallbackPlacements.every(isValidPlacement),
-						true &&
-							'`flip` expects a spaced-delimited list of placements'
-					);
-					return (0,
-					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.flip)({
-						padding: props.overflowPadding,
-						fallbackPlacements,
-					});
-				}
-				function getShiftMiddleware(props) {
-					if (!props.slide && !props.overlap) return;
-					return (0,
-					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.shift)({
-						mainAxis: props.slide,
-						crossAxis: props.overlap,
-						padding: props.overflowPadding,
-						limiter: (0,
-						_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.limitShift)(),
-					});
-				}
-				function getSizeMiddleware(props) {
-					return (0,
-					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.size)({
-						padding: props.overflowPadding,
-						apply({
-							elements,
-							availableWidth,
-							availableHeight,
-							rects,
-						}) {
-							const wrapper = elements.floating;
-							const referenceWidth = Math.round(
-								rects.reference.width
-							);
-							availableWidth = Math.floor(availableWidth);
-							availableHeight = Math.floor(availableHeight);
-							wrapper.style.setProperty(
-								'--popover-anchor-width',
-								`${referenceWidth}px`
-							);
-							wrapper.style.setProperty(
-								'--popover-available-width',
-								`${availableWidth}px`
-							);
-							wrapper.style.setProperty(
-								'--popover-available-height',
-								`${availableHeight}px`
-							);
-							if (props.sameWidth) {
-								wrapper.style.width = `${referenceWidth}px`;
-							}
-							if (props.fitViewport) {
-								wrapper.style.maxWidth = `${availableWidth}px`;
-								wrapper.style.maxHeight = `${availableHeight}px`;
-							}
-						},
-					});
-				}
-				function getArrowMiddleware(arrowElement, props) {
-					if (!arrowElement) return;
-					return (0,
-					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.arrow)({
-						element: arrowElement,
-						padding: props.arrowPadding,
-					});
-				}
-				var usePopover = (0,
-				_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__.createHook)(
-					function usePopover2(_a) {
-						var _b = _a,
-							{
-								store,
-								modal = false,
-								portal = !!modal,
-								preserveTabOrder = true,
-								autoFocusOnShow = true,
-								wrapperProps,
-								fixed = false,
-								flip: flip2 = true,
-								shift: shift2 = 0,
-								slide = true,
-								overlap = false,
-								sameWidth = false,
-								fitViewport = false,
-								gutter,
-								arrowPadding = 4,
-								overflowPadding = 8,
-								getAnchorRect,
-								updatePosition,
-							} = _b,
-							props = (0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__objRest)(
-								_b,
-								[
-									'store',
-									'modal',
-									'portal',
-									'preserveTabOrder',
-									'autoFocusOnShow',
-									'wrapperProps',
-									'fixed',
-									'flip',
-									'shift',
-									'slide',
-									'overlap',
-									'sameWidth',
-									'fitViewport',
-									'gutter',
-									'arrowPadding',
-									'overflowPadding',
-									'getAnchorRect',
-									'updatePosition',
-								]
-							);
-						const context = (0,
-						_Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__.usePopoverProviderContext)();
-						store = store || context;
-						(0,
-						_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_5__.invariant)(
-							store,
-							true &&
-								'Popover must receive a `store` prop or be wrapped in a PopoverProvider component.'
-						);
-						const arrowElement = store.useState('arrowElement');
-						const anchorElement = store.useState('anchorElement');
-						const disclosureElement =
-							store.useState('disclosureElement');
-						const popoverElement = store.useState('popoverElement');
-						const contentElement = store.useState('contentElement');
-						const placement = store.useState('placement');
-						const mounted = store.useState('mounted');
-						const rendered = store.useState('rendered');
-						const defaultArrowElementRef = (0,
-						react__WEBPACK_IMPORTED_MODULE_7__.useRef)(null);
-						const [positioned, setPositioned] = (0,
-						react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
-						const { portalRef, domReady } = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.usePortalRef)(
-							portal,
-							props.portalRef
-						);
-						const getAnchorRectProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useEvent)(
-							getAnchorRect
-						);
-						const updatePositionProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useEvent)(
-							updatePosition
-						);
-						const hasCustomUpdatePosition = !!updatePosition;
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useSafeLayoutEffect)(() => {
-							if (
-								!(popoverElement == null
-									? void 0
-									: popoverElement.isConnected)
-							)
-								return;
-							popoverElement.style.setProperty(
-								'--popover-overflow-padding',
-								`${overflowPadding}px`
-							);
-							const anchor = getAnchorElement(
-								anchorElement,
-								getAnchorRectProp
-							);
-							const updatePosition2 = async () => {
-								if (!mounted) return;
-								if (!arrowElement) {
-									defaultArrowElementRef.current =
-										defaultArrowElementRef.current ||
-										document.createElement('div');
-								}
-								const arrow2 =
-									arrowElement ||
-									defaultArrowElementRef.current;
-								const middleware = [
-									getOffsetMiddleware(arrow2, {
-										gutter,
-										shift: shift2,
-									}),
-									getFlipMiddleware({
-										flip: flip2,
-										overflowPadding,
-									}),
-									getShiftMiddleware({
-										slide,
-										shift: shift2,
-										overlap,
-										overflowPadding,
-									}),
-									getArrowMiddleware(arrow2, {
-										arrowPadding,
-									}),
-									getSizeMiddleware({
-										sameWidth,
-										fitViewport,
-										overflowPadding,
-									}),
-								];
-								const pos = await (0,
-								_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.computePosition)(
-									anchor,
-									popoverElement,
-									{
-										placement,
-										strategy: fixed ? 'fixed' : 'absolute',
-										middleware,
-									}
-								);
-								store == null
-									? void 0
-									: store.setState(
-											'currentPlacement',
-											pos.placement
-										);
-								setPositioned(true);
-								const x = roundByDPR(pos.x);
-								const y = roundByDPR(pos.y);
-								Object.assign(popoverElement.style, {
-									top: '0',
-									left: '0',
-									transform: `translate3d(${x}px,${y}px,0)`,
-								});
-								if (arrow2 && pos.middlewareData.arrow) {
-									const { x: arrowX, y: arrowY } =
-										pos.middlewareData.arrow;
-									const side = pos.placement.split('-')[0];
-									const centerX = arrow2.clientWidth / 2;
-									const centerY = arrow2.clientHeight / 2;
-									const originX =
-										arrowX != null
-											? arrowX + centerX
-											: -centerX;
-									const originY =
-										arrowY != null
-											? arrowY + centerY
-											: -centerY;
-									popoverElement.style.setProperty(
-										'--popover-transform-origin',
-										{
-											top: `${originX}px calc(100% + ${centerY}px)`,
-											bottom: `${originX}px ${-centerY}px`,
-											left: `calc(100% + ${centerX}px) ${originY}px`,
-											right: `${-centerX}px ${originY}px`,
-										}[side]
-									);
-									Object.assign(arrow2.style, {
-										left:
-											arrowX != null ? `${arrowX}px` : '',
-										top:
-											arrowY != null ? `${arrowY}px` : '',
-										[side]: '100%',
-									});
-								}
-							};
-							const update = async () => {
-								if (hasCustomUpdatePosition) {
-									await updatePositionProp({
-										updatePosition: updatePosition2,
-									});
-									setPositioned(true);
-								} else {
-									await updatePosition2();
-								}
-							};
-							const cancelAutoUpdate = (0,
-							_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.autoUpdate)(
-								anchor,
-								popoverElement,
-								update,
-								{
-									// JSDOM doesn't support ResizeObserver
-									elementResize:
-										typeof ResizeObserver === 'function',
-								}
-							);
-							return () => {
-								setPositioned(false);
-								cancelAutoUpdate();
-							};
-						}, [
-							store,
-							rendered,
-							popoverElement,
-							arrowElement,
-							anchorElement,
-							popoverElement,
-							placement,
-							mounted,
-							domReady,
-							fixed,
-							flip2,
-							shift2,
-							slide,
-							overlap,
-							sameWidth,
-							fitViewport,
-							gutter,
-							arrowPadding,
-							overflowPadding,
-							getAnchorRectProp,
-							hasCustomUpdatePosition,
-							updatePositionProp,
-						]);
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useSafeLayoutEffect)(() => {
-							if (!mounted) return;
-							if (!domReady) return;
-							if (
-								!(popoverElement == null
-									? void 0
-									: popoverElement.isConnected)
-							)
-								return;
-							if (
-								!(contentElement == null
-									? void 0
-									: contentElement.isConnected)
-							)
-								return;
-							const applyZIndex = () => {
-								popoverElement.style.zIndex =
-									getComputedStyle(contentElement).zIndex;
-							};
-							applyZIndex();
-							let raf = requestAnimationFrame(() => {
-								raf = requestAnimationFrame(applyZIndex);
-							});
-							return () => cancelAnimationFrame(raf);
-						}, [mounted, domReady, popoverElement, contentElement]);
-						const position = fixed ? 'fixed' : 'absolute';
-						props = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useWrapElement)(
-							props,
-							(element) =>
-								/* @__PURE__ */ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
-									'div',
-									(0,
-									_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
-										(0,
-										_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
-											{},
-											wrapperProps
-										),
-										{
-											style: (0,
-											_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
-												{
-													// https://floating-ui.com/docs/computeposition#initial-layout
-													position,
-													top: 0,
-													left: 0,
-													width: 'max-content',
-												},
-												wrapperProps == null
-													? void 0
-													: wrapperProps.style
-											),
-											ref:
-												store == null
-													? void 0
-													: store.setPopoverElement,
-											children: element,
-										}
-									)
-								),
-							[store, position, wrapperProps]
-						);
-						props = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useWrapElement)(
-							props,
-							(element) =>
-								/* @__PURE__ */ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
-									_Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__.PopoverScopedContextProvider,
-									{ value: store, children: element }
-								),
-							[store]
-						);
-						props = (0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
-								{
-									// data-placing is not part of the public API. We're setting this here so
-									// we can wait for the popover to be positioned before other components
-									// move focus into it. For example, this attribute is observed by the
-									// Combobox component with the autoSelect behavior.
-									'data-placing': !positioned || void 0,
-								},
-								props
-							),
-							{
-								style: (0,
-								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
-									{
-										position: 'relative',
-									},
-									props.style
-								),
-							}
-						);
-						props = (0,
-						_CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_0__.useDialog)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
-								(0,
-								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
-									{
-										store,
-										modal,
-										portal,
-										preserveTabOrder,
-										preserveTabOrderAnchor:
-											disclosureElement || anchorElement,
-										autoFocusOnShow:
-											positioned && autoFocusOnShow,
-									},
-									props
-								),
-								{
-									portalRef,
-								}
-							)
-						);
-						return props;
-					}
-				);
-				var Popover = (0,
-				_CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_0__.createDialogComponent)(
-					(0, _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
-						function Popover2(props) {
-							const htmlProps = usePopover(props);
-							return (0,
-							_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__.createElement)(
-								TagName,
-								htmlProps
-							);
-						}
-					),
-					_Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__.usePopoverProviderContext
-				);
-
-				/***/
-			},
-
-		/***/ './node_modules/@ariakit/react-core/esm/__chunks/CAGBPNDP.js':
-			/*!*******************************************************************!*\
-  !*** ./node_modules/@ariakit/react-core/esm/__chunks/CAGBPNDP.js ***!
-  \*******************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ Dialog: function () {
-							return /* binding */ Dialog;
-						},
-						/* harmony export */ createDialogComponent:
-							function () {
-								return /* binding */ createDialogComponent;
-							},
-						/* harmony export */ useDialog: function () {
-							return /* binding */ useDialog;
-						},
-						/* harmony export */
-					}
-				);
-				/* harmony import */ var _M5DFOEFU_js__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! ./M5DFOEFU.js */ './node_modules/@ariakit/react-core/esm/__chunks/M5DFOEFU.js'
-					);
-				/* harmony import */ var _5M6RIVE2_js__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./5M6RIVE2.js */ './node_modules/@ariakit/react-core/esm/__chunks/5M6RIVE2.js'
-					);
-				/* harmony import */ var _LC6GJMGV_js__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! ./LC6GJMGV.js */ './node_modules/@ariakit/react-core/esm/__chunks/LC6GJMGV.js'
-					);
-				/* harmony import */ var _6GXEOXGT_js__WEBPACK_IMPORTED_MODULE_3__ =
-					__webpack_require__(
-						/*! ./6GXEOXGT.js */ './node_modules/@ariakit/react-core/esm/__chunks/6GXEOXGT.js'
-					);
-				/* harmony import */ var _JZEJYXOQ_js__WEBPACK_IMPORTED_MODULE_4__ =
-					__webpack_require__(
-						/*! ./JZEJYXOQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/JZEJYXOQ.js'
-					);
-				/* harmony import */ var _PVECYOSC_js__WEBPACK_IMPORTED_MODULE_5__ =
-					__webpack_require__(
-						/*! ./PVECYOSC.js */ './node_modules/@ariakit/react-core/esm/__chunks/PVECYOSC.js'
-					);
-				/* harmony import */ var _SOMPWLIQ_js__WEBPACK_IMPORTED_MODULE_6__ =
-					__webpack_require__(
-						/*! ./SOMPWLIQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/SOMPWLIQ.js'
-					);
-				/* harmony import */ var _Z5GCVBAY_js__WEBPACK_IMPORTED_MODULE_7__ =
-					__webpack_require__(
-						/*! ./Z5GCVBAY.js */ './node_modules/@ariakit/react-core/esm/__chunks/Z5GCVBAY.js'
-					);
-				/* harmony import */ var _677M2CI3_js__WEBPACK_IMPORTED_MODULE_8__ =
-					__webpack_require__(
-						/*! ./677M2CI3.js */ './node_modules/@ariakit/react-core/esm/__chunks/677M2CI3.js'
-					);
-				/* harmony import */ var _FVE2C5B3_js__WEBPACK_IMPORTED_MODULE_9__ =
-					__webpack_require__(
-						/*! ./FVE2C5B3.js */ './node_modules/@ariakit/react-core/esm/__chunks/FVE2C5B3.js'
-					);
-				/* harmony import */ var _3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__ =
-					__webpack_require__(
-						/*! ./3NDVDEB4.js */ './node_modules/@ariakit/react-core/esm/__chunks/3NDVDEB4.js'
-					);
-				/* harmony import */ var _AOUGVQZ3_js__WEBPACK_IMPORTED_MODULE_11__ =
-					__webpack_require__(
-						/*! ./AOUGVQZ3.js */ './node_modules/@ariakit/react-core/esm/__chunks/AOUGVQZ3.js'
-					);
-				/* harmony import */ var _K4R5DNTX_js__WEBPACK_IMPORTED_MODULE_12__ =
-					__webpack_require__(
-						/*! ./K4R5DNTX.js */ './node_modules/@ariakit/react-core/esm/__chunks/K4R5DNTX.js'
-					);
-				/* harmony import */ var _Y2U4BRIM_js__WEBPACK_IMPORTED_MODULE_13__ =
-					__webpack_require__(
-						/*! ./Y2U4BRIM.js */ './node_modules/@ariakit/react-core/esm/__chunks/Y2U4BRIM.js'
-					);
-				/* harmony import */ var _T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__ =
-					__webpack_require__(
-						/*! ./T2AZQXQU.js */ './node_modules/@ariakit/react-core/esm/__chunks/T2AZQXQU.js'
-					);
-				/* harmony import */ var _OE2EFRVA_js__WEBPACK_IMPORTED_MODULE_15__ =
-					__webpack_require__(
-						/*! ./OE2EFRVA.js */ './node_modules/@ariakit/react-core/esm/__chunks/OE2EFRVA.js'
-					);
-				/* harmony import */ var _RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__ =
-					__webpack_require__(
-						/*! ./RTNCFSKZ.js */ './node_modules/@ariakit/react-core/esm/__chunks/RTNCFSKZ.js'
-					);
-				/* harmony import */ var _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__ =
-					__webpack_require__(
-						/*! ./VOQWLFSQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/VOQWLFSQ.js'
-					);
-				/* harmony import */ var _5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__ =
-					__webpack_require__(
-						/*! ./5GGHRIN3.js */ './node_modules/@ariakit/react-core/esm/__chunks/5GGHRIN3.js'
-					);
-				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__ =
-					__webpack_require__(
-						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/3YLGPPWQ.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_21__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/events */ './node_modules/@ariakit/core/esm/utils/events.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/focus */ './node_modules/@ariakit/core/esm/utils/focus.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_23__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_24__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js'
-					);
-				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_25__ =
-					__webpack_require__(
-						/*! react */ './node_modules/react/index.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__ =
-					__webpack_require__(
-						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
-					);
-				('use client');
-
-				// src/dialog/dialog.tsx
-
-				var TagName = 'div';
-				var isSafariBrowser = (0,
-				_ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_24__.isSafari)();
-				function isAlreadyFocusingAnotherElement(dialog) {
-					const activeElement = (0,
-					_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getActiveElement)();
-					if (!activeElement) return false;
-					if (
-						dialog &&
-						(0,
-						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
-							dialog,
-							activeElement
-						)
-					)
-						return false;
-					if (
-						(0,
-						_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
-							activeElement
-						)
-					)
-						return true;
-					return false;
-				}
-				function getElementFromProp(prop, focusable = false) {
-					if (!prop) return null;
-					const element = 'current' in prop ? prop.current : prop;
-					if (!element) return null;
-					if (focusable)
-						return (0,
-						_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
-							element
-						)
-							? element
-							: null;
-					return element;
-				}
-				var useDialog = (0,
-				_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.createHook)(
-					function useDialog2(_a) {
-						var _b = _a,
-							{
-								store: storeProp,
-								open: openProp,
-								onClose,
-								focusable = true,
-								modal = true,
-								portal = !!modal,
-								backdrop = !!modal,
-								hideOnEscape = true,
-								hideOnInteractOutside = true,
-								getPersistentElements,
-								preventBodyScroll = !!modal,
-								autoFocusOnShow = true,
-								autoFocusOnHide = true,
-								initialFocus,
-								finalFocus,
-								unmountOnHide,
-								unstable_treeSnapshotKey,
-							} = _b,
-							props = (0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__objRest)(
-								_b,
-								[
-									'store',
-									'open',
-									'onClose',
-									'focusable',
-									'modal',
-									'portal',
-									'backdrop',
-									'hideOnEscape',
-									'hideOnInteractOutside',
-									'getPersistentElements',
-									'preventBodyScroll',
-									'autoFocusOnShow',
-									'autoFocusOnHide',
-									'initialFocus',
-									'finalFocus',
-									'unmountOnHide',
-									'unstable_treeSnapshotKey',
-								]
-							);
-						const context = (0,
-						_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.useDialogProviderContext)();
-						const ref = (0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useRef)(null);
-						const store = (0,
-						_Y2U4BRIM_js__WEBPACK_IMPORTED_MODULE_13__.useDialogStore)(
-							{
-								store: storeProp || context,
-								open: openProp,
-								setOpen(open2) {
-									if (open2) return;
-									const dialog = ref.current;
-									if (!dialog) return;
-									const event = new Event('close', {
-										bubbles: false,
-										cancelable: true,
-									});
-									if (onClose) {
-										dialog.addEventListener(
-											'close',
-											onClose,
-											{ once: true }
-										);
-									}
-									dialog.dispatchEvent(event);
-									if (!event.defaultPrevented) return;
-									store.setOpen(true);
-								},
-							}
-						);
-						const { portalRef, domReady } = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.usePortalRef)(
-							portal,
-							props.portalRef
-						);
-						const preserveTabOrderProp = props.preserveTabOrder;
-						const preserveTabOrder = (0,
-						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
-							store,
-							(state) =>
-								preserveTabOrderProp && !modal && state.mounted
-						);
-						const id = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useId)(
-							props.id
-						);
-						const open = (0,
-						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
-							store,
-							'open'
-						);
-						const mounted = (0,
-						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
-							store,
-							'mounted'
-						);
-						const contentElement = (0,
-						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
-							store,
-							'contentElement'
-						);
-						const hidden = (0,
-						_K4R5DNTX_js__WEBPACK_IMPORTED_MODULE_12__.isHidden)(
-							mounted,
-							props.hidden,
-							props.alwaysVisible
-						);
-						(0,
-						_SOMPWLIQ_js__WEBPACK_IMPORTED_MODULE_6__.usePreventBodyScroll)(
-							contentElement,
-							id,
-							preventBodyScroll && !hidden
-						);
-						(0,
-						_JZEJYXOQ_js__WEBPACK_IMPORTED_MODULE_4__.useHideOnInteractOutside)(
-							store,
-							hideOnInteractOutside,
-							domReady
-						);
-						const { wrapElement, nestedDialogs } = (0,
-						_PVECYOSC_js__WEBPACK_IMPORTED_MODULE_5__.useNestedDialogs)(
-							store
-						);
-						props = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
-							props,
-							wrapElement,
-							[wrapElement]
-						);
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
-							if (!open) return;
-							const dialog = ref.current;
-							const activeElement = (0,
-							_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getActiveElement)(
-								dialog,
-								true
-							);
-							if (!activeElement) return;
-							if (activeElement.tagName === 'BODY') return;
-							if (
-								dialog &&
-								(0,
-								_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
-									dialog,
-									activeElement
-								)
-							)
-								return;
-							store.setDisclosureElement(activeElement);
-						}, [store, open]);
-						if (isSafariBrowser) {
-							(0,
-							react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
-								if (!mounted) return;
-								const { disclosureElement } = store.getState();
-								if (!disclosureElement) return;
-								if (
-									!(0,
-									_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.isButton)(
-										disclosureElement
-									)
-								)
-									return;
-								const onMouseDown = () => {
-									let receivedFocus = false;
-									const onFocus = () => {
-										receivedFocus = true;
-									};
-									const options = {
-										capture: true,
-										once: true,
-									};
-									disclosureElement.addEventListener(
-										'focusin',
-										onFocus,
-										options
-									);
-									(0,
-									_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_21__.queueBeforeEvent)(
-										disclosureElement,
-										'mouseup',
-										() => {
-											disclosureElement.removeEventListener(
-												'focusin',
-												onFocus,
-												true
-											);
-											if (receivedFocus) return;
-											(0,
-											_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.focusIfNeeded)(
-												disclosureElement
-											);
-										}
-									);
-								};
-								disclosureElement.addEventListener(
-									'mousedown',
-									onMouseDown
-								);
-								return () => {
-									disclosureElement.removeEventListener(
-										'mousedown',
-										onMouseDown
-									);
-								};
-							}, [store, mounted]);
-						}
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
-							if (!mounted) return;
-							if (!domReady) return;
-							const dialog = ref.current;
-							if (!dialog) return;
-							const win = (0,
-							_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getWindow)(
-								dialog
-							);
-							const viewport = win.visualViewport || win;
-							const setViewportHeight = () => {
-								var _a2, _b2;
-								const height =
-									(_b2 =
-										(_a2 = win.visualViewport) == null
-											? void 0
-											: _a2.height) != null
-										? _b2
-										: win.innerHeight;
-								dialog.style.setProperty(
-									'--dialog-viewport-height',
-									`${height}px`
-								);
-							};
-							setViewportHeight();
-							viewport.addEventListener(
-								'resize',
-								setViewportHeight
-							);
-							return () => {
-								viewport.removeEventListener(
-									'resize',
-									setViewportHeight
-								);
-							};
-						}, [mounted, domReady]);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
-							if (!modal) return;
-							if (!mounted) return;
-							if (!domReady) return;
-							const dialog = ref.current;
-							if (!dialog) return;
-							const existingDismiss = dialog.querySelector(
-								'[data-dialog-dismiss]'
-							);
-							if (existingDismiss) return;
-							return (0,
-							_6GXEOXGT_js__WEBPACK_IMPORTED_MODULE_3__.prependHiddenDismiss)(
-								dialog,
-								store.hide
-							);
-						}, [store, modal, mounted, domReady]);
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
-							if (
-								!(0,
-								_677M2CI3_js__WEBPACK_IMPORTED_MODULE_8__.supportsInert)()
-							)
-								return;
-							if (open) return;
-							if (!mounted) return;
-							if (!domReady) return;
-							const dialog = ref.current;
-							if (!dialog) return;
-							return (0,
-							_Z5GCVBAY_js__WEBPACK_IMPORTED_MODULE_7__.disableTree)(
-								dialog
-							);
-						}, [open, mounted, domReady]);
-						const canTakeTreeSnapshot = open && domReady;
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
-							if (!id) return;
-							if (!canTakeTreeSnapshot) return;
-							const dialog = ref.current;
-							return (0,
-							_AOUGVQZ3_js__WEBPACK_IMPORTED_MODULE_11__.createWalkTreeSnapshot)(
-								id,
-								[dialog]
-							);
-						}, [id, canTakeTreeSnapshot, unstable_treeSnapshotKey]);
-						const getPersistentElementsProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useEvent)(
-							getPersistentElements
-						);
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
-							if (!id) return;
-							if (!canTakeTreeSnapshot) return;
-							const { disclosureElement } = store.getState();
-							const dialog = ref.current;
-							const persistentElements =
-								getPersistentElementsProp() || [];
-							const allElements = [
-								dialog,
-								...persistentElements,
-								...nestedDialogs.map(
-									(dialog2) =>
-										dialog2.getState().contentElement
-								),
-							];
-							if (modal) {
-								return (0,
-								_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_23__.chain)(
-									(0,
-									_3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__.markTreeOutside)(
-										id,
-										allElements
-									),
-									(0,
-									_Z5GCVBAY_js__WEBPACK_IMPORTED_MODULE_7__.disableTreeOutside)(
-										id,
-										allElements
-									)
-								);
-							}
-							return (0,
-							_3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__.markTreeOutside)(
-								id,
-								[disclosureElement, ...allElements]
-							);
-						}, [
-							id,
-							store,
-							canTakeTreeSnapshot,
-							getPersistentElementsProp,
-							nestedDialogs,
-							modal,
-							unstable_treeSnapshotKey,
-						]);
-						const mayAutoFocusOnShow = !!autoFocusOnShow;
-						const autoFocusOnShowProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useBooleanEvent)(
-							autoFocusOnShow
-						);
-						const [autoFocusEnabled, setAutoFocusEnabled] = (0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useState)(false);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
-							if (!open) return;
-							if (!mayAutoFocusOnShow) return;
-							if (!domReady) return;
-							if (
-								!(contentElement == null
-									? void 0
-									: contentElement.isConnected)
-							)
-								return;
-							const element =
-								getElementFromProp(initialFocus, true) || // If no initial focus is specified, we try to focus the first element
-								// with the autofocus attribute. If it's an Ariakit component, the
-								// Focusable component will consume the autoFocus prop and add the
-								// data-autofocus attribute to the element instead.
-								contentElement.querySelector(
-									'[data-autofocus=true],[autofocus]'
-								) || // We have to fallback to the first focusable element otherwise portaled
-								// dialogs with preserveTabOrder set to true will not receive focus
-								// properly because the elements aren't tabbable until the dialog receives
-								// focus.
-								(0,
-								_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.getFirstTabbableIn)(
-									contentElement,
-									true,
-									portal && preserveTabOrder
-								) || // Finally, we fallback to the dialog element itself.
-								contentElement;
-							const isElementFocusable = (0,
-							_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
-								element
-							);
-							if (
-								!autoFocusOnShowProp(
-									isElementFocusable ? element : null
-								)
-							)
-								return;
-							setAutoFocusEnabled(true);
-							queueMicrotask(() => {
-								element.focus();
-								if (!isSafariBrowser) return;
-								if (!isElementFocusable) return;
-								element.scrollIntoView({
-									block: 'nearest',
-									inline: 'nearest',
-								});
-							});
-						}, [
-							open,
-							mayAutoFocusOnShow,
-							domReady,
-							contentElement,
-							initialFocus,
-							portal,
-							preserveTabOrder,
-							autoFocusOnShowProp,
-						]);
-						const mayAutoFocusOnHide = !!autoFocusOnHide;
-						const autoFocusOnHideProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useBooleanEvent)(
-							autoFocusOnHide
-						);
-						const [hasOpened, setHasOpened] = (0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useState)(false);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
-							if (!open) return;
-							setHasOpened(true);
-							return () => setHasOpened(false);
-						}, [open]);
-						const focusOnHide = (0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useCallback)(
-							(dialog, retry = true) => {
-								const { disclosureElement } = store.getState();
-								if (isAlreadyFocusingAnotherElement(dialog))
-									return;
-								let element =
-									getElementFromProp(finalFocus) ||
-									disclosureElement;
-								if (element == null ? void 0 : element.id) {
-									const doc = (0,
-									_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getDocument)(
-										element
-									);
-									const selector = `[aria-activedescendant="${element.id}"]`;
-									const composite =
-										doc.querySelector(selector);
-									if (composite) {
-										element = composite;
-									}
-								}
-								if (
-									element &&
-									!(0,
-									_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
-										element
-									)
-								) {
-									const maybeParentDialog =
-										element.closest('[data-dialog]');
-									if (
-										maybeParentDialog == null
-											? void 0
-											: maybeParentDialog.id
-									) {
-										const doc = (0,
-										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getDocument)(
-											maybeParentDialog
-										);
-										const selector = `[aria-controls~="${maybeParentDialog.id}"]`;
-										const control =
-											doc.querySelector(selector);
-										if (control) {
-											element = control;
-										}
-									}
-								}
-								const isElementFocusable =
-									element &&
-									(0,
-									_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
-										element
-									);
-								if (!isElementFocusable && retry) {
-									requestAnimationFrame(() =>
-										focusOnHide(dialog, false)
-									);
-									return;
-								}
-								if (
-									!autoFocusOnHideProp(
-										isElementFocusable ? element : null
-									)
-								)
-									return;
-								if (!isElementFocusable) return;
-								element == null
-									? void 0
-									: element.focus({ preventScroll: true });
-							},
-							[store, finalFocus, autoFocusOnHideProp]
-						);
-						const focusedOnHideRef = (0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useRef)(false);
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
-							if (open) return;
-							if (!hasOpened) return;
-							if (!mayAutoFocusOnHide) return;
-							const dialog = ref.current;
-							focusedOnHideRef.current = true;
-							focusOnHide(dialog);
-						}, [
-							open,
-							hasOpened,
-							domReady,
-							mayAutoFocusOnHide,
-							focusOnHide,
-						]);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
-							if (!hasOpened) return;
-							if (!mayAutoFocusOnHide) return;
-							const dialog = ref.current;
-							return () => {
-								if (focusedOnHideRef.current) {
-									focusedOnHideRef.current = false;
-									return;
-								}
-								focusOnHide(dialog);
-							};
-						}, [hasOpened, mayAutoFocusOnHide, focusOnHide]);
-						const hideOnEscapeProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useBooleanEvent)(
-							hideOnEscape
-						);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
-							if (!domReady) return;
-							if (!mounted) return;
-							const onKeyDown = (event) => {
-								if (event.key !== 'Escape') return;
-								if (event.defaultPrevented) return;
-								const dialog = ref.current;
-								if (!dialog) return;
-								if (
-									(0,
-									_3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__.isElementMarked)(
-										dialog
-									)
-								)
-									return;
-								const target = event.target;
-								if (!target) return;
-								const { disclosureElement } = store.getState();
-								const isValidTarget = () => {
-									if (target.tagName === 'BODY') return true;
-									if (
-										(0,
-										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
-											dialog,
-											target
-										)
-									)
-										return true;
-									if (!disclosureElement) return true;
-									if (
-										(0,
-										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
-											disclosureElement,
-											target
-										)
-									)
-										return true;
-									return false;
-								};
-								if (!isValidTarget()) return;
-								if (!hideOnEscapeProp(event)) return;
-								store.hide();
-							};
-							return (0,
-							_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_21__.addGlobalEventListener)(
-								'keydown',
-								onKeyDown,
-								true
-							);
-						}, [store, domReady, mounted, hideOnEscapeProp]);
-						props = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
-							props,
-							(element) =>
-								/* @__PURE__ */ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
-									_5M6RIVE2_js__WEBPACK_IMPORTED_MODULE_1__.HeadingLevel,
-									{
-										level: modal ? 1 : void 0,
-										children: element,
-									}
-								),
-							[modal]
-						);
-						const hiddenProp = props.hidden;
-						const alwaysVisible = props.alwaysVisible;
-						props = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
-							props,
-							(element) => {
-								if (!backdrop) return element;
-								return /* @__PURE__ */ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(
-									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.Fragment,
-									{
-										children: [
-											/* @__PURE__ */ (0,
-											react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
-												_FVE2C5B3_js__WEBPACK_IMPORTED_MODULE_9__.DialogBackdrop,
-												{
-													store,
-													backdrop,
-													hidden: hiddenProp,
-													alwaysVisible,
-												}
-											),
-											element,
-										],
-									}
-								);
-							},
-							[store, backdrop, hiddenProp, alwaysVisible]
-						);
-						const [headingId, setHeadingId] = (0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useState)();
-						const [descriptionId, setDescriptionId] = (0,
-						react__WEBPACK_IMPORTED_MODULE_25__.useState)();
-						props = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
-							props,
-							(element) =>
-								/* @__PURE__ */ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
-									_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.DialogScopedContextProvider,
-									{
-										value: store,
-										children: /* @__PURE__ */ (0,
-										react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
-											_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__
-												.DialogHeadingContext.Provider,
-											{
-												value: setHeadingId,
-												children: /* @__PURE__ */ (0,
-												react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
-													_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__
-														.DialogDescriptionContext
-														.Provider,
-													{
-														value: setDescriptionId,
-														children: element,
-													}
-												),
-											}
-										),
-									}
-								),
-							[store]
-						);
-						props = (0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
-								{
-									id,
-									'data-dialog': '',
-									role: 'dialog',
-									tabIndex: focusable ? -1 : void 0,
-									'aria-labelledby': headingId,
-									'aria-describedby': descriptionId,
-								},
-								props
-							),
-							{
-								ref: (0,
-								_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useMergeRefs)(
-									ref,
-									props.ref
-								),
-							}
-						);
-						props = (0,
-						_LC6GJMGV_js__WEBPACK_IMPORTED_MODULE_2__.useFocusableContainer)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
-								(0,
-								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
-									{},
-									props
-								),
-								{
-									autoFocusOnShow: autoFocusEnabled,
-								}
-							)
-						);
-						props = (0,
-						_K4R5DNTX_js__WEBPACK_IMPORTED_MODULE_12__.useDisclosureContent)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
-								{ store },
-								props
-							)
-						);
-						props = (0,
-						_OE2EFRVA_js__WEBPACK_IMPORTED_MODULE_15__.useFocusable)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
-								(0,
-								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
-									{},
-									props
-								),
-								{ focusable }
-							)
-						);
-						props = (0,
-						_M5DFOEFU_js__WEBPACK_IMPORTED_MODULE_0__.usePortal)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
-								(0,
-								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
-									{ portal },
-									props
-								),
-								{ portalRef, preserveTabOrder }
-							)
-						);
-						return props;
-					}
-				);
-				function createDialogComponent(
-					Component,
-					useProviderContext = _T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.useDialogProviderContext
-				) {
-					return (0,
-					_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(
-						function DialogComponent(props) {
-							const context = useProviderContext();
-							const store = props.store || context;
-							const mounted = (0,
-							_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
-								store,
-								(state) =>
-									!props.unmountOnHide ||
-									(state == null ? void 0 : state.mounted) ||
-									!!props.open
-							);
-							if (!mounted) return null;
-							return /* @__PURE__ */ (0,
-							react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
-								Component,
-								(0,
-								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
-									{},
-									props
-								)
-							);
-						}
-					);
-				}
-				var Dialog = createDialogComponent(
-					(0, _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(
-						function Dialog2(props) {
-							const htmlProps = useDialog(props);
-							return (0,
-							_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.createElement)(
-								TagName,
-								htmlProps
-							);
-						}
-					),
-					_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.useDialogProviderContext
-				);
-
-				/***/
-			},
-
 		/***/ './node_modules/@ariakit/react-core/esm/__chunks/CZ4GFWYL.js':
 			/*!*******************************************************************!*\
   !*** ./node_modules/@ariakit/react-core/esm/__chunks/CZ4GFWYL.js ***!
@@ -12581,7 +11596,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__ =
 					__webpack_require__(
@@ -13282,7 +12297,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_hovercard_hovercard_store__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! @ariakit/core/hovercard/hovercard-store */ './node_modules/@ariakit/core/esm/__chunks/JTLIIJ4U.js'
+						/*! @ariakit/core/hovercard/hovercard-store */ './node_modules/@ariakit/core/esm/__chunks/X2ASWIQW.js'
 					);
 				('use client');
 
@@ -13654,7 +12669,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
@@ -13883,575 +12898,6 @@ If there's a particular need for this, please submit a feature request at https:
 					if (attr === '') return false;
 					return ids.some((id) => attr === id);
 				}
-
-				/***/
-			},
-
-		/***/ './node_modules/@ariakit/react-core/esm/__chunks/IUFFNNPK.js':
-			/*!*******************************************************************!*\
-  !*** ./node_modules/@ariakit/react-core/esm/__chunks/IUFFNNPK.js ***!
-  \*******************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ Hovercard: function () {
-							return /* binding */ Hovercard;
-						},
-						/* harmony export */ useHovercard: function () {
-							return /* binding */ useHovercard;
-						},
-						/* harmony export */
-					}
-				);
-				/* harmony import */ var _X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! ./X7QOZUD3.js */ './node_modules/@ariakit/react-core/esm/__chunks/X7QOZUD3.js'
-					);
-				/* harmony import */ var _7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./7Z7JH52O.js */ './node_modules/@ariakit/react-core/esm/__chunks/7Z7JH52O.js'
-					);
-				/* harmony import */ var _C6DAL6ZN_js__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! ./C6DAL6ZN.js */ './node_modules/@ariakit/react-core/esm/__chunks/C6DAL6ZN.js'
-					);
-				/* harmony import */ var _CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_3__ =
-					__webpack_require__(
-						/*! ./CAGBPNDP.js */ './node_modules/@ariakit/react-core/esm/__chunks/CAGBPNDP.js'
-					);
-				/* harmony import */ var _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__ =
-					__webpack_require__(
-						/*! ./VOQWLFSQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/VOQWLFSQ.js'
-					);
-				/* harmony import */ var _5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__ =
-					__webpack_require__(
-						/*! ./5GGHRIN3.js */ './node_modules/@ariakit/react-core/esm/__chunks/5GGHRIN3.js'
-					);
-				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__ =
-					__webpack_require__(
-						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/3YLGPPWQ.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/events */ './node_modules/@ariakit/core/esm/utils/events.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_9__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/focus */ './node_modules/@ariakit/core/esm/utils/focus.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_11__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
-					);
-				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ =
-					__webpack_require__(
-						/*! react */ './node_modules/react/index.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ =
-					__webpack_require__(
-						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
-					);
-				('use client');
-
-				// src/hovercard/hovercard.tsx
-
-				var TagName = 'div';
-				function isMovingOnHovercard(target, card, anchor, nested) {
-					if (
-						(0,
-						_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_9__.hasFocusWithin)(
-							card
-						)
-					)
-						return true;
-					if (!target) return false;
-					if (
-						(0,
-						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__.contains)(
-							card,
-							target
-						)
-					)
-						return true;
-					if (
-						anchor &&
-						(0,
-						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__.contains)(
-							anchor,
-							target
-						)
-					)
-						return true;
-					if (
-						nested == null
-							? void 0
-							: nested.some((card2) =>
-									isMovingOnHovercard(target, card2, anchor)
-								)
-					) {
-						return true;
-					}
-					return false;
-				}
-				function useAutoFocusOnHide(_a) {
-					var _b = _a,
-						{ store } = _b,
-						props = (0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__objRest)(
-							_b,
-							['store']
-						);
-					const [autoFocusOnHide, setAutoFocusOnHide] = (0,
-					react__WEBPACK_IMPORTED_MODULE_12__.useState)(false);
-					const mounted = store.useState('mounted');
-					(0, react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
-						if (!mounted) {
-							setAutoFocusOnHide(false);
-						}
-					}, [mounted]);
-					const onFocusProp = props.onFocus;
-					const onFocus = (0,
-					_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(
-						(event) => {
-							onFocusProp == null ? void 0 : onFocusProp(event);
-							if (event.defaultPrevented) return;
-							setAutoFocusOnHide(true);
-						}
-					);
-					const finalFocusRef = (0,
-					react__WEBPACK_IMPORTED_MODULE_12__.useRef)(null);
-					(0, react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
-						return (0,
-						_ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_11__.sync)(
-							store,
-							['anchorElement'],
-							(state) => {
-								finalFocusRef.current = state.anchorElement;
-							}
-						);
-					}, []);
-					props = (0,
-					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadProps)(
-						(0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
-							{
-								autoFocusOnHide,
-								finalFocus: finalFocusRef,
-							},
-							props
-						),
-						{
-							onFocus,
-						}
-					);
-					return props;
-				}
-				var NestedHovercardContext = (0,
-				react__WEBPACK_IMPORTED_MODULE_12__.createContext)(null);
-				var useHovercard = (0,
-				_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__.createHook)(
-					function useHovercard2(_a) {
-						var _b = _a,
-							{
-								store,
-								modal = false,
-								portal = !!modal,
-								hideOnEscape = true,
-								hideOnHoverOutside = true,
-								disablePointerEventsOnApproach = !!hideOnHoverOutside,
-							} = _b,
-							props = (0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__objRest)(
-								_b,
-								[
-									'store',
-									'modal',
-									'portal',
-									'hideOnEscape',
-									'hideOnHoverOutside',
-									'disablePointerEventsOnApproach',
-								]
-							);
-						const context = (0,
-						_7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__.useHovercardProviderContext)();
-						store = store || context;
-						(0,
-						_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.invariant)(
-							store,
-							true &&
-								'Hovercard must receive a `store` prop or be wrapped in a HovercardProvider component.'
-						);
-						const ref = (0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useRef)(null);
-						const [nestedHovercards, setNestedHovercards] = (0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useState)([]);
-						const hideTimeoutRef = (0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useRef)(0);
-						const enterPointRef = (0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useRef)(null);
-						const { portalRef, domReady } = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.usePortalRef)(
-							portal,
-							props.portalRef
-						);
-						const isMouseMoving = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useIsMouseMoving)();
-						const mayHideOnHoverOutside = !!hideOnHoverOutside;
-						const hideOnHoverOutsideProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useBooleanEvent)(
-							hideOnHoverOutside
-						);
-						const mayDisablePointerEvents =
-							!!disablePointerEventsOnApproach;
-						const disablePointerEventsProp = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useBooleanEvent)(
-							disablePointerEventsOnApproach
-						);
-						const open = store.useState('open');
-						const mounted = store.useState('mounted');
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
-							if (!domReady) return;
-							if (!mounted) return;
-							if (
-								!mayHideOnHoverOutside &&
-								!mayDisablePointerEvents
-							)
-								return;
-							const element = ref.current;
-							if (!element) return;
-							const onMouseMove = (event) => {
-								if (!store) return;
-								if (!isMouseMoving()) return;
-								const { anchorElement, hideTimeout, timeout } =
-									store.getState();
-								const enterPoint = enterPointRef.current;
-								const [target] = event.composedPath();
-								const anchor = anchorElement;
-								if (
-									isMovingOnHovercard(
-										target,
-										element,
-										anchor,
-										nestedHovercards
-									)
-								) {
-									enterPointRef.current =
-										target &&
-										anchor &&
-										(0,
-										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__.contains)(
-											anchor,
-											target
-										)
-											? (0,
-												_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getEventPoint)(
-													event
-												)
-											: null;
-									window.clearTimeout(hideTimeoutRef.current);
-									hideTimeoutRef.current = 0;
-									return;
-								}
-								if (hideTimeoutRef.current) return;
-								if (enterPoint) {
-									const currentPoint = (0,
-									_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getEventPoint)(
-										event
-									);
-									const polygon = (0,
-									_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getElementPolygon)(
-										element,
-										enterPoint
-									);
-									if (
-										(0,
-										_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.isPointInPolygon)(
-											currentPoint,
-											polygon
-										)
-									) {
-										enterPointRef.current = currentPoint;
-										if (!disablePointerEventsProp(event))
-											return;
-										event.preventDefault();
-										event.stopPropagation();
-										return;
-									}
-								}
-								if (!hideOnHoverOutsideProp(event)) return;
-								hideTimeoutRef.current = window.setTimeout(
-									() => {
-										hideTimeoutRef.current = 0;
-										store == null ? void 0 : store.hide();
-									},
-									hideTimeout != null ? hideTimeout : timeout
-								);
-							};
-							return (0,
-							_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.chain)(
-								(0,
-								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
-									'mousemove',
-									onMouseMove,
-									true
-								),
-								() => clearTimeout(hideTimeoutRef.current)
-							);
-						}, [
-							store,
-							isMouseMoving,
-							domReady,
-							mounted,
-							mayHideOnHoverOutside,
-							mayDisablePointerEvents,
-							nestedHovercards,
-							disablePointerEventsProp,
-							hideOnHoverOutsideProp,
-						]);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
-							if (!domReady) return;
-							if (!mounted) return;
-							if (!mayDisablePointerEvents) return;
-							const disableEvent = (event) => {
-								const element = ref.current;
-								if (!element) return;
-								const enterPoint = enterPointRef.current;
-								if (!enterPoint) return;
-								const polygon = (0,
-								_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getElementPolygon)(
-									element,
-									enterPoint
-								);
-								if (
-									(0,
-									_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.isPointInPolygon)(
-										(0,
-										_X7QOZUD3_js__WEBPACK_IMPORTED_MODULE_0__.getEventPoint)(
-											event
-										),
-										polygon
-									)
-								) {
-									if (!disablePointerEventsProp(event))
-										return;
-									event.preventDefault();
-									event.stopPropagation();
-								}
-							};
-							return (0,
-							_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.chain)(
-								// Note: we may need to add pointer events here in the future.
-								(0,
-								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
-									'mouseenter',
-									disableEvent,
-									true
-								),
-								(0,
-								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
-									'mouseover',
-									disableEvent,
-									true
-								),
-								(0,
-								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
-									'mouseout',
-									disableEvent,
-									true
-								),
-								(0,
-								_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__.addGlobalEventListener)(
-									'mouseleave',
-									disableEvent,
-									true
-								)
-							);
-						}, [
-							domReady,
-							mounted,
-							mayDisablePointerEvents,
-							disablePointerEventsProp,
-						]);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
-							if (!domReady) return;
-							if (open) return;
-							store == null
-								? void 0
-								: store.setAutoFocusOnShow(false);
-						}, [store, domReady, open]);
-						const openRef = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useLiveRef)(
-							open
-						);
-						(0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(() => {
-							if (!domReady) return;
-							return () => {
-								if (!openRef.current) {
-									store == null
-										? void 0
-										: store.setAutoFocusOnShow(false);
-								}
-							};
-						}, [store, domReady]);
-						const registerOnParent = (0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useContext)(
-							NestedHovercardContext
-						);
-						(0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useSafeLayoutEffect)(() => {
-							if (modal) return;
-							if (!portal) return;
-							if (!mounted) return;
-							if (!domReady) return;
-							const element = ref.current;
-							if (!element) return;
-							return registerOnParent == null
-								? void 0
-								: registerOnParent(element);
-						}, [modal, portal, mounted, domReady]);
-						const registerNestedHovercard = (0,
-						react__WEBPACK_IMPORTED_MODULE_12__.useCallback)(
-							(element) => {
-								setNestedHovercards((prevElements) => [
-									...prevElements,
-									element,
-								]);
-								const parentUnregister =
-									registerOnParent == null
-										? void 0
-										: registerOnParent(element);
-								return () => {
-									setNestedHovercards((prevElements) =>
-										prevElements.filter(
-											(item) => item !== element
-										)
-									);
-									parentUnregister == null
-										? void 0
-										: parentUnregister();
-								};
-							},
-							[registerOnParent]
-						);
-						props = (0,
-						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useWrapElement)(
-							props,
-							(element) =>
-								/* @__PURE__ */ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(
-									_7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__.HovercardScopedContextProvider,
-									{
-										value: store,
-										children: /* @__PURE__ */ (0,
-										react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(
-											NestedHovercardContext.Provider,
-											{
-												value: registerNestedHovercard,
-												children: element,
-											}
-										),
-									}
-								),
-							[store, registerNestedHovercard]
-						);
-						props = (0,
-						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadProps)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
-								{},
-								props
-							),
-							{
-								ref: (0,
-								_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_5__.useMergeRefs)(
-									ref,
-									props.ref
-								),
-							}
-						);
-						props = useAutoFocusOnHide(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
-								{ store },
-								props
-							)
-						);
-						const autoFocusOnShow = store.useState(
-							(state) => modal || state.autoFocusOnShow
-						);
-						props = (0,
-						_C6DAL6ZN_js__WEBPACK_IMPORTED_MODULE_2__.usePopover)(
-							(0,
-							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadProps)(
-								(0,
-								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_6__.__spreadValues)(
-									{
-										store,
-										modal,
-										portal,
-										autoFocusOnShow,
-									},
-									props
-								),
-								{
-									portalRef,
-									hideOnEscape(event) {
-										if (
-											(0,
-											_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__.isFalsyBooleanCallback)(
-												hideOnEscape,
-												event
-											)
-										)
-											return false;
-										requestAnimationFrame(() => {
-											requestAnimationFrame(() => {
-												store == null
-													? void 0
-													: store.hide();
-											});
-										});
-										return true;
-									},
-								}
-							)
-						);
-						return props;
-					}
-				);
-				var Hovercard = (0,
-				_CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_3__.createDialogComponent)(
-					(0, _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__.forwardRef)(
-						function Hovercard2(props) {
-							const htmlProps = useHovercard(props);
-							return (0,
-							_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_4__.createElement)(
-								TagName,
-								htmlProps
-							);
-						}
-					),
-					_7Z7JH52O_js__WEBPACK_IMPORTED_MODULE_1__.useHovercardProviderContext
-				);
 
 				/***/
 			},
@@ -14754,7 +13200,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
@@ -16202,7 +14648,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
@@ -17051,6 +15497,1121 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
+		/***/ './node_modules/@ariakit/react-core/esm/__chunks/NBZZZ3Z3.js':
+			/*!*******************************************************************!*\
+  !*** ./node_modules/@ariakit/react-core/esm/__chunks/NBZZZ3Z3.js ***!
+  \*******************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ usePreventBodyScroll: function () {
+							return /* binding */ usePreventBodyScroll;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var _W6WVJJEY_js__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ./W6WVJJEY.js */ './node_modules/@ariakit/react-core/esm/__chunks/W6WVJJEY.js'
+					);
+				/* harmony import */ var _K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./K2ZF5NU7.js */ './node_modules/@ariakit/react-core/esm/__chunks/K2ZF5NU7.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_4__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js'
+					);
+				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ =
+					__webpack_require__(
+						/*! react */ './node_modules/react/index.js'
+					);
+				('use client');
+
+				// src/dialog/utils/use-prevent-body-scroll.ts
+
+				function getPaddingProperty(documentElement) {
+					const documentLeft =
+						documentElement.getBoundingClientRect().left;
+					const scrollbarX =
+						Math.round(documentLeft) + documentElement.scrollLeft;
+					return scrollbarX ? 'paddingLeft' : 'paddingRight';
+				}
+				function usePreventBodyScroll(
+					contentElement,
+					contentId,
+					enabled
+				) {
+					const isRootDialog = (0,
+					_W6WVJJEY_js__WEBPACK_IMPORTED_MODULE_0__.useRootDialog)({
+						attribute: 'data-dialog-prevent-body-scroll',
+						contentElement,
+						contentId,
+						enabled,
+					});
+					(0, react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+						if (!isRootDialog()) return;
+						if (!contentElement) return;
+						const doc = (0,
+						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getDocument)(
+							contentElement
+						);
+						const win = (0,
+						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(
+							contentElement
+						);
+						const { documentElement, body } = doc;
+						const cssScrollbarWidth =
+							documentElement.style.getPropertyValue(
+								'--scrollbar-width'
+							);
+						const scrollbarWidth = cssScrollbarWidth
+							? Number.parseInt(cssScrollbarWidth, 10)
+							: win.innerWidth - documentElement.clientWidth;
+						const setScrollbarWidthProperty = () =>
+							(0,
+							_K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__.setCSSProperty)(
+								documentElement,
+								'--scrollbar-width',
+								`${scrollbarWidth}px`
+							);
+						const paddingProperty =
+							getPaddingProperty(documentElement);
+						const setStyle = () =>
+							(0,
+							_K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__.assignStyle)(
+								body,
+								{
+									overflow: 'hidden',
+									[paddingProperty]: `${scrollbarWidth}px`,
+								}
+							);
+						const setIOSStyle = () => {
+							var _a, _b;
+							const { scrollX, scrollY, visualViewport } = win;
+							const offsetLeft =
+								(_a =
+									visualViewport == null
+										? void 0
+										: visualViewport.offsetLeft) != null
+									? _a
+									: 0;
+							const offsetTop =
+								(_b =
+									visualViewport == null
+										? void 0
+										: visualViewport.offsetTop) != null
+									? _b
+									: 0;
+							const restoreStyle = (0,
+							_K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__.assignStyle)(
+								body,
+								{
+									position: 'fixed',
+									overflow: 'hidden',
+									top: `${-(scrollY - Math.floor(offsetTop))}px`,
+									left: `${-(scrollX - Math.floor(offsetLeft))}px`,
+									right: '0',
+									[paddingProperty]: `${scrollbarWidth}px`,
+								}
+							);
+							return () => {
+								restoreStyle();
+								if (true) {
+									win.scrollTo({
+										left: scrollX,
+										top: scrollY,
+										behavior: 'instant',
+									});
+								}
+							};
+						};
+						const isIOS =
+							(0,
+							_ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_4__.isApple)() &&
+							!(0,
+							_ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_4__.isMac)();
+						return (0,
+						_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_3__.chain)(
+							setScrollbarWidthProperty(),
+							isIOS ? setIOSStyle() : setStyle()
+						);
+					}, [isRootDialog, contentElement]);
+				}
+
+				/***/
+			},
+
+		/***/ './node_modules/@ariakit/react-core/esm/__chunks/NI3IVY7K.js':
+			/*!*******************************************************************!*\
+  !*** ./node_modules/@ariakit/react-core/esm/__chunks/NI3IVY7K.js ***!
+  \*******************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ Dialog: function () {
+							return /* binding */ Dialog;
+						},
+						/* harmony export */ createDialogComponent:
+							function () {
+								return /* binding */ createDialogComponent;
+							},
+						/* harmony export */ useDialog: function () {
+							return /* binding */ useDialog;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var _M5DFOEFU_js__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ./M5DFOEFU.js */ './node_modules/@ariakit/react-core/esm/__chunks/M5DFOEFU.js'
+					);
+				/* harmony import */ var _5M6RIVE2_js__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./5M6RIVE2.js */ './node_modules/@ariakit/react-core/esm/__chunks/5M6RIVE2.js'
+					);
+				/* harmony import */ var _LC6GJMGV_js__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ./LC6GJMGV.js */ './node_modules/@ariakit/react-core/esm/__chunks/LC6GJMGV.js'
+					);
+				/* harmony import */ var _6GXEOXGT_js__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ./6GXEOXGT.js */ './node_modules/@ariakit/react-core/esm/__chunks/6GXEOXGT.js'
+					);
+				/* harmony import */ var _JZEJYXOQ_js__WEBPACK_IMPORTED_MODULE_4__ =
+					__webpack_require__(
+						/*! ./JZEJYXOQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/JZEJYXOQ.js'
+					);
+				/* harmony import */ var _PVECYOSC_js__WEBPACK_IMPORTED_MODULE_5__ =
+					__webpack_require__(
+						/*! ./PVECYOSC.js */ './node_modules/@ariakit/react-core/esm/__chunks/PVECYOSC.js'
+					);
+				/* harmony import */ var _NBZZZ3Z3_js__WEBPACK_IMPORTED_MODULE_6__ =
+					__webpack_require__(
+						/*! ./NBZZZ3Z3.js */ './node_modules/@ariakit/react-core/esm/__chunks/NBZZZ3Z3.js'
+					);
+				/* harmony import */ var _Z5GCVBAY_js__WEBPACK_IMPORTED_MODULE_7__ =
+					__webpack_require__(
+						/*! ./Z5GCVBAY.js */ './node_modules/@ariakit/react-core/esm/__chunks/Z5GCVBAY.js'
+					);
+				/* harmony import */ var _677M2CI3_js__WEBPACK_IMPORTED_MODULE_8__ =
+					__webpack_require__(
+						/*! ./677M2CI3.js */ './node_modules/@ariakit/react-core/esm/__chunks/677M2CI3.js'
+					);
+				/* harmony import */ var _FVE2C5B3_js__WEBPACK_IMPORTED_MODULE_9__ =
+					__webpack_require__(
+						/*! ./FVE2C5B3.js */ './node_modules/@ariakit/react-core/esm/__chunks/FVE2C5B3.js'
+					);
+				/* harmony import */ var _3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__ =
+					__webpack_require__(
+						/*! ./3NDVDEB4.js */ './node_modules/@ariakit/react-core/esm/__chunks/3NDVDEB4.js'
+					);
+				/* harmony import */ var _AOUGVQZ3_js__WEBPACK_IMPORTED_MODULE_11__ =
+					__webpack_require__(
+						/*! ./AOUGVQZ3.js */ './node_modules/@ariakit/react-core/esm/__chunks/AOUGVQZ3.js'
+					);
+				/* harmony import */ var _K4R5DNTX_js__WEBPACK_IMPORTED_MODULE_12__ =
+					__webpack_require__(
+						/*! ./K4R5DNTX.js */ './node_modules/@ariakit/react-core/esm/__chunks/K4R5DNTX.js'
+					);
+				/* harmony import */ var _Y2U4BRIM_js__WEBPACK_IMPORTED_MODULE_13__ =
+					__webpack_require__(
+						/*! ./Y2U4BRIM.js */ './node_modules/@ariakit/react-core/esm/__chunks/Y2U4BRIM.js'
+					);
+				/* harmony import */ var _T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__ =
+					__webpack_require__(
+						/*! ./T2AZQXQU.js */ './node_modules/@ariakit/react-core/esm/__chunks/T2AZQXQU.js'
+					);
+				/* harmony import */ var _OE2EFRVA_js__WEBPACK_IMPORTED_MODULE_15__ =
+					__webpack_require__(
+						/*! ./OE2EFRVA.js */ './node_modules/@ariakit/react-core/esm/__chunks/OE2EFRVA.js'
+					);
+				/* harmony import */ var _RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__ =
+					__webpack_require__(
+						/*! ./RTNCFSKZ.js */ './node_modules/@ariakit/react-core/esm/__chunks/RTNCFSKZ.js'
+					);
+				/* harmony import */ var _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__ =
+					__webpack_require__(
+						/*! ./VOQWLFSQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/VOQWLFSQ.js'
+					);
+				/* harmony import */ var _5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__ =
+					__webpack_require__(
+						/*! ./5GGHRIN3.js */ './node_modules/@ariakit/react-core/esm/__chunks/5GGHRIN3.js'
+					);
+				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__ =
+					__webpack_require__(
+						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/3YLGPPWQ.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_21__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/events */ './node_modules/@ariakit/core/esm/utils/events.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/focus */ './node_modules/@ariakit/core/esm/utils/focus.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_23__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_24__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js'
+					);
+				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_25__ =
+					__webpack_require__(
+						/*! react */ './node_modules/react/index.js'
+					);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__ =
+					__webpack_require__(
+						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
+					);
+				('use client');
+
+				// src/dialog/dialog.tsx
+
+				var TagName = 'div';
+				var isSafariBrowser = (0,
+				_ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_24__.isSafari)();
+				function isAlreadyFocusingAnotherElement(dialog) {
+					const activeElement = (0,
+					_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getActiveElement)();
+					if (!activeElement) return false;
+					if (
+						dialog &&
+						(0,
+						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
+							dialog,
+							activeElement
+						)
+					)
+						return false;
+					if (
+						(0,
+						_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
+							activeElement
+						)
+					)
+						return true;
+					return false;
+				}
+				function getElementFromProp(prop, focusable = false) {
+					if (!prop) return null;
+					const element = 'current' in prop ? prop.current : prop;
+					if (!element) return null;
+					if (focusable)
+						return (0,
+						_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
+							element
+						)
+							? element
+							: null;
+					return element;
+				}
+				var useDialog = (0,
+				_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.createHook)(
+					function useDialog2(_a) {
+						var _b = _a,
+							{
+								store: storeProp,
+								open: openProp,
+								onClose,
+								focusable = true,
+								modal = true,
+								portal = !!modal,
+								backdrop = !!modal,
+								hideOnEscape = true,
+								hideOnInteractOutside = true,
+								getPersistentElements,
+								preventBodyScroll = !!modal,
+								autoFocusOnShow = true,
+								autoFocusOnHide = true,
+								initialFocus,
+								finalFocus,
+								unmountOnHide,
+								unstable_treeSnapshotKey,
+							} = _b,
+							props = (0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__objRest)(
+								_b,
+								[
+									'store',
+									'open',
+									'onClose',
+									'focusable',
+									'modal',
+									'portal',
+									'backdrop',
+									'hideOnEscape',
+									'hideOnInteractOutside',
+									'getPersistentElements',
+									'preventBodyScroll',
+									'autoFocusOnShow',
+									'autoFocusOnHide',
+									'initialFocus',
+									'finalFocus',
+									'unmountOnHide',
+									'unstable_treeSnapshotKey',
+								]
+							);
+						const context = (0,
+						_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.useDialogProviderContext)();
+						const ref = (0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useRef)(null);
+						const store = (0,
+						_Y2U4BRIM_js__WEBPACK_IMPORTED_MODULE_13__.useDialogStore)(
+							{
+								store: storeProp || context,
+								open: openProp,
+								setOpen(open2) {
+									if (open2) return;
+									const dialog = ref.current;
+									if (!dialog) return;
+									const event = new Event('close', {
+										bubbles: false,
+										cancelable: true,
+									});
+									if (onClose) {
+										dialog.addEventListener(
+											'close',
+											onClose,
+											{ once: true }
+										);
+									}
+									dialog.dispatchEvent(event);
+									if (!event.defaultPrevented) return;
+									store.setOpen(true);
+								},
+							}
+						);
+						const { portalRef, domReady } = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.usePortalRef)(
+							portal,
+							props.portalRef
+						);
+						const preserveTabOrderProp = props.preserveTabOrder;
+						const preserveTabOrder = (0,
+						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
+							store,
+							(state) =>
+								preserveTabOrderProp && !modal && state.mounted
+						);
+						const id = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useId)(
+							props.id
+						);
+						const open = (0,
+						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
+							store,
+							'open'
+						);
+						const mounted = (0,
+						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
+							store,
+							'mounted'
+						);
+						const contentElement = (0,
+						_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
+							store,
+							'contentElement'
+						);
+						const hidden = (0,
+						_K4R5DNTX_js__WEBPACK_IMPORTED_MODULE_12__.isHidden)(
+							mounted,
+							props.hidden,
+							props.alwaysVisible
+						);
+						(0,
+						_NBZZZ3Z3_js__WEBPACK_IMPORTED_MODULE_6__.usePreventBodyScroll)(
+							contentElement,
+							id,
+							preventBodyScroll && !hidden
+						);
+						(0,
+						_JZEJYXOQ_js__WEBPACK_IMPORTED_MODULE_4__.useHideOnInteractOutside)(
+							store,
+							hideOnInteractOutside,
+							domReady
+						);
+						const { wrapElement, nestedDialogs } = (0,
+						_PVECYOSC_js__WEBPACK_IMPORTED_MODULE_5__.useNestedDialogs)(
+							store
+						);
+						props = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
+							props,
+							wrapElement,
+							[wrapElement]
+						);
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
+							if (!open) return;
+							const dialog = ref.current;
+							const activeElement = (0,
+							_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getActiveElement)(
+								dialog,
+								true
+							);
+							if (!activeElement) return;
+							if (activeElement.tagName === 'BODY') return;
+							if (
+								dialog &&
+								(0,
+								_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
+									dialog,
+									activeElement
+								)
+							)
+								return;
+							store.setDisclosureElement(activeElement);
+						}, [store, open]);
+						if (isSafariBrowser) {
+							(0,
+							react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
+								if (!mounted) return;
+								const { disclosureElement } = store.getState();
+								if (!disclosureElement) return;
+								if (
+									!(0,
+									_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.isButton)(
+										disclosureElement
+									)
+								)
+									return;
+								const onMouseDown = () => {
+									let receivedFocus = false;
+									const onFocus = () => {
+										receivedFocus = true;
+									};
+									const options = {
+										capture: true,
+										once: true,
+									};
+									disclosureElement.addEventListener(
+										'focusin',
+										onFocus,
+										options
+									);
+									(0,
+									_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_21__.queueBeforeEvent)(
+										disclosureElement,
+										'mouseup',
+										() => {
+											disclosureElement.removeEventListener(
+												'focusin',
+												onFocus,
+												true
+											);
+											if (receivedFocus) return;
+											(0,
+											_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.focusIfNeeded)(
+												disclosureElement
+											);
+										}
+									);
+								};
+								disclosureElement.addEventListener(
+									'mousedown',
+									onMouseDown
+								);
+								return () => {
+									disclosureElement.removeEventListener(
+										'mousedown',
+										onMouseDown
+									);
+								};
+							}, [store, mounted]);
+						}
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
+							if (!mounted) return;
+							if (!domReady) return;
+							const dialog = ref.current;
+							if (!dialog) return;
+							const win = (0,
+							_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getWindow)(
+								dialog
+							);
+							const viewport = win.visualViewport || win;
+							const setViewportHeight = () => {
+								var _a2, _b2;
+								const height =
+									(_b2 =
+										(_a2 = win.visualViewport) == null
+											? void 0
+											: _a2.height) != null
+										? _b2
+										: win.innerHeight;
+								dialog.style.setProperty(
+									'--dialog-viewport-height',
+									`${height}px`
+								);
+							};
+							setViewportHeight();
+							viewport.addEventListener(
+								'resize',
+								setViewportHeight
+							);
+							return () => {
+								viewport.removeEventListener(
+									'resize',
+									setViewportHeight
+								);
+							};
+						}, [mounted, domReady]);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
+							if (!modal) return;
+							if (!mounted) return;
+							if (!domReady) return;
+							const dialog = ref.current;
+							if (!dialog) return;
+							const existingDismiss = dialog.querySelector(
+								'[data-dialog-dismiss]'
+							);
+							if (existingDismiss) return;
+							return (0,
+							_6GXEOXGT_js__WEBPACK_IMPORTED_MODULE_3__.prependHiddenDismiss)(
+								dialog,
+								store.hide
+							);
+						}, [store, modal, mounted, domReady]);
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
+							if (
+								!(0,
+								_677M2CI3_js__WEBPACK_IMPORTED_MODULE_8__.supportsInert)()
+							)
+								return;
+							if (open) return;
+							if (!mounted) return;
+							if (!domReady) return;
+							const dialog = ref.current;
+							if (!dialog) return;
+							return (0,
+							_Z5GCVBAY_js__WEBPACK_IMPORTED_MODULE_7__.disableTree)(
+								dialog
+							);
+						}, [open, mounted, domReady]);
+						const canTakeTreeSnapshot = open && domReady;
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
+							if (!id) return;
+							if (!canTakeTreeSnapshot) return;
+							const dialog = ref.current;
+							return (0,
+							_AOUGVQZ3_js__WEBPACK_IMPORTED_MODULE_11__.createWalkTreeSnapshot)(
+								id,
+								[dialog]
+							);
+						}, [id, canTakeTreeSnapshot, unstable_treeSnapshotKey]);
+						const getPersistentElementsProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useEvent)(
+							getPersistentElements
+						);
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
+							if (!id) return;
+							if (!canTakeTreeSnapshot) return;
+							const { disclosureElement } = store.getState();
+							const dialog = ref.current;
+							const persistentElements =
+								getPersistentElementsProp() || [];
+							const allElements = [
+								dialog,
+								...persistentElements,
+								...nestedDialogs.map(
+									(dialog2) =>
+										dialog2.getState().contentElement
+								),
+							];
+							if (modal) {
+								return (0,
+								_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_23__.chain)(
+									(0,
+									_3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__.markTreeOutside)(
+										id,
+										allElements
+									),
+									(0,
+									_Z5GCVBAY_js__WEBPACK_IMPORTED_MODULE_7__.disableTreeOutside)(
+										id,
+										allElements
+									)
+								);
+							}
+							return (0,
+							_3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__.markTreeOutside)(
+								id,
+								[disclosureElement, ...allElements]
+							);
+						}, [
+							id,
+							store,
+							canTakeTreeSnapshot,
+							getPersistentElementsProp,
+							nestedDialogs,
+							modal,
+							unstable_treeSnapshotKey,
+						]);
+						const mayAutoFocusOnShow = !!autoFocusOnShow;
+						const autoFocusOnShowProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useBooleanEvent)(
+							autoFocusOnShow
+						);
+						const [autoFocusEnabled, setAutoFocusEnabled] = (0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useState)(false);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
+							if (!open) return;
+							if (!mayAutoFocusOnShow) return;
+							if (!domReady) return;
+							if (
+								!(contentElement == null
+									? void 0
+									: contentElement.isConnected)
+							)
+								return;
+							const element =
+								getElementFromProp(initialFocus, true) || // If no initial focus is specified, we try to focus the first element
+								// with the autofocus attribute. If it's an Ariakit component, the
+								// Focusable component will consume the autoFocus prop and add the
+								// data-autofocus attribute to the element instead.
+								contentElement.querySelector(
+									'[data-autofocus=true],[autofocus]'
+								) || // We have to fallback to the first focusable element otherwise portaled
+								// dialogs with preserveTabOrder set to true will not receive focus
+								// properly because the elements aren't tabbable until the dialog receives
+								// focus.
+								(0,
+								_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.getFirstTabbableIn)(
+									contentElement,
+									true,
+									portal && preserveTabOrder
+								) || // Finally, we fallback to the dialog element itself.
+								contentElement;
+							const isElementFocusable = (0,
+							_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
+								element
+							);
+							if (
+								!autoFocusOnShowProp(
+									isElementFocusable ? element : null
+								)
+							)
+								return;
+							setAutoFocusEnabled(true);
+							queueMicrotask(() => {
+								element.focus();
+								if (!isSafariBrowser) return;
+								if (!isElementFocusable) return;
+								element.scrollIntoView({
+									block: 'nearest',
+									inline: 'nearest',
+								});
+							});
+						}, [
+							open,
+							mayAutoFocusOnShow,
+							domReady,
+							contentElement,
+							initialFocus,
+							portal,
+							preserveTabOrder,
+							autoFocusOnShowProp,
+						]);
+						const mayAutoFocusOnHide = !!autoFocusOnHide;
+						const autoFocusOnHideProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useBooleanEvent)(
+							autoFocusOnHide
+						);
+						const [hasOpened, setHasOpened] = (0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useState)(false);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
+							if (!open) return;
+							setHasOpened(true);
+							return () => setHasOpened(false);
+						}, [open]);
+						const focusOnHide = (0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useCallback)(
+							(dialog, retry = true) => {
+								const { disclosureElement } = store.getState();
+								if (isAlreadyFocusingAnotherElement(dialog))
+									return;
+								let element =
+									getElementFromProp(finalFocus) ||
+									disclosureElement;
+								if (element == null ? void 0 : element.id) {
+									const doc = (0,
+									_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getDocument)(
+										element
+									);
+									const selector = `[aria-activedescendant="${element.id}"]`;
+									const composite =
+										doc.querySelector(selector);
+									if (composite) {
+										element = composite;
+									}
+								}
+								if (
+									element &&
+									!(0,
+									_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
+										element
+									)
+								) {
+									const maybeParentDialog =
+										element.closest('[data-dialog]');
+									if (
+										maybeParentDialog == null
+											? void 0
+											: maybeParentDialog.id
+									) {
+										const doc = (0,
+										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.getDocument)(
+											maybeParentDialog
+										);
+										const selector = `[aria-controls~="${maybeParentDialog.id}"]`;
+										const control =
+											doc.querySelector(selector);
+										if (control) {
+											element = control;
+										}
+									}
+								}
+								const isElementFocusable =
+									element &&
+									(0,
+									_ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_22__.isFocusable)(
+										element
+									);
+								if (!isElementFocusable && retry) {
+									requestAnimationFrame(() =>
+										focusOnHide(dialog, false)
+									);
+									return;
+								}
+								if (
+									!autoFocusOnHideProp(
+										isElementFocusable ? element : null
+									)
+								)
+									return;
+								if (!isElementFocusable) return;
+								element == null
+									? void 0
+									: element.focus({ preventScroll: true });
+							},
+							[store, finalFocus, autoFocusOnHideProp]
+						);
+						const focusedOnHideRef = (0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useRef)(false);
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useSafeLayoutEffect)(() => {
+							if (open) return;
+							if (!hasOpened) return;
+							if (!mayAutoFocusOnHide) return;
+							const dialog = ref.current;
+							focusedOnHideRef.current = true;
+							focusOnHide(dialog);
+						}, [
+							open,
+							hasOpened,
+							domReady,
+							mayAutoFocusOnHide,
+							focusOnHide,
+						]);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
+							if (!hasOpened) return;
+							if (!mayAutoFocusOnHide) return;
+							const dialog = ref.current;
+							return () => {
+								if (focusedOnHideRef.current) {
+									focusedOnHideRef.current = false;
+									return;
+								}
+								focusOnHide(dialog);
+							};
+						}, [hasOpened, mayAutoFocusOnHide, focusOnHide]);
+						const hideOnEscapeProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useBooleanEvent)(
+							hideOnEscape
+						);
+						(0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useEffect)(() => {
+							if (!domReady) return;
+							if (!mounted) return;
+							const onKeyDown = (event) => {
+								if (event.key !== 'Escape') return;
+								if (event.defaultPrevented) return;
+								const dialog = ref.current;
+								if (!dialog) return;
+								if (
+									(0,
+									_3NDVDEB4_js__WEBPACK_IMPORTED_MODULE_10__.isElementMarked)(
+										dialog
+									)
+								)
+									return;
+								const target = event.target;
+								if (!target) return;
+								const { disclosureElement } = store.getState();
+								const isValidTarget = () => {
+									if (target.tagName === 'BODY') return true;
+									if (
+										(0,
+										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
+											dialog,
+											target
+										)
+									)
+										return true;
+									if (!disclosureElement) return true;
+									if (
+										(0,
+										_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_20__.contains)(
+											disclosureElement,
+											target
+										)
+									)
+										return true;
+									return false;
+								};
+								if (!isValidTarget()) return;
+								if (!hideOnEscapeProp(event)) return;
+								store.hide();
+							};
+							return (0,
+							_ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_21__.addGlobalEventListener)(
+								'keydown',
+								onKeyDown,
+								true
+							);
+						}, [store, domReady, mounted, hideOnEscapeProp]);
+						props = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
+							props,
+							(element) =>
+								/* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
+									_5M6RIVE2_js__WEBPACK_IMPORTED_MODULE_1__.HeadingLevel,
+									{
+										level: modal ? 1 : void 0,
+										children: element,
+									}
+								),
+							[modal]
+						);
+						const hiddenProp = props.hidden;
+						const alwaysVisible = props.alwaysVisible;
+						props = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
+							props,
+							(element) => {
+								if (!backdrop) return element;
+								return /* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(
+									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.Fragment,
+									{
+										children: [
+											/* @__PURE__ */ (0,
+											react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
+												_FVE2C5B3_js__WEBPACK_IMPORTED_MODULE_9__.DialogBackdrop,
+												{
+													store,
+													backdrop,
+													hidden: hiddenProp,
+													alwaysVisible,
+												}
+											),
+											element,
+										],
+									}
+								);
+							},
+							[store, backdrop, hiddenProp, alwaysVisible]
+						);
+						const [headingId, setHeadingId] = (0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useState)();
+						const [descriptionId, setDescriptionId] = (0,
+						react__WEBPACK_IMPORTED_MODULE_25__.useState)();
+						props = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useWrapElement)(
+							props,
+							(element) =>
+								/* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
+									_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.DialogScopedContextProvider,
+									{
+										value: store,
+										children: /* @__PURE__ */ (0,
+										react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
+											_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__
+												.DialogHeadingContext.Provider,
+											{
+												value: setHeadingId,
+												children: /* @__PURE__ */ (0,
+												react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
+													_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__
+														.DialogDescriptionContext
+														.Provider,
+													{
+														value: setDescriptionId,
+														children: element,
+													}
+												),
+											}
+										),
+									}
+								),
+							[store]
+						);
+						props = (0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
+								{
+									id,
+									'data-dialog': '',
+									role: 'dialog',
+									tabIndex: focusable ? -1 : void 0,
+									'aria-labelledby': headingId,
+									'aria-describedby': descriptionId,
+								},
+								props
+							),
+							{
+								ref: (0,
+								_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_18__.useMergeRefs)(
+									ref,
+									props.ref
+								),
+							}
+						);
+						props = (0,
+						_LC6GJMGV_js__WEBPACK_IMPORTED_MODULE_2__.useFocusableContainer)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
+								(0,
+								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
+									{},
+									props
+								),
+								{
+									autoFocusOnShow: autoFocusEnabled,
+								}
+							)
+						);
+						props = (0,
+						_K4R5DNTX_js__WEBPACK_IMPORTED_MODULE_12__.useDisclosureContent)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
+								{ store },
+								props
+							)
+						);
+						props = (0,
+						_OE2EFRVA_js__WEBPACK_IMPORTED_MODULE_15__.useFocusable)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
+								(0,
+								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
+									{},
+									props
+								),
+								{ focusable }
+							)
+						);
+						props = (0,
+						_M5DFOEFU_js__WEBPACK_IMPORTED_MODULE_0__.usePortal)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadProps)(
+								(0,
+								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
+									{ portal },
+									props
+								),
+								{ portalRef, preserveTabOrder }
+							)
+						);
+						return props;
+					}
+				);
+				function createDialogComponent(
+					Component,
+					useProviderContext = _T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.useDialogProviderContext
+				) {
+					return (0,
+					_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(
+						function DialogComponent(props) {
+							const context = useProviderContext();
+							const store = props.store || context;
+							const mounted = (0,
+							_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_16__.useStoreState)(
+								store,
+								(state) =>
+									!props.unmountOnHide ||
+									(state == null ? void 0 : state.mounted) ||
+									!!props.open
+							);
+							if (!mounted) return null;
+							return /* @__PURE__ */ (0,
+							react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(
+								Component,
+								(0,
+								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_19__.__spreadValues)(
+									{},
+									props
+								)
+							);
+						}
+					);
+				}
+				var Dialog = createDialogComponent(
+					(0, _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(
+						function Dialog2(props) {
+							const htmlProps = useDialog(props);
+							return (0,
+							_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_17__.createElement)(
+								TagName,
+								htmlProps
+							);
+						}
+					),
+					_T2AZQXQU_js__WEBPACK_IMPORTED_MODULE_14__.useDialogProviderContext
+				);
+
+				/***/
+			},
+
 		/***/ './node_modules/@ariakit/react-core/esm/__chunks/NMGNQVTG.js':
 			/*!*******************************************************************!*\
   !*** ./node_modules/@ariakit/react-core/esm/__chunks/NMGNQVTG.js ***!
@@ -17280,7 +16841,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_8__ =
 					__webpack_require__(
@@ -17934,7 +17495,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
@@ -17950,7 +17511,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_8__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js'
+						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ =
 					__webpack_require__(
@@ -18587,6 +18148,607 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
+		/***/ './node_modules/@ariakit/react-core/esm/__chunks/OXP7NBTN.js':
+			/*!*******************************************************************!*\
+  !*** ./node_modules/@ariakit/react-core/esm/__chunks/OXP7NBTN.js ***!
+  \*******************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ Popover: function () {
+							return /* binding */ Popover;
+						},
+						/* harmony export */ usePopover: function () {
+							return /* binding */ usePopover;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var _NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ./NI3IVY7K.js */ './node_modules/@ariakit/react-core/esm/__chunks/NI3IVY7K.js'
+					);
+				/* harmony import */ var _Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./Y67KZUMI.js */ './node_modules/@ariakit/react-core/esm/__chunks/Y67KZUMI.js'
+					);
+				/* harmony import */ var _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ./VOQWLFSQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/VOQWLFSQ.js'
+					);
+				/* harmony import */ var _5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ./5GGHRIN3.js */ './node_modules/@ariakit/react-core/esm/__chunks/5GGHRIN3.js'
+					);
+				/* harmony import */ var _3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__ =
+					__webpack_require__(
+						/*! ./3YLGPPWQ.js */ './node_modules/@ariakit/react-core/esm/__chunks/3YLGPPWQ.js'
+					);
+				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_5__ =
+					__webpack_require__(
+						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
+					);
+				/* harmony import */ var _floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__ =
+					__webpack_require__(
+						/*! @floating-ui/dom */ './node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs'
+					);
+				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ =
+					__webpack_require__(
+						/*! react */ './node_modules/react/index.js'
+					);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ =
+					__webpack_require__(
+						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
+					);
+				('use client');
+
+				// src/popover/popover.tsx
+
+				var TagName = 'div';
+				function createDOMRect(x = 0, y = 0, width = 0, height = 0) {
+					if (typeof DOMRect === 'function') {
+						return new DOMRect(x, y, width, height);
+					}
+					const rect = {
+						x,
+						y,
+						width,
+						height,
+						top: y,
+						right: x + width,
+						bottom: y + height,
+						left: x,
+					};
+					return (0,
+					_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
+						(0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
+							{},
+							rect
+						),
+						{ toJSON: () => rect }
+					);
+				}
+				function getDOMRect(anchorRect) {
+					if (!anchorRect) return createDOMRect();
+					const { x, y, width, height } = anchorRect;
+					return createDOMRect(x, y, width, height);
+				}
+				function getAnchorElement(anchorElement, getAnchorRect) {
+					const contextElement = anchorElement || void 0;
+					return {
+						contextElement,
+						getBoundingClientRect: () => {
+							const anchor = anchorElement;
+							const anchorRect =
+								getAnchorRect == null
+									? void 0
+									: getAnchorRect(anchor);
+							if (anchorRect || !anchor) {
+								return getDOMRect(anchorRect);
+							}
+							return anchor.getBoundingClientRect();
+						},
+					};
+				}
+				function isValidPlacement(flip2) {
+					return /^(?:top|bottom|left|right)(?:-(?:start|end))?$/.test(
+						flip2
+					);
+				}
+				function roundByDPR(value) {
+					const dpr = window.devicePixelRatio || 1;
+					return Math.round(value * dpr) / dpr;
+				}
+				function getOffsetMiddleware(arrowElement, props) {
+					return (0,
+					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.offset)(
+						({ placement }) => {
+							var _a;
+							const arrowOffset =
+								((arrowElement == null
+									? void 0
+									: arrowElement.clientHeight) || 0) / 2;
+							const finalGutter =
+								typeof props.gutter === 'number'
+									? props.gutter + arrowOffset
+									: (_a = props.gutter) != null
+										? _a
+										: arrowOffset;
+							const hasAlignment = !!placement.split('-')[1];
+							return {
+								crossAxis: !hasAlignment ? props.shift : void 0,
+								mainAxis: finalGutter,
+								alignmentAxis: props.shift,
+							};
+						}
+					);
+				}
+				function getFlipMiddleware(props) {
+					if (props.flip === false) return;
+					const fallbackPlacements =
+						typeof props.flip === 'string'
+							? props.flip.split(' ')
+							: void 0;
+					(0,
+					_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_5__.invariant)(
+						!fallbackPlacements ||
+							fallbackPlacements.every(isValidPlacement),
+						true &&
+							'`flip` expects a spaced-delimited list of placements'
+					);
+					return (0,
+					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.flip)({
+						padding: props.overflowPadding,
+						fallbackPlacements,
+					});
+				}
+				function getShiftMiddleware(props) {
+					if (!props.slide && !props.overlap) return;
+					return (0,
+					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.shift)({
+						mainAxis: props.slide,
+						crossAxis: props.overlap,
+						padding: props.overflowPadding,
+						limiter: (0,
+						_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.limitShift)(),
+					});
+				}
+				function getSizeMiddleware(props) {
+					return (0,
+					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.size)({
+						padding: props.overflowPadding,
+						apply({
+							elements,
+							availableWidth,
+							availableHeight,
+							rects,
+						}) {
+							const wrapper = elements.floating;
+							const referenceWidth = Math.round(
+								rects.reference.width
+							);
+							availableWidth = Math.floor(availableWidth);
+							availableHeight = Math.floor(availableHeight);
+							wrapper.style.setProperty(
+								'--popover-anchor-width',
+								`${referenceWidth}px`
+							);
+							wrapper.style.setProperty(
+								'--popover-available-width',
+								`${availableWidth}px`
+							);
+							wrapper.style.setProperty(
+								'--popover-available-height',
+								`${availableHeight}px`
+							);
+							if (props.sameWidth) {
+								wrapper.style.width = `${referenceWidth}px`;
+							}
+							if (props.fitViewport) {
+								wrapper.style.maxWidth = `${availableWidth}px`;
+								wrapper.style.maxHeight = `${availableHeight}px`;
+							}
+						},
+					});
+				}
+				function getArrowMiddleware(arrowElement, props) {
+					if (!arrowElement) return;
+					return (0,
+					_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.arrow)({
+						element: arrowElement,
+						padding: props.arrowPadding,
+					});
+				}
+				var usePopover = (0,
+				_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__.createHook)(
+					function usePopover2(_a) {
+						var _b = _a,
+							{
+								store,
+								modal = false,
+								portal = !!modal,
+								preserveTabOrder = true,
+								autoFocusOnShow = true,
+								wrapperProps,
+								fixed = false,
+								flip: flip2 = true,
+								shift: shift2 = 0,
+								slide = true,
+								overlap = false,
+								sameWidth = false,
+								fitViewport = false,
+								gutter,
+								arrowPadding = 4,
+								overflowPadding = 8,
+								getAnchorRect,
+								updatePosition,
+							} = _b,
+							props = (0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__objRest)(
+								_b,
+								[
+									'store',
+									'modal',
+									'portal',
+									'preserveTabOrder',
+									'autoFocusOnShow',
+									'wrapperProps',
+									'fixed',
+									'flip',
+									'shift',
+									'slide',
+									'overlap',
+									'sameWidth',
+									'fitViewport',
+									'gutter',
+									'arrowPadding',
+									'overflowPadding',
+									'getAnchorRect',
+									'updatePosition',
+								]
+							);
+						const context = (0,
+						_Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__.usePopoverProviderContext)();
+						store = store || context;
+						(0,
+						_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_5__.invariant)(
+							store,
+							true &&
+								'Popover must receive a `store` prop or be wrapped in a PopoverProvider component.'
+						);
+						const arrowElement = store.useState('arrowElement');
+						const anchorElement = store.useState('anchorElement');
+						const disclosureElement =
+							store.useState('disclosureElement');
+						const popoverElement = store.useState('popoverElement');
+						const contentElement = store.useState('contentElement');
+						const placement = store.useState('placement');
+						const mounted = store.useState('mounted');
+						const rendered = store.useState('rendered');
+						const defaultArrowElementRef = (0,
+						react__WEBPACK_IMPORTED_MODULE_7__.useRef)(null);
+						const [positioned, setPositioned] = (0,
+						react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
+						const { portalRef, domReady } = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.usePortalRef)(
+							portal,
+							props.portalRef
+						);
+						const getAnchorRectProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useEvent)(
+							getAnchorRect
+						);
+						const updatePositionProp = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useEvent)(
+							updatePosition
+						);
+						const hasCustomUpdatePosition = !!updatePosition;
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useSafeLayoutEffect)(() => {
+							if (
+								!(popoverElement == null
+									? void 0
+									: popoverElement.isConnected)
+							)
+								return;
+							popoverElement.style.setProperty(
+								'--popover-overflow-padding',
+								`${overflowPadding}px`
+							);
+							const anchor = getAnchorElement(
+								anchorElement,
+								getAnchorRectProp
+							);
+							const updatePosition2 = async () => {
+								if (!mounted) return;
+								if (!arrowElement) {
+									defaultArrowElementRef.current =
+										defaultArrowElementRef.current ||
+										document.createElement('div');
+								}
+								const arrow2 =
+									arrowElement ||
+									defaultArrowElementRef.current;
+								const middleware = [
+									getOffsetMiddleware(arrow2, {
+										gutter,
+										shift: shift2,
+									}),
+									getFlipMiddleware({
+										flip: flip2,
+										overflowPadding,
+									}),
+									getShiftMiddleware({
+										slide,
+										shift: shift2,
+										overlap,
+										overflowPadding,
+									}),
+									getArrowMiddleware(arrow2, {
+										arrowPadding,
+									}),
+									getSizeMiddleware({
+										sameWidth,
+										fitViewport,
+										overflowPadding,
+									}),
+								];
+								const pos = await (0,
+								_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.computePosition)(
+									anchor,
+									popoverElement,
+									{
+										placement,
+										strategy: fixed ? 'fixed' : 'absolute',
+										middleware,
+									}
+								);
+								store == null
+									? void 0
+									: store.setState(
+											'currentPlacement',
+											pos.placement
+										);
+								setPositioned(true);
+								const x = roundByDPR(pos.x);
+								const y = roundByDPR(pos.y);
+								Object.assign(popoverElement.style, {
+									top: '0',
+									left: '0',
+									transform: `translate3d(${x}px,${y}px,0)`,
+								});
+								if (arrow2 && pos.middlewareData.arrow) {
+									const { x: arrowX, y: arrowY } =
+										pos.middlewareData.arrow;
+									const side = pos.placement.split('-')[0];
+									const centerX = arrow2.clientWidth / 2;
+									const centerY = arrow2.clientHeight / 2;
+									const originX =
+										arrowX != null
+											? arrowX + centerX
+											: -centerX;
+									const originY =
+										arrowY != null
+											? arrowY + centerY
+											: -centerY;
+									popoverElement.style.setProperty(
+										'--popover-transform-origin',
+										{
+											top: `${originX}px calc(100% + ${centerY}px)`,
+											bottom: `${originX}px ${-centerY}px`,
+											left: `calc(100% + ${centerX}px) ${originY}px`,
+											right: `${-centerX}px ${originY}px`,
+										}[side]
+									);
+									Object.assign(arrow2.style, {
+										left:
+											arrowX != null ? `${arrowX}px` : '',
+										top:
+											arrowY != null ? `${arrowY}px` : '',
+										[side]: '100%',
+									});
+								}
+							};
+							const update = async () => {
+								if (hasCustomUpdatePosition) {
+									await updatePositionProp({
+										updatePosition: updatePosition2,
+									});
+									setPositioned(true);
+								} else {
+									await updatePosition2();
+								}
+							};
+							const cancelAutoUpdate = (0,
+							_floating_ui_dom__WEBPACK_IMPORTED_MODULE_6__.autoUpdate)(
+								anchor,
+								popoverElement,
+								update,
+								{
+									// JSDOM doesn't support ResizeObserver
+									elementResize:
+										typeof ResizeObserver === 'function',
+								}
+							);
+							return () => {
+								setPositioned(false);
+								cancelAutoUpdate();
+							};
+						}, [
+							store,
+							rendered,
+							popoverElement,
+							arrowElement,
+							anchorElement,
+							popoverElement,
+							placement,
+							mounted,
+							domReady,
+							fixed,
+							flip2,
+							shift2,
+							slide,
+							overlap,
+							sameWidth,
+							fitViewport,
+							gutter,
+							arrowPadding,
+							overflowPadding,
+							getAnchorRectProp,
+							hasCustomUpdatePosition,
+							updatePositionProp,
+						]);
+						(0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useSafeLayoutEffect)(() => {
+							if (!mounted) return;
+							if (!domReady) return;
+							if (
+								!(popoverElement == null
+									? void 0
+									: popoverElement.isConnected)
+							)
+								return;
+							if (
+								!(contentElement == null
+									? void 0
+									: contentElement.isConnected)
+							)
+								return;
+							const applyZIndex = () => {
+								popoverElement.style.zIndex =
+									getComputedStyle(contentElement).zIndex;
+							};
+							applyZIndex();
+							let raf = requestAnimationFrame(() => {
+								raf = requestAnimationFrame(applyZIndex);
+							});
+							return () => cancelAnimationFrame(raf);
+						}, [mounted, domReady, popoverElement, contentElement]);
+						const position = fixed ? 'fixed' : 'absolute';
+						props = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useWrapElement)(
+							props,
+							(element) =>
+								/* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
+									'div',
+									(0,
+									_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
+										(0,
+										_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
+											{},
+											wrapperProps
+										),
+										{
+											style: (0,
+											_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
+												{
+													// https://floating-ui.com/docs/computeposition#initial-layout
+													position,
+													top: 0,
+													left: 0,
+													width: 'max-content',
+												},
+												wrapperProps == null
+													? void 0
+													: wrapperProps.style
+											),
+											ref:
+												store == null
+													? void 0
+													: store.setPopoverElement,
+											children: element,
+										}
+									)
+								),
+							[store, position, wrapperProps]
+						);
+						props = (0,
+						_5GGHRIN3_js__WEBPACK_IMPORTED_MODULE_3__.useWrapElement)(
+							props,
+							(element) =>
+								/* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
+									_Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__.PopoverScopedContextProvider,
+									{ value: store, children: element }
+								),
+							[store]
+						);
+						props = (0,
+						_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
+								{
+									// data-placing is not part of the public API. We're setting this here so
+									// we can wait for the popover to be positioned before other components
+									// move focus into it. For example, this attribute is observed by the
+									// Combobox component with the autoSelect behavior.
+									'data-placing': !positioned || void 0,
+								},
+								props
+							),
+							{
+								style: (0,
+								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
+									{
+										position: 'relative',
+									},
+									props.style
+								),
+							}
+						);
+						props = (0,
+						_NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_0__.useDialog)(
+							(0,
+							_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadProps)(
+								(0,
+								_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_4__.__spreadValues)(
+									{
+										store,
+										modal,
+										portal,
+										preserveTabOrder,
+										preserveTabOrderAnchor:
+											disclosureElement || anchorElement,
+										autoFocusOnShow:
+											positioned && autoFocusOnShow,
+									},
+									props
+								),
+								{
+									portalRef,
+								}
+							)
+						);
+						return props;
+					}
+				);
+				var Popover = (0,
+				_NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_0__.createDialogComponent)(
+					(0, _VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
+						function Popover2(props) {
+							const htmlProps = usePopover(props);
+							return (0,
+							_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_2__.createElement)(
+								TagName,
+								htmlProps
+							);
+						}
+					),
+					_Y67KZUMI_js__WEBPACK_IMPORTED_MODULE_1__.usePopoverProviderContext
+				);
+
+				/***/
+			},
+
 		/***/ './node_modules/@ariakit/react-core/esm/__chunks/OYOFZOGB.js':
 			/*!*******************************************************************!*\
   !*** ./node_modules/@ariakit/react-core/esm/__chunks/OYOFZOGB.js ***!
@@ -18633,7 +18795,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
@@ -18884,7 +19046,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
@@ -19166,7 +19328,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
@@ -19431,7 +19593,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_popover_popover_store__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
-						/*! @ariakit/core/popover/popover-store */ './node_modules/@ariakit/core/esm/__chunks/ME2CUF3F.js'
+						/*! @ariakit/core/popover/popover-store */ './node_modules/@ariakit/core/esm/__chunks/MD3RIO2T.js'
 					);
 				('use client');
 
@@ -19695,7 +19857,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_8__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_9__ =
 					__webpack_require__(
@@ -19707,7 +19869,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_11__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js'
+						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/O6E4ZWCP.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ =
 					__webpack_require__(
@@ -20470,166 +20632,6 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
-		/***/ './node_modules/@ariakit/react-core/esm/__chunks/SOMPWLIQ.js':
-			/*!*******************************************************************!*\
-  !*** ./node_modules/@ariakit/react-core/esm/__chunks/SOMPWLIQ.js ***!
-  \*******************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ usePreventBodyScroll: function () {
-							return /* binding */ usePreventBodyScroll;
-						},
-						/* harmony export */
-					}
-				);
-				/* harmony import */ var _W6WVJJEY_js__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! ./W6WVJJEY.js */ './node_modules/@ariakit/react-core/esm/__chunks/W6WVJJEY.js'
-					);
-				/* harmony import */ var _K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ./K2ZF5NU7.js */ './node_modules/@ariakit/react-core/esm/__chunks/K2ZF5NU7.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_3__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/misc */ './node_modules/@ariakit/core/esm/__chunks/PBFD2E7P.js'
-					);
-				/* harmony import */ var _ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_4__ =
-					__webpack_require__(
-						/*! @ariakit/core/utils/platform */ './node_modules/@ariakit/core/esm/__chunks/QAGXQEUG.js'
-					);
-				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ =
-					__webpack_require__(
-						/*! react */ './node_modules/react/index.js'
-					);
-				('use client');
-
-				// src/dialog/utils/use-prevent-body-scroll.ts
-
-				function getPaddingProperty(documentElement) {
-					const documentLeft =
-						documentElement.getBoundingClientRect().left;
-					const scrollbarX =
-						Math.round(documentLeft) + documentElement.scrollLeft;
-					return scrollbarX ? 'paddingLeft' : 'paddingRight';
-				}
-				function usePreventBodyScroll(
-					contentElement,
-					contentId,
-					enabled
-				) {
-					const isRootDialog = (0,
-					_W6WVJJEY_js__WEBPACK_IMPORTED_MODULE_0__.useRootDialog)({
-						attribute: 'data-dialog-prevent-body-scroll',
-						contentElement,
-						contentId,
-						enabled,
-					});
-					(0, react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
-						if (!isRootDialog()) return;
-						if (!contentElement) return;
-						const doc = (0,
-						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getDocument)(
-							contentElement
-						);
-						const win = (0,
-						_ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(
-							contentElement
-						);
-						const { documentElement, body } = doc;
-						const cssScrollbarWidth =
-							documentElement.style.getPropertyValue(
-								'--scrollbar-width'
-							);
-						const scrollbarWidth = cssScrollbarWidth
-							? Number.parseInt(cssScrollbarWidth)
-							: win.innerWidth - documentElement.clientWidth;
-						const setScrollbarWidthProperty = () =>
-							(0,
-							_K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__.setCSSProperty)(
-								documentElement,
-								'--scrollbar-width',
-								`${scrollbarWidth}px`
-							);
-						const paddingProperty =
-							getPaddingProperty(documentElement);
-						const setStyle = () =>
-							(0,
-							_K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__.assignStyle)(
-								body,
-								{
-									overflow: 'hidden',
-									[paddingProperty]: `${scrollbarWidth}px`,
-								}
-							);
-						const setIOSStyle = () => {
-							var _a, _b;
-							const { scrollX, scrollY, visualViewport } = win;
-							const offsetLeft =
-								(_a =
-									visualViewport == null
-										? void 0
-										: visualViewport.offsetLeft) != null
-									? _a
-									: 0;
-							const offsetTop =
-								(_b =
-									visualViewport == null
-										? void 0
-										: visualViewport.offsetTop) != null
-									? _b
-									: 0;
-							const restoreStyle = (0,
-							_K2ZF5NU7_js__WEBPACK_IMPORTED_MODULE_1__.assignStyle)(
-								body,
-								{
-									position: 'fixed',
-									overflow: 'hidden',
-									top: `${-(scrollY - Math.floor(offsetTop))}px`,
-									left: `${-(scrollX - Math.floor(offsetLeft))}px`,
-									right: '0',
-									[paddingProperty]: `${scrollbarWidth}px`,
-								}
-							);
-							return () => {
-								restoreStyle();
-								if (true) {
-									win.scrollTo({
-										left: scrollX,
-										top: scrollY,
-										behavior: 'instant',
-									});
-								}
-							};
-						};
-						const isIOS =
-							(0,
-							_ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_4__.isApple)() &&
-							!(0,
-							_ariakit_core_utils_platform__WEBPACK_IMPORTED_MODULE_4__.isMac)();
-						return (0,
-						_ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_3__.chain)(
-							setScrollbarWidthProperty(),
-							isIOS ? setIOSStyle() : setStyle()
-						);
-					}, [isRootDialog, contentElement]);
-				}
-
-				/***/
-			},
-
 		/***/ './node_modules/@ariakit/react-core/esm/__chunks/SQZLCNLX.js':
 			/*!*******************************************************************!*\
   !*** ./node_modules/@ariakit/react-core/esm/__chunks/SQZLCNLX.js ***!
@@ -20960,7 +20962,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_disclosure_disclosure_store__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! @ariakit/core/disclosure/disclosure-store */ './node_modules/@ariakit/core/esm/__chunks/RCQ5P4YE.js'
+						/*! @ariakit/core/disclosure/disclosure-store */ './node_modules/@ariakit/core/esm/__chunks/43IPP2F4.js'
 					);
 				('use client');
 
@@ -22061,7 +22063,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
@@ -22592,7 +22594,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
@@ -22707,7 +22709,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_dialog_dialog_store__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! @ariakit/core/dialog/dialog-store */ './node_modules/@ariakit/core/esm/__chunks/FZZ2AVHF.js'
+						/*! @ariakit/core/dialog/dialog-store */ './node_modules/@ariakit/core/esm/__chunks/RZDDWCDV.js'
 					);
 				('use client');
 
@@ -22976,7 +22978,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_focus__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
@@ -23169,7 +23171,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
@@ -23653,7 +23655,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_events__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
@@ -23669,7 +23671,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_10__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_11__ =
 					__webpack_require__(
@@ -24498,7 +24500,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_9__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_10__ =
 					__webpack_require__(
@@ -25608,17 +25610,17 @@ If there's a particular need for this, please submit a feature request at https:
 					__webpack_require__(
 						/*! ../__chunks/W5BTY3ZG.js */ './node_modules/@ariakit/react-core/esm/__chunks/W5BTY3ZG.js'
 					);
-				/* harmony import */ var _chunks_IUFFNNPK_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_73HKIOBA_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/IUFFNNPK.js */ './node_modules/@ariakit/react-core/esm/__chunks/IUFFNNPK.js'
+						/*! ../__chunks/73HKIOBA.js */ './node_modules/@ariakit/react-core/esm/__chunks/73HKIOBA.js'
 					);
 				/* harmony import */ var _chunks_4QTMCR75_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! ../__chunks/4QTMCR75.js */ './node_modules/@ariakit/react-core/esm/__chunks/4QTMCR75.js'
 					);
-				/* harmony import */ var _chunks_CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var _chunks_NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
-						/*! ../__chunks/CAGBPNDP.js */ './node_modules/@ariakit/react-core/esm/__chunks/CAGBPNDP.js'
+						/*! ../__chunks/NI3IVY7K.js */ './node_modules/@ariakit/react-core/esm/__chunks/NI3IVY7K.js'
 					);
 				/* harmony import */ var _chunks_RTNCFSKZ_js__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
@@ -25839,7 +25841,7 @@ If there's a particular need for this, please submit a feature request at https:
 							);
 						}
 						props = (0,
-						_chunks_IUFFNNPK_js__WEBPACK_IMPORTED_MODULE_1__.useHovercard)(
+						_chunks_73HKIOBA_js__WEBPACK_IMPORTED_MODULE_1__.useHovercard)(
 							(0,
 							_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_7__.__spreadProps)(
 								(0,
@@ -25950,7 +25952,7 @@ If there's a particular need for this, please submit a feature request at https:
 					}
 				);
 				var Menu = (0,
-				_chunks_CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_3__.createDialogComponent)(
+				_chunks_NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_3__.createDialogComponent)(
 					(0,
 					_chunks_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_5__.forwardRef)(
 						function Menu2(props) {
@@ -26905,7 +26907,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_store__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/BCALMBPZ.js'
+						/*! @ariakit/core/utils/store */ './node_modules/@ariakit/core/esm/__chunks/EWA2WL6G.js'
 					);
 				/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
@@ -27133,13 +27135,13 @@ If there's a particular need for this, please submit a feature request at https:
 					__webpack_require__(
 						/*! ../__chunks/L3J7PHFC.js */ './node_modules/@ariakit/react-core/esm/__chunks/L3J7PHFC.js'
 					);
-				/* harmony import */ var _chunks_IUFFNNPK_js__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _chunks_73HKIOBA_js__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
-						/*! ../__chunks/IUFFNNPK.js */ './node_modules/@ariakit/react-core/esm/__chunks/IUFFNNPK.js'
+						/*! ../__chunks/73HKIOBA.js */ './node_modules/@ariakit/react-core/esm/__chunks/73HKIOBA.js'
 					);
-				/* harmony import */ var _chunks_CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _chunks_NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! ../__chunks/CAGBPNDP.js */ './node_modules/@ariakit/react-core/esm/__chunks/CAGBPNDP.js'
+						/*! ../__chunks/NI3IVY7K.js */ './node_modules/@ariakit/react-core/esm/__chunks/NI3IVY7K.js'
 					);
 				/* harmony import */ var _chunks_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
@@ -27155,7 +27157,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _ariakit_core_utils_dom__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
-						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/DTR5TSDJ.js'
+						/*! @ariakit/core/utils/dom */ './node_modules/@ariakit/core/esm/__chunks/37JWRFYW.js'
 					);
 				/* harmony import */ var _ariakit_core_utils_misc__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
@@ -27223,7 +27225,7 @@ If there's a particular need for this, please submit a feature request at https:
 							props
 						);
 						props = (0,
-						_chunks_IUFFNNPK_js__WEBPACK_IMPORTED_MODULE_1__.useHovercard)(
+						_chunks_73HKIOBA_js__WEBPACK_IMPORTED_MODULE_1__.useHovercard)(
 							(0,
 							_chunks_3YLGPPWQ_js__WEBPACK_IMPORTED_MODULE_5__.__spreadProps)(
 								(0,
@@ -27290,7 +27292,7 @@ If there's a particular need for this, please submit a feature request at https:
 					}
 				);
 				var Tooltip = (0,
-				_chunks_CAGBPNDP_js__WEBPACK_IMPORTED_MODULE_2__.createDialogComponent)(
+				_chunks_NI3IVY7K_js__WEBPACK_IMPORTED_MODULE_2__.createDialogComponent)(
 					(0,
 					_chunks_VOQWLFSQ_js__WEBPACK_IMPORTED_MODULE_3__.forwardRef)(
 						function Tooltip2(props) {
@@ -27304,6 +27306,21 @@ If there's a particular need for this, please submit a feature request at https:
 					),
 					_chunks_L3J7PHFC_js__WEBPACK_IMPORTED_MODULE_0__.useTooltipProviderContext
 				);
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/OverloadYield.js':
+			/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/OverloadYield.js ***!
+  \**************************************************************/
+			/***/ function (module) {
+				function _OverloadYield(e, d) {
+					((this.v = e), (this.k = d));
+				}
+				((module.exports = _OverloadYield),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
 
 				/***/
 			},
@@ -27468,6 +27485,46 @@ If there's a particular need for this, please submit a feature request at https:
 								})
 							: (e[r] = t),
 						e
+					);
+				}
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/esm/extends.js':
+			/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
+  \************************************************************/
+			/***/ function (
+				__unused_webpack___webpack_module__,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ _extends;
+						},
+						/* harmony export */
+					}
+				);
+				function _extends() {
+					return (
+						(_extends = Object.assign
+							? Object.assign.bind()
+							: function (n) {
+									for (var e = 1; e < arguments.length; e++) {
+										var t = arguments[e];
+										for (var r in t)
+											({}).hasOwnProperty.call(t, r) &&
+												(n[r] = t[r]);
+									}
+									return n;
+								}),
+						_extends.apply(null, arguments)
 					);
 				}
 
@@ -27869,6 +27926,430 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
+		/***/ './node_modules/@babel/runtime/helpers/regenerator.js':
+			/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regenerator.js ***!
+  \************************************************************/
+			/***/ function (
+				module,
+				__unused_webpack_exports,
+				__webpack_require__
+			) {
+				var regeneratorDefine = __webpack_require__(
+					/*! ./regeneratorDefine.js */ './node_modules/@babel/runtime/helpers/regeneratorDefine.js'
+				);
+				function _regenerator() {
+					/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
+					var e,
+						t,
+						r = 'function' == typeof Symbol ? Symbol : {},
+						n = r.iterator || '@@iterator',
+						o = r.toStringTag || '@@toStringTag';
+					function i(r, n, o, i) {
+						var c =
+								n && n.prototype instanceof Generator
+									? n
+									: Generator,
+							u = Object.create(c.prototype);
+						return (
+							regeneratorDefine(
+								u,
+								'_invoke',
+								(function (r, n, o) {
+									var i,
+										c,
+										u,
+										f = 0,
+										p = o || [],
+										y = !1,
+										G = {
+											p: 0,
+											n: 0,
+											v: e,
+											a: d,
+											f: d.bind(e, 4),
+											d: function d(t, r) {
+												return (
+													(i = t),
+													(c = 0),
+													(u = e),
+													(G.n = r),
+													a
+												);
+											},
+										};
+									function d(r, n) {
+										for (
+											c = r, u = n, t = 0;
+											!y && f && !o && t < p.length;
+											t++
+										) {
+											var o,
+												i = p[t],
+												d = G.p,
+												l = i[2];
+											r > 3
+												? (o = l === n) &&
+													((u =
+														i[
+															(c = i[4])
+																? 5
+																: ((c = 3), 3)
+														]),
+													(i[4] = i[5] = e))
+												: i[0] <= d &&
+													((o = r < 2 && d < i[1])
+														? ((c = 0),
+															(G.v = n),
+															(G.n = i[1]))
+														: d < l &&
+															(o =
+																r < 3 ||
+																i[0] > n ||
+																n > l) &&
+															((i[4] = r),
+															(i[5] = n),
+															(G.n = l),
+															(c = 0)));
+										}
+										if (o || r > 1) return a;
+										throw ((y = !0), n);
+									}
+									return function (o, p, l) {
+										if (f > 1)
+											throw TypeError(
+												'Generator is already running'
+											);
+										for (
+											y && 1 === p && d(p, l),
+												c = p,
+												u = l;
+											(t = c < 2 ? e : u) || !y;
+
+										) {
+											i ||
+												(c
+													? c < 3
+														? (c > 1 && (G.n = -1),
+															d(c, u))
+														: (G.n = u)
+													: (G.v = u));
+											try {
+												if (((f = 2), i)) {
+													if (
+														(c || (o = 'next'),
+														(t = i[o]))
+													) {
+														if (!(t = t.call(i, u)))
+															throw TypeError(
+																'iterator result is not an object'
+															);
+														if (!t.done) return t;
+														((u = t.value),
+															c < 2 && (c = 0));
+													} else
+														(1 === c &&
+															(t = i['return']) &&
+															t.call(i),
+															c < 2 &&
+																((u = TypeError(
+																	"The iterator does not provide a '" +
+																		o +
+																		"' method"
+																)),
+																(c = 1)));
+													i = e;
+												} else if (
+													(t = (y = G.n < 0)
+														? u
+														: r.call(n, G)) !== a
+												)
+													break;
+											} catch (t) {
+												((i = e), (c = 1), (u = t));
+											} finally {
+												f = 1;
+											}
+										}
+										return {
+											value: t,
+											done: y,
+										};
+									};
+								})(r, o, i),
+								!0
+							),
+							u
+						);
+					}
+					var a = {};
+					function Generator() {}
+					function GeneratorFunction() {}
+					function GeneratorFunctionPrototype() {}
+					t = Object.getPrototypeOf;
+					var c = [][n]
+							? t(t([][n]()))
+							: (regeneratorDefine((t = {}), n, function () {
+									return this;
+								}),
+								t),
+						u =
+							(GeneratorFunctionPrototype.prototype =
+							Generator.prototype =
+								Object.create(c));
+					function f(e) {
+						return (
+							Object.setPrototypeOf
+								? Object.setPrototypeOf(
+										e,
+										GeneratorFunctionPrototype
+									)
+								: ((e.__proto__ = GeneratorFunctionPrototype),
+									regeneratorDefine(
+										e,
+										o,
+										'GeneratorFunction'
+									)),
+							(e.prototype = Object.create(u)),
+							e
+						);
+					}
+					return (
+						(GeneratorFunction.prototype =
+							GeneratorFunctionPrototype),
+						regeneratorDefine(
+							u,
+							'constructor',
+							GeneratorFunctionPrototype
+						),
+						regeneratorDefine(
+							GeneratorFunctionPrototype,
+							'constructor',
+							GeneratorFunction
+						),
+						(GeneratorFunction.displayName = 'GeneratorFunction'),
+						regeneratorDefine(
+							GeneratorFunctionPrototype,
+							o,
+							'GeneratorFunction'
+						),
+						regeneratorDefine(u),
+						regeneratorDefine(u, o, 'Generator'),
+						regeneratorDefine(u, n, function () {
+							return this;
+						}),
+						regeneratorDefine(u, 'toString', function () {
+							return '[object Generator]';
+						}),
+						((module.exports = _regenerator =
+							function _regenerator() {
+								return {
+									w: i,
+									m: f,
+								};
+							}),
+						(module.exports.__esModule = true),
+						(module.exports['default'] = module.exports))()
+					);
+				}
+				((module.exports = _regenerator),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/regeneratorAsync.js':
+			/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorAsync.js ***!
+  \*****************************************************************/
+			/***/ function (
+				module,
+				__unused_webpack_exports,
+				__webpack_require__
+			) {
+				var regeneratorAsyncGen = __webpack_require__(
+					/*! ./regeneratorAsyncGen.js */ './node_modules/@babel/runtime/helpers/regeneratorAsyncGen.js'
+				);
+				function _regeneratorAsync(n, e, r, t, o) {
+					var a = regeneratorAsyncGen(n, e, r, t, o);
+					return a.next().then(function (n) {
+						return n.done ? n.value : a.next();
+					});
+				}
+				((module.exports = _regeneratorAsync),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/regeneratorAsyncGen.js':
+			/*!********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorAsyncGen.js ***!
+  \********************************************************************/
+			/***/ function (
+				module,
+				__unused_webpack_exports,
+				__webpack_require__
+			) {
+				var regenerator = __webpack_require__(
+					/*! ./regenerator.js */ './node_modules/@babel/runtime/helpers/regenerator.js'
+				);
+				var regeneratorAsyncIterator = __webpack_require__(
+					/*! ./regeneratorAsyncIterator.js */ './node_modules/@babel/runtime/helpers/regeneratorAsyncIterator.js'
+				);
+				function _regeneratorAsyncGen(r, e, t, o, n) {
+					return new regeneratorAsyncIterator(
+						regenerator().w(r, e, t, o),
+						n || Promise
+					);
+				}
+				((module.exports = _regeneratorAsyncGen),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/regeneratorAsyncIterator.js':
+			/*!*************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorAsyncIterator.js ***!
+  \*************************************************************************/
+			/***/ function (
+				module,
+				__unused_webpack_exports,
+				__webpack_require__
+			) {
+				var OverloadYield = __webpack_require__(
+					/*! ./OverloadYield.js */ './node_modules/@babel/runtime/helpers/OverloadYield.js'
+				);
+				var regeneratorDefine = __webpack_require__(
+					/*! ./regeneratorDefine.js */ './node_modules/@babel/runtime/helpers/regeneratorDefine.js'
+				);
+				function AsyncIterator(t, e) {
+					function n(r, o, i, f) {
+						try {
+							var c = t[r](o),
+								u = c.value;
+							return u instanceof OverloadYield
+								? e.resolve(u.v).then(
+										function (t) {
+											n('next', t, i, f);
+										},
+										function (t) {
+											n('throw', t, i, f);
+										}
+									)
+								: e.resolve(u).then(
+										function (t) {
+											((c.value = t), i(c));
+										},
+										function (t) {
+											return n('throw', t, i, f);
+										}
+									);
+						} catch (t) {
+							f(t);
+						}
+					}
+					var r;
+					(this.next ||
+						(regeneratorDefine(AsyncIterator.prototype),
+						regeneratorDefine(
+							AsyncIterator.prototype,
+							('function' == typeof Symbol &&
+								Symbol.asyncIterator) ||
+								'@asyncIterator',
+							function () {
+								return this;
+							}
+						)),
+						regeneratorDefine(
+							this,
+							'_invoke',
+							function (t, o, i) {
+								function f() {
+									return new e(function (e, r) {
+										n(t, i, e, r);
+									});
+								}
+								return (r = r ? r.then(f, f) : f());
+							},
+							!0
+						));
+				}
+				((module.exports = AsyncIterator),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/regeneratorDefine.js':
+			/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorDefine.js ***!
+  \******************************************************************/
+			/***/ function (module) {
+				function _regeneratorDefine(e, r, n, t) {
+					var i = Object.defineProperty;
+					try {
+						i({}, '', {});
+					} catch (e) {
+						i = 0;
+					}
+					((module.exports = _regeneratorDefine =
+						function regeneratorDefine(e, r, n, t) {
+							function o(r, n) {
+								_regeneratorDefine(e, r, function (e) {
+									return this._invoke(r, n, e);
+								});
+							}
+							r
+								? i
+									? i(e, r, {
+											value: n,
+											enumerable: !t,
+											configurable: !t,
+											writable: !t,
+										})
+									: (e[r] = n)
+								: (o('next', 0), o('throw', 1), o('return', 2));
+						}),
+						(module.exports.__esModule = true),
+						(module.exports['default'] = module.exports),
+						_regeneratorDefine(e, r, n, t));
+				}
+				((module.exports = _regeneratorDefine),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/regeneratorKeys.js':
+			/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorKeys.js ***!
+  \****************************************************************/
+			/***/ function (module) {
+				function _regeneratorKeys(e) {
+					var n = Object(e),
+						r = [];
+					for (var t in n) r.unshift(t);
+					return function e() {
+						for (; r.length; )
+							if ((t = r.pop()) in n)
+								return ((e.value = t), (e.done = !1), e);
+						return ((e.done = !0), e);
+					};
+				}
+				((module.exports = _regeneratorKeys),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
+
+				/***/
+			},
+
 		/***/ './node_modules/@babel/runtime/helpers/regeneratorRuntime.js':
 			/*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/regeneratorRuntime.js ***!
@@ -27878,542 +28359,172 @@ If there's a particular need for this, please submit a feature request at https:
 				__unused_webpack_exports,
 				__webpack_require__
 			) {
+				var OverloadYield = __webpack_require__(
+					/*! ./OverloadYield.js */ './node_modules/@babel/runtime/helpers/OverloadYield.js'
+				);
+				var regenerator = __webpack_require__(
+					/*! ./regenerator.js */ './node_modules/@babel/runtime/helpers/regenerator.js'
+				);
+				var regeneratorAsync = __webpack_require__(
+					/*! ./regeneratorAsync.js */ './node_modules/@babel/runtime/helpers/regeneratorAsync.js'
+				);
+				var regeneratorAsyncGen = __webpack_require__(
+					/*! ./regeneratorAsyncGen.js */ './node_modules/@babel/runtime/helpers/regeneratorAsyncGen.js'
+				);
+				var regeneratorAsyncIterator = __webpack_require__(
+					/*! ./regeneratorAsyncIterator.js */ './node_modules/@babel/runtime/helpers/regeneratorAsyncIterator.js'
+				);
+				var regeneratorKeys = __webpack_require__(
+					/*! ./regeneratorKeys.js */ './node_modules/@babel/runtime/helpers/regeneratorKeys.js'
+				);
+				var regeneratorValues = __webpack_require__(
+					/*! ./regeneratorValues.js */ './node_modules/@babel/runtime/helpers/regeneratorValues.js'
+				);
+				function _regeneratorRuntime() {
+					'use strict';
+
+					var r = regenerator(),
+						e = r.m(_regeneratorRuntime),
+						t = (
+							Object.getPrototypeOf
+								? Object.getPrototypeOf(e)
+								: e.__proto__
+						).constructor;
+					function n(r) {
+						var e = 'function' == typeof r && r.constructor;
+						return (
+							!!e &&
+							(e === t ||
+								'GeneratorFunction' ===
+									(e.displayName || e.name))
+						);
+					}
+					var o = {
+						throw: 1,
+						return: 2,
+						break: 3,
+						continue: 3,
+					};
+					function a(r) {
+						var e, t;
+						return function (n) {
+							(e ||
+								((e = {
+									stop: function stop() {
+										return t(n.a, 2);
+									},
+									catch: function _catch() {
+										return n.v;
+									},
+									abrupt: function abrupt(r, e) {
+										return t(n.a, o[r], e);
+									},
+									delegateYield: function delegateYield(
+										r,
+										o,
+										a
+									) {
+										return (
+											(e.resultName = o),
+											t(n.d, regeneratorValues(r), a)
+										);
+									},
+									finish: function finish(r) {
+										return t(n.f, r);
+									},
+								}),
+								(t = function t(r, _t, o) {
+									((n.p = e.prev), (n.n = e.next));
+									try {
+										return r(_t, o);
+									} finally {
+										e.next = n.n;
+									}
+								})),
+								e.resultName &&
+									((e[e.resultName] = n.v),
+									(e.resultName = void 0)),
+								(e.sent = n.v),
+								(e.next = n.n));
+							try {
+								return r.call(this, e);
+							} finally {
+								((n.p = e.prev), (n.n = e.next));
+							}
+						};
+					}
+					return ((module.exports = _regeneratorRuntime =
+						function _regeneratorRuntime() {
+							return {
+								wrap: function wrap(e, t, n, o) {
+									return r.w(a(e), t, n, o && o.reverse());
+								},
+								isGeneratorFunction: n,
+								mark: r.m,
+								awrap: function awrap(r, e) {
+									return new OverloadYield(r, e);
+								},
+								AsyncIterator: regeneratorAsyncIterator,
+								async: function async(r, e, t, o, u) {
+									return (
+										n(e)
+											? regeneratorAsyncGen
+											: regeneratorAsync
+									)(a(r), e, t, o, u);
+								},
+								keys: regeneratorKeys,
+								values: regeneratorValues,
+							};
+						}),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports))();
+				}
+				((module.exports = _regeneratorRuntime),
+					(module.exports.__esModule = true),
+					(module.exports['default'] = module.exports));
+
+				/***/
+			},
+
+		/***/ './node_modules/@babel/runtime/helpers/regeneratorValues.js':
+			/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorValues.js ***!
+  \******************************************************************/
+			/***/ function (
+				module,
+				__unused_webpack_exports,
+				__webpack_require__
+			) {
 				var _typeof = __webpack_require__(
 					/*! ./typeof.js */ './node_modules/@babel/runtime/helpers/typeof.js'
 				)['default'];
-				function _regeneratorRuntime() {
-					'use strict'; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
-					((module.exports = _regeneratorRuntime =
-						function _regeneratorRuntime() {
-							return e;
-						}),
-						(module.exports.__esModule = true),
-						(module.exports['default'] = module.exports));
-					var t,
-						e = {},
-						r = Object.prototype,
-						n = r.hasOwnProperty,
-						o =
-							Object.defineProperty ||
-							function (t, e, r) {
-								t[e] = r.value;
-							},
-						i = 'function' == typeof Symbol ? Symbol : {},
-						a = i.iterator || '@@iterator',
-						c = i.asyncIterator || '@@asyncIterator',
-						u = i.toStringTag || '@@toStringTag';
-					function define(t, e, r) {
-						return (
-							Object.defineProperty(t, e, {
-								value: r,
-								enumerable: !0,
-								configurable: !0,
-								writable: !0,
-							}),
-							t[e]
-						);
-					}
-					try {
-						define({}, '');
-					} catch (t) {
-						define = function define(t, e, r) {
-							return (t[e] = r);
-						};
-					}
-					function wrap(t, e, r, n) {
-						var i =
-								e && e.prototype instanceof Generator
-									? e
-									: Generator,
-							a = Object.create(i.prototype),
-							c = new Context(n || []);
-						return (
-							o(a, '_invoke', {
-								value: makeInvokeMethod(t, r, c),
-							}),
-							a
-						);
-					}
-					function tryCatch(t, e, r) {
-						try {
+				function _regeneratorValues(e) {
+					if (null != e) {
+						var t =
+								e[
+									('function' == typeof Symbol &&
+										Symbol.iterator) ||
+										'@@iterator'
+								],
+							r = 0;
+						if (t) return t.call(e);
+						if ('function' == typeof e.next) return e;
+						if (!isNaN(e.length))
 							return {
-								type: 'normal',
-								arg: t.call(e, r),
-							};
-						} catch (t) {
-							return {
-								type: 'throw',
-								arg: t,
-							};
-						}
-					}
-					e.wrap = wrap;
-					var h = 'suspendedStart',
-						l = 'suspendedYield',
-						f = 'executing',
-						s = 'completed',
-						y = {};
-					function Generator() {}
-					function GeneratorFunction() {}
-					function GeneratorFunctionPrototype() {}
-					var p = {};
-					define(p, a, function () {
-						return this;
-					});
-					var d = Object.getPrototypeOf,
-						v = d && d(d(values([])));
-					v && v !== r && n.call(v, a) && (p = v);
-					var g =
-						(GeneratorFunctionPrototype.prototype =
-						Generator.prototype =
-							Object.create(p));
-					function defineIteratorMethods(t) {
-						['next', 'throw', 'return'].forEach(function (e) {
-							define(t, e, function (t) {
-								return this._invoke(e, t);
-							});
-						});
-					}
-					function AsyncIterator(t, e) {
-						function invoke(r, o, i, a) {
-							var c = tryCatch(t[r], t, o);
-							if ('throw' !== c.type) {
-								var u = c.arg,
-									h = u.value;
-								return h &&
-									'object' == _typeof(h) &&
-									n.call(h, '__await')
-									? e.resolve(h.__await).then(
-											function (t) {
-												invoke('next', t, i, a);
-											},
-											function (t) {
-												invoke('throw', t, i, a);
-											}
-										)
-									: e.resolve(h).then(
-											function (t) {
-												((u.value = t), i(u));
-											},
-											function (t) {
-												return invoke('throw', t, i, a);
-											}
-										);
-							}
-							a(c.arg);
-						}
-						var r;
-						o(this, '_invoke', {
-							value: function value(t, n) {
-								function callInvokeWithMethodAndArg() {
-									return new e(function (e, r) {
-										invoke(t, n, e, r);
-									});
-								}
-								return (r = r
-									? r.then(
-											callInvokeWithMethodAndArg,
-											callInvokeWithMethodAndArg
-										)
-									: callInvokeWithMethodAndArg());
-							},
-						});
-					}
-					function makeInvokeMethod(e, r, n) {
-						var o = h;
-						return function (i, a) {
-							if (o === f)
-								throw Error('Generator is already running');
-							if (o === s) {
-								if ('throw' === i) throw a;
-								return {
-									value: t,
-									done: !0,
-								};
-							}
-							for (n.method = i, n.arg = a; ; ) {
-								var c = n.delegate;
-								if (c) {
-									var u = maybeInvokeDelegate(c, n);
-									if (u) {
-										if (u === y) continue;
-										return u;
-									}
-								}
-								if ('next' === n.method)
-									n.sent = n._sent = n.arg;
-								else if ('throw' === n.method) {
-									if (o === h) throw ((o = s), n.arg);
-									n.dispatchException(n.arg);
-								} else
-									'return' === n.method &&
-										n.abrupt('return', n.arg);
-								o = f;
-								var p = tryCatch(e, r, n);
-								if ('normal' === p.type) {
-									if (((o = n.done ? s : l), p.arg === y))
-										continue;
-									return {
-										value: p.arg,
-										done: n.done,
-									};
-								}
-								'throw' === p.type &&
-									((o = s),
-									(n.method = 'throw'),
-									(n.arg = p.arg));
-							}
-						};
-					}
-					function maybeInvokeDelegate(e, r) {
-						var n = r.method,
-							o = e.iterator[n];
-						if (o === t)
-							return (
-								(r.delegate = null),
-								('throw' === n &&
-									e.iterator['return'] &&
-									((r.method = 'return'),
-									(r.arg = t),
-									maybeInvokeDelegate(e, r),
-									'throw' === r.method)) ||
-									('return' !== n &&
-										((r.method = 'throw'),
-										(r.arg = new TypeError(
-											"The iterator does not provide a '" +
-												n +
-												"' method"
-										)))),
-								y
-							);
-						var i = tryCatch(o, e.iterator, r.arg);
-						if ('throw' === i.type)
-							return (
-								(r.method = 'throw'),
-								(r.arg = i.arg),
-								(r.delegate = null),
-								y
-							);
-						var a = i.arg;
-						return a
-							? a.done
-								? ((r[e.resultName] = a.value),
-									(r.next = e.nextLoc),
-									'return' !== r.method &&
-										((r.method = 'next'), (r.arg = t)),
-									(r.delegate = null),
-									y)
-								: a
-							: ((r.method = 'throw'),
-								(r.arg = new TypeError(
-									'iterator result is not an object'
-								)),
-								(r.delegate = null),
-								y);
-					}
-					function pushTryEntry(t) {
-						var e = {
-							tryLoc: t[0],
-						};
-						(1 in t && (e.catchLoc = t[1]),
-							2 in t &&
-								((e.finallyLoc = t[2]), (e.afterLoc = t[3])),
-							this.tryEntries.push(e));
-					}
-					function resetTryEntry(t) {
-						var e = t.completion || {};
-						((e.type = 'normal'), delete e.arg, (t.completion = e));
-					}
-					function Context(t) {
-						((this.tryEntries = [
-							{
-								tryLoc: 'root',
-							},
-						]),
-							t.forEach(pushTryEntry, this),
-							this.reset(!0));
-					}
-					function values(e) {
-						if (e || '' === e) {
-							var r = e[a];
-							if (r) return r.call(e);
-							if ('function' == typeof e.next) return e;
-							if (!isNaN(e.length)) {
-								var o = -1,
-									i = function next() {
-										for (; ++o < e.length; )
-											if (n.call(e, o))
-												return (
-													(next.value = e[o]),
-													(next.done = !1),
-													next
-												);
-										return (
-											(next.value = t),
-											(next.done = !0),
-											next
-										);
-									};
-								return (i.next = i);
-							}
-						}
-						throw new TypeError(_typeof(e) + ' is not iterable');
-					}
-					return (
-						(GeneratorFunction.prototype =
-							GeneratorFunctionPrototype),
-						o(g, 'constructor', {
-							value: GeneratorFunctionPrototype,
-							configurable: !0,
-						}),
-						o(GeneratorFunctionPrototype, 'constructor', {
-							value: GeneratorFunction,
-							configurable: !0,
-						}),
-						(GeneratorFunction.displayName = define(
-							GeneratorFunctionPrototype,
-							u,
-							'GeneratorFunction'
-						)),
-						(e.isGeneratorFunction = function (t) {
-							var e = 'function' == typeof t && t.constructor;
-							return (
-								!!e &&
-								(e === GeneratorFunction ||
-									'GeneratorFunction' ===
-										(e.displayName || e.name))
-							);
-						}),
-						(e.mark = function (t) {
-							return (
-								Object.setPrototypeOf
-									? Object.setPrototypeOf(
-											t,
-											GeneratorFunctionPrototype
-										)
-									: ((t.__proto__ =
-											GeneratorFunctionPrototype),
-										define(t, u, 'GeneratorFunction')),
-								(t.prototype = Object.create(g)),
-								t
-							);
-						}),
-						(e.awrap = function (t) {
-							return {
-								__await: t,
-							};
-						}),
-						defineIteratorMethods(AsyncIterator.prototype),
-						define(AsyncIterator.prototype, c, function () {
-							return this;
-						}),
-						(e.AsyncIterator = AsyncIterator),
-						(e.async = function (t, r, n, o, i) {
-							void 0 === i && (i = Promise);
-							var a = new AsyncIterator(wrap(t, r, n, o), i);
-							return e.isGeneratorFunction(r)
-								? a
-								: a.next().then(function (t) {
-										return t.done ? t.value : a.next();
-									});
-						}),
-						defineIteratorMethods(g),
-						define(g, u, 'Generator'),
-						define(g, a, function () {
-							return this;
-						}),
-						define(g, 'toString', function () {
-							return '[object Generator]';
-						}),
-						(e.keys = function (t) {
-							var e = Object(t),
-								r = [];
-							for (var n in e) r.push(n);
-							return (
-								r.reverse(),
-								function next() {
-									for (; r.length; ) {
-										var t = r.pop();
-										if (t in e)
-											return (
-												(next.value = t),
-												(next.done = !1),
-												next
-											);
-									}
-									return ((next.done = !0), next);
-								}
-							);
-						}),
-						(e.values = values),
-						(Context.prototype = {
-							constructor: Context,
-							reset: function reset(e) {
-								if (
-									((this.prev = 0),
-									(this.next = 0),
-									(this.sent = this._sent = t),
-									(this.done = !1),
-									(this.delegate = null),
-									(this.method = 'next'),
-									(this.arg = t),
-									this.tryEntries.forEach(resetTryEntry),
-									!e)
-								)
-									for (var r in this)
-										't' === r.charAt(0) &&
-											n.call(this, r) &&
-											!isNaN(+r.slice(1)) &&
-											(this[r] = t);
-							},
-							stop: function stop() {
-								this.done = !0;
-								var t = this.tryEntries[0].completion;
-								if ('throw' === t.type) throw t.arg;
-								return this.rval;
-							},
-							dispatchException: function dispatchException(e) {
-								if (this.done) throw e;
-								var r = this;
-								function handle(n, o) {
+								next: function next() {
 									return (
-										(a.type = 'throw'),
-										(a.arg = e),
-										(r.next = n),
-										o && ((r.method = 'next'), (r.arg = t)),
-										!!o
+										e && r >= e.length && (e = void 0),
+										{
+											value: e && e[r++],
+											done: !e,
+										}
 									);
-								}
-								for (
-									var o = this.tryEntries.length - 1;
-									o >= 0;
-									--o
-								) {
-									var i = this.tryEntries[o],
-										a = i.completion;
-									if ('root' === i.tryLoc)
-										return handle('end');
-									if (i.tryLoc <= this.prev) {
-										var c = n.call(i, 'catchLoc'),
-											u = n.call(i, 'finallyLoc');
-										if (c && u) {
-											if (this.prev < i.catchLoc)
-												return handle(i.catchLoc, !0);
-											if (this.prev < i.finallyLoc)
-												return handle(i.finallyLoc);
-										} else if (c) {
-											if (this.prev < i.catchLoc)
-												return handle(i.catchLoc, !0);
-										} else {
-											if (!u)
-												throw Error(
-													'try statement without catch or finally'
-												);
-											if (this.prev < i.finallyLoc)
-												return handle(i.finallyLoc);
-										}
-									}
-								}
-							},
-							abrupt: function abrupt(t, e) {
-								for (
-									var r = this.tryEntries.length - 1;
-									r >= 0;
-									--r
-								) {
-									var o = this.tryEntries[r];
-									if (
-										o.tryLoc <= this.prev &&
-										n.call(o, 'finallyLoc') &&
-										this.prev < o.finallyLoc
-									) {
-										var i = o;
-										break;
-									}
-								}
-								i &&
-									('break' === t || 'continue' === t) &&
-									i.tryLoc <= e &&
-									e <= i.finallyLoc &&
-									(i = null);
-								var a = i ? i.completion : {};
-								return (
-									(a.type = t),
-									(a.arg = e),
-									i
-										? ((this.method = 'next'),
-											(this.next = i.finallyLoc),
-											y)
-										: this.complete(a)
-								);
-							},
-							complete: function complete(t, e) {
-								if ('throw' === t.type) throw t.arg;
-								return (
-									'break' === t.type || 'continue' === t.type
-										? (this.next = t.arg)
-										: 'return' === t.type
-											? ((this.rval = this.arg = t.arg),
-												(this.method = 'return'),
-												(this.next = 'end'))
-											: 'normal' === t.type &&
-												e &&
-												(this.next = e),
-									y
-								);
-							},
-							finish: function finish(t) {
-								for (
-									var e = this.tryEntries.length - 1;
-									e >= 0;
-									--e
-								) {
-									var r = this.tryEntries[e];
-									if (r.finallyLoc === t)
-										return (
-											this.complete(
-												r.completion,
-												r.afterLoc
-											),
-											resetTryEntry(r),
-											y
-										);
-								}
-							},
-							catch: function _catch(t) {
-								for (
-									var e = this.tryEntries.length - 1;
-									e >= 0;
-									--e
-								) {
-									var r = this.tryEntries[e];
-									if (r.tryLoc === t) {
-										var n = r.completion;
-										if ('throw' === n.type) {
-											var o = n.arg;
-											resetTryEntry(r);
-										}
-										return o;
-									}
-								}
-								throw Error('illegal catch attempt');
-							},
-							delegateYield: function delegateYield(e, r, n) {
-								return (
-									(this.delegate = {
-										iterator: values(e),
-										resultName: r,
-										nextLoc: n,
-									}),
-									'next' === this.method && (this.arg = t),
-									y
-								);
-							},
-						}),
-						e
-					);
+								},
+							};
+					}
+					throw new TypeError(_typeof(e) + ' is not iterable');
 				}
-				((module.exports = _regeneratorRuntime),
+				((module.exports = _regeneratorValues),
 					(module.exports.__esModule = true),
 					(module.exports['default'] = module.exports));
 
@@ -30318,7 +30429,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
-						/*! @babel/runtime/helpers/esm/extends */ './node_modules/@emotion/react/node_modules/@babel/runtime/helpers/esm/extends.js'
+						/*! @babel/runtime/helpers/esm/extends */ './node_modules/@babel/runtime/helpers/esm/extends.js'
 					);
 				/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
@@ -30811,7 +30922,7 @@ If there's a particular need for this, please submit a feature request at https:
 					);
 				/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
-						/*! @babel/runtime/helpers/extends */ './node_modules/@emotion/react/node_modules/@babel/runtime/helpers/esm/extends.js'
+						/*! @babel/runtime/helpers/extends */ './node_modules/@babel/runtime/helpers/esm/extends.js'
 					);
 				/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_7__ =
 					__webpack_require__(
@@ -31611,46 +31722,6 @@ If there's a particular need for this, please submit a feature request at https:
 				/***/
 			},
 
-		/***/ './node_modules/@emotion/react/node_modules/@babel/runtime/helpers/esm/extends.js':
-			/*!****************************************************************************************!*\
-  !*** ./node_modules/@emotion/react/node_modules/@babel/runtime/helpers/esm/extends.js ***!
-  \****************************************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ default: function () {
-							return /* binding */ _extends;
-						},
-						/* harmony export */
-					}
-				);
-				function _extends() {
-					return (
-						(_extends = Object.assign
-							? Object.assign.bind()
-							: function (n) {
-									for (var e = 1; e < arguments.length; e++) {
-										var t = arguments[e];
-										for (var r in t)
-											({}).hasOwnProperty.call(t, r) &&
-												(n[r] = t[r]);
-									}
-									return n;
-								}),
-						_extends.apply(null, arguments)
-					);
-				}
-
-				/***/
-			},
-
 		/***/ './node_modules/@emotion/serialize/dist/emotion-serialize.development.esm.js':
 			/*!***********************************************************************************!*\
   !*** ./node_modules/@emotion/serialize/dist/emotion-serialize.development.esm.js ***!
@@ -32435,7 +32506,7 @@ styleSheet.flush()
 				);
 				/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! @babel/runtime/helpers/esm/extends */ './node_modules/@emotion/styled/node_modules/@babel/runtime/helpers/esm/extends.js'
+						/*! @babel/runtime/helpers/esm/extends */ './node_modules/@babel/runtime/helpers/esm/extends.js'
 					);
 				/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
@@ -32744,46 +32815,6 @@ styleSheet.flush()
 						return Styled;
 					};
 				};
-
-				/***/
-			},
-
-		/***/ './node_modules/@emotion/styled/node_modules/@babel/runtime/helpers/esm/extends.js':
-			/*!*****************************************************************************************!*\
-  !*** ./node_modules/@emotion/styled/node_modules/@babel/runtime/helpers/esm/extends.js ***!
-  \*****************************************************************************************/
-			/***/ function (
-				__unused_webpack___webpack_module__,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-				/* harmony export */ __webpack_require__.d(
-					__webpack_exports__,
-					{
-						/* harmony export */ default: function () {
-							return /* binding */ _extends;
-						},
-						/* harmony export */
-					}
-				);
-				function _extends() {
-					return (
-						(_extends = Object.assign
-							? Object.assign.bind()
-							: function (n) {
-									for (var e = 1; e < arguments.length; e++) {
-										var t = arguments[e];
-										for (var r in t)
-											({}).hasOwnProperty.call(t, r) &&
-												(n[r] = t[r]);
-									}
-									return n;
-								}),
-						_extends.apply(null, arguments)
-					);
-				}
 
 				/***/
 			},
@@ -40823,17 +40854,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./shared/index */ './node_modules/@wordpress/a11y/build-module/shared/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Create the live regions.
-				 */
 				function setup() {
 					const introText = document.getElementById(
 						'a11y-speak-intro-text'
@@ -40862,14 +40883,11 @@ styleSheet.flush()
 						])('polite');
 					}
 				}
-
-				/**
-				 * Run setup on domReady.
-				 */
 				(0,
 				_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__['default'])(
 					setup
 				);
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -40895,28 +40913,13 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Build the live regions markup.
-				 *
-				 * @param {'polite'|'assertive'} [ariaLive] Value for the 'aria-live' attribute; default: 'polite'.
-				 *
-				 * @return {HTMLDivElement} The ARIA live region HTML element.
-				 */
 				function addContainer(ariaLive = 'polite') {
 					const container = document.createElement('div');
 					container.id = `a11y-speak-${ariaLive}`;
 					container.className = 'a11y-speak-region';
 					container.setAttribute(
 						'style',
-						'position:absolute;' +
-							'margin:-1px;' +
-							'padding:0;' +
-							'height:1px;' +
-							'width:1px;' +
-							'overflow:hidden;' +
-							'clip-path:inset(50%);' +
-							'border:0;' +
-							'word-wrap:normal !important;'
+						'position:absolute;margin:-1px;padding:0;height:1px;width:1px;overflow:hidden;clip-path:inset(50%);border:0;word-wrap:normal !important;'
 					);
 					container.setAttribute('aria-live', ariaLive);
 					container.setAttribute('aria-relevant', 'additions text');
@@ -40927,6 +40930,7 @@ styleSheet.flush()
 					}
 					return container;
 				}
+
 				//# sourceMappingURL=add-container.js.map
 
 				/***/
@@ -40956,18 +40960,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/i18n */ './node_modules/@wordpress/i18n/build-module/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Build the explanatory text to be placed before the aria live regions.
-				 *
-				 * This text is initially hidden from assistive technologies by using a `hidden`
-				 * HTML attribute which is then removed once a message fills the aria-live regions.
-				 *
-				 * @return {HTMLParagraphElement} The explanatory text HTML element.
-				 */
 				function addIntroText() {
 					const introText = document.createElement('p');
 					introText.id = 'a11y-speak-intro-text';
@@ -40978,15 +40971,7 @@ styleSheet.flush()
 					);
 					introText.setAttribute(
 						'style',
-						'position:absolute;' +
-							'margin:-1px;' +
-							'padding:0;' +
-							'height:1px;' +
-							'width:1px;' +
-							'overflow:hidden;' +
-							'clip-path:inset(50%);' +
-							'border:0;' +
-							'word-wrap:normal !important;'
+						'position:absolute;margin:-1px;padding:0;height:1px;width:1px;overflow:hidden;clip-path:inset(50%);border:0;word-wrap:normal !important;'
 					);
 					introText.setAttribute('hidden', '');
 					const { body } = document;
@@ -40995,6 +40980,7 @@ styleSheet.flush()
 					}
 					return introText;
 				}
+
 				//# sourceMappingURL=add-intro-text.js.map
 
 				/***/
@@ -41020,9 +41006,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Clears the a11y-speak-region elements and hides the explanatory text.
-				 */
 				function clear() {
 					const regions =
 						document.getElementsByClassName('a11y-speak-region');
@@ -41032,12 +41015,11 @@ styleSheet.flush()
 					for (let i = 0; i < regions.length; i++) {
 						regions[i].textContent = '';
 					}
-
-					// Make sure the explanatory text is hidden from assistive technologies.
 					if (introText) {
 						introText.setAttribute('hidden', 'hidden');
 					}
 				}
+
 				//# sourceMappingURL=clear.js.map
 
 				/***/
@@ -41064,34 +41046,15 @@ styleSheet.flush()
 					}
 				);
 				let previousMessage = '';
-
-				/**
-				 * Filter the message to be announced to the screenreader.
-				 *
-				 * @param {string} message The message to be announced.
-				 *
-				 * @return {string} The filtered message.
-				 */
 				function filterMessage(message) {
-					/*
-					 * Strip HTML tags (if any) from the message string. Ideally, messages should
-					 * be simple strings, carefully crafted for specific use with A11ySpeak.
-					 * When re-using already existing strings this will ensure simple HTML to be
-					 * stripped out and replaced with a space. Browsers will collapse multiple
-					 * spaces natively.
-					 */
 					message = message.replace(/<[^<>]+>/g, ' ');
-
-					/*
-					 * Safari + VoiceOver don't announce repeated, identical strings. We use
-					 * a `no-break space` to force them to think identical strings are different.
-					 */
 					if (previousMessage === message) {
-						message += '\u00A0';
+						message += '\xA0';
 					}
 					previousMessage = message;
 					return message;
 				}
+
 				//# sourceMappingURL=filter-message.js.map
 
 				/***/
@@ -41125,33 +41088,8 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./filter-message */ './node_modules/@wordpress/a11y/build-module/shared/filter-message.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Allows you to easily announce dynamic interface updates to screen readers using ARIA live regions.
-				 * This module is inspired by the `speak` function in `wp-a11y.js`.
-				 *
-				 * @param {string}               message    The message to be announced by assistive technologies.
-				 * @param {'polite'|'assertive'} [ariaLive] The politeness level for aria-live; default: 'polite'.
-				 *
-				 * @example
-				 * ```js
-				 * import { speak } from '@wordpress/a11y';
-				 *
-				 * // For polite messages that shouldn't interrupt what screen readers are currently announcing.
-				 * speak( 'The message you want to send to the ARIA live region' );
-				 *
-				 * // For assertive messages that should interrupt what screen readers are currently announcing.
-				 * speak( 'The message you want to send to the ARIA live region', 'assertive' );
-				 * ```
-				 */
 				function speak(message, ariaLive) {
-					/*
-					 * Clear previous messages to allow repeated strings being read out and hide
-					 * the explanatory text from assistive technologies.
-					 */
 					(0, _clear__WEBPACK_IMPORTED_MODULE_0__['default'])();
 					message = (0,
 					_filter_message__WEBPACK_IMPORTED_MODULE_1__['default'])(
@@ -41170,15 +41108,11 @@ styleSheet.flush()
 					} else if (containerPolite) {
 						containerPolite.textContent = message;
 					}
-
-					/*
-					 * Make the explanatory text available to assistive technologies by removing
-					 * the 'hidden' HTML attribute.
-					 */
 					if (introText) {
 						introText.removeAttribute('hidden');
 					}
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -41195,6 +41129,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ index_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/i18n */ './node_modules/@wordpress/i18n/build-module/index.js'
@@ -41243,18 +41186,25 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./types */ './node_modules/@wordpress/api-fetch/build-module/types.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
+				/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_11___default =
+					/*#__PURE__*/ __webpack_require__.n(
+						_types__WEBPACK_IMPORTED_MODULE_11__
+					);
+				/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ =
+					{};
+				/* harmony reexport (unknown) */ for (var __WEBPACK_IMPORT_KEY__ in _types__WEBPACK_IMPORTED_MODULE_11__)
+					if (__WEBPACK_IMPORT_KEY__ !== 'default')
+						__WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] =
+							function (key) {
+								return _types__WEBPACK_IMPORTED_MODULE_11__[
+									key
+								];
+							}.bind(0, __WEBPACK_IMPORT_KEY__);
+				/* harmony reexport (unknown) */ __webpack_require__.d(
+					__webpack_exports__,
+					__WEBPACK_REEXPORT_OBJECT__
+				);
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Default set of header values which should be sent with every request unless
-				 * explicitly provided through apiFetch options.
-				 */
 				const DEFAULT_HEADERS = {
 					// The backend uses the Accept header as a condition for considering an
 					// incoming request as a REST request.
@@ -41262,11 +41212,6 @@ styleSheet.flush()
 					// See: https://core.trac.wordpress.org/ticket/44534
 					Accept: 'application/json, */*;q=0.1',
 				};
-
-				/**
-				 * Default set of fetch option values which should be sent with every request
-				 * unless explicitly provided through apiFetch options.
-				 */
 				const DEFAULT_OPTIONS = {
 					credentials: 'include',
 				};
@@ -41284,12 +41229,6 @@ styleSheet.flush()
 						'default'
 					],
 				];
-
-				/**
-				 * Register a middleware
-				 *
-				 * @param middleware
-				 */
 				function registerMiddleware(middleware) {
 					middlewares.unshift(middleware);
 				}
@@ -41302,14 +41241,7 @@ styleSheet.flush()
 						...remainingOptions
 					} = nextOptions;
 					let { body, headers } = nextOptions;
-
-					// Merge explicitly-provided headers with default values.
-					headers = {
-						...DEFAULT_HEADERS,
-						...headers,
-					};
-
-					// The `data` property is a shorthand for sending a JSON body.
+					headers = { ...DEFAULT_HEADERS, ...headers };
 					if (data) {
 						body = JSON.stringify(data);
 						headers['Content-Type'] = 'application/json';
@@ -41326,8 +41258,6 @@ styleSheet.flush()
 					);
 					return responsePromise.then(
 						(response) => {
-							// If the response is not 2xx, still parse the response body as JSON
-							// but throw the JSON as error.
 							if (!response.ok) {
 								return (0,
 								_utils_response__WEBPACK_IMPORTED_MODULE_10__.parseAndThrowError)(
@@ -41342,13 +41272,9 @@ styleSheet.flush()
 							);
 						},
 						(err) => {
-							// Re-throw AbortError for the users to handle it themselves.
 							if (err && err.name === 'AbortError') {
 								throw err;
 							}
-
-							// If the browser reports being offline, we'll just assume that
-							// this is why the request failed.
 							if (!globalThis.navigator.onLine) {
 								throw {
 									code: 'offline_error',
@@ -41358,8 +41284,6 @@ styleSheet.flush()
 									),
 								};
 							}
-
-							// Hard to diagnose further due to how Window.fetch reports errors.
 							throw {
 								code: 'fetch_error',
 								message: (0,
@@ -41371,28 +41295,10 @@ styleSheet.flush()
 					);
 				};
 				let fetchHandler = defaultFetchHandler;
-
-				/**
-				 * Defines a custom fetch handler for making the requests that will override
-				 * the default one using window.fetch
-				 *
-				 * @param newFetchHandler The new fetch handler
-				 */
 				function setFetchHandler(newFetchHandler) {
 					fetchHandler = newFetchHandler;
 				}
-				/**
-				 * Fetch
-				 *
-				 * @param options The options for the fetch.
-				 * @return A promise representing the request processed via the registered middlewares.
-				 */
 				const apiFetch = (options) => {
-					// creates a nested function chain that calls all middlewares and finally the `fetchHandler`,
-					// converting `middlewares = [ m1, m2, m3 ]` into:
-					// ```
-					// opts1 => m1( opts1, opts2 => m2( opts2, opts3 => m3( opts3, fetchHandler ) ) );
-					// ```
 					const enhancedHandler = middlewares.reduceRight(
 						(next, middleware) => {
 							return (workingOptions) =>
@@ -41404,13 +41310,9 @@ styleSheet.flush()
 						if (error.code !== 'rest_cookie_invalid_nonce') {
 							return Promise.reject(error);
 						}
-
-						// If the nonce is invalid, refresh it and try again.
 						return globalThis
 							.fetch(apiFetch.nonceEndpoint)
 							.then((response) => {
-								// If the nonce refresh fails, it means we failed to recover from the original
-								// `rest_cookie_invalid_nonce` error and that it's time to finally re-throw it.
 								if (!response.ok) {
 									return Promise.reject(error);
 								}
@@ -41446,8 +41348,7 @@ styleSheet.flush()
 					_middlewares_theme_preview__WEBPACK_IMPORTED_MODULE_9__[
 						'default'
 					];
-				/* harmony default export */ __webpack_exports__['default'] =
-					apiFetch;
+				var index_default = apiFetch;
 
 				//# sourceMappingURL=index.js.map
 
@@ -41465,6 +41366,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ fetch_all_middleware_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/url */ './node_modules/@wordpress/url/build-module/add-query-args.js'
@@ -41473,21 +41383,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! .. */ './node_modules/@wordpress/api-fetch/build-module/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Apply query arguments to both URL and Path, whichever is present.
-				 *
-				 * @param {APIFetchOptions}                   props     The request options
-				 * @param {Record< string, string | number >} queryArgs
-				 * @return  The request with the modified query args
-				 */
 				const modifyQuery = ({ path, url, ...options }, queryArgs) => ({
 					...options,
 					url:
@@ -41505,20 +41401,8 @@ styleSheet.flush()
 							queryArgs
 						),
 				});
-
-				/**
-				 * Duplicates parsing functionality from apiFetch.
-				 *
-				 * @param response
-				 * @return Parsed response json.
-				 */
 				const parseResponse = (response) =>
 					response.json ? response.json() : Promise.reject(response);
-
-				/**
-				 * @param linkHeader
-				 * @return The parsed link header.
-				 */
 				const parseLinkHeader = (linkHeader) => {
 					if (!linkHeader) {
 						return {};
@@ -41530,22 +41414,12 @@ styleSheet.flush()
 							}
 						: {};
 				};
-
-				/**
-				 * @param response
-				 * @return  The next page URL.
-				 */
 				const getNextPageUrl = (response) => {
 					const { next } = parseLinkHeader(
 						response.headers.get('link')
 					);
 					return next;
 				};
-
-				/**
-				 * @param options
-				 * @return True if the request contains an unbounded query.
-				 */
 				const requestContainsUnboundedQuery = (options) => {
 					const pathIsUnbounded =
 						!!options.path &&
@@ -41555,25 +41429,13 @@ styleSheet.flush()
 						options.url.indexOf('per_page=-1') !== -1;
 					return pathIsUnbounded || urlIsUnbounded;
 				};
-
-				/**
-				 * The REST API enforces an upper limit on the per_page option. To handle large
-				 * collections, apiFetch consumers can pass `per_page=-1`; this middleware will
-				 * then recursively assemble a full response array from all available pages.
-				 * @param options
-				 * @param next
-				 */
 				const fetchAllMiddleware = async (options, next) => {
 					if (options.parse === false) {
-						// If a consumer has opted out of parsing, do not apply middleware.
 						return next(options);
 					}
 					if (!requestContainsUnboundedQuery(options)) {
-						// If neither url nor path is requesting all items, do not apply middleware.
 						return next(options);
 					}
-
-					// Retrieve requested page of results.
 					const response = await (0,
 					___WEBPACK_IMPORTED_MODULE_1__['default'])({
 						...modifyQuery(options, {
@@ -41584,23 +41446,19 @@ styleSheet.flush()
 					});
 					const results = await parseResponse(response);
 					if (!Array.isArray(results)) {
-						// We have no reliable way of merging non-array results.
 						return results;
 					}
 					let nextPage = getNextPageUrl(response);
 					if (!nextPage) {
-						// There are no further pages to request.
 						return results;
 					}
-
-					// Iteratively fetch all remaining pages until no "next" header is found.
 					let mergedResults = [].concat(results);
 					while (nextPage) {
 						const nextResponse = await (0,
 						___WEBPACK_IMPORTED_MODULE_1__['default'])({
 							...options,
 							// Ensure the URL for the next page is used instead of any provided path.
-							path: undefined,
+							path: void 0,
 							url: nextPage,
 							// Ensure we still get headers so we can identify the next page.
 							parse: false,
@@ -41611,8 +41469,8 @@ styleSheet.flush()
 					}
 					return mergedResults;
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					fetchAllMiddleware;
+				var fetch_all_middleware_default = fetchAllMiddleware;
+
 				//# sourceMappingURL=fetch-all-middleware.js.map
 
 				/***/
@@ -41629,32 +41487,21 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Set of HTTP methods which are eligible to be overridden.
-				 */
-				const OVERRIDE_METHODS = new Set(['PATCH', 'PUT', 'DELETE']);
-
-				/**
-				 * Default request method.
-				 *
-				 * "A request has an associated method (a method). Unless stated otherwise it
-				 * is `GET`."
-				 *
-				 * @see  https://fetch.spec.whatwg.org/#requests
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ http_v1_default;
+						},
+						/* harmony export */
+					}
+				);
+				const OVERRIDE_METHODS = /* @__PURE__ */ new Set([
+					'PATCH',
+					'PUT',
+					'DELETE',
+				]);
 				const DEFAULT_METHOD = 'GET';
-
-				/**
-				 * API Fetch middleware which overrides the request method for HTTP v1
-				 * compatibility leveraging the REST API X-HTTP-Method-Override header.
-				 *
-				 * @param options
-				 * @param next
-				 */
 				const httpV1Middleware = (options, next) => {
 					const { method = DEFAULT_METHOD } = options;
 					if (OVERRIDE_METHODS.has(method.toUpperCase())) {
@@ -41670,8 +41517,8 @@ styleSheet.flush()
 					}
 					return next(options);
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					httpV1Middleware;
+				var http_v1_default = httpV1Middleware;
+
 				//# sourceMappingURL=http-v1.js.map
 
 				/***/
@@ -41688,6 +41535,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ media_upload_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/i18n */ './node_modules/@wordpress/i18n/build-module/index.js'
@@ -41696,18 +41552,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/response */ './node_modules/@wordpress/api-fetch/build-module/utils/response.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * @param options
-				 * @return True if the request is for media upload.
-				 */
 				function isMediaUploadRequest(options) {
 					const isCreateMethod =
 						!!options.method && options.method === 'POST';
@@ -41718,31 +41563,18 @@ styleSheet.flush()
 							options.url.indexOf('/wp/v2/media') !== -1);
 					return isMediaEndpoint && isCreateMethod;
 				}
-
-				/**
-				 * Middleware handling media upload failures and retries.
-				 * @param options
-				 * @param next
-				 */
 				const mediaUploadMiddleware = (options, next) => {
 					if (!isMediaUploadRequest(options)) {
 						return next(options);
 					}
 					let retries = 0;
 					const maxRetries = 5;
-
-					/**
-					 * @param attachmentId
-					 * @return Processed post response.
-					 */
 					const postProcess = (attachmentId) => {
 						retries++;
 						return next({
 							path: `/wp/v2/media/${attachmentId}/post-process`,
 							method: 'POST',
-							data: {
-								action: 'create-image-subsizes',
-							},
+							data: { action: 'create-image-subsizes' },
 							parse: false,
 						}).catch(() => {
 							if (retries < maxRetries) {
@@ -41755,12 +41587,8 @@ styleSheet.flush()
 							return Promise.reject();
 						});
 					};
-					return next({
-						...options,
-						parse: false,
-					})
+					return next({ ...options, parse: false })
 						.catch((response) => {
-							// `response` could actually be an error thrown by `defaultFetchHandler`.
 							if (!(response instanceof globalThis.Response)) {
 								return Promise.reject(response);
 							}
@@ -41799,8 +41627,8 @@ styleSheet.flush()
 							)
 						);
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					mediaUploadMiddleware;
+				var media_upload_default = mediaUploadMiddleware;
+
 				//# sourceMappingURL=media-upload.js.map
 
 				/***/
@@ -41817,10 +41645,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Internal dependencies
-				 */
-
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ namespace_endpoint_default;
+						},
+						/* harmony export */
+					}
+				);
 				const namespaceAndEndpointMiddleware = (options, next) => {
 					let path = options.path;
 					let namespaceTrimmed, endpointTrimmed;
@@ -41846,8 +41679,8 @@ styleSheet.flush()
 						path,
 					});
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					namespaceAndEndpointMiddleware;
+				var namespace_endpoint_default = namespaceAndEndpointMiddleware;
+
 				//# sourceMappingURL=namespace-endpoint.js.map
 
 				/***/
@@ -41864,21 +41697,18 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * @param nonce
-				 *
-				 * @return  A middleware to enhance a request with a nonce.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ nonce_default;
+						},
+						/* harmony export */
+					}
+				);
 				function createNonceMiddleware(nonce) {
 					const middleware = (options, next) => {
 						const { headers = {} } = options;
-
-						// If an 'X-WP-Nonce' header (or any case-insensitive variation
-						// thereof) was specified, no need to add a nonce header.
 						for (const headerName in headers) {
 							if (
 								headerName.toLowerCase() === 'x-wp-nonce' &&
@@ -41898,8 +41728,8 @@ styleSheet.flush()
 					middleware.nonce = nonce;
 					return middleware;
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createNonceMiddleware;
+				var nonce_default = createNonceMiddleware;
+
 				//# sourceMappingURL=nonce.js.map
 
 				/***/
@@ -41916,6 +41746,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ preloading_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/url */ './node_modules/@wordpress/url/build-module/add-query-args.js'
@@ -41928,18 +41767,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/url */ './node_modules/@wordpress/url/build-module/normalize-path.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * @param preloadedData
-				 * @return Preloading middleware.
-				 */
 				function createPreloadingMiddleware(preloadedData) {
 					const cache = Object.fromEntries(
 						Object.entries(preloadedData).map(([path, data]) => [
@@ -41977,8 +41805,6 @@ styleSheet.flush()
 						);
 						if ('GET' === method && cache[path]) {
 							const cacheData = cache[path];
-
-							// Unsetting the cache key ensures that the data is only used a single time.
 							delete cache[path];
 							return prepareResponse(cacheData, !!parse);
 						} else if (
@@ -41987,22 +41813,12 @@ styleSheet.flush()
 							cache[method][path]
 						) {
 							const cacheData = cache[method][path];
-
-							// Unsetting the cache key ensures that the data is only used a single time.
 							delete cache[method][path];
 							return prepareResponse(cacheData, !!parse);
 						}
 						return next(options);
 					};
 				}
-
-				/**
-				 * This is a helper function that sends a success response.
-				 *
-				 * @param responseData
-				 * @param parse
-				 * @return Promise with the response.
-				 */
 				function prepareResponse(responseData, parse) {
 					if (parse) {
 						return Promise.resolve(responseData.body);
@@ -42019,7 +41835,6 @@ styleSheet.flush()
 							)
 						);
 					} catch {
-						// See: https://github.com/WordPress/gutenberg/issues/67358#issuecomment-2621163926.
 						Object.entries(responseData.headers).forEach(
 							([key, value]) => {
 								if (key.toLowerCase() === 'link') {
@@ -42044,8 +41859,8 @@ styleSheet.flush()
 						);
 					}
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createPreloadingMiddleware;
+				var preloading_default = createPreloadingMiddleware;
+
 				//# sourceMappingURL=preloading.js.map
 
 				/***/
@@ -42062,18 +41877,20 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ root_url_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _namespace_endpoint__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./namespace-endpoint */ './node_modules/@wordpress/api-fetch/build-module/middlewares/namespace-endpoint.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * @param rootURL
-				 * @return  Root URL middleware.
-				 */
 				const createRootURLMiddleware =
 					(rootURL) => (options, next) => {
 						return (0,
@@ -42089,9 +41906,6 @@ styleSheet.flush()
 									path = path.replace('?', '&');
 								}
 								path = path.replace(/^\//, '');
-
-								// API root may already include query parameter prefix if site is
-								// configured to use plain permalinks.
 								if (
 									'string' === typeof apiRoot &&
 									-1 !== apiRoot.indexOf('?')
@@ -42106,8 +41920,8 @@ styleSheet.flush()
 							});
 						});
 					};
-				/* harmony default export */ __webpack_exports__['default'] =
-					createRootURLMiddleware;
+				var root_url_default = createRootURLMiddleware;
+
 				//# sourceMappingURL=root-url.js.map
 
 				/***/
@@ -42124,6 +41938,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ theme_preview_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/url */ './node_modules/@wordpress/url/build-module/add-query-args.js'
@@ -42136,24 +41959,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/url */ './node_modules/@wordpress/url/build-module/remove-query-args.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * This appends a `wp_theme_preview` parameter to the REST API request URL if
-				 * the admin URL contains a `theme` GET parameter.
-				 *
-				 * If the REST API request URL has contained the `wp_theme_preview` parameter as `''`,
-				 * then bypass this middleware.
-				 *
-				 * @param themePath
-				 * @return  Preloading middleware.
-				 */
 				const createThemePreviewMiddleware =
 					(themePath) => (options, next) => {
 						if (typeof options.url === 'string') {
@@ -42162,7 +41968,7 @@ styleSheet.flush()
 								options.url,
 								'wp_theme_preview'
 							);
-							if (wpThemePreview === undefined) {
+							if (wpThemePreview === void 0) {
 								options.url = (0,
 								_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(
 									options.url,
@@ -42184,7 +41990,7 @@ styleSheet.flush()
 								options.path,
 								'wp_theme_preview'
 							);
-							if (wpThemePreview === undefined) {
+							if (wpThemePreview === void 0) {
 								options.path = (0,
 								_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(
 									options.path,
@@ -42202,8 +42008,8 @@ styleSheet.flush()
 						}
 						return next(options);
 					};
-				/* harmony default export */ __webpack_exports__['default'] =
-					createThemePreviewMiddleware;
+				var theme_preview_default = createThemePreviewMiddleware;
+
 				//# sourceMappingURL=theme-preview.js.map
 
 				/***/
@@ -42220,6 +42026,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ user_locale_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/url */ './node_modules/@wordpress/url/build-module/add-query-args.js'
@@ -42228,13 +42043,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/url */ './node_modules/@wordpress/url/build-module/has-query-arg.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				const userLocaleMiddleware = (options, next) => {
 					if (
@@ -42248,9 +42056,7 @@ styleSheet.flush()
 						options.url = (0,
 						_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(
 							options.url,
-							{
-								_locale: 'user',
-							}
+							{ _locale: 'user' }
 						);
 					}
 					if (
@@ -42264,15 +42070,13 @@ styleSheet.flush()
 						options.path = (0,
 						_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(
 							options.path,
-							{
-								_locale: 'user',
-							}
+							{ _locale: 'user' }
 						);
 					}
 					return next(options);
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					userLocaleMiddleware;
+				var user_locale_default = userLocaleMiddleware;
+
 				//# sourceMappingURL=user-locale.js.map
 
 				/***/
@@ -42282,16 +42086,8 @@ styleSheet.flush()
 			/*!*****************************************************************!*\
   !*** ./node_modules/@wordpress/api-fetch/build-module/types.js ***!
   \*****************************************************************/
-			/***/ function (
-				__unused_webpack_module,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-
+			/***/ function () {
 				//# sourceMappingURL=types.js.map
-
 				/***/
 			},
 
@@ -42323,17 +42119,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/i18n */ './node_modules/@wordpress/i18n/build-module/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Calls the `json` function on the Response, throwing an error if the response
-				 * doesn't have a json function or if parsing the json itself fails.
-				 *
-				 * @param response
-				 * @return Parsed response.
-				 */
 				async function parseJsonAndNormalizeError(response) {
 					try {
 						return await response.json();
@@ -42347,15 +42133,6 @@ styleSheet.flush()
 						};
 					}
 				}
-
-				/**
-				 * Parses the apiFetch response properly and normalize response errors.
-				 *
-				 * @param response
-				 * @param shouldParseResponse
-				 *
-				 * @return Parsed response.
-				 */
 				async function parseResponseAndNormalizeError(
 					response,
 					shouldParseResponse = true
@@ -42368,14 +42145,6 @@ styleSheet.flush()
 					}
 					return await parseJsonAndNormalizeError(response);
 				}
-
-				/**
-				 * Parses a response, throwing an error if parsing the response fails.
-				 *
-				 * @param response
-				 * @param shouldParseResponse
-				 * @return Never returns, always throws.
-				 */
 				async function parseAndThrowError(
 					response,
 					shouldParseResponse = true
@@ -42383,10 +42152,9 @@ styleSheet.flush()
 					if (!shouldParseResponse) {
 						throw response;
 					}
-
-					// Parse the response JSON and throw it as an error.
 					throw await parseJsonAndNormalizeError(response);
 				}
+
 				//# sourceMappingURL=response.js.map
 
 				/***/
@@ -42411,6 +42179,9 @@ styleSheet.flush()
 						},
 						/* harmony export */ UnforwardedButton: function () {
 							return /* binding */ UnforwardedButton;
+						},
+						/* harmony export */ default: function () {
+							return /* binding */ button_default;
 						},
 						/* harmony export */
 					}
@@ -42455,17 +42226,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				const disabledEventsOnDisabledButton = [
 					'onMouseDown',
@@ -42581,8 +42341,8 @@ styleSheet.flush()
 					} = 'href' in buttonOrAnchorProps
 						? buttonOrAnchorProps
 						: {
-								href: undefined,
-								target: undefined,
+								href: void 0,
+								target: void 0,
 								...buttonOrAnchorProps,
 							};
 					const instanceId = (0,
@@ -42594,8 +42354,7 @@ styleSheet.flush()
 						('string' === typeof children && !!children) ||
 						(Array.isArray(children) &&
 							children?.[0] &&
-							children[0] !== null &&
-							// Tooltip should not considered as a child
+							children[0] !== null && // Tooltip should not considered as a child
 							children?.[0]?.props?.className !==
 								'components-tooltip');
 					const truthyAriaPressedValues = [true, 'true', 'mixed'];
@@ -42618,11 +42377,11 @@ styleSheet.flush()
 							'is-destructive': isDestructive,
 							'has-text': !!icon && (hasChildren || text),
 							'has-icon': !!icon,
+							'has-icon-right': iconPosition === 'right',
 						}
 					);
 					const trulyDisabled = disabled && !accessibleWhenDisabled;
-					const Tag =
-						href !== undefined && !disabled ? 'a' : 'button';
+					const Tag = href !== void 0 && !disabled ? 'a' : 'button';
 					const buttonProps =
 						Tag === 'button'
 							? {
@@ -42642,8 +42401,6 @@ styleSheet.flush()
 							: {};
 					const disableEventProps = {};
 					if (disabled && accessibleWhenDisabled) {
-						// In this case, the button will be disabled, but still focusable and
-						// perceivable by screen reader users.
 						buttonProps['aria-disabled'] = true;
 						anchorProps['aria-disabled'] = true;
 						for (const disabledEvent of disabledEventsOnDisabledButton) {
@@ -42655,21 +42412,14 @@ styleSheet.flush()
 							};
 						}
 					}
-
-					// Should show the tooltip if...
 					const shouldShowTooltip =
-						!trulyDisabled &&
-						// An explicit tooltip is passed or...
-						((showTooltip && !!label) ||
-							// There's a shortcut or...
-							!!shortcut ||
-							// There's a label and...
-							(!!label &&
-								// The children are empty and...
-								!children?.length &&
-								// The tooltip is not explicitly disabled.
+						!trulyDisabled && // An explicit tooltip is passed or...
+						((showTooltip && !!label) || // There's a shortcut or...
+							!!shortcut || // There's a label and...
+							(!!label && // The children are empty and...
+								!children?.length && // The tooltip is not explicitly disabled.
 								false !== showTooltip));
-					const descriptionId = description ? instanceId : undefined;
+					const descriptionId = description ? instanceId : void 0;
 					const describedById =
 						additionalProps['aria-describedby'] || descriptionId;
 					const commonProps = {
@@ -42678,25 +42428,25 @@ styleSheet.flush()
 						'aria-describedby': describedById,
 						ref,
 					};
-					const elementChildren = /*#__PURE__*/ (0,
+					const elementChildren = /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(
 						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment,
 						{
 							children: [
 								icon &&
 									iconPosition === 'left' &&
-									/*#__PURE__*/ (0,
+									/* @__PURE__ */ (0,
 									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 										_icon__WEBPACK_IMPORTED_MODULE_5__[
 											'default'
 										],
 										{
-											icon: icon,
+											icon,
 											size: iconSize,
 										}
 									),
 								text &&
-									/*#__PURE__*/ (0,
+									/* @__PURE__ */ (0,
 									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 										react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment,
 										{
@@ -42706,13 +42456,13 @@ styleSheet.flush()
 								children,
 								icon &&
 									iconPosition === 'right' &&
-									/*#__PURE__*/ (0,
+									/* @__PURE__ */ (0,
 									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 										_icon__WEBPACK_IMPORTED_MODULE_5__[
 											'default'
 										],
 										{
-											icon: icon,
+											icon,
 											size: iconSize,
 										}
 									),
@@ -42721,7 +42471,7 @@ styleSheet.flush()
 					);
 					const element =
 						Tag === 'a'
-							? /*#__PURE__*/ (0,
+							? /* @__PURE__ */ (0,
 								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 									'a',
 									{
@@ -42732,7 +42482,7 @@ styleSheet.flush()
 										children: elementChildren,
 									}
 								)
-							: /*#__PURE__*/ (0,
+							: /* @__PURE__ */ (0,
 								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 									'button',
 									{
@@ -42743,11 +42493,6 @@ styleSheet.flush()
 										children: elementChildren,
 									}
 								);
-
-					// In order to avoid some React reconciliation issues, we are always rendering
-					// the `Tooltip` component even when `shouldShowTooltip` is `false`.
-					// In order to make sure that the tooltip doesn't show when it shouldn't,
-					// we don't pass the props to the `Tooltip` component.
 					const tooltipProps = shouldShowTooltip
 						? {
 								text:
@@ -42756,20 +42501,19 @@ styleSheet.flush()
 										: label,
 								shortcut,
 								placement:
-									tooltipPosition &&
-									// Convert legacy `position` values to be used with the new `placement` prop
+									tooltipPosition && // Convert legacy `position` values to be used with the new `placement` prop
 									(0,
 									_popover_utils__WEBPACK_IMPORTED_MODULE_7__.positionToPlacement)(
 										tooltipPosition
 									),
 							}
 						: {};
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(
 						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment,
 						{
 							children: [
-								/*#__PURE__*/ (0,
+								/* @__PURE__ */ (0,
 								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 									_tooltip__WEBPACK_IMPORTED_MODULE_4__[
 										'default'
@@ -42780,13 +42524,13 @@ styleSheet.flush()
 									}
 								),
 								description &&
-									/*#__PURE__*/ (0,
+									/* @__PURE__ */ (0,
 									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 										_visually_hidden__WEBPACK_IMPORTED_MODULE_6__[
 											'default'
 										],
 										{
-											children: /*#__PURE__*/ (0,
+											children: /* @__PURE__ */ (0,
 											react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(
 												'span',
 												{
@@ -42800,28 +42544,12 @@ styleSheet.flush()
 						}
 					);
 				}
-
-				/**
-				 * Lets users take actions and make choices with a single click or tap.
-				 *
-				 * ```jsx
-				 * import { Button } from '@wordpress/components';
-				 * const Mybutton = () => (
-				 *   <Button
-				 *     variant="primary"
-				 *     onClick={ handleClick }
-				 *   >
-				 *     Click here
-				 *   </Button>
-				 * );
-				 * ```
-				 */
 				const Button = (0,
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
 					UnforwardedButton
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					Button;
+				var button_default = Button;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -42856,12 +42584,8 @@ styleSheet.flush()
 				);
 				const COMPONENT_NAMESPACE = 'data-wp-component';
 				const CONNECTED_NAMESPACE = 'data-wp-c16t';
-
-				/**
-				 * Special key where the connected namespaces are stored.
-				 * This is attached to Context connected components as a static property.
-				 */
 				const CONNECT_STATIC_NAMESPACE = '__contextSystemKey__';
+
 				//# sourceMappingURL=constants.js.map
 
 				/***/
@@ -42917,47 +42641,15 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-styled-class-name-from-key */ './node_modules/@wordpress/components/build-module/context/get-styled-class-name-from-key.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Forwards ref (React.ForwardRef) and "Connects" (or registers) a component
-				 * within the Context system under a specified namespace.
-				 *
-				 * @param Component The component to register into the Context system.
-				 * @param namespace The namespace to register the component under.
-				 * @return The connected WordPressComponent
-				 */
 				function contextConnect(Component, namespace) {
 					return _contextConnect(Component, namespace, {
 						forwardsRef: true,
 					});
 				}
-
-				/**
-				 * "Connects" (or registers) a component within the Context system under a specified namespace.
-				 * Does not forward a ref.
-				 *
-				 * @param Component The component to register into the Context system.
-				 * @param namespace The namespace to register the component under.
-				 * @return The connected WordPressComponent
-				 */
 				function contextConnectWithoutRef(Component, namespace) {
 					return _contextConnect(Component, namespace);
 				}
-
-				// This is an (experimental) evolution of the initial connect() HOC.
-				// The hope is that we can improve render performance by removing functional
-				// component wrappers.
 				function _contextConnect(Component, namespace, options) {
 					const WrappedComponent = options?.forwardsRef
 						? (0,
@@ -42973,25 +42665,16 @@ styleSheet.flush()
 								])('contextConnect: Please provide a namespace')
 							: void 0;
 					}
-
-					// @ts-expect-error internal property
 					let mergedNamespace = WrappedComponent[
 						_constants__WEBPACK_IMPORTED_MODULE_2__
 							.CONNECT_STATIC_NAMESPACE
 					] || [namespace];
-
-					/**
-					 * Consolidate (merge) namespaces before attaching it to the WrappedComponent.
-					 */
 					if (Array.isArray(namespace)) {
 						mergedNamespace = [...mergedNamespace, ...namespace];
 					}
 					if (typeof namespace === 'string') {
 						mergedNamespace = [...mergedNamespace, namespace];
 					}
-
-					// @ts-expect-error We can't rely on inferred types here because of the
-					// `as` prop polymorphism we're handling in https://github.com/WordPress/gutenberg/blob/4f3a11243c365f94892e479bff0b922ccc4ccda3/packages/components/src/context/wordpress-component.ts#L32-L33
 					return Object.assign(WrappedComponent, {
 						[_constants__WEBPACK_IMPORTED_MODULE_2__.CONNECT_STATIC_NAMESPACE]:
 							[...new Set(mergedNamespace)],
@@ -42999,35 +42682,23 @@ styleSheet.flush()
 						selector: `.${(0, _get_styled_class_name_from_key__WEBPACK_IMPORTED_MODULE_3__.getStyledClassNameFromKey)(namespace)}`,
 					});
 				}
-
-				/**
-				 * Attempts to retrieve the connected namespace from a component.
-				 *
-				 * @param Component The component to retrieve a namespace from.
-				 * @return The connected namespaces.
-				 */
 				function getConnectNamespace(Component) {
 					if (!Component) {
 						return [];
 					}
 					let namespaces = [];
-
-					// @ts-ignore internal property
 					if (
 						Component[
 							_constants__WEBPACK_IMPORTED_MODULE_2__
 								.CONNECT_STATIC_NAMESPACE
 						]
 					) {
-						// @ts-ignore internal property
 						namespaces =
 							Component[
 								_constants__WEBPACK_IMPORTED_MODULE_2__
 									.CONNECT_STATIC_NAMESPACE
 							];
 					}
-
-					// @ts-ignore
 					if (
 						Component.type &&
 						Component.type[
@@ -43035,7 +42706,6 @@ styleSheet.flush()
 								.CONNECT_STATIC_NAMESPACE
 						]
 					) {
-						// @ts-ignore
 						namespaces =
 							Component.type[
 								_constants__WEBPACK_IMPORTED_MODULE_2__
@@ -43044,13 +42714,6 @@ styleSheet.flush()
 					}
 					return namespaces;
 				}
-
-				/**
-				 * Checks to see if a component is connected within the Context system.
-				 *
-				 * @param Component The component to retrieve a namespace from.
-				 * @param match     The namespace to check.
-				 */
 				function hasConnectNamespace(Component, match) {
 					if (!Component) {
 						return false;
@@ -43065,6 +42728,7 @@ styleSheet.flush()
 					}
 					return false;
 				}
+
 				//# sourceMappingURL=context-connect.js.map
 
 				/***/
@@ -43137,21 +42801,11 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				const ComponentsContext = (0,
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createContext)(
-					/** @type {Record<string, any>} */ {}
+					/** @type {Record<string, any>} */
+					{}
 				);
 				ComponentsContext.displayName = 'ComponentsContext';
 				const useComponentsContext = () =>
@@ -43159,16 +42813,6 @@ styleSheet.flush()
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useContext)(
 						ComponentsContext
 					);
-
-				/**
-				 * Consolidates incoming ContextSystem values with a (potential) parent ContextSystem value.
-				 *
-				 * Note: This function will warn if it detects an un-memoized `value`
-				 *
-				 * @param {Object}              props
-				 * @param {Record<string, any>} props.value
-				 * @return {Record<string, any>} The consolidated value.
-				 */
 				function useContextSystemBridge({ value }) {
 					const parentContext = useComponentsContext();
 					const valueRef = (0,
@@ -43181,8 +42825,7 @@ styleSheet.flush()
 							fast_deep_equal_es6__WEBPACK_IMPORTED_MODULE_1___default()(
 								valueRef.current,
 								value
-							) &&
-							// But not the same reference.
+							) && // But not the same reference.
 							valueRef.current !== value
 						) {
 							globalThis.SCRIPT_DEBUG === true
@@ -43195,22 +42838,8 @@ styleSheet.flush()
 								: void 0;
 						}
 					}, [value]);
-
-					// `parentContext` will always be memoized (i.e., the result of this hook itself)
-					// or the default value from when the `ComponentsContext` was originally
-					// initialized (which will never change, it's a static variable)
-					// so this memoization will prevent `deepmerge()` from rerunning unless
-					// the references to `value` change OR the `parentContext` has an actual material change
-					// (because again, it's guaranteed to be memoized or a static reference to the empty object
-					// so we know that the only changes for `parentContext` are material ones... i.e., why we
-					// don't have to warn in the `useUpdateEffect` hook above for `parentContext` and we only
-					// need to bother with the `value`). The `useUpdateEffect` above will ensure that we are
-					// correctly warning when the `value` isn't being properly memoized. All of that to say
-					// that this should be super safe to assume that `useMemo` will only run on actual
-					// changes to the two dependencies, therefore saving us calls to `deepmerge()`!
 					const config = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useMemo)(() => {
-						// Deep clone `parentContext` to avoid mutating it later.
 						return deepmerge__WEBPACK_IMPORTED_MODULE_0___default()(
 							parentContext !== null && parentContext !== void 0
 								? parentContext
@@ -43224,34 +42853,16 @@ styleSheet.flush()
 					}, [parentContext, value]);
 					return config;
 				}
-
-				/**
-				 * A Provider component that can modify props for connected components within
-				 * the Context system.
-				 *
-				 * @example
-				 * ```jsx
-				 * <ContextSystemProvider value={{ Button: { size: 'small' }}}>
-				 *   <Button>...</Button>
-				 * </ContextSystemProvider>
-				 * ```
-				 *
-				 * @template {Record<string, any>} T
-				 * @param {Object}                    options
-				 * @param {import('react').ReactNode} options.children Children to render.
-				 * @param {T}                         options.value    Props to render into connected components.
-				 * @return {JSX.Element} A Provider wrapped component.
-				 */
 				const BaseContextSystemProvider = ({ children, value }) => {
 					const contextValue = useContextSystemBridge({
 						value,
 					});
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(
 						ComponentsContext.Provider,
 						{
 							value: contextValue,
-							children: children,
+							children,
 						}
 					);
 				};
@@ -43259,6 +42870,7 @@ styleSheet.flush()
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.memo)(
 					BaseContextSystemProvider
 				);
+
 				//# sourceMappingURL=context-system-provider.js.map
 
 				/***/
@@ -43293,16 +42905,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! memize */ './node_modules/memize/dist/index.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Generates the connected component CSS className based on the namespace.
-				 *
-				 * @param namespace The name of the connected component.
-				 * @return The generated CSS className.
-				 */
 				function getStyledClassName(namespace) {
 					const kebab = (0,
 					change_case__WEBPACK_IMPORTED_MODULE_0__.paramCase)(
@@ -43314,6 +42917,7 @@ styleSheet.flush()
 				memize__WEBPACK_IMPORTED_MODULE_1__['default'])(
 					getStyledClassName
 				);
+
 				//# sourceMappingURL=get-styled-class-name-from-key.js.map
 
 				/***/
@@ -43359,28 +42963,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/hooks/use-cx */ './node_modules/@wordpress/components/build-module/utils/hooks/use-cx.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * @template TProps
-				 * @typedef {TProps & { className: string }} ConnectedProps
-				 */
-
-				/**
-				 * Custom hook that derives registered props from the Context system.
-				 * These derived props are then consolidated with incoming component props.
-				 *
-				 * @template {{ className?: string }} P
-				 * @param {P}      props     Incoming props from the component.
-				 * @param {string} namespace The namespace to register and to derive context props from.
-				 * @return {ConnectedProps<P>} The connected props.
-				 */
 				function useContextSystem(props, namespace) {
 					const contextSystemProps = (0,
 					_context_system_provider__WEBPACK_IMPORTED_MODULE_1__.useComponentsContext)();
@@ -43395,10 +42978,6 @@ styleSheet.flush()
 							: void 0;
 					}
 					const contextProps = contextSystemProps?.[namespace] || {};
-
-					/* eslint-disable jsdoc/no-undefined-types */
-					/** @type {ConnectedProps<P>} */
-					// @ts-ignore We fill in the missing properties below
 					const finalComponentProps = {
 						...(0,
 						_utils__WEBPACK_IMPORTED_MODULE_2__.getConnectedNamespace)(),
@@ -43407,8 +42986,6 @@ styleSheet.flush()
 							namespace
 						),
 					};
-					/* eslint-enable jsdoc/no-undefined-types */
-
 					const { _overrides: overrideProps, ...otherContextProps } =
 						contextProps;
 					const initialMergedProps = Object.entries(otherContextProps)
@@ -43424,8 +43001,6 @@ styleSheet.flush()
 						),
 						props.className
 					);
-
-					// Provides the ability to customize the render of the component.
 					const rendered =
 						typeof initialMergedProps.renderChildren === 'function'
 							? initialMergedProps.renderChildren(
@@ -43433,23 +43008,18 @@ styleSheet.flush()
 								)
 							: initialMergedProps.children;
 					for (const key in initialMergedProps) {
-						// @ts-ignore filling in missing props
 						finalComponentProps[key] = initialMergedProps[key];
 					}
 					for (const key in overrideProps) {
-						// @ts-ignore filling in missing props
 						finalComponentProps[key] = overrideProps[key];
 					}
-
-					// Setting an `undefined` explicitly can cause unintended overwrites
-					// when a `cloneElement()` is involved.
-					if (rendered !== undefined) {
-						// @ts-ignore
+					if (rendered !== void 0) {
 						finalComponentProps.children = rendered;
 					}
 					finalComponentProps.className = classes;
 					return finalComponentProps;
 				}
+
 				//# sourceMappingURL=use-context-system.js.map
 
 				/***/
@@ -43483,45 +43053,19 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./constants */ './node_modules/@wordpress/components/build-module/context/constants.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Creates a dedicated context namespace HTML attribute for components.
-				 * ns is short for "namespace"
-				 *
-				 * @example
-				 * ```jsx
-				 * <div {...ns('Container')} />
-				 * ```
-				 *
-				 * @param {string} componentName The name for the component.
-				 * @return {Record<string, any>} A props object with the namespaced HTML attribute.
-				 */
 				function getNamespace(componentName) {
 					return {
 						[_constants__WEBPACK_IMPORTED_MODULE_0__.COMPONENT_NAMESPACE]:
 							componentName,
 					};
 				}
-
-				/**
-				 * Creates a dedicated connected context namespace HTML attribute for components.
-				 * ns is short for "namespace"
-				 *
-				 * @example
-				 * ```jsx
-				 * <div {...cns()} />
-				 * ```
-				 *
-				 * @return {Record<string, any>} A props object with the namespaced HTML attribute.
-				 */
 				function getConnectedNamespace() {
 					return {
 						[_constants__WEBPACK_IMPORTED_MODULE_0__.CONNECTED_NAMESPACE]: true,
 					};
 				}
+
 				//# sourceMappingURL=utils.js.map
 
 				/***/
@@ -43538,22 +43082,19 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ dashicon_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-
-				/**
-				 * @typedef OwnProps
-				 *
-				 * @property {import('./types').IconKey} icon        Icon name
-				 * @property {string}                    [className] Class name
-				 * @property {number}                    [size]      Size of the icon
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				function Dashicon({
 					icon,
@@ -43570,8 +43111,6 @@ styleSheet.flush()
 					]
 						.filter(Boolean)
 						.join(' ');
-
-					// For retro-compatibility reasons (for example if people are overriding icon size with CSS), we add inline styles just if the size is different to the default
 					const sizeStyles =
 						// using `!=` to catch both 20 and "20"
 						// eslint-disable-next-line eqeqeq
@@ -43586,7 +43125,7 @@ styleSheet.flush()
 						...sizeStyles,
 						...style,
 					};
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 						'span',
 						{
@@ -43596,8 +43135,8 @@ styleSheet.flush()
 						}
 					);
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					Dashicon;
+				var dashicon_default = Dashicon;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -43614,6 +43153,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ icon_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/element */ './node_modules/react/index.js'
@@ -43634,39 +43182,19 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Renders a raw icon without any initial styling or wrappers.
-				 *
-				 * ```jsx
-				 * import { wordpress } from '@wordpress/icons';
-				 *
-				 * <Icon icon={ wordpress } />
-				 * ```
-				 */
 				function Icon({
 					icon = null,
 					size = 'string' === typeof icon ? 20 : 24,
 					...additionalProps
 				}) {
 					if ('string' === typeof icon) {
-						return /*#__PURE__*/ (0,
+						return /* @__PURE__ */ (0,
 						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(
 							_dashicon__WEBPACK_IMPORTED_MODULE_2__['default'],
 							{
-								icon: icon,
-								size: size,
+								icon,
+								size,
 								...additionalProps,
 							}
 						);
@@ -43709,7 +43237,7 @@ styleSheet.flush()
 							height: size,
 							...additionalProps,
 						};
-						return /*#__PURE__*/ (0,
+						return /* @__PURE__ */ (0,
 						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(
 							_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.SVG,
 							{
@@ -43737,8 +43265,8 @@ styleSheet.flush()
 					}
 					return icon;
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					Icon;
+				var icon_default = Icon;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -43771,7 +43299,7 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				const LIVE_REGION_ARIA_ROLES = new Set([
+				const LIVE_REGION_ARIA_ROLES = /* @__PURE__ */ new Set([
 					'alert',
 					'status',
 					'log',
@@ -43779,19 +43307,6 @@ styleSheet.flush()
 					'timer',
 				]);
 				const hiddenElementsByDepth = [];
-
-				/**
-				 * Hides all elements in the body element from screen-readers except
-				 * the provided element and elements that should not be hidden from
-				 * screen-readers.
-				 *
-				 * The reason we do this is because `aria-modal="true"` currently is bugged
-				 * in Safari, and support is spotty in other browsers overall. In the future
-				 * we should consider removing these helper functions in favor of
-				 * `aria-modal="true"`.
-				 *
-				 * @param modalElement The element that should not be hidden.
-				 */
 				function modalize(modalElement) {
 					const elements = Array.from(document.body.children);
 					const hiddenElements = [];
@@ -43806,14 +43321,6 @@ styleSheet.flush()
 						}
 					}
 				}
-
-				/**
-				 * Determines if the passed element should not be hidden from screen readers.
-				 *
-				 * @param element The element that should be checked.
-				 *
-				 * @return Whether the element should not be hidden from screen-readers.
-				 */
 				function elementShouldBeHidden(element) {
 					const role = element.getAttribute('role');
 					return !(
@@ -43824,10 +43331,6 @@ styleSheet.flush()
 						(role && LIVE_REGION_ARIA_ROLES.has(role))
 					);
 				}
-
-				/**
-				 * Accessibly reveals the elements hidden by the latest modal.
-				 */
 				function unmodalize() {
 					const hiddenElements = hiddenElementsByDepth.pop();
 					if (!hiddenElements) {
@@ -43837,6 +43340,7 @@ styleSheet.flush()
 						element.removeAttribute('aria-hidden');
 					}
 				}
+
 				//# sourceMappingURL=aria-helper.js.map
 
 				/***/
@@ -43858,6 +43362,9 @@ styleSheet.flush()
 					{
 						/* harmony export */ Modal: function () {
 							return /* binding */ Modal;
+						},
+						/* harmony export */ default: function () {
+							return /* binding */ modal_default;
 						},
 						/* harmony export */
 					}
@@ -43904,7 +43411,7 @@ styleSheet.flush()
 					);
 				/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_9__ =
 					__webpack_require__(
-						/*! @wordpress/icons */ './node_modules/@wordpress/icons/build-module/library/close.js'
+						/*! @wordpress/icons */ './node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close.js'
 					);
 				/* harmony import */ var _wordpress_dom__WEBPACK_IMPORTED_MODULE_10__ =
 					__webpack_require__(
@@ -43938,28 +43445,13 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				// Used to track and dismiss the prior modal when another opens unless nested.
 
 				const ModalContext = (0,
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createContext)(
-					new Set()
+					/* @__PURE__ */ new Set()
 				);
 				ModalContext.displayName = 'ModalContext';
-
-				// Used to track body class names applied while modals are open.
-				const bodyOpenClasses = new Map();
+				const bodyOpenClasses = /* @__PURE__ */ new Map();
 				function UnforwardedModal(props, forwardedRef) {
 					const {
 						bodyOpenClassName = 'modal-open',
@@ -43971,8 +43463,8 @@ styleSheet.flush()
 						isDismissible = true,
 						/* Accessibility. */
 						aria = {
-							labelledby: undefined,
-							describedby: undefined,
+							labelledby: void 0,
+							describedby: void 0,
 						},
 						onRequestClose,
 						icon,
@@ -43997,15 +43489,6 @@ styleSheet.flush()
 					const headingId = title
 						? `components-modal-header-${instanceId}`
 						: aria.labelledby;
-
-					// The focus hook does not support 'firstContentElement' but this is a valid
-					// value for the Modal's focusOnMount prop. The following code ensures the focus
-					// hook will focus the first focusable node within the element to which it is applied.
-					// When `firstContentElement` is passed as the value of the focusOnMount prop,
-					// the focus hook is applied to the Modal's content element.
-					// Otherwise, the focus hook is applied to the Modal's ref. This ensures that the
-					// focus hook will focus the first element in the Modal's **content** when
-					// `firstContentElement` is passed.
 					const focusOnMountRef = (0,
 					_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__['default'])(
 						focusOnMount === 'firstContentElement'
@@ -44042,8 +43525,6 @@ styleSheet.flush()
 					} else if (size) {
 						sizeClass = `has-size-${size}`;
 					}
-
-					// Determines whether the Modal content is scrollable and updates the state.
 					const isContentScrollable = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
 						if (!contentRef.current) {
@@ -44059,8 +43540,6 @@ styleSheet.flush()
 							setHasScrollableContent(false);
 						}
 					}, [contentRef]);
-
-					// Accessibly isolates/unisolates the modal.
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
 						_aria_helper__WEBPACK_IMPORTED_MODULE_11__.modalize(
@@ -44069,50 +43548,35 @@ styleSheet.flush()
 						return () =>
 							_aria_helper__WEBPACK_IMPORTED_MODULE_11__.unmodalize();
 					}, []);
-
-					// Keeps a fresh ref for the subsequent effect.
 					const onRequestCloseRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)();
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
 						onRequestCloseRef.current = onRequestClose;
 					}, [onRequestClose]);
-
-					// The list of `onRequestClose` callbacks of open (non-nested) Modals. Only
-					// one should remain open at a time and the list enables closing prior ones.
 					const dismissers = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useContext)(
 						ModalContext
 					);
-					// Used for the tracking and dismissing any nested modals.
 					const [nestedDismissers] = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(
-						() => new Set()
+						() => /* @__PURE__ */ new Set()
 					);
-
-					// Updates the stack tracking open modals at this level and calls
-					// onRequestClose for any prior and/or nested modals as applicable.
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-						// add this modal instance to the dismissers set
 						dismissers.add(onRequestCloseRef);
-						// request that all the other modals close themselves
 						for (const dismisser of dismissers) {
 							if (dismisser !== onRequestCloseRef) {
 								dismisser.current?.();
 							}
 						}
 						return () => {
-							// request that all the nested modals close themselves
 							for (const dismisser of nestedDismissers) {
 								dismisser.current?.();
 							}
-							// remove this modal instance from the dismissers set
 							dismissers.delete(onRequestCloseRef);
 						};
 					}, [dismissers, nestedDismissers]);
-
-					// Adds/removes the value of bodyOpenClassName to body element.
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
 						var _bodyOpenClasses$get;
@@ -44143,8 +43607,6 @@ styleSheet.flush()
 						overlayClassname,
 					} = (0,
 					_use_modal_exit_animation__WEBPACK_IMPORTED_MODULE_16__.useModalExitAnimation)();
-
-					// Calls the isContentScrollable callback when the Modal children container resizes.
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useLayoutEffect)(() => {
 						if (
@@ -44196,7 +43658,6 @@ styleSheet.flush()
 						onPointerDown: (event) => {
 							if (event.target === event.currentTarget) {
 								pressTarget = event.target;
-								// Avoids focus changing so that focus return works as expected.
 								event.preventDefault();
 							}
 						},
@@ -44215,9 +43676,8 @@ styleSheet.flush()
 						},
 					};
 					const modal =
-						/*#__PURE__*/
 						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-						(0,
+						/* @__PURE__ */ (0,
 						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 							'div',
 							{
@@ -44238,14 +43698,14 @@ styleSheet.flush()
 								...(shouldCloseOnClickOutside
 									? overlayPressHandlers
 									: {}),
-								children: /*#__PURE__*/ (0,
+								children: /* @__PURE__ */ (0,
 								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 									_style_provider__WEBPACK_IMPORTED_MODULE_13__[
 										'default'
 									],
 									{
-										document: document,
-										children: /*#__PURE__*/ (0,
+										document,
+										children: /* @__PURE__ */ (0,
 										react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 											'div',
 											{
@@ -44273,16 +43733,16 @@ styleSheet.flush()
 														? focusOnMountRef
 														: null,
 												]),
-												role: role,
+												role,
 												'aria-label': contentLabel,
 												'aria-labelledby': contentLabel
-													? undefined
+													? void 0
 													: headingId,
 												'aria-describedby':
 													aria.describedby,
 												tabIndex: -1,
-												onKeyDown: onKeyDown,
-												children: /*#__PURE__*/ (0,
+												onKeyDown,
+												children: /* @__PURE__ */ (0,
 												react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(
 													'div',
 													{
@@ -44310,14 +43770,14 @@ styleSheet.flush()
 																	_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(
 																		'Scrollable section'
 																	)
-																: undefined,
+																: void 0,
 														tabIndex:
 															hasScrollableContent
 																? 0
-																: undefined,
+																: void 0,
 														children: [
 															!__experimentalHideHeader &&
-																/*#__PURE__*/ (0,
+																/* @__PURE__ */ (0,
 																react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(
 																	'div',
 																	{
@@ -44325,7 +43785,7 @@ styleSheet.flush()
 																			'components-modal__header',
 																		children:
 																			[
-																				/*#__PURE__*/ (0,
+																				/* @__PURE__ */ (0,
 																				react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(
 																					'div',
 																					{
@@ -44334,7 +43794,7 @@ styleSheet.flush()
 																						children:
 																							[
 																								icon &&
-																									/*#__PURE__*/ (0,
+																									/* @__PURE__ */ (0,
 																									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 																										'span',
 																										{
@@ -44346,7 +43806,7 @@ styleSheet.flush()
 																										}
 																									),
 																								title &&
-																									/*#__PURE__*/ (0,
+																									/* @__PURE__ */ (0,
 																									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 																										'h1',
 																										{
@@ -44362,13 +43822,13 @@ styleSheet.flush()
 																				),
 																				headerActions,
 																				isDismissible &&
-																					/*#__PURE__*/ (0,
+																					/* @__PURE__ */ (0,
 																					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(
 																						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.Fragment,
 																						{
 																							children:
 																								[
-																									/*#__PURE__*/ (0,
+																									/* @__PURE__ */ (0,
 																									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 																										_spacer__WEBPACK_IMPORTED_MODULE_15__[
 																											'default'
@@ -44378,7 +43838,7 @@ styleSheet.flush()
 																											marginLeft: 2,
 																										}
 																									),
-																									/*#__PURE__*/ (0,
+																									/* @__PURE__ */ (0,
 																									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 																										_button__WEBPACK_IMPORTED_MODULE_12__[
 																											'default'
@@ -44412,7 +43872,7 @@ styleSheet.flush()
 																			],
 																	}
 																),
-															/*#__PURE__*/ (0,
+															/* @__PURE__ */ (0,
 															react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 																'div',
 																{
@@ -44426,8 +43886,7 @@ styleSheet.flush()
 																			? focusOnMountRef
 																			: null,
 																	]),
-																	children:
-																		children,
+																	children,
 																}
 															),
 														],
@@ -44441,7 +43900,7 @@ styleSheet.flush()
 						);
 					return (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createPortal)(
-						/*#__PURE__*/ (0,
+						/* @__PURE__ */ (0,
 						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(
 							ModalContext.Provider,
 							{
@@ -44452,44 +43911,12 @@ styleSheet.flush()
 						document.body
 					);
 				}
-
-				/**
-				 * Modals give users information and choices related to a task they’re trying to
-				 * accomplish. They can contain critical information, require decisions, or
-				 * involve multiple tasks.
-				 *
-				 * ```jsx
-				 * import { Button, Modal } from '@wordpress/components';
-				 * import { useState } from '@wordpress/element';
-				 *
-				 * const MyModal = () => {
-				 *   const [ isOpen, setOpen ] = useState( false );
-				 *   const openModal = () => setOpen( true );
-				 *   const closeModal = () => setOpen( false );
-				 *
-				 *   return (
-				 *     <>
-				 *       <Button variant="secondary" onClick={ openModal }>
-				 *         Open Modal
-				 *       </Button>
-				 *       { isOpen && (
-				 *         <Modal title="This is my modal" onRequestClose={ closeModal }>
-				 *           <Button variant="secondary" onClick={ closeModal }>
-				 *             My custom close button
-				 *           </Button>
-				 *         </Modal>
-				 *       ) }
-				 *     </>
-				 *   );
-				 * };
-				 * ```
-				 */
 				const Modal = (0,
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
 					UnforwardedModal
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					Modal;
+				var modal_default = Modal;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -44536,15 +43963,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/warning */ './node_modules/@wordpress/warning/build-module/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				// Animation duration (ms) extracted to JS in order to be used on a setTimeout.
 				const FRAME_ANIMATION_DURATION =
 					_utils__WEBPACK_IMPORTED_MODULE_2__['default']
 						.transitionDuration;
@@ -44569,8 +43988,6 @@ styleSheet.flush()
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(
 						() =>
 							new Promise((closeModalResolve) => {
-								// Grab a "stable" reference of the frame element, since
-								// the value held by the react ref might change at runtime.
 								const frameEl = frameRef.current;
 								if (isReducedMotion) {
 									closeModalResolve();
@@ -44635,7 +44052,7 @@ styleSheet.flush()
 					return {
 						overlayClassname: isAnimatingOut
 							? 'is-animating-out'
-							: undefined,
+							: void 0,
 						frameRef,
 						frameStyle: {
 							'--modal-frame-animation-duration': `${FRAME_ANIMATION_DURATION}`,
@@ -44643,6 +44060,7 @@ styleSheet.flush()
 						closeModal,
 					};
 				}
+
 				//# sourceMappingURL=use-modal-exit-animation.js.map
 
 				/***/
@@ -44679,14 +44097,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
 				const POSITION_TO_PLACEMENT = {
 					bottom: 'bottom',
 					top: 'top',
@@ -44739,14 +44149,6 @@ styleSheet.flush()
 					'middle center right': 'bottom',
 					'middle center top': 'bottom',
 				};
-
-				/**
-				 * Converts the `Popover`'s legacy "position" prop to the new "placement" prop
-				 * (used by `floating-ui`).
-				 *
-				 * @param position The legacy position
-				 * @return The corresponding placement
-				 */
 				const positionToPlacement = (position) => {
 					var _POSITION_TO_PLACEMEN;
 					return (_POSITION_TO_PLACEMEN =
@@ -44755,14 +44157,6 @@ styleSheet.flush()
 						? _POSITION_TO_PLACEMEN
 						: 'bottom';
 				};
-
-				/**
-				 * @typedef AnimationOrigin
-				 * @type {Object}
-				 * @property {number} originX A number between 0 and 1 (in CSS logical properties jargon, 0 is "start", 0.5 is "center", and 1 is "end")
-				 * @property {number} originY A number between 0 and 1 (0 is top, 0.5 is center, and 1 is bottom)
-				 */
-
 				const PLACEMENT_TO_ANIMATION_ORIGIN = {
 					top: {
 						originX: 0.5,
@@ -44827,16 +44221,9 @@ styleSheet.flush()
 					overlay: {
 						originX: 0.5,
 						originY: 0.5,
-					}, // open from center, center
+					},
+					// open from center, center
 				};
-
-				/**
-				 * Given the floating-ui `placement`, compute the framer-motion props for the
-				 * popover's entry animation.
-				 *
-				 * @param placement A placement string from floating ui
-				 * @return The object containing the motion props
-				 */
 				const placementToMotionAnimationProps = (placement) => {
 					const translateProp =
 						placement.startsWith('top') ||
@@ -44884,10 +44271,6 @@ styleSheet.flush()
 					if (anchor) {
 						referenceElement = anchor;
 					} else if (isTopBottom(anchorRef)) {
-						// Create a virtual element for the ref. The expectation is that
-						// if anchorRef.top is defined, then anchorRef.bottom is defined too.
-						// Seems to be used by the block toolbar, when multiple blocks are selected
-						// (top and bottom blocks are used to calculate the resulting rect).
 						referenceElement = {
 							getBoundingClientRect() {
 								const topRect =
@@ -44903,21 +44286,16 @@ styleSheet.flush()
 							},
 						};
 					} else if (isRef(anchorRef)) {
-						// Standard React ref.
 						referenceElement = anchorRef.current;
 					} else if (anchorRef) {
-						// If `anchorRef` holds directly the element's value (no `current` key)
-						// This is a weird scenario and should be deprecated.
 						referenceElement = anchorRef;
 					} else if (anchorRect) {
-						// Create a virtual element for the ref.
 						referenceElement = {
 							getBoundingClientRect() {
 								return anchorRect;
 							},
 						};
 					} else if (getAnchorRect) {
-						// Create a virtual element for the ref.
 						referenceElement = {
 							getBoundingClientRect() {
 								var _rect$x, _rect$y, _rect$width, _rect$height;
@@ -44945,30 +44323,17 @@ styleSheet.flush()
 							},
 						};
 					} else if (fallbackReferenceElement) {
-						// If no explicit ref is passed via props, fall back to
-						// anchoring to the popover's parent node.
 						referenceElement =
 							fallbackReferenceElement.parentElement;
 					}
-
-					// Convert any `undefined` value to `null`.
 					return (_referenceElement = referenceElement) !== null &&
 						_referenceElement !== void 0
 						? _referenceElement
 						: null;
 				};
-
-				/**
-				 * Computes the final coordinate that needs to be applied to the floating
-				 * element when applying transform inline styles, defaulting to `undefined`
-				 * if the provided value is `null` or `NaN`.
-				 *
-				 * @param c input coordinate (usually as returned from floating-ui)
-				 * @return The coordinate's value to be used for inline styles. An `undefined`
-				 *         return value means "no style set" for this coordinate.
-				 */
 				const computePopoverPosition = (c) =>
-					c === null || Number.isNaN(c) ? undefined : Math.round(c);
+					c === null || Number.isNaN(c) ? void 0 : Math.round(c);
+
 				//# sourceMappingURL=utils.js.map
 
 				/***/
@@ -44985,28 +44350,20 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ shortcut_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Shortcut component is used to display keyboard shortcuts, and it can be customized with a custom display and aria label if needed.
-				 *
-				 * ```jsx
-				 * import { Shortcut } from '@wordpress/components';
-				 *
-				 * const MyShortcut = () => {
-				 * 	return (
-				 * 		<Shortcut shortcut={{ display: 'Ctrl + S', ariaLabel: 'Save' }} />
-				 * 	);
-				 * };
-				 * ```
-				 */
 				function Shortcut(props) {
 					const { shortcut, className } = props;
 					if (!shortcut) {
@@ -45021,18 +44378,18 @@ styleSheet.flush()
 						displayText = shortcut.display;
 						ariaLabel = shortcut.ariaLabel;
 					}
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 						'span',
 						{
-							className: className,
+							className,
 							'aria-label': ariaLabel,
 							children: displayText,
 						}
 					);
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					Shortcut;
+				var shortcut_default = Shortcut;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -45055,6 +44412,9 @@ styleSheet.flush()
 						/* harmony export */ Spacer: function () {
 							return /* binding */ Spacer;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ component_default;
+						},
 						/* harmony export */
 					}
 				);
@@ -45074,18 +44434,11 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				function UnconnectedSpacer(props, forwardedRef) {
 					const spacerProps = (0,
 					_hook__WEBPACK_IMPORTED_MODULE_2__.useSpacer)(props);
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(
 						_view__WEBPACK_IMPORTED_MODULE_1__['default'],
 						{
@@ -45094,38 +44447,13 @@ styleSheet.flush()
 						}
 					);
 				}
-
-				/**
-				 * `Spacer` is a primitive layout component that providers inner (`padding`) or outer (`margin`) space in-between components. It can also be used to adaptively provide space within an `HStack` or `VStack`.
-				 *
-				 * `Spacer` comes with a bunch of shorthand props to adjust `margin` and `padding`. The values of these props
-				 * can either be a number (which will act as a multiplier to the library's grid system base of 4px),
-				 * or a literal CSS value string.
-				 *
-				 * ```jsx
-				 * import { Spacer } from `@wordpress/components`
-				 *
-				 * function Example() {
-				 *   return (
-				 *     <View>
-				 *       <Spacer>
-				 *         <Heading>WordPress.org</Heading>
-				 *       </Spacer>
-				 *       <Text>
-				 *         Code is Poetry
-				 *       </Text>
-				 *     </View>
-				 *   );
-				 * }
-				 * ```
-				 */
 				const Spacer = (0,
 				_context__WEBPACK_IMPORTED_MODULE_0__.contextConnect)(
 					UnconnectedSpacer,
 					'Spacer'
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					Spacer;
+				var component_default = Spacer;
+
 				//# sourceMappingURL=component.js.map
 
 				/***/
@@ -45171,13 +44499,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils */ './node_modules/@wordpress/components/build-module/utils/hooks/use-cx.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				function isDefined(o) {
 					return typeof o !== 'undefined' && o !== null;
@@ -45208,7 +44529,7 @@ styleSheet.flush()
 					const cx = (0, _utils__WEBPACK_IMPORTED_MODULE_4__.useCx)();
 					const classes = cx(
 						isDefined(margin) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'margin:',
 								(0,
@@ -45218,10 +44539,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNENNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNENNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(marginY) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'margin-bottom:',
 								(0,
@@ -45236,10 +44557,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBZ0RNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBZ0RNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(marginX) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'margin-left:',
 								(0,
@@ -45254,10 +44575,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBcURNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBcURNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(marginTop) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'margin-top:',
 								(0,
@@ -45267,10 +44588,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBMERNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBMERNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(marginBottom) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'margin-bottom:',
 								(0,
@@ -45280,7 +44601,7 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBOERNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBOERNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(marginLeft) &&
 							(0, _utils__WEBPACK_IMPORTED_MODULE_3__.rtl)({
@@ -45297,7 +44618,7 @@ styleSheet.flush()
 								),
 							})(),
 						isDefined(padding) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'padding:',
 								(0,
@@ -45307,10 +44628,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBMEVNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBMEVNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(paddingY) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'padding-bottom:',
 								(0,
@@ -45325,10 +44646,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBOEVNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBOEVNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(paddingX) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'padding-left:',
 								(0,
@@ -45343,10 +44664,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBbUZNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBbUZNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(paddingTop) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'padding-top:',
 								(0,
@@ -45356,10 +44677,10 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBd0ZNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBd0ZNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(paddingBottom) &&
-							/*#__PURE__*/ (0,
+							/* @__PURE__ */ (0,
 							_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 								'padding-bottom:',
 								(0,
@@ -45369,7 +44690,7 @@ styleSheet.flush()
 								';' + (false ? 0 : ';label:classes;'),
 								false
 									? 0
-									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNEZNIiwiZmlsZSI6IkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvc3BhY2VyL2hvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
+									: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNEZNIiwiZmlsZSI6Imhvb2sudHMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogSW50ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB0eXBlIHsgV29yZFByZXNzQ29tcG9uZW50UHJvcHMgfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHVzZUNvbnRleHRTeXN0ZW0gfSBmcm9tICcuLi9jb250ZXh0JztcbmltcG9ydCB7IHNwYWNlIH0gZnJvbSAnLi4vdXRpbHMvc3BhY2UnO1xuaW1wb3J0IHsgcnRsLCB1c2VDeCB9IGZyb20gJy4uL3V0aWxzJztcbmltcG9ydCB0eXBlIHsgU3BhY2VyUHJvcHMgfSBmcm9tICcuL3R5cGVzJztcblxuZnVuY3Rpb24gaXNEZWZpbmVkPCBUID4oIG86IFQgKTogbyBpcyBFeGNsdWRlPCBULCBudWxsIHwgdW5kZWZpbmVkID4ge1xuXHRyZXR1cm4gdHlwZW9mIG8gIT09ICd1bmRlZmluZWQnICYmIG8gIT09IG51bGw7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VTcGFjZXIoXG5cdHByb3BzOiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwgU3BhY2VyUHJvcHMsICdkaXYnID5cbikge1xuXHRjb25zdCB7XG5cdFx0Y2xhc3NOYW1lLFxuXHRcdG1hcmdpbixcblx0XHRtYXJnaW5Cb3R0b20gPSAyLFxuXHRcdG1hcmdpbkxlZnQsXG5cdFx0bWFyZ2luUmlnaHQsXG5cdFx0bWFyZ2luVG9wLFxuXHRcdG1hcmdpblgsXG5cdFx0bWFyZ2luWSxcblx0XHRwYWRkaW5nLFxuXHRcdHBhZGRpbmdCb3R0b20sXG5cdFx0cGFkZGluZ0xlZnQsXG5cdFx0cGFkZGluZ1JpZ2h0LFxuXHRcdHBhZGRpbmdUb3AsXG5cdFx0cGFkZGluZ1gsXG5cdFx0cGFkZGluZ1ksXG5cdFx0Li4ub3RoZXJQcm9wc1xuXHR9ID0gdXNlQ29udGV4dFN5c3RlbSggcHJvcHMsICdTcGFjZXInICk7XG5cblx0Y29uc3QgY3ggPSB1c2VDeCgpO1xuXG5cdGNvbnN0IGNsYXNzZXMgPSBjeChcblx0XHRpc0RlZmluZWQoIG1hcmdpbiApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbjogJHsgc3BhY2UoIG1hcmdpbiApIH07XG5cdFx0XHRgLFxuXHRcdGlzRGVmaW5lZCggbWFyZ2luWSApICYmXG5cdFx0XHRjc3NgXG5cdFx0XHRcdG1hcmdpbi1ib3R0b206ICR7IHNwYWNlKCBtYXJnaW5ZICkgfTtcblx0XHRcdFx0bWFyZ2luLXRvcDogJHsgc3BhY2UoIG1hcmdpblkgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIG1hcmdpblggKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tbGVmdDogJHsgc3BhY2UoIG1hcmdpblggKSB9O1xuXHRcdFx0XHRtYXJnaW4tcmlnaHQ6ICR7IHNwYWNlKCBtYXJnaW5YICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Ub3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tdG9wOiAkeyBzcGFjZSggbWFyZ2luVG9wICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5Cb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRtYXJnaW4tYm90dG9tOiAkeyBzcGFjZSggbWFyZ2luQm90dG9tICkgfTtcblx0XHRcdGAsXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5MZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRtYXJnaW5MZWZ0OiBzcGFjZSggbWFyZ2luTGVmdCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBtYXJnaW5SaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0bWFyZ2luUmlnaHQ6IHNwYWNlKCBtYXJnaW5SaWdodCApLFxuXHRcdFx0fSApKCksXG5cdFx0aXNEZWZpbmVkKCBwYWRkaW5nICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZzogJHsgc3BhY2UoIHBhZGRpbmcgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdZICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1ib3R0b206ICR7IHNwYWNlKCBwYWRkaW5nWSApIH07XG5cdFx0XHRcdHBhZGRpbmctdG9wOiAkeyBzcGFjZSggcGFkZGluZ1kgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdYICkgJiZcblx0XHRcdGNzc2Bcblx0XHRcdFx0cGFkZGluZy1sZWZ0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0XHRwYWRkaW5nLXJpZ2h0OiAkeyBzcGFjZSggcGFkZGluZ1ggKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdUb3AgKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLXRvcDogJHsgc3BhY2UoIHBhZGRpbmdUb3AgKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdCb3R0b20gKSAmJlxuXHRcdFx0Y3NzYFxuXHRcdFx0XHRwYWRkaW5nLWJvdHRvbTogJHsgc3BhY2UoIHBhZGRpbmdCb3R0b20gKSB9O1xuXHRcdFx0YCxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdMZWZ0ICkgJiZcblx0XHRcdHJ0bCgge1xuXHRcdFx0XHRwYWRkaW5nTGVmdDogc3BhY2UoIHBhZGRpbmdMZWZ0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRpc0RlZmluZWQoIHBhZGRpbmdSaWdodCApICYmXG5cdFx0XHRydGwoIHtcblx0XHRcdFx0cGFkZGluZ1JpZ2h0OiBzcGFjZSggcGFkZGluZ1JpZ2h0ICksXG5cdFx0XHR9ICkoKSxcblx0XHRjbGFzc05hbWVcblx0KTtcblxuXHRyZXR1cm4geyAuLi5vdGhlclByb3BzLCBjbGFzc05hbWU6IGNsYXNzZXMgfTtcbn1cbiJdfQ== */'
 							),
 						isDefined(paddingLeft) &&
 							(0, _utils__WEBPACK_IMPORTED_MODULE_3__.rtl)({
@@ -45392,6 +44713,7 @@ styleSheet.flush()
 						className: classes,
 					};
 				}
+
 				//# sourceMappingURL=hook.js.map
 
 				/***/
@@ -45414,6 +44736,9 @@ styleSheet.flush()
 						/* harmony export */ StyleProvider: function () {
 							return /* binding */ StyleProvider;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ style_provider_default;
+						},
 						/* harmony export */
 					}
 				);
@@ -45433,25 +44758,13 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				const uuidCache = new Set();
-				// Use a weak map so that when the container is detached it's automatically
-				// dereferenced to avoid memory leak.
-				const containerCacheMap = new WeakMap();
+				const uuidCache = /* @__PURE__ */ new Set();
+				const containerCacheMap = /* @__PURE__ */ new WeakMap();
 				const memoizedCreateCacheWithContainer = (container) => {
 					if (containerCacheMap.has(container)) {
 						return containerCacheMap.get(container);
 					}
-
-					// Emotion only accepts alphabetical and hyphenated keys so we just
-					// strip the numbers from the UUID. It _should_ be fine.
 					let key = uuid__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					]().replace(/[0-9]/g, '');
@@ -45477,17 +44790,17 @@ styleSheet.flush()
 					const cache = memoizedCreateCacheWithContainer(
 						document.head
 					);
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(
 						_emotion_react__WEBPACK_IMPORTED_MODULE_0__.C,
 						{
 							value: cache,
-							children: children,
+							children,
 						}
 					);
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					StyleProvider;
+				var style_provider_default = StyleProvider;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -45512,6 +44825,9 @@ styleSheet.flush()
 						},
 						/* harmony export */ Tooltip: function () {
 							return /* binding */ Tooltip;
+						},
+						/* harmony export */ default: function () {
+							return /* binding */ tooltip_default;
 						},
 						/* harmony export */
 					}
@@ -45568,27 +44884,12 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				const TooltipInternalContext = (0,
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.createContext)({
 					isNestedInTooltip: false,
 				});
 				TooltipInternalContext.displayName = 'TooltipInternalContext';
-
-				/**
-				 * Time over anchor to wait before showing tooltip
-				 */
 				const TOOLTIP_DELAY = 700;
 				const CONTEXT_VALUE = {
 					isNestedInTooltip: true,
@@ -45614,29 +44915,22 @@ styleSheet.flush()
 						Tooltip,
 						'tooltip'
 					);
-					const describedById = text || shortcut ? baseId : undefined;
+					const describedById = text || shortcut ? baseId : void 0;
 					const isOnlyChild =
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.Children.count(
 							children
 						) === 1;
-					// console error if more than one child element is added
 					if (!isOnlyChild) {
 						if (true) {
-							// eslint-disable-next-line no-console
 							console.error(
 								'wp-components.Tooltip should be called with only a single child element.'
 							);
 						}
 					}
-
-					// Compute tooltip's placement:
-					// - give priority to `placement` prop, if defined
-					// - otherwise, compute it from the legacy `position` prop (if defined)
-					// - finally, fallback to the default placement: 'bottom'
 					let computedPlacement;
-					if (placement !== undefined) {
+					if (placement !== void 0) {
 						computedPlacement = placement;
-					} else if (position !== undefined) {
+					} else if (position !== void 0) {
 						computedPlacement = (0,
 						_popover_utils__WEBPACK_IMPORTED_MODULE_10__.positionToPlacement)(
 							position
@@ -45664,7 +44958,7 @@ styleSheet.flush()
 						);
 					if (isNestedInTooltip) {
 						return isOnlyChild
-							? /*#__PURE__*/ (0,
+							? /* @__PURE__ */ (0,
 								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(
 									_ariakit_react__WEBPACK_IMPORTED_MODULE_2__.Role,
 									{
@@ -45674,19 +44968,10 @@ styleSheet.flush()
 								)
 							: children;
 					}
-
-					// TODO: this is a temporary workaround to minimize the effects of the
-					// Ariakit upgrade. Ariakit doesn't pass the `aria-describedby` prop to
-					// the tooltip anchor anymore since 0.4.0, so we need to add it manually.
-					// The `aria-describedby` attribute is added only if the anchor doesn't have
-					// one already, and if the tooltip text is not the same as the anchor's
-					// `aria-label`
-					// See: https://github.com/WordPress/gutenberg/pull/64066
-					// See: https://github.com/WordPress/gutenberg/pull/65989
 					function addDescribedById(element) {
 						return describedById &&
 							mounted &&
-							element.props['aria-describedby'] === undefined &&
+							element.props['aria-describedby'] === void 0 &&
 							element.props['aria-label'] !== text
 							? (0,
 								_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.cloneElement)(
@@ -45697,32 +44982,32 @@ styleSheet.flush()
 								)
 							: element;
 					}
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(
 						TooltipInternalContext.Provider,
 						{
 							value: CONTEXT_VALUE,
 							children: [
-								/*#__PURE__*/ (0,
+								/* @__PURE__ */ (0,
 								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(
 									_ariakit_react__WEBPACK_IMPORTED_MODULE_4__.TooltipAnchor,
 									{
 										onClick: hideOnClick
 											? tooltipStore.hide
-											: undefined,
+											: void 0,
 										store: tooltipStore,
 										render: isOnlyChild
 											? addDescribedById(children)
-											: undefined,
-										ref: ref,
+											: void 0,
+										ref,
 										children: isOnlyChild
-											? undefined
+											? void 0
 											: children,
 									}
 								),
 								isOnlyChild &&
 									(text || shortcut) &&
-									/*#__PURE__*/ (0,
+									/* @__PURE__ */ (0,
 									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(
 										_ariakit_react__WEBPACK_IMPORTED_MODULE_3__.Tooltip,
 										{
@@ -45739,7 +45024,7 @@ styleSheet.flush()
 											children: [
 												text,
 												shortcut &&
-													/*#__PURE__*/ (0,
+													/* @__PURE__ */ (0,
 													react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(
 														_shortcut__WEBPACK_IMPORTED_MODULE_9__[
 															'default'
@@ -45748,7 +45033,7 @@ styleSheet.flush()
 															className: text
 																? 'components-tooltip__shortcut'
 																: '',
-															shortcut: shortcut,
+															shortcut,
 														}
 													),
 											],
@@ -45762,8 +45047,8 @@ styleSheet.flush()
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.forwardRef)(
 					UnforwardedTooltip
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					Tooltip;
+				var tooltip_default = Tooltip;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -45786,15 +45071,13 @@ styleSheet.flush()
 						/* harmony export */ COLORS: function () {
 							return /* binding */ COLORS;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ colors_values_default;
+						},
 						/* harmony export */
 					}
 				);
-				/**
-				 * Internal dependencies
-				 */
 				const white = '#fff';
-
-				// Matches the grays in @wordpress/base-styles
 				const GRAY = {
 					900: '#1e1e1e',
 					800: '#2f2f2f',
@@ -45810,15 +45093,11 @@ styleSheet.flush()
 					/** Used for light gray backgrounds. */
 					100: '#f0f0f0',
 				};
-
-				// Matches @wordpress/base-styles
 				const ALERT = {
 					yellow: '#f0b849',
 					red: '#d94f4f',
 					green: '#4ab866',
 				};
-
-				// Should match packages/components/src/utils/theme-variables.scss
 				const THEME = {
 					accent: `var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9))`,
 					accentDarker10: `var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #2145e6))`,
@@ -45877,8 +45156,8 @@ styleSheet.flush()
 					 */
 					ui: UI,
 				});
-				/* harmony default export */ __webpack_exports__['default'] =
-					COLORS;
+				var colors_values_default = COLORS;
+
 				//# sourceMappingURL=colors-values.js.map
 
 				/***/
@@ -45895,6 +45174,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ config_values_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _space__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./space */ './node_modules/@wordpress/components/build-module/utils/space.js'
@@ -45903,9 +45191,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./colors-values */ './node_modules/@wordpress/components/build-module/utils/colors-values.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
 				const CONTROL_HEIGHT = '36px';
 				const CONTROL_PROPS = {
@@ -45914,7 +45199,6 @@ styleSheet.flush()
 					controlPaddingXSmall: 8,
 					controlPaddingXLarge: 12 * 1.3334,
 					// TODO: Deprecate
-
 					controlBoxShadowFocus: `0 0 0 0.5px ${_colors_values__WEBPACK_IMPORTED_MODULE_1__.COLORS.theme.accent}`,
 					controlHeight: CONTROL_HEIGHT,
 					controlHeightXSmall: `calc( ${CONTROL_HEIGHT} * 0.6 )`,
@@ -45922,72 +45206,69 @@ styleSheet.flush()
 					controlHeightLarge: `calc( ${CONTROL_HEIGHT} * 1.2 )`,
 					controlHeightXLarge: `calc( ${CONTROL_HEIGHT} * 1.4 )`,
 				};
+				var config_values_default = Object.assign({}, CONTROL_PROPS, {
+					colorDivider: 'rgba(0, 0, 0, 0.1)',
+					colorScrollbarThumb: 'rgba(0, 0, 0, 0.2)',
+					colorScrollbarThumbHover: 'rgba(0, 0, 0, 0.5)',
+					colorScrollbarTrack: 'rgba(0, 0, 0, 0.04)',
+					elevationIntensity: 1,
+					radiusXSmall: '1px',
+					radiusSmall: '2px',
+					radiusMedium: '4px',
+					radiusLarge: '8px',
+					radiusFull: '9999px',
+					radiusRound: '50%',
+					borderWidth: '1px',
+					borderWidthFocus: '1.5px',
+					borderWidthTab: '4px',
+					spinnerSize: 16,
+					fontSize: '13px',
+					fontSizeH1: 'calc(2.44 * 13px)',
+					fontSizeH2: 'calc(1.95 * 13px)',
+					fontSizeH3: 'calc(1.56 * 13px)',
+					fontSizeH4: 'calc(1.25 * 13px)',
+					fontSizeH5: '13px',
+					fontSizeH6: 'calc(0.8 * 13px)',
+					fontSizeInputMobile: '16px',
+					fontSizeMobile: '15px',
+					fontSizeSmall: 'calc(0.92 * 13px)',
+					fontSizeXSmall: 'calc(0.75 * 13px)',
+					fontLineHeightBase: '1.4',
+					fontWeight: 'normal',
+					fontWeightHeading: '600',
+					gridBase: '4px',
+					cardPaddingXSmall: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(2)}`,
+					cardPaddingSmall: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(4)}`,
+					cardPaddingMedium: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(4)} ${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(6)}`,
+					cardPaddingLarge: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(6)} ${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(8)}`,
+					elevationXSmall: `0 1px 1px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02), 0 3px 3px rgba(0, 0, 0, 0.02), 0 4px 4px rgba(0, 0, 0, 0.01)`,
+					elevationSmall: `0 1px 2px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.04), 0 6px 6px rgba(0, 0, 0, 0.03), 0 8px 8px rgba(0, 0, 0, 0.02)`,
+					elevationMedium: `0 2px 3px rgba(0, 0, 0, 0.05), 0 4px 5px rgba(0, 0, 0, 0.04), 0 12px 12px rgba(0, 0, 0, 0.03), 0 16px 16px rgba(0, 0, 0, 0.02)`,
+					elevationLarge: `0 5px 15px rgba(0, 0, 0, 0.08), 0 15px 27px rgba(0, 0, 0, 0.07), 0 30px 36px rgba(0, 0, 0, 0.04), 0 50px 43px rgba(0, 0, 0, 0.02)`,
+					surfaceBackgroundColor:
+						_colors_values__WEBPACK_IMPORTED_MODULE_1__.COLORS
+							.white,
+					surfaceBackgroundSubtleColor: '#F3F3F3',
+					surfaceBackgroundTintColor: '#F5F5F5',
+					surfaceBorderColor: 'rgba(0, 0, 0, 0.1)',
+					surfaceBorderBoldColor: 'rgba(0, 0, 0, 0.15)',
+					surfaceBorderSubtleColor: 'rgba(0, 0, 0, 0.05)',
+					surfaceBackgroundTertiaryColor:
+						_colors_values__WEBPACK_IMPORTED_MODULE_1__.COLORS
+							.white,
+					surfaceColor:
+						_colors_values__WEBPACK_IMPORTED_MODULE_1__.COLORS
+							.white,
+					transitionDuration: '200ms',
+					transitionDurationFast: '160ms',
+					transitionDurationFaster: '120ms',
+					transitionDurationFastest: '100ms',
+					transitionTimingFunction:
+						'cubic-bezier(0.08, 0.52, 0.52, 1)',
+					transitionTimingFunctionControl:
+						'cubic-bezier(0.12, 0.8, 0.32, 1)',
+				});
 
-				// Using Object.assign to avoid creating circular references when emitting
-				// TypeScript type declarations.
-				/* harmony default export */ __webpack_exports__['default'] =
-					Object.assign({}, CONTROL_PROPS, {
-						colorDivider: 'rgba(0, 0, 0, 0.1)',
-						colorScrollbarThumb: 'rgba(0, 0, 0, 0.2)',
-						colorScrollbarThumbHover: 'rgba(0, 0, 0, 0.5)',
-						colorScrollbarTrack: 'rgba(0, 0, 0, 0.04)',
-						elevationIntensity: 1,
-						radiusXSmall: '1px',
-						radiusSmall: '2px',
-						radiusMedium: '4px',
-						radiusLarge: '8px',
-						radiusFull: '9999px',
-						radiusRound: '50%',
-						borderWidth: '1px',
-						borderWidthFocus: '1.5px',
-						borderWidthTab: '4px',
-						spinnerSize: 16,
-						fontSize: '13px',
-						fontSizeH1: 'calc(2.44 * 13px)',
-						fontSizeH2: 'calc(1.95 * 13px)',
-						fontSizeH3: 'calc(1.56 * 13px)',
-						fontSizeH4: 'calc(1.25 * 13px)',
-						fontSizeH5: '13px',
-						fontSizeH6: 'calc(0.8 * 13px)',
-						fontSizeInputMobile: '16px',
-						fontSizeMobile: '15px',
-						fontSizeSmall: 'calc(0.92 * 13px)',
-						fontSizeXSmall: 'calc(0.75 * 13px)',
-						fontLineHeightBase: '1.4',
-						fontWeight: 'normal',
-						fontWeightHeading: '600',
-						gridBase: '4px',
-						cardPaddingXSmall: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(2)}`,
-						cardPaddingSmall: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(4)}`,
-						cardPaddingMedium: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(4)} ${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(6)}`,
-						cardPaddingLarge: `${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(6)} ${(0, _space__WEBPACK_IMPORTED_MODULE_0__.space)(8)}`,
-						elevationXSmall: `0 1px 1px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02), 0 3px 3px rgba(0, 0, 0, 0.02), 0 4px 4px rgba(0, 0, 0, 0.01)`,
-						elevationSmall: `0 1px 2px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.04), 0 6px 6px rgba(0, 0, 0, 0.03), 0 8px 8px rgba(0, 0, 0, 0.02)`,
-						elevationMedium: `0 2px 3px rgba(0, 0, 0, 0.05), 0 4px 5px rgba(0, 0, 0, 0.04), 0 12px 12px rgba(0, 0, 0, 0.03), 0 16px 16px rgba(0, 0, 0, 0.02)`,
-						elevationLarge: `0 5px 15px rgba(0, 0, 0, 0.08), 0 15px 27px rgba(0, 0, 0, 0.07), 0 30px 36px rgba(0, 0, 0, 0.04), 0 50px 43px rgba(0, 0, 0, 0.02)`,
-						surfaceBackgroundColor:
-							_colors_values__WEBPACK_IMPORTED_MODULE_1__.COLORS
-								.white,
-						surfaceBackgroundSubtleColor: '#F3F3F3',
-						surfaceBackgroundTintColor: '#F5F5F5',
-						surfaceBorderColor: 'rgba(0, 0, 0, 0.1)',
-						surfaceBorderBoldColor: 'rgba(0, 0, 0, 0.15)',
-						surfaceBorderSubtleColor: 'rgba(0, 0, 0, 0.05)',
-						surfaceBackgroundTertiaryColor:
-							_colors_values__WEBPACK_IMPORTED_MODULE_1__.COLORS
-								.white,
-						surfaceColor:
-							_colors_values__WEBPACK_IMPORTED_MODULE_1__.COLORS
-								.white,
-						transitionDuration: '200ms',
-						transitionDurationFast: '160ms',
-						transitionDurationFaster: '120ms',
-						transitionDurationFastest: '100ms',
-						transitionTimingFunction:
-							'cubic-bezier(0.08, 0.52, 0.52, 1)',
-						transitionTimingFunctionControl:
-							'cubic-bezier(0.12, 0.8, 0.32, 1)',
-					});
 				//# sourceMappingURL=config-values.js.map
 
 				/***/
@@ -46033,17 +45314,6 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_3__
 					);
-				/**
-				 * External dependencies
-				 */
-
-				// eslint-disable-next-line no-restricted-imports
-
-				// eslint-disable-next-line no-restricted-imports
-
-				/**
-				 * WordPress dependencies
-				 */
 
 				const isSerializedStyles = (o) =>
 					typeof o !== 'undefined' &&
@@ -46051,29 +45321,6 @@ styleSheet.flush()
 					['name', 'styles'].every(
 						(p) => typeof o[p] !== 'undefined'
 					);
-
-				/**
-				 * Retrieve a `cx` function that knows how to handle `SerializedStyles`
-				 * returned by the `@emotion/react` `css` function in addition to what
-				 * `cx` normally knows how to handle. It also hooks into the Emotion
-				 * Cache, allowing `css` calls to work inside iframes.
-				 *
-				 * ```jsx
-				 * import { css } from '@emotion/react';
-				 *
-				 * const styles = css`
-				 * 	color: red
-				 * `;
-				 *
-				 * function RedText( { className, ...props } ) {
-				 * 	const cx = useCx();
-				 *
-				 * 	const classes = cx(styles, className);
-				 *
-				 * 	return <span className={classes} {...props} />;
-				 * }
-				 * ```
-				 */
 				const useCx = () => {
 					const cache = (0,
 					_emotion_react__WEBPACK_IMPORTED_MODULE_0__._)();
@@ -46105,6 +45352,7 @@ styleSheet.flush()
 					);
 					return cx;
 				};
+
 				//# sourceMappingURL=use-cx.js.map
 
 				/***/
@@ -46121,6 +45369,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_update_effect_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/element */ './node_modules/react/index.js'
@@ -46129,18 +45386,7 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * A `React.useEffect` that will not run on the first render.
-				 * Source:
-				 * https://github.com/ariakit/ariakit/blob/main/packages/ariakit-react-core/src/utils/hooks.ts
-				 *
-				 * @param {import('react').EffectCallback} effect
-				 * @param {import('react').DependencyList} deps
-				 */
 				function useUpdateEffect(effect, deps) {
 					const mountedRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
@@ -46153,10 +45399,7 @@ styleSheet.flush()
 								return effect();
 							}
 							mountedRef.current = true;
-							return undefined;
-							// 1. This hook needs to pass a dep list that isn't an array literal
-							// 2. `effect` is missing from the array, and will need to be added carefully to avoid additional warnings
-							// see https://github.com/WordPress/gutenberg/pull/41166
+							return void 0;
 						},
 						deps
 					);
@@ -46168,8 +45411,8 @@ styleSheet.flush()
 						[]
 					);
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					useUpdateEffect;
+				var use_update_effect_default = useUpdateEffect;
+
 				//# sourceMappingURL=use-update-effect.js.map
 
 				/***/
@@ -46206,26 +45449,11 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/i18n */ './node_modules/@wordpress/i18n/build-module/index.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
 
 				const LOWER_LEFT_REGEXP = new RegExp(/-left/g);
 				const LOWER_RIGHT_REGEXP = new RegExp(/-right/g);
 				const UPPER_LEFT_REGEXP = new RegExp(/Left/g);
 				const UPPER_RIGHT_REGEXP = new RegExp(/Right/g);
-
-				/**
-				 * Flips a CSS property from left <-> right.
-				 *
-				 * @param {string} key The CSS property name.
-				 *
-				 * @return {string} The flipped CSS property name, if applicable.
-				 */
 				function getConvertedKey(key) {
 					if (key === 'left') {
 						return 'right';
@@ -46247,14 +45475,6 @@ styleSheet.flush()
 					}
 					return key;
 				}
-
-				/**
-				 * An incredibly basic ltr -> rtl converter for style properties
-				 *
-				 * @param {import('react').CSSProperties} ltrStyles
-				 *
-				 * @return {import('react').CSSProperties} Converted ltr -> rtl styles
-				 */
 				const convertLTRToRTL = (ltrStyles = {}) => {
 					return Object.fromEntries(
 						Object.entries(ltrStyles).map(([key, value]) => [
@@ -46263,75 +45483,51 @@ styleSheet.flush()
 						])
 					);
 				};
-
-				/**
-				 * A higher-order function that create an incredibly basic ltr -> rtl style converter for CSS objects.
-				 *
-				 * @param {import('react').CSSProperties} ltrStyles   Ltr styles. Converts and renders from ltr -> rtl styles, if applicable.
-				 * @param {import('react').CSSProperties} [rtlStyles] Rtl styles. Renders if provided.
-				 *
-				 * @return {() => import('@emotion/react').SerializedStyles} A function to output CSS styles for Emotion's renderer
-				 */
 				function rtl(ltrStyles = {}, rtlStyles) {
 					return () => {
 						if (rtlStyles) {
-							// @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
 							return (0,
 							_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.isRTL)()
-								? /*#__PURE__*/ (0,
+								? /* @__PURE__ */ (0,
 									_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 										rtlStyles,
 										false ? 0 : ';label:rtl;',
 										false
 											? 0
-											: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvdXRpbHMvcnRsLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQThFb0IiLCJmaWxlIjoiQHdvcmRwcmVzcy9jb21wb25lbnRzL3NyYy91dGlscy9ydGwuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogV29yZFByZXNzIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBpc1JUTCB9IGZyb20gJ0B3b3JkcHJlc3MvaTE4bic7XG5cbmNvbnN0IExPV0VSX0xFRlRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1sZWZ0L2cgKTtcbmNvbnN0IExPV0VSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC8tcmlnaHQvZyApO1xuY29uc3QgVVBQRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvTGVmdC9nICk7XG5jb25zdCBVUFBFUl9SSUdIVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvUmlnaHQvZyApO1xuXG4vKipcbiAqIEZsaXBzIGEgQ1NTIHByb3BlcnR5IGZyb20gbGVmdCA8LT4gcmlnaHQuXG4gKlxuICogQHBhcmFtIHtzdHJpbmd9IGtleSBUaGUgQ1NTIHByb3BlcnR5IG5hbWUuXG4gKlxuICogQHJldHVybiB7c3RyaW5nfSBUaGUgZmxpcHBlZCBDU1MgcHJvcGVydHkgbmFtZSwgaWYgYXBwbGljYWJsZS5cbiAqL1xuZnVuY3Rpb24gZ2V0Q29udmVydGVkS2V5KCBrZXkgKSB7XG5cdGlmICgga2V5ID09PSAnbGVmdCcgKSB7XG5cdFx0cmV0dXJuICdyaWdodCc7XG5cdH1cblxuXHRpZiAoIGtleSA9PT0gJ3JpZ2h0JyApIHtcblx0XHRyZXR1cm4gJ2xlZnQnO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX0xFRlRfUkVHRVhQLCAnLXJpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBMT1dFUl9SSUdIVF9SRUdFWFAsICctbGVmdCcgKTtcblx0fVxuXG5cdGlmICggVVBQRVJfTEVGVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9MRUZUX1JFR0VYUCwgJ1JpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9SSUdIVF9SRUdFWFAsICdMZWZ0JyApO1xuXHR9XG5cblx0cmV0dXJuIGtleTtcbn1cblxuLyoqXG4gKiBBbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgY29udmVydGVyIGZvciBzdHlsZSBwcm9wZXJ0aWVzXG4gKlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gbHRyU3R5bGVzXG4gKlxuICogQHJldHVybiB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IENvbnZlcnRlZCBsdHIgLT4gcnRsIHN0eWxlc1xuICovXG5leHBvcnQgY29uc3QgY29udmVydExUUlRvUlRMID0gKCBsdHJTdHlsZXMgPSB7fSApID0+IHtcblx0cmV0dXJuIE9iamVjdC5mcm9tRW50cmllcyhcblx0XHRPYmplY3QuZW50cmllcyggbHRyU3R5bGVzICkubWFwKCAoIFsga2V5LCB2YWx1ZSBdICkgPT4gW1xuXHRcdFx0Z2V0Q29udmVydGVkS2V5KCBrZXkgKSxcblx0XHRcdHZhbHVlLFxuXHRcdF0gKVxuXHQpO1xufTtcblxuLyoqXG4gKiBBIGhpZ2hlci1vcmRlciBmdW5jdGlvbiB0aGF0IGNyZWF0ZSBhbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgc3R5bGUgY29udmVydGVyIGZvciBDU1Mgb2JqZWN0cy5cbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXMgICBMdHIgc3R5bGVzLiBDb252ZXJ0cyBhbmQgcmVuZGVycyBmcm9tIGx0ciAtPiBydGwgc3R5bGVzLCBpZiBhcHBsaWNhYmxlLlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gW3J0bFN0eWxlc10gUnRsIHN0eWxlcy4gUmVuZGVycyBpZiBwcm92aWRlZC5cbiAqXG4gKiBAcmV0dXJuIHsoKSA9PiBpbXBvcnQoJ0BlbW90aW9uL3JlYWN0JykuU2VyaWFsaXplZFN0eWxlc30gQSBmdW5jdGlvbiB0byBvdXRwdXQgQ1NTIHN0eWxlcyBmb3IgRW1vdGlvbidzIHJlbmRlcmVyXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBydGwoIGx0clN0eWxlcyA9IHt9LCBydGxTdHlsZXMgKSB7XG5cdHJldHVybiAoKSA9PiB7XG5cdFx0aWYgKCBydGxTdHlsZXMgKSB7XG5cdFx0XHQvLyBAdHMtaWdub3JlOiBgY3NzYCB0eXBlcyBhcmUgd3JvbmcsIGl0IGNhbiBhY2NlcHQgYW4gb2JqZWN0OiBodHRwczovL2Vtb3Rpb24uc2gvZG9jcy9vYmplY3Qtc3R5bGVzI3dpdGgtY3NzXG5cdFx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggcnRsU3R5bGVzICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHRcdH1cblxuXHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggY29udmVydExUUlRvUlRMKCBsdHJTdHlsZXMgKSApIDogY3NzKCBsdHJTdHlsZXMgKTtcblx0fTtcbn1cblxuLyoqXG4gKiBDYWxsIHRoaXMgaW4gdGhlIGB1c2VNZW1vYCBkZXBlbmRlbmN5IGFycmF5IHRvIGVuc3VyZSB0aGF0IHN1YnNlcXVlbnQgcmVuZGVycyB3aWxsXG4gKiBjYXVzZSBydGwgc3R5bGVzIHRvIHVwZGF0ZSBiYXNlZCBvbiB0aGUgYGlzUlRMYCByZXR1cm4gdmFsdWUgZXZlbiBpZiBhbGwgb3RoZXIgZGVwZW5kZW5jaWVzXG4gKiByZW1haW4gdGhlIHNhbWUuXG4gKlxuICogQGV4YW1wbGVcbiAqIGNvbnN0IHN0eWxlcyA9IHVzZU1lbW8oICgpID0+IHtcbiAqICAgcmV0dXJuIGNzc2BcbiAqICAgICAkeyBydGwoIHsgbWFyZ2luUmlnaHQ6ICcxMHB4JyB9ICkgfVxuICogICBgO1xuICogfSwgWyBydGwud2F0Y2goKSBdICk7XG4gKi9cbnJ0bC53YXRjaCA9ICgpID0+IGlzUlRMKCk7XG4iXX0= */'
+											: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJ0bC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE4RW9CIiwiZmlsZSI6InJ0bC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL3JlYWN0JztcblxuLyoqXG4gKiBXb3JkUHJlc3MgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGlzUlRMIH0gZnJvbSAnQHdvcmRwcmVzcy9pMThuJztcblxuY29uc3QgTE9XRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvLWxlZnQvZyApO1xuY29uc3QgTE9XRVJfUklHSFRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1yaWdodC9nICk7XG5jb25zdCBVUFBFUl9MRUZUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9MZWZ0L2cgKTtcbmNvbnN0IFVQUEVSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9SaWdodC9nICk7XG5cbi8qKlxuICogRmxpcHMgYSBDU1MgcHJvcGVydHkgZnJvbSBsZWZ0IDwtPiByaWdodC5cbiAqXG4gKiBAcGFyYW0ge3N0cmluZ30ga2V5IFRoZSBDU1MgcHJvcGVydHkgbmFtZS5cbiAqXG4gKiBAcmV0dXJuIHtzdHJpbmd9IFRoZSBmbGlwcGVkIENTUyBwcm9wZXJ0eSBuYW1lLCBpZiBhcHBsaWNhYmxlLlxuICovXG5mdW5jdGlvbiBnZXRDb252ZXJ0ZWRLZXkoIGtleSApIHtcblx0aWYgKCBrZXkgPT09ICdsZWZ0JyApIHtcblx0XHRyZXR1cm4gJ3JpZ2h0Jztcblx0fVxuXG5cdGlmICgga2V5ID09PSAncmlnaHQnICkge1xuXHRcdHJldHVybiAnbGVmdCc7XG5cdH1cblxuXHRpZiAoIExPV0VSX0xFRlRfUkVHRVhQLnRlc3QoIGtleSApICkge1xuXHRcdHJldHVybiBrZXkucmVwbGFjZSggTE9XRVJfTEVGVF9SRUdFWFAsICctcmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIExPV0VSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX1JJR0hUX1JFR0VYUCwgJy1sZWZ0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX0xFRlRfUkVHRVhQLCAnUmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIFVQUEVSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX1JJR0hUX1JFR0VYUCwgJ0xlZnQnICk7XG5cdH1cblxuXHRyZXR1cm4ga2V5O1xufVxuXG4vKipcbiAqIEFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBjb252ZXJ0ZXIgZm9yIHN0eWxlIHByb3BlcnRpZXNcbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXNcbiAqXG4gKiBAcmV0dXJuIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gQ29udmVydGVkIGx0ciAtPiBydGwgc3R5bGVzXG4gKi9cbmV4cG9ydCBjb25zdCBjb252ZXJ0TFRSVG9SVEwgPSAoIGx0clN0eWxlcyA9IHt9ICkgPT4ge1xuXHRyZXR1cm4gT2JqZWN0LmZyb21FbnRyaWVzKFxuXHRcdE9iamVjdC5lbnRyaWVzKCBsdHJTdHlsZXMgKS5tYXAoICggWyBrZXksIHZhbHVlIF0gKSA9PiBbXG5cdFx0XHRnZXRDb252ZXJ0ZWRLZXkoIGtleSApLFxuXHRcdFx0dmFsdWUsXG5cdFx0XSApXG5cdCk7XG59O1xuXG4vKipcbiAqIEEgaGlnaGVyLW9yZGVyIGZ1bmN0aW9uIHRoYXQgY3JlYXRlIGFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBzdHlsZSBjb252ZXJ0ZXIgZm9yIENTUyBvYmplY3RzLlxuICpcbiAqIEBwYXJhbSB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IGx0clN0eWxlcyAgIEx0ciBzdHlsZXMuIENvbnZlcnRzIGFuZCByZW5kZXJzIGZyb20gbHRyIC0+IHJ0bCBzdHlsZXMsIGlmIGFwcGxpY2FibGUuXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBbcnRsU3R5bGVzXSBSdGwgc3R5bGVzLiBSZW5kZXJzIGlmIHByb3ZpZGVkLlxuICpcbiAqIEByZXR1cm4geygpID0+IGltcG9ydCgnQGVtb3Rpb24vcmVhY3QnKS5TZXJpYWxpemVkU3R5bGVzfSBBIGZ1bmN0aW9uIHRvIG91dHB1dCBDU1Mgc3R5bGVzIGZvciBFbW90aW9uJ3MgcmVuZGVyZXJcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHJ0bCggbHRyU3R5bGVzID0ge30sIHJ0bFN0eWxlcyApIHtcblx0cmV0dXJuICgpID0+IHtcblx0XHRpZiAoIHJ0bFN0eWxlcyApIHtcblx0XHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBydGxTdHlsZXMgKSA6IGNzcyggbHRyU3R5bGVzICk7XG5cdFx0fVxuXG5cdFx0Ly8gQHRzLWlnbm9yZTogYGNzc2AgdHlwZXMgYXJlIHdyb25nLCBpdCBjYW4gYWNjZXB0IGFuIG9iamVjdDogaHR0cHM6Ly9lbW90aW9uLnNoL2RvY3Mvb2JqZWN0LXN0eWxlcyN3aXRoLWNzc1xuXHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBjb252ZXJ0TFRSVG9SVEwoIGx0clN0eWxlcyApICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHR9O1xufVxuXG4vKipcbiAqIENhbGwgdGhpcyBpbiB0aGUgYHVzZU1lbW9gIGRlcGVuZGVuY3kgYXJyYXkgdG8gZW5zdXJlIHRoYXQgc3Vic2VxdWVudCByZW5kZXJzIHdpbGxcbiAqIGNhdXNlIHJ0bCBzdHlsZXMgdG8gdXBkYXRlIGJhc2VkIG9uIHRoZSBgaXNSVExgIHJldHVybiB2YWx1ZSBldmVuIGlmIGFsbCBvdGhlciBkZXBlbmRlbmNpZXNcbiAqIHJlbWFpbiB0aGUgc2FtZS5cbiAqXG4gKiBAZXhhbXBsZVxuICogY29uc3Qgc3R5bGVzID0gdXNlTWVtbyggKCkgPT4ge1xuICogICByZXR1cm4gY3NzYFxuICogICAgICR7IHJ0bCggeyBtYXJnaW5SaWdodDogJzEwcHgnIH0gKSB9XG4gKiAgIGA7XG4gKiB9LCBbIHJ0bC53YXRjaCgpIF0gKTtcbiAqL1xucnRsLndhdGNoID0gKCkgPT4gaXNSVEwoKTtcbiJdfQ== */'
 									)
-								: /*#__PURE__*/ (0,
+								: /* @__PURE__ */ (0,
 									_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 										ltrStyles,
 										false ? 0 : ';label:rtl;',
 										false
 											? 0
-											: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvdXRpbHMvcnRsLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQThFdUMiLCJmaWxlIjoiQHdvcmRwcmVzcy9jb21wb25lbnRzL3NyYy91dGlscy9ydGwuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogV29yZFByZXNzIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBpc1JUTCB9IGZyb20gJ0B3b3JkcHJlc3MvaTE4bic7XG5cbmNvbnN0IExPV0VSX0xFRlRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1sZWZ0L2cgKTtcbmNvbnN0IExPV0VSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC8tcmlnaHQvZyApO1xuY29uc3QgVVBQRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvTGVmdC9nICk7XG5jb25zdCBVUFBFUl9SSUdIVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvUmlnaHQvZyApO1xuXG4vKipcbiAqIEZsaXBzIGEgQ1NTIHByb3BlcnR5IGZyb20gbGVmdCA8LT4gcmlnaHQuXG4gKlxuICogQHBhcmFtIHtzdHJpbmd9IGtleSBUaGUgQ1NTIHByb3BlcnR5IG5hbWUuXG4gKlxuICogQHJldHVybiB7c3RyaW5nfSBUaGUgZmxpcHBlZCBDU1MgcHJvcGVydHkgbmFtZSwgaWYgYXBwbGljYWJsZS5cbiAqL1xuZnVuY3Rpb24gZ2V0Q29udmVydGVkS2V5KCBrZXkgKSB7XG5cdGlmICgga2V5ID09PSAnbGVmdCcgKSB7XG5cdFx0cmV0dXJuICdyaWdodCc7XG5cdH1cblxuXHRpZiAoIGtleSA9PT0gJ3JpZ2h0JyApIHtcblx0XHRyZXR1cm4gJ2xlZnQnO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX0xFRlRfUkVHRVhQLCAnLXJpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBMT1dFUl9SSUdIVF9SRUdFWFAsICctbGVmdCcgKTtcblx0fVxuXG5cdGlmICggVVBQRVJfTEVGVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9MRUZUX1JFR0VYUCwgJ1JpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9SSUdIVF9SRUdFWFAsICdMZWZ0JyApO1xuXHR9XG5cblx0cmV0dXJuIGtleTtcbn1cblxuLyoqXG4gKiBBbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgY29udmVydGVyIGZvciBzdHlsZSBwcm9wZXJ0aWVzXG4gKlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gbHRyU3R5bGVzXG4gKlxuICogQHJldHVybiB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IENvbnZlcnRlZCBsdHIgLT4gcnRsIHN0eWxlc1xuICovXG5leHBvcnQgY29uc3QgY29udmVydExUUlRvUlRMID0gKCBsdHJTdHlsZXMgPSB7fSApID0+IHtcblx0cmV0dXJuIE9iamVjdC5mcm9tRW50cmllcyhcblx0XHRPYmplY3QuZW50cmllcyggbHRyU3R5bGVzICkubWFwKCAoIFsga2V5LCB2YWx1ZSBdICkgPT4gW1xuXHRcdFx0Z2V0Q29udmVydGVkS2V5KCBrZXkgKSxcblx0XHRcdHZhbHVlLFxuXHRcdF0gKVxuXHQpO1xufTtcblxuLyoqXG4gKiBBIGhpZ2hlci1vcmRlciBmdW5jdGlvbiB0aGF0IGNyZWF0ZSBhbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgc3R5bGUgY29udmVydGVyIGZvciBDU1Mgb2JqZWN0cy5cbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXMgICBMdHIgc3R5bGVzLiBDb252ZXJ0cyBhbmQgcmVuZGVycyBmcm9tIGx0ciAtPiBydGwgc3R5bGVzLCBpZiBhcHBsaWNhYmxlLlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gW3J0bFN0eWxlc10gUnRsIHN0eWxlcy4gUmVuZGVycyBpZiBwcm92aWRlZC5cbiAqXG4gKiBAcmV0dXJuIHsoKSA9PiBpbXBvcnQoJ0BlbW90aW9uL3JlYWN0JykuU2VyaWFsaXplZFN0eWxlc30gQSBmdW5jdGlvbiB0byBvdXRwdXQgQ1NTIHN0eWxlcyBmb3IgRW1vdGlvbidzIHJlbmRlcmVyXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBydGwoIGx0clN0eWxlcyA9IHt9LCBydGxTdHlsZXMgKSB7XG5cdHJldHVybiAoKSA9PiB7XG5cdFx0aWYgKCBydGxTdHlsZXMgKSB7XG5cdFx0XHQvLyBAdHMtaWdub3JlOiBgY3NzYCB0eXBlcyBhcmUgd3JvbmcsIGl0IGNhbiBhY2NlcHQgYW4gb2JqZWN0OiBodHRwczovL2Vtb3Rpb24uc2gvZG9jcy9vYmplY3Qtc3R5bGVzI3dpdGgtY3NzXG5cdFx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggcnRsU3R5bGVzICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHRcdH1cblxuXHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggY29udmVydExUUlRvUlRMKCBsdHJTdHlsZXMgKSApIDogY3NzKCBsdHJTdHlsZXMgKTtcblx0fTtcbn1cblxuLyoqXG4gKiBDYWxsIHRoaXMgaW4gdGhlIGB1c2VNZW1vYCBkZXBlbmRlbmN5IGFycmF5IHRvIGVuc3VyZSB0aGF0IHN1YnNlcXVlbnQgcmVuZGVycyB3aWxsXG4gKiBjYXVzZSBydGwgc3R5bGVzIHRvIHVwZGF0ZSBiYXNlZCBvbiB0aGUgYGlzUlRMYCByZXR1cm4gdmFsdWUgZXZlbiBpZiBhbGwgb3RoZXIgZGVwZW5kZW5jaWVzXG4gKiByZW1haW4gdGhlIHNhbWUuXG4gKlxuICogQGV4YW1wbGVcbiAqIGNvbnN0IHN0eWxlcyA9IHVzZU1lbW8oICgpID0+IHtcbiAqICAgcmV0dXJuIGNzc2BcbiAqICAgICAkeyBydGwoIHsgbWFyZ2luUmlnaHQ6ICcxMHB4JyB9ICkgfVxuICogICBgO1xuICogfSwgWyBydGwud2F0Y2goKSBdICk7XG4gKi9cbnJ0bC53YXRjaCA9ICgpID0+IGlzUlRMKCk7XG4iXX0= */'
+											: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJ0bC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE4RXVDIiwiZmlsZSI6InJ0bC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL3JlYWN0JztcblxuLyoqXG4gKiBXb3JkUHJlc3MgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGlzUlRMIH0gZnJvbSAnQHdvcmRwcmVzcy9pMThuJztcblxuY29uc3QgTE9XRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvLWxlZnQvZyApO1xuY29uc3QgTE9XRVJfUklHSFRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1yaWdodC9nICk7XG5jb25zdCBVUFBFUl9MRUZUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9MZWZ0L2cgKTtcbmNvbnN0IFVQUEVSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9SaWdodC9nICk7XG5cbi8qKlxuICogRmxpcHMgYSBDU1MgcHJvcGVydHkgZnJvbSBsZWZ0IDwtPiByaWdodC5cbiAqXG4gKiBAcGFyYW0ge3N0cmluZ30ga2V5IFRoZSBDU1MgcHJvcGVydHkgbmFtZS5cbiAqXG4gKiBAcmV0dXJuIHtzdHJpbmd9IFRoZSBmbGlwcGVkIENTUyBwcm9wZXJ0eSBuYW1lLCBpZiBhcHBsaWNhYmxlLlxuICovXG5mdW5jdGlvbiBnZXRDb252ZXJ0ZWRLZXkoIGtleSApIHtcblx0aWYgKCBrZXkgPT09ICdsZWZ0JyApIHtcblx0XHRyZXR1cm4gJ3JpZ2h0Jztcblx0fVxuXG5cdGlmICgga2V5ID09PSAncmlnaHQnICkge1xuXHRcdHJldHVybiAnbGVmdCc7XG5cdH1cblxuXHRpZiAoIExPV0VSX0xFRlRfUkVHRVhQLnRlc3QoIGtleSApICkge1xuXHRcdHJldHVybiBrZXkucmVwbGFjZSggTE9XRVJfTEVGVF9SRUdFWFAsICctcmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIExPV0VSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX1JJR0hUX1JFR0VYUCwgJy1sZWZ0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX0xFRlRfUkVHRVhQLCAnUmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIFVQUEVSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX1JJR0hUX1JFR0VYUCwgJ0xlZnQnICk7XG5cdH1cblxuXHRyZXR1cm4ga2V5O1xufVxuXG4vKipcbiAqIEFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBjb252ZXJ0ZXIgZm9yIHN0eWxlIHByb3BlcnRpZXNcbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXNcbiAqXG4gKiBAcmV0dXJuIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gQ29udmVydGVkIGx0ciAtPiBydGwgc3R5bGVzXG4gKi9cbmV4cG9ydCBjb25zdCBjb252ZXJ0TFRSVG9SVEwgPSAoIGx0clN0eWxlcyA9IHt9ICkgPT4ge1xuXHRyZXR1cm4gT2JqZWN0LmZyb21FbnRyaWVzKFxuXHRcdE9iamVjdC5lbnRyaWVzKCBsdHJTdHlsZXMgKS5tYXAoICggWyBrZXksIHZhbHVlIF0gKSA9PiBbXG5cdFx0XHRnZXRDb252ZXJ0ZWRLZXkoIGtleSApLFxuXHRcdFx0dmFsdWUsXG5cdFx0XSApXG5cdCk7XG59O1xuXG4vKipcbiAqIEEgaGlnaGVyLW9yZGVyIGZ1bmN0aW9uIHRoYXQgY3JlYXRlIGFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBzdHlsZSBjb252ZXJ0ZXIgZm9yIENTUyBvYmplY3RzLlxuICpcbiAqIEBwYXJhbSB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IGx0clN0eWxlcyAgIEx0ciBzdHlsZXMuIENvbnZlcnRzIGFuZCByZW5kZXJzIGZyb20gbHRyIC0+IHJ0bCBzdHlsZXMsIGlmIGFwcGxpY2FibGUuXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBbcnRsU3R5bGVzXSBSdGwgc3R5bGVzLiBSZW5kZXJzIGlmIHByb3ZpZGVkLlxuICpcbiAqIEByZXR1cm4geygpID0+IGltcG9ydCgnQGVtb3Rpb24vcmVhY3QnKS5TZXJpYWxpemVkU3R5bGVzfSBBIGZ1bmN0aW9uIHRvIG91dHB1dCBDU1Mgc3R5bGVzIGZvciBFbW90aW9uJ3MgcmVuZGVyZXJcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHJ0bCggbHRyU3R5bGVzID0ge30sIHJ0bFN0eWxlcyApIHtcblx0cmV0dXJuICgpID0+IHtcblx0XHRpZiAoIHJ0bFN0eWxlcyApIHtcblx0XHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBydGxTdHlsZXMgKSA6IGNzcyggbHRyU3R5bGVzICk7XG5cdFx0fVxuXG5cdFx0Ly8gQHRzLWlnbm9yZTogYGNzc2AgdHlwZXMgYXJlIHdyb25nLCBpdCBjYW4gYWNjZXB0IGFuIG9iamVjdDogaHR0cHM6Ly9lbW90aW9uLnNoL2RvY3Mvb2JqZWN0LXN0eWxlcyN3aXRoLWNzc1xuXHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBjb252ZXJ0TFRSVG9SVEwoIGx0clN0eWxlcyApICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHR9O1xufVxuXG4vKipcbiAqIENhbGwgdGhpcyBpbiB0aGUgYHVzZU1lbW9gIGRlcGVuZGVuY3kgYXJyYXkgdG8gZW5zdXJlIHRoYXQgc3Vic2VxdWVudCByZW5kZXJzIHdpbGxcbiAqIGNhdXNlIHJ0bCBzdHlsZXMgdG8gdXBkYXRlIGJhc2VkIG9uIHRoZSBgaXNSVExgIHJldHVybiB2YWx1ZSBldmVuIGlmIGFsbCBvdGhlciBkZXBlbmRlbmNpZXNcbiAqIHJlbWFpbiB0aGUgc2FtZS5cbiAqXG4gKiBAZXhhbXBsZVxuICogY29uc3Qgc3R5bGVzID0gdXNlTWVtbyggKCkgPT4ge1xuICogICByZXR1cm4gY3NzYFxuICogICAgICR7IHJ0bCggeyBtYXJnaW5SaWdodDogJzEwcHgnIH0gKSB9XG4gKiAgIGA7XG4gKiB9LCBbIHJ0bC53YXRjaCgpIF0gKTtcbiAqL1xucnRsLndhdGNoID0gKCkgPT4gaXNSVEwoKTtcbiJdfQ== */'
 									);
 						}
-
-						// @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
 						return (0,
 						_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.isRTL)()
-							? /*#__PURE__*/ (0,
+							? /* @__PURE__ */ (0,
 								_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 									convertLTRToRTL(ltrStyles),
 									false ? 0 : ';label:rtl;',
 									false
 										? 0
-										: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvdXRpbHMvcnRsLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQWtGbUIiLCJmaWxlIjoiQHdvcmRwcmVzcy9jb21wb25lbnRzL3NyYy91dGlscy9ydGwuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogV29yZFByZXNzIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBpc1JUTCB9IGZyb20gJ0B3b3JkcHJlc3MvaTE4bic7XG5cbmNvbnN0IExPV0VSX0xFRlRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1sZWZ0L2cgKTtcbmNvbnN0IExPV0VSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC8tcmlnaHQvZyApO1xuY29uc3QgVVBQRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvTGVmdC9nICk7XG5jb25zdCBVUFBFUl9SSUdIVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvUmlnaHQvZyApO1xuXG4vKipcbiAqIEZsaXBzIGEgQ1NTIHByb3BlcnR5IGZyb20gbGVmdCA8LT4gcmlnaHQuXG4gKlxuICogQHBhcmFtIHtzdHJpbmd9IGtleSBUaGUgQ1NTIHByb3BlcnR5IG5hbWUuXG4gKlxuICogQHJldHVybiB7c3RyaW5nfSBUaGUgZmxpcHBlZCBDU1MgcHJvcGVydHkgbmFtZSwgaWYgYXBwbGljYWJsZS5cbiAqL1xuZnVuY3Rpb24gZ2V0Q29udmVydGVkS2V5KCBrZXkgKSB7XG5cdGlmICgga2V5ID09PSAnbGVmdCcgKSB7XG5cdFx0cmV0dXJuICdyaWdodCc7XG5cdH1cblxuXHRpZiAoIGtleSA9PT0gJ3JpZ2h0JyApIHtcblx0XHRyZXR1cm4gJ2xlZnQnO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX0xFRlRfUkVHRVhQLCAnLXJpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBMT1dFUl9SSUdIVF9SRUdFWFAsICctbGVmdCcgKTtcblx0fVxuXG5cdGlmICggVVBQRVJfTEVGVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9MRUZUX1JFR0VYUCwgJ1JpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9SSUdIVF9SRUdFWFAsICdMZWZ0JyApO1xuXHR9XG5cblx0cmV0dXJuIGtleTtcbn1cblxuLyoqXG4gKiBBbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgY29udmVydGVyIGZvciBzdHlsZSBwcm9wZXJ0aWVzXG4gKlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gbHRyU3R5bGVzXG4gKlxuICogQHJldHVybiB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IENvbnZlcnRlZCBsdHIgLT4gcnRsIHN0eWxlc1xuICovXG5leHBvcnQgY29uc3QgY29udmVydExUUlRvUlRMID0gKCBsdHJTdHlsZXMgPSB7fSApID0+IHtcblx0cmV0dXJuIE9iamVjdC5mcm9tRW50cmllcyhcblx0XHRPYmplY3QuZW50cmllcyggbHRyU3R5bGVzICkubWFwKCAoIFsga2V5LCB2YWx1ZSBdICkgPT4gW1xuXHRcdFx0Z2V0Q29udmVydGVkS2V5KCBrZXkgKSxcblx0XHRcdHZhbHVlLFxuXHRcdF0gKVxuXHQpO1xufTtcblxuLyoqXG4gKiBBIGhpZ2hlci1vcmRlciBmdW5jdGlvbiB0aGF0IGNyZWF0ZSBhbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgc3R5bGUgY29udmVydGVyIGZvciBDU1Mgb2JqZWN0cy5cbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXMgICBMdHIgc3R5bGVzLiBDb252ZXJ0cyBhbmQgcmVuZGVycyBmcm9tIGx0ciAtPiBydGwgc3R5bGVzLCBpZiBhcHBsaWNhYmxlLlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gW3J0bFN0eWxlc10gUnRsIHN0eWxlcy4gUmVuZGVycyBpZiBwcm92aWRlZC5cbiAqXG4gKiBAcmV0dXJuIHsoKSA9PiBpbXBvcnQoJ0BlbW90aW9uL3JlYWN0JykuU2VyaWFsaXplZFN0eWxlc30gQSBmdW5jdGlvbiB0byBvdXRwdXQgQ1NTIHN0eWxlcyBmb3IgRW1vdGlvbidzIHJlbmRlcmVyXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBydGwoIGx0clN0eWxlcyA9IHt9LCBydGxTdHlsZXMgKSB7XG5cdHJldHVybiAoKSA9PiB7XG5cdFx0aWYgKCBydGxTdHlsZXMgKSB7XG5cdFx0XHQvLyBAdHMtaWdub3JlOiBgY3NzYCB0eXBlcyBhcmUgd3JvbmcsIGl0IGNhbiBhY2NlcHQgYW4gb2JqZWN0OiBodHRwczovL2Vtb3Rpb24uc2gvZG9jcy9vYmplY3Qtc3R5bGVzI3dpdGgtY3NzXG5cdFx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggcnRsU3R5bGVzICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHRcdH1cblxuXHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggY29udmVydExUUlRvUlRMKCBsdHJTdHlsZXMgKSApIDogY3NzKCBsdHJTdHlsZXMgKTtcblx0fTtcbn1cblxuLyoqXG4gKiBDYWxsIHRoaXMgaW4gdGhlIGB1c2VNZW1vYCBkZXBlbmRlbmN5IGFycmF5IHRvIGVuc3VyZSB0aGF0IHN1YnNlcXVlbnQgcmVuZGVycyB3aWxsXG4gKiBjYXVzZSBydGwgc3R5bGVzIHRvIHVwZGF0ZSBiYXNlZCBvbiB0aGUgYGlzUlRMYCByZXR1cm4gdmFsdWUgZXZlbiBpZiBhbGwgb3RoZXIgZGVwZW5kZW5jaWVzXG4gKiByZW1haW4gdGhlIHNhbWUuXG4gKlxuICogQGV4YW1wbGVcbiAqIGNvbnN0IHN0eWxlcyA9IHVzZU1lbW8oICgpID0+IHtcbiAqICAgcmV0dXJuIGNzc2BcbiAqICAgICAkeyBydGwoIHsgbWFyZ2luUmlnaHQ6ICcxMHB4JyB9ICkgfVxuICogICBgO1xuICogfSwgWyBydGwud2F0Y2goKSBdICk7XG4gKi9cbnJ0bC53YXRjaCA9ICgpID0+IGlzUlRMKCk7XG4iXX0= */'
+										: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJ0bC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFrRm1CIiwiZmlsZSI6InJ0bC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL3JlYWN0JztcblxuLyoqXG4gKiBXb3JkUHJlc3MgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGlzUlRMIH0gZnJvbSAnQHdvcmRwcmVzcy9pMThuJztcblxuY29uc3QgTE9XRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvLWxlZnQvZyApO1xuY29uc3QgTE9XRVJfUklHSFRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1yaWdodC9nICk7XG5jb25zdCBVUFBFUl9MRUZUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9MZWZ0L2cgKTtcbmNvbnN0IFVQUEVSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9SaWdodC9nICk7XG5cbi8qKlxuICogRmxpcHMgYSBDU1MgcHJvcGVydHkgZnJvbSBsZWZ0IDwtPiByaWdodC5cbiAqXG4gKiBAcGFyYW0ge3N0cmluZ30ga2V5IFRoZSBDU1MgcHJvcGVydHkgbmFtZS5cbiAqXG4gKiBAcmV0dXJuIHtzdHJpbmd9IFRoZSBmbGlwcGVkIENTUyBwcm9wZXJ0eSBuYW1lLCBpZiBhcHBsaWNhYmxlLlxuICovXG5mdW5jdGlvbiBnZXRDb252ZXJ0ZWRLZXkoIGtleSApIHtcblx0aWYgKCBrZXkgPT09ICdsZWZ0JyApIHtcblx0XHRyZXR1cm4gJ3JpZ2h0Jztcblx0fVxuXG5cdGlmICgga2V5ID09PSAncmlnaHQnICkge1xuXHRcdHJldHVybiAnbGVmdCc7XG5cdH1cblxuXHRpZiAoIExPV0VSX0xFRlRfUkVHRVhQLnRlc3QoIGtleSApICkge1xuXHRcdHJldHVybiBrZXkucmVwbGFjZSggTE9XRVJfTEVGVF9SRUdFWFAsICctcmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIExPV0VSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX1JJR0hUX1JFR0VYUCwgJy1sZWZ0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX0xFRlRfUkVHRVhQLCAnUmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIFVQUEVSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX1JJR0hUX1JFR0VYUCwgJ0xlZnQnICk7XG5cdH1cblxuXHRyZXR1cm4ga2V5O1xufVxuXG4vKipcbiAqIEFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBjb252ZXJ0ZXIgZm9yIHN0eWxlIHByb3BlcnRpZXNcbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXNcbiAqXG4gKiBAcmV0dXJuIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gQ29udmVydGVkIGx0ciAtPiBydGwgc3R5bGVzXG4gKi9cbmV4cG9ydCBjb25zdCBjb252ZXJ0TFRSVG9SVEwgPSAoIGx0clN0eWxlcyA9IHt9ICkgPT4ge1xuXHRyZXR1cm4gT2JqZWN0LmZyb21FbnRyaWVzKFxuXHRcdE9iamVjdC5lbnRyaWVzKCBsdHJTdHlsZXMgKS5tYXAoICggWyBrZXksIHZhbHVlIF0gKSA9PiBbXG5cdFx0XHRnZXRDb252ZXJ0ZWRLZXkoIGtleSApLFxuXHRcdFx0dmFsdWUsXG5cdFx0XSApXG5cdCk7XG59O1xuXG4vKipcbiAqIEEgaGlnaGVyLW9yZGVyIGZ1bmN0aW9uIHRoYXQgY3JlYXRlIGFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBzdHlsZSBjb252ZXJ0ZXIgZm9yIENTUyBvYmplY3RzLlxuICpcbiAqIEBwYXJhbSB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IGx0clN0eWxlcyAgIEx0ciBzdHlsZXMuIENvbnZlcnRzIGFuZCByZW5kZXJzIGZyb20gbHRyIC0+IHJ0bCBzdHlsZXMsIGlmIGFwcGxpY2FibGUuXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBbcnRsU3R5bGVzXSBSdGwgc3R5bGVzLiBSZW5kZXJzIGlmIHByb3ZpZGVkLlxuICpcbiAqIEByZXR1cm4geygpID0+IGltcG9ydCgnQGVtb3Rpb24vcmVhY3QnKS5TZXJpYWxpemVkU3R5bGVzfSBBIGZ1bmN0aW9uIHRvIG91dHB1dCBDU1Mgc3R5bGVzIGZvciBFbW90aW9uJ3MgcmVuZGVyZXJcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHJ0bCggbHRyU3R5bGVzID0ge30sIHJ0bFN0eWxlcyApIHtcblx0cmV0dXJuICgpID0+IHtcblx0XHRpZiAoIHJ0bFN0eWxlcyApIHtcblx0XHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBydGxTdHlsZXMgKSA6IGNzcyggbHRyU3R5bGVzICk7XG5cdFx0fVxuXG5cdFx0Ly8gQHRzLWlnbm9yZTogYGNzc2AgdHlwZXMgYXJlIHdyb25nLCBpdCBjYW4gYWNjZXB0IGFuIG9iamVjdDogaHR0cHM6Ly9lbW90aW9uLnNoL2RvY3Mvb2JqZWN0LXN0eWxlcyN3aXRoLWNzc1xuXHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBjb252ZXJ0TFRSVG9SVEwoIGx0clN0eWxlcyApICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHR9O1xufVxuXG4vKipcbiAqIENhbGwgdGhpcyBpbiB0aGUgYHVzZU1lbW9gIGRlcGVuZGVuY3kgYXJyYXkgdG8gZW5zdXJlIHRoYXQgc3Vic2VxdWVudCByZW5kZXJzIHdpbGxcbiAqIGNhdXNlIHJ0bCBzdHlsZXMgdG8gdXBkYXRlIGJhc2VkIG9uIHRoZSBgaXNSVExgIHJldHVybiB2YWx1ZSBldmVuIGlmIGFsbCBvdGhlciBkZXBlbmRlbmNpZXNcbiAqIHJlbWFpbiB0aGUgc2FtZS5cbiAqXG4gKiBAZXhhbXBsZVxuICogY29uc3Qgc3R5bGVzID0gdXNlTWVtbyggKCkgPT4ge1xuICogICByZXR1cm4gY3NzYFxuICogICAgICR7IHJ0bCggeyBtYXJnaW5SaWdodDogJzEwcHgnIH0gKSB9XG4gKiAgIGA7XG4gKiB9LCBbIHJ0bC53YXRjaCgpIF0gKTtcbiAqL1xucnRsLndhdGNoID0gKCkgPT4gaXNSVEwoKTtcbiJdfQ== */'
 								)
-							: /*#__PURE__*/ (0,
+							: /* @__PURE__ */ (0,
 								_emotion_react__WEBPACK_IMPORTED_MODULE_0__.css)(
 									ltrStyles,
 									false ? 0 : ';label:rtl;',
 									false
 										? 0
-										: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvdXRpbHMvcnRsLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQWtGeUQiLCJmaWxlIjoiQHdvcmRwcmVzcy9jb21wb25lbnRzL3NyYy91dGlscy9ydGwuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBjc3MgfSBmcm9tICdAZW1vdGlvbi9yZWFjdCc7XG5cbi8qKlxuICogV29yZFByZXNzIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBpc1JUTCB9IGZyb20gJ0B3b3JkcHJlc3MvaTE4bic7XG5cbmNvbnN0IExPV0VSX0xFRlRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1sZWZ0L2cgKTtcbmNvbnN0IExPV0VSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC8tcmlnaHQvZyApO1xuY29uc3QgVVBQRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvTGVmdC9nICk7XG5jb25zdCBVUFBFUl9SSUdIVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvUmlnaHQvZyApO1xuXG4vKipcbiAqIEZsaXBzIGEgQ1NTIHByb3BlcnR5IGZyb20gbGVmdCA8LT4gcmlnaHQuXG4gKlxuICogQHBhcmFtIHtzdHJpbmd9IGtleSBUaGUgQ1NTIHByb3BlcnR5IG5hbWUuXG4gKlxuICogQHJldHVybiB7c3RyaW5nfSBUaGUgZmxpcHBlZCBDU1MgcHJvcGVydHkgbmFtZSwgaWYgYXBwbGljYWJsZS5cbiAqL1xuZnVuY3Rpb24gZ2V0Q29udmVydGVkS2V5KCBrZXkgKSB7XG5cdGlmICgga2V5ID09PSAnbGVmdCcgKSB7XG5cdFx0cmV0dXJuICdyaWdodCc7XG5cdH1cblxuXHRpZiAoIGtleSA9PT0gJ3JpZ2h0JyApIHtcblx0XHRyZXR1cm4gJ2xlZnQnO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX0xFRlRfUkVHRVhQLCAnLXJpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBMT1dFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBMT1dFUl9SSUdIVF9SRUdFWFAsICctbGVmdCcgKTtcblx0fVxuXG5cdGlmICggVVBQRVJfTEVGVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9MRUZUX1JFR0VYUCwgJ1JpZ2h0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9SSUdIVF9SRUdFWFAudGVzdCgga2V5ICkgKSB7XG5cdFx0cmV0dXJuIGtleS5yZXBsYWNlKCBVUFBFUl9SSUdIVF9SRUdFWFAsICdMZWZ0JyApO1xuXHR9XG5cblx0cmV0dXJuIGtleTtcbn1cblxuLyoqXG4gKiBBbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgY29udmVydGVyIGZvciBzdHlsZSBwcm9wZXJ0aWVzXG4gKlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gbHRyU3R5bGVzXG4gKlxuICogQHJldHVybiB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IENvbnZlcnRlZCBsdHIgLT4gcnRsIHN0eWxlc1xuICovXG5leHBvcnQgY29uc3QgY29udmVydExUUlRvUlRMID0gKCBsdHJTdHlsZXMgPSB7fSApID0+IHtcblx0cmV0dXJuIE9iamVjdC5mcm9tRW50cmllcyhcblx0XHRPYmplY3QuZW50cmllcyggbHRyU3R5bGVzICkubWFwKCAoIFsga2V5LCB2YWx1ZSBdICkgPT4gW1xuXHRcdFx0Z2V0Q29udmVydGVkS2V5KCBrZXkgKSxcblx0XHRcdHZhbHVlLFxuXHRcdF0gKVxuXHQpO1xufTtcblxuLyoqXG4gKiBBIGhpZ2hlci1vcmRlciBmdW5jdGlvbiB0aGF0IGNyZWF0ZSBhbiBpbmNyZWRpYmx5IGJhc2ljIGx0ciAtPiBydGwgc3R5bGUgY29udmVydGVyIGZvciBDU1Mgb2JqZWN0cy5cbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXMgICBMdHIgc3R5bGVzLiBDb252ZXJ0cyBhbmQgcmVuZGVycyBmcm9tIGx0ciAtPiBydGwgc3R5bGVzLCBpZiBhcHBsaWNhYmxlLlxuICogQHBhcmFtIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gW3J0bFN0eWxlc10gUnRsIHN0eWxlcy4gUmVuZGVycyBpZiBwcm92aWRlZC5cbiAqXG4gKiBAcmV0dXJuIHsoKSA9PiBpbXBvcnQoJ0BlbW90aW9uL3JlYWN0JykuU2VyaWFsaXplZFN0eWxlc30gQSBmdW5jdGlvbiB0byBvdXRwdXQgQ1NTIHN0eWxlcyBmb3IgRW1vdGlvbidzIHJlbmRlcmVyXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBydGwoIGx0clN0eWxlcyA9IHt9LCBydGxTdHlsZXMgKSB7XG5cdHJldHVybiAoKSA9PiB7XG5cdFx0aWYgKCBydGxTdHlsZXMgKSB7XG5cdFx0XHQvLyBAdHMtaWdub3JlOiBgY3NzYCB0eXBlcyBhcmUgd3JvbmcsIGl0IGNhbiBhY2NlcHQgYW4gb2JqZWN0OiBodHRwczovL2Vtb3Rpb24uc2gvZG9jcy9vYmplY3Qtc3R5bGVzI3dpdGgtY3NzXG5cdFx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggcnRsU3R5bGVzICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHRcdH1cblxuXHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRyZXR1cm4gaXNSVEwoKSA/IGNzcyggY29udmVydExUUlRvUlRMKCBsdHJTdHlsZXMgKSApIDogY3NzKCBsdHJTdHlsZXMgKTtcblx0fTtcbn1cblxuLyoqXG4gKiBDYWxsIHRoaXMgaW4gdGhlIGB1c2VNZW1vYCBkZXBlbmRlbmN5IGFycmF5IHRvIGVuc3VyZSB0aGF0IHN1YnNlcXVlbnQgcmVuZGVycyB3aWxsXG4gKiBjYXVzZSBydGwgc3R5bGVzIHRvIHVwZGF0ZSBiYXNlZCBvbiB0aGUgYGlzUlRMYCByZXR1cm4gdmFsdWUgZXZlbiBpZiBhbGwgb3RoZXIgZGVwZW5kZW5jaWVzXG4gKiByZW1haW4gdGhlIHNhbWUuXG4gKlxuICogQGV4YW1wbGVcbiAqIGNvbnN0IHN0eWxlcyA9IHVzZU1lbW8oICgpID0+IHtcbiAqICAgcmV0dXJuIGNzc2BcbiAqICAgICAkeyBydGwoIHsgbWFyZ2luUmlnaHQ6ICcxMHB4JyB9ICkgfVxuICogICBgO1xuICogfSwgWyBydGwud2F0Y2goKSBdICk7XG4gKi9cbnJ0bC53YXRjaCA9ICgpID0+IGlzUlRMKCk7XG4iXX0= */'
+										: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJ0bC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFrRnlEIiwiZmlsZSI6InJ0bC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGNzcyB9IGZyb20gJ0BlbW90aW9uL3JlYWN0JztcblxuLyoqXG4gKiBXb3JkUHJlc3MgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGlzUlRMIH0gZnJvbSAnQHdvcmRwcmVzcy9pMThuJztcblxuY29uc3QgTE9XRVJfTEVGVF9SRUdFWFAgPSBuZXcgUmVnRXhwKCAvLWxlZnQvZyApO1xuY29uc3QgTE9XRVJfUklHSFRfUkVHRVhQID0gbmV3IFJlZ0V4cCggLy1yaWdodC9nICk7XG5jb25zdCBVUFBFUl9MRUZUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9MZWZ0L2cgKTtcbmNvbnN0IFVQUEVSX1JJR0hUX1JFR0VYUCA9IG5ldyBSZWdFeHAoIC9SaWdodC9nICk7XG5cbi8qKlxuICogRmxpcHMgYSBDU1MgcHJvcGVydHkgZnJvbSBsZWZ0IDwtPiByaWdodC5cbiAqXG4gKiBAcGFyYW0ge3N0cmluZ30ga2V5IFRoZSBDU1MgcHJvcGVydHkgbmFtZS5cbiAqXG4gKiBAcmV0dXJuIHtzdHJpbmd9IFRoZSBmbGlwcGVkIENTUyBwcm9wZXJ0eSBuYW1lLCBpZiBhcHBsaWNhYmxlLlxuICovXG5mdW5jdGlvbiBnZXRDb252ZXJ0ZWRLZXkoIGtleSApIHtcblx0aWYgKCBrZXkgPT09ICdsZWZ0JyApIHtcblx0XHRyZXR1cm4gJ3JpZ2h0Jztcblx0fVxuXG5cdGlmICgga2V5ID09PSAncmlnaHQnICkge1xuXHRcdHJldHVybiAnbGVmdCc7XG5cdH1cblxuXHRpZiAoIExPV0VSX0xFRlRfUkVHRVhQLnRlc3QoIGtleSApICkge1xuXHRcdHJldHVybiBrZXkucmVwbGFjZSggTE9XRVJfTEVGVF9SRUdFWFAsICctcmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIExPV0VSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIExPV0VSX1JJR0hUX1JFR0VYUCwgJy1sZWZ0JyApO1xuXHR9XG5cblx0aWYgKCBVUFBFUl9MRUZUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX0xFRlRfUkVHRVhQLCAnUmlnaHQnICk7XG5cdH1cblxuXHRpZiAoIFVQUEVSX1JJR0hUX1JFR0VYUC50ZXN0KCBrZXkgKSApIHtcblx0XHRyZXR1cm4ga2V5LnJlcGxhY2UoIFVQUEVSX1JJR0hUX1JFR0VYUCwgJ0xlZnQnICk7XG5cdH1cblxuXHRyZXR1cm4ga2V5O1xufVxuXG4vKipcbiAqIEFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBjb252ZXJ0ZXIgZm9yIHN0eWxlIHByb3BlcnRpZXNcbiAqXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBsdHJTdHlsZXNcbiAqXG4gKiBAcmV0dXJuIHtpbXBvcnQoJ3JlYWN0JykuQ1NTUHJvcGVydGllc30gQ29udmVydGVkIGx0ciAtPiBydGwgc3R5bGVzXG4gKi9cbmV4cG9ydCBjb25zdCBjb252ZXJ0TFRSVG9SVEwgPSAoIGx0clN0eWxlcyA9IHt9ICkgPT4ge1xuXHRyZXR1cm4gT2JqZWN0LmZyb21FbnRyaWVzKFxuXHRcdE9iamVjdC5lbnRyaWVzKCBsdHJTdHlsZXMgKS5tYXAoICggWyBrZXksIHZhbHVlIF0gKSA9PiBbXG5cdFx0XHRnZXRDb252ZXJ0ZWRLZXkoIGtleSApLFxuXHRcdFx0dmFsdWUsXG5cdFx0XSApXG5cdCk7XG59O1xuXG4vKipcbiAqIEEgaGlnaGVyLW9yZGVyIGZ1bmN0aW9uIHRoYXQgY3JlYXRlIGFuIGluY3JlZGlibHkgYmFzaWMgbHRyIC0+IHJ0bCBzdHlsZSBjb252ZXJ0ZXIgZm9yIENTUyBvYmplY3RzLlxuICpcbiAqIEBwYXJhbSB7aW1wb3J0KCdyZWFjdCcpLkNTU1Byb3BlcnRpZXN9IGx0clN0eWxlcyAgIEx0ciBzdHlsZXMuIENvbnZlcnRzIGFuZCByZW5kZXJzIGZyb20gbHRyIC0+IHJ0bCBzdHlsZXMsIGlmIGFwcGxpY2FibGUuXG4gKiBAcGFyYW0ge2ltcG9ydCgncmVhY3QnKS5DU1NQcm9wZXJ0aWVzfSBbcnRsU3R5bGVzXSBSdGwgc3R5bGVzLiBSZW5kZXJzIGlmIHByb3ZpZGVkLlxuICpcbiAqIEByZXR1cm4geygpID0+IGltcG9ydCgnQGVtb3Rpb24vcmVhY3QnKS5TZXJpYWxpemVkU3R5bGVzfSBBIGZ1bmN0aW9uIHRvIG91dHB1dCBDU1Mgc3R5bGVzIGZvciBFbW90aW9uJ3MgcmVuZGVyZXJcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHJ0bCggbHRyU3R5bGVzID0ge30sIHJ0bFN0eWxlcyApIHtcblx0cmV0dXJuICgpID0+IHtcblx0XHRpZiAoIHJ0bFN0eWxlcyApIHtcblx0XHRcdC8vIEB0cy1pZ25vcmU6IGBjc3NgIHR5cGVzIGFyZSB3cm9uZywgaXQgY2FuIGFjY2VwdCBhbiBvYmplY3Q6IGh0dHBzOi8vZW1vdGlvbi5zaC9kb2NzL29iamVjdC1zdHlsZXMjd2l0aC1jc3Ncblx0XHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBydGxTdHlsZXMgKSA6IGNzcyggbHRyU3R5bGVzICk7XG5cdFx0fVxuXG5cdFx0Ly8gQHRzLWlnbm9yZTogYGNzc2AgdHlwZXMgYXJlIHdyb25nLCBpdCBjYW4gYWNjZXB0IGFuIG9iamVjdDogaHR0cHM6Ly9lbW90aW9uLnNoL2RvY3Mvb2JqZWN0LXN0eWxlcyN3aXRoLWNzc1xuXHRcdHJldHVybiBpc1JUTCgpID8gY3NzKCBjb252ZXJ0TFRSVG9SVEwoIGx0clN0eWxlcyApICkgOiBjc3MoIGx0clN0eWxlcyApO1xuXHR9O1xufVxuXG4vKipcbiAqIENhbGwgdGhpcyBpbiB0aGUgYHVzZU1lbW9gIGRlcGVuZGVuY3kgYXJyYXkgdG8gZW5zdXJlIHRoYXQgc3Vic2VxdWVudCByZW5kZXJzIHdpbGxcbiAqIGNhdXNlIHJ0bCBzdHlsZXMgdG8gdXBkYXRlIGJhc2VkIG9uIHRoZSBgaXNSVExgIHJldHVybiB2YWx1ZSBldmVuIGlmIGFsbCBvdGhlciBkZXBlbmRlbmNpZXNcbiAqIHJlbWFpbiB0aGUgc2FtZS5cbiAqXG4gKiBAZXhhbXBsZVxuICogY29uc3Qgc3R5bGVzID0gdXNlTWVtbyggKCkgPT4ge1xuICogICByZXR1cm4gY3NzYFxuICogICAgICR7IHJ0bCggeyBtYXJnaW5SaWdodDogJzEwcHgnIH0gKSB9XG4gKiAgIGA7XG4gKiB9LCBbIHJ0bC53YXRjaCgpIF0gKTtcbiAqL1xucnRsLndhdGNoID0gKCkgPT4gaXNSVEwoKTtcbiJdfQ== */'
 								);
 					};
 				}
-
-				/**
-				 * Call this in the `useMemo` dependency array to ensure that subsequent renders will
-				 * cause rtl styles to update based on the `isRTL` return value even if all other dependencies
-				 * remain the same.
-				 *
-				 * @example
-				 * const styles = useMemo( () => {
-				 *   return css`
-				 *     ${ rtl( { marginRight: '10px' } ) }
-				 *   `;
-				 * }, [ rtl.watch() ] );
-				 */
 				rtl.watch = () =>
 					(0, _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.isRTL)();
+
 				//# sourceMappingURL=rtl.js.map
 
 				/***/
@@ -46357,42 +45553,16 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * The argument value for the `space()` utility function.
-				 *
-				 * When this is a number or a numeric string, it will be interpreted as a
-				 * multiplier for the grid base value (4px). For example, `space( 2 )` will be 8px.
-				 *
-				 * Otherwise, it will be interpreted as a literal CSS length value. For example,
-				 * `space( 'auto' )` will be 'auto', and `space( '2px' )` will be 2px.
-				 */
-
 				const GRID_BASE = '4px';
-
-				/**
-				 * A function that handles numbers, numeric strings, and unit values.
-				 *
-				 * When given a number or a numeric string, it will return the grid-based
-				 * value as a factor of GRID_BASE, defined above.
-				 *
-				 * When given a unit value or one of the named CSS values like `auto`,
-				 * it will simply return the value back.
-				 *
-				 * @param value A number, numeric string, or a unit value.
-				 */
 				function space(value) {
 					if (typeof value === 'undefined') {
-						return undefined;
+						return void 0;
 					}
-
-					// Handle empty strings, if it's the number 0 this still works.
 					if (!value) {
 						return '0';
 					}
 					const asInt =
 						typeof value === 'number' ? value : Number(value);
-
-					// Test if the input has a unit, was NaN, or was one of the named CSS values (like `auto`), in which case just use that value.
 					if (
 						(typeof window !== 'undefined' &&
 							window.CSS?.supports?.(
@@ -46405,6 +45575,7 @@ styleSheet.flush()
 					}
 					return `calc(${GRID_BASE} * ${value})`;
 				}
+
 				//# sourceMappingURL=space.js.map
 
 				/***/
@@ -46430,25 +45601,12 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * A higher-order function that wraps a keyboard event handler to ensure it is not an IME event.
-				 *
-				 * In CJK languages, an IME (Input Method Editor) is used to input complex characters.
-				 * During an IME composition, keyboard events (e.g. Enter or Escape) can be fired
-				 * which are intended to control the IME and not the application.
-				 * These events should be ignored by any application logic.
-				 *
-				 * @param handler The keyboard event handler to execute after ensuring it was not an IME event.
-				 *
-				 * @return A wrapped version of the given event handler that ignores IME events.
-				 */
 				function withIgnoreIMEEvents(handler) {
 					return (event) => {
 						const { isComposing } =
 							'nativeEvent' in event ? event.nativeEvent : event;
 						if (
-							isComposing ||
-							// Workaround for Mac Safari where the final Enter/Backspace of an IME composition
+							isComposing || // Workaround for Mac Safari where the final Enter/Backspace of an IME composition
 							// is `isComposing=false`, even though it's technically still part of the composition.
 							// These can only be detected by keyCode.
 							event.keyCode === 229
@@ -46458,6 +45616,7 @@ styleSheet.flush()
 						handler(event);
 					};
 				}
+
 				//# sourceMappingURL=with-ignore-ime-events.js.map
 
 				/***/
@@ -46480,6 +45639,9 @@ styleSheet.flush()
 						/* harmony export */ View: function () {
 							return /* binding */ View;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ component_default;
+						},
 						/* harmony export */
 					}
 				);
@@ -46500,19 +45662,7 @@ styleSheet.flush()
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
 
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				const PolymorphicDiv = /*#__PURE__*/ (0,
+				const PolymorphicDiv = /* @__PURE__ */ (0,
 				_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__['default'])(
 					'div',
 					false
@@ -46524,36 +45674,19 @@ styleSheet.flush()
 				)(
 					false
 						? 0
-						: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkB3b3JkcHJlc3MvY29tcG9uZW50cy9zcmMvdmlldy9jb21wb25lbnQudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQWVpQyIsImZpbGUiOiJAd29yZHByZXNzL2NvbXBvbmVudHMvc3JjL3ZpZXcvY29tcG9uZW50LnRzeCIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRXh0ZXJuYWwgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCBzdHlsZWQgZnJvbSAnQGVtb3Rpb24vc3R5bGVkJztcblxuLyoqXG4gKiBXb3JkUHJlc3MgZGVwZW5kZW5jaWVzXG4gKi9cbmltcG9ydCB7IGZvcndhcmRSZWYgfSBmcm9tICdAd29yZHByZXNzL2VsZW1lbnQnO1xuXG4vKipcbiAqIEludGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgdHlwZSB7IFdvcmRQcmVzc0NvbXBvbmVudFByb3BzIH0gZnJvbSAnLi4vY29udGV4dCc7XG5cbmNvbnN0IFBvbHltb3JwaGljRGl2ID0gc3R5bGVkLmRpdmBgO1xuXG5mdW5jdGlvbiBVbmZvcndhcmRlZFZpZXc8IFQgZXh0ZW5kcyBSZWFjdC5FbGVtZW50VHlwZSA9ICdkaXYnID4oXG5cdHsgYXMsIC4uLnJlc3RQcm9wcyB9OiBXb3JkUHJlc3NDb21wb25lbnRQcm9wczwge30sIFQgPixcblx0cmVmOiBSZWFjdC5Gb3J3YXJkZWRSZWY8IGFueSA+XG4pIHtcblx0cmV0dXJuIDxQb2x5bW9ycGhpY0RpdiBhcz17IGFzIH0gcmVmPXsgcmVmIH0geyAuLi5yZXN0UHJvcHMgfSAvPjtcbn1cblxuLyoqXG4gKiBgVmlld2AgaXMgYSBjb3JlIGNvbXBvbmVudCB0aGF0IHJlbmRlcnMgZXZlcnl0aGluZyBpbiB0aGUgbGlicmFyeS5cbiAqIEl0IGlzIHRoZSBwcmluY2lwbGUgY29tcG9uZW50IGluIHRoZSBlbnRpcmUgbGlicmFyeS5cbiAqXG4gKiBgYGBqc3hcbiAqIGltcG9ydCB7IFZpZXcgfSBmcm9tIGBAd29yZHByZXNzL2NvbXBvbmVudHNgO1xuICpcbiAqIGZ1bmN0aW9uIEV4YW1wbGUoKSB7XG4gKiBcdHJldHVybiAoXG4gKiBcdFx0PFZpZXc+XG4gKiBcdFx0XHQgQ29kZSBpcyBQb2V0cnlcbiAqIFx0XHQ8L1ZpZXc+XG4gKiBcdCk7XG4gKiB9XG4gKiBgYGBcbiAqL1xuZXhwb3J0IGNvbnN0IFZpZXcgPSBPYmplY3QuYXNzaWduKCBmb3J3YXJkUmVmKCBVbmZvcndhcmRlZFZpZXcgKSwge1xuXHRzZWxlY3RvcjogJy5jb21wb25lbnRzLXZpZXcnLFxufSApO1xuXG5leHBvcnQgZGVmYXVsdCBWaWV3O1xuIl19 */'
+						: '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudC50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBZWlDIiwiZmlsZSI6ImNvbXBvbmVudC50c3giLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEV4dGVybmFsIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgc3R5bGVkIGZyb20gJ0BlbW90aW9uL3N0eWxlZCc7XG5cbi8qKlxuICogV29yZFByZXNzIGRlcGVuZGVuY2llc1xuICovXG5pbXBvcnQgeyBmb3J3YXJkUmVmIH0gZnJvbSAnQHdvcmRwcmVzcy9lbGVtZW50JztcblxuLyoqXG4gKiBJbnRlcm5hbCBkZXBlbmRlbmNpZXNcbiAqL1xuaW1wb3J0IHR5cGUgeyBXb3JkUHJlc3NDb21wb25lbnRQcm9wcyB9IGZyb20gJy4uL2NvbnRleHQnO1xuXG5jb25zdCBQb2x5bW9ycGhpY0RpdiA9IHN0eWxlZC5kaXZgYDtcblxuZnVuY3Rpb24gVW5mb3J3YXJkZWRWaWV3PCBUIGV4dGVuZHMgUmVhY3QuRWxlbWVudFR5cGUgPSAnZGl2JyA+KFxuXHR7IGFzLCAuLi5yZXN0UHJvcHMgfTogV29yZFByZXNzQ29tcG9uZW50UHJvcHM8IHt9LCBUID4sXG5cdHJlZjogUmVhY3QuRm9yd2FyZGVkUmVmPCBhbnkgPlxuKSB7XG5cdHJldHVybiA8UG9seW1vcnBoaWNEaXYgYXM9eyBhcyB9IHJlZj17IHJlZiB9IHsgLi4ucmVzdFByb3BzIH0gLz47XG59XG5cbi8qKlxuICogYFZpZXdgIGlzIGEgY29yZSBjb21wb25lbnQgdGhhdCByZW5kZXJzIGV2ZXJ5dGhpbmcgaW4gdGhlIGxpYnJhcnkuXG4gKiBJdCBpcyB0aGUgcHJpbmNpcGxlIGNvbXBvbmVudCBpbiB0aGUgZW50aXJlIGxpYnJhcnkuXG4gKlxuICogYGBganN4XG4gKiBpbXBvcnQgeyBWaWV3IH0gZnJvbSBgQHdvcmRwcmVzcy9jb21wb25lbnRzYDtcbiAqXG4gKiBmdW5jdGlvbiBFeGFtcGxlKCkge1xuICogXHRyZXR1cm4gKFxuICogXHRcdDxWaWV3PlxuICogXHRcdFx0IENvZGUgaXMgUG9ldHJ5XG4gKiBcdFx0PC9WaWV3PlxuICogXHQpO1xuICogfVxuICogYGBgXG4gKi9cbmV4cG9ydCBjb25zdCBWaWV3ID0gT2JqZWN0LmFzc2lnbiggZm9yd2FyZFJlZiggVW5mb3J3YXJkZWRWaWV3ICksIHtcblx0c2VsZWN0b3I6ICcuY29tcG9uZW50cy12aWV3Jyxcbn0gKTtcblxuZXhwb3J0IGRlZmF1bHQgVmlldztcbiJdfQ== */'
 				);
 				function UnforwardedView({ as, ...restProps }, ref) {
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(
 						PolymorphicDiv,
 						{
-							as: as,
-							ref: ref,
+							as,
+							ref,
 							...restProps,
 						}
 					);
 				}
-
-				/**
-				 * `View` is a core component that renders everything in the library.
-				 * It is the principle component in the entire library.
-				 *
-				 * ```jsx
-				 * import { View } from `@wordpress/components`;
-				 *
-				 * function Example() {
-				 * 	return (
-				 * 		<View>
-				 * 			 Code is Poetry
-				 * 		</View>
-				 * 	);
-				 * }
-				 * ```
-				 */
 				const View = Object.assign(
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
@@ -46563,8 +45696,8 @@ styleSheet.flush()
 						selector: '.components-view',
 					}
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					View;
+				var component_default = View;
+
 				//# sourceMappingURL=component.js.map
 
 				/***/
@@ -46586,6 +45719,9 @@ styleSheet.flush()
 					{
 						/* harmony export */ VisuallyHidden: function () {
 							return /* binding */ VisuallyHidden;
+						},
+						/* harmony export */ default: function () {
+							return /* binding */ component_default;
 						},
 						/* harmony export */
 					}
@@ -46610,13 +45746,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				function UnconnectedVisuallyHidden(props, forwardedRef) {
 					const { style: styleProp, ...contextProps } = (0,
@@ -46624,7 +45753,7 @@ styleSheet.flush()
 						props,
 						'VisuallyHidden'
 					);
-					return /*#__PURE__*/ (0,
+					return /* @__PURE__ */ (0,
 					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(
 						_view__WEBPACK_IMPORTED_MODULE_3__['default'],
 						{
@@ -46637,30 +45766,13 @@ styleSheet.flush()
 						}
 					);
 				}
-
-				/**
-				 * `VisuallyHidden` is a component used to render text intended to be visually
-				 * hidden, but will show for alternate devices, for example a screen reader.
-				 *
-				 * ```jsx
-				 * import { VisuallyHidden } from `@wordpress/components`;
-				 *
-				 * function Example() {
-				 *   return (
-				 *     <VisuallyHidden>
-				 *       <label>Code is Poetry</label>
-				 *     </VisuallyHidden>
-				 *   );
-				 * }
-				 * ```
-				 */
 				const VisuallyHidden = (0,
 				_context__WEBPACK_IMPORTED_MODULE_0__.contextConnect)(
 					UnconnectedVisuallyHidden,
 					'VisuallyHidden'
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					VisuallyHidden;
+				var component_default = VisuallyHidden;
+
 				//# sourceMappingURL=component.js.map
 
 				/***/
@@ -46686,10 +45798,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * External dependencies
-				 */
-
 				const visuallyHidden = {
 					border: 0,
 					clip: 'rect(1px, 1px, 1px, 1px)',
@@ -46703,7 +45811,58 @@ styleSheet.flush()
 					width: '1px',
 					wordWrap: 'normal',
 				};
+
 				//# sourceMappingURL=styles.js.map
+
+				/***/
+			},
+
+		/***/ './node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close.js':
+			/*!********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close.js ***!
+  \********************************************************************************************************/
+			/***/ function (
+				__unused_webpack_module,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ close_default;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
+					);
+				/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @wordpress/primitives */ './node_modules/@wordpress/primitives/build-module/svg/index.js'
+					);
+
+				var close_default = /* @__PURE__ */ (0,
+				react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+					_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.SVG,
+					{
+						xmlns: 'http://www.w3.org/2000/svg',
+						viewBox: '0 0 24 24',
+						children: /* @__PURE__ */ (0,
+						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+							_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.Path,
+							{
+								d: 'm13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z',
+							}
+						),
+					}
+				);
+
+				//# sourceMappingURL=close.js.map
 
 				/***/
 			},
@@ -46719,26 +45878,24 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ compose_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _pipe__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./pipe */ './node_modules/@wordpress/compose/build-module/higher-order/pipe.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Composes multiple higher-order components into a single higher-order component. Performs right-to-left function
-				 * composition, where each successive invocation is supplied the return value of the previous.
-				 *
-				 * This is inspired by `lodash`'s `flowRight` function.
-				 *
-				 * @see https://lodash.com/docs/4#flow-right
-				 */
 				const compose = (0,
 				_pipe__WEBPACK_IMPORTED_MODULE_0__.basePipe)(true);
-				/* harmony default export */ __webpack_exports__['default'] =
-					compose;
+				var compose_default = compose;
+
 				//# sourceMappingURL=compose.js.map
 
 				/***/
@@ -46761,58 +45918,12 @@ styleSheet.flush()
 						/* harmony export */ basePipe: function () {
 							return /* binding */ basePipe;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ pipe_default;
+						},
 						/* harmony export */
 					}
 				);
-				/**
-				 * Parts of this source were derived and modified from lodash,
-				 * released under the MIT license.
-				 *
-				 * https://github.com/lodash/lodash
-				 *
-				 * Copyright JS Foundation and other contributors <https://js.foundation/>
-				 *
-				 * Based on Underscore.js, copyright Jeremy Ashkenas,
-				 * DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
-				 *
-				 * This software consists of voluntary contributions made by many
-				 * individuals. For exact contribution history, see the revision history
-				 * available at https://github.com/lodash/lodash
-				 *
-				 * The following license applies to all parts of this software except as
-				 * documented below:
-				 *
-				 * ====
-				 *
-				 * Permission is hereby granted, free of charge, to any person obtaining
-				 * a copy of this software and associated documentation files (the
-				 * "Software"), to deal in the Software without restriction, including
-				 * without limitation the rights to use, copy, modify, merge, publish,
-				 * distribute, sublicense, and/or sell copies of the Software, and to
-				 * permit persons to whom the Software is furnished to do so, subject to
-				 * the following conditions:
-				 *
-				 * The above copyright notice and this permission notice shall be
-				 * included in all copies or substantial portions of the Software.
-				 *
-				 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-				 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-				 * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-				 * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-				 * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-				 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-				 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-				 */
-
-				/**
-				 * Creates a pipe function.
-				 *
-				 * Allows to choose whether to perform left-to-right or right-to-left composition.
-				 *
-				 * @see https://lodash.com/docs/4#flow
-				 *
-				 * @param {boolean} reverse True if right-to-left, false for left-to-right composition.
-				 */
 				const basePipe =
 					(reverse = false) =>
 					(...funcs) =>
@@ -46826,19 +45937,9 @@ styleSheet.flush()
 							args
 						)[0];
 					};
-
-				/**
-				 * Composes multiple higher-order components into a single higher-order component. Performs left-to-right function
-				 * composition, where each successive invocation is supplied the return value of the previous.
-				 *
-				 * This is inspired by `lodash`'s `flow` function.
-				 *
-				 * @see https://lodash.com/docs/4#flow
-				 */
 				const pipe = basePipe();
+				var pipe_default = pipe;
 
-				/* harmony default export */ __webpack_exports__['default'] =
-					pipe;
 				//# sourceMappingURL=pipe.js.map
 
 				/***/
@@ -46855,89 +45956,78 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/* harmony import */ var _wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! @wordpress/is-shallow-equal */ './node_modules/@wordpress/is-shallow-equal/build-module/index.js'
-					);
-				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! @wordpress/element */ './node_modules/react/index.js'
-					);
-				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default =
-					/*#__PURE__*/ __webpack_require__.n(
-						_wordpress_element__WEBPACK_IMPORTED_MODULE_1__
-					);
-				/* harmony import */ var _utils_create_higher_order_component__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! ../../utils/create-higher-order-component */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ pure_default;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Given a component returns the enhanced component augmented with a component
-				 * only re-rendering when its props/state change
-				 *
-				 * @deprecated Use `memo` or `PureComponent` instead.
-				 */
+				/* harmony import */ var _wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @wordpress/is-shallow-equal */ './node_modules/@wordpress/is-shallow-equal/build-module/index.js'
+					);
+				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! @wordpress/element */ './node_modules/react/index.js'
+					);
+				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default =
+					/*#__PURE__*/ __webpack_require__.n(
+						_wordpress_element__WEBPACK_IMPORTED_MODULE_2__
+					);
+				/* harmony import */ var _utils_create_higher_order_component__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ../../utils/create-higher-order-component */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
+					);
 
 				const pure = (0,
-				_utils_create_higher_order_component__WEBPACK_IMPORTED_MODULE_2__.createHigherOrderComponent)(
+				_utils_create_higher_order_component__WEBPACK_IMPORTED_MODULE_3__.createHigherOrderComponent)(
 					function (WrappedComponent) {
 						if (
 							WrappedComponent.prototype instanceof
-							_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component
+							_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.Component
 						) {
 							return class extends WrappedComponent {
 								shouldComponentUpdate(nextProps, nextState) {
 									return (
 										!(0,
-										_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_0__[
+										_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_1__[
 											'default'
 										])(nextProps, this.props) ||
 										!(0,
-										_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_0__[
+										_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_1__[
 											'default'
 										])(nextState, this.state)
 									);
 								}
 							};
 						}
-						return class extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
+						return class extends _wordpress_element__WEBPACK_IMPORTED_MODULE_2__.Component {
 							shouldComponentUpdate(nextProps) {
 								return !(0,
-								_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_0__[
+								_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_1__[
 									'default'
 								])(nextProps, this.props);
 							}
 							render() {
-								return /*#__PURE__*/ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(
+								return /* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 									WrappedComponent,
-									{
-										...this.props,
-									}
+									{ ...this.props }
 								);
 							}
 						};
 					},
 					'pure'
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					pure;
+				var pure_default = pure;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -46954,6 +46044,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_constrained_tabbing_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_dom__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/dom */ './node_modules/@wordpress/dom/build-module/index.js'
@@ -46962,42 +46061,12 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../use-ref-effect */ './node_modules/@wordpress/compose/build-module/hooks/use-ref-effect/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * In Dialogs/modals, the tabbing must be constrained to the content of
-				 * the wrapper element. This hook adds the behavior to the returned ref.
-				 *
-				 * @return {import('react').RefCallback<Element>} Element Ref.
-				 *
-				 * @example
-				 * ```js
-				 * import { useConstrainedTabbing } from '@wordpress/compose';
-				 *
-				 * const ConstrainedTabbingExample = () => {
-				 *     const constrainedTabbingRef = useConstrainedTabbing()
-				 *     return (
-				 *         <div ref={ constrainedTabbingRef }>
-				 *             <Button />
-				 *             <Button />
-				 *         </div>
-				 *     );
-				 * }
-				 * ```
-				 */
 				function useConstrainedTabbing() {
 					return (0,
 					_use_ref_effect__WEBPACK_IMPORTED_MODULE_1__['default'])(
-						(/** @type {HTMLElement} */ node) => {
-							function onKeyDown(
-								/** @type {KeyboardEvent} */ event
-							) {
+						(node) => {
+							function onKeyDown(event) {
 								const { key, shiftKey, target } = event;
 								if (key !== 'Tab') {
 									return;
@@ -47008,36 +46077,21 @@ styleSheet.flush()
 								const nextElement =
 									_wordpress_dom__WEBPACK_IMPORTED_MODULE_0__.focus.tabbable[
 										action
-									](/** @type {HTMLElement} */ target) ||
-									null;
-
-								// When the target element contains the element that is about to
-								// receive focus, for example when the target is a tabbable
-								// container, browsers may disagree on where to move focus next.
-								// In this case we can't rely on native browsers behavior. We need
-								// to manage focus instead.
-								// See https://github.com/WordPress/gutenberg/issues/46041.
+									](
+										/** @type {HTMLElement} */
+										target
+									) || null;
 								if (
-									/** @type {HTMLElement} */ target.contains(
-										nextElement
-									)
+									/** @type {HTMLElement} */
+									target.contains(nextElement)
 								) {
 									event.preventDefault();
 									nextElement?.focus();
 									return;
 								}
-
-								// If the element that is about to receive focus is inside the
-								// area, rely on native browsers behavior and let tabbing follow
-								// the native tab sequence.
 								if (node.contains(nextElement)) {
 									return;
 								}
-
-								// If the element that is about to receive focus is outside the
-								// area, move focus to a div and insert it at the start or end of
-								// the area, depending on the direction. Without preventing default
-								// behaviour, the browser will then move focus to the next element.
 								const domAction = shiftKey
 									? 'append'
 									: 'prepend';
@@ -47045,8 +46099,6 @@ styleSheet.flush()
 								const trap = ownerDocument.createElement('div');
 								trap.tabIndex = -1;
 								node[domAction](trap);
-
-								// Remove itself when the trap loses focus.
 								trap.addEventListener('blur', () =>
 									node.removeChild(trap)
 								);
@@ -47060,8 +46112,8 @@ styleSheet.flush()
 						[]
 					);
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					useConstrainedTabbing;
+				var use_constrained_tabbing_default = useConstrainedTabbing;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47107,23 +46159,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../use-ref-effect */ './node_modules/@wordpress/compose/build-module/hooks/use-ref-effect/index.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * @template T
-				 * @param {T} value
-				 * @return {import('react').RefObject<T>} The updated ref
-				 */
 				function useUpdatedRef(value) {
 					const ref = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)(
@@ -47135,26 +46171,12 @@ styleSheet.flush()
 					}, [value]);
 					return ref;
 				}
-
-				/**
-				 * Copies the given text to the clipboard when the element is clicked.
-				 *
-				 * @template {HTMLElement} TElementType
-				 * @param {string | (() => string)} text      The text to copy. Use a function if not
-				 *                                            already available and expensive to compute.
-				 * @param {Function}                onSuccess Called when to text is copied.
-				 *
-				 * @return {import('react').Ref<TElementType>} A ref to assign to the target element.
-				 */
 				function useCopyToClipboard(text, onSuccess) {
-					// Store the dependencies as refs and continuously update them so they're
-					// fresh when the callback is called.
 					const textRef = useUpdatedRef(text);
 					const onSuccessRef = useUpdatedRef(onSuccess);
 					return (0,
 					_use_ref_effect__WEBPACK_IMPORTED_MODULE_2__['default'])(
 						(node) => {
-							// Clipboard listens to click events.
 							const clipboard =
 								new (clipboard__WEBPACK_IMPORTED_MODULE_0___default())(
 									node,
@@ -47168,9 +46190,6 @@ styleSheet.flush()
 									}
 								);
 							clipboard.on('success', ({ clearSelection }) => {
-								// Clearing selection will move focus back to the triggering
-								// button, ensuring that it is not reset to the body, and
-								// further that it is kept within the rendered node.
 								clearSelection();
 								if (onSuccessRef.current) {
 									onSuccessRef.current();
@@ -47183,6 +46202,7 @@ styleSheet.flush()
 						[]
 					);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47216,42 +46236,8 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Any function.
-				 */
-
-				/**
-				 * Creates a stable callback function that has access to the latest state and
-				 * can be used within event handlers and effect callbacks. Throws when used in
-				 * the render phase.
-				 *
-				 * @param callback The callback function to wrap.
-				 *
-				 * @example
-				 *
-				 * ```tsx
-				 * function Component( props ) {
-				 *   const onClick = useEvent( props.onClick );
-				 *   useEffect( () => {
-				 *     onClick();
-				 *     // Won't trigger the effect again when props.onClick is updated.
-				 *   }, [ onClick ] );
-				 *   // Won't re-render Button when props.onClick is updated (if `Button` is
-				 *   // wrapped in `React.memo`).
-				 *   return <Button onClick={ onClick } />;
-				 * }
-				 * ```
-				 */
-				function useEvent(
-					/**
-					 * The callback function to wrap.
-					 */
-					callback
-				) {
+				function useEvent(callback) {
 					const ref = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
 						() => {
@@ -47272,6 +46258,7 @@ styleSheet.flush()
 						[]
 					);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47313,47 +46300,12 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../use-ref-effect */ './node_modules/@wordpress/compose/build-module/hooks/use-ref-effect/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Hook used to focus the first tabbable element on mount.
-				 *
-				 * @param {boolean | 'firstElement'} focusOnMount Focus on mount mode.
-				 * @return {import('react').RefCallback<HTMLElement>} Ref callback.
-				 *
-				 * @example
-				 * ```js
-				 * import { useFocusOnMount } from '@wordpress/compose';
-				 *
-				 * const WithFocusOnMount = () => {
-				 *     const ref = useFocusOnMount()
-				 *     return (
-				 *         <div ref={ ref }>
-				 *             <Button />
-				 *             <Button />
-				 *         </div>
-				 *     );
-				 * }
-				 * ```
-				 */
 				function useFocusOnMount(focusOnMount = 'firstElement') {
 					const focusOnMountRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
 						focusOnMount
 					);
-
-					/**
-					 * Sets focus on a DOM element.
-					 *
-					 * @param {HTMLElement} target The DOM element to set focus to.
-					 * @return {void}
-					 */
 					const setFocus = (target) => {
 						target.focus({
 							// When focusing newly mounted dialogs,
@@ -47362,8 +46314,6 @@ styleSheet.flush()
 							preventScroll: true,
 						});
 					};
-
-					/** @type {import('react').MutableRefObject<ReturnType<setTimeout> | undefined>} */
 					const timerIdRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)();
 					(0,
@@ -47373,17 +46323,12 @@ styleSheet.flush()
 					return (0,
 					_use_ref_effect__WEBPACK_IMPORTED_MODULE_2__['default'])(
 						(node) => {
-							var _node$ownerDocument$a;
 							if (!node || focusOnMountRef.current === false) {
 								return;
 							}
 							if (
 								node.contains(
-									(_node$ownerDocument$a =
-										node.ownerDocument?.activeElement) !==
-										null && _node$ownerDocument$a !== void 0
-										? _node$ownerDocument$a
-										: null
+									node.ownerDocument?.activeElement ?? null
 								)
 							) {
 								return;
@@ -47410,6 +46355,7 @@ styleSheet.flush()
 						[]
 					);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47426,6 +46372,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_focus_return_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/element */ './node_modules/react/index.js'
@@ -47434,42 +46389,13 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/** @type {Element|null} */
 				let origin = null;
-
-				/**
-				 * Adds the unmount behavior of returning focus to the element which had it
-				 * previously as is expected for roles like menus or dialogs.
-				 *
-				 * @param {() => void} [onFocusReturn] Overrides the default return behavior.
-				 * @return {import('react').RefCallback<HTMLElement>} Element Ref.
-				 *
-				 * @example
-				 * ```js
-				 * import { useFocusReturn } from '@wordpress/compose';
-				 *
-				 * const WithFocusReturn = () => {
-				 *     const ref = useFocusReturn()
-				 *     return (
-				 *         <div ref={ ref }>
-				 *             <Button />
-				 *             <Button />
-				 *         </div>
-				 *     );
-				 * }
-				 * ```
-				 */
 				function useFocusReturn(onFocusReturn) {
-					/** @type {import('react').MutableRefObject<null | HTMLElement>} */
 					const ref = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
 						null
 					);
-					/** @type {import('react').MutableRefObject<null | Element>} */
 					const focusedBeforeMount = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
 						null
@@ -47486,11 +46412,7 @@ styleSheet.flush()
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(
 						(node) => {
 							if (node) {
-								var _activeDocument$activ;
-								// Set ref to be used when unmounting.
 								ref.current = node;
-
-								// Only set when the node mounts.
 								if (focusedBeforeMount.current) {
 									return;
 								}
@@ -47501,35 +46423,21 @@ styleSheet.flush()
 												.contentDocument
 										: node.ownerDocument;
 								focusedBeforeMount.current =
-									(_activeDocument$activ =
-										activeDocument?.activeElement) !==
-										null && _activeDocument$activ !== void 0
-										? _activeDocument$activ
-										: null;
+									activeDocument?.activeElement ?? null;
 							} else if (focusedBeforeMount.current) {
 								const isFocused = ref.current?.contains(
 									ref.current?.ownerDocument.activeElement
 								);
 								if (ref.current?.isConnected && !isFocused) {
-									var _origin;
-									(_origin = origin) !== null &&
-									_origin !== void 0
-										? _origin
-										: (origin = focusedBeforeMount.current);
+									origin ??= focusedBeforeMount.current;
 									return;
 								}
-
-								// Defer to the component's own explicit focus return behavior, if
-								// specified. This allows for support that the `onFocusReturn`
-								// decides to allow the default behavior to occur under some
-								// conditions.
 								if (onFocusReturnRef.current) {
 									onFocusReturnRef.current();
 								} else {
-									/** @type {null|HTMLElement} */ (
-										!focusedBeforeMount.current.isConnected
-											? origin
-											: focusedBeforeMount.current
+									(!focusedBeforeMount.current.isConnected
+										? origin
+										: focusedBeforeMount.current
 									)?.focus();
 								}
 								origin = null;
@@ -47538,8 +46446,8 @@ styleSheet.flush()
 						[]
 					);
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					useFocusReturn;
+				var use_focus_return_default = useFocusReturn;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47556,6 +46464,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_instance_id_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/element */ './node_modules/react/index.js'
@@ -47564,45 +46481,13 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				const instanceMap = new WeakMap();
-
-				/**
-				 * Creates a new id for a given object.
-				 *
-				 * @param object Object reference to create an id for.
-				 * @return The instance id (index).
-				 */
+				const instanceMap = /* @__PURE__ */ new WeakMap();
 				function createId(object) {
 					const instances = instanceMap.get(object) || 0;
 					instanceMap.set(object, instances + 1);
 					return instances;
 				}
-
-				/**
-				 * Specify the useInstanceId *function* signatures.
-				 *
-				 * More accurately, useInstanceId distinguishes between three different
-				 * signatures:
-				 *
-				 * 1. When only object is given, the returned value is a number
-				 * 2. When object and prefix is given, the returned value is a string
-				 * 3. When preferredId is given, the returned value is the type of preferredId
-				 *
-				 * @param object Object reference to create an id for.
-				 */
-
-				/**
-				 * Provides a unique instance ID.
-				 *
-				 * @param object        Object reference to create an id for.
-				 * @param [prefix]      Prefix for the unique id.
-				 * @param [preferredId] Default ID to use.
-				 * @return The unique instance id.
-				 */
 				function useInstanceId(object, prefix, preferredId) {
 					return (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
@@ -47613,8 +46498,8 @@ styleSheet.flush()
 						return prefix ? `${prefix}-${id}` : id;
 					}, [object, preferredId, prefix]);
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					useInstanceId;
+				var use_instance_id_default = useInstanceId;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47631,6 +46516,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_isomorphic_layout_effect_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/element */ './node_modules/react/index.js'
@@ -47639,21 +46533,14 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Preferred over direct usage of `useLayoutEffect` when supporting
-				 * server rendered components (SSR) because currently React
-				 * throws a warning when using useLayoutEffect in that environment.
-				 */
 				const useIsomorphicLayoutEffect =
 					typeof window !== 'undefined'
 						? _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect
 						: _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect;
-				/* harmony default export */ __webpack_exports__['default'] =
+				var use_isomorphic_layout_effect_default =
 					useIsomorphicLayoutEffect;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47687,18 +46574,8 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				const matchMediaCache = new Map();
-
-				/**
-				 * A new MediaQueryList object for the media query
-				 *
-				 * @param {string} [query] Media Query.
-				 * @return {MediaQueryList|null} A new object for the media query
-				 */
+				const matchMediaCache = /* @__PURE__ */ new Map();
 				function getMediaQueryList(query) {
 					if (!query) {
 						return null;
@@ -47717,13 +46594,6 @@ styleSheet.flush()
 					}
 					return null;
 				}
-
-				/**
-				 * Runs a media query and returns its value when it changes.
-				 *
-				 * @param {string} [query] Media Query.
-				 * @return {boolean} return value of the media query.
-				 */
 				function useMediaQuery(query) {
 					const source = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
@@ -47734,8 +46604,6 @@ styleSheet.flush()
 								if (!mediaQueryList) {
 									return () => {};
 								}
-
-								// Avoid a fatal error when browsers don't support `addEventListener` on MediaQueryList.
 								mediaQueryList.addEventListener?.(
 									'change',
 									onStoreChange
@@ -47748,12 +46616,7 @@ styleSheet.flush()
 								};
 							},
 							getValue() {
-								var _mediaQueryList$match;
-								return (_mediaQueryList$match =
-									mediaQueryList?.matches) !== null &&
-									_mediaQueryList$match !== void 0
-									? _mediaQueryList$match
-									: false;
+								return mediaQueryList?.matches ?? false;
 							},
 						};
 					}, [query]);
@@ -47764,6 +46627,7 @@ styleSheet.flush()
 						() => false
 					);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47797,76 +46661,14 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * @template T
-				 * @typedef {T extends import('react').Ref<infer R> ? R : never} TypeFromRef
-				 */
-				/* eslint-enable jsdoc/valid-types */
-
-				/**
-				 * @template T
-				 * @param {import('react').Ref<T>} ref
-				 * @param {T}                      value
-				 */
 				function assignRef(ref, value) {
 					if (typeof ref === 'function') {
 						ref(value);
 					} else if (ref && ref.hasOwnProperty('current')) {
-						/* eslint-disable jsdoc/no-undefined-types */
-						/** @type {import('react').MutableRefObject<T>} */ ref.current =
-							value;
-						/* eslint-enable jsdoc/no-undefined-types */
+						ref.current = value;
 					}
 				}
-
-				/**
-				 * Merges refs into one ref callback.
-				 *
-				 * It also ensures that the merged ref callbacks are only called when they
-				 * change (as a result of a `useCallback` dependency update) OR when the ref
-				 * value changes, just as React does when passing a single ref callback to the
-				 * component.
-				 *
-				 * As expected, if you pass a new function on every render, the ref callback
-				 * will be called after every render.
-				 *
-				 * If you don't wish a ref callback to be called after every render, wrap it
-				 * with `useCallback( callback, dependencies )`. When a dependency changes, the
-				 * old ref callback will be called with `null` and the new ref callback will be
-				 * called with the same value.
-				 *
-				 * To make ref callbacks easier to use, you can also pass the result of
-				 * `useRefEffect`, which makes cleanup easier by allowing you to return a
-				 * cleanup function instead of handling `null`.
-				 *
-				 * It's also possible to _disable_ a ref (and its behaviour) by simply not
-				 * passing the ref.
-				 *
-				 * ```jsx
-				 * const ref = useRefEffect( ( node ) => {
-				 *   node.addEventListener( ... );
-				 *   return () => {
-				 *     node.removeEventListener( ... );
-				 *   };
-				 * }, [ ...dependencies ] );
-				 * const otherRef = useRef();
-				 * const mergedRefs useMergeRefs( [
-				 *   enabled && ref,
-				 *   otherRef,
-				 * ] );
-				 * return <div ref={ mergedRefs } />;
-				 * ```
-				 *
-				 * @template {import('react').Ref<any>} TRef
-				 * @param {Array<TRef>} refs The refs to be merged.
-				 *
-				 * @return {import('react').RefCallback<TypeFromRef<TRef>>} The merged ref callback.
-				 */
 				function useMergeRefs(refs) {
 					const element = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -47878,23 +46680,13 @@ styleSheet.flush()
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
 						false
 					);
-					/* eslint-disable jsdoc/no-undefined-types */
-					/** @type {import('react').MutableRefObject<TRef[]>} */
-					/* eslint-enable jsdoc/no-undefined-types */
 					const previousRefsRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
 					const currentRefsRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
 						refs
 					);
-
-					// Update on render before the ref callback is called, so the ref callback
-					// always has access to the current refs.
 					currentRefsRef.current = refs;
-
-					// If any of the refs change, call the previous ref with `null` and the new
-					// ref with the node, except when the element changes in the same cycle, in
-					// which case the ref callbacks will already have been called.
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(
 						() => {
@@ -47915,34 +46707,21 @@ styleSheet.flush()
 						},
 						refs
 					);
-
-					// No dependencies, must be reset after every render so ref callbacks are
-					// correctly called after a ref change.
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(
 						() => {
 							didElementChangeRef.current = false;
 						}
 					);
-
-					// There should be no dependencies so that `callback` is only called when
-					// the node changes.
 					return (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(
 						(value) => {
-							// Update the element so it can be used when calling ref callbacks on a
-							// dependency change.
 							assignRef(element, value);
 							didElementChangeRef.current = true;
 							isAttachedRef.current = value !== null;
-
-							// When an element changes, the current ref callback should be called
-							// with the new element and the previous one with `null`.
 							const refsToAssign = value
 								? currentRefsRef.current
 								: previousRefsRef.current;
-
-							// Update the latest refs.
 							for (const ref of refsToAssign) {
 								assignRef(ref, value);
 							}
@@ -47950,6 +46729,7 @@ styleSheet.flush()
 						[]
 					);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -47983,31 +46763,17 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Use something's value from the previous render.
-				 * Based on https://usehooks.com/usePrevious/.
-				 *
-				 * @param value The value to track.
-				 *
-				 * @return The value from the previous render.
-				 */
 				function usePrevious(value) {
 					const ref = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-
-					// Store current value in ref.
 					(0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
 						ref.current = value;
-					}, [value]); // Re-run when value changes.
-
-					// Return previous value (happens before update in useEffect above).
+					}, [value]);
 					return ref.current;
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -48024,26 +46790,27 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_reduced_motion_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _use_media_query__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ../use-media-query */ './node_modules/@wordpress/compose/build-module/hooks/use-media-query/index.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Hook returning whether the user has a preference for reduced motion.
-				 *
-				 * @return {boolean} Reduced motion preference value.
-				 */
 				const useReducedMotion = () =>
 					(0,
 					_use_media_query__WEBPACK_IMPORTED_MODULE_0__['default'])(
 						'(prefers-reduced-motion: reduce)'
 					);
-				/* harmony default export */ __webpack_exports__['default'] =
-					useReducedMotion;
+				var use_reduced_motion_default = useReducedMotion;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -48077,33 +46844,7 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Effect-like ref callback. Just like with `useEffect`, this allows you to
-				 * return a cleanup function to be run if the ref changes or one of the
-				 * dependencies changes. The ref is provided as an argument to the callback
-				 * functions. The main difference between this and `useEffect` is that
-				 * the `useEffect` callback is not called when the ref changes, but this is.
-				 * Pass the returned ref callback as the component's ref and merge multiple refs
-				 * with `useMergeRefs`.
-				 *
-				 * It's worth noting that if the dependencies array is empty, there's not
-				 * strictly a need to clean up event handlers for example, because the node is
-				 * to be removed. It *is* necessary if you add dependencies because the ref
-				 * callback will be called multiple times for the same node.
-				 *
-				 * @param callback     Callback with ref as argument.
-				 * @param dependencies Dependencies of the callback.
-				 *
-				 * @return Ref callback.
-				 */
 				function useRefEffect(callback, dependencies) {
 					const cleanupRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -48119,6 +46860,7 @@ styleSheet.flush()
 						dependencies
 					);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -48152,63 +46894,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./legacy */ './node_modules/@wordpress/compose/build-module/hooks/use-resize-observer/legacy/index.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * Sets up a [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API)
-				 * for an HTML or SVG element.
-				 *
-				 * Pass the returned setter as a callback ref to the React element you want
-				 * to observe, or use it in layout effects for advanced use cases.
-				 *
-				 * @example
-				 *
-				 * ```tsx
-				 * const setElement = useResizeObserver(
-				 * 	( resizeObserverEntries ) => console.log( resizeObserverEntries ),
-				 * 	{ box: 'border-box' }
-				 * );
-				 * <div ref={ setElement } />;
-				 *
-				 * // The setter can be used in other ways, for example:
-				 * useLayoutEffect( () => {
-				 * 	setElement( document.querySelector( `data-element-id="${ elementId }"` ) );
-				 * }, [ elementId ] );
-				 * ```
-				 *
-				 * @param callback The `ResizeObserver` callback - [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/ResizeObserver#callback).
-				 * @param options  Options passed to `ResizeObserver.observe` when called - [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/observe#options). Changes will be ignored.
-				 */
-
-				/**
-				 * **This is a legacy API and should not be used.**
-				 *
-				 * @deprecated Use the other `useResizeObserver` API instead: `const ref = useResizeObserver( ( entries ) => { ... } )`.
-				 *
-				 * Hook which allows to listen to the resize event of any target element when it changes size.
-				 * _Note: `useResizeObserver` will report `null` sizes until after first render.
-				 *
-				 * @example
-				 *
-				 * ```js
-				 * const App = () => {
-				 * 	const [ resizeListener, sizes ] = useResizeObserver();
-				 *
-				 * 	return (
-				 * 		<div>
-				 * 			{ resizeListener }
-				 * 			Your content here
-				 * 		</div>
-				 * 	);
-				 * };
-				 * ```
-				 */
 
 				function useResizeObserver(callback, options = {}) {
 					return callback
@@ -48220,6 +46905,7 @@ styleSheet.flush()
 						: (0,
 							_legacy__WEBPACK_IMPORTED_MODULE_1__['default'])();
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -48245,67 +46931,26 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! @wordpress/element */ './node_modules/react/index.js'
-					);
-				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default =
-					/*#__PURE__*/ __webpack_require__.n(
-						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
-					);
-				/* harmony import */ var _use_resize_observer__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ../use-resize-observer */ './node_modules/@wordpress/compose/build-module/hooks/use-resize-observer/use-resize-observer.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
+				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @wordpress/element */ './node_modules/react/index.js'
+					);
+				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default =
+					/*#__PURE__*/ __webpack_require__.n(
+						_wordpress_element__WEBPACK_IMPORTED_MODULE_1__
+					);
+				/* harmony import */ var _use_resize_observer__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../use-resize-observer */ './node_modules/@wordpress/compose/build-module/hooks/use-resize-observer/use-resize-observer.js'
+					);
 
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				// We're only using the first element of the size sequences, until future versions of the spec solidify on how
-				// exactly it'll be used for fragments in multi-column scenarios:
-				// From the spec:
-				// > The box size properties are exposed as FrozenArray in order to support elements that have multiple fragments,
-				// > which occur in multi-column scenarios. However the current definitions of content rect and border box do not
-				// > mention how those boxes are affected by multi-column layout. In this spec, there will only be a single
-				// > ResizeObserverSize returned in the FrozenArray, which will correspond to the dimensions of the first column.
-				// > A future version of this spec will extend the returned FrozenArray to contain the per-fragment size information.
-				// (https://drafts.csswg.org/resize-observer/#resize-observer-entry-interface)
-				//
-				// Also, testing these new box options revealed that in both Chrome and FF everything is returned in the callback,
-				// regardless of the "box" option.
-				// The spec states the following on this:
-				// > This does not have any impact on which box dimensions are returned to the defined callback when the event
-				// > is fired, it solely defines which box the author wishes to observe layout changes on.
-				// (https://drafts.csswg.org/resize-observer/#resize-observer-interface)
-				// I'm not exactly clear on what this means, especially when you consider a later section stating the following:
-				// > This section is non-normative. An author may desire to observe more than one CSS box.
-				// > In this case, author will need to use multiple ResizeObservers.
-				// (https://drafts.csswg.org/resize-observer/#resize-observer-interface)
-				// Which is clearly not how current browser implementations behave, and seems to contradict the previous quote.
-				// For this reason I decided to only return the requested size,
-				// even though it seems we have access to results for all box types.
-				// This also means that we get to keep the current api, being able to return a simple { width, height } pair,
-				// regardless of box option.
 				const extractSize = (entry) => {
 					let entrySize;
 					if (!entry.contentBoxSize) {
-						// The dimensions in `contentBoxSize` and `contentRect` are equivalent according to the spec.
-						// See the 6th step in the description for the RO algorithm:
-						// https://drafts.csswg.org/resize-observer/#create-and-populate-resizeobserverentry-h
-						// > Set this.contentRect to logical this.contentBoxSize given target and observedBox of "content-box".
-						// In real browser implementations of course these objects differ, but the width/height values should be equivalent.
 						entrySize = [
 							entry.contentRect.width,
 							entry.contentRect.height,
@@ -48317,8 +46962,6 @@ styleSheet.flush()
 							contentBoxSize.blockSize,
 						];
 					} else {
-						// TS complains about this, because the RO entry type follows the spec and does not reflect Firefox's buggy
-						// behaviour of returning objects instead of arrays for `borderBoxSize` and `contentBoxSize`.
 						const contentBoxSize = entry.contentBoxSize;
 						entrySize = [
 							contentBoxSize.inlineSize,
@@ -48326,10 +46969,7 @@ styleSheet.flush()
 						];
 					}
 					const [width, height] = entrySize.map((d) => Math.round(d));
-					return {
-						width,
-						height,
-					};
+					return { width, height };
 				};
 				const RESIZE_ELEMENT_STYLES = {
 					position: 'absolute',
@@ -48344,14 +46984,14 @@ styleSheet.flush()
 				};
 				function ResizeElement({ onResize }) {
 					const resizeElementRef = (0,
-					_use_resize_observer__WEBPACK_IMPORTED_MODULE_1__.useResizeObserver)(
+					_use_resize_observer__WEBPACK_IMPORTED_MODULE_2__.useResizeObserver)(
 						(entries) => {
-							const newSize = extractSize(entries.at(-1)); // Entries are never empty.
+							const newSize = extractSize(entries.at(-1));
 							onResize(newSize);
 						}
 					);
-					return /*#__PURE__*/ (0,
-					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)('div', {
+					return /* @__PURE__ */ (0,
+					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)('div', {
 						ref: resizeElementRef,
 						style: RESIZE_ELEMENT_STYLES,
 						'aria-hidden': 'true',
@@ -48360,43 +47000,18 @@ styleSheet.flush()
 				function sizeEquals(a, b) {
 					return a.width === b.width && a.height === b.height;
 				}
-				const NULL_SIZE = {
-					width: null,
-					height: null,
-				};
-
-				/**
-				 * Hook which allows to listen to the resize event of any target element when it changes size.
-				 * _Note: `useResizeObserver` will report `null` sizes until after first render.
-				 *
-				 * @example
-				 *
-				 * ```js
-				 * const App = () => {
-				 * 	const [ resizeListener, sizes ] = useResizeObserver();
-				 *
-				 * 	return (
-				 * 		<div>
-				 * 			{ resizeListener }
-				 * 			Your content here
-				 * 		</div>
-				 * 	);
-				 * };
-				 * ```
-				 */
+				const NULL_SIZE = { width: null, height: null };
 				function useLegacyResizeObserver() {
 					const [size, setSize] = (0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(
 						NULL_SIZE
 					);
-
-					// Using a ref to track the previous width / height to avoid unnecessary renders.
 					const previousSizeRef = (0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)(
 						NULL_SIZE
 					);
 					const handleResize = (0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(
 						(newSize) => {
 							if (!sizeEquals(previousSizeRef.current, newSize)) {
 								previousSizeRef.current = newSize;
@@ -48405,15 +47020,14 @@ styleSheet.flush()
 						},
 						[]
 					);
-					const resizeElement = /*#__PURE__*/ (0,
-					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(
+					const resizeElement = /* @__PURE__ */ (0,
+					react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 						ResizeElement,
-						{
-							onResize: handleResize,
-						}
+						{ onResize: handleResize }
 					);
 					return [resizeElement, size];
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -48451,19 +47065,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../use-event */ './node_modules/@wordpress/compose/build-module/hooks/use-event/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				// This is the current implementation of `useResizeObserver`.
-				//
-				// The legacy implementation is still supported for backwards compatibility.
-				// This is achieved by overloading the exported function with both signatures,
-				// and detecting which API is being used at runtime.
 				function useResizeObserver(
 					callback,
 					resizeObserverOptions = {}
@@ -48479,29 +47081,19 @@ styleSheet.flush()
 					return (0,
 					_use_event__WEBPACK_IMPORTED_MODULE_1__['default'])(
 						(element) => {
-							var _resizeObserverRef$cu;
 							if (element === observedElementRef.current) {
 								return;
 							}
-
-							// Set up `ResizeObserver`.
-							(_resizeObserverRef$cu =
-								resizeObserverRef.current) !== null &&
-							_resizeObserverRef$cu !== void 0
-								? _resizeObserverRef$cu
-								: (resizeObserverRef.current =
-										new ResizeObserver(callbackEvent));
+							resizeObserverRef.current ??= new ResizeObserver(
+								callbackEvent
+							);
 							const { current: resizeObserver } =
 								resizeObserverRef;
-
-							// Unobserve previous element.
 							if (observedElementRef.current) {
 								resizeObserver.unobserve(
 									observedElementRef.current
 								);
 							}
-
-							// Observe new element.
 							observedElementRef.current = element;
 							if (element) {
 								resizeObserver.observe(
@@ -48512,6 +47104,7 @@ styleSheet.flush()
 						}
 					);
 				}
+
 				//# sourceMappingURL=use-resize-observer.js.map
 
 				/***/
@@ -48542,19 +47135,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! change-case */ './node_modules/pascal-case/dist.es2015/index.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Given a function mapping a component to an enhanced component and modifier
-				 * name, returns the enhanced component augmented with a generated displayName.
-				 *
-				 * @param mapComponent Function mapping component to enhanced component.
-				 * @param modifierName Seed name from which to generated display name.
-				 *
-				 * @return Component class with generated display name assigned.
-				 */
 				function createHigherOrderComponent(
 					mapComponent,
 					modifierName
@@ -48565,27 +47146,16 @@ styleSheet.flush()
 						return Outer;
 					};
 				}
-
-				/**
-				 * Returns a displayName for a higher-order component, given a wrapper name.
-				 *
-				 * @example
-				 *     hocName( 'MyMemo', Widget ) === 'MyMemo(Widget)';
-				 *     hocName( 'MyMemo', <div /> ) === 'MyMemo(Component)';
-				 *
-				 * @param name  Name assigned to higher-order component's wrapper component.
-				 * @param Inner Wrapped component inside higher-order component.
-				 * @return       Wrapped name of higher-order component.
-				 */
 				const hocName = (name, Inner) => {
 					const inner =
 						Inner.displayName || Inner.name || 'Component';
 					const outer = (0,
 					change_case__WEBPACK_IMPORTED_MODULE_0__.pascalCase)(
-						name !== null && name !== void 0 ? name : ''
+						name ?? ''
 					);
 					return `${outer}(${inner})`;
 				};
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -48611,6 +47181,9 @@ styleSheet.flush()
 						/* harmony export */ Context: function () {
 							return /* binding */ Context;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ context_default;
+						},
 						/* harmony export */
 					}
 				);
@@ -48622,9 +47195,6 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
 				const Context = (0,
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createContext)(
@@ -48633,44 +47203,8 @@ styleSheet.flush()
 				Context.displayName = 'AsyncModeContext';
 				const { Consumer, Provider } = Context;
 				const AsyncModeConsumer = Consumer;
+				var context_default = Provider;
 
-				/**
-				 * Context Provider Component used to switch the data module component rerendering
-				 * between Sync and Async modes.
-				 *
-				 * @example
-				 *
-				 * ```js
-				 * import { useSelect, AsyncModeProvider } from '@wordpress/data';
-				 * import { store as blockEditorStore } from '@wordpress/block-editor';
-				 *
-				 * function BlockCount() {
-				 *   const count = useSelect( ( select ) => {
-				 *     return select( blockEditorStore ).getBlockCount()
-				 *   }, [] );
-				 *
-				 *   return count;
-				 * }
-				 *
-				 * function App() {
-				 *   return (
-				 *     <AsyncModeProvider value={ true }>
-				 *       <BlockCount />
-				 *     </AsyncModeProvider>
-				 *   );
-				 * }
-				 * ```
-				 *
-				 * In this example, the BlockCount component is rerendered asynchronously.
-				 * It means if a more critical task is being performed (like typing in an input),
-				 * the rerendering is delayed until the browser becomes IDLE.
-				 * It is possible to nest multiple levels of AsyncModeProvider to fine-tune the rendering behavior.
-				 *
-				 * @param {boolean} props.value Enable Async Mode.
-				 * @return {Component} The component to be rendered.
-				 */
-				/* harmony default export */ __webpack_exports__['default'] =
-					Provider;
 				//# sourceMappingURL=context.js.map
 
 				/***/
@@ -48708,13 +47242,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./context */ './node_modules/@wordpress/data/build-module/components/async-mode-provider/context.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				function useAsyncMode() {
 					return (0,
@@ -48722,6 +47249,7 @@ styleSheet.flush()
 						_context__WEBPACK_IMPORTED_MODULE_1__.Context
 					);
 				}
+
 				//# sourceMappingURL=use-async-mode.js.map
 
 				/***/
@@ -48747,6 +47275,9 @@ styleSheet.flush()
 						/* harmony export */ RegistryConsumer: function () {
 							return /* binding */ RegistryConsumer;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ context_default;
+						},
 						/* harmony export */
 					}
 				);
@@ -48762,13 +47293,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../../default-registry */ './node_modules/@wordpress/data/build-module/default-registry.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				const Context = (0,
 				_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createContext)(
@@ -48776,49 +47300,9 @@ styleSheet.flush()
 				);
 				Context.displayName = 'RegistryProviderContext';
 				const { Consumer, Provider } = Context;
-
-				/**
-				 * A custom react Context consumer exposing the provided `registry` to
-				 * children components. Used along with the RegistryProvider.
-				 *
-				 * You can read more about the react context api here:
-				 * https://react.dev/learn/passing-data-deeply-with-context#step-3-provide-the-context
-				 *
-				 * @example
-				 * ```js
-				 * import {
-				 *   RegistryProvider,
-				 *   RegistryConsumer,
-				 *   createRegistry
-				 * } from '@wordpress/data';
-				 *
-				 * const registry = createRegistry( {} );
-				 *
-				 * const App = ( { props } ) => {
-				 *   return <RegistryProvider value={ registry }>
-				 *     <div>Hello There</div>
-				 *     <RegistryConsumer>
-				 *       { ( registry ) => (
-				 *         <ComponentUsingRegistry
-				 *         		{ ...props }
-				 *         	  registry={ registry }
-				 *       ) }
-				 *     </RegistryConsumer>
-				 *   </RegistryProvider>
-				 * }
-				 * ```
-				 */
 				const RegistryConsumer = Consumer;
+				var context_default = Provider;
 
-				/**
-				 * A custom Context provider for exposing the provided `registry` to children
-				 * components via a consumer.
-				 *
-				 * See <a name="#RegistryConsumer">RegistryConsumer</a> documentation for
-				 * example.
-				 */
-				/* harmony default export */ __webpack_exports__['default'] =
-					Provider;
 				//# sourceMappingURL=context.js.map
 
 				/***/
@@ -48856,59 +47340,14 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./context */ './node_modules/@wordpress/data/build-module/components/registry-provider/context.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * A custom react hook exposing the registry context for use.
-				 *
-				 * This exposes the `registry` value provided via the
-				 * <a href="#RegistryProvider">Registry Provider</a> to a component implementing
-				 * this hook.
-				 *
-				 * It acts similarly to the `useContext` react hook.
-				 *
-				 * Note: Generally speaking, `useRegistry` is a low level hook that in most cases
-				 * won't be needed for implementation. Most interactions with the `@wordpress/data`
-				 * API can be performed via the `useSelect` hook,  or the `withSelect` and
-				 * `withDispatch` higher order components.
-				 *
-				 * @example
-				 * ```js
-				 * import {
-				 *   RegistryProvider,
-				 *   createRegistry,
-				 *   useRegistry,
-				 * } from '@wordpress/data';
-				 *
-				 * const registry = createRegistry( {} );
-				 *
-				 * const SomeChildUsingRegistry = ( props ) => {
-				 *   const registry = useRegistry();
-				 *   // ...logic implementing the registry in other react hooks.
-				 * };
-				 *
-				 *
-				 * const ParentProvidingRegistry = ( props ) => {
-				 *   return <RegistryProvider value={ registry }>
-				 *     <SomeChildUsingRegistry { ...props } />
-				 *   </RegistryProvider>
-				 * };
-				 * ```
-				 *
-				 * @return {Function}  A custom react hook exposing the registry context value.
-				 */
 				function useRegistry() {
 					return (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(
 						_context__WEBPACK_IMPORTED_MODULE_1__.Context
 					);
 				}
+
 				//# sourceMappingURL=use-registry.js.map
 
 				/***/
@@ -48925,6 +47364,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_dispatch_with_map_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! @wordpress/element */ './node_modules/react/index.js'
@@ -48941,28 +47389,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../registry-provider/use-registry */ './node_modules/@wordpress/data/build-module/components/registry-provider/use-registry.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Custom react hook for returning aggregate dispatch actions using the provided
-				 * dispatchMap.
-				 *
-				 * Currently this is an internal api only and is implemented by `withDispatch`
-				 *
-				 * @param {Function} dispatchMap Receives the `registry.dispatch` function as
-				 *                               the first argument and the `registry` object
-				 *                               as the second argument.  Should return an
-				 *                               object mapping props to functions.
-				 * @param {Array}    deps        An array of dependencies for the hook.
-				 * @return {Object}  An object mapping props to functions created by the passed
-				 *                   in dispatchMap.
-				 */
 				const useDispatchWithMap = (dispatchMap, deps) => {
 					const registry = (0,
 					_registry_provider_use_registry__WEBPACK_IMPORTED_MODULE_2__[
@@ -48989,7 +47416,6 @@ styleSheet.flush()
 							Object.entries(currentDispatchProps).map(
 								([propName, dispatcher]) => {
 									if (typeof dispatcher !== 'function') {
-										// eslint-disable-next-line no-console
 										console.warn(
 											`Property ${propName} returned from dispatchMap in useDispatchWithMap must be a function.`
 										);
@@ -49009,8 +47435,8 @@ styleSheet.flush()
 						);
 					}, [registry, ...deps]);
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					useDispatchWithMap;
+				var use_dispatch_with_map_default = useDispatchWithMap;
+
 				//# sourceMappingURL=use-dispatch-with-map.js.map
 
 				/***/
@@ -49027,69 +47453,20 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ use_dispatch_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _registry_provider_use_registry__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ../registry-provider/use-registry */ './node_modules/@wordpress/data/build-module/components/registry-provider/use-registry.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * @typedef {import('../../types').StoreDescriptor<StoreConfig>} StoreDescriptor
-				 * @template {import('../../types').AnyConfig} StoreConfig
-				 */
-				/**
-				 * @typedef {import('../../types').UseDispatchReturn<StoreNameOrDescriptor>} UseDispatchReturn
-				 * @template StoreNameOrDescriptor
-				 */
-
-				/**
-				 * A custom react hook returning the current registry dispatch actions creators.
-				 *
-				 * Note: The component using this hook must be within the context of a
-				 * RegistryProvider.
-				 *
-				 * @template {undefined | string | StoreDescriptor<any>} StoreNameOrDescriptor
-				 * @param {StoreNameOrDescriptor} [storeNameOrDescriptor] Optionally provide the name of the
-				 *                                                        store or its descriptor from which to
-				 *                                                        retrieve action creators. If not
-				 *                                                        provided, the registry.dispatch
-				 *                                                        function is returned instead.
-				 *
-				 * @example
-				 * This illustrates a pattern where you may need to retrieve dynamic data from
-				 * the server via the `useSelect` hook to use in combination with the dispatch
-				 * action.
-				 *
-				 * ```jsx
-				 * import { useCallback } from 'react';
-				 * import { useDispatch, useSelect } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * function Button( { onClick, children } ) {
-				 *   return <button type="button" onClick={ onClick }>{ children }</button>
-				 * }
-				 *
-				 * const SaleButton = ( { children } ) => {
-				 *   const { stockNumber } = useSelect(
-				 *     ( select ) => select( myCustomStore ).getStockNumber(),
-				 *     []
-				 *   );
-				 *   const { startSale } = useDispatch( myCustomStore );
-				 *   const onClick = useCallback( () => {
-				 *     const discountPercent = stockNumber > 50 ? 10: 20;
-				 *     startSale( discountPercent );
-				 *   }, [ stockNumber ] );
-				 *   return <Button onClick={ onClick }>{ children }</Button>
-				 * }
-				 *
-				 * // Rendered somewhere in the application:
-				 * //
-				 * // <SaleButton>Start Sale!</SaleButton>
-				 * ```
-				 * @return {UseDispatchReturn<StoreNameOrDescriptor>} A custom react hook.
-				 */
 				const useDispatch = (storeNameOrDescriptor) => {
 					const { dispatch } = (0,
 					_registry_provider_use_registry__WEBPACK_IMPORTED_MODULE_0__[
@@ -49099,8 +47476,8 @@ styleSheet.flush()
 						? dispatch
 						: dispatch(storeNameOrDescriptor);
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					useDispatch;
+				var use_dispatch_default = useDispatch;
+
 				//# sourceMappingURL=use-dispatch.js.map
 
 				/***/
@@ -49153,13 +47530,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../async-mode-provider/use-async-mode */ './node_modules/@wordpress/data/build-module/components/async-mode-provider/use-async-mode.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
 
 				const renderQueue = (0,
 				_wordpress_priority_queue__WEBPACK_IMPORTED_MODULE_0__.createQueue)();
@@ -49171,32 +47541,11 @@ styleSheet.flush()
 						typeof a === 'object' && typeof b === 'object'
 							? Object.keys(a).filter((k) => a[k] !== b[k])
 							: [];
-
-					// eslint-disable-next-line no-console
 					console.warn(
-						'The `useSelect` hook returns different values when called with the same state and parameters.\n' +
-							'This can lead to unnecessary re-renders and performance issues if not fixed.\n\n' +
-							'Non-equal value keys: %s\n\n',
+						'The `useSelect` hook returns different values when called with the same state and parameters.\nThis can lead to unnecessary re-renders and performance issues if not fixed.\n\nNon-equal value keys: %s\n\n',
 						keys.join(', ')
 					);
 				}
-
-				/**
-				 * @typedef {import('../../types').StoreDescriptor<C>} StoreDescriptor
-				 * @template {import('../../types').AnyConfig} C
-				 */
-				/**
-				 * @typedef {import('../../types').ReduxStoreConfig<State,Actions,Selectors>} ReduxStoreConfig
-				 * @template State
-				 * @template {Record<string,import('../../types').ActionCreator>} Actions
-				 * @template Selectors
-				 */
-				/** @typedef {import('../../types').MapSelect} MapSelect */
-				/**
-				 * @typedef {import('../../types').UseSelectReturn<T>} UseSelectReturn
-				 * @template {MapSelect|StoreDescriptor<any>} T
-				 */
-
 				function Store(registry, suspense) {
 					const select = suspense
 						? registry.suspendSelect
@@ -49208,35 +47557,14 @@ styleSheet.flush()
 					let lastIsAsync;
 					let subscriber;
 					let didWarnUnstableReference;
-					const storeStatesOnMount = new Map();
+					const storeStatesOnMount = /* @__PURE__ */ new Map();
 					function getStoreState(name) {
-						var _registry$stores$name;
-						// If there's no store property (custom generic store), return an empty
-						// object. When comparing the state, the empty objects will cause the
-						// equality check to fail, setting `lastMapResultValid` to false.
-						return (_registry$stores$name =
-							registry.stores[name]?.store?.getState?.()) !==
-							null && _registry$stores$name !== void 0
-							? _registry$stores$name
-							: {};
+						return registry.stores[name]?.store?.getState?.() ?? {};
 					}
 					const createSubscriber = (stores) => {
-						// The set of stores the `subscribe` function is supposed to subscribe to. Here it is
-						// initialized, and then the `updateStores` function can add new stores to it.
 						const activeStores = [...stores];
-
-						// The `subscribe` function, which is passed to the `useSyncExternalStore` hook, could
-						// be called multiple times to establish multiple subscriptions. That's why we need to
-						// keep a set of active subscriptions;
-						const activeSubscriptions = new Set();
+						const activeSubscriptions = /* @__PURE__ */ new Set();
 						function subscribe(listener) {
-							// Maybe invalidate the value right after subscription was created.
-							// React will call `getValue` after subscribing, to detect store
-							// updates that happened in the interval between the `getValue` call
-							// during render and creating the subscription, which is slightly
-							// delayed. We need to ensure that this second `getValue` call will
-							// compute a fresh value only if any of the store states have
-							// changed in the meantime.
 							if (lastMapResultValid) {
 								for (const name of activeStores) {
 									if (
@@ -49249,7 +47577,6 @@ styleSheet.flush()
 							}
 							storeStatesOnMount.clear();
 							const onStoreChange = () => {
-								// Invalidate the value on store update, so that a fresh value is computed.
 								lastMapResultValid = false;
 								listener();
 							};
@@ -49276,49 +47603,33 @@ styleSheet.flush()
 							return () => {
 								activeSubscriptions.delete(subscribeStore);
 								for (const unsub of unsubs.values()) {
-									// The return value of the subscribe function could be undefined if the store is a custom generic store.
 									unsub?.();
 								}
-								// Cancel existing store updates that were already scheduled.
 								renderQueue.cancel(queueContext);
 							};
 						}
-
-						// Check if `newStores` contains some stores we're not subscribed to yet, and add them.
 						function updateStores(newStores) {
 							for (const newStore of newStores) {
 								if (activeStores.includes(newStore)) {
 									continue;
 								}
-
-								// New `subscribe` calls will subscribe to `newStore`, too.
 								activeStores.push(newStore);
-
-								// Add `newStore` to existing subscriptions.
 								for (const subscription of activeSubscriptions) {
 									subscription(newStore);
 								}
 							}
 						}
-						return {
-							subscribe,
-							updateStores,
-						};
+						return { subscribe, updateStores };
 					};
 					return (mapSelect, isAsync) => {
 						function updateValue() {
-							// If the last value is valid, and the `mapSelect` callback hasn't changed,
-							// then we can safely return the cached value. The value can change only on
-							// store update, and in that case value will be invalidated by the listener.
 							if (
 								lastMapResultValid &&
 								mapSelect === lastMapSelect
 							) {
 								return lastMapResult;
 							}
-							const listeningStores = {
-								current: null,
-							};
+							const listeningStores = { current: null };
 							const mapResult =
 								registry.__unstableMarkListeningStores(
 									() => mapSelect(select, registry),
@@ -49359,9 +47670,6 @@ styleSheet.flush()
 									listeningStores.current
 								);
 							}
-
-							// If the new value is shallow-equal to the old one, keep the old one so
-							// that we don't trigger unwanted updates that do a `===` check.
 							if (
 								!(0,
 								_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_2__[
@@ -49374,26 +47682,16 @@ styleSheet.flush()
 							lastMapResultValid = true;
 						}
 						function getValue() {
-							// Update the value in case it's been invalidated or `mapSelect` has changed.
 							updateValue();
 							return lastMapResult;
 						}
-
-						// When transitioning from async to sync mode, cancel existing store updates
-						// that have been scheduled, and invalidate the value so that it's freshly
-						// computed. It might have been changed by the update we just cancelled.
 						if (lastIsAsync && !isAsync) {
 							lastMapResultValid = false;
 							renderQueue.cancel(queueContext);
 						}
 						updateValue();
 						lastIsAsync = isAsync;
-
-						// Return a pair of functions that can be passed to `useSyncExternalStore`.
-						return {
-							subscribe: subscriber.subscribe,
-							getValue,
-						};
+						return { subscribe: subscriber.subscribe, getValue };
 					};
 				}
 				function _useStaticSelect(storeName) {
@@ -49416,9 +47714,6 @@ styleSheet.flush()
 						() => Store(registry, suspense),
 						[registry, suspense]
 					);
-
-					// These are "pass-through" dependencies from the parent hook,
-					// and the parent should catch any hook rule violations.
 					const selector = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(
 						mapSelect,
@@ -49437,74 +47732,7 @@ styleSheet.flush()
 					);
 					return result;
 				}
-
-				/**
-				 * Custom react hook for retrieving props from registered selectors.
-				 *
-				 * In general, this custom React hook follows the
-				 * [rules of hooks](https://react.dev/reference/rules/rules-of-hooks).
-				 *
-				 * @template {MapSelect | StoreDescriptor<any>} T
-				 * @param {T}         mapSelect Function called on every state change. The returned value is
-				 *                              exposed to the component implementing this hook. The function
-				 *                              receives the `registry.select` method on the first argument
-				 *                              and the `registry` on the second argument.
-				 *                              When a store key is passed, all selectors for the store will be
-				 *                              returned. This is only meant for usage of these selectors in event
-				 *                              callbacks, not for data needed to create the element tree.
-				 * @param {unknown[]} deps      If provided, this memoizes the mapSelect so the same `mapSelect` is
-				 *                              invoked on every state change unless the dependencies change.
-				 *
-				 * @example
-				 * ```js
-				 * import { useSelect } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * function HammerPriceDisplay( { currency } ) {
-				 *   const price = useSelect( ( select ) => {
-				 *     return select( myCustomStore ).getPrice( 'hammer', currency );
-				 *   }, [ currency ] );
-				 *   return new Intl.NumberFormat( 'en-US', {
-				 *     style: 'currency',
-				 *     currency,
-				 *   } ).format( price );
-				 * }
-				 *
-				 * // Rendered in the application:
-				 * // <HammerPriceDisplay currency="USD" />
-				 * ```
-				 *
-				 * In the above example, when `HammerPriceDisplay` is rendered into an
-				 * application, the price will be retrieved from the store state using the
-				 * `mapSelect` callback on `useSelect`. If the currency prop changes then
-				 * any price in the state for that currency is retrieved. If the currency prop
-				 * doesn't change and other props are passed in that do change, the price will
-				 * not change because the dependency is just the currency.
-				 *
-				 * When data is only used in an event callback, the data should not be retrieved
-				 * on render, so it may be useful to get the selectors function instead.
-				 *
-				 * **Don't use `useSelect` this way when calling the selectors in the render
-				 * function because your component won't re-render on a data change.**
-				 *
-				 * ```js
-				 * import { useSelect } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * function Paste( { children } ) {
-				 *   const { getSettings } = useSelect( myCustomStore );
-				 *   function onPaste() {
-				 *     // Do something with the settings.
-				 *     const settings = getSettings();
-				 *   }
-				 *   return <div onPaste={ onPaste }>{ children }</div>;
-				 * }
-				 * ```
-				 * @return {UseSelectReturn<T>} A custom react hook.
-				 */
 				function useSelect(mapSelect, deps) {
-					// On initial call, on mount, determine the mode of this `useSelect` call
-					// and then never allow it to change on subsequent updates.
 					const staticSelectMode = typeof mapSelect !== 'function';
 					const staticSelectModeRef = (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)(
@@ -49521,36 +47749,14 @@ styleSheet.flush()
 							`Switching useSelect from ${prevMode} to ${nextMode} is not allowed`
 						);
 					}
-
-					// `staticSelectMode` is not allowed to change during the hook instance's,
-					// lifetime, so the rules of hooks are not really violated.
 					return staticSelectMode
 						? _useStaticSelect(mapSelect)
 						: _useMappingSelect(false, mapSelect, deps);
 				}
-
-				/**
-				 * A variant of the `useSelect` hook that has the same API, but is a compatible
-				 * Suspense-enabled data source.
-				 *
-				 * @template {MapSelect} T
-				 * @param {T}     mapSelect Function called on every state change. The
-				 *                          returned value is exposed to the component
-				 *                          using this hook. The function receives the
-				 *                          `registry.suspendSelect` method as the first
-				 *                          argument and the `registry` as the second one.
-				 * @param {Array} deps      A dependency array used to memoize the `mapSelect`
-				 *                          so that the same `mapSelect` is invoked on every
-				 *                          state change unless the dependencies change.
-				 *
-				 * @throws {Promise} A suspense Promise that is thrown if any of the called
-				 * selectors is in an unresolved state.
-				 *
-				 * @return {ReturnType<T>} Data object returned by the `mapSelect` function.
-				 */
 				function useSuspenseSelect(mapSelect, deps) {
 					return _useMappingSelect(true, mapSelect, deps);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -49567,113 +47773,31 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
-					);
-				/* harmony import */ var _use_dispatch__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ../use-dispatch */ './node_modules/@wordpress/data/build-module/components/use-dispatch/use-dispatch-with-map.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ with_dispatch_default;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {import('react').ComponentType} ComponentType */
-
-				/**
-				 * Higher-order component used to add dispatch props using registered action
-				 * creators.
-				 *
-				 * @param {Function} mapDispatchToProps A function of returning an object of
-				 *                                      prop names where value is a
-				 *                                      dispatch-bound action creator, or a
-				 *                                      function to be called with the
-				 *                                      component's props and returning an
-				 *                                      action creator.
-				 *
-				 * @example
-				 * ```jsx
-				 * function Button( { onClick, children } ) {
-				 *     return <button type="button" onClick={ onClick }>{ children }</button>;
-				 * }
-				 *
-				 * import { withDispatch } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * const SaleButton = withDispatch( ( dispatch, ownProps ) => {
-				 *     const { startSale } = dispatch( myCustomStore );
-				 *     const { discountPercent } = ownProps;
-				 *
-				 *     return {
-				 *         onClick() {
-				 *             startSale( discountPercent );
-				 *         },
-				 *     };
-				 * } )( Button );
-				 *
-				 * // Rendered in the application:
-				 * //
-				 * // <SaleButton discountPercent="20">Start Sale!</SaleButton>
-				 * ```
-				 *
-				 * @example
-				 * In the majority of cases, it will be sufficient to use only two first params
-				 * passed to `mapDispatchToProps` as illustrated in the previous example.
-				 * However, there might be some very advanced use cases where using the
-				 * `registry` object might be used as a tool to optimize the performance of
-				 * your component. Using `select` function from the registry might be useful
-				 * when you need to fetch some dynamic data from the store at the time when the
-				 * event is fired, but at the same time, you never use it to render your
-				 * component. In such scenario, you can avoid using the `withSelect` higher
-				 * order component to compute such prop, which might lead to unnecessary
-				 * re-renders of your component caused by its frequent value change.
-				 * Keep in mind, that `mapDispatchToProps` must return an object with functions
-				 * only.
-				 *
-				 * ```jsx
-				 * function Button( { onClick, children } ) {
-				 *     return <button type="button" onClick={ onClick }>{ children }</button>;
-				 * }
-				 *
-				 * import { withDispatch } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * const SaleButton = withDispatch( ( dispatch, ownProps, { select } ) => {
-				 *    // Stock number changes frequently.
-				 *    const { getStockNumber } = select( myCustomStore );
-				 *    const { startSale } = dispatch( myCustomStore );
-				 *    return {
-				 *        onClick() {
-				 *            const discountPercent = getStockNumber() > 50 ? 10 : 20;
-				 *            startSale( discountPercent );
-				 *        },
-				 *    };
-				 * } )( Button );
-				 *
-				 * // Rendered in the application:
-				 * //
-				 * //  <SaleButton>Start Sale!</SaleButton>
-				 * ```
-				 *
-				 * _Note:_ It is important that the `mapDispatchToProps` function always
-				 * returns an object with the same keys. For example, it should not contain
-				 * conditions under which a different value would be returned.
-				 *
-				 * @return {ComponentType} Enhanced component with merged dispatcher props.
-				 */
+				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
+					);
+				/* harmony import */ var _use_dispatch__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../use-dispatch */ './node_modules/@wordpress/data/build-module/components/use-dispatch/use-dispatch-with-map.js'
+					);
 
 				const withDispatch = (mapDispatchToProps) =>
 					(0,
-					_wordpress_compose__WEBPACK_IMPORTED_MODULE_0__.createHigherOrderComponent)(
+					_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__.createHigherOrderComponent)(
 						(WrappedComponent) => (ownProps) => {
 							const mapDispatch = (dispatch, registry) =>
 								mapDispatchToProps(
@@ -49682,22 +47806,19 @@ styleSheet.flush()
 									registry
 								);
 							const dispatchProps = (0,
-							_use_dispatch__WEBPACK_IMPORTED_MODULE_1__[
+							_use_dispatch__WEBPACK_IMPORTED_MODULE_2__[
 								'default'
 							])(mapDispatch, []);
-							return /*#__PURE__*/ (0,
-							react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(
+							return /* @__PURE__ */ (0,
+							react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 								WrappedComponent,
-								{
-									...ownProps,
-									...dispatchProps,
-								}
+								{ ...ownProps, ...dispatchProps }
 							);
 						},
 						'withDispatch'
 					);
-				/* harmony default export */ __webpack_exports__['default'] =
-					withDispatch;
+				var with_dispatch_default = withDispatch;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -49714,57 +47835,47 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
-					);
-				/* harmony import */ var _registry_provider__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! ../registry-provider */ './node_modules/@wordpress/data/build-module/components/registry-provider/context.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ with_registry_default;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Higher-order component which renders the original component with the current
-				 * registry context passed as its `registry` prop.
-				 *
-				 * @param {Component} OriginalComponent Original component.
-				 *
-				 * @return {Component} Enhanced component.
-				 */
+				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
+					);
+				/* harmony import */ var _registry_provider__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! ../registry-provider */ './node_modules/@wordpress/data/build-module/components/registry-provider/context.js'
+					);
 
 				const withRegistry = (0,
-				_wordpress_compose__WEBPACK_IMPORTED_MODULE_0__.createHigherOrderComponent)(
+				_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__.createHigherOrderComponent)(
 					(OriginalComponent) => (props) =>
-						/*#__PURE__*/ (0,
-						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(
-							_registry_provider__WEBPACK_IMPORTED_MODULE_1__.RegistryConsumer,
+						/* @__PURE__ */ (0,
+						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+							_registry_provider__WEBPACK_IMPORTED_MODULE_2__.RegistryConsumer,
 							{
 								children: (registry) =>
-									/*#__PURE__*/ (0,
-									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(
+									/* @__PURE__ */ (0,
+									react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 										OriginalComponent,
-										{
-											...props,
-											registry: registry,
-										}
+										{ ...props, registry }
 									),
 							}
 						),
 					'withRegistry'
 				);
-				/* harmony default export */ __webpack_exports__['default'] =
-					withRegistry;
+				var with_registry_default = withRegistry;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -49781,79 +47892,38 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
-					);
-				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/higher-order/pure/index.js'
-					);
-				/* harmony import */ var _use_select__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! ../use-select */ './node_modules/@wordpress/data/build-module/components/use-select/index.js'
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ with_select_default;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {import('react').ComponentType} ComponentType */
-
-				/**
-				 * Higher-order component used to inject state-derived props using registered
-				 * selectors.
-				 *
-				 * @param {Function} mapSelectToProps Function called on every state change,
-				 *                                    expected to return object of props to
-				 *                                    merge with the component's own props.
-				 *
-				 * @example
-				 * ```js
-				 * import { withSelect } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * function PriceDisplay( { price, currency } ) {
-				 * 	return new Intl.NumberFormat( 'en-US', {
-				 * 		style: 'currency',
-				 * 		currency,
-				 * 	} ).format( price );
-				 * }
-				 *
-				 * const HammerPriceDisplay = withSelect( ( select, ownProps ) => {
-				 * 	const { getPrice } = select( myCustomStore );
-				 * 	const { currency } = ownProps;
-				 *
-				 * 	return {
-				 * 		price: getPrice( 'hammer', currency ),
-				 * 	};
-				 * } )( PriceDisplay );
-				 *
-				 * // Rendered in the application:
-				 * //
-				 * //  <HammerPriceDisplay currency="USD" />
-				 * ```
-				 * In the above example, when `HammerPriceDisplay` is rendered into an
-				 * application, it will pass the price into the underlying `PriceDisplay`
-				 * component and update automatically if the price of a hammer ever changes in
-				 * the store.
-				 *
-				 * @return {ComponentType} Enhanced component with merged state data props.
-				 */
+				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/utils/create-higher-order-component/index.js'
+					);
+				/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! @wordpress/compose */ './node_modules/@wordpress/compose/build-module/higher-order/pure/index.js'
+					);
+				/* harmony import */ var _use_select__WEBPACK_IMPORTED_MODULE_3__ =
+					__webpack_require__(
+						/*! ../use-select */ './node_modules/@wordpress/data/build-module/components/use-select/index.js'
+					);
 
 				const withSelect = (mapSelectToProps) =>
 					(0,
-					_wordpress_compose__WEBPACK_IMPORTED_MODULE_0__.createHigherOrderComponent)(
+					_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__.createHigherOrderComponent)(
 						(WrappedComponent) =>
 							(0,
-							_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__[
+							_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__[
 								'default'
 							])((ownProps) => {
 								const mapSelect = (select, registry) =>
@@ -49863,22 +47933,19 @@ styleSheet.flush()
 										registry
 									);
 								const mergeProps = (0,
-								_use_select__WEBPACK_IMPORTED_MODULE_2__[
+								_use_select__WEBPACK_IMPORTED_MODULE_3__[
 									'default'
 								])(mapSelect);
-								return /*#__PURE__*/ (0,
-								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(
+								return /* @__PURE__ */ (0,
+								react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 									WrappedComponent,
-									{
-										...ownProps,
-										...mergeProps,
-									}
+									{ ...ownProps, ...mergeProps }
 								);
 							}),
 						'withSelect'
 					);
-				/* harmony default export */ __webpack_exports__['default'] =
-					withSelect;
+				var with_select_default = withSelect;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -49911,11 +47978,6 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./factory */ './node_modules/@wordpress/data/build-module/factory.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {import('./types').StoreDescriptor} StoreDescriptor */
 
 				const SELECT = '@@data/SELECT';
 				const RESOLVE_SELECT = '@@data/RESOLVE_SELECT';
@@ -49923,30 +47985,6 @@ styleSheet.flush()
 				function isObject(object) {
 					return object !== null && typeof object === 'object';
 				}
-
-				/**
-				 * Dispatches a control action for triggering a synchronous registry select.
-				 *
-				 * Note: This control synchronously returns the current selector value, triggering the
-				 * resolution, but not waiting for it.
-				 *
-				 * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-				 * @param {string}                 selectorName          The name of the selector.
-				 * @param {Array}                  args                  Arguments for the selector.
-				 *
-				 * @example
-				 * ```js
-				 * import { controls } from '@wordpress/data';
-				 *
-				 * // Action generator using `select`.
-				 * export function* myAction() {
-				 *   const isEditorSideBarOpened = yield controls.select( 'core/edit-post', 'isEditorSideBarOpened' );
-				 *   // Do stuff with the result from the `select`.
-				 * }
-				 * ```
-				 *
-				 * @return {Object} The control descriptor.
-				 */
 				function select(storeNameOrDescriptor, selectorName, ...args) {
 					return {
 						type: SELECT,
@@ -49957,31 +47995,6 @@ styleSheet.flush()
 						args,
 					};
 				}
-
-				/**
-				 * Dispatches a control action for triggering and resolving a registry select.
-				 *
-				 * Note: when this control action is handled, it automatically considers
-				 * selectors that may have a resolver. In such case, it will return a `Promise` that resolves
-				 * after the selector finishes resolving, with the final result value.
-				 *
-				 * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-				 * @param {string}                 selectorName          The name of the selector
-				 * @param {Array}                  args                  Arguments for the selector.
-				 *
-				 * @example
-				 * ```js
-				 * import { controls } from '@wordpress/data';
-				 *
-				 * // Action generator using resolveSelect
-				 * export function* myAction() {
-				 * 	const isSidebarOpened = yield controls.resolveSelect( 'core/edit-post', 'isEditorSideBarOpened' );
-				 * 	// do stuff with the result from the select.
-				 * }
-				 * ```
-				 *
-				 * @return {Object} The control descriptor.
-				 */
 				function resolveSelect(
 					storeNameOrDescriptor,
 					selectorName,
@@ -49996,27 +48009,6 @@ styleSheet.flush()
 						args,
 					};
 				}
-
-				/**
-				 * Dispatches a control action for triggering a registry dispatch.
-				 *
-				 * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-				 * @param {string}                 actionName            The name of the action to dispatch
-				 * @param {Array}                  args                  Arguments for the dispatch action.
-				 *
-				 * @example
-				 * ```js
-				 * import { controls } from '@wordpress/data-controls';
-				 *
-				 * // Action generator using dispatch
-				 * export function* myAction() {
-				 *   yield controls.dispatch( 'core/editor', 'togglePublishSidebar' );
-				 *   // do some other things.
-				 * }
-				 * ```
-				 *
-				 * @return {Object}  The control descriptor.
-				 */
 				function dispatch(storeNameOrDescriptor, actionName, ...args) {
 					return {
 						type: DISPATCH,
@@ -50027,11 +48019,7 @@ styleSheet.flush()
 						args,
 					};
 				}
-				const controls = {
-					select,
-					resolveSelect,
-					dispatch,
-				};
+				const controls = { select, resolveSelect, dispatch };
 				const builtinControls = {
 					[SELECT]: (0,
 					_factory__WEBPACK_IMPORTED_MODULE_0__.createRegistryControl)(
@@ -50060,6 +48048,7 @@ styleSheet.flush()
 								registry.dispatch(storeKey)[actionName](...args)
 					),
 				};
+
 				//# sourceMappingURL=controls.js.map
 
 				/***/
@@ -50076,17 +48065,23 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ default_registry_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _registry__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./registry */ './node_modules/@wordpress/data/build-module/registry.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/* harmony default export */ __webpack_exports__['default'] =
-					(0,
-					_registry__WEBPACK_IMPORTED_MODULE_0__.createRegistry)();
+				var default_registry_default = (0,
+				_registry__WEBPACK_IMPORTED_MODULE_0__.createRegistry)();
+
 				//# sourceMappingURL=default-registry.js.map
 
 				/***/
@@ -50116,34 +48111,13 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./default-registry */ './node_modules/@wordpress/data/build-module/default-registry.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Given a store descriptor, returns an object of the store's action creators.
-				 * Calling an action creator will cause it to be dispatched, updating the state value accordingly.
-				 *
-				 * Note: Action creators returned by the dispatch will return a promise when
-				 * they are called.
-				 *
-				 * @param storeNameOrDescriptor The store descriptor. The legacy calling convention of passing
-				 *                              the store name is also supported.
-				 *
-				 * @example
-				 * ```js
-				 * import { dispatch } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * dispatch( myCustomStore ).setPrice( 'hammer', 9.75 );
-				 * ```
-				 * @return Object containing the action creators.
-				 */
 				function dispatch(storeNameOrDescriptor) {
 					return _default_registry__WEBPACK_IMPORTED_MODULE_0__[
 						'default'
 					].dispatch(storeNameOrDescriptor);
 				}
+
 				//# sourceMappingURL=dispatch.js.map
 
 				/***/
@@ -50174,63 +48148,12 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Creates a selector function that takes additional curried argument with the
-				 * registry `select` function. While a regular selector has signature
-				 * ```js
-				 * ( state, ...selectorArgs ) => ( result )
-				 * ```
-				 * that allows to select data from the store's `state`, a registry selector
-				 * has signature:
-				 * ```js
-				 * ( select ) => ( state, ...selectorArgs ) => ( result )
-				 * ```
-				 * that supports also selecting from other registered stores.
-				 *
-				 * @example
-				 * ```js
-				 * import { store as coreStore } from '@wordpress/core-data';
-				 * import { store as editorStore } from '@wordpress/editor';
-				 *
-				 * const getCurrentPostId = createRegistrySelector( ( select ) => ( state ) => {
-				 *   return select( editorStore ).getCurrentPostId();
-				 * } );
-				 *
-				 * const getPostEdits = createRegistrySelector( ( select ) => ( state ) => {
-				 *   // calling another registry selector just like any other function
-				 *   const postType = getCurrentPostType( state );
-				 *   const postId = getCurrentPostId( state );
-				 *	 return select( coreStore ).getEntityRecordEdits( 'postType', postType, postId );
-				 * } );
-				 * ```
-				 *
-				 * Note how the `getCurrentPostId` selector can be called just like any other function,
-				 * (it works even inside a regular non-registry selector) and we don't need to pass the
-				 * registry as argument. The registry binding happens automatically when registering the selector
-				 * with a store.
-				 *
-				 * @param registrySelector Function receiving a registry `select`
-				 *                         function and returning a state selector.
-				 *
-				 * @return Registry selector that can be registered with a store.
-				 */
 				function createRegistrySelector(registrySelector) {
-					const selectorsByRegistry = new WeakMap();
-					// Create a selector function that is bound to the registry referenced by `selector.registry`
-					// and that has the same API as a regular selector. Binding it in such a way makes it
-					// possible to call the selector directly from another selector.
+					const selectorsByRegistry = /* @__PURE__ */ new WeakMap();
 					const wrappedSelector = (...args) => {
 						let selector = selectorsByRegistry.get(
 							wrappedSelector.registry
 						);
-						// We want to make sure the cache persists even when new registry
-						// instances are created. For example patterns create their own editors
-						// with their own core/block-editor stores, so we should keep track of
-						// the cache for each registry instance.
 						if (!selector) {
 							selector = registrySelector(
 								wrappedSelector.registry.select
@@ -50242,40 +48165,14 @@ styleSheet.flush()
 						}
 						return selector(...args);
 					};
-
-					/**
-					 * Flag indicating that the selector is a registry selector that needs the correct registry
-					 * reference to be assigned to `selector.registry` to make it work correctly.
-					 * be mapped as a registry selector.
-					 */
 					wrappedSelector.isRegistrySelector = true;
 					return wrappedSelector;
 				}
-
-				/**
-				 * Creates a control function that takes additional curried argument with the `registry` object.
-				 * While a regular control has signature
-				 * ```js
-				 * ( action ) => ( iteratorOrPromise )
-				 * ```
-				 * where the control works with the `action` that it's bound to, a registry control has signature:
-				 * ```js
-				 * ( registry ) => ( action ) => ( iteratorOrPromise )
-				 * ```
-				 * A registry control is typically used to select data or dispatch an action to a registered
-				 * store.
-				 *
-				 * When registering a control created with `createRegistryControl` with a store, the store
-				 * knows which calling convention to use when executing the control.
-				 *
-				 * @param registryControl Function receiving a registry object and returning a control.
-				 *
-				 * @return Registry control that can be registered with a store.
-				 */
 				function createRegistryControl(registryControl) {
 					registryControl.isRegistryControl = true;
 					return registryControl;
 				}
+
 				//# sourceMappingURL=factory.js.map
 
 				/***/
@@ -50473,186 +48370,31 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./select */ './node_modules/@wordpress/data/build-module/select.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/** @typedef {import('./types').StoreDescriptor} StoreDescriptor */
-
-				/**
-				 * Object of available plugins to use with a registry.
-				 *
-				 * @see [use](#use)
-				 *
-				 * @type {Object}
-				 */
-
-				/**
-				 * The combineReducers helper function turns an object whose values are different
-				 * reducing functions into a single reducing function you can pass to registerReducer.
-				 *
-				 * @type  {import('./types').combineReducers}
-				 * @param {Object} reducers An object whose values correspond to different reducing
-				 *                          functions that need to be combined into one.
-				 *
-				 * @example
-				 * ```js
-				 * import { combineReducers, createReduxStore, register } from '@wordpress/data';
-				 *
-				 * const prices = ( state = {}, action ) => {
-				 * 	return action.type === 'SET_PRICE' ?
-				 * 		{
-				 * 			...state,
-				 * 			[ action.item ]: action.price,
-				 * 		} :
-				 * 		state;
-				 * };
-				 *
-				 * const discountPercent = ( state = 0, action ) => {
-				 * 	return action.type === 'START_SALE' ?
-				 * 		action.discountPercent :
-				 * 		state;
-				 * };
-				 *
-				 * const store = createReduxStore( 'my-shop', {
-				 * 	reducer: combineReducers( {
-				 * 		prices,
-				 * 		discountPercent,
-				 * 	} ),
-				 * } );
-				 * register( store );
-				 * ```
-				 *
-				 * @return {Function} A reducer that invokes every reducer inside the reducers
-				 *                    object, and constructs a state object with the same shape.
-				 */
 				const combineReducers =
 					_redux_store__WEBPACK_IMPORTED_MODULE_2__.combineReducers;
-
-				/**
-				 * Given a store descriptor, returns an object containing the store's selectors pre-bound to state
-				 * so that you only need to supply additional arguments, and modified so that they return promises
-				 * that resolve to their eventual values, after any resolvers have ran.
-				 *
-				 * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
-				 *                                                       convention of passing the store name is
-				 *                                                       also supported.
-				 *
-				 * @example
-				 * ```js
-				 * import { resolveSelect } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * resolveSelect( myCustomStore ).getPrice( 'hammer' ).then(console.log)
-				 * ```
-				 *
-				 * @return {Object} Object containing the store's promise-wrapped selectors.
-				 */
 				const resolveSelect =
 					_default_registry__WEBPACK_IMPORTED_MODULE_0__['default']
 						.resolveSelect;
-
-				/**
-				 * Given a store descriptor, returns an object containing the store's selectors pre-bound to state
-				 * so that you only need to supply additional arguments, and modified so that they throw promises
-				 * in case the selector is not resolved yet.
-				 *
-				 * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
-				 *                                                       convention of passing the store name is
-				 *                                                       also supported.
-				 *
-				 * @return {Object} Object containing the store's suspense-wrapped selectors.
-				 */
 				const suspendSelect =
 					_default_registry__WEBPACK_IMPORTED_MODULE_0__['default']
 						.suspendSelect;
-
-				/**
-				 * Given a listener function, the function will be called any time the state value
-				 * of one of the registered stores has changed. If you specify the optional
-				 * `storeNameOrDescriptor` parameter, the listener function will be called only
-				 * on updates on that one specific registered store.
-				 *
-				 * This function returns an `unsubscribe` function used to stop the subscription.
-				 *
-				 * @param {Function}                listener              Callback function.
-				 * @param {string|StoreDescriptor?} storeNameOrDescriptor Optional store name.
-				 *
-				 * @example
-				 * ```js
-				 * import { subscribe } from '@wordpress/data';
-				 *
-				 * const unsubscribe = subscribe( () => {
-				 * 	// You could use this opportunity to test whether the derived result of a
-				 * 	// selector has subsequently changed as the result of a state update.
-				 * } );
-				 *
-				 * // Later, if necessary...
-				 * unsubscribe();
-				 * ```
-				 */
 				const subscribe =
 					_default_registry__WEBPACK_IMPORTED_MODULE_0__['default']
 						.subscribe;
-
-				/**
-				 * Registers a generic store instance.
-				 *
-				 * @deprecated Use `register( storeDescriptor )` instead.
-				 *
-				 * @param {string} name  Store registry name.
-				 * @param {Object} store Store instance (`{ getSelectors, getActions, subscribe }`).
-				 */
 				const registerGenericStore =
 					_default_registry__WEBPACK_IMPORTED_MODULE_0__['default']
 						.registerGenericStore;
-
-				/**
-				 * Registers a standard `@wordpress/data` store.
-				 *
-				 * @deprecated Use `register` instead.
-				 *
-				 * @param {string} storeName Unique namespace identifier for the store.
-				 * @param {Object} options   Store description (reducer, actions, selectors, resolvers).
-				 *
-				 * @return {Object} Registered store object.
-				 */
 				const registerStore =
 					_default_registry__WEBPACK_IMPORTED_MODULE_0__['default']
 						.registerStore;
-
-				/**
-				 * Extends a registry to inherit functionality provided by a given plugin. A
-				 * plugin is an object with properties aligning to that of a registry, merged
-				 * to extend the default registry behavior.
-				 *
-				 * @param {Object} plugin Plugin object.
-				 */
 				const use =
 					_default_registry__WEBPACK_IMPORTED_MODULE_0__['default']
 						.use;
-
-				/**
-				 * Registers a standard `@wordpress/data` store descriptor.
-				 *
-				 * @example
-				 * ```js
-				 * import { createReduxStore, register } from '@wordpress/data';
-				 *
-				 * const store = createReduxStore( 'demo', {
-				 *     reducer: ( state = 'OK' ) => state,
-				 *     selectors: {
-				 *         getValue: ( state ) => state,
-				 *     },
-				 * } );
-				 * register( store );
-				 * ```
-				 *
-				 * @param {StoreDescriptor} store Store descriptor.
-				 */
 				const register =
 					_default_registry__WEBPACK_IMPORTED_MODULE_0__['default']
 						.register;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -50685,15 +48427,13 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/private-apis */ './node_modules/@wordpress/private-apis/build-module/implementation.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
 				const { lock, unlock } = (0,
 				_wordpress_private_apis__WEBPACK_IMPORTED_MODULE_0__.__dangerousOptInToUnstableAPIsOnlyForCoreModules)(
 					'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of WordPress.',
 					'@wordpress/data'
 				);
+
 				//# sourceMappingURL=lock-unlock.js.map
 
 				/***/
@@ -50749,6 +48489,9 @@ styleSheet.flush()
 							function () {
 								return /* binding */ createPersistenceInterface;
 							},
+						/* harmony export */ default: function () {
+							return /* binding */ persistence_default;
+						},
 						/* harmony export */ withLazySameState: function () {
 							return /* binding */ withLazySameState;
 						},
@@ -50775,82 +48518,24 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../../ */ './node_modules/@wordpress/data/build-module/index.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {import('../../registry').WPDataRegistry} WPDataRegistry */
-
-				/** @typedef {import('../../registry').WPDataPlugin} WPDataPlugin */
-
-				/**
-				 * @typedef {Object} WPDataPersistencePluginOptions Persistence plugin options.
-				 *
-				 * @property {Storage} storage    Persistent storage implementation. This must
-				 *                                at least implement `getItem` and `setItem` of
-				 *                                the Web Storage API.
-				 * @property {string}  storageKey Key on which to set in persistent storage.
-				 */
-
-				/**
-				 * Default plugin storage.
-				 *
-				 * @type {Storage}
-				 */
 				const DEFAULT_STORAGE =
 					_storage_default__WEBPACK_IMPORTED_MODULE_2__['default'];
-
-				/**
-				 * Default plugin storage key.
-				 *
-				 * @type {string}
-				 */
 				const DEFAULT_STORAGE_KEY = 'WP_DATA';
-
-				/**
-				 * Higher-order reducer which invokes the original reducer only if state is
-				 * inequal from that of the action's `nextState` property, otherwise returning
-				 * the original state reference.
-				 *
-				 * @param {Function} reducer Original reducer.
-				 *
-				 * @return {Function} Enhanced reducer.
-				 */
 				const withLazySameState = (reducer) => (state, action) => {
 					if (action.nextState === state) {
 						return state;
 					}
 					return reducer(state, action);
 				};
-
-				/**
-				 * Creates a persistence interface, exposing getter and setter methods (`get`
-				 * and `set` respectively).
-				 *
-				 * @param {WPDataPersistencePluginOptions} options Plugin options.
-				 *
-				 * @return {Object} Persistence interface.
-				 */
 				function createPersistenceInterface(options) {
 					const {
 						storage = DEFAULT_STORAGE,
 						storageKey = DEFAULT_STORAGE_KEY,
 					} = options;
 					let data;
-
-					/**
-					 * Returns the persisted data as an object, defaulting to an empty object.
-					 *
-					 * @return {Object} Persisted data.
-					 */
 					function getData() {
-						if (data === undefined) {
-							// If unset, getItem is expected to return null. Fall back to
-							// empty object.
+						if (data === void 0) {
 							const persisted = storage.getItem(storageKey);
 							if (persisted === null) {
 								data = {};
@@ -50858,26 +48543,14 @@ styleSheet.flush()
 								try {
 									data = JSON.parse(persisted);
 								} catch (error) {
-									// Similarly, should any error be thrown during parse of
-									// the string (malformed JSON), fall back to empty object.
 									data = {};
 								}
 							}
 						}
 						return data;
 					}
-
-					/**
-					 * Merges an updated reducer state into the persisted data.
-					 *
-					 * @param {string} key   Key to update.
-					 * @param {*}      value Updated value.
-					 */
 					function setData(key, value) {
-						data = {
-							...data,
-							[key]: value,
-						};
+						data = { ...data, [key]: value };
 						storage.setItem(storageKey, JSON.stringify(data));
 					}
 					return {
@@ -50885,37 +48558,12 @@ styleSheet.flush()
 						set: setData,
 					};
 				}
-
-				/**
-				 * Data plugin to persist store state into a single storage key.
-				 *
-				 * @param {WPDataRegistry}                  registry      Data registry.
-				 * @param {?WPDataPersistencePluginOptions} pluginOptions Plugin options.
-				 *
-				 * @return {WPDataPlugin} Data plugin.
-				 */
 				function persistencePlugin(registry, pluginOptions) {
 					const persistence =
 						createPersistenceInterface(pluginOptions);
-
-					/**
-					 * Creates an enhanced store dispatch function, triggering the state of the
-					 * given store name to be persisted when changed.
-					 *
-					 * @param {Function}       getState  Function which returns current state.
-					 * @param {string}         storeName Store name.
-					 * @param {?Array<string>} keys      Optional subset of keys to save.
-					 *
-					 * @return {Function} Enhanced dispatch function.
-					 */
 					function createPersistOnChange(getState, storeName, keys) {
 						let getPersistedState;
 						if (Array.isArray(keys)) {
-							// Given keys, the persisted state should by produced as an object
-							// of the subset of keys. This implementation uses combineReducers
-							// to leverage its behavior of returning the same object when none
-							// of the property values changes. This allows a strict reference
-							// equality to bypass a persistence set on an unchanging state.
 							const reducers = keys.reduce(
 								(accumulator, key) =>
 									Object.assign(accumulator, {
@@ -50934,7 +48582,7 @@ styleSheet.flush()
 							getPersistedState = (state, action) =>
 								action.nextState;
 						}
-						let lastState = getPersistedState(undefined, {
+						let lastState = getPersistedState(void 0, {
 							nextState: getState(),
 						});
 						return () => {
@@ -50955,10 +48603,8 @@ styleSheet.flush()
 									options
 								);
 							}
-
-							// Load from persistence to use as initial state.
 							const persistedState = persistence.get()[storeName];
-							if (persistedState !== undefined) {
+							if (persistedState !== void 0) {
 								let initialState = options.reducer(
 									options.initialState,
 									{
@@ -50975,11 +48621,6 @@ styleSheet.flush()
 										persistedState
 									)
 								) {
-									// If state is an object, ensure that:
-									// - Other keys are left intact when persisting only a
-									//   subset of keys.
-									// - New keys in what would otherwise be used as initial
-									//   state are deeply merged as base for persisted value.
 									initialState =
 										deepmerge__WEBPACK_IMPORTED_MODULE_1___default()(
 											initialState,
@@ -50990,8 +48631,6 @@ styleSheet.flush()
 											}
 										);
 								} else {
-									// If there is a mismatch in object-likeness of default
-									// initial or persisted state, defer to persisted value.
 									initialState = persistedState;
 								}
 								options = {
@@ -51015,8 +48654,8 @@ styleSheet.flush()
 					};
 				}
 				persistencePlugin.__unstableMigrate = () => {};
-				/* harmony default export */ __webpack_exports__['default'] =
-					persistencePlugin;
+				var persistence_default = persistencePlugin;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -51033,27 +48672,30 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ default_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _object__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./object */ './node_modules/@wordpress/data/build-module/plugins/persistence/storage/object.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
 				let storage;
 				try {
-					// Private Browsing in Safari 10 and earlier will throw an error when
-					// attempting to set into localStorage. The test here is intentional in
-					// causing a thrown error as condition for using fallback object storage.
 					storage = window.localStorage;
 					storage.setItem('__wpDataTestLocalStorage', '');
 					storage.removeItem('__wpDataTestLocalStorage');
 				} catch (error) {
 					storage = _object__WEBPACK_IMPORTED_MODULE_0__['default'];
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					storage;
+				var default_default = storage;
+
 				//# sourceMappingURL=default.js.map
 
 				/***/
@@ -51070,6 +48712,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ object_default;
+						},
+						/* harmony export */
+					}
+				);
 				let objectStorage;
 				const storage = {
 					getItem(key) {
@@ -51085,11 +48736,11 @@ styleSheet.flush()
 						objectStorage[key] = String(value);
 					},
 					clear() {
-						objectStorage = Object.create(null);
+						objectStorage = /* @__PURE__ */ Object.create(null);
 					},
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					storage;
+				var object_default = storage;
+
 				//# sourceMappingURL=object.js.map
 
 				/***/
@@ -51106,19 +48757,20 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ promise_middleware_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var is_promise__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! is-promise */ './node_modules/is-promise/index.mjs'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Simplest possible promise redux middleware.
-				 *
-				 * @type {import('redux').Middleware}
-				 */
 				const promiseMiddleware = () => (next) => (action) => {
 					if (
 						(0, is_promise__WEBPACK_IMPORTED_MODULE_0__['default'])(
@@ -51133,8 +48785,8 @@ styleSheet.flush()
 					}
 					return next(action);
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					promiseMiddleware;
+				var promise_middleware_default = promiseMiddleware;
+
 				//# sourceMappingURL=promise-middleware.js.map
 
 				/***/
@@ -51180,6 +48832,7 @@ styleSheet.flush()
 						return hasChanged ? nextState : state;
 					};
 				}
+
 				//# sourceMappingURL=combine-reducers.js.map
 
 				/***/
@@ -51264,57 +48917,23 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./metadata/actions */ './node_modules/@wordpress/data/build-module/redux-store/metadata/actions.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {import('../types').DataRegistry} DataRegistry */
-				/** @typedef {import('../types').ListenerFunction} ListenerFunction */
-				/**
-				 * @typedef {import('../types').StoreDescriptor<C>} StoreDescriptor
-				 * @template {import('../types').AnyConfig} C
-				 */
-				/**
-				 * @typedef {import('../types').ReduxStoreConfig<State,Actions,Selectors>} ReduxStoreConfig
-				 * @template State
-				 * @template {Record<string,import('../types').ActionCreator>} Actions
-				 * @template Selectors
-				 */
 
 				const trimUndefinedValues = (array) => {
 					const result = [...array];
 					for (let i = result.length - 1; i >= 0; i--) {
-						if (result[i] === undefined) {
+						if (result[i] === void 0) {
 							result.splice(i, 1);
 						}
 					}
 					return result;
 				};
-
-				/**
-				 * Creates a new object with the same keys, but with `callback()` called as
-				 * a transformer function on each of the values.
-				 *
-				 * @param {Object}   obj      The object to transform.
-				 * @param {Function} callback The function to transform each object value.
-				 * @return {Array} Transformed object.
-				 */
 				const mapValues = (obj, callback) =>
 					Object.fromEntries(
-						Object.entries(
-							obj !== null && obj !== void 0 ? obj : {}
-						).map(([key, value]) => [key, callback(value, key)])
+						Object.entries(obj ?? {}).map(([key, value]) => [
+							key,
+							callback(value, key),
+						])
 					);
-
-				// Convert  non serializable types to plain objects
 				const devToolsReplacer = (key, state) => {
 					if (state instanceof Map) {
 						return Object.fromEntries(state);
@@ -51324,12 +48943,6 @@ styleSheet.flush()
 					}
 					return state;
 				};
-
-				/**
-				 * Create a cache to track whether resolvers started running or not.
-				 *
-				 * @return {Object} Resolvers Cache.
-				 */
 				function createResolversCache() {
 					const cache = {};
 					return {
@@ -51361,7 +48974,7 @@ styleSheet.flush()
 					};
 				}
 				function createBindingCache(getItem, bindItem) {
-					const cache = new WeakMap();
+					const cache = /* @__PURE__ */ new WeakMap();
 					return {
 						get(itemName) {
 							const item = getItem(itemName);
@@ -51384,33 +48997,6 @@ styleSheet.flush()
 							Reflect.get(target, itemName),
 					});
 				}
-
-				/**
-				 * Creates a data store descriptor for the provided Redux store configuration containing
-				 * properties describing reducer, actions, selectors, controls and resolvers.
-				 *
-				 * @example
-				 * ```js
-				 * import { createReduxStore } from '@wordpress/data';
-				 *
-				 * const store = createReduxStore( 'demo', {
-				 *     reducer: ( state = 'OK' ) => state,
-				 *     selectors: {
-				 *         getValue: ( state ) => state,
-				 *     },
-				 * } );
-				 * ```
-				 *
-				 * @template State
-				 * @template {Record<string,import('../types').ActionCreator>} Actions
-				 * @template Selectors
-				 * @param {string}                                    key     Unique namespace identifier.
-				 * @param {ReduxStoreConfig<State,Actions,Selectors>} options Registered store options, with properties
-				 *                                                            describing reducer, actions, selectors,
-				 *                                                            and resolvers.
-				 *
-				 * @return   {StoreDescriptor<ReduxStoreConfig<State,Actions,Selectors>>} Store Object.
-				 */
 				function createReduxStore(key, options) {
 					const privateActions = {};
 					const privateSelectors = {};
@@ -51427,24 +49013,8 @@ styleSheet.flush()
 					const storeDescriptor = {
 						name: key,
 						instantiate: (registry) => {
-							/**
-							 * Stores listener functions registered with `subscribe()`.
-							 *
-							 * When functions register to listen to store changes with
-							 * `subscribe()` they get added here. Although Redux offers
-							 * its own `subscribe()` function directly, by wrapping the
-							 * subscription in this store instance it's possible to
-							 * optimize checking if the state has changed before calling
-							 * each listener.
-							 *
-							 * @type {Set<ListenerFunction>}
-							 */
-							const listeners = new Set();
+							const listeners = /* @__PURE__ */ new Set();
 							const reducer = options.reducer;
-
-							// Object that every thunk function receives as the first argument. It contains the
-							// `registry`, `dispatch`, `select` and `resolveSelect` fields. Some of them are
-							// constructed as getters to avoid circular dependencies.
 							const thunkArgs = {
 								registry,
 								get dispatch() {
@@ -51463,29 +49033,17 @@ styleSheet.flush()
 								registry,
 								thunkArgs
 							);
-
-							// Expose the private registration functions on the store
-							// so they can be copied to a sub registry in registry.js.
 							(0, _lock_unlock__WEBPACK_IMPORTED_MODULE_6__.lock)(
 								store,
 								privateRegistrationFunctions
 							);
 							const resolversCache = createResolversCache();
-
-							// Binds an action creator (`action`) to the `store`, making it a callable function.
-							// These are the functions that are returned by `useDispatch`, for example.
-							// It always returns a `Promise`, although actions are not always async. That's an
-							// unfortunate backward compatibility measure.
 							function bindAction(action) {
 								return (...args) =>
 									Promise.resolve(
 										store.dispatch(action(...args))
 									);
 							}
-
-							/*
-							 * Object with all public actions, both metadata and store actions.
-							 */
 							const actions = {
 								...mapValues(
 									_metadata_actions__WEBPACK_IMPORTED_MODULE_12__,
@@ -51493,11 +49051,6 @@ styleSheet.flush()
 								),
 								...mapValues(options.actions, bindAction),
 							};
-
-							// Object with both public and private actions. Private actions are accessed through a proxy,
-							// which looks them up in real time on the `privateActions` object. That's because private
-							// actions can be registered at any time with `registerPrivateActions`. Also once a private
-							// action creator is bound to the store, it is cached to give it a stable identity.
 							const allActions = createPrivateProxy(
 								actions,
 								createBindingCache(
@@ -51505,32 +49058,17 @@ styleSheet.flush()
 									bindAction
 								)
 							);
-
-							// An object that implements the `dispatch` object that is passed to thunk functions.
-							// It is callable (`dispatch( action )`) and also has methods (`dispatch.foo()`) that
-							// correspond to bound registered actions, both public and private. Implemented with the proxy
-							// `get` method, delegating to `allActions`.
 							const thunkDispatch = new Proxy(
 								(action) => store.dispatch(action),
-								{
-									get: (target, name) => allActions[name],
-								}
+								{ get: (target, name) => allActions[name] }
 							);
-
-							// To the public `actions` object, add the "locked" `allActions` object. When used,
-							// `unlock( actions )` will return `allActions`, implementing a way how to get at the private actions.
 							(0, _lock_unlock__WEBPACK_IMPORTED_MODULE_6__.lock)(
 								actions,
 								allActions
 							);
-
-							// If we have selector resolvers, convert them to a normalized form.
 							const resolvers = options.resolvers
 								? mapValues(options.resolvers, mapResolver)
 								: {};
-
-							// Bind a selector to the store. Call the selector with the current state, correct registry,
-							// and if there is a resolver, attach the resolver logic to the selector.
 							function bindSelector(selector, selectorName) {
 								if (selector.isRegistrySelector) {
 									selector.registry = registry;
@@ -51539,16 +49077,11 @@ styleSheet.flush()
 									args = normalize(selector, args);
 									const state =
 										store.__unstableOriginalGetState();
-									// Before calling the selector, switch to the correct registry.
 									if (selector.isRegistrySelector) {
 										selector.registry = registry;
 									}
 									return selector(state.root, ...args);
 								};
-
-								// Expose normalization method on the bound selector
-								// in order that it can be called when fulfilling
-								// the resolver.
 								boundSelector.__unstableNormalizeArgs =
 									selector.__unstableNormalizeArgs;
 								const resolver = resolvers[selectorName];
@@ -51565,16 +49098,12 @@ styleSheet.flush()
 									boundMetadataSelectors
 								);
 							}
-
-							// Metadata selectors are bound differently: different state (`state.metadata`), no resolvers,
-							// normalization depending on the target selector.
 							function bindMetadataSelector(metaDataSelector) {
 								const boundSelector = (
 									selectorName,
 									selectorArgs,
 									...args
 								) => {
-									// Normalize the arguments passed to the target selector.
 									if (selectorName) {
 										const targetSelector =
 											options.selectors?.[selectorName];
@@ -51597,9 +49126,6 @@ styleSheet.flush()
 								boundSelector.hasResolver = false;
 								return boundSelector;
 							}
-
-							// Perform binding of both metadata and store selectors and combine them in one
-							// `selectors` object. These are all public selectors of the store.
 							const boundMetadataSelectors = mapValues(
 								_metadata_selectors__WEBPACK_IMPORTED_MODULE_11__,
 								bindMetadataSelector
@@ -51612,10 +49138,6 @@ styleSheet.flush()
 								...boundMetadataSelectors,
 								...boundSelectors,
 							};
-
-							// Cache of bould private selectors. They are bound only when first accessed, because
-							// new private selectors can be registered at any time (with `registerPrivateSelectors`).
-							// Once bound, they are cached to give them a stable identity.
 							const boundPrivateSelectors = createBindingCache(
 								(name) => privateSelectors[name],
 								bindSelector
@@ -51624,45 +49146,26 @@ styleSheet.flush()
 								selectors,
 								boundPrivateSelectors
 							);
-
-							// Pre-bind the private selectors that have been registered by the time of
-							// instantiation, so that registry selectors are bound to the registry.
 							for (const selectorName of Object.keys(
 								privateSelectors
 							)) {
 								boundPrivateSelectors.get(selectorName);
 							}
-
-							// An object that implements the `select` object that is passed to thunk functions.
-							// It is callable (`select( selector )`) and also has methods (`select.foo()`) that
-							// correspond to bound registered selectors, both public and private. Implemented with the proxy
-							// `get` method, delegating to `allSelectors`.
 							const thunkSelect = new Proxy(
 								(selector) =>
 									selector(
 										store.__unstableOriginalGetState()
 									),
-								{
-									get: (target, name) => allSelectors[name],
-								}
+								{ get: (target, name) => allSelectors[name] }
 							);
-
-							// To the public `selectors` object, add the "locked" `allSelectors` object. When used,
-							// `unlock( selectors )` will return `allSelectors`, implementing a way how to get at the private selectors.
 							(0, _lock_unlock__WEBPACK_IMPORTED_MODULE_6__.lock)(
 								selectors,
 								allSelectors
 							);
-
-							// For each selector, create a function that calls the selector, waits for resolution and returns
-							// a promise that resolves when the resolution is finished.
 							const bindResolveSelector = mapResolveSelector(
 								store,
 								boundMetadataSelectors
 							);
-
-							// Now apply this function to all bound selectors, public and private. We are excluding
-							// metadata selectors because they don't have resolvers.
 							const resolveSelectors = mapValues(
 								boundSelectors,
 								bindResolveSelector
@@ -51674,15 +49177,10 @@ styleSheet.flush()
 									bindResolveSelector
 								)
 							);
-
-							// Lock the selectors so that `unlock( resolveSelectors )` returns `allResolveSelectors`.
 							(0, _lock_unlock__WEBPACK_IMPORTED_MODULE_6__.lock)(
 								resolveSelectors,
 								allResolveSelectors
 							);
-
-							// Now, in a way very similar to `bindResolveSelector`, we create a function that maps
-							// selectors to functions that throw a suspense promise if not yet resolved.
 							const bindSuspendSelector = mapSuspendSelector(
 								store,
 								boundMetadataSelectors
@@ -51702,8 +49200,6 @@ styleSheet.flush()
 									bindSuspendSelector
 								)
 							);
-
-							// Lock the selectors so that `unlock( suspendSelectors )` returns 'allSuspendSelectors`.
 							(0, _lock_unlock__WEBPACK_IMPORTED_MODULE_6__.lock)(
 								suspendSelectors,
 								allSuspendSelectors
@@ -51712,16 +49208,9 @@ styleSheet.flush()
 							const getActions = () => actions;
 							const getResolveSelectors = () => resolveSelectors;
 							const getSuspendSelectors = () => suspendSelectors;
-
-							// We have some modules monkey-patching the store object
-							// It's wrong to do so but until we refactor all of our effects to controls
-							// We need to keep the same "store" instance here.
 							store.__unstableOriginalGetState = store.getState;
 							store.getState = () =>
 								store.__unstableOriginalGetState().root;
-
-							// Customize subscribe behavior to call listeners only on effective change,
-							// not on every dispatch.
 							const subscribe =
 								store &&
 								((listener) => {
@@ -51740,9 +49229,6 @@ styleSheet.flush()
 									}
 								}
 							});
-
-							// This can be simplified to just { subscribe, getSelectors, getActions }
-							// Once we remove the use function.
 							return {
 								reducer,
 								store,
@@ -51757,28 +49243,12 @@ styleSheet.flush()
 							};
 						},
 					};
-
-					// Expose the private registration functions on the store
-					// descriptor. That's a natural choice since that's where the
-					// public actions and selectors are stored.
 					(0, _lock_unlock__WEBPACK_IMPORTED_MODULE_6__.lock)(
 						storeDescriptor,
 						privateRegistrationFunctions
 					);
 					return storeDescriptor;
 				}
-
-				/**
-				 * Creates a redux store for a namespace.
-				 *
-				 * @param {string}       key       Unique namespace identifier.
-				 * @param {Object}       options   Registered store options, with properties
-				 *                                 describing reducer, actions, selectors,
-				 *                                 and resolvers.
-				 * @param {DataRegistry} registry  Registry reference.
-				 * @param {Object}       thunkArgs Argument object for the thunk middleware.
-				 * @return {Object} Newly created redux store.
-				 */
 				function instantiateReduxStore(
 					key,
 					options,
@@ -51841,28 +49311,15 @@ styleSheet.flush()
 					);
 					return (0, redux__WEBPACK_IMPORTED_MODULE_0__.createStore)(
 						enhancedReducer,
-						{
-							root: initialState,
-						},
+						{ root: initialState },
 						(0,
 						_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__[
 							'default'
 						])(enhancers)
 					);
 				}
-
-				/**
-				 * Maps selectors to functions that return a resolution promise for them.
-				 *
-				 * @param {Object} store                  The redux store the selectors are bound to.
-				 * @param {Object} boundMetadataSelectors The bound metadata selectors.
-				 *
-				 * @return {Function} Function that maps selectors to resolvers.
-				 */
 				function mapResolveSelector(store, boundMetadataSelectors) {
 					return (selector, selectorName) => {
-						// If the selector doesn't have a resolver, just convert the return value
-						// (including exceptions) to a Promise, no additional extra behavior is needed.
 						if (!selector.hasResolver) {
 							return async (...args) =>
 								selector.apply(null, args);
@@ -51875,7 +49332,7 @@ styleSheet.flush()
 										args
 									);
 								};
-								const finalize = (result) => {
+								const finalize = (result2) => {
 									const hasFailed =
 										boundMetadataSelectors.hasResolutionFailed(
 											selectorName,
@@ -51889,13 +49346,11 @@ styleSheet.flush()
 											);
 										reject(error);
 									} else {
-										resolve(result);
+										resolve(result2);
 									}
 								};
 								const getResult = () =>
 									selector.apply(null, args);
-
-								// Trigger the selector (to trigger the resolver)
 								const result = getResult();
 								if (hasFinished()) {
 									return finalize(result);
@@ -51909,18 +49364,8 @@ styleSheet.flush()
 							});
 					};
 				}
-
-				/**
-				 * Maps selectors to functions that throw a suspense promise if not yet resolved.
-				 *
-				 * @param {Object} store                  The redux store the selectors select from.
-				 * @param {Object} boundMetadataSelectors The bound metadata selectors.
-				 *
-				 * @return {Function} Function that maps selectors to their suspending versions.
-				 */
 				function mapSuspendSelector(store, boundMetadataSelectors) {
 					return (selector, selectorName) => {
-						// Selector without a resolver doesn't have any extra suspense behavior.
 						if (!selector.hasResolver) {
 							return selector;
 						}
@@ -51961,13 +49406,6 @@ styleSheet.flush()
 						};
 					};
 				}
-
-				/**
-				 * Convert a resolver to a normalized form, an object with `fulfill` method and
-				 * optional methods like `isFulfilled`.
-				 *
-				 * @param {Function} resolver Resolver to convert
-				 */
 				function mapResolver(resolver) {
 					if (resolver.fulfill) {
 						return resolver;
@@ -51975,22 +49413,10 @@ styleSheet.flush()
 					return {
 						...resolver,
 						// Copy the enumerable properties of the resolver function.
-						fulfill: resolver, // Add the fulfill method.
+						fulfill: resolver,
+						// Add the fulfill method.
 					};
 				}
-
-				/**
-				 * Returns a selector with a matched resolver.
-				 * Resolvers are side effects invoked once per argument set of a given selector call,
-				 * used in ensuring that the data needs for the selector are satisfied.
-				 *
-				 * @param {Object} selector               The selector function to be bound.
-				 * @param {string} selectorName           The selector name.
-				 * @param {Object} resolver               Resolver to call.
-				 * @param {Object} store                  The redux store to which the resolvers should be mapped.
-				 * @param {Object} resolversCache         Resolvers Cache.
-				 * @param {Object} boundMetadataSelectors The bound metadata selectors.
-				 */
 				function mapSelectorWithResolver(
 					selector,
 					selectorName,
@@ -52055,15 +49481,6 @@ styleSheet.flush()
 					selectorResolver.hasResolver = true;
 					return selectorResolver;
 				}
-
-				/**
-				 * Applies selector's normalization function to the given arguments
-				 * if it exists.
-				 *
-				 * @param {Object} selector The selector potentially with a normalization method property.
-				 * @param {Array}  args     selector arguments to normalize.
-				 * @return {Array} Potentially normalized arguments.
-				 */
 				function normalize(selector, args) {
 					if (
 						selector.__unstableNormalizeArgs &&
@@ -52075,6 +49492,7 @@ styleSheet.flush()
 					}
 					return args;
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -52126,15 +49544,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Returns an action object used in signalling that selector resolution has
-				 * started.
-				 *
-				 * @param {string}    selectorName Name of selector for which resolver triggered.
-				 * @param {unknown[]} args         Arguments to associate for uniqueness.
-				 *
-				 * @return {{ type: 'START_RESOLUTION', selectorName: string, args: unknown[] }} Action object.
-				 */
 				function startResolution(selectorName, args) {
 					return {
 						type: 'START_RESOLUTION',
@@ -52142,16 +49551,6 @@ styleSheet.flush()
 						args,
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that selector resolution has
-				 * completed.
-				 *
-				 * @param {string}    selectorName Name of selector for which resolver triggered.
-				 * @param {unknown[]} args         Arguments to associate for uniqueness.
-				 *
-				 * @return {{ type: 'FINISH_RESOLUTION', selectorName: string, args: unknown[] }} Action object.
-				 */
 				function finishResolution(selectorName, args) {
 					return {
 						type: 'FINISH_RESOLUTION',
@@ -52159,17 +49558,6 @@ styleSheet.flush()
 						args,
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that selector resolution has
-				 * failed.
-				 *
-				 * @param {string}        selectorName Name of selector for which resolver triggered.
-				 * @param {unknown[]}     args         Arguments to associate for uniqueness.
-				 * @param {Error|unknown} error        The error that caused the failure.
-				 *
-				 * @return {{ type: 'FAIL_RESOLUTION', selectorName: string, args: unknown[], error: Error|unknown }} Action object.
-				 */
 				function failResolution(selectorName, args, error) {
 					return {
 						type: 'FAIL_RESOLUTION',
@@ -52178,17 +49566,6 @@ styleSheet.flush()
 						error,
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that a batch of selector resolutions has
-				 * started.
-				 *
-				 * @param {string}      selectorName Name of selector for which resolver triggered.
-				 * @param {unknown[][]} args         Array of arguments to associate for uniqueness, each item
-				 *                                   is associated to a resolution.
-				 *
-				 * @return {{ type: 'START_RESOLUTIONS', selectorName: string, args: unknown[][] }} Action object.
-				 */
 				function startResolutions(selectorName, args) {
 					return {
 						type: 'START_RESOLUTIONS',
@@ -52196,17 +49573,6 @@ styleSheet.flush()
 						args,
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that a batch of selector resolutions has
-				 * completed.
-				 *
-				 * @param {string}      selectorName Name of selector for which resolver triggered.
-				 * @param {unknown[][]} args         Array of arguments to associate for uniqueness, each item
-				 *                                   is associated to a resolution.
-				 *
-				 * @return {{ type: 'FINISH_RESOLUTIONS', selectorName: string, args: unknown[][] }} Action object.
-				 */
 				function finishResolutions(selectorName, args) {
 					return {
 						type: 'FINISH_RESOLUTIONS',
@@ -52214,18 +49580,6 @@ styleSheet.flush()
 						args,
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that a batch of selector resolutions has
-				 * completed and at least one of them has failed.
-				 *
-				 * @param {string}            selectorName Name of selector for which resolver triggered.
-				 * @param {unknown[]}         args         Array of arguments to associate for uniqueness, each item
-				 *                                         is associated to a resolution.
-				 * @param {(Error|unknown)[]} errors       Array of errors to associate for uniqueness, each item
-				 *                                         is associated to a resolution.
-				 * @return {{ type: 'FAIL_RESOLUTIONS', selectorName: string, args: unknown[], errors: Array<Error|unknown> }} Action object.
-				 */
 				function failResolutions(selectorName, args, errors) {
 					return {
 						type: 'FAIL_RESOLUTIONS',
@@ -52234,15 +49588,6 @@ styleSheet.flush()
 						errors,
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that we should invalidate the resolution cache.
-				 *
-				 * @param {string}    selectorName Name of selector for which resolver should be invalidated.
-				 * @param {unknown[]} args         Arguments to associate for uniqueness.
-				 *
-				 * @return {{ type: 'INVALIDATE_RESOLUTION', selectorName: string, args: any[] }} Action object.
-				 */
 				function invalidateResolution(selectorName, args) {
 					return {
 						type: 'INVALIDATE_RESOLUTION',
@@ -52250,34 +49595,18 @@ styleSheet.flush()
 						args,
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that the resolution
-				 * should be invalidated.
-				 *
-				 * @return {{ type: 'INVALIDATE_RESOLUTION_FOR_STORE' }} Action object.
-				 */
 				function invalidateResolutionForStore() {
 					return {
 						type: 'INVALIDATE_RESOLUTION_FOR_STORE',
 					};
 				}
-
-				/**
-				 * Returns an action object used in signalling that the resolution cache for a
-				 * given selectorName should be invalidated.
-				 *
-				 * @param {string} selectorName Name of selector for which all resolvers should
-				 *                              be invalidated.
-				 *
-				 * @return  {{ type: 'INVALIDATE_RESOLUTION_FOR_STORE_SELECTOR', selectorName: string }} Action object.
-				 */
 				function invalidateResolutionForStoreSelector(selectorName) {
 					return {
 						type: 'INVALIDATE_RESOLUTION_FOR_STORE_SELECTOR',
 						selectorName,
 					};
 				}
+
 				//# sourceMappingURL=actions.js.map
 
 				/***/
@@ -52294,6 +49623,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ reducer_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var equivalent_key_map__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! equivalent-key-map */ './node_modules/equivalent-key-map/equivalent-key-map.js'
@@ -52306,20 +49644,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./utils */ './node_modules/@wordpress/data/build-module/redux-store/metadata/utils.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Reducer function returning next state for selector resolution of
-				 * subkeys, object form:
-				 *
-				 *  selectorName -> EquivalentKeyMap<Array,boolean>
-				 */
 				const subKeysIsResolved = (0,
 				_utils__WEBPACK_IMPORTED_MODULE_1__.onSubKey)('selectorName')(
 					(
@@ -52420,7 +49745,7 @@ styleSheet.flush()
 								action.args.forEach((resolutionArgs, idx) => {
 									const resolutionState = {
 										status: 'error',
-										error: undefined,
+										error: void 0,
 									};
 									const error = action.errors[idx];
 									if (error) {
@@ -52453,17 +49778,6 @@ styleSheet.flush()
 						return state;
 					}
 				);
-
-				/**
-				 * Reducer function returning next state for selector resolution, object form:
-				 *
-				 *   selectorName -> EquivalentKeyMap<Array, boolean>
-				 *
-				 * @param state  Current state.
-				 * @param action Dispatched action.
-				 *
-				 * @return Next state.
-				 */
 				const isResolved = (state = {}, action) => {
 					switch (action.type) {
 						case 'INVALIDATE_RESOLUTION_FOR_STORE':
@@ -52489,8 +49803,8 @@ styleSheet.flush()
 					}
 					return state;
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					isResolved;
+				var reducer_default = isResolved;
+
 				//# sourceMappingURL=reducer.js.map
 
 				/***/
@@ -52558,30 +49872,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./utils */ './node_modules/@wordpress/data/build-module/redux-store/metadata/utils.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {Record<string, import('./reducer').State>} State */
-				/** @typedef {import('./reducer').StateValue} StateValue */
-				/** @typedef {import('./reducer').Status} Status */
-
-				/**
-				 * Returns the raw resolution state value for a given selector name,
-				 * and arguments set. May be undefined if the selector has never been resolved
-				 * or not resolved for the given set of arguments, otherwise true or false for
-				 * resolution started and completed respectively.
-				 *
-				 * @param {State}      state        Data state.
-				 * @param {string}     selectorName Selector name.
-				 * @param {unknown[]?} args         Arguments passed to selector.
-				 *
-				 * @return {StateValue|undefined} isResolving value.
-				 */
 				function getResolutionState(state, selectorName, args) {
 					const map = state[selectorName];
 					if (!map) {
@@ -52594,25 +49885,6 @@ styleSheet.flush()
 						)
 					);
 				}
-
-				/**
-				 * Returns an `isResolving`-like value for a given selector name and arguments set.
-				 * Its value is either `undefined` if the selector has never been resolved or has been
-				 * invalidated, or a `true`/`false` boolean value if the resolution is in progress or
-				 * has finished, respectively.
-				 *
-				 * This is a legacy selector that was implemented when the "raw" internal data had
-				 * this `undefined | boolean` format. Nowadays the internal value is an object that
-				 * can be retrieved with `getResolutionState`.
-				 *
-				 * @deprecated
-				 *
-				 * @param {State}      state        Data state.
-				 * @param {string}     selectorName Selector name.
-				 * @param {unknown[]?} args         Arguments passed to selector.
-				 *
-				 * @return {boolean | undefined} isResolving value.
-				 */
 				function getIsResolving(state, selectorName, args) {
 					(0,
 					_wordpress_deprecated__WEBPACK_IMPORTED_MODULE_0__[
@@ -52633,34 +49905,11 @@ styleSheet.flush()
 						resolutionState.status === 'resolving'
 					);
 				}
-
-				/**
-				 * Returns true if resolution has already been triggered for a given
-				 * selector name, and arguments set.
-				 *
-				 * @param {State}      state        Data state.
-				 * @param {string}     selectorName Selector name.
-				 * @param {unknown[]?} args         Arguments passed to selector.
-				 *
-				 * @return {boolean} Whether resolution has been triggered.
-				 */
 				function hasStartedResolution(state, selectorName, args) {
 					return (
-						getResolutionState(state, selectorName, args) !==
-						undefined
+						getResolutionState(state, selectorName, args) !== void 0
 					);
 				}
-
-				/**
-				 * Returns true if resolution has completed for a given selector
-				 * name, and arguments set.
-				 *
-				 * @param {State}      state        Data state.
-				 * @param {string}     selectorName Selector name.
-				 * @param {unknown[]?} args         Arguments passed to selector.
-				 *
-				 * @return {boolean} Whether resolution has completed.
-				 */
 				function hasFinishedResolution(state, selectorName, args) {
 					const status = getResolutionState(
 						state,
@@ -52669,35 +49918,12 @@ styleSheet.flush()
 					)?.status;
 					return status === 'finished' || status === 'error';
 				}
-
-				/**
-				 * Returns true if resolution has failed for a given selector
-				 * name, and arguments set.
-				 *
-				 * @param {State}      state        Data state.
-				 * @param {string}     selectorName Selector name.
-				 * @param {unknown[]?} args         Arguments passed to selector.
-				 *
-				 * @return {boolean} Has resolution failed
-				 */
 				function hasResolutionFailed(state, selectorName, args) {
 					return (
 						getResolutionState(state, selectorName, args)
 							?.status === 'error'
 					);
 				}
-
-				/**
-				 * Returns the resolution error for a given selector name, and arguments set.
-				 * Note it may be of an Error type, but may also be null, undefined, or anything else
-				 * that can be `throw`-n.
-				 *
-				 * @param {State}      state        Data state.
-				 * @param {string}     selectorName Selector name.
-				 * @param {unknown[]?} args         Arguments passed to selector.
-				 *
-				 * @return {Error|unknown} Last resolution error
-				 */
 				function getResolutionError(state, selectorName, args) {
 					const resolutionState = getResolutionState(
 						state,
@@ -52708,42 +49934,15 @@ styleSheet.flush()
 						? resolutionState.error
 						: null;
 				}
-
-				/**
-				 * Returns true if resolution has been triggered but has not yet completed for
-				 * a given selector name, and arguments set.
-				 *
-				 * @param {State}      state        Data state.
-				 * @param {string}     selectorName Selector name.
-				 * @param {unknown[]?} args         Arguments passed to selector.
-				 *
-				 * @return {boolean} Whether resolution is in progress.
-				 */
 				function isResolving(state, selectorName, args) {
 					return (
 						getResolutionState(state, selectorName, args)
 							?.status === 'resolving'
 					);
 				}
-
-				/**
-				 * Returns the list of the cached resolvers.
-				 *
-				 * @param {State} state Data state.
-				 *
-				 * @return {State} Resolvers mapped by args and selectorName.
-				 */
 				function getCachedResolvers(state) {
 					return state;
 				}
-
-				/**
-				 * Whether the store has any currently resolving selectors.
-				 *
-				 * @param {State} state Data state.
-				 *
-				 * @return {boolean} True if one or more selectors are resolving, false otherwise.
-				 */
 				function hasResolvingSelectors(state) {
 					return Object.values(state).some((selectorState) =>
 						/**
@@ -52759,14 +49958,6 @@ styleSheet.flush()
 						)
 					);
 				}
-
-				/**
-				 * Retrieves the total number of selectors, grouped per status.
-				 *
-				 * @param {State} state Data state.
-				 *
-				 * @return {Object} Object, containing selector totals by status.
-				 */
 				const countSelectorsByStatus = (0,
 				_create_selector__WEBPACK_IMPORTED_MODULE_1__['default'])(
 					(state) => {
@@ -52781,13 +49972,8 @@ styleSheet.flush()
 							 */
 							Array.from(selectorState._map.values()).forEach(
 								(resolution) => {
-									var _resolution$1$status;
 									const currentStatus =
-										(_resolution$1$status =
-											resolution[1]?.status) !== null &&
-										_resolution$1$status !== void 0
-											? _resolution$1$status
-											: 'error';
+										resolution[1]?.status ?? 'error';
 									if (!selectorsByStatus[currentStatus]) {
 										selectorsByStatus[currentStatus] = 0;
 									}
@@ -52799,6 +49985,7 @@ styleSheet.flush()
 					},
 					(state) => [state]
 				);
+
 				//# sourceMappingURL=selectors.js.map
 
 				/***/
@@ -52828,30 +50015,14 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * Higher-order reducer creator which creates a combined reducer object, keyed
-				 * by a property on the action object.
-				 *
-				 * @param actionProperty Action property by which to key object.
-				 * @return Higher-order reducer.
-				 */
 				const onSubKey =
 					(actionProperty) =>
 					(reducer) =>
 					(state = {}, action) => {
-						// Retrieve subkey from action. Do not track if undefined; useful for cases
-						// where reducer is scoped by action shape.
 						const key = action[actionProperty];
-						if (key === undefined) {
+						if (key === void 0) {
 							return state;
 						}
-
-						// Avoid updating state if unchanged. Note that this also accounts for a
-						// reducer which returns undefined on a key which is not yet tracked.
 						const nextKeyState = reducer(state[key], action);
 						if (nextKeyState === state[key]) {
 							return state;
@@ -52861,25 +50032,18 @@ styleSheet.flush()
 							[key]: nextKeyState,
 						};
 					};
-
-				/**
-				 * Normalize selector argument array by defaulting `undefined` value to an empty array
-				 * and removing trailing `undefined` values.
-				 *
-				 * @param args Selector argument array
-				 * @return Normalized state key array
-				 */
 				function selectorArgsToStateKey(args) {
-					if (args === undefined || args === null) {
+					if (args === void 0 || args === null) {
 						return [];
 					}
 					const len = args.length;
 					let idx = len;
-					while (idx > 0 && args[idx - 1] === undefined) {
+					while (idx > 0 && args[idx - 1] === void 0) {
 						idx--;
 					}
 					return idx === len ? args : args.slice(0, idx);
 				}
+
 				//# sourceMappingURL=utils.js.map
 
 				/***/
@@ -52913,6 +50077,7 @@ styleSheet.flush()
 						return next(action);
 					};
 				}
+
 				//# sourceMappingURL=thunk-middleware.js.map
 
 				/***/
@@ -52958,95 +50123,29 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./lock-unlock */ './node_modules/@wordpress/data/build-module/lock-unlock.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {import('./types').StoreDescriptor} StoreDescriptor */
-
-				/**
-				 * @typedef {Object} WPDataRegistry An isolated orchestrator of store registrations.
-				 *
-				 * @property {Function} registerGenericStore Given a namespace key and settings
-				 *                                           object, registers a new generic
-				 *                                           store.
-				 * @property {Function} registerStore        Given a namespace key and settings
-				 *                                           object, registers a new namespace
-				 *                                           store.
-				 * @property {Function} subscribe            Given a function callback, invokes
-				 *                                           the callback on any change to state
-				 *                                           within any registered store.
-				 * @property {Function} select               Given a namespace key, returns an
-				 *                                           object of the  store's registered
-				 *                                           selectors.
-				 * @property {Function} dispatch             Given a namespace key, returns an
-				 *                                           object of the store's registered
-				 *                                           action dispatchers.
-				 */
-
-				/**
-				 * @typedef {Object} WPDataPlugin An object of registry function overrides.
-				 *
-				 * @property {Function} registerStore registers store.
-				 */
 
 				function getStoreName(storeNameOrDescriptor) {
 					return typeof storeNameOrDescriptor === 'string'
 						? storeNameOrDescriptor
 						: storeNameOrDescriptor.name;
 				}
-				/**
-				 * Creates a new store registry, given an optional object of initial store
-				 * configurations.
-				 *
-				 * @param {Object}  storeConfigs Initial store configurations.
-				 * @param {?Object} parent       Parent registry.
-				 *
-				 * @return {WPDataRegistry} Data registry.
-				 */
 				function createRegistry(storeConfigs = {}, parent = null) {
 					const stores = {};
 					const emitter = (0,
 					_utils_emitter__WEBPACK_IMPORTED_MODULE_3__.createEmitter)();
 					let listeningStores = null;
-
-					/**
-					 * Global listener called for each store's update.
-					 */
 					function globalListener() {
 						emitter.emit();
 					}
-
-					/**
-					 * Subscribe to changes to any data, either in all stores in registry, or
-					 * in one specific store.
-					 *
-					 * @param {Function}                listener              Listener function.
-					 * @param {string|StoreDescriptor?} storeNameOrDescriptor Optional store name.
-					 *
-					 * @return {Function} Unsubscribe function.
-					 */
 					const subscribe = (listener, storeNameOrDescriptor) => {
-						// subscribe to all stores
 						if (!storeNameOrDescriptor) {
 							return emitter.subscribe(listener);
 						}
-
-						// subscribe to one store
 						const storeName = getStoreName(storeNameOrDescriptor);
 						const store = stores[storeName];
 						if (store) {
 							return store.subscribe(listener);
 						}
-
-						// Trying to access a store that hasn't been registered,
-						// this is a pattern rarely used but seen in some places.
-						// We fallback to global `subscribe` here for backward-compatibility for now.
-						// See https://github.com/WordPress/gutenberg/pull/27466 for more info.
 						if (!parent) {
 							return emitter.subscribe(listener);
 						}
@@ -53055,15 +50154,6 @@ styleSheet.flush()
 							storeNameOrDescriptor
 						);
 					};
-
-					/**
-					 * Calls a selector given the current state and extra arguments.
-					 *
-					 * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-					 *                                                       or the store descriptor.
-					 *
-					 * @return {*} The selector's returned value.
-					 */
 					function select(storeNameOrDescriptor) {
 						const storeName = getStoreName(storeNameOrDescriptor);
 						listeningStores?.add(storeName);
@@ -53074,7 +50164,7 @@ styleSheet.flush()
 						return parent?.select(storeName);
 					}
 					function __unstableMarkListeningStores(callback, ref) {
-						listeningStores = new Set();
+						listeningStores = /* @__PURE__ */ new Set();
 						try {
 							return callback.call(this);
 						} finally {
@@ -53082,18 +50172,6 @@ styleSheet.flush()
 							listeningStores = null;
 						}
 					}
-
-					/**
-					 * Given a store descriptor, returns an object containing the store's selectors pre-bound to
-					 * state so that you only need to supply additional arguments, and modified so that they return
-					 * promises that resolve to their eventual values, after any resolvers have ran.
-					 *
-					 * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
-					 *                                                       convention of passing the store name is
-					 *                                                       also supported.
-					 *
-					 * @return {Object} Each key of the object matches the name of a selector.
-					 */
 					function resolveSelect(storeNameOrDescriptor) {
 						const storeName = getStoreName(storeNameOrDescriptor);
 						listeningStores?.add(storeName);
@@ -53103,18 +50181,6 @@ styleSheet.flush()
 						}
 						return parent && parent.resolveSelect(storeName);
 					}
-
-					/**
-					 * Given a store descriptor, returns an object containing the store's selectors pre-bound to
-					 * state so that you only need to supply additional arguments, and modified so that they throw
-					 * promises in case the selector is not resolved yet.
-					 *
-					 * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
-					 *                                                       convention of passing the store name is
-					 *                                                       also supported.
-					 *
-					 * @return {Object} Object containing the store's suspense-wrapped selectors.
-					 */
 					function suspendSelect(storeNameOrDescriptor) {
 						const storeName = getStoreName(storeNameOrDescriptor);
 						listeningStores?.add(storeName);
@@ -53124,15 +50190,6 @@ styleSheet.flush()
 						}
 						return parent && parent.suspendSelect(storeName);
 					}
-
-					/**
-					 * Returns the available actions for a part of the state.
-					 *
-					 * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-					 *                                                       or the store descriptor.
-					 *
-					 * @return {*} The action's returned value.
-					 */
 					function dispatch(storeNameOrDescriptor) {
 						const storeName = getStoreName(storeNameOrDescriptor);
 						const store = stores[storeName];
@@ -53141,10 +50198,6 @@ styleSheet.flush()
 						}
 						return parent && parent.dispatch(storeName);
 					}
-
-					//
-					// Deprecated
-					// TODO: Remove this after `use()` is removed.
 					function withPlugins(attributes) {
 						return Object.fromEntries(
 							Object.entries(attributes).map(
@@ -53165,16 +50218,8 @@ styleSheet.flush()
 							)
 						);
 					}
-
-					/**
-					 * Registers a store instance.
-					 *
-					 * @param {string}   name        Store registry name.
-					 * @param {Function} createStore Function that creates a store object (getSelectors, getActions, subscribe).
-					 */
 					function registerStoreInstance(name, createStore) {
 						if (stores[name]) {
-							// eslint-disable-next-line no-console
 							console.error(
 								'Store "' + name + '" is already registered.'
 							);
@@ -53196,9 +50241,6 @@ styleSheet.flush()
 								'store.subscribe must be a function'
 							);
 						}
-						// The emitter is used to keep track of active listeners when the registry
-						// get paused, that way, when resumed we should be able to call all these
-						// pending listeners.
 						store.emitter = (0,
 						_utils_emitter__WEBPACK_IMPORTED_MODULE_3__.createEmitter)();
 						const currentSubscribe = store.subscribe;
@@ -53221,8 +50263,6 @@ styleSheet.flush()
 						};
 						stores[name] = store;
 						store.subscribe(globalListener);
-
-						// Copy private actions and selectors from the parent store.
 						if (parent) {
 							try {
 								(0,
@@ -53243,20 +50283,10 @@ styleSheet.flush()
 										parent
 									).privateSelectorsOf(name)
 								);
-							} catch (e) {
-								// unlock() throws if store.store was not locked.
-								// The error indicates there's nothing to do here so let's
-								// ignore it.
-							}
+							} catch (e) {}
 						}
 						return store;
 					}
-
-					/**
-					 * Registers a new store given a store descriptor.
-					 *
-					 * @param {StoreDescriptor} store Store descriptor.
-					 */
 					function register(store) {
 						registerStoreInstance(store.name, () =>
 							store.instantiate(registry)
@@ -53272,15 +50302,6 @@ styleSheet.flush()
 						});
 						registerStoreInstance(name, () => store);
 					}
-
-					/**
-					 * Registers a standard `@wordpress/data` store.
-					 *
-					 * @param {string} storeName Unique namespace identifier.
-					 * @param {Object} options   Store description (reducer, actions, selectors, resolvers).
-					 *
-					 * @return {Object} Registered store object.
-					 */
 					function registerStore(storeName, options) {
 						if (!options.reducer) {
 							throw new TypeError('Must specify store reducer');
@@ -53294,7 +50315,6 @@ styleSheet.flush()
 						return store.store;
 					}
 					function batch(callback) {
-						// If we're already batching, just call the callback.
 						if (emitter.isPaused) {
 							callback();
 							return;
@@ -53328,10 +50348,6 @@ styleSheet.flush()
 						registerStore,
 						__unstableMarkListeningStores,
 					};
-
-					//
-					// TODO:
-					// This function will be deprecated as soon as it is no longer internally referenced.
 					function use(plugin, options) {
 						if (!plugin) {
 							return;
@@ -53367,8 +50383,6 @@ styleSheet.flush()
 										stores[name].store
 									).privateActions;
 								} catch (e) {
-									// unlock() throws an error the store was not locked – this means
-									// there no private actions are available
 									return {};
 								}
 							},
@@ -53386,6 +50400,7 @@ styleSheet.flush()
 					);
 					return registryWithPlugins;
 				}
+
 				//# sourceMappingURL=registry.js.map
 
 				/***/
@@ -53402,16 +50417,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/** @typedef {import('./registry').WPDataRegistry} WPDataRegistry */
-
-				/**
-				 * Creates a middleware handling resolvers cache invalidation.
-				 *
-				 * @param {WPDataRegistry} registry  Registry for which to create the middleware.
-				 * @param {string}         storeName Name of the store for which to create the middleware.
-				 *
-				 * @return {Function} Middleware function.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ resolvers_cache_middleware_default;
+						},
+						/* harmony export */
+					}
+				);
 				const createResolversCacheMiddleware =
 					(registry, storeName) => () => (next) => (action) => {
 						const resolvers = registry
@@ -53428,15 +50442,9 @@ styleSheet.flush()
 									return;
 								}
 								resolversByArgs.forEach((value, args) => {
-									// Works around a bug in `EquivalentKeyMap` where `map.delete` merely sets an entry value
-									// to `undefined` and `map.forEach` then iterates also over these orphaned entries.
-									if (value === undefined) {
+									if (value === void 0) {
 										return;
 									}
-
-									// resolversByArgs is the map Map([ args ] => boolean) storing the cache resolution status for a given selector.
-									// If the value is "finished" or "error" it means this resolver has finished its resolution which means we need
-									// to invalidate it, if it's true it means it's inflight and the invalidation is not necessary.
 									if (
 										value.status !== 'finished' &&
 										value.status !== 'error'
@@ -53451,8 +50459,6 @@ styleSheet.flush()
 									) {
 										return;
 									}
-
-									// Trigger cache invalidation
 									registry
 										.dispatch(storeName)
 										.invalidateResolution(
@@ -53464,8 +50470,9 @@ styleSheet.flush()
 						);
 						return next(action);
 					};
-				/* harmony default export */ __webpack_exports__['default'] =
+				var resolvers_cache_middleware_default =
 					createResolversCacheMiddleware;
+
 				//# sourceMappingURL=resolvers-cache-middleware.js.map
 
 				/***/
@@ -53495,34 +50502,13 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./default-registry */ './node_modules/@wordpress/data/build-module/default-registry.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Given a store descriptor, returns an object of the store's selectors.
-				 * The selector functions are been pre-bound to pass the current state automatically.
-				 * As a consumer, you need only pass arguments of the selector, if applicable.
-				 *
-				 *
-				 * @param storeNameOrDescriptor The store descriptor. The legacy calling convention
-				 *                              of passing the store name is also supported.
-				 *
-				 * @example
-				 * ```js
-				 * import { select } from '@wordpress/data';
-				 * import { store as myCustomStore } from 'my-custom-store';
-				 *
-				 * select( myCustomStore ).getPrice( 'hammer' );
-				 * ```
-				 *
-				 * @return Object containing the store's selectors.
-				 */
 				function select(storeNameOrDescriptor) {
 					return _default_registry__WEBPACK_IMPORTED_MODULE_0__[
 						'default'
 					].select(storeNameOrDescriptor);
 				}
+
 				//# sourceMappingURL=select.js.map
 
 				/***/
@@ -53539,6 +50525,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ store_default;
+						},
+						/* harmony export */
+					}
+				);
 				const coreDataStore = {
 					name: 'core/data',
 					instantiate(registry) {
@@ -53586,17 +50581,13 @@ styleSheet.flush()
 								);
 							},
 							subscribe() {
-								// There's no reasons to trigger any listener when we subscribe to this store
-								// because there's no state stored in this store that need to retrigger selectors
-								// if a change happens, the corresponding store where the tracking stated live
-								// would have already triggered a "subscribe" call.
 								return () => () => {};
 							},
 						};
 					},
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					coreDataStore;
+				var store_default = coreDataStore;
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -53622,15 +50613,10 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Create an event emitter.
-				 *
-				 * @return The event emitter.
-				 */
 				function createEmitter() {
 					let isPaused = false;
 					let isPending = false;
-					const listeners = new Set();
+					const listeners = /* @__PURE__ */ new Set();
 					const notifyListeners = () =>
 						// We use Array.from to clone the listeners Set
 						// This ensures that we don't run a listener
@@ -53663,6 +50649,7 @@ styleSheet.flush()
 						},
 					};
 				}
+
 				//# sourceMappingURL=emitter.js.map
 
 				/***/
@@ -53751,26 +50738,40 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./types */ './node_modules/@wordpress/date/build-module/types.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
+				/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4___default =
+					/*#__PURE__*/ __webpack_require__.n(
+						_types__WEBPACK_IMPORTED_MODULE_4__
+					);
+				/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ =
+					{};
+				/* harmony reexport (unknown) */ for (var __WEBPACK_IMPORT_KEY__ in _types__WEBPACK_IMPORTED_MODULE_4__)
+					if (
+						[
+							'default',
+							'__experimentalGetSettings',
+							'date',
+							'dateI18n',
+							'format',
+							'getDate',
+							'getSettings',
+							'gmdate',
+							'gmdateI18n',
+							'humanTimeDiff',
+							'isInTheFuture',
+							'setSettings',
+						].indexOf(__WEBPACK_IMPORT_KEY__) < 0
+					)
+						__WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] =
+							function (key) {
+								return _types__WEBPACK_IMPORTED_MODULE_4__[key];
+							}.bind(0, __WEBPACK_IMPORT_KEY__);
+				/* harmony reexport (unknown) */ __webpack_require__.d(
+					__webpack_exports__,
+					__WEBPACK_REEXPORT_OBJECT__
+				);
 
 				const WP_ZONE = 'WP';
-
-				// This regular expression tests positive for UTC offsets as described in ISO 8601.
-				// See: https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
 				const VALID_UTC_OFFSET = /^[+-][0-1][0-9](:?[0-9][0-9])?$/;
-
-				// Changes made here will likely need to be synced with Core in the file
-				// src/wp-includes/script-loader.php in `wp_default_packages_inline_scripts()`.
 				let settings = {
 					l10n: {
 						locale: 'en',
@@ -53820,12 +50821,7 @@ styleSheet.flush()
 							'Fri',
 							'Sat',
 						],
-						meridiem: {
-							am: 'am',
-							pm: 'pm',
-							AM: 'AM',
-							PM: 'PM',
-						},
+						meridiem: { am: 'am', pm: 'pm', AM: 'AM', PM: 'PM' },
 						relative: {
 							future: '%s from now',
 							past: '%s ago',
@@ -53857,46 +50853,29 @@ styleSheet.flush()
 						abbr: '',
 					},
 				};
-
-				/**
-				 * Adds a locale to moment, using the format supplied by `wp_localize_script()`.
-				 *
-				 * @param dateSettings Settings, including locale data.
-				 */
 				function setSettings(dateSettings) {
 					settings = dateSettings;
 					setupWPTimezone();
-
-					// Does moment already have a locale with the right name?
 					if (
 						moment__WEBPACK_IMPORTED_MODULE_0___default()
 							.locales()
 							.includes(dateSettings.l10n.locale)
 					) {
-						// Is that locale misconfigured, e.g. because we are on a site running
-						// WordPress < 6.0?
 						if (
 							moment__WEBPACK_IMPORTED_MODULE_0___default()
 								.localeData(dateSettings.l10n.locale)
 								.longDateFormat('LTS') === null
 						) {
-							// Delete the misconfigured locale.
-							// @ts-ignore Type definitions are incorrect - null is permitted.
 							moment__WEBPACK_IMPORTED_MODULE_0___default().defineLocale(
 								dateSettings.l10n.locale,
 								null
 							);
 						} else {
-							// We have a properly configured locale, so no need to create one.
 							return;
 						}
 					}
-
-					// defineLocale() will modify the current locale, so back it up.
 					const currentLocale =
 						moment__WEBPACK_IMPORTED_MODULE_0___default().locale();
-
-					// Create locale.
 					moment__WEBPACK_IMPORTED_MODULE_0___default().defineLocale(
 						dateSettings.l10n.locale,
 						{
@@ -53936,28 +50915,13 @@ styleSheet.flush()
 							relativeTime: dateSettings.l10n.relative,
 						}
 					);
-
-					// Restore the locale to what it was.
 					moment__WEBPACK_IMPORTED_MODULE_0___default().locale(
 						currentLocale
 					);
 				}
-
-				/**
-				 * Returns the currently defined date settings.
-				 *
-				 * @return {DateSettings} Settings, including locale data.
-				 */
 				function getSettings() {
 					return settings;
 				}
-
-				/**
-				 * Returns the currently defined date settings.
-				 *
-				 * @deprecated
-				 * @return {DateSettings} Settings, including locale data.
-				 */
 				function __experimentalGetSettings() {
 					(0,
 					_wordpress_deprecated__WEBPACK_IMPORTED_MODULE_3__[
@@ -53969,17 +50933,11 @@ styleSheet.flush()
 					return getSettings();
 				}
 				function setupWPTimezone() {
-					// Get the current timezone settings from the WP timezone string.
 					const currentTimezone =
 						moment__WEBPACK_IMPORTED_MODULE_0___default().tz.zone(
 							settings.timezone.string
 						);
-
-					// Check to see if we have a valid TZ data, if so, use it for the custom WP_ZONE timezone, otherwise just use the offset.
 					if (currentTimezone) {
-						// Create WP timezone based off settings.timezone.string.  We need to include the additional data so that we
-						// don't lose information about daylight savings time and other items.
-						// See https://github.com/WordPress/gutenberg/pull/48083
 						moment__WEBPACK_IMPORTED_MODULE_0___default().tz.add(
 							moment__WEBPACK_IMPORTED_MODULE_0___default().tz.pack(
 								{
@@ -53991,7 +50949,6 @@ styleSheet.flush()
 							)
 						);
 					} else {
-						// Create WP timezone based off dateSettings.
 						moment__WEBPACK_IMPORTED_MODULE_0___default().tz.add(
 							moment__WEBPACK_IMPORTED_MODULE_0___default().tz.pack(
 								{
@@ -54006,31 +50963,9 @@ styleSheet.flush()
 						);
 					}
 				}
-
-				// Date constants.
-				/**
-				 * Number of seconds in one minute.
-				 */
 				const MINUTE_IN_SECONDS = 60;
-				/**
-				 * Number of minutes in one hour.
-				 */
 				const HOUR_IN_MINUTES = 60;
-				/**
-				 * Number of seconds in one hour.
-				 */
 				const HOUR_IN_SECONDS = 60 * MINUTE_IN_SECONDS;
-
-				/**
-				 * Map of PHP formats to Moment.js formats.
-				 *
-				 * These are used internally by {@link format}, and are either
-				 * a string representing the corresponding Moment.js format code, or a
-				 * function which returns the formatted string.
-				 *
-				 * This should only be used through {@link format}, not
-				 * directly.
-				 */
 				const formatMap = {
 					// Day.
 					d: 'DD',
@@ -54046,7 +50981,6 @@ styleSheet.flush()
 					 * @return Formatted date.
 					 */
 					S(momentDate) {
-						// Do - D.
 						const num = momentDate.format('D');
 						const withOrdinal = momentDate.format('Do');
 						return withOrdinal.replace(num, '');
@@ -54060,7 +50994,6 @@ styleSheet.flush()
 					 * @return Formatted date.
 					 */
 					z(momentDate) {
-						// DDD - 1.
 						return (
 							parseInt(momentDate.format('DDD'), 10) - 1
 						).toString();
@@ -54155,7 +51088,6 @@ styleSheet.flush()
 					 * @return Formatted date.
 					 */
 					Z(momentDate) {
-						// Timezone offset in seconds.
 						const offset = momentDate.format('Z');
 						const sign = offset[0] === '-' ? -1 : 1;
 						const parts = offset
@@ -54185,18 +51117,10 @@ styleSheet.flush()
 					},
 					U: 'X',
 				};
-
-				/**
-				 * Formats a date. Does not alter the date's timezone.
-				 *
-				 * @param dateFormat PHP-style formatting string.
-				 *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
-				 * @param dateValue  Date object or string,
-				 *                   parsable by moment.js.
-				 *
-				 * @return Formatted date.
-				 */
-				function format(dateFormat, dateValue = new Date()) {
+				function format(
+					dateFormat,
+					dateValue = /* @__PURE__ */ new Date()
+				) {
 					let i, char;
 					const newFormat = [];
 					const momentDate =
@@ -54205,9 +51129,7 @@ styleSheet.flush()
 						);
 					for (i = 0; i < dateFormat.length; i++) {
 						char = dateFormat[i];
-						// Is this an escape?
 						if ('\\' === char) {
-							// Add next character, then move on.
 							i++;
 							newFormat.push('[' + dateFormat[i] + ']');
 							continue;
@@ -54215,111 +51137,55 @@ styleSheet.flush()
 						if (char in formatMap) {
 							const formatter = formatMap[char];
 							if (typeof formatter !== 'string') {
-								// If the format is a function, call it.
 								newFormat.push(
 									'[' + formatter(momentDate) + ']'
 								);
 							} else {
-								// Otherwise, add as a formatting string.
 								newFormat.push(formatter);
 							}
 						} else {
 							newFormat.push('[' + char + ']');
 						}
 					}
-					// Join with [] between to separate characters, and replace
-					// unneeded separators with static text.
 					return momentDate.format(newFormat.join('[]'));
 				}
-
-				/**
-				 * Formats a date (like `date()` in PHP).
-				 *
-				 * @param  dateFormat PHP-style formatting string.
-				 *                    See [php.net/date](https://www.php.net/manual/en/function.date.php).
-				 * @param  dateValue  Date object or string, parsable
-				 *                    by moment.js.
-				 * @param  timezone   Timezone to output result in or a
-				 *                    UTC offset. Defaults to timezone from
-				 *                    site.
-				 *
-				 * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-				 * @see https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
-				 *
-				 * @return {string} Formatted date in English.
-				 */
-				function date(dateFormat, dateValue = new Date(), timezone) {
+				function date(
+					dateFormat,
+					dateValue = /* @__PURE__ */ new Date(),
+					timezone
+				) {
 					const dateMoment = buildMoment(dateValue, timezone);
 					return format(dateFormat, dateMoment);
 				}
-
-				/**
-				 * Formats a date (like `date()` in PHP), in the UTC timezone.
-				 *
-				 * @param dateFormat PHP-style formatting string.
-				 *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
-				 * @param dateValue  Date object or string,
-				 *                   parsable by moment.js.
-				 *
-				 * @return Formatted date in English.
-				 */
-				function gmdate(dateFormat, dateValue = new Date()) {
+				function gmdate(
+					dateFormat,
+					dateValue = /* @__PURE__ */ new Date()
+				) {
 					const dateMoment =
 						moment__WEBPACK_IMPORTED_MODULE_0___default()(
 							dateValue
 						).utc();
 					return format(dateFormat, dateMoment);
 				}
-
-				/**
-				 * Formats a date (like `wp_date()` in PHP), translating it into site's locale.
-				 *
-				 * Backward Compatibility Notice: if `timezone` is set to `true`, the function
-				 * behaves like `gmdateI18n`.
-				 *
-				 * @param dateFormat PHP-style formatting string.
-				 *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
-				 * @param dateValue  Date object or string, parsable by
-				 *                   moment.js.
-				 * @param timezone   Timezone to output result in or a
-				 *                   UTC offset. Defaults to timezone from
-				 *                   site. Notice: `boolean` is effectively
-				 *                   deprecated, but still supported for
-				 *                   backward compatibility reasons.
-				 *
-				 * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-				 * @see https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
-				 *
-				 * @return  Formatted date.
-				 */
 				function dateI18n(
 					dateFormat,
-					dateValue = new Date(),
+					dateValue = /* @__PURE__ */ new Date(),
 					timezone
 				) {
 					if (true === timezone) {
 						return gmdateI18n(dateFormat, dateValue);
 					}
 					if (false === timezone) {
-						timezone = undefined;
+						timezone = void 0;
 					}
 					const dateMoment = buildMoment(dateValue, timezone);
 					dateMoment.locale(settings.l10n.locale);
 					return format(dateFormat, dateMoment);
 				}
-
-				/**
-				 * Formats a date (like `wp_date()` in PHP), translating it into site's locale
-				 * and using the UTC timezone.
-				 *
-				 * @param dateFormat PHP-style formatting string.
-				 *                   See [php.net/date](https://www.php.net/manual/en/function.date.php).
-				 * @param dateValue  Date object or string,
-				 *                   parsable by moment.js.
-				 *
-				 * @return Formatted date.
-				 */
-				function gmdateI18n(dateFormat, dateValue = new Date()) {
+				function gmdateI18n(
+					dateFormat,
+					dateValue = /* @__PURE__ */ new Date()
+				) {
 					const dateMoment =
 						moment__WEBPACK_IMPORTED_MODULE_0___default()(
 							dateValue
@@ -54327,14 +51193,6 @@ styleSheet.flush()
 					dateMoment.locale(settings.l10n.locale);
 					return format(dateFormat, dateMoment);
 				}
-
-				/**
-				 * Check whether a date is considered in the future according to the WordPress settings.
-				 *
-				 * @param dateValue Date String or Date object in the Defined WP Timezone.
-				 *
-				 * @return Is in the future.
-				 */
 				function isInTheFuture(dateValue) {
 					const now =
 						moment__WEBPACK_IMPORTED_MODULE_0___default().tz(
@@ -54347,14 +51205,6 @@ styleSheet.flush()
 						);
 					return momentObject.isAfter(now);
 				}
-
-				/**
-				 * Create and return a JavaScript Date Object from a date string in the WP timezone.
-				 *
-				 * @param dateString Date formatted in the WP timezone.
-				 *
-				 * @return  Date
-				 */
 				function getDate(dateString) {
 					if (!dateString) {
 						return moment__WEBPACK_IMPORTED_MODULE_0___default()
@@ -54365,15 +51215,6 @@ styleSheet.flush()
 						.tz(dateString, WP_ZONE)
 						.toDate();
 				}
-
-				/**
-				 * Returns a human-readable time difference between two dates, like human_time_diff() in PHP.
-				 *
-				 * @param from From date, in the WP timezone.
-				 * @param to   To date, formatted in the WP timezone.
-				 *
-				 * @return Human-readable time difference.
-				 */
 				function humanTimeDiff(from, to) {
 					const fromMoment =
 						moment__WEBPACK_IMPORTED_MODULE_0___default().tz(
@@ -54390,28 +51231,12 @@ styleSheet.flush()
 							);
 					return fromMoment.from(toMoment);
 				}
-
-				/**
-				 * Creates a moment instance using the given timezone or, if none is provided, using global settings.
-				 *
-				 * @param dateValue Date object or string, parsable
-				 *                  by moment.js.
-				 * @param timezone  Timezone to output result in or a
-				 *                  UTC offset. Defaults to timezone from
-				 *                  site.
-				 *
-				 * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-				 * @see https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
-				 *
-				 * @return A moment instance.
-				 */
 				function buildMoment(dateValue, timezone = '') {
 					const dateMoment =
 						moment__WEBPACK_IMPORTED_MODULE_0___default()(
 							dateValue
 						);
 					if (timezone && !isUTCOffset(timezone)) {
-						// The ! isUTCOffset() check guarantees that timezone is a string.
 						return dateMoment.tz(timezone);
 					}
 					if (timezone && isUTCOffset(timezone)) {
@@ -54422,14 +51247,6 @@ styleSheet.flush()
 					}
 					return dateMoment.utcOffset(+settings.timezone.offset);
 				}
-
-				/**
-				 * Returns whether a certain UTC offset is valid or not.
-				 *
-				 * @param offset a UTC offset.
-				 *
-				 * @return  whether a certain UTC offset is valid or not.
-				 */
 				function isUTCOffset(offset) {
 					if ('number' === typeof offset) {
 						return true;
@@ -54437,6 +51254,7 @@ styleSheet.flush()
 					return VALID_UTC_OFFSET.test(offset);
 				}
 				setupWPTimezone();
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -54446,16 +51264,8 @@ styleSheet.flush()
 			/*!************************************************************!*\
   !*** ./node_modules/@wordpress/date/build-module/types.js ***!
   \************************************************************/
-			/***/ function (
-				__unused_webpack_module,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-
+			/***/ function () {
 				//# sourceMappingURL=types.js.map
-
 				/***/
 			},
 
@@ -54486,36 +51296,8 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/hooks */ './node_modules/@wordpress/hooks/build-module/index.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Object map tracking messages which have been logged, for use in ensuring a
-				 * message is only logged once.
-				 */
-				const logged = Object.create(null);
-				/**
-				 * Logs a message to notify developers about a deprecated feature.
-				 *
-				 * @param {string}            feature   Name of the deprecated feature.
-				 * @param {DeprecatedOptions} [options] Personalisation options
-				 *
-				 * @example
-				 * ```js
-				 * import deprecated from '@wordpress/deprecated';
-				 *
-				 * deprecated( 'Eating meat', {
-				 * 	since: '2019.01.01',
-				 * 	version: '2020.01.01',
-				 * 	alternative: 'vegetables',
-				 * 	plugin: 'the earth',
-				 * 	hint: 'You may find it beneficial to transition gradually.',
-				 * } );
-				 *
-				 * // Logs: 'Eating meat is deprecated since version 2019.01.01 and will be removed from the earth in version 2020.01.01. Please use vegetables instead. Note: You may find it beneficial to transition gradually.'
-				 * ```
-				 */
+				const logged = /* @__PURE__ */ Object.create(null);
 				function deprecated(feature, options = {}) {
 					const { since, version, alternative, plugin, link, hint } =
 						options;
@@ -54530,30 +51312,19 @@ styleSheet.flush()
 					const linkMessage = link ? ` See: ${link}` : '';
 					const hintMessage = hint ? ` Note: ${hint}` : '';
 					const message = `${feature} is deprecated${sinceMessage}${versionMessage}.${useInsteadMessage}${linkMessage}${hintMessage}`;
-
-					// Skip if already logged.
 					if (message in logged) {
 						return;
 					}
-
-					/**
-					 * Fires whenever a deprecated feature is encountered
-					 *
-					 * @param {string}            feature Name of the deprecated feature.
-					 * @param {DeprecatedOptions} options Personalisation options
-					 * @param {string}            message Message sent to console.warn
-					 */
 					(0, _wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.doAction)(
 						'deprecated',
 						feature,
 						options,
 						message
 					);
-
-					// eslint-disable-next-line no-console
 					console.warn(message);
 					logged[message] = true;
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -54579,51 +51350,19 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * @typedef {() => void} Callback
-				 *
-				 * TODO: Remove this typedef and inline `() => void` type.
-				 *
-				 * This typedef is used so that a descriptive type is provided in our
-				 * automatically generated documentation.
-				 *
-				 * An in-line type `() => void` would be preferable, but the generated
-				 * documentation is `null` in that case.
-				 *
-				 * @see https://github.com/WordPress/gutenberg/issues/18045
-				 */
-
-				/**
-				 * Specify a function to execute when the DOM is fully loaded.
-				 *
-				 * @param {Callback} callback A function to execute after the DOM is ready.
-				 *
-				 * @example
-				 * ```js
-				 * import domReady from '@wordpress/dom-ready';
-				 *
-				 * domReady( function() {
-				 * 	//do something after DOM loads.
-				 * } );
-				 * ```
-				 *
-				 * @return {void}
-				 */
 				function domReady(callback) {
 					if (typeof document === 'undefined') {
 						return;
 					}
 					if (
-						document.readyState === 'complete' ||
-						// DOMContentLoaded + Images/Styles/etc loaded, so we call directly.
-						document.readyState === 'interactive' // DOMContentLoaded fires at this point, so we call directly.
+						document.readyState === 'complete' || // DOMContentLoaded + Images/Styles/etc loaded, so we call directly.
+						document.readyState === 'interactive'
 					) {
 						return void callback();
 					}
-
-					// DOMContentLoaded has not fired yet, delay callback until then.
 					document.addEventListener('DOMContentLoaded', callback);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -54650,13 +51389,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Gets all files from a DataTransfer object.
-				 *
-				 * @param {DataTransfer} dataTransfer DataTransfer object to inspect.
-				 *
-				 * @return {File[]} An array containing all files.
-				 */
 				function getFilesFromDataTransfer(dataTransfer) {
 					const files = Array.from(dataTransfer.files);
 					Array.from(dataTransfer.items).forEach((item) => {
@@ -54675,6 +51407,7 @@ styleSheet.flush()
 					});
 					return files;
 				}
+
 				//# sourceMappingURL=data-transfer.js.map
 
 				/***/
@@ -54700,18 +51433,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Polyfill.
-				 * Get a collapsed range for a given point.
-				 *
-				 * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/caretRangeFromPoint
-				 *
-				 * @param {DocumentMaybeWithCaretPositionFromPoint} doc The document of the range.
-				 * @param {number}                                  x   Horizontal position within the current viewport.
-				 * @param {number}                                  y   Vertical position within the current viewport.
-				 *
-				 * @return {Range | null} The best range for the given point.
-				 */
 				function caretRangeFromPoint(doc, x, y) {
 					if (doc.caretRangeFromPoint) {
 						return doc.caretRangeFromPoint(x, y);
@@ -54720,9 +51441,6 @@ styleSheet.flush()
 						return null;
 					}
 					const point = doc.caretPositionFromPoint(x, y);
-
-					// If x or y are negative, outside viewport, or there is no text entry node.
-					// https://developer.mozilla.org/en-US/docs/Web/API/Document/caretRangeFromPoint
 					if (!point) {
 						return null;
 					}
@@ -54732,10 +51450,6 @@ styleSheet.flush()
 					return range;
 				}
 
-				/**
-				 * @typedef {{caretPositionFromPoint?: (x: number, y: number)=> CaretPosition | null} & Document } DocumentMaybeWithCaretPositionFromPoint
-				 * @typedef {{ readonly offset: number; readonly offsetNode: Node; getClientRect(): DOMRect | null; }} CaretPosition
-				 */
 				//# sourceMappingURL=caret-range-from-point.js.map
 
 				/***/
@@ -54785,253 +51499,185 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-element */ './node_modules/@wordpress/dom/build-module/dom/is-element.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
 				const noop = () => {};
-
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * @typedef SchemaItem
-				 * @property {string[]}                            [attributes] Attributes.
-				 * @property {(string | RegExp)[]}                 [classes]    Classnames or RegExp to test against.
-				 * @property {'*' | { [tag: string]: SchemaItem }} [children]   Child schemas.
-				 * @property {string[]}                            [require]    Selectors to test required children against. Leave empty or undefined if there are no requirements.
-				 * @property {boolean}                             allowEmpty   Whether to allow nodes without children.
-				 * @property {(node: Node) => boolean}             [isMatch]    Function to test whether a node is a match. If left undefined any node will be assumed to match.
-				 */
-
-				/** @typedef {{ [tag: string]: SchemaItem }} Schema */
-				/* eslint-enable jsdoc/valid-types */
-
-				/**
-				 * Given a schema, unwraps or removes nodes, attributes and classes on a node
-				 * list.
-				 *
-				 * @param {NodeList} nodeList The nodeList to filter.
-				 * @param {Document} doc      The document of the nodeList.
-				 * @param {Schema}   schema   An array of functions that can mutate with the provided node.
-				 * @param {boolean}  inline   Whether to clean for inline mode.
-				 */
 				function cleanNodeList(nodeList, doc, schema, inline) {
-					Array.from(nodeList).forEach(
-						(
-							/** @type {Node & { nextElementSibling?: unknown }} */ node
-						) => {
-							const tag = node.nodeName.toLowerCase();
-
-							// It's a valid child, if the tag exists in the schema without an isMatch
-							// function, or with an isMatch function that matches the node.
+					Array.from(nodeList).forEach((node) => {
+						const tag = node.nodeName.toLowerCase();
+						if (
+							schema.hasOwnProperty(tag) &&
+							(!schema[tag].isMatch ||
+								schema[tag].isMatch?.(node))
+						) {
 							if (
-								schema.hasOwnProperty(tag) &&
-								(!schema[tag].isMatch ||
-									schema[tag].isMatch?.(node))
+								(0,
+								_is_element__WEBPACK_IMPORTED_MODULE_5__[
+									'default'
+								])(node)
 							) {
+								const {
+									attributes = [],
+									classes = [],
+									children,
+									require: require2 = [],
+									allowEmpty,
+								} = schema[tag];
 								if (
+									children &&
+									!allowEmpty &&
 									(0,
-									_is_element__WEBPACK_IMPORTED_MODULE_5__[
+									_is_empty__WEBPACK_IMPORTED_MODULE_0__[
 										'default'
 									])(node)
 								) {
-									const {
-										attributes = [],
-										classes = [],
-										children,
-										require = [],
-										allowEmpty,
-									} = schema[tag];
-
-									// If the node is empty and it's supposed to have children,
-									// remove the node.
+									(0,
+									_remove__WEBPACK_IMPORTED_MODULE_1__[
+										'default'
+									])(node);
+									return;
+								}
+								if (node.hasAttributes()) {
+									Array.from(node.attributes).forEach(
+										({ name }) => {
+											if (
+												name !== 'class' &&
+												!attributes.includes(name)
+											) {
+												node.removeAttribute(name);
+											}
+										}
+									);
 									if (
-										children &&
-										!allowEmpty &&
-										(0,
-										_is_empty__WEBPACK_IMPORTED_MODULE_0__[
-											'default'
-										])(node)
+										node.classList &&
+										node.classList.length
 									) {
-										(0,
-										_remove__WEBPACK_IMPORTED_MODULE_1__[
-											'default'
-										])(node);
-										return;
-									}
-									if (node.hasAttributes()) {
-										// Strip invalid attributes.
-										Array.from(node.attributes).forEach(
-											({ name }) => {
-												if (
-													name !== 'class' &&
-													!attributes.includes(name)
+										const mattchers = classes.map(
+											(item) => {
+												if (item === '*') {
+													return () => true;
+												} else if (
+													typeof item === 'string'
 												) {
-													node.removeAttribute(name);
+													return (className) =>
+														className === item;
+												} else if (
+													item instanceof RegExp
+												) {
+													return (className) =>
+														item.test(className);
+												}
+												return noop;
+											}
+										);
+										Array.from(node.classList).forEach(
+											(name) => {
+												if (
+													!mattchers.some((isMatch) =>
+														isMatch(name)
+													)
+												) {
+													node.classList.remove(name);
 												}
 											}
 										);
-
-										// Strip invalid classes.
-										// In jsdom-jscore, 'node.classList' can be undefined.
-										// TODO: Explore patching this in jsdom-jscore.
-										if (
-											node.classList &&
-											node.classList.length
-										) {
-											const mattchers = classes.map(
-												(item) => {
-													if (item === '*') {
-														// Keep all classes.
-														return () => true;
-													} else if (
-														typeof item === 'string'
-													) {
-														return (
-															/** @type {string} */ className
-														) => className === item;
-													} else if (
-														item instanceof RegExp
-													) {
-														return (
-															/** @type {string} */ className
-														) =>
-															item.test(
-																className
-															);
-													}
-													return noop;
-												}
-											);
-											Array.from(node.classList).forEach(
-												(name) => {
-													if (
-														!mattchers.some(
-															(isMatch) =>
-																isMatch(name)
-														)
-													) {
-														node.classList.remove(
-															name
-														);
-													}
-												}
-											);
-											if (!node.classList.length) {
-												node.removeAttribute('class');
-											}
+										if (!node.classList.length) {
+											node.removeAttribute('class');
 										}
 									}
-									if (node.hasChildNodes()) {
-										// Do not filter any content.
-										if (children === '*') {
-											return;
-										}
-
-										// Continue if the node is supposed to have children.
-										if (children) {
-											// If a parent requires certain children, but it does
-											// not have them, drop the parent and continue.
+								}
+								if (node.hasChildNodes()) {
+									if (children === '*') {
+										return;
+									}
+									if (children) {
+										if (
+											require2.length &&
+											!node.querySelector(
+												require2.join(',')
+											)
+										) {
+											cleanNodeList(
+												node.childNodes,
+												doc,
+												schema,
+												inline
+											);
+											(0,
+											_unwrap__WEBPACK_IMPORTED_MODULE_2__[
+												'default'
+											])(node);
+										} else if (
+											node.parentNode &&
+											node.parentNode.nodeName ===
+												'BODY' &&
+											(0,
+											_phrasing_content__WEBPACK_IMPORTED_MODULE_3__.isPhrasingContent)(
+												node
+											)
+										) {
+											cleanNodeList(
+												node.childNodes,
+												doc,
+												schema,
+												inline
+											);
 											if (
-												require.length &&
-												!node.querySelector(
-													require.join(',')
+												Array.from(
+													node.childNodes
+												).some(
+													(child) =>
+														!(0,
+														_phrasing_content__WEBPACK_IMPORTED_MODULE_3__.isPhrasingContent)(
+															child
+														)
 												)
 											) {
-												cleanNodeList(
-													node.childNodes,
-													doc,
-													schema,
-													inline
-												);
 												(0,
 												_unwrap__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
 												])(node);
-												// If the node is at the top, phrasing content, and
-												// contains children that are block content, unwrap
-												// the node because it is invalid.
-											} else if (
-												node.parentNode &&
-												node.parentNode.nodeName ===
-													'BODY' &&
-												(0,
-												_phrasing_content__WEBPACK_IMPORTED_MODULE_3__.isPhrasingContent)(
-													node
-												)
-											) {
-												cleanNodeList(
-													node.childNodes,
-													doc,
-													schema,
-													inline
-												);
-												if (
-													Array.from(
-														node.childNodes
-													).some(
-														(child) =>
-															!(0,
-															_phrasing_content__WEBPACK_IMPORTED_MODULE_3__.isPhrasingContent)(
-																child
-															)
-													)
-												) {
-													(0,
-													_unwrap__WEBPACK_IMPORTED_MODULE_2__[
-														'default'
-													])(node);
-												}
-											} else {
-												cleanNodeList(
-													node.childNodes,
-													doc,
-													children,
-													inline
-												);
 											}
-											// Remove children if the node is not supposed to have any.
 										} else {
-											while (node.firstChild) {
-												(0,
-												_remove__WEBPACK_IMPORTED_MODULE_1__[
-													'default'
-												])(node.firstChild);
-											}
+											cleanNodeList(
+												node.childNodes,
+												doc,
+												children,
+												inline
+											);
+										}
+									} else {
+										while (node.firstChild) {
+											(0,
+											_remove__WEBPACK_IMPORTED_MODULE_1__[
+												'default'
+											])(node.firstChild);
 										}
 									}
 								}
-								// Invalid child. Continue with schema at the same place and unwrap.
-							} else {
-								cleanNodeList(
-									node.childNodes,
-									doc,
-									schema,
-									inline
-								);
-
-								// For inline mode, insert a line break when unwrapping nodes that
-								// are not phrasing content.
-								if (
-									inline &&
-									!(0,
-									_phrasing_content__WEBPACK_IMPORTED_MODULE_3__.isPhrasingContent)(
-										node
-									) &&
-									node.nextElementSibling
-								) {
-									(0,
-									_insert_after__WEBPACK_IMPORTED_MODULE_4__[
-										'default'
-									])(doc.createElement('br'), node);
-								}
-								(0,
-								_unwrap__WEBPACK_IMPORTED_MODULE_2__[
-									'default'
-								])(node);
 							}
+						} else {
+							cleanNodeList(node.childNodes, doc, schema, inline);
+							if (
+								inline &&
+								!(0,
+								_phrasing_content__WEBPACK_IMPORTED_MODULE_3__.isPhrasingContent)(
+									node
+								) &&
+								node.nextElementSibling
+							) {
+								(0,
+								_insert_after__WEBPACK_IMPORTED_MODULE_4__[
+									'default'
+								])(doc.createElement('br'), node);
+							}
+							(0,
+							_unwrap__WEBPACK_IMPORTED_MODULE_2__['default'])(
+								node
+							);
 						}
-					);
+					});
 				}
+
 				//# sourceMappingURL=clean-node-list.js.map
 
 				/***/
@@ -55065,17 +51711,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Get the rectangle for the selection in a container.
-				 *
-				 * @param {Window} win The window of the selection.
-				 *
-				 * @return {DOMRect | null} The rectangle.
-				 */
 				function computeCaretRect(win) {
 					const selection = win.getSelection();
 					(0,
@@ -55094,6 +51730,7 @@ styleSheet.flush()
 						'default'
 					])(range);
 				}
+
 				//# sourceMappingURL=compute-caret-rect.js.map
 
 				/***/
@@ -55131,18 +51768,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./document-has-text-selection */ './node_modules/@wordpress/dom/build-module/dom/document-has-text-selection.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the current document has a selection. This includes focus in
-				 * input fields, textareas, and general rich-text selection.
-				 *
-				 * @param {Document} doc The document to check.
-				 *
-				 * @return {boolean} True if there is selection, false if not.
-				 */
 				function documentHasSelection(doc) {
 					return (
 						!!doc.activeElement &&
@@ -55160,6 +51786,7 @@ styleSheet.flush()
 							])(doc))
 					);
 				}
+
 				//# sourceMappingURL=document-has-selection.js.map
 
 				/***/
@@ -55189,21 +51816,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the current document has selected text. This applies to ranges
-				 * of text in the document, and not selection inside `<input>` and `<textarea>`
-				 * elements.
-				 *
-				 * See: https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection#Related_objects.
-				 *
-				 * @param {Document} doc The document to check.
-				 *
-				 * @return {boolean} True if there is selection, false if not.
-				 */
 				function documentHasTextSelection(doc) {
 					(0,
 					_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
@@ -55221,6 +51834,7 @@ styleSheet.flush()
 						: null;
 					return !!range && !range.collapsed;
 				}
+
 				//# sourceMappingURL=document-has-text-selection.js.map
 
 				/***/
@@ -55254,19 +51868,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./input-field-has-uncollapsed-selection */ './node_modules/@wordpress/dom/build-module/dom/input-field-has-uncollapsed-selection.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the current document has any sort of (uncollapsed) selection.
-				 * This includes ranges of text across elements and any selection inside
-				 * textual `<input>` and `<textarea>` elements.
-				 *
-				 * @param {Document} doc The document to check.
-				 *
-				 * @return {boolean} Whether there is any recognizable text selection in the document.
-				 */
 				function documentHasUncollapsedSelection(doc) {
 					return (
 						(0,
@@ -55280,6 +51882,7 @@ styleSheet.flush()
 							])(doc.activeElement))
 					);
 				}
+
 				//# sourceMappingURL=document-has-uncollapsed-selection.js.map
 
 				/***/
@@ -55309,17 +51912,8 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * @param {Element} element
-				 * @return {ReturnType<Window['getComputedStyle']>} The computed style for the element.
-				 */
 				function getComputedStyle(element) {
-					/* eslint-enable jsdoc/valid-types */
 					(0,
 					_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
 						element.ownerDocument.defaultView,
@@ -55329,6 +51923,7 @@ styleSheet.flush()
 						element
 					);
 				}
+
 				//# sourceMappingURL=get-computed-style.js.map
 
 				/***/
@@ -55358,24 +51953,8 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-computed-style */ './node_modules/@wordpress/dom/build-module/dom/get-computed-style.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Returns the closest positioned element, or null under any of the conditions
-				 * of the offsetParent specification. Unlike offsetParent, this function is not
-				 * limited to HTMLElement and accepts any Node (e.g. Node.TEXT_NODE).
-				 *
-				 * @see https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsetparent
-				 *
-				 * @param {Node} node Node from which to find offset parent.
-				 *
-				 * @return {Node | null} Offset parent.
-				 */
 				function getOffsetParent(node) {
-					// Cannot retrieve computed style or offset parent only anything other than
-					// an element node, so find the closest element node.
 					let closestElement;
 					while (
 						(closestElement = /** @type {Node} */ node.parentNode)
@@ -55390,22 +51969,23 @@ styleSheet.flush()
 					if (!closestElement) {
 						return null;
 					}
-
-					// If the closest element is already positioned, return it, as offsetParent
-					// does not otherwise consider the node itself.
 					if (
 						(0,
 						_get_computed_style__WEBPACK_IMPORTED_MODULE_0__[
 							'default'
-						])(/** @type {Element} */ closestElement).position !==
-						'static'
+						])(
+							/** @type {Element} */
+							closestElement
+						).position !== 'static'
 					) {
 						return closestElement;
 					}
-
-					// offsetParent is undocumented/draft.
-					return /** @type {Node & { offsetParent: Node }} */ closestElement.offsetParent;
+					return (
+						/** @type {Node & { offsetParent: Node }} */
+						closestElement.offsetParent
+					);
 				}
+
 				//# sourceMappingURL=get-offset-parent.js.map
 
 				/***/
@@ -55431,13 +52011,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Gets the height of the range without ignoring zero width rectangles, which
-				 * some browsers ignore when creating a union.
-				 *
-				 * @param {Range} range The range to check.
-				 * @return {number | undefined} Height of the range or undefined if the range has no client rectangles.
-				 */
 				function getRangeHeight(range) {
 					const rects = Array.from(range.getClientRects());
 					if (!rects.length) {
@@ -55449,6 +52022,7 @@ styleSheet.flush()
 					);
 					return lowestBottom - highestTop;
 				}
+
 				//# sourceMappingURL=get-range-height.js.map
 
 				/***/
@@ -55478,36 +52052,16 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Get the rectangle of a given Range. Returns `null` if no suitable rectangle
-				 * can be found.
-				 *
-				 * @param {Range} range The range.
-				 *
-				 * @return {DOMRect?} The rectangle.
-				 */
 				function getRectangleFromRange(range) {
-					// For uncollapsed ranges, get the rectangle that bounds the contents of the
-					// range; this a rectangle enclosing the union of the bounding rectangles
-					// for all the elements in the range.
 					if (!range.collapsed) {
-						const rects = Array.from(range.getClientRects());
-
-						// If there's just a single rect, return it.
-						if (rects.length === 1) {
-							return rects[0];
+						const rects2 = Array.from(range.getClientRects());
+						if (rects2.length === 1) {
+							return rects2[0];
 						}
-
-						// Ignore tiny selection at the edge of a range.
-						const filteredRects = rects.filter(
+						const filteredRects = rects2.filter(
 							({ width }) => width > 1
 						);
-
-						// If it's full of tiny selections, return browser default.
 						if (filteredRects.length === 0) {
 							return range.getBoundingClientRect();
 						}
@@ -55548,8 +52102,6 @@ styleSheet.flush()
 					}
 					const { startContainer } = range;
 					const { ownerDocument } = startContainer;
-
-					// Correct invalid "BR" ranges. The cannot contain any children.
 					if (startContainer.nodeName === 'BR') {
 						const { parentNode } = startContainer;
 						(0,
@@ -55557,9 +52109,11 @@ styleSheet.flush()
 							parentNode,
 							'parentNode'
 						);
-						const index = /** @type {Node[]} */ Array.from(
-							parentNode.childNodes
-						).indexOf(startContainer);
+						const index =
+							/** @type {Node[]} */
+							Array.from(parentNode.childNodes).indexOf(
+								startContainer
+							);
 						(0,
 						_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
 							ownerDocument,
@@ -55570,27 +52124,17 @@ styleSheet.flush()
 						range.setEnd(parentNode, index);
 					}
 					const rects = range.getClientRects();
-
-					// If we have multiple rectangles for a collapsed range, there's no way to
-					// know which it is, so don't return anything.
 					if (rects.length > 1) {
 						return null;
 					}
 					let rect = rects[0];
-
-					// If the collapsed range starts (and therefore ends) at an element node,
-					// `getClientRects` can be empty in some browsers. This can be resolved
-					// by adding a temporary text node with zero-width space to the range.
-					//
-					// See: https://stackoverflow.com/a/6847328/995445
 					if (!rect || rect.height === 0) {
 						(0,
 						_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
 							ownerDocument,
 							'ownerDocument'
 						);
-						const padNode = ownerDocument.createTextNode('\u200b');
-						// Do not modify the live range.
+						const padNode = ownerDocument.createTextNode('\u200B');
 						range = range.cloneRange();
 						range.insertNode(padNode);
 						rect = range.getClientRects()[0];
@@ -55603,6 +52147,7 @@ styleSheet.flush()
 					}
 					return rect;
 				}
+
 				//# sourceMappingURL=get-rectangle-from-range.js.map
 
 				/***/
@@ -55632,27 +52177,13 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-computed-style */ './node_modules/@wordpress/dom/build-module/dom/get-computed-style.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Given a DOM node, finds the closest scrollable container node or the node
-				 * itself, if scrollable.
-				 *
-				 * @param {Element | null} node      Node from which to start.
-				 * @param {?string}        direction Direction of scrollable container to search for ('vertical', 'horizontal', 'all').
-				 *                                   Defaults to 'vertical'.
-				 * @return {Element | undefined} Scrollable container node, if found.
-				 */
 				function getScrollContainer(node, direction = 'vertical') {
 					if (!node) {
-						return undefined;
+						return void 0;
 					}
 					if (direction === 'vertical' || direction === 'all') {
-						// Scrollable if scrollable height exceeds displayed...
 						if (node.scrollHeight > node.clientHeight) {
-							// ...except when overflow is defined to be hidden or visible
 							const { overflowY } = (0,
 							_get_computed_style__WEBPACK_IMPORTED_MODULE_0__[
 								'default'
@@ -55663,9 +52194,7 @@ styleSheet.flush()
 						}
 					}
 					if (direction === 'horizontal' || direction === 'all') {
-						// Scrollable if scrollable width exceeds displayed...
 						if (node.scrollWidth > node.clientWidth) {
-							// ...except when overflow is defined to be hidden or visible
 							const { overflowX } = (0,
 							_get_computed_style__WEBPACK_IMPORTED_MODULE_0__[
 								'default'
@@ -55678,13 +52207,13 @@ styleSheet.flush()
 					if (node.ownerDocument === node.parentNode) {
 						return node;
 					}
-
-					// Continue traversing.
 					return getScrollContainer(
-						/** @type {Element} */ node.parentNode,
+						/** @type {Element} */
+						node.parentNode,
 						direction
 					);
 				}
+
 				//# sourceMappingURL=get-scroll-container.js.map
 
 				/***/
@@ -55718,22 +52247,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-computed-style */ './node_modules/@wordpress/dom/build-module/dom/get-computed-style.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Get a collapsed range for a given point.
-				 * Gives the container a temporary high z-index (above any UI).
-				 * This is preferred over getting the UI nodes and set styles there.
-				 *
-				 * @param {Document}    doc       The document of the range.
-				 * @param {number}      x         Horizontal position within the current viewport.
-				 * @param {number}      y         Vertical position within the current viewport.
-				 * @param {HTMLElement} container Container in which the range is expected to be found.
-				 *
-				 * @return {?Range} The best range for the given point.
-				 */
 				function hiddenCaretRangeFromPoint(doc, x, y, container) {
 					const originalZIndex = container.style.zIndex;
 					const originalPosition = container.style.position;
@@ -55741,8 +52255,6 @@ styleSheet.flush()
 					_get_computed_style__WEBPACK_IMPORTED_MODULE_1__[
 						'default'
 					])(container);
-
-					// A z-index only works if the element position is not static.
 					if (position === 'static') {
 						container.style.position = 'relative';
 					}
@@ -55755,6 +52267,7 @@ styleSheet.flush()
 					container.style.position = originalPosition;
 					return range;
 				}
+
 				//# sourceMappingURL=hidden-caret-range-from-point.js.map
 
 				/***/
@@ -56059,27 +52572,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-html-input-element */ './node_modules/@wordpress/dom/build-module/dom/is-html-input-element.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the given input field or textarea contains a (uncollapsed)
-				 * selection of text.
-				 *
-				 * CAVEAT: Only specific text-based HTML inputs support the selection APIs
-				 * needed to determine whether they have a collapsed or uncollapsed selection.
-				 * This function defaults to returning `true` when the selection cannot be
-				 * inspected, such as with `<input type="time">`. The rationale is that this
-				 * should cause the block editor to defer to the browser's native selection
-				 * handling (e.g. copying and pasting), thereby reducing friction for the user.
-				 *
-				 * See: https://html.spec.whatwg.org/multipage/input.html#do-not-apply
-				 *
-				 * @param {Element} element The HTML element.
-				 *
-				 * @return {boolean} Whether the input/textarea element has some "selection".
-				 */
 				function inputFieldHasUncollapsedSelection(element) {
 					if (
 						!(0,
@@ -56093,27 +52586,22 @@ styleSheet.flush()
 					) {
 						return false;
 					}
-
-					// Safari throws a type error when trying to get `selectionStart` and
-					// `selectionEnd` on non-text <input> elements, so a try/catch construct is
-					// necessary.
 					try {
 						const { selectionStart, selectionEnd } =
-							/** @type {HTMLInputElement | HTMLTextAreaElement} */ element;
+							/** @type {HTMLInputElement | HTMLTextAreaElement} */
+							element;
 						return (
 							// `null` means the input type doesn't implement selection, thus we
 							// cannot determine whether the selection is collapsed, so we
 							// default to true.
-							selectionStart === null ||
-							// when not null, compare the two points
+							selectionStart === null || // when not null, compare the two points
 							selectionStart !== selectionEnd
 						);
 					} catch (error) {
-						// This is Safari's way of saying that the input type doesn't implement
-						// selection, so we default to true.
 						return true;
 					}
 				}
+
 				//# sourceMappingURL=input-field-has-uncollapsed-selection.js.map
 
 				/***/
@@ -56143,18 +52631,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Given two DOM nodes, inserts the former in the DOM as the next sibling of
-				 * the latter.
-				 *
-				 * @param {Node} newNode       Node to be inserted.
-				 * @param {Node} referenceNode Node after which to perform the insertion.
-				 * @return {void}
-				 */
 				function insertAfter(newNode, referenceNode) {
 					(0,
 					_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
@@ -56166,6 +52643,7 @@ styleSheet.flush()
 						referenceNode.nextSibling
 					);
 				}
+
 				//# sourceMappingURL=insert-after.js.map
 
 				/***/
@@ -56223,21 +52701,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./scroll-if-no-range */ './node_modules/@wordpress/dom/build-module/dom/scroll-if-no-range.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the selection is at the edge of the container. Checks for
-				 * horizontal position by default. Set `onlyVertical` to true to check only
-				 * vertically.
-				 *
-				 * @param {HTMLElement} container            Focusable element.
-				 * @param {boolean}     isReverse            Set to true to check left, false to check right.
-				 * @param {boolean}     [onlyVertical=false] Set to true to check only vertical position.
-				 *
-				 * @return {boolean} True if at the edge, false if not.
-				 */
 				function isEdge(container, isReverse, onlyVertical = false) {
 					if (
 						(0,
@@ -56279,8 +52743,6 @@ styleSheet.flush()
 						'default'
 					])(selection);
 					const isCollapsed = selection.isCollapsed;
-
-					// Collapse in direction of selection.
 					if (!isCollapsed) {
 						collapsedRange.collapse(!isForward);
 					}
@@ -56295,10 +52757,6 @@ styleSheet.flush()
 					if (!collapsedRangeRect || !rangeRect) {
 						return false;
 					}
-
-					// Only consider the multiline selection at the edge if the direction is
-					// towards the edge. The selection is multiline if it is taller than the
-					// collapsed  selection.
 					const rangeHeight = (0,
 					_get_range_height__WEBPACK_IMPORTED_MODULE_1__['default'])(
 						range
@@ -56311,24 +52769,11 @@ styleSheet.flush()
 					) {
 						return false;
 					}
-
-					// In the case of RTL scripts, the horizontal edge is at the opposite side.
 					const isReverseDir = (0,
 					_is_rtl__WEBPACK_IMPORTED_MODULE_0__['default'])(container)
 						? !isReverse
 						: isReverse;
 					const containerRect = container.getBoundingClientRect();
-
-					// To check if a selection is at the edge, we insert a test selection at the
-					// edge of the container and check if the selections have the same vertical
-					// or horizontal position. If they do, the selection is at the edge.
-					// This method proves to be better than a DOM-based calculation for the
-					// horizontal edge, since it ignores empty textnodes and a trailing line
-					// break element. In other words, we need to check visual positioning, not
-					// DOM positioning.
-					// It also proves better than using the computed style for the vertical
-					// edge, because we cannot know the padding and line height reliably in
-					// pixels. `getComputedStyle` may return a value with different units.
 					const x = isReverseDir
 						? containerRect.left + 1
 						: containerRect.right - 1;
@@ -56362,14 +52807,13 @@ styleSheet.flush()
 					const horizontalDiff =
 						testRect[horizontalSide] -
 						collapsedRangeRect[horizontalSide];
-
-					// Allow the position to be 1px off.
 					const hasVerticalDiff = Math.abs(verticalDiff) <= 1;
 					const hasHorizontalDiff = Math.abs(horizontalDiff) <= 1;
 					return onlyVertical
 						? hasVerticalDiff
 						: hasVerticalDiff && hasHorizontalDiff;
 				}
+
 				//# sourceMappingURL=is-edge.js.map
 
 				/***/
@@ -56395,15 +52839,10 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * @param {Node | null | undefined} node
-				 * @return {node is Element} True if node is an Element node
-				 */
 				function isElement(node) {
-					/* eslint-enable jsdoc/valid-types */
 					return !!node && node.nodeType === node.ELEMENT_NODE;
 				}
+
 				//# sourceMappingURL=is-element.js.map
 
 				/***/
@@ -56429,19 +52868,9 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Recursively checks if an element is empty. An element is not empty if it
-				 * contains text or contains elements with attributes such as images.
-				 *
-				 * @param {Element} element The element to check.
-				 *
-				 * @return {boolean} Whether or not the element is empty.
-				 */
 				function isEmpty(element) {
 					switch (element.nodeType) {
 						case element.TEXT_NODE:
-							// We cannot use \s since it includes special spaces which we want
-							// to preserve.
 							return /^[ \f\n\r\t\v\u00a0]*$/.test(
 								element.nodeValue || ''
 							);
@@ -56451,13 +52880,15 @@ styleSheet.flush()
 							} else if (!element.hasChildNodes()) {
 								return true;
 							}
-							return /** @type {Element[]} */ Array.from(
-								element.childNodes
-							).every(isEmpty);
+							return (
+								/** @type {Element[]} */
+								Array.from(element.childNodes).every(isEmpty)
+							);
 						default:
 							return true;
 					}
 				}
+
 				//# sourceMappingURL=is-empty.js.map
 
 				/***/
@@ -56491,18 +52922,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-input-or-text-area */ './node_modules/@wordpress/dom/build-module/dom/is-input-or-text-area.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the contents of the element have been entirely selected.
-				 * Returns true if there is no possibility of selection.
-				 *
-				 * @param {HTMLElement} element The element to check.
-				 *
-				 * @return {boolean} True if entirely selected, false if not.
-				 */
 				function isEntirelySelected(element) {
 					if (
 						(0,
@@ -56559,7 +52979,8 @@ styleSheet.flush()
 					);
 					const endContainerContentLength =
 						endContainer.nodeType === endContainer.TEXT_NODE
-							? /** @type {Text} */ endContainer.data.length
+							? /** @type {Text} */
+								endContainer.data.length
 							: endContainer.childNodes.length;
 					return (
 						isDeepChild(startContainer, element, 'firstChild') &&
@@ -56568,19 +52989,7 @@ styleSheet.flush()
 						endOffset === endContainerContentLength
 					);
 				}
-
-				/**
-				 * Check whether the contents of the element have been entirely selected.
-				 * Returns true if there is no possibility of selection.
-				 *
-				 * @param {HTMLElement|Node}         query     The element to check.
-				 * @param {HTMLElement}              container The container that we suspect "query" may be a first or last child of.
-				 * @param {"firstChild"|"lastChild"} propName  "firstChild" or "lastChild"
-				 *
-				 * @return {boolean} True if query is a deep first/last child of container, false otherwise.
-				 */
 				function isDeepChild(query, container, propName) {
-					/** @type {HTMLElement | ChildNode | null} */
 					let candidate = container;
 					do {
 						if (query === candidate) {
@@ -56590,6 +52999,7 @@ styleSheet.flush()
 					} while (candidate);
 					return false;
 				}
+
 				//# sourceMappingURL=is-entirely-selected.js.map
 
 				/***/
@@ -56619,18 +53029,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-input-or-text-area */ './node_modules/@wordpress/dom/build-module/dom/is-input-or-text-area.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 *
-				 * Detects if element is a form element.
-				 *
-				 * @param {Element} element The element to check.
-				 *
-				 * @return {boolean} True if form element and false otherwise.
-				 */
 				function isFormElement(element) {
 					if (!element) {
 						return false;
@@ -56646,6 +53045,7 @@ styleSheet.flush()
 						tagName === 'SELECT'
 					);
 				}
+
 				//# sourceMappingURL=is-form-element.js.map
 
 				/***/
@@ -56675,18 +53075,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-edge */ './node_modules/@wordpress/dom/build-module/dom/is-edge.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the selection is horizontally at the edge of the container.
-				 *
-				 * @param {HTMLElement} container Focusable element.
-				 * @param {boolean}     isReverse Set to true to check left, false for right.
-				 *
-				 * @return {boolean} True if at the horizontal edge, false if not.
-				 */
 				function isHorizontalEdge(container, isReverse) {
 					return (0,
 					_is_edge__WEBPACK_IMPORTED_MODULE_0__['default'])(
@@ -56694,6 +53083,7 @@ styleSheet.flush()
 						isReverse
 					);
 				}
+
 				//# sourceMappingURL=is-horizontal-edge.js.map
 
 				/***/
@@ -56719,15 +53109,10 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * @param {Node} node
-				 * @return {node is HTMLInputElement} Whether the node is an HTMLInputElement.
-				 */
 				function isHTMLInputElement(node) {
-					/* eslint-enable jsdoc/valid-types */
 					return node?.nodeName === 'INPUT';
 				}
+
 				//# sourceMappingURL=is-html-input-element.js.map
 
 				/***/
@@ -56753,18 +53138,13 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * @param {Element} element
-				 * @return {element is HTMLInputElement | HTMLTextAreaElement} Whether the element is an input or textarea
-				 */
 				function isInputOrTextArea(element) {
-					/* eslint-enable jsdoc/valid-types */
 					return (
 						element.tagName === 'INPUT' ||
 						element.tagName === 'TEXTAREA'
 					);
 				}
+
 				//# sourceMappingURL=is-input-or-text-area.js.map
 
 				/***/
@@ -56798,22 +53178,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-html-input-element */ './node_modules/@wordpress/dom/build-module/dom/is-html-input-element.js'
 					);
-				/**
-				 * WordPress dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * Check whether the given element is an input field of type number.
-				 *
-				 * @param {Node} node The HTML node.
-				 *
-				 * @return {node is HTMLInputElement} True if the node is number input.
-				 */
 				function isNumberInput(node) {
 					(0,
 					_wordpress_deprecated__WEBPACK_IMPORTED_MODULE_0__[
@@ -56822,7 +53187,6 @@ styleSheet.flush()
 						since: '6.1',
 						version: '6.5',
 					});
-					/* eslint-enable jsdoc/valid-types */
 					return (
 						(0,
 						_is_html_input_element__WEBPACK_IMPORTED_MODULE_1__[
@@ -56832,6 +53196,7 @@ styleSheet.flush()
 						!isNaN(node.valueAsNumber)
 					);
 				}
+
 				//# sourceMappingURL=is-number-input.js.map
 
 				/***/
@@ -56861,17 +53226,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-computed-style */ './node_modules/@wordpress/dom/build-module/dom/get-computed-style.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Whether the element's text direction is right-to-left.
-				 *
-				 * @param {Element} element The element to check.
-				 *
-				 * @return {boolean} True if rtl, false if ltr.
-				 */
 				function isRTL(element) {
 					return (
 						(0,
@@ -56880,6 +53235,7 @@ styleSheet.flush()
 						])(element).direction === 'rtl'
 					);
 				}
+
 				//# sourceMappingURL=is-rtl.js.map
 
 				/***/
@@ -56909,20 +53265,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Returns true if the given selection object is in the forward direction, or
-				 * false otherwise.
-				 *
-				 * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
-				 *
-				 * @param {Selection} selection Selection object to check.
-				 *
-				 * @return {boolean} Whether the selection is forward.
-				 */
 				function isSelectionForward(selection) {
 					const { anchorNode, focusNode, anchorOffset, focusOffset } =
 						selection;
@@ -56938,29 +53281,18 @@ styleSheet.flush()
 					);
 					const position =
 						anchorNode.compareDocumentPosition(focusNode);
-
-					// Disable reason: `Node#compareDocumentPosition` returns a bitmask value,
-					// so bitwise operators are intended.
-					/* eslint-disable no-bitwise */
-					// Compare whether anchor node precedes focus node. If focus node (where
-					// end of selection occurs) is after the anchor node, it is forward.
 					if (position & anchorNode.DOCUMENT_POSITION_PRECEDING) {
 						return false;
 					}
 					if (position & anchorNode.DOCUMENT_POSITION_FOLLOWING) {
 						return true;
 					}
-					/* eslint-enable no-bitwise */
-
-					// `compareDocumentPosition` returns 0 when passed the same node, in which
-					// case compare offsets.
 					if (position === 0) {
 						return anchorOffset <= focusOffset;
 					}
-
-					// This should never be reached, but return true as default case.
 					return true;
 				}
+
 				//# sourceMappingURL=is-selection-forward.js.map
 
 				/***/
@@ -56990,22 +53322,8 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-html-input-element */ './node_modules/@wordpress/dom/build-module/dom/is-html-input-element.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/* eslint-disable jsdoc/valid-types */
-				/**
-				 * Check whether the given element is a text field, where text field is defined
-				 * by the ability to select within the input, or that it is contenteditable.
-				 *
-				 * See: https://html.spec.whatwg.org/#textFieldSelection
-				 *
-				 * @param {Node} node The HTML element.
-				 * @return {node is HTMLElement} True if the element is an text field, false if not.
-				 */
 				function isTextField(node) {
-					/* eslint-enable jsdoc/valid-types */
 					const nonTextInputs = [
 						'button',
 						'checkbox',
@@ -57028,10 +53346,11 @@ styleSheet.flush()
 							node.type &&
 							!nonTextInputs.includes(node.type)) ||
 						node.nodeName === 'TEXTAREA' ||
-						/** @type {HTMLElement} */ node.contentEditable ===
-							'true'
+						/** @type {HTMLElement} */
+						node.contentEditable === 'true'
 					);
 				}
+
 				//# sourceMappingURL=is-text-field.js.map
 
 				/***/
@@ -57061,18 +53380,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-edge */ './node_modules/@wordpress/dom/build-module/dom/is-edge.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Check whether the selection is vertically at the edge of the container.
-				 *
-				 * @param {HTMLElement} container Focusable element.
-				 * @param {boolean}     isReverse Set to true to check top, false for bottom.
-				 *
-				 * @return {boolean} True if at the vertical edge, false if not.
-				 */
 				function isVerticalEdge(container, isReverse) {
 					return (0,
 					_is_edge__WEBPACK_IMPORTED_MODULE_0__['default'])(
@@ -57081,6 +53389,7 @@ styleSheet.flush()
 						true
 					);
 				}
+
 				//# sourceMappingURL=is-vertical-edge.js.map
 
 				/***/
@@ -57126,32 +53435,15 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./scroll-if-no-range */ './node_modules/@wordpress/dom/build-module/dom/scroll-if-no-range.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Gets the range to place.
-				 *
-				 * @param {HTMLElement}      container Focusable element.
-				 * @param {boolean}          isReverse True for end, false for start.
-				 * @param {number|undefined} x         X coordinate to vertically position.
-				 *
-				 * @return {Range|null} The range to place.
-				 */
 				function getRange(container, isReverse, x) {
 					const { ownerDocument } = container;
-					// In the case of RTL scripts, the horizontal edge is at the opposite side.
 					const isReverseDir = (0,
 					_is_rtl__WEBPACK_IMPORTED_MODULE_3__['default'])(container)
 						? !isReverse
 						: isReverse;
 					const containerRect = container.getBoundingClientRect();
-					// When placing at the end (isReverse), find the closest range to the bottom
-					// right corner. When placing at the start, to the top left corner.
-					// Ensure x is defined and within the container's boundaries. When it's
-					// exactly at the boundary, it's not considered within the boundaries.
-					if (x === undefined) {
+					if (x === void 0) {
 						x = isReverse
 							? containerRect.right - 1
 							: containerRect.left + 1;
@@ -57168,14 +53460,6 @@ styleSheet.flush()
 						'default'
 					])(ownerDocument, x, y, container);
 				}
-
-				/**
-				 * Places the caret at start or end of a given element.
-				 *
-				 * @param {HTMLElement}      container Focusable element.
-				 * @param {boolean}          isReverse True for end, false for start.
-				 * @param {number|undefined} x         X coordinate to vertically position.
-				 */
 				function placeCaretAtEdge(container, isReverse, x) {
 					if (!container) {
 						return;
@@ -57187,7 +53471,6 @@ styleSheet.flush()
 							'default'
 						])(container)
 					) {
-						// The element may not support selection setting.
 						if (typeof container.selectionStart !== 'number') {
 							return;
 						}
@@ -57228,6 +53511,7 @@ styleSheet.flush()
 					selection.removeAllRanges();
 					selection.addRange(range);
 				}
+
 				//# sourceMappingURL=place-caret-at-edge.js.map
 
 				/***/
@@ -57257,22 +53541,14 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./place-caret-at-edge */ './node_modules/@wordpress/dom/build-module/dom/place-caret-at-edge.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Places the caret at start or end of a given element.
-				 *
-				 * @param {HTMLElement} container Focusable element.
-				 * @param {boolean}     isReverse True for end, false for start.
-				 */
 				function placeCaretAtHorizontalEdge(container, isReverse) {
 					return (0,
 					_place_caret_at_edge__WEBPACK_IMPORTED_MODULE_0__[
 						'default'
-					])(container, isReverse, undefined);
+					])(container, isReverse, void 0);
 				}
+
 				//# sourceMappingURL=place-caret-at-horizontal-edge.js.map
 
 				/***/
@@ -57302,23 +53578,14 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./place-caret-at-edge */ './node_modules/@wordpress/dom/build-module/dom/place-caret-at-edge.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Places the caret at the top or bottom of a given element.
-				 *
-				 * @param {HTMLElement} container Focusable element.
-				 * @param {boolean}     isReverse True for bottom, false for top.
-				 * @param {DOMRect}     [rect]    The rectangle to position the caret with.
-				 */
 				function placeCaretAtVerticalEdge(container, isReverse, rect) {
 					return (0,
 					_place_caret_at_edge__WEBPACK_IMPORTED_MODULE_0__[
 						'default'
 					])(container, isReverse, rect?.left);
 				}
+
 				//# sourceMappingURL=place-caret-at-vertical-edge.js.map
 
 				/***/
@@ -57348,19 +53615,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./clean-node-list */ './node_modules/@wordpress/dom/build-module/dom/clean-node-list.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Given a schema, unwraps or removes nodes, attributes and classes on HTML.
-				 *
-				 * @param {string}                             HTML   The HTML to clean up.
-				 * @param {import('./clean-node-list').Schema} schema Schema for the HTML.
-				 * @param {boolean}                            inline Whether to clean for inline mode.
-				 *
-				 * @return {string} The cleaned up HTML.
-				 */
 				function removeInvalidHTML(HTML, schema, inline) {
 					const doc = document.implementation.createHTMLDocument('');
 					doc.body.innerHTML = HTML;
@@ -57373,6 +53628,7 @@ styleSheet.flush()
 					);
 					return doc.body.innerHTML;
 				}
+
 				//# sourceMappingURL=remove-invalid-html.js.map
 
 				/***/
@@ -57402,16 +53658,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Given a DOM node, removes it from the DOM.
-				 *
-				 * @param {Node} node Node to be removed.
-				 * @return {void}
-				 */
 				function remove(node) {
 					(0,
 					_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
@@ -57420,6 +53667,7 @@ styleSheet.flush()
 					);
 					node.parentNode.removeChild(node);
 				}
+
 				//# sourceMappingURL=remove.js.map
 
 				/***/
@@ -57449,18 +53697,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Replaces the given node with a new node with the given tag name.
-				 *
-				 * @param {Element} node    The node to replace
-				 * @param {string}  tagName The new tag name.
-				 *
-				 * @return {Element} The new node.
-				 */
 				function replaceTag(node, tagName) {
 					const newNode = node.ownerDocument.createElement(tagName);
 					while (node.firstChild) {
@@ -57474,6 +53711,7 @@ styleSheet.flush()
 					node.parentNode.replaceChild(newNode, node);
 					return newNode;
 				}
+
 				//# sourceMappingURL=replace-tag.js.map
 
 				/***/
@@ -57511,17 +53749,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./remove */ './node_modules/@wordpress/dom/build-module/dom/remove.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Given two DOM nodes, replaces the former with the latter in the DOM.
-				 *
-				 * @param {Element} processedNode Node to be removed.
-				 * @param {Element} newNode       Node to be inserted in its place.
-				 * @return {void}
-				 */
 				function replace(processedNode, newNode) {
 					(0,
 					_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
@@ -57536,6 +53764,7 @@ styleSheet.flush()
 						processedNode
 					);
 				}
+
 				//# sourceMappingURL=replace.js.map
 
 				/***/
@@ -57565,17 +53794,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./remove */ './node_modules/@wordpress/dom/build-module/dom/remove.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Strips scripts and on* attributes from HTML.
-				 *
-				 * @param {string} html HTML to sanitize.
-				 *
-				 * @return {string} The sanitized HTML.
-				 */
 				function safeHTML(html) {
 					const { body } =
 						document.implementation.createHTMLDocument('');
@@ -57602,6 +53821,7 @@ styleSheet.flush()
 					}
 					return body.innerHTML;
 				}
+
 				//# sourceMappingURL=safe-html.js.map
 
 				/***/
@@ -57627,21 +53847,8 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * If no range range can be created or it is outside the container, the element
-				 * may be out of view, so scroll it into view and try again.
-				 *
-				 * @param {HTMLElement} container  The container to scroll.
-				 * @param {boolean}     alignToTop True to align to top, false to bottom.
-				 * @param {Function}    callback   The callback to create the range.
-				 *
-				 * @return {?Range} The range returned by the callback.
-				 */
 				function scrollIfNoRange(container, alignToTop, callback) {
 					let range = callback();
-
-					// If no range range can be created or it is outside the container, the
-					// element may be out of view.
 					if (
 						!range ||
 						!range.startContainer ||
@@ -57659,6 +53866,7 @@ styleSheet.flush()
 					}
 					return range;
 				}
+
 				//# sourceMappingURL=scroll-if-no-range.js.map
 
 				/***/
@@ -57688,26 +53896,15 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./safe-html */ './node_modules/@wordpress/dom/build-module/dom/safe-html.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Removes any HTML tags from the provided string.
-				 *
-				 * @param {string} html The string containing html.
-				 *
-				 * @return {string} The text content with any html removed.
-				 */
 				function stripHTML(html) {
-					// Remove any script tags or on* attributes otherwise their *contents* will be left
-					// in place following removal of HTML tags.
 					html = (0,
 					_safe_html__WEBPACK_IMPORTED_MODULE_0__['default'])(html);
 					const doc = document.implementation.createHTMLDocument('');
 					doc.body.innerHTML = html;
 					return doc.body.textContent || '';
 				}
+
 				//# sourceMappingURL=strip-html.js.map
 
 				/***/
@@ -57737,17 +53934,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Unwrap the given node. This means any child nodes are moved to the parent.
-				 *
-				 * @param {Node} node The node to unwrap.
-				 *
-				 * @return {void}
-				 */
 				function unwrap(node) {
 					const parent = node.parentNode;
 					(0,
@@ -57760,6 +53947,7 @@ styleSheet.flush()
 					}
 					parent.removeChild(node);
 				}
+
 				//# sourceMappingURL=unwrap.js.map
 
 				/***/
@@ -57789,16 +53977,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ../utils/assert-is-defined */ './node_modules/@wordpress/dom/build-module/utils/assert-is-defined.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Wraps the given node with a new node with the given tag name.
-				 *
-				 * @param {Element} newNode       The node to insert.
-				 * @param {Element} referenceNode The node to wrap.
-				 */
 				function wrap(newNode, referenceNode) {
 					(0,
 					_utils_assert_is_defined__WEBPACK_IMPORTED_MODULE_0__.assertIsDefined)(
@@ -57811,6 +53990,7 @@ styleSheet.flush()
 					);
 					newNode.appendChild(referenceNode);
 				}
+
 				//# sourceMappingURL=wrap.js.map
 
 				/***/
@@ -57836,36 +54016,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * References:
-				 *
-				 * Focusable:
-				 *  - https://www.w3.org/TR/html5/editing.html#focus-management
-				 *
-				 * Sequential focus navigation:
-				 *  - https://www.w3.org/TR/html5/editing.html#sequential-focus-navigation-and-the-tabindex-attribute
-				 *
-				 * Disabled elements:
-				 *  - https://www.w3.org/TR/html5/disabled-elements.html#disabled-elements
-				 *
-				 * getClientRects algorithm (requiring layout box):
-				 *  - https://www.w3.org/TR/cssom-view-1/#extension-to-the-element-interface
-				 *
-				 * AREA elements associated with an IMG:
-				 *  - https://w3c.github.io/html/editing.html#data-model
-				 */
-
-				/**
-				 * Returns a CSS selector used to query for focusable elements.
-				 *
-				 * @param {boolean} sequential If set, only query elements that are sequentially
-				 *                             focusable. Non-interactive elements with a
-				 *                             negative `tabindex` are focusable but not
-				 *                             sequentially focusable.
-				 *                             https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute
-				 *
-				 * @return {string} CSS selector.
-				 */
 				function buildSelector(sequential) {
 					return [
 						sequential
@@ -57884,15 +54034,6 @@ styleSheet.flush()
 						'[contenteditable]:not([contenteditable=false])',
 					].join(',');
 				}
-
-				/**
-				 * Returns true if the specified element is visible (i.e. neither display: none
-				 * nor visibility: hidden).
-				 *
-				 * @param {HTMLElement} element DOM element to test.
-				 *
-				 * @return {boolean} Whether element is visible.
-				 */
 				function isVisible(element) {
 					return (
 						element.offsetWidth > 0 ||
@@ -57900,46 +54041,17 @@ styleSheet.flush()
 						element.getClientRects().length > 0
 					);
 				}
-
-				/**
-				 * Returns true if the specified area element is a valid focusable element, or
-				 * false otherwise. Area is only focusable if within a map where a named map
-				 * referenced by an image somewhere in the document.
-				 *
-				 * @param {HTMLAreaElement} element DOM area element to test.
-				 *
-				 * @return {boolean} Whether area element is valid for focus.
-				 */
 				function isValidFocusableArea(element) {
-					/** @type {HTMLMapElement | null} */
 					const map = element.closest('map[name]');
 					if (!map) {
 						return false;
 					}
-
-					/** @type {HTMLImageElement | null} */
 					const img = element.ownerDocument.querySelector(
 						'img[usemap="#' + map.name + '"]'
 					);
 					return !!img && isVisible(img);
 				}
-
-				/**
-				 * Returns all focusable elements within a given context.
-				 *
-				 * @param {Element} context              Element in which to search.
-				 * @param {Object}  options
-				 * @param {boolean} [options.sequential] If set, only return elements that are
-				 *                                       sequentially focusable.
-				 *                                       Non-interactive elements with a
-				 *                                       negative `tabindex` are focusable but
-				 *                                       not sequentially focusable.
-				 *                                       https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute
-				 *
-				 * @return {HTMLElement[]} Focusable elements.
-				 */
 				function find(context, { sequential = false } = {}) {
-					/** @type {NodeListOf<HTMLElement>} */
 					const elements = context.querySelectorAll(
 						buildSelector(sequential)
 					);
@@ -57950,12 +54062,14 @@ styleSheet.flush()
 						const { nodeName } = element;
 						if ('AREA' === nodeName) {
 							return isValidFocusableArea(
-								/** @type {HTMLAreaElement} */ element
+								/** @type {HTMLAreaElement} */
+								element
 							);
 						}
 						return true;
 					});
 				}
+
 				//# sourceMappingURL=focusable.js.map
 
 				/***/
@@ -58101,14 +54215,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./data-transfer */ './node_modules/@wordpress/dom/build-module/data-transfer.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Object grouping `focusable` and `tabbable` utils
-				 * under the keys with the same name.
-				 */
 				const focus = {
 					focusable: _focusable__WEBPACK_IMPORTED_MODULE_0__,
 					tabbable: _tabbable__WEBPACK_IMPORTED_MODULE_1__,
@@ -58146,60 +54253,25 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * All phrasing content elements.
-				 *
-				 * @see https://www.w3.org/TR/2011/WD-html5-20110525/content-models.html#phrasing-content-0
-				 */
-
-				/**
-				 * @typedef {Record<string,SemanticElementDefinition>} ContentSchema
-				 */
-
-				/**
-				 * @typedef SemanticElementDefinition
-				 * @property {string[]}      [attributes] Content attributes
-				 * @property {ContentSchema} [children]   Content attributes
-				 */
-
-				/**
-				 * All text-level semantic elements.
-				 *
-				 * @see https://html.spec.whatwg.org/multipage/text-level-semantics.html
-				 *
-				 * @type {ContentSchema}
-				 */
 				const textContentSchema = {
 					strong: {},
 					em: {},
 					s: {},
 					del: {},
 					ins: {},
-					a: {
-						attributes: ['href', 'target', 'rel', 'id'],
-					},
+					a: { attributes: ['href', 'target', 'rel', 'id'] },
 					code: {},
-					abbr: {
-						attributes: ['title'],
-					},
+					abbr: { attributes: ['title'] },
 					sub: {},
 					sup: {},
 					br: {},
 					small: {},
 					// To do: fix blockquote.
 					// cite: {},
-					q: {
-						attributes: ['cite'],
-					},
-					dfn: {
-						attributes: ['title'],
-					},
-					data: {
-						attributes: ['value'],
-					},
-					time: {
-						attributes: ['datetime'],
-					},
+					q: { attributes: ['cite'] },
+					dfn: { attributes: ['title'] },
+					data: { attributes: ['value'] },
+					time: { attributes: ['datetime'] },
 					var: {},
 					samp: {},
 					kbd: {},
@@ -58210,19 +54282,11 @@ styleSheet.flush()
 					ruby: {},
 					rt: {},
 					rp: {},
-					bdi: {
-						attributes: ['dir'],
-					},
-					bdo: {
-						attributes: ['dir'],
-					},
+					bdi: { attributes: ['dir'] },
+					bdo: { attributes: ['dir'] },
 					wbr: {},
 					'#text': {},
 				};
-
-				// Recursion is needed.
-				// Possible: strong > em > strong.
-				// Impossible: strong > strong.
 				const excludedElements = ['#text', 'br'];
 				Object.keys(textContentSchema)
 					.filter((element) => !excludedElements.includes(element))
@@ -58231,14 +54295,6 @@ styleSheet.flush()
 							textContentSchema;
 						textContentSchema[tag].children = restSchema;
 					});
-
-				/**
-				 * Embedded content elements.
-				 *
-				 * @see https://www.w3.org/TR/2011/WD-html5-20110525/content-models.html#embedded-content-0
-				 *
-				 * @type {ContentSchema}
-				 */
 				const embeddedContentSchema = {
 					audio: {
 						attributes: [
@@ -58250,12 +54306,8 @@ styleSheet.flush()
 							'muted',
 						],
 					},
-					canvas: {
-						attributes: ['width', 'height'],
-					},
-					embed: {
-						attributes: ['src', 'type', 'width', 'height'],
-					},
+					canvas: { attributes: ['width', 'height'] },
+					embed: { attributes: ['src', 'type', 'width', 'height'] },
 					img: {
 						attributes: [
 							'alt',
@@ -58293,36 +54345,19 @@ styleSheet.flush()
 							'height',
 						],
 					},
+					math: {
+						attributes: ['display', 'xmlns'],
+						children: '*',
+					},
 				};
-
-				/**
-				 * Phrasing content elements.
-				 *
-				 * @see https://www.w3.org/TR/2011/WD-html5-20110525/content-models.html#phrasing-content-0
-				 */
 				const phrasingContentSchema = {
 					...textContentSchema,
 					...embeddedContentSchema,
 				};
-
-				/**
-				 * Get schema of possible paths for phrasing content.
-				 *
-				 * @see https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content
-				 *
-				 * @param {string} [context] Set to "paste" to exclude invisible elements and
-				 *                           sensitive data.
-				 *
-				 * @return {Partial<ContentSchema>} Schema.
-				 */
 				function getPhrasingContentSchema(context) {
 					if (context !== 'paste') {
 						return phrasingContentSchema;
 					}
-
-					/**
-					 * @type {Partial<ContentSchema>}
-					 */
 					const {
 						u,
 						// Used to mark misspelling. Shouldn't be pasted.
@@ -58343,25 +54378,11 @@ styleSheet.flush()
 						...phrasingContentSchema,
 						// We shouldn't paste potentially sensitive information which is not
 						// visible to the user when pasted, so strip the attributes.
-						ins: {
-							children: phrasingContentSchema.ins.children,
-						},
-						del: {
-							children: phrasingContentSchema.del.children,
-						},
+						ins: { children: phrasingContentSchema.ins.children },
+						del: { children: phrasingContentSchema.del.children },
 					};
 					return remainingContentSchema;
 				}
-
-				/**
-				 * Find out whether or not the given node is phrasing content.
-				 *
-				 * @see https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content
-				 *
-				 * @param {Node} node The node to test.
-				 *
-				 * @return {boolean} True if phrasing content, false if not.
-				 */
 				function isPhrasingContent(node) {
 					const tag = node.nodeName.toLowerCase();
 					return (
@@ -58369,17 +54390,13 @@ styleSheet.flush()
 						tag === 'span'
 					);
 				}
-
-				/**
-				 * @param {Node} node
-				 * @return {boolean} Node is text content
-				 */
 				function isTextContent(node) {
 					const tag = node.nodeName.toLowerCase();
 					return (
 						textContentSchema.hasOwnProperty(tag) || tag === 'span'
 					);
 				}
+
 				//# sourceMappingURL=phrasing-content.js.map
 
 				/***/
@@ -58418,73 +54435,27 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./focusable */ './node_modules/@wordpress/dom/build-module/focusable.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Returns the tab index of the given element. In contrast with the tabIndex
-				 * property, this normalizes the default (0) to avoid browser inconsistencies,
-				 * operating under the assumption that this function is only ever called with a
-				 * focusable node.
-				 *
-				 * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1190261
-				 *
-				 * @param {Element} element Element from which to retrieve.
-				 *
-				 * @return {number} Tab index of element (default 0).
-				 */
 				function getTabIndex(element) {
 					const tabIndex = element.getAttribute('tabindex');
 					return tabIndex === null ? 0 : parseInt(tabIndex, 10);
 				}
-
-				/**
-				 * Returns true if the specified element is tabbable, or false otherwise.
-				 *
-				 * @param {Element} element Element to test.
-				 *
-				 * @return {boolean} Whether element is tabbable.
-				 */
 				function isTabbableIndex(element) {
 					return getTabIndex(element) !== -1;
 				}
-
-				/** @typedef {HTMLElement & { type?: string, checked?: boolean, name?: string }} MaybeHTMLInputElement */
-
-				/**
-				 * Returns a stateful reducer function which constructs a filtered array of
-				 * tabbable elements, where at most one radio input is selected for a given
-				 * name, giving priority to checked input, falling back to the first
-				 * encountered.
-				 *
-				 * @return {(acc: MaybeHTMLInputElement[], el: MaybeHTMLInputElement) => MaybeHTMLInputElement[]} Radio group collapse reducer.
-				 */
 				function createStatefulCollapseRadioGroup() {
-					/** @type {Record<string, MaybeHTMLInputElement>} */
 					const CHOSEN_RADIO_BY_NAME = {};
-					return function collapseRadioGroup(
-						/** @type {MaybeHTMLInputElement[]} */ result,
-						/** @type {MaybeHTMLInputElement} */ element
-					) {
+					return function collapseRadioGroup(result, element) {
 						const { nodeName, type, checked, name } = element;
-
-						// For all non-radio tabbables, construct to array by concatenating.
 						if (nodeName !== 'INPUT' || type !== 'radio' || !name) {
 							return result.concat(element);
 						}
 						const hasChosen =
 							CHOSEN_RADIO_BY_NAME.hasOwnProperty(name);
-
-						// Omit by skipping concatenation if the radio element is not chosen.
 						const isChosen = checked || !hasChosen;
 						if (!isChosen) {
 							return result;
 						}
-
-						// At this point, if there had been a chosen element, the current
-						// element is checked and should take priority. Retroactively remove
-						// the element which had previously been considered the chosen one.
 						if (hasChosen) {
 							const hadChosenElement = CHOSEN_RADIO_BY_NAME[name];
 							result = result.filter(
@@ -58495,47 +54466,12 @@ styleSheet.flush()
 						return result.concat(element);
 					};
 				}
-
-				/**
-				 * An array map callback, returning an object with the element value and its
-				 * array index location as properties. This is used to emulate a proper stable
-				 * sort where equal tabIndex should be left in order of their occurrence in the
-				 * document.
-				 *
-				 * @param {HTMLElement} element Element.
-				 * @param {number}      index   Array index of element.
-				 *
-				 * @return {{ element: HTMLElement, index: number }} Mapped object with element, index.
-				 */
 				function mapElementToObjectTabbable(element, index) {
-					return {
-						element,
-						index,
-					};
+					return { element, index };
 				}
-
-				/**
-				 * An array map callback, returning an element of the given mapped object's
-				 * element value.
-				 *
-				 * @param {{ element: HTMLElement }} object Mapped object with element.
-				 *
-				 * @return {HTMLElement} Mapped object element.
-				 */
 				function mapObjectTabbableToElement(object) {
 					return object.element;
 				}
-
-				/**
-				 * A sort comparator function used in comparing two objects of mapped elements.
-				 *
-				 * @see mapElementToObjectTabbable
-				 *
-				 * @param {{ element: HTMLElement, index: number }} a First object to compare.
-				 * @param {{ element: HTMLElement, index: number }} b Second object to compare.
-				 *
-				 * @return {number} Comparator result.
-				 */
 				function compareObjectTabbables(a, b) {
 					const aTabIndex = getTabIndex(a.element);
 					const bTabIndex = getTabIndex(b.element);
@@ -58544,14 +54480,6 @@ styleSheet.flush()
 					}
 					return aTabIndex - bTabIndex;
 				}
-
-				/**
-				 * Givin focusable elements, filters out tabbable element.
-				 *
-				 * @param {HTMLElement[]} focusables Focusable elements to filter.
-				 *
-				 * @return {HTMLElement[]} Tabbable elements.
-				 */
 				function filterTabbable(focusables) {
 					return focusables
 						.filter(isTabbableIndex)
@@ -58560,11 +54488,6 @@ styleSheet.flush()
 						.map(mapObjectTabbableToElement)
 						.reduce(createStatefulCollapseRadioGroup(), []);
 				}
-
-				/**
-				 * @param {Element} context
-				 * @return {HTMLElement[]} Tabbable elements within the context.
-				 */
 				function find(context) {
 					return filterTabbable(
 						(0, _focusable__WEBPACK_IMPORTED_MODULE_0__.find)(
@@ -58572,15 +54495,6 @@ styleSheet.flush()
 						)
 					);
 				}
-
-				/**
-				 * Given a focusable element, find the preceding tabbable element.
-				 *
-				 * @param {Element} element The focusable element before which to look. Defaults
-				 *                          to the active element.
-				 *
-				 * @return {HTMLElement|undefined} Preceding tabbable element.
-				 */
 				function findPrevious(element) {
 					return filterTabbable(
 						(0, _focusable__WEBPACK_IMPORTED_MODULE_0__.find)(
@@ -58595,15 +54509,6 @@ styleSheet.flush()
 								element.DOCUMENT_POSITION_PRECEDING
 						);
 				}
-
-				/**
-				 * Given a focusable element, find the next tabbable element.
-				 *
-				 * @param {Element} element The focusable element after which to look. Defaults
-				 *                          to the active element.
-				 *
-				 * @return {HTMLElement|undefined} Next tabbable element.
-				 */
 				function findNext(element) {
 					return filterTabbable(
 						(0, _focusable__WEBPACK_IMPORTED_MODULE_0__.find)(
@@ -58616,6 +54521,7 @@ styleSheet.flush()
 							element.DOCUMENT_POSITION_FOLLOWING
 					);
 				}
+
 				//# sourceMappingURL=tabbable.js.map
 
 				/***/
@@ -58642,12 +54548,13 @@ styleSheet.flush()
 					}
 				);
 				function assertIsDefined(val, name) {
-					if (true && (val === undefined || val === null)) {
+					if (true && (val === void 0 || val === null)) {
 						throw new Error(
 							`Expected '${name}' to be defined, but received ${val}`
 						);
 					}
 				}
+
 				//# sourceMappingURL=assert-is-defined.js.map
 
 				/***/
@@ -58664,38 +54571,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Parts of this source were derived and modified from react-native-web,
-				 * released under the MIT license.
-				 *
-				 * Copyright (c) 2016-present, Nicolas Gallagher.
-				 * Copyright (c) 2015-present, Facebook, Inc.
-				 *
-				 */
-
-				/**
-				 * Specification for platform-specific value selection.
-				 */
-
-				/**
-				 * Component used to detect the current Platform being used.
-				 * Use Platform.OS === 'web' to detect if running on web environment.
-				 *
-				 * This is the same concept as the React Native implementation.
-				 *
-				 * @see https://reactnative.dev/docs/platform-specific-code#platform-module
-				 *
-				 * Here is an example of how to use the select method:
-				 * @example
-				 * ```js
-				 * import { Platform } from '@wordpress/element';
-				 *
-				 * const placeholderLabel = Platform.select( {
-				 *   native: __( 'Add media' ),
-				 *   web: __( 'Drag images, upload new ones or select files from your library.' ),
-				 * } );
-				 * ```
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ platform_default;
+						},
+						/* harmony export */
+					}
+				);
 				const Platform = {
 					/** Platform identifier. Will always be `'web'` in this module. */
 					OS: 'web',
@@ -58712,8 +54596,8 @@ styleSheet.flush()
 					/** Whether the platform is web */
 					isWeb: true,
 				};
-				/* harmony default export */ __webpack_exports__['default'] =
-					Platform;
+				var platform_default = Platform;
+
 				//# sourceMappingURL=platform.js.map
 
 				/***/
@@ -58747,39 +54631,9 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						_react__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Props for the RawHTML component.
-				 */
-
-				/**
-				 * Component used to render unescaped HTML.
-				 *
-				 * Note: The `renderElement` serializer will remove the `div` wrapper
-				 * unless non-children props are present; typically when preparing a block for saving.
-				 *
-				 * @example
-				 * ```jsx
-				 * import { RawHTML } from '@wordpress/element';
-				 *
-				 * const Component = () => <RawHTML><h3>Hello world</h3></RawHTML>;
-				 * // Edit: <div><h3>Hello world</h3></div>
-				 * // save: <h3>Hello world</h3>
-				 * ```
-				 *
-				 * @param {RawHTMLProps} props Children should be a string of HTML or an array
-				 *                             of strings. Other props will be passed through
-				 *                             to the div wrapper.
-				 *
-				 * @return Dangerously-rendering component.
-				 */
 				function RawHTML({ children, ...props }) {
 					let rawHtml = '';
-
-					// Cast children as an array, and concatenate each element if it is a string.
 					_react__WEBPACK_IMPORTED_MODULE_0__.Children.toArray(
 						children
 					).forEach((child) => {
@@ -58787,17 +54641,13 @@ styleSheet.flush()
 							rawHtml += child;
 						}
 					});
-
-					// The `div` wrapper will be stripped by the `renderElement` serializer in
-					// `./serialize.js` unless there are non-children props present.
 					return (0,
 					_react__WEBPACK_IMPORTED_MODULE_0__.createElement)('div', {
-						dangerouslySetInnerHTML: {
-							__html: rawHtml,
-						},
+						dangerouslySetInnerHTML: { __html: rawHtml },
 						...props,
 					});
 				}
+
 				//# sourceMappingURL=raw-html.js.map
 
 				/***/
@@ -58817,6 +54667,9 @@ styleSheet.flush()
 				/* harmony export */ __webpack_require__.d(
 					__webpack_exports__,
 					{
+						/* harmony export */ default: function () {
+							return /* binding */ serialize_default;
+						},
 						/* harmony export */ hasPrefix: function () {
 							return /* binding */ hasPrefix;
 						},
@@ -58863,69 +54716,21 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./raw-html */ './node_modules/@wordpress/element/build-module/raw-html.js'
 					);
-				/**
-				 * Parts of this source were derived and modified from fast-react-render,
-				 * released under the MIT license.
-				 *
-				 * https://github.com/alt-j/fast-react-render
-				 *
-				 * Copyright (c) 2016 Andrey Morozov
-				 *
-				 * Permission is hereby granted, free of charge, to any person obtaining a copy
-				 * of this software and associated documentation files (the "Software"), to deal
-				 * in the Software without restriction, including without limitation the rights
-				 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-				 * copies of the Software, and to permit persons to whom the Software is
-				 * furnished to do so, subject to the following conditions:
-				 *
-				 * The above copyright notice and this permission notice shall be included in
-				 * all copies or substantial portions of the Software.
-				 *
-				 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-				 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-				 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-				 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-				 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-				 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-				 * THE SOFTWARE.
-				 */
-
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Internal dependencies
-				 */
-
-				/** @typedef {import('react').ReactElement} ReactElement */
 
 				const Context = (0,
-				_react__WEBPACK_IMPORTED_MODULE_3__.createContext)(undefined);
+				_react__WEBPACK_IMPORTED_MODULE_3__.createContext)(void 0);
 				Context.displayName = 'ElementContext';
 				const { Provider, Consumer } = Context;
 				const ForwardRef = (0,
 				_react__WEBPACK_IMPORTED_MODULE_3__.forwardRef)(() => {
 					return null;
 				});
-
-				/**
-				 * Valid attribute types.
-				 */
-				const ATTRIBUTES_TYPES = new Set([
+				const ATTRIBUTES_TYPES = /* @__PURE__ */ new Set([
 					'string',
 					'boolean',
 					'number',
 				]);
-
-				/**
-				 * Element tags which can be self-closing.
-				 */
-				const SELF_CLOSING_TAGS = new Set([
+				const SELF_CLOSING_TAGS = /* @__PURE__ */ new Set([
 					'area',
 					'base',
 					'br',
@@ -58943,21 +54748,7 @@ styleSheet.flush()
 					'track',
 					'wbr',
 				]);
-
-				/**
-				 * Boolean attributes are attributes whose presence as being assigned is
-				 * meaningful, even if only empty.
-				 *
-				 * See: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes
-				 * Extracted from: https://html.spec.whatwg.org/multipage/indices.html#attributes-3
-				 *
-				 * Object.keys( [ ...document.querySelectorAll( '#attributes-1 > tbody > tr' ) ]
-				 *     .filter( ( tr ) => tr.lastChild.textContent.indexOf( 'Boolean attribute' ) !== -1 )
-				 *     .reduce( ( result, tr ) => Object.assign( result, {
-				 *         [ tr.firstChild.textContent.trim() ]: true
-				 *     } ), {} ) ).sort();
-				 */
-				const BOOLEAN_ATTRIBUTES = new Set([
+				const BOOLEAN_ATTRIBUTES = /* @__PURE__ */ new Set([
 					'allowfullscreen',
 					'allowpaymentrequest',
 					'allowusermedia',
@@ -58987,26 +54778,7 @@ styleSheet.flush()
 					'selected',
 					'typemustmatch',
 				]);
-
-				/**
-				 * Enumerated attributes are attributes which must be of a specific value form.
-				 * Like boolean attributes, these are meaningful if specified, even if not of a
-				 * valid enumerated value.
-				 *
-				 * See: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#enumerated-attribute
-				 * Extracted from: https://html.spec.whatwg.org/multipage/indices.html#attributes-3
-				 *
-				 * Object.keys( [ ...document.querySelectorAll( '#attributes-1 > tbody > tr' ) ]
-				 *     .filter( ( tr ) => /^("(.+?)";?\s*)+/.test( tr.lastChild.textContent.trim() ) )
-				 *     .reduce( ( result, tr ) => Object.assign( result, {
-				 *         [ tr.firstChild.textContent.trim() ]: true
-				 *     } ), {} ) ).sort();
-				 *
-				 * Some notable omissions:
-				 *
-				 *  - `alt`: https://blog.whatwg.org/omit-alt
-				 */
-				const ENUMERATED_ATTRIBUTES = new Set([
+				const ENUMERATED_ATTRIBUTES = /* @__PURE__ */ new Set([
 					'autocapitalize',
 					'autocomplete',
 					'charset',
@@ -59030,90 +54802,55 @@ styleSheet.flush()
 					'type',
 					'wrap',
 				]);
-
-				/**
-				 * Set of CSS style properties which support assignment of unitless numbers.
-				 * Used in rendering of style properties, where `px` unit is assumed unless
-				 * property is included in this set or value is zero.
-				 *
-				 * Generated via:
-				 *
-				 * Object.entries( document.createElement( 'div' ).style )
-				 *     .filter( ( [ key ] ) => (
-				 *         ! /^(webkit|ms|moz)/.test( key ) &&
-				 *         ( e.style[ key ] = 10 ) &&
-				 *         e.style[ key ] === '10'
-				 *     ) )
-				 *     .map( ( [ key ] ) => key )
-				 *     .sort();
-				 */
-				const CSS_PROPERTIES_SUPPORTS_UNITLESS = new Set([
-					'animation',
-					'animationIterationCount',
-					'baselineShift',
-					'borderImageOutset',
-					'borderImageSlice',
-					'borderImageWidth',
-					'columnCount',
-					'cx',
-					'cy',
-					'fillOpacity',
-					'flexGrow',
-					'flexShrink',
-					'floodOpacity',
-					'fontWeight',
-					'gridColumnEnd',
-					'gridColumnStart',
-					'gridRowEnd',
-					'gridRowStart',
-					'lineHeight',
-					'opacity',
-					'order',
-					'orphans',
-					'r',
-					'rx',
-					'ry',
-					'shapeImageThreshold',
-					'stopOpacity',
-					'strokeDasharray',
-					'strokeDashoffset',
-					'strokeMiterlimit',
-					'strokeOpacity',
-					'strokeWidth',
-					'tabSize',
-					'widows',
-					'x',
-					'y',
-					'zIndex',
-					'zoom',
-				]);
-
-				/**
-				 * Returns true if the specified string is prefixed by one of an array of
-				 * possible prefixes.
-				 * @param string
-				 * @param prefixes
-				 */
+				const CSS_PROPERTIES_SUPPORTS_UNITLESS =
+					/* @__PURE__ */ new Set([
+						'animation',
+						'animationIterationCount',
+						'baselineShift',
+						'borderImageOutset',
+						'borderImageSlice',
+						'borderImageWidth',
+						'columnCount',
+						'cx',
+						'cy',
+						'fillOpacity',
+						'flexGrow',
+						'flexShrink',
+						'floodOpacity',
+						'fontWeight',
+						'gridColumnEnd',
+						'gridColumnStart',
+						'gridRowEnd',
+						'gridRowStart',
+						'lineHeight',
+						'opacity',
+						'order',
+						'orphans',
+						'r',
+						'rx',
+						'ry',
+						'shapeImageThreshold',
+						'stopOpacity',
+						'strokeDasharray',
+						'strokeDashoffset',
+						'strokeMiterlimit',
+						'strokeOpacity',
+						'strokeWidth',
+						'tabSize',
+						'widows',
+						'x',
+						'y',
+						'zIndex',
+						'zoom',
+					]);
 				function hasPrefix(string, prefixes) {
 					return prefixes.some(
 						(prefix) => string.indexOf(prefix) === 0
 					);
 				}
-
-				/**
-				 * Returns true if the given prop name should be ignored in attributes
-				 * serialization, or false otherwise.
-				 * @param attribute
-				 */
 				function isInternalAttribute(attribute) {
 					return 'key' === attribute || 'children' === attribute;
 				}
-
-				/**
-				 * Returns the normal form of the element's attribute value for HTML.
-				 * @param attribute
-				 * @param value
-				 */
 				function getNormalAttributeValue(attribute, value) {
 					switch (attribute) {
 						case 'style':
@@ -59121,13 +54858,6 @@ styleSheet.flush()
 					}
 					return value;
 				}
-
-				/**
-				 * This is a map of all SVG attributes that have dashes. Map(lower case prop => dashed lower case attribute).
-				 * We need this to render e.g strokeWidth as stroke-width.
-				 *
-				 * List from: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute.
-				 */
 				const SVG_ATTRIBUTE_WITH_DASHES_LIST = [
 					'accentHeight',
 					'alignmentBaseline',
@@ -59203,17 +54933,9 @@ styleSheet.flush()
 					'xmlnsXlink',
 					'xHeight',
 				].reduce((map, attribute) => {
-					// The keys are lower-cased for more robust lookup.
 					map[attribute.toLowerCase()] = attribute;
 					return map;
 				}, {});
-
-				/**
-				 * This is a map of all case-sensitive SVG attributes. Map(lowercase key => proper case attribute).
-				 * The keys are lower-cased for more robust lookup.
-				 * Note that this list only contains attributes that contain at least one capital letter.
-				 * Lowercase attributes don't need mapping, since we lowercase all attributes by default.
-				 */
 				const CASE_SENSITIVE_SVG_ATTRIBUTES = [
 					'allowReorder',
 					'attributeName',
@@ -59281,15 +55003,9 @@ styleSheet.flush()
 					'xChannelSelector',
 					'yChannelSelector',
 				].reduce((map, attribute) => {
-					// The keys are lower-cased for more robust lookup.
 					map[attribute.toLowerCase()] = attribute;
 					return map;
 				}, {});
-
-				/**
-				 * This is a map of all SVG attributes that have colons.
-				 * Keys are lower-cased and stripped of their colons for more robust lookup.
-				 */
 				const SVG_ATTRIBUTES_WITH_COLONS = [
 					'xlink:actuate',
 					'xlink:arcrole',
@@ -59306,11 +55022,6 @@ styleSheet.flush()
 					map[attribute.replace(':', '').toLowerCase()] = attribute;
 					return map;
 				}, {});
-
-				/**
-				 * Returns the normal form of the element's attribute name for HTML.
-				 * @param attribute
-				 */
 				function getNormalAttributeName(attribute) {
 					switch (attribute) {
 						case 'htmlFor':
@@ -59335,15 +55046,6 @@ styleSheet.flush()
 					}
 					return attributeLowerCase;
 				}
-
-				/**
-				 * Returns the normal form of the style property name for HTML.
-				 *
-				 * - Converts property names to kebab-case, e.g. 'backgroundColor' → 'background-color'
-				 * - Leaves custom attributes alone, e.g. '--myBackgroundColor' → '--myBackgroundColor'
-				 * - Converts vendor-prefixed property names to -kebab-case, e.g. 'MozTransform' → '-moz-transform'
-				 * @param property
-				 */
 				function getNormalStylePropertyName(property) {
 					if (property.startsWith('--')) {
 						return property;
@@ -59362,13 +55064,6 @@ styleSheet.flush()
 						property
 					);
 				}
-
-				/**
-				 * Returns the normal form of the style property value for HTML. Appends a
-				 * default pixel unit if numeric, not a unitless property, and not zero.
-				 * @param property
-				 * @param value
-				 */
 				function getNormalStylePropertyValue(property, value) {
 					if (
 						typeof value === 'number' &&
@@ -59380,17 +55075,10 @@ styleSheet.flush()
 					}
 					return value;
 				}
-
-				/**
-				 * Serializes a React element to string.
-				 * @param element
-				 * @param context
-				 * @param legacyContext
-				 */
 				function renderElement(element, context, legacyContext = {}) {
 					if (
 						null === element ||
-						undefined === element ||
+						void 0 === element ||
 						false === element
 					) {
 						return '';
@@ -59480,14 +55168,6 @@ styleSheet.flush()
 					}
 					return '';
 				}
-
-				/**
-				 * Serializes a native component type to string.
-				 * @param type
-				 * @param props
-				 * @param context
-				 * @param legacyContext
-				 */
 				function renderNativeComponent(
 					type,
 					props,
@@ -59496,9 +55176,6 @@ styleSheet.flush()
 				) {
 					let content = '';
 					if (type === 'textarea' && props.hasOwnProperty('value')) {
-						// Textarea children can be assigned as value prop. If it is, render in
-						// place of children. Ensure to omit so it is not assigned as attribute
-						// as well.
 						content = renderChildren(
 							props.value,
 							context,
@@ -59510,7 +55187,6 @@ styleSheet.flush()
 						props.dangerouslySetInnerHTML &&
 						typeof props.dangerouslySetInnerHTML.__html === 'string'
 					) {
-						// Dangerous content is left unescaped.
 						content = props.dangerouslySetInnerHTML.__html;
 					} else if (typeof props.children !== 'undefined') {
 						content = renderChildren(
@@ -59537,14 +55213,6 @@ styleSheet.flush()
 						'>'
 					);
 				}
-
-				/**
-				 * Serializes a non-native component type to string.
-				 * @param Component
-				 * @param props
-				 * @param context
-				 * @param legacyContext
-				 */
 				function renderComponent(
 					Component,
 					props,
@@ -59565,13 +55233,6 @@ styleSheet.flush()
 					);
 					return html;
 				}
-
-				/**
-				 * Serializes an array of children to string.
-				 * @param children
-				 * @param context
-				 * @param legacyContext
-				 */
 				function renderChildren(children, context, legacyContext = {}) {
 					let result = '';
 					const childrenArray = Array.isArray(children)
@@ -59583,11 +55244,6 @@ styleSheet.flush()
 					}
 					return result;
 				}
-
-				/**
-				 * Renders a props object as a string of HTML attributes.
-				 * @param props
-				 */
 				function renderAttributes(props) {
 					let result = '';
 					for (const key in props) {
@@ -59601,20 +55257,14 @@ styleSheet.flush()
 							continue;
 						}
 						let value = getNormalAttributeValue(key, props[key]);
-
-						// If value is not of serializable type, skip.
 						if (!ATTRIBUTES_TYPES.has(typeof value)) {
 							continue;
 						}
-
-						// Don't render internal attribute names.
 						if (isInternalAttribute(key)) {
 							continue;
 						}
 						const isBooleanAttribute =
 							BOOLEAN_ATTRIBUTES.has(attribute);
-
-						// Boolean attribute should be omitted outright if its value is false.
 						if (isBooleanAttribute && value === false) {
 							continue;
 						}
@@ -59622,8 +55272,6 @@ styleSheet.flush()
 							isBooleanAttribute ||
 							hasPrefix(key, ['data-', 'aria-']) ||
 							ENUMERATED_ATTRIBUTES.has(attribute);
-
-						// Only write boolean value as attribute if meaningful.
 						if (
 							typeof value === 'boolean' &&
 							!isMeaningfulAttribute
@@ -59631,9 +55279,6 @@ styleSheet.flush()
 							continue;
 						}
 						result += ' ' + attribute;
-
-						// Boolean attributes should write attribute name, but without value.
-						// Mere presence of attribute name is effective truthiness.
 						if (isBooleanAttribute) {
 							continue;
 						}
@@ -59647,13 +55292,7 @@ styleSheet.flush()
 					}
 					return result;
 				}
-
-				/**
-				 * Renders a style object as a string attribute value.
-				 * @param style
-				 */
 				function renderStyle(style) {
-					// Only generate from object, e.g. tolerate string value.
 					if (
 						!(0,
 						is_plain_object__WEBPACK_IMPORTED_MODULE_0__.isPlainObject)(
@@ -59666,7 +55305,7 @@ styleSheet.flush()
 					const styleObj = style;
 					for (const property in styleObj) {
 						const value = styleObj[property];
-						if (null === value || undefined === value) {
+						if (null === value || void 0 === value) {
 							continue;
 						}
 						if (result) {
@@ -59683,8 +55322,8 @@ styleSheet.flush()
 					}
 					return result;
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					renderElement;
+				var serialize_default = renderElement;
+
 				//# sourceMappingURL=serialize.js.map
 
 				/***/
@@ -59710,21 +55349,10 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Returns a string with greater-than sign replaced.
-				 *
-				 * Note that if a resolution for Trac#45387 comes to fruition, it is no longer
-				 * necessary for `__unstableEscapeGreaterThan` to exist.
-				 *
-				 * See: https://core.trac.wordpress.org/ticket/45387
-				 *
-				 * @param value Original string.
-				 *
-				 * @return Escaped string.
-				 */
 				function __unstableEscapeGreaterThan(value) {
 					return value.replace(/>/g, '&gt;');
 				}
+
 				//# sourceMappingURL=escape-greater.js.map
 
 				/***/
@@ -59772,131 +55400,37 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./escape-greater */ './node_modules/@wordpress/escape-html/build-module/escape-greater.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Regular expression matching invalid attribute names.
-				 *
-				 * "Attribute names must consist of one or more characters other than controls,
-				 * U+0020 SPACE, U+0022 ("), U+0027 ('), U+003E (>), U+002F (/), U+003D (=),
-				 * and noncharacters."
-				 *
-				 * @see https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
-				 */
 				const REGEXP_INVALID_ATTRIBUTE_NAME =
 					/[\u007F-\u009F "'>/="\uFDD0-\uFDEF]/;
-
-				/**
-				 * Returns a string with ampersands escaped. Note that this is an imperfect
-				 * implementation, where only ampersands which do not appear as a pattern of
-				 * named, decimal, or hexadecimal character references are escaped. Invalid
-				 * named references (i.e. ambiguous ampersand) are still permitted.
-				 *
-				 * @see https://w3c.github.io/html/syntax.html#character-references
-				 * @see https://w3c.github.io/html/syntax.html#ambiguous-ampersand
-				 * @see https://w3c.github.io/html/syntax.html#named-character-references
-				 *
-				 * @param value Original string.
-				 *
-				 * @return Escaped string.
-				 */
 				function escapeAmpersand(value) {
 					return value.replace(
 						/&(?!([a-z0-9]+|#[0-9]+|#x[a-f0-9]+);)/gi,
 						'&amp;'
 					);
 				}
-
-				/**
-				 * Returns a string with quotation marks replaced.
-				 *
-				 * @param value Original string.
-				 *
-				 * @return Escaped string.
-				 */
 				function escapeQuotationMark(value) {
 					return value.replace(/"/g, '&quot;');
 				}
-
-				/**
-				 * Returns a string with less-than sign replaced.
-				 *
-				 * @param value Original string.
-				 *
-				 * @return Escaped string.
-				 */
 				function escapeLessThan(value) {
 					return value.replace(/</g, '&lt;');
 				}
-
-				/**
-				 * Returns an escaped attribute value.
-				 *
-				 * @see https://w3c.github.io/html/syntax.html#elements-attributes
-				 *
-				 * "[...] the text cannot contain an ambiguous ampersand [...] must not contain
-				 * any literal U+0022 QUOTATION MARK characters (")"
-				 *
-				 * Note we also escape the greater than symbol, as this is used by wptexturize to
-				 * split HTML strings. This is a WordPress specific fix
-				 *
-				 * Note that if a resolution for Trac#45387 comes to fruition, it is no longer
-				 * necessary for `__unstableEscapeGreaterThan` to be used.
-				 *
-				 * See: https://core.trac.wordpress.org/ticket/45387
-				 *
-				 * @param value Attribute value.
-				 *
-				 * @return Escaped attribute value.
-				 */
 				function escapeAttribute(value) {
 					return (0,
 					_escape_greater__WEBPACK_IMPORTED_MODULE_0__['default'])(
 						escapeQuotationMark(escapeAmpersand(value))
 					);
 				}
-
-				/**
-				 * Returns an escaped HTML element value.
-				 *
-				 * @see https://w3c.github.io/html/syntax.html#writing-html-documents-elements
-				 *
-				 * "the text must not contain the character U+003C LESS-THAN SIGN (<) or an
-				 * ambiguous ampersand."
-				 *
-				 * @param value Element value.
-				 *
-				 * @return Escaped HTML element value.
-				 */
 				function escapeHTML(value) {
 					return escapeLessThan(escapeAmpersand(value));
 				}
-
-				/**
-				 * Returns an escaped Editable HTML element value. This is different from
-				 * `escapeHTML`, because for editable HTML, ALL ampersands must be escaped in
-				 * order to render the content correctly on the page.
-				 *
-				 * @param value Element value.
-				 *
-				 * @return Escaped HTML element value.
-				 */
 				function escapeEditableHTML(value) {
 					return escapeLessThan(value.replace(/&/g, '&amp;'));
 				}
-
-				/**
-				 * Returns true if the given attribute name is valid, or false otherwise.
-				 *
-				 * @param name Attribute name to test.
-				 *
-				 * @return Whether attribute is valid.
-				 */
 				function isValidAttributeName(name) {
 					return !REGEXP_INVALID_ATTRIBUTE_NAME.test(name);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -59913,6 +55447,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ createAddHook_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _validateNamespace__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./validateNamespace */ './node_modules/@wordpress/hooks/build-module/validateNamespace.js'
@@ -59921,23 +55464,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./validateHookName */ './node_modules/@wordpress/hooks/build-module/validateHookName.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 *
-				 * Adds the hook to the appropriate hooks container.
-				 */
-
-				/**
-				 * Returns a function which, when invoked, will add a hook.
-				 *
-				 * @param hooks    Hooks instance.
-				 * @param storeKey
-				 *
-				 * @return  Function that adds a new hook.
-				 */
 				function createAddHook(hooks, storeKey) {
 					return function addHook(
 						hookName,
@@ -59963,28 +55490,19 @@ styleSheet.flush()
 							return;
 						}
 						if ('function' !== typeof callback) {
-							// eslint-disable-next-line no-console
 							console.error(
 								'The hook callback must be a function.'
 							);
 							return;
 						}
-
-						// Validate numeric priority
 						if ('number' !== typeof priority) {
-							// eslint-disable-next-line no-console
 							console.error(
 								'If specified, the hook priority must be a number.'
 							);
 							return;
 						}
-						const handler = {
-							callback,
-							priority,
-							namespace,
-						};
+						const handler = { callback, priority, namespace };
 						if (hooksStore[hookName]) {
-							// Find the correct insert index of the new hook.
 							const handlers = hooksStore[hookName].handlers;
 							let i;
 							for (i = handlers.length; i > 0; i--) {
@@ -59993,17 +55511,10 @@ styleSheet.flush()
 								}
 							}
 							if (i === handlers.length) {
-								// If append, operate via direct assignment.
 								handlers[i] = handler;
 							} else {
-								// Otherwise, insert before index via splice.
 								handlers.splice(i, 0, handler);
 							}
-
-							// We may also be currently executing this hook.  If the callback
-							// we're adding would come after the current callback, there's no
-							// problem; otherwise we need to increase the execution index of
-							// any other runs by 1 to account for the added element.
 							hooksStore.__current.forEach((hookInfo) => {
 								if (
 									hookInfo.name === hookName &&
@@ -60013,7 +55524,6 @@ styleSheet.flush()
 								}
 							});
 						} else {
-							// This is the first hook of its type.
 							hooksStore[hookName] = {
 								handlers: [handler],
 								runs: 0,
@@ -60030,8 +55540,8 @@ styleSheet.flush()
 						}
 					};
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createAddHook;
+				var createAddHook_default = createAddHook;
+
 				//# sourceMappingURL=createAddHook.js.map
 
 				/***/
@@ -60048,34 +55558,24 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Returns a function which, when invoked, will return the name of the
-				 * currently running hook, or `null` if no hook of the given type is currently
-				 * running.
-				 *
-				 * @param hooks    Hooks instance.
-				 * @param storeKey
-				 *
-				 * @return Function that returns the current hook name or null.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ createCurrentHook_default;
+						},
+						/* harmony export */
+					}
+				);
 				function createCurrentHook(hooks, storeKey) {
 					return function currentHook() {
-						var _currentArray$at$name;
 						const hooksStore = hooks[storeKey];
 						const currentArray = Array.from(hooksStore.__current);
-						return (_currentArray$at$name =
-							currentArray.at(-1)?.name) !== null &&
-							_currentArray$at$name !== void 0
-							? _currentArray$at$name
-							: null;
+						return currentArray.at(-1)?.name ?? null;
 					};
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createCurrentHook;
+				var createCurrentHook_default = createCurrentHook;
+
 				//# sourceMappingURL=createCurrentHook.js.map
 
 				/***/
@@ -60092,29 +55592,20 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ createDidHook_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _validateHookName__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./validateHookName */ './node_modules/@wordpress/hooks/build-module/validateHookName.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 *
-				 * Returns the number of times an action has been fired.
-				 *
-				 */
-
-				/**
-				 * Returns a function which, when invoked, will return the number of times a
-				 * hook has been called.
-				 *
-				 * @param hooks    Hooks instance.
-				 * @param storeKey
-				 *
-				 * @return  Function that returns a hook's call count.
-				 */
 				function createDidHook(hooks, storeKey) {
 					return function didHook(hookName) {
 						const hooksStore = hooks[storeKey];
@@ -60131,8 +55622,8 @@ styleSheet.flush()
 							: 0;
 					};
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createDidHook;
+				var createDidHook_default = createDidHook;
+
 				//# sourceMappingURL=createDidHook.js.map
 
 				/***/
@@ -60149,42 +55640,28 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Returns whether a hook is currently being executed.
-				 *
-				 */
-
-				/**
-				 * Returns a function which, when invoked, will return whether a hook is
-				 * currently being executed.
-				 *
-				 * @param hooks    Hooks instance.
-				 * @param storeKey
-				 *
-				 * @return Function that returns whether a hook is currently
-				 *                     being executed.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ createDoingHook_default;
+						},
+						/* harmony export */
+					}
+				);
 				function createDoingHook(hooks, storeKey) {
 					return function doingHook(hookName) {
 						const hooksStore = hooks[storeKey];
-
-						// If the hookName was not passed, check for any current hook.
 						if ('undefined' === typeof hookName) {
 							return hooksStore.__current.size > 0;
 						}
-
-						// Find if the `hookName` hook is in `__current`.
 						return Array.from(hooksStore.__current).some(
 							(hook) => hook.name === hookName
 						);
 					};
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createDoingHook;
+				var createDoingHook_default = createDoingHook;
+
 				//# sourceMappingURL=createDoingHook.js.map
 
 				/***/
@@ -60201,30 +55678,18 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 *
-				 * Returns whether any handlers are attached for the given hookName and optional namespace.
-				 */
-
-				/**
-				 * Returns a function which, when invoked, will return whether any handlers are
-				 * attached to a particular hook.
-				 *
-				 * @param hooks    Hooks instance.
-				 * @param storeKey
-				 *
-				 * @return  Function that returns whether any handlers are
-				 *                   attached to a particular hook and optional namespace.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ createHasHook_default;
+						},
+						/* harmony export */
+					}
+				);
 				function createHasHook(hooks, storeKey) {
 					return function hasHook(hookName, namespace) {
 						const hooksStore = hooks[storeKey];
-
-						// Use the namespace if provided.
 						if ('undefined' !== typeof namespace) {
 							return (
 								hookName in hooksStore &&
@@ -60236,8 +55701,8 @@ styleSheet.flush()
 						return hookName in hooksStore;
 					};
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createHasHook;
+				var createHasHook_default = createHasHook;
+
 				//# sourceMappingURL=createHasHook.js.map
 
 				/***/
@@ -60259,6 +55724,9 @@ styleSheet.flush()
 					{
 						/* harmony export */ _Hooks: function () {
 							return /* binding */ _Hooks;
+						},
+						/* harmony export */ default: function () {
+							return /* binding */ createHooks_default;
 						},
 						/* harmony export */
 					}
@@ -60291,23 +55759,33 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./createDidHook */ './node_modules/@wordpress/hooks/build-module/createDidHook.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Internal class for constructing hooks. Use `createHooks()` function
-				 *
-				 * Note, it is necessary to expose this class to make its type public.
-				 *
-				 * @private
-				 */
 				class _Hooks {
+					actions;
+					filters;
+					addAction;
+					addFilter;
+					removeAction;
+					removeFilter;
+					hasAction;
+					hasFilter;
+					removeAllActions;
+					removeAllFilters;
+					doAction;
+					doActionAsync;
+					applyFilters;
+					applyFiltersAsync;
+					currentAction;
+					currentFilter;
+					doingAction;
+					doingFilter;
+					didAction;
+					didFilter;
 					constructor() {
-						this.actions = Object.create(null);
-						this.actions.__current = new Set();
-						this.filters = Object.create(null);
-						this.filters.__current = new Set();
+						this.actions = /* @__PURE__ */ Object.create(null);
+						this.actions.__current = /* @__PURE__ */ new Set();
+						this.filters = /* @__PURE__ */ Object.create(null);
+						this.filters.__current = /* @__PURE__ */ new Set();
 						this.addAction = (0,
 						_createAddHook__WEBPACK_IMPORTED_MODULE_0__['default'])(
 							this,
@@ -60400,16 +55878,11 @@ styleSheet.flush()
 						);
 					}
 				}
-				/**
-				 * Returns an instance of the hooks object.
-				 *
-				 * @return A Hooks instance.
-				 */
 				function createHooks() {
 					return new _Hooks();
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createHooks;
+				var createHooks_default = createHooks;
+
 				//# sourceMappingURL=createHooks.js.map
 
 				/***/
@@ -60426,6 +55899,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ createRemoveHook_default;
+						},
+						/* harmony export */
+					}
+				);
 				/* harmony import */ var _validateNamespace__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! ./validateNamespace */ './node_modules/@wordpress/hooks/build-module/validateNamespace.js'
@@ -60434,27 +55916,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./validateHookName */ './node_modules/@wordpress/hooks/build-module/validateHookName.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Removes the specified callback (or all callbacks) from the hook with a given hookName
-				 * and namespace.
-				 */
-
-				/**
-				 * Returns a function which, when invoked, will remove a specified hook or all
-				 * hooks by the given name.
-				 *
-				 * @param hooks             Hooks instance.
-				 * @param storeKey
-				 * @param [removeAll=false] Whether to remove all callbacks for a hookName,
-				 *                          without regard to namespace. Used to create
-				 *                          `removeAll*` functions.
-				 *
-				 * @return Function that removes hooks.
-				 */
 				function createRemoveHook(hooks, storeKey, removeAll = false) {
 					return function removeHook(hookName, namespace) {
 						const hooksStore = hooks[storeKey];
@@ -60475,8 +55937,6 @@ styleSheet.flush()
 						) {
 							return;
 						}
-
-						// Bail if no hooks exist by this name.
 						if (!hooksStore[hookName]) {
 							return 0;
 						}
@@ -60489,17 +55949,11 @@ styleSheet.flush()
 								handlers: [],
 							};
 						} else {
-							// Try to find the specified callback to remove.
 							const handlers = hooksStore[hookName].handlers;
 							for (let i = handlers.length - 1; i >= 0; i--) {
 								if (handlers[i].namespace === namespace) {
 									handlers.splice(i, 1);
 									handlersRemoved++;
-									// This callback may also be part of a hook that is
-									// currently executing.  If the callback we're removing
-									// comes after the current callback, there's no problem;
-									// otherwise we need to decrease the execution index of any
-									// other runs by 1 to account for the removed element.
 									hooksStore.__current.forEach((hookInfo) => {
 										if (
 											hookInfo.name === hookName &&
@@ -60517,8 +55971,8 @@ styleSheet.flush()
 						return handlersRemoved;
 					};
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createRemoveHook;
+				var createRemoveHook_default = createRemoveHook;
+
 				//# sourceMappingURL=createRemoveHook.js.map
 
 				/***/
@@ -60535,22 +55989,15 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Returns a function which, when invoked, will execute all callbacks
-				 * registered to a hook of the specified type, optionally returning the final
-				 * value of the call chain.
-				 *
-				 * @param hooks          Hooks instance.
-				 * @param storeKey
-				 * @param returnFirstArg Whether each hook callback is expected to return its first argument.
-				 * @param async          Whether the hook callback should be run asynchronously
-				 *
-				 * @return Function that runs hook callbacks.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ createRunHook_default;
+						},
+						/* harmony export */
+					}
+				);
 				function createRunHook(hooks, storeKey, returnFirstArg, async) {
 					return function runHook(hookName, ...args) {
 						const hooksStore = hooks[storeKey];
@@ -60562,16 +56009,13 @@ styleSheet.flush()
 						}
 						hooksStore[hookName].runs++;
 						const handlers = hooksStore[hookName].handlers;
-
-						// The following code is stripped from production builds.
 						if (true) {
-							// Handle any 'all' hooks registered.
 							if ('hookAdded' !== hookName && hooksStore.all) {
 								handlers.push(...hooksStore.all.handlers);
 							}
 						}
 						if (!handlers || !handlers.length) {
-							return returnFirstArg ? args[0] : undefined;
+							return returnFirstArg ? args[0] : void 0;
 						}
 						const hookInfo = {
 							name: hookName,
@@ -60580,9 +56024,7 @@ styleSheet.flush()
 						async function asyncRunner() {
 							try {
 								hooksStore.__current.add(hookInfo);
-								let result = returnFirstArg
-									? args[0]
-									: undefined;
+								let result = returnFirstArg ? args[0] : void 0;
 								while (
 									hookInfo.currentIndex < handlers.length
 								) {
@@ -60597,7 +56039,7 @@ styleSheet.flush()
 									}
 									hookInfo.currentIndex++;
 								}
-								return returnFirstArg ? result : undefined;
+								return returnFirstArg ? result : void 0;
 							} finally {
 								hooksStore.__current.delete(hookInfo);
 							}
@@ -60605,9 +56047,7 @@ styleSheet.flush()
 						function syncRunner() {
 							try {
 								hooksStore.__current.add(hookInfo);
-								let result = returnFirstArg
-									? args[0]
-									: undefined;
+								let result = returnFirstArg ? args[0] : void 0;
 								while (
 									hookInfo.currentIndex < handlers.length
 								) {
@@ -60619,7 +56059,7 @@ styleSheet.flush()
 									}
 									hookInfo.currentIndex++;
 								}
-								return returnFirstArg ? result : undefined;
+								return returnFirstArg ? result : void 0;
 							} finally {
 								hooksStore.__current.delete(hookInfo);
 							}
@@ -60627,8 +56067,8 @@ styleSheet.flush()
 						return (async ? asyncRunner : syncRunner)();
 					};
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createRunHook;
+				var createRunHook_default = createRunHook;
+
 				//# sourceMappingURL=createRunHook.js.map
 
 				/***/
@@ -60727,9 +56167,48 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./types */ './node_modules/@wordpress/hooks/build-module/types.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
+				/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1___default =
+					/*#__PURE__*/ __webpack_require__.n(
+						_types__WEBPACK_IMPORTED_MODULE_1__
+					);
+				/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ =
+					{};
+				/* harmony reexport (unknown) */ for (var __WEBPACK_IMPORT_KEY__ in _types__WEBPACK_IMPORTED_MODULE_1__)
+					if (
+						[
+							'default',
+							'actions',
+							'addAction',
+							'addFilter',
+							'applyFilters',
+							'applyFiltersAsync',
+							'createHooks',
+							'currentAction',
+							'currentFilter',
+							'defaultHooks',
+							'didAction',
+							'didFilter',
+							'doAction',
+							'doActionAsync',
+							'doingAction',
+							'doingFilter',
+							'filters',
+							'hasAction',
+							'hasFilter',
+							'removeAction',
+							'removeAllActions',
+							'removeAllFilters',
+							'removeFilter',
+						].indexOf(__WEBPACK_IMPORT_KEY__) < 0
+					)
+						__WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] =
+							function (key) {
+								return _types__WEBPACK_IMPORTED_MODULE_1__[key];
+							}.bind(0, __WEBPACK_IMPORT_KEY__);
+				/* harmony reexport (unknown) */ __webpack_require__.d(
+					__webpack_exports__,
+					__WEBPACK_REEXPORT_OBJECT__
+				);
 
 				const defaultHooks = (0,
 				_createHooks__WEBPACK_IMPORTED_MODULE_0__['default'])();
@@ -60765,16 +56244,8 @@ styleSheet.flush()
 			/*!*************************************************************!*\
   !*** ./node_modules/@wordpress/hooks/build-module/types.js ***!
   \*************************************************************/
-			/***/ function (
-				__unused_webpack_module,
-				__webpack_exports__,
-				__webpack_require__
-			) {
-				'use strict';
-				__webpack_require__.r(__webpack_exports__);
-
+			/***/ function () {
 				//# sourceMappingURL=types.js.map
-
 				/***/
 			},
 
@@ -60789,30 +56260,27 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Validate a hookName string.
-				 *
-				 * @param hookName The hook name to validate. Should be a non empty string containing
-				 *                 only numbers, letters, dashes, periods and underscores. Also,
-				 *                 the hook name cannot begin with `__`.
-				 *
-				 * @return Whether the hook name is valid.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ validateHookName_default;
+						},
+						/* harmony export */
+					}
+				);
 				function validateHookName(hookName) {
 					if ('string' !== typeof hookName || '' === hookName) {
-						// eslint-disable-next-line no-console
 						console.error(
 							'The hook name must be a non-empty string.'
 						);
 						return false;
 					}
 					if (/^__/.test(hookName)) {
-						// eslint-disable-next-line no-console
 						console.error('The hook name cannot begin with `__`.');
 						return false;
 					}
 					if (!/^[a-zA-Z][a-zA-Z0-9_.-]*$/.test(hookName)) {
-						// eslint-disable-next-line no-console
 						console.error(
 							'The hook name can only contain numbers, letters, dashes, periods and underscores.'
 						);
@@ -60820,8 +56288,8 @@ styleSheet.flush()
 					}
 					return true;
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					validateHookName;
+				var validateHookName_default = validateHookName;
+
 				//# sourceMappingURL=validateHookName.js.map
 
 				/***/
@@ -60838,24 +56306,23 @@ styleSheet.flush()
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/**
-				 * Validate a namespace string.
-				 *
-				 * @param namespace The namespace to validate - should take the form
-				 *                  `vendor/plugin/function`.
-				 *
-				 * @return Whether the namespace is valid.
-				 */
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ default: function () {
+							return /* binding */ validateNamespace_default;
+						},
+						/* harmony export */
+					}
+				);
 				function validateNamespace(namespace) {
 					if ('string' !== typeof namespace || '' === namespace) {
-						// eslint-disable-next-line no-console
 						console.error(
 							'The namespace must be a non-empty string.'
 						);
 						return false;
 					}
 					if (!/^[a-zA-Z][a-zA-Z0-9_.\-\/]*$/.test(namespace)) {
-						// eslint-disable-next-line no-console
 						console.error(
 							'The namespace can only contain numbers, letters, dashes, periods, underscores and slashes.'
 						);
@@ -60863,8 +56330,8 @@ styleSheet.flush()
 					}
 					return true;
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					validateNamespace;
+				var validateNamespace_default = validateNamespace;
+
 				//# sourceMappingURL=validateNamespace.js.map
 
 				/***/
@@ -60894,22 +56361,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! tannin */ './node_modules/tannin/index.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/**
-				 * Default locale data to use for Tannin domain when not otherwise provided.
-				 * Assumes an English plural forms expression.
-				 */
 				const DEFAULT_LOCALE_DATA = {
 					'': {
 						plural_forms(n) {
@@ -60917,66 +56369,31 @@ styleSheet.flush()
 						},
 					},
 				};
-
-				/*
-				 * Regular expression that matches i18n hooks like `i18n.gettext`, `i18n.ngettext`,
-				 * `i18n.gettext_domain` or `i18n.ngettext_with_context` or `i18n.has_translation`.
-				 */
 				const I18N_HOOK_REGEXP =
 					/^i18n\.(n?gettext|has_translation)(_|$)/;
-
-				/**
-				 * Create an i18n instance
-				 *
-				 * @param [initialData]   Locale data configuration.
-				 * @param [initialDomain] Domain for which configuration applies.
-				 * @param [hooks]         Hooks implementation.
-				 *
-				 * @return I18n instance.
-				 */
 				const createI18n = (initialData, initialDomain, hooks) => {
-					/**
-					 * The underlying instance of Tannin to which exported functions interface.
-					 */
 					const tannin = new tannin__WEBPACK_IMPORTED_MODULE_0__[
 						'default'
 					]({});
-					const listeners = new Set();
+					const listeners = /* @__PURE__ */ new Set();
 					const notifyListeners = () => {
 						listeners.forEach((listener) => listener());
 					};
-
-					/**
-					 * Subscribe to changes of locale data.
-					 *
-					 * @param callback Subscription callback.
-					 * @return Unsubscribe callback.
-					 */
 					const subscribe = (callback) => {
 						listeners.add(callback);
 						return () => listeners.delete(callback);
 					};
 					const getLocaleData = (domain = 'default') =>
 						tannin.data[domain];
-
-					/**
-					 * @param [data]
-					 * @param [domain]
-					 */
 					const doSetLocaleData = (data, domain = 'default') => {
 						tannin.data[domain] = {
 							...tannin.data[domain],
 							...data,
 						};
-
-						// Populate default domain configuration (supported locale date which omits
-						// a plural forms expression).
 						tannin.data[domain][''] = {
 							...DEFAULT_LOCALE_DATA[''],
 							...tannin.data[domain]?.[''],
 						};
-
-						// Clean up cached plural forms functions cache as it might be updated.
 						delete tannin.pluralForms[domain];
 					};
 					const setLocaleData = (data, domain) => {
@@ -60995,35 +56412,14 @@ styleSheet.flush()
 								...data?.[''],
 							},
 						};
-
-						// Clean up cached plural forms functions cache as it might be updated.
 						delete tannin.pluralForms[domain];
 						notifyListeners();
 					};
 					const resetLocaleData = (data, domain) => {
-						// Reset all current Tannin locale data.
 						tannin.data = {};
-
-						// Reset cached plural forms functions cache.
 						tannin.pluralForms = {};
 						setLocaleData(data, domain);
 					};
-
-					/**
-					 * Wrapper for Tannin's `dcnpgettext`. Populates default locale data if not
-					 * otherwise previously assigned.
-					 *
-					 * @param domain   Domain to retrieve the translated text.
-					 * @param context  Context information for the translators.
-					 * @param single   Text to translate if non-plural. Used as
-					 *                 fallback return value on a caught error.
-					 * @param [plural] The text to be used if the number is
-					 *                 plural.
-					 * @param [number] The number to compare against to use
-					 *                 either the singular or plural form.
-					 *
-					 * @return The translated string.
-					 */
 					const dcnpgettext = (
 						domain = 'default',
 						context,
@@ -61032,8 +56428,7 @@ styleSheet.flush()
 						number
 					) => {
 						if (!tannin.data[domain]) {
-							// Use `doSetLocaleData` to set silently, without notifying listeners.
-							doSetLocaleData(undefined, domain);
+							doSetLocaleData(void 0, domain);
 						}
 						return tannin.dcnpgettext(
 							domain,
@@ -61045,18 +56440,10 @@ styleSheet.flush()
 					};
 					const getFilterDomain = (domain) => domain || 'default';
 					const __ = (text, domain) => {
-						let translation = dcnpgettext(domain, undefined, text);
+						let translation = dcnpgettext(domain, void 0, text);
 						if (!hooks) {
 							return translation;
 						}
-
-						/**
-						 * Filters text with its translation.
-						 *
-						 * @param translation Translated text.
-						 * @param text        Text to translate.
-						 * @param domain      Text domain. Unique identifier for retrieving translated strings.
-						 */
 						translation = hooks.applyFilters(
 							'i18n.gettext',
 							translation,
@@ -61075,15 +56462,6 @@ styleSheet.flush()
 						if (!hooks) {
 							return translation;
 						}
-
-						/**
-						 * Filters text with its translation based on context information.
-						 *
-						 * @param translation Translated text.
-						 * @param text        Text to translate.
-						 * @param context     Context information for the translators.
-						 * @param domain      Text domain. Unique identifier for retrieving translated strings.
-						 */
 						translation = hooks.applyFilters(
 							'i18n.gettext_with_context',
 							translation,
@@ -61103,7 +56481,7 @@ styleSheet.flush()
 					const _n = (single, plural, number, domain) => {
 						let translation = dcnpgettext(
 							domain,
-							undefined,
+							void 0,
 							single,
 							plural,
 							number
@@ -61111,16 +56489,6 @@ styleSheet.flush()
 						if (!hooks) {
 							return translation;
 						}
-
-						/**
-						 * Filters the singular or plural form of a string.
-						 *
-						 * @param translation Translated text.
-						 * @param single      The text to be used if the number is singular.
-						 * @param plural      The text to be used if the number is plural.
-						 * @param number      The number to compare against to use either the singular or plural form.
-						 * @param domain      Text domain. Unique identifier for retrieving translated strings.
-						 */
 						translation = hooks.applyFilters(
 							'i18n.ngettext',
 							translation,
@@ -61149,17 +56517,6 @@ styleSheet.flush()
 						if (!hooks) {
 							return translation;
 						}
-
-						/**
-						 * Filters the singular or plural form of a string with gettext context.
-						 *
-						 * @param translation Translated text.
-						 * @param single      The text to be used if the number is singular.
-						 * @param plural      The text to be used if the number is plural.
-						 * @param number      The number to compare against to use either the singular or plural form.
-						 * @param context     Context information for the translators.
-						 * @param domain      Text domain. Unique identifier for retrieving translated strings.
-						 */
 						translation = hooks.applyFilters(
 							'i18n.ngettext_with_context',
 							translation,
@@ -61184,24 +56541,10 @@ styleSheet.flush()
 						return 'rtl' === _x('ltr', 'text direction');
 					};
 					const hasTranslation = (single, context, domain) => {
-						const key = context
-							? context + '\u0004' + single
-							: single;
+						const key = context ? context + '' + single : single;
 						let result =
-							!!tannin.data?.[
-								domain !== null && domain !== void 0
-									? domain
-									: 'default'
-							]?.[key];
+							!!tannin.data?.[domain ?? 'default']?.[key];
 						if (hooks) {
-							/**
-							 * Filters the presence of a translation in the locale data.
-							 *
-							 * @param hasTranslation Whether the translation is present or not..
-							 * @param single         The singular form of the translated text (used as key in locale data)
-							 * @param context        Context information for the translators.
-							 * @param domain         Text domain. Unique identifier for retrieving translated strings.
-							 */
 							result = hooks.applyFilters(
 								'i18n.has_translation',
 								result,
@@ -61224,9 +56567,6 @@ styleSheet.flush()
 						setLocaleData(initialData, initialDomain);
 					}
 					if (hooks) {
-						/**
-						 * @param hookName
-						 */
 						const onHookAddedOrRemoved = (hookName) => {
 							if (I18N_HOOK_REGEXP.test(hookName)) {
 								notifyListeners();
@@ -61257,6 +56597,7 @@ styleSheet.flush()
 						hasTranslation,
 					};
 				};
+
 				//# sourceMappingURL=create-i18n.js.map
 
 				/***/
@@ -61288,6 +56629,9 @@ styleSheet.flush()
 						/* harmony export */ _x: function () {
 							return /* binding */ _x;
 						},
+						/* harmony export */ default: function () {
+							return /* binding */ default_i18n_default;
+						},
 						/* harmony export */ getLocaleData: function () {
 							return /* binding */ getLocaleData;
 						},
@@ -61317,163 +56661,25 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @wordpress/hooks */ './node_modules/@wordpress/hooks/build-module/index.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
 
 				const i18n = (0,
 				_create_i18n__WEBPACK_IMPORTED_MODULE_0__.createI18n)(
-					undefined,
-					undefined,
+					void 0,
+					void 0,
 					_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.defaultHooks
 				);
-
-				/**
-				 * Default, singleton instance of `I18n`.
-				 */
-				/* harmony default export */ __webpack_exports__['default'] =
-					i18n;
-
-				/*
-				 * Comments in this file are duplicated from ./i18n due to
-				 * https://github.com/WordPress/gutenberg/pull/20318#issuecomment-590837722
-				 */
-
-				/**
-				 * Returns locale data by domain in a Jed-formatted JSON object shape.
-				 *
-				 * @see http://messageformat.github.io/Jed/
-				 *
-				 * @param { string | undefined } [domain] Domain for which to get the data.
-				 * @return { LocaleData } Locale data.
-				 */
+				var default_i18n_default = i18n;
 				const getLocaleData = i18n.getLocaleData.bind(i18n);
-
-				/**
-				 * Merges locale data into the Tannin instance by domain. Accepts data in a
-				 * Jed-formatted JSON object shape.
-				 *
-				 * @see http://messageformat.github.io/Jed/
-				 *
-				 * @param {LocaleData }        [data]   Locale data configuration.
-				 * @param {string | undefined} [domain] Domain for which configuration applies.
-				 */
 				const setLocaleData = i18n.setLocaleData.bind(i18n);
-
-				/**
-				 * Resets all current Tannin instance locale data and sets the specified
-				 * locale data for the domain. Accepts data in a Jed-formatted JSON object shape.
-				 *
-				 * @see http://messageformat.github.io/Jed/
-				 *
-				 * @param {LocaleData}         [data]   Locale data configuration.
-				 * @param {string | undefined} [domain] Domain for which configuration applies.
-				 */
 				const resetLocaleData = i18n.resetLocaleData.bind(i18n);
-
-				/**
-				 * Subscribes to changes of locale data
-				 *
-				 * @param {SubscribeCallback} callback Subscription callback
-				 * @return {UnsubscribeCallback} Unsubscribe callback
-				 */
 				const subscribe = i18n.subscribe.bind(i18n);
-
-				/**
-				 * Retrieve the translation of text.
-				 *
-				 * @see https://developer.wordpress.org/reference/functions/__/
-				 *
-				 * @template {string} Text
-				 *
-				 * @param {Text}               text   Text to translate.
-				 * @param {string | undefined} domain Domain to retrieve the translated text.
-				 *
-				 * @return {TranslatableText<Text>} Translated text.
-				 */
 				const __ = i18n.__.bind(i18n);
-
-				/**
-				 * Retrieve translated string with gettext context.
-				 *
-				 * @see https://developer.wordpress.org/reference/functions/_x/
-				 *
-				 * @template {string} Text
-				 *
-				 * @param {Text}               text    Text to translate.
-				 * @param {string}             context Context information for the translators.
-				 * @param {string | undefined} domain  Domain to retrieve the translated text.
-				 *
-				 * @return {TranslatableText<Text>} Translated context string without pipe.
-				 */
 				const _x = i18n._x.bind(i18n);
-
-				/**
-				 * Translates and retrieves the singular or plural form based on the supplied
-				 * number.
-				 *
-				 * @see https://developer.wordpress.org/reference/functions/_n/
-				 *
-				 * @template {string} Single
-				 * @template {string} Plural
-				 *
-				 * @param {Single}             single The text to be used if the number is singular.
-				 * @param {Plural}             plural The text to be used if the number is plural.
-				 * @param {number}             number The number to compare against to use either the
-				 *                                    singular or plural form.
-				 * @param {string | undefined} domain Domain to retrieve the translated text.
-				 *
-				 * @return {TranslatableText<Single | Plural>} The translated singular or plural form.
-				 */
 				const _n = i18n._n.bind(i18n);
-
-				/**
-				 * Translates and retrieves the singular or plural form based on the supplied
-				 * number, with gettext context.
-				 *
-				 * @see https://developer.wordpress.org/reference/functions/_nx/
-				 *
-				 * @template {string} Single
-				 * @template {string} Plural
-				 * @param {Single}             single   The text to be used if the number is singular.
-				 *
-				 * @param {Single}             single   The text to be used if the number is singular.
-				 * @param {Plural}             plural   The text to be used if the number is plural.
-				 * @param {number}             number   The number to compare against to use either the
-				 *                                      singular or plural form.
-				 * @param {string}             context  Context information for the translators.
-				 * @param {string | undefined} [domain] Domain to retrieve the translated text.
-				 *
-				 * @return {TranslatableText<Single | Plural>} The translated singular or plural form.
-				 */
 				const _nx = i18n._nx.bind(i18n);
-
-				/**
-				 * Check if current locale is RTL.
-				 *
-				 * **RTL (Right To Left)** is a locale property indicating that text is written from right to left.
-				 * For example, the `he` locale (for Hebrew) specifies right-to-left. Arabic (ar) is another common
-				 * language written RTL. The opposite of RTL, LTR (Left To Right) is used in other languages,
-				 * including English (`en`, `en-US`, `en-GB`, etc.), Spanish (`es`), and French (`fr`).
-				 *
-				 * @return {boolean} Whether locale is RTL.
-				 */
 				const isRTL = i18n.isRTL.bind(i18n);
-
-				/**
-				 * Check if there is a translation for a given string (in singular form).
-				 *
-				 * @param {string} single  Singular form of the string to look up.
-				 * @param {string} context Context information for the translators.
-				 * @param {string} domain  Domain to retrieve the translated text.
-				 *
-				 * @return {boolean} Whether the translation exists or not.
-				 */
 				const hasTranslation = i18n.hasTranslation.bind(i18n);
+
 				//# sourceMappingURL=default-i18n.js.map
 
 				/***/
@@ -61579,26 +56785,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! @tannin/sprintf */ './node_modules/@tannin/sprintf/src/index.js'
 					);
-				/**
-				 * External dependencies
-				 */
-				// Disable reason: `eslint-plugin-import` doesn't support `exports` (https://github.com/import-js/eslint-plugin-import/issues/1810)
-				// eslint-disable-next-line import/no-unresolved
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Returns a formatted string.
-				 *
-				 * @param format The format of the string to generate.
-				 * @param args   Arguments to apply to the format.
-				 *
-				 * @see https://www.npmjs.com/package/@tannin/sprintf
-				 *
-				 * @return The formatted string.
-				 */
 				function sprintf(format, ...args) {
 					return (0,
 					_tannin_sprintf__WEBPACK_IMPORTED_MODULE_0__['default'])(
@@ -61606,6 +56793,7 @@ styleSheet.flush()
 						...args
 					);
 				}
+
 				//# sourceMappingURL=sprintf.js.map
 
 				/***/
@@ -61913,14 +57101,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Returns true if the two arrays are shallow equal, or false otherwise.
-				 *
-				 * @param a First array to compare.
-				 * @param b Second array to compare.
-				 *
-				 * @return Whether the two arrays are shallow equal.
-				 */
 				function isShallowEqualArrays(a, b) {
 					if (a === b) {
 						return true;
@@ -61935,6 +57115,7 @@ styleSheet.flush()
 					}
 					return true;
 				}
+
 				//# sourceMappingURL=arrays.js.map
 
 				/***/
@@ -61979,19 +57160,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./arrays */ './node_modules/@wordpress/is-shallow-equal/build-module/arrays.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Returns true if the two arrays or objects are shallow equal, or false
-				 * otherwise. Also handles primitive values, just in case.
-				 *
-				 * @param a First object or array to compare.
-				 * @param b Second object or array to compare.
-				 *
-				 * @return Whether the two values are shallow equal.
-				 */
 				function isShallowEqual(a, b) {
 					if (a && b) {
 						if (
@@ -62013,6 +57182,7 @@ styleSheet.flush()
 					}
 					return a === b;
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -62038,18 +57208,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Returns true if the two objects are shallow equal, or false otherwise.
-				 *
-				 * @param a First object to compare.
-				 * @param b Second object to compare.
-				 *
-				 * @return Whether the two objects are shallow equal.
-				 */
 				function isShallowEqualObjects(a, b) {
 					if (a === b) {
 						return true;
@@ -62069,7 +57227,7 @@ styleSheet.flush()
 							// value in the first is implicitly undefined in the second.
 							//
 							// Example: isShallowEqualObjects( { a: undefined }, { b: 5 } )
-							(aValue === undefined && !b.hasOwnProperty(key)) ||
+							(aValue === void 0 && !b.hasOwnProperty(key)) ||
 							aValue !== b[key]
 						) {
 							return false;
@@ -62078,6 +57236,7 @@ styleSheet.flush()
 					}
 					return true;
 				}
+
 				//# sourceMappingURL=objects.js.map
 
 				/***/
@@ -62133,154 +57292,85 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ =
-					__webpack_require__(
-						/*! clsx */ './node_modules/clsx/dist/clsx.mjs'
-					);
-				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ =
-					__webpack_require__(
-						/*! @wordpress/element */ './node_modules/react/index.js'
-					);
-				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default =
-					/*#__PURE__*/ __webpack_require__.n(
-						_wordpress_element__WEBPACK_IMPORTED_MODULE_1__
-					);
-				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
 						/*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
-
-				/**
-				 * WordPress dependencies
-				 */
-
-				/** @typedef {{isPressed?: boolean} & import('react').ComponentPropsWithoutRef<'svg'>} SVGProps */
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'circle'>} props
-				 *
-				 * @return {JSX.Element} Circle component
-				 */
+				/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! clsx */ './node_modules/clsx/dist/clsx.mjs'
+					);
+				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! @wordpress/element */ './node_modules/react/index.js'
+					);
+				/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default =
+					/*#__PURE__*/ __webpack_require__.n(
+						_wordpress_element__WEBPACK_IMPORTED_MODULE_2__
+					);
 
 				const Circle = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'circle',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'g'>} props
-				 *
-				 * @return {JSX.Element} G component
-				 */
 				const G = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'g',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'line'>} props
-				 *
-				 * @return {JSX.Element} Path component
-				 */
 				const Line = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'line',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'path'>} props
-				 *
-				 * @return {JSX.Element} Path component
-				 */
 				const Path = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'path',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'polygon'>} props
-				 *
-				 * @return {JSX.Element} Polygon component
-				 */
 				const Polygon = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'polygon',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'rect'>} props
-				 *
-				 * @return {JSX.Element} Rect component
-				 */
 				const Rect = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'rect',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'defs'>} props
-				 *
-				 * @return {JSX.Element} Defs component
-				 */
 				const Defs = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'defs',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'radialGradient'>} props
-				 *
-				 * @return {JSX.Element} RadialGradient component
-				 */
 				const RadialGradient = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'radialGradient',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'linearGradient'>} props
-				 *
-				 * @return {JSX.Element} LinearGradient component
-				 */
 				const LinearGradient = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'linearGradient',
 						props
 					);
-
-				/**
-				 * @param {import('react').ComponentPropsWithoutRef<'stop'>} props
-				 *
-				 * @return {JSX.Element} Stop component
-				 */
 				const Stop = (props) =>
 					(0,
-					_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 						'stop',
 						props
 					);
 				const SVG = (0,
-				_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
+				_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
 					/**
 					 * @param {SVGProps}                                    props isPressed indicates whether the SVG should appear as pressed.
 					 *                                                            Other props will be passed through to svg component.
@@ -62293,29 +57383,22 @@ styleSheet.flush()
 							...props,
 							className:
 								(0,
-								clsx__WEBPACK_IMPORTED_MODULE_0__['default'])(
+								clsx__WEBPACK_IMPORTED_MODULE_1__['default'])(
 									className,
-									{
-										'is-pressed': isPressed,
-									}
-								) || undefined,
+									{ 'is-pressed': isPressed }
+								) || void 0,
 							'aria-hidden': true,
 							focusable: false,
 						};
-
-						// Disable reason: We need to have a way to render HTML tag for web.
-						// eslint-disable-next-line react/forbid-elements
-						return /*#__PURE__*/ (0,
-						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(
+						return /* @__PURE__ */ (0,
+						react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
 							'svg',
-							{
-								...appliedProps,
-								ref: ref,
-							}
+							{ ...appliedProps, ref }
 						);
 					}
 				);
 				SVG.displayName = 'SVG';
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -62345,64 +57428,10 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./request-idle-callback */ './node_modules/@wordpress/priority-queue/build-module/request-idle-callback.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Enqueued callback to invoke once idle time permits.
-				 */
-
-				/**
-				 * An object used to associate callbacks in a particular context grouping.
-				 */
-
-				/**
-				 * Interface for the priority queue instance.
-				 */
-
-				/**
-				 * Creates a context-aware queue that only executes
-				 * the last task of a given context.
-				 *
-				 * @example
-				 *```js
-				 * import { createQueue } from '@wordpress/priority-queue';
-				 *
-				 * const queue = createQueue();
-				 *
-				 * // Context objects.
-				 * const ctx1 = {};
-				 * const ctx2 = {};
-				 *
-				 * // For a given context in the queue, only the last callback is executed.
-				 * queue.add( ctx1, () => console.log( 'This will be printed first' ) );
-				 * queue.add( ctx2, () => console.log( 'This won\'t be printed' ) );
-				 * queue.add( ctx2, () => console.log( 'This will be printed second' ) );
-				 *```
-				 *
-				 * @return {WPPriorityQueue} Queue object with `add`, `flush` and `reset` methods.
-				 */
 				const createQueue = () => {
-					const waitingList = new Map();
+					const waitingList = /* @__PURE__ */ new Map();
 					let isRunning = false;
-
-					/**
-					 * Callback to process as much queue as time permits.
-					 *
-					 * Map Iteration follows the original insertion order. This means that here
-					 * we can iterate the queue and know that the first contexts which were
-					 * added will be run first. On the other hand, if anyone adds a new callback
-					 * for an existing context it will supplant the previously-set callback for
-					 * that context because we reassigned that map key's value.
-					 *
-					 * In the case that a callback adds a new callback to its own context then
-					 * the callback it adds will appear at the end of the iteration and will be
-					 * run only after all other existing contexts have finished executing.
-					 *
-					 * @param {IdleDeadline|number} deadline Idle callback deadline object, or
-					 *                                       animation frame timestamp.
-					 */
 					const runWaitingList = (deadline) => {
 						for (const [nextElement, callback] of waitingList) {
 							waitingList.delete(nextElement);
@@ -62423,18 +57452,6 @@ styleSheet.flush()
 							'default'
 						])(runWaitingList);
 					};
-
-					/**
-					 * Add a callback to the queue for a given context.
-					 *
-					 * If errors with undefined callbacks are encountered double check that
-					 * all of your useSelect calls have the right dependencies set correctly
-					 * in their second parameter. Missing dependencies can cause unexpected
-					 * loops and race conditions in the queue.
-					 *
-					 * @param {WPPriorityQueueContext}  element Context object.
-					 * @param {WPPriorityQueueCallback} item    Callback function.
-					 */
 					const add = (element, item) => {
 						waitingList.set(element, item);
 						if (!isRunning) {
@@ -62445,41 +57462,18 @@ styleSheet.flush()
 							])(runWaitingList);
 						}
 					};
-
-					/**
-					 * Flushes queue for a given context, returning true if the flush was
-					 * performed, or false if there is no queue for the given context.
-					 *
-					 * @param {WPPriorityQueueContext} element Context object.
-					 *
-					 * @return {boolean} Whether flush was performed.
-					 */
 					const flush = (element) => {
 						const callback = waitingList.get(element);
-						if (undefined === callback) {
+						if (void 0 === callback) {
 							return false;
 						}
 						waitingList.delete(element);
 						callback();
 						return true;
 					};
-
-					/**
-					 * Clears the queue for a given context, cancelling the callbacks without
-					 * executing them. Returns `true` if there were scheduled callbacks to cancel,
-					 * or `false` if there was is no queue for the given context.
-					 *
-					 * @param {WPPriorityQueueContext} element Context object.
-					 *
-					 * @return {boolean} Whether any callbacks got cancelled.
-					 */
 					const cancel = (element) => {
 						return waitingList.delete(element);
 					};
-
-					/**
-					 * Reset the queue without running the pending callbacks.
-					 */
 					const reset = () => {
 						waitingList.clear();
 						isRunning = false;
@@ -62491,6 +57485,7 @@ styleSheet.flush()
 						reset,
 					};
 				};
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -62514,6 +57509,9 @@ styleSheet.flush()
 							function () {
 								return /* binding */ createRequestIdleCallback;
 							},
+						/* harmony export */ default: function () {
+							return /* binding */ request_idle_callback_default;
+						},
 						/* harmony export */
 					}
 				);
@@ -62525,17 +57523,7 @@ styleSheet.flush()
 					/*#__PURE__*/ __webpack_require__.n(
 						requestidlecallback__WEBPACK_IMPORTED_MODULE_0__
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * @return A function that schedules a callback when the browser is idle or via setTimeout on the server.
-				 */
 				function createRequestIdleCallback() {
 					if (typeof window === 'undefined') {
 						return (callback) => {
@@ -62544,8 +57532,8 @@ styleSheet.flush()
 					}
 					return window.requestIdleCallback;
 				}
-				/* harmony default export */ __webpack_exports__['default'] =
-					createRequestIdleCallback();
+				var request_idle_callback_default = createRequestIdleCallback();
+
 				//# sourceMappingURL=request-idle-callback.js.map
 
 				/***/
@@ -62583,17 +57571,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * wordpress/private-apis – the utilities to enable private cross-package
-				 * exports of private APIs.
-				 *
-				 * This "implementation.ts" file is needed for the sake of the unit tests. It
-				 * exports more than the public API of the package to aid in testing.
-				 */
-
-				/**
-				 * The list of core modules allowed to opt-in to the private APIs.
-				 */
 				const CORE_MODULES_USING_PRIVATE_APIS = [
 					'@wordpress/block-directory',
 					'@wordpress/block-editor',
@@ -62614,83 +57591,38 @@ styleSheet.flush()
 					'@wordpress/preferences',
 					'@wordpress/reusable-blocks',
 					'@wordpress/router',
+					'@wordpress/sync',
 					'@wordpress/dataviews',
 					'@wordpress/fields',
 					'@wordpress/media-utils',
 					'@wordpress/upload-media',
 				];
-
-				/**
-				 * A list of core modules that already opted-in to
-				 * the privateApis package.
-				 */
 				const registeredPrivateApis = [];
-
-				/*
-				 * Warning for theme and plugin developers.
-				 *
-				 * The use of private developer APIs is intended for use by WordPress Core
-				 * and the Gutenberg plugin exclusively.
-				 *
-				 * Dangerously opting in to using these APIs is NOT RECOMMENDED. Furthermore,
-				 * the WordPress Core philosophy to strive to maintain backward compatibility
-				 * for third-party developers DOES NOT APPLY to private APIs.
-				 *
-				 * THE CONSENT STRING FOR OPTING IN TO THESE APIS MAY CHANGE AT ANY TIME AND
-				 * WITHOUT NOTICE. THIS CHANGE WILL BREAK EXISTING THIRD-PARTY CODE. SUCH A
-				 * CHANGE MAY OCCUR IN EITHER A MAJOR OR MINOR RELEASE.
-				 */
 				const requiredConsent =
 					'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of WordPress.';
-
-				// The safety measure is meant for WordPress core where IS_WORDPRESS_CORE is set to true.
 				const allowReRegistration = globalThis.IS_WORDPRESS_CORE
 					? false
 					: true;
-
-				/**
-				 * Called by a @wordpress package wishing to opt-in to accessing or exposing
-				 * private private APIs.
-				 *
-				 * @param consent    The consent string.
-				 * @param moduleName The name of the module that is opting in.
-				 * @return An object containing the lock and unlock functions.
-				 */
 				const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
 					consent,
 					moduleName
 				) => {
 					if (!CORE_MODULES_USING_PRIVATE_APIS.includes(moduleName)) {
 						throw new Error(
-							`You tried to opt-in to unstable APIs as module "${moduleName}". ` +
-								'This feature is only for JavaScript modules shipped with WordPress core. ' +
-								'Please do not use it in plugins and themes as the unstable APIs will be removed ' +
-								'without a warning. If you ignore this error and depend on unstable features, ' +
-								'your product will inevitably break on one of the next WordPress releases.'
+							`You tried to opt-in to unstable APIs as module "${moduleName}". This feature is only for JavaScript modules shipped with WordPress core. Please do not use it in plugins and themes as the unstable APIs will be removed without a warning. If you ignore this error and depend on unstable features, your product will inevitably break on one of the next WordPress releases.`
 						);
 					}
 					if (
 						!allowReRegistration &&
 						registeredPrivateApis.includes(moduleName)
 					) {
-						// This check doesn't play well with Story Books / Hot Module Reloading
-						// and isn't included in the Gutenberg plugin. It only matters in the
-						// WordPress core release.
 						throw new Error(
-							`You tried to opt-in to unstable APIs as module "${moduleName}" which is already registered. ` +
-								'This feature is only for JavaScript modules shipped with WordPress core. ' +
-								'Please do not use it in plugins and themes as the unstable APIs will be removed ' +
-								'without a warning. If you ignore this error and depend on unstable features, ' +
-								'your product will inevitably break on one of the next WordPress releases.'
+							`You tried to opt-in to unstable APIs as module "${moduleName}" which is already registered. This feature is only for JavaScript modules shipped with WordPress core. Please do not use it in plugins and themes as the unstable APIs will be removed without a warning. If you ignore this error and depend on unstable features, your product will inevitably break on one of the next WordPress releases.`
 						);
 					}
 					if (consent !== requiredConsent) {
 						throw new Error(
-							`You tried to opt-in to unstable APIs without confirming you know the consequences. ` +
-								'This feature is only for JavaScript modules shipped with WordPress core. ' +
-								'Please do not use it in plugins and themes as the unstable APIs will removed ' +
-								'without a warning. If you ignore this error and depend on unstable features, ' +
-								'your product will inevitably break on the next WordPress release.'
+							`You tried to opt-in to unstable APIs without confirming you know the consequences. This feature is only for JavaScript modules shipped with WordPress core. Please do not use it in plugins and themes as the unstable APIs will removed without a warning. If you ignore this error and depend on unstable features, your product will inevitably break on the next WordPress release.`
 						);
 					}
 					registeredPrivateApis.push(moduleName);
@@ -62699,31 +57631,6 @@ styleSheet.flush()
 						unlock,
 					};
 				};
-
-				/**
-				 * Binds private data to an object.
-				 * It does not alter the passed object in any way, only
-				 * registers it in an internal map of private data.
-				 *
-				 * The private data can't be accessed by any other means
-				 * than the `unlock` function.
-				 *
-				 * @example
-				 * ```js
-				 * const object = {};
-				 * const privateData = { a: 1 };
-				 * lock( object, privateData );
-				 *
-				 * object
-				 * // {}
-				 *
-				 * unlock( object );
-				 * // { a: 1 }
-				 * ```
-				 *
-				 * @param object      The object to bind the private data to.
-				 * @param privateData The private data to bind to the object.
-				 */
 				function lock(object, privateData) {
 					if (!object) {
 						throw new Error('Cannot lock an undefined object.');
@@ -62734,30 +57641,6 @@ styleSheet.flush()
 					}
 					lockedData.set(_object[__private], privateData);
 				}
-
-				/**
-				 * Unlocks the private data bound to an object.
-				 *
-				 * It does not alter the passed object in any way, only
-				 * returns the private data paired with it using the `lock()`
-				 * function.
-				 *
-				 * @example
-				 * ```js
-				 * const object = {};
-				 * const privateData = { a: 1 };
-				 * lock( object, privateData );
-				 *
-				 * object
-				 * // {}
-				 *
-				 * unlock( object );
-				 * // { a: 1 }
-				 * ```
-				 *
-				 * @param object The object to unlock the private data from.
-				 * @return The private data bound to the object.
-				 */
 				function unlock(object) {
 					if (!object) {
 						throw new Error('Cannot unlock an undefined object.');
@@ -62770,44 +57653,22 @@ styleSheet.flush()
 					}
 					return lockedData.get(_object[__private]);
 				}
-				const lockedData = new WeakMap();
-
-				/**
-				 * Used by lock() and unlock() to uniquely identify the private data
-				 * related to a containing object.
-				 */
+				const lockedData = /* @__PURE__ */ new WeakMap();
 				const __private = Symbol('Private API ID');
-
-				// Unit tests utilities:
-
-				/**
-				 * Private function to allow the unit tests to allow
-				 * a mock module to access the private APIs.
-				 *
-				 * @param name The name of the module.
-				 */
 				function allowCoreModule(name) {
 					CORE_MODULES_USING_PRIVATE_APIS.push(name);
 				}
-
-				/**
-				 * Private function to allow the unit tests to set
-				 * a custom list of allowed modules.
-				 */
 				function resetAllowedCoreModules() {
 					while (CORE_MODULES_USING_PRIVATE_APIS.length) {
 						CORE_MODULES_USING_PRIVATE_APIS.pop();
 					}
 				}
-				/**
-				 * Private function to allow the unit tests to reset
-				 * the list of registered private apis.
-				 */
 				function resetRegisteredPrivateApis() {
 					while (registeredPrivateApis.length) {
 						registeredPrivateApis.pop();
 					}
 				}
+
 				//# sourceMappingURL=implementation.js.map
 
 				/***/
@@ -62841,26 +57702,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./runtime */ './node_modules/@wordpress/redux-routine/build-module/runtime.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Creates a Redux middleware, given an object of controls where each key is an
-				 * action type for which to act upon, the value a function which returns either
-				 * a promise which is to resolve when evaluation of the action should continue,
-				 * or a value. The value or resolved promise value is assigned on the return
-				 * value of the yield assignment. If the control handler returns undefined, the
-				 * execution is not continued.
-				 *
-				 * @param controls Object of control handlers.
-				 *
-				 * @return Co-routine runtime
-				 */
 				function createMiddleware(controls = {}) {
 					return (store) => {
 						const runtime = (0,
@@ -62881,6 +57723,7 @@ styleSheet.flush()
 						};
 					};
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -62913,17 +57756,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! is-plain-object */ './node_modules/is-plain-object/dist/is-plain-object.mjs'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Returns true if the given object quacks like an action.
-				 *
-				 * @param object Object to test
-				 *
-				 * @return Whether object is an action.
-				 */
 				function isAction(object) {
 					return (
 						(0,
@@ -62932,19 +57765,10 @@ styleSheet.flush()
 						) && typeof object.type === 'string'
 					);
 				}
-
-				/**
-				 * Returns true if the given object quacks like an action and has a specific
-				 * action type
-				 *
-				 * @param object       Object to test
-				 * @param expectedType The expected type for the action.
-				 *
-				 * @return Whether object is an action and is of specific type.
-				 */
 				function isActionOfType(object, expectedType) {
 					return isAction(object) && object.type === expectedType;
 				}
+
 				//# sourceMappingURL=is-action.js.map
 
 				/***/
@@ -62970,24 +57794,14 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Returns true if the given object is a generator, or false otherwise.
-				 *
-				 * @see https://www.ecma-international.org/ecma-262/6.0/#sec-generator-objects
-				 *
-				 * @param object Object to test.
-				 *
-				 * @return Whether object is a generator.
-				 */
 				function isGenerator(object) {
-					// Check that iterator (next) and iterable (Symbol.iterator) interfaces are satisfied.
-					// These checks seem to be compatible with several generator helpers as well as the native implementation.
 					return (
 						!!object &&
 						typeof object[Symbol.iterator] === 'function' &&
 						typeof object.next === 'function'
 					);
 				}
+
 				//# sourceMappingURL=is-generator.js.map
 
 				/***/
@@ -63029,20 +57843,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./is-action */ './node_modules/@wordpress/redux-routine/build-module/is-action.js'
 					);
-				/**
-				 * External dependencies
-				 */
 
-				/**
-				 * Internal dependencies
-				 */
-
-				/**
-				 * Create a co-routine runtime.
-				 *
-				 * @param controls Object of control handlers.
-				 * @param dispatch Unhandled action dispatch.
-				 */
 				function createRuntime(controls = {}, dispatch) {
 					const rungenControls = Object.entries(controls).map(
 						([actionType, control]) =>
@@ -63063,7 +57864,6 @@ styleSheet.flush()
 										'default'
 									])(routine)
 								) {
-									// Async control routine awaits resolution.
 									routine.then(yieldNext, yieldError);
 								} else {
 									yieldNext(routine);
@@ -63106,6 +57906,7 @@ styleSheet.flush()
 							)
 						);
 				}
+
 				//# sourceMappingURL=runtime.js.map
 
 				/***/
@@ -63143,28 +57944,8 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-fragment */ './node_modules/@wordpress/url/build-module/get-fragment.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Appends arguments as querystring to the provided URL. If the URL already
-				 * includes query arguments, the arguments are merged with (and take precedent
-				 * over) the existing set.
-				 *
-				 * @param url  URL to which arguments should be appended. If omitted,
-				 *             only the resulting querystring is returned.
-				 * @param args Query arguments to apply to URL.
-				 *
-				 * @example
-				 * ```js
-				 * const newURL = addQueryArgs( 'https://google.com', { q: 'test' } ); // https://google.com/?q=test
-				 * ```
-				 *
-				 * @return URL with arguments applied.
-				 */
 				function addQueryArgs(url = '', args) {
-					// If no arguments are to be appended, return original URL.
 					if (!args || !Object.keys(args).length) {
 						return url;
 					}
@@ -63174,11 +57955,8 @@ styleSheet.flush()
 							url
 						) || '';
 					let baseUrl = url.replace(fragment, '');
-
-					// Determine whether URL already had query arguments.
 					const queryStringIndex = url.indexOf('?');
 					if (queryStringIndex !== -1) {
-						// Merge into existing query arguments.
 						args = Object.assign(
 							(0,
 							_get_query_args__WEBPACK_IMPORTED_MODULE_0__.getQueryArgs)(
@@ -63186,8 +57964,6 @@ styleSheet.flush()
 							),
 							args
 						);
-
-						// Change working base URL to omit previous query arguments.
 						baseUrl = baseUrl.substr(0, queryStringIndex);
 					}
 					return (
@@ -63200,6 +57976,7 @@ styleSheet.flush()
 						fragment
 					);
 				}
+
 				//# sourceMappingURL=add-query-args.js.map
 
 				/***/
@@ -63225,45 +58002,16 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Generates URL-encoded query string using input query data.
-				 *
-				 * It is intended to behave equivalent as PHP's `http_build_query`, configured
-				 * with encoding type PHP_QUERY_RFC3986 (spaces as `%20`).
-				 *
-				 * @example
-				 * ```js
-				 * const queryString = buildQueryString( {
-				 *    simple: 'is ok',
-				 *    arrays: [ 'are', 'fine', 'too' ],
-				 *    objects: {
-				 *       evenNested: {
-				 *          ok: 'yes',
-				 *       },
-				 *    },
-				 * } );
-				 * // "simple=is%20ok&arrays%5B0%5D=are&arrays%5B1%5D=fine&arrays%5B2%5D=too&objects%5BevenNested%5D%5Bok%5D=yes"
-				 * ```
-				 *
-				 * @param data Data to encode.
-				 *
-				 * @return Query string.
-				 */
 				function buildQueryString(data) {
 					let string = '';
 					const stack = Object.entries(data);
 					let pair;
 					while ((pair = stack.shift())) {
 						let [key, value] = pair;
-
-						// Support building deeply nested data, from array or object values.
 						const hasNestedData =
 							Array.isArray(value) ||
 							(value && value.constructor === Object);
 						if (hasNestedData) {
-							// Push array or object values onto the stack as composed of their
-							// original key and nested index or key, retaining order by a
-							// combination of Array#reverse and Array#unshift onto the stack.
 							const valuePairs = Object.entries(value).reverse();
 							for (const [member, memberValue] of valuePairs) {
 								stack.unshift([
@@ -63271,8 +58019,7 @@ styleSheet.flush()
 									memberValue,
 								]);
 							}
-						} else if (value !== undefined) {
-							// Null is treated as special case, equivalent to empty string.
+						} else if (value !== void 0) {
 							if (value === null) {
 								value = '';
 							}
@@ -63283,12 +58030,9 @@ styleSheet.flush()
 									.join('=');
 						}
 					}
-
-					// Loop will concatenate with leading `&`, but it's only expected for all
-					// but the first query parameter. This strips the leading `&`, while still
-					// accounting for the case that the string may in-fact be empty.
 					return string.substr(1);
 				}
+
 				//# sourceMappingURL=build-query-string.js.map
 
 				/***/
@@ -63314,25 +58058,13 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Returns the fragment part of the URL.
-				 *
-				 * @param url The full URL
-				 *
-				 * @example
-				 * ```js
-				 * const fragment1 = getFragment( 'http://localhost:8080/this/is/a/test?query=true#fragment' ); // '#fragment'
-				 * const fragment2 = getFragment( 'https://wordpress.org#another-fragment?query=true' ); // '#another-fragment'
-				 * ```
-				 *
-				 * @return The fragment part of the URL.
-				 */
 				function getFragment(url) {
 					const matches = /^\S+?(#[^\s\?]*)/.exec(url);
 					if (matches) {
 						return matches[1];
 					}
 				}
+
 				//# sourceMappingURL=get-fragment.js.map
 
 				/***/
@@ -63362,29 +58094,14 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-query-args */ './node_modules/@wordpress/url/build-module/get-query-args.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Returns a single query argument of the url
-				 *
-				 * @param url URL.
-				 * @param arg Query arg name.
-				 *
-				 * @example
-				 * ```js
-				 * const foo = getQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'foo' ); // bar
-				 * ```
-				 *
-				 * @return Query arg value.
-				 */
 				function getQueryArg(url, arg) {
 					return (0,
 					_get_query_args__WEBPACK_IMPORTED_MODULE_0__.getQueryArgs)(
 						url
 					)[arg];
 				}
+
 				//# sourceMappingURL=get-query-arg.js.map
 
 				/***/
@@ -63418,26 +58135,13 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-query-string */ './node_modules/@wordpress/url/build-module/get-query-string.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Sets a value in object deeply by a given array of path segments. Mutates the
-				 * object reference.
-				 *
-				 * @param object Object in which to assign.
-				 * @param path   Path segment at which to set value.
-				 * @param value  Value to set.
-				 */
 				function setPath(object, path, value) {
 					const length = path.length;
 					const lastIndex = length - 1;
 					for (let i = 0; i < length; i++) {
 						let key = path[i];
 						if (!key && Array.isArray(object)) {
-							// If key is empty string and next value is array, derive key from
-							// the current length of the array.
 							key = object.length.toString();
 						}
 						key = [
@@ -63447,9 +58151,6 @@ styleSheet.flush()
 						].includes(key)
 							? key.toUpperCase()
 							: key;
-
-						// If the next key in the path is numeric (or empty string), it will be
-						// created as an array. Otherwise, it will be created as an object.
 						const isNextKeyArrayIndex = !isNaN(Number(path[i + 1]));
 						object[key] =
 							i === lastIndex
@@ -63463,65 +58164,37 @@ styleSheet.flush()
 							Array.isArray(object[key]) &&
 							!isNextKeyArrayIndex
 						) {
-							// If we current key is non-numeric, but the next value is an
-							// array, coerce the value to an object.
-							object[key] = {
-								...object[key],
-							};
+							object[key] = { ...object[key] };
 						}
-
-						// Update working reference object to the next in the path.
 						object = object[key];
 					}
 				}
-
-				/**
-				 * Returns an object of query arguments of the given URL. If the given URL is
-				 * invalid or has no querystring, an empty object is returned.
-				 *
-				 * @param url URL.
-				 *
-				 * @example
-				 * ```js
-				 * const foo = getQueryArgs( 'https://wordpress.org?foo=bar&bar=baz' );
-				 * // { "foo": "bar", "bar": "baz" }
-				 * ```
-				 *
-				 * @return Query args object.
-				 */
 				function getQueryArgs(url) {
 					return (
-						(
-							(0,
-							_get_query_string__WEBPACK_IMPORTED_MODULE_1__.getQueryString)(
-								url
-							) || ''
-						)
-							// Normalize space encoding, accounting for PHP URL encoding
-							// corresponding to `application/x-www-form-urlencoded`.
-							//
-							// See: https://tools.ietf.org/html/rfc1866#section-8.2.1
-							.replace(/\+/g, '%20')
-							.split('&')
-							.reduce((accumulator, keyValue) => {
-								const [key, value = ''] = keyValue
-									.split('=')
-									// Filtering avoids decoding as `undefined` for value, where
-									// default is restored in destructuring assignment.
-									.filter(Boolean)
-									.map(
-										_safe_decode_uri_component__WEBPACK_IMPORTED_MODULE_0__.safeDecodeURIComponent
-									);
-								if (key) {
-									const segments = key
-										.replace(/\]/g, '')
-										.split('[');
-									setPath(accumulator, segments, value);
-								}
-								return accumulator;
-							}, Object.create(null))
-					);
+						(0,
+						_get_query_string__WEBPACK_IMPORTED_MODULE_1__.getQueryString)(
+							url
+						) || ''
+					)
+						.replace(/\+/g, '%20')
+						.split('&')
+						.reduce((accumulator, keyValue) => {
+							const [key, value = ''] = keyValue
+								.split('=')
+								.filter(Boolean)
+								.map(
+									_safe_decode_uri_component__WEBPACK_IMPORTED_MODULE_0__.safeDecodeURIComponent
+								);
+							if (key) {
+								const segments = key
+									.replace(/\]/g, '')
+									.split('[');
+								setPath(accumulator, segments, value);
+							}
+							return accumulator;
+						}, /* @__PURE__ */ Object.create(null));
 				}
+
 				//# sourceMappingURL=get-query-args.js.map
 
 				/***/
@@ -63547,19 +58220,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/* wp:polyfill */
-				/**
-				 * Returns the query string part of the URL.
-				 *
-				 * @param url The full URL.
-				 *
-				 * @example
-				 * ```js
-				 * const queryString = getQueryString( 'http://localhost:8080/this/is/a/test?query=true#fragment' ); // 'query=true'
-				 * ```
-				 *
-				 * @return The query string part of the URL.
-				 */
 				function getQueryString(url) {
 					let query;
 					try {
@@ -63572,6 +58232,7 @@ styleSheet.flush()
 						return query;
 					}
 				}
+
 				//# sourceMappingURL=get-query-string.js.map
 
 				/***/
@@ -63601,32 +58262,17 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./get-query-arg */ './node_modules/@wordpress/url/build-module/get-query-arg.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Determines whether the URL contains a given query arg.
-				 *
-				 * @param url URL.
-				 * @param arg Query arg name.
-				 *
-				 * @example
-				 * ```js
-				 * const hasBar = hasQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'bar' ); // true
-				 * ```
-				 *
-				 * @return Whether or not the URL contains the query arg.
-				 */
 				function hasQueryArg(url, arg) {
 					return (
 						(0,
 						_get_query_arg__WEBPACK_IMPORTED_MODULE_0__.getQueryArg)(
 							url,
 							arg
-						) !== undefined
+						) !== void 0
 					);
 				}
+
 				//# sourceMappingURL=has-query-arg.js.map
 
 				/***/
@@ -63652,15 +58298,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Given a path, returns a normalized path where equal query parameter values
-				 * will be treated as identical, regardless of order they appear in the original
-				 * text.
-				 *
-				 * @param path Original path.
-				 *
-				 * @return Normalized path.
-				 */
 				function normalizePath(path) {
 					const split = path.split('?');
 					const query = split[1];
@@ -63668,28 +58305,20 @@ styleSheet.flush()
 					if (!query) {
 						return base;
 					}
-
-					// 'b=1%2C2&c=2&a=5'
 					return (
 						base +
 						'?' +
 						query
-							// [ 'b=1%2C2', 'c=2', 'a=5' ]
 							.split('&')
-							// [ [ 'b, '1%2C2' ], [ 'c', '2' ], [ 'a', '5' ] ]
 							.map((entry) => entry.split('='))
-							// [ [ 'b', '1,2' ], [ 'c', '2' ], [ 'a', '5' ] ]
 							.map((pair) => pair.map(decodeURIComponent))
-							// [ [ 'a', '5' ], [ 'b, '1,2' ], [ 'c', '2' ] ]
 							.sort((a, b) => a[0].localeCompare(b[0]))
-							// [ [ 'a', '5' ], [ 'b, '1%2C2' ], [ 'c', '2' ] ]
 							.map((pair) => pair.map(encodeURIComponent))
-							// [ 'a=5', 'b=1%2C2', 'c=2' ]
 							.map((pair) => pair.join('='))
-							// 'a=5&b=1%2C2&c=2'
 							.join('&')
 					);
 				}
+
 				//# sourceMappingURL=normalize-path.js.map
 
 				/***/
@@ -63723,23 +58352,7 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./build-query-string */ './node_modules/@wordpress/url/build-module/build-query-string.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
-				/**
-				 * Removes arguments from the query string of the url
-				 *
-				 * @param url  URL.
-				 * @param args Query Args.
-				 *
-				 * @example
-				 * ```js
-				 * const newUrl = removeQueryArgs( 'https://wordpress.org?foo=bar&bar=baz&baz=foobar', 'foo', 'bar' ); // https://wordpress.org?baz=foobar
-				 * ```
-				 *
-				 * @return Updated URL.
-				 */
 				function removeQueryArgs(url, ...args) {
 					const fragment = url.replace(/^[^#]*/, '');
 					url = url.replace(/#.*/, '');
@@ -63762,6 +58375,7 @@ styleSheet.flush()
 						: baseURL;
 					return updatedUrl + fragment;
 				}
+
 				//# sourceMappingURL=remove-query-args.js.map
 
 				/***/
@@ -63788,14 +58402,6 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Safely decodes a URI component with `decodeURIComponent`. Returns the URI component unmodified if
-				 * `decodeURIComponent` throws an error.
-				 *
-				 * @param uriComponent URI component to decode.
-				 *
-				 * @return Decoded URI component if possible.
-				 */
 				function safeDecodeURIComponent(uriComponent) {
 					try {
 						return decodeURIComponent(uriComponent);
@@ -63803,6 +58409,7 @@ styleSheet.flush()
 						return uriComponent;
 					}
 				}
+
 				//# sourceMappingURL=safe-decode-uri-component.js.map
 
 				/***/
@@ -63832,57 +58439,26 @@ styleSheet.flush()
 					__webpack_require__(
 						/*! ./utils */ './node_modules/@wordpress/warning/build-module/utils.js'
 					);
-				/**
-				 * Internal dependencies
-				 */
 
 				function isDev() {
-					// eslint-disable-next-line @wordpress/wp-global-usage
 					return globalThis.SCRIPT_DEBUG === true;
 				}
-
-				/**
-				 * Shows a warning with `message` if environment is not `production`.
-				 *
-				 * @param message Message to show in the warning.
-				 *
-				 * @example
-				 * ```js
-				 * import warning from '@wordpress/warning';
-				 *
-				 * function MyComponent( props ) {
-				 *   if ( ! props.title ) {
-				 *     warning( '`props.title` was not passed' );
-				 *   }
-				 *   ...
-				 * }
-				 * ```
-				 */
 				function warning(message) {
 					if (!isDev()) {
 						return;
 					}
-
-					// Skip if already logged.
 					if (
 						_utils__WEBPACK_IMPORTED_MODULE_0__.logged.has(message)
 					) {
 						return;
 					}
-
-					// eslint-disable-next-line no-console
 					console.warn(message);
-
-					// Throwing an error and catching it immediately to improve debugging
-					// A consumer can use 'pause on caught exceptions'
-					// https://github.com/facebook/react/issues/4216
 					try {
 						throw Error(message);
-					} catch (x) {
-						// Do nothing.
-					}
+					} catch (x) {}
 					_utils__WEBPACK_IMPORTED_MODULE_0__.logged.add(message);
 				}
+
 				//# sourceMappingURL=index.js.map
 
 				/***/
@@ -63908,11 +58484,8 @@ styleSheet.flush()
 						/* harmony export */
 					}
 				);
-				/**
-				 * Object map tracking messages which have been logged, for use in ensuring a
-				 * message is only logged once.
-				 */
-				const logged = new Set();
+				const logged = /* @__PURE__ */ new Set();
+
 				//# sourceMappingURL=utils.js.map
 
 				/***/
@@ -138792,26 +133365,31 @@ ${n}}`,
 							return /* binding */ m;
 						},
 						/* harmony export */ styled: function () {
-							return /* binding */ j;
+							return /* binding */ w;
 						},
 						/* harmony export */
 					}
 				);
 				let e = { data: '' },
-					t = (t) =>
-						'object' == typeof window
-							? (
-									(t
-										? t.querySelector('#_goober')
-										: window._goober) ||
-									Object.assign(
-										(t || document.head).appendChild(
-											document.createElement('style')
-										),
-										{ innerHTML: ' ', id: '_goober' }
-									)
-								).firstChild
-							: t || e,
+					t = (t) => {
+						if ('object' == typeof window) {
+							let e =
+								(t
+									? t.querySelector('#_goober')
+									: window._goober) ||
+								Object.assign(document.createElement('style'), {
+									innerHTML: ' ',
+									id: '_goober',
+								});
+							return (
+								(e.nonce = window.__nonce__),
+								e.parentNode ||
+									(t || document.head).appendChild(e),
+								e.firstChild
+							);
+						}
+						return t || e;
+					},
 					r = (e) => {
 						let r = t(e),
 							l = r.data;
@@ -138987,7 +133565,7 @@ ${n}}`,
 				function m(e, t, r, l) {
 					((o.p = t), (d = e), (f = r), (g = l));
 				}
-				function j(e, t) {
+				function w(e, t) {
 					let r = this || {};
 					return function () {
 						let l = arguments;

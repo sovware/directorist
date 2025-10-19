@@ -656,7 +656,7 @@ class Directorist_Listing_Form {
         $listing_id = (int) $this->get_add_listing_id();
         $value = '';
 
-        $field_data['lazy_load'] = get_directorist_option( 'lazy_load_taxonomy_fields', true );
+        $field_data['lazy_load'] = false;
 
         if ( ! empty( $listing_id ) ) {
             if ( $field_data['widget_name'] === 'terms_privacy' ) {

@@ -529,7 +529,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             /**
              * Return if email is already verified
              */
-            if ( ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
+            if ( directorist_is_guest_user( $user->ID ) || ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
                 return $user;
             }
 
@@ -615,19 +615,25 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                     } else {
                         return "<p style='margin-left:32px;'><span class='dashicons dashicons-yes-alt' style='color:#08bf9c;'></span></p>";
                     }
+                    break;
+
                 case 'user_type':
                     $user_type = (string) get_user_meta( $user_id, '_user_type', true );
 
-                    if ( 'author' === $user_type ) {
-                        return esc_html__( 'Author', 'directorist' );
-                    } elseif ( 'general' === $user_type ) {
-                        return esc_html__( 'User', 'directorist' );
-                    } elseif ( 'become_author' === $user_type ) {
+                    if ( 'become_author' === $user_type ) {
                         $author_pending =  "<p>Author <span style='color:red;'>( " . esc_html__( 'Pending', 'directorist' ) . " )</span></p>";
                         $approve        =  "<a href='' id='atbdp-user-type-approve' style='color: #388E3C' data-userId={$user_id} data-nonce=" . wp_create_nonce( 'atbdp_user_type_approve' ) . "><span>" . esc_html__( 'Approve', 'directorist' ) . " </span></a> | ";
                         $deny           =  "<a href='' id='atbdp-user-type-deny' style='color: red' data-userId={$user_id} data-nonce=" . wp_create_nonce( 'atbdp_user_type_deny' ) . "><span>" . esc_html__( 'Deny', 'directorist' ) . "</span></a>";
+
                         return "<div class='atbdp-user-type' id='user-type-" . $user_id . "'>" . $author_pending . $approve . $deny . "</div>";
                     }
+
+                    $user_types = directorist_get_user_types();
+
+                    if ( isset( $user_types[ $user_type ] ) ) {
+                        return esc_html( $user_types[ $user_type ] );
+                    }
+                    break;
             }
 
             return $column_value;

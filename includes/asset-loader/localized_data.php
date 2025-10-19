@@ -94,6 +94,7 @@ class Localized_Data {
             'assets_url'                      => DIRECTORIST_ASSETS,
             'home_url'                        => home_url(),
             'rest_url'                        => rest_url(),
+            'rest_nonce'                      => wp_create_nonce( 'wp_rest' ),
             'nonceName'                       => 'atbdp_nonce_js',
             'login_alert_message'             => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                             => is_rtl() ? 'true' : 'false',

@@ -2066,7 +2066,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 $folder_base = strtok( $plugin_base, '/' );
 
-                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions ) ) {
+                if ( preg_match( '/^directorist-/', $plugin_base ) || in_array( $folder_base, $official_extensions ) ) {
                     $installed_extensions[ $plugin_base ] = $plugin_data;
 
                     if ( is_plugin_active( $plugin_base ) ) {

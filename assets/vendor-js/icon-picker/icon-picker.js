@@ -32,7 +32,7 @@ window.IconPicker = function (args) {
             } : this.labels;
             this.onSelect = (typeof args.onSelect !== 'undefined') ? args.onSelect : this.onSelect;
             this.icons = (typeof args.icons !== 'undefined') ? args.icons : this.icons;
-            this.value = (typeof args.value === 'string') ? args.value : this.value;
+            this.value = (typeof args.value === 'string' && args.value !== 'undefined') ? args.value : this.value;
 
             if (!this.container) {
                 return;
@@ -71,15 +71,17 @@ window.IconPicker = function (args) {
         renderMarkup() {
             let selectedIcon = this.value ? this.value.split(" ") : ['', 'icon-name'];
             let markup = '';
+            // Fix undefined value issue
+            let displayValue = (this.value && this.value !== 'undefined') ? this.value : '';
             markup += `
             <div class="icon-picker-selector icon-picker-id-${this.id}" data-icon-picker-id="${this.id}">
                 <div class="icon-picker-selector__icon">
-                    <span class="directorist-selected-icon ${this.value}"></span>
+                    <span class="directorist-selected-icon ${displayValue}"></span>
                     <input
                     type="text"
                     placeholder="${this.labels.changeIconButtonPlaceholder}"
                     class="cptm-form-control"
-                    value="${this.value}" style="${this.value ? 'padding-left: 38px' : '' }"
+                    value="${displayValue}" style="${displayValue ? 'padding-left: 38px' : '' }"
                     />
                     <span class="icon-picker-selector__icon__reset"><span class="fas fa-times"></span
                     ></span>

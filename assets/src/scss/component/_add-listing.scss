@@ -644,9 +644,18 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+<<<<<<< HEAD
+	margin: 15px -15px 0;
+
+	.directorist-form-group {
+		flex: 1;
+		padding-left: 15px;
+		padding-right: 15px;
+=======
 	gap: 10px;
 	.directorist-form-group {
 		flex: 1;
+>>>>>>> 3abd89d235be9c71344f5510d65d6184e2dd0194
 		max-width: 290px;
 	}
 

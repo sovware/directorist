@@ -35555,7 +35555,9 @@ var render = function render() {
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "cptm-form-group directorist-type-icon-select"
-  }, [_c('div', {
+  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+    tag: "component"
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _c('div', {
     ref: "iconPickerElm",
     staticClass: "icon-picker-wrap"
   })]);

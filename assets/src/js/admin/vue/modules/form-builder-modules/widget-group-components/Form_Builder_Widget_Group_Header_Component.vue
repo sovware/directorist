@@ -44,7 +44,11 @@
               <span aria-hidden="true" :class="groupData.icon" v-else></span>
             </span>
             <span class="cptm-form-builder-group-title-label">
-              <span v-html="groupData.label"></span>
+              <span
+                v-html="getSearchLabelContent()"
+                v-if="getSearchGroup()"
+              ></span>
+              <span v-html="groupData.label" v-else></span>
             </span>
           </h3>
 
@@ -322,6 +326,19 @@ export default {
       }
 
       return groupIcon;
+    },
+
+    getSearchLabelContent() {
+      let groupLabel = "";
+      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form") {
+        groupLabel = "Search Bar";
+      }
+
+      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form") {
+        groupLabel = "Search Filter";
+      }
+
+      return groupLabel;
     },
   },
 };

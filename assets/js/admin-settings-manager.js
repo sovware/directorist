@@ -19533,8 +19533,8 @@ __webpack_require__.r(__webpack_exports__);
       return draggable;
     },
     canExpand: function canExpand() {
-      var _this$groupData;
-      var expandStatus = this.groupData.fields.length > 0 || ((_this$groupData = this.groupData) === null || _this$groupData === void 0 ? void 0 : _this$groupData.type) === "general_group";
+      var _this$groupData, _this$groupData2, _this$groupData3, _this$groupData4, _this$groupData5;
+      var expandStatus = this.groupData.fields.length > 0 || ((_this$groupData = this.groupData) === null || _this$groupData === void 0 ? void 0 : _this$groupData.type) === "general_group" || ((_this$groupData2 = this.groupData) === null || _this$groupData2 === void 0 ? void 0 : _this$groupData2.id) === "basic-search-form" || ((_this$groupData3 = this.groupData) === null || _this$groupData3 === void 0 ? void 0 : _this$groupData3.id) === "basic" || ((_this$groupData4 = this.groupData) === null || _this$groupData4 === void 0 ? void 0 : _this$groupData4.id) === "advanced-search-form" || ((_this$groupData5 = this.groupData) === null || _this$groupData5 === void 0 ? void 0 : _this$groupData5.id) === "advanced";
       return expandStatus;
     },
     canShowWidgetDropPlaceholder: function canShowWidgetDropPlaceholder() {
@@ -19841,6 +19841,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         groupIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.66602L12.5 6.66602M12.5 6.66602C12.5 8.04673 13.6193 9.16602 15 9.16602C16.3807 9.16602 17.5 8.04673 17.5 6.66602C17.5 5.2853 16.3807 4.16602 15 4.16602C13.6193 4.16602 12.5 5.2853 12.5 6.66602ZM7.5 13.3327L17.5 13.3327M7.5 13.3327C7.5 14.7134 6.38071 15.8327 5 15.8327C3.61929 15.8327 2.5 14.7134 2.5 13.3327C2.5 11.952 3.61929 10.8327 5 10.8327C6.38071 10.8327 7.5 11.952 7.5 13.3327Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       }
       return groupIcon;
+    },
+    getSearchLabelContent: function getSearchLabelContent() {
+      var groupLabel = "";
+      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form") {
+        groupLabel = "Search Bar";
+      }
+      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form") {
+        groupLabel = "Search Filter";
+      }
+      return groupLabel;
     }
   }
 });
@@ -31661,7 +31671,11 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c('span', {
     staticClass: "cptm-form-builder-group-title-label"
-  }, [_c('span', {
+  }, [_vm.getSearchGroup() ? _c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.getSearchLabelContent())
+    }
+  }) : _c('span', {
     domProps: {
       "innerHTML": _vm._s(_vm.groupData.label)
     }

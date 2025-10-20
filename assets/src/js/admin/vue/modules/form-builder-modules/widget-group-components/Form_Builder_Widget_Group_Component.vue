@@ -161,9 +161,8 @@ export default {
 
     canExpand() {
       const expandStatus =
-        this.groupData.fields.length > 0 ||
-        this.groupData?.type === "general_group";
-
+        this.groupData.fields.length > 0 || this.groupData?.type === "general_group" || this.groupData?.id === "basic-search-form" || this.groupData?.id === "basic" || this.groupData?.id === "advanced-search-form" || this.groupData?.id === "advanced";
+      
       return expandStatus;
     },
 

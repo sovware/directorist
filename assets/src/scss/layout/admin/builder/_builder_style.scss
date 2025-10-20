@@ -6525,6 +6525,15 @@ input[type="radio"] {
   .cptm-file-input-wrap {
     margin: 16px -5px 0 -5px;
   }
+  .cptm-info-text {
+    padding: 4px 8px;
+    height: auto;
+    line-height: 1.5;
+    box-sizing: border-box;
+    > b {
+      margin-right: 4px;
+    }
+  }
 }
 
 /* Sticky fields */

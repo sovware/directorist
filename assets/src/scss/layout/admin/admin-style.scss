@@ -4691,6 +4691,12 @@ body.wp-admin {
           > div {
             flex: 1;
             padding: 0 50px;
+            &:not(:first-child) {
+              text-align: center;
+            }
+            &:last-child {
+              text-align: right;
+            }
           }
           .directorist_listing-c-action {
             display: inline-flex;
@@ -4745,6 +4751,12 @@ body.wp-admin {
           > div {
             flex: 1;
             padding: 10px 20px;
+            &:not(:first-child) {
+              text-align: center;
+            }
+            &:last-child {
+              text-align: right;
+            }
           }
         }
 
@@ -4771,7 +4783,8 @@ body.wp-admin {
         .directorist_title {
           color: #141921;
           font-weight: 600;
-          padding-left: 26px !important;
+          padding-left: 17px !important;
+          margin-left: 8px;
 
           a {
             color: inherit;

@@ -463,7 +463,7 @@ class Builder_Data {
                             'options' => [
                                 'label'                => [
                                     'type'  => 'text',
-                                    'label' => __( 'Label', 'directorist' ),
+                                    'label' => __( 'Section Name', 'directorist' ),
                                     'value' => 'Author Info',
                                 ],
                                 'display_email'        => [
@@ -492,12 +492,12 @@ class Builder_Data {
                             'options' => [
                                 'label'                => [
                                     'type'  => 'text',
-                                    'label' => __( 'Label', 'directorist' ),
+                                    'label' => __( 'Section Name', 'directorist' ),
                                     'value' => 'Contact Listings Owner Form',
                                 ],
                                 'icon'                 => [
                                     'type'  => 'icon',
-                                    'label' => __( 'Icon', 'directorist' ),
+                                    'label' => __( 'Section Icon', 'directorist' ),
                                     'value' => 'las la-phone',
                                 ],
                                 'custom_block_id'      => [
@@ -599,7 +599,7 @@ class Builder_Data {
                             'options' => [
                                 'label'                => [
                                     'type'  => 'text',
-                                    'label' => __( 'Label', 'directorist' ),
+                                    'label' => __( 'Section Name', 'directorist' ),
                                     'value' => 'Related Listings',
                                 ],
                                 'custom_block_id'      => [
@@ -2127,12 +2127,12 @@ class Builder_Data {
                         'groupFields'     => [
                             'label' => [
                                 'type'  => 'text',
-                                'label' => 'Group Name',
+                                'label' => 'Section Name',
                                 'value' => 'Section',
                             ],
                             'icon' => [
                                 'type'  => 'icon',
-                                'label'  => __( 'Block/Section Icon', 'directorist' ),
+                                'label'  => __( 'Section Icon', 'directorist' ),
                                 'value' => '',
                             ],
                         ],
@@ -2197,12 +2197,12 @@ class Builder_Data {
                     'groupFields'     => [
                         'label'                => [
                             'type'  => 'text',
-                            'label' => __( 'Label', 'directorist' ),
+                            'label' => __( 'Section  Name', 'directorist' ),
                             'value' => 'Section',
                         ],
                         'icon'                 => [
                             'type'  => 'icon',
-                            'label' => __( 'Block/Section Icon', 'directorist' ),
+                            'label' => __( 'Section Icon', 'directorist' ),
                             'value' => '',
                         ],
                         'section_id'           => [

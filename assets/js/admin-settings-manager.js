@@ -31712,7 +31712,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-options-header"
   }, [_c('h3', {
     staticClass: "cptm-form-builder-group-options-header-title"
-  }, [_vm._v("\n          Configure section\n        ")]), _vm._v(" "), _c('a', {
+  }, [_vm._v("\n          Configure Section\n        ")]), _vm._v(" "), _c('a', {
     staticClass: "cptm-form-builder-group-options-header-close",
     attrs: {
       "href": "#"

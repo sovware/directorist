@@ -79,7 +79,7 @@
       <div class="cptm-form-builder-group-options">
         <div class="cptm-form-builder-group-options-header">
           <h3 class="cptm-form-builder-group-options-header-title">
-            Configure section
+            Configure Section
           </h3>
           <a
             href="#"

@@ -16865,8 +16865,8 @@ div[draggable=true].cptm-form-builder-group-header-content {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 14px;
+  line-height: 16px;
   font-weight: 500;
   color: #141921;
   margin: 0;
@@ -21242,7 +21242,7 @@ input[type=url].cptm-form-control,
 input[type=week].cptm-form-control,
 input[type=text].cptm-form-control {
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 12px;
   color: #4d5761;
   background: #ffffff;
   text-align: right;
@@ -22030,7 +22030,7 @@ input[type=radio]:checked::before {
   display: block;
   width: 100%;
   max-height: 38px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   background-color: transparent;
   color: #4d5761;
@@ -25505,8 +25505,8 @@ div[draggable=true].cptm-form-builder-group-header-content {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 14px;
+  line-height: 16px;
   font-weight: 500;
   color: #141921;
   margin: 0;
@@ -29882,7 +29882,7 @@ input[type=url].cptm-form-control,
 input[type=week].cptm-form-control,
 input[type=text].cptm-form-control {
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 12px;
   color: #4d5761;
   background: #ffffff;
   text-align: right;
@@ -30670,7 +30670,7 @@ input[type=radio]:checked::before {
   display: block;
   width: 100%;
   max-height: 38px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   background-color: transparent;
   color: #4d5761;
@@ -34433,8 +34433,8 @@ div[draggable=true].cptm-form-builder-group-header-content {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 14px;
+  line-height: 16px;
   font-weight: 500;
   color: #141921;
   margin: 0;
@@ -38810,7 +38810,7 @@ input[type=url].cptm-form-control,
 input[type=week].cptm-form-control,
 input[type=text].cptm-form-control {
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 12px;
   color: #4d5761;
   background: #ffffff;
   text-align: right;
@@ -39598,7 +39598,7 @@ input[type=radio]:checked::before {
   display: block;
   width: 100%;
   max-height: 38px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   background-color: transparent;
   color: #4d5761;

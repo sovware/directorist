@@ -663,7 +663,7 @@ class Builder_Data {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label' => __( 'label', 'directorist' ),
+                                    'label' => __( 'Label', 'directorist' ),
                                     'value' => 'Title',
                                 ],
                                 'placeholder' => [
@@ -2336,14 +2336,14 @@ class Builder_Data {
                     'value'           => [
                         'groups' => [
                             [
-                                'label'     => __( 'Basic Search Form', 'directorist' ), 
+                                'label'     => __( 'Search Bar', 'directorist' ), 
                                 'lock'      => true,
                                 'draggable' => false,
                                 'type'      => 'general_group',
                                 'fields'    => [],
                             ],
                             [
-                                'label'     => __( 'Advanced Search Form', 'directorist' ),
+                                'label'     => __( 'Search Filter', 'directorist' ),
                                 'lock'      => true,
                                 'draggable' => false,
                                 'type'      => 'general_group',

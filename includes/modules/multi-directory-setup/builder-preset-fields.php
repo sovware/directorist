@@ -320,7 +320,8 @@ return apply_filters(
                 ],
                 'placeholder' => [
                     'type'  => 'text',
-                    'label' => __( 'Placeholder', 'directorist' ),
+                    'label' => __( 'Placeholder text', 'directorist' ),
+                    'placeholder' => 'Type text here...',
                     'value' => '',
                 ],
                 'type' => [

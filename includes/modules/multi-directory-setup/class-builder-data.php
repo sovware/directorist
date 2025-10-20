@@ -2590,7 +2590,7 @@ class Builder_Data {
                             'category' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Category", "directorist" ),
-                                'icon' => 'la la-folder-open
+                                'icon' => 'las la-folder-open
 ',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
@@ -2602,7 +2602,7 @@ class Builder_Data {
                             'location' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Location", "directorist" ),
-                                'icon' => 'la la-map-marked-alt',
+                                'icon' => 'las la-map-marked-alt',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [

@@ -303,7 +303,7 @@ return apply_filters(
 
         'location' => [
             'label'   => 'Location',
-            'icon'    => 'la la-map-marker',
+            'icon'    => 'las la-map-marker',
             'options' => [
                 'field_key' => [
                     'type'  => 'hidden',
@@ -426,7 +426,7 @@ return apply_filters(
 
         'category' => [
             'label'   => __( 'Category', 'directorist' ),
-            'icon'    => 'la la-folder-open',
+            'icon'    => 'las la-folder-open',
             'options' => [
                 'field_key' => [
                     'type'  => 'hidden',
@@ -481,7 +481,7 @@ return apply_filters(
 
         'map' => [
             'label'   => __( 'Map', 'directorist' ),
-            'icon'    => 'la la-map',
+            'icon'    => 'las la-map',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -514,7 +514,7 @@ return apply_filters(
 
         'address' => [
             'label'   => __( 'Address', 'directorist' ),
-            'icon'    => 'la la-map-pin',
+            'icon'    => 'las la-map-pin',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -553,7 +553,7 @@ return apply_filters(
 
         'zip' => [
             'label'   => __( 'Zip or Post Code', 'directorist' ),
-            'icon'    => 'la la-map-pin',
+            'icon'    => 'las la-map-pin',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

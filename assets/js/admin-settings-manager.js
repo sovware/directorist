@@ -17645,10 +17645,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "avatar-card-widget",
   props: {
     label: {
+      type: String,
+      default: ""
+    },
+    widgetKey: {
       type: String,
       default: ""
     },
@@ -17661,6 +17667,83 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    // Add activeWidget prop to get the complete widget data
+    activeWidgets: {
+      type: Object
+    }
+  },
+  data: function data() {
+    return {
+      localOptions: null
+    };
+  },
+  created: function created() {
+    this.init();
+  },
+  watch: {
+    options: {
+      handler: function handler(newOptions) {
+        if (newOptions) {
+          this.localOptions = JSON.parse(JSON.stringify(newOptions));
+        }
+      },
+      deep: true
+    }
+  },
+  computed: {
+    // Check if options has value and contains fields
+    isAvailableOptions: function isAvailableOptions() {
+      if (!this.localOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.localOptions) !== "object") {
+        return false;
+      }
+      if (!this.localOptions.fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.localOptions.fields) !== "object") {
+        return false;
+      }
+
+      // Check if fields object has at least one property
+      return Object.keys(this.localOptions.fields).length > 0;
+    },
+    // Get the fields from options
+    optionFields: function optionFields() {
+      if (!this.isAvailableOptions) {
+        return {};
+      }
+      return this.localOptions.fields;
+    }
+  },
+  methods: {
+    init: function init() {
+      if (this.options) {
+        this.localOptions = JSON.parse(JSON.stringify(this.options));
+      }
+    },
+    // Update field data when field value changes
+    updateFieldData: function updateFieldData(value, field_key) {
+      // Update the local field value
+      if (this.localOptions && this.localOptions.fields) {
+        this.localOptions.fields[field_key].value = value;
+      }
+
+      // Get the current widget from activeWidgets
+      var currentWidget = this.activeWidgets[this.widgetKey];
+
+      // Deep clone to avoid mutations
+      var updatedWidget = JSON.parse(JSON.stringify(currentWidget));
+
+      // Update the specific field value in the cloned widget
+      if (updatedWidget.options && updatedWidget.options.fields) {
+        if (!updatedWidget.options.fields[field_key]) {
+          updatedWidget.options.fields[field_key] = {};
+        }
+        updatedWidget.options.fields[field_key].value = value;
+      }
+
+      // Emit the updated widget data to parent with correct structure
+      this.$emit("update", {
+        widgetKey: this.widgetKey,
+        updatedWidget: updatedWidget
+      });
     }
   }
 });
@@ -20945,6 +21028,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         "cptm-text-center": "center" === align_option ? true : false,
         "cptm-text-left": "left" === align_option ? true : false
       };
+    },
+    // Check if avatar has selected widgets
+    hasAvatarWidget: function hasAvatarWidget() {
+      var _this$local_layout;
+      return ((_this$local_layout = this.local_layout) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.thumbnail) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.avatar) === null || _this$local_layout === void 0 ? void 0 : _this$local_layout.selectedWidgets) && Array.isArray(this.local_layout.thumbnail.avatar.selectedWidgets) && this.local_layout.thumbnail.avatar.selectedWidgets.length > 0;
     }
   },
   data: function data() {
@@ -30115,7 +30203,19 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-trash-alt"
-  })])])])]);
+  })])])]), _vm._v(" "), _vm.isAvailableOptions ? _c('div', {
+    staticClass: "cptm-placeholder-author-thumb-options"
+  }, _vm._l(_vm.optionFields, function (field, field_key) {
+    return _c(field.type + '-field', _vm._b({
+      key: field_key,
+      tag: "component",
+      on: {
+        "update": function update($event) {
+          return _vm.updateFieldData($event, field_key);
+        }
+      }
+    }, 'component', field, false));
+  }), 1) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32664,7 +32764,8 @@ var render = function render() {
       "fill": "white"
     }
   })])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-listing-card-preview-body"
+    staticClass: "cptm-listing-card-preview-body",
+    class: _vm.hasAvatarWidget ? 'has-avatar' : ''
   }, [_c('div', {
     staticClass: "cptm-listing-card-author-avatar"
   }, [_c('card-widget-placeholder', {
@@ -32712,6 +32813,7 @@ var render = function render() {
       "close-option-window": function closeOptionWindow($event) {
         return _vm.closeWidgetOptionsWindow();
       },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {

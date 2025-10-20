@@ -737,6 +737,17 @@
         transform: translateY(50%);
         display: flex;
         z-index: 1;
+        &.directorist-alignment-left {
+          left: 20px;
+        }
+        &.directorist-alignment-right {
+          left: unset;
+          right: 20px;
+        }
+        &.directorist-alignment-center {
+          left: 50%;
+          transform: translate(-50%, 50%);
+        }
 
         img {
           width: 100%;

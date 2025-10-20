@@ -26,6 +26,19 @@
         </span>
       </div>
     </div>
+
+    <div
+      class="cptm-placeholder-author-thumb-options"
+      v-if="isAvailableOptions"
+    >
+      <component
+        v-for="(field, field_key) in optionFields"
+        :key="field_key"
+        :is="field.type + '-field'"
+        v-bind="field"
+        @update="updateFieldData($event, field_key)"
+      />
+    </div>
   </div>
 </template>
 
@@ -38,6 +51,11 @@ export default {
       default: "",
     },
 
+    widgetKey: {
+      type: String,
+      default: "",
+    },
+
     options: {
       type: Object,
       default: () => ({}),
@@ -46,6 +64,96 @@ export default {
     readOnly: {
       type: Boolean,
       default: false,
+    },
+
+    // Add activeWidget prop to get the complete widget data
+    activeWidgets: {
+      type: Object,
+    },
+  },
+
+  data() {
+    return {
+      localOptions: null,
+    };
+  },
+
+  created() {
+    this.init();
+  },
+
+  watch: {
+    options: {
+      handler(newOptions) {
+        if (newOptions) {
+          this.localOptions = JSON.parse(JSON.stringify(newOptions));
+        }
+      },
+      deep: true,
+    },
+  },
+
+  computed: {
+    // Check if options has value and contains fields
+    isAvailableOptions() {
+      if (!this.localOptions || typeof this.localOptions !== "object") {
+        return false;
+      }
+
+      if (
+        !this.localOptions.fields ||
+        typeof this.localOptions.fields !== "object"
+      ) {
+        return false;
+      }
+
+      // Check if fields object has at least one property
+      return Object.keys(this.localOptions.fields).length > 0;
+    },
+
+    // Get the fields from options
+    optionFields() {
+      if (!this.isAvailableOptions) {
+        return {};
+      }
+
+      return this.localOptions.fields;
+    },
+  },
+
+  methods: {
+    init() {
+      if (this.options) {
+        this.localOptions = JSON.parse(JSON.stringify(this.options));
+      }
+    },
+
+    // Update field data when field value changes
+    updateFieldData(value, field_key) {
+      // Update the local field value
+      if (this.localOptions && this.localOptions.fields) {
+        this.localOptions.fields[field_key].value = value;
+      }
+
+      // Get the current widget from activeWidgets
+      const currentWidget = this.activeWidgets[this.widgetKey];
+
+      // Deep clone to avoid mutations
+      const updatedWidget = JSON.parse(JSON.stringify(currentWidget));
+
+      // Update the specific field value in the cloned widget
+      if (updatedWidget.options && updatedWidget.options.fields) {
+        if (!updatedWidget.options.fields[field_key]) {
+          updatedWidget.options.fields[field_key] = {};
+        }
+        updatedWidget.options.fields[field_key].value = value;
+      }
+
+      // Emit the updated widget data to parent with correct structure
+      this.$emit("update", {
+        widgetKey: this.widgetKey,
+        updatedWidget: updatedWidget,
+      });
     },
   },
 };

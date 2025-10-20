@@ -234,9 +234,13 @@
           </div>
 
           <!-- cptm-listing-card-preview-body -->
-          <div class="cptm-listing-card-preview-body">
+          <div class="cptm-listing-card-preview-body"
+              :class="hasAvatarWidget ? 'has-avatar' : ''"
+          >
             <!-- cptm-listing-card-author-avatar -->
-            <div class="cptm-listing-card-author-avatar">
+            <div
+              class="cptm-listing-card-author-avatar"
+            >
               <card-widget-placeholder
                 id="thumbnail_avatar"
                 :containerClass="getAvatarPlaceholderClass"
@@ -273,6 +277,7 @@
                   updateWidgetOptionsData($event, widgetOptionsWindow)
                 "
                 @close-option-window="closeWidgetOptionsWindow()"
+                @update-active-widget="handleActiveWidgetUpdate"
                 @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
@@ -676,6 +681,15 @@ export default {
         "cptm-text-center": "center" === align_option ? true : false,
         "cptm-text-left": "left" === align_option ? true : false,
       };
+    },
+
+    // Check if avatar has selected widgets
+    hasAvatarWidget() {
+      return (
+        this.local_layout?.thumbnail?.avatar?.selectedWidgets &&
+        Array.isArray(this.local_layout.thumbnail.avatar.selectedWidgets) &&
+        this.local_layout.thumbnail.avatar.selectedWidgets.length > 0
+      );
     },
   },
 

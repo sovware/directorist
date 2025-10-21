@@ -97,20 +97,30 @@ class Directorist_Template_Hooks {
      * @return string
      */
     public function single_template_path( $template ) {
-        if ( ! is_singular( ATBDP_POST_TYPE ) ) {
+        if ( is_embed() ) {
             return $template;
         }
 
-        $template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );
-        if ( $template_type === 'directorist_template' && ! self::has_block_template( 'single-listing' ) ) {
-            $_template = Helper::template_path( 'single' );
-        } elseif ( $template_type === 'theme_template_page' ) {
-            $_template = get_page_template();
-        } elseif ( $template_type === 'current_theme_template' ) {
-            $_template = get_single_template();
+        // Handle taxonomy templates
+        if ( directorist_is_archive_template_enabled() &&
+            is_tax( [ ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS ] ) &&
+            ! self::has_block_template( 'taxonomy-' . get_queried_object()->taxonomy ) ) {
+            $_template = Helper::template_path( 'taxonomy-' . get_queried_object()->taxonomy );
+        } elseif ( is_singular( ATBDP_POST_TYPE ) ) {
+            // Handle single listing template
+            $template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );
+            if ( $template_type === 'directorist_template' && ! self::has_block_template( 'single-listing' ) ) {
+                $_template = Helper::template_path( 'single' );
+            } elseif ( $template_type === 'theme_template_page' ) {
+                $_template = get_page_template();
+            } elseif ( $template_type === 'current_theme_template' ) {
+                $_template = get_single_template();
+            }
+        } else {
+            return $template;
         }
 
-        // assign custom template if found.
+        // Assign custom template if found
         if ( ! empty( $_template ) ) {
             $template = $_template;
         }
@@ -133,14 +143,9 @@ class Directorist_Template_Hooks {
             return false;
         }
 
-        $has_template            = false;
-        $template_filename       = $template_name . '.html';
-        // Since Gutenberg 12.1.0, the conventions for block templates directories have changed,
-        // we should check both these possible directories for backwards-compatibility.
-        $possible_templates_dirs = [ 'templates', 'block-templates' ];
+        $has_template      = false;
+        $template_filename = $template_name . '.html';
 
-        // Combine the possible root directory names with either the template directory
-        // or the stylesheet directory for child themes, getting all possible block templates
         // locations combinations.
         $filepath        = DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_filename;
         $legacy_filepath = DIRECTORY_SEPARATOR . 'block-templates' . DIRECTORY_SEPARATOR . $template_filename;
@@ -174,5 +179,5 @@ class Directorist_Template_Hooks {
 add_action(
     'init', function(){
         Directorist_Template_Hooks::instance();
-    } 
+    }
 );

@@ -73,15 +73,17 @@ window.IconPicker = function (args) {
             let markup = '';
             // Fix undefined value issue
             let displayValue = (this.value && this.value !== 'undefined') ? this.value : '';
+            // Escape the value to prevent HTML injection
+            const safeDisplayValue = String(displayValue).replace(/"/g, '&quot;');
             markup += `
             <div class="icon-picker-selector icon-picker-id-${this.id}" data-icon-picker-id="${this.id}">
                 <div class="icon-picker-selector__icon">
-                    <span class="directorist-selected-icon ${displayValue}"></span>
+                    <span class="directorist-selected-icon ${safeDisplayValue}"></span>
                     <input
                     type="text"
                     placeholder="${this.labels.changeIconButtonPlaceholder}"
                     class="cptm-form-control"
-                    value="${displayValue}" style="${displayValue ? 'padding-left: 38px' : '' }"
+                    value="${safeDisplayValue}" style="${safeDisplayValue ? 'padding-left: 38px' : '' }"
                     />
                     <span class="icon-picker-selector__icon__reset"><span class="fas fa-times"></span
                     ></span>

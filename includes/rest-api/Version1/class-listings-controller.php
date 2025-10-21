@@ -1486,16 +1486,19 @@ class Listings_Controller extends Posts_Controller {
          *
          * @return array Modified list of orderby options.
          */
-        return apply_filter( 'directorist_listings_controller_orderby_options', array(
-            'id'      => 'ID',
-            'include' => 'include',
-            'title'   => 'title',
-            'date'    => 'date',
-            // 'rating'  => 'rating',
-            'popular' => 'popular',
-            'price'   => 'price',
-            'rand'    => 'rand',
-        ) );
+        return apply_filter(
+            'directorist_listings_controller_orderby_options',
+            array(
+                'id'      => 'ID',
+                'include' => 'include',
+                'title'   => 'title',
+                'date'    => 'date',
+                // 'rating'  => 'rating',
+                'popular' => 'popular',
+                'price'   => 'price',
+                'rand'    => 'rand',
+            )
+        );
     }
 
     /**

@@ -351,6 +351,11 @@
       }
     }
   }
+  .directorist-listing-single__quick-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
 }
 
 .directorist-single-listing-action {

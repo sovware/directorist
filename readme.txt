@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.7
+Stable tag: 8.4.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -287,10 +287,37 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-8.4.7 - Sep 9, 2025
+= 8.4.9 - Oct 13, 2025 =
+
+**Security**
+- Fixed: Enhanced file upload security with improved filename sanitization to prevent potential file manipulation
+
+= 8.4.8 - Oct 8, 2025 =
+
+**Changed**
+- Added hooks to control dashboard and login page redirects. (#2521)
+- Added hooks to the contact owner form. (#2516)
+- Added “Recover Password” option in the guest login modal. (#2532)
+- Improved mobile experience by keeping the Add Listing accordion expanded. (#2517)
+- Improved thumbnail responsiveness for small screens. (#2526)
+
+**Fixed**
+ - Improved highlight for the select input list. (#2485)
+ - Fixed listing slider and carousel settings overlay issue. (#2482)
+ - Implemented intelligent Plus Code removal for Google Maps addresses. (#2478)
+ - Ensured independent functionality for multiple .bdas-category-search instances without conflicts. (#2473)
+ - Fixed carousel disappearing after scrolling past 20 photos. (#2472)
+ - Adjusted relevant listings transition speed from 1s to 3s. (#2468)
+ - Bricks Builder integration for custom single listing pages. (#2484)
+ - Fixed price range issue. (#2509)
+ - Fixed multiple JavaScript issues in the contact owner form, including form reset, alert colors, button re-enable, and correct callback response handling. (#2516)
+ - Fixed select item not clickable issue. (#2531)
+ - Fixed builder settings not working properly in the review template. (#2528)
+
+= 8.4.7 - Sep 9, 2025 =
 - Tweak JS and CSS
 
-8.4.6 - Sep 9, 2025
+= 8.4.6 - Sep 9, 2025 =
 
 **Fixed**
 - Map disable issue on single listing. (#2471)
@@ -315,7 +342,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 - Added Action hooks in Grid & List loop (before/after header & excerpt). (#2476)
 - Single listing slider thumb shows only when there are multiple items. (#2394)
 
-8.4.5 - July 22, 2025
+= 8.4.5 - July 22, 2025 =
 
 **Changed**
  - Introduced show/hide password toggle on the login form. (#2415)
@@ -339,12 +366,12 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 **Security**
  - Applied WordPress coding standards using PHPCS across the entire codebase. Addressed numerous potential vulnerabilities by improving input validation, data sanitization, and output escaping to enhance overall plugin security and code quality. (#2379)
 
-8.4.4 - Jun 26, 2025
+= 8.4.4 - Jun 26, 2025 =
 
 **New**
  - 🎉 **Formgent Integration** — You can now add a Formgent form to the Single Listing page via the Directorist builder. This allows visitors to submit forms (such as inquiries or feedback) directly from the listing page.
 
-8.4.3 - May 22, 2025
+= 8.4.3 - May 22, 2025 =
 
 **Changed**
  - Refactored beta version detection logic to avoid dependency on `get_plugin_data()` and improve performance. (#2367)
@@ -353,10 +380,10 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Nonce validation issue in guest listing submission fixed to improve security and form handling. (#2354)
  - `preg_replace()` deprecation notice on the dashboard fixed for PHP 8.1+ compatibility. (#2351)
 
-8.4.2 - May 20, 2025
+= 8.4.2 - May 20, 2025 =
  - Tweak JS and CSS
 
-8.4.1 - May 20, 2025
+= 8.4.1 - May 20, 2025 =
 
 **Changed**
  - Hook to customize the email "From Name" and prevent forced values. (#2344)

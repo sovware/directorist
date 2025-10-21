@@ -1475,7 +1475,18 @@ class Listings_Controller extends Posts_Controller {
     }
 
     protected function get_orderby_possibles() {
-        return array(
+        /**
+         * Filter the available "orderby" options used in the listings API schema and controller.
+         *
+         * This hook allows developers to modify or extend the enum values that define the orderby options
+         * for listing queries in the Directorist REST API. These options control how listings are sorted
+         * when fetched via API (e.g., by date, title, rating, etc.).
+         *
+         * @param array $orderby_options Array of allowed orderby values.
+         *
+         * @return array Modified list of orderby options.
+         */
+        return apply_filter( 'directorist_listings_controller_orderby_options', array(
             'id'      => 'ID',
             'include' => 'include',
             'title'   => 'title',
@@ -1483,7 +1494,8 @@ class Listings_Controller extends Posts_Controller {
             // 'rating'  => 'rating',
             'popular' => 'popular',
             'price'   => 'price',
-        );
+            'rand'    => 'rand',
+        ) );
     }
 
     /**

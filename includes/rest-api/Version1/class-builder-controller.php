@@ -24,7 +24,7 @@ class Builder_Controller extends Abstract_Controller {
      *
      * @var string
      */
-    protected $rest_base = 'directories';
+    protected $rest_base = 'builder/(?P<builder_tab>[\w-]+)';
 
     /**
      * Register the routes for builder settings.
@@ -33,56 +33,97 @@ class Builder_Controller extends Abstract_Controller {
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base,
-            [
-                [
+            array(
+                'args'   => array(
+                    'directory_id' => array(
+                        'description' => __( 'Directory id.', 'directorist' ),
+                        'type'        => 'integer',
+                        'default'     => directorist_get_default_directory()
+                    ),
+                    'builder_tab' => array(
+                        'description' => __( 'Directory builder tab id.', 'directorist' ),
+                        'type'        => 'string',
+                        'enum'        => array(
+                            'all-listings',
+                            'listing-form',
+                            'search-form',
+                            'single-listing',
+                        ),
+                    ),
+                ),
+                array(
                     'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_items' ],
-                    'permission_callback' => [ $this, 'get_items_permissions_check' ],
-                    'args'                => $this->get_collection_params(),
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ]
+                    'callback'            => array( $this, 'get_item' ),
+                    'permission_callback' => array( $this, 'get_item_permissions_check' ),
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            )
         );
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/(?P<id>[\d]+)',
-            [
-                'args'   => [
-                    'id' => [
-                        'description' => __( 'Unique identifier for the resource.', 'directorist' ),
+            '/' . $this->rest_base . '/(?P<directory_id>[\d]+)',
+            array(
+                'args'   => array(
+                    'directory_id' => array(
+                        'description' => __( 'Directory id.', 'directorist' ),
                         'type'        => 'integer',
-                    ],
-                ],
-                [
+                    ),
+                    'builder_tab' => array(
+                        'description' => __( 'Directory builder tab id.', 'directorist' ),
+                        'type'        => 'string',
+                        'enum'        => array(
+                            'all-listings',
+                            'listing-form',
+                            'search-form',
+                            'single-listing',
+                        ),
+                    ),
+                ),
+                array(
                     'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'get_item_permissions_check' ],
-                    'args'                => [
-                        'context' => $this->get_context_param( [ 'default' => 'view' ] ),
-                    ],
-                ],
-                [
-                    'methods'             => WP_REST_Server::EDITABLE,
-                    'callback'            => [ $this, 'update_item' ],
-                    'permission_callback' => [ $this, 'update_item_permissions_check' ],
-                    'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
-                ],
-                [
-                    'methods'             => WP_REST_Server::DELETABLE,
-                    'callback'            => [ $this, 'delete_item' ],
-                    'permission_callback' => [ $this, 'delete_item_permissions_check' ],
-                    'args'                => [
-                        'force' => [
-                            'default'     => false,
-                            'type'        => 'boolean',
-                            'description' => __( 'Required to be true, as resource does not support trashing.', 'directorist' ),
-                        ],
-                    ],
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ]
+                    'callback'            => array( $this, 'get_item' ),
+                    'permission_callback' => array( $this, 'get_item_permissions_check' ),
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            )
         );
+    }
+
+    /**
+     * Get a single term from a taxonomy.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_REST_Request|WP_Error
+     */
+    public function get_item( $request ) {
+        $directory_id = (int) $request['directory_id'];
+
+        if ( ! directorist_is_directory( $directory_id ) ) {
+            return new WP_Error( 'directorist_rest_invalid_directory', __( 'Invalid directory id.', 'directorist' ), array( 'status' => 400 ) );
+        }
+
+        $builder_tab = $request['builder_tab'];
+
+        if ( 'listing-form' === $builder_tab ) {
+            $data = $this->get_listing_form_data( $directory_id, $request );
+        } else if ( 'single-listing' === $builder_tab ) {
+            $data = $this->get_single_listing_data( $directory_id, $request );
+        }
+
+
+
+        // $response = $this->prepare_item_for_response( $term, $request );
+
+        // do_action( 'directorist_rest_after_query', 'get_term_item', $request, $id, $taxonomy );
+
+        // $response = apply_filters( 'directorist_rest_response', $response, 'get_term_item', $request, $id, $taxonomy );
+
+        return rest_ensure_response( $data );
+    }
+
+    public function get_item_permissions_check( $request ) {
+        return true;
     }
 
     /**
@@ -93,14 +134,13 @@ class Builder_Controller extends Abstract_Controller {
      * @return WP_REST_Response
      */
     public function prepare_item_for_response( $item, $request ) {
-        // Created date.
         $date_created = get_term_meta( $item->term_id, '_created_date', true );
         $expiration   = directorist_get_default_expiration( $item->term_id );
         $new_status   = get_term_meta( $item->term_id, 'new_listing_status', true );
         $edit_status  = directorist_get_listing_edit_status( $item->term_id );
         $is_default   = get_term_meta( $item->term_id, '_default', true );
         $config       = directorist_get_directory_general_settings( $item->term_id );
-        $data         = [
+        $data         = array(
             'id'              => (int) $item->term_id,
             'name'            => $item->name,
             'slug'            => $item->slug,
@@ -112,7 +152,7 @@ class Builder_Controller extends Abstract_Controller {
             'edit_status'     => $edit_status,
             'expiration_days' => (int) $expiration,
             'date_created'    => directorist_rest_prepare_date_response( $date_created ),
-        ];
+        );
 
         if ( ! empty( $config['icon'] ) ) {
             $data['icon'] = $config['icon'];
@@ -127,7 +167,7 @@ class Builder_Controller extends Abstract_Controller {
         $data     = $this->filter_response_by_context( $data, $context );
         $response = rest_ensure_response( $data );
 
-        $response->add_links( $this->prepare_links( $item, $request ) );
+        // $response->add_links( $this->prepare_links( $item, $request ) );
 
         /**
          * Filter a term item returned from the API.
@@ -138,7 +178,21 @@ class Builder_Controller extends Abstract_Controller {
          * @param object            $item      The original term object.
          * @param WP_REST_Request   $request   Request used to generate the response.
          */
-        return apply_filters( "directorist_rest_prepare_{$this->taxonomy}", $response, $item, $request );
+        return $response; //apply_filters( "directorist_rest_prepare_{$this->taxonomy}", $response, $item, $request );
+    }
+
+    protected function get_single_listing_data( $directory_id, $request ) {
+        return array(
+            'groups' => directorist_get_single_listing_groups( $directory_id ),
+            'fields' => directorist_get_single_listing_fields( $directory_id ),
+        );
+    }
+
+    protected function get_listing_form_data( $directory_id, $request ) {
+        return array(
+            'groups' => directorist_get_listing_form_groups( $directory_id ),
+            'fields' => directorist_get_listing_form_fields( $directory_id ),
+        );
     }
 
     /**
@@ -147,104 +201,46 @@ class Builder_Controller extends Abstract_Controller {
      * @return array
      */
     public function get_item_schema() {
-        $schema = [
+        $schema = array(
             '$schema'    => 'http://json-schema.org/draft-04/schema#',
-            'title'      => $this->taxonomy,
+            'title'      => __( 'Directory Builder.', 'directorist' ),
             'type'       => 'object',
-            'properties' => [
-                'id'          => [
-                    'description' => __( 'Unique identifier for the resource.', 'directorist' ),
-                    'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
-                    'readonly'    => true,
-                ],
-                'name'        => [
-                    'description' => __( 'Category name.', 'directorist' ),
-                    'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                    'arg_options' => [
-                        'sanitize_callback' => 'sanitize_text_field',
-                    ],
-                ],
-                'slug'        => [
-                    'description' => __( 'An alphanumeric identifier for the resource unique to its type.', 'directorist' ),
-                    'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                    'arg_options' => [
-                        'sanitize_callback' => 'sanitize_title',
-                    ],
-                ],
-                'image_url'    => [
-                    'description' => __( 'Preview image url.', 'directorist' ),
-                    'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'icon' => [
-                    'description' => __( 'Icon class.', 'directorist' ),
-                    'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                    'arg_options' => [
-                        'sanitize_callback' => 'sanitize_text_field',
-                    ],
-                ],
-                'count' => [
-                    'description' => __( 'Number of published listings for the resource.', 'directorist' ),
-                    'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
-                    'readonly'    => true,
-                ],
-                'is_default' => [
-                    'description' => __( 'Default directory status.', 'directorist' ),
-                    'type'        => 'boolean',
-                    'default'     => false,
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'new_status' => [
-                    'description' => __( 'Newly created listing status under this directory.', 'directorist' ),
-                    'type'        => 'string',
-                    'default'     => 'pending',
-                    'enum'        => [
-                        'pending',
-                        'publish',
-                    ],
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'edit_status' => [
-                    'description' => __( 'Edited listing status under this directory.', 'directorist' ),
-                    'type'        => 'string',
-                    'default'     => 'pending',
-                    'enum'        => [
-                        'pending',
-                        'publish',
-                    ],
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'expiration_days' => [
-                    'description' => __( 'Validity days for listings under this directory.', 'directorist' ),
-                    'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'date_created'      => [
-                    'description' => __( "The date the directory was created, in the site's timezone.", 'directorist' ),
-                    'type'        => 'date-time',
-                    'context'     => [ 'view', 'edit' ],
-                    'readonly'    => true,
-                ],
-            ],
-        ];
+            'properties' => array(
+                'groups'        => array(
+                    'description' => __( 'Listing field groups.', 'directorist' ),
+                    'type'        => 'array',
+                    'context'     => array( 'view', 'edit' ),
+                    'items'       => array(
+                        'type'       => 'object',
+                        'properties' => array(
+                            'label'  => array(
+                                'description' => __( 'Group label.', 'directorist' ),
+                                'type'        => 'string',
+                            ),
+                            'fields'  => array(
+                                'description' => __( 'Group fields key.', 'directorist' ),
+                                'type'        => 'array',
+                                'items'       => array(
+                                    'type' => 'string',
+                                )
+                            ),
+                        ),
+                    ),
+                ),
+                'fields'        => array(
+                    'description' => __( 'Listing item fields.', 'directorist' ),
+                    'type'        => 'object',
+                    'context'     => array( 'view', 'edit' ),
+                    'properties' => array(
+                        '[field_id]'        => array(
+                            'description' => __( 'Field map.', 'directorist' ),
+                            'type'        => 'object',
+                        ),
+                    )
+                ),
+            ),
+        );
 
         return $this->add_additional_fields_schema( $schema );
-    }
-
-    /**
-     * Update term meta fields.
-     *
-     * @param WP_Term         $term    Term object.
-     * @param WP_REST_Request $request Request instance.
-     * @return bool|WP_Error
-     *
-     */
-    protected function update_term_meta_fields( $term, $request ) {
-        return true;
     }
 }

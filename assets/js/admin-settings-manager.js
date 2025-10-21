@@ -34893,7 +34893,7 @@ var render = function render() {
     staticClass: "cptm-form-builder",
     class: _vm.fieldKey
   }, [_c('div', {
-    staticClass: "cptm-form-builder-sidebar cptm-col-sticky"
+    staticClass: "cptm-form-builder-sidebar"
   }, [['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(_vm.fieldKey) ? _c('div', {
     staticClass: "cptm-form-builder-action"
   }, [_c('div', {

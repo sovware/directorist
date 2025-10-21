@@ -5071,23 +5071,29 @@ body.wp-admin {
 
     &:before {
       content: "";
-      border: 5px solid transparent;
       z-index: 100;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-bottom: 5px solid #141921;
     }
 
     &:after {
       content: attr(data-tooltip);
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
       border-radius: 6px;
       background: #141921;
       color: #ffffff;
       z-index: 99;
       padding: 10px 12px;
-      height: 34px;
       align-items: center;
       line-height: normal;
+      left: 50%;
+      top: calc(100% + 10px);
+      transform: translateX(-50%);
     }
 
     &:hover:before,

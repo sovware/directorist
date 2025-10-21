@@ -1,6 +1,6 @@
 <template>
   <div class="cptm-form-builder" :class="fieldKey">
-    <div class="cptm-form-builder-sidebar cptm-col-sticky">
+    <div class="cptm-form-builder-sidebar">
       <div
         class="cptm-form-builder-action"
         v-if="

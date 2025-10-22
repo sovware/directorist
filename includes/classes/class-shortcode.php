@@ -212,30 +212,38 @@ class ATBDP_Shortcode {
         return $listings->render_shortcode( $atts );
     }
 
-    public function category_archive( $atts ) {
-        $atts             = ! empty( $atts ) ? $atts : [];
-        $category_slug    = ! empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : urldecode( get_query_var( 'atbdp_category' ) );
-        $atts['category'] = sanitize_text_field( $category_slug );
+    public function category_archive( array $atts = [] ) {
+        if ( is_tax( ATBDP_CATEGORY ) ) {
+            $atts['category'] = get_queried_object()->slug;
+        } else {
+            $category_slug    = ! empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : urldecode( get_query_var( 'atbdp_category' ) );
+            $atts['category'] = sanitize_text_field( $category_slug );
+        }
 
-        $atts[ 'shortcode' ] = 'directorist_category';
-
+        $atts['shortcode'] = 'directorist_category';
         return $this->listing_archive( $atts );
     }
 
-    public function tag_archive( $atts ) {
-        $atts        = ! empty( $atts ) ? $atts : [];
-        $tag_slug    = ! empty( $_GET['tag'] ) ? directorist_clean( wp_unslash( $_GET['tag'] ) ) : get_query_var( 'atbdp_tag' );
-        $atts['tag'] = sanitize_title_for_query( $tag_slug );
+    public function tag_archive( array $atts = [] ) {
+        if ( is_tax( ATBDP_TAGS ) ) {
+            $atts['tag'] = get_queried_object()->slug;
+        } else {
+            $tag_slug    = ! empty( $_GET['tag'] ) ? directorist_clean( wp_unslash( $_GET['tag'] ) ) : get_query_var( 'atbdp_tag' );
+            $atts['tag'] = sanitize_title_for_query( $tag_slug );
+        }
 
         $atts[ 'shortcode' ] = 'directorist_tag';
 
         return $this->listing_archive( $atts );
     }
 
-    public function location_archive( $atts ) {
-        $atts             = ! empty( $atts ) ? $atts : [];
-        $location_slug    = ! empty( $_GET['location'] ) ? directorist_clean( wp_unslash( $_GET['location'] ) ) : urldecode( get_query_var( 'atbdp_location' ) );
-        $atts['location'] = sanitize_text_field( $location_slug );
+    public function location_archive( array $atts = [] ) {
+        if ( is_tax( ATBDP_LOCATION ) ) {
+            $atts['location'] = get_queried_object()->slug;
+        } else {
+            $location_slug    = ! empty( $_GET['location'] ) ? directorist_clean( wp_unslash( $_GET['location'] ) ) : urldecode( get_query_var( 'atbdp_location' ) );
+            $atts['location'] = sanitize_text_field( $location_slug );
+        }
 
         $atts[ 'shortcode' ] = 'directorist_location';
 

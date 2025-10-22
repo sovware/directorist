@@ -16,10 +16,10 @@ $count       = $listing->get_review_count();
 $review_text = sprintf( _nx( '(%s Review)', '(%s Reviews)', $count, 'Review count single template', 'directorist' ), $count );
 ?>
 
-<span class="directorist-info-item directorist-rating-meta directorist-info-item-rating">
+<div class="directorist-info-item directorist-rating-meta directorist-info-item-rating">
 
     <?php directorist_icon( 'las la-star' ); ?><?php echo esc_html( $listing->get_rating_count() );?>
 
     <a href="#directorist-reviews" class="directorist-review"><?php echo esc_html( $review_text ); ?></a>
 
-</span>
+</div>

@@ -30,46 +30,46 @@ class User_Favorites_Controller extends Abstract_Controller {
     public function register_routes() {
         register_rest_route(
             $this->namespace, '/' . $this->rest_base,
-            [
-                [
+            array(
+                array(
                     'methods'             => WP_REST_Server::CREATABLE,
-                    'callback'            => [ $this, 'create_item' ],
-                    'permission_callback' => [ $this, 'create_item_permissions_check' ],
+                    'callback'            => array( $this, 'create_item' ),
+                    'permission_callback' => array( $this, 'create_item_permissions_check' ),
                     'args'                => array_merge(
                         $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
-                        [
-                            'id' => [
+                        array(
+                            'id' => array(
                                 'type'        => 'integer',
                                 'description' => __( 'Directory listing id.', 'directorist' ),
                                 'required'    => true,
-                            ],
-                        ]
+                            ),
+                        )
                     ),
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ]
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            )
         );
 
         register_rest_route(
-            $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', [
-                'args' => [
-                    'user_id' => [
+            $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
+                'args' => array(
+                    'user_id' => array(
                         'description' => __( 'User id.', 'directorist' ),
                         'type'        => 'integer',
-                    ],
-                    'id' => [
+                    ),
+                    'id' => array(
                         'description' => __( 'Listing id.', 'directorist' ),
                         'type'        => 'integer',
-                    ],
-                ],
-                [
+                    ),
+                ),
+                array(
                     'methods'             => WP_REST_Server::DELETABLE,
-                    'callback'            => [ $this, 'delete_item' ],
-                    'permission_callback' => [ $this, 'delete_item_permissions_check' ],
-                    'args'                => [],
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ] 
+                    'callback'            => array( $this, 'delete_item' ),
+                    'permission_callback' => array( $this, 'delete_item_permissions_check' ),
+                    'args'                => array(),
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            ) 
         );
     }
 
@@ -86,7 +86,7 @@ class User_Favorites_Controller extends Abstract_Controller {
         }
 
         if ( ! $permissions ) {
-            return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to favorite resources.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to favorite resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -105,7 +105,7 @@ class User_Favorites_Controller extends Abstract_Controller {
         }
 
         if ( ! $permissions ) {
-            return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -125,7 +125,7 @@ class User_Favorites_Controller extends Abstract_Controller {
             $user = get_userdata( $id );
 
             if ( empty( $user ) ) {
-                return new WP_Error( 'directorist_rest_user_invalid', __( 'Resource does not exist.', 'directorist' ), [ 'status' => 404 ] );
+                return new WP_Error( 'directorist_rest_user_invalid', __( 'Resource does not exist.', 'directorist' ), array( 'status' => 404 ) );
             }
 
             return directorist_rest_check_user_favorite_permissions( $context, $user->ID );
@@ -161,11 +161,11 @@ class User_Favorites_Controller extends Abstract_Controller {
         $old_favorites = directorist_get_user_favorites( $user_id );
         $new_favorites = directorist_add_user_favorites( $user_id, $listing_id );
 
-        $data = [
+        $data = array(
             'id'            => $listing_id,
             'old_favorites' => $old_favorites,
             'new_favorites' => $new_favorites,
-        ];
+        );
 
         /**
          * Fires after a user favorite is created or updated via the REST API.
@@ -218,11 +218,11 @@ class User_Favorites_Controller extends Abstract_Controller {
 
         $new_favorites = directorist_get_user_favorites( $user_id );
 
-        $data = [
+        $data = array(
             'id'            => $listing_id,
             'old_favorites' => $old_favorites,
             'new_favorites' => $new_favorites,
-        ];
+        );
 
         $request->set_param( 'context', 'edit' );
         $response = $this->prepare_item_for_response( $data, $request );
@@ -272,18 +272,18 @@ class User_Favorites_Controller extends Abstract_Controller {
      * @return array
      */
     public function get_item_schema() {
-        $schema = [
+        $schema = array(
             '$schema'    => 'http://json-schema.org/draft-04/schema#',
             'title'      => 'favorites',
             'type'       => 'object',
-            'properties' => [
-                'id' => [
+            'properties' => array(
+                'id' => array(
                     'description' => __( 'User favorite listing id.', 'directorist' ),
                     'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-            ],
-        ];
+                    'context'     => array( 'view', 'edit' ),
+                ),
+            ),
+        );
 
         return $this->add_additional_fields_schema( $schema );
     }

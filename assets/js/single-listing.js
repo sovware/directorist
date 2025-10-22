@@ -217,7 +217,8 @@ function modalToggle() {
       var data = {
         action: 'atbdp_public_add_remove_favorites',
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data('listing_id')
+        post_id: $(this).data('listing_id'),
+        label: $(this).data('label')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -383,8 +384,8 @@ window.addEventListener('load', function () {
       $.each(form_data, function (index, elem) {
         data[elem.name] = elem.value;
       });
-      submit_button.prop('disabled', true);
       $.post(directorist.ajaxurl, data, function (response) {
+        submit_button.prop('disabled', false);
         if (1 == response.error) {
           atbdp_contact_submitted = false;
 
@@ -401,8 +402,7 @@ window.addEventListener('load', function () {
         setTimeout(function () {
           status_area.html('');
         }, 5000);
-      }, 'json')
-      .always(function() {
+      }, 'json').always(function () {
         submit_button.prop('disabled', false);
       });
     });

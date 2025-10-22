@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-single-listing-action directorist-social-share directorist-btn directorist-btn-sm directorist-btn-light">
 
-    <?php directorist_icon( 'las la-share-square' );?>
+    <?php directorist_icon( $icon ?? 'las la-share-square' );?>
 
-    <?php esc_html_e( 'Share', 'directorist' ); ?>
+    <?php esc_html_e( $data['label'] ?? 'Share', 'directorist' ); ?>
 
     <ul class="directorist-social-share-links">
         <?php foreach ( $listing->social_share_data() as $social ) : ?>

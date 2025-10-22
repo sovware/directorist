@@ -7,9 +7,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
-
-<?php
-foreach ( $actions as $action ) :
-    $listing->field_template( $action );
-endforeach;
-?>
+<div class="directorist-listing-single__quick-actions">
+    <?php
+    foreach ( $actions as $action ) :
+        $listing->field_template( $action );
+    endforeach;
+    ?>
+</div>

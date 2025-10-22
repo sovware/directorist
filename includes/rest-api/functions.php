@@ -119,9 +119,7 @@ function directorist_rest_upload_image_from_url( $image_url ) {
         return new WP_Error(
             'directorist_rest_invalid_remote_image_url',
             /* translators: %s: image URL */
-            sprintf( __( 'Error getting remote image %s.', 'directorist' ), $image_url ) . ' '
-            /* translators: %s: error message */
-            . sprintf( __( 'Error: %s', 'directorist' ), $file_array['tmp_name']->get_error_message() ), //phpcs:ignore Squiz.Strings.ConcatenationSpacing.PaddingFound
+            sprintf( __( 'Error getting remote image %s.', 'directorist' ), $image_url ) . ' ' . sprintf( __( 'Error: %s', 'directorist' ), $file_array['tmp_name']->get_error_message() ),
             array( 'status' => 400 )
         );
     }
@@ -132,7 +130,7 @@ function directorist_rest_upload_image_from_url( $image_url ) {
     if ( strrpos( $file_array['name'], '.' ) === false ) {
         $mime_type          = mime_content_type( $file_array['tmp_name'] );
         $_mime_types        = array_flip( $allowed_mime_types );
-        $extensions         = $_mime_types[ $mime_type ] ?? '';
+        $extensions         = isset( $_mime_types[ $mime_type ] ) ? $_mime_types[ $mime_type ] : '';
         $extensions         = explode( '|', $extensions, 2 );
         $file_array['name'] .= '.' . $extensions[0];
     }
@@ -148,7 +146,7 @@ function directorist_rest_upload_image_from_url( $image_url ) {
     );
 
     if ( isset( $file['error'] ) ) {
-        @unlink( $file_array['tmp_name'] ); // @codingStandardsIgnoreLine.
+        @unlink( $file_array['tmp_name'] ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 
         /* translators: %s: error message */
         return new WP_Error( 'directorist_rest_invalid_image', sprintf( __( 'Invalid image: %s', 'directorist' ), $file['error'] ), array( 'status' => 400 ) );
@@ -272,7 +270,6 @@ function directorist_bool_to_string( $bool ) {
     if ( ! is_bool( $bool ) ) {
         $bool = directorist_string_to_bool( $bool );
     }
-
     return true === $bool ? 'yes' : 'no';
 }
 
@@ -365,4 +362,71 @@ function directorist_rest_check_user_favorite_permissions( $context = 'read', $o
     $permission = current_user_can( $contexts[ $context ], $object_id );
 
     return apply_filters( 'directorist_rest_check_permissions', $permission, $context, $object_id, 'user_favorite' );
+}
+
+function directorist_rest_count_paid_listings( $author_id, $plan_id, $order_id, $type = 'all' ) {
+    $args = array(
+        'post_type'              => ATBDP_POST_TYPE,
+        'post_status'            => array( 'publish', 'pending' ),
+        'fields'                 => 'ids',
+        'author'                 => $author_id,
+        'update_post_term_cache' => false,
+        'nopaging'               => true,
+    );
+
+    $meta_args = array();
+
+    if ( $plan_id ) {
+        $meta_args['plan_id'] = array(
+            'key'     => '_fm_plans',
+            'value'   => $plan_id,
+            'compare' => '=',
+            'type'    => 'UNSIGNED',
+        );
+    }
+
+    if ( $order_id ) {
+        $meta_args['order_id'] = array(
+            'key'     => '_plan_order_id',
+            'value'   => $order_id,
+            'compare' => '=',
+            'type'    => 'UNSIGNED',
+        );
+    }
+
+    if ( 'featured' === $type ) {
+        $meta_args['featured'] = array(
+            'key'     => '_featured',
+            'value'   => '1',
+            'compare' => '=',
+            'type'    => 'UNSIGNED',
+        );
+    }
+
+    if ( 'regular' === $type ) {
+        $meta_args['regular'] = array(
+            'key'     => '_featured',
+            'value'   => array( '', '0' ),
+            'compare' => 'IN',
+        );
+    }
+
+    $args['meta_query'] = array_merge(
+        array(
+            'relation' => 'AND',
+        ),
+        $meta_args
+    );
+
+    $query = new WP_Query( $args );
+
+    return (int) $query->post_count;
+}
+
+function directorist_rest_count_regular_paid_listings( $author_id, $plan_id, $order_id ) {
+    return directorist_rest_count_paid_listings( $author_id, $plan_id, $order_id, 'regular' );
+}
+
+function directorist_rest_count_featured_paid_listings( $author_id, $plan_id, $order_id ) {
+    return directorist_rest_count_paid_listings( $author_id, $plan_id, $order_id, 'featured' );
 }

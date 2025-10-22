@@ -1,11 +1,11 @@
 <template>
   <div
-    class="cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
+    class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-tagline-card-wrap"
   >
     <div
-      class="cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
+      class="cptm-widget-card cptm-widget-tagline-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
     >
-      <div class="cptm-widget-title-block">
+      <div class="cptm-widget-tagline-block">
         {{ label }}
       </div>
     </div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "section-title-card-widget",
+  name: "tagline-card-widget",
   props: {
     label: {
       type: String,

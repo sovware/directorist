@@ -1651,6 +1651,16 @@ class Multi_Directory_Migration {
                 "widget_name"  => "pricing",
                 "widget_key"   => "pricing",
             ],
+            'tagline' => [
+                "type"               => "tagline",
+                "label"              => "Tagline",
+                "hook"               => "atbdp_listing_tagline",
+                "words_limit"        => get_directorist_option( 'tagline_limit', 30 ),
+                "show_readmore"      => get_directorist_option( 'display_readmore', false ),
+                "show_readmore_text" => get_directorist_option( 'readmore_text', 'Read More' ),
+                "widget_key"         => "tagline",
+                "widget_name"        => "tagline",
+            ],
             'excerpt' => [
                 "type"               => "excerpt",
                 "label"              => "Excerpt",

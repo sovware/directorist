@@ -122,7 +122,7 @@ return apply_filters(
     'atbdp_form_custom_widgets', [
         'text' => [
             'label'   => __( 'Text', 'directorist' ),
-            'icon'    => 'uil uil-text',
+            'icon'    => 'las la-text-height',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -178,7 +178,7 @@ return apply_filters(
 
         'textarea' => [
             'label'   => __( 'Textarea', 'directorist' ),
-            'icon'    => 'uil uil-align-left',
+            'icon'    => 'las la-align-left',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -239,7 +239,7 @@ return apply_filters(
 
         'number' => [
             'label'   => __( 'Number', 'directorist' ),
-            'icon'    => 'uil uil-0-plus',
+            'icon'    => 'las la-hashtag',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -322,7 +322,7 @@ return apply_filters(
 
         'url' => [
             'label'   => __( 'URL', 'directorist' ),
-            'icon'    => 'uil uil-link-add',
+            'icon'    => 'las la-link',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -383,7 +383,7 @@ return apply_filters(
 
         'date' => [
             'label'   => __( 'Date', 'directorist' ),
-            'icon'    => 'uil uil-calender',
+            'icon'    => 'la la-calendar',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -439,7 +439,7 @@ return apply_filters(
 
         'time' => [
             'label'   => __( 'Time', 'directorist' ),
-            'icon'    => 'uil uil-clock',
+            'icon'    => 'las la-clock',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -495,7 +495,7 @@ return apply_filters(
 
         'color_picker' => [
             'label'   => __( 'Color Picker', 'directorist' ),
-            'icon'    => 'uil uil-palette',
+            'icon'    => 'las la-palette',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -546,7 +546,7 @@ return apply_filters(
 
         'select' => [
             'label'   => __( 'Dropdown', 'directorist' ),
-            'icon'    => 'uil uil-file-check-alt',
+            'icon'    => 'las la-chevron-circle-down',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -614,7 +614,7 @@ return apply_filters(
 
         'checkbox' => [
             'label'   => __( 'Checkbox', 'directorist' ),
-            'icon'    => 'uil uil-check-square',
+            'icon'    => 'las la-check-square',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -682,7 +682,7 @@ return apply_filters(
 
         'radio' => [
             'label'   => __( 'Radio', 'directorist' ),
-            'icon'    => 'uil uil-circle',
+            'icon'    => 'la la-dot-circle',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -750,7 +750,7 @@ return apply_filters(
 
         'file' => [
             'label'   => __( 'File Upload', 'directorist' ),
-            'icon'    => 'uil uil-paperclip',
+            'icon'    => 'las la-paperclip',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

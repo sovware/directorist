@@ -4,11 +4,14 @@
     <form-builder-widget-group-header-component
       v-bind="$props"
       :widgets-expanded="widgetsExpandState"
+      :can-expand="canExpand"
       :can-trash="canTrashGroup"
       :draggable="canDrag"
       :current-dragging-group="currentDraggingGroup"
+      :group-key="groupKey"
       @update-group-field="$emit('update-group-field', $event)"
       @toggle-expand-widgets="toggleExpandWidgets"
+      @toggle-group-fields-expand="handleToggleGroupFieldsExpand"
       @trash-group="$emit('trash-group')"
       @drag-start="$emit('group-drag-start')"
       @drag-end="$emit('group-drag-end')"
@@ -44,6 +47,8 @@
             :group-data="groupData"
             :is-enabled-group-dragging="isEnabledGroupDragging"
             :untrashable-widgets="untrashableWidgets"
+            :is-expanded="expandedWidgetKey === widget_key"
+            @toggle-expand="handleWidgetToggleExpand(widget_key)"
             @found-untrashable-widget="
               updateDetectedUntrashableWidgets(widget_key)
             "
@@ -55,12 +60,12 @@
             @drag-end="$emit('widget-drag-end', { widget_index, widget_key })"
           />
         </draggable-list-item-wrapper>
-      </div>
 
-      <form-builder-droppable-placeholder
-        v-if="canShowWidgetDropPlaceholder"
-        @drop="$emit('append-widget')"
-      />
+        <form-builder-droppable-placeholder
+          v-if="canShowWidgetDropPlaceholder"
+          @drop="$emit('append-widget')"
+        />
+      </div>
     </slide-up-down>
   </div>
 </template>
@@ -99,17 +104,32 @@ export default {
     currentDraggingWidget: {
       default: "",
     },
+    expandedGroupKey: {
+      default: null,
+    },
+    expandedGroupFieldsKey: {
+      default: null,
+    },
   },
 
   created() {
     this.setup();
   },
 
+  watch: {
+    expandedGroupKey(newExpandedKey) {
+      // If another group was expanded, collapse this one
+      if (newExpandedKey !== null && newExpandedKey !== this.groupKey) {
+        this.widgetsExpanded = false;
+      }
+    },
+  },
+
   computed: {
     widgetsExpandState() {
       let state = this.widgetsExpanded;
 
-      if (!this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging || !this.canExpand) {
         state = false;
       }
 
@@ -139,13 +159,15 @@ export default {
       return draggable;
     },
 
+    canExpand() {
+      const expandStatus =
+        this.groupData.fields.length > 0 || this.groupData?.type === "general_group" || this.groupData?.id === "basic-search-form" || this.groupData?.id === "basic" || this.groupData?.id === "advanced-search-form" || this.groupData?.id === "advanced";
+      
+      return expandStatus;
+    },
+
     canShowWidgetDropPlaceholder() {
       let show = true;
-
-      // Others Fields Group
-      // if (this.groupData.fields && this.groupData.fields.length) {
-      //   show = false;
-      // }
 
       if (
         typeof this.groupData.type !== "undefined" &&
@@ -160,10 +182,11 @@ export default {
 
   data() {
     return {
-      widgetsExpanded: true,
+      widgetsExpanded: false,
       untrashableWidgets: {},
       activeWidgetsInfo: {},
       detectedUntrashableWidgets: [],
+      expandedWidgetKey: null,
     };
   },
 
@@ -183,15 +206,38 @@ export default {
         return;
       }
 
-      this.untrashableWidgets = this.groupSettings.disableTrashIfGroupHasWidgets;
+      this.untrashableWidgets =
+        this.groupSettings.disableTrashIfGroupHasWidgets;
     },
 
     updateDetectedUntrashableWidgets(widget_key) {
       this.detectedUntrashableWidgets.push(widget_key);
     },
 
-    toggleExpandWidgets() {
+    toggleExpandWidgets(groupKey) {
       this.widgetsExpanded = !this.widgetsExpanded;
+
+      // Emit the groupKey to parent for accordion behavior
+      if (this.widgetsExpanded) {
+        this.$emit("group-expanded", groupKey);
+      } else {
+        // Collapse all widgets when group is collapsed
+        this.expandedWidgetKey = null;
+      }
+    },
+
+    handleWidgetToggleExpand(widgetKey) {
+      // Toggle: if clicking the same widget, collapse it; otherwise expand the new one
+      if (this.expandedWidgetKey === widgetKey) {
+        this.expandedWidgetKey = null;
+      } else {
+        this.expandedWidgetKey = widgetKey;
+      }
+    },
+
+    handleToggleGroupFieldsExpand(expandedKey) {
+      // Emit to parent to handle accordion behavior for group fields
+      this.$emit("group-fields-expanded", expandedKey);
     },
 
     isDroppable(widget_index) {

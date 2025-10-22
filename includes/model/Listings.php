@@ -2246,7 +2246,7 @@ class Directorist_Listings {
             case 'popular_badge':
 
                 $field['class']         = 'popular';
-                $field['icon']          = 'fas fa-fire';
+                $field['icon']          = 'la la-fire';
                 $field['tooltip_class'] = 'directorist-badge-tooltip__popular';
                 $field['label']         = Helper::popular_badge_text();
 
@@ -2259,7 +2259,7 @@ class Directorist_Listings {
             case 'featured_badge':
 
                 $field['class']               = 'featured';
-                $field['icon']                = 'fas fa-star';
+                $field['icon']                = 'la la-star-o';
                 $field['tooltip_class']       = 'directorist-badge-tooltip__featured';
                 $field['label']               = Helper::featured_badge_text();
                 $field['featured_badge_type'] = get_directorist_option( 'feature_badge_type', 'icon_badge' );
@@ -2273,7 +2273,7 @@ class Directorist_Listings {
             case 'new_badge':
 
                 $field['class']           = 'new';
-                $field['icon']            = 'fas fa-bolt';
+                $field['icon']            = 'la la-bolt';
                 $field['tooltip_class']   = 'directorist-badge-tooltip__new';
                 $field['new_badge_type']  = get_directorist_option( 'new_badge_type', 'icon_badge' );
                 $field['new_badge_class'] = ( 'text_badge' === $field['new_badge_type'] ) ? 'directorist-badge--only-text' : '';

@@ -3626,7 +3626,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                     'enable_archive_template'    => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Enable Archive Template', 'directorist' ),
+                        'label'         => __( 'Default Archive Template', 'directorist' ),
                         'description' => __( 'Enable WordPress default archive template for category, location and tag. And this will disable the page based archive.','directorist' ),
                         'value'         => false
                     ],
@@ -3715,7 +3715,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 ],
                                             ],
                                             'listings_archive' => [
-                                                'title'       => __( 'Listings Archive', 'directorist' ),
+                                                'title'       => __( 'Taxonomy Archive', 'directorist' ),
                                                 'fields'      => [
                                                     'enable_archive_template',
                                                     'category_base',

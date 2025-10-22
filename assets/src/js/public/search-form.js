@@ -6,6 +6,218 @@ import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
 
+class ViewportAwareDropdown {
+	constructor(options = {}) {
+		this.options = {
+			dropdownClass: '.directorist-search-basic-dropdown-content',
+			triggerClass: '.directorist-search-basic-dropdown-label',
+			activeClass: 'dropdown-content-show',
+			upwardClass: 'dropdown-upward',
+			offset: 8,
+			positioningDelay: 10,
+			mutationDelay: 50,
+			animationDelay: 300,
+			...options,
+		};
+		this.observer = null;
+		this.isInitialized = false;
+		this.init();
+	}
+
+	init() {
+		if (this.isInitialized) return;
+		this.bindEvents();
+		this.setupMutationObserver();
+		this.isInitialized = true;
+	}
+
+	bindEvents() {
+		const debouncedResize = debounce(
+			() => this.updateVisibleDropdowns(),
+			100
+		);
+		const debouncedScroll = debounce(
+			() => this.updateVisibleDropdowns(),
+			50
+		);
+
+		window.addEventListener('resize', debouncedResize);
+		window.addEventListener('scroll', debouncedScroll);
+	}
+
+	positionDropdown(trigger) {
+		const dropdown = trigger.parentElement.querySelector(
+			this.options.dropdownClass
+		);
+		if (!dropdown) return;
+
+		dropdown.classList.remove(this.options.upwardClass);
+
+		const triggerRect = trigger.getBoundingClientRect();
+		const dropdownHeight = dropdown.offsetHeight;
+		const dropdownWidth = dropdown.offsetWidth;
+		const viewportHeight = window.innerHeight;
+		const viewportWidth = window.innerWidth;
+
+		const spaceBelow = viewportHeight - triggerRect.bottom;
+		const spaceAbove = triggerRect.top;
+		const spaceRight = viewportWidth - triggerRect.left;
+		const spaceLeft = triggerRect.right;
+
+		const needsUpward =
+			spaceBelow < dropdownHeight + this.options.offset &&
+			spaceAbove > spaceBelow;
+		const needsLeft = spaceRight < dropdownWidth && spaceLeft > spaceRight;
+
+		if (needsUpward) {
+			dropdown.classList.add(this.options.upwardClass);
+		}
+
+		this.setDropdownPosition(dropdown, needsUpward, needsLeft);
+	}
+
+	setDropdownPosition(dropdown, upward, left) {
+		const isRTL =
+			document.dir === 'rtl' || document.documentElement.dir === 'rtl';
+
+		Object.assign(dropdown.style, {
+			position: 'absolute',
+			top: upward ? '' : '100%',
+			bottom: upward ? '100%' : '',
+			left: (left && !isRTL) || (!left && isRTL) ? 'auto' : '0',
+			right: (left && !isRTL) || (!left && isRTL) ? '0' : 'auto',
+			transform: '',
+			[upward ? 'marginBottom' : 'marginTop']: `${this.options.offset}px`,
+		});
+	}
+
+	updateVisibleDropdowns() {
+		const visibleDropdowns = document.querySelectorAll(
+			`${this.options.dropdownClass}.${this.options.activeClass}`
+		);
+
+		visibleDropdowns.forEach((dropdown) => {
+			const trigger = dropdown.parentElement.querySelector(
+				this.options.triggerClass
+			);
+			if (trigger) {
+				this.positionDropdown(trigger);
+			}
+		});
+	}
+
+	setupMutationObserver() {
+		if (this.observer) return;
+
+		this.observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (
+					mutation.type === 'attributes' &&
+					mutation.attributeName === 'class'
+				) {
+					const target = mutation.target;
+					if (
+						target.classList.contains(this.options.dropdownClass) &&
+						target.classList.contains(this.options.activeClass)
+					) {
+						const trigger = target.parentElement.querySelector(
+							this.options.triggerClass
+						);
+						if (trigger) {
+							setTimeout(
+								() => this.positionDropdown(trigger),
+								this.options.mutationDelay
+							);
+						}
+					}
+				}
+
+				if (mutation.type === 'childList') {
+					mutation.addedNodes.forEach((node) => {
+						if (node.nodeType === Node.ELEMENT_NODE) {
+							const dropdowns = node.querySelectorAll
+								? node.querySelectorAll(
+										this.options.dropdownClass
+									)
+								: node.matches &&
+									  node.matches(this.options.dropdownClass)
+									? [node]
+									: [];
+
+							dropdowns.forEach((dropdown) => {
+								const trigger =
+									dropdown.parentElement.querySelector(
+										this.options.triggerClass
+									);
+								if (trigger) {
+									this.attachDropdownEvents(trigger);
+								}
+							});
+						}
+					});
+				}
+			});
+		});
+
+		this.observer.observe(document.body, {
+			childList: true,
+			subtree: true,
+			attributes: true,
+			attributeFilter: ['class'],
+		});
+	}
+
+	attachDropdownEvents(trigger) {
+		if (trigger.dataset.viewportDropdownAttached) return;
+
+		trigger.addEventListener('click', (e) => {
+			setTimeout(
+				() => this.positionDropdown(e.target),
+				this.options.positioningDelay
+			);
+		});
+
+		trigger.dataset.viewportDropdownAttached = 'true';
+	}
+
+	initializeAllDropdowns() {
+		const allTriggers = document.querySelectorAll(
+			this.options.triggerClass
+		);
+
+		allTriggers.forEach((trigger) => {
+			this.attachDropdownEvents(trigger);
+		});
+	}
+
+	position(trigger) {
+		const element =
+			typeof trigger === 'string'
+				? document.querySelector(trigger)
+				: trigger;
+		if (element) this.positionDropdown(element);
+	}
+
+	updateOptions(newOptions) {
+		Object.assign(this.options, newOptions);
+	}
+
+	destroy() {
+		if (this.observer) {
+			this.observer.disconnect();
+			this.observer = null;
+		}
+		this.isInitialized = false;
+	}
+}
+
+const viewportDropdown = new ViewportAwareDropdown();
+
+// Initialize all dropdowns when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+	viewportDropdown.initializeAllDropdowns();
+});
+
 (function ($) {
 	window.addEventListener('load', () => {
 		//Remove Preload after Window Load
@@ -145,6 +357,9 @@ import './components/directoristSelect';
 				if (dropDownContent.hasClass('dropdown-content-show')) {
 					dropDownParent.addClass('input-is-focused');
 					dropDownContent.slideDown();
+					setTimeout(() => {
+						viewportDropdown.position(this);
+					}, viewportDropdown.options.animationDelay);
 				} else {
 					dropDownParent.removeClass('input-is-focused');
 					dropDownContent.slideUp();
@@ -154,8 +369,13 @@ import './components/directoristSelect';
 					'.directorist-search-basic-dropdown-content.dropdown-content-show'
 				)
 					.not(dropDownContent)
-					.removeClass('dropdown-content-show')
-					.slideUp();
+					.each(function () {
+						$(this)
+							.removeClass(
+								'dropdown-content-show dropdown-upward'
+							)
+							.slideUp();
+					});
 			}
 		);
 
@@ -172,9 +392,14 @@ import './components/directoristSelect';
 			);
 
 			if (!dropDownRoot.length) {
-				dropDownParent.removeClass('input-is-focused');
-				dropDownContent.removeClass('dropdown-content-show');
-				dropDownContent.slideUp();
+				dropDownParent.each(function () {
+					$(this).removeClass('input-is-focused');
+				});
+				dropDownContent.each(function () {
+					$(this)
+						.removeClass('dropdown-content-show dropdown-upward')
+						.slideUp();
+				});
 			}
 		});
 

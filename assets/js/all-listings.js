@@ -1802,8 +1802,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var view = form_data.view;
     var paged = form_data.paged;
 
-    // Get directory type
-    var directory_type = searchElm.find('input[name="directory_type"]').val();
+    // Get directory type - look in the parent container to ensure it's found regardless of form
+    var directory_type = searchElm.find('input[name="directory_type"]').val() || searchElm.closest('.directorist-instant-search').find('input[name="directory_type"]').val();
 
     // Update form_data
     updateFormData({
@@ -1963,12 +1963,40 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   }
 
-  // Determine the active form
+  // Determine the active form with intelligent fallback strategy
   function getActiveForm(instantSearchElement) {
-    var sidebarListing = instantSearchElement.find('.listing-with-sidebar');
-    var advancedForm = instantSearchElement.find('.directorist-advanced-filter__form');
-    var searchForm = instantSearchElement.find('.directorist-search-form');
-    return sidebarListing.length ? instantSearchElement : screen.width > 575 ? advancedForm : searchForm;
+    var forms = {
+      sidebar: instantSearchElement.find('.listing-with-sidebar'),
+      advanced: instantSearchElement.find('.directorist-advanced-filter__form'),
+      search: instantSearchElement.find('.directorist-search-form')
+    };
+
+    // Early return for sidebar listings
+    if (forms.sidebar.length) {
+      return instantSearchElement;
+    }
+
+    // Create form candidates with metadata
+    var candidates = [{
+      form: forms.advanced,
+      hasDirectoryType: forms.advanced.find('input[name="directory_type"]').length > 0
+    }, {
+      form: forms.search,
+      hasDirectoryType: forms.search.find('input[name="directory_type"]').length > 0
+    }].filter(function (candidate) {
+      return candidate.form.length > 0;
+    });
+
+    // Smart selection: prioritize forms with directory_type, fallback to responsive behavior
+    var formWithDirectoryType = candidates.find(function (c) {
+      return c.hasDirectoryType;
+    });
+    if (formWithDirectoryType) {
+      return formWithDirectoryType.form;
+    }
+
+    // Fallback: use responsive selection if no directory_type found
+    return screen.width > 575 ? forms.advanced : forms.search;
   }
 
   // Get directory type

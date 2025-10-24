@@ -1687,7 +1687,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         if (key.startsWith('custom-number') && val === '0-0') {
           return;
         }
-        appendQuery(key, val);
+
+        // Handle multiple values (arrays or comma-separated strings)
+        var values = Array.isArray(val) ? val : typeof val === "string" && val.includes(",") ? val.split(",") : [val];
+        values.forEach(function (singleVal) {
+          var formattedKey = key.startsWith("custom-checkbox") ? "custom_field%5B".concat(key, "%5D%5B%5D") : "custom_field%5B".concat(key, "%5D");
+          appendQuery(formattedKey, singleVal);
+        });
       });
     }
     var finalUrl = query ? newurl + query : newurl;

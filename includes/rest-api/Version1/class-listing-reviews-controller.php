@@ -35,35 +35,35 @@ class Listing_Reviews_Controller extends Abstract_Controller {
      */
     public function register_routes() {
         register_rest_route(
-            $this->namespace, '/' . $this->rest_base, [
-                [
+            $this->namespace, '/' . $this->rest_base, array(
+                array(
                     'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_items' ],
-                    'permission_callback' => [ $this, 'get_items_permissions_check' ],
+                    'callback'            => array( $this, 'get_items' ),
+                    'permission_callback' => array( $this, 'get_items_permissions_check' ),
                     'args'                => $this->get_collection_params(),
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ]
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            )
         );
 
         register_rest_route(
-            $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', [
-                'args'   => [
-                    'id' => [
+            $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
+                'args'   => array(
+                    'id' => array(
                         'description' => __( 'Unique identifier for the resource.', 'directorist' ),
                         'type'        => 'integer',
-                    ],
-                ],
-                [
+                    ),
+                ),
+                array(
                     'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'get_item_permissions_check' ],
-                    'args'                => [
-                        'context' => $this->get_context_param( [ 'default' => 'view' ] ),
-                    ],
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ]
+                    'callback'            => array( $this, 'get_item' ),
+                    'permission_callback' => array( $this, 'get_item_permissions_check' ),
+                    'args'                => array(
+                        'context' => $this->get_context_param( array( 'default' => 'view' ) ),
+                    ),
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            )
         );
     }
 
@@ -75,7 +75,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
      */
     public function get_items_permissions_check( $request ) {
         if ( ! directorist_rest_check_listing_reviews_permissions( 'read' ) ) {
-            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -92,7 +92,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
         $review = get_comment( $id );
 
         if ( $review && ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
-            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -114,7 +114,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
          * name equivalents (some are the same). Only values which are also
          * present in $registered will be set.
          */
-        $parameter_mappings = [
+        $parameter_mappings = array(
             'reviewer'         => 'author__in',
             'reviewer_email'   => 'author_email',
             'reviewer_exclude' => 'author__not_in',
@@ -126,9 +126,9 @@ class Listing_Reviews_Controller extends Abstract_Controller {
             'listing'          => 'post__in',
             'search'           => 'search',
             'status'           => 'status',
-        ];
+        );
 
-        $prepared_args = [];
+        $prepared_args = array();
 
         /*
          * For each known parameter which is both registered and present in the request,
@@ -141,7 +141,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
         }
 
         // Ensure certain parameter values default to empty strings.
-        foreach ( [ 'author_email', 'search' ] as $param ) {
+        foreach ( array( 'author_email', 'search' ) as $param ) {
             if ( ! isset( $prepared_args[ $param ] ) ) {
                 $prepared_args[ $param ] = '';
             }
@@ -156,7 +156,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
         }
 
         $prepared_args['no_found_rows'] = false;
-        $prepared_args['date_query']    = [];
+        $prepared_args['date_query']    = array();
 
         // Set before into date query. Date query must be specified as an array of an array.
         if ( isset( $registered['before'], $request['before'] ) ) {
@@ -190,7 +190,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
         // Query reviews.
         $query        = new WP_Comment_Query();
         $query_result = $query->query( $prepared_args );
-        $reviews      = [];
+        $reviews      = array();
 
         foreach ( $query_result as $review ) {
             if ( ! directorist_rest_check_listing_reviews_permissions( 'read', $review->comment_ID ) ) {
@@ -281,7 +281,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
     public function prepare_item_for_response( $review, $request ) {
         $context = ! empty( $request['context'] ) ? $request['context'] : 'view';
         $fields  = $this->get_fields_for_response( $request );
-        $data    = [];
+        $data    = array();
 
         if ( in_array( 'id', $fields, true ) ) {
             $data['id'] = (int) $review->comment_ID;
@@ -325,7 +325,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 
             if ( $avatar_img ) {
                 $avatar_sizes = rest_get_avatar_sizes();
-                $urls         = [];
+                $urls         = array();
 
                 foreach ( $avatar_sizes as $size ) {
                     $urls[ $size ] = $avatar_img;
@@ -362,26 +362,26 @@ class Listing_Reviews_Controller extends Abstract_Controller {
      * @return array Links for the given listing review.
      */
     protected function prepare_links( $review ) {
-        $links = [
-            'self'       => [
+        $links = array(
+            'self'       => array(
                 'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $review->id ) ),
-            ],
-            'collection' => [
+            ),
+            'collection' => array(
                 'href' => rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ),
-            ],
-        ];
+            ),
+        );
 
         if ( 0 !== (int) $review->post_id ) {
-            $links['up'] = [
+            $links['up'] = array(
                 'href' => rest_url( sprintf( '/%s/listings/%d', $this->namespace, $review->post_id ) ),
-            ];
+            );
         }
 
         if ( 0 !== (int) $review->user_id ) {
-            $links['reviewer'] = [
+            $links['reviewer'] = array(
                 'href'       => rest_url( 'directorist/v1/users/' . $review->user_id ),
                 'embeddable' => true,
-            ];
+            );
         }
 
         return $links;
@@ -393,88 +393,88 @@ class Listing_Reviews_Controller extends Abstract_Controller {
      * @return array
      */
     public function get_item_schema() {
-        $schema = [
+        $schema = array(
             '$schema'    => 'http://json-schema.org/draft-04/schema#',
             'title'      => 'listing_review',
             'type'       => 'object',
-            'properties' => [
-                'id'               => [
+            'properties' => array(
+                'id'               => array(
                     'description' => __( 'Unique identifier for the resource.', 'directorist' ),
                     'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
+                    'context'     => array( 'view', 'edit' ),
                     'readonly'    => true,
-                ],
-                'date_created'     => [
+                ),
+                'date_created'     => array(
                     'description' => __( "The date the review was created, in the site's timezone.", 'directorist' ),
                     'type'        => 'date-time',
-                    'context'     => [ 'view', 'edit' ],
+                    'context'     => array( 'view', 'edit' ),
                     'readonly'    => true,
-                ],
-                'date_created_gmt' => [
+                ),
+                'date_created_gmt' => array(
                     'description' => __( 'The date the review was created, as GMT.', 'directorist' ),
                     'type'        => 'date-time',
-                    'context'     => [ 'view', 'edit' ],
+                    'context'     => array( 'view', 'edit' ),
                     'readonly'    => true,
-                ],
-                'listing_id'       => [
+                ),
+                'listing_id'       => array(
                     'description' => __( 'Unique identifier for the listing that the review belongs to.', 'directorist' ),
                     'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'status'           => [
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'status'           => array(
                     'description' => __( 'Status of the review.', 'directorist' ),
                     'type'        => 'string',
                     'default'     => 'approved',
-                    'enum'        => [ 'approved', 'hold', 'spam', 'unspam', 'trash', 'untrash' ],
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'reviewer'         => [
+                    'enum'        => array( 'approved', 'hold', 'spam', 'unspam', 'trash', 'untrash' ),
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'reviewer'         => array(
                     'description' => __( 'Reviewer name.', 'directorist' ),
                     'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'reviewer_email'   => [
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'reviewer_email'   => array(
                     'description' => __( 'Reviewer email.', 'directorist' ),
                     'type'        => 'string',
                     'format'      => 'email',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'review'           => [
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'review'           => array(
                     'description' => __( 'The content of the review.', 'directorist' ),
                     'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                    'arg_options' => [
+                    'context'     => array( 'view', 'edit' ),
+                    'arg_options' => array(
                         'sanitize_callback' => 'wp_filter_post_kses',
-                    ],
-                ],
-                'rating'           => [
+                    ),
+                ),
+                'rating'           => array(
                     'description' => __( 'Review rating (0 to 5).', 'directorist' ),
                     'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-            ],
-        ];
+                    'context'     => array( 'view', 'edit' ),
+                ),
+            ),
+        );
 
         // if ( get_option( 'show_avatars' ) ) {
-            $avatar_properties = [];
+            $avatar_properties = array();
             $avatar_sizes      = rest_get_avatar_sizes();
 
         foreach ( $avatar_sizes as $size ) {
-            $avatar_properties[ $size ] = [
+            $avatar_properties[ $size ] = array(
                 /* translators: %d: avatar image size in pixels */
                 'description' => sprintf( __( 'Avatar URL with image size of %d pixels.', 'directorist' ), $size ),
                 'type'        => 'string',
                 'format'      => 'uri',
-                'context'     => [ 'embed', 'view', 'edit' ],
-            ];
+                'context'     => array( 'embed', 'view', 'edit' ),
+            );
         }
-            $schema['properties']['reviewer_avatar_urls'] = [
+            $schema['properties']['reviewer_avatar_urls'] = array(
                 'description' => __( 'Avatar URLs for the object reviewer.', 'directorist' ),
                 'type'        => 'object',
-                'context'     => [ 'view', 'edit' ],
+                'context'     => array( 'view', 'edit' ),
                 'readonly'    => true,
                 'properties'  => $avatar_properties,
-            ];
+            );
             // }
 
             return $this->add_additional_fields_schema( $schema );
@@ -492,98 +492,98 @@ class Listing_Reviews_Controller extends Abstract_Controller {
 
         $params['per_page']['default'] = get_directorist_option( 'review_num', 5 );
 
-        $params['after']            = [
+        $params['after']            = array(
             'description' => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'directorist' ),
             'type'        => 'string',
             'format'      => 'date-time',
-        ];
-        $params['before']           = [
+        );
+        $params['before']           = array(
             'description' => __( 'Limit response to reviews published before a given ISO8601 compliant date.', 'directorist' ),
             'type'        => 'string',
             'format'      => 'date-time',
-        ];
-        $params['exclude']          = [
+        );
+        $params['exclude']          = array(
             'description' => __( 'Ensure result set excludes specific IDs.', 'directorist' ),
             'type'        => 'array',
-            'items'       => [
+            'items'       => array(
                 'type' => 'integer',
-            ],
-            'default'     => [],
-        ];
-        $params['include']          = [
+            ),
+            'default'     => array(),
+        );
+        $params['include']          = array(
             'description' => __( 'Limit result set to specific IDs.', 'directorist' ),
             'type'        => 'array',
-            'items'       => [
+            'items'       => array(
                 'type' => 'integer',
-            ],
-            'default'     => [],
-        ];
-        $params['offset']           = [
+            ),
+            'default'     => array(),
+        );
+        $params['offset']           = array(
             'description' => __( 'Offset the result set by a specific number of items.', 'directorist' ),
             'type'        => 'integer',
-        ];
-        $params['order']            = [
+        );
+        $params['order']            = array(
             'description' => __( 'Order sort attribute ascending or descending.', 'directorist' ),
             'type'        => 'string',
             'default'     => 'desc',
-            'enum'        => [
+            'enum'        => array(
                 'asc',
                 'desc',
-            ],
-        ];
-        $params['orderby']          = [
+            ),
+        );
+        $params['orderby']          = array(
             'description' => __( 'Sort collection by object attribute.', 'directorist' ),
             'type'        => 'string',
             'default'     => 'date_gmt',
-            'enum'        => [
+            'enum'        => array(
                 'date',
                 'date_gmt',
                 'id',
                 'include',
                 'listing',
-            ],
-        ];
-        $params['reviewer']         = [
+            ),
+        );
+        $params['reviewer']         = array(
             'description' => __( 'Limit result set to reviews assigned to specific user IDs.', 'directorist' ),
             'type'        => 'array',
-            'items'       => [
+            'items'       => array(
                 'type' => 'integer',
-            ],
-        ];
-        $params['reviewer_exclude'] = [
+            ),
+        );
+        $params['reviewer_exclude'] = array(
             'description' => __( 'Ensure result set excludes reviews assigned to specific user IDs.', 'directorist' ),
             'type'        => 'array',
-            'items'       => [
+            'items'       => array(
                 'type' => 'integer',
-            ],
-        ];
-        $params['reviewer_email']   = [
+            ),
+        );
+        $params['reviewer_email']   = array(
             'default'     => null,
             'description' => __( 'Limit result set to that from a specific author email.', 'directorist' ),
             'format'      => 'email',
             'type'        => 'string',
-        ];
-        $params['listing']          = [
-            'default'     => [],
+        );
+        $params['listing']          = array(
+            'default'     => array(),
             'description' => __( 'Limit result set to reviews assigned to specific listing IDs.', 'directorist' ),
             'type'        => 'array',
-            'items'       => [
+            'items'       => array(
                 'type' => 'integer',
-            ],
-        ];
-        $params['status']           = [
+            ),
+        );
+        $params['status']           = array(
             'default'           => 'approved',
             'description'       => __( 'Limit result set to reviews assigned a specific status.', 'directorist' ),
             'sanitize_callback' => 'sanitize_key',
             'type'              => 'string',
-            'enum'              => [
+            'enum'              => array(
                 'all',
                 'hold',
                 'approved',
                 'spam',
                 'trash',
-            ],
-        ];
+            ),
+        );
 
         /**
          * Filter collection parameters for the reviews controller.
@@ -605,7 +605,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
      */
     protected function get_review( $id ) {
         $id    = (int) $id;
-        $error = new WP_Error( 'directorist_rest_review_invalid_id', __( 'Invalid review ID.', 'directorist' ), [ 'status' => 404 ] );
+        $error = new WP_Error( 'directorist_rest_review_invalid_id', __( 'Invalid review ID.', 'directorist' ), array( 'status' => 404 ) );
 
         if ( 0 >= $id ) {
             return $error;
@@ -620,7 +620,7 @@ class Listing_Reviews_Controller extends Abstract_Controller {
             $post = get_post( (int) $review->comment_post_ID );
 
             if ( ATBDP_POST_TYPE !== get_post_type( (int) $review->comment_post_ID ) ) {
-                return new WP_Error( 'directorist_rest_listing_invalid_id', __( 'Invalid listing ID.', 'directorist' ), [ 'status' => 404 ] );
+                return new WP_Error( 'directorist_rest_listing_invalid_id', __( 'Invalid listing ID.', 'directorist' ), array( 'status' => 404 ) );
             }
         }
 

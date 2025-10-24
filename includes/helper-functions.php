@@ -1705,6 +1705,11 @@ function directorist_clean_post( $var ) {
     if ( is_array( $var ) ) {
         return array_map( 'directorist_clean_post', $var );
     } else {
+        // Allow SVG tags for icon content
+        if ( is_scalar( $var ) && is_string( $var ) && ( strpos( $var, '<svg' ) !== false || strpos( $var, '<path' ) !== false ) ) {
+            // Use wp_kses with custom allowed HTML that includes SVG tags
+            return wp_kses( $var, directorist_get_svg_allowed_html() );
+        }
         return is_scalar( $var ) ? wp_kses_post( $var ) : $var;
     }
 }
@@ -2208,7 +2213,7 @@ if ( ! function_exists( 'tract_duplicate_review' ) ) {
 }
 
 function search_category_location_filter( $settings, $taxonomy_id, $prefix = '' ) {
-    $lazy_load_taxonomy_fields = get_directorist_option( 'lazy_load_taxonomy_fields', false, true );
+    $lazy_load_taxonomy_fields = false;
 
     if ( ! empty( $lazy_load_taxonomy_fields ) ) {
         return '';
@@ -3810,6 +3815,113 @@ function directorist_get_allowed_attributes() {
 }
 
 /**
+ * Get allowed HTML tags for SVG content
+ *
+ * @return array
+ */
+function directorist_get_svg_allowed_html() {
+    $allowed_html = wp_kses_allowed_html( 'post' );
+    
+    // Add SVG-specific tags and attributes
+    $allowed_html['svg'] = [
+        'xmlns'       => [],
+        'width'       => [],
+        'height'      => [],
+        'viewBox'     => [],
+        'fill'        => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+        'role'        => [],
+        'aria-label'  => [],
+        'aria-hidden' => [],
+    ];
+    
+    $allowed_html['path'] = [
+        'd'           => [],
+        'fill'        => [],
+        'fill-rule'   => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'stroke-linecap' => [],
+        'stroke-linejoin' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['circle'] = [
+        'cx'          => [],
+        'cy'          => [],
+        'r'           => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['rect'] = [
+        'x'           => [],
+        'y'           => [],
+        'width'       => [],
+        'height'      => [],
+        'rx'          => [],
+        'ry'          => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['line'] = [
+        'x1'          => [],
+        'y1'          => [],
+        'x2'          => [],
+        'y2'          => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['polygon'] = [
+        'points'      => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['polyline'] = [
+        'points'      => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['g'] = [
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    return apply_filters( 'directorist_svg_allowed_html', $allowed_html );
+}
+
+/**
  * Directorist get allowed form input tags
  *
  * @return array
@@ -4436,7 +4548,7 @@ function directorist_delete_dir( $dir ) {
  */
 function directorist_delete_temporary_upload_dirs() {
     $upload_dir = wp_get_upload_dir();
-    $temp_dir   = trailingslashit( $upload_dir['basedir'] ) . 'directorist_temp_uploads/';
+    $temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() );
 
     if ( ! file_exists( $temp_dir ) ) {
         return;
@@ -4457,6 +4569,10 @@ function directorist_delete_temporary_upload_dirs() {
             }
         }
     }
+}
+
+function directorist_get_temp_upload_dir() {
+    return 'directorist_temp_uploads';
 }
 
 /**
@@ -4770,7 +4886,83 @@ function directorist_get_listing_gallery_images( $listing_id = 0 ) {
     return $images;
 }
 
+function directorist_is_guest_user( $user_id = 0 ) {
+    $user_type = get_user_meta( $user_id, '_user_type', true );
+
+    return ( 'guest' === $user_type );
+}
+
 function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );
+}
+
+/**
+ * Check if archive template is enabled
+ *
+ * @since 8.5
+ * @return bool True if archive template is enabled, false otherwise
+ */
+function directorist_is_archive_template_enabled() {
+    return (bool) get_directorist_option( 'enable_archive_template', false );
+}
+
+/**
+ * Get default category base slug
+ *
+ * @since 8.5
+ * @return string Category base slug
+ */
+function directorist_get_default_category_base() {
+    return apply_filters( 'directorist_default_category_base', 'single-category' );
+}
+
+/**
+ * Get default location base slug
+ *
+ * @since 8.5
+ * @return string Location base slug
+ */
+function directorist_get_default_location_base() {
+    return apply_filters( 'directorist_default_location_base', 'single-location' );
+}
+
+/**
+ * Get default tag base slug
+ *
+ * @since 8.5
+ * @return string Tag base slug
+ */
+function directorist_get_default_tag_base() {
+    return apply_filters( 'directorist_default_tag_base', 'single-tag' );
+}
+
+/**
+ * Get category base slug
+ *
+ * @since 8.5
+ * @return string Category base slug
+ */
+function directorist_get_category_base() {
+    return get_directorist_option( 'category_base', directorist_get_default_category_base() );
+}
+
+/**
+ * Get location base slug
+ *
+ * @since 8.5
+ * @return string Location base slug
+ */
+function directorist_get_location_base() {
+    return get_directorist_option( 'location_base', directorist_get_default_location_base() );
+}
+
+/**
+ * Get tag base slug
+ *
+ * @since 8.5
+ * @return string Tag base slug
+ */
+function directorist_get_tag_base() {
+    return get_directorist_option( 'tag_base', directorist_get_default_tag_base() );
 }

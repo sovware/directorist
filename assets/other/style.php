@@ -228,56 +228,6 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
     }
 
     /*
-        Badge Colors
-          - Badge Open
-          - Badge Closed
-          - Badge Featured
-          - Badge Popular
-          - Badge New
-    */
-    /* Badge Open */
-    .atbd_bg-success i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open i::after, .directorist-badge-open {
-        background: var(--directorist-color-open-badge) !important;
-    }
-
-    /* Badge Closed */
-    .atbd_bg-danger i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close i::after, .directorist-badge-close, .directorist-badge.directorist-badge-danger   {
-        background: var(--directorist-color-closed-badge) !important;
-    }
-
-    /* Badge Featured */
-    .atbd_bg-badge-feature i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after {
-        background: var(--directorist-color-featured-badge) !important;
-    }
-
-    /* Badge Popular */
-    .atbd_bg-badge-popular i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular i::after, .directorist-listing-single .directorist-badge.directorist-badge-popular i::after {
-        background: var(--directorist-color-popular-badge) !important;
-    }
-
-    /* Badge New */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new i::after {
-        background: var(--directorist-color-new-badge) !important;
-    }
-
-    /*
         Change default primary dark background
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,

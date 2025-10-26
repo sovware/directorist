@@ -1,0 +1,57 @@
+name: Build Development & Release
+
+on:
+  push:
+    branches:
+      - live-workflow-update
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy - development-live.com
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@master
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.DEVELOPMENT_LIVE_FTP_SERVER }}
+        username: ${{ secrets.DEVELOPMENT_LIVE_FTP_USER }}
+        password: ${{ secrets.DEVELOPMENT_LIVE_FTP_PASS }}
+        server-dir: ${{ secrets.DEVELOPMENT_LIVE_FTP_PATH }}
+        exclude: |
+            node_modules/**
+            readme.txt
+            todo.txt
+            webpack.*.js
+            **/Gruntfile.js
+            **/.*
+            **/.git/**
+            **/.github/**
+            **/.husky/**
+            **/dev-*/**
+            **/*-test/**
+            **/*-beta/**
+            **/scss/**
+            **/sass/**
+            **/build/*.txt
+            **/*.map
+            **/*.config
+            **/*.config.js
+            **/package.json
+            **/package-lock.json
+            **/tsconfig.json
+            **/mix-manifest.json
+            **/phpcs.xml
+            **/composer.json
+            **/composer.lock
+            **/*.md
+            **/*.mix.js
+            **/none
+            **/artisan
+            **/phpcs-report.xml
+            **/LICENSE
+            **/Installable
+            **/tests
+            **/yarn.lock

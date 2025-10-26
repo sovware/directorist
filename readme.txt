@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.8
+Stable tag: 8.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -287,12 +287,37 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.4.8 - Oct 5, 2025 =
+= 8.5 - Oct 27, 2025 =
+
+**New**
+- Migrated category, location, and tag pages to use default WordPress taxonomy archive pages, ensuring better SEO compatibility, cleaner URLs, and improved hierarchy handling. (#2514)
+- Added comprehensive REST API improvements: new v2 endpoints for listings (create/edit/delete), upgraded plan and order read endpoints, builder tab endpoint support and a temporary media upload endpoint. (#2529)
+
+**Changed**
+- Builder Enhancement: Improved Search Form, Add Listing Form, Single Listing Header, and Card Widget System for better customization and flexibility. (#2522)
+
+**Fixed**
+ - Taxonomy hierarchy issue. (#2548)
+ - Issue where the directory type was not applied correctly when performing a search without using the advanced search field. (#2544)
+ - Aboutt/Bio field required issue on the signup page. (#2543)
+ - Undefined value issue in icon picker input field. (#2545)
+ - Dashboard single item position placement issue. (#2541)
+ - Viewport-aware dropdown system that auto-positions dropdowns up or down based on available space, preventing clipping. (#2537)
+ - Ensured directory_type parameter consistency in pagination across all screen sizes. (#2530)
+
+= 8.4.9 - Oct 13, 2025 =
+
+**Security**
+- Fixed: Enhanced file upload security with improved filename sanitization to prevent potential file manipulation
+
+= 8.4.8 - Oct 8, 2025 =
 
 **Changed**
 - Added hooks to control dashboard and login page redirects. (#2521)
 - Added hooks to the contact owner form. (#2516)
+- Added “Recover Password” option in the guest login modal. (#2532)
 - Improved mobile experience by keeping the Add Listing accordion expanded. (#2517)
+- Improved thumbnail responsiveness for small screens. (#2526)
 
 **Fixed**
  - Improved highlight for the select input list. (#2485)
@@ -304,6 +329,8 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Bricks Builder integration for custom single listing pages. (#2484)
  - Fixed price range issue. (#2509)
  - Fixed multiple JavaScript issues in the contact owner form, including form reset, alert colors, button re-enable, and correct callback response handling. (#2516)
+ - Fixed select item not clickable issue. (#2531)
+ - Fixed builder settings not working properly in the review template. (#2528)
 
 = 8.4.7 - Sep 9, 2025 =
 - Tweak JS and CSS

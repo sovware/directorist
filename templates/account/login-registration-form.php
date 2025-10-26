@@ -338,7 +338,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
                                 echo esc_html( $bio );
                                 echo ( ! empty( $require_bio ) && 'yes' == $require_bio ? '<strong class="directorist-form-required">*</strong>' : '' );
                             ?></label>
-                            <textarea id="directorist__authentication__signup__bio" class="directorist-form-element" name="bio" rows="10" placeholder="<?php echo esc_html( $bio ); ?>" <?php echo ( ! empty( $require_bio ) ? 'required' : '' ); ?>><?php echo isset( $_REQUEST['bio'] ) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
+                            <textarea id="directorist__authentication__signup__bio" class="directorist-form-element" name="bio" rows="10" placeholder="<?php echo esc_html( $bio ); ?>" <?php echo ( ! empty( $require_bio ) && 'yes' == $require_bio ? 'required' : '' ); ?>><?php echo isset( $_REQUEST['bio'] ) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
                         </div>
                         <?php } ?>
 

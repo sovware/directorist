@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <?php directorist_icon( $icon ); ?>
         <span class="directorist-badge-tooltip <?php echo esc_attr( $tooltip_class ); ?>"><?php echo esc_html( $label ); ?></span>
     <?php else : ?>
+        <?php directorist_icon( $icon ); ?>
         <?php echo esc_html( $label ); ?>
     <?php endif; ?>
 </span>

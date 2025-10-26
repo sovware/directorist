@@ -1690,9 +1690,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }
 
         // Handle multiple values (arrays or comma-separated strings)
-        var values = Array.isArray(val) ? val : typeof val === "string" && val.includes(",") ? val.split(",") : [val];
+        var values = Array.isArray(val) ? val : typeof val === 'string' && val.includes(',') ? val.split(',') : [val];
         values.forEach(function (singleVal) {
-          var formattedKey = key.startsWith("custom-checkbox") ? "custom_field%5B".concat(key, "%5D%5B%5D") : "custom_field%5B".concat(key, "%5D");
+          var formattedKey = key.startsWith('custom-checkbox') ? "custom_field%5B".concat(key, "%5D%5B%5D") : "custom_field%5B".concat(key, "%5D");
           appendQuery(formattedKey, singleVal);
         });
       });

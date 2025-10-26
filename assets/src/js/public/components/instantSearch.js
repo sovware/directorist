@@ -328,15 +328,15 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 
 				// Handle multiple values (arrays or comma-separated strings)
 				const values = Array.isArray(val)
-				? val
-				: typeof val === "string" && val.includes(",")
-				  ? val.split(",")
-				  : [val];
-	  
+					? val
+					: typeof val === 'string' && val.includes(',')
+						? val.split(',')
+						: [val];
+
 				values.forEach((singleVal) => {
-					const formattedKey = key.startsWith("custom-checkbox")
-					? `custom_field%5B${key}%5D%5B%5D`
-					: `custom_field%5B${key}%5D`;
+					const formattedKey = key.startsWith('custom-checkbox')
+						? `custom_field%5B${key}%5D%5B%5D`
+						: `custom_field%5B${key}%5D`;
 					appendQuery(formattedKey, singleVal);
 				});
 			});

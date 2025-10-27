@@ -1800,13 +1800,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
     // Collect custom range slider min/max values
     var range_slider_values = {};
-    searchElm.find('.directorist-custom-range-slider__value__min').each(function () {
+    searchElm.find('.directorist-custom-range-slider__text.directorist-custom-range-slider__value__min').each(function () {
       var minVal = $(this).val();
       if (minVal && minVal !== '0') {
         range_slider_values['directorist-custom-range-slider__value__min'] = minVal;
       }
     });
-    searchElm.find('.directorist-custom-range-slider__value__max').each(function () {
+    searchElm.find('.directorist-custom-range-slider__text.directorist-custom-range-slider__value__max').each(function () {
       var maxVal = $(this).val();
       if (maxVal && maxVal !== '0') {
         range_slider_values['directorist-custom-range-slider__value__max'] = maxVal;

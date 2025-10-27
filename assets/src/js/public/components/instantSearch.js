@@ -459,7 +459,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		// Collect custom range slider min/max values
 		let range_slider_values = {};
 		searchElm
-			.find('.directorist-custom-range-slider__value__min')
+			.find('.directorist-custom-range-slider__text.directorist-custom-range-slider__value__min')
 			.each(function () {
 				const minVal = $(this).val();
 				if (minVal && minVal !== '0') {
@@ -469,7 +469,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 				}
 			});
 		searchElm
-			.find('.directorist-custom-range-slider__value__max')
+			.find('.directorist-custom-range-slider__text.directorist-custom-range-slider__value__max')
 			.each(function () {
 				const maxVal = $(this).val();
 				if (maxVal && maxVal !== '0') {

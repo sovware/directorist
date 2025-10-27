@@ -1930,15 +1930,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Searchform Reset Trigger
     if ($('.directorist-btn-reset-js') !== null) {
       $('body').on('click', '.directorist-btn-reset-js', function (e) {
+        var _this8 = this;
         e.preventDefault();
-        // Clear URL params on modal form reset
-        if (this.closest('.directorist-search-modal')) {
-          // Clear only the query parameters
+        setTimeout(function () {
+          // Clear URL params on modal form reset
           var baseUrl = window.location.origin + window.location.pathname;
 
           // Update the URL in the address bar
           window.history.replaceState(null, '', baseUrl);
-        }
+          if (_this8.closest('.directorist-search-modal')) {
+            // Clear only the query parameters
+            var _baseUrl = window.location.origin + window.location.pathname;
+
+            // Update the URL in the address bar
+            window.history.replaceState(null, '', _baseUrl);
+          }
+        }, 300);
 
         // Reset search form values
         if (this.closest('.directorist-contents-wrap')) {

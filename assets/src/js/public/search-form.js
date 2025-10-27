@@ -905,15 +905,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		if ($('.directorist-btn-reset-js') !== null) {
 			$('body').on('click', '.directorist-btn-reset-js', function (e) {
 				e.preventDefault();
-				// Clear URL params on modal form reset
-				if (this.closest('.directorist-search-modal')) {
-					// Clear only the query parameters
+				setTimeout(() => {
+					// Clear URL params on modal form reset
 					const baseUrl =
-						window.location.origin + window.location.pathname;
+					window.location.origin + window.location.pathname;
 
 					// Update the URL in the address bar
 					window.history.replaceState(null, '', baseUrl);
-				}
+					if (this.closest('.directorist-search-modal')) {
+						// Clear only the query parameters
+						const baseUrl =
+							window.location.origin + window.location.pathname;
+
+						// Update the URL in the address bar
+						window.history.replaceState(null, '', baseUrl);
+					}
+				}, 300);
 
 				// Reset search form values
 				if (this.closest('.directorist-contents-wrap')) {

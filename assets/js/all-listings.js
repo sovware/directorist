@@ -1684,8 +1684,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var _ref8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref7, 2),
           key = _ref8[0],
           val = _ref8[1];
-        // Skip if key starts with "custom-number" and value is "0-0"
-        if (key.startsWith('custom-number') && val === '0-0') {
+        // Skip if value is "0-0" (empty range slider)
+        if (val === '0-0') {
+          return;
+        }
+
+        // Skip empty values
+        if (!val || typeof val === 'string' && val.trim() === '') {
           return;
         }
 
@@ -1793,6 +1798,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     });
 
+    // Collect custom range slider min/max values
+    var range_slider_values = {};
+    searchElm.find('.directorist-custom-range-slider__value__min').each(function () {
+      var minVal = $(this).val();
+      if (minVal && minVal !== '0') {
+        range_slider_values['directorist-custom-range-slider__value__min'] = minVal;
+      }
+    });
+    searchElm.find('.directorist-custom-range-slider__value__max').each(function () {
+      var maxVal = $(this).val();
+      if (maxVal && maxVal !== '0') {
+        range_slider_values['directorist-custom-range-slider__value__max'] = maxVal;
+      }
+    });
+
     // Collect basic form values
     var q = searchElm.find('input[name="q"]').val();
     var in_cat = searchElm.find('.directorist-category-select').val();
@@ -1812,7 +1832,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var directory_type = searchElm.find('input[name="directory_type"]').val() || searchElm.closest('.directorist-instant-search').find('input[name="directory_type"]').val();
 
     // Update form_data
-    updateFormData({
+    updateFormData(_objectSpread({
       q: q,
       in_cat: in_cat,
       in_loc: in_loc,
@@ -1831,7 +1851,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       view: view,
       paged: paged,
       directory_type: directory_type
-    });
+    }, range_slider_values));
 
     // open_now checkbox
     var open_now_val = searchElm.find('input[name="open_now"]').is(':checked') ? searchElm.find('input[name="open_now"]').val() : undefined;

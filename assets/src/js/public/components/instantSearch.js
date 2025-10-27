@@ -321,8 +321,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			typeof form_data.custom_field === 'object'
 		) {
 			Object.entries(form_data.custom_field).forEach(([key, val]) => {
-				// Skip if key starts with "custom-number" and value is "0-0"
-				if (key.startsWith('custom-number') && val === '0-0') {
+				// Skip if value is "0-0" (empty range slider)
+				if (val === '0-0') {
+					return;
+				}
+
+				// Skip empty values
+				if (!val || (typeof val === 'string' && val.trim() === '')) {
 					return;
 				}
 
@@ -451,6 +456,29 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			}
 		});
 
+		// Collect custom range slider min/max values
+		let range_slider_values = {};
+		searchElm
+			.find('.directorist-custom-range-slider__value__min')
+			.each(function () {
+				const minVal = $(this).val();
+				if (minVal && minVal !== '0') {
+					range_slider_values[
+						'directorist-custom-range-slider__value__min'
+					] = minVal;
+				}
+			});
+		searchElm
+			.find('.directorist-custom-range-slider__value__max')
+			.each(function () {
+				const maxVal = $(this).val();
+				if (maxVal && maxVal !== '0') {
+					range_slider_values[
+						'directorist-custom-range-slider__value__max'
+					] = maxVal;
+				}
+			});
+
 		// Collect basic form values
 		const q = searchElm.find('input[name="q"]').val();
 		const in_cat = searchElm.find('.directorist-category-select').val();
@@ -496,6 +524,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			view,
 			paged,
 			directory_type,
+			...range_slider_values,
 		});
 
 		// open_now checkbox

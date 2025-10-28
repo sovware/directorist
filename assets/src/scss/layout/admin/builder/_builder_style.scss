@@ -5483,6 +5483,10 @@ input[type="radio"].cptm-radio {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 10px;
+  &.cptm-input-toggle-left{
+      flex-direction: row-reverse;
+  }
 
   label {
     padding-right: 10px;
@@ -6809,6 +6813,62 @@ input[type="radio"] {
   }
 }
 
+// Custom Single Listing Page
+.enable_single_listing_page{
+  .cptm-title-area{
+    margin: 30px 0;
+    .cptm-title{
+      font-size: 20px;
+      font-weight: 600;
+      color: #0A0A0A;
+    }
+    .cptm-des{
+      font-size: 14px;
+      color: #737373;
+      margin-top: 6px;
+    }
+  }
+  .cptm-input-toggle-content{
+    h3{
+      font-size: 14px;
+      font-weight: 600;
+      color: #2C3239;
+      margin: 0 0 6px;
+    }
+    .cptm-form-group-info{
+      font-size: 14px;
+      color: #4D5761;
+    }
+  }
+  .cptm-form-group{
+    margin-bottom: 40px;
+  }
+  .cptm-form-group--dropdown{
+    display: flex;
+    flex-direction: column;
+    .cptm-form-group-info{
+      order: 1;
+      font-weight: 500;
+      margin-top: 4px;
+      a{
+        color: #3E62F5;
+      }
+    }
+  }
+}
+
+
+// Title field
+.cptm-form-title-field{
+  margin-bottom: 16px;
+  .cptm-form-title-field__label{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 2px;
+  }
+}
+
 // Single Listing Elements Settings
 .cptm-elements-settings {
   width: 100%;
@@ -7036,5 +7096,120 @@ input[type="radio"] {
         }
       }
     }
+  }
+}
+
+// Shortcode List Field Styles
+.cptm-shortcode-generator {
+  max-width: 100%;
+
+  .cptm-generate-shortcode-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 20px;
+    margin: 12px 0 0 0;
+    background-color: #fff;
+    color: #3e62f5;
+    &:hover{
+      color: #fff;
+    }
+
+    i {
+      font-size: 14px;
+    }
+  }
+
+  .cptm-shortcodes-wrapper {
+    margin-top: 20px;
+  }
+
+  .cptm-shortcodes-box {
+    position: relative;
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+
+  .cptm-copy-icon-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #555;
+    font-size: 18px;
+    transition: color 0.2s ease;
+    z-index: 10;
+
+    &:hover {
+      color: #000;
+    }
+
+    &:focus {
+      outline: 2px solid #0073aa;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+
+  .cptm-shortcodes-content {
+    padding-right: 40px;
+  }
+
+  .cptm-shortcode-item {
+    margin: 0;
+    padding: 2px 6px;
+    font-size: 14px;
+    color: #000000;
+    line-height: 1.6;
+    &:hover{
+      background-color: #E5E7EB;
+    }
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
+  }
+
+  .cptm-shortcodes-footer {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #747C89;
+  }
+
+  .cptm-footer-text {
+    color: #747C89;
+  }
+
+  .cptm-footer-separator {
+    color: #747C89;
+  }
+
+  .cptm-regenerate-link {
+    color: #3E62F5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #3E62F5;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      outline: 2px solid #3E62F5;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+
+  .cptm-no-shortcodes {
+    margin-top: 12px;
   }
 }

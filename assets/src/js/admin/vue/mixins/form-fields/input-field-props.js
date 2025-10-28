@@ -232,5 +232,8 @@ export default {
 		createFormButton: {
 			required: false,
 		},
+		toggle_position: {
+			required: false,
+		},
 	},
 };

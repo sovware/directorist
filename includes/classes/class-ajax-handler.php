@@ -1016,6 +1016,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             $listing_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
+            $label      = ( ! empty( $_POST['label'] ) ) ? sanitize_text_field( wp_unslash( $_POST['label'] ) ) : '';
             $user_id    = get_current_user_id();
             $favorites  = directorist_get_user_favorites( $user_id );
 
@@ -1025,7 +1026,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 directorist_add_user_favorites( $user_id, $listing_id );
             }
 
-            echo wp_kses_post( the_atbdp_favourites_link( $listing_id ) );
+            echo wp_kses_post( the_atbdp_favourites_link( $listing_id ) . $label );
 
             wp_die();
         }

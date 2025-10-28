@@ -15,8 +15,13 @@
         >
           <span
             class="cptm-header-nav__icon"
-            v-if="nav.icon"
+            v-if="nav.icon && nav.icon_type === 'svg'"
             v-html="nav.icon"
+          ></span>
+          <span
+            class="cptm-header-nav__icon"
+            :class="nav.icon"
+            v-if="nav.icon && nav.icon_type !== 'svg'"
           ></span>
           <span class="cptm-header-nav__label" v-html="nav.label"></span>
         </a>

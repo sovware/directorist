@@ -1,93 +1,129 @@
 <template>
-  <div
-    class="cptm-form-builder-group-field-item"
-    :class="expandState ? 'expanded' : ''"
+  <draggable-list-item
     v-if="widget_fields && Object.keys(widget_fields).length > 0"
+    :drag-handle="'.cptm-form-builder-group-field-item-drag'"
+    @drag-start="$emit('drag-start')"
+    @drag-end="$emit('drag-end')"
+    :can-drag="canMoveWidget"
   >
-    <!-- Widget Titlebar -->
-    <draggable-list-item
-      v-if="canMoveWidget"
-      @drag-start="$emit('drag-start')"
-      @drag-end="$emit('drag-end')"
-    >
-      <div class="cptm-form-builder-group-field-item-drag">
-        <span aria-hidden="true" class="uil uil-draggabledots"></span>
-      </div>
-    </draggable-list-item>
-
-    <form-builder-widget-titlebar-component
-      :label="widgetTitle"
-      :sublabel="widgetSubtitle"
-      :icon="widgetIcon"
-      :info="widgetInfo"
-      :iconType="widgetIconType"
-      :expanded="expandState"
-      :alert="alert"
-      @toggle-expand="toggleExpand"
-    />
-
-    <!-- Widget Body -->
-    <slide-up-down :active="expandState" :duration="500">
-      <div
-        class="cptm-form-builder-group-field-item-body"
-        v-if="widget_fields && typeof widget_fields === 'object'"
-      >
-        <field-list-component
-          :root="activeWidgets"
-          :section-id="widgetKey"
-          :field-list="widget_fields"
-          :value="activeWidgets[widgetKey] ? activeWidgets[widgetKey] : ''"
-          @alert="updateAlert"
-          @update="
-            $emit('update-widget-field', {
-              widget_key: widgetKey,
-              payload: $event,
-            })
-          "
-        />
-      </div>
-    </slide-up-down>
-
-    <!-- Widget Actions -->
     <div
-      class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
-      ref="dropdownContent"
+      class="cptm-form-builder-group-field-item"
+      :class="expandState ? 'expanded' : ''"
     >
-      <a
-        href="#"
-        class="cptm-form-builder-group-actions-dropdown-btn"
-        v-if="canTrashWidget"
-        @click.prevent="toggleExpandedDropdown"
-      >
-        <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
-      </a>
-
-      <!-- Widget Action Dropdown -->
-      <slide-up-down :active="expandedDropdown" :duration="500">
+      <!-- Widget Header -->
+      <div class="cptm-form-builder-group-field-item-header">
+        <!-- Drag Handle -->
         <div
-          class="cptm-form-builder-group-actions-dropdown-content"
-          :class="expandedDropdown ? 'expanded' : ''"
+          class="cptm-form-builder-group-field-item-drag"
+          v-if="canMoveWidget"
         >
-          <a
-            href="#"
-            class="cptm-form-builder-field-item-action-link"
-            @click.prevent="handleTrashClick"
-          >
-            <span aria-hidden="true" class="uil uil-trash-alt"></span>
-            Remove Field
-          </a>
+          <span aria-hidden="true" class="uil uil-draggabledots"></span>
+        </div>
+
+        <!-- Widget Titlebar -->
+        <div class="cptm-form-builder-group-field-item-header-content">
+          <div class="cptm-form-builder-header-toggle">
+            <a
+              href="#"
+              class="cptm-form-builder-header-toggle-link"
+              :class="
+                expandState ? 'action-collapse-down' : 'action-collapse-up'
+              "
+              @click.prevent="toggleExpand"
+            >
+              <span aria-hidden="true" class="uil uil-angle-down"></span>
+            </a>
+          </div>
+
+          <h4 class="cptm-form-builder-group-field-item-title">
+            <span
+              class="cptm-form-builder-group-field-item-icon"
+              v-if="widgetIcon"
+            >
+              <span v-if="widgetIconType !== 'svg'" :class="widgetIcon"></span>
+              <span
+                v-else-if="widgetIconType === 'svg'"
+                v-html="widgetIcon"
+                class="cptm-title-icon-svg"
+              ></span>
+            </span>
+            <span class="cptm-form-builder-group-field-item-label">
+              <span class="cptm-title-wrapper">
+                {{ widgetTitle }}
+                <span
+                  v-if="alert"
+                  class="cptm-title-info"
+                  :data-label="alert.message"
+                >
+                  <span class="cptm-title-info-icon las la-info-circle"></span>
+                  <span
+                    class="cptm-title-info-text"
+                    v-html="alert.message"
+                  ></span>
+                </span>
+              </span>
+              <span
+                v-if="widgetSubtitle"
+                class="cptm-form-builder-group-field-item-subtitle"
+              >
+                ({{ widgetSubtitle }})
+              </span>
+              <span
+                v-if="widgetInfo"
+                class="cptm-title-info-tooltip"
+                :data-info="widgetInfo"
+              >
+                <span
+                  class="cptm-title-info-icon uil uil-question-circle"
+                ></span>
+              </span>
+            </span>
+          </h4>
+
+          <div class="cptm-form-builder-group-field-item-header-actions">
+            <a
+              href="#"
+              class="cptm-form-builder-header-action-link"
+              v-if="canTrashWidget"
+              @click.prevent="handleWidgetDelete"
+            >
+              <span aria-hidden="true" class="uil uil-trash-alt"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget Body -->
+      <slide-up-down :active="expandState" :duration="500">
+        <div
+          class="cptm-form-builder-group-field-item-body"
+          v-if="widget_fields && typeof widget_fields === 'object'"
+        >
+          <field-list-component
+            :root="activeWidgets"
+            :section-id="widgetKey"
+            :field-list="widget_fields"
+            :value="activeWidgets[widgetKey] ? activeWidgets[widgetKey] : ''"
+            @alert="updateAlert"
+            @update="
+              $emit('update-widget-field', {
+                widget_key: widgetKey,
+                payload: $event,
+              })
+            "
+          />
         </div>
       </slide-up-down>
-    </div>
 
-    <!-- Confirmation Modal -->
-    <confirmation-modal
-      :visible="showConfirmationModal"
-      :widgetName="widgetName"
-      @confirm="trashWidget"
-      @cancel="closeConfirmationModal"
-    />
-  </div>
+      <!-- Confirmation Modal -->
+      <confirmation-modal
+        :visible="showConfirmationModal"
+        :widgetName="widgetName"
+        @confirm="trashWidget"
+        @cancel="closeConfirmationModal"
+      />
+    </div>
+  </draggable-list-item>
 </template>
 
 <script>
@@ -118,6 +154,10 @@ export default {
     },
     untrashableWidgets: {
       default: "",
+    },
+    isExpanded: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -207,7 +247,10 @@ export default {
     widgetInfo() {
       let info = "";
 
-      if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].info) {
+      if (
+        this.activeWidgets[this.widgetKey] &&
+        this.activeWidgets[this.widgetKey].info
+      ) {
         info = this.activeWidgets[this.widgetKey].info;
       }
 
@@ -229,7 +272,7 @@ export default {
     },
 
     expandState() {
-      let state = this.expanded;
+      let state = this.isExpanded;
 
       if (!this.isEnabledGroupDragging) {
         state = false;
@@ -287,23 +330,13 @@ export default {
     return {
       current_widget: "",
       widget_fields: "",
-      expanded: false,
       widgetIsDragging: false,
 
       activeWidgetsIsUpdating: false,
       showConfirmationModal: false,
       widgetName: "",
-      expandedDropdown: false,
       alerts: {},
     };
-  },
-
-  mounted() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  },
-
-  beforeDestroy() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
   },
 
   methods: {
@@ -336,21 +369,7 @@ export default {
       }
     },
 
-    toggleExpandedDropdown() {
-      this.expandedDropdown = !this.expandedDropdown;
-    },
-
-    handleClickOutside(event) {
-      if (
-        this.expandedDropdown &&
-        !this.$refs.dropdownContent.contains(event.target)
-      ) {
-        this.expandedDropdown = false;
-      }
-    },
-
-    handleTrashClick() {
-      this.expandedDropdown = !this.expandedDropdown;
+    handleWidgetDelete() {
       this.openConfirmationModal();
     },
 
@@ -459,7 +478,7 @@ export default {
     },
 
     toggleExpand() {
-      this.expanded = !this.expanded;
+      this.$emit("toggle-expand");
     },
 
     checkIfHasUntrashableWidget(widget_group, widget_name, widget_child_name) {

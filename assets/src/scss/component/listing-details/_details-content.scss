@@ -243,6 +243,9 @@
   padding: 0;
 }
 .directorist-single-wrapper {
+  .directorist-listing-single__info {
+    flex-direction: row;
+  }
   .directorist-single-listing-slider-wrap {
     padding: 0;
     margin: 15px 0;
@@ -260,6 +263,8 @@
 
 // Single Listing Actions
 .directorist-single-listing-quick-action {
+  width: 100%;
+  display: flex;
   gap: 8px;
   flex-wrap: wrap;
   @media screen and (max-width: 767px) {
@@ -345,6 +350,11 @@
         }
       }
     }
+  }
+  .directorist-listing-single__quick-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 }
 

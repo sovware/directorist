@@ -299,7 +299,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 **Fixed**
  - Taxonomy hierarchy issue. (#2548)
  - Issue where the directory type was not applied correctly when performing a search without using the advanced search field. (#2544)
- - Aboutt/Bio field required issue on the signup page. (#2543)
+ - About/Bio field required issue on the sign up page. (#2543)
  - Undefined value issue in icon picker input field. (#2545)
  - Dashboard single item position placement issue. (#2541)
  - Viewport-aware dropdown system that auto-positions dropdowns up or down based on available space, preventing clipping. (#2537)

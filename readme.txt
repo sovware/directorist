@@ -304,7 +304,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Dashboard single item position placement issue. (#2541)
  - Viewport-aware dropdown system that auto-positions dropdowns up or down based on available space, preventing clipping. (#2537)
  - Ensured directory_type parameter consistency in pagination across all screen sizes. (#2530)
- - Instant search URL wasn’t updating correctly for custom fields, which caused the search filters to stop working after reloading the page. (#2553)
+ - The instant search custom URL field didn't work after reloading the page. (#2553)
 
 = 8.4.9 - Oct 13, 2025 =
 

@@ -6849,11 +6849,23 @@ input[type="radio"] {
     .cptm-form-group-info{
       order: 1;
       font-weight: 500;
-      margin-top: 4px;
+      margin-top: 6px;
       a{
         color: #3E62F5;
       }
     }
+    .directorist_dropdown{
+      border-radius: 4px;
+      border-color: #D2D6DB;
+      .directorist_dropdown-toggle{
+        line-height: 1.4;
+        min-height: 40px;
+      }
+    }
+  }
+  .cptm-input-toggle{
+    width: 44px;
+    height: 22px;
   }
 }
 

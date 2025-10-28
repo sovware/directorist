@@ -3626,14 +3626,14 @@ Please remember that your order may be canceled if you do not make your payment 
 
                     'enable_archive_template'    => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Default Archive Template', 'directorist' ),
-                        'description' => __( 'Enable WordPress default archive template for category, location and tag. And this will disable the page based archive.','directorist' ),
+                        'label'         => __( 'Use WordPress Default Archive', 'directorist' ),
+                        'description' => __( 'Enable WordPress’s built-in archive pages for categories, locations, and tags. Turning this on will disable Directorist’s custom archive pages.','directorist' ),
                         'value'         => false
                     ],
                     'category_base'    => [
                         'type'          => 'text',
-                        'label'         => __( 'Category Base', 'directorist' ),
-                        'description' => __( 'Category base is the slug used in the URL.','directorist' ),
+                        'label'         => __( 'Category URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your category archive URLs. Example: yourdomain.com/single-category/restaurant/','directorist' ),
                         'value'         => directorist_get_default_category_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
@@ -3644,8 +3644,8 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'location_base'    => [
                         'type'          => 'text',
-                        'label'         => __( 'Location Base', 'directorist' ),
-                        'description' => __( 'Location base is the slug used in the URL.','directorist' ),
+                        'label'         => __( 'Location URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your location archive URLs. Example: yourdomain.com/single-location/new-york/','directorist' ),
                         'value'         => directorist_get_default_location_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
@@ -3656,8 +3656,8 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'tag_base'    => [
                         'type'          => 'text',
-                        'label'         => __( 'Tag Base', 'directorist' ),
-                        'description' => __( 'Tag base is the slug used in the URL.','directorist' ),
+                        'label'         => __( 'Tag URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your tag archive URLs. Example: yourdomain.com/single-tag/popular/','directorist' ),
                         'value'         => directorist_get_default_tag_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',

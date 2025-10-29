@@ -6869,6 +6869,52 @@ input[type="radio"] {
   }
 }
 
+.cptm-form-group--api-select-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #E5E5E5;
+  border-radius: 4px;
+  margin: 0 auto 15px;
+  span.la{
+    font-size: 22px;
+    color: #0A0A0A;
+  }
+}
+
+.cptm-form-group--api-select{
+  h4{
+    font-size: 16px;
+    color: #171717;
+  }
+  p{
+    color:#737373;
+  }
+  .cptm-form-group--api-select-re-sync{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0A0A0A;
+    border: 1px solid #D4D4D4;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow:
+      0px 1px 2px -1px rgba(0, 0, 0, 0.10),
+      0px 1px 3px 0px rgba(0, 0, 0, 0.10);
+      span.la{
+        font-size: 16px;
+        color: #0A0A0A;
+        margin-right: 8px;
+      }
+  }
+}
+
 
 // Title field
 .cptm-form-title-field{

@@ -11,10 +11,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{css,scss,js}": [
-      "yarn format",
-      "git add"
-    ],
+    "*.{css,scss,js}": [],
     "*.php": [
       "composer format"
     ]

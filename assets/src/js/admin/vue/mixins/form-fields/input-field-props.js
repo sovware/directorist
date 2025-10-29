@@ -235,5 +235,26 @@ export default {
 		toggle_position: {
 			required: false,
 		},
+
+		apiPath: {
+			type: String,
+			default: '',
+		},
+		apiMethod: {
+			type: String,
+			default: 'GET',
+		},
+		apiParams: {
+			type: Object,
+			default: () => ({}),
+		},
+		resyncLabel: {
+			type: String,
+			default: 'Resync',
+		},
+		showResyncButton: {
+			type: Boolean,
+			default: false,
+		},
 	},
 };

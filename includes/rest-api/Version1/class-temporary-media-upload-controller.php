@@ -66,12 +66,31 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
     }
 
     public function create_item( $request ) {
-        $directory = get_term_by( 'slug', $request['directory'], ATBDP_DIRECTORY_TYPE );
-        if ( ! $directory ) {
+        $directory = $request->get_param( 'directory' );
+        $field_key = $request->get_param( 'field' );
+
+        // Required param checks
+        if ( empty( $directory ) ) {
             return new WP_Error( 'invalid_directory', __( 'Invalid directory.', 'directorist' ), array( 'status' => 400 ) );
         }
 
-        $field = wp_list_filter( directorist_get_listing_form_fields( (int) $directory->term_id ), array( 'field_key' => $request['field'] ) );
+        if ( empty( $field_key ) ) {
+            return new WP_Error( 'invalid_field', __( 'Invalid field.', 'directorist' ), array( 'status' => 400 ) );
+        }
+
+        $directory_id = 0;
+        if ( is_numeric( $directory ) ) {
+            $directory_id = (int) $directory;
+        } else {
+            $directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
+            $directory_id   = $directory_term ? (int) $directory_term->term_id : 0;
+        }
+
+        if ( empty( $directory_id ) ) {
+            return new WP_Error( 'invalid_directory', __( 'Invalid directory.', 'directorist' ), array( 'status' => 400 ) );
+        }
+
+        $field = wp_list_filter( directorist_get_listing_form_fields( (int) $directory_id ), array( 'field_key' => $field_key ) );
 
         if ( empty( $field ) ) {
             return new WP_Error( 'invalid_field', __( 'Invalid field.', 'directorist' ), array( 'status' => 400 ) );

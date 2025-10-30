@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-28 15:02+0000\n"
+"POT-Creation-Date: 2025-10-30 12:00+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -498,11 +498,11 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:177, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
+#: ../includes/directorist-directory-functions.php:178, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
 msgid "Invalid listing id."
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:181, ../includes/classes/class-submission-controller.php:507, ../includes/rest-api/Version1/class-builder-controller.php:103, ../includes/rest-api/Version1/class-categories-controller.php:281, ../includes/rest-api/Version1/class-locations-controller.php:265
+#: ../includes/directorist-directory-functions.php:182, ../includes/classes/class-submission-controller.php:507, ../includes/rest-api/Version1/class-builder-controller.php:103, ../includes/rest-api/Version1/class-categories-controller.php:281, ../includes/rest-api/Version1/class-locations-controller.php:265
 msgid "Invalid directory id."
 msgstr ""
 
@@ -1184,7 +1184,7 @@ msgstr ""
 msgid "Invalid request, please reload the page and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:514, ../includes/classes/class-ajax-handler.php:671, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:71
+#: ../includes/classes/class-ajax-handler.php:514, ../includes/classes/class-ajax-handler.php:671, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:74, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:90
 msgid "Invalid directory."
 msgstr ""
 
@@ -8931,7 +8931,7 @@ msgstr ""
 msgid "Fields data."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:834, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:263
+#: ../includes/rest-api/Version1/class-plans-controller.php:834, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:282
 msgid "Field key."
 msgstr ""
 
@@ -8959,45 +8959,45 @@ msgstr ""
 msgid "Sorry, you are not allowed to upload any file."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:77
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:78, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:96
 msgid "Invalid field."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:89, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:190
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:108, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:209
 msgid "No data supplied."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:111
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:130
 msgid "Could not upload (%s)."
 msgstr ""
 
 #. translators: %s: Required disk space in kilobytes.
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:158
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:177
 msgid "Not enough space to upload. %s KB needed."
 msgstr ""
 
 #. translators: %s: Maximum allowed file size in kilobytes.
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:167
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:186
 msgid "This file is too big. Files must be less than %s KB in size."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:178
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:197
 msgid "You have used your space quota. Please delete files before uploading."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:204
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:223
 msgid "Content hash did not match expected."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:251
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:270
 msgid "Media file name."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:257
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:276
 msgid "Media file slug."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:269
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:288
 msgid "Directory slug."
 msgstr ""
 

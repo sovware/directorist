@@ -69,14 +69,14 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
         $directory = $request->get_param( 'directory' );
         $field_key = $request->get_param( 'field' );
 
-		// Required param checks
-		if ( empty( $directory ) ) {
-			return new WP_Error( 'invalid_directory', __( 'Invalid directory.', 'directorist' ), array( 'status' => 400 ) );
-		}
+        // Required param checks
+        if ( empty( $directory ) ) {
+            return new WP_Error( 'invalid_directory', __( 'Invalid directory.', 'directorist' ), array( 'status' => 400 ) );
+        }
 
-		if ( empty( $field_key ) ) {
-			return new WP_Error( 'invalid_field', __( 'Invalid field.', 'directorist' ), array( 'status' => 400 ) );
-		}
+        if ( empty( $field_key ) ) {
+            return new WP_Error( 'invalid_field', __( 'Invalid field.', 'directorist' ), array( 'status' => 400 ) );
+        }
 
         $directory_id = 0;
         if ( is_numeric( $directory ) ) {

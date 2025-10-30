@@ -1,8 +1,6 @@
 <?php
 namespace WpWax\Directorist\Gutenberg;
 
-use Elementor\Core\App\Modules\ImportExport\Directories\Templates;
-
 if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
@@ -252,8 +250,15 @@ class Block_Template_Utils {
      * @return string Human friendly title converted from the slug.
      */
     public static function convert_slug_to_title( $template_slug ) {
-        if ( 'single-' . ATBDP_POST_TYPE === $template_slug ) {
-            return __( 'Single Listing Page', 'directorist' );
+        $templates = [
+            'single-' . ATBDP_POST_TYPE => __( 'Single Listing Page', 'directorist' ),
+            'taxonomy-' . ATBDP_CATEGORY  => __( 'Category Archive Page', 'directorist' ),
+            'taxonomy-' . ATBDP_LOCATION  => __( 'Location Archive Page', 'directorist' ),
+            'taxonomy-' . ATBDP_TAGS      => __( 'Tag Archive Page', 'directorist' ),
+        ];
+
+        if ( isset( $templates[ $template_slug ] ) ) {
+            return $templates[ $template_slug ];
         }
 
         // Replace all hyphens and underscores with spaces.

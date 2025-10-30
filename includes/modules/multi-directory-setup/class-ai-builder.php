@@ -753,40 +753,40 @@ class AI_Builder {
             'title'         => 'las la-text-height',
             'description'   => 'uil uil-align-left',
             'tagline'       => 'uil uil-text-fields',
-            'pricing'       => 'uil uil-bill',
-            'excerpt'       => 'uil uil-paragraph',
-            'location'      => 'uil uil-map-marker',
+            'pricing'       => 'las la-money-bill-wave',
+            'excerpt'       => 'las la-paragraph',
+            'location'      => 'las la-map-marker',
             'tag'           => 'las la-tag',
-            'category'      => 'uil uil-folder-open',
-            'map'           => 'uil uil-map',
-            'address'       => 'uil uil-map-pin',
-            'zip'           => 'uil uil-map-pin',
-            'phone'         => 'uil uil-phone',
-            'phone2'        => 'uil uil-phone',
-            'fax'           => 'uil uil-print',
-            'email'         => 'uil uil-envelope',
-            'website'       => 'uil uil-globe',
-            'social_info'   => 'uil uil-users-alt',
-            'image_upload'  => 'uil uil-image',
-            'video'         => 'uil uil-video',
+            'category'      => 'las la-folder-open',
+            'map'           => 'las la-map',
+            'address'       => 'las la-map-pin',
+            'zip'           => 'las la-map-pin',
+            'phone'         => 'las la-phone',
+            'phone2'        => 'las la-phone',
+            'fax'           => 'las la-print',
+            'email'         => 'las la-envelope',
+            'website'       => 'las la-globe',
+            'social_info'   => 'las la-users',
+            'image_upload'  => 'las la-image',
+            'video'         => 'las la-video',
             'terms_privacy' => 'uil uil-text-fields',
             'text'          => 'uil uil-text',
-            'textarea'      => 'uil uil-align-left',
-            'number'        => 'uil uil-0-plus',
-            'url'           => 'uil uil-link-add',
-            'date'          => 'uil uil-calender',
-            'time'          => 'uil uil-clock',
-            'color_picker'  => 'uil uil-palette',
-            'select'        => 'uil uil-list-ui-alt',
-            'checkbox'      => 'uil uil-check-square',
-            'radio'         => 'uil uil-dot-circle',
-            'file_upload'   => 'uil uil-file-upload'
+            'textarea'      => 'las la-align-left',
+            'number'        => 'las la-hashtag',
+            'url'           => 'las la-link',
+            'date'          => 'las la-calendar',
+            'time'          => 'las la-clock',
+            'color_picker'  => 'las la-palette',
+            'select'        => 'las la-list',
+            'checkbox'      => 'las la-check-square',
+            'radio'         => 'las la-dot-circle',
+            'file_upload'   => 'las la-file-upload'
         ];
 
         foreach ( $fields as $field ) {
             $label   = $field['label'] ?? '';
             $options = empty( $field['options'] ) ? [] : $field['options'];
-            $icon    = $icons_map[ ( static::$preset_fields[ $field['type'] ] ?? $field['type'] ) ] ?? 'uil uil-paragraph';
+            $icon    = $icons_map[ ( static::$preset_fields[ $field['type'] ] ?? $field['type'] ) ] ?? 'las la-paragraph';
             ?>
             <div class="directorist-ai-generate-box__item">
                 <div class="directorist-ai-generate-dropdown" aria-expanded="false">

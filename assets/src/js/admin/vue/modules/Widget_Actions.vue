@@ -6,11 +6,11 @@
             </span>
 
             <span class="cptm-widget-control-action cptm-widget-control-action-edit" @click="$emit('edit')">
-                <span class="uil uil-cog"></span>
+                <span class="la la-cog"></span>
             </span>
 
             <span class="cptm-widget-control-action cptm-widget-control-action-trash" @click="$emit('trash')">
-                <span class="uil uil-trash-alt"></span>
+                <span class="la la-trash-alt"></span>
             </span>
         </div>
     </div>

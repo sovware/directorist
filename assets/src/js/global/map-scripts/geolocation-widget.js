@@ -9,6 +9,26 @@
 				var get_lat = document.querySelector('#cityLat');
 				var get_lng = document.querySelector('#cityLng');
 
+				// Helper function to format address by removing plus code and using address components
+				function formatAddress(result) {
+					if (!result || !result.address_components) {
+						return '';
+					}
+
+					// Check if first element contains plus code (has '+' character)
+					let components = result.address_components;
+					if (
+						components.length > 0 &&
+						components[0].long_name &&
+						components[0].long_name.includes('+')
+					) {
+						components = components.slice(1);
+					}
+
+					// Join long_names with commas
+					return components.map((c) => c.long_name).join(', ');
+				}
+
 				function getLocation() {
 					if (navigator.geolocation) {
 						navigator.geolocation.getCurrentPosition(
@@ -52,6 +72,7 @@
 					var geocoder;
 					geocoder = new google.maps.Geocoder();
 					var latlng = new google.maps.LatLng(latitude, longitude);
+
 					geocoder.geocode(
 						{
 							latLng: latlng,
@@ -59,13 +80,14 @@
 						function (results, status) {
 							if (status == google.maps.GeocoderStatus.OK) {
 								if (results[0]) {
-									var add = results[0].formatted_address;
+									var add = formatAddress(results[0]);
 									var value = add.split(',');
 
 									count = value.length;
 									country = value[count - 1];
 									state = value[count - 2];
 									city = value[count - 3];
+
 									x.value = city;
 								} else {
 									x.value = 'address not found';

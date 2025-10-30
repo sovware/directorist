@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.2.2
- * @version 8.0
+ * @version 8.5
  */
 
 use \Directorist\Helper;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form directorist-basic-search">
     <div class="directorist-search-form__box">
         <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
-
+            <input type="hidden" name='directory_type' value='<?php echo esc_attr( $listings->get_directory_type_slug() ); ?>'>
             <?php
             foreach ( $searchform->form_data[0]['fields'] as $field ) {
                 $searchform->field_template( $field );

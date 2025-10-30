@@ -805,7 +805,7 @@ class Directorist_Setup_Wizard {
         <div class="directorist-setup-wizard__content">
             <div class="directorist-setup-wizard__content__header">
                 <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e( 'What type of directory are you creating?', 'directorist' ); ?></h1>
-                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses( __( 'Select the directory type you’re building. Weather it’s a business directory, a classifieds platform, or something else, we’ve got you covered.', 'directorist' ), ['strong' => []] ); ?></p>
+                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses( __( 'Select the directory type you’re building. Whether it’s a business directory, a classifieds platform, or something else, we’ve got you covered.', 'directorist' ), ['strong' => []] ); ?></p>
             </div>
             <div class="directorist-setup-wizard__content__items">
                 <div class="directorist-setup-wizard__counter">

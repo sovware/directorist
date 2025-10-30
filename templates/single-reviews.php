@@ -32,7 +32,7 @@ $section_icon  = isset( $section_data['icon'] ) ? $section_data['icon'] : '';
 $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 ?>
 <section id="<?php echo esc_attr( $section_id ); ?>" class="directorist-review-container <?php echo esc_attr( $section_class ); ?>">
-    <div class="directorist-card directorist-review-content">
+    <div class="directorist-card directorist-review-content" id="directorist-reviews">
         <div class="directorist-card__header directorist-review-content__header <?php if ( ! have_comments() ) :
             ?>directorist-review-content__header--noreviews<?php endif;?>">
             <?php if ( ! have_comments() ) :
@@ -74,7 +74,7 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
                         'avatar_size' => 50,
                         'format'      => 'html5',
                         'walker'      => new Review_Walker(),
-                    ] 
+                    ]
                 );?>
             </ul>
         <?php endif;?>
@@ -91,7 +91,7 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
                     'next_text'    => $next_text,
                     'type'         => 'plain',
                     'add_fragment' => '#' . $section_id,
-                ] 
+                ]
             );
             ?>
         </nav>

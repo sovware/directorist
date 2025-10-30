@@ -39,9 +39,9 @@ $taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty(
                             <a class="directorist-taxonomy-list__card <?php echo wp_kses_post( $toggle_class ); ?> " href="<?php echo esc_url( $location['permalink'] );?>">
                                 <span class="directorist-taxonomy-list__name">
                                     <?php echo esc_html( $location['name'] );?>
-                                </span>
-                                <span class="directorist-taxonomy-list__count">
-                                    <?php echo wp_kses_post( $location['list_count_html'] );?>
+                                    <span class="directorist-taxonomy-list__count">
+                                        <?php echo wp_kses_post( $location['list_count_html'] );?>
+                                    </span>
                                 </span>
                                 <?php if ( $location['has_child'] ) { ?>
                                     <span class="directorist-taxonomy-list__toggler">

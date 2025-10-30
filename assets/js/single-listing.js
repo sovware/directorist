@@ -217,7 +217,8 @@ function modalToggle() {
       var data = {
         action: 'atbdp_public_add_remove_favorites',
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data('listing_id')
+        post_id: $(this).data('listing_id'),
+        label: $(this).data('label')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -364,7 +365,7 @@ window.addEventListener('load', function () {
     // Validate contact form
     $('.directorist-contact-owner-form').on('submit', function (e) {
       e.preventDefault();
-      var form = $(this);
+      var $form = $(this);
       var submit_button = $(this).find('button[type="submit"]');
       var status_area = $(this).find('.directorist-contact-message-display');
 
@@ -373,7 +374,7 @@ window.addEventListener('load', function () {
       status_area.html(msg);
 
       // Serialize form data
-      var form_data = form.serializeArray();
+      var form_data = $form.serializeArray();
       var data = {
         action: 'atbdp_public_send_contact_email',
         directorist_nonce: directorist.directorist_nonce
@@ -383,28 +384,27 @@ window.addEventListener('load', function () {
       $.each(form_data, function (index, elem) {
         data[elem.name] = elem.value;
       });
-      submit_button.prop('disabled', true);
       $.post(directorist.ajaxurl, data, function (response) {
         submit_button.prop('disabled', false);
         if (1 == response.error) {
           atbdp_contact_submitted = false;
 
           // Show error message
-          var msg = '<div class="atbdp-alert alert-danger-light"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
+          var msg = '<div class="directorist-alert directorist-alert-danger"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         } else {
-          name.val('');
-          message.val('');
-          contact_email.val('');
+          $form.trigger('reset');
 
           // Show success message
-          var msg = '<div class="atbdp-alert alert-success-light"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
+          var msg = '<div class="directorist-alert directorist-alert-success"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         }
         setTimeout(function () {
           status_area.html('');
         }, 5000);
-      }, 'json');
+      }, 'json').always(function () {
+        submit_button.prop('disabled', false);
+      });
     });
     $('#atbdp-contact-form,#directorist-contact-owner-form').removeAttr('novalidate');
   });
@@ -495,6 +495,32 @@ window.addEventListener('load', function () {
   } else {
     return;
   }
+  function initPasswordToggle() {
+    var passwordGroups = document.querySelectorAll('.directorist-password-group');
+    passwordGroups.forEach(function (group) {
+      var passwordInput = group.querySelector('.directorist-password-group-input');
+      var togglePassword = group.querySelector('.directorist-password-group-toggle');
+      var eyeIcon = group.querySelector('.directorist-password-group-eyeIcon');
+      if (passwordInput && togglePassword) {
+        togglePassword.addEventListener('click', function () {
+          var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+
+          // Toggle eye icon (simple swap for open/closed)
+          if (eyeIcon) {
+            if (type === 'text') {
+              eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t\t<line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
+            } else {
+              eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // Call the function after DOM is ready
+  document.addEventListener('DOMContentLoaded', initPasswordToggle);
 
   // Trigger reset on form change
   $('.directorist-authentication__btn').on('click', function () {

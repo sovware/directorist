@@ -67,6 +67,7 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
 
     public function create_item( $request ) {
         $directory    = $request->get_param( 'directory' );
+        $field_key    = $request->get_param( 'field' );
         $directory_id = 0;
 
         if ( is_numeric( $directory ) ) {
@@ -80,7 +81,7 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
             return new WP_Error( 'invalid_directory', __( 'Invalid directory.', 'directorist' ), array( 'status' => 400 ) );
         }
 
-        $field = wp_list_filter( directorist_get_listing_form_fields( (int) $directory_id ), array( 'field_key' => $request['field'] ) );
+        $field = wp_list_filter( directorist_get_listing_form_fields( (int) $directory_id ), array( 'field_key' => $field_key ) );
 
         if ( empty( $field ) ) {
             return new WP_Error( 'invalid_field', __( 'Invalid field.', 'directorist' ), array( 'status' => 400 ) );

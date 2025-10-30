@@ -58,6 +58,7 @@ function directorist_get_listing_form_groups( $directory_id ) {
     foreach ( $_groups as $group ) {
         $groups[] = [
             'label' => $group['label'],
+            'icon'  => $group['icon'],
             'fields' => $group['fields'],
         ];
     }

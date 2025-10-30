@@ -141,7 +141,7 @@ class Builder {
             return $default;
         }
 
-        return $field[ $attr ];
+        return isset( $field[ $attr ] ) ? $field[ $attr ] : $default;
     }
 
     protected function get_field_by_widget_name( $widget_name, $default = null ) {

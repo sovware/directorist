@@ -427,7 +427,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value'         => false,
                         'description'   => __(
                             'Enable monetization to accept payments from users and earn through listing submissions.
-                    ', 'directorist' 
+                    ', 'directorist'
                         ),
 
                     ],
@@ -441,7 +441,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'Enable this option to charge users for featuring their listing.
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         Note: You need to add the "Listing Type" field to the add listing form for this feature to work properly.
-                        <a href="%s" target="_blank">Watch how</a>', 'directorist' 
+                        <a href="%s" target="_blank">Watch how</a>', 'directorist'
                             ),
                             esc_url( '' ) // Replace with your URL
                         ),
@@ -503,7 +503,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'value' => 'bank_transfer',
                                     'label' => __( 'Bank Transfer (Offline Gateway)', 'directorist' ),
                                 ],
-                            ] 
+                            ]
                         ),
                         'description' => __( 'Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process ', 'directorist' ),
                     ],
@@ -518,7 +518,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'value' => 'bank_transfer',
                                     'label' => __( 'Bank Transfer (Offline Gateway)', 'directorist' ),
                                 ]
-                            ] 
+                            ]
                         ),
                         'description' => __( 'Select the default gateway you would like to show as a selected gateway on the checkout page', 'directorist' ),
                     ],
@@ -2293,6 +2293,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_category_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
+                        'show-if' => [
+                            'where' => 'enable_archive_template',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => false],
+                            ],
+                        ],
                     ],
                     'all_locations_page' => [
                         'label' => __( 'All Locations Page', 'directorist' ),
@@ -2309,6 +2315,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_location_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
+                        'show-if' => [
+                            'where' => 'enable_archive_template',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => false],
+                            ],
+                        ],
                     ],
                     'single_tag_page' => [
                         'label' => __( 'Single Tag Page', 'directorist' ),
@@ -2317,6 +2329,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_tag_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
+                        'show-if' => [
+                            'where' => 'enable_archive_template',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => false],
+                            ],
+                        ],
                     ],
                     'custom_registration' => [
                         'label' => __( 'Registration Page', 'directorist' ),
@@ -3605,6 +3623,49 @@ Please remember that your order may be canceled if you do not make your payment 
                         'description' => __( 'Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted.','directorist' ),
                         'value'          => false,
                     ],
+
+                    'enable_archive_template'    => [
+                        'type'          => 'toggle',
+                        'label'         => __( 'Use WordPress Default Archive', 'directorist' ),
+                        'description' => __( 'Enable WordPress’s built-in archive pages for categories, locations, and tags. Turning this on will disable Directorist’s custom archive pages.','directorist' ),
+                        'value'         => false
+                    ],
+                    'category_base'    => [
+                        'type'          => 'text',
+                        'label'         => __( 'Category URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your category archive URLs. Example: yourdomain.com/single-category/restaurant/','directorist' ),
+                        'value'         => directorist_get_default_category_base(),
+                        'show-if' => [
+                            'where' => 'enable_archive_template',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ],
+                    'location_base'    => [
+                        'type'          => 'text',
+                        'label'         => __( 'Location URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your location archive URLs. Example: yourdomain.com/single-location/new-york/','directorist' ),
+                        'value'         => directorist_get_default_location_base(),
+                        'show-if' => [
+                            'where' => 'enable_archive_template',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ],
+                    'tag_base'    => [
+                        'type'          => 'text',
+                        'label'         => __( 'Tag URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your tag archive URLs. Example: yourdomain.com/single-tag/popular/','directorist' ),
+                        'value'         => directorist_get_default_tag_base(),
+                        'show-if' => [
+                            'where' => 'enable_archive_template',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ],
                 ]
             );
 
@@ -3653,7 +3714,16 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'delete_expired_listing_permanently', 'delete_expired_listings_after',
                                                 ],
                                             ],
-                                        ] 
+                                            'listings_archive' => [
+                                                'title'       => __( 'Taxonomy Archive', 'directorist' ),
+                                                'fields'      => [
+                                                    'enable_archive_template',
+                                                    'category_base',
+                                                    'location_base',
+                                                    'tag_base',
+                                                ],
+                                            ],
+                                        ]
                                     ),
                                 ],
                                 'listings_page' => [
@@ -3702,7 +3772,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'prv_background_color'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'single_listing' => [
@@ -3742,7 +3812,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'gallery_crop_height'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'categories_locations' => [
@@ -3763,7 +3833,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
 
@@ -3786,7 +3856,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'display_map_info', 'display_image_map', 'display_favorite_badge_map', 'display_user_avatar_map', 'display_title_map', 'display_review_map', 'display_price_map', 'display_address_map', 'display_direction_map', 'display_phone_map'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'badge' => [
@@ -3822,11 +3892,10 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'feature_badge_text', 'featured_back_color',
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
-
-                            ]
+                            ],
                         ),
                     ],
 
@@ -3848,7 +3917,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'fields'      => apply_filters(
                                         'atbdp_pages_settings_fields', [
                                             'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
-                                        ] 
+                                        ]
                                     ),
                                 ],
                             ]
@@ -3883,7 +3952,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'show_popular_category', 'popular_cat_title', 'popular_cat_num',
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
 
@@ -3919,7 +3988,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'search_sort_by_items'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
 
@@ -4029,7 +4098,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'auto_login', 'redirection_after_reg'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'login_form' => [
@@ -4087,7 +4156,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 ],
                                             ],
 
-                                        ] 
+                                        ]
                                     ),
                                 ],
 
@@ -4115,7 +4184,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'become_author_button', 'become_author_button_text'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'all_authors' => [
@@ -4130,7 +4199,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'all_authors_columns', 'all_authors_sorting', 'all_authors_image', 'all_authors_name', 'all_authors_select_role', 'all_authors_contact', 'all_authors_description', 'all_authors_description_limit', 'all_authors_social_info', 'all_authors_button', 'all_authors_button_text', 'all_authors_pagination', 'all_authors_per_page'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                             ]
@@ -4160,7 +4229,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'disable_email_notification', 'admin_email_lists', 'notify_admin', 'notify_user'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'email_templates' => [
@@ -4273,7 +4342,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'email_sub_email_verification', 'email_tmpl_email_verification'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                             ]
@@ -4307,7 +4376,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'payment_currency_position'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'featured_listings' => [
@@ -4323,7 +4392,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'featured_listing_time',
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'gateway' => [
@@ -4337,7 +4406,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'active_gateways',
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'offline_gateway' => [
@@ -4353,7 +4422,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'bank_transfer_instruction'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                             ]
@@ -4409,7 +4478,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     ]
                                                 ) ,
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                             ]
@@ -4456,7 +4525,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
                                                 ],
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                                 'miscellaneous' => [
@@ -4480,7 +4549,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 'title' => __( 'Uninstall', 'directorist' ),
                                                 'fields' => [ 'enable_uninstall' ]
                                             ],
-                                        ] 
+                                        ]
                                     ),
                                 ],
                             ]

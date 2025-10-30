@@ -1480,52 +1480,52 @@ window.addEventListener('load', function () {
           location.reload();
           return;
           // removed by dead control flow
-{}
+
           // removed by dead control flow
-{}
+
           // removed by dead control flow
-{ var form_response_page; }
+ var form_response_page; 
           // removed by dead control flow
-{}
+
 
           // Append Response
           // removed by dead control flow
-{}
+
           // removed by dead control flow
-{ var themes; }
+ var themes; 
           // removed by dead control flow
-{ var plugins; }
+ var plugins; 
           // removed by dead control flow
-{ var total_theme; }
+ var total_theme; 
           // removed by dead control flow
-{ var total_plugin; }
+ var total_plugin; 
 
           // console.log( { plugins, themes } );
 
           // removed by dead control flow
-{ var title; }
+ var title; 
           // removed by dead control flow
-{ var title; }
+ var title; 
           // removed by dead control flow
-{}
+
 
           // Show Log - Themes
           // removed by dead control flow
-{ var li, list_action, label, checkbox, theme, _iterator, _step, counter, theme_check_lists, theme_title, theme_section; }
+ var li, list_action, label, checkbox, theme, _iterator, _step, counter, theme_check_lists, theme_title, theme_section; 
 
           // Show Log - Extensions
           // removed by dead control flow
-{ var li, label, list_action, checkbox, extension, _iterator2, _step2, counter, plugin_check_lists, plugin_title, plugin_section; }
+ var li, label, list_action, checkbox, extension, _iterator2, _step2, counter, plugin_check_lists, plugin_title, plugin_section; 
           // removed by dead control flow
-{ var continue_button; }
+ var continue_button; 
           // removed by dead control flow
-{ var skip_button; }
+ var skip_button; 
           // removed by dead control flow
-{}
+
           // removed by dead control flow
-{}
+
           // removed by dead control flow
-{}
+
         }
       },
       error: function error(_error2) {

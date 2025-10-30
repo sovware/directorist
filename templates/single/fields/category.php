@@ -14,7 +14,7 @@ if ( empty( $listing->get_cat_list() ) ) {
 
 <div class="directorist-info-item directorist-listing-category">
 
-    <?php directorist_icon( 'las la-tags' ); ?>
+    <?php directorist_icon( 'las la-folder-open' ); ?>
 
     <span><?php echo wp_kses_post( $listing->get_cat_list() ); ?></span>
 

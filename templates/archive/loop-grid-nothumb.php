@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.0
+ * @version 8.4.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -31,6 +31,16 @@ $quick_info_field = ob_get_clean();
 ?>
 
 <article class="directorist-listing-single directorist-listing-single--bg directorist-listing-card directorist-listing-no-thumb <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
+
+    <?php
+    /**
+     * Fires before rendering the listing header section in grid view.
+     *
+     * @since 8.4.6
+     * @param object $listings The listings object containing loop data.
+     */
+    do_action( 'directorist_loop_grid_info_before_header', $listings );
+    ?>
 
     <section class="directorist-listing-single__header">
 
@@ -65,6 +75,16 @@ $quick_info_field = ob_get_clean();
 
     </section>
 
+    <?php
+    /**
+     * Fires immediately after the listing header section in grid view.
+     *
+     * @since 8.4.6
+     * @param object $listings The listings object containing loop data.
+     */
+    do_action( 'directorist_loop_grid_info_after_header', $listings );
+    ?>
+
     <?php if ( ! empty( $quick_info_field ) ) : ?>
         <div class="directorist-listing-single__info">
             <?php 
@@ -77,9 +97,29 @@ $quick_info_field = ob_get_clean();
     <section class="directorist-listing-single__content">
         <ul class="directorist-listing-single__info__list"><?php $listings->render_loop_fields( $loop_fields['body']['bottom'], '', '' ); ?></ul>
 
+        <?php
+        /**
+         * Fires before displaying the listing excerpt in grid view.
+         *
+         * @since 8.4.6
+         * @param object $listings The listings object containing loop data.
+         */
+        do_action( 'directorist_loop_grid_info_before_excerpt', $listings );
+        ?>
+
         <?php if ( ! empty( $loop_fields['body']['excerpt'] ) ) : ?>
             <?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ?>
         <?php endif; ?>
+        
+        <?php
+        /**
+         * Fires after the listing excerpt is rendered in grid view.
+         *
+         * @since 8.4.6
+         * @param object $listings The listings object containing loop data.
+         */
+        do_action( 'directorist_loop_grid_info_after_excerpt', $listings );
+        ?>
     </section>
 
     <footer class="directorist-listing-single__meta">

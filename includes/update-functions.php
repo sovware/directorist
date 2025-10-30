@@ -43,7 +43,7 @@ function directorist_710_migrate_reviews_table_to_comments_table() {
                     'comment_meta'         => [
                         'rating' => $review->rating
                     ]
-                ] 
+                ]
             );
         }
     }
@@ -95,7 +95,7 @@ function directorist_710_migrate_posts_table_to_comments_table() {
                     'comment_meta'         => [
                         'rating' => $review->rating
                     ]
-                ] 
+                ]
             );
         }
 
@@ -168,7 +168,7 @@ function directorist_7100_migrate_expired_meta_to_expired_status( $updater ) {
             'nopaging'       => true,
             'meta_key'       => '_listing_status',
             'meta_value'     => 'expired',
-        ] 
+        ]
     );
 
     while ( $listings->have_posts() ) {
@@ -178,7 +178,7 @@ function directorist_7100_migrate_expired_meta_to_expired_status( $updater ) {
             [
                 'ID'          => get_the_ID(),
                 'post_status' => 'expired',
-            ] 
+            ]
         );
     }
     wp_reset_postdata();
@@ -266,6 +266,34 @@ function directorist_830_sync_listing_author_and_order_author() {
 		SET p.post_author = p2.post_author
 		WHERE p.post_type = 'atbdp_orders'
 		AND p.post_author <> p2.post_author;",
-        ) 
+        )
     );
+}
+
+function directorist_850_migrate_archive_base() {
+    $tag_base      = directorist_get_default_tag_base();
+    $location_base = directorist_get_default_location_base();
+    $category_base = directorist_get_default_category_base();
+
+    if ( get_option( 'permalink_structure' ) ) {
+        if ( get_directorist_option( 'single_tag_page' ) ) {
+            $tag_base = basename( get_permalink( get_directorist_option( 'single_tag_page' ) ) );
+        }
+
+        if ( get_directorist_option( 'single_location_page' ) ) {
+            $location_base = basename( get_permalink( get_directorist_option( 'single_location_page' ) ) );
+        }
+
+        if ( get_directorist_option( 'single_category_page' ) ) {
+            $category_base = basename( get_permalink( get_directorist_option( 'single_category_page' ) ) );
+        }
+    }
+
+    update_directorist_option( 'tag_base', $tag_base );
+    update_directorist_option( 'category_base', $category_base );
+    update_directorist_option( 'location_base', $location_base );
+}
+
+function directorist_850_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.5.0' );
 }

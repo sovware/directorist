@@ -6,9 +6,6 @@
         class="cptm-form-builder-preset-fields-header-action-link"
         @click.prevent="togglePresetExpanded"
       >
-        <span class="cptm-form-builder-preset-fields-header-action-text">
-          {{ title }}</span
-        >
         <span
           class="cptm-form-builder-preset-fields-header-action-icon"
           :class="
@@ -17,6 +14,9 @@
         >
           <span aria-hidden="true" class="uil uil-angle-down"></span>
         </span>
+        <span class="cptm-form-builder-preset-fields-header-action-text">
+          {{ title }}</span
+        >
       </a>
     </div>
 

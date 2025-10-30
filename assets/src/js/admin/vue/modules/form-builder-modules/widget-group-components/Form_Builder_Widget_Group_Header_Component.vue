@@ -1,7 +1,7 @@
 <template>
   <div
     class="cptm-form-builder-group-header-section"
-    :class="widgetsExpanded ? 'expanded' : ''"
+    :class="[widgetsExpanded ? 'expanded' : '', { 'locked': groupData.lock }]"
   >
     <!-- Group Header Top -->
     <draggable-list-item
@@ -52,7 +52,7 @@
             </span>
           </h3>
 
-          <div class="cptm-form-builder-header-actions" v-if="!groupData.lock">
+          <div class="cptm-form-builder-header-actions">
             <a
               href="#"
               class="cptm-form-builder-header-action-link"
@@ -65,7 +65,8 @@
               href="#"
               class="cptm-form-builder-header-action-link"
               :class="widgetsExpanded ? 'disabled' : ''"
-              @click.prevent="handleGroupDelete"
+              @click.prevent="handleGroupDelete" 
+              v-if="!groupData.lock"
             >
               <span aria-hidden="true" class="uil uil-trash-alt"></span>
             </a>

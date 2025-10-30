@@ -78,6 +78,8 @@ class Directorist_Listings {
 
     public $directory_type;
 
+    public ?int $directory_type_id = null;
+
     public $default_directory_type;
 
     public $instant_search;
@@ -225,6 +227,8 @@ class Directorist_Listings {
         $this->atts = ! empty( $atts ) ? $atts : [];
         $this->type = ! empty( $type ) ? $type : 'listing';
 
+        $this->deferred_props = array_values( array_unique( apply_filters( 'directorist_listings_deferred_props', $this->deferred_props ) ) );
+
         $this->set_options();
 
         $current_page = ! empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
@@ -265,6 +269,10 @@ class Directorist_Listings {
 
             return $this->deferred_data[ $prop ];
         }
+    }
+
+    public function __set( $prop, $value ) {
+        $this->deferred_data[ $prop ] = $value;
     }
 
     // set_options
@@ -1271,12 +1279,29 @@ class Directorist_Listings {
         return ob_get_clean();
     }
 
+    public function set_directory_type_id_by_post_id( $post_id ) {
+        $this->directory_type_id = get_post_meta( $post_id, '_directory_type', true );
+    }
+
     public function render_list_view( $post_ids ) {
 
         if ( ! is_array( $post_ids ) || empty( $post_ids ) ) {
             // Exit early or log an error if the input is invalid
             return;
         }
+
+        if ( ! empty( $post_ids ) ) {
+            $this->set_directory_type_id_by_post_id( $post_ids[0] );
+        }
+
+        do_action(
+            'directorist_before_listings_loop', 
+            $this, 
+            [
+                'listings_ids' => $post_ids,
+                'view_type'    => 'list',
+            ] 
+        );
 
         foreach ( $post_ids as $listing_id ) {
             ?>
@@ -1292,6 +1317,19 @@ class Directorist_Listings {
             // Exit early or log an error if the input is invalid
             return;
         }
+
+        if ( ! empty( $post_ids ) ) {
+            $this->set_directory_type_id_by_post_id( $post_ids[0] );
+        }
+
+        do_action(
+            'directorist_before_listings_loop', 
+            $this, 
+            [
+                'listings_ids' => $post_ids,
+                'view_type'    => 'grid',
+            ] 
+        );
 
         foreach ( $post_ids as $listing_id ) {
             ?>
@@ -1326,6 +1364,28 @@ class Directorist_Listings {
         setup_postdata( $post );
 
         $this->set_loop_data();
+
+        $render = apply_filters(
+            'directorist_render_custom_template_for_listings_loop_item', false, [
+                'listings_id'       => $id,
+                'directory_type_id' => $this->directory_type_id,
+                'view_type'         => $loop,
+                'controller'        => $this,
+            ] 
+        );
+
+        if ( $render ) {
+            do_action(
+                'directorist_listings_loop_item_custom_template', $this, [
+                    'listings_id'       => $id,
+                    'directory_type_id' => $this->directory_type_id,
+                    'view_type'         => $loop,
+                    'controller'        => $this,
+                ] 
+            );
+            wp_reset_postdata();
+            return;
+        }
 
         if ( $loop == 'grid' && ! empty( $this->loop['card_fields'] ) ) {
             $active_template = $this->loop['card_fields']['active_template'];

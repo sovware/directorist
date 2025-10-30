@@ -1365,7 +1365,7 @@ class Directorist_Listings {
 
         $this->set_loop_data();
 
-        $render = apply_filters(
+        $render_custom_template = apply_filters(
             'directorist_should_render_custom_listings_loop_item_template', false, [
                 'listings_id'       => $id,
                 'directory_type_id' => $this->directory_type_id,
@@ -1374,7 +1374,7 @@ class Directorist_Listings {
             ] 
         );
 
-        if ( $render ) {
+        if ( $render_custom_template ) {
             do_action(
                 'directorist_render_custom_listings_loop_item_template', $this, [
                     'listings_id'       => $id,

@@ -980,6 +980,7 @@ class Multi_Directory_Manager {
                         'menu_name'     => __( 'Listing Directory', 'directorist' ),
                     ],
                     'show_ui'      => false,
+                    'show_in_rest' => true,
                 ] 
             ) 
         );

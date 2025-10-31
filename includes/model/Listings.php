@@ -267,8 +267,14 @@ class Directorist_Listings {
                 $this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
             }
 
-            return $this->deferred_data[ $prop ];
+            if ( isset( $this->deferred_data[ $prop ] ) ) {
+                return $this->deferred_data[ $prop ];
+            }
+            
+            return null;
         }
+
+        return null;
     }
 
     public function __set( $prop, $value ) {
@@ -1366,11 +1372,10 @@ class Directorist_Listings {
         $this->set_loop_data();
 
         $render_custom_template = apply_filters(
-            'directorist_should_render_custom_listings_loop_item_template', false, [
+            'directorist_should_render_custom_listings_loop_item_template', false, $this, [
                 'listings_id'       => $id,
                 'directory_type_id' => $this->directory_type_id,
                 'view_type'         => $loop,
-                'controller'        => $this,
             ] 
         );
 
@@ -1380,7 +1385,6 @@ class Directorist_Listings {
                     'listings_id'       => $id,
                     'directory_type_id' => $this->directory_type_id,
                     'view_type'         => $loop,
-                    'controller'        => $this,
                 ] 
             );
             wp_reset_postdata();

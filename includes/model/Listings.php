@@ -267,8 +267,14 @@ class Directorist_Listings {
                 $this->deferred_data[ $prop ] = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
             }
 
-            return $this->deferred_data[ $prop ];
+            if ( isset( $this->deferred_data[ $prop ] ) ) {
+                return $this->deferred_data[ $prop ];
+            }
+            
+            return null;
         }
+
+        return null;
     }
 
     public function __set( $prop, $value ) {

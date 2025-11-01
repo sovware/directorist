@@ -251,6 +251,8 @@ class Directorist_Listings {
         }
 
         $this->query_results = $this->get_query_results();
+
+        do_action( 'directorist_after_init_listings_shortcode', $this );
     }
 
     public function __get( $prop ) {
@@ -1252,6 +1254,13 @@ class Directorist_Listings {
                 return substr( $key, 0, 7 ) == 'filter_';
             }, ARRAY_FILTER_USE_KEY
         );
+
+        $render_custom_template = apply_filters( 'directorist_should_render_listings_custom_archive_template', false, $this );
+
+        if ( $render_custom_template ) {
+            do_action( 'directorist_render_listings_custom_archive_template', $this );
+            return ob_get_clean();
+        }
 
         $args = [
             'listings'   => $this,

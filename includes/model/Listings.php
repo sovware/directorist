@@ -251,6 +251,8 @@ class Directorist_Listings {
         }
 
         $this->query_results = $this->get_query_results();
+
+        do_action( 'directorist_after_init_listings_shortcode', $this );
     }
 
     public function __get( $prop ) {
@@ -1253,6 +1255,13 @@ class Directorist_Listings {
             }, ARRAY_FILTER_USE_KEY
         );
 
+        $render_custom_template = apply_filters( 'directorist_should_render_listings_custom_archive_template', false, $this );
+
+        if ( $render_custom_template ) {
+            do_action( 'directorist_render_listings_custom_archive_template', $this );
+            return ob_get_clean();
+        }
+
         $args = [
             'listings'   => $this,
             'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
@@ -1372,7 +1381,7 @@ class Directorist_Listings {
         $this->set_loop_data();
 
         $render_custom_template = apply_filters(
-            'directorist_should_render_custom_listings_loop_item_template', false, $this, [
+            'directorist_should_render_listings_custom_archive_item_template', false, $this, [
                 'listings_id'       => $id,
                 'directory_type_id' => $this->directory_type_id,
                 'view_type'         => $loop,
@@ -1381,7 +1390,7 @@ class Directorist_Listings {
 
         if ( $render_custom_template ) {
             do_action(
-                'directorist_render_custom_listings_loop_item_template', $this, [
+                'directorist_render_listings_custom_archive_item_template', $this, [
                     'listings_id'       => $id,
                     'directory_type_id' => $this->directory_type_id,
                     'view_type'         => $loop,

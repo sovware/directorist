@@ -375,6 +375,9 @@
 				@include m(clear) {
 					right: 15px;
 					bottom: 8px;
+					@media screen and (max-width: 575px) {
+						right: 0;
+					}
 				}
 			}
 
@@ -415,11 +418,15 @@
 						bottom: 8px;
 						top: unset;
 						transform: unset;
+						@media screen and (max-width: 575px) {
+							right: 25px;
+						}
 					}
 				}
 				.directorist-select {
 					~ .directorist-search-field__btn--clear {
 						bottom: 10px;
+						right: 10px;
 						@media screen and (max-width: 575px) {
 							right: 25px !important;
 						}

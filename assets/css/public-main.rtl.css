@@ -13386,6 +13386,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   left: 15px;
   bottom: 8px;
 }
+@media screen and (max-width: 575px) {
+  .directorist-search-form__top .directorist-search-field__btn--clear {
+    left: 0;
+  }
+}
 .directorist-search-form__top .directorist-search-field.input-has-value .directorist-search-field__input, .directorist-search-form__top .directorist-search-field.input-is-focused .directorist-search-field__input {
   padding-left: 25px;
 }
@@ -13435,8 +13440,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transform: unset;
           transform: unset;
 }
+@media screen and (max-width: 575px) {
+  .directorist-search-form__top .directorist-search-field.input-has-value .directorist-select ~ .directorist-search-field__btn--clear,
+  .directorist-search-form__top .directorist-search-field.input-has-value .directorist-filter-location-icon ~ .directorist-search-field__btn--clear, .directorist-search-form__top .directorist-search-field.input-is-focused .directorist-select ~ .directorist-search-field__btn--clear,
+  .directorist-search-form__top .directorist-search-field.input-is-focused .directorist-filter-location-icon ~ .directorist-search-field__btn--clear {
+    left: 25px;
+  }
+}
 .directorist-search-form__top .directorist-search-field.input-has-value .directorist-select ~ .directorist-search-field__btn--clear, .directorist-search-form__top .directorist-search-field.input-is-focused .directorist-select ~ .directorist-search-field__btn--clear {
   bottom: 10px;
+  left: 10px;
 }
 @media screen and (max-width: 575px) {
   .directorist-search-form__top .directorist-search-field.input-has-value .directorist-select ~ .directorist-search-field__btn--clear, .directorist-search-form__top .directorist-search-field.input-is-focused .directorist-select ~ .directorist-search-field__btn--clear {

@@ -425,15 +425,6 @@
 						}
 					}
 				}
-				.directorist-select {
-					~ .directorist-search-field__btn--clear {
-						right: 15px;
-						bottom: 8px;
-						@media screen and (max-width: 575px) {
-							right: 25px !important;
-						}
-					}
-				}
 				.directorist-color-picker-wrap {
 					top: 12px;
 					~ .directorist-search-field__btn--clear {
@@ -446,12 +437,19 @@
 						}
 					}
 				}
+				
+				.directorist-select {
+					~ .directorist-search-field__btn--clear {
+						right: 15px;
+					}
+				}
 				&:not(.input-has-noLabel) {
 					.directorist-select {
 						~ .directorist-search-field__btn--clear {
+							right: 15px;
+							bottom: 8px;
 							@media screen and (max-width: 575px) {
 								right: 20px !important;
-								bottom: 8px;
 							}
 						}
 					}

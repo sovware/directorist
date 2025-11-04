@@ -136,6 +136,14 @@
 							padding-right: 20px;
 						}
 					}
+					&.directorist-date,
+					&.directorist-time,
+					&.directorist-search-location,
+					&.directorist-search-form-dropdown {
+						.directorist-search-field__btn--clear {
+							bottom: 12px;
+						}
+					}
 				}
 
 				&.input-has-noLabel {

@@ -142,6 +142,14 @@
 				opacity: 1;
 			}
 		}
+		&.directorist-date,
+		&.directorist-time,
+		&.directorist-search-location,
+		&.directorist-search-form-dropdown {
+			.directorist-search-field__btn--clear {
+				bottom: 8px;
+			}
+		}
 		.directorist-location-js {
 			padding-right: 45px;
 		}
@@ -171,11 +179,6 @@
 		}
 		.directorist-icon-mask:after {
 			background-color: #808080;
-		}
-	}
-	.directorist-filter-location-icon {
-		~ .directorist-search-field__btn--clear {
-			bottom: 8px;
 		}
 	}
 }
@@ -324,6 +327,7 @@
 			display: flex;
 			gap: 18px;
 			flex-wrap: wrap;
+			align-items: flex-start;
 		}
 
 		.directorist-search-form__single-category {
@@ -374,7 +378,7 @@
 			@include e(btn) {
 				@include m(clear) {
 					right: 15px;
-					bottom: 8px;
+					bottom: 12px;
 					@media screen and (max-width: 575px) {
 						right: 0;
 					}
@@ -403,19 +407,17 @@
 
 					.directorist-select2-addons-area
 						.directorist-select2-dropdown-toggle {
-						right: 15px;
+						right: 25px;
 						@media screen and (max-width: 575px) {
-							right: 5px;
+							right: 0;
 						}
 					}
 				}
 
-				.directorist-select,
 				.directorist-filter-location-icon {
 					margin-top: 3px;
 					~ .directorist-search-field__btn--clear {
 						right: 38px;
-						bottom: 8px;
 						top: unset;
 						transform: unset;
 						@media screen and (max-width: 575px) {
@@ -425,8 +427,8 @@
 				}
 				.directorist-select {
 					~ .directorist-search-field__btn--clear {
-						bottom: 10px;
-						right: 10px;
+						right: 15px;
+						bottom: 8px;
 						@media screen and (max-width: 575px) {
 							right: 25px !important;
 						}
@@ -438,9 +440,9 @@
 						bottom: 0;
 					}
 					@media screen and (max-width: 575px) {
-						top: 0;
+						margin-bottom: 12px;
 						~ .directorist-search-field__btn--clear {
-							bottom: 4px;
+							bottom: 12px;
 						}
 					}
 				}
@@ -649,9 +651,6 @@
 					}
 					.directorist-search-field__btn {
 						right: 20px;
-					}
-					.directorist-search-field__btn--clear {
-						bottom: 5px;
 					}
 				}
 			}

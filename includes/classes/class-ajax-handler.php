@@ -278,6 +278,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $location_id            = ! empty( $_POST['in_loc'] ) ? absint( $_POST['in_loc'] ) : 0;
             $location               = get_term_by( 'id', $location_id, ATBDP_LOCATION );
 
+            // Fire hook for extensions to track search results
+            do_action( 'directorist_instant_search_completed', $listings, $args );
+
             wp_send_json(
                 [
                     'search_result'  => $archive_view,

@@ -561,7 +561,8 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             $location_base = directorist_get_location_base();
             if ( directorist_is_archive_template_enabled() && $location_base ) {
                 $args['rewrite'] = [
-                    'slug' => $location_base,
+                    'slug'         => $location_base,
+                    'hierarchical' => true,
                 ];
             }
 

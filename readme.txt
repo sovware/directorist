@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.5.1
+Stable tag: 8.5.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -287,7 +287,18 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.5.2 - Nov 6, 2025 =
+
+**Changed**
+- Added an action hook after completing the instant search. (#2573)
+
+**Fixed**
+ - Location hierarchical issue. (#2576)
+ - licensing checking issue. (#2575)
+
 = 8.5.1 - Oct 30, 2025 =
+
+- Added hooks to control dashboard and login page redirects. (#2521)
 
 **Fixed**
  - Invalid directory issue with the Add Listing image field when using a single directory. (#2563)

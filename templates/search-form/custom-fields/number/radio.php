@@ -22,11 +22,11 @@ $options = directorist_calculate_number_options( $data );
         if ( $options['radio'] ) {
             foreach ( $options['radio'] as $option ) {
                 $uniqid = $option['start'] . '-' . wp_rand();
-                $option_value  = ( $option['start'] === $option['end'] ) ? $option['start'] : $option['start'] . '-' . $option['end'];
+                $option_value  = ( $option['start'] === $option['end'] ) ? (string) $option['start'] : $option['start'] . '-' . $option['end'];
                 ?>
 
                 <div class="directorist-radio directorist-radio-circle">
-                    <input  <?php checked( $value === $option_value ); ?> type="radio" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $option_value ); ?>">
+                    <input  <?php checked( (string) $value === (string) $option_value ); ?> type="radio" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $option_value ); ?>">
                     <label class="directorist-radio__label" for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option_value ); ?></label>
                 </div>
 

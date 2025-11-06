@@ -2756,10 +2756,11 @@
 					_iterator3.f();
 				}
 			}
-			var on_processing = false;
+			var FORM_ON_PROCESSING = false;
 			var has_media = true;
 			var quickLoginModalSuccessCallback = null;
 			var $notification = $('#listing_notifier');
+			var UPLOADED_IMAGES_CACHE = new WeakMap();
 
 			// -----------------------------
 			// Submit The Form
@@ -2770,29 +2771,35 @@
 				'#directorist-add-listing-form',
 				function (e) {
 					e.preventDefault();
-					var $form = $(e.target);
-					var error_count = 0;
-					var err_log = {};
-					var $submitButton = $('.directorist-form-submit__btn');
-					if (on_processing) {
+					if (FORM_ON_PROCESSING) {
 						return;
 					}
+					var $form = $(e.target);
+					var err_log = {};
+					var $submitButton = $form.find(
+						'.directorist-form-submit__btn'
+					);
+					var error_count = 0;
+					var uploadableImages = [];
+					var counter = 0;
+					var $directory = $form.find("input[name='directory_type']");
+					var directory_id =
+						$directory !== undefined ? $directory.val() : 0;
+					directory_id = qs.directory_type
+						? qs.directory_type
+						: directory_id;
 					function disableSubmitButton() {
-						on_processing = true;
+						FORM_ON_PROCESSING = true;
 						$submitButton
 							.addClass('atbd_loading')
 							.attr('disabled', true);
 					}
 					function enableSubmitButton() {
-						on_processing = false;
+						FORM_ON_PROCESSING = false;
 						$submitButton
 							.removeClass('atbd_loading')
 							.attr('disabled', false);
 					}
-
-					// images
-					var selectedImages = [];
-					var uploadedImages = [];
 					if (mediaUploaders.length) {
 						for (
 							var _i2 = 0, _mediaUploaders = mediaUploaders;
@@ -2822,44 +2829,61 @@
 							uploader.media_uploader
 								.getTheFiles()
 								.forEach(function (file) {
-									selectedImages.push({
+									if (UPLOADED_IMAGES_CACHE.has(file)) {
+										return;
+									}
+									uploadableImages.push({
 										field: uploader.uploaders_data
 											.meta_name,
 										file: file,
+										uploadedFile: '',
 									});
 								});
 						}
 					}
-					if (selectedImages.length) {
-						var counter = 0;
+					if (uploadableImages.length) {
 						function uploadImage() {
+							if (
+								UPLOADED_IMAGES_CACHE.has(
+									uploadableImages[counter].file
+								)
+							) {
+								return;
+							}
 							var formData = new FormData();
+
+							// formData.append( 'action', 'directorist_upload_listing_image' );
+							// formData.append( 'directorist_nonce', directorist.directorist_nonce );
+							// formData.append( 'file', uploadableImages[ counter ] );
 							formData.append(
-								'action',
-								'directorist_upload_listing_image'
-							);
-							formData.append(
-								'directorist_nonce',
-								directorist.directorist_nonce
-							);
-							formData.append('image', selectedImages[counter]);
-							formData.append(
-								'image',
-								selectedImages[counter].file
+								'file',
+								uploadableImages[counter].file
 							);
 							formData.append(
 								'field',
-								selectedImages[counter].field
+								uploadableImages[counter].field
 							);
+							formData.append('directory', directory_id);
+							// formData.append( 'field', uploadableImages[ counter ].field );
+							// console.log(uploadableImages, counter);
+
 							$.ajax({
 								method: 'POST',
 								processData: false,
 								contentType: false,
-								url: localized_data.ajaxurl,
+								mimeType: 'multipart/form-data',
+								async: true,
+								url:
+									directorist.rest_url +
+									'directorist/v1/temp-media-upload',
 								data: formData,
-								beforeSend: function beforeSend() {
+								beforeSend: function beforeSend(xhr) {
+									xhr.setRequestHeader(
+										'X-WP-Nonce',
+										directorist.rest_nonce
+									);
 									disableSubmitButton();
-									var totalImages = selectedImages.length;
+									var totalImages = uploadableImages.length;
 									if (totalImages === 1) {
 										$notification
 											.show()
@@ -2893,44 +2917,36 @@
 									}
 								},
 								success: function success(response) {
-									if (!response.success) {
-										enableSubmitButton();
-										$notification
-											.show()
-											.html(
-												'<span class="atbdp_error">'.concat(
-													response.data,
-													'</span>'
-												)
-											);
-										return;
-									}
-									uploadedImages.push({
-										field: selectedImages[counter].field,
-										file: response.data,
-									});
-									counter++;
-									if (counter < selectedImages.length) {
+									var data = JSON.parse(response);
+									uploadableImages[counter].uploadedFile =
+										data.file;
+									UPLOADED_IMAGES_CACHE.set(
+										uploadableImages[counter].file,
+										true
+									);
+									++counter;
+									if (counter < uploadableImages.length) {
 										uploadImage();
 									} else {
-										submitForm($form, uploadedImages);
+										submitForm($form, uploadableImages);
 									}
 								},
-								error: function error(response) {
+								error: function error(xhr) {
+									var data = JSON.parse(xhr.responseText);
 									enableSubmitButton();
 									$notification.html(
 										'<span class="atbdp_error">'.concat(
-											response.responseJSON.data,
+											data.message,
 											'</span>'
 										)
 									);
 								},
 							});
 						}
-						if (uploadedImages.length === selectedImages.length) {
-							submitForm($form, uploadedImages);
-						} else {
+						if (counter < uploadableImages.length) {
 							uploadImage();
+						} else {
+							submitForm($form, uploadableImages);
 						}
 					} else {
 						submitForm($form);
@@ -2964,8 +2980,6 @@
 								var field = _step4.value;
 								form_data.append(field.name, field.value);
 							}
-
-							// Upload existing image
 						} catch (err) {
 							_iterator4.e(err);
 						} finally {
@@ -3033,7 +3047,7 @@
 							uploadedImages.forEach(function (image) {
 								form_data.append(
 									''.concat(image.field, '[]'),
-									image.file
+									image.uploadedFile
 								);
 							});
 						}
@@ -3062,17 +3076,7 @@
 						if (form_data.has('directory_type')) {
 							form_data.delete('directory_type');
 						}
-						var form_directory_type = $form.find(
-							"input[name='directory_type']"
-						);
-						var form_directory_type_value =
-							form_directory_type !== undefined
-								? form_directory_type.val()
-								: '';
-						var directory_type = qs.directory_type
-							? qs.directory_type
-							: form_directory_type_value;
-						form_data.append('directory_type', directory_type);
+						form_data.append('directory_type', directory_id);
 						if (qs.plan) {
 							form_data.append('plan_id', qs.plan);
 						}

@@ -119,6 +119,6 @@ Each time you update Node.js or npm, record the changes here for tracking:
 - Notes:
   - node-sass deprecated, replaced with sass
   - Webpack 4.x may have compatibility issues with Node.js 22.x
-  - All dependencies reinstalled after cache clean
+  - All dependencies reinstalled after cache clean.
 
 ---

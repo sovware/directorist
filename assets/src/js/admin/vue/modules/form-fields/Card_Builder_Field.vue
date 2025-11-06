@@ -1,8 +1,24 @@
 <template>
-  <div class="">
+  <div class="cptm-form-field-wrapper">
     <template v-if="card_templates">
-      <div class="cptm-card-top-area cptm-text-center cptm-mb-20">
-        <select-field theme="default" :options="theCardBiulderTemplateOptionList" v-model="template_id" />
+      <div class="cptm-card-top-area">
+        <div class="cptm-card-top-area-content">
+          <div
+            v-if="
+              fieldKey === 'listings_card_grid_view' ||
+              fieldKey === 'listings_card_list_view'
+            "
+            class="cptm-card-layout-content"
+          >
+            <h3 class="cptm-card-layout-title">Set layout style</h3>
+            <p class="cptm-card-layout-description">Choose your preferred appearance: Show preview image or hide preview image</p>
+          </div>
+          <tab-field
+            theme="default"
+            :options="theCardBiulderTemplateOptionList"
+            v-model="template_id"
+          />
+        </div>
       </div>
 
       <component
@@ -10,6 +26,7 @@
         :field-id="fieldId"
         v-bind="theCurrentTemplateModel"
         :value="theCardBiulderValue"
+        :video="fieldVideoData"
         @update="updateValue($event)"
       >
       </component>
@@ -23,6 +40,7 @@
         :widgets="widgets"
         :layout="layout"
         :card-options="cardOptions"
+        :video="fieldVideoData"
         @update="$emit('update', $event)"
       >
       </component>
@@ -31,13 +49,16 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { mapState } from "vuex";
 
 export default {
   name: "card-builder",
   props: {
     fieldId: {
+      required: false,
+      default: "",
+    },
+    fieldKey: {
       required: false,
       default: "",
     },
@@ -74,6 +95,15 @@ export default {
     ...mapState({
       fields: "fields",
     }),
+
+    // Try to get video data from the field data
+    fieldVideoData() {
+      // Check if we can get video data from the fields state
+      if (this.fields && this.fields[this.fieldKey]) {
+        return this.fields[this.fieldKey].video;
+      }
+      return null;
+    },
 
     theCardBiulderTemplateOptionList() {
       var options = [];
@@ -191,13 +221,13 @@ export default {
 
     updateValue(value) {
       var old_value = this.value;
-      
+
       // If has no old value
-      if ( ! ( old_value && typeof old_value == 'object' ) ) {
+      if (!(old_value && typeof old_value == "object")) {
         old_value = {};
       }
 
-      if ( Array.isArray( old_value ) ) {
+      if (Array.isArray(old_value)) {
         old_value = {};
       }
 
@@ -205,7 +235,7 @@ export default {
       old_value.active_template = this.template_id;
 
       // Update Template Data
-      if ( ! old_value.template_data ) {
+      if (!old_value.template_data) {
         old_value.template_data = {};
       }
 

@@ -36,7 +36,7 @@ abstract class Terms_Controller extends Abstract_Controller {
      *
      * @var array
      */
-    protected $taxonomies_by_id = [];
+    protected $taxonomies_by_id = array();
 
     /**
      * Register the routes for terms.
@@ -45,70 +45,70 @@ abstract class Terms_Controller extends Abstract_Controller {
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base,
-            [
-                [
+            array(
+                array(
                     'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_items' ],
-                    'permission_callback' => [ $this, 'get_items_permissions_check' ],
+                    'callback'            => array( $this, 'get_items' ),
+                    'permission_callback' => array( $this, 'get_items_permissions_check' ),
                     'args'                => $this->get_collection_params(),
-                ],
-                [
+                ),
+                array(
                     'methods'             => WP_REST_Server::CREATABLE,
-                    'callback'            => [ $this, 'create_item' ],
-                    'permission_callback' => [ $this, 'create_item_permissions_check' ],
+                    'callback'            => array( $this, 'create_item' ),
+                    'permission_callback' => array( $this, 'create_item_permissions_check' ),
                     'args'                => array_merge(
                         $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
-                        [
-                            'name' => [
+                        array(
+                            'name' => array(
                                 'type'        => 'string',
                                 'description' => __( 'Name for the resource.', 'directorist' ),
                                 'required'    => true,
-                            ],
-                        ]
+                            ),
+                        )
                     ),
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ]
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            )
         );
 
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base . '/(?P<id>[\d]+)',
-            [
-                'args'   => [
-                    'id' => [
+            array(
+                'args'   => array(
+                    'id' => array(
                         'description' => __( 'Unique identifier for the resource.', 'directorist' ),
                         'type'        => 'integer',
-                    ],
-                ],
-                [
+                    ),
+                ),
+                array(
                     'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'get_item_permissions_check' ],
-                    'args'                => [
-                        'context' => $this->get_context_param( [ 'default' => 'view' ] ),
-                    ],
-                ],
-                [
+                    'callback'            => array( $this, 'get_item' ),
+                    'permission_callback' => array( $this, 'get_item_permissions_check' ),
+                    'args'                => array(
+                        'context' => $this->get_context_param( array( 'default' => 'view' ) ),
+                    ),
+                ),
+                array(
                     'methods'             => WP_REST_Server::EDITABLE,
-                    'callback'            => [ $this, 'update_item' ],
-                    'permission_callback' => [ $this, 'update_item_permissions_check' ],
+                    'callback'            => array( $this, 'update_item' ),
+                    'permission_callback' => array( $this, 'update_item_permissions_check' ),
                     'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
-                ],
-                [
+                ),
+                array(
                     'methods'             => WP_REST_Server::DELETABLE,
-                    'callback'            => [ $this, 'delete_item' ],
-                    'permission_callback' => [ $this, 'delete_item_permissions_check' ],
-                    'args'                => [
-                        'force' => [
+                    'callback'            => array( $this, 'delete_item' ),
+                    'permission_callback' => array( $this, 'delete_item_permissions_check' ),
+                    'args'                => array(
+                        'force' => array(
                             'default'     => false,
                             'type'        => 'boolean',
                             'description' => __( 'Required to be true, as resource does not support trashing.', 'directorist' ),
-                        ],
-                    ],
-                ],
-                'schema' => [ $this, 'get_public_item_schema' ],
-            ]
+                        ),
+                    ),
+                ),
+                'schema' => array( $this, 'get_public_item_schema' ),
+            )
         );
     }
 
@@ -125,7 +125,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         }
 
         if ( ! $permissions ) {
-            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -144,7 +144,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         }
 
         if ( ! $permissions ) {
-            return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -163,7 +163,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         }
 
         if ( ! $permissions ) {
-            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -182,7 +182,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         }
 
         if ( ! $permissions ) {
-            return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -201,7 +201,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         }
 
         if ( ! $permissions ) {
-            return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -218,7 +218,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         // Get taxonomy.
         $taxonomy = $this->taxonomy;
         if ( ! $taxonomy || ! taxonomy_exists( $taxonomy ) ) {
-            return new WP_Error( 'directorist_rest_taxonomy_invalid', __( 'Taxonomy does not exist.', 'directorist' ), [ 'status' => 404 ] );
+            return new WP_Error( 'directorist_rest_taxonomy_invalid', __( 'Taxonomy does not exist.', 'directorist' ), array( 'status' => 404 ) );
         }
 
         // Check permissions for a single term.
@@ -227,7 +227,7 @@ abstract class Terms_Controller extends Abstract_Controller {
             $term = get_term( $id, $taxonomy );
 
             if ( is_wp_error( $term ) || ! $term ) {
-                return new WP_Error( 'directorist_rest_term_invalid', __( 'Resource does not exist.', 'directorist' ), [ 'status' => 404 ] );
+                return new WP_Error( 'directorist_rest_term_invalid', __( 'Resource does not exist.', 'directorist' ), array( 'status' => 404 ) );
             }
 
             return directorist_rest_check_listing_term_permissions( $taxonomy, $context, $term->term_id );
@@ -293,7 +293,7 @@ abstract class Terms_Controller extends Abstract_Controller {
                 $total_terms  = count( $terms );
 
                 if ( $offset >= $total_terms ) {
-                    $query_result = [];
+                    $query_result = array();
                 }
             } else {
                 $query_result = get_terms( $taxonomy, $prepared_args );
@@ -306,7 +306,7 @@ abstract class Terms_Controller extends Abstract_Controller {
                 // Ensure we don't return results when offset is out of bounds.
                 // See https://core.trac.wordpress.org/ticket/35935.
                 if ( $prepared_args['offset'] && $prepared_args['offset'] >= $total_terms ) {
-                    $query_result = [];
+                    $query_result = array();
                 }
 
                 // wp_count_terms can return a falsy value when the term has no children.
@@ -316,7 +316,7 @@ abstract class Terms_Controller extends Abstract_Controller {
             }
         }
 
-        $response = [];
+        $response = array();
         foreach ( $query_result as $term ) {
             $data       = $this->prepare_item_for_response( $term, $request );
             $response[] = $this->prepare_response_for_collection( $data );
@@ -363,7 +363,7 @@ abstract class Terms_Controller extends Abstract_Controller {
      */
     public function prepare_query_args( $request ) {
         $taxonomy      = $this->taxonomy;
-        $prepared_args = [
+        $prepared_args = array(
             'exclude'    => $request['exclude'],
             'include'    => $request['include'],
             'order'      => $request['order'],
@@ -373,7 +373,7 @@ abstract class Terms_Controller extends Abstract_Controller {
             'number'     => $request['per_page'],
             'search'     => $request['search'],
             'slug'       => $request['slug'],
-        ];
+        );
 
         if ( ! empty( $request['offset'] ) ) {
             $prepared_args['offset'] = $request['offset'];
@@ -406,7 +406,7 @@ abstract class Terms_Controller extends Abstract_Controller {
     public function create_item( $request ) {
         $taxonomy = $this->taxonomy;
         $name     = $request['name'];
-        $args     = [];
+        $args     = array();
         $schema   = $this->get_item_schema();
 
         if ( ! empty( $schema['properties']['description'] ) && isset( $request['description'] ) ) {
@@ -417,7 +417,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         }
         if ( isset( $request['parent'] ) ) {
             if ( ! is_taxonomy_hierarchical( $taxonomy ) ) {
-                return new WP_Error( 'directorist_rest_taxonomy_not_hierarchical', __( 'Can not set resource parent, taxonomy is not hierarchical.', 'directorist' ), [ 'status' => 400 ] );
+                return new WP_Error( 'directorist_rest_taxonomy_not_hierarchical', __( 'Can not set resource parent, taxonomy is not hierarchical.', 'directorist' ), array( 'status' => 400 ) );
             }
             $args['parent'] = $request['parent'];
         }
@@ -427,7 +427,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         $term = wp_insert_term( $name, $taxonomy, $args );
 
         if ( is_wp_error( $term ) ) {
-            $error_data = [ 'status' => 400 ];
+            $error_data = array( 'status' => 400 );
 
             // If we're going to inform the client that the term exists,
             // give them the identifier they can actually use.
@@ -519,7 +519,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 
         $term          = get_term( (int) $request['id'], $taxonomy );
         $schema        = $this->get_item_schema();
-        $prepared_args = [];
+        $prepared_args = array();
 
         if ( isset( $request['name'] ) ) {
             $prepared_args['name'] = $request['name'];
@@ -532,7 +532,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         }
         if ( isset( $request['parent'] ) ) {
             if ( ! is_taxonomy_hierarchical( $taxonomy ) ) {
-                return new WP_Error( 'directorist_rest_taxonomy_not_hierarchical', __( 'Can not set resource parent, taxonomy is not hierarchical.', 'directorist' ), [ 'status' => 400 ] );
+                return new WP_Error( 'directorist_rest_taxonomy_not_hierarchical', __( 'Can not set resource parent, taxonomy is not hierarchical.', 'directorist' ), array( 'status' => 400 ) );
             }
             $prepared_args['parent'] = $request['parent'];
         }
@@ -589,7 +589,7 @@ abstract class Terms_Controller extends Abstract_Controller {
 
         // We don't support trashing for this type, error out.
         if ( ! $force ) {
-            return new WP_Error( 'directorist_rest_trash_not_supported', __( 'Resource does not support trashing.', 'directorist' ), [ 'status' => 501 ] );
+            return new WP_Error( 'directorist_rest_trash_not_supported', __( 'Resource does not support trashing.', 'directorist' ), array( 'status' => 501 ) );
         }
 
         $id = (int) $request['id'];
@@ -606,7 +606,7 @@ abstract class Terms_Controller extends Abstract_Controller {
         do_action( 'directorist_rest_after_query', 'delete_term_item', $request, $id, $taxonomy );
 
         if ( ! $retval ) {
-            return new WP_Error( 'directorist_rest_cannot_delete', __( 'The resource cannot be deleted.', 'directorist' ), [ 'status' => 500 ] );
+            return new WP_Error( 'directorist_rest_cannot_delete', __( 'The resource cannot be deleted.', 'directorist' ), array( 'status' => 500 ) );
         }
 
         /**
@@ -633,21 +633,21 @@ abstract class Terms_Controller extends Abstract_Controller {
     protected function prepare_links( $term, $request ) {
         $base = '/' . $this->namespace . '/' . $this->rest_base;
 
-        $links = [
-            'self'       => [
+        $links = array(
+            'self'       => array(
                 'href' => rest_url( trailingslashit( $base ) . $term->term_id ),
-            ],
-            'collection' => [
+            ),
+            'collection' => array(
                 'href' => rest_url( $base ),
-            ],
-        ];
+            ),
+        );
 
         if ( $term->parent ) {
             $parent_term = get_term( (int) $term->parent, $term->taxonomy );
             if ( $parent_term ) {
-                $links['up'] = [
+                $links['up'] = array(
                     'href' => rest_url( trailingslashit( $base ) . $parent_term->term_id ),
-                ];
+                );
             }
         }
 
@@ -683,12 +683,12 @@ abstract class Terms_Controller extends Abstract_Controller {
         $query_result = get_the_terms( $prepared_args['listing'], $taxonomy );
         if ( empty( $query_result ) ) {
             $this->total_terms = 0;
-            return [];
+            return array();
         }
 
         // get_items() verifies that we don't have `include` set, and default.
         // ordering is by `name`.
-        if ( ! in_array( $prepared_args['orderby'], [ 'name', 'none', 'include' ], true ) ) {
+        if ( ! in_array( $prepared_args['orderby'], array( 'name', 'none', 'include' ), true ) ) {
             switch ( $prepared_args['orderby'] ) {
                 case 'id':
                     $this->sort_column = 'term_id';
@@ -700,7 +700,7 @@ abstract class Terms_Controller extends Abstract_Controller {
                     $this->sort_column = $prepared_args['orderby'];
                     break;
             }
-            usort( $query_result, [ $this, 'compare_terms' ] );
+            usort( $query_result, array( $this, 'compare_terms' ) );
         }
         if ( strtolower( $prepared_args['order'] ) !== 'asc' ) {
             $query_result = array_reverse( $query_result );
@@ -744,47 +744,47 @@ abstract class Terms_Controller extends Abstract_Controller {
 
         $params['context']['default'] = 'view';
 
-        $params['exclude']    = [
+        $params['exclude']    = array(
             'description'       => __( 'Ensure result set excludes specific IDs.', 'directorist' ),
             'type'              => 'array',
-            'items'             => [
+            'items'             => array(
                 'type' => 'integer',
-            ],
-            'default'           => [],
+            ),
+            'default'           => array(),
             'sanitize_callback' => 'wp_parse_id_list',
-        ];
-        $params['include']    = [
+        );
+        $params['include']    = array(
             'description'       => __( 'Limit result set to specific ids.', 'directorist' ),
             'type'              => 'array',
-            'items'             => [
+            'items'             => array(
                 'type' => 'integer',
-            ],
-            'default'           => [],
+            ),
+            'default'           => array(),
             'sanitize_callback' => 'wp_parse_id_list',
-        ];
-        $params['offset']     = [
+        );
+        $params['offset']     = array(
             'description'       => __( 'Offset the result set by a specific number of items. Applies to hierarchical taxonomies only.', 'directorist' ),
             'type'              => 'integer',
             'sanitize_callback' => 'absint',
             'validate_callback' => 'rest_validate_request_arg',
-        ];
-        $params['order']      = [
+        );
+        $params['order']      = array(
             'description'       => __( 'Order sort attribute ascending or descending.', 'directorist' ),
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_key',
             'default'           => 'asc',
-            'enum'              => [
+            'enum'              => array(
                 'asc',
                 'desc',
-            ],
+            ),
             'validate_callback' => 'rest_validate_request_arg',
-        ];
-        $params['orderby']    = [
+        );
+        $params['orderby']    = array(
             'description'       => __( 'Sort collection by resource attribute.', 'directorist' ),
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_key',
             'default'           => 'name',
-            'enum'              => [
+            'enum'              => array(
                 'id',
                 'include',
                 'name',
@@ -792,32 +792,32 @@ abstract class Terms_Controller extends Abstract_Controller {
                 'term_group',
                 'description',
                 'count',
-            ],
+            ),
             'validate_callback' => 'rest_validate_request_arg',
-        ];
-        $params['hide_empty'] = [
+        );
+        $params['hide_empty'] = array(
             'description'       => __( 'Whether to hide resources not assigned to any listings.', 'directorist' ),
             'type'              => 'boolean',
             'default'           => false,
             'validate_callback' => 'rest_validate_request_arg',
-        ];
-        $params['parent']     = [
+        );
+        $params['parent']     = array(
             'description'       => __( 'Limit result set to resources assigned to a specific parent. Applies to hierarchical taxonomies only.', 'directorist' ),
             'type'              => 'integer',
             'sanitize_callback' => 'absint',
             'validate_callback' => 'rest_validate_request_arg',
-        ];
-        $params['listing']    = [
+        );
+        $params['listing']    = array(
             'description'       => __( 'Limit result set to resources assigned to a specific listing.', 'directorist' ),
             'type'              => 'integer',
             'default'           => null,
             'validate_callback' => 'rest_validate_request_arg',
-        ];
-        $params['slug']       = [
+        );
+        $params['slug']       = array(
             'description'       => __( 'Limit result set to resources with a specific slug.', 'directorist' ),
             'type'              => 'string',
             'validate_callback' => 'rest_validate_request_arg',
-        ];
+        );
 
         return $params;
     }

@@ -20,7 +20,7 @@
       @click="toggleAdvanced"
       v-if="hasAdvancedFields"
     >
-      {{ showAdvanced ? "Basic" : "Advanced" }}
+      {{ showAdvanced ? "Basic options" : "Advanced options" }}
     </button>
   </div>
 </template>

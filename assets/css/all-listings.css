@@ -7965,6 +7965,7 @@ body.modal-overlay-enabled:before {
 .directorist-swiper .swiper-slide > a,
 .directorist-swiper .swiper-slide > div {
 	width: 100%;
+	height: 100%;
 }
 .directorist-swiper__nav {
 	position: absolute;
@@ -10335,7 +10336,6 @@ body.modal-overlay-enabled:before {
 	.directorist-search-basic-dropdown
 	.directorist-search-basic-dropdown-content {
 	position: absolute;
-	top: 100%;
 	left: 0;
 	width: 100%;
 	min-width: 150px;
@@ -15838,7 +15838,6 @@ input.directorist-toggle-input:checked
 	.directorist-search-basic-dropdown
 	.directorist-search-basic-dropdown-content {
 	position: absolute;
-	top: 100%;
 	left: 0;
 	width: 100%;
 	min-width: 150px;
@@ -18116,15 +18115,27 @@ input.directorist-toggle-input:checked
 .directorist-content-active .directorist-listing-single__content {
 	border-radius: 4px;
 }
+.directorist-content-active .directorist-listing-single__content__badges {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	gap: 10px;
+}
 .directorist-content-active .directorist-listing-single__info {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
+	gap: 8px;
 	-webkit-flex-wrap: wrap;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	gap: 8px;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
 	position: relative;
 	padding: 33px 20px 24px;
 }
@@ -18132,6 +18143,11 @@ input.directorist-toggle-input:checked
 	display: none;
 }
 .directorist-content-active .directorist-listing-single__info__top {
+	gap: 6px;
+	width: 100%;
+}
+.directorist-content-active .directorist-listing-single__info__top,
+.directorist-content-active .directorist-listing-single__info__top__left {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -18147,7 +18163,31 @@ input.directorist-toggle-input:checked
 	-webkit-flex: 1;
 	-ms-flex: 1;
 	flex: 1;
-	gap: 6px;
+}
+.directorist-content-active .directorist-listing-single__info__top__left {
+	gap: 10px;
+}
+.directorist-content-active .directorist-listing-single__info__top__right {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: auto;
+	-ms-flex: auto;
+	flex: auto;
+	gap: 10px;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
 }
 .directorist-content-active
 	.directorist-listing-single__info__top
@@ -18200,12 +18240,15 @@ input.directorist-toggle-input:checked
 	i {
 	display: none;
 }
+.directorist-content-active .directorist-listing-single__info__badges,
 .directorist-content-active .directorist-listing-single__info__list {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
 	gap: 10px;
+}
+.directorist-content-active .directorist-listing-single__info__list {
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
@@ -19055,6 +19098,53 @@ input.directorist-toggle-input:checked
 	-webkit-transform: unset !important;
 	transform: unset !important;
 }
+.directorist-content-active .directorist-listing-single__top {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	gap: 16px;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	padding: 20px 22px 0;
+}
+.directorist-content-active .directorist-listing-single__top__left {
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	flex-wrap: wrap;
+}
+.directorist-content-active .directorist-listing-single__top__left,
+.directorist-content-active .directorist-listing-single__top__right {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex: 1;
+	gap: 8px;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+}
+.directorist-content-active .directorist-listing-single__top__right {
+	flex-wrap: wrap;
+	-webkit-flex: auto;
+	-ms-flex: auto;
+	flex: auto;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+}
 .directorist-content-active .directorist-listing-single figure {
 	margin: 0;
 }
@@ -19084,7 +19174,7 @@ input.directorist-toggle-input:checked
 .directorist-content-active
 	.directorist-listing-single
 	.directorist-badge.directorist-badge-popular {
-	background-color: #f51957;
+	background-color: var(--directorist-color-popular-badge);
 }
 .directorist-content-active
 	.directorist-listing-single
@@ -19104,7 +19194,7 @@ input.directorist-toggle-input:checked
 .directorist-content-active
 	.directorist-listing-single
 	.directorist-badge.directorist-badge-featured {
-	background-color: #fa8b0c;
+	background-color: var(--directorist-color-featured-badge);
 }
 .directorist-content-active
 	.directorist-listing-single
@@ -19123,6 +19213,18 @@ input.directorist-toggle-input:checked
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
+}
+.directorist-content-active
+	.directorist-listing-single
+	.directorist-rating-meta {
+	display: -webkit-inline-box;
+	display: -webkit-inline-flex;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
 }
 .directorist-content-active
 	.directorist-listing-single
@@ -19188,6 +19290,7 @@ input.directorist-toggle-input:checked
 	.directorist-listing-single.directorist-listing-card
 	.directorist-thumb-listing-author {
 	position: absolute;
+	left: 20px;
 	bottom: 0;
 	top: unset;
 	-webkit-transform: translateY(50%);
@@ -19206,6 +19309,7 @@ input.directorist-toggle-input:checked
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-card
 	.directorist-thumb-listing-author.directorist-alignment-right {
+	left: unset;
 	right: 20px;
 }
 .directorist-content-active
@@ -19682,6 +19786,15 @@ input.directorist-toggle-input:checked
 	display: -webkit-inline-flex;
 	display: -ms-inline-flexbox;
 	display: inline-flex;
+	gap: 6px;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
 	height: 21px;
 	line-height: 21px;
 	width: auto;
@@ -19714,23 +19827,57 @@ input.directorist-toggle-input:checked
 }
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-card
-	.directorist-badge.directorist-badge-featured,
-.directorist-content-active
-	.directorist-listing-single.directorist-listing-card
-	.directorist-badge.directorist-badge-new,
-.directorist-content-active
-	.directorist-listing-single.directorist-listing-card
 	.directorist-badge.directorist-badge-popular,
-.directorist-content-active
-	.directorist-listing-single.directorist-listing-list
-	.directorist-badge.directorist-badge-featured,
-.directorist-content-active
-	.directorist-listing-single.directorist-listing-list
-	.directorist-badge.directorist-badge-new,
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-list
 	.directorist-badge.directorist-badge-popular {
 	background-color: var(--directorist-color-white);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge-popular
+	.directorist-icon-mask:after,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge-popular
+	.directorist-icon-mask:after {
+	background-color: var(--directorist-color-popular-badge);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge-new,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge-new {
+	background-color: var(--directorist-color-white);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge-new
+	.directorist-icon-mask:after,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge-new
+	.directorist-icon-mask:after {
+	background-color: var(--directorist-color-new-badge);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge-featured,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge-featured {
+	background-color: var(--directorist-color-white);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge-featured
+	.directorist-icon-mask:after,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge-featured
+	.directorist-icon-mask:after {
+	background-color: var(--directorist-color-featured-badge);
 }
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-card
@@ -19743,6 +19890,16 @@ input.directorist-toggle-input:checked
 }
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge--only-text.directorist-badge-featured
+	.directorist-icon-mask:after,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge--only-text.directorist-badge-featured
+	.directorist-icon-mask:after {
+	background-color: var(--directorist-color-white);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
 	.directorist-badge.directorist-badge--only-text.directorist-badge-popular,
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-list
@@ -19752,12 +19909,32 @@ input.directorist-toggle-input:checked
 }
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge--only-text.directorist-badge-popular
+	.directorist-icon-mask:after,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge--only-text.directorist-badge-popular
+	.directorist-icon-mask:after {
+	background-color: var(--directorist-color-white);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
 	.directorist-badge.directorist-badge--only-text.directorist-badge-new,
 .directorist-content-active
 	.directorist-listing-single.directorist-listing-list
 	.directorist-badge.directorist-badge--only-text.directorist-badge-new {
 	background-color: var(--directorist-color-new-badge);
 	color: var(--directorist-color-white);
+}
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-card
+	.directorist-badge.directorist-badge--only-text.directorist-badge-new
+	.directorist-icon-mask:after,
+.directorist-content-active
+	.directorist-listing-single.directorist-listing-list
+	.directorist-badge.directorist-badge--only-text.directorist-badge-new
+	.directorist-icon-mask:after {
+	background-color: var(--directorist-color-white);
 }
 .directorist-content-active .directorist-listing-single.directorist-featured {
 	border: 1px solid var(--directorist-color-featured-badge);
@@ -20097,7 +20274,7 @@ input.directorist-toggle-input:checked
 .directorist-listing-single.directorist-listing-no-thumb
 	.directorist-listing-single__header
 	.directorist-listing-tagline {
-	margin-bottom: 0;
+	margin: 0;
 }
 .directorist-listing-single.directorist-listing-no-thumb
 	.directorist-listing-single__info {
@@ -20279,11 +20456,6 @@ input.directorist-toggle-input:checked
 	padding: 0;
 }
 .directorist-listing-single.directorist-listing-list.directorist-listing-no-thumb
-	.directorist-info-item.directorist-badge {
-	padding: 0;
-	margin: 0;
-}
-.directorist-listing-single.directorist-listing-list.directorist-listing-no-thumb
 	.directorist-info-item.directorist-badge:after {
 	display: none;
 }
@@ -20297,6 +20469,16 @@ input.directorist-toggle-input:checked
 	.directorist-mark-as-favorite__btn {
 	width: auto;
 	height: auto;
+}
+.directorist-archive-grid-view.directorist-archive-grid--fix
+	.directorist-all-listing-col {
+	width: 50%;
+}
+@media only screen and (max-width: 575px) {
+	.directorist-archive-grid-view.directorist-archive-grid--fix
+		.directorist-all-listing-col {
+		width: 100%;
+	}
 }
 .directorist-listing-category {
 	-webkit-box-align: center;
@@ -21775,6 +21957,13 @@ input.directorist-toggle-input:checked
 	margin-top: -15px;
 	padding: 0;
 }
+.directorist-single-wrapper .directorist-listing-single__info {
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
 .directorist-single-wrapper .directorist-single-listing-slider-wrap {
 	padding: 0;
 	margin: 15px 0;
@@ -21788,6 +21977,11 @@ input.directorist-toggle-input:checked
 	object-fit: contain;
 }
 .directorist-single-listing-quick-action {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
 	gap: 8px;
 	-webkit-flex-wrap: wrap;
 	-ms-flex-wrap: wrap;
@@ -21941,6 +22135,17 @@ input.directorist-toggle-input:checked
 	a:hover
 	.directorist-icon-mask:after {
 	background-color: var(--directorist-color-primary);
+}
+.directorist-single-listing-quick-action
+	.directorist-listing-single__quick-actions {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	gap: 8px;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 .directorist-single-listing-action {
 	gap: 8px;
@@ -25054,8 +25259,6 @@ input.directorist-toggle-input:checked
 	tr:first-child
 	.directorist-dropdown
 	.directorist-dropdown-menu {
-	bottom: auto;
-	top: 35px;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
 }

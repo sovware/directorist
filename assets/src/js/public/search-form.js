@@ -6,6 +6,218 @@ import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
 
+class ViewportAwareDropdown {
+	constructor(options = {}) {
+		this.options = {
+			dropdownClass: '.directorist-search-basic-dropdown-content',
+			triggerClass: '.directorist-search-basic-dropdown-label',
+			activeClass: 'dropdown-content-show',
+			upwardClass: 'dropdown-upward',
+			offset: 8,
+			positioningDelay: 10,
+			mutationDelay: 50,
+			animationDelay: 300,
+			...options,
+		};
+		this.observer = null;
+		this.isInitialized = false;
+		this.init();
+	}
+
+	init() {
+		if (this.isInitialized) return;
+		this.bindEvents();
+		this.setupMutationObserver();
+		this.isInitialized = true;
+	}
+
+	bindEvents() {
+		const debouncedResize = debounce(
+			() => this.updateVisibleDropdowns(),
+			100
+		);
+		const debouncedScroll = debounce(
+			() => this.updateVisibleDropdowns(),
+			50
+		);
+
+		window.addEventListener('resize', debouncedResize);
+		window.addEventListener('scroll', debouncedScroll);
+	}
+
+	positionDropdown(trigger) {
+		const dropdown = trigger.parentElement.querySelector(
+			this.options.dropdownClass
+		);
+		if (!dropdown) return;
+
+		dropdown.classList.remove(this.options.upwardClass);
+
+		const triggerRect = trigger.getBoundingClientRect();
+		const dropdownHeight = dropdown.offsetHeight;
+		const dropdownWidth = dropdown.offsetWidth;
+		const viewportHeight = window.innerHeight;
+		const viewportWidth = window.innerWidth;
+
+		const spaceBelow = viewportHeight - triggerRect.bottom;
+		const spaceAbove = triggerRect.top;
+		const spaceRight = viewportWidth - triggerRect.left;
+		const spaceLeft = triggerRect.right;
+
+		const needsUpward =
+			spaceBelow < dropdownHeight + this.options.offset &&
+			spaceAbove > spaceBelow;
+		const needsLeft = spaceRight < dropdownWidth && spaceLeft > spaceRight;
+
+		if (needsUpward) {
+			dropdown.classList.add(this.options.upwardClass);
+		}
+
+		this.setDropdownPosition(dropdown, needsUpward, needsLeft);
+	}
+
+	setDropdownPosition(dropdown, upward, left) {
+		const isRTL =
+			document.dir === 'rtl' || document.documentElement.dir === 'rtl';
+
+		Object.assign(dropdown.style, {
+			position: 'absolute',
+			top: upward ? '' : '100%',
+			bottom: upward ? '100%' : '',
+			left: (left && !isRTL) || (!left && isRTL) ? 'auto' : '0',
+			right: (left && !isRTL) || (!left && isRTL) ? '0' : 'auto',
+			transform: '',
+			[upward ? 'marginBottom' : 'marginTop']: `${this.options.offset}px`,
+		});
+	}
+
+	updateVisibleDropdowns() {
+		const visibleDropdowns = document.querySelectorAll(
+			`${this.options.dropdownClass}.${this.options.activeClass}`
+		);
+
+		visibleDropdowns.forEach((dropdown) => {
+			const trigger = dropdown.parentElement.querySelector(
+				this.options.triggerClass
+			);
+			if (trigger) {
+				this.positionDropdown(trigger);
+			}
+		});
+	}
+
+	setupMutationObserver() {
+		if (this.observer) return;
+
+		this.observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (
+					mutation.type === 'attributes' &&
+					mutation.attributeName === 'class'
+				) {
+					const target = mutation.target;
+					if (
+						target.classList.contains(this.options.dropdownClass) &&
+						target.classList.contains(this.options.activeClass)
+					) {
+						const trigger = target.parentElement.querySelector(
+							this.options.triggerClass
+						);
+						if (trigger) {
+							setTimeout(
+								() => this.positionDropdown(trigger),
+								this.options.mutationDelay
+							);
+						}
+					}
+				}
+
+				if (mutation.type === 'childList') {
+					mutation.addedNodes.forEach((node) => {
+						if (node.nodeType === Node.ELEMENT_NODE) {
+							const dropdowns = node.querySelectorAll
+								? node.querySelectorAll(
+										this.options.dropdownClass
+									)
+								: node.matches &&
+									  node.matches(this.options.dropdownClass)
+									? [node]
+									: [];
+
+							dropdowns.forEach((dropdown) => {
+								const trigger =
+									dropdown.parentElement.querySelector(
+										this.options.triggerClass
+									);
+								if (trigger) {
+									this.attachDropdownEvents(trigger);
+								}
+							});
+						}
+					});
+				}
+			});
+		});
+
+		this.observer.observe(document.body, {
+			childList: true,
+			subtree: true,
+			attributes: true,
+			attributeFilter: ['class'],
+		});
+	}
+
+	attachDropdownEvents(trigger) {
+		if (trigger.dataset.viewportDropdownAttached) return;
+
+		trigger.addEventListener('click', (e) => {
+			setTimeout(
+				() => this.positionDropdown(e.target),
+				this.options.positioningDelay
+			);
+		});
+
+		trigger.dataset.viewportDropdownAttached = 'true';
+	}
+
+	initializeAllDropdowns() {
+		const allTriggers = document.querySelectorAll(
+			this.options.triggerClass
+		);
+
+		allTriggers.forEach((trigger) => {
+			this.attachDropdownEvents(trigger);
+		});
+	}
+
+	position(trigger) {
+		const element =
+			typeof trigger === 'string'
+				? document.querySelector(trigger)
+				: trigger;
+		if (element) this.positionDropdown(element);
+	}
+
+	updateOptions(newOptions) {
+		Object.assign(this.options, newOptions);
+	}
+
+	destroy() {
+		if (this.observer) {
+			this.observer.disconnect();
+			this.observer = null;
+		}
+		this.isInitialized = false;
+	}
+}
+
+const viewportDropdown = new ViewportAwareDropdown();
+
+// Initialize all dropdowns when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+	viewportDropdown.initializeAllDropdowns();
+});
+
 (function ($) {
 	window.addEventListener('load', () => {
 		//Remove Preload after Window Load
@@ -126,6 +338,67 @@ import './components/directoristSelect';
 			}
 		);
 
+		// Initialize selected item count for checkboxes that are already checked on page load
+		// Process each dropdown that has checked checkboxes to avoid redundant calls
+		$(
+			'.directorist-search-form__top .directorist-search-basic-dropdown-content, .directorist-search-modal .directorist-search-basic-dropdown-content'
+		).each(function () {
+			let checkedCheckbox = $(this).find(
+				'input[type="checkbox"]:checked'
+			);
+			if (checkedCheckbox.length > 0) {
+				// Call once per dropdown with any checked checkbox
+				selectedItemCount(checkedCheckbox.first());
+			}
+		});
+
+		// Initialize selected radio items that are already checked on page load
+		$(
+			'.directorist-search-form__top .directorist-search-basic-dropdown input[type="radio"]:checked, .directorist-search-modal .directorist-search-basic-dropdown input[type="radio"]:checked'
+		).each(function () {
+			selectedRadioItem(this);
+		});
+
+		// Initialize all input fields that have values on page load
+		$(
+			'.directorist-search-form__top .directorist-search-field__input:not(.directorist-search-basic-dropdown), .directorist-search-modal .directorist-search-field__input:not(.directorist-search-basic-dropdown)'
+		).each(function () {
+			let inputField = $(this);
+			let inputValue = inputField.val();
+			let searchField = inputField.closest('.directorist-search-field');
+
+			// Check if it's a select field
+			if (inputField.hasClass('directorist-select')) {
+				let selectElement = inputField.find('select');
+				if (selectElement.length) {
+					inputValue =
+						selectElement.val() ||
+						selectElement.data('selected-id');
+				}
+			}
+
+			// If field has a value, add appropriate classes
+			if (inputValue && inputValue !== '' && inputValue !== '0') {
+				searchField.addClass('input-has-value');
+				if (!searchField.hasClass('input-is-focused')) {
+					searchField.addClass('input-is-focused');
+				}
+			}
+		});
+
+		// Initialize color picker background colors on page load
+		$('.wp-color-picker, .directorist-color-picker').each(function () {
+			let colorValue = $(this).val();
+			if (colorValue && colorValue !== '') {
+				let colorButton = $(this)
+					.closest('.directorist-search-field')
+					.find('.wp-color-result');
+				if (colorButton.length) {
+					colorButton.css('background-color', colorValue);
+				}
+			}
+		});
+
 		// Basic Search Dropdown Toggle
 		$('body').on(
 			'click',
@@ -145,6 +418,9 @@ import './components/directoristSelect';
 				if (dropDownContent.hasClass('dropdown-content-show')) {
 					dropDownParent.addClass('input-is-focused');
 					dropDownContent.slideDown();
+					setTimeout(() => {
+						viewportDropdown.position(this);
+					}, viewportDropdown.options.animationDelay);
 				} else {
 					dropDownParent.removeClass('input-is-focused');
 					dropDownContent.slideUp();
@@ -154,8 +430,13 @@ import './components/directoristSelect';
 					'.directorist-search-basic-dropdown-content.dropdown-content-show'
 				)
 					.not(dropDownContent)
-					.removeClass('dropdown-content-show')
-					.slideUp();
+					.each(function () {
+						$(this)
+							.removeClass(
+								'dropdown-content-show dropdown-upward'
+							)
+							.slideUp();
+					});
 			}
 		);
 
@@ -172,9 +453,14 @@ import './components/directoristSelect';
 			);
 
 			if (!dropDownRoot.length) {
-				dropDownParent.removeClass('input-is-focused');
-				dropDownContent.removeClass('dropdown-content-show');
-				dropDownContent.slideUp();
+				dropDownParent.each(function () {
+					$(this).removeClass('input-is-focused');
+				});
+				dropDownContent.each(function () {
+					$(this)
+						.removeClass('dropdown-content-show dropdown-upward')
+						.slideUp();
+				});
 			}
 		});
 
@@ -619,15 +905,22 @@ import './components/directoristSelect';
 		if ($('.directorist-btn-reset-js') !== null) {
 			$('body').on('click', '.directorist-btn-reset-js', function (e) {
 				e.preventDefault();
-				// Clear URL params on modal form reset
-				if (this.closest('.directorist-search-modal')) {
-					// Clear only the query parameters
+				setTimeout(() => {
+					// Clear URL params on modal form reset
 					const baseUrl =
 						window.location.origin + window.location.pathname;
 
 					// Update the URL in the address bar
 					window.history.replaceState(null, '', baseUrl);
-				}
+					if (this.closest('.directorist-search-modal')) {
+						// Clear only the query parameters
+						const baseUrl =
+							window.location.origin + window.location.pathname;
+
+						// Update the URL in the address bar
+						window.history.replaceState(null, '', baseUrl);
+					}
+				}, 300);
 
 				// Reset search form values
 				if (this.closest('.directorist-contents-wrap')) {
@@ -1732,8 +2025,6 @@ import './components/directoristSelect';
 				if (customNumberParams && customNumberParams !== '0-0') {
 					sliderActivated = true;
 				} else if (
-					customRangeMinParams &&
-					customRangeMinParams !== '0' &&
 					customRangeMaxParams &&
 					customRangeMaxParams !== '0'
 				) {

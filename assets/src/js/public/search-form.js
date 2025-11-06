@@ -2117,7 +2117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					rangeSliderObserver();
 				});
 
-				// Update slider config
+				// Update slider config - update values but don't trigger change during drag
 				slider.directoristCustomRangeSlider?.on(
 					'update',
 					function (values, handle) {
@@ -2135,12 +2135,16 @@ document.addEventListener('DOMContentLoaded', () => {
 							sliderRangeShow.innerHTML = rangeValue;
 						if (sliderRangeValue) {
 							sliderRangeValue.setAttribute('value', rangeValue);
-							if (!rangeInitLoad) {
-								$(sliderRangeValue).trigger('change');
-							}
 						}
 					}
 				);
+
+				// Trigger change only when dragging ends (mouse/touch released)
+				slider.directoristCustomRangeSlider?.on('end', function () {
+					if (sliderRangeValue && !rangeInitLoad) {
+						$(sliderRangeValue).trigger('change');
+					}
+				});
 
 				// Mark init complete
 				rangeInitLoad = false;

@@ -2542,7 +2542,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function directorist_custom_range_slider() {
       var sliders = document.querySelectorAll('.directorist-custom-range-slider');
       sliders.forEach(function (sliderItem) {
-        var _slider$directoristCu, _slider$directoristCu2;
+        var _slider$directoristCu, _slider$directoristCu2, _slider$directoristCu3;
         var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
 
         // Skip if already initialized
@@ -2661,7 +2661,7 @@ document.addEventListener('DOMContentLoaded', function () {
           rangeSliderObserver();
         });
 
-        // Update slider config
+        // Update slider config - update values but don't trigger change during drag
         (_slider$directoristCu2 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu2 === void 0 || _slider$directoristCu2.on('update', function (values, handle) {
           var value = Math.round(values[handle]);
           // Assign min-max value based on handler
@@ -2675,9 +2675,13 @@ document.addEventListener('DOMContentLoaded', function () {
           if (sliderRangeShow) sliderRangeShow.innerHTML = rangeValue;
           if (sliderRangeValue) {
             sliderRangeValue.setAttribute('value', rangeValue);
-            if (!rangeInitLoad) {
-              $(sliderRangeValue).trigger('change');
-            }
+          }
+        });
+
+        // Trigger change only when dragging ends (mouse/touch released)
+        (_slider$directoristCu3 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu3 === void 0 || _slider$directoristCu3.on('end', function () {
+          if (sliderRangeValue && !rangeInitLoad) {
+            $(sliderRangeValue).trigger('change');
           }
         });
 
@@ -2730,14 +2734,14 @@ document.addEventListener('DOMContentLoaded', function () {
       var radiusSearch = sliderItem.closest('.directorist-search-field-radius_search');
       var defaultValue = slider.getAttribute('default-value') || '0';
       if (radiusSearch) {
-        var _slider$directoristCu3;
+        var _slider$directoristCu4;
         minInput.value = '0';
         maxInput.value = defaultValue;
-        slider === null || slider === void 0 || (_slider$directoristCu3 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu3 === void 0 || _slider$directoristCu3.set([0, defaultValue]); // Set initial values
+        slider === null || slider === void 0 || (_slider$directoristCu4 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu4 === void 0 || _slider$directoristCu4.set([0, defaultValue]); // Set initial values
       } else {
-        var _slider$directoristCu4;
+        var _slider$directoristCu5;
         // Reset values to their initial state
-        slider === null || slider === void 0 || (_slider$directoristCu4 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu4 === void 0 || _slider$directoristCu4.set([0, 0]); // Set initial values
+        slider === null || slider === void 0 || (_slider$directoristCu5 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu5 === void 0 || _slider$directoristCu5.set([0, 0]); // Set initial values
         minInput.value = '0'; // Set initial min value
         maxInput.value = '0'; // Set initial max value
         rangeValue.value = '0-0';

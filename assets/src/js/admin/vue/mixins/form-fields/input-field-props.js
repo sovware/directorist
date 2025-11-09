@@ -256,5 +256,25 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		enableInfiniteScroll: {
+			type: Boolean,
+			default: true,
+		},
+		perPage: {
+			type: Number,
+			default: 20,
+		},
+		pageParam: {
+			type: String,
+			default: 'page',
+		},
+		perPageParam: {
+			type: String,
+			default: 'per_page',
+		},
+		scrollThreshold: {
+			type: Number,
+			default: 100,
+		},
 	},
 };

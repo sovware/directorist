@@ -1400,6 +1400,26 @@ __webpack_require__.r(__webpack_exports__);
     showResyncButton: {
       type: Boolean,
       default: false
+    },
+    enableInfiniteScroll: {
+      type: Boolean,
+      default: true
+    },
+    perPage: {
+      type: Number,
+      default: 20
+    },
+    pageParam: {
+      type: String,
+      default: 'page'
+    },
+    perPageParam: {
+      type: String,
+      default: 'per_page'
+    },
+    scrollThreshold: {
+      type: Number,
+      default: 100
     }
   }
 });
@@ -1757,25 +1777,27 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
-/* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+
 
 
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_6__["default"], _helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_7__["default"], _helpers__WEBPACK_IMPORTED_MODULE_6__["default"]],
   model: {
     prop: 'value',
     event: 'update'
@@ -1803,17 +1825,37 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     showResyncButton: {
       type: Boolean,
       default: true
+    },
+    enableInfiniteScroll: {
+      type: Boolean,
+      default: true
+    },
+    perPage: {
+      type: Number,
+      default: 20
+    },
+    pageParam: {
+      type: String,
+      default: 'page'
+    },
+    perPageParam: {
+      type: String,
+      default: 'per_page'
+    },
+    scrollThreshold: {
+      type: Number,
+      default: 100
     }
   },
   created: function created() {
     this.setup();
     this.fetchOptions();
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
     fields: 'fields'
   })), {}, {
     theDefaultOption: function theDefaultOption() {
-      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.defaultOption) === 'object') {
+      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.defaultOption) === 'object') {
         return this.defaultOption;
       }
       return {
@@ -1837,14 +1879,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return this.optionsInObject[this.value];
     },
     theOptions: function theOptions() {
-      if (!this.fetchedOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.fetchedOptions) !== 'object') {
+      if (!this.fetchedOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.fetchedOptions) !== 'object') {
         return this.defaultOption ? [this.defaultOption] : [];
       }
       return this.parseOptions(this.fetchedOptions);
     },
     formGroupClass: function formGroupClass() {
       var validation_classes = this.validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
-      return _objectSpread(_objectSpread({}, validation_classes), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])({}, '--loading', this.isLoading), '--error', this.hasError));
+      return _objectSpread(_objectSpread({}, validation_classes), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__["default"])({}, '--loading', this.isLoading), '--error', this.hasError));
     }
   }),
   data: function data() {
@@ -1857,12 +1899,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       fetchedOptions: [],
       isLoading: false,
       hasError: false,
-      errorMessage: ''
+      errorMessage: '',
+      currentPage: 1,
+      hasMore: true,
+      isLoadingMore: false,
+      totalPages: null
     };
   },
   methods: {
     setup: function setup() {
-      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.defaultOption) === 'object') {
+      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.defaultOption) === 'object') {
         this.default_option = this.defaultOption;
       }
       var self = this;
@@ -1872,9 +1918,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     fetchOptions: function fetchOptions() {
       var _this = this;
-      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
-        var response, _t;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee() {
+        var response, parsedOptions, _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               if (_this.apiPath) {
@@ -1887,9 +1933,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _this.isLoading = true;
               _this.hasError = false;
               _this.errorMessage = '';
+              _this.currentPage = 1;
+              _this.hasMore = true;
               _context.prev = 2;
               _context.next = 3;
-              return _this.makeApiRequest();
+              return _this.makeApiRequest(1);
             case 3:
               response = _context.sent;
               console.log(response);
@@ -1897,8 +1945,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                 _context.next = 4;
                 break;
               }
-              _this.fetchedOptions = _this.parseApiResponse(response);
+              parsedOptions = _this.parseApiResponse(response);
+              _this.fetchedOptions = parsedOptions;
               _this.optionsInObject = _this.convertOptionsToObject();
+
+              // Check if there are more pages
+              _this.updatePaginationState(response, parsedOptions);
               if (!_this.valueIsValid(_this.value)) {
                 _this.$emit('update', '');
               }
@@ -1927,27 +1979,36 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }))();
     },
     makeApiRequest: function makeApiRequest() {
-      var _this2 = this;
-      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
-        var options, url, params, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+      var _arguments = arguments,
+        _this2 = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee2() {
+        var page, options, params, url, urlParams, response, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
+              page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
               options = {
                 method: _this2.apiMethod,
                 headers: {
                   'Content-Type': 'application/json'
                 }
-              }; // Add params for POST requests
-              if (_this2.apiMethod === 'POST' && Object.keys(_this2.apiParams).length > 0) {
-                options.body = JSON.stringify(_this2.apiParams);
+              }; // Create params with pagination if enabled
+              params = _objectSpread({}, _this2.apiParams);
+              if (_this2.enableInfiniteScroll) {
+                params[_this2.pageParam] = page;
+                params[_this2.perPageParam] = _this2.perPage;
+              }
+
+              // Add params for POST requests
+              if (_this2.apiMethod === 'POST' && Object.keys(params).length > 0) {
+                options.body = JSON.stringify(params);
               }
 
               // Add params to URL for GET requests
               url = _this2.apiPath;
-              if (_this2.apiMethod === 'GET' && Object.keys(_this2.apiParams).length > 0) {
-                params = new URLSearchParams(_this2.apiParams);
-                url = "".concat(url, "?").concat(params.toString());
+              if (_this2.apiMethod === 'GET' && Object.keys(params).length > 0) {
+                urlParams = new URLSearchParams(params);
+                url = "".concat(url, "?").concat(urlParams.toString());
               }
               _context2.next = 1;
               return fetch(url, options);
@@ -1962,7 +2023,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _context2.next = 3;
               return response.json();
             case 3:
-              return _context2.abrupt("return", _context2.sent);
+              data = _context2.sent;
+              return _context2.abrupt("return", {
+                data: data,
+                headers: {
+                  totalPages: response.headers.get('X-WP-TotalPages'),
+                  total: response.headers.get('X-WP-Total')
+                }
+              });
             case 4:
             case "end":
               return _context2.stop();
@@ -1970,8 +2038,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }, _callee2);
       }))();
     },
-    parseApiResponse: function parseApiResponse(data) {
-      console.log(data);
+    parseApiResponse: function parseApiResponse(response) {
+      console.log(response);
+
+      // Extract data from response object (handles headers wrapper)
+      var data = response.data || response;
 
       // Handle different API response formats
       // WordPress REST API, custom APIs, etc.
@@ -1988,7 +2059,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           var label = '';
           if (item.label !== undefined) {
             label = item.label;
-          } else if (item.title && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(item.title) === 'object' && item.title.rendered) {
+          } else if (item.title && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(item.title) === 'object' && item.title.rendered) {
             // WordPress REST API format (posts, pages, custom post types)
             label = item.title.rendered;
           } else if (item.name !== undefined) {
@@ -2006,7 +2077,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
 
       // If data is an object (key-value pairs), convert to array
-      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(data) === 'object' && data !== null) {
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(data) === 'object' && data !== null) {
         return Object.keys(data).map(function (key) {
           return {
             value: String(key),
@@ -2018,6 +2089,82 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     handleResync: function handleResync() {
       this.fetchOptions();
+    },
+    loadMoreOptions: function loadMoreOptions() {
+      var _this3 = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee3() {
+        var nextPage, response, newOptions, _t2;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(!_this3.enableInfiniteScroll || _this3.isLoadingMore || !_this3.hasMore || _this3.isLoading)) {
+                _context3.next = 1;
+                break;
+              }
+              return _context3.abrupt("return");
+            case 1:
+              _this3.isLoadingMore = true;
+              nextPage = _this3.currentPage + 1;
+              _context3.prev = 2;
+              _context3.next = 3;
+              return _this3.makeApiRequest(nextPage);
+            case 3:
+              response = _context3.sent;
+              if (response) {
+                newOptions = _this3.parseApiResponse(response);
+                if (newOptions.length > 0) {
+                  // Append new options to existing ones
+                  _this3.fetchedOptions = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_this3.fetchedOptions), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(newOptions));
+                  _this3.optionsInObject = _this3.convertOptionsToObject();
+                  _this3.currentPage = nextPage;
+
+                  // Update pagination state
+                  _this3.updatePaginationState(response, newOptions);
+                } else {
+                  _this3.hasMore = false;
+                }
+              }
+              _context3.next = 5;
+              break;
+            case 4:
+              _context3.prev = 4;
+              _t2 = _context3["catch"](2);
+              console.error('Error loading more options:', _t2);
+            case 5:
+              _context3.prev = 5;
+              _this3.isLoadingMore = false;
+              return _context3.finish(5);
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    updatePaginationState: function updatePaginationState(response, options) {
+      if (!this.enableInfiniteScroll) {
+        return;
+      }
+
+      // Check if we have pagination headers (WordPress REST API)
+      if (response.headers && response.headers.totalPages) {
+        var totalPages = parseInt(response.headers.totalPages);
+        this.totalPages = totalPages;
+        this.hasMore = this.currentPage < totalPages;
+      } else {
+        // Fallback: if we got fewer items than perPage, assume no more data
+        this.hasMore = options.length >= this.perPage;
+      }
+    },
+    handleDropdownScroll: function handleDropdownScroll(event) {
+      if (!this.enableInfiniteScroll || !this.hasMore || this.isLoadingMore) {
+        return;
+      }
+      var target = event.target;
+      var scrollBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+      if (scrollBottom < this.scrollThreshold) {
+        this.loadMoreOptions();
+      }
     },
     update_value: function update_value(value) {
       this.$emit('update', value);
@@ -28257,6 +28404,26 @@ __webpack_require__.r(__webpack_exports__);
     showResyncButton: {
       type: Boolean,
       default: true
+    },
+    enableInfiniteScroll: {
+      type: Boolean,
+      default: true
+    },
+    perPage: {
+      type: Number,
+      default: 15
+    },
+    pageParam: {
+      type: String,
+      default: 'page'
+    },
+    perPageParam: {
+      type: String,
+      default: 'per_page'
+    },
+    scrollThreshold: {
+      type: Number,
+      default: 100
     }
   },
   methods: {
@@ -28462,7 +28629,11 @@ __webpack_require__.r(__webpack_exports__);
       selectedPost: '',
       selectedCategory: '',
       selectedUser: '',
-      selectedCustomOption: ''
+      selectedCustomOption: '',
+      selectedPostInfinite: '',
+      selectedPageNoInfinite: '',
+      selectedCustomPagination: '',
+      selectedMedia: ''
     };
   },
   methods: {
@@ -37527,7 +37698,87 @@ var render = function render() {
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "selected-value"
-  }, [_vm._v("Selected: " + _vm._s(_vm.selectedCustomOption || 'None'))])], 1)]);
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedCustomOption || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 5: Infinite Scroll - Small Page Size")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Posts with Infinite Scroll",
+      "api-path": "/wp-json/wp/v2/posts",
+      "per-page": 10,
+      "enable-infinite-scroll": true,
+      "description": "Loads 10 posts at a time. Scroll down to load more.",
+      "resync-label": "Refresh Posts"
+    },
+    model: {
+      value: _vm.selectedPostInfinite,
+      callback: function callback($$v) {
+        _vm.selectedPostInfinite = $$v;
+      },
+      expression: "selectedPostInfinite"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedPostInfinite || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 6: Infinite Scroll Disabled")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Pages without Infinite Scroll",
+      "api-path": "/wp-json/wp/v2/pages",
+      "enable-infinite-scroll": false,
+      "description": "Loads all available items in a single request"
+    },
+    model: {
+      value: _vm.selectedPageNoInfinite,
+      callback: function callback($$v) {
+        _vm.selectedPageNoInfinite = $$v;
+      },
+      expression: "selectedPageNoInfinite"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedPageNoInfinite || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 7: Custom Pagination Params")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Custom API Pagination",
+      "api-path": "/wp-json/wp/v2/posts",
+      "per-page": 15,
+      "scroll-threshold": 50,
+      "page-param": "page",
+      "per-page-param": "per_page",
+      "description": "Custom scroll threshold (50px from bottom)"
+    },
+    model: {
+      value: _vm.selectedCustomPagination,
+      callback: function callback($$v) {
+        _vm.selectedCustomPagination = $$v;
+      },
+      expression: "selectedCustomPagination"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedCustomPagination || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 8: Media Library")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Select Media",
+      "api-path": "/wp-json/wp/v2/media",
+      "per-page": 20,
+      "api-params": {
+        media_type: 'image'
+      },
+      "description": "Browse media library with infinite scroll"
+    },
+    model: {
+      value: _vm.selectedMedia,
+      callback: function callback($$v) {
+        _vm.selectedMedia = $$v;
+      },
+      expression: "selectedMedia"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected Media ID: " + _vm._s(_vm.selectedMedia || 'None'))])], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -39863,9 +40114,13 @@ var render = function render() {
   }, [_c('span', {
     staticClass: "directorist_dropdown-toggle__text"
   }, [_vm._v(_vm._s(_vm.theCurrentOptionLabel))])]), _vm._v(" "), _vm.theOptions && _vm.theOptions.length && !_vm.isLoading && !_vm.hasError ? _c('div', {
+    ref: "dropdownOptions",
     staticClass: "directorist_dropdown-option",
-    class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, '--show', _vm.show_option_modal)
-  }, [_c('ul', _vm._l(_vm.theOptions, function (option, option_key) {
+    class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, '--show', _vm.show_option_modal),
+    on: {
+      "scroll": _vm.handleDropdownScroll
+    }
+  }, [_c('ul', [_vm._l(_vm.theOptions, function (option, option_key) {
     return _c('li', {
       key: option_key
     }, [_c('a', {
@@ -39885,7 +40140,37 @@ var render = function render() {
         }
       }
     })]);
-  }), 0)]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm.enableInfiniteScroll && _vm.isLoadingMore ? _c('li', {
+    staticClass: "directorist_dropdown-option-loading",
+    staticStyle: {
+      "text-align": "center",
+      "padding": "12px",
+      "color": "#666"
+    }
+  }, [_c('span', {
+    staticClass: "loading-spinner",
+    staticStyle: {
+      "display": "inline-block",
+      "width": "16px",
+      "height": "16px",
+      "border": "2px solid #e0e0e0",
+      "border-top-color": "#333",
+      "border-radius": "50%",
+      "animation": "spin 0.8s linear infinite"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticStyle: {
+      "margin-left": "8px"
+    }
+  }, [_vm._v("Loading more...")])]) : _vm._e(), _vm._v(" "), _vm.enableInfiniteScroll && !_vm.hasMore && _vm.theOptions.length >= _vm.perPage ? _c('li', {
+    staticClass: "directorist_dropdown-option-end",
+    staticStyle: {
+      "text-align": "center",
+      "padding": "12px",
+      "color": "#999",
+      "font-size": "12px"
+    }
+  }, [_vm._v("\n          No more options\n        ")]) : _vm._e()], 2)]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticStyle: {
       "text-align": "center",
       "padding": "40px 20px",

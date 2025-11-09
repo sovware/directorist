@@ -42,6 +42,26 @@ export default {
         showResyncButton: {
             type: Boolean,
             default: true
+        },
+        enableInfiniteScroll: {
+            type: Boolean,
+            default: true
+        },
+        perPage: {
+            type: Number,
+            default: 15
+        },
+        pageParam: {
+            type: String,
+            default: 'page'
+        },
+        perPageParam: {
+            type: String,
+            default: 'per_page'
+        },
+        scrollThreshold: {
+            type: Number,
+            default: 100
         }
     },
     methods: {

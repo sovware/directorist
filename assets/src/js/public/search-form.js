@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			let inputField = $(this);
 			let inputValue = inputField.val();
 			let searchField = inputField.closest('.directorist-search-field');
-
+			
 			// Check if it's a select field
 			if (inputField.hasClass('directorist-select')) {
 				let selectElement = inputField.find('select');
@@ -1992,6 +1992,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				const sliderRangeValue = sliderItem.querySelector(
 					'.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range'
 				);
+				const minInputName = minInput?.getAttribute('name') || '';
+				const maxInputName = maxInput?.getAttribute('name') || '';
 
 				const isRTL = document.dir === 'rtl';
 
@@ -2003,18 +2005,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				// Parse the URL parameters
 				const urlParams = new URLSearchParams(window.location.search);
 				const customNumberParams = urlParams.get('custom-number');
-				const customRangeMinParams = urlParams.get(
+				const rangeFieldName = sliderRange?.getAttribute('name') || '';
+				const fieldRangeValueParam = rangeFieldName
+					? urlParams.get(rangeFieldName)
+					: null;
+				const specificRangeMinParam = minInputName
+					? urlParams.get(minInputName)
+					: null;
+				const specificRangeMaxParam = maxInputName
+					? urlParams.get(maxInputName)
+					: null;
+				const globalRangeMinParam = urlParams.get(
 					'directorist-custom-range-slider__value__min'
 				);
-				const customRangeMaxParams = urlParams.get(
+				const globalRangeMaxParam = urlParams.get(
 					'directorist-custom-range-slider__value__max'
 				);
+				const effectiveRangeMinParam =
+					specificRangeMinParam ?? globalRangeMinParam;
+				const effectiveRangeMaxParam =
+					specificRangeMaxParam ?? globalRangeMaxParam;
 				const locationDistanceParams = urlParams.get('miles');
-				const milesParams = new URLSearchParams(
-					window.location.search
-				).has('miles');
+				const milesParams = urlParams.has('miles');
 
 				if (
+					rangeFieldName === 'miles' &&
 					locationDistanceParams !== '0-0' &&
 					sliderDefaultValue >= 0
 				) {
@@ -2022,11 +2037,19 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				// if already have custom values, then slider is activated
-				if (customNumberParams && customNumberParams !== '0-0') {
+				if (
+					fieldRangeValueParam &&
+					fieldRangeValueParam !== '0-0'
+				) {
 					sliderActivated = true;
 				} else if (
-					customRangeMaxParams &&
-					customRangeMaxParams !== '0'
+					customNumberParams &&
+					customNumberParams !== '0-0'
+				) {
+					sliderActivated = true;
+				} else if (
+					effectiveRangeMaxParam &&
+					effectiveRangeMaxParam !== '0'
 				) {
 					sliderActivated = true;
 				}
@@ -2054,7 +2077,20 @@ document.addEventListener('DOMContentLoaded', () => {
 					let maxValue = maxInput.value;
 
 					// Assign min-max values from custom-range-slider params
-					if (customNumberParams && customNumberParams !== '0-0') {
+					if (
+						fieldRangeValueParam &&
+						fieldRangeValueParam !== '0-0'
+					) {
+						const [min, max] = fieldRangeValueParam
+							.split('-')
+							.map(Number);
+
+						minValue = min;
+						maxValue = max;
+					} else if (
+						customNumberParams &&
+						customNumberParams !== '0-0'
+					) {
 						const [min, max] = customNumberParams
 							.split('-')
 							.map(Number);
@@ -2062,10 +2098,13 @@ document.addEventListener('DOMContentLoaded', () => {
 						// Use the split values as min-max
 						minValue = min;
 						maxValue = max;
-					} else if (customRangeMinParams && customRangeMaxParams) {
+					} else if (
+						effectiveRangeMinParam &&
+						effectiveRangeMaxParam
+					) {
 						// Modal Search Form
-						minValue = customRangeMinParams;
-						maxValue = customRangeMaxParams;
+						minValue = effectiveRangeMinParam;
+						maxValue = effectiveRangeMaxParam;
 					}
 
 					// Initial with [min, max] value

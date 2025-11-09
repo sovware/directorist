@@ -1678,19 +1678,23 @@ document.addEventListener('DOMContentLoaded', function () {
     function initSearchFields() {
       var searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
       searchFields.forEach(function (searchField) {
+        var wrapper = searchField.closest('.directorist-search-field');
+        if (!wrapper) {
+          return;
+        }
         var inputFieldValue = searchField.value;
         if (searchField.classList.contains('directorist-select')) {
           inputFieldValue = searchField.querySelector('select').dataset.selectedId;
         }
         if (inputFieldValue !== '') {
-          searchField.parentElement.classList.add('input-has-value');
-          if (!searchField.parentElement.classList.contains('input-is-focused')) {
-            searchField.parentElement.classList.add('input-is-focused');
+          wrapper.classList.add('input-has-value');
+          if (!wrapper.classList.contains('input-is-focused')) {
+            wrapper.classList.add('input-is-focused');
           }
         } else {
           inputFieldValue = '';
-          if (searchField.parentElement.classList.contains('input-has-value')) {
-            searchField.parentElement.classList.remove('input-has-value');
+          if (wrapper.classList.contains('input-has-value')) {
+            wrapper.classList.remove('input-has-value');
           }
         }
       });

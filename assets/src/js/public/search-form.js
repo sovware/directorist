@@ -471,6 +471,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			);
 
 			searchFields.forEach((searchField) => {
+				const wrapper = searchField.closest('.directorist-search-field');
+
+				if (!wrapper) {
+					return;
+				}
+
 				let inputFieldValue = searchField.value;
 
 				if (searchField.classList.contains('directorist-select')) {
@@ -479,28 +485,24 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				if (inputFieldValue !== '') {
-					searchField.parentElement.classList.add('input-has-value');
+					wrapper.classList.add('input-has-value');
 
 					if (
-						!searchField.parentElement.classList.contains(
+						!wrapper.classList.contains(
 							'input-is-focused'
 						)
 					) {
-						searchField.parentElement.classList.add(
-							'input-is-focused'
-						);
+						wrapper.classList.add('input-is-focused');
 					}
 				} else {
 					inputFieldValue = '';
 
 					if (
-						searchField.parentElement.classList.contains(
+						wrapper.classList.contains(
 							'input-has-value'
 						)
 					) {
-						searchField.parentElement.classList.remove(
-							'input-has-value'
-						);
+						wrapper.classList.remove('input-has-value');
 					}
 				}
 			});

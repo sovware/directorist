@@ -365,7 +365,7 @@ class Builder_Data {
                                         'placeholder' => [
                                             'label' => __( 'Placeholder', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Enter Your Comment',
                                         ],
                                     ]
                                 ],
@@ -377,12 +377,12 @@ class Builder_Data {
                                         'label' => [
                                             'label' => __( 'Label', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Email',
                                         ],
                                         'placeholder' => [
                                             'label' => __( 'Placeholder', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Enter Your Email',
                                         ],
                                     ]
                                 ],
@@ -394,12 +394,12 @@ class Builder_Data {
                                         'label' => [
                                             'label' => __( 'Label', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Name',
                                         ],
                                         'placeholder' => [
                                             'label' => __( 'Placeholder', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Enter Your Name',
                                         ],
                                     ]
                                 ],
@@ -416,12 +416,12 @@ class Builder_Data {
                                         'label' => [
                                             'label'   => __( 'Label', 'directorist' ),
                                             'type'    => 'text',
-                                            'value'   => '',
+                                            'value'   => 'Website',
                                         ],
                                         'placeholder' => [
                                             'label'   => __( 'Placeholder', 'directorist' ),
                                             'type'    => 'text',
-                                            'value'   => '',
+                                            'value'   => 'Enter Your Website',
                                         ],
                                     ]
                                 ],

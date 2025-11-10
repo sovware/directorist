@@ -31848,7 +31848,9 @@ var render = function render() {
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "cptm-form-builder-group-header-section",
-    class: _vm.widgetsExpanded ? 'expanded' : ''
+    class: [_vm.widgetsExpanded ? 'expanded' : '', {
+      'locked': _vm.groupData.lock
+    }]
   }, [_c('draggable-list-item', {
     attrs: {
       "can-drag": _vm.isEnabledGroupDragging,
@@ -31919,7 +31921,7 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.groupData.label)
     }
-  })])]), _vm._v(" "), !_vm.groupData.lock ? _c('div', {
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "cptm-form-builder-header-actions"
   }, [_vm.groupFields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.groupFields) === 'object' ? _c('a', {
     staticClass: "cptm-form-builder-header-action-link",
@@ -31937,7 +31939,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e(), _vm._v(" "), _c('a', {
+  })]) : _vm._e(), _vm._v(" "), !_vm.groupData.lock ? _c('a', {
     staticClass: "cptm-form-builder-header-action-link",
     class: _vm.widgetsExpanded ? 'disabled' : '',
     attrs: {
@@ -31954,7 +31956,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e()])])]), _vm._v(" "), _c('slide-up-down', {
+  })]) : _vm._e()])])])]), _vm._v(" "), _c('slide-up-down', {
     staticClass: "cptm-form-builder-group-options-wrapper",
     attrs: {
       "active": _vm.groupFieldsExpandState,

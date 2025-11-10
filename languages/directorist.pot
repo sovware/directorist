@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-30 04:24+0000\n"
+"POT-Creation-Date: 2025-11-10 05:25+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -486,11 +486,11 @@ msgstr ""
 msgid "Enter your extension license keys here to receive updates for purchased extensions. Click %s to know more about licensing."
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:59, ../includes/classes/class-ajax-handler.php:393, ../includes/classes/class-settings-panel.php:4000
+#: ../includes/directorist-core-functions.php:59, ../includes/classes/class-ajax-handler.php:396, ../includes/classes/class-settings-panel.php:4000
 msgid "User"
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:60, ../includes/classes/class-ajax-handler.php:405, ../includes/classes/class-custom-post.php:368
+#: ../includes/directorist-core-functions.php:60, ../includes/classes/class-ajax-handler.php:408, ../includes/classes/class-custom-post.php:368
 msgid "Author"
 msgstr ""
 
@@ -498,11 +498,11 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:177, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
+#: ../includes/directorist-directory-functions.php:178, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
 msgid "Invalid listing id."
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:181, ../includes/classes/class-submission-controller.php:507, ../includes/rest-api/Version1/class-builder-controller.php:103, ../includes/rest-api/Version1/class-categories-controller.php:281, ../includes/rest-api/Version1/class-locations-controller.php:265
+#: ../includes/directorist-directory-functions.php:182, ../includes/classes/class-submission-controller.php:507, ../includes/rest-api/Version1/class-builder-controller.php:103, ../includes/rest-api/Version1/class-categories-controller.php:281, ../includes/rest-api/Version1/class-locations-controller.php:265
 msgid "Invalid directory id."
 msgstr ""
 
@@ -1063,7 +1063,7 @@ msgstr ""
 msgid "Sending user info, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:341, ../includes/classes/class-ajax-handler.php:341, ../includes/classes/class-ajax-handler.php:452
+#: ../includes/asset-loader/localized_data.php:341, ../includes/classes/class-ajax-handler.php:344, ../includes/classes/class-ajax-handler.php:455
 msgid "Wrong username or password."
 msgstr ""
 
@@ -1092,7 +1092,7 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:58, ../includes/classes/class-ajax-handler.php:426, ../includes/classes/class-listing.php:370, ../includes/classes/class-tools.php:153, ../includes/classes/class-tools.php:165, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
+#: ../includes/classes/class-add-listing.php:58, ../includes/classes/class-ajax-handler.php:429, ../includes/classes/class-listing.php:370, ../includes/classes/class-tools.php:153, ../includes/classes/class-tools.php:165, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
 msgid "Invalid request."
 msgstr ""
 
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid "Could not upload (%s), please try again."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:137, ../includes/classes/class-ajax-handler.php:651, ../includes/classes/class-setup-wizard.php:40, ../includes/classes/class-setup-wizard.php:222, ../includes/classes/class-tools.php:211
+#: ../includes/classes/class-add-listing.php:137, ../includes/classes/class-ajax-handler.php:654, ../includes/classes/class-setup-wizard.php:40, ../includes/classes/class-setup-wizard.php:222, ../includes/classes/class-tools.php:211
 msgid "Invalid request!"
 msgstr ""
 
@@ -1140,11 +1140,11 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:139, ../includes/classes/class-ajax-handler.php:207, ../includes/classes/class-ajax-handler.php:236, ../includes/classes/class-ajax-handler.php:473
+#: ../includes/classes/class-ajax-handler.php:139, ../includes/classes/class-ajax-handler.php:207, ../includes/classes/class-ajax-handler.php:236, ../includes/classes/class-ajax-handler.php:476
 msgid "Something went wrong, please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:161, ../includes/classes/class-ajax-handler.php:311
+#: ../includes/classes/class-ajax-handler.php:161, ../includes/classes/class-ajax-handler.php:314
 msgid "Invalid Nonce"
 msgstr ""
 
@@ -1164,139 +1164,139 @@ msgstr ""
 msgid "Please enter a valid zip code."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:320, ../includes/classes/class-ajax-handler.php:435
+#: ../includes/classes/class-ajax-handler.php:323, ../includes/classes/class-ajax-handler.php:438
 msgid "Your are already loggedin"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:349, ../includes/classes/class-ajax-handler.php:463, ../includes/classes/class-ajax-handler.php:827, ../includes/classes/class-ajax-handler.php:856
+#: ../includes/classes/class-ajax-handler.php:352, ../includes/classes/class-ajax-handler.php:466, ../includes/classes/class-ajax-handler.php:830, ../includes/classes/class-ajax-handler.php:859
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:375, ../includes/classes/class-ajax-handler.php:1402, ../includes/classes/class-ajax-handler.php:1660, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
+#: ../includes/classes/class-ajax-handler.php:378, ../includes/classes/class-ajax-handler.php:1405, ../includes/classes/class-ajax-handler.php:1663, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:416
+#: ../includes/classes/class-ajax-handler.php:419
 msgid "Sent successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:496
+#: ../includes/classes/class-ajax-handler.php:499
 msgid "Invalid request, please reload the page and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:514, ../includes/classes/class-ajax-handler.php:671, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:71
+#: ../includes/classes/class-ajax-handler.php:517, ../includes/classes/class-ajax-handler.php:674, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:74, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:90
 msgid "Invalid directory."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:610
+#: ../includes/classes/class-ajax-handler.php:613
 msgid "Session expired, please reload the window and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:642
+#: ../includes/classes/class-ajax-handler.php:645
 msgid "Slug changes successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:633
+#: ../includes/classes/class-ajax-handler.php:636
 msgid "This slug already in use."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:659
+#: ../includes/classes/class-ajax-handler.php:662
 msgid "No category selected."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:663, ../includes/rest-api/Version1/class-orders-controller.php:114
+#: ../includes/classes/class-ajax-handler.php:666, ../includes/rest-api/Version1/class-orders-controller.php:114
 msgid "Invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:716
+#: ../includes/classes/class-ajax-handler.php:719
 msgid "The session has expired, please reload and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:806
+#: ../includes/classes/class-ajax-handler.php:809
 msgid "Congratulations! All old pages have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:815
+#: ../includes/classes/class-ajax-handler.php:818
 msgid "Something went wrong, please reload the page"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:877
+#: ../includes/classes/class-ajax-handler.php:880
 msgid "Invalid upload request!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:881
+#: ../includes/classes/class-ajax-handler.php:884
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1043, ../includes/classes/class-ajax-handler.php:1085
+#: ../includes/classes/class-ajax-handler.php:1046, ../includes/classes/class-ajax-handler.php:1088
 msgid "You are not allowed to perform this operation"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1047, ../includes/classes/class-ajax-handler.php:1072, ../includes/classes/class-ajax-handler.php:1076, ../includes/classes/class-ajax-handler.php:1089
+#: ../includes/classes/class-ajax-handler.php:1050, ../includes/classes/class-ajax-handler.php:1075, ../includes/classes/class-ajax-handler.php:1079, ../includes/classes/class-ajax-handler.php:1092
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1069
+#: ../includes/classes/class-ajax-handler.php:1072
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1110
+#: ../includes/classes/class-ajax-handler.php:1113
 msgid "Preferences updated successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1201, ../includes/classes/class-ajax-handler.php:1274, ../includes/review/class-email.php:76
+#: ../includes/classes/class-ajax-handler.php:1204, ../includes/classes/class-ajax-handler.php:1277, ../includes/review/class-email.php:76
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1204
+#: ../includes/classes/class-ajax-handler.php:1207
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1277
+#: ../includes/classes/class-ajax-handler.php:1280
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1382, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
+#: ../includes/classes/class-ajax-handler.php:1385, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1385, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
+#: ../includes/classes/class-ajax-handler.php:1388, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1412
+#: ../includes/classes/class-ajax-handler.php:1415
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1419
+#: ../includes/classes/class-ajax-handler.php:1422
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1427, ../includes/classes/class-ajax-handler.php:1676
+#: ../includes/classes/class-ajax-handler.php:1430, ../includes/classes/class-ajax-handler.php:1679
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1432, ../includes/classes/class-ajax-handler.php:1721
+#: ../includes/classes/class-ajax-handler.php:1435, ../includes/classes/class-ajax-handler.php:1724
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1595
+#: ../includes/classes/class-ajax-handler.php:1598
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1597
+#: ../includes/classes/class-ajax-handler.php:1600
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1816
+#: ../includes/classes/class-ajax-handler.php:1819
 msgid "User not logged in."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1828
+#: ../includes/classes/class-ajax-handler.php:1831
 msgid "Invalid nonce."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1833
+#: ../includes/classes/class-ajax-handler.php:1836
 msgid "No listing ID found."
 msgstr ""
 
@@ -1316,7 +1316,7 @@ msgid_plural "Expired <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-custom-post.php:170, ../includes/classes/class-custom-post.php:364, ../includes/classes/class-custom-taxonomy.php:298, ../includes/classes/class-custom-taxonomy.php:359, ../includes/classes/class-custom-taxonomy.php:460, ../includes/classes/class-custom-taxonomy.php:502, ../includes/classes/class-custom-taxonomy.php:655, ../includes/classes/class-custom-taxonomy.php:668, ../includes/classes/class-metabox.php:238
+#: ../includes/classes/class-custom-post.php:170, ../includes/classes/class-custom-post.php:364, ../includes/classes/class-custom-taxonomy.php:298, ../includes/classes/class-custom-taxonomy.php:359, ../includes/classes/class-custom-taxonomy.php:460, ../includes/classes/class-custom-taxonomy.php:502, ../includes/classes/class-custom-taxonomy.php:656, ../includes/classes/class-custom-taxonomy.php:669, ../includes/classes/class-metabox.php:238
 msgid "Directory"
 msgstr ""
 
@@ -1485,7 +1485,7 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:367, ../includes/classes/class-custom-taxonomy.php:583
+#: ../includes/classes/class-custom-post.php:367, ../includes/classes/class-custom-taxonomy.php:584
 msgid "Categories"
 msgstr ""
 
@@ -1537,7 +1537,7 @@ msgstr ""
 msgid "You can assign any one or more of the above directories to this category."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:317, ../includes/classes/class-custom-taxonomy.php:474, ../includes/classes/class-custom-taxonomy.php:652, ../includes/modules/multi-directory-setup/class-builder-data.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:66, ../includes/modules/multi-directory-setup/class-builder-data.php:76, ../includes/modules/multi-directory-setup/class-builder-data.php:85, ../includes/modules/multi-directory-setup/class-builder-data.php:99, ../includes/modules/multi-directory-setup/class-builder-data.php:108, ../includes/modules/multi-directory-setup/class-builder-data.php:117, ../includes/modules/multi-directory-setup/class-builder-data.php:126, ../includes/modules/multi-directory-setup/class-builder-data.php:135, ../includes/modules/multi-directory-setup/class-builder-data.php:144, ../includes/modules/multi-directory-setup/class-builder-data.php:153, ../includes/modules/multi-directory-setup/class-builder-data.php:167, ../includes/modules/multi-directory-setup/class-builder-data.php:176, ../includes/modules/multi-directory-setup/class-builder-data.php:185, ../includes/modules/multi-directory-setup/class-builder-data.php:194, ../includes/modules/multi-directory-setup/class-builder-data.php:203, ../includes/modules/multi-directory-setup/class-builder-data.php:212, ../includes/modules/multi-directory-setup/class-builder-data.php:221, ../includes/modules/multi-directory-setup/class-builder-data.php:230, ../includes/modules/multi-directory-setup/class-builder-data.php:239, ../includes/modules/multi-directory-setup/class-builder-data.php:248, ../includes/modules/multi-directory-setup/class-builder-data.php:257, ../includes/modules/multi-directory-setup/class-builder-data.php:266, ../includes/modules/multi-directory-setup/class-builder-data.php:275, ../includes/modules/multi-directory-setup/class-builder-data.php:302, ../includes/modules/multi-directory-setup/class-builder-data.php:1217, ../includes/modules/multi-directory-setup/class-builder-data.php:1239, ../includes/modules/multi-directory-setup/class-builder-data.php:1271, ../includes/modules/multi-directory-setup/class-builder-data.php:1299, ../includes/modules/multi-directory-setup/class-builder-data.php:1327, ../includes/modules/multi-directory-setup/class-builder-data.php:1355, ../includes/modules/multi-directory-setup/class-builder-data.php:1383, ../includes/modules/multi-directory-setup/class-builder-data.php:1411, ../includes/modules/multi-directory-setup/class-builder-data.php:1439, ../includes/modules/multi-directory-setup/class-builder-data.php:1509, ../includes/modules/multi-directory-setup/class-builder-data.php:1532, ../includes/modules/multi-directory-setup/class-builder-data.php:1579, ../includes/modules/multi-directory-setup/class-builder-data.php:1607, ../includes/modules/multi-directory-setup/class-builder-data.php:1635, ../includes/modules/multi-directory-setup/class-builder-data.php:1663, ../includes/modules/multi-directory-setup/class-builder-data.php:1691, ../includes/modules/multi-directory-setup/class-builder-data.php:1719, ../includes/modules/multi-directory-setup/class-builder-data.php:1742, ../includes/modules/multi-directory-setup/class-builder-data.php:1770, ../includes/modules/multi-directory-setup/class-builder-data.php:1798, ../includes/modules/multi-directory-setup/class-builder-data.php:2410, ../includes/modules/multi-directory-setup/class-builder-data.php:2458, ../includes/modules/multi-directory-setup/class-builder-data.php:2509, ../includes/modules/multi-directory-setup/class-builder-data.php:2529, ../includes/modules/multi-directory-setup/class-builder-data.php:2549
+#: ../includes/classes/class-custom-taxonomy.php:317, ../includes/classes/class-custom-taxonomy.php:474, ../includes/classes/class-custom-taxonomy.php:653, ../includes/modules/multi-directory-setup/class-builder-data.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:66, ../includes/modules/multi-directory-setup/class-builder-data.php:76, ../includes/modules/multi-directory-setup/class-builder-data.php:85, ../includes/modules/multi-directory-setup/class-builder-data.php:99, ../includes/modules/multi-directory-setup/class-builder-data.php:108, ../includes/modules/multi-directory-setup/class-builder-data.php:117, ../includes/modules/multi-directory-setup/class-builder-data.php:126, ../includes/modules/multi-directory-setup/class-builder-data.php:135, ../includes/modules/multi-directory-setup/class-builder-data.php:144, ../includes/modules/multi-directory-setup/class-builder-data.php:153, ../includes/modules/multi-directory-setup/class-builder-data.php:167, ../includes/modules/multi-directory-setup/class-builder-data.php:176, ../includes/modules/multi-directory-setup/class-builder-data.php:185, ../includes/modules/multi-directory-setup/class-builder-data.php:194, ../includes/modules/multi-directory-setup/class-builder-data.php:203, ../includes/modules/multi-directory-setup/class-builder-data.php:212, ../includes/modules/multi-directory-setup/class-builder-data.php:221, ../includes/modules/multi-directory-setup/class-builder-data.php:230, ../includes/modules/multi-directory-setup/class-builder-data.php:239, ../includes/modules/multi-directory-setup/class-builder-data.php:248, ../includes/modules/multi-directory-setup/class-builder-data.php:257, ../includes/modules/multi-directory-setup/class-builder-data.php:266, ../includes/modules/multi-directory-setup/class-builder-data.php:275, ../includes/modules/multi-directory-setup/class-builder-data.php:302, ../includes/modules/multi-directory-setup/class-builder-data.php:1217, ../includes/modules/multi-directory-setup/class-builder-data.php:1239, ../includes/modules/multi-directory-setup/class-builder-data.php:1271, ../includes/modules/multi-directory-setup/class-builder-data.php:1299, ../includes/modules/multi-directory-setup/class-builder-data.php:1327, ../includes/modules/multi-directory-setup/class-builder-data.php:1355, ../includes/modules/multi-directory-setup/class-builder-data.php:1383, ../includes/modules/multi-directory-setup/class-builder-data.php:1411, ../includes/modules/multi-directory-setup/class-builder-data.php:1439, ../includes/modules/multi-directory-setup/class-builder-data.php:1509, ../includes/modules/multi-directory-setup/class-builder-data.php:1532, ../includes/modules/multi-directory-setup/class-builder-data.php:1579, ../includes/modules/multi-directory-setup/class-builder-data.php:1607, ../includes/modules/multi-directory-setup/class-builder-data.php:1635, ../includes/modules/multi-directory-setup/class-builder-data.php:1663, ../includes/modules/multi-directory-setup/class-builder-data.php:1691, ../includes/modules/multi-directory-setup/class-builder-data.php:1719, ../includes/modules/multi-directory-setup/class-builder-data.php:1742, ../includes/modules/multi-directory-setup/class-builder-data.php:1770, ../includes/modules/multi-directory-setup/class-builder-data.php:1798, ../includes/modules/multi-directory-setup/class-builder-data.php:2410, ../includes/modules/multi-directory-setup/class-builder-data.php:2458, ../includes/modules/multi-directory-setup/class-builder-data.php:2509, ../includes/modules/multi-directory-setup/class-builder-data.php:2529, ../includes/modules/multi-directory-setup/class-builder-data.php:2549
 msgid "Icon"
 msgstr ""
 
@@ -1607,191 +1607,191 @@ msgstr ""
 msgid "Locations"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:573
+#: ../includes/classes/class-custom-taxonomy.php:574
 msgctxt "Category general name"
 msgid "Listing Categories"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:574
+#: ../includes/classes/class-custom-taxonomy.php:575
 msgctxt "Category singular name"
 msgid "Listing Category"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:575
+#: ../includes/classes/class-custom-taxonomy.php:576
 msgid "Search category"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:576
+#: ../includes/classes/class-custom-taxonomy.php:577
 msgid "All categories"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:577
+#: ../includes/classes/class-custom-taxonomy.php:578
 msgid "Parent category"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:578
+#: ../includes/classes/class-custom-taxonomy.php:579
 msgid "Parent category:"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:579
+#: ../includes/classes/class-custom-taxonomy.php:580
 msgid "Edit category"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:580
+#: ../includes/classes/class-custom-taxonomy.php:581
 msgid "Update category"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:581
+#: ../includes/classes/class-custom-taxonomy.php:582
 msgid "Add New Category"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:582
+#: ../includes/classes/class-custom-taxonomy.php:583
 msgid "New category name"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:612
+#: ../includes/classes/class-custom-taxonomy.php:613
 msgctxt "Tag general name"
 msgid "Listing Tags"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:613
+#: ../includes/classes/class-custom-taxonomy.php:614
 msgctxt "Tag singular name"
 msgid "Listing Tag"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:614
+#: ../includes/classes/class-custom-taxonomy.php:615
 msgid "Search tag"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:615
+#: ../includes/classes/class-custom-taxonomy.php:616
 msgid "All Tags"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:616
+#: ../includes/classes/class-custom-taxonomy.php:617
 msgid "Parent tag"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:617
+#: ../includes/classes/class-custom-taxonomy.php:618
 msgid "Parent tag:"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:618
+#: ../includes/classes/class-custom-taxonomy.php:619
 msgid "Edit tag"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:619
+#: ../includes/classes/class-custom-taxonomy.php:620
 msgid "Update tag"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:620
+#: ../includes/classes/class-custom-taxonomy.php:621
 msgid "Add New Tag"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:621
+#: ../includes/classes/class-custom-taxonomy.php:622
 msgid "New tag name"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:622, ../includes/widgets/all-tags.php:26, ../includes/widgets/all-tags.php:117, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:649
+#: ../includes/classes/class-custom-taxonomy.php:623, ../includes/widgets/all-tags.php:26, ../includes/widgets/all-tags.php:117, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:649
 msgid "Tags"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:753
+#: ../includes/classes/class-custom-taxonomy.php:754
 msgid "No Category"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:854
+#: ../includes/classes/class-custom-taxonomy.php:855
 msgid "Reset To Empty"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:855
+#: ../includes/classes/class-custom-taxonomy.php:856
 msgid "Reset To Default"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:856
+#: ../includes/classes/class-custom-taxonomy.php:857
 msgid "Assign All Directories"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:902
+#: ../includes/classes/class-custom-taxonomy.php:903
 msgid "Location added."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:903
+#: ../includes/classes/class-custom-taxonomy.php:904
 msgid "Location deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:904
+#: ../includes/classes/class-custom-taxonomy.php:905
 msgid "Location updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:905
+#: ../includes/classes/class-custom-taxonomy.php:906
 msgid "Location not added."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:906
+#: ../includes/classes/class-custom-taxonomy.php:907
 msgid "Location not updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:907
+#: ../includes/classes/class-custom-taxonomy.php:908
 msgid "Locations deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:908
+#: ../includes/classes/class-custom-taxonomy.php:909
 msgid "Locations directory updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:913
+#: ../includes/classes/class-custom-taxonomy.php:914
 msgid "Category added."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:914
+#: ../includes/classes/class-custom-taxonomy.php:915
 msgid "Category deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:915
+#: ../includes/classes/class-custom-taxonomy.php:916
 msgid "Category updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:916
+#: ../includes/classes/class-custom-taxonomy.php:917
 msgid "Category not added."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:917
+#: ../includes/classes/class-custom-taxonomy.php:918
 msgid "Category not updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:918
+#: ../includes/classes/class-custom-taxonomy.php:919
 msgid "Categories deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:919
+#: ../includes/classes/class-custom-taxonomy.php:920
 msgid "Categories directory updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:924
+#: ../includes/classes/class-custom-taxonomy.php:925
 msgid "Tag added."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:925
+#: ../includes/classes/class-custom-taxonomy.php:926
 msgid "Tag deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:926
+#: ../includes/classes/class-custom-taxonomy.php:927
 msgid "Tag updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:927
+#: ../includes/classes/class-custom-taxonomy.php:928
 msgid "Tag not added."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:928
+#: ../includes/classes/class-custom-taxonomy.php:929
 msgid "Tag not updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:929
+#: ../includes/classes/class-custom-taxonomy.php:930
 msgid "Tags deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:959, ../includes/classes/class-settings-panel.php:4686, ../templates/all-authors.php:25, ../templates/archive/directory-type-nav.php:26
+#: ../includes/classes/class-custom-taxonomy.php:960, ../includes/classes/class-settings-panel.php:4686, ../templates/all-authors.php:25, ../templates/archive/directory-type-nav.php:26
 msgid "All"
 msgstr ""
 
@@ -2272,7 +2272,7 @@ msgstr ""
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1562, ../includes/classes/class-extension.php:2425
+#: ../includes/classes/class-extension.php:1562, ../includes/classes/class-extension.php:2434
 msgid "Activation failed"
 msgstr ""
 
@@ -2294,6 +2294,10 @@ msgstr ""
 
 #: ../includes/classes/class-extension.php:2380
 msgid "Nothing to activate"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2431, ../includes/classes/class-extension.php:2441
+msgid "License activated successfully"
 msgstr ""
 
 #: ../includes/classes/class-helper.php:265
@@ -8931,7 +8935,7 @@ msgstr ""
 msgid "Fields data."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:834, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:263
+#: ../includes/rest-api/Version1/class-plans-controller.php:834, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:282
 msgid "Field key."
 msgstr ""
 
@@ -8959,45 +8963,45 @@ msgstr ""
 msgid "Sorry, you are not allowed to upload any file."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:77
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:78, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:96
 msgid "Invalid field."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:89, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:190
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:108, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:209
 msgid "No data supplied."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:111
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:130
 msgid "Could not upload (%s)."
 msgstr ""
 
 #. translators: %s: Required disk space in kilobytes.
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:158
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:177
 msgid "Not enough space to upload. %s KB needed."
 msgstr ""
 
 #. translators: %s: Maximum allowed file size in kilobytes.
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:167
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:186
 msgid "This file is too big. Files must be less than %s KB in size."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:178
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:197
 msgid "You have used your space quota. Please delete files before uploading."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:204
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:223
 msgid "Content hash did not match expected."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:251
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:270
 msgid "Media file name."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:257
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:276
 msgid "Media file slug."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:269
+#: ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:288
 msgid "Directory slug."
 msgstr ""
 

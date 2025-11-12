@@ -1,447 +1,451 @@
 /* Author Navigation */
 .directorist-account-block-logged-mode {
-    position: relative;
-    display: flex;
-    align-items: center;
+	position: relative;
+	display: flex;
+	align-items: center;
 
-    .avatar {
-        border-radius: 50%;
-        cursor: pointer;
-    }
+	.avatar {
+		border-radius: 50%;
+		cursor: pointer;
+	}
 
-    .directorist-account-block-logged-mode__navigation {
-        position: absolute;
-        opacity: 0;
-        visibility: hidden;
-        background-color: var(--directorist-color-white);
-        left: 0;
-        top: 62px;
-        min-width: 190px;
-        border-radius: 5px;
-        z-index: -1;
-        box-shadow: 0 5px 20px rgba(136, 140, 158, 0.2);
-        transition: 0.3s;
+	.directorist-account-block-logged-mode__navigation {
+		position: absolute;
+		opacity: 0;
+		visibility: hidden;
+		background-color: var(--directorist-color-white);
+		left: 0;
+		top: 62px;
+		min-width: 190px;
+		border-radius: 5px;
+		z-index: -1;
+		box-shadow: 0 5px 20px rgba(136, 140, 158, 0.2);
+		transition: 0.3s;
 
-        &.show {
-            opacity: 1;
-            visibility: visible;
-            z-index: 1031;
-        }
+		&.show {
+			opacity: 1;
+			visibility: visible;
+			z-index: 1031;
+		}
 
-        ul {
-            list-style: none;
-            padding: 15px 0;
-            margin: 0;
+		ul {
+			list-style: none;
+			padding: 15px 0;
+			margin: 0;
 
-            li {
-                a {
-                    display: flex;
-                    align-items: center;
-                    gap: 3px 7px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    text-decoration: none;
-                    padding: 5px 20px;
-                    color: var(--directorist-color-body);
-                    white-space: nowrap;
-                    transition: 0.3s;
+			li {
+				a {
+					display: flex;
+					align-items: center;
+					gap: 3px 7px;
+					font-size: 14px;
+					font-weight: 500;
+					text-decoration: none;
+					padding: 5px 20px;
+					color: var(--directorist-color-body);
+					white-space: nowrap;
+					transition: 0.3s;
 
-                    &:hover {
-                        color: var(--directorist-color-primary);
+					&:hover {
+						color: var(--directorist-color-primary);
 
-                        .directorist-icon-mask:after {
-                            background-color: var(--directorist-color-primary);
-                        }
-                    }
+						.directorist-icon-mask:after {
+							background-color: var(--directorist-color-primary);
+						}
+					}
 
-                    .directorist-icon-mask:after {
-                        width: 16px;
-                        height: 16px;
-                        background-color: var(--directorist-color-body);
-                        transition: 0.3s;
-                    }
-                }
-            }
-        }
-    }
+					.directorist-icon-mask:after {
+						width: 16px;
+						height: 16px;
+						background-color: var(--directorist-color-body);
+						transition: 0.3s;
+					}
+				}
+			}
+		}
+	}
 
-    &__overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 0;
-        background-color: transparent;
-        transition: 0.3s;
-        opacity: 0;
-        z-index: -1;
+	&__overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 0;
+		background-color: transparent;
+		transition: 0.3s;
+		opacity: 0;
+		z-index: -1;
 
-        &.show {
-            height: 100%;
-            opacity: 1;
-            visibility: visible;
-            z-index: 1030;
-        }
-    }
+		&.show {
+			height: 100%;
+			opacity: 1;
+			visibility: visible;
+			z-index: 1030;
+		}
+	}
 }
 
 /*  Authentication Modal */
 .directorist-account-block-authentication-modal {
-    .modal-content {
-        border-radius: 8px;
-        box-shadow: 0 0;
-        border: 0 none;
-    }
+	.modal-content {
+		border-radius: 8px;
+		box-shadow: 0 0;
+		border: 0 none;
+	}
 
-    .modal-dialog {
-        max-width: 450px;
-        margin: 1.75rem auto;
-        display: flex;
-        align-items: center;
+	.modal-dialog {
+		max-width: 450px;
+		margin: 1.75rem auto;
+		display: flex;
+		align-items: center;
 
-        @include ssm {
-            max-width: calc(100% - 30px);
-        }
-    }
+		@include ssm {
+			max-width: calc(100% - 30px);
+		}
+	}
 
-    .modal-content {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        pointer-events: auto;
-        background-color: var(--directorist-color-white);
-        background-clip: padding-box;
-        border-radius: 8px;
-        box-shadow: 0 0;
-        border: 0 none;
-        outline: 0;
-    }
+	.modal-content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		pointer-events: auto;
+		background-color: var(--directorist-color-white);
+		background-clip: padding-box;
+		border-radius: 8px;
+		box-shadow: 0 0;
+		border: 0 none;
+		outline: 0;
+	}
 
-    .modal-header {
-        padding: 12px 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid var(--directorist-color-light);
+	.modal-header {
+		padding: 12px 30px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1px solid var(--directorist-color-light);
 
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--directorist-color-dark);
-        }
+		.modal-title {
+			font-size: 18px;
+			font-weight: 600;
+			color: var(--directorist-color-dark);
+		}
 
-        .directorist-account-block-close {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            padding: 0;
-            border: 0 none;
-            background-color: var(--directorist-color-bg-light);
-            cursor: pointer;
+		.directorist-account-block-close {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			padding: 0;
+			border: 0 none;
+			background-color: var(--directorist-color-bg-light);
+			cursor: pointer;
 
-            &:hover {
-                span {
-                    color: var(--directorist-color-danger);
-                }
-            }
+			&:hover {
+				span {
+					color: var(--directorist-color-danger);
+				}
+			}
 
-            span {
-                @include rfs(18px);
-                line-height: normal;
-                color: var(--directorist-color-dark);
-            }
-        }
-    }
+			span {
+				@include rfs(18px);
+				line-height: normal;
+				color: var(--directorist-color-dark);
+			}
+		}
+	}
 
-    .modal-body {
-        padding: 0;
-    }
+	.modal-body {
+		padding: 0;
+	}
 
-    .directorist-account-block-modal-wrap {
-        padding: 20px 30px 30px;
+	.directorist-account-block-modal-wrap {
+		padding: 20px 30px 30px;
 
-        @include xxs {
-            padding: 20px;
-        }
-    }
+		@include xxs {
+			padding: 20px;
+		}
+	}
 
-    .directorist-account-block-login-info {
-        padding: 15px 20px;
-        border-radius: 8px;
+	.directorist-account-block-login-info {
+		padding: 15px 20px;
+		border-radius: 8px;
 
-        &.alert-success {
-            border: 0 none;
-            background-color: rgba(var(--directorist-color-success-rgb), .15);
-        }
+		&.alert-success {
+			border: 0 none;
+			background-color: rgba(var(--directorist-color-success-rgb), 0.15);
+		}
 
-        ul {
-            margin-bottom: 0;
+		ul {
+			margin-bottom: 0;
 
-            li {
-                .directorist-account-block-login-info__label {
-                    display: inline-block;
-                    margin-right: 20px;
-                    color: var(--directorist-color-dark);
-                }
+			li {
+				.directorist-account-block-login-info__label {
+					display: inline-block;
+					margin-right: 20px;
+					color: var(--directorist-color-dark);
+				}
 
-                .directorist-account-block-login-info__text {
-                    color: var(--directorist-color-success);
-                }
-            }
-        }
-    }
+				.directorist-account-block-login-info__text {
+					color: var(--directorist-color-success);
+				}
+			}
+		}
+	}
 
-    .directorist-account-block-register-btn {
-        .directorist-btn {
-            width: 100%;
-            border-radius: 8px;
-            &:hover{
-                color: var(--directorist-color-primary);
-                background-color: transparent;
-            }
-        }
-    }
+	.directorist-account-block-register-btn {
+		.directorist-btn {
+			width: 100%;
+			border-radius: 8px;
+			&:hover {
+				color: var(--directorist-color-primary);
+				background-color: transparent;
+			}
+		}
+	}
 
-    .directorist-form-group {
-        label {
-            margin-bottom: 3px;
-            color: var(--directorist-color-dark);
-        }
+	.directorist-form-group {
+		label {
+			margin-bottom: 3px;
+			color: var(--directorist-color-dark);
+		}
 
-        .directorist-form-element {
-            border: 1px solid var(--directorist-color-light);
-            border-radius: 6px;
-            padding: 0 20px;
+		.directorist-form-element {
+			border: 1px solid var(--directorist-color-light);
+			border-radius: 6px;
+			padding: 0 20px;
 
-            &:focus {
-                border-radius: 0;
-                border-color: var(--directorist-color-primary);
-            }
-        }
+			&:focus {
+				border-radius: 0;
+				border-color: var(--directorist-color-primary);
+			}
+		}
 
-        &.atbd_login_btn_wrapper {
-            .directorist-btn {
-                width: 100%;
-                min-height: 46px;
-                border-radius: 8px;
-                line-height: 1;
+		&.atbd_login_btn_wrapper {
+			.directorist-btn {
+				width: 100%;
+				min-height: 46px;
+				border-radius: 8px;
+				line-height: 1;
 
-                &:hover {
-                    background-color: transparent;
-                    color: var(--directorist-color-primary);
-                }
-            }
-        }
-    }
+				&:hover {
+					background-color: transparent;
+					color: var(--directorist-color-primary);
+				}
+			}
+		}
+	}
 
-    .directorist-account-block-password-activity {
-        display: flex;
-        justify-content: space-between;
+	.directorist-account-block-password-activity {
+		display: flex;
+		justify-content: space-between;
 
-        @include xxs {
-            display: block;
-        }
+		@include xxs {
+			display: block;
+		}
 
-        p {
-            margin-top: 0;
-            margin-bottom: 0;
+		p {
+			margin-top: 0;
+			margin-bottom: 0;
 
-            @include xxs {
-                margin: 5px 0 0;
-            }
+			@include xxs {
+				margin: 5px 0 0;
+			}
 
-            a {
-                text-decoration: none;
-                font-size: 14px;
-                font-weight: 500;
-                color: var(--directorist-color-dark);
+			a {
+				text-decoration: none;
+				font-size: 14px;
+				font-weight: 500;
+				color: var(--directorist-color-dark);
 
-                &:hover {
-                    color: var(--directorist-color-primary);
-                }
-            }
-        }
-    }
+				&:hover {
+					color: var(--directorist-color-primary);
+				}
+			}
+		}
+	}
 
-    .directorist-account-block-social-login {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px 10px;
-        margin-top: 20px;
+	.directorist-account-block-social-login {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		flex-direction: column;
+		align-items: center;
+		gap: 5px 10px;
+		margin-top: 20px;
 
-        @include xxs {
-            display: block;
-        }
+		@include xxs {
+			display: block;
+		}
 
-        button {
-            min-height: 46px;
-            padding: 10px 30px;
-            border-radius: 6px;
-            margin: 5px;
-            border: 1px solid var(--directorist-color-light);
-            transition: 0.3s ease-in-out;
-            display: flex;
-            align-items: center;
-            gap: 5px 8px;
-            cursor: pointer;
-            img{
-                width: 20px;
-                height: 20px;
-            }
-            &:hover{
-                opacity: 0.8;
-            }
+		button {
+			min-height: 46px;
+			padding: 10px 30px;
+			border-radius: 6px;
+			margin: 5px;
+			border: 1px solid var(--directorist-color-light);
+			transition: 0.3s ease-in-out;
+			display: flex;
+			align-items: center;
+			gap: 5px 8px;
+			cursor: pointer;
+			img {
+				width: 20px;
+				height: 20px;
+			}
+			&:hover {
+				opacity: 0.8;
+			}
 
-            &.fb-login {
-                color:white;
-                border-color:#1877F2;
-                background-color: #1877F2;
-            }
+			&.fb-login {
+				color: white;
+				border-color: #1877f2;
+				background-color: #1877f2;
+			}
 
-            &.fb-google {
-                color: var(--directorist-color-closed-badge);
-                border-color: var(--directorist-color-closed-badge);
-            }
-        }
-    }
+			&.fb-google {
+				color: var(--directorist-color-closed-badge);
+				border-color: var(--directorist-color-closed-badge);
+			}
+		}
+	}
 
-    .directorist-account-block-modal-bottom {
-        padding: 20px 25px;
-        border-radius: 0 0 8px 8px;
-        text-align: center;
-        background-color: var(--directorist-color-bg-light);
+	.directorist-account-block-modal-bottom {
+		padding: 20px 25px;
+		border-radius: 0 0 8px 8px;
+		text-align: center;
+		background-color: var(--directorist-color-bg-light);
 
-        button {
-            border: none;
-            text-decoration: none;
-            display: inline-block;
-            color: var(--directorist-color-dark);
-            transition: .3s;
-            background-color: transparent;
-            cursor: pointer;
-            font-size: 15px;
+		button {
+			border: none;
+			text-decoration: none;
+			display: inline-block;
+			color: var(--directorist-color-dark);
+			transition: 0.3s;
+			background-color: transparent;
+			cursor: pointer;
+			font-size: 15px;
 
-            &:hover {
-                color: var(--directorist-color-primary);
-                opacity: 0.8;
-            }
-        }
+			&:hover {
+				color: var(--directorist-color-primary);
+				opacity: 0.8;
+			}
+		}
 
-        .message {
-            padding: 15px 30px;
-            text-align: center
-        }
-        .directory_regi_btn,
-        .directory_login_btn{
-            @include rfs(17px);
-            color: var(--directorist-color-body);
-        }
-    }
+		.message {
+			padding: 15px 30px;
+			text-align: center;
+		}
+		.directory_regi_btn,
+		.directory_login_btn {
+			@include rfs(17px);
+			color: var(--directorist-color-body);
+		}
+	}
 
-    #recover-pass-modal {
-        padding: 0;
+	#recover-pass-modal {
+		padding: 0;
 
-        .directorist-btn {
-            font-size: 14px;
-            margin-top: 15px;
-        }
+		.directorist-btn {
+			font-size: 14px;
+			margin-top: 15px;
+		}
 
-        .directorist-form-element+p {
-            margin-bottom: 0;
-        }
+		.directorist-form-element + p {
+			margin-bottom: 0;
+		}
 
-        fieldset {
-            color: var(--directorist-color-body);
+		fieldset {
+			color: var(--directorist-color-body);
 
-            p {
-                margin-top: 0;
-                font-size: 16px;
-            }
+			p {
+				margin-top: 0;
+				font-size: 16px;
+			}
 
-            .directorist-form-element {
-                padding: 5px 20px;
-            }
+			.directorist-form-element {
+				padding: 5px 20px;
+			}
 
-            .directorist-btn {
-                border-radius: 6px;
+			.directorist-btn {
+				border-radius: 6px;
 
-                &:hover {
-                    background-color: transparent;
-                    color: var(--directorist-color-primary);
-                }
-            }
-        }
-    }
+				&:hover {
+					background-color: transparent;
+					color: var(--directorist-color-primary);
+				}
+			}
+		}
+	}
 
-    .error_login {
-        padding: 10px 30px 0;
-        text-align: center;
+	.error_login {
+		padding: 10px 30px 0;
+		text-align: center;
 
-        .success {
-            color: var(--directorist-color-warning);
-        }
-    }
+		.success {
+			color: var(--directorist-color-warning);
+		}
+	}
 
-    .directorist-checkbox input[type=checkbox]:checked+.directorist-checkbox__label:after {
-        background-color: var(--directorist-color-primary);
-        border-color: var(--directorist-color-primary);
-    }
+	.directorist-checkbox
+		input[type="checkbox"]:checked
+		+ .directorist-checkbox__label:after {
+		background-color: var(--directorist-color-primary);
+		border-color: var(--directorist-color-primary);
+	}
 
-    .directorist-form-required {
-        line-height: normal;
-    }
+	.directorist-form-required {
+		line-height: normal;
+	}
 
-    .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1060;
-        display: none;
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
-        overflow-y: auto;
-        outline: 0;
-        background-color: rgba(var(--directorist-color-dark-rgb), 0.40);
-    }
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1060;
+		display: none;
+		width: 100%;
+		height: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
+		outline: 0;
+		background-color: rgba(var(--directorist-color-dark-rgb), 0.4);
+	}
 
-    #directorist-account-block-login-modal {
-        .directorist-authentication {
-            width: 100%;
-            margin-left: 0;
-            .directorist-authentication__form {
-                padding: 30px 25px 25px;
-                margin: 0;
-                box-shadow: none;
-                background: transparent;
-                .directorist-form-element {
-                    border: none;
-                    padding: 15px 0;
-                    border-radius: 0;
-                    border-bottom: 1px solid #ececec;
-                    &:focus {
-                        border-color: var(--directorist-color-primary);
-                    }
-                }
-                .directorist-authentication__form__btn {
-                    &:hover {
-                        color: var(--directorist-color-white);
-                        background-color: rgba(var(--directorist-color-primary-rgb), 0.8); 
-                    }
-                }
-            }
-            p.status,
-            .directorist-register-error {
-                margin-top: 0;
-            }
-        }
-    }
+	#directorist-account-block-login-modal {
+		.directorist-authentication {
+			width: 100%;
+			margin-left: 0;
+			.directorist-authentication__form {
+				padding: 30px 25px 25px;
+				margin: 0;
+				box-shadow: none;
+				background: transparent;
+				.directorist-form-element {
+					border: none;
+					padding: 15px 0;
+					border-radius: 0;
+					border-bottom: 1px solid #ececec;
+					&:focus {
+						border-color: var(--directorist-color-primary);
+					}
+				}
+				.directorist-authentication__form__btn {
+					&:hover {
+						color: var(--directorist-color-white);
+						background-color: rgba(
+							var(--directorist-color-primary-rgb),
+							0.8
+						);
+					}
+				}
+			}
+			p.status,
+			.directorist-register-error {
+				margin-top: 0;
+			}
+		}
+	}
 }
-

@@ -33,7 +33,7 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
 
             <div class="directorist-listing-single__info__top-right">
                 <header class="directorist-listing-single__info__top">
-                    <?php $listings->render_loop_fields( $loop_fields['body']['top'], 'div', 'div' ); ?>
+                    <?php $listings->render_loop_fields( $loop_fields['body']['top'] ); ?>
                 </header>
                 <div class="directorist-listing-single__info__right">
                     <div class="directorist-listing-single__action">

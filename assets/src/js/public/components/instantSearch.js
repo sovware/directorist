@@ -321,12 +321,29 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			typeof form_data.custom_field === 'object'
 		) {
 			Object.entries(form_data.custom_field).forEach(([key, val]) => {
-				// Skip if key starts with "custom-number" and value is "0-0"
-				if (key.startsWith('custom-number') && val === '0-0') {
+				// Skip if value is "0-0" (empty range slider)
+				if (val === '0-0') {
 					return;
 				}
 
-				appendQuery(key, val);
+				// Skip empty values
+				if (!val || (typeof val === 'string' && val.trim() === '')) {
+					return;
+				}
+
+				// Handle multiple values (arrays or comma-separated strings)
+				const values = Array.isArray(val)
+					? val
+					: typeof val === 'string' && val.includes(',')
+						? val.split(',')
+						: [val];
+
+				values.forEach((singleVal) => {
+					const formattedKey = key.startsWith('custom-checkbox')
+						? `custom_field%5B${key}%5D%5B%5D`
+						: `custom_field%5B${key}%5D`;
+					appendQuery(formattedKey, singleVal);
+				});
 			});
 		}
 
@@ -439,6 +456,33 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			}
 		});
 
+		// Collect custom range slider min/max values
+		let range_slider_values = {};
+		searchElm
+			.find(
+				'.directorist-custom-range-slider__text.directorist-custom-range-slider__value__min'
+			)
+			.each(function () {
+				const minVal = $(this).val();
+				if (minVal && minVal !== '0') {
+					range_slider_values[
+						'directorist-custom-range-slider__value__min'
+					] = minVal;
+				}
+			});
+		searchElm
+			.find(
+				'.directorist-custom-range-slider__text.directorist-custom-range-slider__value__max'
+			)
+			.each(function () {
+				const maxVal = $(this).val();
+				if (maxVal && maxVal !== '0') {
+					range_slider_values[
+						'directorist-custom-range-slider__value__max'
+					] = maxVal;
+				}
+			});
+
 		// Collect basic form values
 		const q = searchElm.find('input[name="q"]').val();
 		const in_cat = searchElm.find('.directorist-category-select').val();
@@ -456,10 +500,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		const view = form_data.view;
 		const paged = form_data.paged;
 
-		// Get directory type
-		const directory_type = searchElm
-			.find('input[name="directory_type"]')
-			.val();
+		// Get directory type - look in the parent container to ensure it's found regardless of form
+		const directory_type =
+			searchElm.find('input[name="directory_type"]').val() ||
+			searchElm
+				.closest('.directorist-instant-search')
+				.find('input[name="directory_type"]')
+				.val();
 
 		// Update form_data
 		updateFormData({
@@ -481,6 +528,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			view,
 			paged,
 			directory_type,
+			...range_slider_values,
 		});
 
 		// open_now checkbox
@@ -639,22 +687,47 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		});
 	}
 
-	// Determine the active form
+	// Determine the active form with intelligent fallback strategy
 	function getActiveForm(instantSearchElement) {
-		const sidebarListing = instantSearchElement.find(
-			'.listing-with-sidebar'
+		const forms = {
+			sidebar: instantSearchElement.find('.listing-with-sidebar'),
+			advanced: instantSearchElement.find(
+				'.directorist-advanced-filter__form'
+			),
+			search: instantSearchElement.find('.directorist-search-form'),
+		};
+
+		// Early return for sidebar listings
+		if (forms.sidebar.length) {
+			return instantSearchElement;
+		}
+
+		// Create form candidates with metadata
+		const candidates = [
+			{
+				form: forms.advanced,
+				hasDirectoryType:
+					forms.advanced.find('input[name="directory_type"]').length >
+					0,
+			},
+			{
+				form: forms.search,
+				hasDirectoryType:
+					forms.search.find('input[name="directory_type"]').length >
+					0,
+			},
+		].filter((candidate) => candidate.form.length > 0);
+
+		// Smart selection: prioritize forms with directory_type, fallback to responsive behavior
+		const formWithDirectoryType = candidates.find(
+			(c) => c.hasDirectoryType
 		);
-		const advancedForm = instantSearchElement.find(
-			'.directorist-advanced-filter__form'
-		);
-		const searchForm = instantSearchElement.find(
-			'.directorist-search-form'
-		);
-		return sidebarListing.length
-			? instantSearchElement
-			: screen.width > 575
-				? advancedForm
-				: searchForm;
+		if (formWithDirectoryType) {
+			return formWithDirectoryType.form;
+		}
+
+		// Fallback: use responsive selection if no directory_type found
+		return screen.width > 575 ? forms.advanced : forms.search;
 	}
 
 	// Get directory type

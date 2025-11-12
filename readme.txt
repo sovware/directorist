@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.9
+Stable tag: 8.5.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -286,6 +286,42 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.5.2 - Nov 6, 2025 =
+
+**Changed**
+- Added an action hook after completing the instant search. (#2573)
+
+**Fixed**
+ - Location hierarchical issue. (#2576)
+ - licensing checking issue. (#2575)
+
+= 8.5.1 - Oct 30, 2025 =
+
+- Added hooks to control dashboard and login page redirects. (#2521)
+
+**Fixed**
+ - Invalid directory issue with the Add Listing image field when using a single directory. (#2563)
+ - Section icon display issue in the Add Listing Form. (#2564)
+
+= 8.5 - Oct 28, 2025 =
+
+**New**
+- Migrated category, location, and tag pages to use default WordPress taxonomy archive pages, ensuring better SEO compatibility, cleaner URLs, and improved hierarchy handling. (#2514)
+- Added comprehensive REST API improvements: new v2 endpoints for listings (create/edit/delete), upgraded plan and order read endpoints, builder tab endpoint support and a temporary media upload endpoint. (#2529)
+
+**Changed**
+- Builder Enhancement: Improved Search Form, Add Listing Form, Single Listing Header, and Card Widget System for better customization and flexibility. (#2522)
+
+**Fixed**
+ - Taxonomy hierarchy issue. (#2548)
+ - Issue where the directory type was not applied correctly when performing a search without using the advanced search field. (#2544)
+ - About/Bio field required issue on the sign up page. (#2543)
+ - Undefined value issue in icon picker input field. (#2545)
+ - Dashboard single item position placement issue. (#2541)
+ - Viewport-aware dropdown system that auto-positions dropdowns up or down based on available space, preventing clipping. (#2537)
+ - Ensured directory_type parameter consistency in pagination across all screen sizes. (#2530)
+ - The instant search custom URL field didn't work after reloading the page. (#2553)
 
 = 8.4.9 - Oct 13, 2025 =
 

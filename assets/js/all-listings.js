@@ -1825,7 +1825,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var website = searchElm.find('input[name="website"]').val();
     var phone = searchElm.find('input[name="phone"]').val();
     var phone2 = searchElm.find('input[name="phone2"]').val();
+    var instantSearchWrapper = searchElm.closest('.directorist-instant-search');
     var view = form_data.view;
+    if ((!view || view === '') && instantSearchWrapper.length) {
+      var activeViewItem = instantSearchWrapper.find('.directorist-viewas__item.active');
+      view = getViewAs(activeViewItem);
+      if (!view) {
+        view = 'grid';
+      }
+    }
     var paged = form_data.paged;
 
     // Get directory type - look in the parent container to ensure it's found regardless of form
@@ -2354,7 +2362,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     } else if ($(this).hasClass('prev')) {
       page = parseInt(page) - 1;
     }
-    // ✅ only update `sort`, preserve others
+    // ✅ only update `paged`, preserve others
     updateFormData({
       paged: page
     });
@@ -2385,6 +2393,19 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   $('body').on('click', '.disabled-link', function (e) {
     e.preventDefault();
   });
+
+  // Initialize form_data from URL parameters on page load
+  if (window.location.search) {
+    var urlParams = new URLSearchParams(window.location.search);
+    var viewParam = urlParams.get('view');
+    var pagedParam = urlParams.get('paged');
+    if (viewParam) {
+      form_data.view = viewParam;
+    }
+    if (pagedParam) {
+      form_data.paged = parseInt(pagedParam, 10);
+    }
+  }
 
   // Prevent default action for dropdown links
   $('.directorist-instant-search .directorist-dropdown__links__single-js').off('click');

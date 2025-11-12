@@ -2057,6 +2057,7 @@ class Directorist_Listings {
     public function data_atts() {
         $this->atts['_current_page'] = $this->type; // search_result or listing
         $this->atts['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->current_listing_type );
+        $this->atts['view'] = $this->view;
         // Separates class names with a single space, collates class names for wrapper tag element.
         echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
     }
@@ -2461,16 +2462,40 @@ class Directorist_Listings {
         $total = ( isset( $this->query_results->total_pages ) ) ? $this->query_results->total_pages : $this->query_results->max_num_pages;
         $paged = ( isset( $this->query_results->current_page ) ) ? $this->query_results->current_page : $paged;
 
-        $links = paginate_links(
-            [
-                'base'      => str_replace( $largeNumber, '%#%', esc_url( get_pagenum_link( $largeNumber ) ) ),
-                'format'    => '?paged=%#%',
-                'current'   => max( 1, $paged ),
-                'total'     => $total,
-                'prev_text' => apply_filters( 'directorist_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false ) ),
-                'next_text' => apply_filters( 'directorist_pagination_next_text', directorist_icon( 'fas fa-chevron-right', false ) ),
-            ]
-        );
+        $base = str_replace( $largeNumber, '%#%', esc_url( get_pagenum_link( $largeNumber ) ) );
+
+        $add_args = [];
+
+        if ( ! empty( $_GET ) ) {
+            $query_args = directorist_clean( wp_unslash( $_GET ) );
+
+            unset( $query_args['paged'], $query_args['page'] );
+
+            foreach ( $query_args as $key => $value ) {
+                if ( '' === $value || null === $value ) {
+                    continue;
+                }
+
+                if ( is_array( $value ) || false === strpos( $base, $key . '=' ) ) {
+                    $add_args[ $key ] = $value;
+                }
+            }
+        }
+
+        $pagination_args = [
+            'base'      => $base,
+            'format'    => '?paged=%#%',
+            'current'   => max( 1, $paged ),
+            'total'     => $total,
+            'prev_text' => apply_filters( 'directorist_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false ) ),
+            'next_text' => apply_filters( 'directorist_pagination_next_text', directorist_icon( 'fas fa-chevron-right', false ) ),
+        ];
+
+        if ( ! empty( $add_args ) ) {
+            $pagination_args['add_args'] = $add_args;
+        }
+
+        $links = paginate_links( $pagination_args );
 
         if ( $links ) {
             $navigation = '<nav class="directorist-pagination" aria-label="Listings Pagination">' . $links . '</nav>';

@@ -497,7 +497,21 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		const website = searchElm.find('input[name="website"]').val();
 		const phone = searchElm.find('input[name="phone"]').val();
 		const phone2 = searchElm.find('input[name="phone2"]').val();
-		const view = form_data.view;
+		const instantSearchWrapper = searchElm.closest(
+			'.directorist-instant-search'
+		);
+
+		let view = form_data.view;
+		if ((!view || view === '') && instantSearchWrapper.length) {
+			const activeViewItem = instantSearchWrapper.find(
+				'.directorist-viewas__item.active'
+			);
+			view = getViewAs(activeViewItem);
+			if (!view) {
+				view = 'grid';
+			}
+		}
+
 		const paged = form_data.paged;
 
 		// Get directory type - look in the parent container to ensure it's found regardless of form
@@ -1141,7 +1155,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			} else if ($(this).hasClass('prev')) {
 				page = parseInt(page) - 1;
 			}
-			// ✅ only update `sort`, preserve others
+			// ✅ only update `paged`, preserve others
 			updateFormData({ paged: page });
 
 			// get parent element
@@ -1182,6 +1196,19 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	$('body').on('click', '.disabled-link', function (e) {
 		e.preventDefault();
 	});
+
+	// Initialize form_data from URL parameters on page load
+	if (window.location.search) {
+		const urlParams = new URLSearchParams(window.location.search);
+		const viewParam = urlParams.get('view');
+		const pagedParam = urlParams.get('paged');
+		if (viewParam) {
+			form_data.view = viewParam;
+		}
+		if (pagedParam) {
+			form_data.paged = parseInt(pagedParam, 10);
+		}
+	}
 
 	// Prevent default action for dropdown links
 	$(

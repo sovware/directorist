@@ -22627,7 +22627,6 @@ Review: New Style
 .directorist-tab__nav__link .directorist_menuItem-text span.fa {
   pointer-events: none;
   display: inline-block;
-  margin-left: 10px;
 }
 .directorist-tab__nav__link.directorist-tab__nav__active, .directorist-tab__nav__link:focus {
   font-weight: 700;

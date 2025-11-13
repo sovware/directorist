@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.5.2
+Stable tag: 8.5.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -286,6 +286,14 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.5.3 - Nov 13, 2025 =
+
+**Changed**
+- Moved view count settings from Badges to General tab. (#2590)
+
+**Fixed**
+ - Security issue. (#2589)
 
 = 8.5.2 - Nov 6, 2025 =
 

@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-06 04:38+0000\n"
+"POT-Creation-Date: 2025-11-13 08:59+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "Username or Email Address"
 msgstr ""
 
-#: ../blocks/templates/login.php:14, ../blocks/templates/login.php:126, ../blocks/templates/registration.php:17, ../blocks/templates/signin-signup.php:12, ../includes/classes/class-settings-panel.php:2847, ../includes/classes/class-settings-panel.php:3090, ../includes/classes/class-settings-panel.php:4017, ../includes/classes/class-settings-panel.php:4117, ../includes/model/Account.php:33
+#: ../blocks/templates/login.php:14, ../blocks/templates/login.php:126, ../blocks/templates/registration.php:17, ../blocks/templates/signin-signup.php:12, ../includes/classes/class-settings-panel.php:2847, ../includes/classes/class-settings-panel.php:3090, ../includes/classes/class-settings-panel.php:4024, ../includes/classes/class-settings-panel.php:4124, ../includes/model/Account.php:33
 msgid "Password"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Log In"
 msgstr ""
 
-#: ../blocks/templates/login.php:19, ../blocks/templates/login.php:131, ../includes/classes/class-settings-panel.php:3148, ../includes/classes/class-settings-panel.php:4145
+#: ../blocks/templates/login.php:19, ../blocks/templates/login.php:131, ../includes/classes/class-settings-panel.php:3148, ../includes/classes/class-settings-panel.php:4152
 msgid "Recover Password"
 msgstr ""
 
@@ -190,23 +190,23 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: ../blocks/templates/registration.php:16, ../blocks/templates/signin-signup.php:10, ../includes/classes/class-settings-panel.php:2837, ../includes/classes/class-settings-panel.php:4010, ../includes/classes/class-settings-panel.php:4110, ../includes/model/Account.php:31
+#: ../blocks/templates/registration.php:16, ../blocks/templates/signin-signup.php:10, ../includes/classes/class-settings-panel.php:2837, ../includes/classes/class-settings-panel.php:4017, ../includes/classes/class-settings-panel.php:4117, ../includes/model/Account.php:31
 msgid "Username"
 msgstr ""
 
-#: ../blocks/templates/registration.php:20, ../includes/classes/class-settings-panel.php:1836, ../includes/classes/class-settings-panel.php:2869, ../includes/classes/class-settings-panel.php:4024, ../includes/classes/class-settings-panel.php:4210, ../includes/model/SingleListing.php:733, ../includes/review/class-comment-form-renderer.php:234, ../includes/modules/multi-directory-setup/class-builder-data.php:373, ../includes/modules/multi-directory-setup/class-builder-data.php:552, ../includes/modules/multi-directory-setup/class-builder-data.php:559, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:216, ../templates/single-reviews.php:125, ../templates/widgets/contact-form.php:19
+#: ../blocks/templates/registration.php:20, ../includes/classes/class-settings-panel.php:1836, ../includes/classes/class-settings-panel.php:2869, ../includes/classes/class-settings-panel.php:4031, ../includes/classes/class-settings-panel.php:4217, ../includes/model/SingleListing.php:733, ../includes/review/class-comment-form-renderer.php:234, ../includes/modules/multi-directory-setup/class-builder-data.php:373, ../includes/modules/multi-directory-setup/class-builder-data.php:552, ../includes/modules/multi-directory-setup/class-builder-data.php:559, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:216, ../templates/single-reviews.php:125, ../templates/widgets/contact-form.php:19
 msgid "Email"
 msgstr ""
 
-#: ../blocks/templates/registration.php:22, ../blocks/templates/signin-signup.php:15, ../includes/classes/class-settings-panel.php:1844, ../includes/classes/class-settings-panel.php:2879, ../includes/classes/class-settings-panel.php:4031, ../includes/model/Account.php:36, ../includes/review/class-comment-form-renderer.php:248, ../includes/modules/multi-directory-setup/class-builder-data.php:407, ../templates/single-reviews.php:140, ../templates/dashboard/tab-profile.php:105
+#: ../blocks/templates/registration.php:22, ../blocks/templates/signin-signup.php:15, ../includes/classes/class-settings-panel.php:1844, ../includes/classes/class-settings-panel.php:2879, ../includes/classes/class-settings-panel.php:4038, ../includes/model/Account.php:36, ../includes/review/class-comment-form-renderer.php:248, ../includes/modules/multi-directory-setup/class-builder-data.php:407, ../templates/single-reviews.php:140, ../templates/dashboard/tab-profile.php:105
 msgid "Website"
 msgstr ""
 
-#: ../blocks/templates/registration.php:25, ../blocks/templates/signin-signup.php:18, ../includes/classes/class-settings-panel.php:2906, ../includes/classes/class-settings-panel.php:4038, ../includes/model/Account.php:39, ../templates/dashboard/tab-profile.php:65
+#: ../blocks/templates/registration.php:25, ../blocks/templates/signin-signup.php:18, ../includes/classes/class-settings-panel.php:2906, ../includes/classes/class-settings-panel.php:4045, ../includes/model/Account.php:39, ../templates/dashboard/tab-profile.php:65
 msgid "First Name"
 msgstr ""
 
-#: ../blocks/templates/registration.php:28, ../blocks/templates/signin-signup.php:21, ../includes/classes/class-settings-panel.php:2933, ../includes/classes/class-settings-panel.php:4045, ../includes/model/Account.php:42, ../templates/dashboard/tab-profile.php:73
+#: ../blocks/templates/registration.php:28, ../blocks/templates/signin-signup.php:21, ../includes/classes/class-settings-panel.php:2933, ../includes/classes/class-settings-panel.php:4052, ../includes/model/Account.php:42, ../templates/dashboard/tab-profile.php:73
 msgid "Last Name"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr ""
 msgid "Directorist Sign In"
 msgstr ""
 
-#: ../directorist-base.php:688, ../includes/classes/class-settings-panel.php:4549
+#: ../directorist-base.php:688, ../includes/classes/class-settings-panel.php:4556
 msgid "Uninstall"
 msgstr ""
 
@@ -466,7 +466,7 @@ msgstr ""
 msgid "The plugin is not installed."
 msgstr ""
 
-#: ../includes/custom-actions.php:21, ../includes/classes/class-settings-panel.php:4066
+#: ../includes/custom-actions.php:21, ../includes/classes/class-settings-panel.php:4073
 msgid "Privacy Policy"
 msgstr ""
 
@@ -486,11 +486,11 @@ msgstr ""
 msgid "Enter your extension license keys here to receive updates for purchased extensions. Click %s to know more about licensing."
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:59, ../includes/classes/class-ajax-handler.php:396, ../includes/classes/class-settings-panel.php:4000
+#: ../includes/directorist-core-functions.php:59, ../includes/classes/class-ajax-handler.php:405, ../includes/classes/class-settings-panel.php:4007
 msgid "User"
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:60, ../includes/classes/class-ajax-handler.php:408, ../includes/classes/class-custom-post.php:368
+#: ../includes/directorist-core-functions.php:60, ../includes/classes/class-ajax-handler.php:417, ../includes/classes/class-custom-post.php:368
 msgid "Author"
 msgstr ""
 
@@ -606,7 +606,7 @@ msgstr ""
 msgid "Grid"
 msgstr ""
 
-#: ../includes/helper-functions.php:1658, ../includes/classes/class-settings-panel.php:1068, ../includes/classes/class-settings-panel.php:1087, ../includes/classes/class-settings-panel.php:2139, ../includes/classes/class-settings-panel.php:3841, ../includes/classes/class-settings-panel.php:3846, ../includes/widgets/single-map.php:26, ../includes/modules/multi-directory-setup/builder-preset-fields.php:483, ../includes/modules/multi-directory-setup/builder-preset-fields.php:500
+#: ../includes/helper-functions.php:1658, ../includes/classes/class-settings-panel.php:1068, ../includes/classes/class-settings-panel.php:1087, ../includes/classes/class-settings-panel.php:2139, ../includes/classes/class-settings-panel.php:3848, ../includes/classes/class-settings-panel.php:3853, ../includes/widgets/single-map.php:26, ../includes/modules/multi-directory-setup/builder-preset-fields.php:483, ../includes/modules/multi-directory-setup/builder-preset-fields.php:500
 msgid "Map"
 msgstr ""
 
@@ -630,11 +630,11 @@ msgstr ""
 msgid "Search Home"
 msgstr ""
 
-#: ../includes/helper-functions.php:2570, ../includes/classes/class-settings-panel.php:3960, ../includes/elementor/search-result.php:14
+#: ../includes/helper-functions.php:2570, ../includes/classes/class-settings-panel.php:3967, ../includes/elementor/search-result.php:14
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:2578, ../includes/classes/class-custom-post.php:287, ../includes/classes/class-settings-panel.php:3730, ../includes/elementor/all-listing.php:15, ../templates/dashboard/tab-my-listings.php:22
+#: ../includes/helper-functions.php:2578, ../includes/classes/class-custom-post.php:287, ../includes/classes/class-settings-panel.php:3737, ../includes/elementor/all-listing.php:15, ../templates/dashboard/tab-my-listings.php:22
 msgid "All Listings"
 msgstr ""
 
@@ -654,7 +654,7 @@ msgstr ""
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:2606, ../includes/classes/class-settings-panel.php:4164, ../includes/elementor/user-dashboard.php:14
+#: ../includes/helper-functions.php:2606, ../includes/classes/class-settings-panel.php:4171, ../includes/elementor/user-dashboard.php:14
 msgid "Dashboard"
 msgstr ""
 
@@ -1007,7 +1007,7 @@ msgstr ""
 msgid "Filter By Name"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:231, ../includes/classes/class-settings-panel.php:3928, ../includes/widgets/search-form.php:26, ../includes/widgets/search-form.php:55, ../templates/archive/mobile-search-form.php:20, ../templates/archive/mobile-search-form.php:59
+#: ../includes/asset-loader/localized_data.php:231, ../includes/classes/class-settings-panel.php:3935, ../includes/widgets/search-form.php:26, ../includes/widgets/search-form.php:55, ../templates/archive/mobile-search-form.php:20, ../templates/archive/mobile-search-form.php:59
 msgid "Search"
 msgstr ""
 
@@ -1063,7 +1063,7 @@ msgstr ""
 msgid "Sending user info, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:341, ../includes/classes/class-ajax-handler.php:344, ../includes/classes/class-ajax-handler.php:455
+#: ../includes/asset-loader/localized_data.php:341, ../includes/classes/class-ajax-handler.php:344, ../includes/classes/class-ajax-handler.php:464
 msgid "Wrong username or password."
 msgstr ""
 
@@ -1092,7 +1092,7 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:58, ../includes/classes/class-ajax-handler.php:429, ../includes/classes/class-listing.php:370, ../includes/classes/class-tools.php:153, ../includes/classes/class-tools.php:165, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
+#: ../includes/classes/class-add-listing.php:58, ../includes/classes/class-ajax-handler.php:438, ../includes/classes/class-listing.php:370, ../includes/classes/class-tools.php:153, ../includes/classes/class-tools.php:165, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
 msgid "Invalid request."
 msgstr ""
 
@@ -1100,7 +1100,7 @@ msgstr ""
 msgid "Could not upload (%s), please try again."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:137, ../includes/classes/class-ajax-handler.php:654, ../includes/classes/class-setup-wizard.php:40, ../includes/classes/class-setup-wizard.php:222, ../includes/classes/class-tools.php:211
+#: ../includes/classes/class-add-listing.php:137, ../includes/classes/class-ajax-handler.php:672, ../includes/classes/class-setup-wizard.php:40, ../includes/classes/class-setup-wizard.php:222, ../includes/classes/class-tools.php:211
 msgid "Invalid request!"
 msgstr ""
 
@@ -1140,7 +1140,7 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:139, ../includes/classes/class-ajax-handler.php:207, ../includes/classes/class-ajax-handler.php:236, ../includes/classes/class-ajax-handler.php:476
+#: ../includes/classes/class-ajax-handler.php:139, ../includes/classes/class-ajax-handler.php:207, ../includes/classes/class-ajax-handler.php:236, ../includes/classes/class-ajax-handler.php:485
 msgid "Something went wrong, please try again."
 msgstr ""
 
@@ -1164,139 +1164,147 @@ msgstr ""
 msgid "Please enter a valid zip code."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:323, ../includes/classes/class-ajax-handler.php:438
+#: ../includes/classes/class-ajax-handler.php:323, ../includes/classes/class-ajax-handler.php:447
 msgid "Your are already loggedin"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:352, ../includes/classes/class-ajax-handler.php:466, ../includes/classes/class-ajax-handler.php:830, ../includes/classes/class-ajax-handler.php:859
+#: ../includes/classes/class-ajax-handler.php:352, ../includes/classes/class-ajax-handler.php:475, ../includes/classes/class-ajax-handler.php:848, ../includes/classes/class-ajax-handler.php:877
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:378, ../includes/classes/class-ajax-handler.php:1405, ../includes/classes/class-ajax-handler.php:1663, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
+#: ../includes/classes/class-ajax-handler.php:379
+msgid "You are not allowed to export listings."
+msgstr ""
+
+#: ../includes/classes/class-ajax-handler.php:387, ../includes/classes/class-ajax-handler.php:1423, ../includes/classes/class-ajax-handler.php:1681, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:430, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:554, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:680
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:419
+#: ../includes/classes/class-ajax-handler.php:428
 msgid "Sent successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:499
+#: ../includes/classes/class-ajax-handler.php:508
 msgid "Invalid request, please reload the page and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:517, ../includes/classes/class-ajax-handler.php:674, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:74, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:90
+#: ../includes/classes/class-ajax-handler.php:526, ../includes/classes/class-ajax-handler.php:692, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:74, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:90
 msgid "Invalid directory."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:613
+#: ../includes/classes/class-ajax-handler.php:622
+msgid "You are not allowed to modify directory slugs."
+msgstr ""
+
+#: ../includes/classes/class-ajax-handler.php:631
 msgid "Session expired, please reload the window and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:645
+#: ../includes/classes/class-ajax-handler.php:663
 msgid "Slug changes successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:636
+#: ../includes/classes/class-ajax-handler.php:654
 msgid "This slug already in use."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:662
+#: ../includes/classes/class-ajax-handler.php:680
 msgid "No category selected."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:666, ../includes/rest-api/Version1/class-orders-controller.php:114
+#: ../includes/classes/class-ajax-handler.php:684, ../includes/rest-api/Version1/class-orders-controller.php:114
 msgid "Invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:719
+#: ../includes/classes/class-ajax-handler.php:737
 msgid "The session has expired, please reload and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:809
+#: ../includes/classes/class-ajax-handler.php:827
 msgid "Congratulations! All old pages have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:818
+#: ../includes/classes/class-ajax-handler.php:836
 msgid "Something went wrong, please reload the page"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:880
+#: ../includes/classes/class-ajax-handler.php:898
 msgid "Invalid upload request!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:884
+#: ../includes/classes/class-ajax-handler.php:902
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1046, ../includes/classes/class-ajax-handler.php:1088
+#: ../includes/classes/class-ajax-handler.php:1064, ../includes/classes/class-ajax-handler.php:1106
 msgid "You are not allowed to perform this operation"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1050, ../includes/classes/class-ajax-handler.php:1075, ../includes/classes/class-ajax-handler.php:1079, ../includes/classes/class-ajax-handler.php:1092
+#: ../includes/classes/class-ajax-handler.php:1068, ../includes/classes/class-ajax-handler.php:1093, ../includes/classes/class-ajax-handler.php:1097, ../includes/classes/class-ajax-handler.php:1110
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1072
+#: ../includes/classes/class-ajax-handler.php:1090
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1113
+#: ../includes/classes/class-ajax-handler.php:1131
 msgid "Preferences updated successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1204, ../includes/classes/class-ajax-handler.php:1277, ../includes/review/class-email.php:76
+#: ../includes/classes/class-ajax-handler.php:1222, ../includes/classes/class-ajax-handler.php:1295, ../includes/review/class-email.php:76
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1207
+#: ../includes/classes/class-ajax-handler.php:1225
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1280
+#: ../includes/classes/class-ajax-handler.php:1298
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1385, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
+#: ../includes/classes/class-ajax-handler.php:1403, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1388, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
+#: ../includes/classes/class-ajax-handler.php:1406, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1415
+#: ../includes/classes/class-ajax-handler.php:1433
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1422
+#: ../includes/classes/class-ajax-handler.php:1440
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1430, ../includes/classes/class-ajax-handler.php:1679
+#: ../includes/classes/class-ajax-handler.php:1448, ../includes/classes/class-ajax-handler.php:1697
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1435, ../includes/classes/class-ajax-handler.php:1724
+#: ../includes/classes/class-ajax-handler.php:1453, ../includes/classes/class-ajax-handler.php:1742
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1598
+#: ../includes/classes/class-ajax-handler.php:1616
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1600
+#: ../includes/classes/class-ajax-handler.php:1618
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1819
+#: ../includes/classes/class-ajax-handler.php:1837
 msgid "User not logged in."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1831
+#: ../includes/classes/class-ajax-handler.php:1849
 msgid "Invalid nonce."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1836
+#: ../includes/classes/class-ajax-handler.php:1854
 msgid "No listing ID found."
 msgstr ""
 
@@ -1791,7 +1799,7 @@ msgstr ""
 msgid "Tags deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:960, ../includes/classes/class-settings-panel.php:4686, ../templates/all-authors.php:25, ../templates/archive/directory-type-nav.php:26
+#: ../includes/classes/class-custom-taxonomy.php:960, ../includes/classes/class-settings-panel.php:4693, ../templates/all-authors.php:25, ../templates/archive/directory-type-nav.php:26
 msgid "All"
 msgstr ""
 
@@ -2684,7 +2692,7 @@ msgstr ""
 msgid "Gateway Title"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:583, ../includes/classes/class-settings-panel.php:4413
+#: ../includes/classes/class-settings-panel.php:583, ../includes/classes/class-settings-panel.php:4420
 msgid "Bank Transfer"
 msgstr ""
 
@@ -2848,7 +2856,7 @@ msgstr ""
 msgid "Filters Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:909, ../includes/classes/class-settings-panel.php:920, ../includes/classes/class-settings-panel.php:2045, ../includes/classes/class-settings-panel.php:2056, ../includes/classes/class-settings-panel.php:3944, ../includes/model/Listings.php:303, ../includes/model/Listings.php:348, ../includes/model/Listings.php:349
+#: ../includes/classes/class-settings-panel.php:909, ../includes/classes/class-settings-panel.php:920, ../includes/classes/class-settings-panel.php:2045, ../includes/classes/class-settings-panel.php:2056, ../includes/classes/class-settings-panel.php:3951, ../includes/model/Listings.php:303, ../includes/model/Listings.php:348, ../includes/model/Listings.php:349
 msgid "Filters"
 msgstr ""
 
@@ -3137,19 +3145,19 @@ msgid "Minimum number of views to mark an item as popular."
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:1504
-msgid "Include Logged-In User Views"
+msgid "Track Logged-In User Views"
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:1505
-msgid "Count views from logged-in users toward popularity."
+msgid "Include visits from logged-in users in total listing view counts."
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:1510
-msgid "Dynamic View Count Cache"
+msgid "Cache-Compatible View Tracking"
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:1511
-msgid "Enable real-time view count updates when using page caching plugins (W3 Total Cache, LiteSpeed Cache, etc). This ensures accurate listing view statistics even with caching enabled."
+msgid "Enable real-time view count updates even when using caching plugins like W3 Total Cache or LiteSpeed Cache."
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:1515
@@ -3416,7 +3424,7 @@ msgstr ""
 msgid "Search Button Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1945, ../includes/classes/class-settings-panel.php:3933, ../includes/elementor/search-listing.php:101, ../includes/model/SearchForm.php:147
+#: ../includes/classes/class-settings-panel.php:1945, ../includes/classes/class-settings-panel.php:3940, ../includes/elementor/search-listing.php:101, ../includes/model/SearchForm.php:147
 msgid "Search Listing"
 msgstr ""
 
@@ -3464,7 +3472,7 @@ msgstr ""
 msgid "Display Header"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2237, ../includes/classes/class-settings-panel.php:3908
+#: ../includes/classes/class-settings-panel.php:2237, ../includes/classes/class-settings-panel.php:3915
 msgid "Upgrade/Regenerate Pages"
 msgstr ""
 
@@ -4266,11 +4274,11 @@ msgstr ""
 msgid "The text used in your tag archive URLs. Example: yourdomain.com/single-tag/popular/"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3675, ../includes/classes/class-settings-panel.php:4494, ../templates/dashboard/tab-my-listings.php:50, ../views/admin-templates/post-types-manager/all-listing-types.php:131
+#: ../includes/classes/class-settings-panel.php:3675, ../includes/classes/class-settings-panel.php:4501, ../templates/dashboard/tab-my-listings.php:50, ../views/admin-templates/post-types-manager/all-listing-types.php:131
 msgid "Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3680, ../includes/classes/class-settings-panel.php:3868, ../includes/classes/class-settings-panel.php:4215, ../includes/classes/class-settings-panel.php:4241, ../includes/elementor/add-listing.php:35, ../includes/elementor/all-categories.php:44, ../includes/elementor/all-listing.php:62, ../includes/elementor/all-locations.php:44, ../includes/elementor/author-profile.php:24, ../includes/elementor/category.php:24, ../includes/elementor/checkout.php:24, ../includes/elementor/custom-registration.php:24, ../includes/elementor/location.php:24, ../includes/elementor/payment-receipt.php:24, ../includes/elementor/search-listing.php:35, ../includes/elementor/search-result.php:24, ../includes/elementor/tag.php:24, ../includes/elementor/transaction-failure.php:24, ../includes/elementor/user-dashboard.php:24, ../includes/elementor/user-login.php:24
+#: ../includes/classes/class-settings-panel.php:3680, ../includes/classes/class-settings-panel.php:3875, ../includes/classes/class-settings-panel.php:4222, ../includes/classes/class-settings-panel.php:4248, ../includes/elementor/add-listing.php:35, ../includes/elementor/all-categories.php:44, ../includes/elementor/all-listing.php:62, ../includes/elementor/all-locations.php:44, ../includes/elementor/author-profile.php:24, ../includes/elementor/category.php:24, ../includes/elementor/checkout.php:24, ../includes/elementor/custom-registration.php:24, ../includes/elementor/location.php:24, ../includes/elementor/payment-receipt.php:24, ../includes/elementor/search-listing.php:35, ../includes/elementor/search-result.php:24, ../includes/elementor/tag.php:24, ../includes/elementor/transaction-failure.php:24, ../includes/elementor/user-dashboard.php:24, ../includes/elementor/user-login.php:24
 msgid "General"
 msgstr ""
 
@@ -4279,350 +4287,354 @@ msgid "Registration"
 msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3700
+msgid "Listings View"
+msgstr ""
+
+#: ../includes/classes/class-settings-panel.php:3707
 msgid "Listing Currency"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3706
+#: ../includes/classes/class-settings-panel.php:3713
 msgid "Listings Renewal"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3712
+#: ../includes/classes/class-settings-panel.php:3719
 msgid "Expired Listings Management"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3718
+#: ../includes/classes/class-settings-panel.php:3725
 msgid "Taxonomy Archive"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3735
+#: ../includes/classes/class-settings-panel.php:3742
 msgid " Layout & Search"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3749, ../includes/classes/class-settings-panel.php:3978
+#: ../includes/classes/class-settings-panel.php:3756, ../includes/classes/class-settings-panel.php:3985
 msgid "Header"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3764
+#: ../includes/classes/class-settings-panel.php:3771
 msgid "Preview Image"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3779
+#: ../includes/classes/class-settings-panel.php:3786
 msgid "Single Listing"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3784
+#: ../includes/classes/class-settings-panel.php:3791
 msgid "Listing Template and View"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3790
+#: ../includes/classes/class-settings-panel.php:3797
 msgid "Listing Permalink"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3797
+#: ../includes/classes/class-settings-panel.php:3804
 msgid "Submission Confirmations"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3805
+#: ../includes/classes/class-settings-panel.php:3812
 msgid "Slider Image"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3819
+#: ../includes/classes/class-settings-panel.php:3826
 msgid "Category & Location"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3824
+#: ../includes/classes/class-settings-panel.php:3831
 msgid "Categories Page"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3830
+#: ../includes/classes/class-settings-panel.php:3837
 msgid "Locations Page"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3853
+#: ../includes/classes/class-settings-panel.php:3860
 msgid "Map Info Window Settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3863, ../includes/modules/multi-directory-setup/class-builder-data.php:2562
+#: ../includes/classes/class-settings-panel.php:3870, ../includes/modules/multi-directory-setup/class-builder-data.php:2562
 msgid "Badges"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3875
+#: ../includes/classes/class-settings-panel.php:3882
 msgid "New Badge"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3882
+#: ../includes/classes/class-settings-panel.php:3889
 msgid "Popular Badge"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3889
+#: ../includes/classes/class-settings-panel.php:3896
 msgid "Featured Badge"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3903
+#: ../includes/classes/class-settings-panel.php:3910
 msgid "Page Setup"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3915
+#: ../includes/classes/class-settings-panel.php:3922
 msgid "Page, Links & View Settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3938, ../includes/modules/multi-directory-setup/class-builder-data.php:2339
+#: ../includes/classes/class-settings-panel.php:3945, ../includes/modules/multi-directory-setup/class-builder-data.php:2339
 msgid "Search Bar"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3950
+#: ../includes/classes/class-settings-panel.php:3957
 msgid "Popular Categories"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3965
+#: ../includes/classes/class-settings-panel.php:3972
 msgid "Layout & Search"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4005
+#: ../includes/classes/class-settings-panel.php:4012
 msgid "Registration Form"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4052
+#: ../includes/classes/class-settings-panel.php:4059
 msgid "About/Bio"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4059
+#: ../includes/classes/class-settings-panel.php:4066
 msgid "User Type Registration"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4073
+#: ../includes/classes/class-settings-panel.php:4080
 msgid "Terms Conditions"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4081
+#: ../includes/classes/class-settings-panel.php:4088
 msgid "Sign Up Button"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4088
+#: ../includes/classes/class-settings-panel.php:4095
 msgid "Login Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4095
+#: ../includes/classes/class-settings-panel.php:4102
 msgid ""
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4105, ../includes/widgets/login-form.php:26, ../includes/widgets/login-form.php:62
+#: ../includes/classes/class-settings-panel.php:4112, ../includes/widgets/login-form.php:26, ../includes/widgets/login-form.php:62
 msgid "Login Form"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4124
+#: ../includes/classes/class-settings-panel.php:4131
 msgid "Remember Login Information"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4131
+#: ../includes/classes/class-settings-panel.php:4138
 msgid "Login Button"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4138
+#: ../includes/classes/class-settings-panel.php:4145
 msgid "Sign Up Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4174
+#: ../includes/classes/class-settings-panel.php:4181
 msgid "Author Dashboard"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4181
+#: ../includes/classes/class-settings-panel.php:4188
 msgid "User Dashboard"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4191, ../includes/classes/class-settings-panel.php:4196
+#: ../includes/classes/class-settings-panel.php:4198, ../includes/classes/class-settings-panel.php:4203
 msgid "All Authors"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4220
+#: ../includes/classes/class-settings-panel.php:4227
 msgid "Sender Details"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4227
+#: ../includes/classes/class-settings-panel.php:4234
 msgid "Email Notifications"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4236, ../includes/system-status/system-info-template.php:535, ../includes/system-status/system-information/system-information-template.php:53
+#: ../includes/classes/class-settings-panel.php:4243, ../includes/system-status/system-info-template.php:535, ../includes/system-status/system-information/system-information-template.php:53
 msgid "Templates"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4248
+#: ../includes/classes/class-settings-panel.php:4255
 msgid "For New Listing"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4255
+#: ../includes/classes/class-settings-panel.php:4262
 msgid "For Approved/Published Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4262
+#: ../includes/classes/class-settings-panel.php:4269
 msgid "For Edited Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4269
+#: ../includes/classes/class-settings-panel.php:4276
 msgid "For About To Expire Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4276
+#: ../includes/classes/class-settings-panel.php:4283
 msgid "For Expired Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4283
+#: ../includes/classes/class-settings-panel.php:4290
 msgid "For Renewal Listings (Remind To Renew)"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4290
+#: ../includes/classes/class-settings-panel.php:4297
 msgid "For Renewed Listings (After Renewed)"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4297
+#: ../includes/classes/class-settings-panel.php:4304
 msgid "For Deleted/Trashed Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4304
+#: ../includes/classes/class-settings-panel.php:4311
 msgid "For New Order (Created)"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4311
+#: ../includes/classes/class-settings-panel.php:4318
 msgid "For New Order (Created Using Offline Bank Transfer)"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4318
+#: ../includes/classes/class-settings-panel.php:4325
 msgid "For Completed Order"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4325
+#: ../includes/classes/class-settings-panel.php:4332
 msgid "For Listing Contact Email"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4332
+#: ../includes/classes/class-settings-panel.php:4339
 msgid "Registration Confirmation"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4339
+#: ../includes/classes/class-settings-panel.php:4346
 msgid "Email Verification"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4353, ../includes/gateways/class-gateway.php:85
+#: ../includes/classes/class-settings-panel.php:4360, ../includes/gateways/class-gateway.php:85
 msgid "Monetization"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4358
+#: ../includes/classes/class-settings-panel.php:4365
 msgid "General Settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4369
+#: ../includes/classes/class-settings-panel.php:4376
 msgid "Currency"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4383, ../includes/widgets/featured-listing.php:26, ../includes/widgets/featured-listing.php:70
+#: ../includes/classes/class-settings-panel.php:4390, ../includes/widgets/featured-listing.php:26, ../includes/widgets/featured-listing.php:70
 msgid "Featured Listings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4399
+#: ../includes/classes/class-settings-panel.php:4406
 msgid "Payment Gateways"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4433
+#: ../includes/classes/class-settings-panel.php:4440
 msgid "Personalization"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4438
+#: ../includes/classes/class-settings-panel.php:4445
 msgid "Brand"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4446
+#: ../includes/classes/class-settings-panel.php:4453
 msgid "Button"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4452
+#: ../includes/classes/class-settings-panel.php:4459
 msgid "All Listings Map Marker"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4465, ../views/admin-templates/theme-extensions/all-themes-extensions.php:7
+#: ../includes/classes/class-settings-panel.php:4472, ../views/admin-templates/theme-extensions/all-themes-extensions.php:7
 msgid "Extensions"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4470
+#: ../includes/classes/class-settings-panel.php:4477
 msgid "Extensions General"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4489
+#: ../includes/classes/class-settings-panel.php:4496
 msgid "Import and Export"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4502, ../includes/system-status/system-info-template.php:286, ../includes/system-status/system-information/system-information-template.php:35, ../views/admin-templates/settings-manager/settings.php:13
+#: ../includes/classes/class-settings-panel.php:4509, ../includes/system-status/system-info-template.php:286, ../includes/system-status/system-information/system-information-template.php:35, ../views/admin-templates/settings-manager/settings.php:13
 msgid "Settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4514
+#: ../includes/classes/class-settings-panel.php:4521
 msgid "Advanced"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4519
+#: ../includes/classes/class-settings-panel.php:4526
 msgid "Title & Meta (SEO)"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4532
+#: ../includes/classes/class-settings-panel.php:4539
 msgid "Miscellaneous"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4537
+#: ../includes/classes/class-settings-panel.php:4544
 msgid "Caching"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4543
+#: ../includes/classes/class-settings-panel.php:4550
 msgid "Debugging"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4732
+#: ../includes/classes/class-settings-panel.php:4739
 msgid "Order Created"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4736
+#: ../includes/classes/class-settings-panel.php:4743
 msgid "Order Completed"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4740
+#: ../includes/classes/class-settings-panel.php:4747
 msgid "New Listing Submitted"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4744
+#: ../includes/classes/class-settings-panel.php:4751
 msgid "Listing Approved/Published"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4748
+#: ../includes/classes/class-settings-panel.php:4755
 msgid "Listing Edited"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4752
+#: ../includes/classes/class-settings-panel.php:4759
 msgid "Payment Received"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4756
+#: ../includes/classes/class-settings-panel.php:4763
 msgid "Listing Deleted"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4760
+#: ../includes/classes/class-settings-panel.php:4767
 msgid "Listing Contact Form"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4764
+#: ../includes/classes/class-settings-panel.php:4771
 msgid "Listing Review"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4768
+#: ../includes/classes/class-settings-panel.php:4775
 msgid "Listing Renewed"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4828
+#: ../includes/classes/class-settings-panel.php:4835
 msgid "Listing nearly Expired"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4832
+#: ../includes/classes/class-settings-panel.php:4839
 msgid "Listing Expired"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4836
+#: ../includes/classes/class-settings-panel.php:4843
 msgid "Remind to renew"
 msgstr ""
 

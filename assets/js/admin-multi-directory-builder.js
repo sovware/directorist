@@ -21175,6 +21175,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     hasAvatarWidget: function hasAvatarWidget() {
       var _this$local_layout;
       return ((_this$local_layout = this.local_layout) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.thumbnail) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.avatar) === null || _this$local_layout === void 0 ? void 0 : _this$local_layout.selectedWidgets) && Array.isArray(this.local_layout.thumbnail.avatar.selectedWidgets) && this.local_layout.thumbnail.avatar.selectedWidgets.length > 0;
+    },
+    // Check if excerpt widget is available in available_widgets
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
     }
   },
   data: function data() {
@@ -21229,6 +21234,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           bottom: {
             label: "Body Bottom",
+            selectedWidgets: []
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: []
           }
         },
@@ -21748,6 +21757,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         "cptm-text-center": "center" === align_option ? true : false,
         "cptm-text-left": "left" === align_option ? true : false
       };
+    },
+    // Whether excerpt widget is available
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
     }
   },
   data: function data() {
@@ -21792,6 +21806,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           bottom: {
             label: "Add Elements",
+            selectedWidgets: []
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: []
           }
         },
@@ -22660,6 +22678,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     }
   },
   computed: {
+    // Whether excerpt widget is available
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
     // Output Data
     output_data: function output_data() {
       var output = {};
@@ -22802,6 +22825,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           bottom: {
             label: "Body Bottom",
+            selectedWidgets: []
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: []
           }
         },
@@ -23181,6 +23208,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     }
   },
   computed: {
+    // Whether excerpt widget is available
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
     // Output Data
     output_data: function output_data() {
       var output = {};
@@ -32998,7 +33030,10 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder",
+      "containerClass": {
+        'cptm-listing-card-preview-body-placeholder': true,
+        'cptm-mb-12': _vm.hasExcerptWidget
+      },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -33041,7 +33076,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -33397,7 +33478,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "no_thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('no_thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('no_thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -33495,7 +33622,7 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1)])])])])]);
+  })], 1)])], 1)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34066,7 +34193,10 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder",
+      "containerClass": {
+        'cptm-listing-card-preview-body-placeholder': true,
+        'cptm-mb-12': _vm.hasExcerptWidget
+      },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -34109,7 +34239,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -34387,7 +34563,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "no_thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('no_thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('no_thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"

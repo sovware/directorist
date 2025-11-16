@@ -908,7 +908,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				setTimeout(() => {
 					// Clear URL params on modal form reset
 					const baseUrl =
-					window.location.origin + window.location.pathname;
+						window.location.origin + window.location.pathname;
 
 					// Update the URL in the address bar
 					window.history.replaceState(null, '', baseUrl);

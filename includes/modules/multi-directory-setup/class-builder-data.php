@@ -2590,8 +2590,7 @@ class Builder_Data {
                             'category' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Category", "directorist" ),
-                                'icon' => 'las la-folder-open
-',
+                                'icon' => 'las la-folder-open',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [
@@ -2624,6 +2623,7 @@ class Builder_Data {
                                         'maxWidget'         => 1,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => ['back'],
+                                        'selectedWidgetList'   => ['back'],
                                     ],
                                     [
                                         'type'              => 'placeholder_item',
@@ -2632,6 +2632,7 @@ class Builder_Data {
                                         'maxWidget'         => 0,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => [ 'bookmark', 'share', 'report' ],
+                                        'selectedWidgetList'   => ['bookmark', 'share'],
                                     ],
                                 ],
                             ],
@@ -2642,6 +2643,7 @@ class Builder_Data {
                                 'maxWidget'         => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => ['title'],
+                                'selectedWidgetList'   => ['title'],
                             ],
                             [
                                 'type'              => 'placeholder_item',
@@ -2650,13 +2652,16 @@ class Builder_Data {
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
+                                'selectedWidgetList'   => ['price', 'ratings_count'],
                             ],
                             [
                                 'type'            => 'placeholder_item',
-                                'label'           => 'Image/Slider',
                                 'placeholderKey'  => 'slider-placeholder',
-                                'acceptedWidgets' => ['slider'],
+                                'label'           => 'Image/Slider',
                                 'maxWidget'       => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => ['slider'],
+                                'selectedWidgetList'   => ['slider'],
                             ],
                         ],
                     ] 

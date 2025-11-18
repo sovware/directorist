@@ -12,9 +12,18 @@
           @click.prevent="openModal()"
           v-if="video"
         >
-        <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.5 0V12H17V9.46875L21.5 11.7188V0.28125L17 2.53125V0H0.5ZM2 1.5H15.5V10.5H2V1.5ZM20 2.71875V9.28125L17 7.78125V4.21875L20 2.71875Z" fill="#2C3239"/>
-        </svg>
+          <svg
+            width="22"
+            height="12"
+            viewBox="0 0 22 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.5 0V12H17V9.46875L21.5 11.7188V0.28125L17 2.53125V0H0.5ZM2 1.5H15.5V10.5H2V1.5ZM20 2.71875V9.28125L17 7.78125V4.21875L20 2.71875Z"
+              fill="#2C3239"
+            />
+          </svg>
           Learn
         </a>
       </div>
@@ -54,21 +63,13 @@
                 :key="`${placeholder_index}_${widget_key}_${widget_index}`"
                 :data="{ widget_key }"
                 :class="{
-                  dragging: currentSettingsDraggingWidgetKey === widget_key,
+                  dragging:
+                    currentSettingsDraggingWidgetKey === widget_key &&
+                    currentSettingsDraggingPlaceholderIndex ===
+                      placeholder_index,
                 }"
               >
-                <div
-                  class="cptm-elements-settings__group__single"
-                  :class="{
-                    'cptm-elements-settings__group__single--disabled':
-                      placeholder.maxWidget > 0 &&
-                      placeholder.selectedWidgets?.length >=
-                        placeholder.maxWidget &&
-                      !placeholder.selectedWidgets.some(
-                        (widget) => widget.widget_key === widget_key,
-                      ),
-                  }"
-                >
+                <div class="cptm-elements-settings__group__single">
                   <span
                     class="drag-handle drag-icon uil uil-draggabledots"
                     v-if="placeholder.acceptedWidgets?.length > 1"
@@ -80,9 +81,11 @@
                       class="cptm-elements-settings__group__single__label__icon"
                       :class="available_widgets[widget_key].icon"
                     ></span>
-                    <span v-if="available_widgets[widget_key]" class="cptm-elements-settings__group__single__label__text">{{
-                      available_widgets[widget_key].label
-                    }}</span>
+                    <span
+                      v-if="available_widgets[widget_key]"
+                      class="cptm-elements-settings__group__single__label__text"
+                      >{{ available_widgets[widget_key].label }}</span
+                    >
                     <span v-else>Unknown Widget</span>
                   </span>
                   <div class="cptm-elements-settings__group__single__action">
@@ -107,9 +110,9 @@
                         type="checkbox"
                         :id="`settings-${widget_key}-${placeholder_index}`"
                         :checked="
-                          placeholder.selectedWidgets &&
-                          placeholder.selectedWidgets.some(
-                            (widget) => widget.widget_key === widget_key,
+                          placeholder.selectedWidgetList &&
+                          placeholder.selectedWidgetList.some(
+                            (widget) => widget === widget_key,
                           )
                         "
                         @click="
@@ -332,7 +335,7 @@ export default {
             const data = this.getWidgetData(subPlaceholder);
 
             subGroupsData.push({
-              type: placeholder.type ? placeholder.type : "placeholder_item",
+              type: subPlaceholder.type ? subPlaceholder.type : "placeholder_item",
               placeholderKey: subPlaceholder.placeholderKey,
               label: subPlaceholder.label,
               selectedWidgets: data,
@@ -460,6 +463,7 @@ export default {
       // Dragging State
       currentDraggingIndex: null,
       currentSettingsDraggingWidgetKey: null,
+      currentSettingsDraggingPlaceholderIndex: null,
 
       // Available Widgets
       available_widgets: {},
@@ -491,6 +495,21 @@ export default {
   },
 
   methods: {
+    // ===========================================
+    // HELPER METHODS
+    // ===========================================
+
+    // Get filtered acceptedWidgets (only available widgets) for a placeholder
+    getFilteredAcceptedWidgets(placeholder) {
+      if (!placeholder || !placeholder.acceptedWidgets) {
+        return [];
+      }
+
+      return placeholder.acceptedWidgets.filter((widgetKey) =>
+        this.isWidgetAvailable(widgetKey),
+      );
+    },
+
     // ===========================================
     // INITIALIZATION & LIFECYCLE METHODS
     // ===========================================
@@ -1179,12 +1198,16 @@ export default {
           typeof widgetKey === "object"
             ? widgetKey.widget_key || widgetKey.key
             : widgetKey;
+
+        // Store the placeholder index to ensure correct item highlighting
+        this.currentSettingsDraggingPlaceholderIndex = placeholderIndex;
       }
     },
 
     // Handle settings drag end event
     onSettingsDragEnd() {
       this.currentSettingsDraggingWidgetKey = null;
+      this.currentSettingsDraggingPlaceholderIndex = null;
 
       // Remove dragging class from all dndrop-draggable-wrapper elements
       this.$nextTick(() => {
@@ -1292,10 +1315,22 @@ export default {
 
     // Get the payload for the settings child
     getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
-      const widgetKey =
-        this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets[
-          draggedItemIndex
-        ];
+      const placeholder = this.allPlaceholderItems[placeholderIndex];
+
+      if (!placeholder) {
+        return {
+          draggedItemIndex: draggedItemIndex,
+          placeholderIndex: placeholderIndex,
+          widgetKey: null,
+        };
+      }
+
+      // Get filtered acceptedWidgets (only available widgets) to match what's displayed
+      const filteredAcceptedWidgets =
+        this.getFilteredAcceptedWidgets(placeholder);
+
+      // Get the widget key from the filtered array to match the displayed items
+      const widgetKey = filteredAcceptedWidgets[draggedItemIndex];
 
       // Extract the actual widget key string from the object
       const extractedWidgetKey =
@@ -1331,22 +1366,36 @@ export default {
           destinationPlaceholderIndex = null;
         }
 
-        // Get the widget key from the source placeholder
-        const widgetKey =
-          this.allPlaceholderItems[sourcePlaceholderIndex]?.acceptedWidgets[
-            draggedItemIndex
-          ];
+        // Get the source placeholder
+        const sourcePlaceholder =
+          this.allPlaceholderItems[sourcePlaceholderIndex];
+
+        if (!sourcePlaceholder) {
+          return;
+        }
+
+        // Get filtered acceptedWidgets (only available widgets) for the source placeholder
+        const filteredAcceptedWidgets =
+          this.getFilteredAcceptedWidgets(sourcePlaceholder);
+
+        // Get the widget key from the filtered acceptedWidgets
+        const widgetKey = filteredAcceptedWidgets[draggedItemIndex];
 
         if (widgetKey !== undefined) {
           if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
             // Moving within the same placeholder
-            const widgets =
-              this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets;
+            // Use filtered acceptedWidgets to ensure only available widgets are used
+            const widgets = [...filteredAcceptedWidgets];
             const selectedWidgets =
               this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgets;
             const selectedWidgetList =
               this.allPlaceholderItems[sourcePlaceholderIndex]
                 .selectedWidgetList;
+
+            // Validate that the dragged widget is still available
+            if (!this.isWidgetAvailable(widgetKey)) {
+              return; // Don't proceed if widget is not available
+            }
 
             // Remove the widget from the source position
             const [movedWidget] = widgets.splice(sourceItemIndex, 1);
@@ -1354,26 +1403,67 @@ export default {
             // Insert the widget at the destination position
             widgets.splice(destinationItemIndex, 0, movedWidget);
 
-            // Update selectedWidgetList position based on acceptedWidgets
+            // Update acceptedWidgets with filtered list
+            this.$set(
+              this.allPlaceholderItems[sourcePlaceholderIndex],
+              "acceptedWidgets",
+              widgets,
+            );
+
+            // Filter selectedWidgetList to only include widgets that are in filtered acceptedWidgets
+            const filteredSelectedWidgetList = (
+              selectedWidgetList || []
+            ).filter((widgetKey) => widgets.includes(widgetKey));
+
+            // Update selectedWidgetList position based on filtered acceptedWidgets
             const selectedWidgetIndex =
-              selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
-            if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
+              filteredSelectedWidgetList.indexOf(movedWidget);
+            if (selectedWidgetIndex !== -1) {
               // Remove the widget from the selected position
-              selectedWidgetList.splice(selectedWidgetIndex, 1);
+              filteredSelectedWidgetList.splice(selectedWidgetIndex, 1);
 
               // Insert the widget at the new position
               const newSelectedIndex = widgets.indexOf(movedWidget);
-              selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
+              filteredSelectedWidgetList.splice(
+                newSelectedIndex,
+                0,
+                movedWidget,
+              );
             }
 
-            // Reorder `selectedWidgets` based on `selectedWidgetList`
-            selectedWidgets &&
-              selectedWidgets.sort((a, b) => {
+            // Filter selectedWidgets to only include widgets that are in filtered acceptedWidgets
+            const filteredSelectedWidgets = (selectedWidgets || []).filter(
+              (widget) =>
+                widget &&
+                widget.widget_key &&
+                widgets.includes(widget.widget_key),
+            );
+
+            // Reorder `selectedWidgets` based on filtered `selectedWidgetList`
+            filteredSelectedWidgets &&
+              filteredSelectedWidgets.sort((a, b) => {
                 return (
-                  selectedWidgetList.indexOf(a.widget_key) -
-                  selectedWidgetList.indexOf(b.widget_key)
+                  filteredSelectedWidgetList.indexOf(a.widget_key) -
+                  filteredSelectedWidgetList.indexOf(b.widget_key)
                 );
               });
+
+            // Filter out null items from selectedWidgetList
+            const finalSelectedWidgetList = filteredSelectedWidgetList.filter(
+              (key) => key != null && key !== "",
+            );
+
+            // Update selectedWidgets and selectedWidgetList in placeholder
+            this.$set(
+              this.allPlaceholderItems[sourcePlaceholderIndex],
+              "selectedWidgets",
+              filteredSelectedWidgets,
+            );
+            this.$set(
+              this.allPlaceholderItems[sourcePlaceholderIndex],
+              "selectedWidgetList",
+              finalSelectedWidgetList,
+            );
 
             // Update Placeholders
             const updatedPlaceholders =
@@ -1646,11 +1736,39 @@ export default {
           newPlaceholder.acceptedWidgets = placeholder.acceptedWidgets;
         }
 
+        // Handle selectedWidgets and selectedWidgetList from old data
         if (placeholder.selectedWidgets) {
           newPlaceholder.selectedWidgets = placeholder.selectedWidgets;
-          newPlaceholder.selectedWidgetList = placeholder.selectedWidgets.map(
-            (widget) => widget.widget_name,
-          );
+          // Derive selectedWidgetList from selectedWidgets if not already set
+          if (!placeholder.selectedWidgetList) {
+            newPlaceholder.selectedWidgetList = placeholder.selectedWidgets
+              .map((widget) => {
+                if (typeof widget === "object" && widget !== null) {
+                  // Use widget_key as primary, fallback to widget_name or widget itself
+                  return widget.widget_key || widget.widget_name || widget;
+                }
+                return widget;
+              })
+              .filter((key) => key != null && key !== ""); // Filter out null, undefined, and empty values
+          } else {
+            // Filter out null items from existing selectedWidgetList
+            newPlaceholder.selectedWidgetList = Array.isArray(
+              placeholder.selectedWidgetList,
+            )
+              ? placeholder.selectedWidgetList.filter(
+                  (key) => key != null && key !== "",
+                )
+              : [];
+          }
+        } else if (placeholder.selectedWidgetList) {
+          // If only selectedWidgetList exists in old data, filter out null items
+          newPlaceholder.selectedWidgetList = Array.isArray(
+            placeholder.selectedWidgetList,
+          )
+            ? placeholder.selectedWidgetList.filter(
+                (key) => key != null && key !== "",
+              )
+            : [];
         }
 
         newPlaceholder.maxWidget =
@@ -1663,15 +1781,50 @@ export default {
 
         destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
 
-        // Add active widgets based on selectedWidgets
-        placeholder.selectedWidgets.forEach((widget) => {
-          if (
-            typeof widget !== "undefined" &&
-            typeof this.available_widgets[widget.widget_name] !== "undefined"
-          ) {
-            addActiveWidget(widget);
-          }
-        });
+        // Add active widgets based on selectedWidgets (if exists)
+        if (
+          placeholder.selectedWidgets &&
+          Array.isArray(placeholder.selectedWidgets)
+        ) {
+          placeholder.selectedWidgets.forEach((widget) => {
+            if (
+              typeof widget !== "undefined" &&
+              typeof this.available_widgets[widget.widget_name] !== "undefined"
+            ) {
+              addActiveWidget(widget);
+            }
+          });
+        }
+
+        // Add active widgets based on selectedWidgetList from available_widgets
+        // This ensures widgets are added even if selectedWidgets doesn't exist
+        const selectedWidgetListToProcess =
+          newPlaceholder.selectedWidgetList ||
+          placeholder.selectedWidgetList ||
+          [];
+        if (
+          Array.isArray(selectedWidgetListToProcess) &&
+          selectedWidgetListToProcess.length > 0
+        ) {
+          selectedWidgetListToProcess.forEach((widgetKey) => {
+            // Skip if already in active_widgets
+            if (this.active_widgets[widgetKey]) {
+              return;
+            }
+
+            // Get widget from available_widgets and add to active_widgets
+            if (
+              typeof widgetKey !== "undefined" &&
+              typeof widgetKey === "string" &&
+              typeof this.available_widgets[widgetKey] !== "undefined"
+            ) {
+              const widget = this.available_widgets[widgetKey];
+              if (widget) {
+                addActiveWidget(widget);
+              }
+            }
+          });
+        }
       };
 
       value.forEach((placeholder, index) => {
@@ -1715,6 +1868,86 @@ export default {
 
       this.placeholders = newPlaceholders;
       this.allPlaceholderItems = newAllPlaceholders;
+
+      // Process allPlaceholderItems to add widgets from selectedWidgetList to active_widgets
+      // This ensures widgets from old data are added to active_widgets
+      if (
+        Array.isArray(this.allPlaceholderItems) &&
+        this.allPlaceholderItems.length > 0
+      ) {
+        this.allPlaceholderItems.forEach((placeholderItem) => {
+          const processPlaceholder = (item) => {
+            if (!item || !item.placeholderKey) {
+              return;
+            }
+
+            // If selectedWidgetList is not available but selectedWidgets is available,
+            // create selectedWidgetList from selectedWidgets using widget_key
+            if (
+              (!item.selectedWidgetList ||
+                !Array.isArray(item.selectedWidgetList) ||
+                item.selectedWidgetList.length === 0) &&
+              item.selectedWidgets &&
+              Array.isArray(item.selectedWidgets) &&
+              item.selectedWidgets.length > 0
+            ) {
+              item.selectedWidgetList = item.selectedWidgets
+                .map((widget) => {
+                  if (typeof widget === "object" && widget !== null) {
+                    // Use widget_key as primary, fallback to widget_name or widget itself
+                    return widget.widget_key || widget.widget_name || widget;
+                  }
+                  return widget;
+                })
+                .filter((key) => key != null && key !== ""); // Filter out null, undefined, and empty values
+
+              // Update the item with the new selectedWidgetList
+              this.$set(item, "selectedWidgetList", item.selectedWidgetList);
+            }
+
+            // Process selectedWidgetList
+            if (
+              item.selectedWidgetList &&
+              Array.isArray(item.selectedWidgetList)
+            ) {
+              item.selectedWidgetList.forEach((widgetKey) => {
+                // Skip if already in active_widgets
+                if (this.active_widgets[widgetKey]) {
+                  return;
+                }
+
+                // Get widget from available_widgets and add to active_widgets
+                if (
+                  typeof widgetKey !== "undefined" &&
+                  typeof widgetKey === "string" &&
+                  typeof this.available_widgets[widgetKey] !== "undefined"
+                ) {
+                  const widget = this.available_widgets[widgetKey];
+                  if (widget) {
+                    this.$set(this.active_widgets, widgetKey, widget);
+                  }
+                }
+              });
+            }
+
+            // Process nested placeholders if it's a placeholder_group
+            if (
+              item.type === "placeholder_group" &&
+              item.placeholders &&
+              Array.isArray(item.placeholders)
+            ) {
+              item.placeholders.forEach((subPlaceholder) => {
+                processPlaceholder(subPlaceholder);
+              });
+            }
+          };
+
+          processPlaceholder(placeholderItem);
+        });
+      }
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
     },
 
     // Import Widgets
@@ -1763,6 +1996,61 @@ export default {
 
         if (typeof placeholder.label === "undefined") {
           placeholder.label = "";
+        }
+
+        // Process selectedWidgetList from default data and add to active_widgets
+        if (
+          placeholder.selectedWidgetList &&
+          Array.isArray(placeholder.selectedWidgetList)
+        ) {
+          placeholder.selectedWidgetList.forEach((widgetKey) => {
+            // Skip if already in active_widgets
+            if (this.active_widgets[widgetKey]) {
+              return;
+            }
+
+            // Get widget from available_widgets and add to active_widgets
+            if (
+              typeof widgetKey !== "undefined" &&
+              typeof widgetKey === "string" &&
+              typeof this.available_widgets[widgetKey] !== "undefined"
+            ) {
+              const widget = this.available_widgets[widgetKey];
+              if (widget) {
+                this.$set(this.active_widgets, widgetKey, widget);
+              }
+            }
+          });
+        }
+
+        // Also process selectedWidgets if it exists (for backward compatibility)
+        if (
+          placeholder.selectedWidgets &&
+          Array.isArray(placeholder.selectedWidgets)
+        ) {
+          placeholder.selectedWidgets.forEach((widget) => {
+            const widgetKey =
+              typeof widget === "object" && widget !== null
+                ? widget.widget_key || widget.widget_name
+                : widget;
+
+            // Skip if already in active_widgets
+            if (this.active_widgets[widgetKey]) {
+              return;
+            }
+
+            // Get widget from available_widgets and add to active_widgets
+            if (
+              typeof widgetKey !== "undefined" &&
+              typeof widgetKey === "string" &&
+              typeof this.available_widgets[widgetKey] !== "undefined"
+            ) {
+              const widgetObj = this.available_widgets[widgetKey];
+              if (widgetObj) {
+                this.$set(this.active_widgets, widgetKey, widgetObj);
+              }
+            }
+          });
         }
 
         return placeholder;
@@ -1859,6 +2147,85 @@ export default {
       }
 
       this.placeholders = sanitizedPlaceholders;
+
+      // Process allPlaceholderItems to add widgets from selectedWidgetList to active_widgets
+      if (
+        Array.isArray(this.allPlaceholderItems) &&
+        this.allPlaceholderItems.length > 0
+      ) {
+        this.allPlaceholderItems.forEach((placeholderItem) => {
+          const processPlaceholder = (item) => {
+            if (!item || !item.placeholderKey) {
+              return;
+            }
+
+            // If selectedWidgetList is not available but selectedWidgets is available,
+            // create selectedWidgetList from selectedWidgets using widget_key
+            if (
+              (!item.selectedWidgetList ||
+                !Array.isArray(item.selectedWidgetList) ||
+                item.selectedWidgetList.length === 0) &&
+              item.selectedWidgets &&
+              Array.isArray(item.selectedWidgets) &&
+              item.selectedWidgets.length > 0
+            ) {
+              item.selectedWidgetList = item.selectedWidgets
+                .map((widget) => {
+                  if (typeof widget === "object" && widget !== null) {
+                    // Use widget_key as primary, fallback to widget_name or widget itself
+                    return widget.widget_key || widget.widget_name || widget;
+                  }
+                  return widget;
+                })
+                .filter((key) => key != null && key !== ""); // Filter out null, undefined, and empty values
+
+              // Update the item with the new selectedWidgetList
+              this.$set(item, "selectedWidgetList", item.selectedWidgetList);
+            }
+
+            // Process selectedWidgetList
+            if (
+              item.selectedWidgetList &&
+              Array.isArray(item.selectedWidgetList)
+            ) {
+              item.selectedWidgetList.forEach((widgetKey) => {
+                // Skip if already in active_widgets
+                if (this.active_widgets[widgetKey]) {
+                  return;
+                }
+
+                // Get widget from available_widgets and add to active_widgets
+                if (
+                  typeof widgetKey !== "undefined" &&
+                  typeof widgetKey === "string" &&
+                  typeof this.available_widgets[widgetKey] !== "undefined"
+                ) {
+                  const widget = this.available_widgets[widgetKey];
+                  if (widget) {
+                    this.$set(this.active_widgets, widgetKey, widget);
+                  }
+                }
+              });
+            }
+
+            // Process nested placeholders if it's a placeholder_group
+            if (
+              item.type === "placeholder_group" &&
+              item.placeholders &&
+              Array.isArray(item.placeholders)
+            ) {
+              item.placeholders.forEach((subPlaceholder) => {
+                processPlaceholder(subPlaceholder);
+              });
+            }
+          };
+
+          processPlaceholder(placeholderItem);
+        });
+      }
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
     },
 
     // Handle widget toggle from UI
@@ -1907,6 +2274,13 @@ export default {
         selectedWidgets = Object.values(selectedWidgets); // Convert object to array if needed
       }
 
+      // Filter out null items from selectedWidgetList
+      if (Array.isArray(selectedWidgetList)) {
+        selectedWidgetList = selectedWidgetList.filter(
+          (key) => key != null && key !== "",
+        );
+      }
+
       if (isChecked) {
         // Add widget if it does not exist
         if (
@@ -1938,6 +2312,11 @@ export default {
           acceptedWidgets.indexOf(b.widget_key),
       );
 
+      // Filter out null items from selectedWidgetList one more time after sorting
+      selectedWidgetList = selectedWidgetList.filter(
+        (key) => key != null && key !== "",
+      );
+
       // Update selectedWidgets array
       this.$set(
         this.allPlaceholderItems[placeholder_index],
@@ -1966,6 +2345,9 @@ export default {
       } else {
         this.$delete(this.active_widgets, widget_key);
       }
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
     },
 
     // Sync selectedWidgets across placeholders
@@ -1986,6 +2368,10 @@ export default {
             if (!Array.isArray(selectedWidgetList)) {
               selectedWidgetList = Object.values(selectedWidgetList);
             }
+            // Filter out null items from selectedWidgetList
+            selectedWidgetList = selectedWidgetList.filter(
+              (key) => key != null && key !== "",
+            );
             Vue.set(placeholder, "selectedWidgets", selectedWidgets);
             Vue.set(placeholder, "selectedWidgetList", selectedWidgetList);
           }
@@ -2005,7 +2391,75 @@ export default {
         });
       };
 
-      return updatePlaceholders(placeholders);
+      const result = updatePlaceholders(placeholders);
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
+
+      return result;
+    },
+
+    // Filter active_widgets to only include widgets from selectedWidgetList of placeholder_item types
+    filterActiveWidgetsBySelectedWidgetList() {
+      // Collect all widget keys from selectedWidgetList of placeholder_item types
+      const allowedWidgetKeys = new Set();
+
+      const collectWidgetKeys = (items) => {
+        if (!Array.isArray(items)) {
+          return;
+        }
+
+        items.forEach((item) => {
+          if (item.type === "placeholder_item") {
+            // Collect widget keys from selectedWidgetList
+            if (
+              item.selectedWidgetList &&
+              Array.isArray(item.selectedWidgetList)
+            ) {
+              item.selectedWidgetList
+                .filter((widgetKey) => widgetKey != null && widgetKey !== "")
+                .forEach((widgetKey) => {
+                  if (typeof widgetKey === "string" && widgetKey) {
+                    allowedWidgetKeys.add(widgetKey);
+                  }
+                });
+            }
+          } else if (
+            item.type === "placeholder_group" &&
+            item.placeholders &&
+            Array.isArray(item.placeholders)
+          ) {
+            // Recursively process nested placeholders
+            collectWidgetKeys(item.placeholders);
+          }
+        });
+      };
+
+      // Collect from allPlaceholderItems
+      collectWidgetKeys(this.allPlaceholderItems);
+
+      // Collect from placeholders (for nested groups)
+      collectWidgetKeys(this.placeholders);
+
+      // Remove widgets from active_widgets that are not in allowedWidgetKeys
+      Object.keys(this.active_widgets).forEach((widgetKey) => {
+        if (!allowedWidgetKeys.has(widgetKey)) {
+          this.$delete(this.active_widgets, widgetKey);
+        }
+      });
+
+      // Add widgets to active_widgets that are in allowedWidgetKeys but not yet in active_widgets
+      allowedWidgetKeys.forEach((widgetKey) => {
+        if (
+          !this.active_widgets[widgetKey] &&
+          typeof this.available_widgets[widgetKey] !== "undefined"
+        ) {
+          const widget = this.available_widgets[widgetKey];
+          if (widget) {
+            this.$set(this.active_widgets, widgetKey, widget);
+          }
+        }
+      });
     },
 
     // Sync placeholders with allPlaceholderItems
@@ -2030,10 +2484,10 @@ export default {
               this.isWidgetAvailable(widget.widget_key),
           );
 
-          // Filter selectedWidgetList based on available widgets
-          const filteredSelectedWidgetList = selectedWidgetList.filter(
-            (widgetKey) => this.isWidgetAvailable(widgetKey),
-          );
+          // Filter selectedWidgetList based on available widgets and remove null items
+          const filteredSelectedWidgetList = selectedWidgetList
+            .filter((widgetKey) => widgetKey != null && widgetKey !== "")
+            .filter((widgetKey) => this.isWidgetAvailable(widgetKey));
 
           placeholder.selectedWidgets = [...filteredSelectedWidgets];
           placeholder.selectedWidgetList = [...filteredSelectedWidgetList];
@@ -2058,6 +2512,10 @@ export default {
       };
 
       updatePlaceholders(placeholders);
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
+
       return placeholders;
     },
 

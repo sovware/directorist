@@ -58610,7 +58610,7 @@
 														'h3',
 														{
 															staticClass:
-																'cptm-form-builder-group-title test-it',
+																'cptm-form-builder-group-title',
 														},
 														[
 															_c(
@@ -58765,9 +58765,6 @@
 																		{
 																			staticClass:
 																				'cptm-form-builder-header-action-link',
-																			class: _vm.widgetsExpanded
-																				? 'disabled'
-																				: '',
 																			attrs: {
 																				href: '#',
 																			},

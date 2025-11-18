@@ -31,7 +31,7 @@
             </a>
           </div>
 
-          <h3 class="cptm-form-builder-group-title test-it">
+          <h3 class="cptm-form-builder-group-title">
             <span class="cptm-form-builder-group-title-icon">
               <span
                 v-html="getSearchIconContent()"
@@ -64,7 +64,6 @@
             <a
               href="#"
               class="cptm-form-builder-header-action-link"
-              :class="widgetsExpanded ? 'disabled' : ''"
               @click.prevent="handleGroupDelete" 
               v-if="!groupData.lock"
             >

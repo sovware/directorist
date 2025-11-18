@@ -33326,7 +33326,7 @@
 										selectedWidgets: [],
 									},
 									avatar: {
-										label: 'Add Avatar',
+										label: 'Avatar',
 										selectedWidgets: [],
 									},
 								},
@@ -34428,7 +34428,7 @@
 										selectedWidgets: [],
 									},
 									avatar: {
-										label: 'Add Avatar',
+										label: 'Avatar',
 										selectedWidgets: [],
 									},
 								},
@@ -35800,7 +35800,7 @@
 							local_layout: {
 								body: {
 									avatar: {
-										label: 'Add Avatar',
+										label: 'Avatar',
 										selectedWidgets: [],
 									},
 									title: {

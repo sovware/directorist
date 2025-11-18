@@ -1156,7 +1156,7 @@ class Builder_Data {
                         'fields' => [
                             'show_tagline' => [
                                 'type'  => 'toggle',
-                                'label' => __( 'Show Tagline', 'directorist' ),
+                                'label' => __( 'Tagline', 'directorist' ),
                                 'value' => false,
                             ],
                         ],
@@ -1887,7 +1887,7 @@ class Builder_Data {
         $listing_card_grid_view_without_thumbnail_layout = [
             'body'   => [
                 'avatar'        => [
-                    'label'             => __( 'Add Avatar', 'directorist' ),
+                    'label'             => __( 'Avatar', 'directorist' ),
                     'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => [ 'user_avatar' ],
@@ -2423,12 +2423,12 @@ class Builder_Data {
                                         'fields' => [
                                             'enable_title' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Title", "directorist" ),
+                                                'label' => __( "Title", "directorist" ),
                                                 'value' => true,
                                             ],
                                             'enable_tagline' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Tagline", "directorist" ),
+                                                'label' => __( "Tagline", "directorist" ),
                                                 'value' => true,
                                             ],
                                         ],
@@ -2470,7 +2470,7 @@ class Builder_Data {
                                     'fields' => [
                                         'enable_tagline' => [
                                             'type' => "toggle",
-                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'label' => __( "Tagline", "directorist" ),
                                             'value' => true,
                                         ],
                                     ],

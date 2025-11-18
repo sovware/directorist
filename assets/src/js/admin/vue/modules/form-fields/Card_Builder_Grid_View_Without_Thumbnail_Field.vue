@@ -601,7 +601,7 @@ export default {
       local_layout: {
         body: {
           avatar: {
-            label: "Add Avatar",
+            label: "Avatar",
             selectedWidgets: [],
           },
           title: {

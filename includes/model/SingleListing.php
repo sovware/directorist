@@ -1138,12 +1138,6 @@ class Directorist_Single_Listing {
         return apply_filters( 'directorist_the_content', $content );
     }
 
-    /**
-     * Fix video/audio elements that have links inside instead of src attributes.
-     *
-     * @param string $content The content to process.
-     * @return string The processed content.
-     */
     private function fix_media_src_attributes( $content ) {
         return preg_replace_callback(
             '/<(video|audio)([^>]*?)(?<!\/)>(.*?)<\/\1>/is',

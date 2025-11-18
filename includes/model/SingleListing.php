@@ -1132,10 +1132,53 @@ class Directorist_Single_Listing {
     // TODO: When it's compatible with `the_content()` template tag then we won't have to use do_shortcode and wpautop functions.
     public function get_contents() {
         $content = $this->post->post_content;
+        
+        // Process media embeds (video/audio) - must be done before wpautop
+        global $wp_embed;
+        if ( $wp_embed ) {
+            $content = $wp_embed->run_shortcode( $content );
+            $content = $wp_embed->autoembed( $content );
+        }
+        
+        // Process blocks (Gutenberg)
+        $content = function_exists( 'do_blocks' ) ? do_blocks( $content ) : $content;
+        
+        // Apply texturization and smilies
+        $content = wptexturize( $content );
+        $content = convert_smilies( $content );
+        
+        // Process shortcodes and formatting
         $content = wpautop( $content );
+        $content = shortcode_unautop( $content );
         $content = do_shortcode( $content );
-
-        // TODO: Make it compatible with wp core `the_content` hook.
+        
+        // Process content tags (images, videos, audio, etc.)
+        $content = wp_filter_content_tags( $content );
+        
+        // Fix video/audio elements that have links inside instead of src attributes
+        $content = preg_replace_callback(
+            '/<(video|audio)([^>]*?)(?<!\/)>(.*?)<\/\1>/is',
+            function( $matches ) {
+                $tag = $matches[1];
+                $attributes = $matches[2];
+                $inner_content = $matches[3];
+                
+                if ( preg_match( '/\ssrc\s*=/i', $attributes ) ) {
+                    return $matches[0];
+                }
+                
+                if ( preg_match( '/<a\s+[^>]*href=["\']([^"\']+)["\'][^>]*>/i', $inner_content, $link_match ) ) {
+                    $src_url = esc_attr( $link_match[1] );
+                    $attributes = rtrim( $attributes ) . ' src="' . $src_url . '"';
+                    $inner_content = preg_replace( '/<a[^>]*>.*?<\/a>/is', '', $inner_content );
+                    return '<' . $tag . $attributes . '>' . $inner_content . '</' . $tag . '>';
+                }
+                
+                return $matches[0];
+            },
+            $content
+        );
+        
         return apply_filters( 'directorist_the_content', $content );
     }
 

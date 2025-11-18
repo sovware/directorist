@@ -70,6 +70,11 @@ class Asset_Loader {
 
         wp_enqueue_script( 'directorist-single-listing' );
 
+        // Enqueue WordPress media scripts for video/audio players in listing content
+        wp_enqueue_style( 'wp-mediaelement' );
+        wp_enqueue_script( 'wp-mediaelement' );
+        wp_enqueue_script( 'mediaelement-vimeo' );
+
         // Reviews
         if ( directorist_is_review_enabled() ) {
             wp_enqueue_script( 'wp-hooks' );

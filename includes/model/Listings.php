@@ -250,6 +250,8 @@ class Directorist_Listings {
             }
         }
 
+        $this->query_args = apply_filters( 'directorist_listings_query_args', $this->query_args, $this );
+
         $this->query_results = $this->get_query_results();
 
         do_action( 'directorist_after_init_listings_shortcode', $this );
@@ -904,6 +906,7 @@ class Directorist_Listings {
          */
         $args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
 
+
         return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', [ $args ], '7.4.2', 'directorist_all_listings_query_arguments' );
     }
 
@@ -1515,7 +1518,9 @@ class Directorist_Listings {
     public function get_current_listing_type() {
         $directory = 0;
 
-        if ( is_singular( ATBDP_POST_TYPE ) ) {
+        if ( ! empty( $this->directory_type_id ) ) {
+            $directory = $this->directory_type_id;
+        } else if ( is_singular( ATBDP_POST_TYPE ) ) {
             $directory = get_post_meta( get_the_ID(), '_directory_type', true );
         } else if ( ! empty( $_REQUEST['directory_type'] ) ) {
             $directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
@@ -1981,13 +1986,13 @@ class Directorist_Listings {
         return in_array( get_the_id() , $favourites );
     }
 
-        /**
-         * Unused method
-         *
-         * @todo remove
-         *
-         * @return string
-         */
+    /**
+     * Unused method
+     *
+     * @todo remove
+     *
+     * @return string
+     */
     public function item_found_title_for_search( $count ) {
         $cat_name = $loc_name = '';
 
@@ -2072,26 +2077,26 @@ class Directorist_Listings {
         return implode( ' ' , $class );
     }
 
-        /**
-         * Displays the class names for the listings wrapper element.
-         *
-         * @since 7.2.0
-         *
-         * @param string|string[] $class Space-separated string or array of class names to add to the class list.
-         */
+    /**
+     * Displays the class names for the listings wrapper element.
+     *
+     * @since 7.2.0
+     *
+     * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+     */
     public function wrapper_class( $class = '' ) {
         // Separates class names with a single space, collates class names for wrapper tag element.
         echo 'class="' . esc_attr( implode( ' ', $this->get_wrapper_class( $class ) ) ) . '"';
     }
 
-        /**
-         * Retrieves an array of the class names for the listings wrapper element.
-         *
-         * @since 7.2.0
-         *
-         * @param string|string[] $class Space-separated string or array of class names to add to the class list.
-         * @return string[] Array of class names.
-         */
+    /**
+     * Retrieves an array of the class names for the listings wrapper element.
+     *
+     * @since 7.2.0
+     *
+     * @param string|string[] $class Space-separated string or array of class names to add to the class list.
+     * @return string[] Array of class names.
+     */
     public function get_wrapper_class( $class = '' ) {
         $classes = [
             'directorist-archive-contents directorist-contents-wrap directorist-w-100',
@@ -2418,12 +2423,7 @@ class Directorist_Listings {
     }
 
     public function search_form_template() {
-        // only catch atts with the prefix 'filter_'
-        $search_field_atts = array_filter(
-            $this->atts, function( $key ) {
-                return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY
-        );
+        $search_field_atts = $this->get_search_field_atts();
 
         $args = [
             'listings'   => $this,
@@ -2433,12 +2433,7 @@ class Directorist_Listings {
     }
 
     public function basic_search_form_template() {
-        // only catch atts with the prefix 'filter_'
-        $search_field_atts = array_filter(
-            $this->atts, function( $key ) {
-                return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY
-        );
+        $search_field_atts = $this->get_search_field_atts();
 
         $args = [
             'listings'   => $this,
@@ -2448,12 +2443,7 @@ class Directorist_Listings {
     }
 
     public function advance_search_form_template() {
-        // only catch atts with the prefix 'filter_'
-        $search_field_atts = array_filter(
-            $this->atts, function( $key ) {
-                return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY
-        );
+        $search_field_atts = $this->get_search_field_atts();
 
         $args = [
             'listings'   => $this,
@@ -2469,20 +2459,23 @@ class Directorist_Listings {
             return $this->filter_button_text;
         }
     }
-
     public function mobile_view_filter_template() {
-        // only catch atts with the prefix 'filter_'
-        $search_field_atts = array_filter(
-            $this->atts, function( $key ) {
-                return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY
-        );
+        $search_field_atts = $this->get_search_field_atts();
 
         $args = [
             'listings'   => $this,
             'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
         ];
         Helper::get_template( 'archive/mobile-search-form', $args );
+    }
+
+    public function get_search_field_atts() {
+        // only catch atts with the prefix 'filter_'
+        return array_filter(
+            $this->atts, function( $key ) {
+                return substr( $key, 0, 7 ) == 'filter_';
+            }, ARRAY_FILTER_USE_KEY
+        );
     }
 
     public function directory_type_nav_template() {
@@ -2507,12 +2500,7 @@ class Directorist_Listings {
     }
 
     public function full_search_form_template() {
-        // only catch atts with the prefix 'filter_'
-        $search_field_atts = array_filter(
-            $this->atts, function( $key ) {
-                return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY
-        );
+        $search_field_atts = $this->get_search_field_atts();
 
         $args = [
             'listings'   => $this,

@@ -774,6 +774,106 @@ export default {
     // ===========================================
 
     /**
+     * Sync selectedWidgets with selectedWidgetList to ensure data consistency
+     *
+     * Problem: On reload, selectedWidgetList may have values but selectedWidgets might be empty
+     * or incomplete, causing widgets not to load properly.
+     *
+     * Solution: Compare both arrays and sync selectedWidgets to match selectedWidgetList.
+     * Priority: Preserve existing widget data (with saved customizations) when available,
+     * fallback to active_widgets (if provided), then default widget template.
+     *
+     * @param {Array} selectedWidgets - Array of widget objects (may be empty or incomplete)
+     * @param {Array} selectedWidgetList - Array of widget keys/strings (the source of truth)
+     * @param {Object} activeWidgets - Optional. active_widgets object for fallback lookup
+     * @returns {Array} Synced selectedWidgets array matching selectedWidgetList
+     * @private
+     */
+    syncSelectedWidgetsWithList(
+      selectedWidgets,
+      selectedWidgetList,
+      activeWidgets = null,
+    ) {
+      // Early return if no selectedWidgetList
+      if (
+        !selectedWidgetList ||
+        !Array.isArray(selectedWidgetList) ||
+        selectedWidgetList.length === 0
+      ) {
+        return selectedWidgets || [];
+      }
+
+      const currentSelectedWidgets = selectedWidgets || [];
+
+      // Extract widget keys from selectedWidgets for comparison
+      // selectedWidgets contains widget objects, so we need to extract their keys
+      const selectedWidgetsKeys = currentSelectedWidgets
+        .map((widget) => {
+          if (typeof widget === "object" && widget !== null) {
+            return widget.widget_key || widget.widget_name || widget;
+          }
+          return widget;
+        })
+        .filter((key) => key != null && key !== "");
+
+      // Determine if sync is needed by checking:
+      // 1. selectedWidgetList has more items than selectedWidgets
+      // 2. selectedWidgetList contains keys not in selectedWidgets
+      // 3. selectedWidgets contains keys not in selectedWidgetList
+      const needsSync =
+        selectedWidgetList.length > selectedWidgetsKeys.length ||
+        !selectedWidgetList.every((key) => selectedWidgetsKeys.includes(key)) ||
+        !selectedWidgetsKeys.every((key) => selectedWidgetList.includes(key));
+
+      // Return original if no sync needed
+      if (!needsSync) {
+        return currentSelectedWidgets;
+      }
+
+      // Perform sync
+      const syncedSelectedWidgets = [];
+
+      selectedWidgetList.forEach((widgetKey) => {
+        let widgetData = null;
+
+        // STEP 1: Try to find existing widget data from selectedWidgets
+        // This preserves saved customizations (label, icon, etc.)
+        if (Array.isArray(currentSelectedWidgets)) {
+          widgetData = currentSelectedWidgets.find(
+            (widget) =>
+              widget &&
+              (widget.widget_key === widgetKey ||
+                widget.widget_name === widgetKey),
+          );
+        }
+
+        // STEP 2: Fallback to widget from active_widgets (has latest data)
+        // Only if activeWidgets parameter is provided
+        if (!widgetData && activeWidgets && activeWidgets[widgetKey]) {
+          widgetData = activeWidgets[widgetKey];
+        }
+
+        // STEP 3: Final fallback to default widget template
+        if (!widgetData) {
+          if (
+            typeof widgetKey !== "undefined" &&
+            typeof widgetKey === "string" &&
+            typeof this.theAvailableWidgets[widgetKey] !== "undefined"
+          ) {
+            widgetData = this.theAvailableWidgets[widgetKey];
+          }
+        }
+
+        // Add widget data if found
+        if (widgetData) {
+          syncedSelectedWidgets.push(widgetData);
+        }
+      });
+
+      return syncedSelectedWidgets;
+    },
+
+    /**
      * Get widget data with enhanced optimization
      * @param {Object} placeholderData - Placeholder data
      * @returns {Array} Widget data
@@ -784,7 +884,7 @@ export default {
         return [];
       }
 
-      const {
+      let {
         acceptedWidgets = [],
         selectedWidgets = [],
         selectedWidgetList = [],
@@ -794,6 +894,18 @@ export default {
       if (!selectedWidgets.length && !selectedWidgetList.length) {
         return [];
       }
+
+      /**
+       * SYNC SAFETY NET: Ensure selectedWidgets matches selectedWidgetList
+       * This is a defensive check to ensure data consistency during output generation
+       * Even if sync happened in importOldData, this ensures output is always correct
+       * Uses active_widgets as fallback for latest data
+       */
+      selectedWidgets = this.syncSelectedWidgetsWithList(
+        selectedWidgets,
+        selectedWidgetList,
+        this.active_widgets,
+      );
 
       // Create a map for O(1) lookup instead of O(n) indexOf operations
       const acceptedWidgetsMap = new Map();
@@ -1792,83 +1904,12 @@ export default {
 
         /**
          * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
-         *
-         * Problem: On reload, selectedWidgetList may have values but selectedWidgets might be empty
-         * or incomplete, causing widgets not to load properly.
-         *
-         * Solution: Compare both arrays and sync selectedWidgets to match selectedWidgetList.
-         * Priority: Preserve existing widget data (with saved customizations) when available,
-         * fallback to default widget template if not found.
+         * Uses reusable sync function to keep code DRY
          */
-        const currentSelectedWidgetList =
-          newPlaceholder.selectedWidgetList || [];
-        const currentSelectedWidgets = newPlaceholder.selectedWidgets || [];
-
-        // Extract widget keys from selectedWidgets for comparison
-        // selectedWidgets contains widget objects, so we need to extract their keys
-        const selectedWidgetsKeys = currentSelectedWidgets
-          .map((widget) => {
-            if (typeof widget === "object" && widget !== null) {
-              return widget.widget_key || widget.widget_name || widget;
-            }
-            return widget;
-          })
-          .filter((key) => key != null && key !== "");
-
-        // Determine if sync is needed by checking:
-        // 1. selectedWidgetList has more items than selectedWidgets
-        // 2. selectedWidgetList contains keys not in selectedWidgets
-        // 3. selectedWidgets contains keys not in selectedWidgetList
-        const needsSync =
-          currentSelectedWidgetList.length > selectedWidgetsKeys.length ||
-          !currentSelectedWidgetList.every((key) =>
-            selectedWidgetsKeys.includes(key),
-          ) ||
-          !selectedWidgetsKeys.every((key) =>
-            currentSelectedWidgetList.includes(key),
-          );
-
-        // Perform sync if needed
-        if (needsSync && currentSelectedWidgetList.length > 0) {
-          const syncedSelectedWidgets = [];
-
-          // For each widget key in selectedWidgetList, ensure we have corresponding widget data
-          currentSelectedWidgetList.forEach((widgetKey) => {
-            let widgetData = null;
-
-            // STEP 1: Try to find existing widget data from selectedWidgets
-            // This preserves saved customizations (label, icon, etc.)
-            if (Array.isArray(currentSelectedWidgets)) {
-              widgetData = currentSelectedWidgets.find(
-                (widget) =>
-                  widget &&
-                  (widget.widget_key === widgetKey ||
-                    widget.widget_name === widgetKey),
-              );
-            }
-
-            // STEP 2: If no existing widget data found, get default widget template
-            // This ensures widgets load even if selectedWidgets was empty
-            if (!widgetData) {
-              if (
-                typeof widgetKey !== "undefined" &&
-                typeof widgetKey === "string" &&
-                typeof this.theAvailableWidgets[widgetKey] !== "undefined"
-              ) {
-                widgetData = this.theAvailableWidgets[widgetKey];
-              }
-            }
-
-            // Add widget data to synced array if found
-            if (widgetData) {
-              syncedSelectedWidgets.push(widgetData);
-            }
-          });
-
-          // Update selectedWidgets with synced data
-          // Now selectedWidgets will have widget objects matching selectedWidgetList
-          newPlaceholder.selectedWidgets = syncedSelectedWidgets;
-        }
+        newPlaceholder.selectedWidgets = this.syncSelectedWidgetsWithList(
+          newPlaceholder.selectedWidgets,
+          newPlaceholder.selectedWidgetList,
+        );
 
         newPlaceholder.maxWidget =
           typeof newPlaceholder.maxWidget !== "undefined"
@@ -2024,72 +2065,16 @@ export default {
               this.$set(item, "selectedWidgetList", item.selectedWidgetList);
             }
 
-            // Sync selectedWidgets with selectedWidgetList if they're out of sync
-            // Check if selectedWidgetList has more values or if they don't match
-            const currentSelectedWidgetList = item.selectedWidgetList || [];
-            const currentSelectedWidgets = item.selectedWidgets || [];
-
-            // Get widget keys from selectedWidgets for comparison
-            const selectedWidgetsKeys = currentSelectedWidgets
-              .map((widget) => {
-                if (typeof widget === "object" && widget !== null) {
-                  return widget.widget_key || widget.widget_name || widget;
-                }
-                return widget;
-              })
-              .filter((key) => key != null && key !== "");
-
-            // Determine if sync is needed by checking:
-            // 1. selectedWidgetList has more items than selectedWidgets
-            // 2. selectedWidgetList contains keys not in selectedWidgets
-            // 3. selectedWidgets contains keys not in selectedWidgetList
-            const needsSync =
-              currentSelectedWidgetList.length > selectedWidgetsKeys.length ||
-              !currentSelectedWidgetList.every((key) =>
-                selectedWidgetsKeys.includes(key),
-              ) ||
-              !selectedWidgetsKeys.every((key) =>
-                currentSelectedWidgetList.includes(key),
-              );
-
             /**
-             * SYNC LOGIC: Same as above, but for allPlaceholderItems processing
-             * Ensures selectedWidgets matches selectedWidgetList for consistency
-             * Priority: Preserve existing widget data, fallback to default template
+             * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
+             * Uses reusable sync function to keep code DRY
+             * Updates using Vue reactivity for proper reactivity
              */
-            if (needsSync && currentSelectedWidgetList.length > 0) {
-              const syncedSelectedWidgets = [];
-
-              currentSelectedWidgetList.forEach((widgetKey) => {
-                let widgetData = null;
-
-                // STEP 1: Try to find existing widget data (preserves customizations)
-                if (Array.isArray(currentSelectedWidgets)) {
-                  widgetData = currentSelectedWidgets.find(
-                    (widget) => widget && widget.widget_key === widgetKey,
-                  );
-                }
-
-                // STEP 2: Fallback to default widget template if not found
-                if (!widgetData) {
-                  if (
-                    typeof widgetKey !== "undefined" &&
-                    typeof widgetKey === "string" &&
-                    typeof this.theAvailableWidgets[widgetKey] !== "undefined"
-                  ) {
-                    widgetData = this.theAvailableWidgets[widgetKey];
-                  }
-                }
-
-                // Add widget data if found
-                if (widgetData) {
-                  syncedSelectedWidgets.push(widgetData);
-                }
-              });
-
-              // Update selectedWidgets with synced data using Vue reactivity
-              this.$set(item, "selectedWidgets", syncedSelectedWidgets);
-            }
+            const syncedWidgets = this.syncSelectedWidgetsWithList(
+              item.selectedWidgets,
+              item.selectedWidgetList,
+            );
+            this.$set(item, "selectedWidgets", syncedWidgets);
 
             // Process selectedWidgetList
             if (
@@ -2142,7 +2127,27 @@ export default {
         return;
       }
 
-      this.available_widgets = this.widgets;
+      // Process widgets object and ensure widget_name and widget_key are set
+      // widgets is an object where keys are widget identifiers (e.g., "Bookmark")
+      const updatedWidgets = {};
+
+      for (const widgetKey in this.widgets) {
+        if (!this.widgets.hasOwnProperty(widgetKey)) {
+          continue;
+        }
+
+        const widget = this.widgets[widgetKey];
+
+        // Ensure widget_name and widget_key are set
+        // Use the object key if they don't exist
+        updatedWidgets[widgetKey] = {
+          ...widget,
+          widget_name: widget.widget_name || widgetKey,
+          widget_key: widget.widget_key || widgetKey,
+        };
+      }
+
+      this.available_widgets = updatedWidgets;
     },
 
     // Import Card Options

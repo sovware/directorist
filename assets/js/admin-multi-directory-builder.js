@@ -41440,6 +41440,165 @@
 							// DATA PROCESSING METHODS
 							// ===========================================
 							/**
+							 * Sync selectedWidgets with selectedWidgetList to ensure data consistency
+							 *
+							 * Problem: On reload, selectedWidgetList may have values but selectedWidgets might be empty
+							 * or incomplete, causing widgets not to load properly.
+							 *
+							 * Solution: Compare both arrays and sync selectedWidgets to match selectedWidgetList.
+							 * Priority: Preserve existing widget data (with saved customizations) when available,
+							 * fallback to active_widgets (if provided), then default widget template.
+							 *
+							 * @param {Array} selectedWidgets - Array of widget objects (may be empty or incomplete)
+							 * @param {Array} selectedWidgetList - Array of widget keys/strings (the source of truth)
+							 * @param {Object} activeWidgets - Optional. active_widgets object for fallback lookup
+							 * @returns {Array} Synced selectedWidgets array matching selectedWidgetList
+							 * @private
+							 */
+							syncSelectedWidgetsWithList:
+								function syncSelectedWidgetsWithList(
+									selectedWidgets,
+									selectedWidgetList
+								) {
+									var _this6 = this;
+									var activeWidgets =
+										arguments.length > 2 &&
+										arguments[2] !== undefined
+											? arguments[2]
+											: null;
+									// Early return if no selectedWidgetList
+									if (
+										!selectedWidgetList ||
+										!Array.isArray(selectedWidgetList) ||
+										selectedWidgetList.length === 0
+									) {
+										return selectedWidgets || [];
+									}
+									var currentSelectedWidgets =
+										selectedWidgets || [];
+
+									// Extract widget keys from selectedWidgets for comparison
+									// selectedWidgets contains widget objects, so we need to extract their keys
+									var selectedWidgetsKeys =
+										currentSelectedWidgets
+											.map(function (widget) {
+												if (
+													(0,
+													_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+														'default'
+													])(widget) === 'object' &&
+													widget !== null
+												) {
+													return (
+														widget.widget_key ||
+														widget.widget_name ||
+														widget
+													);
+												}
+												return widget;
+											})
+											.filter(function (key) {
+												return (
+													key != null && key !== ''
+												);
+											});
+
+									// Determine if sync is needed by checking:
+									// 1. selectedWidgetList has more items than selectedWidgets
+									// 2. selectedWidgetList contains keys not in selectedWidgets
+									// 3. selectedWidgets contains keys not in selectedWidgetList
+									var needsSync =
+										selectedWidgetList.length >
+											selectedWidgetsKeys.length ||
+										!selectedWidgetList.every(
+											function (key) {
+												return selectedWidgetsKeys.includes(
+													key
+												);
+											}
+										) ||
+										!selectedWidgetsKeys.every(
+											function (key) {
+												return selectedWidgetList.includes(
+													key
+												);
+											}
+										);
+
+									// Return original if no sync needed
+									if (!needsSync) {
+										return currentSelectedWidgets;
+									}
+
+									// Perform sync
+									var syncedSelectedWidgets = [];
+									selectedWidgetList.forEach(
+										function (widgetKey) {
+											var widgetData = null;
+
+											// STEP 1: Try to find existing widget data from selectedWidgets
+											// This preserves saved customizations (label, icon, etc.)
+											if (
+												Array.isArray(
+													currentSelectedWidgets
+												)
+											) {
+												widgetData =
+													currentSelectedWidgets.find(
+														function (widget) {
+															return (
+																widget &&
+																(widget.widget_key ===
+																	widgetKey ||
+																	widget.widget_name ===
+																		widgetKey)
+															);
+														}
+													);
+											}
+
+											// STEP 2: Fallback to widget from active_widgets (has latest data)
+											// Only if activeWidgets parameter is provided
+											if (
+												!widgetData &&
+												activeWidgets &&
+												activeWidgets[widgetKey]
+											) {
+												widgetData =
+													activeWidgets[widgetKey];
+											}
+
+											// STEP 3: Final fallback to default widget template
+											if (!widgetData) {
+												if (
+													typeof widgetKey !==
+														'undefined' &&
+													typeof widgetKey ===
+														'string' &&
+													typeof _this6
+														.theAvailableWidgets[
+														widgetKey
+													] !== 'undefined'
+												) {
+													widgetData =
+														_this6
+															.theAvailableWidgets[
+															widgetKey
+														];
+												}
+											}
+
+											// Add widget data if found
+											if (widgetData) {
+												syncedSelectedWidgets.push(
+													widgetData
+												);
+											}
+										}
+									);
+									return syncedSelectedWidgets;
+								},
+							/**
 							 * Get widget data with enhanced optimization
 							 * @param {Object} placeholderData - Placeholder data
 							 * @returns {Array} Widget data
@@ -41477,6 +41636,19 @@
 								) {
 									return [];
 								}
+
+								/**
+								 * SYNC SAFETY NET: Ensure selectedWidgets matches selectedWidgetList
+								 * This is a defensive check to ensure data consistency during output generation
+								 * Even if sync happened in importOldData, this ensures output is always correct
+								 * Uses active_widgets as fallback for latest data
+								 */
+								selectedWidgets =
+									this.syncSelectedWidgetsWithList(
+										selectedWidgets,
+										selectedWidgetList,
+										this.active_widgets
+									);
 
 								// Create a map for O(1) lookup instead of O(n) indexOf operations
 								var acceptedWidgetsMap = new Map();
@@ -41929,7 +42101,7 @@
 							 */
 							syncAllPlaceholderItems:
 								function syncAllPlaceholderItems() {
-									var _this6 = this;
+									var _this7 = this;
 									try {
 										var newAllPlaceholderItems = [];
 										this.placeholders.forEach(
@@ -41939,7 +42111,7 @@
 													'placeholder_item'
 												) {
 													var matchedItem =
-														_this6.allPlaceholderItems.find(
+														_this7.allPlaceholderItems.find(
 															function (item) {
 																return (
 																	item.placeholderKey ===
@@ -41992,7 +42164,7 @@
 															subPlaceholder
 														) {
 															var matchedItem =
-																_this6.allPlaceholderItems.find(
+																_this7.allPlaceholderItems.find(
 																	function (
 																		item
 																	) {
@@ -42128,7 +42300,7 @@
 							},
 							// Handle the drop event
 							onDrop: function onDrop(dropResult) {
-								var _this7 = this;
+								var _this8 = this;
 								var draggablePlaceholders =
 									this.placeholders.filter(
 										function (placeholder) {
@@ -42171,7 +42343,7 @@
 										) {
 											// Find the matching item from allPlaceholderItems
 											var matchedItem =
-												_this7.allPlaceholderItems.find(
+												_this8.allPlaceholderItems.find(
 													function (item) {
 														return (
 															item.placeholderKey ===
@@ -42228,7 +42400,7 @@
 											placeholder.placeholders.forEach(
 												function (subPlaceholder) {
 													var matchedItem =
-														_this7.allPlaceholderItems.find(
+														_this8.allPlaceholderItems.find(
 															function (item) {
 																return (
 																	item.placeholderKey ===
@@ -42769,7 +42941,7 @@
 							 * @public
 							 */
 							importOldData: function importOldData() {
-								var _this8 = this;
+								var _this9 = this;
 								var value = JSON.parse(
 									JSON.stringify(this.value)
 								);
@@ -42792,7 +42964,7 @@
 								) {
 									// Ensure that the widget exists in the available widgets
 									if (
-										!_this8.theAvailableWidgets[
+										!_this9.theAvailableWidgets[
 											widget.widget_name
 										]
 									) {
@@ -42806,7 +42978,7 @@
 									}
 									var widgets_template = _objectSpread(
 										{},
-										_this8.theAvailableWidgets[
+										_this9.theAvailableWidgets[
 											widget.widget_name
 										]
 									);
@@ -42897,12 +43069,12 @@
 
 									// Apply field promotion logic during initialization
 									var shouldPromote =
-										_this8.shouldPromoteFieldsToRoot(
+										_this9.shouldPromoteFieldsToRoot(
 											widget.widget_name,
 											widgets_template
 										);
 									var processedWidget = shouldPromote
-										? _this8.promoteFieldsToRoot(
+										? _this9.promoteFieldsToRoot(
 												widgets_template
 											)
 										: widgets_template;
@@ -42911,14 +43083,14 @@
 									vue__WEBPACK_IMPORTED_MODULE_4__[
 										'default'
 									].set(
-										_this8.active_widgets,
+										_this9.active_widgets,
 										widget.widget_name,
 										processedWidget
 									);
 									vue__WEBPACK_IMPORTED_MODULE_4__[
 										'default'
 									].set(
-										_this8.available_widgets,
+										_this9.available_widgets,
 										widget.widget_name,
 										processedWidget
 									);
@@ -42936,7 +43108,7 @@
 									destination
 								) {
 									if (
-										!_this8.placeholdersMap.hasOwnProperty(
+										!_this9.placeholdersMap.hasOwnProperty(
 											placeholder.placeholderKey
 										)
 									) {
@@ -42946,7 +43118,7 @@
 									// Clone the placeholder template from placeholdersMap
 									var newPlaceholder = JSON.parse(
 										JSON.stringify(
-											_this8.placeholdersMap[
+											_this9.placeholdersMap[
 												placeholder.placeholderKey
 											]
 										)
@@ -43028,135 +43200,13 @@
 
 									/**
 									 * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
-									 *
-									 * Problem: On reload, selectedWidgetList may have values but selectedWidgets might be empty
-									 * or incomplete, causing widgets not to load properly.
-									 *
-									 * Solution: Compare both arrays and sync selectedWidgets to match selectedWidgetList.
-									 * Priority: Preserve existing widget data (with saved customizations) when available,
-									 * fallback to default widget template if not found.
+									 * Uses reusable sync function to keep code DRY
 									 */
-									var currentSelectedWidgetList =
-										newPlaceholder.selectedWidgetList || [];
-									var currentSelectedWidgets =
-										newPlaceholder.selectedWidgets || [];
-
-									// Extract widget keys from selectedWidgets for comparison
-									// selectedWidgets contains widget objects, so we need to extract their keys
-									var selectedWidgetsKeys =
-										currentSelectedWidgets
-											.map(function (widget) {
-												if (
-													(0,
-													_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
-														'default'
-													])(widget) === 'object' &&
-													widget !== null
-												) {
-													return (
-														widget.widget_key ||
-														widget.widget_name ||
-														widget
-													);
-												}
-												return widget;
-											})
-											.filter(function (key) {
-												return (
-													key != null && key !== ''
-												);
-											});
-
-									// Determine if sync is needed by checking:
-									// 1. selectedWidgetList has more items than selectedWidgets
-									// 2. selectedWidgetList contains keys not in selectedWidgets
-									// 3. selectedWidgets contains keys not in selectedWidgetList
-									var needsSync =
-										currentSelectedWidgetList.length >
-											selectedWidgetsKeys.length ||
-										!currentSelectedWidgetList.every(
-											function (key) {
-												return selectedWidgetsKeys.includes(
-													key
-												);
-											}
-										) ||
-										!selectedWidgetsKeys.every(
-											function (key) {
-												return currentSelectedWidgetList.includes(
-													key
-												);
-											}
+									newPlaceholder.selectedWidgets =
+										_this9.syncSelectedWidgetsWithList(
+											newPlaceholder.selectedWidgets,
+											newPlaceholder.selectedWidgetList
 										);
-
-									// Perform sync if needed
-									if (
-										needsSync &&
-										currentSelectedWidgetList.length > 0
-									) {
-										var syncedSelectedWidgets = [];
-
-										// For each widget key in selectedWidgetList, ensure we have corresponding widget data
-										currentSelectedWidgetList.forEach(
-											function (widgetKey) {
-												var widgetData = null;
-
-												// STEP 1: Try to find existing widget data from selectedWidgets
-												// This preserves saved customizations (label, icon, etc.)
-												if (
-													Array.isArray(
-														currentSelectedWidgets
-													)
-												) {
-													widgetData =
-														currentSelectedWidgets.find(
-															function (widget) {
-																return (
-																	widget &&
-																	(widget.widget_key ===
-																		widgetKey ||
-																		widget.widget_name ===
-																			widgetKey)
-																);
-															}
-														);
-												}
-
-												// STEP 2: If no existing widget data found, get default widget template
-												// This ensures widgets load even if selectedWidgets was empty
-												if (!widgetData) {
-													if (
-														typeof widgetKey !==
-															'undefined' &&
-														typeof widgetKey ===
-															'string' &&
-														typeof _this8
-															.theAvailableWidgets[
-															widgetKey
-														] !== 'undefined'
-													) {
-														widgetData =
-															_this8
-																.theAvailableWidgets[
-																widgetKey
-															];
-													}
-												}
-
-												// Add widget data to synced array if found
-												if (widgetData) {
-													syncedSelectedWidgets.push(
-														widgetData
-													);
-												}
-											}
-										);
-
-										// Update selectedWidgets with synced data
-										// Now selectedWidgets will have widget objects matching selectedWidgetList
-										newPlaceholder.selectedWidgets =
-											syncedSelectedWidgets;
-									}
 									newPlaceholder.maxWidget =
 										typeof newPlaceholder.maxWidget !==
 										'undefined'
@@ -43191,11 +43241,11 @@
 													typeof widget !==
 														'undefined' &&
 													widget &&
-													(typeof _this8
+													(typeof _this9
 														.available_widgets[
 														widget.widget_name
 													] !== 'undefined' ||
-														typeof _this8
+														typeof _this9
 															.available_widgets[
 															widget.widget_key
 														] !== 'undefined')
@@ -43226,7 +43276,7 @@
 											function (widgetKey) {
 												// Skip if already in active_widgets
 												if (
-													_this8.active_widgets[
+													_this9.active_widgets[
 														widgetKey
 													]
 												) {
@@ -43239,13 +43289,13 @@
 														'undefined' &&
 													typeof widgetKey ===
 														'string' &&
-													typeof _this8
+													typeof _this9
 														.available_widgets[
 														widgetKey
 													] !== 'undefined'
 												) {
 													var widget =
-														_this8
+														_this9
 															.available_widgets[
 															widgetKey
 														];
@@ -43258,7 +43308,7 @@
 									}
 								};
 								value.forEach(function (placeholder, index) {
-									if (!_this8.isTruthyObject(placeholder)) {
+									if (!_this9.isTruthyObject(placeholder)) {
 										return;
 									}
 									if (
@@ -43278,7 +43328,7 @@
 										'placeholder_group' === placeholder.type
 									) {
 										if (
-											!_this8.placeholdersMap.hasOwnProperty(
+											!_this9.placeholdersMap.hasOwnProperty(
 												placeholder.placeholderKey
 											)
 										) {
@@ -43286,14 +43336,14 @@
 										}
 										var newPlaceholder = JSON.parse(
 											JSON.stringify(
-												_this8.placeholdersMap[
+												_this9.placeholdersMap[
 													placeholder.placeholderKey
 												]
 											)
 										);
 										newPlaceholder.placeholders = [];
 										var targetPlaceholderIndex =
-											_this8.placeholders.length;
+											_this9.placeholders.length;
 										newPlaceholders.splice(
 											targetPlaceholderIndex,
 											0,
@@ -43403,162 +43453,28 @@
 																); // Filter out null, undefined, and empty values
 
 														// Update the item with the new selectedWidgetList
-														_this8.$set(
+														_this9.$set(
 															item,
 															'selectedWidgetList',
 															item.selectedWidgetList
 														);
 													}
 
-													// Sync selectedWidgets with selectedWidgetList if they're out of sync
-													// Check if selectedWidgetList has more values or if they don't match
-													var currentSelectedWidgetList =
-														item.selectedWidgetList ||
-														[];
-													var currentSelectedWidgets =
-														item.selectedWidgets ||
-														[];
-
-													// Get widget keys from selectedWidgets for comparison
-													var selectedWidgetsKeys =
-														currentSelectedWidgets
-															.map(
-																function (
-																	widget
-																) {
-																	if (
-																		(0,
-																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
-																			'default'
-																		])(
-																			widget
-																		) ===
-																			'object' &&
-																		widget !==
-																			null
-																	) {
-																		return (
-																			widget.widget_key ||
-																			widget.widget_name ||
-																			widget
-																		);
-																	}
-																	return widget;
-																}
-															)
-															.filter(
-																function (key) {
-																	return (
-																		key !=
-																			null &&
-																		key !==
-																			''
-																	);
-																}
-															);
-
-													// Determine if sync is needed by checking:
-													// 1. selectedWidgetList has more items than selectedWidgets
-													// 2. selectedWidgetList contains keys not in selectedWidgets
-													// 3. selectedWidgets contains keys not in selectedWidgetList
-													var needsSync =
-														currentSelectedWidgetList.length >
-															selectedWidgetsKeys.length ||
-														!currentSelectedWidgetList.every(
-															function (key) {
-																return selectedWidgetsKeys.includes(
-																	key
-																);
-															}
-														) ||
-														!selectedWidgetsKeys.every(
-															function (key) {
-																return currentSelectedWidgetList.includes(
-																	key
-																);
-															}
-														);
-
 													/**
-													 * SYNC LOGIC: Same as above, but for allPlaceholderItems processing
-													 * Ensures selectedWidgets matches selectedWidgetList for consistency
-													 * Priority: Preserve existing widget data, fallback to default template
+													 * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
+													 * Uses reusable sync function to keep code DRY
+													 * Updates using Vue reactivity for proper reactivity
 													 */
-													if (
-														needsSync &&
-														currentSelectedWidgetList.length >
-															0
-													) {
-														var syncedSelectedWidgets =
-															[];
-														currentSelectedWidgetList.forEach(
-															function (
-																widgetKey
-															) {
-																var widgetData =
-																	null;
-
-																// STEP 1: Try to find existing widget data (preserves customizations)
-																if (
-																	Array.isArray(
-																		currentSelectedWidgets
-																	)
-																) {
-																	widgetData =
-																		currentSelectedWidgets.find(
-																			function (
-																				widget
-																			) {
-																				return (
-																					widget &&
-																					widget.widget_key ===
-																						widgetKey
-																				);
-																			}
-																		);
-																}
-
-																// STEP 2: Fallback to default widget template if not found
-																if (
-																	!widgetData
-																) {
-																	if (
-																		typeof widgetKey !==
-																			'undefined' &&
-																		typeof widgetKey ===
-																			'string' &&
-																		typeof _this8
-																			.theAvailableWidgets[
-																			widgetKey
-																		] !==
-																			'undefined'
-																	) {
-																		widgetData =
-																			_this8
-																				.theAvailableWidgets[
-																				widgetKey
-																			];
-																	}
-																}
-
-																// Add widget data if found
-																if (
-																	widgetData
-																) {
-																	syncedSelectedWidgets.push(
-																		widgetData
-																	);
-																}
-															}
+													var syncedWidgets =
+														_this9.syncSelectedWidgetsWithList(
+															item.selectedWidgets,
+															item.selectedWidgetList
 														);
-
-														// Update selectedWidgets with synced data using Vue reactivity
-														_this8.$set(
-															item,
-															'selectedWidgets',
-															syncedSelectedWidgets
-														);
-													}
+													_this9.$set(
+														item,
+														'selectedWidgets',
+														syncedWidgets
+													);
 
 													// Process selectedWidgetList
 													if (
@@ -43573,7 +43489,7 @@
 															) {
 																// Skip if already in active_widgets
 																if (
-																	_this8
+																	_this9
 																		.active_widgets[
 																		widgetKey
 																	]
@@ -43587,22 +43503,22 @@
 																		'undefined' &&
 																	typeof widgetKey ===
 																		'string' &&
-																	typeof _this8
+																	typeof _this9
 																		.available_widgets[
 																		widgetKey
 																	] !==
 																		'undefined'
 																) {
 																	var widget =
-																		_this8
+																		_this9
 																			.available_widgets[
 																			widgetKey
 																		];
 																	if (
 																		widget
 																	) {
-																		_this8.$set(
-																			_this8.active_widgets,
+																		_this9.$set(
+																			_this9.active_widgets,
 																			widgetKey,
 																			widget
 																		);
@@ -43647,7 +43563,32 @@
 								if (!this.isTruthyObject(this.widgets)) {
 									return;
 								}
-								this.available_widgets = this.widgets;
+
+								// Process widgets object and ensure widget_name and widget_key are set
+								// widgets is an object where keys are widget identifiers (e.g., "Bookmark")
+								var updatedWidgets = {};
+								for (var widgetKey in this.widgets) {
+									if (
+										!this.widgets.hasOwnProperty(widgetKey)
+									) {
+										continue;
+									}
+									var widget = this.widgets[widgetKey];
+
+									// Ensure widget_name and widget_key are set
+									// Use the object key if they don't exist
+									updatedWidgets[widgetKey] = _objectSpread(
+										_objectSpread({}, widget),
+										{},
+										{
+											widget_name:
+												widget.widget_name || widgetKey,
+											widget_key:
+												widget.widget_key || widgetKey,
+										}
+									);
+								}
+								this.available_widgets = updatedWidgets;
 							},
 							// Import Card Options
 							importCardOptions: function importCardOptions() {
@@ -43677,7 +43618,7 @@
 							},
 							// Import Placeholders
 							importPlaceholders: function importPlaceholders() {
-								var _this9 = this;
+								var _this0 = this;
 								this.allPlaceholderItems = [];
 								if (!Array.isArray(this.layout)) {
 									return;
@@ -43690,7 +43631,7 @@
 										placeholder
 									) {
 										if (
-											!_this9.isTruthyObject(placeholder)
+											!_this0.isTruthyObject(placeholder)
 										) {
 											placeholder = {};
 										}
@@ -43712,7 +43653,7 @@
 												function (widgetKey) {
 													// Skip if already in active_widgets
 													if (
-														_this9.active_widgets[
+														_this0.active_widgets[
 															widgetKey
 														]
 													) {
@@ -43725,19 +43666,19 @@
 															'undefined' &&
 														typeof widgetKey ===
 															'string' &&
-														typeof _this9
+														typeof _this0
 															.available_widgets[
 															widgetKey
 														] !== 'undefined'
 													) {
 														var widget =
-															_this9
+															_this0
 																.available_widgets[
 																widgetKey
 															];
 														if (widget) {
-															_this9.$set(
-																_this9.active_widgets,
+															_this0.$set(
+																_this0.active_widgets,
 																widgetKey,
 																widget
 															);
@@ -43769,7 +43710,7 @@
 
 													// Skip if already in active_widgets
 													if (
-														_this9.active_widgets[
+														_this0.active_widgets[
 															widgetKey
 														]
 													) {
@@ -43782,19 +43723,19 @@
 															'undefined' &&
 														typeof widgetKey ===
 															'string' &&
-														typeof _this9
+														typeof _this0
 															.available_widgets[
 															widgetKey
 														] !== 'undefined'
 													) {
 														var widgetObj =
-															_this9
+															_this0
 																.available_widgets[
 																widgetKey
 															];
 														if (widgetObj) {
-															_this9.$set(
-																_this9.active_widgets,
+															_this0.$set(
+																_this0.active_widgets,
 																widgetKey,
 																widgetObj
 															);
@@ -43814,7 +43755,7 @@
 									var _loop2 = function _loop2() {
 											var placeholder = _step5.value;
 											if (
-												!_this9.isTruthyObject(
+												!_this0.isTruthyObject(
 													placeholder
 												)
 											) {
@@ -43835,7 +43776,7 @@
 												return 0; // continue
 											}
 											if (
-												_this9.placeholdersMap.hasOwnProperty(
+												_this0.placeholdersMap.hasOwnProperty(
 													placeholderItem.placeholderKey
 												)
 											) {
@@ -43844,7 +43785,7 @@
 											vue__WEBPACK_IMPORTED_MODULE_4__[
 												'default'
 											].set(
-												_this9.placeholdersMap,
+												_this0.placeholdersMap,
 												placeholderItem.placeholderKey,
 												placeholderItem
 											);
@@ -43860,7 +43801,7 @@
 													sanitizedPlaceholders.push(
 														placeholderItemData
 													);
-													_this9.allPlaceholderItems.push(
+													_this0.allPlaceholderItems.push(
 														placeholderItemData
 													);
 												}
@@ -43895,7 +43836,7 @@
 														subPlaceholderIndex
 													) {
 														if (
-															_this9.placeholdersMap.hasOwnProperty(
+															_this0.placeholdersMap.hasOwnProperty(
 																placeholderSubItem.placeholderKey
 															)
 														) {
@@ -43908,7 +43849,7 @@
 														vue__WEBPACK_IMPORTED_MODULE_4__[
 															'default'
 														].set(
-															_this9.placeholdersMap,
+															_this0.placeholdersMap,
 															placeholderSubItem.placeholderKey,
 															placeholderSubItem
 														);
@@ -43924,7 +43865,7 @@
 																1,
 																placeholderItemData
 															);
-															_this9.allPlaceholderItems.push(
+															_this0.allPlaceholderItems.push(
 																placeholderItemData
 															);
 														}
@@ -44033,7 +43974,7 @@
 																); // Filter out null, undefined, and empty values
 
 														// Update the item with the new selectedWidgetList
-														_this9.$set(
+														_this0.$set(
 															item,
 															'selectedWidgetList',
 															item.selectedWidgetList
@@ -44053,7 +43994,7 @@
 															) {
 																// Skip if already in active_widgets
 																if (
-																	_this9
+																	_this0
 																		.active_widgets[
 																		widgetKey
 																	]
@@ -44067,22 +44008,22 @@
 																		'undefined' &&
 																	typeof widgetKey ===
 																		'string' &&
-																	typeof _this9
+																	typeof _this0
 																		.available_widgets[
 																		widgetKey
 																	] !==
 																		'undefined'
 																) {
 																	var widget =
-																		_this9
+																		_this0
 																			.available_widgets[
 																			widgetKey
 																		];
 																	if (
 																		widget
 																	) {
-																		_this9.$set(
-																			_this9.active_widgets,
+																		_this0.$set(
+																			_this0.active_widgets,
 																			widgetKey,
 																			widget
 																		);
@@ -44422,7 +44363,7 @@
 							// Filter active_widgets to only include widgets from selectedWidgetList of placeholder_item types
 							filterActiveWidgetsBySelectedWidgetList:
 								function filterActiveWidgetsBySelectedWidgetList() {
-									var _this0 = this;
+									var _this1 = this;
 									// Collect all widget keys from selectedWidgetList of placeholder_item types
 									var allowedWidgetKeys = new Set();
 									var _collectWidgetKeys =
@@ -44503,8 +44444,8 @@
 													widgetKey
 												)
 											) {
-												_this0.$delete(
-													_this0.active_widgets,
+												_this1.$delete(
+													_this1.active_widgets,
 													widgetKey
 												);
 											}
@@ -44515,20 +44456,20 @@
 									allowedWidgetKeys.forEach(
 										function (widgetKey) {
 											if (
-												!_this0.active_widgets[
+												!_this1.active_widgets[
 													widgetKey
 												] &&
-												typeof _this0.available_widgets[
+												typeof _this1.available_widgets[
 													widgetKey
 												] !== 'undefined'
 											) {
 												var widget =
-													_this0.available_widgets[
+													_this1.available_widgets[
 														widgetKey
 													];
 												if (widget) {
-													_this0.$set(
-														_this0.active_widgets,
+													_this1.$set(
+														_this1.active_widgets,
 														widgetKey,
 														widget
 													);
@@ -44543,7 +44484,7 @@
 									allPlaceholderItems,
 									placeholders
 								) {
-									var _this1 = this;
+									var _this10 = this;
 									var updatePlaceholderItem =
 										function updatePlaceholderItem(
 											placeholder,
@@ -44558,7 +44499,7 @@
 													allPlaceholderItem.acceptedWidgets ||
 													[]
 												).filter(function (widgetKey) {
-													return _this1.isWidgetAvailable(
+													return _this10.isWidgetAvailable(
 														widgetKey
 													);
 												});
@@ -44583,7 +44524,7 @@
 															return (
 																widget &&
 																widget.widget_key &&
-																_this1.isWidgetAvailable(
+																_this10.isWidgetAvailable(
 																	widget.widget_key
 																)
 															);
@@ -44609,7 +44550,7 @@
 															function (
 																widgetKey
 															) {
-																return _this1.isWidgetAvailable(
+																return _this10.isWidgetAvailable(
 																	widgetKey
 																);
 															}

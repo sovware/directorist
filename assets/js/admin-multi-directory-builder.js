@@ -42781,6 +42781,12 @@
 
 								// Import Layout
 								// -------------------------
+								/**
+								 * Add widget to active_widgets with proper data merging and field promotion
+								 * This function merges saved widget data (from old data) with default widget template,
+								 * preserving user customizations like label and icon changes
+								 * @param {Object} widget - Widget object with saved data (may have custom label/icon)
+								 */
 								var addActiveWidget = function addActiveWidget(
 									widget
 								) {
@@ -42917,6 +42923,14 @@
 										processedWidget
 									);
 								};
+
+								/**
+								 * Import widgets data for a placeholder from saved/old data
+								 * Handles both selectedWidgets (array of widget objects) and selectedWidgetList (array of widget keys)
+								 * Ensures they stay in sync and widgets are properly loaded into active_widgets
+								 * @param {Object} placeholder - Placeholder data from saved value
+								 * @param {Array} destination - Array to add the processed placeholder to
+								 */
 								var importWidgets = function importWidgets(
 									placeholder,
 									destination
@@ -42928,6 +42942,8 @@
 									) {
 										return;
 									}
+
+									// Clone the placeholder template from placeholdersMap
 									var newPlaceholder = JSON.parse(
 										JSON.stringify(
 											_this8.placeholdersMap[
@@ -42935,12 +42951,16 @@
 											]
 										)
 									);
+
+									// Update acceptedWidgets if provided in saved data
 									if (placeholder.acceptedWidgets) {
 										newPlaceholder.acceptedWidgets =
 											placeholder.acceptedWidgets;
 									}
 
 									// Handle selectedWidgets and selectedWidgetList from old data
+									// selectedWidgets: Array of widget objects (has full widget data including customizations)
+									// selectedWidgetList: Array of widget keys/strings (just the IDs)
 									if (placeholder.selectedWidgets) {
 										newPlaceholder.selectedWidgets =
 											placeholder.selectedWidgets;
@@ -43005,6 +43025,138 @@
 													)
 												: [];
 									}
+
+									/**
+									 * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
+									 *
+									 * Problem: On reload, selectedWidgetList may have values but selectedWidgets might be empty
+									 * or incomplete, causing widgets not to load properly.
+									 *
+									 * Solution: Compare both arrays and sync selectedWidgets to match selectedWidgetList.
+									 * Priority: Preserve existing widget data (with saved customizations) when available,
+									 * fallback to default widget template if not found.
+									 */
+									var currentSelectedWidgetList =
+										newPlaceholder.selectedWidgetList || [];
+									var currentSelectedWidgets =
+										newPlaceholder.selectedWidgets || [];
+
+									// Extract widget keys from selectedWidgets for comparison
+									// selectedWidgets contains widget objects, so we need to extract their keys
+									var selectedWidgetsKeys =
+										currentSelectedWidgets
+											.map(function (widget) {
+												if (
+													(0,
+													_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+														'default'
+													])(widget) === 'object' &&
+													widget !== null
+												) {
+													return (
+														widget.widget_key ||
+														widget.widget_name ||
+														widget
+													);
+												}
+												return widget;
+											})
+											.filter(function (key) {
+												return (
+													key != null && key !== ''
+												);
+											});
+
+									// Determine if sync is needed by checking:
+									// 1. selectedWidgetList has more items than selectedWidgets
+									// 2. selectedWidgetList contains keys not in selectedWidgets
+									// 3. selectedWidgets contains keys not in selectedWidgetList
+									var needsSync =
+										currentSelectedWidgetList.length >
+											selectedWidgetsKeys.length ||
+										!currentSelectedWidgetList.every(
+											function (key) {
+												return selectedWidgetsKeys.includes(
+													key
+												);
+											}
+										) ||
+										!selectedWidgetsKeys.every(
+											function (key) {
+												return currentSelectedWidgetList.includes(
+													key
+												);
+											}
+										);
+
+									// Perform sync if needed
+									if (
+										needsSync &&
+										currentSelectedWidgetList.length > 0
+									) {
+										var syncedSelectedWidgets = [];
+
+										// For each widget key in selectedWidgetList, ensure we have corresponding widget data
+										currentSelectedWidgetList.forEach(
+											function (widgetKey) {
+												var widgetData = null;
+
+												// STEP 1: Try to find existing widget data from selectedWidgets
+												// This preserves saved customizations (label, icon, etc.)
+												if (
+													Array.isArray(
+														currentSelectedWidgets
+													)
+												) {
+													widgetData =
+														currentSelectedWidgets.find(
+															function (widget) {
+																return (
+																	widget &&
+																	(widget.widget_key ===
+																		widgetKey ||
+																		widget.widget_name ===
+																			widgetKey)
+																);
+															}
+														);
+												}
+
+												// STEP 2: If no existing widget data found, get default widget template
+												// This ensures widgets load even if selectedWidgets was empty
+												if (!widgetData) {
+													if (
+														typeof widgetKey !==
+															'undefined' &&
+														typeof widgetKey ===
+															'string' &&
+														typeof _this8
+															.theAvailableWidgets[
+															widgetKey
+														] !== 'undefined'
+													) {
+														widgetData =
+															_this8
+																.theAvailableWidgets[
+																widgetKey
+															];
+													}
+												}
+
+												// Add widget data to synced array if found
+												if (widgetData) {
+													syncedSelectedWidgets.push(
+														widgetData
+													);
+												}
+											}
+										);
+
+										// Update selectedWidgets with synced data
+										// Now selectedWidgets will have widget objects matching selectedWidgetList
+										newPlaceholder.selectedWidgets =
+											syncedSelectedWidgets;
+									}
 									newPlaceholder.maxWidget =
 										typeof newPlaceholder.maxWidget !==
 										'undefined'
@@ -43019,31 +43171,47 @@
 										newPlaceholder
 									);
 
-									// Add active widgets based on selectedWidgets (if exists)
+									/**
+									 * Load widgets into active_widgets based on selectedWidgets
+									 * Uses synced version (newPlaceholder.selectedWidgets) if available,
+									 * otherwise falls back to original placeholder.selectedWidgets
+									 */
+									var widgetsToProcess =
+										newPlaceholder.selectedWidgets ||
+										placeholder.selectedWidgets ||
+										[];
 									if (
-										placeholder.selectedWidgets &&
-										Array.isArray(
-											placeholder.selectedWidgets
-										)
+										Array.isArray(widgetsToProcess) &&
+										widgetsToProcess.length > 0
 									) {
-										placeholder.selectedWidgets.forEach(
+										widgetsToProcess.forEach(
 											function (widget) {
+												// Validate widget exists in available_widgets before adding
 												if (
 													typeof widget !==
 														'undefined' &&
-													typeof _this8
+													widget &&
+													(typeof _this8
 														.available_widgets[
 														widget.widget_name
-													] !== 'undefined'
+													] !== 'undefined' ||
+														typeof _this8
+															.available_widgets[
+															widget.widget_key
+														] !== 'undefined')
 												) {
+													// addActiveWidget merges saved data with default template and applies field promotion
 													addActiveWidget(widget);
 												}
 											}
 										);
 									}
 
-									// Add active widgets based on selectedWidgetList from available_widgets
-									// This ensures widgets are added even if selectedWidgets doesn't exist
+									/**
+									 * Fallback: Load widgets from selectedWidgetList if selectedWidgets was empty
+									 * This ensures widgets are loaded even if selectedWidgets doesn't exist or sync failed
+									 * Uses default widget templates from available_widgets
+									 */
 									var selectedWidgetListToProcess =
 										newPlaceholder.selectedWidgetList ||
 										placeholder.selectedWidgetList ||
@@ -43149,14 +43317,22 @@
 								this.placeholders = newPlaceholders;
 								this.allPlaceholderItems = newAllPlaceholders;
 
-								// Process allPlaceholderItems to add widgets from selectedWidgetList to active_widgets
-								// This ensures widgets from old data are added to active_widgets
+								/**
+								 * Process allPlaceholderItems to ensure widgets are loaded into active_widgets
+								 * This is a second pass to catch any widgets that might have been missed
+								 * Also performs sync between selectedWidgets and selectedWidgetList
+								 */
 								if (
 									Array.isArray(this.allPlaceholderItems) &&
 									this.allPlaceholderItems.length > 0
 								) {
 									this.allPlaceholderItems.forEach(
 										function (placeholderItem) {
+											/**
+											 * Process a single placeholder item
+											 * Handles both placeholder_item and placeholder_group types recursively
+											 * @param {Object} item - Placeholder item to process
+											 */
 											var _processPlaceholder =
 												function processPlaceholder(
 													item
@@ -43168,8 +43344,8 @@
 														return;
 													}
 
-													// If selectedWidgetList is not available but selectedWidgets is available,
-													// create selectedWidgetList from selectedWidgets using widget_key
+													// If selectedWidgetList is missing but selectedWidgets exists,
+													// derive selectedWidgetList from selectedWidgets by extracting widget keys
 													if (
 														(!item.selectedWidgetList ||
 															!Array.isArray(
@@ -43231,6 +43407,156 @@
 															item,
 															'selectedWidgetList',
 															item.selectedWidgetList
+														);
+													}
+
+													// Sync selectedWidgets with selectedWidgetList if they're out of sync
+													// Check if selectedWidgetList has more values or if they don't match
+													var currentSelectedWidgetList =
+														item.selectedWidgetList ||
+														[];
+													var currentSelectedWidgets =
+														item.selectedWidgets ||
+														[];
+
+													// Get widget keys from selectedWidgets for comparison
+													var selectedWidgetsKeys =
+														currentSelectedWidgets
+															.map(
+																function (
+																	widget
+																) {
+																	if (
+																		(0,
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+																			'default'
+																		])(
+																			widget
+																		) ===
+																			'object' &&
+																		widget !==
+																			null
+																	) {
+																		return (
+																			widget.widget_key ||
+																			widget.widget_name ||
+																			widget
+																		);
+																	}
+																	return widget;
+																}
+															)
+															.filter(
+																function (key) {
+																	return (
+																		key !=
+																			null &&
+																		key !==
+																			''
+																	);
+																}
+															);
+
+													// Determine if sync is needed by checking:
+													// 1. selectedWidgetList has more items than selectedWidgets
+													// 2. selectedWidgetList contains keys not in selectedWidgets
+													// 3. selectedWidgets contains keys not in selectedWidgetList
+													var needsSync =
+														currentSelectedWidgetList.length >
+															selectedWidgetsKeys.length ||
+														!currentSelectedWidgetList.every(
+															function (key) {
+																return selectedWidgetsKeys.includes(
+																	key
+																);
+															}
+														) ||
+														!selectedWidgetsKeys.every(
+															function (key) {
+																return currentSelectedWidgetList.includes(
+																	key
+																);
+															}
+														);
+
+													/**
+													 * SYNC LOGIC: Same as above, but for allPlaceholderItems processing
+													 * Ensures selectedWidgets matches selectedWidgetList for consistency
+													 * Priority: Preserve existing widget data, fallback to default template
+													 */
+													if (
+														needsSync &&
+														currentSelectedWidgetList.length >
+															0
+													) {
+														var syncedSelectedWidgets =
+															[];
+														currentSelectedWidgetList.forEach(
+															function (
+																widgetKey
+															) {
+																var widgetData =
+																	null;
+
+																// STEP 1: Try to find existing widget data (preserves customizations)
+																if (
+																	Array.isArray(
+																		currentSelectedWidgets
+																	)
+																) {
+																	widgetData =
+																		currentSelectedWidgets.find(
+																			function (
+																				widget
+																			) {
+																				return (
+																					widget &&
+																					widget.widget_key ===
+																						widgetKey
+																				);
+																			}
+																		);
+																}
+
+																// STEP 2: Fallback to default widget template if not found
+																if (
+																	!widgetData
+																) {
+																	if (
+																		typeof widgetKey !==
+																			'undefined' &&
+																		typeof widgetKey ===
+																			'string' &&
+																		typeof _this8
+																			.theAvailableWidgets[
+																			widgetKey
+																		] !==
+																			'undefined'
+																	) {
+																		widgetData =
+																			_this8
+																				.theAvailableWidgets[
+																				widgetKey
+																			];
+																	}
+																}
+
+																// Add widget data if found
+																if (
+																	widgetData
+																) {
+																	syncedSelectedWidgets.push(
+																		widgetData
+																	);
+																}
+															}
+														);
+
+														// Update selectedWidgets with synced data using Vue reactivity
+														_this8.$set(
+															item,
+															'selectedWidgets',
+															syncedSelectedWidgets
 														);
 													}
 

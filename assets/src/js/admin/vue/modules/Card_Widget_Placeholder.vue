@@ -462,6 +462,16 @@ export default {
      * Closes settings modal if open, then opens insert modal
      */
     handleInsertClick() {
+      // Special case for single accepted widget
+      if (this.acceptedWidgets.length === 1) {
+        this.selectedWidgets.push(this.acceptedWidgets[0]);
+        this.activeWidgets[this.acceptedWidgets[0]] = {
+          ...this.availableWidgets[this.acceptedWidgets[0]],
+        };
+        
+        return;
+      }
+
       // Close settings modal if it's open
       if (this.showWidgetsOptionWindow) {
         this.$emit("close-widgets-option-window");

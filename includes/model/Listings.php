@@ -250,6 +250,8 @@ class Directorist_Listings {
             }
         }
 
+        $this->query_args = apply_filters( 'directorist_listings_query_args', $this->query_args, $this );
+
         $this->query_results = $this->get_query_results();
 
         do_action( 'directorist_after_init_listings_shortcode', $this );
@@ -903,6 +905,7 @@ class Directorist_Listings {
          * @param object    $this       Listings object
          */
         $args = apply_filters( 'directorist_all_listings_query_arguments', $args, $this );
+
 
         return apply_filters_deprecated( 'atbdp_all_listings_query_arguments', [ $args ], '7.4.2', 'directorist_all_listings_query_arguments' );
     }

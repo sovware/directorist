@@ -1140,16 +1140,32 @@ class Directorist_Single_Listing {
 
     private function fix_media_src_attributes( $content ) {
         return preg_replace_callback(
-            '/<(video|audio)([^>]*?)(?<!\/)>(.*?)<\/\1>/is',
+            '/<(video|audio)([^>]*?)>(.*?)<\/\1>/is',
             function( $matches ) {
                 if ( preg_match( '/\ssrc\s*=/i', $matches[2] ) ) {
                     return $matches[0];
                 }
                 
                 if ( preg_match( '/<a\s+[^>]*href=["\']([^"\']+)["\'][^>]*>/i', $matches[3], $link_match ) ) {
-                    $attributes = rtrim( $matches[2] ) . ' src="' . esc_attr( $link_match[1] ) . '"';
+                    $url = trim( $link_match[1] );
+                    
+                    if ( ! filter_var( $url, FILTER_VALIDATE_URL ) || ! preg_match( '/^https?:\/\//i', $url ) ) {
+                        return $matches[0];
+                    }
+                    
+                    $existing_attrs = trim( $matches[2] );
+                    if ( ! empty( $existing_attrs ) ) {
+                        $existing_attrs = preg_replace( '/\ssrc\s*=\s*["\'][^"\']*["\']/i', '', $existing_attrs );
+                        $existing_attrs = trim( $existing_attrs );
+                    }
+                    
+                    $attributes = ! empty( $existing_attrs ) ? $existing_attrs . ' ' : '';
+                    $attributes .= 'src="' . esc_url( $url ) . '"';
+                    
                     $inner_content = preg_replace( '/<a[^>]*>.*?<\/a>/is', '', $matches[3] );
-                    return '<' . $matches[1] . $attributes . '>' . $inner_content . '</' . $matches[1] . '>';
+                    $inner_content = wp_kses_post( $inner_content );
+                    
+                    return '<' . $matches[1] . ' ' . $attributes . '>' . $inner_content . '</' . $matches[1] . '>';
                 }
                 
                 return $matches[0];

@@ -26,11 +26,11 @@ $maxlength = $data['max'] ?? '';
             apply_filters(
                 'atbdp_add_listing_wp_editor_settings',
                 [
-                    'media_buttons' => true,
+                    'media_buttons' => false,
                     'quicktags'     => true,
                     'editor_height' => 200,
                     'tinymce'       => array(
-                        'plugins'    => 'lists,link,wordpress,paste,textcolor,fullscreen,hr,media',
+                        'plugins'    => 'lists,link,wordpress,paste,textcolor,fullscreen,hr',
                     ),
                 ]
             )

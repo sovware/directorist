@@ -1073,6 +1073,7 @@ export default {
 
     // Toggle Option Window
     toggleOptionWindow(current_item_key) {
+      console.log("toggleOptionWindow", {current_item_key, active_option_widget_key: this.active_option_widget_key});
       if (this.active_option_widget_key === current_item_key) {
         this.active_option_widget_key = "";
         return;

@@ -19,25 +19,72 @@
           />
         </svg>
         <span
+          class="cptm-placeholder-author-thumb-options"
+          @click.stop="toggleOptions"
+          v-if="isAvailableOptions"
+        >
+          <span class="las la-cog"></span>
+        </span>
+        <span
           class="cptm-placeholder-author-thumb-trash"
           @click.stop="$emit('trash')"
+          v-else
         >
           <span class="las la-trash-alt"></span>
         </span>
       </div>
     </div>
 
-    <div
-      class="cptm-placeholder-author-thumb-options"
-      v-if="isAvailableOptions"
-    >
-      <component
-        v-for="(field, field_key) in optionFields"
-        :key="field_key"
-        :is="field.type + '-field'"
-        v-bind="field"
-        @update="updateFieldData($event, field_key)"
-      />
+    <!-- Collapsible Options Section -->
+    <div class="cptm-avatar-widget-options" v-if="showOptions">
+      <div class="cptm-avatar-widget-options-header cptm-widget-control-header">
+        <h3 class="cptm-avatar-widget-options-title">Options</h3>
+        <span 
+          class="cptm-avatar-widget-options-close" 
+          @click.stop="toggleOptions">
+          <span class="las la-times"></span>
+        </span>
+      </div>
+      <!-- Avatar Toggle -->
+      <div class="cptm-avatar-widget-setting-item">
+        <label class="cptm-avatar-widget-setting-label">Avatar</label>
+        <div class="cptm-toggle-switch">
+          <input
+            type="checkbox"
+            :id="`avatar-toggle-${widgetKey}`"
+            v-model="isEnabled"
+            @change="handleToggleChange"
+            class="cptm-toggle-input"
+          />
+          <label
+            :for="`avatar-toggle-${widgetKey}`"
+            class="cptm-toggle-label"
+          ></label>
+        </div>
+      </div>
+
+      <!-- Position Options -->
+      <div
+        class="cptm-avatar-widget-setting-item"
+        v-if="isAvailableOptions && hasPositionField"
+      >
+        <label class="cptm-avatar-widget-setting-label">Position</label>
+        <div class="cptm-position-options">
+          <component
+            v-for="(field, field_key) in optionFields"
+            :key="field_key"
+            :is="field.type + '-field'"
+            v-bind="field"
+            @update="updateFieldData($event, field_key)"
+            v-if="
+              field_key === 'position' ||
+              field_key === 'align' ||
+              field.label === 'Position' ||
+              field.label === 'Align'
+            "
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -70,16 +117,31 @@ export default {
     activeWidgets: {
       type: Object,
     },
+
+    // Add selectedWidgets to check if widget is selected
+    selectedWidgets: {
+      type: Array,
+      default: () => [],
+    },
+
+    // Add availableWidgets to access widget data
+    availableWidgets: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   data() {
     return {
       localOptions: null,
+      showOptions: false,
+      isEnabled: true,
     };
   },
 
   created() {
     this.init();
+    this.checkWidgetStatus();
   },
 
   watch: {
@@ -88,6 +150,13 @@ export default {
         if (newOptions) {
           this.localOptions = JSON.parse(JSON.stringify(newOptions));
         }
+      },
+      deep: true,
+    },
+
+    selectedWidgets: {
+      handler() {
+        this.checkWidgetStatus();
       },
       deep: true,
     },
@@ -119,12 +188,61 @@ export default {
 
       return this.localOptions.fields;
     },
+
+    // Check if position/align field exists
+    hasPositionField() {
+      if (!this.isAvailableOptions) {
+        return false;
+      }
+
+      const fields = this.localOptions.fields;
+      return (
+        fields.position ||
+        fields.align ||
+        Object.keys(fields).some(
+          (key) =>
+            fields[key].label === "Position" ||
+            fields[key].label === "Align" ||
+            key.toLowerCase().includes("position") ||
+            key.toLowerCase().includes("align"),
+        )
+      );
+    },
   },
 
   methods: {
     init() {
       if (this.options) {
         this.localOptions = JSON.parse(JSON.stringify(this.options));
+      }
+    },
+
+    // Check if widget is currently selected/enabled
+    checkWidgetStatus() {
+      if (this.selectedWidgets && Array.isArray(this.selectedWidgets)) {
+        this.isEnabled = this.selectedWidgets.includes(this.widgetKey);
+      } else if (this.activeWidgets) {
+        this.isEnabled =
+          typeof this.activeWidgets[this.widgetKey] !== "undefined";
+      }
+    },
+
+    // Toggle Options section visibility
+    toggleOptions() {
+      this.showOptions = !this.showOptions;
+    },
+
+    // Handle toggle change for enable/disable widget
+    handleToggleChange() {
+      if (this.isEnabled) {
+        // Widget is enabled - add to selectedWidgets
+        this.$emit("insert-widget", {
+          key: this.widgetKey,
+          selected_widgets: [this.widgetKey],
+        });
+      } else {
+        // Widget is disabled - emit trash to remove
+        this.$emit("trash");
       }
     },
 

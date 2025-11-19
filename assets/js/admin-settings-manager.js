@@ -28923,14 +28923,31 @@
 						activeWidgets: {
 							type: Object,
 						},
+						// Add selectedWidgets to check if widget is selected
+						selectedWidgets: {
+							type: Array,
+							default: function _default() {
+								return [];
+							},
+						},
+						// Add availableWidgets to access widget data
+						availableWidgets: {
+							type: Object,
+							default: function _default() {
+								return {};
+							},
+						},
 					},
 					data: function data() {
 						return {
 							localOptions: null,
+							showOptions: false,
+							isEnabled: true,
 						};
 					},
 					created: function created() {
 						this.init();
+						this.checkWidgetStatus();
 					},
 					watch: {
 						options: {
@@ -28940,6 +28957,12 @@
 										JSON.stringify(newOptions)
 									);
 								}
+							},
+							deep: true,
+						},
+						selectedWidgets: {
+							handler: function handler() {
+								this.checkWidgetStatus();
 							},
 							deep: true,
 						},
@@ -28978,6 +29001,27 @@
 							}
 							return this.localOptions.fields;
 						},
+						// Check if position/align field exists
+						hasPositionField: function hasPositionField() {
+							if (!this.isAvailableOptions) {
+								return false;
+							}
+							var fields = this.localOptions.fields;
+							return (
+								fields.position ||
+								fields.align ||
+								Object.keys(fields).some(function (key) {
+									return (
+										fields[key].label === 'Position' ||
+										fields[key].label === 'Align' ||
+										key
+											.toLowerCase()
+											.includes('position') ||
+										key.toLowerCase().includes('align')
+									);
+								})
+							);
+						},
 					},
 					methods: {
 						init: function init() {
@@ -28985,6 +29029,39 @@
 								this.localOptions = JSON.parse(
 									JSON.stringify(this.options)
 								);
+							}
+						},
+						// Check if widget is currently selected/enabled
+						checkWidgetStatus: function checkWidgetStatus() {
+							if (
+								this.selectedWidgets &&
+								Array.isArray(this.selectedWidgets)
+							) {
+								this.isEnabled = this.selectedWidgets.includes(
+									this.widgetKey
+								);
+							} else if (this.activeWidgets) {
+								this.isEnabled =
+									typeof this.activeWidgets[
+										this.widgetKey
+									] !== 'undefined';
+							}
+						},
+						// Toggle Options section visibility
+						toggleOptions: function toggleOptions() {
+							this.showOptions = !this.showOptions;
+						},
+						// Handle toggle change for enable/disable widget
+						handleToggleChange: function handleToggleChange() {
+							if (this.isEnabled) {
+								// Widget is enabled - add to selectedWidgets
+								this.$emit('insert-widget', {
+									key: this.widgetKey,
+									selected_widgets: [this.widgetKey],
+								});
+							} else {
+								// Widget is disabled - emit trash to remove
+								this.$emit('trash');
 							}
 						},
 						// Update field data when field value changes
@@ -35141,6 +35218,16 @@
 														function toggleOptionWindow(
 															current_item_key
 														) {
+															console.log(
+																'toggleOptionWindow',
+																{
+																	current_item_key:
+																		current_item_key,
+																	active_option_widget_key:
+																		this
+																			.active_option_widget_key,
+																}
+															);
 															if (
 																this
 																	.active_option_widget_key ===
@@ -51402,6 +51489,10 @@
 																												_vm.readOnly,
 																											activeWidgets:
 																												_vm.activeWidgets,
+																											selectedWidgets:
+																												_vm.selectedWidgets,
+																											availableWidgets:
+																												_vm.availableWidgets,
 																										},
 																										on: {
 																											trash: function trash(
@@ -51412,6 +51503,15 @@
 																													widget
 																												);
 																											},
+																											'insert-widget':
+																												function insertWidget(
+																													$event
+																												) {
+																													return _vm.$emit(
+																														'insert-widget',
+																														$event
+																													);
+																												},
 																											edit: function edit(
 																												$event
 																											) {
@@ -51550,6 +51650,10 @@
 																										_vm.readOnly,
 																									activeWidgets:
 																										_vm.activeWidgets,
+																									selectedWidgets:
+																										_vm.selectedWidgets,
+																									availableWidgets:
+																										_vm.availableWidgets,
 																								},
 																								on: {
 																									trash: function trash(
@@ -51560,6 +51664,15 @@
 																											widget
 																										);
 																									},
+																									'insert-widget':
+																										function insertWidget(
+																											$event
+																										) {
+																											return _vm.$emit(
+																												'insert-widget',
+																												$event
+																											);
+																										},
 																									edit: function edit(
 																										$event
 																									) {
@@ -54825,69 +54938,314 @@
 												]
 											),
 											_vm._v(' '),
-											_c(
-												'span',
-												{
-													staticClass:
-														'cptm-placeholder-author-thumb-trash',
-													on: {
-														click: function click(
-															$event
-														) {
-															$event.stopPropagation();
-															return _vm.$emit(
-																'trash'
-															);
+											_vm.isAvailableOptions
+												? _c(
+														'span',
+														{
+															staticClass:
+																'cptm-placeholder-author-thumb-options',
+															on: {
+																click: function click(
+																	$event
+																) {
+																	$event.stopPropagation();
+																	return _vm.toggleOptions.apply(
+																		null,
+																		arguments
+																	);
+																},
+															},
 														},
-													},
-												},
-												[
-													_c('span', {
-														staticClass:
-															'las la-trash-alt',
-													}),
-												]
-											),
+														[
+															_c('span', {
+																staticClass:
+																	'las la-cog',
+															}),
+														]
+													)
+												: _c(
+														'span',
+														{
+															staticClass:
+																'cptm-placeholder-author-thumb-trash',
+															on: {
+																click: function click(
+																	$event
+																) {
+																	$event.stopPropagation();
+																	return _vm.$emit(
+																		'trash'
+																	);
+																},
+															},
+														},
+														[
+															_c('span', {
+																staticClass:
+																	'las la-trash-alt',
+															}),
+														]
+													),
 										]
 									),
 								]
 							),
 							_vm._v(' '),
-							_vm.isAvailableOptions
+							_vm.showOptions
 								? _c(
 										'div',
 										{
 											staticClass:
-												'cptm-placeholder-author-thumb-options',
+												'cptm-avatar-widget-options',
 										},
-										_vm._l(
-											_vm.optionFields,
-											function (field, field_key) {
-												return _c(
-													field.type + '-field',
-													_vm._b(
+										[
+											_c(
+												'div',
+												{
+													staticClass:
+														'cptm-avatar-widget-options-header cptm-widget-control-header',
+												},
+												[
+													_c(
+														'h3',
 														{
-															key: field_key,
-															tag: 'component',
+															staticClass:
+																'cptm-avatar-widget-options-title',
+														},
+														[_vm._v('Options')]
+													),
+													_vm._v(' '),
+													_c(
+														'span',
+														{
+															staticClass:
+																'cptm-avatar-widget-options-close',
 															on: {
-																update: function update(
+																click: function click(
 																	$event
 																) {
-																	return _vm.updateFieldData(
-																		$event,
-																		field_key
+																	$event.stopPropagation();
+																	return _vm.toggleOptions.apply(
+																		null,
+																		arguments
 																	);
 																},
 															},
 														},
-														'component',
-														field,
-														false
+														[
+															_c('span', {
+																staticClass:
+																	'las la-times',
+															}),
+														]
+													),
+												]
+											),
+											_vm._v(' '),
+											_c(
+												'div',
+												{
+													staticClass:
+														'cptm-avatar-widget-setting-item',
+												},
+												[
+													_c(
+														'label',
+														{
+															staticClass:
+																'cptm-avatar-widget-setting-label',
+														},
+														[_vm._v('Avatar')]
+													),
+													_vm._v(' '),
+													_c(
+														'div',
+														{
+															staticClass:
+																'cptm-toggle-switch',
+														},
+														[
+															_c('input', {
+																directives: [
+																	{
+																		name: 'model',
+																		rawName:
+																			'v-model',
+																		value: _vm.isEnabled,
+																		expression:
+																			'isEnabled',
+																	},
+																],
+																staticClass:
+																	'cptm-toggle-input',
+																attrs: {
+																	type: 'checkbox',
+																	id: 'avatar-toggle-'.concat(
+																		_vm.widgetKey
+																	),
+																},
+																domProps: {
+																	checked:
+																		Array.isArray(
+																			_vm.isEnabled
+																		)
+																			? _vm._i(
+																					_vm.isEnabled,
+																					null
+																				) >
+																				-1
+																			: _vm.isEnabled,
+																},
+																on: {
+																	change: [
+																		function (
+																			$event
+																		) {
+																			var $$a =
+																					_vm.isEnabled,
+																				$$el =
+																					$event.target,
+																				$$c =
+																					$$el.checked
+																						? true
+																						: false;
+																			if (
+																				Array.isArray(
+																					$$a
+																				)
+																			) {
+																				var $$v =
+																						null,
+																					$$i =
+																						_vm._i(
+																							$$a,
+																							$$v
+																						);
+																				if (
+																					$$el.checked
+																				) {
+																					$$i <
+																						0 &&
+																						(_vm.isEnabled =
+																							$$a.concat(
+																								[
+																									$$v,
+																								]
+																							));
+																				} else {
+																					$$i >
+																						-1 &&
+																						(_vm.isEnabled =
+																							$$a
+																								.slice(
+																									0,
+																									$$i
+																								)
+																								.concat(
+																									$$a.slice(
+																										$$i +
+																											1
+																									)
+																								));
+																				}
+																			} else {
+																				_vm.isEnabled =
+																					$$c;
+																			}
+																		},
+																		_vm.handleToggleChange,
+																	],
+																},
+															}),
+															_vm._v(' '),
+															_c('label', {
+																staticClass:
+																	'cptm-toggle-label',
+																attrs: {
+																	for: 'avatar-toggle-'.concat(
+																		_vm.widgetKey
+																	),
+																},
+															}),
+														]
+													),
+												]
+											),
+											_vm._v(' '),
+											_vm.isAvailableOptions &&
+											_vm.hasPositionField
+												? _c(
+														'div',
+														{
+															staticClass:
+																'cptm-avatar-widget-setting-item',
+														},
+														[
+															_c(
+																'label',
+																{
+																	staticClass:
+																		'cptm-avatar-widget-setting-label',
+																},
+																[
+																	_vm._v(
+																		'Position'
+																	),
+																]
+															),
+															_vm._v(' '),
+															_c(
+																'div',
+																{
+																	staticClass:
+																		'cptm-position-options',
+																},
+																_vm._l(
+																	_vm.optionFields,
+																	function (
+																		field,
+																		field_key
+																	) {
+																		return field_key ===
+																			'position' ||
+																			field_key ===
+																				'align' ||
+																			field.label ===
+																				'Position' ||
+																			field.label ===
+																				'Align'
+																			? _c(
+																					field.type +
+																						'-field',
+																					_vm._b(
+																						{
+																							key: field_key,
+																							tag: 'component',
+																							on: {
+																								update: function update(
+																									$event
+																								) {
+																									return _vm.updateFieldData(
+																										$event,
+																										field_key
+																									);
+																								},
+																							},
+																						},
+																						'component',
+																						field,
+																						false
+																					)
+																				)
+																			: _vm._e();
+																	}
+																),
+																1
+															),
+														]
 													)
-												);
-											}
-										),
-										1
+												: _vm._e(),
+										]
 									)
 								: _vm._e(),
 						]

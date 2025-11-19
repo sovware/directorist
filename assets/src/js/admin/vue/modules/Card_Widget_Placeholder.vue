@@ -155,7 +155,10 @@
                 :disabled="readOnly && !isWidgetSelected(widget)"
                 :readOnly="readOnly"
                 :activeWidgets="activeWidgets"
+                :selectedWidgets="selectedWidgets"
+                :availableWidgets="availableWidgets"
                 @trash="$emit('trash-widget', widget)"
+                @insert-widget="$emit('insert-widget', $event)"
                 @edit="editWidget($event)"
                 @update="handleActiveWidgetUpdate"
               />
@@ -201,7 +204,10 @@
               :disabled="readOnly && !isWidgetSelected(widget)"
               :readOnly="readOnly"
               :activeWidgets="activeWidgets"
+              :selectedWidgets="selectedWidgets"
+              :availableWidgets="availableWidgets"
               @trash="$emit('trash-widget', widget)"
+              @insert-widget="$emit('insert-widget', $event)"
               @edit="editWidget($event)"
               @update="handleActiveWidgetUpdate"
             />
@@ -468,7 +474,7 @@ export default {
         this.activeWidgets[this.acceptedWidgets[0]] = {
           ...this.availableWidgets[this.acceptedWidgets[0]],
         };
-        
+
         return;
       }
 

@@ -291,8 +291,6 @@ export default {
         updatedWidget.options.fields[field_key].value = value;
       }
 
-      console.log('updateFieldData', {value, field_key, updatedWidget});
-
       // Emit the updated widget data to parent with correct structure
       this.$emit("update", {
         widgetKey: this.widgetKey,

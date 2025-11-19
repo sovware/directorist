@@ -672,55 +672,33 @@ export default {
       return true;
     },
 
-    // Get Avatar Placeholder Class
+    /**
+     * Get Avatar Placeholder Class
+     * Computes CSS classes for avatar placeholder based on alignment option
+     * Uses reactive trigger to ensure recalculation when widget position changes
+     */
     getAvatarPlaceholderClass() {
-      let accepted_align_options = ["right", "center", "left"];
-      let align_option = "";
-      let active_widgets = JSON.parse(JSON.stringify(this.active_widgets));
+      // Create reactive dependencies for selectedWidgets and update trigger
+      const selectedWidgets =
+        this.local_layout?.thumbnail?.avatar?.selectedWidgets;
+      const _ = this.avatarPlaceholderUpdateTrigger;
 
-      let has_option = false;
+      // Access alignment value through explicit property chain for reactivity
+      const alignValue =
+        this.active_widgets?.user_avatar?.options?.fields?.align?.value;
 
-      if (this.isObject(active_widgets)) {
-        has_option = true;
-      }
-      if (has_option && !active_widgets.user_avatar) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options.fields) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options.fields.align) {
-        has_option = false;
-      }
-
-      if (
-        has_option &&
-        !(
-          typeof active_widgets.user_avatar.options.fields.align.value ===
-          "string"
-        )
-      ) {
-        has_option = false;
-      }
-
-      if (has_option) {
-        align_option = active_widgets.user_avatar.options.fields.align.value;
-      }
-
-      if (!accepted_align_options.includes(align_option)) {
-        align_option = "center";
-      }
-
-      console.log('getAvatarPlaceholderClass', {align_option});
+      const accepted_align_options = ["right", "center", "left"];
+      const align_option =
+        typeof alignValue === "string" &&
+        accepted_align_options.includes(alignValue)
+          ? alignValue
+          : "left";
 
       return {
         "cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20": true,
-        "cptm-text-right": "right" === align_option ? true : false,
-        "cptm-text-center": "center" === align_option ? true : false,
-        "cptm-text-left": "left" === align_option ? true : false,
+        "cptm-text-right": align_option === "right",
+        "cptm-text-center": align_option === "center",
+        "cptm-text-left": align_option === "left",
       };
     },
 
@@ -761,6 +739,10 @@ export default {
 
       // Active Widgets
       active_widgets: {},
+
+      // Reactive trigger to force getAvatarPlaceholderClass recalculation
+      // Incremented when user_avatar widget is updated to ensure computed property recalculates
+      avatarPlaceholderUpdateTrigger: 0,
 
       // Layout
       local_layout: {
@@ -1173,10 +1155,19 @@ export default {
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
     },
 
-    // Handle Update Selected Widgets
+    /**
+     * Handle Active Widget Update
+     * Updates widget data in active_widgets and available_widgets
+     * For user_avatar widget, increments reactive trigger to force getAvatarPlaceholderClass recalculation
+     */
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
+
+      // Force getAvatarPlaceholderClass to recalculate when user_avatar position changes
+      if (widgetKey === "user_avatar") {
+        this.avatarPlaceholderUpdateTrigger += 1;
+      }
     },
 
     // Activate Widget Options

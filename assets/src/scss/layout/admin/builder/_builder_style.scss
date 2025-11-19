@@ -4193,6 +4193,9 @@ input[type="radio"].cptm-radio {
 					.cptm-input-toggle-wrap {
 						flex-direction: row;
 						justify-content: space-between;
+						.cptm-input-toggle {
+							padding: 0;
+						}
 					}
 					#avatar-toggle-user_avatar {
 						display: none;

@@ -29096,11 +29096,6 @@
 								updatedWidget.options.fields[field_key].value =
 									value;
 							}
-							console.log('updateFieldData', {
-								value: value,
-								field_key: field_key,
-								updatedWidget: updatedWidget,
-							});
 
 							// Emit the updated widget data to parent with correct structure
 							this.$emit('update', {
@@ -34424,96 +34419,84 @@
 								}
 								return true;
 							},
-						// Get Avatar Placeholder Class
+						/**
+						 * Get Avatar Placeholder Class
+						 * Computes CSS classes for avatar placeholder based on alignment option
+						 * Uses reactive trigger to ensure recalculation when widget position changes
+						 */
 						getAvatarPlaceholderClass:
 							function getAvatarPlaceholderClass() {
+								var _this$local_layout, _this$active_widgets;
+								// Create reactive dependencies for selectedWidgets and update trigger
+								var selectedWidgets =
+									(_this$local_layout = this.local_layout) ===
+										null ||
+									_this$local_layout === void 0 ||
+									(_this$local_layout =
+										_this$local_layout.thumbnail) ===
+										null ||
+									_this$local_layout === void 0 ||
+									(_this$local_layout =
+										_this$local_layout.avatar) === null ||
+									_this$local_layout === void 0
+										? void 0
+										: _this$local_layout.selectedWidgets;
+								var _ = this.avatarPlaceholderUpdateTrigger;
+
+								// Access alignment value through explicit property chain for reactivity
+								var alignValue =
+									(_this$active_widgets =
+										this.active_widgets) === null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.user_avatar) ===
+										null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.options) ===
+										null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.fields) === null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.align) === null ||
+									_this$active_widgets === void 0
+										? void 0
+										: _this$active_widgets.value;
 								var accepted_align_options = [
 									'right',
 									'center',
 									'left',
 								];
-								var align_option = '';
-								var active_widgets = JSON.parse(
-									JSON.stringify(this.active_widgets)
-								);
-								var has_option = false;
-								if (this.isObject(active_widgets)) {
-									has_option = true;
-								}
-								if (has_option && !active_widgets.user_avatar) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!active_widgets.user_avatar.options
-								) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!active_widgets.user_avatar.options.fields
-								) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!active_widgets.user_avatar.options.fields
-										.align
-								) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!(
-										typeof active_widgets.user_avatar
-											.options.fields.align.value ===
-										'string'
-									)
-								) {
-									has_option = false;
-								}
-								if (has_option) {
-									align_option =
-										active_widgets.user_avatar.options
-											.fields.align.value;
-								}
-								if (
-									!accepted_align_options.includes(
-										align_option
-									)
-								) {
-									align_option = 'center';
-								}
-								console.log('getAvatarPlaceholderClass', {
-									align_option: align_option,
-								});
+								var align_option =
+									typeof alignValue === 'string' &&
+									accepted_align_options.includes(alignValue)
+										? alignValue
+										: 'left';
 								return {
 									'cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20': true,
-									'cptm-text-right':
-										'right' === align_option ? true : false,
+									'cptm-text-right': align_option === 'right',
 									'cptm-text-center':
-										'center' === align_option
-											? true
-											: false,
-									'cptm-text-left':
-										'left' === align_option ? true : false,
+										align_option === 'center',
+									'cptm-text-left': align_option === 'left',
 								};
 							},
 						// Check if avatar has selected widgets
 						hasAvatarWidget: function hasAvatarWidget() {
-							var _this$local_layout;
+							var _this$local_layout2;
 							return (
-								((_this$local_layout = this.local_layout) ===
+								((_this$local_layout2 = this.local_layout) ===
 									null ||
-								_this$local_layout === void 0 ||
-								(_this$local_layout =
-									_this$local_layout.thumbnail) === null ||
-								_this$local_layout === void 0 ||
-								(_this$local_layout =
-									_this$local_layout.avatar) === null ||
-								_this$local_layout === void 0
+								_this$local_layout2 === void 0 ||
+								(_this$local_layout2 =
+									_this$local_layout2.thumbnail) === null ||
+								_this$local_layout2 === void 0 ||
+								(_this$local_layout2 =
+									_this$local_layout2.avatar) === null ||
+								_this$local_layout2 === void 0
 									? void 0
-									: _this$local_layout.selectedWidgets) &&
+									: _this$local_layout2.selectedWidgets) &&
 								Array.isArray(
 									this.local_layout.thumbnail.avatar
 										.selectedWidgets
@@ -34554,6 +34537,9 @@
 							available_widgets: {},
 							// Active Widgets
 							active_widgets: {},
+							// Reactive trigger to force getAvatarPlaceholderClass recalculation
+							// Incremented when user_avatar widget is updated to ensure computed property recalculates
+							avatarPlaceholderUpdateTrigger: 0,
 							// Layout
 							local_layout: {
 								thumbnail: {
@@ -35428,6 +35414,11 @@
 									widgetKey,
 									updatedWidget
 								);
+
+								// Force getAvatarPlaceholderClass to recalculate when user_avatar position changes
+								if (widgetKey === 'user_avatar') {
+									this.avatarPlaceholderUpdateTrigger += 1;
+								}
 							}
 						),
 						'toggleActivateWidgetOptions',

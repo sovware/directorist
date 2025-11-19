@@ -714,6 +714,8 @@ export default {
         align_option = "center";
       }
 
+      console.log('getAvatarPlaceholderClass', {align_option});
+
       return {
         "cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20": true,
         "cptm-text-right": "right" === align_option ? true : false,
@@ -1073,7 +1075,6 @@ export default {
 
     // Toggle Option Window
     toggleOptionWindow(current_item_key) {
-      console.log("toggleOptionWindow", {current_item_key, active_option_widget_key: this.active_option_widget_key});
       if (this.active_option_widget_key === current_item_key) {
         this.active_option_widget_key = "";
         return;

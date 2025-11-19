@@ -18,71 +18,95 @@
             fill="#141921"
           />
         </svg>
-        <span
-          class="cptm-placeholder-author-thumb-options"
+        <a
+          href="#"
+          class="cptm-widget-action-link cptm-placeholder-author-thumb-options"
           @click.stop="toggleOptions"
           v-if="isAvailableOptions"
         >
           <span class="las la-cog"></span>
-        </span>
-        <span
+        </a>
+        <a
+          href="#"
           class="cptm-placeholder-author-thumb-trash"
           @click.stop="$emit('trash')"
           v-else
         >
           <span class="las la-trash-alt"></span>
-        </span>
+        </a>
       </div>
     </div>
 
     <!-- Collapsible Options Section -->
-    <div class="cptm-avatar-widget-options" v-if="showOptions">
-      <div class="cptm-avatar-widget-options-header cptm-widget-control-header">
-        <h3 class="cptm-avatar-widget-options-title">Options</h3>
-        <span 
-          class="cptm-avatar-widget-options-close" 
-          @click.stop="toggleOptions">
-          <span class="las la-times"></span>
-        </span>
-      </div>
-      <!-- Avatar Toggle -->
-      <div class="cptm-avatar-widget-setting-item">
-        <label class="cptm-avatar-widget-setting-label">Avatar</label>
-        <div class="cptm-toggle-switch">
-          <input
-            type="checkbox"
-            :id="`avatar-toggle-${widgetKey}`"
-            v-model="isEnabled"
-            @change="handleToggleChange"
-            class="cptm-toggle-input"
-          />
-          <label
-            :for="`avatar-toggle-${widgetKey}`"
-            class="cptm-toggle-label"
-          ></label>
-        </div>
-      </div>
-
-      <!-- Position Options -->
+    <div class="cptm-widget-action-modal-container" v-if="showOptions">
       <div
-        class="cptm-avatar-widget-setting-item"
-        v-if="isAvailableOptions && hasPositionField"
+        class="cptm-option-card cptm-animation-slide-up"
+        :class="{ active: showOptions }"
       >
-        <label class="cptm-avatar-widget-setting-label">Position</label>
-        <div class="cptm-position-options">
-          <component
-            v-for="(field, field_key) in optionFields"
-            :key="field_key"
-            :is="field.type + '-field'"
-            v-bind="field"
-            @update="updateFieldData($event, field_key)"
-            v-if="
-              field_key === 'position' ||
-              field_key === 'align' ||
-              field.label === 'Position' ||
-              field.label === 'Align'
-            "
-          />
+        <div class="cptm-option-card-header">
+          <div class="cptm-option-card-header-title-section">
+            <h3 class="cptm-option-card-header-title">Edit Element</h3>
+            <div class="cptm-header-action-area">
+              <a
+                href="#"
+                class="cptm-header-action-link cptm-header-action-close"
+                @click.stop="toggleOptions"
+              >
+                <span class="fa fa-times"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cptm-option-card-body">
+          <!-- Avatar Toggle -->
+          <div class="cptm-input-toggle-wrap">
+            <div class="cptm-input-toggle-content">
+              <label>
+                <span>Avatar</span>
+              </label>
+            </div>
+            <div class="directorist_vertical-align-m cptm-input-toggle-btn">
+              <div class="directorist_item">
+                <label
+                  class="cptm-input-toggle"
+                  :for="`avatar-toggle-${widgetKey}`"
+                  :class="{ active: isEnabled }"
+                ></label>
+                <input
+                  type="checkbox"
+                  :id="`avatar-toggle-${widgetKey}`"
+                  :name="`avatar-toggle-${widgetKey}`"
+                  class="cptm-toggle-input"
+                  @change="handleToggleChange"
+                  v-model="isEnabled"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Position Options -->
+          <div
+            class="cptm-option-card-body-item"
+            v-if="isAvailableOptions && hasPositionField"
+          >
+            <label class="cptm-option-card-body-item-label">Position</label>
+            <div class="cptm-option-card-body-item-options">
+              <component
+                v-for="(field, field_key) in optionFields"
+                :key="field_key"
+                :is="field.type + '-field'"
+                v-bind="field"
+                @update="updateFieldData($event, field_key)"
+                v-if="
+                  field_key === 'position' ||
+                  field_key === 'align' ||
+                  field.label === 'Position' ||
+                  field.label === 'Align'
+                "
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -266,6 +290,8 @@ export default {
         }
         updatedWidget.options.fields[field_key].value = value;
       }
+
+      console.log('updateFieldData', {value, field_key, updatedWidget});
 
       // Emit the updated widget data to parent with correct structure
       this.$emit("update", {

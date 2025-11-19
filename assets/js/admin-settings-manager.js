@@ -29096,6 +29096,11 @@
 								updatedWidget.options.fields[field_key].value =
 									value;
 							}
+							console.log('updateFieldData', {
+								value: value,
+								field_key: field_key,
+								updatedWidget: updatedWidget,
+							});
 
 							// Emit the updated widget data to parent with correct structure
 							this.$emit('update', {
@@ -34479,6 +34484,9 @@
 								) {
 									align_option = 'center';
 								}
+								console.log('getAvatarPlaceholderClass', {
+									align_option: align_option,
+								});
 								return {
 									'cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20': true,
 									'cptm-text-right':
@@ -35218,16 +35226,6 @@
 														function toggleOptionWindow(
 															current_item_key
 														) {
-															console.log(
-																'toggleOptionWindow',
-																{
-																	current_item_key:
-																		current_item_key,
-																	active_option_widget_key:
-																		this
-																			.active_option_widget_key,
-																}
-															);
 															if (
 																this
 																	.active_option_widget_key ===
@@ -54940,10 +54938,13 @@
 											_vm._v(' '),
 											_vm.isAvailableOptions
 												? _c(
-														'span',
+														'a',
 														{
 															staticClass:
-																'cptm-placeholder-author-thumb-options',
+																'cptm-widget-action-link cptm-placeholder-author-thumb-options',
+															attrs: {
+																href: '#',
+															},
 															on: {
 																click: function click(
 																	$event
@@ -54964,10 +54965,13 @@
 														]
 													)
 												: _c(
-														'span',
+														'a',
 														{
 															staticClass:
 																'cptm-placeholder-author-thumb-trash',
+															attrs: {
+																href: '#',
+															},
 															on: {
 																click: function click(
 																	$event
@@ -54996,262 +55000,343 @@
 										'div',
 										{
 											staticClass:
-												'cptm-avatar-widget-options',
+												'cptm-widget-action-modal-container',
 										},
 										[
 											_c(
 												'div',
 												{
 													staticClass:
-														'cptm-avatar-widget-options-header cptm-widget-control-header',
+														'cptm-option-card cptm-animation-slide-up',
+													class: {
+														active: _vm.showOptions,
+													},
 												},
 												[
-													_c(
-														'h3',
-														{
-															staticClass:
-																'cptm-avatar-widget-options-title',
-														},
-														[_vm._v('Options')]
-													),
-													_vm._v(' '),
-													_c(
-														'span',
-														{
-															staticClass:
-																'cptm-avatar-widget-options-close',
-															on: {
-																click: function click(
-																	$event
-																) {
-																	$event.stopPropagation();
-																	return _vm.toggleOptions.apply(
-																		null,
-																		arguments
-																	);
-																},
-															},
-														},
-														[
-															_c('span', {
-																staticClass:
-																	'las la-times',
-															}),
-														]
-													),
-												]
-											),
-											_vm._v(' '),
-											_c(
-												'div',
-												{
-													staticClass:
-														'cptm-avatar-widget-setting-item',
-												},
-												[
-													_c(
-														'label',
-														{
-															staticClass:
-																'cptm-avatar-widget-setting-label',
-														},
-														[_vm._v('Avatar')]
-													),
-													_vm._v(' '),
 													_c(
 														'div',
 														{
 															staticClass:
-																'cptm-toggle-switch',
+																'cptm-option-card-header',
 														},
 														[
-															_c('input', {
-																directives: [
-																	{
-																		name: 'model',
-																		rawName:
-																			'v-model',
-																		value: _vm.isEnabled,
-																		expression:
-																			'isEnabled',
-																	},
-																],
-																staticClass:
-																	'cptm-toggle-input',
-																attrs: {
-																	type: 'checkbox',
-																	id: 'avatar-toggle-'.concat(
-																		_vm.widgetKey
-																	),
-																},
-																domProps: {
-																	checked:
-																		Array.isArray(
-																			_vm.isEnabled
-																		)
-																			? _vm._i(
-																					_vm.isEnabled,
-																					null
-																				) >
-																				-1
-																			: _vm.isEnabled,
-																},
-																on: {
-																	change: [
-																		function (
-																			$event
-																		) {
-																			var $$a =
-																					_vm.isEnabled,
-																				$$el =
-																					$event.target,
-																				$$c =
-																					$$el.checked
-																						? true
-																						: false;
-																			if (
-																				Array.isArray(
-																					$$a
-																				)
-																			) {
-																				var $$v =
-																						null,
-																					$$i =
-																						_vm._i(
-																							$$a,
-																							$$v
-																						);
-																				if (
-																					$$el.checked
-																				) {
-																					$$i <
-																						0 &&
-																						(_vm.isEnabled =
-																							$$a.concat(
-																								[
-																									$$v,
-																								]
-																							));
-																				} else {
-																					$$i >
-																						-1 &&
-																						(_vm.isEnabled =
-																							$$a
-																								.slice(
-																									0,
-																									$$i
-																								)
-																								.concat(
-																									$$a.slice(
-																										$$i +
-																											1
-																									)
-																								));
-																				}
-																			} else {
-																				_vm.isEnabled =
-																					$$c;
-																			}
-																		},
-																		_vm.handleToggleChange,
-																	],
-																},
-															}),
-															_vm._v(' '),
-															_c('label', {
-																staticClass:
-																	'cptm-toggle-label',
-																attrs: {
-																	for: 'avatar-toggle-'.concat(
-																		_vm.widgetKey
-																	),
-																},
-															}),
-														]
-													),
-												]
-											),
-											_vm._v(' '),
-											_vm.isAvailableOptions &&
-											_vm.hasPositionField
-												? _c(
-														'div',
-														{
-															staticClass:
-																'cptm-avatar-widget-setting-item',
-														},
-														[
-															_c(
-																'label',
-																{
-																	staticClass:
-																		'cptm-avatar-widget-setting-label',
-																},
-																[
-																	_vm._v(
-																		'Position'
-																	),
-																]
-															),
-															_vm._v(' '),
 															_c(
 																'div',
 																{
 																	staticClass:
-																		'cptm-position-options',
+																		'cptm-option-card-header-title-section',
 																},
-																_vm._l(
-																	_vm.optionFields,
-																	function (
-																		field,
-																		field_key
-																	) {
-																		return field_key ===
-																			'position' ||
-																			field_key ===
-																				'align' ||
-																			field.label ===
-																				'Position' ||
-																			field.label ===
-																				'Align'
-																			? _c(
-																					field.type +
-																						'-field',
-																					_vm._b(
-																						{
-																							key: field_key,
-																							tag: 'component',
-																							on: {
-																								update: function update(
-																									$event
-																								) {
-																									return _vm.updateFieldData(
-																										$event,
-																										field_key
-																									);
-																								},
-																							},
+																[
+																	_c(
+																		'h3',
+																		{
+																			staticClass:
+																				'cptm-option-card-header-title',
+																		},
+																		[
+																			_vm._v(
+																				'Edit Element'
+																			),
+																		]
+																	),
+																	_vm._v(' '),
+																	_c(
+																		'div',
+																		{
+																			staticClass:
+																				'cptm-header-action-area',
+																		},
+																		[
+																			_c(
+																				'a',
+																				{
+																					staticClass:
+																						'cptm-header-action-link cptm-header-action-close',
+																					attrs: {
+																						href: '#',
+																					},
+																					on: {
+																						click: function click(
+																							$event
+																						) {
+																							$event.stopPropagation();
+																							return _vm.toggleOptions.apply(
+																								null,
+																								arguments
+																							);
 																						},
-																						'component',
-																						field,
-																						false
-																					)
-																				)
-																			: _vm._e();
-																	}
-																),
-																1
+																					},
+																				},
+																				[
+																					_c(
+																						'span',
+																						{
+																							staticClass:
+																								'fa fa-times',
+																						}
+																					),
+																				]
+																			),
+																		]
+																	),
+																]
 															),
 														]
-													)
-												: _vm._e(),
+													),
+													_vm._v(' '),
+													_c(
+														'div',
+														{
+															staticClass:
+																'cptm-option-card-body',
+														},
+														[
+															_c(
+																'div',
+																{
+																	staticClass:
+																		'cptm-input-toggle-wrap',
+																},
+																[
+																	_vm._m(0),
+																	_vm._v(' '),
+																	_c(
+																		'div',
+																		{
+																			staticClass:
+																				'directorist_vertical-align-m cptm-input-toggle-btn',
+																		},
+																		[
+																			_c(
+																				'div',
+																				{
+																					staticClass:
+																						'directorist_item',
+																				},
+																				[
+																					_c(
+																						'label',
+																						{
+																							staticClass:
+																								'cptm-input-toggle',
+																							class: {
+																								active: _vm.isEnabled,
+																							},
+																							attrs: {
+																								for: 'avatar-toggle-'.concat(
+																									_vm.widgetKey
+																								),
+																							},
+																						}
+																					),
+																					_vm._v(
+																						' '
+																					),
+																					_c(
+																						'input',
+																						{
+																							directives:
+																								[
+																									{
+																										name: 'model',
+																										rawName:
+																											'v-model',
+																										value: _vm.isEnabled,
+																										expression:
+																											'isEnabled',
+																									},
+																								],
+																							staticClass:
+																								'cptm-toggle-input',
+																							attrs: {
+																								type: 'checkbox',
+																								id: 'avatar-toggle-'.concat(
+																									_vm.widgetKey
+																								),
+																								name: 'avatar-toggle-'.concat(
+																									_vm.widgetKey
+																								),
+																							},
+																							domProps:
+																								{
+																									checked:
+																										Array.isArray(
+																											_vm.isEnabled
+																										)
+																											? _vm._i(
+																													_vm.isEnabled,
+																													null
+																												) >
+																												-1
+																											: _vm.isEnabled,
+																								},
+																							on: {
+																								change: [
+																									function (
+																										$event
+																									) {
+																										var $$a =
+																												_vm.isEnabled,
+																											$$el =
+																												$event.target,
+																											$$c =
+																												$$el.checked
+																													? true
+																													: false;
+																										if (
+																											Array.isArray(
+																												$$a
+																											)
+																										) {
+																											var $$v =
+																													null,
+																												$$i =
+																													_vm._i(
+																														$$a,
+																														$$v
+																													);
+																											if (
+																												$$el.checked
+																											) {
+																												$$i <
+																													0 &&
+																													(_vm.isEnabled =
+																														$$a.concat(
+																															[
+																																$$v,
+																															]
+																														));
+																											} else {
+																												$$i >
+																													-1 &&
+																													(_vm.isEnabled =
+																														$$a
+																															.slice(
+																																0,
+																																$$i
+																															)
+																															.concat(
+																																$$a.slice(
+																																	$$i +
+																																		1
+																																)
+																															));
+																											}
+																										} else {
+																											_vm.isEnabled =
+																												$$c;
+																										}
+																									},
+																									_vm.handleToggleChange,
+																								],
+																							},
+																						}
+																					),
+																				]
+																			),
+																		]
+																	),
+																]
+															),
+															_vm._v(' '),
+															_vm.isAvailableOptions &&
+															_vm.hasPositionField
+																? _c(
+																		'div',
+																		{
+																			staticClass:
+																				'cptm-option-card-body-item',
+																		},
+																		[
+																			_c(
+																				'label',
+																				{
+																					staticClass:
+																						'cptm-option-card-body-item-label',
+																				},
+																				[
+																					_vm._v(
+																						'Position'
+																					),
+																				]
+																			),
+																			_vm._v(
+																				' '
+																			),
+																			_c(
+																				'div',
+																				{
+																					staticClass:
+																						'cptm-option-card-body-item-options',
+																				},
+																				_vm._l(
+																					_vm.optionFields,
+																					function (
+																						field,
+																						field_key
+																					) {
+																						return field_key ===
+																							'position' ||
+																							field_key ===
+																								'align' ||
+																							field.label ===
+																								'Position' ||
+																							field.label ===
+																								'Align'
+																							? _c(
+																									field.type +
+																										'-field',
+																									_vm._b(
+																										{
+																											key: field_key,
+																											tag: 'component',
+																											on: {
+																												update: function update(
+																													$event
+																												) {
+																													return _vm.updateFieldData(
+																														$event,
+																														field_key
+																													);
+																												},
+																											},
+																										},
+																										'component',
+																										field,
+																										false
+																									)
+																								)
+																							: _vm._e();
+																					}
+																				),
+																				1
+																			),
+																		]
+																	)
+																: _vm._e(),
+														]
+													),
+												]
+											),
 										]
 									)
 								: _vm._e(),
 						]
 					);
 				};
-				var staticRenderFns = [];
+				var staticRenderFns = [
+					function () {
+						var _vm = this,
+							_c = _vm._self._c;
+						return _c(
+							'div',
+							{
+								staticClass: 'cptm-input-toggle-content',
+							},
+							[_c('label', [_c('span', [_vm._v('Avatar')])])]
+						);
+					},
+				];
 				render._withStripped = true;
 
 				/***/

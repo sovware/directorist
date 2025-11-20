@@ -1550,9 +1550,9 @@ class Builder_Data {
                                 'label'   => __( 'Align', 'directorist' ),
                                 'value'   => 'left',
                                 'options' => [
-                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'value' => 'right'],
-                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'value' => 'center'],
-                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'value' => 'left'],
+                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'icon' => 'las la-align-right', 'value' => 'right'],
+                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'icon' => 'las la-align-center', 'value' => 'center'],
+                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'icon' => 'las la-align-left', 'value' => 'left'],
                                 ],
                             ],
                         ],

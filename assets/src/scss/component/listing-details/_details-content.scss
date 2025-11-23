@@ -287,6 +287,16 @@
 			font-size: 0;
 		}
 	}
+	.directorist-action-report {
+		@media screen and (max-width: 575px) {
+			font-size: 0;
+		}
+	}
+	.directorist-action-bookmark {
+		@media screen and (max-width: 575px) {
+			font-size: 0;
+		}
+	}
 	.directorist-social-share-links {
 		position: absolute;
 		transition: all 0.2s ease-in-out;

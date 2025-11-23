@@ -22010,6 +22010,8 @@ input.directorist-toggle-input:checked
 	top: calc(100% + 5px);
 }
 @media screen and (max-width: 575px) {
+	.directorist-single-listing-quick-action .directorist-action-bookmark,
+	.directorist-single-listing-quick-action .directorist-action-report,
 	.directorist-single-listing-quick-action .directorist-social-share {
 		font-size: 0;
 	}
@@ -26078,7 +26080,6 @@ input.directorist-toggle-input:checked
 .directorist-tab__nav__link .directorist_menuItem-text span.fa {
 	pointer-events: none;
 	display: inline-block;
-	margin-right: 10px;
 }
 .directorist-tab__nav__link.directorist-tab__nav__active,
 .directorist-tab__nav__link:focus {

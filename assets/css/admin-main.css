@@ -19234,6 +19234,9 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 		font-size: 13px;
 	}
 }
+.cptm-form-builder-group-title .cptm-form-builder-group-title-label {
+	cursor: text;
+}
 
 .cptm-form-builder-group-title-icon {
 	display: -webkit-box;
@@ -29101,6 +29104,9 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 	.cptm-form-builder-group-title {
 		font-size: 13px;
 	}
+}
+.cptm-form-builder-group-title .cptm-form-builder-group-title-label {
+	cursor: text;
 }
 
 .cptm-form-builder-group-title-icon {
@@ -39262,6 +39268,9 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 	.cptm-form-builder-group-title {
 		font-size: 13px;
 	}
+}
+.cptm-form-builder-group-title .cptm-form-builder-group-title-label {
+	cursor: text;
 }
 
 .cptm-form-builder-group-title-icon {

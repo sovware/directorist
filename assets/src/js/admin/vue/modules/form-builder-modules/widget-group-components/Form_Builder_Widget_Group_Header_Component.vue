@@ -1,7 +1,7 @@
 <template>
   <div
     class="cptm-form-builder-group-header-section"
-    :class="[widgetsExpanded ? 'expanded' : '', { 'locked': groupData.lock }]"
+    :class="[widgetsExpanded ? 'expanded' : '', { locked: groupData.lock }]"
   >
     <!-- Group Header Top -->
     <draggable-list-item
@@ -43,13 +43,45 @@
               ></span>
               <span aria-hidden="true" :class="groupData.icon" v-else></span>
             </span>
-            <span class="cptm-form-builder-group-title-label">
+
+            <!-- 
+              EDITABLE GROUP LABEL FEATURE
+              =============================
+              This section implements inline editing for group labels.
+              - Click on the label to enter edit mode
+              - The label is replaced with an input field
+              - Press Enter or blur to save changes
+              - Press Escape to cancel editing
+              - Search groups (Search Bar, Search Filter) are not editable
+            -->
+
+            <!-- Display Mode: Show the label as clickable text -->
+            <span
+              class="cptm-form-builder-group-title-label"
+              @click="startEditingLabel"
+              v-if="!isEditingLabel"
+            >
+              <!-- Show hardcoded label for search groups (not editable) -->
               <span
                 v-html="getSearchLabelContent()"
                 v-if="getSearchGroup()"
               ></span>
+              <!-- Show editable label for regular groups -->
               <span v-html="groupData.label" v-else></span>
             </span>
+
+            <!-- Edit Mode: Show input field for editing -->
+            <input
+              v-else
+              type="text"
+              class="cptm-form-builder-group-title-label-input"
+              v-model="editedLabelValue"
+              @blur="saveLabel"
+              @keyup.enter="saveLabel"
+              @keyup.esc="cancelEditingLabel"
+              ref="labelInput"
+              v-focus
+            />
           </h3>
 
           <div class="cptm-form-builder-header-actions">
@@ -64,7 +96,7 @@
             <a
               href="#"
               class="cptm-form-builder-header-action-link"
-              @click.prevent="handleGroupDelete" 
+              @click.prevent="handleGroupDelete"
               v-if="!groupData.lock"
             >
               <span aria-hidden="true" class="uil uil-trash-alt"></span>
@@ -94,6 +126,7 @@
           </a>
         </div>
         <field-list-component
+          :key="fieldListComponentKey"
           :field-list="finalGroupFields"
           :value="groupData"
           @update="$emit('update-group-field', $event)"
@@ -188,6 +221,28 @@ export default {
 
       return state;
     },
+
+    /**
+     * Generate a unique key for field-list-component based on group data
+     * This ensures the component re-renders when the label changes,
+     * updating the input field with the new value.
+     *
+     * By including the label in the key, Vue will treat it as a new component
+     * instance when the label changes, forcing a fresh render with updated values.
+     *
+     * @returns {string} Unique key combining groupKey and label
+     */
+    fieldListComponentKey() {
+      // Include label in the key so component re-renders when label changes
+      // This ensures the "Section Name" input field shows the updated label value
+      const label = this.getSearchGroup()
+        ? this.getSearchLabelContent()
+        : this.groupData?.label || "";
+
+      // Use groupKey and label to create a unique key
+      // When label changes, the key changes, forcing Vue to re-render the component
+      return `group_${this.groupKey}_label_${label}`;
+    },
   },
 
   data() {
@@ -197,6 +252,9 @@ export default {
       groupExpandedDropdown: false,
       showConfirmationModal: false,
       groupName: "",
+      // Editable Label Feature: State management
+      isEditingLabel: false, // Tracks whether the label is currently being edited
+      editedLabelValue: "", // Stores the label value while editing (bound to input via v-model)
     };
   },
 
@@ -305,7 +363,12 @@ export default {
     getSearchGroup() {
       // Check if the group is a search group
       if (
-        this.groupData.id === "basic" || this.groupData.id === "basic-search-form" || this.groupData.id === "search-bar" || this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form" || this.groupData.id === "search-filter"
+        this.groupData.id === "basic" ||
+        this.groupData.id === "basic-search-form" ||
+        this.groupData.id === "search-bar" ||
+        this.groupData.id === "advanced" ||
+        this.groupData.id === "advanced-search-form" ||
+        this.groupData.id === "search-filter"
       ) {
         return true;
       }
@@ -316,12 +379,22 @@ export default {
     getSearchIconContent() {
       let groupIcon = "";
 
-      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form" || this.groupData.id === "search-bar") {
-        groupIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 17.5L13.875 13.875M9.16667 5C11.4679 5 13.3333 6.86548 13.3333 9.16667M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      if (
+        this.groupData.id === "basic" ||
+        this.groupData.id === "basic-search-form" ||
+        this.groupData.id === "search-bar"
+      ) {
+        groupIcon =
+          '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 17.5L13.875 13.875M9.16667 5C11.4679 5 13.3333 6.86548 13.3333 9.16667M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       }
 
-      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form" || this.groupData.id === "search-filter") {
-        groupIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.66602L12.5 6.66602M12.5 6.66602C12.5 8.04673 13.6193 9.16602 15 9.16602C16.3807 9.16602 17.5 8.04673 17.5 6.66602C17.5 5.2853 16.3807 4.16602 15 4.16602C13.6193 4.16602 12.5 5.2853 12.5 6.66602ZM7.5 13.3327L17.5 13.3327M7.5 13.3327C7.5 14.7134 6.38071 15.8327 5 15.8327C3.61929 15.8327 2.5 14.7134 2.5 13.3327C2.5 11.952 3.61929 10.8327 5 10.8327C6.38071 10.8327 7.5 11.952 7.5 13.3327Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      if (
+        this.groupData.id === "advanced" ||
+        this.groupData.id === "advanced-search-form" ||
+        this.groupData.id === "search-filter"
+      ) {
+        groupIcon =
+          '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.66602L12.5 6.66602M12.5 6.66602C12.5 8.04673 13.6193 9.16602 15 9.16602C16.3807 9.16602 17.5 8.04673 17.5 6.66602C17.5 5.2853 16.3807 4.16602 15 4.16602C13.6193 4.16602 12.5 5.2853 12.5 6.66602ZM7.5 13.3327L17.5 13.3327M7.5 13.3327C7.5 14.7134 6.38071 15.8327 5 15.8327C3.61929 15.8327 2.5 14.7134 2.5 13.3327C2.5 11.952 3.61929 10.8327 5 10.8327C6.38071 10.8327 7.5 11.952 7.5 13.3327Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       }
 
       return groupIcon;
@@ -329,15 +402,187 @@ export default {
 
     getSearchLabelContent() {
       let groupLabel = "";
-      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form" || this.groupData.id === "search-bar") {
+      if (
+        this.groupData.id === "basic" ||
+        this.groupData.id === "basic-search-form" ||
+        this.groupData.id === "search-bar"
+      ) {
         groupLabel = "Search Bar";
       }
 
-      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form" || this.groupData.id === "search-filter") {
+      if (
+        this.groupData.id === "advanced" ||
+        this.groupData.id === "advanced-search-form" ||
+        this.groupData.id === "search-filter"
+      ) {
         groupLabel = "Search Filter";
       }
 
       return groupLabel;
+    },
+
+    /**
+     * Start editing the group label
+     *
+     * This method is triggered when the user clicks on the group label.
+     * It switches from display mode to edit mode by:
+     * 1. Checking if the group is editable (search groups are not editable)
+     * 2. Setting isEditingLabel to true (which shows the input field)
+     * 3. Extracting plain text from the label (handles HTML labels)
+     * 4. Auto-focusing and selecting the input text for better UX
+     *
+     * @returns {void}
+     */
+    startEditingLabel() {
+      // Don't allow editing for search groups (Search Bar, Search Filter)
+      // These have hardcoded labels that shouldn't be changed
+      if (this.getSearchGroup()) {
+        return;
+      }
+
+      // Enter edit mode - this will hide the label span and show the input
+      this.isEditingLabel = true;
+
+      // Extract plain text from label (in case it contains HTML)
+      // This ensures users edit the actual text content, not HTML tags
+      this.editedLabelValue = this.getPlainTextFromLabel(
+        this.groupData.label || "",
+      );
+
+      // Wait for Vue to render the input, then focus and select all text
+      // This provides better UX - user can immediately start typing to replace the label
+      this.$nextTick(() => {
+        if (this.$refs.labelInput) {
+          this.$refs.labelInput.focus();
+          this.$refs.labelInput.select();
+        }
+      });
+    },
+
+    /**
+     * Extract plain text from a label that may contain HTML
+     *
+     * Since group labels can be rendered with v-html (allowing HTML content),
+     * we need to extract just the text content when editing. This method:
+     * 1. Validates the input is a string
+     * 2. Creates a temporary DOM element
+     * 3. Sets the HTML content and extracts the text
+     * 4. Returns plain text without HTML tags
+     *
+     * Example:
+     * Input:  "<strong>My Label</strong>"
+     * Output: "My Label"
+     *
+     * @param {string} label - The label that may contain HTML
+     * @returns {string} Plain text content without HTML tags
+     */
+    getPlainTextFromLabel(label) {
+      // Validate input - return empty string if invalid
+      if (!label || typeof label !== "string") {
+        return "";
+      }
+
+      // Create a temporary div element to parse HTML
+      // This is a safe way to extract text from HTML without affecting the DOM
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = label;
+
+      // Extract text content (textContent is preferred, innerText as fallback)
+      // textContent gets all text including hidden elements
+      // innerText only gets visible text (respects CSS)
+      return tempDiv.textContent || tempDiv.innerText || "";
+    },
+
+    /**
+     * Save the edited label
+     *
+     * This method is called when:
+     * - User presses Enter key (@keyup.enter)
+     * - User clicks outside the input (@blur)
+     *
+     * It:
+     * 1. Trims whitespace from the edited value
+     * 2. Compares with the current label (as plain text)
+     * 3. Only emits update event if the value actually changed
+     * 4. Exits edit mode (returns to display mode)
+     *
+     * The update event follows the same pattern as other group field updates:
+     * - Event: "update-group-field"
+     * - Payload: { key: "label", value: "new label text" }
+     * - Parent component (Form_Builder_Field.vue) handles the update
+     *
+     * @param {Event} event - The blur or keyup event (not directly used, but kept for consistency)
+     * @returns {void}
+     */
+    saveLabel(event) {
+      // Get the trimmed value from the input (via v-model binding)
+      const newLabel = this.editedLabelValue.trim();
+
+      // Get the current label value as plain text for comparison
+      // This ensures we compare text-to-text, not text-to-HTML
+      const currentLabel = this.getPlainTextFromLabel(
+        this.groupData.label || "",
+      );
+
+      // Only emit update if:
+      // 1. The new label is not empty
+      // 2. The new label is different from the current label
+      // This prevents unnecessary updates and API calls
+      if (newLabel && newLabel !== currentLabel) {
+        // Emit update event to parent component
+        // The parent will update the groupData.label and persist the change
+        this.$emit("update-group-field", {
+          key: "label", // Field name to update
+          value: newLabel, // New label value
+        });
+      }
+
+      // Exit edit mode regardless of whether value changed
+      // This closes the input and shows the label again
+      this.isEditingLabel = false;
+      this.editedLabelValue = "";
+    },
+
+    /**
+     * Cancel editing the label
+     *
+     * This method is called when:
+     * - User presses Escape key (@keyup.esc)
+     *
+     * It discards any changes and returns to display mode without saving.
+     * The original label value is preserved.
+     *
+     * @returns {void}
+     */
+    cancelEditingLabel() {
+      // Exit edit mode without saving
+      // This discards any changes made in the input field
+      this.isEditingLabel = false;
+      this.editedLabelValue = "";
+    },
+  },
+
+  /**
+   * Custom Vue Directives
+   * =====================
+   *
+   * focus: Auto-focus directive
+   * ---------------------------
+   * This directive automatically focuses an element when it's inserted into the DOM.
+   * Used on the label input field to provide immediate focus when edit mode starts.
+   *
+   * Note: We also use $nextTick in startEditingLabel() to ensure the element exists
+   * before focusing. The directive provides an additional layer of focus handling.
+   */
+  directives: {
+    focus: {
+      /**
+       * Called when the element is inserted into the DOM
+       * @param {HTMLElement} el - The element the directive is bound to
+       */
+      inserted(el) {
+        el.focus();
+      },
     },
   },
 };

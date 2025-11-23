@@ -1999,6 +1999,9 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 	@media only screen and (max-width: 480px) {
 		font-size: 13px;
 	}
+	.cptm-form-builder-group-title-label {
+		cursor: text;
+	}
 }
 
 .cptm-form-builder-group-title-icon {

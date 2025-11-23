@@ -32119,6 +32119,23 @@
 							}
 							return true;
 						},
+						handleGroupDragEnter: function handleGroupDragEnter(
+							event
+						) {
+							// Expand group when widget drag enters to make droppable area available
+							// Only expand if:
+							// 1. A widget is being dragged (from available_widgets or active_widgets)
+							// 2. The group can be expanded
+							// 3. The group is not already expanded
+							if (
+								this.currentDraggingWidget &&
+								this.canExpand &&
+								!this.widgetsExpanded
+							) {
+								this.widgetsExpanded = true;
+								this.$emit('group-expanded', this.groupKey);
+							}
+						},
 					},
 				};
 
@@ -58731,6 +58748,18 @@
 						{
 							staticClass:
 								'cptm-form-builder-active-fields-group',
+							on: {
+								dragenter: function dragenter($event) {
+									$event.preventDefault();
+									return _vm.handleGroupDragEnter.apply(
+										null,
+										arguments
+									);
+								},
+								dragover: function dragover($event) {
+									$event.preventDefault();
+								},
+							},
 						},
 						[
 							_c(

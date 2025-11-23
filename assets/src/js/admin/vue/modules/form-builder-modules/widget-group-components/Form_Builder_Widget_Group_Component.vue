@@ -13,6 +13,7 @@
       :draggable="canDrag"
       :current-dragging-group="currentDraggingGroup"
       :group-key="groupKey"
+      :auto-edit-label="autoEditLabel"
       @update-group-field="$emit('update-group-field', $event)"
       @toggle-expand-widgets="toggleExpandWidgets"
       @toggle-group-fields-expand="handleToggleGroupFieldsExpand"
@@ -113,6 +114,10 @@ export default {
     },
     expandedGroupFieldsKey: {
       default: null,
+    },
+    autoEditLabel: {
+      default: false,
+      type: Boolean,
     },
   },
 

@@ -2002,6 +2002,16 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 	.cptm-form-builder-group-title-label {
 		cursor: text;
 	}
+	.cptm-form-builder-group-title-label-input {
+		height: 40px;
+		padding: 4px 50px 4px 6px;
+		border-radius: 2px;
+		border: 1px solid #3e62f5;
+		&:focus {
+			border-color: #3e62f5;
+			box-shadow: 0 0 0 1px rgba(62, 98, 245, 0.2);
+		}
+	}
 }
 
 .cptm-form-builder-group-title-icon {
@@ -2179,6 +2189,8 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 		align-items: center;
 		flex-grow: 1;
 		padding: 8px 12px;
+		background: #ffffff;
+		border-radius: 0 6px 6px 0;
 		box-sizing: border-box;
 	}
 

@@ -31864,6 +31864,10 @@
 						expandedGroupFieldsKey: {
 							default: null,
 						},
+						autoEditLabel: {
+							default: false,
+							type: Boolean,
+						},
 					},
 					created: function created() {
 						this.setup();
@@ -32256,6 +32260,10 @@
 						expandedGroupFieldsKey: {
 							default: null,
 						},
+						autoEditLabel: {
+							default: false,
+							type: Boolean,
+						},
 					},
 					created: function created() {
 						this.setup();
@@ -32263,6 +32271,29 @@
 					watch: {
 						groupData: function groupData() {
 							this.setup();
+						},
+						autoEditLabel: function autoEditLabel(
+							newValue,
+							oldValue
+						) {
+							var _this = this;
+							// Watcher triggers when the prop changes (false -> true or true -> false)
+							// Only act when the value changes from false to true
+							// Note: This watcher won't trigger on initial mount if the prop is already true
+							// That's why we also check in the mounted() hook below
+							if (
+								newValue === true &&
+								oldValue === false &&
+								!this.getSearchGroup() &&
+								!this.isEditingLabel
+							) {
+								// Use $nextTick to ensure the component is fully rendered
+								this.$nextTick(function () {
+									if (!_this.isEditingLabel) {
+										_this.startEditingLabel();
+									}
+								});
+							}
 						},
 					},
 					computed: {
@@ -32323,10 +32354,27 @@
 						};
 					},
 					mounted: function mounted() {
+						var _this2 = this;
 						document.addEventListener(
 							'mousedown',
 							this.handleClickOutside
 						);
+
+						// Handle case where component mounts with autoEditLabel already true
+						// (Watcher won't trigger for initial prop value, only on changes)
+						// This happens when Vue creates the component AFTER newlyCreatedGroupKey is set
+						if (
+							this.autoEditLabel === true &&
+							!this.getSearchGroup() &&
+							!this.isEditingLabel
+						) {
+							// Use $nextTick to ensure everything is rendered before focusing
+							this.$nextTick(function () {
+								if (!_this2.isEditingLabel) {
+									_this2.startEditingLabel();
+								}
+							});
+						}
 					},
 					beforeDestroy: function beforeDestroy() {
 						document.removeEventListener(
@@ -32404,10 +32452,10 @@
 									!this.groupExpandedDropdown;
 							},
 						handleBlur: function handleBlur() {
-							var _this = this;
+							var _this3 = this;
 							setTimeout(function () {
-								if (!_this.isClickedInsideDropdown) {
-									_this.groupExpandedDropdown = false;
+								if (!_this3.isClickedInsideDropdown) {
+									_this3.groupExpandedDropdown = false;
 								}
 							}, 100); // Delay to ensure clicks inside dropdown content are not missed
 						},
@@ -32528,7 +32576,7 @@
 						 * @returns {void}
 						 */
 						startEditingLabel: function startEditingLabel() {
-							var _this2 = this;
+							var _this4 = this;
 							// Don't allow editing for search groups (Search Bar, Search Filter)
 							// These have hardcoded labels that shouldn't be changed
 							if (this.getSearchGroup()) {
@@ -32547,9 +32595,9 @@
 							// Wait for Vue to render the input, then focus and select all text
 							// This provides better UX - user can immediately start typing to replace the label
 							this.$nextTick(function () {
-								if (_this2.$refs.labelInput) {
-									_this2.$refs.labelInput.focus();
-									_this2.$refs.labelInput.select();
+								if (_this4.$refs.labelInput) {
+									_this4.$refs.labelInput.focus();
+									_this4.$refs.labelInput.select();
 								}
 							});
 						},
@@ -45537,6 +45585,9 @@
 							expandedGroupFieldsKey: null,
 							// Track which group has its fields/config expanded
 
+							newlyCreatedGroupKey: null,
+							// Track newly created group to auto-edit its label
+
 							listing_type_id: null,
 							showModal: false,
 						};
@@ -46368,6 +46419,7 @@
 									this.currentDraggingGroup = null;
 								},
 								addNewGroup: function addNewGroup() {
+									var _this = this;
 									var group = JSON.parse(
 										JSON.stringify(this.default_group[0])
 									);
@@ -46391,6 +46443,17 @@
 										0,
 										group
 									);
+
+									// Set the newly created group key to trigger auto-edit
+									this.newlyCreatedGroupKey = dest_index;
+
+									// Clear the flag after Vue renders the component
+									this.$nextTick(function () {
+										// Use setTimeout to ensure the component is fully mounted
+										setTimeout(function () {
+											_this.newlyCreatedGroupKey = null;
+										}, 100);
+									});
 									this.$emit('updated-state');
 								},
 								getUniqueSectionID:
@@ -46539,7 +46602,7 @@
 									function insertWidgetFromAvailableSectionWidgets(
 										widgets
 									) {
-										var _this = this;
+										var _this2 = this;
 										if (
 											!(0,
 											_helper__WEBPACK_IMPORTED_MODULE_4__.isObject)(
@@ -46554,34 +46617,34 @@
 												widget
 											) {
 												var field_data_options =
-													_this.getOptionDataFromWidget(
+													_this2.getOptionDataFromWidget(
 														widget
 													);
 												field_data_options.widget_key =
-													_this.genarateWidgetKeyForActiveWidgets(
+													_this2.genarateWidgetKeyForActiveWidgets(
 														widget_key
 													);
 												if (
 													field_data_options.field_key
 												) {
 													field_data_options.field_key =
-														_this.genarateFieldKeyForActiveWidgets(
+														_this2.genarateFieldKeyForActiveWidgets(
 															field_data_options
 														);
 												}
 												if (
 													!(0,
 													_helper__WEBPACK_IMPORTED_MODULE_4__.isObject)(
-														_this.active_widget_fields
+														_this2.active_widget_fields
 													)
 												) {
-													_this.active_widget_fields =
+													_this2.active_widget_fields =
 														{};
 												}
 												vue__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
 												].set(
-													_this.active_widget_fields,
+													_this2.active_widget_fields,
 													field_data_options.widget_key,
 													field_data_options
 												);
@@ -58972,6 +59035,8 @@
 											'current-dragging-group':
 												_vm.currentDraggingGroup,
 											'group-key': _vm.groupKey,
+											'auto-edit-label':
+												_vm.autoEditLabel,
 										},
 										on: {
 											'update-group-field':
@@ -69017,6 +69082,9 @@
 																								_vm.expandedGroupKey,
 																							'expanded-group-fields-key':
 																								_vm.expandedGroupFieldsKey,
+																							'auto-edit-label':
+																								_vm.newlyCreatedGroupKey ===
+																								widget_group_key,
 																						},
 																						on: {
 																							'update-group-field':

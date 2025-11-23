@@ -194,6 +194,10 @@ export default {
     expandedGroupFieldsKey: {
       default: null,
     },
+    autoEditLabel: {
+      default: false,
+      type: Boolean,
+    },
   },
 
   created() {
@@ -203,6 +207,25 @@ export default {
   watch: {
     groupData() {
       this.setup();
+    },
+    autoEditLabel(newValue, oldValue) {
+      // Watcher triggers when the prop changes (false -> true or true -> false)
+      // Only act when the value changes from false to true
+      // Note: This watcher won't trigger on initial mount if the prop is already true
+      // That's why we also check in the mounted() hook below
+      if (
+        newValue === true &&
+        oldValue === false &&
+        !this.getSearchGroup() &&
+        !this.isEditingLabel
+      ) {
+        // Use $nextTick to ensure the component is fully rendered
+        this.$nextTick(() => {
+          if (!this.isEditingLabel) {
+            this.startEditingLabel();
+          }
+        });
+      }
     },
   },
 
@@ -260,6 +283,22 @@ export default {
 
   mounted() {
     document.addEventListener("mousedown", this.handleClickOutside);
+
+    // Handle case where component mounts with autoEditLabel already true
+    // (Watcher won't trigger for initial prop value, only on changes)
+    // This happens when Vue creates the component AFTER newlyCreatedGroupKey is set
+    if (
+      this.autoEditLabel === true &&
+      !this.getSearchGroup() &&
+      !this.isEditingLabel
+    ) {
+      // Use $nextTick to ensure everything is rendered before focusing
+      this.$nextTick(() => {
+        if (!this.isEditingLabel) {
+          this.startEditingLabel();
+        }
+      });
+    }
   },
 
   beforeDestroy() {

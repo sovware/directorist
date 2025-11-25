@@ -2043,7 +2043,7 @@ class Builder_Data {
                 'icon' => [
                     'label'       => '',
                     'type'        => 'icon',
-                    'value'       => '',
+                    'value'       => 'las la-home',
                     'placeholder' => __( 'las la-home', 'directorist' ),
                     'rules'       => [
                         'required' => false,

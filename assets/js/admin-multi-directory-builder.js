@@ -21343,7 +21343,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var widget_name = _step.value;
+              // Check if widget is available
+              if (!this.available_widgets[widget_name]) {
+                continue;
+              }
+
+              // Check if widget is already active
               if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name]) !== "object") {
+                this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
                 continue;
               }
               var widget_data = {};
@@ -21928,7 +21935,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           }
           for (var widget in layout[section][section_area].selectedWidgets) {
             var widget_name = layout[section][section_area].selectedWidgets[widget];
+
+            // Check if widget is available
+            if (!this.available_widgets[widget_name]) {
+              continue;
+            }
+
+            // Check if widget is already active
             if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[widget_name]) !== "object") {
+              this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
               continue;
             }
             var widget_data = {};
@@ -22991,7 +23006,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           }
           for (var widget in layout[section][section_area].selectedWidgets) {
             var widget_name = layout[section][section_area].selectedWidgets[widget];
+
+            // Check if widget is available
+            if (!this.available_widgets[widget_name]) {
+              continue;
+            }
+
+            // Check if widget is already active
             if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name]) !== "object") {
+              this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
               continue;
             }
             var widget_data = {};
@@ -23527,7 +23550,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var widget_name = _step.value;
+              // Check if widget is available
+              if (!this.available_widgets[widget_name]) {
+                continue;
+              }
+
+              // Check if widget is already active
               if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name]) !== "object") {
+                this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
                 continue;
               }
               var widget_data = {};

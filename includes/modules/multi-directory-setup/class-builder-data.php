@@ -1828,22 +1828,27 @@ class Builder_Data {
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'top_left'     => [
                     'maxWidget'       => 3,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'bottom_right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => [],
                 ],
                 'bottom_left'  => [
                     'maxWidget'       => 3,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => [],
                 ],
                 'avatar'       => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['user_avatar'],
+                    "selectedWidgets" => ['user_avatar'],
                 ],
             ],
 
@@ -1851,13 +1856,14 @@ class Builder_Data {
                 'top'     => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [ 'listing_title', "rating", "pricing" ],
-                    "selectedWidgets" => [],
+                    "selectedWidgets" => ['listing_title', 'rating'],
                 ],
                 'bottom'  => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -1875,11 +1881,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];
@@ -1891,24 +1899,28 @@ class Builder_Data {
                     'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => [ 'user_avatar' ],
+                    "selectedWidgets" => ['user_avatar'],
                 ],
                 'title'         => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['listing_title'],
-                    "selectedWidgets" => [],
+                    "selectedWidgets" => ['listing_title'],
                 ],
                 'quick_actions' => [
                     'maxWidget'       => 3,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'quick_info'    => [
                     'acceptedWidgets' => ['rating', 'pricing'],
+                    "selectedWidgets" => ['rating'],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
                 ],
                 'excerpt'       => [
                     'maxWidget'       => 1,
@@ -1926,11 +1938,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];
@@ -1942,6 +1956,7 @@ class Builder_Data {
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
             ],
 
@@ -1951,13 +1966,14 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['listing_title', 'rating', 'pricing'],
-                    "selectedWidgets" => [],
+                    "selectedWidgets" => ['listing_title', 'rating'],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
                     'maxWidget'         => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Body Bottom', 'directorist' ),
@@ -1965,6 +1981,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -1982,11 +1999,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['user_avatar', 'category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];
@@ -1998,13 +2017,14 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['listing_title', 'rating', 'pricing'],
-                    "selectedWidgets"   => [],
+                    "selectedWidgets"   => ['listing_title', 'rating'],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Body Bottom', 'directorist' ),
@@ -2012,6 +2032,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -2029,11 +2050,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['user_avatar', 'category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];

@@ -329,10 +329,17 @@ export default {
           ];
 
           for (let widget_name of uniqueWidgets) {
+            // Check if widget is available
+            if (!this.available_widgets[widget_name]) {
+              continue;
+            }
+
+            // Check if widget is already active
             if (
               !this.active_widgets[widget_name] &&
               typeof this.active_widgets[widget_name] !== "object"
             ) {
+              this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
               continue;
             }
 

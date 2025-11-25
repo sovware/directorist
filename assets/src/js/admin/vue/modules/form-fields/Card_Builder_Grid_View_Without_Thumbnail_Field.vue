@@ -403,11 +403,18 @@ export default {
           for (let widget in layout[section][section_area].selectedWidgets) {
             const widget_name =
               layout[section][section_area].selectedWidgets[widget];
+            
+            // Check if widget is available
+            if (!this.available_widgets[widget_name]) {
+              continue;
+            }
 
+            // Check if widget is already active
             if (
               !this.active_widgets[widget_name] &&
               typeof this.active_widgets[widget_name] !== "object"
             ) {
+              this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
               continue;
             }
 

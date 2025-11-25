@@ -562,13 +562,14 @@ export default {
             if (!this.available_widgets[widget_name]) {
               continue;
             }
-            
+
             // Check if widget is already active
             if (
               !this.active_widgets[widget_name] &&
               typeof this.active_widgets[widget_name] !== "object"
             ) {
-              this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
+              this.active_widgets[widget_name] =
+                this.available_widgets[widget_name] || null;
               continue;
             }
 
@@ -828,6 +829,22 @@ export default {
       if (!this.isTruthyObject(value)) {
         return;
       }
+
+      // First, clear all selectedWidgets arrays to remove defaults
+      for (let section in this.local_layout) {
+        if (!this.isTruthyObject(this.local_layout[section])) {
+          continue;
+        }
+        for (let area in this.local_layout[section]) {
+          if (
+            this.local_layout[section][area] &&
+            Array.isArray(this.local_layout[section][area].selectedWidgets)
+          ) {
+            this.local_layout[section][area].selectedWidgets = [];
+          }
+        }
+      }
+
       let selectedWidgets = [];
 
       // Get Active Widgets Data
@@ -876,6 +893,7 @@ export default {
 
       // Load Active Widgets
       for (let widget_key in active_widgets_data) {
+        // Validate widget exists in theAvailableWidgets (computed property)
         if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
@@ -918,21 +936,41 @@ export default {
         Vue.set(this.available_widgets, widget_key, widgets_template);
       }
 
-      // Load Selected Widgets Data
+      // Load Selected Widgets Data - Group by section/area first
+      let widgetsByArea = {};
       for (let item of selectedWidgets) {
-        const currentWidgets =
-          this.local_layout[item.section][item.area].selectedWidgets;
-
-        // Check if widget already exists to prevent duplicates
-        if (!currentWidgets.includes(item.widget)) {
-          // If it's listing_title, add as first item
-          if (item.widget === "listing_title") {
-            currentWidgets.unshift(item.widget);
-          } else {
-            // For other widgets, add to the end
-            currentWidgets.push(item.widget);
-          }
+        const key = `${item.section}.${item.area}`;
+        if (!widgetsByArea[key]) {
+          widgetsByArea[key] = {
+            section: item.section,
+            area: item.area,
+            widgets: [],
+          };
         }
+        // Only add if widget exists in theAvailableWidgets and not already added
+        if (
+          typeof this.theAvailableWidgets[item.widget] !== "undefined" &&
+          !widgetsByArea[key].widgets.includes(item.widget)
+        ) {
+          widgetsByArea[key].widgets.push(item.widget);
+        }
+      }
+
+      // Now set selectedWidgets for each area, preserving order (listing_title first)
+      for (let key in widgetsByArea) {
+        const { section, area, widgets } = widgetsByArea[key];
+
+        // Separate listing_title from other widgets
+        const listingTitleWidgets = widgets.filter(
+          (w) => w === "listing_title",
+        );
+        const otherWidgets = widgets.filter((w) => w !== "listing_title");
+
+        // Replace the array with imported widgets (listing_title first)
+        this.local_layout[section][area].selectedWidgets = [
+          ...listingTitleWidgets,
+          ...otherWidgets,
+        ];
       }
     },
 

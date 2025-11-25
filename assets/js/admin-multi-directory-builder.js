@@ -21564,19 +21564,31 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!this.isTruthyObject(value)) {
         return;
       }
+
+      // First, clear all selectedWidgets arrays to remove defaults
+      for (var section in this.local_layout) {
+        if (!this.isTruthyObject(this.local_layout[section])) {
+          continue;
+        }
+        for (var area in this.local_layout[section]) {
+          if (this.local_layout[section][area] && Array.isArray(this.local_layout[section][area].selectedWidgets)) {
+            this.local_layout[section][area].selectedWidgets = [];
+          }
+        }
+      }
       var selectedWidgets = [];
 
       // Get Active Widgets Data
       var active_widgets_data = {};
-      for (var section in value) {
-        if (!value[section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section]) !== "object") {
+      for (var _section in value) {
+        if (!value[_section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section]) !== "object") {
           continue;
         }
-        for (var area in value[section]) {
-          if (!value[section][area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section][area]) !== "object") {
+        for (var _area in value[_section]) {
+          if (!value[_section][_area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section][_area]) !== "object") {
             continue;
           }
-          var _iterator3 = _createForOfIteratorHelper(value[section][area]),
+          var _iterator3 = _createForOfIteratorHelper(value[_section][_area]),
             _step3;
           try {
             for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
@@ -21590,16 +21602,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === "undefined") {
+              if (typeof this.local_layout[_section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === "undefined") {
+              if (typeof this.local_layout[_section][_area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
               selectedWidgets.push({
-                section: section,
-                area: area,
+                section: _section,
+                area: _area,
                 widget: widget.widget_key
               });
             }
@@ -21613,6 +21625,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Load Active Widgets
       for (var widget_key in active_widgets_data) {
+        // Validate widget exists in theAvailableWidgets (computed property)
         if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
@@ -21644,21 +21657,41 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
-      // Load Selected Widgets Data
+      // Load Selected Widgets Data - Group by section/area first
+      var widgetsByArea = {};
       for (var _i = 0, _selectedWidgets = selectedWidgets; _i < _selectedWidgets.length; _i++) {
         var item = _selectedWidgets[_i];
-        var currentWidgets = this.local_layout[item.section][item.area].selectedWidgets;
-
-        // Check if widget already exists to prevent duplicates
-        if (!currentWidgets.includes(item.widget)) {
-          // If it's listing_title, add as first item
-          if (item.widget === "listing_title") {
-            currentWidgets.unshift(item.widget);
-          } else {
-            // For other widgets, add to the end
-            currentWidgets.push(item.widget);
-          }
+        var key = "".concat(item.section, ".").concat(item.area);
+        if (!widgetsByArea[key]) {
+          widgetsByArea[key] = {
+            section: item.section,
+            area: item.area,
+            widgets: []
+          };
         }
+        // Only add if widget exists in theAvailableWidgets and not already added
+        if (typeof this.theAvailableWidgets[item.widget] !== "undefined" && !widgetsByArea[key].widgets.includes(item.widget)) {
+          widgetsByArea[key].widgets.push(item.widget);
+        }
+      }
+
+      // Now set selectedWidgets for each area, preserving order (listing_title first)
+      for (var _key in widgetsByArea) {
+        var _widgetsByArea$_key = widgetsByArea[_key],
+          _section2 = _widgetsByArea$_key.section,
+          _area2 = _widgetsByArea$_key.area,
+          widgets = _widgetsByArea$_key.widgets;
+
+        // Separate listing_title from other widgets
+        var listingTitleWidgets = widgets.filter(function (w) {
+          return w === "listing_title";
+        });
+        var otherWidgets = widgets.filter(function (w) {
+          return w !== "listing_title";
+        });
+
+        // Replace the array with imported widgets (listing_title first)
+        this.local_layout[_section2][_area2].selectedWidgets = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(listingTitleWidgets), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(otherWidgets));
       }
     },
     // Import Widgets
@@ -21867,15 +21900,17 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
-/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
+
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
@@ -21884,7 +21919,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder-grid-view-without-thumbnail-field",
-  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
   props: {
     fieldId: {
       required: false,
@@ -21922,15 +21957,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var layout = this.local_layout;
       for (var section in layout) {
         output[section] = {};
-        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(layout[section]) !== "object") {
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(layout[section]) !== "object") {
           continue;
         }
         for (var section_area in layout[section]) {
           output[section][section_area] = [];
-          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(layout[section][section_area]) !== "object") {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(layout[section][section_area]) !== "object") {
             continue;
           }
-          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(layout[section][section_area].selectedWidgets) !== "object") {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(layout[section][section_area].selectedWidgets) !== "object") {
             continue;
           }
           for (var widget in layout[section][section_area].selectedWidgets) {
@@ -21942,7 +21977,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             }
 
             // Check if widget is already active
-            if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[widget_name]) !== "object") {
+            if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name]) !== "object") {
               this.active_widgets[widget_name] = this.available_widgets[widget_name] || null;
               continue;
             }
@@ -21953,11 +21988,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
             }
-            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[widget_name].options) !== "object") {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name].options) !== "object") {
               output[section][section_area].push(widget_data);
               continue;
             }
-            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[widget_name].options.fields) !== "object") {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name].options.fields) !== "object") {
               output[section][section_area].push(widget_data);
               continue;
             }
@@ -22130,7 +22165,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
     };
   },
-  methods: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  methods: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({
     init: function init() {
       this.importWidgets();
       this.importLayout();
@@ -22138,7 +22173,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // isTruthyObject check
     isTruthyObject: function isTruthyObject(obj) {
-      if (!obj && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(obj) !== "object") {
+      if (!obj && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(obj) !== "object") {
         return false;
       }
       return true;
@@ -22149,19 +22184,31 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!this.isTruthyObject(value)) {
         return;
       }
+
+      // First, clear all selectedWidgets arrays to remove defaults
+      for (var section in this.local_layout) {
+        if (!this.isTruthyObject(this.local_layout[section])) {
+          continue;
+        }
+        for (var area in this.local_layout[section]) {
+          if (this.local_layout[section][area] && Array.isArray(this.local_layout[section][area].selectedWidgets)) {
+            this.local_layout[section][area].selectedWidgets = [];
+          }
+        }
+      }
       var selectedWidgets = [];
 
       // Get Active Widgets Data
       var active_widgets_data = {};
-      for (var section in value) {
-        if (!value[section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(value[section]) !== "object") {
+      for (var _section in value) {
+        if (!value[_section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section]) !== "object") {
           continue;
         }
-        for (var area in value[section]) {
-          if (!value[section][area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(value[section][area]) !== "object") {
+        for (var _area in value[_section]) {
+          if (!value[_section][_area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section][_area]) !== "object") {
             continue;
           }
-          var _iterator2 = _createForOfIteratorHelper(value[section][area]),
+          var _iterator2 = _createForOfIteratorHelper(value[_section][_area]),
             _step2;
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
@@ -22175,16 +22222,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === "undefined") {
+              if (typeof this.local_layout[_section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === "undefined") {
+              if (typeof this.local_layout[_section][_area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
               selectedWidgets.push({
-                section: section,
-                area: area,
+                section: _section,
+                area: _area,
                 widget: widget.widget_key
               });
             }
@@ -22198,6 +22245,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Load Active Widgets
       for (var widget_key in active_widgets_data) {
+        // Validate widget exists in theAvailableWidgets (computed property)
         if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
@@ -22225,25 +22273,45 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             widgets_template.options.fields[option_key].value = active_widgets_data[widget_key][option_key];
           }
         }
-        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, widget_key, widgets_template);
-        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.available_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
-      // Load Selected Widgets Data
+      // Load Selected Widgets Data - Group by section/area first
+      var widgetsByArea = {};
       for (var _i = 0, _selectedWidgets = selectedWidgets; _i < _selectedWidgets.length; _i++) {
         var item = _selectedWidgets[_i];
-        var currentWidgets = this.local_layout[item.section][item.area].selectedWidgets;
-
-        // Check if widget already exists to prevent duplicates
-        if (!currentWidgets.includes(item.widget)) {
-          // If it's listing_title, add as first item
-          if (item.widget === "listing_title") {
-            currentWidgets.unshift(item.widget);
-          } else {
-            // For other widgets, add to the end
-            currentWidgets.push(item.widget);
-          }
+        var key = "".concat(item.section, ".").concat(item.area);
+        if (!widgetsByArea[key]) {
+          widgetsByArea[key] = {
+            section: item.section,
+            area: item.area,
+            widgets: []
+          };
         }
+        // Only add if widget exists in theAvailableWidgets and not already added
+        if (typeof this.theAvailableWidgets[item.widget] !== "undefined" && !widgetsByArea[key].widgets.includes(item.widget)) {
+          widgetsByArea[key].widgets.push(item.widget);
+        }
+      }
+
+      // Now set selectedWidgets for each area, preserving order (listing_title first)
+      for (var _key in widgetsByArea) {
+        var _widgetsByArea$_key = widgetsByArea[_key],
+          _section2 = _widgetsByArea$_key.section,
+          _area2 = _widgetsByArea$_key.area,
+          widgets = _widgetsByArea$_key.widgets;
+
+        // Separate listing_title from other widgets
+        var listingTitleWidgets = widgets.filter(function (w) {
+          return w === "listing_title";
+        });
+        var otherWidgets = widgets.filter(function (w) {
+          return w !== "listing_title";
+        });
+
+        // Replace the array with imported widgets (listing_title first)
+        this.local_layout[_section2][_area2].selectedWidgets = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(listingTitleWidgets), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(otherWidgets));
       }
     },
     // Import Widgets
@@ -22275,7 +22343,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
-      if (!this.active_widgets[key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[key].options) !== "object") {
+      if (!this.active_widgets[key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[key].options) !== "object") {
         return;
       }
       var opt = this.active_widgets[key].options;
@@ -22303,11 +22371,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         return;
       }
       var index = where.selectedWidgets.indexOf(key);
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(where.selectedWidgets, index);
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(where.selectedWidgets, index);
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widgets, key);
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(this.active_widgets, key);
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
       }
@@ -22369,8 +22437,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     // Close Insert Window
     closeInsertWindow: function closeInsertWindow() {
@@ -23176,19 +23244,31 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!this.isTruthyObject(value)) {
         return;
       }
+
+      // First, clear all selectedWidgets arrays to remove defaults
+      for (var section in this.local_layout) {
+        if (!this.isTruthyObject(this.local_layout[section])) {
+          continue;
+        }
+        for (var area in this.local_layout[section]) {
+          if (this.local_layout[section][area] && Array.isArray(this.local_layout[section][area].selectedWidgets)) {
+            this.local_layout[section][area].selectedWidgets = [];
+          }
+        }
+      }
       var selectedWidgets = [];
 
       // Get Active Widgets Data
       var active_widgets_data = {};
-      for (var section in value) {
-        if (!value[section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section]) !== "object") {
+      for (var _section in value) {
+        if (!value[_section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section]) !== "object") {
           continue;
         }
-        for (var area in value[section]) {
-          if (!value[section][area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section][area]) !== "object") {
+        for (var _area in value[_section]) {
+          if (!value[_section][_area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section][_area]) !== "object") {
             continue;
           }
-          var _iterator2 = _createForOfIteratorHelper(value[section][area]),
+          var _iterator2 = _createForOfIteratorHelper(value[_section][_area]),
             _step2;
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
@@ -23202,16 +23282,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === "undefined") {
+              if (typeof this.local_layout[_section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === "undefined") {
+              if (typeof this.local_layout[_section][_area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
               selectedWidgets.push({
-                section: section,
-                area: area,
+                section: _section,
+                area: _area,
                 widget: widget.widget_key
               });
             }
@@ -23225,6 +23305,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Load Active Widgets
       for (var widget_key in active_widgets_data) {
+        // Validate widget exists in theAvailableWidgets (computed property)
         if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
@@ -23255,21 +23336,41 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
-      // Load Selected Widgets Data
+      // Load Selected Widgets Data - Group by section/area first
+      var widgetsByArea = {};
       for (var _i = 0, _selectedWidgets = selectedWidgets; _i < _selectedWidgets.length; _i++) {
         var item = _selectedWidgets[_i];
-        var currentWidgets = this.local_layout[item.section][item.area].selectedWidgets;
-
-        // Check if widget already exists to prevent duplicates
-        if (!currentWidgets.includes(item.widget)) {
-          // If it's listing_title, add as first item
-          if (item.widget === "listing_title") {
-            currentWidgets.unshift(item.widget);
-          } else {
-            // For other widgets, add to the end
-            currentWidgets.push(item.widget);
-          }
+        var key = "".concat(item.section, ".").concat(item.area);
+        if (!widgetsByArea[key]) {
+          widgetsByArea[key] = {
+            section: item.section,
+            area: item.area,
+            widgets: []
+          };
         }
+        // Only add if widget exists in theAvailableWidgets and not already added
+        if (typeof this.theAvailableWidgets[item.widget] !== "undefined" && !widgetsByArea[key].widgets.includes(item.widget)) {
+          widgetsByArea[key].widgets.push(item.widget);
+        }
+      }
+
+      // Now set selectedWidgets for each area, preserving order (listing_title first)
+      for (var _key in widgetsByArea) {
+        var _widgetsByArea$_key = widgetsByArea[_key],
+          _section2 = _widgetsByArea$_key.section,
+          _area2 = _widgetsByArea$_key.area,
+          widgets = _widgetsByArea$_key.widgets;
+
+        // Separate listing_title from other widgets
+        var listingTitleWidgets = widgets.filter(function (w) {
+          return w === "listing_title";
+        });
+        var otherWidgets = widgets.filter(function (w) {
+          return w !== "listing_title";
+        });
+
+        // Replace the array with imported widgets (listing_title first)
+        this.local_layout[_section2][_area2].selectedWidgets = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(listingTitleWidgets), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(otherWidgets));
       }
     },
     // Import Widgets
@@ -23718,19 +23819,31 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!this.isTruthyObject(value)) {
         return;
       }
+
+      // First, clear all selectedWidgets arrays to remove defaults
+      for (var section in this.local_layout) {
+        if (!this.isTruthyObject(this.local_layout[section])) {
+          continue;
+        }
+        for (var area in this.local_layout[section]) {
+          if (this.local_layout[section][area] && Array.isArray(this.local_layout[section][area].selectedWidgets)) {
+            this.local_layout[section][area].selectedWidgets = [];
+          }
+        }
+      }
       var selectedWidgets = [];
 
       // Get Active Widgets Data
       var active_widgets_data = {};
-      for (var section in value) {
-        if (!value[section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section]) !== "object") {
+      for (var _section in value) {
+        if (!value[_section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section]) !== "object") {
           continue;
         }
-        for (var area in value[section]) {
-          if (!value[section][area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section][area]) !== "object") {
+        for (var _area in value[_section]) {
+          if (!value[_section][_area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[_section][_area]) !== "object") {
             continue;
           }
-          var _iterator3 = _createForOfIteratorHelper(value[section][area]),
+          var _iterator3 = _createForOfIteratorHelper(value[_section][_area]),
             _step3;
           try {
             for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
@@ -23744,16 +23857,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === "undefined") {
+              if (typeof this.local_layout[_section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === "undefined") {
+              if (typeof this.local_layout[_section][_area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
               selectedWidgets.push({
-                section: section,
-                area: area,
+                section: _section,
+                area: _area,
                 widget: widget.widget_key
               });
             }
@@ -23767,6 +23880,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Load Active Widgets
       for (var widget_key in active_widgets_data) {
+        // Validate widget exists in theAvailableWidgets (computed property)
         if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
@@ -23797,21 +23911,41 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
-      // Load Selected Widgets Data
+      // Load Selected Widgets Data - Group by section/area first
+      var widgetsByArea = {};
       for (var _i = 0, _selectedWidgets = selectedWidgets; _i < _selectedWidgets.length; _i++) {
         var item = _selectedWidgets[_i];
-        var currentWidgets = this.local_layout[item.section][item.area].selectedWidgets;
-
-        // Check if widget already exists to prevent duplicates
-        if (!currentWidgets.includes(item.widget)) {
-          // If it's listing_title, add as first item
-          if (item.widget === "listing_title") {
-            currentWidgets.unshift(item.widget);
-          } else {
-            // For other widgets, add to the end
-            currentWidgets.push(item.widget);
-          }
+        var key = "".concat(item.section, ".").concat(item.area);
+        if (!widgetsByArea[key]) {
+          widgetsByArea[key] = {
+            section: item.section,
+            area: item.area,
+            widgets: []
+          };
         }
+        // Only add if widget exists in theAvailableWidgets and not already added
+        if (typeof this.theAvailableWidgets[item.widget] !== "undefined" && !widgetsByArea[key].widgets.includes(item.widget)) {
+          widgetsByArea[key].widgets.push(item.widget);
+        }
+      }
+
+      // Now set selectedWidgets for each area, preserving order (listing_title first)
+      for (var _key in widgetsByArea) {
+        var _widgetsByArea$_key = widgetsByArea[_key],
+          _section2 = _widgetsByArea$_key.section,
+          _area2 = _widgetsByArea$_key.area,
+          widgets = _widgetsByArea$_key.widgets;
+
+        // Separate listing_title from other widgets
+        var listingTitleWidgets = widgets.filter(function (w) {
+          return w === "listing_title";
+        });
+        var otherWidgets = widgets.filter(function (w) {
+          return w !== "listing_title";
+        });
+
+        // Replace the array with imported widgets (listing_title first)
+        this.local_layout[_section2][_area2].selectedWidgets = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(listingTitleWidgets), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(otherWidgets));
       }
     },
     // Import Widgets

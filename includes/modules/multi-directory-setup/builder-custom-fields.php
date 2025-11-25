@@ -796,5 +796,80 @@ return apply_filters(
                 ],
             ]
         ],
+
+        'button' => [
+            'label'   => __( 'Button', 'directorist' ),
+            'icon'    => 'la la-link',
+            'options' => [
+                'type' => [
+                    'type'  => 'hidden',
+                    'value' => 'button',
+                ],
+                'field_key' => array_merge(
+                    $custom_field_meta_key_field, [
+                        'value' => 'custom-button',
+                    ]
+                ),
+                'label' => [
+                    'type'  => 'text',
+                    'label' => __( 'Field Name', 'directorist' ),
+                    'value' => '',
+                ],
+                'description' => [
+                    'type'  => 'text',
+                    'label' => __( 'Description', 'directorist' ),
+                    'value' => '',
+                ],
+                'button_text' => [
+                    'type'  => 'text',
+                    'label' => __( 'Button Text Label', 'directorist' ),
+                    'value' => '',
+                ],
+                'button_link' => [
+                    'type'  => 'text',
+                    'label' => __( 'Button Link', 'directorist' ),
+                    'value' => '',
+                ],
+                'button_style' => [
+                    'type'  => 'select',
+                    'label' => __( 'Button Style', 'directorist' ),
+                    'value' => 'primary',
+                    'options' => [
+                        'primary'   => __( 'Primary', 'directorist' ),
+                        'secondary' => __( 'Secondary', 'directorist' ),
+                    ],
+                ],
+                'open_in_new_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Open in New Tab', 'directorist' ),
+                    'value' => true,
+                ],
+                'required' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Required', 'directorist' ),
+                    'value' => false,
+                ],
+                'only_for_admin' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Admin Only', 'directorist' ),
+                    'value' => false,
+                ],
+                'assign_to' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Assign to Category', 'directorist' ),
+                    'value' => false,
+                ],
+                'category'  => get_category_select_field(
+                    [
+                        'show_if' => [
+                            'where'      => "self.assign_to",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ]
+                ),
+            ]
+        ],
     ]
 );

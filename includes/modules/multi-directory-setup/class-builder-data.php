@@ -214,6 +214,15 @@ class Builder_Data {
                                 ],
                             ],
                         ],
+                        'button'       => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => __( 'Icon', 'directorist' ),
+                                    'value' => 'las la-link',
+                                ],
+                            ],
+                        ],
                         'date'         => [
                             'options' => [
                                 'icon' => [

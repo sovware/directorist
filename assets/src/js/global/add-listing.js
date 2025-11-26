@@ -821,8 +821,7 @@ $(function () {
 				contentType: false,
 				url: localized_data.ajaxurl,
 				data: form_data,
-				headers: (0,
-				_helper__WEBPACK_IMPORTED_MODULE_3__.directoristRequestHeaders)(),
+				headers: directoristRequestHeaders(),
 				beforeSend: function beforeSend() {
 					disableSubmitButton();
 					$notification

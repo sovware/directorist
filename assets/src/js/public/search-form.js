@@ -338,6 +338,67 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		);
 
+		// Initialize selected item count for checkboxes that are already checked on page load
+		// Process each dropdown that has checked checkboxes to avoid redundant calls
+		$(
+			'.directorist-search-form__top .directorist-search-basic-dropdown-content, .directorist-search-modal .directorist-search-basic-dropdown-content'
+		).each(function () {
+			let checkedCheckbox = $(this).find(
+				'input[type="checkbox"]:checked'
+			);
+			if (checkedCheckbox.length > 0) {
+				// Call once per dropdown with any checked checkbox
+				selectedItemCount(checkedCheckbox.first());
+			}
+		});
+
+		// Initialize selected radio items that are already checked on page load
+		$(
+			'.directorist-search-form__top .directorist-search-basic-dropdown input[type="radio"]:checked, .directorist-search-modal .directorist-search-basic-dropdown input[type="radio"]:checked'
+		).each(function () {
+			selectedRadioItem(this);
+		});
+
+		// Initialize all input fields that have values on page load
+		$(
+			'.directorist-search-form__top .directorist-search-field__input:not(.directorist-search-basic-dropdown), .directorist-search-modal .directorist-search-field__input:not(.directorist-search-basic-dropdown)'
+		).each(function () {
+			let inputField = $(this);
+			let inputValue = inputField.val();
+			let searchField = inputField.closest('.directorist-search-field');
+
+			// Check if it's a select field
+			if (inputField.hasClass('directorist-select')) {
+				let selectElement = inputField.find('select');
+				if (selectElement.length) {
+					inputValue =
+						selectElement.val() ||
+						selectElement.data('selected-id');
+				}
+			}
+
+			// If field has a value, add appropriate classes
+			if (inputValue && inputValue !== '' && inputValue !== '0') {
+				searchField.addClass('input-has-value');
+				if (!searchField.hasClass('input-is-focused')) {
+					searchField.addClass('input-is-focused');
+				}
+			}
+		});
+
+		// Initialize color picker background colors on page load
+		$('.wp-color-picker, .directorist-color-picker').each(function () {
+			let colorValue = $(this).val();
+			if (colorValue && colorValue !== '') {
+				let colorButton = $(this)
+					.closest('.directorist-search-field')
+					.find('.wp-color-result');
+				if (colorButton.length) {
+					colorButton.css('background-color', colorValue);
+				}
+			}
+		});
+
 		// Basic Search Dropdown Toggle
 		$('body').on(
 			'click',
@@ -844,15 +905,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		if ($('.directorist-btn-reset-js') !== null) {
 			$('body').on('click', '.directorist-btn-reset-js', function (e) {
 				e.preventDefault();
-				// Clear URL params on modal form reset
-				if (this.closest('.directorist-search-modal')) {
-					// Clear only the query parameters
+				setTimeout(() => {
+					// Clear URL params on modal form reset
 					const baseUrl =
 						window.location.origin + window.location.pathname;
 
 					// Update the URL in the address bar
 					window.history.replaceState(null, '', baseUrl);
-				}
+					if (this.closest('.directorist-search-modal')) {
+						// Clear only the query parameters
+						const baseUrl =
+							window.location.origin + window.location.pathname;
+
+						// Update the URL in the address bar
+						window.history.replaceState(null, '', baseUrl);
+					}
+				}, 300);
 
 				// Reset search form values
 				if (this.closest('.directorist-contents-wrap')) {
@@ -1957,8 +2025,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (customNumberParams && customNumberParams !== '0-0') {
 					sliderActivated = true;
 				} else if (
-					customRangeMinParams &&
-					customRangeMinParams !== '0' &&
 					customRangeMaxParams &&
 					customRangeMaxParams !== '0'
 				) {

@@ -19178,6 +19178,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     font-size: 0;
   }
 }
+@media screen and (max-width: 575px) {
+  .directorist-single-listing-quick-action .directorist-action-report {
+    font-size: 0;
+  }
+}
+@media screen and (max-width: 575px) {
+  .directorist-single-listing-quick-action .directorist-action-bookmark {
+    font-size: 0;
+  }
+}
 .directorist-single-listing-quick-action .directorist-social-share-links {
   position: absolute;
   -webkit-transition: all 0.2s ease-in-out;
@@ -22628,7 +22638,6 @@ Review: New Style
 .directorist-tab__nav__link .directorist_menuItem-text span.fa {
   pointer-events: none;
   display: inline-block;
-  margin-right: 10px;
 }
 .directorist-tab__nav__link.directorist-tab__nav__active, .directorist-tab__nav__link:focus {
   font-weight: 700;

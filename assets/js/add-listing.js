@@ -1834,7 +1834,7 @@ $(function () {
         contentType: false,
         url: localized_data.ajaxurl,
         data: form_data,
-        headers: (0, _helper__WEBPACK_IMPORTED_MODULE_3__.directoristRequestHeaders)(),
+        headers: (0,_helper__WEBPACK_IMPORTED_MODULE_3__.directoristRequestHeaders)(),
         beforeSend: function beforeSend() {
           disableSubmitButton();
           $notification.show().html('<span class="atbdp_success">'.concat(localized_data.i18n_text.submission_wait_msg, '</span>'));

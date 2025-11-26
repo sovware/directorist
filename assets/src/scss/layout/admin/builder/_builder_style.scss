@@ -1808,56 +1808,61 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-form-builder-group-header-section {
-	position: relative;
-	&.expanded {
-		.cptm-form-builder-group-header {
-			border-radius: 6px 6px 0 0;
-			background-color: #f9fafb;
-			border-bottom: none;
-		}
-		.cptm-form-builder-group-title-icon {
-			background-color: #d8e0fd;
-		}
-	}
-	.cptm-form-builder-group-options-wrapper {
-		position: absolute;
-		top: calc(100% - 12px);
-		right: 55px;
-		width: 100%;
-		max-width: 460px;
-		height: 100%;
-		z-index: 9;
-		.cptm-form-builder-group-options {
-			padding: 0;
-			border: 1px solid #e5e7eb;
-			border-radius: 6px;
-			box-shadow: 0 8px 16px rgba(16, 24, 40, 0.1);
-			.cptm-form-builder-group-options-header {
-				display: flex;
-				gap: 8px;
-				justify-content: space-between;
-				align-items: center;
-				padding: 12px 16px;
-				border-bottom: 1px solid #e5e7eb;
-			}
-			.cptm-form-builder-group-options-header-title {
-				font-size: 14px;
-				line-height: 16px;
-				font-weight: 600;
-				color: #2c3239;
-				margin: 0;
-			}
-			.cptm-form-builder-group-options-header-close {
-				color: #2c3239;
-				span {
-					font-size: 20px;
-				}
-			}
-			.directorist-form-fields-area {
-				padding: 24px;
-			}
-		}
-	}
+  position: relative;
+  &.expanded {
+    .cptm-form-builder-group-header {
+      border-radius: 6px 6px 0 0;
+      background-color: #f9fafb;
+      border-bottom: none;
+    }
+    .cptm-form-builder-group-title-icon {
+      background-color: #d8e0fd;
+    }
+  }
+  &.locked {
+    .cptm-form-builder-group-options-wrapper {
+      right: 12px;
+    }
+  }
+  .cptm-form-builder-group-options-wrapper {
+    position: absolute;
+    top: calc(100% - 12px);
+    right: 55px;
+    width: 100%;
+    max-width: 460px;
+    height: 100%;
+    z-index: 9;
+    .cptm-form-builder-group-options {
+      padding: 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      box-shadow: 0 8px 16px rgba(16, 24, 40, 0.1);
+      .cptm-form-builder-group-options-header {
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .cptm-form-builder-group-options-header-title {
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: 600;
+        color: #2c3239;
+        margin: 0;
+      }
+      .cptm-form-builder-group-options-header-close {
+        color: #2c3239;
+        span {
+          font-size: 20px;
+        }
+      }
+      .directorist-form-fields-area {
+        padding: 24px;
+      }
+    }
+  }
 }
 
 .cptm-form-builder-group-header {

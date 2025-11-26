@@ -1892,6 +1892,30 @@ class Builder_Data {
             ],
         ];
 
+        // Prepare default field assignments for the Search Form builder.
+        // $search_bar_default_fields contains widget keys referenced by the group layout,
+        // while $search_form_default_fields stores the widget config that populates `value.fields`.
+        $search_bar_default_fields = [];
+        $search_form_default_fields = [];
+        $preset_widgets = $search_form_widgets['available_widgets']['widgets'] ?? [];
+
+        if ( isset( $preset_widgets['title'] ) ) {
+            $search_bar_default_fields[] = 'title';
+
+            // Seed the Search Box widget with its metadata/options so Vue can render it immediately.
+            $search_form_default_fields['title'] = [
+                'widget_group' => 'available_widgets',
+                'widget_name'  => 'title',
+                'original_widget_key' => 'title',
+            ];
+
+            if ( isset( $preset_widgets['title']['options'] ) && is_array( $preset_widgets['title']['options'] ) ) {
+                foreach ( $preset_widgets['title']['options'] as $option_key => $option_args ) {
+                    $search_form_default_fields['title'][ $option_key ] = isset( $option_args['value'] ) ? $option_args['value'] : '';
+                }
+            }
+        }
+
         $listing_card_grid_view_without_thumbnail_layout = [
             'body'   => [
                 'avatar'        => [
@@ -2357,13 +2381,15 @@ class Builder_Data {
                     ],
                     'widgets'         => $search_form_widgets,
                     'value'           => [
+                        // Preload the Search Box widget when it exists in preset widgets.
+                        'fields' => $search_form_default_fields,
                         'groups' => [
                             [
                                 'label'     => __( 'Search Bar', 'directorist' ), 
                                 'lock'      => true,
                                 'draggable' => false,
                                 'type'      => 'general_group',
-                                'fields'    => [],
+                                'fields'    => $search_bar_default_fields,
                             ],
                             [
                                 'label'     => __( 'Search Filter', 'directorist' ),

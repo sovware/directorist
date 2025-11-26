@@ -127,10 +127,12 @@ export default {
 
   watch: {
     expandedGroupKey(newExpandedKey) {
-      // If another group was expanded, collapse this one
-      if (newExpandedKey !== null && newExpandedKey !== this.groupKey) {
+      if (newExpandedKey === null) {
         this.widgetsExpanded = false;
+        return;
       }
+
+      this.widgetsExpanded = newExpandedKey === this.groupKey;
     },
   },
 
@@ -207,6 +209,7 @@ export default {
   methods: {
     setup() {
       this.checkIfGroupHasUntrashableWidgets();
+      this.initializeExpandedState();
     },
 
     checkIfGroupHasUntrashableWidgets() {
@@ -226,6 +229,14 @@ export default {
 
     updateDetectedUntrashableWidgets(widget_key) {
       this.detectedUntrashableWidgets.push(widget_key);
+    },
+
+    initializeExpandedState() {
+      if (this.expandedGroupKey === null) {
+        return;
+      }
+
+      this.widgetsExpanded = this.expandedGroupKey === this.groupKey;
     },
 
     toggleExpandWidgets(groupKey) {

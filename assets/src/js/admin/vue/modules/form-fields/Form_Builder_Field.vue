@@ -657,6 +657,10 @@ export default {
       }
 
       this.$emit("active-group-updated");
+
+      if (this.expandedGroupKey === null && this.active_widget_groups.length) {
+        this.expandedGroupKey = 0;
+      }
     },
 
     // sanitizeActiveWidgetGroups

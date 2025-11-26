@@ -19804,10 +19804,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     expandedGroupKey: function expandedGroupKey(newExpandedKey) {
-      // If another group was expanded, collapse this one
-      if (newExpandedKey !== null && newExpandedKey !== this.groupKey) {
+      if (newExpandedKey === null) {
         this.widgetsExpanded = false;
+        return;
       }
+      this.widgetsExpanded = newExpandedKey === this.groupKey;
     }
   },
   computed: {
@@ -19854,6 +19855,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     setup: function setup() {
       this.checkIfGroupHasUntrashableWidgets();
+      this.initializeExpandedState();
     },
     checkIfGroupHasUntrashableWidgets: function checkIfGroupHasUntrashableWidgets() {
       if (!this.groupSettings) {
@@ -19869,6 +19871,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateDetectedUntrashableWidgets: function updateDetectedUntrashableWidgets(widget_key) {
       this.detectedUntrashableWidgets.push(widget_key);
+    },
+    initializeExpandedState: function initializeExpandedState() {
+      if (this.expandedGroupKey === null) {
+        return;
+      }
+      this.widgetsExpanded = this.expandedGroupKey === this.groupKey;
     },
     toggleExpandWidgets: function toggleExpandWidgets(groupKey) {
       this.widgetsExpanded = !this.widgetsExpanded;
@@ -26738,6 +26746,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.active_widget_groups = this.sanitizeActiveWidgetGroups(this.value.groups);
       }
       this.$emit("active-group-updated");
+      if (this.expandedGroupKey === null && this.active_widget_groups.length) {
+        this.expandedGroupKey = 0;
+      }
     },
     // sanitizeActiveWidgetGroups
     sanitizeActiveWidgetGroups: function sanitizeActiveWidgetGroups(_active_widget_groups) {

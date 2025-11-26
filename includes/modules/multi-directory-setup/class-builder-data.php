@@ -2321,29 +2321,15 @@ class Builder_Data {
                         ],
                     ],
                 ],
-                'single_listing_page_title_one'                    => [
+                'single_listing_page'                    => [
                     'label'             => __( 'Single listing page', 'directorist' ),
                     'type'              => 'select-api',
-                    'apiPath'           => home_url() . '/wp-json/wp/v2/pages',
+                    'apiPath'           => home_url() . '/wp-json/directorist/v1/pages',
                     'apiMethod'         => 'GET',
                     'resyncLabel'       => 'Resync',
                     'showResyncButton'  => true,
                     'title'             => 'Assign Your Page',
                     'description' => __( 'Select a page that contains the generated shortcodes or', 'directorist' ) . ' <a href="' . admin_url( '/post-new.php?post_type=page' ) . '" target="_blank">Create New Page</a>',
-                    'show_if'           => [
-                        'where'      => 'enable_single_listing_page',
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'single_listing_page'                         => [
-                    'label'             => __( 'Single listing page', 'directorist' ),
-                    'description' => __( 'Select a page that contains the generated shortcodes or', 'directorist' ) . ' <a href="' . admin_url( '/post-new.php?post_type=page' ) . '" target="_blank">Create New Page</a>',
-                    'type'              => 'select',
-                    'value'             => '',
-                    'showDefaultOption' => true,
-                    'options'           => directorist_get_all_page_list(),
                     'show_if'           => [
                         'where'      => 'enable_single_listing_page',
                         'conditions' => [
@@ -2894,7 +2880,6 @@ class Builder_Data {
                                     'fields' => [
                                         'enable_single_listing_page',
                                         'single_listings_shortcodes',
-                                        'single_listing_page_title_one',
                                         'single_listing_page_title',
                                         'single_listing_page',
                                     ],

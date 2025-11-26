@@ -22,7 +22,6 @@
         class="directorist_dropdown-option"
         v-if="theOptions && theOptions.length && !isLoading && !hasError"
         :class="{ ['--show']: show_option_modal }"
-        @scroll="handleDropdownScroll"
         ref="dropdownOptions"
       >
         <ul>
@@ -34,21 +33,6 @@
               @click.prevent="updateOption(option.value)"
             >
             </a>
-          </li>
-          <li 
-            v-if="enableInfiniteScroll && isLoadingMore" 
-            class="directorist_dropdown-option-loading"
-            style="text-align: center; padding: 12px; color: #666;"
-          >
-            <span class="loading-spinner" style="display: inline-block; width: 16px; height: 16px; border: 2px solid #e0e0e0; border-top-color: #333; border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
-            <span style="margin-left: 8px;">Loading more...</span>
-          </li>
-          <li 
-            v-if="enableInfiniteScroll && !hasMore && theOptions.length >= perPage" 
-            class="directorist_dropdown-option-end"
-            style="text-align: center; padding: 12px; color: #999; font-size: 12px;"
-          >
-            No more options
           </li>
         </ul>
       </div>
@@ -160,21 +144,7 @@ import select_api_field from "../../../../mixins/form-fields/select-api-field";
 
 export default {
   name: "select-api-field-theme-default",
-  mixins: [select_api_field],
-  mounted() {
-    // Inject spin animation if not already present
-    if (!document.getElementById('select-api-field-spin-animation')) {
-      const style = document.createElement('style');
-      style.id = 'select-api-field-spin-animation';
-      style.textContent = `
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `;
-      document.head.appendChild(style);
-    }
-  }
+  mixins: [select_api_field]
 };
 </script>
 

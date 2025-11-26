@@ -13,44 +13,24 @@ export default {
 		apiPath: {
 			type: String,
 			required: true,
-			default: ''
+			default: '',
 		},
 		apiMethod: {
 			type: String,
-			default: 'GET'
+			default: 'GET',
 		},
 		apiParams: {
 			type: Object,
-			default: () => ({})
+			default: () => ({}),
 		},
 		resyncLabel: {
 			type: String,
-			default: 'Resync'
+			default: 'Resync',
 		},
 		showResyncButton: {
 			type: Boolean,
-			default: true
+			default: true,
 		},
-		enableInfiniteScroll: {
-			type: Boolean,
-			default: true
-		},
-		perPage: {
-			type: Number,
-			default: 20
-		},
-		pageParam: {
-			type: String,
-			default: 'page'
-		},
-		perPageParam: {
-			type: String,
-			default: 'per_page'
-		},
-		scrollThreshold: {
-			type: Number,
-			default: 100
-		}
 	},
 
 	created() {
@@ -94,7 +74,10 @@ export default {
 		},
 
 		theOptions() {
-			if (!this.fetchedOptions || typeof this.fetchedOptions !== 'object') {
+			if (
+				!this.fetchedOptions ||
+				typeof this.fetchedOptions !== 'object'
+			) {
 				return this.defaultOption ? [this.defaultOption] : [];
 			}
 
@@ -125,10 +108,6 @@ export default {
 			isLoading: false,
 			hasError: false,
 			errorMessage: '',
-			currentPage: 1,
-			hasMore: true,
-			isLoadingMore: false,
-			totalPages: null,
 		};
 	},
 
@@ -153,22 +132,16 @@ export default {
 			this.isLoading = true;
 			this.hasError = false;
 			this.errorMessage = '';
-			this.currentPage = 1;
-			this.hasMore = true;
 
 			try {
-				const response = await this.makeApiRequest(1);
+				const response = await this.makeApiRequest();
 
 				console.log(response);
-				
-				
+
 				if (response) {
 					const parsedOptions = this.parseApiResponse(response);
 					this.fetchedOptions = parsedOptions;
 					this.optionsInObject = this.convertOptionsToObject();
-
-					// Check if there are more pages
-					this.updatePaginationState(response, parsedOptions);
 
 					if (!this.valueIsValid(this.value)) {
 						this.$emit('update', '');
@@ -185,7 +158,7 @@ export default {
 			}
 		},
 
-		async makeApiRequest(page = 1) {
+		async makeApiRequest() {
 			const options = {
 				method: this.apiMethod,
 				headers: {
@@ -193,21 +166,17 @@ export default {
 				},
 			};
 
-			// Create params with pagination if enabled
-			let params = { ...this.apiParams };
-			
-			if (this.enableInfiniteScroll) {
-				params[this.pageParam] = page;
-				params[this.perPageParam] = this.perPage;
-			}
+			const params = { ...this.apiParams };
 
 			// Add params for POST requests
 			if (this.apiMethod === 'POST' && Object.keys(params).length > 0) {
 				options.body = JSON.stringify(params);
 			}
 
+			// Remove trailing slash from URL
+			let url = this.apiPath.replace(/\/$/, '');
+
 			// Add params to URL for GET requests
-			let url = this.apiPath;
 			if (this.apiMethod === 'GET' && Object.keys(params).length > 0) {
 				const urlParams = new URLSearchParams(params);
 				url = `${url}?${urlParams.toString()}`;
@@ -219,135 +188,71 @@ export default {
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}
 
-			// Return both data and headers for pagination info
 			const data = await response.json();
-			return {
-				data,
-				headers: {
-					totalPages: response.headers.get('X-WP-TotalPages'),
-					total: response.headers.get('X-WP-Total')
-				}
-			};
+			return data;
 		},
 
-	parseApiResponse(response) {
-		console.log(response);
-		
-		// Extract data from response object (handles headers wrapper)
-		const data = response.data || response;
-		
-		// Handle different API response formats
-		// WordPress REST API, custom APIs, etc.
-		if (Array.isArray(data)) {
-			return data.map(item => {
-				// Determine the value (prefer 'value', then 'id')
-				const value = item.value !== undefined ? item.value : (item.id !== undefined ? item.id : '');
-				
-				// Determine the label with priority:
-				// 1. Direct 'label' property
-				// 2. WordPress 'title.rendered' (for posts/pages)
-				// 3. Direct 'name' property (for categories/tags)
-				// 4. Fallback to value or id
-				let label = '';
-				
-				if (item.label !== undefined) {
-					label = item.label;
-				} else if (item.title && typeof item.title === 'object' && item.title.rendered) {
-					// WordPress REST API format (posts, pages, custom post types)
-					label = item.title.rendered;
-				} else if (item.name !== undefined) {
-					// WordPress taxonomies (categories, tags) or simple name property
-					label = item.name;
-				} else {
-					// Fallback
-					label = item.value || item.id || '';
-				}
+		parseApiResponse(response) {
+			console.log(response);
 
-				
-				
-				
-				return {
-					value: String(value),
-					label: String(label)
-				};
-			});
-		}
+			const data = response;
 
-		// If data is an object (key-value pairs), convert to array
-		if (typeof data === 'object' && data !== null) {
-			return Object.keys(data).map(key => ({
-				value: String(key),
-				label: String(data[key])
-			}));
-		}
+			// Handle different API response formats
+			// WordPress REST API, custom APIs, etc.
+			if (Array.isArray(data)) {
+				return data.map((item) => {
+					// Determine the value (prefer 'value', then 'id')
+					const value =
+						item.value !== undefined
+							? item.value
+							: item.id !== undefined
+								? item.id
+								: '';
 
-		return [];
-	},
+					// Determine the label with priority:
+					// 1. Direct 'label' property
+					// 2. WordPress 'title.rendered' (for posts/pages)
+					// 3. Direct 'name' property (for categories/tags)
+					// 4. Fallback to value or id
+					let label = '';
+
+					if (item.label !== undefined) {
+						label = item.label;
+					} else if (
+						item.title &&
+						typeof item.title === 'object' &&
+						item.title.rendered
+					) {
+						// WordPress REST API format (posts, pages, custom post types)
+						label = item.title.rendered;
+					} else if (item.name !== undefined) {
+						// WordPress taxonomies (categories, tags) or simple name property
+						label = item.name;
+					} else {
+						// Fallback
+						label = item.value || item.id || '';
+					}
+
+					return {
+						value: String(value),
+						label: String(label),
+					};
+				});
+			}
+
+			// If data is an object (key-value pairs), convert to array
+			if (typeof data === 'object' && data !== null) {
+				return Object.keys(data).map((key) => ({
+					value: String(key),
+					label: String(data[key]),
+				}));
+			}
+
+			return [];
+		},
 
 		handleResync() {
 			this.fetchOptions();
-		},
-
-		async loadMoreOptions() {
-			if (!this.enableInfiniteScroll || this.isLoadingMore || !this.hasMore || this.isLoading) {
-				return;
-			}
-
-			this.isLoadingMore = true;
-			const nextPage = this.currentPage + 1;
-
-			try {
-				const response = await this.makeApiRequest(nextPage);
-				
-				if (response) {
-					const newOptions = this.parseApiResponse(response);
-					
-					if (newOptions.length > 0) {
-						// Append new options to existing ones
-						this.fetchedOptions = [...this.fetchedOptions, ...newOptions];
-						this.optionsInObject = this.convertOptionsToObject();
-						this.currentPage = nextPage;
-						
-						// Update pagination state
-						this.updatePaginationState(response, newOptions);
-					} else {
-						this.hasMore = false;
-					}
-				}
-			} catch (error) {
-				console.error('Error loading more options:', error);
-			} finally {
-				this.isLoadingMore = false;
-			}
-		},
-
-		updatePaginationState(response, options) {
-			if (!this.enableInfiniteScroll) {
-				return;
-			}
-
-			// Check if we have pagination headers (WordPress REST API)
-			if (response.headers && response.headers.totalPages) {
-				const totalPages = parseInt(response.headers.totalPages);
-				this.totalPages = totalPages;
-				this.hasMore = this.currentPage < totalPages;
-			} else {
-				// Fallback: if we got fewer items than perPage, assume no more data
-				this.hasMore = options.length >= this.perPage;
-			}
-		},
-
-		handleDropdownScroll(event) {
-			if (!this.enableInfiniteScroll || !this.hasMore || this.isLoadingMore) {
-				return;
-			}
-
-			const target = event.target;
-			const scrollBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
-			
-			if (scrollBottom < this.scrollThreshold) {
-				this.loadMoreOptions();
-			}
 		},
 
 		update_value(value) {
@@ -411,4 +316,3 @@ export default {
 		},
 	},
 };
-

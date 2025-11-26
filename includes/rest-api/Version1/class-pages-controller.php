@@ -10,7 +10,6 @@ namespace Directorist\Rest_Api\Controllers\Version1;
 
 defined( 'ABSPATH' ) || exit;
 
-use WP_Error;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -50,17 +49,9 @@ class Pages_Controller extends Abstract_Controller {
      * Check if a given request has access to read pages.
      *
      * @param WP_REST_Request $request Full details about the request.
-     * @return WP_Error|bool
+     * @return bool
      */
     public function get_items_permissions_check( $request ) {
-        if ( ! current_user_can( 'edit_posts' ) ) {
-            return new WP_Error(
-                'directorist_rest_cannot_view',
-                __( 'Sorry, you cannot list pages.', 'directorist' ),
-                array( 'status' => rest_authorization_required_code() )
-            );
-        }
-
         return true;
     }
 

@@ -250,7 +250,7 @@ export default {
 		},
 		resyncLabel: {
 			type: String,
-			default: 'Resync',
+			default: 'Reload',
 		},
 		showResyncButton: {
 			type: Boolean,

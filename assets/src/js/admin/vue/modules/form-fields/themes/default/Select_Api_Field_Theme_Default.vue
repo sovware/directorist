@@ -1,9 +1,15 @@
 <template>
   <div class="cptm-form-group cptm-form-group--dropdown cptm-form-group--api-select" :class="formGroupClass">
-    <label v-if="label.length">
+    <div class="cptm-form-title-field">
+      <label v-if="label.length" class="cptm-form-title-field__label">
       <component :is="labelType">{{ label }}</component>
     </label>
-
+    <div
+      class="cptm-form-title-field__description"
+      v-if="description.length"
+      v-html="description"
+    ></div>
+    </div>
     <div
       class="directorist_dropdown"
       :class="{ ['--open']: show_option_modal, ['--disabled']: isLoading || hasError }"
@@ -46,7 +52,7 @@
       </div>
       <h4 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: #333;">No page found yet</h4>
       <p style="margin: 0 0 20px 0; color: #666; font-size: 14px;">
-        Click the Re-Load button below to sync<br>newly created pages here.
+        Click the Reload button below to sync<br>newly created pages here.
       </p>
       <button
         v-if="showResyncButton"
@@ -55,7 +61,7 @@
         @click="handleResync"
       >
         <span class="la la-refresh"></span>
-        {{ resyncLabel }}
+        Reload
       </button>
     </div>
     <div 
@@ -122,11 +128,6 @@
         {{ option.label }}
       </option>
     </select>
-    <p
-      class="cptm-form-group-info"
-      v-if="description.length"
-      v-html="description"
-    ></p>
     <form-field-validatior
       :section-id="sectionId"
       :field-id="fieldId"

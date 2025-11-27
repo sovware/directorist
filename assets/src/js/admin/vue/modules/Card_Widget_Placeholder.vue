@@ -470,10 +470,20 @@ export default {
     handleInsertClick() {
       // Special case for single accepted widget
       if (this.acceptedWidgets.length === 1) {
-        this.selectedWidgets.push(this.acceptedWidgets[0]);
-        this.activeWidgets[this.acceptedWidgets[0]] = {
-          ...this.availableWidgets[this.acceptedWidgets[0]],
-        };
+        // Don't mutate props directly - emit event to parent instead
+        // Create a new array with the new widget added
+        const updatedWidgets = [...(this.selectedWidgets || [])];
+
+        // Only add if not already present
+        if (!updatedWidgets.includes(this.acceptedWidgets[0])) {
+          updatedWidgets.push(this.acceptedWidgets[0]);
+        }
+
+        // Emit insert-widget event to parent (same as normal flow)
+        this.$emit("insert-widget", {
+          key: this.acceptedWidgets[0],
+          selected_widgets: updatedWidgets,
+        });
 
         return;
       }

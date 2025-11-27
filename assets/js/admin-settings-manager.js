@@ -25584,68 +25584,22 @@
 					__webpack_require__(
 						/*! @babel/runtime/helpers/toConsumableArray */ './node_modules/@babel/runtime/helpers/esm/toConsumableArray.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ =
-					__webpack_require__(
-						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
-					);
-				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/typeof */ './node_modules/@babel/runtime/helpers/esm/typeof.js'
 					);
-				/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ =
+				/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! vue-dndrop */ './node_modules/vue-dndrop/dist/vue-dndrop.esm.js'
 					);
-
-				function ownKeys(e, r) {
-					var t = Object.keys(e);
-					if (Object.getOwnPropertySymbols) {
-						var o = Object.getOwnPropertySymbols(e);
-						(r &&
-							(o = o.filter(function (r) {
-								return Object.getOwnPropertyDescriptor(e, r)
-									.enumerable;
-							})),
-							t.push.apply(t, o));
-					}
-					return t;
-				}
-				function _objectSpread(e) {
-					for (var r = 1; r < arguments.length; r++) {
-						var t = null != arguments[r] ? arguments[r] : {};
-						r % 2
-							? ownKeys(Object(t), !0).forEach(function (r) {
-									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
-										'default'
-									])(e, r, t[r]);
-								})
-							: Object.getOwnPropertyDescriptors
-								? Object.defineProperties(
-										e,
-										Object.getOwnPropertyDescriptors(t)
-									)
-								: ownKeys(Object(t)).forEach(function (r) {
-										Object.defineProperty(
-											e,
-											r,
-											Object.getOwnPropertyDescriptor(
-												t,
-												r
-											)
-										);
-									});
-					}
-					return e;
-				}
 
 				/* harmony default export */ __webpack_exports__['default'] = {
 					name: 'card-widget-placeholder',
 					components: {
 						Container:
-							vue_dndrop__WEBPACK_IMPORTED_MODULE_4__.Container,
+							vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Container,
 						Draggable:
-							vue_dndrop__WEBPACK_IMPORTED_MODULE_4__.Draggable,
+							vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Draggable,
 					},
 					data: function data() {
 						return {
@@ -25785,7 +25739,7 @@
 							} else if (
 								this.containerClass &&
 								(0,
-								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
+								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 									'default'
 								])(this.containerClass) === 'object' &&
 								!Array.isArray(this.containerClass)
@@ -25824,7 +25778,7 @@
 							return (
 								widget &&
 								(0,
-								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
+								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 									'default'
 								])(widget) === 'object' &&
 								typeof widget.type === 'string'
@@ -25861,7 +25815,7 @@
 								return false;
 							if (
 								(0,
-								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
+								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 									'default'
 								])(options) === 'object' &&
 								Object.keys(options).length === 0
@@ -25989,16 +25943,29 @@
 						handleInsertClick: function handleInsertClick() {
 							// Special case for single accepted widget
 							if (this.acceptedWidgets.length === 1) {
-								this.selectedWidgets.push(
-									this.acceptedWidgets[0]
-								);
-								this.activeWidgets[this.acceptedWidgets[0]] =
-									_objectSpread(
-										{},
-										this.availableWidgets[
-											this.acceptedWidgets[0]
-										]
+								// Don't mutate props directly - emit event to parent instead
+								// Create a new array with the new widget added
+								var updatedWidgets = (0,
+								_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+									'default'
+								])(this.selectedWidgets || []);
+
+								// Only add if not already present
+								if (
+									!updatedWidgets.includes(
+										this.acceptedWidgets[0]
+									)
+								) {
+									updatedWidgets.push(
+										this.acceptedWidgets[0]
 									);
+								}
+
+								// Emit insert-widget event to parent (same as normal flow)
+								this.$emit('insert-widget', {
+									key: this.acceptedWidgets[0],
+									selected_widgets: updatedWidgets,
+								});
 								return;
 							}
 

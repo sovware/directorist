@@ -1863,7 +1863,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
-                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -1944,7 +1944,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
-                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt'       => [
                     'maxWidget'       => 1,
@@ -2005,7 +2005,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
-                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -2056,7 +2056,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
-                    "selectedWidgets" => ['address', 'phone', 'posted_date'],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,

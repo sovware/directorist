@@ -532,21 +532,6 @@ export default {
         return;
       }
 
-      // First, clear all selectedWidgets arrays to remove defaults
-      for (let section in this.local_layout) {
-        if (!this.isTruthyObject(this.local_layout[section])) {
-          continue;
-        }
-        for (let area in this.local_layout[section]) {
-          if (
-            this.local_layout[section][area] &&
-            Array.isArray(this.local_layout[section][area].selectedWidgets)
-          ) {
-            this.local_layout[section][area].selectedWidgets = [];
-          }
-        }
-      }
-
       let selectedWidgets = [];
 
       // Get Active Widgets Data

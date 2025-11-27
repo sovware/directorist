@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-18 09:57+0000\n"
+"POT-Creation-Date: 2025-11-27 08:49+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1984,43 +1984,43 @@ msgstr ""
 msgid "[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:966
+#: ../includes/classes/class-email.php:960
 msgid "[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:977
+#: ../includes/classes/class-email.php:971
 msgid "[==SITE_NAME==] New Author Request"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1028
+#: ../includes/classes/class-email.php:1022
 msgid "[==SITE_NAME==] You have a new order #==ORDER_ID== on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1073
+#: ../includes/classes/class-email.php:1067
 msgid "[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1115
+#: ../includes/classes/class-email.php:1109
 msgid "[==SITE_NAME==] A new listing has been submitted on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1149
+#: ../includes/classes/class-email.php:1143
 msgid "[%s] Password Reset PIN"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1180
+#: ../includes/classes/class-email.php:1174
 msgid "[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1216, ../includes/classes/class-settings-panel.php:3583
+#: ../includes/classes/class-email.php:1210, ../includes/classes/class-settings-panel.php:3583
 msgid "Registration Confirmation!"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1253
+#: ../includes/classes/class-email.php:1247
 msgid "Verify your email address"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1255
+#: ../includes/classes/class-email.php:1249
 msgid "[==NAME==] Verify Your Email Address"
 msgstr ""
 

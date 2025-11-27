@@ -34528,7 +34528,10 @@
 											if (
 												!this.active_widgets[
 													widget_name
-												] &&
+												] ||
+												this.active_widgets[
+													widget_name
+												] === null ||
 												(0,
 												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
@@ -34538,12 +34541,50 @@
 													]
 												) !== 'object'
 											) {
+												// Get widget from theAvailableWidgets to ensure widget_key and widget_name are set
+												var widgetFromAvailable =
+													this.theAvailableWidgets[
+														widget_name
+													];
+												if (widgetFromAvailable) {
+													this.active_widgets[
+														widget_name
+													] = _objectSpread(
+														_objectSpread(
+															{},
+															widgetFromAvailable
+														),
+														{},
+														{
+															widget_name:
+																widget_name,
+															widget_key:
+																widget_name,
+														}
+													);
+												} else {
+													// Widget not available, skip it
+													continue;
+												}
+											}
+
+											// Check if active_widgets[widget_name] is null or invalid
+											if (
+												!this.active_widgets[
+													widget_name
+												] ||
 												this.active_widgets[
 													widget_name
-												] =
-													this.available_widgets[
+												] === null ||
+												(0,
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+													'default'
+												])(
+													this.active_widgets[
 														widget_name
-													] || null;
+													]
+												) !== 'object'
+											) {
 												continue;
 											}
 											var widget_data = {};
@@ -34558,6 +34599,9 @@
 													][root_option];
 											}
 											if (
+												!this.active_widgets[
+													widget_name
+												].options ||
 												(0,
 												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
@@ -34607,10 +34651,6 @@
 									}
 								}
 							}
-							console.log('output_data Grid with thumbnail', {
-								output: output,
-								layout: layout,
-							});
 							return output;
 						},
 						// Available Widgets
@@ -34688,6 +34728,11 @@
 									}
 								}
 							}
+							vue__WEBPACK_IMPORTED_MODULE_3__['default'].set(
+								this,
+								'available_widgets',
+								available_widgets
+							);
 							return available_widgets;
 						},
 						// Widget Options Window Active Status
@@ -34908,77 +34953,60 @@
 											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
 												'default'
 											])(
-												{
-													init: function init() {
-														this.importWidgets();
-														this.importLayout();
-														this.importOldData();
-													},
-													// isTruthyObject check
-													isTruthyObject:
-														function isTruthyObject(
-															obj
-														) {
-															if (
-																!obj &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(obj) !==
-																	'object'
-															) {
-																return false;
-															}
-															return true;
+												(0,
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+													'default'
+												])(
+													{
+														init: function init() {
+															this.importWidgets();
+															this.importLayout();
+															this.importOldData();
 														},
-													// Import Old Data
-													importOldData:
-														function importOldData() {
-															var value =
-																JSON.parse(
-																	JSON.stringify(
-																		this
-																			.value
-																	)
-																);
-															if (
-																!this.isTruthyObject(
-																	value
-																)
+														// isTruthyObject check
+														isTruthyObject:
+															function isTruthyObject(
+																obj
 															) {
-																return;
-															}
-															var selectedWidgets =
-																[];
-
-															// Get Active Widgets Data
-															var active_widgets_data =
-																{};
-															for (var section in value) {
 																if (
-																	!value[
-																		section
-																	] &&
+																	!obj &&
 																	(0,
 																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 																		'default'
-																	])(
-																		value[
-																			section
-																		]
-																	) !==
+																	])(obj) !==
 																		'object'
 																) {
-																	continue;
+																	return false;
 																}
-																for (var area in value[
-																	section
-																]) {
+																return true;
+															},
+														// Import Old Data
+														importOldData:
+															function importOldData() {
+																var value =
+																	JSON.parse(
+																		JSON.stringify(
+																			this
+																				.value
+																		)
+																	);
+																if (
+																	!this.isTruthyObject(
+																		value
+																	)
+																) {
+																	return;
+																}
+																var selectedWidgets =
+																	[];
+
+																// Get Active Widgets Data
+																var active_widgets_data =
+																	{};
+																for (var section in value) {
 																	if (
 																		!value[
 																			section
-																		][
-																			area
 																		] &&
 																		(0,
 																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
@@ -34986,815 +35014,897 @@
 																		])(
 																			value[
 																				section
-																			][
-																				area
 																			]
 																		) !==
 																			'object'
 																	) {
 																		continue;
 																	}
-																	var _iterator3 =
-																			_createForOfIteratorHelper(
+																	for (var area in value[
+																		section
+																	]) {
+																		if (
+																			!value[
+																				section
+																			][
+																				area
+																			] &&
+																			(0,
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																				'default'
+																			])(
 																				value[
 																					section
 																				][
 																					area
 																				]
-																			),
-																		_step3;
-																	try {
-																		for (
-																			_iterator3.s();
-																			!(_step3 =
-																				_iterator3.n())
-																				.done;
-
+																			) !==
+																				'object'
 																		) {
-																			var widget =
-																				_step3.value;
-																			if (
-																				typeof widget.widget_name ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof widget.widget_key ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.available_widgets[
-																					widget
-																						.widget_name
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				][
-																					area
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			active_widgets_data[
-																				widget.widget_key
-																			] =
-																				widget;
-																			selectedWidgets.push(
-																				{
-																					section:
-																						section,
-																					area: area,
-																					widget: widget.widget_key,
-																				}
-																			);
+																			continue;
 																		}
-																	} catch (err) {
-																		_iterator3.e(
-																			err
-																		);
-																	} finally {
-																		_iterator3.f();
+																		var _iterator3 =
+																				_createForOfIteratorHelper(
+																					value[
+																						section
+																					][
+																						area
+																					]
+																				),
+																			_step3;
+																		try {
+																			for (
+																				_iterator3.s();
+																				!(_step3 =
+																					_iterator3.n())
+																					.done;
+
+																			) {
+																				var widget =
+																					_step3.value;
+																				if (
+																					typeof widget.widget_name ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof widget.widget_key ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.available_widgets[
+																						widget
+																							.widget_name
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					][
+																						area
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				active_widgets_data[
+																					widget.widget_key
+																				] =
+																					widget;
+																				selectedWidgets.push(
+																					{
+																						section:
+																							section,
+																						area: area,
+																						widget: widget.widget_key,
+																					}
+																				);
+																			}
+																		} catch (err) {
+																			_iterator3.e(
+																				err
+																			);
+																		} finally {
+																			_iterator3.f();
+																		}
 																	}
 																}
-															}
 
-															// Load Active Widgets
-															for (var widget_key in active_widgets_data) {
-																// Validate widget exists in theAvailableWidgets (computed property)
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		widget_key
-																	] ===
-																	'undefined'
-																) {
-																	continue;
-																}
-																var widgets_template =
-																	_objectSpread(
-																		{},
-																		this
+																// Load Active Widgets
+																for (var widget_key in active_widgets_data) {
+																	// Validate widget exists in theAvailableWidgets (computed property)
+																	if (
+																		typeof this
 																			.theAvailableWidgets[
 																			widget_key
-																		]
-																	);
-																// let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-
-																for (var root_option in widgets_template) {
-																	// if ("options" === root_option) {
-																	//   continue;
-																	// }
-																	if (
-																		typeof active_widgets_data[
-																			widget_key
-																		][
-																			root_option
 																		] ===
 																		'undefined'
 																	) {
 																		continue;
 																	}
-																	widgets_template[
-																		root_option
-																	] =
-																		active_widgets_data[
-																			widget_key
-																		][
-																			root_option
-																		];
-																}
-																var has_widget_options = false;
-																if (
-																	widgets_template.options &&
-																	widgets_template
-																		.options
-																		.fields
-																) {
-																	has_widget_options = true;
-																}
-																if (
-																	has_widget_options
-																) {
-																	for (var option_key in widgets_template
-																		.options
-																		.fields) {
+																	var widgets_template =
+																		_objectSpread(
+																			{},
+																			this
+																				.theAvailableWidgets[
+																				widget_key
+																			]
+																		);
+																	// let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
+
+																	for (var root_option in widgets_template) {
+																		// if ("options" === root_option) {
+																		//   continue;
+																		// }
 																		if (
 																			typeof active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			] ===
 																			'undefined'
 																		) {
 																			continue;
 																		}
-																		widgets_template.options.fields[
-																			option_key
-																		].value =
+																		widgets_template[
+																			root_option
+																		] =
 																			active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			];
 																	}
-																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.active_widgets,
-																	widget_key,
-																	widgets_template
-																);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.available_widgets,
-																	widget_key,
-																	widgets_template
-																);
-															}
+																	var has_widget_options = false;
+																	if (
+																		widgets_template.options &&
+																		widgets_template
+																			.options
+																			.fields
+																	) {
+																		has_widget_options = true;
+																	}
+																	if (
+																		has_widget_options
+																	) {
+																		for (var option_key in widgets_template
+																			.options
+																			.fields) {
+																			if (
+																				typeof active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				] ===
+																				'undefined'
+																			) {
+																				continue;
+																			}
+																			widgets_template.options.fields[
+																				option_key
+																			].value =
+																				active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				];
+																		}
+																	}
 
-															// Load Selected Widgets Data - Group by section/area first
-															var widgetsByArea =
-																{};
-															for (
-																var _i = 0,
-																	_selectedWidgets =
-																		selectedWidgets;
-																_i <
-																_selectedWidgets.length;
-																_i++
-															) {
-																var item =
-																	_selectedWidgets[
-																		_i
-																	];
-																var key = ''
-																	.concat(
-																		item.section,
-																		'.'
-																	)
-																	.concat(
-																		item.area
+																	// Ensure widget_key and widget_name are set
+																	widgets_template.widget_key =
+																		widget_key;
+																	widgets_template.widget_name =
+																		active_widgets_data[
+																			widget_key
+																		]
+																			.widget_name ||
+																		widget_key;
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.active_widgets,
+																		widget_key,
+																		widgets_template
 																	);
-																if (
-																	!widgetsByArea[
-																		key
-																	]
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.available_widgets,
+																		widget_key,
+																		widgets_template
+																	);
+																}
+
+																// Load Selected Widgets Data - Group by section/area first
+																var widgetsByArea =
+																	{};
+																for (
+																	var _i = 0,
+																		_selectedWidgets =
+																			selectedWidgets;
+																	_i <
+																	_selectedWidgets.length;
+																	_i++
 																) {
-																	widgetsByArea[
-																		key
-																	] = {
-																		section:
+																	var item =
+																		_selectedWidgets[
+																			_i
+																		];
+																	var key = ''
+																		.concat(
 																			item.section,
-																		area: item.area,
-																		widgets:
-																			[],
-																	};
-																}
-																// Only add if widget exists in theAvailableWidgets and not already added
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		item
-																			.widget
-																	] !==
-																		'undefined' &&
-																	!widgetsByArea[
-																		key
-																	].widgets.includes(
-																		item.widget
-																	)
-																) {
-																	widgetsByArea[
-																		key
-																	].widgets.push(
-																		item.widget
-																	);
-																}
-															}
-
-															// Now set selectedWidgets for each area, preserving order (listing_title first)
-															for (var _key in widgetsByArea) {
-																var _widgetsByArea$_key =
-																		widgetsByArea[
-																			_key
-																		],
-																	_section =
-																		_widgetsByArea$_key.section,
-																	_area =
-																		_widgetsByArea$_key.area,
-																	widgets =
-																		_widgetsByArea$_key.widgets;
-
-																// Separate listing_title from other widgets
-																var listingTitleWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w ===
-																				'listing_title'
-																			);
-																		}
-																	);
-																var otherWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w !==
-																				'listing_title'
-																			);
-																		}
-																	);
-
-																// Replace the array with imported widgets (listing_title first)
-																this.local_layout[
-																	_section
-																][
-																	_area
-																].selectedWidgets =
-																	[].concat(
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																			'default'
-																		])(
-																			listingTitleWidgets
-																		),
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																			'default'
-																		])(
-																			otherWidgets
+																			'.'
 																		)
-																	);
-															}
-														},
-													// Import Widgets
-													importWidgets:
-														function importWidgets() {
-															if (
-																!this.isTruthyObject(
-																	this.widgets
-																)
-															) {
-																return;
-															}
-															this.available_widgets =
-																this.widgets;
-														},
-													// Import Layout
-													importLayout:
-														function importLayout() {
-															if (
-																!this.isTruthyObject(
-																	this.layout
-																)
-															) {
-																return;
-															}
-															for (var section in this
-																.local_layout) {
+																		.concat(
+																			item.area
+																		);
+																	if (
+																		!widgetsByArea[
+																			key
+																		]
+																	) {
+																		widgetsByArea[
+																			key
+																		] = {
+																			section:
+																				item.section,
+																			area: item.area,
+																			widgets:
+																				[],
+																		};
+																	}
+																	// Only add if widget exists in theAvailableWidgets and not already added
+																	if (
+																		typeof this
+																			.theAvailableWidgets[
+																			item
+																				.widget
+																		] !==
+																			'undefined' &&
+																		!widgetsByArea[
+																			key
+																		].widgets.includes(
+																			item.widget
+																		)
+																	) {
+																		widgetsByArea[
+																			key
+																		].widgets.push(
+																			item.widget
+																		);
+																	}
+																}
+
+																// Now set selectedWidgets for each area, preserving order (listing_title first)
+																for (var _key in widgetsByArea) {
+																	var _widgetsByArea$_key =
+																			widgetsByArea[
+																				_key
+																			],
+																		_section =
+																			_widgetsByArea$_key.section,
+																		_area =
+																			_widgetsByArea$_key.area,
+																		widgets =
+																			_widgetsByArea$_key.widgets;
+
+																	// Separate listing_title from other widgets
+																	var listingTitleWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w ===
+																					'listing_title'
+																				);
+																			}
+																		);
+																	var otherWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w !==
+																					'listing_title'
+																				);
+																			}
+																		);
+
+																	// Replace the array with imported widgets (listing_title first)
+																	this.local_layout[
+																		_section
+																	][
+																		_area
+																	].selectedWidgets =
+																		[].concat(
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				listingTitleWidgets
+																			),
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				otherWidgets
+																			)
+																		);
+																}
+															},
+														// Import Widgets
+														importWidgets:
+															function importWidgets() {
 																if (
 																	!this.isTruthyObject(
 																		this
-																			.layout[
-																			section
-																		]
+																			.widgets
 																	)
 																) {
-																	continue;
+																	return;
 																}
-																for (var area in this
-																	.local_layout[
-																	section
-																]) {
+																this.available_widgets =
+																	this.widgets;
+															},
+														// Import Layout
+														importLayout:
+															function importLayout() {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.layout
+																	)
+																) {
+																	return;
+																}
+																for (var section in this
+																	.local_layout) {
 																	if (
 																		!this.isTruthyObject(
+																			this
+																				.layout[
+																				section
+																			]
+																		)
+																	) {
+																		continue;
+																	}
+																	for (var area in this
+																		.local_layout[
+																		section
+																	]) {
+																		if (
+																			!this.isTruthyObject(
+																				this
+																					.layout[
+																					section
+																				][
+																					area
+																				]
+																			)
+																		) {
+																			continue;
+																		}
+																		Object.assign(
+																			this
+																				.local_layout[
+																				section
+																			][
+																				area
+																			],
 																			this
 																				.layout[
 																				section
 																			][
 																				area
 																			]
-																		)
-																	) {
-																		continue;
+																		);
 																	}
-																	Object.assign(
-																		this
-																			.local_layout[
-																			section
-																		][area],
-																		this
-																			.layout[
-																			section
-																		][area]
-																	);
 																}
-															}
-														},
-													// Edit Widget
-													editWidget:
-														function editWidget(
-															key
-														) {
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
+															},
+														// Edit Widget
+														editWidget:
+															function editWidget(
+																key
 															) {
-																return;
-															}
-															if (
-																!this
-																	.active_widgets[
-																	key
-																].options &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																if (
+																	!this
+																		.active_widgets[
+																		key
+																	].options &&
+																	(0,
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		'default'
+																	])(
+																		this
+																			.active_widgets[
+																			key
+																		]
+																			.options
+																	) !==
+																		'object'
+																) {
+																	return;
+																}
+																var opt =
 																	this
 																		.active_widgets[
 																		key
-																	].options
-																) !== 'object'
+																	].options;
+																// Force Vue reactivity by using Vue.set or restructuring
+																this.$set(
+																	this,
+																	'widgetOptionsWindow',
+																	_objectSpread(
+																		_objectSpread(
+																			_objectSpread(
+																				{},
+																				this
+																					.widgetOptionsWindowDefault
+																			),
+																			opt
+																		),
+																		{},
+																		{
+																			widget: key,
+																		}
+																	)
+																);
+
+																// Also update the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	key;
+															},
+														// Update Widget Options Data
+														updateWidgetOptionsData:
+															function updateWidgetOptionsData(
+																data,
+																widget
 															) {
 																return;
-															}
-															var opt =
-																this
-																	.active_widgets[
+															},
+														// Close Widget Options Window
+														closeWidgetOptionsWindow:
+															function closeWidgetOptionsWindow() {
+																this.widgetOptionsWindow =
+																	this.widgetOptionsWindowDefault;
+																// Also clear the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	'';
+															},
+														// Trash Widget
+														trashWidget:
+															function trashWidget(
+																key,
+																where
+															) {
+																if (
+																	!where.selectedWidgets.includes(
+																		key
+																	)
+																) {
+																	return;
+																}
+																var index =
+																	where.selectedWidgets.indexOf(
+																		key
+																	);
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	where.selectedWidgets,
+																	index
+																);
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	this
+																		.active_widgets,
 																	key
-																].options;
-															// Force Vue reactivity by using Vue.set or restructuring
-															this.$set(
-																this,
-																'widgetOptionsWindow',
-																_objectSpread(
+																);
+																if (
+																	key ===
+																	this
+																		.widgetOptionsWindow
+																		.widget
+																) {
+																	this.closeWidgetOptionsWindow();
+																}
+
+																// Also clear active_option_widget_key if this widget was active
+																if (
+																	this
+																		.active_option_widget_key ===
+																	key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																}
+															},
+														// Toggle Widget Status
+														toggleWidgetStatus:
+															function toggleWidgetStatus(
+																layout
+															) {
+																var _this =
+																	this;
+																if (
+																	layout
+																		.selectedWidgets
+																		.length >
+																	0
+																) {
+																	var _layout$selectedWidge;
+																	(_layout$selectedWidge =
+																		layout.selectedWidgets) ===
+																		null ||
+																		_layout$selectedWidge ===
+																			void 0 ||
+																		_layout$selectedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.trashWidget(
+																					widget,
+																					layout
+																				);
+																			}
+																		);
+																} else {
+																	var _layout$acceptedWidge;
+																	(_layout$acceptedWidge =
+																		layout.acceptedWidgets) ===
+																		null ||
+																		_layout$acceptedWidge ===
+																			void 0 ||
+																		_layout$acceptedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.insertWidget(
+																					{
+																						key: widget,
+																						selected_widgets:
+																							[
+																								widget,
+																							],
+																					},
+																					layout
+																				);
+																			}
+																		);
+																}
+															},
+														// Toggle Insert Window
+														toggleInsertWindow:
+															function toggleInsertWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_insert_widget_key ===
+																	current_item_key
+																) {
+																	this.active_insert_widget_key =
+																		'';
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening insert window
+																this.active_option_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the insert window
+																this.active_insert_widget_key =
+																	current_item_key;
+															},
+														// Toggle Option Window
+														toggleOptionWindow:
+															function toggleOptionWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_option_widget_key ===
+																	current_item_key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening option window
+																this.active_insert_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the option window
+																this.active_option_widget_key =
+																	current_item_key;
+															},
+														// Insert Widget
+														insertWidget:
+															function insertWidget(
+																payload,
+																where
+															) {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.theAvailableWidgets[
+																			payload
+																				.key
+																		]
+																	)
+																) {
+																	return;
+																}
+
+																// Get widget from theAvailableWidgets and ensure widget_key and widget_name are set
+																var widgetFromAvailable =
+																	this
+																		.theAvailableWidgets[
+																		payload
+																			.key
+																	];
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].set(
+																	this
+																		.active_widgets,
+																	payload.key,
 																	_objectSpread(
 																		_objectSpread(
 																			{},
-																			this
-																				.widgetOptionsWindowDefault
+																			widgetFromAvailable
 																		),
-																		opt
-																	),
-																	{},
-																	{
-																		widget: key,
-																	}
-																)
-															);
-
-															// Also update the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																key;
-														},
-													// Update Widget Options Data
-													updateWidgetOptionsData:
-														function updateWidgetOptionsData(
-															data,
-															widget
-														) {
-															return;
-														},
-													// Close Widget Options Window
-													closeWidgetOptionsWindow:
-														function closeWidgetOptionsWindow() {
-															this.widgetOptionsWindow =
-																this.widgetOptionsWindowDefault;
-															// Also clear the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																'';
-														},
-													// Trash Widget
-													trashWidget:
-														function trashWidget(
-															key,
-															where
-														) {
-															if (
-																!where.selectedWidgets.includes(
-																	key
-																)
-															) {
-																return;
-															}
-															var index =
-																where.selectedWidgets.indexOf(
-																	key
+																		{},
+																		{
+																			widget_key:
+																				payload.key,
+																			widget_name:
+																				widgetFromAvailable.widget_name ||
+																				payload.key,
+																		}
+																	)
 																);
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																where.selectedWidgets,
-																index
-															);
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																this
-																	.active_widgets,
-																key
-															);
-															if (
-																key ===
-																this
-																	.widgetOptionsWindow
-																	.widget
-															) {
-																this.closeWidgetOptionsWindow();
-															}
 
-															// Also clear active_option_widget_key if this widget was active
-															if (
-																this
-																	.active_option_widget_key ===
-																key
-															) {
-																this.active_option_widget_key =
-																	'';
-															}
-														},
-													// Toggle Widget Status
-													toggleWidgetStatus:
-														function toggleWidgetStatus(
-															layout
-														) {
-															var _this = this;
-															if (
-																layout
-																	.selectedWidgets
-																	.length > 0
-															) {
-																var _layout$selectedWidge;
-																(_layout$selectedWidge =
-																	layout.selectedWidgets) ===
-																	null ||
-																	_layout$selectedWidge ===
-																		void 0 ||
-																	_layout$selectedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.trashWidget(
-																				widget,
-																				layout
-																			);
-																		}
+																// If payload.key is listing_title, insert as first item
+																if (
+																	payload.key ===
+																	'listing_title'
+																) {
+																	var currentWidgets =
+																		where.selectedWidgets ||
+																		[];
+																	// Remove any existing listing_title to avoid duplicates
+																	var filteredWidgets =
+																		currentWidgets.filter(
+																			function (
+																				widget
+																			) {
+																				return (
+																					widget !==
+																					'listing_title'
+																				);
+																			}
+																		);
+																	var newWidgets =
+																		[
+																			payload.key,
+																		].concat(
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				filteredWidgets
+																			)
+																		);
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		where,
+																		'selectedWidgets',
+																		newWidgets
 																	);
-															} else {
-																var _layout$acceptedWidge;
-																(_layout$acceptedWidge =
-																	layout.acceptedWidgets) ===
-																	null ||
-																	_layout$acceptedWidge ===
-																		void 0 ||
-																	_layout$acceptedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.insertWidget(
-																				{
-																					key: widget,
-																					selected_widgets:
-																						[
-																							widget,
-																						],
-																				},
-																				layout
-																			);
-																		}
+																} else {
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		where,
+																		'selectedWidgets',
+																		payload.selected_widgets
 																	);
-															}
-														},
-													// Toggle Insert Window
-													toggleInsertWindow:
-														function toggleInsertWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_insert_widget_key ===
-																current_item_key
-															) {
+																}
+															},
+														// Close Insert Window
+														closeInsertWindow:
+															function closeInsertWindow() {
 																this.active_insert_widget_key =
 																	'';
+															},
+														// Close Option Window
+														closeOptionWindow:
+															function closeOptionWindow() {
 																this.active_option_widget_key =
 																	'';
-																return;
-															}
-
-															// Close all other modals before opening insert window
-															this.active_option_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the insert window
-															this.active_insert_widget_key =
-																current_item_key;
-														},
-													// Toggle Option Window
-													toggleOptionWindow:
-														function toggleOptionWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_option_widget_key ===
-																current_item_key
-															) {
-																this.active_option_widget_key =
-																	'';
-																return;
-															}
-
-															// Close all other modals before opening option window
-															this.active_insert_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the option window
-															this.active_option_widget_key =
-																current_item_key;
-														},
-													// Insert Widget
-													insertWidget:
-														function insertWidget(
-															payload,
-															where
-														) {
-															if (
-																!this.isTruthyObject(
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].set(
-																this
-																	.active_widgets,
-																payload.key,
-																_objectSpread(
-																	{},
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															);
-
-															// If payload.key is listing_title, insert as first item
-															if (
-																payload.key ===
-																'listing_title'
-															) {
-																var currentWidgets =
-																	where.selectedWidgets ||
-																	[];
-																// Remove any existing listing_title to avoid duplicates
-																var filteredWidgets =
-																	currentWidgets.filter(
-																		function (
-																			widget
-																		) {
-																			return (
-																				widget !==
-																				'listing_title'
-																			);
-																		}
-																	);
-																var newWidgets =
-																	[
-																		payload.key,
-																	].concat(
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																			'default'
-																		])(
-																			filteredWidgets
-																		)
-																	);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	where,
-																	'selectedWidgets',
-																	newWidgets
-																);
-															} else {
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	where,
-																	'selectedWidgets',
-																	payload.selected_widgets
-																);
-															}
-														},
-													// Close Insert Window
-													closeInsertWindow:
-														function closeInsertWindow() {
-															this.active_insert_widget_key =
-																'';
-														},
-													// Close Option Window
-													closeOptionWindow:
-														function closeOptionWindow() {
-															this.active_option_widget_key =
-																'';
-														},
-												},
-												'closeWidgetOptionsWindow',
-												function closeWidgetOptionsWindow() {
-													this.active_option_widget_key =
-														'';
-													this.$set(
+															},
+													},
+													'closeWidgetOptionsWindow',
+													function closeWidgetOptionsWindow() {
+														this.active_option_widget_key =
+															'';
+														this.$set(
+															this
+																.widgetOptionsWindow,
+															'widget',
+															''
+														);
+													}
+												),
+												'getActiveInsertWindowStatus',
+												function getActiveInsertWindowStatus(
+													current_item_key
+												) {
+													if (
+														current_item_key ===
 														this
-															.widgetOptionsWindow,
-														'widget',
-														''
-													);
+															.active_insert_widget_key
+													) {
+														return true;
+													}
+													return false;
 												}
 											),
-											'getActiveInsertWindowStatus',
-											function getActiveInsertWindowStatus(
+											'getActiveOptionWindowStatus',
+											function getActiveOptionWindowStatus(
 												current_item_key
 											) {
 												if (
 													current_item_key ===
 													this
-														.active_insert_widget_key
+														.active_option_widget_key
 												) {
 													return true;
 												}
 												return false;
 											}
 										),
-										'getActiveOptionWindowStatus',
-										function getActiveOptionWindowStatus(
-											current_item_key
-										) {
+										'placeholderIsActive',
+										function placeholderIsActive(layout) {
 											if (
-												current_item_key ===
-												this.active_option_widget_key
+												!this.isObject(layout.show_if)
 											) {
 												return true;
 											}
-											return false;
+											var check_condition =
+												this.checkShowIfCondition({
+													condition: layout.show_if,
+												});
+											return check_condition.status;
 										}
 									),
-									'placeholderIsActive',
-									function placeholderIsActive(layout) {
-										if (!this.isObject(layout.show_if)) {
-											return true;
+									'handleUpdateSelectedWidgets',
+									function handleUpdateSelectedWidgets(
+										updatedWidgets,
+										path
+									) {
+										// Split the path into keys
+										var pathKeys = path.split('.');
+
+										// Navigate through the object dynamically
+										var obj = this;
+										for (
+											var i = 0;
+											i < pathKeys.length - 1;
+											i++
+										) {
+											obj = obj[pathKeys[i]]; // Navigate deeper into the object
 										}
-										var check_condition =
-											this.checkShowIfCondition({
-												condition: layout.show_if,
-											});
-										return check_condition.status;
+
+										// Update the selectedWidgets at the correct path
+										obj[
+											pathKeys[pathKeys.length - 1]
+										].selectedWidgets = updatedWidgets;
 									}
 								),
-								'handleUpdateSelectedWidgets',
-								function handleUpdateSelectedWidgets(
-									updatedWidgets,
-									path
-								) {
-									// Split the path into keys
-									var pathKeys = path.split('.');
-
-									// Navigate through the object dynamically
-									var obj = this;
-									for (
-										var i = 0;
-										i < pathKeys.length - 1;
-										i++
-									) {
-										obj = obj[pathKeys[i]]; // Navigate deeper into the object
+								'handleActiveWidgetUpdate',
+								function handleActiveWidgetUpdate(_ref) {
+									var widgetKey = _ref.widgetKey,
+										updatedWidget = _ref.updatedWidget;
+									// Ensure widget_key and widget_name are set
+									updatedWidget.widget_key = widgetKey;
+									if (!updatedWidget.widget_name) {
+										updatedWidget.widget_name = widgetKey;
 									}
+									this.$set(
+										this.active_widgets,
+										widgetKey,
+										updatedWidget
+									);
+									this.$set(
+										this.available_widgets,
+										widgetKey,
+										updatedWidget
+									);
 
-									// Update the selectedWidgets at the correct path
-									obj[
-										pathKeys[pathKeys.length - 1]
-									].selectedWidgets = updatedWidgets;
+									// Force getAvatarPlaceholderClass to recalculate when user_avatar position changes
+									if (widgetKey === 'user_avatar') {
+										this.avatarPlaceholderUpdateTrigger += 1;
+									}
 								}
 							),
-							'handleActiveWidgetUpdate',
-							function handleActiveWidgetUpdate(_ref) {
-								var widgetKey = _ref.widgetKey,
-									updatedWidget = _ref.updatedWidget;
+							'toggleActivateWidgetOptions',
+							function toggleActivateWidgetOptions(widgetKey) {
+								// Always activate the widget options
 								this.$set(
-									this.active_widgets,
-									widgetKey,
-									updatedWidget
+									this.widgetOptionsWindow,
+									'widget',
+									widgetKey
 								);
-								this.$set(
-									this.available_widgets,
-									widgetKey,
-									updatedWidget
-								);
-
-								// Force getAvatarPlaceholderClass to recalculate when user_avatar position changes
-								if (widgetKey === 'user_avatar') {
-									this.avatarPlaceholderUpdateTrigger += 1;
-								}
+								this.active_option_widget_key = widgetKey;
 							}
 						),
-						'toggleActivateWidgetOptions',
-						function toggleActivateWidgetOptions(widgetKey) {
-							// Always activate the widget options
-							this.$set(
-								this.widgetOptionsWindow,
-								'widget',
-								widgetKey
-							);
-							this.active_option_widget_key = widgetKey;
+						'getFilteredSelectedWidgets',
+						function getFilteredSelectedWidgets(selectedWidgets) {
+							var _this2 = this;
+							if (!Array.isArray(selectedWidgets)) {
+								return [];
+							}
+
+							// Filter to only include widgets that exist in theAvailableWidgets
+							return selectedWidgets.filter(function (widgetKey) {
+								return (
+									typeof _this2.theAvailableWidgets[
+										widgetKey
+									] !== 'undefined' &&
+									_this2.theAvailableWidgets[widgetKey] !==
+										null
+								);
+							});
 						}
 					),
 				};
@@ -35838,47 +35948,6 @@
 						/*! ./../../mixins/form-fields/card-builder */ './assets/src/js/admin/vue/mixins/form-fields/card-builder.js'
 					);
 
-				function ownKeys(e, r) {
-					var t = Object.keys(e);
-					if (Object.getOwnPropertySymbols) {
-						var o = Object.getOwnPropertySymbols(e);
-						(r &&
-							(o = o.filter(function (r) {
-								return Object.getOwnPropertyDescriptor(e, r)
-									.enumerable;
-							})),
-							t.push.apply(t, o));
-					}
-					return t;
-				}
-				function _objectSpread(e) {
-					for (var r = 1; r < arguments.length; r++) {
-						var t = null != arguments[r] ? arguments[r] : {};
-						r % 2
-							? ownKeys(Object(t), !0).forEach(function (r) {
-									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
-										'default'
-									])(e, r, t[r]);
-								})
-							: Object.getOwnPropertyDescriptors
-								? Object.defineProperties(
-										e,
-										Object.getOwnPropertyDescriptors(t)
-									)
-								: ownKeys(Object(t)).forEach(function (r) {
-										Object.defineProperty(
-											e,
-											r,
-											Object.getOwnPropertyDescriptor(
-												t,
-												r
-											)
-										);
-									});
-					}
-					return e;
-				}
 				function _createForOfIteratorHelper(r, e) {
 					var t =
 						('undefined' != typeof Symbol && r[Symbol.iterator]) ||
@@ -35956,6 +36025,47 @@
 					(null == a || a > r.length) && (a = r.length);
 					for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
 					return n;
+				}
+				function ownKeys(e, r) {
+					var t = Object.keys(e);
+					if (Object.getOwnPropertySymbols) {
+						var o = Object.getOwnPropertySymbols(e);
+						(r &&
+							(o = o.filter(function (r) {
+								return Object.getOwnPropertyDescriptor(e, r)
+									.enumerable;
+							})),
+							t.push.apply(t, o));
+					}
+					return t;
+				}
+				function _objectSpread(e) {
+					for (var r = 1; r < arguments.length; r++) {
+						var t = null != arguments[r] ? arguments[r] : {};
+						r % 2
+							? ownKeys(Object(t), !0).forEach(function (r) {
+									(0,
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+										'default'
+									])(e, r, t[r]);
+								})
+							: Object.getOwnPropertyDescriptors
+								? Object.defineProperties(
+										e,
+										Object.getOwnPropertyDescriptors(t)
+									)
+								: ownKeys(Object(t)).forEach(function (r) {
+										Object.defineProperty(
+											e,
+											r,
+											Object.getOwnPropertyDescriptor(
+												t,
+												r
+											)
+										);
+									});
+					}
+					return e;
 				}
 
 				/* harmony default export */ __webpack_exports__['default'] = {
@@ -36049,7 +36159,9 @@
 
 										// Check if widget is already active
 										if (
-											!this.active_widgets[widget_name] &&
+											!this.active_widgets[widget_name] ||
+											this.active_widgets[widget_name] ===
+												null ||
 											(0,
 											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 												'default'
@@ -36057,10 +36169,44 @@
 												this.active_widgets[widget_name]
 											) !== 'object'
 										) {
-											this.active_widgets[widget_name] =
-												this.available_widgets[
+											// Get widget from theAvailableWidgets to ensure widget_key and widget_name are set
+											var widgetFromAvailable =
+												this.theAvailableWidgets[
 													widget_name
-												] || null;
+												];
+											if (widgetFromAvailable) {
+												this.active_widgets[
+													widget_name
+												] = _objectSpread(
+													_objectSpread(
+														{},
+														widgetFromAvailable
+													),
+													{},
+													{
+														widget_name:
+															widget_name,
+														widget_key: widget_name,
+													}
+												);
+											} else {
+												// Widget not available, skip it
+												continue;
+											}
+										}
+
+										// Check if active_widgets[widget_name] is null or invalid
+										if (
+											!this.active_widgets[widget_name] ||
+											this.active_widgets[widget_name] ===
+												null ||
+											(0,
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												'default'
+											])(
+												this.active_widgets[widget_name]
+											) !== 'object'
+										) {
 											continue;
 										}
 										var widget_data = {};
@@ -36075,6 +36221,8 @@
 												][root_option];
 										}
 										if (
+											!this.active_widgets[widget_name]
+												.options ||
 											(0,
 											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 												'default'
@@ -36384,77 +36532,60 @@
 											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 												'default'
 											])(
-												{
-													init: function init() {
-														this.importWidgets();
-														this.importLayout();
-														this.importOldData();
-													},
-													// isTruthyObject check
-													isTruthyObject:
-														function isTruthyObject(
-															obj
-														) {
-															if (
-																!obj &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(obj) !==
-																	'object'
-															) {
-																return false;
-															}
-															return true;
+												(0,
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+													'default'
+												])(
+													{
+														init: function init() {
+															this.importWidgets();
+															this.importLayout();
+															this.importOldData();
 														},
-													// Import Old Data
-													importOldData:
-														function importOldData() {
-															var value =
-																JSON.parse(
-																	JSON.stringify(
-																		this
-																			.value
-																	)
-																);
-															if (
-																!this.isTruthyObject(
-																	value
-																)
+														// isTruthyObject check
+														isTruthyObject:
+															function isTruthyObject(
+																obj
 															) {
-																return;
-															}
-															var selectedWidgets =
-																[];
-
-															// Get Active Widgets Data
-															var active_widgets_data =
-																{};
-															for (var section in value) {
 																if (
-																	!value[
-																		section
-																	] &&
+																	!obj &&
 																	(0,
 																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 																		'default'
-																	])(
-																		value[
-																			section
-																		]
-																	) !==
+																	])(obj) !==
 																		'object'
 																) {
-																	continue;
+																	return false;
 																}
-																for (var area in value[
-																	section
-																]) {
+																return true;
+															},
+														// Import Old Data
+														importOldData:
+															function importOldData() {
+																var value =
+																	JSON.parse(
+																		JSON.stringify(
+																			this
+																				.value
+																		)
+																	);
+																if (
+																	!this.isTruthyObject(
+																		value
+																	)
+																) {
+																	return;
+																}
+																var selectedWidgets =
+																	[];
+
+																// Get Active Widgets Data
+																var active_widgets_data =
+																	{};
+																for (var section in value) {
 																	if (
 																		!value[
 																			section
-																		][
-																			area
 																		] &&
 																		(0,
 																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
@@ -36462,769 +36593,851 @@
 																		])(
 																			value[
 																				section
-																			][
-																				area
 																			]
 																		) !==
 																			'object'
 																	) {
 																		continue;
 																	}
-																	var _iterator2 =
-																			_createForOfIteratorHelper(
+																	for (var area in value[
+																		section
+																	]) {
+																		if (
+																			!value[
+																				section
+																			][
+																				area
+																			] &&
+																			(0,
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																				'default'
+																			])(
 																				value[
 																					section
 																				][
 																					area
 																				]
-																			),
-																		_step2;
-																	try {
-																		for (
-																			_iterator2.s();
-																			!(_step2 =
-																				_iterator2.n())
-																				.done;
-
+																			) !==
+																				'object'
 																		) {
-																			var widget =
-																				_step2.value;
-																			if (
-																				typeof widget.widget_name ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof widget.widget_key ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.available_widgets[
-																					widget
-																						.widget_name
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				][
-																					area
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			active_widgets_data[
-																				widget.widget_key
-																			] =
-																				widget;
-																			selectedWidgets.push(
-																				{
-																					section:
-																						section,
-																					area: area,
-																					widget: widget.widget_key,
-																				}
-																			);
+																			continue;
 																		}
-																	} catch (err) {
-																		_iterator2.e(
-																			err
-																		);
-																	} finally {
-																		_iterator2.f();
+																		var _iterator2 =
+																				_createForOfIteratorHelper(
+																					value[
+																						section
+																					][
+																						area
+																					]
+																				),
+																			_step2;
+																		try {
+																			for (
+																				_iterator2.s();
+																				!(_step2 =
+																					_iterator2.n())
+																					.done;
+
+																			) {
+																				var widget =
+																					_step2.value;
+																				if (
+																					typeof widget.widget_name ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof widget.widget_key ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.available_widgets[
+																						widget
+																							.widget_name
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					][
+																						area
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				active_widgets_data[
+																					widget.widget_key
+																				] =
+																					widget;
+																				selectedWidgets.push(
+																					{
+																						section:
+																							section,
+																						area: area,
+																						widget: widget.widget_key,
+																					}
+																				);
+																			}
+																		} catch (err) {
+																			_iterator2.e(
+																				err
+																			);
+																		} finally {
+																			_iterator2.f();
+																		}
 																	}
 																}
-															}
 
-															// Load Active Widgets
-															for (var widget_key in active_widgets_data) {
-																// Validate widget exists in theAvailableWidgets (computed property)
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		widget_key
-																	] ===
-																	'undefined'
-																) {
-																	continue;
-																}
-																var widgets_template =
-																	_objectSpread(
-																		{},
-																		this
+																// Load Active Widgets
+																for (var widget_key in active_widgets_data) {
+																	// Validate widget exists in theAvailableWidgets (computed property)
+																	if (
+																		typeof this
 																			.theAvailableWidgets[
 																			widget_key
-																		]
-																	);
-																// let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-
-																for (var root_option in widgets_template) {
-																	// if ("options" === root_option) {
-																	//   continue;
-																	// }
-																	if (
-																		typeof active_widgets_data[
-																			widget_key
-																		][
-																			root_option
 																		] ===
 																		'undefined'
 																	) {
 																		continue;
 																	}
-																	widgets_template[
-																		root_option
-																	] =
-																		active_widgets_data[
-																			widget_key
-																		][
-																			root_option
-																		];
-																}
-																var has_widget_options = false;
-																if (
-																	widgets_template.options &&
-																	widgets_template
-																		.options
-																		.fields
-																) {
-																	has_widget_options = true;
-																}
-																if (
-																	has_widget_options
-																) {
-																	for (var option_key in widgets_template
-																		.options
-																		.fields) {
+																	var widgets_template =
+																		_objectSpread(
+																			{},
+																			this
+																				.theAvailableWidgets[
+																				widget_key
+																			]
+																		);
+																	// let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
+
+																	for (var root_option in widgets_template) {
+																		// if ("options" === root_option) {
+																		//   continue;
+																		// }
 																		if (
 																			typeof active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			] ===
 																			'undefined'
 																		) {
 																			continue;
 																		}
-																		widgets_template.options.fields[
-																			option_key
-																		].value =
+																		widgets_template[
+																			root_option
+																		] =
 																			active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			];
 																	}
-																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.active_widgets,
-																	widget_key,
-																	widgets_template
-																);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.available_widgets,
-																	widget_key,
-																	widgets_template
-																);
-															}
+																	var has_widget_options = false;
+																	if (
+																		widgets_template.options &&
+																		widgets_template
+																			.options
+																			.fields
+																	) {
+																		has_widget_options = true;
+																	}
+																	if (
+																		has_widget_options
+																	) {
+																		for (var option_key in widgets_template
+																			.options
+																			.fields) {
+																			if (
+																				typeof active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				] ===
+																				'undefined'
+																			) {
+																				continue;
+																			}
+																			widgets_template.options.fields[
+																				option_key
+																			].value =
+																				active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				];
+																		}
+																	}
 
-															// Load Selected Widgets Data - Group by section/area first
-															var widgetsByArea =
-																{};
-															for (
-																var _i = 0,
-																	_selectedWidgets =
-																		selectedWidgets;
-																_i <
-																_selectedWidgets.length;
-																_i++
-															) {
-																var item =
-																	_selectedWidgets[
-																		_i
-																	];
-																var key = ''
-																	.concat(
-																		item.section,
-																		'.'
-																	)
-																	.concat(
-																		item.area
+																	// Ensure widget_key and widget_name are set
+																	widgets_template.widget_key =
+																		widget_key;
+																	widgets_template.widget_name =
+																		active_widgets_data[
+																			widget_key
+																		]
+																			.widget_name ||
+																		widget_key;
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.active_widgets,
+																		widget_key,
+																		widgets_template
 																	);
-																if (
-																	!widgetsByArea[
-																		key
-																	]
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.available_widgets,
+																		widget_key,
+																		widgets_template
+																	);
+																}
+
+																// Load Selected Widgets Data - Group by section/area first
+																var widgetsByArea =
+																	{};
+																for (
+																	var _i = 0,
+																		_selectedWidgets =
+																			selectedWidgets;
+																	_i <
+																	_selectedWidgets.length;
+																	_i++
 																) {
-																	widgetsByArea[
-																		key
-																	] = {
-																		section:
+																	var item =
+																		_selectedWidgets[
+																			_i
+																		];
+																	var key = ''
+																		.concat(
 																			item.section,
-																		area: item.area,
-																		widgets:
-																			[],
-																	};
-																}
-																// Only add if widget exists in theAvailableWidgets and not already added
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		item
-																			.widget
-																	] !==
-																		'undefined' &&
-																	!widgetsByArea[
-																		key
-																	].widgets.includes(
-																		item.widget
-																	)
-																) {
-																	widgetsByArea[
-																		key
-																	].widgets.push(
-																		item.widget
-																	);
-																}
-															}
-
-															// Now set selectedWidgets for each area, preserving order (listing_title first)
-															for (var _key in widgetsByArea) {
-																var _widgetsByArea$_key =
-																		widgetsByArea[
-																			_key
-																		],
-																	_section =
-																		_widgetsByArea$_key.section,
-																	_area =
-																		_widgetsByArea$_key.area,
-																	widgets =
-																		_widgetsByArea$_key.widgets;
-
-																// Separate listing_title from other widgets
-																var listingTitleWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w ===
-																				'listing_title'
-																			);
-																		}
-																	);
-																var otherWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w !==
-																				'listing_title'
-																			);
-																		}
-																	);
-
-																// Replace the array with imported widgets (listing_title first)
-																this.local_layout[
-																	_section
-																][
-																	_area
-																].selectedWidgets =
-																	[].concat(
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																			'default'
-																		])(
-																			listingTitleWidgets
-																		),
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																			'default'
-																		])(
-																			otherWidgets
+																			'.'
 																		)
-																	);
-															}
-														},
-													// Import Widgets
-													importWidgets:
-														function importWidgets() {
-															if (
-																!this.isTruthyObject(
-																	this.widgets
-																)
-															) {
-																return;
-															}
-															this.available_widgets =
-																this.widgets;
-														},
-													// Import Layout
-													importLayout:
-														function importLayout() {
-															if (
-																!this.isTruthyObject(
-																	this.layout
-																)
-															) {
-																return;
-															}
-															for (var section in this
-																.local_layout) {
+																		.concat(
+																			item.area
+																		);
+																	if (
+																		!widgetsByArea[
+																			key
+																		]
+																	) {
+																		widgetsByArea[
+																			key
+																		] = {
+																			section:
+																				item.section,
+																			area: item.area,
+																			widgets:
+																				[],
+																		};
+																	}
+																	// Only add if widget exists in theAvailableWidgets and not already added
+																	if (
+																		typeof this
+																			.theAvailableWidgets[
+																			item
+																				.widget
+																		] !==
+																			'undefined' &&
+																		!widgetsByArea[
+																			key
+																		].widgets.includes(
+																			item.widget
+																		)
+																	) {
+																		widgetsByArea[
+																			key
+																		].widgets.push(
+																			item.widget
+																		);
+																	}
+																}
+
+																// Now set selectedWidgets for each area, preserving order (listing_title first)
+																for (var _key in widgetsByArea) {
+																	var _widgetsByArea$_key =
+																			widgetsByArea[
+																				_key
+																			],
+																		_section =
+																			_widgetsByArea$_key.section,
+																		_area =
+																			_widgetsByArea$_key.area,
+																		widgets =
+																			_widgetsByArea$_key.widgets;
+
+																	// Separate listing_title from other widgets
+																	var listingTitleWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w ===
+																					'listing_title'
+																				);
+																			}
+																		);
+																	var otherWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w !==
+																					'listing_title'
+																				);
+																			}
+																		);
+
+																	// Replace the array with imported widgets (listing_title first)
+																	this.local_layout[
+																		_section
+																	][
+																		_area
+																	].selectedWidgets =
+																		[].concat(
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																				'default'
+																			])(
+																				listingTitleWidgets
+																			),
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																				'default'
+																			])(
+																				otherWidgets
+																			)
+																		);
+																}
+															},
+														// Import Widgets
+														importWidgets:
+															function importWidgets() {
 																if (
 																	!this.isTruthyObject(
 																		this
-																			.layout[
-																			section
-																		]
+																			.widgets
 																	)
 																) {
-																	continue;
+																	return;
 																}
-																for (var area in this
-																	.local_layout[
-																	section
-																]) {
+																this.available_widgets =
+																	this.widgets;
+															},
+														// Import Layout
+														importLayout:
+															function importLayout() {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.layout
+																	)
+																) {
+																	return;
+																}
+																for (var section in this
+																	.local_layout) {
 																	if (
 																		!this.isTruthyObject(
+																			this
+																				.layout[
+																				section
+																			]
+																		)
+																	) {
+																		continue;
+																	}
+																	for (var area in this
+																		.local_layout[
+																		section
+																	]) {
+																		if (
+																			!this.isTruthyObject(
+																				this
+																					.layout[
+																					section
+																				][
+																					area
+																				]
+																			)
+																		) {
+																			continue;
+																		}
+																		Object.assign(
+																			this
+																				.local_layout[
+																				section
+																			][
+																				area
+																			],
 																			this
 																				.layout[
 																				section
 																			][
 																				area
 																			]
-																		)
-																	) {
-																		continue;
+																		);
 																	}
-																	Object.assign(
-																		this
-																			.local_layout[
-																			section
-																		][area],
-																		this
-																			.layout[
-																			section
-																		][area]
-																	);
 																}
-															}
-														},
-													// Edit Widget
-													editWidget:
-														function editWidget(
-															key
-														) {
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
+															},
+														// Edit Widget
+														editWidget:
+															function editWidget(
+																key
 															) {
-																return;
-															}
-															if (
-																!this
-																	.active_widgets[
-																	key
-																].options &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																if (
+																	!this
+																		.active_widgets[
+																		key
+																	].options &&
+																	(0,
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		'default'
+																	])(
+																		this
+																			.active_widgets[
+																			key
+																		]
+																			.options
+																	) !==
+																		'object'
+																) {
+																	return;
+																}
+																var opt =
 																	this
 																		.active_widgets[
 																		key
-																	].options
-																) !== 'object'
+																	].options;
+																// Force Vue reactivity by using Vue.set or restructuring
+																this.$set(
+																	this,
+																	'widgetOptionsWindow',
+																	_objectSpread(
+																		_objectSpread(
+																			_objectSpread(
+																				{},
+																				this
+																					.widgetOptionsWindowDefault
+																			),
+																			opt
+																		),
+																		{},
+																		{
+																			widget: key,
+																		}
+																	)
+																);
+
+																// Also update the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	key;
+															},
+														// Update Widget Options Data
+														updateWidgetOptionsData:
+															function updateWidgetOptionsData(
+																data,
+																widget
 															) {
 																return;
-															}
-															var opt =
-																this
-																	.active_widgets[
+															},
+														// Close Widget Options Window
+														closeWidgetOptionsWindow:
+															function closeWidgetOptionsWindow() {
+																this.widgetOptionsWindow =
+																	this.widgetOptionsWindowDefault;
+																// Also clear the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	'';
+															},
+														// Trash Widget
+														trashWidget:
+															function trashWidget(
+																key,
+																where
+															) {
+																if (
+																	!where.selectedWidgets.includes(
+																		key
+																	)
+																) {
+																	return;
+																}
+																var index =
+																	where.selectedWidgets.indexOf(
+																		key
+																	);
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	where.selectedWidgets,
+																	index
+																);
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	this
+																		.active_widgets,
 																	key
-																].options;
-															// Force Vue reactivity by using Vue.set or restructuring
-															this.$set(
-																this,
-																'widgetOptionsWindow',
-																_objectSpread(
+																);
+																if (
+																	key ===
+																	this
+																		.widgetOptionsWindow
+																		.widget
+																) {
+																	this.closeWidgetOptionsWindow();
+																}
+
+																// Also clear active_option_widget_key if this widget was active
+																if (
+																	this
+																		.active_option_widget_key ===
+																	key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																}
+															},
+														// Toggle Widget Status
+														toggleWidgetStatus:
+															function toggleWidgetStatus(
+																layout
+															) {
+																var _this =
+																	this;
+																if (
+																	layout
+																		.selectedWidgets
+																		.length >
+																	0
+																) {
+																	var _layout$selectedWidge;
+																	(_layout$selectedWidge =
+																		layout.selectedWidgets) ===
+																		null ||
+																		_layout$selectedWidge ===
+																			void 0 ||
+																		_layout$selectedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.trashWidget(
+																					widget,
+																					layout
+																				);
+																			}
+																		);
+																} else {
+																	var _layout$acceptedWidge;
+																	(_layout$acceptedWidge =
+																		layout.acceptedWidgets) ===
+																		null ||
+																		_layout$acceptedWidge ===
+																			void 0 ||
+																		_layout$acceptedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.insertWidget(
+																					{
+																						key: widget,
+																						selected_widgets:
+																							[
+																								widget,
+																							],
+																					},
+																					layout
+																				);
+																			}
+																		);
+																}
+															},
+														// Toggle Insert Window
+														toggleInsertWindow:
+															function toggleInsertWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_insert_widget_key ===
+																	current_item_key
+																) {
+																	this.active_insert_widget_key =
+																		'';
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening insert window
+																this.active_option_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the insert window
+																this.active_insert_widget_key =
+																	current_item_key;
+															},
+														// Toggle Option Window
+														toggleOptionWindow:
+															function toggleOptionWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_option_widget_key ===
+																	current_item_key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening option window
+																this.active_insert_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the option window
+																this.active_option_widget_key =
+																	current_item_key;
+															},
+														// Insert Widget
+														insertWidget:
+															function insertWidget(
+																payload,
+																where
+															) {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.theAvailableWidgets[
+																			payload
+																				.key
+																		]
+																	)
+																) {
+																	return;
+																}
+
+																// Get widget from theAvailableWidgets and ensure widget_key and widget_name are set
+																var widgetFromAvailable =
+																	this
+																		.theAvailableWidgets[
+																		payload
+																			.key
+																	];
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].set(
+																	this
+																		.active_widgets,
+																	payload.key,
 																	_objectSpread(
 																		_objectSpread(
 																			{},
-																			this
-																				.widgetOptionsWindowDefault
+																			widgetFromAvailable
 																		),
-																		opt
-																	),
-																	{},
-																	{
-																		widget: key,
-																	}
-																)
-															);
-
-															// Also update the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																key;
-														},
-													// Update Widget Options Data
-													updateWidgetOptionsData:
-														function updateWidgetOptionsData(
-															data,
-															widget
-														) {
-															return;
-														},
-													// Close Widget Options Window
-													closeWidgetOptionsWindow:
-														function closeWidgetOptionsWindow() {
-															this.widgetOptionsWindow =
-																this.widgetOptionsWindowDefault;
-															// Also clear the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																'';
-														},
-													// Trash Widget
-													trashWidget:
-														function trashWidget(
-															key,
-															where
-														) {
-															if (
-																!where.selectedWidgets.includes(
-																	key
-																)
-															) {
-																return;
-															}
-															var index =
-																where.selectedWidgets.indexOf(
-																	key
+																		{},
+																		{
+																			widget_key:
+																				payload.key,
+																			widget_name:
+																				widgetFromAvailable.widget_name ||
+																				payload.key,
+																		}
+																	)
 																);
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																where.selectedWidgets,
-																index
-															);
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																this
-																	.active_widgets,
-																key
-															);
-															if (
-																key ===
-																this
-																	.widgetOptionsWindow
-																	.widget
-															) {
-																this.closeWidgetOptionsWindow();
-															}
-
-															// Also clear active_option_widget_key if this widget was active
-															if (
-																this
-																	.active_option_widget_key ===
-																key
-															) {
-																this.active_option_widget_key =
-																	'';
-															}
-														},
-													// Toggle Widget Status
-													toggleWidgetStatus:
-														function toggleWidgetStatus(
-															layout
-														) {
-															var _this = this;
-															if (
-																layout
-																	.selectedWidgets
-																	.length > 0
-															) {
-																var _layout$selectedWidge;
-																(_layout$selectedWidge =
-																	layout.selectedWidgets) ===
-																	null ||
-																	_layout$selectedWidge ===
-																		void 0 ||
-																	_layout$selectedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.trashWidget(
-																				widget,
-																				layout
-																			);
-																		}
-																	);
-															} else {
-																var _layout$acceptedWidge;
-																(_layout$acceptedWidge =
-																	layout.acceptedWidgets) ===
-																	null ||
-																	_layout$acceptedWidge ===
-																		void 0 ||
-																	_layout$acceptedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.insertWidget(
-																				{
-																					key: widget,
-																					selected_widgets:
-																						[
-																							widget,
-																						],
-																				},
-																				layout
-																			);
-																		}
-																	);
-															}
-														},
-													// Toggle Insert Window
-													toggleInsertWindow:
-														function toggleInsertWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_insert_widget_key ===
-																current_item_key
-															) {
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].set(
+																	where,
+																	'selectedWidgets',
+																	payload.selected_widgets
+																);
+															},
+														// Close Insert Window
+														closeInsertWindow:
+															function closeInsertWindow() {
 																this.active_insert_widget_key =
 																	'';
+															},
+														// Close Option Window
+														closeOptionWindow:
+															function closeOptionWindow() {
 																this.active_option_widget_key =
 																	'';
-																return;
-															}
-
-															// Close all other modals before opening insert window
-															this.active_option_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the insert window
-															this.active_insert_widget_key =
-																current_item_key;
-														},
-													// Toggle Option Window
-													toggleOptionWindow:
-														function toggleOptionWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_option_widget_key ===
-																current_item_key
-															) {
-																this.active_option_widget_key =
-																	'';
-																return;
-															}
-
-															// Close all other modals before opening option window
-															this.active_insert_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the option window
-															this.active_option_widget_key =
-																current_item_key;
-														},
-													// Insert Widget
-													insertWidget:
-														function insertWidget(
-															payload,
-															where
-														) {
-															if (
-																!this.isTruthyObject(
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].set(
-																this
-																	.active_widgets,
-																payload.key,
-																_objectSpread(
-																	{},
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															);
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].set(
-																where,
-																'selectedWidgets',
-																payload.selected_widgets
-															);
-														},
-													// Close Insert Window
-													closeInsertWindow:
-														function closeInsertWindow() {
-															this.active_insert_widget_key =
-																'';
-														},
-													// Close Option Window
-													closeOptionWindow:
-														function closeOptionWindow() {
-															this.active_option_widget_key =
-																'';
-														},
-												},
-												'closeWidgetOptionsWindow',
-												function closeWidgetOptionsWindow() {
-													this.active_option_widget_key =
-														'';
-													this.$set(
+															},
+													},
+													'closeWidgetOptionsWindow',
+													function closeWidgetOptionsWindow() {
+														this.active_option_widget_key =
+															'';
+														this.$set(
+															this
+																.widgetOptionsWindow,
+															'widget',
+															''
+														);
+													}
+												),
+												'getActiveInsertWindowStatus',
+												function getActiveInsertWindowStatus(
+													current_item_key
+												) {
+													if (
+														current_item_key ===
 														this
-															.widgetOptionsWindow,
-														'widget',
-														''
-													);
+															.active_insert_widget_key
+													) {
+														return true;
+													}
+													return false;
 												}
 											),
-											'getActiveInsertWindowStatus',
-											function getActiveInsertWindowStatus(
+											'getActiveOptionWindowStatus',
+											function getActiveOptionWindowStatus(
 												current_item_key
 											) {
 												if (
 													current_item_key ===
 													this
-														.active_insert_widget_key
+														.active_option_widget_key
 												) {
 													return true;
 												}
 												return false;
 											}
 										),
-										'getActiveOptionWindowStatus',
-										function getActiveOptionWindowStatus(
-											current_item_key
-										) {
+										'placeholderIsActive',
+										function placeholderIsActive(layout) {
 											if (
-												current_item_key ===
-												this.active_option_widget_key
+												!this.isObject(layout.show_if)
 											) {
 												return true;
 											}
-											return false;
+											var check_condition =
+												this.checkShowIfCondition({
+													condition: layout.show_if,
+												});
+											return check_condition.status;
 										}
 									),
-									'placeholderIsActive',
-									function placeholderIsActive(layout) {
-										if (!this.isObject(layout.show_if)) {
-											return true;
+									'handleUpdateSelectedWidgets',
+									function handleUpdateSelectedWidgets(
+										updatedWidgets,
+										path
+									) {
+										// Split the path into keys
+										var pathKeys = path.split('.');
+
+										// Navigate through the object dynamically
+										var obj = this;
+										for (
+											var i = 0;
+											i < pathKeys.length - 1;
+											i++
+										) {
+											obj = obj[pathKeys[i]]; // Navigate deeper into the object
 										}
-										var check_condition =
-											this.checkShowIfCondition({
-												condition: layout.show_if,
-											});
-										return check_condition.status;
+
+										// Update the selectedWidgets at the correct path
+										obj[
+											pathKeys[pathKeys.length - 1]
+										].selectedWidgets = updatedWidgets;
 									}
 								),
-								'handleUpdateSelectedWidgets',
-								function handleUpdateSelectedWidgets(
-									updatedWidgets,
-									path
-								) {
-									// Split the path into keys
-									var pathKeys = path.split('.');
-
-									// Navigate through the object dynamically
-									var obj = this;
-									for (
-										var i = 0;
-										i < pathKeys.length - 1;
-										i++
-									) {
-										obj = obj[pathKeys[i]]; // Navigate deeper into the object
+								'handleActiveWidgetUpdate',
+								function handleActiveWidgetUpdate(_ref) {
+									var widgetKey = _ref.widgetKey,
+										updatedWidget = _ref.updatedWidget;
+									// Ensure widget_key and widget_name are set
+									updatedWidget.widget_key = widgetKey;
+									if (!updatedWidget.widget_name) {
+										updatedWidget.widget_name = widgetKey;
 									}
-
-									// Update the selectedWidgets at the correct path
-									obj[
-										pathKeys[pathKeys.length - 1]
-									].selectedWidgets = updatedWidgets;
+									this.$set(
+										this.active_widgets,
+										widgetKey,
+										updatedWidget
+									);
+									this.$set(
+										this.available_widgets,
+										widgetKey,
+										updatedWidget
+									);
 								}
 							),
-							'handleActiveWidgetUpdate',
-							function handleActiveWidgetUpdate(_ref) {
-								var widgetKey = _ref.widgetKey,
-									updatedWidget = _ref.updatedWidget;
+							'toggleActivateWidgetOptions',
+							function toggleActivateWidgetOptions(widgetKey) {
+								// Always activate the widget options
 								this.$set(
-									this.active_widgets,
-									widgetKey,
-									updatedWidget
+									this.widgetOptionsWindow,
+									'widget',
+									widgetKey
 								);
-								this.$set(
-									this.available_widgets,
-									widgetKey,
-									updatedWidget
-								);
+								this.active_option_widget_key = widgetKey;
 							}
 						),
-						'toggleActivateWidgetOptions',
-						function toggleActivateWidgetOptions(widgetKey) {
-							// Always activate the widget options
-							this.$set(
-								this.widgetOptionsWindow,
-								'widget',
-								widgetKey
-							);
-							this.active_option_widget_key = widgetKey;
+						'getFilteredSelectedWidgets',
+						function getFilteredSelectedWidgets(selectedWidgets) {
+							var _this2 = this;
+							if (!Array.isArray(selectedWidgets)) {
+								return [];
+							}
+
+							// Filter to only include widgets that exist in theAvailableWidgets
+							return selectedWidgets.filter(function (widgetKey) {
+								return (
+									typeof _this2.theAvailableWidgets[
+										widgetKey
+									] !== 'undefined' &&
+									_this2.theAvailableWidgets[widgetKey] !==
+										null
+								);
+							});
 						}
 					),
 				};
@@ -38202,47 +38415,6 @@
 						/*! ./../../mixins/form-fields/card-builder */ './assets/src/js/admin/vue/mixins/form-fields/card-builder.js'
 					);
 
-				function ownKeys(e, r) {
-					var t = Object.keys(e);
-					if (Object.getOwnPropertySymbols) {
-						var o = Object.getOwnPropertySymbols(e);
-						(r &&
-							(o = o.filter(function (r) {
-								return Object.getOwnPropertyDescriptor(e, r)
-									.enumerable;
-							})),
-							t.push.apply(t, o));
-					}
-					return t;
-				}
-				function _objectSpread(e) {
-					for (var r = 1; r < arguments.length; r++) {
-						var t = null != arguments[r] ? arguments[r] : {};
-						r % 2
-							? ownKeys(Object(t), !0).forEach(function (r) {
-									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
-										'default'
-									])(e, r, t[r]);
-								})
-							: Object.getOwnPropertyDescriptors
-								? Object.defineProperties(
-										e,
-										Object.getOwnPropertyDescriptors(t)
-									)
-								: ownKeys(Object(t)).forEach(function (r) {
-										Object.defineProperty(
-											e,
-											r,
-											Object.getOwnPropertyDescriptor(
-												t,
-												r
-											)
-										);
-									});
-					}
-					return e;
-				}
 				function _createForOfIteratorHelper(r, e) {
 					var t =
 						('undefined' != typeof Symbol && r[Symbol.iterator]) ||
@@ -38320,6 +38492,47 @@
 					(null == a || a > r.length) && (a = r.length);
 					for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
 					return n;
+				}
+				function ownKeys(e, r) {
+					var t = Object.keys(e);
+					if (Object.getOwnPropertySymbols) {
+						var o = Object.getOwnPropertySymbols(e);
+						(r &&
+							(o = o.filter(function (r) {
+								return Object.getOwnPropertyDescriptor(e, r)
+									.enumerable;
+							})),
+							t.push.apply(t, o));
+					}
+					return t;
+				}
+				function _objectSpread(e) {
+					for (var r = 1; r < arguments.length; r++) {
+						var t = null != arguments[r] ? arguments[r] : {};
+						r % 2
+							? ownKeys(Object(t), !0).forEach(function (r) {
+									(0,
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+										'default'
+									])(e, r, t[r]);
+								})
+							: Object.getOwnPropertyDescriptors
+								? Object.defineProperties(
+										e,
+										Object.getOwnPropertyDescriptors(t)
+									)
+								: ownKeys(Object(t)).forEach(function (r) {
+										Object.defineProperty(
+											e,
+											r,
+											Object.getOwnPropertyDescriptor(
+												t,
+												r
+											)
+										);
+									});
+					}
+					return e;
 				}
 
 				/* harmony default export */ __webpack_exports__['default'] = {
@@ -38419,7 +38632,9 @@
 
 										// Check if widget is already active
 										if (
-											!this.active_widgets[widget_name] &&
+											!this.active_widgets[widget_name] ||
+											this.active_widgets[widget_name] ===
+												null ||
 											(0,
 											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 												'default'
@@ -38427,10 +38642,44 @@
 												this.active_widgets[widget_name]
 											) !== 'object'
 										) {
-											this.active_widgets[widget_name] =
-												this.available_widgets[
+											// Get widget from theAvailableWidgets to ensure widget_key and widget_name are set
+											var widgetFromAvailable =
+												this.theAvailableWidgets[
 													widget_name
-												] || null;
+												];
+											if (widgetFromAvailable) {
+												this.active_widgets[
+													widget_name
+												] = _objectSpread(
+													_objectSpread(
+														{},
+														widgetFromAvailable
+													),
+													{},
+													{
+														widget_name:
+															widget_name,
+														widget_key: widget_name,
+													}
+												);
+											} else {
+												// Widget not available, skip it
+												continue;
+											}
+										}
+
+										// Check if active_widgets[widget_name] is null or invalid
+										if (
+											!this.active_widgets[widget_name] ||
+											this.active_widgets[widget_name] ===
+												null ||
+											(0,
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												'default'
+											])(
+												this.active_widgets[widget_name]
+											) !== 'object'
+										) {
 											continue;
 										}
 										var widget_data = {};
@@ -38445,6 +38694,8 @@
 												][root_option];
 										}
 										if (
+											!this.active_widgets[widget_name]
+												.options ||
 											(0,
 											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 												'default'
@@ -38667,77 +38918,60 @@
 											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 												'default'
 											])(
-												{
-													init: function init() {
-														this.importWidgets();
-														this.importLayout();
-														this.importOldData();
-													},
-													// isTruthyObject check
-													isTruthyObject:
-														function isTruthyObject(
-															obj
-														) {
-															if (
-																!obj &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(obj) !==
-																	'object'
-															) {
-																return false;
-															}
-															return true;
+												(0,
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+													'default'
+												])(
+													{
+														init: function init() {
+															this.importWidgets();
+															this.importLayout();
+															this.importOldData();
 														},
-													// Import Old Data
-													importOldData:
-														function importOldData() {
-															var value =
-																JSON.parse(
-																	JSON.stringify(
-																		this
-																			.value
-																	)
-																);
-															if (
-																!this.isTruthyObject(
-																	value
-																)
+														// isTruthyObject check
+														isTruthyObject:
+															function isTruthyObject(
+																obj
 															) {
-																return;
-															}
-															var selectedWidgets =
-																[];
-
-															// Get Active Widgets Data
-															var active_widgets_data =
-																{};
-															for (var section in value) {
 																if (
-																	!value[
-																		section
-																	] &&
+																	!obj &&
 																	(0,
 																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 																		'default'
-																	])(
-																		value[
-																			section
-																		]
-																	) !==
+																	])(obj) !==
 																		'object'
 																) {
-																	continue;
+																	return false;
 																}
-																for (var area in value[
-																	section
-																]) {
+																return true;
+															},
+														// Import Old Data
+														importOldData:
+															function importOldData() {
+																var value =
+																	JSON.parse(
+																		JSON.stringify(
+																			this
+																				.value
+																		)
+																	);
+																if (
+																	!this.isTruthyObject(
+																		value
+																	)
+																) {
+																	return;
+																}
+																var selectedWidgets =
+																	[];
+
+																// Get Active Widgets Data
+																var active_widgets_data =
+																	{};
+																for (var section in value) {
 																	if (
 																		!value[
 																			section
-																		][
-																			area
 																		] &&
 																		(0,
 																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
@@ -38745,830 +38979,913 @@
 																		])(
 																			value[
 																				section
-																			][
-																				area
 																			]
 																		) !==
 																			'object'
 																	) {
 																		continue;
 																	}
-																	var _iterator2 =
-																			_createForOfIteratorHelper(
+																	for (var area in value[
+																		section
+																	]) {
+																		if (
+																			!value[
+																				section
+																			][
+																				area
+																			] &&
+																			(0,
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																				'default'
+																			])(
 																				value[
 																					section
 																				][
 																					area
 																				]
-																			),
-																		_step2;
-																	try {
-																		for (
-																			_iterator2.s();
-																			!(_step2 =
-																				_iterator2.n())
-																				.done;
-
+																			) !==
+																				'object'
 																		) {
-																			var widget =
-																				_step2.value;
-																			if (
-																				typeof widget.widget_name ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof widget.widget_key ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.available_widgets[
-																					widget
-																						.widget_name
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				][
-																					area
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			active_widgets_data[
-																				widget.widget_key
-																			] =
-																				widget;
-																			selectedWidgets.push(
-																				{
-																					section:
-																						section,
-																					area: area,
-																					widget: widget.widget_key,
-																				}
-																			);
+																			continue;
 																		}
-																	} catch (err) {
-																		_iterator2.e(
-																			err
-																		);
-																	} finally {
-																		_iterator2.f();
+																		var _iterator2 =
+																				_createForOfIteratorHelper(
+																					value[
+																						section
+																					][
+																						area
+																					]
+																				),
+																			_step2;
+																		try {
+																			for (
+																				_iterator2.s();
+																				!(_step2 =
+																					_iterator2.n())
+																					.done;
+
+																			) {
+																				var widget =
+																					_step2.value;
+																				if (
+																					typeof widget.widget_name ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof widget.widget_key ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.available_widgets[
+																						widget
+																							.widget_name
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					][
+																						area
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				active_widgets_data[
+																					widget.widget_key
+																				] =
+																					widget;
+																				selectedWidgets.push(
+																					{
+																						section:
+																							section,
+																						area: area,
+																						widget: widget.widget_key,
+																					}
+																				);
+																			}
+																		} catch (err) {
+																			_iterator2.e(
+																				err
+																			);
+																		} finally {
+																			_iterator2.f();
+																		}
 																	}
 																}
-															}
 
-															// Load Active Widgets
-															for (var widget_key in active_widgets_data) {
-																// Validate widget exists in theAvailableWidgets (computed property)
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		widget_key
-																	] ===
-																	'undefined'
-																) {
-																	continue;
-																}
-																var widgets_template =
-																	_objectSpread(
-																		{},
-																		this
+																// Load Active Widgets
+																for (var widget_key in active_widgets_data) {
+																	// Validate widget exists in theAvailableWidgets (computed property)
+																	if (
+																		typeof this
 																			.theAvailableWidgets[
 																			widget_key
-																		]
-																	);
-																var widget_options =
-																	!active_widgets_data[
-																		widget_key
-																	].options &&
-																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																		'default'
-																	])(
-																		active_widgets_data[
-																			widget_key
-																		]
-																			.options
-																	) !==
-																		'object'
-																		? false
-																		: active_widgets_data[
-																				widget_key
-																			]
-																				.options;
-																for (var root_option in widgets_template) {
-																	if (
-																		'options' ===
-																		root_option
-																	) {
-																		continue;
-																	}
-																	if (
-																		active_widgets_data[
-																			widget_key
-																		][
-																			root_option
 																		] ===
 																		'undefined'
 																	) {
 																		continue;
 																	}
-																	widgets_template[
-																		root_option
-																	] =
-																		active_widgets_data[
+																	var widgets_template =
+																		_objectSpread(
+																			{},
+																			this
+																				.theAvailableWidgets[
+																				widget_key
+																			]
+																		);
+																	var widget_options =
+																		!active_widgets_data[
 																			widget_key
-																		][
-																			root_option
-																		];
-																}
-																var has_widget_options = false;
-																if (
-																	widgets_template.options &&
-																	widgets_template
-																		.options
-																		.fields
-																) {
-																	has_widget_options = true;
-																}
-																if (
-																	has_widget_options
-																) {
-																	for (var option_key in widgets_template
-																		.options
-																		.fields) {
+																		]
+																			.options &&
+																		(0,
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																			'default'
+																		])(
+																			active_widgets_data[
+																				widget_key
+																			]
+																				.options
+																		) !==
+																			'object'
+																			? false
+																			: active_widgets_data[
+																					widget_key
+																				]
+																					.options;
+																	for (var root_option in widgets_template) {
 																		if (
-																			typeof active_widgets_data[
+																			'options' ===
+																			root_option
+																		) {
+																			continue;
+																		}
+																		if (
+																			active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			] ===
 																			'undefined'
 																		) {
 																			continue;
 																		}
-																		widgets_template.options.fields[
-																			option_key
-																		].value =
+																		widgets_template[
+																			root_option
+																		] =
 																			active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			];
 																	}
-																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.active_widgets,
-																	widget_key,
-																	widgets_template
-																);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.available_widgets,
-																	widget_key,
-																	widgets_template
-																);
-															}
+																	var has_widget_options = false;
+																	if (
+																		widgets_template.options &&
+																		widgets_template
+																			.options
+																			.fields
+																	) {
+																		has_widget_options = true;
+																	}
+																	if (
+																		has_widget_options
+																	) {
+																		for (var option_key in widgets_template
+																			.options
+																			.fields) {
+																			if (
+																				typeof active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				] ===
+																				'undefined'
+																			) {
+																				continue;
+																			}
+																			widgets_template.options.fields[
+																				option_key
+																			].value =
+																				active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				];
+																		}
+																	}
 
-															// Load Selected Widgets Data - Group by section/area first
-															var widgetsByArea =
-																{};
-															for (
-																var _i = 0,
-																	_selectedWidgets =
-																		selectedWidgets;
-																_i <
-																_selectedWidgets.length;
-																_i++
-															) {
-																var item =
-																	_selectedWidgets[
-																		_i
-																	];
-																var key = ''
-																	.concat(
-																		item.section,
-																		'.'
-																	)
-																	.concat(
-																		item.area
+																	// Ensure widget_key and widget_name are set
+																	widgets_template.widget_key =
+																		widget_key;
+																	widgets_template.widget_name =
+																		active_widgets_data[
+																			widget_key
+																		]
+																			.widget_name ||
+																		widget_key;
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.active_widgets,
+																		widget_key,
+																		widgets_template
 																	);
-																if (
-																	!widgetsByArea[
-																		key
-																	]
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.available_widgets,
+																		widget_key,
+																		widgets_template
+																	);
+																}
+
+																// Load Selected Widgets Data - Group by section/area first
+																var widgetsByArea =
+																	{};
+																for (
+																	var _i = 0,
+																		_selectedWidgets =
+																			selectedWidgets;
+																	_i <
+																	_selectedWidgets.length;
+																	_i++
 																) {
-																	widgetsByArea[
-																		key
-																	] = {
-																		section:
+																	var item =
+																		_selectedWidgets[
+																			_i
+																		];
+																	var key = ''
+																		.concat(
 																			item.section,
-																		area: item.area,
-																		widgets:
-																			[],
-																	};
-																}
-																// Only add if widget exists in theAvailableWidgets and not already added
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		item
-																			.widget
-																	] !==
-																		'undefined' &&
-																	!widgetsByArea[
-																		key
-																	].widgets.includes(
-																		item.widget
-																	)
-																) {
-																	widgetsByArea[
-																		key
-																	].widgets.push(
-																		item.widget
-																	);
-																}
-															}
-
-															// Now set selectedWidgets for each area, preserving order (listing_title first)
-															for (var _key in widgetsByArea) {
-																var _widgetsByArea$_key =
-																		widgetsByArea[
-																			_key
-																		],
-																	_section =
-																		_widgetsByArea$_key.section,
-																	_area =
-																		_widgetsByArea$_key.area,
-																	widgets =
-																		_widgetsByArea$_key.widgets;
-
-																// Separate listing_title from other widgets
-																var listingTitleWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w ===
-																				'listing_title'
-																			);
-																		}
-																	);
-																var otherWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w !==
-																				'listing_title'
-																			);
-																		}
-																	);
-
-																// Replace the array with imported widgets (listing_title first)
-																this.local_layout[
-																	_section
-																][
-																	_area
-																].selectedWidgets =
-																	[].concat(
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																			'default'
-																		])(
-																			listingTitleWidgets
-																		),
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																			'default'
-																		])(
-																			otherWidgets
+																			'.'
 																		)
-																	);
-															}
-														},
-													// Import Widgets
-													importWidgets:
-														function importWidgets() {
-															if (
-																!this.isTruthyObject(
-																	this.widgets
-																)
-															) {
-																return;
-															}
-															this.available_widgets =
-																this.widgets;
-														},
-													// Import Layout
-													importLayout:
-														function importLayout() {
-															if (
-																!this.isTruthyObject(
-																	this.layout
-																)
-															) {
-																return;
-															}
-															for (var section in this
-																.local_layout) {
+																		.concat(
+																			item.area
+																		);
+																	if (
+																		!widgetsByArea[
+																			key
+																		]
+																	) {
+																		widgetsByArea[
+																			key
+																		] = {
+																			section:
+																				item.section,
+																			area: item.area,
+																			widgets:
+																				[],
+																		};
+																	}
+																	// Only add if widget exists in theAvailableWidgets and not already added
+																	if (
+																		typeof this
+																			.theAvailableWidgets[
+																			item
+																				.widget
+																		] !==
+																			'undefined' &&
+																		!widgetsByArea[
+																			key
+																		].widgets.includes(
+																			item.widget
+																		)
+																	) {
+																		widgetsByArea[
+																			key
+																		].widgets.push(
+																			item.widget
+																		);
+																	}
+																}
+
+																// Now set selectedWidgets for each area, preserving order (listing_title first)
+																for (var _key in widgetsByArea) {
+																	var _widgetsByArea$_key =
+																			widgetsByArea[
+																				_key
+																			],
+																		_section =
+																			_widgetsByArea$_key.section,
+																		_area =
+																			_widgetsByArea$_key.area,
+																		widgets =
+																			_widgetsByArea$_key.widgets;
+
+																	// Separate listing_title from other widgets
+																	var listingTitleWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w ===
+																					'listing_title'
+																				);
+																			}
+																		);
+																	var otherWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w !==
+																					'listing_title'
+																				);
+																			}
+																		);
+
+																	// Replace the array with imported widgets (listing_title first)
+																	this.local_layout[
+																		_section
+																	][
+																		_area
+																	].selectedWidgets =
+																		[].concat(
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																				'default'
+																			])(
+																				listingTitleWidgets
+																			),
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																				'default'
+																			])(
+																				otherWidgets
+																			)
+																		);
+																}
+															},
+														// Import Widgets
+														importWidgets:
+															function importWidgets() {
 																if (
 																	!this.isTruthyObject(
 																		this
-																			.layout[
-																			section
-																		]
+																			.widgets
 																	)
 																) {
-																	continue;
+																	return;
 																}
-																for (var area in this
-																	.local_layout[
-																	section
-																]) {
+																this.available_widgets =
+																	this.widgets;
+															},
+														// Import Layout
+														importLayout:
+															function importLayout() {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.layout
+																	)
+																) {
+																	return;
+																}
+																for (var section in this
+																	.local_layout) {
 																	if (
 																		!this.isTruthyObject(
+																			this
+																				.layout[
+																				section
+																			]
+																		)
+																	) {
+																		continue;
+																	}
+																	for (var area in this
+																		.local_layout[
+																		section
+																	]) {
+																		if (
+																			!this.isTruthyObject(
+																				this
+																					.layout[
+																					section
+																				][
+																					area
+																				]
+																			)
+																		) {
+																			continue;
+																		}
+																		Object.assign(
+																			this
+																				.local_layout[
+																				section
+																			][
+																				area
+																			],
 																			this
 																				.layout[
 																				section
 																			][
 																				area
 																			]
-																		)
-																	) {
-																		continue;
+																		);
 																	}
-																	Object.assign(
-																		this
-																			.local_layout[
-																			section
-																		][area],
-																		this
-																			.layout[
-																			section
-																		][area]
-																	);
 																}
-															}
-														},
-													// Edit Widget
-													editWidget:
-														function editWidget(
-															key
-														) {
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
+															},
+														// Edit Widget
+														editWidget:
+															function editWidget(
+																key
 															) {
-																return;
-															}
-															if (
-																!this
-																	.active_widgets[
-																	key
-																].options &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																if (
+																	!this
+																		.active_widgets[
+																		key
+																	].options &&
+																	(0,
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		'default'
+																	])(
+																		this
+																			.active_widgets[
+																			key
+																		]
+																			.options
+																	) !==
+																		'object'
+																) {
+																	return;
+																}
+																var opt =
 																	this
 																		.active_widgets[
 																		key
-																	].options
-																) !== 'object'
+																	].options;
+																// Force Vue reactivity by using Vue.set or restructuring
+																this.$set(
+																	this,
+																	'widgetOptionsWindow',
+																	_objectSpread(
+																		_objectSpread(
+																			_objectSpread(
+																				{},
+																				this
+																					.widgetOptionsWindowDefault
+																			),
+																			opt
+																		),
+																		{},
+																		{
+																			widget: key,
+																		}
+																	)
+																);
+
+																// Also update the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	key;
+															},
+														// Update Widget Options Data
+														updateWidgetOptionsData:
+															function updateWidgetOptionsData(
+																data,
+																widget
 															) {
 																return;
-															}
-															var opt =
-																this
-																	.active_widgets[
+															},
+														// Close Widget Options Window
+														closeWidgetOptionsWindow:
+															function closeWidgetOptionsWindow() {
+																this.widgetOptionsWindow =
+																	this.widgetOptionsWindowDefault;
+																// Also clear the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	'';
+															},
+														// Trash Widget
+														trashWidget:
+															function trashWidget(
+																key,
+																where
+															) {
+																if (
+																	!where.selectedWidgets.includes(
+																		key
+																	)
+																) {
+																	return;
+																}
+																var index =
+																	where.selectedWidgets.indexOf(
+																		key
+																	);
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	where.selectedWidgets,
+																	index
+																);
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	this
+																		.active_widgets,
 																	key
-																].options;
-															// Force Vue reactivity by using Vue.set or restructuring
-															this.$set(
-																this,
-																'widgetOptionsWindow',
-																_objectSpread(
+																);
+																if (
+																	key ===
+																	this
+																		.widgetOptionsWindow
+																		.widget
+																) {
+																	this.closeWidgetOptionsWindow();
+																}
+
+																// Also clear active_option_widget_key if this widget was active
+																if (
+																	this
+																		.active_option_widget_key ===
+																	key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																}
+															},
+														// Toggle Widget Status
+														toggleWidgetStatus:
+															function toggleWidgetStatus(
+																layout
+															) {
+																var _this =
+																	this;
+																if (
+																	layout
+																		.selectedWidgets
+																		.length >
+																	0
+																) {
+																	var _layout$selectedWidge;
+																	(_layout$selectedWidge =
+																		layout.selectedWidgets) ===
+																		null ||
+																		_layout$selectedWidge ===
+																			void 0 ||
+																		_layout$selectedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.trashWidget(
+																					widget,
+																					layout
+																				);
+																			}
+																		);
+																} else {
+																	var _layout$acceptedWidge;
+																	(_layout$acceptedWidge =
+																		layout.acceptedWidgets) ===
+																		null ||
+																		_layout$acceptedWidge ===
+																			void 0 ||
+																		_layout$acceptedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.insertWidget(
+																					{
+																						key: widget,
+																						selected_widgets:
+																							[
+																								widget,
+																							],
+																					},
+																					layout
+																				);
+																			}
+																		);
+																}
+															},
+														// Toggle Insert Window
+														toggleInsertWindow:
+															function toggleInsertWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_insert_widget_key ===
+																	current_item_key
+																) {
+																	this.active_insert_widget_key =
+																		'';
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening insert window
+																this.active_option_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the insert window
+																this.active_insert_widget_key =
+																	current_item_key;
+															},
+														// Toggle Option Window
+														toggleOptionWindow:
+															function toggleOptionWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_option_widget_key ===
+																	current_item_key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening option window
+																this.active_insert_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the option window
+																this.active_option_widget_key =
+																	current_item_key;
+															},
+														// Insert Widget
+														insertWidget:
+															function insertWidget(
+																payload,
+																where
+															) {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.theAvailableWidgets[
+																			payload
+																				.key
+																		]
+																	)
+																) {
+																	return;
+																}
+
+																// Get widget from theAvailableWidgets and ensure widget_key and widget_name are set
+																var widgetFromAvailable =
+																	this
+																		.theAvailableWidgets[
+																		payload
+																			.key
+																	];
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].set(
+																	this
+																		.active_widgets,
+																	payload.key,
 																	_objectSpread(
 																		_objectSpread(
 																			{},
-																			this
-																				.widgetOptionsWindowDefault
+																			widgetFromAvailable
 																		),
-																		opt
-																	),
-																	{},
-																	{
-																		widget: key,
-																	}
-																)
-															);
-
-															// Also update the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																key;
-														},
-													// Update Widget Options Data
-													updateWidgetOptionsData:
-														function updateWidgetOptionsData(
-															data,
-															widget
-														) {
-															return;
-														},
-													// Close Widget Options Window
-													closeWidgetOptionsWindow:
-														function closeWidgetOptionsWindow() {
-															this.widgetOptionsWindow =
-																this.widgetOptionsWindowDefault;
-															// Also clear the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																'';
-														},
-													// Trash Widget
-													trashWidget:
-														function trashWidget(
-															key,
-															where
-														) {
-															if (
-																!where.selectedWidgets.includes(
-																	key
-																)
-															) {
-																return;
-															}
-															var index =
-																where.selectedWidgets.indexOf(
-																	key
+																		{},
+																		{
+																			widget_key:
+																				payload.key,
+																			widget_name:
+																				widgetFromAvailable.widget_name ||
+																				payload.key,
+																		}
+																	)
 																);
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																where.selectedWidgets,
-																index
-															);
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																this
-																	.active_widgets,
-																key
-															);
-															if (
-																key ===
-																this
-																	.widgetOptionsWindow
-																	.widget
-															) {
-																this.closeWidgetOptionsWindow();
-															}
 
-															// Also clear active_option_widget_key if this widget was active
-															if (
-																this
-																	.active_option_widget_key ===
-																key
-															) {
-																this.active_option_widget_key =
-																	'';
-															}
-														},
-													// Toggle Widget Status
-													toggleWidgetStatus:
-														function toggleWidgetStatus(
-															layout
-														) {
-															var _this = this;
-															if (
-																layout
-																	.selectedWidgets
-																	.length > 0
-															) {
-																var _layout$selectedWidge;
-																(_layout$selectedWidge =
-																	layout.selectedWidgets) ===
-																	null ||
-																	_layout$selectedWidge ===
-																		void 0 ||
-																	_layout$selectedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.trashWidget(
-																				widget,
-																				layout
-																			);
-																		}
+																// If payload.key is listing_title, insert as first item
+																if (
+																	payload.key ===
+																	'listing_title'
+																) {
+																	var currentWidgets =
+																		where.selectedWidgets ||
+																		[];
+																	// Remove any existing listing_title to avoid duplicates
+																	var filteredWidgets =
+																		currentWidgets.filter(
+																			function (
+																				widget
+																			) {
+																				return (
+																					widget !==
+																					'listing_title'
+																				);
+																			}
+																		);
+																	var newWidgets =
+																		[
+																			payload.key,
+																		].concat(
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																				'default'
+																			])(
+																				filteredWidgets
+																			)
+																		);
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		where,
+																		'selectedWidgets',
+																		newWidgets
 																	);
-															} else {
-																var _layout$acceptedWidge;
-																(_layout$acceptedWidge =
-																	layout.acceptedWidgets) ===
-																	null ||
-																	_layout$acceptedWidge ===
-																		void 0 ||
-																	_layout$acceptedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.insertWidget(
-																				{
-																					key: widget,
-																					selected_widgets:
-																						[
-																							widget,
-																						],
-																				},
-																				layout
-																			);
-																		}
+																} else {
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		where,
+																		'selectedWidgets',
+																		payload.selected_widgets
 																	);
-															}
-														},
-													// Toggle Insert Window
-													toggleInsertWindow:
-														function toggleInsertWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_insert_widget_key ===
-																current_item_key
-															) {
+																}
+															},
+														// Close Insert Window
+														closeInsertWindow:
+															function closeInsertWindow() {
 																this.active_insert_widget_key =
 																	'';
+															},
+														// Close Option Window
+														closeOptionWindow:
+															function closeOptionWindow() {
 																this.active_option_widget_key =
 																	'';
-																return;
-															}
-
-															// Close all other modals before opening insert window
-															this.active_option_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the insert window
-															this.active_insert_widget_key =
-																current_item_key;
-														},
-													// Toggle Option Window
-													toggleOptionWindow:
-														function toggleOptionWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_option_widget_key ===
-																current_item_key
-															) {
-																this.active_option_widget_key =
-																	'';
-																return;
-															}
-
-															// Close all other modals before opening option window
-															this.active_insert_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the option window
-															this.active_option_widget_key =
-																current_item_key;
-														},
-													// Insert Widget
-													insertWidget:
-														function insertWidget(
-															payload,
-															where
-														) {
-															if (
-																!this.isTruthyObject(
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].set(
-																this
-																	.active_widgets,
-																payload.key,
-																_objectSpread(
-																	{},
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															);
-
-															// If payload.key is listing_title, insert as first item
-															if (
-																payload.key ===
-																'listing_title'
-															) {
-																var currentWidgets =
-																	where.selectedWidgets ||
-																	[];
-																// Remove any existing listing_title to avoid duplicates
-																var filteredWidgets =
-																	currentWidgets.filter(
-																		function (
-																			widget
-																		) {
-																			return (
-																				widget !==
-																				'listing_title'
-																			);
-																		}
-																	);
-																var newWidgets =
-																	[
-																		payload.key,
-																	].concat(
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																			'default'
-																		])(
-																			filteredWidgets
-																		)
-																	);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	where,
-																	'selectedWidgets',
-																	newWidgets
-																);
-															} else {
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	where,
-																	'selectedWidgets',
-																	payload.selected_widgets
-																);
-															}
-														},
-													// Close Insert Window
-													closeInsertWindow:
-														function closeInsertWindow() {
-															this.active_insert_widget_key =
-																'';
-														},
-													// Close Option Window
-													closeOptionWindow:
-														function closeOptionWindow() {
-															this.active_option_widget_key =
-																'';
-														},
-												},
-												'closeWidgetOptionsWindow',
-												function closeWidgetOptionsWindow() {
-													this.active_option_widget_key =
-														'';
-													this.$set(
+															},
+													},
+													'closeWidgetOptionsWindow',
+													function closeWidgetOptionsWindow() {
+														this.active_option_widget_key =
+															'';
+														this.$set(
+															this
+																.widgetOptionsWindow,
+															'widget',
+															''
+														);
+													}
+												),
+												'getActiveInsertWindowStatus',
+												function getActiveInsertWindowStatus(
+													current_item_key
+												) {
+													if (
+														current_item_key ===
 														this
-															.widgetOptionsWindow,
-														'widget',
-														''
-													);
+															.active_insert_widget_key
+													) {
+														return true;
+													}
+													return false;
 												}
 											),
-											'getActiveInsertWindowStatus',
-											function getActiveInsertWindowStatus(
+											'getActiveOptionWindowStatus',
+											function getActiveOptionWindowStatus(
 												current_item_key
 											) {
 												if (
 													current_item_key ===
 													this
-														.active_insert_widget_key
+														.active_option_widget_key
 												) {
 													return true;
 												}
 												return false;
 											}
 										),
-										'getActiveOptionWindowStatus',
-										function getActiveOptionWindowStatus(
-											current_item_key
-										) {
+										'placeholderIsActive',
+										function placeholderIsActive(layout) {
 											if (
-												current_item_key ===
-												this.active_option_widget_key
+												!this.isObject(layout.show_if)
 											) {
 												return true;
 											}
-											return false;
+											var check_condition =
+												this.checkShowIfCondition({
+													condition: layout.show_if,
+												});
+											return check_condition.status;
 										}
 									),
-									'placeholderIsActive',
-									function placeholderIsActive(layout) {
-										if (!this.isObject(layout.show_if)) {
-											return true;
+									'handleUpdateSelectedWidgets',
+									function handleUpdateSelectedWidgets(
+										updatedWidgets,
+										path
+									) {
+										// Split the path into keys
+										var pathKeys = path.split('.');
+
+										// Navigate through the object dynamically
+										var obj = this;
+										for (
+											var i = 0;
+											i < pathKeys.length - 1;
+											i++
+										) {
+											obj = obj[pathKeys[i]]; // Navigate deeper into the object
 										}
-										var check_condition =
-											this.checkShowIfCondition({
-												condition: layout.show_if,
-											});
-										return check_condition.status;
+
+										// Update the selectedWidgets at the correct path
+										obj[
+											pathKeys[pathKeys.length - 1]
+										].selectedWidgets = updatedWidgets;
 									}
 								),
-								'handleUpdateSelectedWidgets',
-								function handleUpdateSelectedWidgets(
-									updatedWidgets,
-									path
-								) {
-									// Split the path into keys
-									var pathKeys = path.split('.');
-
-									// Navigate through the object dynamically
-									var obj = this;
-									for (
-										var i = 0;
-										i < pathKeys.length - 1;
-										i++
-									) {
-										obj = obj[pathKeys[i]]; // Navigate deeper into the object
+								'handleActiveWidgetUpdate',
+								function handleActiveWidgetUpdate(_ref) {
+									var widgetKey = _ref.widgetKey,
+										updatedWidget = _ref.updatedWidget;
+									// Ensure widget_key and widget_name are set
+									updatedWidget.widget_key = widgetKey;
+									if (!updatedWidget.widget_name) {
+										updatedWidget.widget_name = widgetKey;
 									}
-
-									// Update the selectedWidgets at the correct path
-									obj[
-										pathKeys[pathKeys.length - 1]
-									].selectedWidgets = updatedWidgets;
+									this.$set(
+										this.active_widgets,
+										widgetKey,
+										updatedWidget
+									);
+									this.$set(
+										this.available_widgets,
+										widgetKey,
+										updatedWidget
+									);
 								}
 							),
-							'handleActiveWidgetUpdate',
-							function handleActiveWidgetUpdate(_ref) {
-								var widgetKey = _ref.widgetKey,
-									updatedWidget = _ref.updatedWidget;
+							'toggleActivateWidgetOptions',
+							function toggleActivateWidgetOptions(widgetKey) {
+								// Always activate the widget options
 								this.$set(
-									this.active_widgets,
-									widgetKey,
-									updatedWidget
+									this.widgetOptionsWindow,
+									'widget',
+									widgetKey
 								);
-								this.$set(
-									this.available_widgets,
-									widgetKey,
-									updatedWidget
-								);
+								this.active_option_widget_key = widgetKey;
 							}
 						),
-						'toggleActivateWidgetOptions',
-						function toggleActivateWidgetOptions(widgetKey) {
-							// Always activate the widget options
-							this.$set(
-								this.widgetOptionsWindow,
-								'widget',
-								widgetKey
-							);
-							this.active_option_widget_key = widgetKey;
+						'getFilteredSelectedWidgets',
+						function getFilteredSelectedWidgets(selectedWidgets) {
+							var _this2 = this;
+							if (!Array.isArray(selectedWidgets)) {
+								return [];
+							}
+
+							// Filter to only include widgets that exist in theAvailableWidgets
+							return selectedWidgets.filter(function (widgetKey) {
+								return (
+									typeof _this2.theAvailableWidgets[
+										widgetKey
+									] !== 'undefined' &&
+									_this2.theAvailableWidgets[widgetKey] !==
+										null
+								);
+							});
 						}
 					),
 				};
@@ -39850,7 +40167,10 @@
 											if (
 												!this.active_widgets[
 													widget_name
-												] &&
+												] ||
+												this.active_widgets[
+													widget_name
+												] === null ||
 												(0,
 												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
@@ -39860,12 +40180,50 @@
 													]
 												) !== 'object'
 											) {
+												// Get widget from theAvailableWidgets to ensure widget_key and widget_name are set
+												var widgetFromAvailable =
+													this.theAvailableWidgets[
+														widget_name
+													];
+												if (widgetFromAvailable) {
+													this.active_widgets[
+														widget_name
+													] = _objectSpread(
+														_objectSpread(
+															{},
+															widgetFromAvailable
+														),
+														{},
+														{
+															widget_name:
+																widget_name,
+															widget_key:
+																widget_name,
+														}
+													);
+												} else {
+													// Widget not available, skip it
+													continue;
+												}
+											}
+
+											// Check if active_widgets[widget_name] is null or invalid
+											if (
+												!this.active_widgets[
+													widget_name
+												] ||
 												this.active_widgets[
 													widget_name
-												] =
-													this.available_widgets[
+												] === null ||
+												(0,
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+													'default'
+												])(
+													this.active_widgets[
 														widget_name
-													] || null;
+													]
+												) !== 'object'
+											) {
 												continue;
 											}
 											var widget_data = {};
@@ -39880,6 +40238,9 @@
 													][root_option];
 											}
 											if (
+												!this.active_widgets[
+													widget_name
+												].options ||
 												(0,
 												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
@@ -40106,77 +40467,60 @@
 											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
 												'default'
 											])(
-												{
-													init: function init() {
-														this.importWidgets();
-														this.importLayout();
-														this.importOldData();
-													},
-													// isTruthyObject check
-													isTruthyObject:
-														function isTruthyObject(
-															obj
-														) {
-															if (
-																!obj &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(obj) !==
-																	'object'
-															) {
-																return false;
-															}
-															return true;
+												(0,
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+													'default'
+												])(
+													{
+														init: function init() {
+															this.importWidgets();
+															this.importLayout();
+															this.importOldData();
 														},
-													// Import Old Data
-													importOldData:
-														function importOldData() {
-															var value =
-																JSON.parse(
-																	JSON.stringify(
-																		this
-																			.value
-																	)
-																);
-															if (
-																!this.isTruthyObject(
-																	value
-																)
+														// isTruthyObject check
+														isTruthyObject:
+															function isTruthyObject(
+																obj
 															) {
-																return;
-															}
-															var selectedWidgets =
-																[];
-
-															// Get Active Widgets Data
-															var active_widgets_data =
-																{};
-															for (var section in value) {
 																if (
-																	!value[
-																		section
-																	] &&
+																	!obj &&
 																	(0,
 																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
 																		'default'
-																	])(
-																		value[
-																			section
-																		]
-																	) !==
+																	])(obj) !==
 																		'object'
 																) {
-																	continue;
+																	return false;
 																}
-																for (var area in value[
-																	section
-																]) {
+																return true;
+															},
+														// Import Old Data
+														importOldData:
+															function importOldData() {
+																var value =
+																	JSON.parse(
+																		JSON.stringify(
+																			this
+																				.value
+																		)
+																	);
+																if (
+																	!this.isTruthyObject(
+																		value
+																	)
+																) {
+																	return;
+																}
+																var selectedWidgets =
+																	[];
+
+																// Get Active Widgets Data
+																var active_widgets_data =
+																	{};
+																for (var section in value) {
 																	if (
 																		!value[
 																			section
-																		][
-																			area
 																		] &&
 																		(0,
 																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
@@ -40184,830 +40528,913 @@
 																		])(
 																			value[
 																				section
-																			][
-																				area
 																			]
 																		) !==
 																			'object'
 																	) {
 																		continue;
 																	}
-																	var _iterator3 =
-																			_createForOfIteratorHelper(
+																	for (var area in value[
+																		section
+																	]) {
+																		if (
+																			!value[
+																				section
+																			][
+																				area
+																			] &&
+																			(0,
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																				'default'
+																			])(
 																				value[
 																					section
 																				][
 																					area
 																				]
-																			),
-																		_step3;
-																	try {
-																		for (
-																			_iterator3.s();
-																			!(_step3 =
-																				_iterator3.n())
-																				.done;
-
+																			) !==
+																				'object'
 																		) {
-																			var widget =
-																				_step3.value;
-																			if (
-																				typeof widget.widget_name ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof widget.widget_key ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.available_widgets[
-																					widget
-																						.widget_name
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			if (
-																				typeof this
-																					.local_layout[
-																					section
-																				][
-																					area
-																				] ===
-																				'undefined'
-																			) {
-																				continue;
-																			}
-																			active_widgets_data[
-																				widget.widget_key
-																			] =
-																				widget;
-																			selectedWidgets.push(
-																				{
-																					section:
-																						section,
-																					area: area,
-																					widget: widget.widget_key,
-																				}
-																			);
+																			continue;
 																		}
-																	} catch (err) {
-																		_iterator3.e(
-																			err
-																		);
-																	} finally {
-																		_iterator3.f();
+																		var _iterator3 =
+																				_createForOfIteratorHelper(
+																					value[
+																						section
+																					][
+																						area
+																					]
+																				),
+																			_step3;
+																		try {
+																			for (
+																				_iterator3.s();
+																				!(_step3 =
+																					_iterator3.n())
+																					.done;
+
+																			) {
+																				var widget =
+																					_step3.value;
+																				if (
+																					typeof widget.widget_name ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof widget.widget_key ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.available_widgets[
+																						widget
+																							.widget_name
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				if (
+																					typeof this
+																						.local_layout[
+																						section
+																					][
+																						area
+																					] ===
+																					'undefined'
+																				) {
+																					continue;
+																				}
+																				active_widgets_data[
+																					widget.widget_key
+																				] =
+																					widget;
+																				selectedWidgets.push(
+																					{
+																						section:
+																							section,
+																						area: area,
+																						widget: widget.widget_key,
+																					}
+																				);
+																			}
+																		} catch (err) {
+																			_iterator3.e(
+																				err
+																			);
+																		} finally {
+																			_iterator3.f();
+																		}
 																	}
 																}
-															}
 
-															// Load Active Widgets
-															for (var widget_key in active_widgets_data) {
-																// Validate widget exists in theAvailableWidgets (computed property)
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		widget_key
-																	] ===
-																	'undefined'
-																) {
-																	continue;
-																}
-																var widgets_template =
-																	_objectSpread(
-																		{},
-																		this
+																// Load Active Widgets
+																for (var widget_key in active_widgets_data) {
+																	// Validate widget exists in theAvailableWidgets (computed property)
+																	if (
+																		typeof this
 																			.theAvailableWidgets[
 																			widget_key
-																		]
-																	);
-																var widget_options =
-																	!active_widgets_data[
-																		widget_key
-																	].options &&
-																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																		'default'
-																	])(
-																		active_widgets_data[
-																			widget_key
-																		]
-																			.options
-																	) !==
-																		'object'
-																		? false
-																		: active_widgets_data[
-																				widget_key
-																			]
-																				.options;
-																for (var root_option in widgets_template) {
-																	if (
-																		'options' ===
-																		root_option
-																	) {
-																		continue;
-																	}
-																	if (
-																		active_widgets_data[
-																			widget_key
-																		][
-																			root_option
 																		] ===
 																		'undefined'
 																	) {
 																		continue;
 																	}
-																	widgets_template[
-																		root_option
-																	] =
-																		active_widgets_data[
+																	var widgets_template =
+																		_objectSpread(
+																			{},
+																			this
+																				.theAvailableWidgets[
+																				widget_key
+																			]
+																		);
+																	var widget_options =
+																		!active_widgets_data[
 																			widget_key
-																		][
-																			root_option
-																		];
-																}
-																var has_widget_options = false;
-																if (
-																	widgets_template.options &&
-																	widgets_template
-																		.options
-																		.fields
-																) {
-																	has_widget_options = true;
-																}
-																if (
-																	has_widget_options
-																) {
-																	for (var option_key in widgets_template
-																		.options
-																		.fields) {
+																		]
+																			.options &&
+																		(0,
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																			'default'
+																		])(
+																			active_widgets_data[
+																				widget_key
+																			]
+																				.options
+																		) !==
+																			'object'
+																			? false
+																			: active_widgets_data[
+																					widget_key
+																				]
+																					.options;
+																	for (var root_option in widgets_template) {
 																		if (
-																			typeof active_widgets_data[
+																			'options' ===
+																			root_option
+																		) {
+																			continue;
+																		}
+																		if (
+																			active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			] ===
 																			'undefined'
 																		) {
 																			continue;
 																		}
-																		widgets_template.options.fields[
-																			option_key
-																		].value =
+																		widgets_template[
+																			root_option
+																		] =
 																			active_widgets_data[
 																				widget_key
 																			][
-																				option_key
+																				root_option
 																			];
 																	}
-																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.active_widgets,
-																	widget_key,
-																	widgets_template
-																);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	this
-																		.available_widgets,
-																	widget_key,
-																	widgets_template
-																);
-															}
+																	var has_widget_options = false;
+																	if (
+																		widgets_template.options &&
+																		widgets_template
+																			.options
+																			.fields
+																	) {
+																		has_widget_options = true;
+																	}
+																	if (
+																		has_widget_options
+																	) {
+																		for (var option_key in widgets_template
+																			.options
+																			.fields) {
+																			if (
+																				typeof active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				] ===
+																				'undefined'
+																			) {
+																				continue;
+																			}
+																			widgets_template.options.fields[
+																				option_key
+																			].value =
+																				active_widgets_data[
+																					widget_key
+																				][
+																					option_key
+																				];
+																		}
+																	}
 
-															// Load Selected Widgets Data - Group by section/area first
-															var widgetsByArea =
-																{};
-															for (
-																var _i = 0,
-																	_selectedWidgets =
-																		selectedWidgets;
-																_i <
-																_selectedWidgets.length;
-																_i++
-															) {
-																var item =
-																	_selectedWidgets[
-																		_i
-																	];
-																var key = ''
-																	.concat(
-																		item.section,
-																		'.'
-																	)
-																	.concat(
-																		item.area
+																	// Ensure widget_key and widget_name are set
+																	widgets_template.widget_key =
+																		widget_key;
+																	widgets_template.widget_name =
+																		active_widgets_data[
+																			widget_key
+																		]
+																			.widget_name ||
+																		widget_key;
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.active_widgets,
+																		widget_key,
+																		widgets_template
 																	);
-																if (
-																	!widgetsByArea[
-																		key
-																	]
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		this
+																			.available_widgets,
+																		widget_key,
+																		widgets_template
+																	);
+																}
+
+																// Load Selected Widgets Data - Group by section/area first
+																var widgetsByArea =
+																	{};
+																for (
+																	var _i = 0,
+																		_selectedWidgets =
+																			selectedWidgets;
+																	_i <
+																	_selectedWidgets.length;
+																	_i++
 																) {
-																	widgetsByArea[
-																		key
-																	] = {
-																		section:
+																	var item =
+																		_selectedWidgets[
+																			_i
+																		];
+																	var key = ''
+																		.concat(
 																			item.section,
-																		area: item.area,
-																		widgets:
-																			[],
-																	};
-																}
-																// Only add if widget exists in theAvailableWidgets and not already added
-																if (
-																	typeof this
-																		.theAvailableWidgets[
-																		item
-																			.widget
-																	] !==
-																		'undefined' &&
-																	!widgetsByArea[
-																		key
-																	].widgets.includes(
-																		item.widget
-																	)
-																) {
-																	widgetsByArea[
-																		key
-																	].widgets.push(
-																		item.widget
-																	);
-																}
-															}
-
-															// Now set selectedWidgets for each area, preserving order (listing_title first)
-															for (var _key in widgetsByArea) {
-																var _widgetsByArea$_key =
-																		widgetsByArea[
-																			_key
-																		],
-																	_section =
-																		_widgetsByArea$_key.section,
-																	_area =
-																		_widgetsByArea$_key.area,
-																	widgets =
-																		_widgetsByArea$_key.widgets;
-
-																// Separate listing_title from other widgets
-																var listingTitleWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w ===
-																				'listing_title'
-																			);
-																		}
-																	);
-																var otherWidgets =
-																	widgets.filter(
-																		function (
-																			w
-																		) {
-																			return (
-																				w !==
-																				'listing_title'
-																			);
-																		}
-																	);
-
-																// Replace the array with imported widgets (listing_title first)
-																this.local_layout[
-																	_section
-																][
-																	_area
-																].selectedWidgets =
-																	[].concat(
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																			'default'
-																		])(
-																			listingTitleWidgets
-																		),
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																			'default'
-																		])(
-																			otherWidgets
+																			'.'
 																		)
-																	);
-															}
-														},
-													// Import Widgets
-													importWidgets:
-														function importWidgets() {
-															if (
-																!this.isTruthyObject(
-																	this.widgets
-																)
-															) {
-																return;
-															}
-															this.available_widgets =
-																this.widgets;
-														},
-													// Import Layout
-													importLayout:
-														function importLayout() {
-															if (
-																!this.isTruthyObject(
-																	this.layout
-																)
-															) {
-																return;
-															}
-															for (var section in this
-																.local_layout) {
+																		.concat(
+																			item.area
+																		);
+																	if (
+																		!widgetsByArea[
+																			key
+																		]
+																	) {
+																		widgetsByArea[
+																			key
+																		] = {
+																			section:
+																				item.section,
+																			area: item.area,
+																			widgets:
+																				[],
+																		};
+																	}
+																	// Only add if widget exists in theAvailableWidgets and not already added
+																	if (
+																		typeof this
+																			.theAvailableWidgets[
+																			item
+																				.widget
+																		] !==
+																			'undefined' &&
+																		!widgetsByArea[
+																			key
+																		].widgets.includes(
+																			item.widget
+																		)
+																	) {
+																		widgetsByArea[
+																			key
+																		].widgets.push(
+																			item.widget
+																		);
+																	}
+																}
+
+																// Now set selectedWidgets for each area, preserving order (listing_title first)
+																for (var _key in widgetsByArea) {
+																	var _widgetsByArea$_key =
+																			widgetsByArea[
+																				_key
+																			],
+																		_section =
+																			_widgetsByArea$_key.section,
+																		_area =
+																			_widgetsByArea$_key.area,
+																		widgets =
+																			_widgetsByArea$_key.widgets;
+
+																	// Separate listing_title from other widgets
+																	var listingTitleWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w ===
+																					'listing_title'
+																				);
+																			}
+																		);
+																	var otherWidgets =
+																		widgets.filter(
+																			function (
+																				w
+																			) {
+																				return (
+																					w !==
+																					'listing_title'
+																				);
+																			}
+																		);
+
+																	// Replace the array with imported widgets (listing_title first)
+																	this.local_layout[
+																		_section
+																	][
+																		_area
+																	].selectedWidgets =
+																		[].concat(
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				listingTitleWidgets
+																			),
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				otherWidgets
+																			)
+																		);
+																}
+															},
+														// Import Widgets
+														importWidgets:
+															function importWidgets() {
 																if (
 																	!this.isTruthyObject(
 																		this
-																			.layout[
-																			section
-																		]
+																			.widgets
 																	)
 																) {
-																	continue;
+																	return;
 																}
-																for (var area in this
-																	.local_layout[
-																	section
-																]) {
+																this.available_widgets =
+																	this.widgets;
+															},
+														// Import Layout
+														importLayout:
+															function importLayout() {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.layout
+																	)
+																) {
+																	return;
+																}
+																for (var section in this
+																	.local_layout) {
 																	if (
 																		!this.isTruthyObject(
+																			this
+																				.layout[
+																				section
+																			]
+																		)
+																	) {
+																		continue;
+																	}
+																	for (var area in this
+																		.local_layout[
+																		section
+																	]) {
+																		if (
+																			!this.isTruthyObject(
+																				this
+																					.layout[
+																					section
+																				][
+																					area
+																				]
+																			)
+																		) {
+																			continue;
+																		}
+																		Object.assign(
+																			this
+																				.local_layout[
+																				section
+																			][
+																				area
+																			],
 																			this
 																				.layout[
 																				section
 																			][
 																				area
 																			]
-																		)
-																	) {
-																		continue;
+																		);
 																	}
-																	Object.assign(
-																		this
-																			.local_layout[
-																			section
-																		][area],
-																		this
-																			.layout[
-																			section
-																		][area]
-																	);
 																}
-															}
-														},
-													// Edit Widget
-													editWidget:
-														function editWidget(
-															key
-														) {
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
+															},
+														// Edit Widget
+														editWidget:
+															function editWidget(
+																key
 															) {
-																return;
-															}
-															if (
-																!this
-																	.active_widgets[
-																	key
-																].options &&
-																(0,
-																_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
-																	'default'
-																])(
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																if (
+																	!this
+																		.active_widgets[
+																		key
+																	].options &&
+																	(0,
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		'default'
+																	])(
+																		this
+																			.active_widgets[
+																			key
+																		]
+																			.options
+																	) !==
+																		'object'
+																) {
+																	return;
+																}
+																var opt =
 																	this
 																		.active_widgets[
 																		key
-																	].options
-																) !== 'object'
+																	].options;
+																// Force Vue reactivity by using Vue.set or restructuring
+																this.$set(
+																	this,
+																	'widgetOptionsWindow',
+																	_objectSpread(
+																		_objectSpread(
+																			_objectSpread(
+																				{},
+																				this
+																					.widgetOptionsWindowDefault
+																			),
+																			opt
+																		),
+																		{},
+																		{
+																			widget: key,
+																		}
+																	)
+																);
+
+																// Also update the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	key;
+															},
+														// Update Widget Options Data
+														updateWidgetOptionsData:
+															function updateWidgetOptionsData(
+																data,
+																widget
 															) {
 																return;
-															}
-															var opt =
-																this
-																	.active_widgets[
+															},
+														// Close Widget Options Window
+														closeWidgetOptionsWindow:
+															function closeWidgetOptionsWindow() {
+																this.widgetOptionsWindow =
+																	this.widgetOptionsWindowDefault;
+																// Also clear the active_option_widget_key for consistency
+																this.active_option_widget_key =
+																	'';
+															},
+														// Trash Widget
+														trashWidget:
+															function trashWidget(
+																key,
+																where
+															) {
+																if (
+																	!where.selectedWidgets.includes(
+																		key
+																	)
+																) {
+																	return;
+																}
+																var index =
+																	where.selectedWidgets.indexOf(
+																		key
+																	);
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	where.selectedWidgets,
+																	index
+																);
+																if (
+																	typeof this
+																		.active_widgets[
+																		key
+																	] ===
+																	'undefined'
+																) {
+																	return;
+																}
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].delete(
+																	this
+																		.active_widgets,
 																	key
-																].options;
-															// Force Vue reactivity by using Vue.set or restructuring
-															this.$set(
-																this,
-																'widgetOptionsWindow',
-																_objectSpread(
+																);
+																if (
+																	key ===
+																	this
+																		.widgetOptionsWindow
+																		.widget
+																) {
+																	this.closeWidgetOptionsWindow();
+																}
+
+																// Also clear active_option_widget_key if this widget was active
+																if (
+																	this
+																		.active_option_widget_key ===
+																	key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																}
+															},
+														// Toggle Widget Status
+														toggleWidgetStatus:
+															function toggleWidgetStatus(
+																layout
+															) {
+																var _this =
+																	this;
+																if (
+																	layout
+																		.selectedWidgets
+																		.length >
+																	0
+																) {
+																	var _layout$selectedWidge;
+																	(_layout$selectedWidge =
+																		layout.selectedWidgets) ===
+																		null ||
+																		_layout$selectedWidge ===
+																			void 0 ||
+																		_layout$selectedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.trashWidget(
+																					widget,
+																					layout
+																				);
+																			}
+																		);
+																} else {
+																	var _layout$acceptedWidge;
+																	(_layout$acceptedWidge =
+																		layout.acceptedWidgets) ===
+																		null ||
+																		_layout$acceptedWidge ===
+																			void 0 ||
+																		_layout$acceptedWidge.map(
+																			function (
+																				widget
+																			) {
+																				_this.insertWidget(
+																					{
+																						key: widget,
+																						selected_widgets:
+																							[
+																								widget,
+																							],
+																					},
+																					layout
+																				);
+																			}
+																		);
+																}
+															},
+														// Toggle Insert Window
+														toggleInsertWindow:
+															function toggleInsertWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_insert_widget_key ===
+																	current_item_key
+																) {
+																	this.active_insert_widget_key =
+																		'';
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening insert window
+																this.active_option_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the insert window
+																this.active_insert_widget_key =
+																	current_item_key;
+															},
+														// Toggle Option Window
+														toggleOptionWindow:
+															function toggleOptionWindow(
+																current_item_key
+															) {
+																if (
+																	this
+																		.active_option_widget_key ===
+																	current_item_key
+																) {
+																	this.active_option_widget_key =
+																		'';
+																	return;
+																}
+
+																// Close all other modals before opening option window
+																this.active_insert_widget_key =
+																	'';
+																this.closeWidgetOptionsWindow();
+
+																// Open the option window
+																this.active_option_widget_key =
+																	current_item_key;
+															},
+														// Insert Widget
+														insertWidget:
+															function insertWidget(
+																payload,
+																where
+															) {
+																if (
+																	!this.isTruthyObject(
+																		this
+																			.theAvailableWidgets[
+																			payload
+																				.key
+																		]
+																	)
+																) {
+																	return;
+																}
+
+																// Get widget from theAvailableWidgets and ensure widget_key and widget_name are set
+																var widgetFromAvailable =
+																	this
+																		.theAvailableWidgets[
+																		payload
+																			.key
+																	];
+																vue__WEBPACK_IMPORTED_MODULE_3__[
+																	'default'
+																].set(
+																	this
+																		.active_widgets,
+																	payload.key,
 																	_objectSpread(
 																		_objectSpread(
 																			{},
-																			this
-																				.widgetOptionsWindowDefault
+																			widgetFromAvailable
 																		),
-																		opt
-																	),
-																	{},
-																	{
-																		widget: key,
-																	}
-																)
-															);
-
-															// Also update the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																key;
-														},
-													// Update Widget Options Data
-													updateWidgetOptionsData:
-														function updateWidgetOptionsData(
-															data,
-															widget
-														) {
-															return;
-														},
-													// Close Widget Options Window
-													closeWidgetOptionsWindow:
-														function closeWidgetOptionsWindow() {
-															this.widgetOptionsWindow =
-																this.widgetOptionsWindowDefault;
-															// Also clear the active_option_widget_key for consistency
-															this.active_option_widget_key =
-																'';
-														},
-													// Trash Widget
-													trashWidget:
-														function trashWidget(
-															key,
-															where
-														) {
-															if (
-																!where.selectedWidgets.includes(
-																	key
-																)
-															) {
-																return;
-															}
-															var index =
-																where.selectedWidgets.indexOf(
-																	key
+																		{},
+																		{
+																			widget_key:
+																				payload.key,
+																			widget_name:
+																				widgetFromAvailable.widget_name ||
+																				payload.key,
+																		}
+																	)
 																);
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																where.selectedWidgets,
-																index
-															);
-															if (
-																typeof this
-																	.active_widgets[
-																	key
-																] ===
-																'undefined'
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].delete(
-																this
-																	.active_widgets,
-																key
-															);
-															if (
-																key ===
-																this
-																	.widgetOptionsWindow
-																	.widget
-															) {
-																this.closeWidgetOptionsWindow();
-															}
 
-															// Also clear active_option_widget_key if this widget was active
-															if (
-																this
-																	.active_option_widget_key ===
-																key
-															) {
-																this.active_option_widget_key =
-																	'';
-															}
-														},
-													// Toggle Widget Status
-													toggleWidgetStatus:
-														function toggleWidgetStatus(
-															layout
-														) {
-															var _this = this;
-															if (
-																layout
-																	.selectedWidgets
-																	.length > 0
-															) {
-																var _layout$selectedWidge;
-																(_layout$selectedWidge =
-																	layout.selectedWidgets) ===
-																	null ||
-																	_layout$selectedWidge ===
-																		void 0 ||
-																	_layout$selectedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.trashWidget(
-																				widget,
-																				layout
-																			);
-																		}
+																// If payload.key is listing_title, insert as first item
+																if (
+																	payload.key ===
+																	'listing_title'
+																) {
+																	var currentWidgets =
+																		where.selectedWidgets ||
+																		[];
+																	// Remove any existing listing_title to avoid duplicates
+																	var filteredWidgets =
+																		currentWidgets.filter(
+																			function (
+																				widget
+																			) {
+																				return (
+																					widget !==
+																					'listing_title'
+																				);
+																			}
+																		);
+																	var newWidgets =
+																		[
+																			payload.key,
+																		].concat(
+																			(0,
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				filteredWidgets
+																			)
+																		);
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		where,
+																		'selectedWidgets',
+																		newWidgets
 																	);
-															} else {
-																var _layout$acceptedWidge;
-																(_layout$acceptedWidge =
-																	layout.acceptedWidgets) ===
-																	null ||
-																	_layout$acceptedWidge ===
-																		void 0 ||
-																	_layout$acceptedWidge.map(
-																		function (
-																			widget
-																		) {
-																			_this.insertWidget(
-																				{
-																					key: widget,
-																					selected_widgets:
-																						[
-																							widget,
-																						],
-																				},
-																				layout
-																			);
-																		}
+																} else {
+																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																		'default'
+																	].set(
+																		where,
+																		'selectedWidgets',
+																		payload.selected_widgets
 																	);
-															}
-														},
-													// Toggle Insert Window
-													toggleInsertWindow:
-														function toggleInsertWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_insert_widget_key ===
-																current_item_key
-															) {
+																}
+															},
+														// Close Insert Window
+														closeInsertWindow:
+															function closeInsertWindow() {
 																this.active_insert_widget_key =
 																	'';
+															},
+														// Close Option Window
+														closeOptionWindow:
+															function closeOptionWindow() {
 																this.active_option_widget_key =
 																	'';
-																return;
-															}
-
-															// Close all other modals before opening insert window
-															this.active_option_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the insert window
-															this.active_insert_widget_key =
-																current_item_key;
-														},
-													// Toggle Option Window
-													toggleOptionWindow:
-														function toggleOptionWindow(
-															current_item_key
-														) {
-															if (
-																this
-																	.active_option_widget_key ===
-																current_item_key
-															) {
-																this.active_option_widget_key =
-																	'';
-																return;
-															}
-
-															// Close all other modals before opening option window
-															this.active_insert_widget_key =
-																'';
-															this.closeWidgetOptionsWindow();
-
-															// Open the option window
-															this.active_option_widget_key =
-																current_item_key;
-														},
-													// Insert Widget
-													insertWidget:
-														function insertWidget(
-															payload,
-															where
-														) {
-															if (
-																!this.isTruthyObject(
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															) {
-																return;
-															}
-															vue__WEBPACK_IMPORTED_MODULE_3__[
-																'default'
-															].set(
-																this
-																	.active_widgets,
-																payload.key,
-																_objectSpread(
-																	{},
-																	this
-																		.theAvailableWidgets[
-																		payload
-																			.key
-																	]
-																)
-															);
-
-															// If payload.key is listing_title, insert as first item
-															if (
-																payload.key ===
-																'listing_title'
-															) {
-																var currentWidgets =
-																	where.selectedWidgets ||
-																	[];
-																// Remove any existing listing_title to avoid duplicates
-																var filteredWidgets =
-																	currentWidgets.filter(
-																		function (
-																			widget
-																		) {
-																			return (
-																				widget !==
-																				'listing_title'
-																			);
-																		}
-																	);
-																var newWidgets =
-																	[
-																		payload.key,
-																	].concat(
-																		(0,
-																		_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																			'default'
-																		])(
-																			filteredWidgets
-																		)
-																	);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	where,
-																	'selectedWidgets',
-																	newWidgets
-																);
-															} else {
-																vue__WEBPACK_IMPORTED_MODULE_3__[
-																	'default'
-																].set(
-																	where,
-																	'selectedWidgets',
-																	payload.selected_widgets
-																);
-															}
-														},
-													// Close Insert Window
-													closeInsertWindow:
-														function closeInsertWindow() {
-															this.active_insert_widget_key =
-																'';
-														},
-													// Close Option Window
-													closeOptionWindow:
-														function closeOptionWindow() {
-															this.active_option_widget_key =
-																'';
-														},
-												},
-												'closeWidgetOptionsWindow',
-												function closeWidgetOptionsWindow() {
-													this.active_option_widget_key =
-														'';
-													this.$set(
+															},
+													},
+													'closeWidgetOptionsWindow',
+													function closeWidgetOptionsWindow() {
+														this.active_option_widget_key =
+															'';
+														this.$set(
+															this
+																.widgetOptionsWindow,
+															'widget',
+															''
+														);
+													}
+												),
+												'getActiveInsertWindowStatus',
+												function getActiveInsertWindowStatus(
+													current_item_key
+												) {
+													if (
+														current_item_key ===
 														this
-															.widgetOptionsWindow,
-														'widget',
-														''
-													);
+															.active_insert_widget_key
+													) {
+														return true;
+													}
+													return false;
 												}
 											),
-											'getActiveInsertWindowStatus',
-											function getActiveInsertWindowStatus(
+											'getActiveOptionWindowStatus',
+											function getActiveOptionWindowStatus(
 												current_item_key
 											) {
 												if (
 													current_item_key ===
 													this
-														.active_insert_widget_key
+														.active_option_widget_key
 												) {
 													return true;
 												}
 												return false;
 											}
 										),
-										'getActiveOptionWindowStatus',
-										function getActiveOptionWindowStatus(
-											current_item_key
-										) {
+										'placeholderIsActive',
+										function placeholderIsActive(layout) {
 											if (
-												current_item_key ===
-												this.active_option_widget_key
+												!this.isObject(layout.show_if)
 											) {
 												return true;
 											}
-											return false;
+											var check_condition =
+												this.checkShowIfCondition({
+													condition: layout.show_if,
+												});
+											return check_condition.status;
 										}
 									),
-									'placeholderIsActive',
-									function placeholderIsActive(layout) {
-										if (!this.isObject(layout.show_if)) {
-											return true;
+									'handleUpdateSelectedWidgets',
+									function handleUpdateSelectedWidgets(
+										updatedWidgets,
+										path
+									) {
+										// Split the path into keys
+										var pathKeys = path.split('.');
+
+										// Navigate through the object dynamically
+										var obj = this;
+										for (
+											var i = 0;
+											i < pathKeys.length - 1;
+											i++
+										) {
+											obj = obj[pathKeys[i]]; // Navigate deeper into the object
 										}
-										var check_condition =
-											this.checkShowIfCondition({
-												condition: layout.show_if,
-											});
-										return check_condition.status;
+
+										// Update the selectedWidgets at the correct path
+										obj[
+											pathKeys[pathKeys.length - 1]
+										].selectedWidgets = updatedWidgets;
 									}
 								),
-								'handleUpdateSelectedWidgets',
-								function handleUpdateSelectedWidgets(
-									updatedWidgets,
-									path
-								) {
-									// Split the path into keys
-									var pathKeys = path.split('.');
-
-									// Navigate through the object dynamically
-									var obj = this;
-									for (
-										var i = 0;
-										i < pathKeys.length - 1;
-										i++
-									) {
-										obj = obj[pathKeys[i]]; // Navigate deeper into the object
+								'handleActiveWidgetUpdate',
+								function handleActiveWidgetUpdate(_ref) {
+									var widgetKey = _ref.widgetKey,
+										updatedWidget = _ref.updatedWidget;
+									// Ensure widget_key and widget_name are set
+									updatedWidget.widget_key = widgetKey;
+									if (!updatedWidget.widget_name) {
+										updatedWidget.widget_name = widgetKey;
 									}
-
-									// Update the selectedWidgets at the correct path
-									obj[
-										pathKeys[pathKeys.length - 1]
-									].selectedWidgets = updatedWidgets;
+									this.$set(
+										this.active_widgets,
+										widgetKey,
+										updatedWidget
+									);
+									this.$set(
+										this.available_widgets,
+										widgetKey,
+										updatedWidget
+									);
 								}
 							),
-							'handleActiveWidgetUpdate',
-							function handleActiveWidgetUpdate(_ref) {
-								var widgetKey = _ref.widgetKey,
-									updatedWidget = _ref.updatedWidget;
+							'toggleActivateWidgetOptions',
+							function toggleActivateWidgetOptions(widgetKey) {
+								// Always activate the widget options
 								this.$set(
-									this.active_widgets,
-									widgetKey,
-									updatedWidget
+									this.widgetOptionsWindow,
+									'widget',
+									widgetKey
 								);
-								this.$set(
-									this.available_widgets,
-									widgetKey,
-									updatedWidget
-								);
+								this.active_option_widget_key = widgetKey;
 							}
 						),
-						'toggleActivateWidgetOptions',
-						function toggleActivateWidgetOptions(widgetKey) {
-							// Always activate the widget options
-							this.$set(
-								this.widgetOptionsWindow,
-								'widget',
-								widgetKey
-							);
-							this.active_option_widget_key = widgetKey;
+						'getFilteredSelectedWidgets',
+						function getFilteredSelectedWidgets(selectedWidgets) {
+							var _this2 = this;
+							if (!Array.isArray(selectedWidgets)) {
+								return [];
+							}
+
+							// Filter to only include widgets that exist in theAvailableWidgets
+							return selectedWidgets.filter(function (widgetKey) {
+								return (
+									typeof _this2.theAvailableWidgets[
+										widgetKey
+									] !== 'undefined' &&
+									_this2.theAvailableWidgets[widgetKey] !==
+										null
+								);
+							});
 						}
 					),
 				};
@@ -62070,11 +62497,13 @@
 																										.top_left
 																										.acceptedWidgets,
 																								selectedWidgets:
-																									_vm
-																										.local_layout
-																										.thumbnail
-																										.top_left
-																										.selectedWidgets,
+																									_vm.getFilteredSelectedWidgets(
+																										_vm
+																											.local_layout
+																											.thumbnail
+																											.top_left
+																											.selectedWidgets
+																									),
 																								maxWidget:
 																									_vm
 																										.local_layout
@@ -62220,11 +62649,13 @@
 																										.top_right
 																										.acceptedWidgets,
 																								selectedWidgets:
-																									_vm
-																										.local_layout
-																										.thumbnail
-																										.top_right
-																										.selectedWidgets,
+																									_vm.getFilteredSelectedWidgets(
+																										_vm
+																											.local_layout
+																											.thumbnail
+																											.top_right
+																											.selectedWidgets
+																									),
 																								maxWidget:
 																									_vm
 																										.local_layout
@@ -62355,11 +62786,13 @@
 																										.bottom_left
 																										.acceptedWidgets,
 																								selectedWidgets:
-																									_vm
-																										.local_layout
-																										.thumbnail
-																										.bottom_left
-																										.selectedWidgets,
+																									_vm.getFilteredSelectedWidgets(
+																										_vm
+																											.local_layout
+																											.thumbnail
+																											.bottom_left
+																											.selectedWidgets
+																									),
 																								maxWidget:
 																									_vm
 																										.local_layout
@@ -62490,11 +62923,13 @@
 																										.bottom_right
 																										.acceptedWidgets,
 																								selectedWidgets:
-																									_vm
-																										.local_layout
-																										.thumbnail
-																										.bottom_right
-																										.selectedWidgets,
+																									_vm.getFilteredSelectedWidgets(
+																										_vm
+																											.local_layout
+																											.thumbnail
+																											.bottom_right
+																											.selectedWidgets
+																									),
 																								maxWidget:
 																									_vm
 																										.local_layout
@@ -62722,11 +63157,13 @@
 																						.avatar
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.thumbnail
-																						.avatar
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.thumbnail
+																							.avatar
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -62861,11 +63298,13 @@
 																				.top
 																				.acceptedWidgets,
 																		selectedWidgets:
-																			_vm
-																				.local_layout
-																				.body
-																				.top
-																				.selectedWidgets,
+																			_vm.getFilteredSelectedWidgets(
+																				_vm
+																					.local_layout
+																					.body
+																					.top
+																					.selectedWidgets
+																			),
 																		maxWidget:
 																			_vm
 																				.local_layout
@@ -62994,11 +63433,13 @@
 																				.bottom
 																				.acceptedWidgets,
 																		selectedWidgets:
-																			_vm
-																				.local_layout
-																				.body
-																				.bottom
-																				.selectedWidgets,
+																			_vm.getFilteredSelectedWidgets(
+																				_vm
+																					.local_layout
+																					.body
+																					.bottom
+																					.selectedWidgets
+																			),
 																		maxWidget:
 																			_vm
 																				.local_layout
@@ -63124,11 +63565,13 @@
 																						.excerpt
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.excerpt
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.excerpt
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -63271,11 +63714,13 @@
 																						.left
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.left
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.left
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -63410,11 +63855,13 @@
 																						.right
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.right
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.right
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -63630,11 +64077,13 @@
 																						.avatar
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.avatar
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.avatar
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -63780,11 +64229,13 @@
 																						.title
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.title
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.title
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -63897,11 +64348,13 @@
 																						.quick_actions
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.quick_actions
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.quick_actions
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -64039,11 +64492,13 @@
 																				.quick_info
 																				.acceptedWidgets,
 																		selectedWidgets:
-																			_vm
-																				.local_layout
-																				.body
-																				.quick_info
-																				.selectedWidgets,
+																			_vm.getFilteredSelectedWidgets(
+																				_vm
+																					.local_layout
+																					.body
+																					.quick_info
+																					.selectedWidgets
+																			),
 																		maxWidget:
 																			_vm
 																				.local_layout
@@ -64162,11 +64617,13 @@
 																				.bottom
 																				.acceptedWidgets,
 																		selectedWidgets:
-																			_vm
-																				.local_layout
-																				.body
-																				.bottom
-																				.selectedWidgets,
+																			_vm.getFilteredSelectedWidgets(
+																				_vm
+																					.local_layout
+																					.body
+																					.bottom
+																					.selectedWidgets
+																			),
 																		maxWidget:
 																			_vm
 																				.local_layout
@@ -64295,11 +64752,13 @@
 																				.excerpt
 																				.acceptedWidgets,
 																		selectedWidgets:
-																			_vm
-																				.local_layout
-																				.body
-																				.excerpt
-																				.selectedWidgets,
+																			_vm.getFilteredSelectedWidgets(
+																				_vm
+																					.local_layout
+																					.body
+																					.excerpt
+																					.selectedWidgets
+																			),
 																		maxWidget:
 																			_vm
 																				.local_layout
@@ -64439,11 +64898,13 @@
 																						.left
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.left
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.left
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -64578,11 +65039,13 @@
 																						.right
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.right
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.right
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -65845,11 +66308,13 @@
 																								.top_right
 																								.acceptedWidgets,
 																						selectedWidgets:
-																							_vm
-																								.local_layout
-																								.thumbnail
-																								.top_right
-																								.selectedWidgets,
+																							_vm.getFilteredSelectedWidgets(
+																								_vm
+																									.local_layout
+																									.thumbnail
+																									.top_right
+																									.selectedWidgets
+																							),
 																						maxWidget:
 																							_vm
 																								.local_layout
@@ -66080,11 +66545,13 @@
 																								.top
 																								.acceptedWidgets,
 																						selectedWidgets:
-																							_vm
-																								.local_layout
-																								.body
-																								.top
-																								.selectedWidgets,
+																							_vm.getFilteredSelectedWidgets(
+																								_vm
+																									.local_layout
+																									.body
+																									.top
+																									.selectedWidgets
+																							),
 																						maxWidget:
 																							_vm
 																								.local_layout
@@ -66219,11 +66686,13 @@
 																								.right
 																								.acceptedWidgets,
 																						selectedWidgets:
-																							_vm
-																								.local_layout
-																								.body
-																								.right
-																								.selectedWidgets,
+																							_vm.getFilteredSelectedWidgets(
+																								_vm
+																									.local_layout
+																									.body
+																									.right
+																									.selectedWidgets
+																							),
 																						maxWidget:
 																							_vm
 																								.local_layout
@@ -66366,11 +66835,13 @@
 																				.bottom
 																				.acceptedWidgets,
 																		selectedWidgets:
-																			_vm
-																				.local_layout
-																				.body
-																				.bottom
-																				.selectedWidgets,
+																			_vm.getFilteredSelectedWidgets(
+																				_vm
+																					.local_layout
+																					.body
+																					.bottom
+																					.selectedWidgets
+																			),
 																		maxWidget:
 																			_vm
 																				.local_layout
@@ -66496,11 +66967,13 @@
 																						.excerpt
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.excerpt
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.excerpt
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -66643,11 +67116,13 @@
 																						.left
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.left
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.left
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -66782,11 +67257,13 @@
 																						.right
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.right
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.right
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -66996,11 +67473,13 @@
 																						.top
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.top
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.top
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -67135,11 +67614,13 @@
 																						.right
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.right
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.right
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -67285,11 +67766,13 @@
 																				.bottom
 																				.acceptedWidgets,
 																		selectedWidgets:
-																			_vm
-																				.local_layout
-																				.body
-																				.bottom
-																				.selectedWidgets,
+																			_vm.getFilteredSelectedWidgets(
+																				_vm
+																					.local_layout
+																					.body
+																					.bottom
+																					.selectedWidgets
+																			),
 																		maxWidget:
 																			_vm
 																				.local_layout
@@ -67415,11 +67898,13 @@
 																						.excerpt
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.body
-																						.excerpt
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.body
+																							.excerpt
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -67562,11 +68047,13 @@
 																						.left
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.left
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.left
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout
@@ -67701,11 +68188,13 @@
 																						.right
 																						.acceptedWidgets,
 																				selectedWidgets:
-																					_vm
-																						.local_layout
-																						.footer
-																						.right
-																						.selectedWidgets,
+																					_vm.getFilteredSelectedWidgets(
+																						_vm
+																							.local_layout
+																							.footer
+																							.right
+																							.selectedWidgets
+																					),
 																				maxWidget:
 																					_vm
 																						.local_layout

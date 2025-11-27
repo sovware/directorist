@@ -797,7 +797,21 @@ class Listings_Controller extends Posts_Controller {
             }
         }
 
-        return $base_data;
+        /**
+         * Filters the array of prepared data for a single listing to be returned via the REST API.
+         *
+         * This filter allows modification of the data response for a single listing object,
+         * right before it is sent via the REST API endpoint.
+         *
+         * @since 8.5.6
+         *
+         * @param array   $base_data The prepared array of listing data.
+         * @param WP_Post $listing   The original listing post object.
+         * @param array   $request   The request parameters used in the API call.
+         * @param string  $context   The current response context ('view', 'edit', etc).
+         * @param string  $version   The current REST API version.
+         */
+        return apply_filters( 'directorist_rest_listing_data', $base_data, $listing, $request, $context, 'version1' );
     }
 
     protected function get_listing_social_links( $id ) {

@@ -34238,27 +34238,31 @@
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/slicedToArray */ './node_modules/@babel/runtime/helpers/esm/slicedToArray.js'
+					);
+				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/toConsumableArray */ './node_modules/@babel/runtime/helpers/esm/toConsumableArray.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/typeof */ './node_modules/@babel/runtime/helpers/esm/typeof.js'
 					);
-				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
 						/*! vue */ './node_modules/vue/dist/vue.esm.js'
 					);
-				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ =
+				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
 						/*! ../../mixins/helpers */ './assets/src/js/admin/vue/mixins/helpers.js'
 					);
-				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ =
+				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
 						/*! ./../../mixins/form-fields/card-builder */ './assets/src/js/admin/vue/mixins/form-fields/card-builder.js'
 					);
@@ -34282,7 +34286,7 @@
 						r % 2
 							? ownKeys(Object(t), !0).forEach(function (r) {
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 										'default'
 									])(e, r, t[r]);
 								})
@@ -34386,10 +34390,10 @@
 				/* harmony default export */ __webpack_exports__['default'] = {
 					name: 'card-builder-grid-view-with-thumbnail-field',
 					mixins: [
-						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__[
+						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__[
 							'default'
 						],
-						_mixins_helpers__WEBPACK_IMPORTED_MODULE_4__['default'],
+						_mixins_helpers__WEBPACK_IMPORTED_MODULE_5__['default'],
 					],
 					props: {
 						fieldId: {
@@ -34430,7 +34434,7 @@
 								output[section] = {};
 								if (
 									(0,
-									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 										'default'
 									])(layout[section]) !== 'object'
 								) {
@@ -34440,7 +34444,7 @@
 									output[section][section_area] = [];
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(layout[section][section_area]) !==
 										'object'
@@ -34449,7 +34453,7 @@
 									}
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(
 											layout[section][section_area]
@@ -34461,7 +34465,7 @@
 
 									// Get unique widgets to prevent duplicates
 									var uniqueWidgets = (0,
-									_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+									_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
 										'default'
 									])(
 										new Set(
@@ -34500,7 +34504,7 @@
 													widget_name
 												] === null ||
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -34544,7 +34548,7 @@
 													widget_name
 												] === null ||
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -34570,7 +34574,7 @@
 													widget_name
 												].options ||
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -34585,7 +34589,7 @@
 											}
 											if (
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -34695,7 +34699,7 @@
 									}
 								}
 							}
-							vue__WEBPACK_IMPORTED_MODULE_3__['default'].set(
+							vue__WEBPACK_IMPORTED_MODULE_4__['default'].set(
 								this,
 								'available_widgets',
 								available_widgets
@@ -34893,35 +34897,35 @@
 						};
 					},
 					methods: (0,
-					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 						'default'
 					])(
 						(0,
-						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 							'default'
 						])(
 							(0,
-							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 								'default'
 							])(
 								(0,
-								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 									'default'
 								])(
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 										'default'
 									])(
 										(0,
-										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 											'default'
 										])(
 											(0,
-											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 												'default'
 											])(
 												(0,
-												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 													'default'
 												])(
 													{
@@ -34938,7 +34942,7 @@
 																if (
 																	!obj &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(obj) !==
 																		'object'
@@ -34950,6 +34954,8 @@
 														// Import Old Data
 														importOldData:
 															function importOldData() {
+																var _this =
+																	this;
 																var value =
 																	JSON.parse(
 																		JSON.stringify(
@@ -34966,6 +34972,8 @@
 																}
 																var selectedWidgets =
 																	[];
+																var areasWithValue =
+																	new Set();
 
 																// Get Active Widgets Data
 																var active_widgets_data =
@@ -34976,7 +34984,7 @@
 																			section
 																		] &&
 																		(0,
-																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																			'default'
 																		])(
 																			value[
@@ -34990,6 +34998,18 @@
 																	for (var area in value[
 																		section
 																	]) {
+																		var areaKey =
+																			''
+																				.concat(
+																					section,
+																					'.'
+																				)
+																				.concat(
+																					area
+																				);
+																		areasWithValue.add(
+																			areaKey
+																		);
 																		if (
 																			!value[
 																				section
@@ -34997,7 +35017,7 @@
 																				area
 																			] &&
 																			(0,
-																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																				'default'
 																			])(
 																				value[
@@ -35184,7 +35204,7 @@
 																		]
 																			.widget_name ||
 																		widget_key;
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -35192,7 +35212,7 @@
 																		widget_key,
 																		widgets_template
 																	);
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -35262,64 +35282,86 @@
 																	}
 																}
 
-																// Now set selectedWidgets for each area, preserving order (listing_title first)
-																for (var _key in widgetsByArea) {
-																	var _widgetsByArea$_key =
-																			widgetsByArea[
-																				_key
-																			],
-																		_section =
-																			_widgetsByArea$_key.section,
-																		_area =
-																			_widgetsByArea$_key.area,
-																		widgets =
-																			_widgetsByArea$_key.widgets;
+																// Now set selectedWidgets for each area that was present in the saved value
+																areasWithValue.forEach(
+																	function (
+																		key
+																	) {
+																		var _widgetsByArea$key;
+																		var _key$split =
+																				key.split(
+																					'.'
+																				),
+																			_key$split2 =
+																				(0,
+																				_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[
+																					'default'
+																				])(
+																					_key$split,
+																					2
+																				),
+																			section =
+																				_key$split2[0],
+																			area =
+																				_key$split2[1];
+																		var widgets =
+																			((_widgetsByArea$key =
+																				widgetsByArea[
+																					key
+																				]) ===
+																				null ||
+																			_widgetsByArea$key ===
+																				void 0
+																				? void 0
+																				: _widgetsByArea$key.widgets) ||
+																			[];
 
-																	// Separate listing_title from other widgets
-																	var listingTitleWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w ===
-																					'listing_title'
-																				);
-																			}
-																		);
-																	var otherWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w !==
-																					'listing_title'
-																				);
-																			}
-																		);
+																		// Separate listing_title from other widgets
+																		var listingTitleWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w ===
+																						'listing_title'
+																					);
+																				}
+																			);
+																		var otherWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w !==
+																						'listing_title'
+																					);
+																				}
+																			);
 
-																	// Replace the array with imported widgets (listing_title first)
-																	this.local_layout[
-																		_section
-																	][
-																		_area
-																	].selectedWidgets =
-																		[].concat(
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																				'default'
-																			])(
-																				listingTitleWidgets
-																			),
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																				'default'
-																			])(
-																				otherWidgets
-																			)
-																		);
-																}
+																		// Replace the array with imported widgets (listing_title first)
+																		_this.local_layout[
+																			section
+																		][
+																			area
+																		].selectedWidgets =
+																			[].concat(
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
+																					'default'
+																				])(
+																					listingTitleWidgets
+																				),
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
+																					'default'
+																				])(
+																					otherWidgets
+																				)
+																			);
+																	}
+																);
 															},
 														// Import Widgets
 														importWidgets:
@@ -35411,7 +35453,7 @@
 																		key
 																	].options &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(
 																		this
@@ -35487,7 +35529,7 @@
 																	where.selectedWidgets.indexOf(
 																		key
 																	);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	where.selectedWidgets,
@@ -35502,7 +35544,7 @@
 																) {
 																	return;
 																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	this
@@ -35533,7 +35575,7 @@
 															function toggleWidgetStatus(
 																layout
 															) {
-																var _this =
+																var _this2 =
 																	this;
 																if (
 																	layout
@@ -35551,7 +35593,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.trashWidget(
+																				_this2.trashWidget(
 																					widget,
 																					layout
 																				);
@@ -35568,7 +35610,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.insertWidget(
+																				_this2.insertWidget(
 																					{
 																						key: widget,
 																						selected_widgets:
@@ -35657,7 +35699,7 @@
 																		payload
 																			.key
 																	];
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].set(
 																	this
@@ -35704,13 +35746,13 @@
 																			payload.key,
 																		].concat(
 																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
 																				'default'
 																			])(
 																				filteredWidgets
 																			)
 																		);
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		where,
@@ -35718,7 +35760,7 @@
 																		newWidgets
 																	);
 																} else {
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		where,
@@ -35857,7 +35899,7 @@
 						),
 						'getFilteredSelectedWidgets',
 						function getFilteredSelectedWidgets(selectedWidgets) {
-							var _this2 = this;
+							var _this3 = this;
 							if (!Array.isArray(selectedWidgets)) {
 								return [];
 							}
@@ -35865,10 +35907,10 @@
 							// Filter to only include widgets that exist in theAvailableWidgets
 							return selectedWidgets.filter(function (widgetKey) {
 								return (
-									typeof _this2.theAvailableWidgets[
+									typeof _this3.theAvailableWidgets[
 										widgetKey
 									] !== 'undefined' &&
-									_this2.theAvailableWidgets[widgetKey] !==
+									_this3.theAvailableWidgets[widgetKey] !==
 										null
 								);
 							});
@@ -35894,23 +35936,27 @@
 					__webpack_require__(
 						/*! @babel/runtime/helpers/toConsumableArray */ './node_modules/@babel/runtime/helpers/esm/toConsumableArray.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/slicedToArray */ './node_modules/@babel/runtime/helpers/esm/slicedToArray.js'
+					);
+				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/typeof */ './node_modules/@babel/runtime/helpers/esm/typeof.js'
 					);
-				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
 						/*! vue */ './node_modules/vue/dist/vue.esm.js'
 					);
-				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ =
+				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
 						/*! ../../mixins/helpers */ './assets/src/js/admin/vue/mixins/helpers.js'
 					);
-				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ =
+				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
 						/*! ./../../mixins/form-fields/card-builder */ './assets/src/js/admin/vue/mixins/form-fields/card-builder.js'
 					);
@@ -36012,7 +36058,7 @@
 						r % 2
 							? ownKeys(Object(t), !0).forEach(function (r) {
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 										'default'
 									])(e, r, t[r]);
 								})
@@ -36038,10 +36084,10 @@
 				/* harmony default export */ __webpack_exports__['default'] = {
 					name: 'card-builder-grid-view-without-thumbnail-field',
 					mixins: [
-						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__[
+						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__[
 							'default'
 						],
-						_mixins_helpers__WEBPACK_IMPORTED_MODULE_4__['default'],
+						_mixins_helpers__WEBPACK_IMPORTED_MODULE_5__['default'],
 					],
 					props: {
 						fieldId: {
@@ -36082,7 +36128,7 @@
 								output[section] = {};
 								if (
 									(0,
-									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 										'default'
 									])(layout[section]) !== 'object'
 								) {
@@ -36092,7 +36138,7 @@
 									output[section][section_area] = [];
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(layout[section][section_area]) !==
 										'object'
@@ -36101,7 +36147,7 @@
 									}
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(
 											layout[section][section_area]
@@ -36130,7 +36176,7 @@
 											this.active_widgets[widget_name] ===
 												null ||
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -36168,7 +36214,7 @@
 											this.active_widgets[widget_name] ===
 												null ||
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -36191,7 +36237,7 @@
 											!this.active_widgets[widget_name]
 												.options ||
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -36205,7 +36251,7 @@
 										}
 										if (
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -36472,35 +36518,35 @@
 						};
 					},
 					methods: (0,
-					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
 						(0,
-						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 							'default'
 						])(
 							(0,
-							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 								'default'
 							])(
 								(0,
-								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 									'default'
 								])(
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 										'default'
 									])(
 										(0,
-										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 											'default'
 										])(
 											(0,
-											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 												'default'
 											])(
 												(0,
-												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
 												])(
 													{
@@ -36517,7 +36563,7 @@
 																if (
 																	!obj &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(obj) !==
 																		'object'
@@ -36529,6 +36575,8 @@
 														// Import Old Data
 														importOldData:
 															function importOldData() {
+																var _this =
+																	this;
 																var value =
 																	JSON.parse(
 																		JSON.stringify(
@@ -36545,6 +36593,8 @@
 																}
 																var selectedWidgets =
 																	[];
+																var areasWithValue =
+																	new Set();
 
 																// Get Active Widgets Data
 																var active_widgets_data =
@@ -36555,7 +36605,7 @@
 																			section
 																		] &&
 																		(0,
-																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																			'default'
 																		])(
 																			value[
@@ -36569,6 +36619,18 @@
 																	for (var area in value[
 																		section
 																	]) {
+																		var areaKey =
+																			''
+																				.concat(
+																					section,
+																					'.'
+																				)
+																				.concat(
+																					area
+																				);
+																		areasWithValue.add(
+																			areaKey
+																		);
 																		if (
 																			!value[
 																				section
@@ -36576,7 +36638,7 @@
 																				area
 																			] &&
 																			(0,
-																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																				'default'
 																			])(
 																				value[
@@ -36763,7 +36825,7 @@
 																		]
 																			.widget_name ||
 																		widget_key;
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -36771,7 +36833,7 @@
 																		widget_key,
 																		widgets_template
 																	);
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -36841,64 +36903,86 @@
 																	}
 																}
 
-																// Now set selectedWidgets for each area, preserving order (listing_title first)
-																for (var _key in widgetsByArea) {
-																	var _widgetsByArea$_key =
-																			widgetsByArea[
-																				_key
-																			],
-																		_section =
-																			_widgetsByArea$_key.section,
-																		_area =
-																			_widgetsByArea$_key.area,
-																		widgets =
-																			_widgetsByArea$_key.widgets;
+																// Now set selectedWidgets for each area that exists in saved value
+																areasWithValue.forEach(
+																	function (
+																		key
+																	) {
+																		var _widgetsByArea$key;
+																		var _key$split =
+																				key.split(
+																					'.'
+																				),
+																			_key$split2 =
+																				(0,
+																				_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[
+																					'default'
+																				])(
+																					_key$split,
+																					2
+																				),
+																			section =
+																				_key$split2[0],
+																			area =
+																				_key$split2[1];
+																		var widgets =
+																			((_widgetsByArea$key =
+																				widgetsByArea[
+																					key
+																				]) ===
+																				null ||
+																			_widgetsByArea$key ===
+																				void 0
+																				? void 0
+																				: _widgetsByArea$key.widgets) ||
+																			[];
 
-																	// Separate listing_title from other widgets
-																	var listingTitleWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w ===
-																					'listing_title'
-																				);
-																			}
-																		);
-																	var otherWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w !==
-																					'listing_title'
-																				);
-																			}
-																		);
+																		// Separate listing_title from other widgets
+																		var listingTitleWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w ===
+																						'listing_title'
+																					);
+																				}
+																			);
+																		var otherWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w !==
+																						'listing_title'
+																					);
+																				}
+																			);
 
-																	// Replace the array with imported widgets (listing_title first)
-																	this.local_layout[
-																		_section
-																	][
-																		_area
-																	].selectedWidgets =
-																		[].concat(
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																				'default'
-																			])(
-																				listingTitleWidgets
-																			),
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																				'default'
-																			])(
-																				otherWidgets
-																			)
-																		);
-																}
+																		// Replace the array with imported widgets (listing_title first)
+																		_this.local_layout[
+																			section
+																		][
+																			area
+																		].selectedWidgets =
+																			[].concat(
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																					'default'
+																				])(
+																					listingTitleWidgets
+																				),
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																					'default'
+																				])(
+																					otherWidgets
+																				)
+																			);
+																	}
+																);
 															},
 														// Import Widgets
 														importWidgets:
@@ -36990,7 +37074,7 @@
 																		key
 																	].options &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(
 																		this
@@ -37066,7 +37150,7 @@
 																	where.selectedWidgets.indexOf(
 																		key
 																	);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	where.selectedWidgets,
@@ -37081,7 +37165,7 @@
 																) {
 																	return;
 																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	this
@@ -37112,7 +37196,7 @@
 															function toggleWidgetStatus(
 																layout
 															) {
-																var _this =
+																var _this2 =
 																	this;
 																if (
 																	layout
@@ -37130,7 +37214,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.trashWidget(
+																				_this2.trashWidget(
 																					widget,
 																					layout
 																				);
@@ -37147,7 +37231,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.insertWidget(
+																				_this2.insertWidget(
 																					{
 																						key: widget,
 																						selected_widgets:
@@ -37236,7 +37320,7 @@
 																		payload
 																			.key
 																	];
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].set(
 																	this
@@ -37257,7 +37341,7 @@
 																		}
 																	)
 																);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].set(
 																	where,
@@ -37390,7 +37474,7 @@
 						),
 						'getFilteredSelectedWidgets',
 						function getFilteredSelectedWidgets(selectedWidgets) {
-							var _this2 = this;
+							var _this3 = this;
 							if (!Array.isArray(selectedWidgets)) {
 								return [];
 							}
@@ -37398,10 +37482,10 @@
 							// Filter to only include widgets that exist in theAvailableWidgets
 							return selectedWidgets.filter(function (widgetKey) {
 								return (
-									typeof _this2.theAvailableWidgets[
+									typeof _this3.theAvailableWidgets[
 										widgetKey
 									] !== 'undefined' &&
-									_this2.theAvailableWidgets[widgetKey] !==
+									_this3.theAvailableWidgets[widgetKey] !==
 										null
 								);
 							});
@@ -38361,23 +38445,27 @@
 					__webpack_require__(
 						/*! @babel/runtime/helpers/toConsumableArray */ './node_modules/@babel/runtime/helpers/esm/toConsumableArray.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/slicedToArray */ './node_modules/@babel/runtime/helpers/esm/slicedToArray.js'
+					);
+				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/typeof */ './node_modules/@babel/runtime/helpers/esm/typeof.js'
 					);
-				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
 						/*! vue */ './node_modules/vue/dist/vue.esm.js'
 					);
-				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ =
+				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
 						/*! ../../mixins/helpers */ './assets/src/js/admin/vue/mixins/helpers.js'
 					);
-				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ =
+				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
 						/*! ./../../mixins/form-fields/card-builder */ './assets/src/js/admin/vue/mixins/form-fields/card-builder.js'
 					);
@@ -38479,7 +38567,7 @@
 						r % 2
 							? ownKeys(Object(t), !0).forEach(function (r) {
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 										'default'
 									])(e, r, t[r]);
 								})
@@ -38505,10 +38593,10 @@
 				/* harmony default export */ __webpack_exports__['default'] = {
 					name: 'card-builder-list-view-with-thumbnail-field',
 					mixins: [
-						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__[
+						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__[
 							'default'
 						],
-						_mixins_helpers__WEBPACK_IMPORTED_MODULE_4__['default'],
+						_mixins_helpers__WEBPACK_IMPORTED_MODULE_5__['default'],
 					],
 					props: {
 						value: {
@@ -38555,7 +38643,7 @@
 								output[section] = {};
 								if (
 									(0,
-									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 										'default'
 									])(layout[section]) !== 'object'
 								) {
@@ -38565,7 +38653,7 @@
 									output[section][section_area] = [];
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(layout[section][section_area]) !==
 										'object'
@@ -38574,7 +38662,7 @@
 									}
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(
 											layout[section][section_area]
@@ -38603,7 +38691,7 @@
 											this.active_widgets[widget_name] ===
 												null ||
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -38641,7 +38729,7 @@
 											this.active_widgets[widget_name] ===
 												null ||
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -38664,7 +38752,7 @@
 											!this.active_widgets[widget_name]
 												.options ||
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -38678,7 +38766,7 @@
 										}
 										if (
 											(0,
-											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 												'default'
 											])(
 												this.active_widgets[widget_name]
@@ -38858,35 +38946,35 @@
 						};
 					},
 					methods: (0,
-					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
 						(0,
-						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 							'default'
 						])(
 							(0,
-							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 								'default'
 							])(
 								(0,
-								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 									'default'
 								])(
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 										'default'
 									])(
 										(0,
-										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 											'default'
 										])(
 											(0,
-											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 												'default'
 											])(
 												(0,
-												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
 												])(
 													{
@@ -38903,7 +38991,7 @@
 																if (
 																	!obj &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(obj) !==
 																		'object'
@@ -38915,6 +39003,8 @@
 														// Import Old Data
 														importOldData:
 															function importOldData() {
+																var _this =
+																	this;
 																var value =
 																	JSON.parse(
 																		JSON.stringify(
@@ -38931,6 +39021,8 @@
 																}
 																var selectedWidgets =
 																	[];
+																var areasWithValue =
+																	new Set();
 
 																// Get Active Widgets Data
 																var active_widgets_data =
@@ -38941,7 +39033,7 @@
 																			section
 																		] &&
 																		(0,
-																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																			'default'
 																		])(
 																			value[
@@ -38955,6 +39047,18 @@
 																	for (var area in value[
 																		section
 																	]) {
+																		var areaKey =
+																			''
+																				.concat(
+																					section,
+																					'.'
+																				)
+																				.concat(
+																					area
+																				);
+																		areasWithValue.add(
+																			areaKey
+																		);
 																		if (
 																			!value[
 																				section
@@ -38962,7 +39066,7 @@
 																				area
 																			] &&
 																			(0,
-																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																				'default'
 																			])(
 																				value[
@@ -39085,7 +39189,7 @@
 																		]
 																			.options &&
 																		(0,
-																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																			'default'
 																		])(
 																			active_widgets_data[
@@ -39170,7 +39274,7 @@
 																		]
 																			.widget_name ||
 																		widget_key;
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -39178,7 +39282,7 @@
 																		widget_key,
 																		widgets_template
 																	);
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -39248,64 +39352,86 @@
 																	}
 																}
 
-																// Now set selectedWidgets for each area, preserving order (listing_title first)
-																for (var _key in widgetsByArea) {
-																	var _widgetsByArea$_key =
-																			widgetsByArea[
-																				_key
-																			],
-																		_section =
-																			_widgetsByArea$_key.section,
-																		_area =
-																			_widgetsByArea$_key.area,
-																		widgets =
-																			_widgetsByArea$_key.widgets;
+																// Now set selectedWidgets for each area present in saved value
+																areasWithValue.forEach(
+																	function (
+																		key
+																	) {
+																		var _widgetsByArea$key;
+																		var _key$split =
+																				key.split(
+																					'.'
+																				),
+																			_key$split2 =
+																				(0,
+																				_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[
+																					'default'
+																				])(
+																					_key$split,
+																					2
+																				),
+																			section =
+																				_key$split2[0],
+																			area =
+																				_key$split2[1];
+																		var widgets =
+																			((_widgetsByArea$key =
+																				widgetsByArea[
+																					key
+																				]) ===
+																				null ||
+																			_widgetsByArea$key ===
+																				void 0
+																				? void 0
+																				: _widgetsByArea$key.widgets) ||
+																			[];
 
-																	// Separate listing_title from other widgets
-																	var listingTitleWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w ===
-																					'listing_title'
-																				);
-																			}
-																		);
-																	var otherWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w !==
-																					'listing_title'
-																				);
-																			}
-																		);
+																		// Separate listing_title from other widgets
+																		var listingTitleWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w ===
+																						'listing_title'
+																					);
+																				}
+																			);
+																		var otherWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w !==
+																						'listing_title'
+																					);
+																				}
+																			);
 
-																	// Replace the array with imported widgets (listing_title first)
-																	this.local_layout[
-																		_section
-																	][
-																		_area
-																	].selectedWidgets =
-																		[].concat(
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																				'default'
-																			])(
-																				listingTitleWidgets
-																			),
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
-																				'default'
-																			])(
-																				otherWidgets
-																			)
-																		);
-																}
+																		// Replace the array with imported widgets (listing_title first)
+																		_this.local_layout[
+																			section
+																		][
+																			area
+																		].selectedWidgets =
+																			[].concat(
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																					'default'
+																				])(
+																					listingTitleWidgets
+																				),
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+																					'default'
+																				])(
+																					otherWidgets
+																				)
+																			);
+																	}
+																);
 															},
 														// Import Widgets
 														importWidgets:
@@ -39397,7 +39523,7 @@
 																		key
 																	].options &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(
 																		this
@@ -39473,7 +39599,7 @@
 																	where.selectedWidgets.indexOf(
 																		key
 																	);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	where.selectedWidgets,
@@ -39488,7 +39614,7 @@
 																) {
 																	return;
 																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	this
@@ -39519,7 +39645,7 @@
 															function toggleWidgetStatus(
 																layout
 															) {
-																var _this =
+																var _this2 =
 																	this;
 																if (
 																	layout
@@ -39537,7 +39663,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.trashWidget(
+																				_this2.trashWidget(
 																					widget,
 																					layout
 																				);
@@ -39554,7 +39680,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.insertWidget(
+																				_this2.insertWidget(
 																					{
 																						key: widget,
 																						selected_widgets:
@@ -39643,7 +39769,7 @@
 																		payload
 																			.key
 																	];
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].set(
 																	this
@@ -39696,7 +39822,7 @@
 																				filteredWidgets
 																			)
 																		);
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		where,
@@ -39704,7 +39830,7 @@
 																		newWidgets
 																	);
 																} else {
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		where,
@@ -39838,7 +39964,7 @@
 						),
 						'getFilteredSelectedWidgets',
 						function getFilteredSelectedWidgets(selectedWidgets) {
-							var _this2 = this;
+							var _this3 = this;
 							if (!Array.isArray(selectedWidgets)) {
 								return [];
 							}
@@ -39846,10 +39972,10 @@
 							// Filter to only include widgets that exist in theAvailableWidgets
 							return selectedWidgets.filter(function (widgetKey) {
 								return (
-									typeof _this2.theAvailableWidgets[
+									typeof _this3.theAvailableWidgets[
 										widgetKey
 									] !== 'undefined' &&
-									_this2.theAvailableWidgets[widgetKey] !==
+									_this3.theAvailableWidgets[widgetKey] !==
 										null
 								);
 							});
@@ -39871,27 +39997,31 @@
 			) {
 				'use strict';
 				__webpack_require__.r(__webpack_exports__);
-				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/slicedToArray */ './node_modules/@babel/runtime/helpers/esm/slicedToArray.js'
+					);
+				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/toConsumableArray */ './node_modules/@babel/runtime/helpers/esm/toConsumableArray.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/typeof */ './node_modules/@babel/runtime/helpers/esm/typeof.js'
 					);
-				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
 						/*! vue */ './node_modules/vue/dist/vue.esm.js'
 					);
-				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ =
+				/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
 						/*! ../../mixins/helpers */ './assets/src/js/admin/vue/mixins/helpers.js'
 					);
-				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ =
+				/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__ =
 					__webpack_require__(
 						/*! ./../../mixins/form-fields/card-builder */ './assets/src/js/admin/vue/mixins/form-fields/card-builder.js'
 					);
@@ -39915,7 +40045,7 @@
 						r % 2
 							? ownKeys(Object(t), !0).forEach(function (r) {
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 										'default'
 									])(e, r, t[r]);
 								})
@@ -40019,10 +40149,10 @@
 				/* harmony default export */ __webpack_exports__['default'] = {
 					name: 'card-builder-list-view-without-field',
 					mixins: [
-						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__[
+						_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__[
 							'default'
 						],
-						_mixins_helpers__WEBPACK_IMPORTED_MODULE_4__['default'],
+						_mixins_helpers__WEBPACK_IMPORTED_MODULE_5__['default'],
 					],
 					props: {
 						value: {
@@ -40069,7 +40199,7 @@
 								output[section] = {};
 								if (
 									(0,
-									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+									_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 										'default'
 									])(layout[section]) !== 'object'
 								) {
@@ -40079,7 +40209,7 @@
 									output[section][section_area] = [];
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(layout[section][section_area]) !==
 										'object'
@@ -40088,7 +40218,7 @@
 									}
 									if (
 										(0,
-										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+										_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 											'default'
 										])(
 											layout[section][section_area]
@@ -40100,7 +40230,7 @@
 
 									// Get unique widgets to prevent duplicates
 									var uniqueWidgets = (0,
-									_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+									_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
 										'default'
 									])(
 										new Set(
@@ -40139,7 +40269,7 @@
 													widget_name
 												] === null ||
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -40183,7 +40313,7 @@
 													widget_name
 												] === null ||
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -40209,7 +40339,7 @@
 													widget_name
 												].options ||
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -40224,7 +40354,7 @@
 											}
 											if (
 												(0,
-												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 													'default'
 												])(
 													this.active_widgets[
@@ -40407,35 +40537,35 @@
 						};
 					},
 					methods: (0,
-					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+					_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 						'default'
 					])(
 						(0,
-						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+						_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 							'default'
 						])(
 							(0,
-							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 								'default'
 							])(
 								(0,
-								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+								_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 									'default'
 								])(
 									(0,
-									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 										'default'
 									])(
 										(0,
-										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+										_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 											'default'
 										])(
 											(0,
-											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+											_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 												'default'
 											])(
 												(0,
-												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+												_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__[
 													'default'
 												])(
 													{
@@ -40452,7 +40582,7 @@
 																if (
 																	!obj &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(obj) !==
 																		'object'
@@ -40464,6 +40594,8 @@
 														// Import Old Data
 														importOldData:
 															function importOldData() {
+																var _this =
+																	this;
 																var value =
 																	JSON.parse(
 																		JSON.stringify(
@@ -40480,6 +40612,8 @@
 																}
 																var selectedWidgets =
 																	[];
+																var areasWithValue =
+																	new Set();
 
 																// Get Active Widgets Data
 																var active_widgets_data =
@@ -40490,7 +40624,7 @@
 																			section
 																		] &&
 																		(0,
-																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																			'default'
 																		])(
 																			value[
@@ -40504,6 +40638,18 @@
 																	for (var area in value[
 																		section
 																	]) {
+																		var areaKey =
+																			''
+																				.concat(
+																					section,
+																					'.'
+																				)
+																				.concat(
+																					area
+																				);
+																		areasWithValue.add(
+																			areaKey
+																		);
 																		if (
 																			!value[
 																				section
@@ -40511,7 +40657,7 @@
 																				area
 																			] &&
 																			(0,
-																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																				'default'
 																			])(
 																				value[
@@ -40634,7 +40780,7 @@
 																		]
 																			.options &&
 																		(0,
-																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																		_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																			'default'
 																		])(
 																			active_widgets_data[
@@ -40719,7 +40865,7 @@
 																		]
 																			.widget_name ||
 																		widget_key;
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -40727,7 +40873,7 @@
 																		widget_key,
 																		widgets_template
 																	);
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		this
@@ -40797,64 +40943,86 @@
 																	}
 																}
 
-																// Now set selectedWidgets for each area, preserving order (listing_title first)
-																for (var _key in widgetsByArea) {
-																	var _widgetsByArea$_key =
-																			widgetsByArea[
-																				_key
-																			],
-																		_section =
-																			_widgetsByArea$_key.section,
-																		_area =
-																			_widgetsByArea$_key.area,
-																		widgets =
-																			_widgetsByArea$_key.widgets;
+																// Now set selectedWidgets for each area present in saved value
+																areasWithValue.forEach(
+																	function (
+																		key
+																	) {
+																		var _widgetsByArea$key;
+																		var _key$split =
+																				key.split(
+																					'.'
+																				),
+																			_key$split2 =
+																				(0,
+																				_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[
+																					'default'
+																				])(
+																					_key$split,
+																					2
+																				),
+																			section =
+																				_key$split2[0],
+																			area =
+																				_key$split2[1];
+																		var widgets =
+																			((_widgetsByArea$key =
+																				widgetsByArea[
+																					key
+																				]) ===
+																				null ||
+																			_widgetsByArea$key ===
+																				void 0
+																				? void 0
+																				: _widgetsByArea$key.widgets) ||
+																			[];
 
-																	// Separate listing_title from other widgets
-																	var listingTitleWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w ===
-																					'listing_title'
-																				);
-																			}
-																		);
-																	var otherWidgets =
-																		widgets.filter(
-																			function (
-																				w
-																			) {
-																				return (
-																					w !==
-																					'listing_title'
-																				);
-																			}
-																		);
+																		// Separate listing_title from other widgets
+																		var listingTitleWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w ===
+																						'listing_title'
+																					);
+																				}
+																			);
+																		var otherWidgets =
+																			widgets.filter(
+																				function (
+																					w
+																				) {
+																					return (
+																						w !==
+																						'listing_title'
+																					);
+																				}
+																			);
 
-																	// Replace the array with imported widgets (listing_title first)
-																	this.local_layout[
-																		_section
-																	][
-																		_area
-																	].selectedWidgets =
-																		[].concat(
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																				'default'
-																			])(
-																				listingTitleWidgets
-																			),
-																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
-																				'default'
-																			])(
-																				otherWidgets
-																			)
-																		);
-																}
+																		// Replace the array with imported widgets (listing_title first)
+																		_this.local_layout[
+																			section
+																		][
+																			area
+																		].selectedWidgets =
+																			[].concat(
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
+																					'default'
+																				])(
+																					listingTitleWidgets
+																				),
+																				(0,
+																				_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
+																					'default'
+																				])(
+																					otherWidgets
+																				)
+																			);
+																	}
+																);
 															},
 														// Import Widgets
 														importWidgets:
@@ -40946,7 +41114,7 @@
 																		key
 																	].options &&
 																	(0,
-																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+																	_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 																		'default'
 																	])(
 																		this
@@ -41022,7 +41190,7 @@
 																	where.selectedWidgets.indexOf(
 																		key
 																	);
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	where.selectedWidgets,
@@ -41037,7 +41205,7 @@
 																) {
 																	return;
 																}
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].delete(
 																	this
@@ -41068,7 +41236,7 @@
 															function toggleWidgetStatus(
 																layout
 															) {
-																var _this =
+																var _this2 =
 																	this;
 																if (
 																	layout
@@ -41086,7 +41254,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.trashWidget(
+																				_this2.trashWidget(
 																					widget,
 																					layout
 																				);
@@ -41103,7 +41271,7 @@
 																			function (
 																				widget
 																			) {
-																				_this.insertWidget(
+																				_this2.insertWidget(
 																					{
 																						key: widget,
 																						selected_widgets:
@@ -41192,7 +41360,7 @@
 																		payload
 																			.key
 																	];
-																vue__WEBPACK_IMPORTED_MODULE_3__[
+																vue__WEBPACK_IMPORTED_MODULE_4__[
 																	'default'
 																].set(
 																	this
@@ -41239,13 +41407,13 @@
 																			payload.key,
 																		].concat(
 																			(0,
-																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__[
+																			_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
 																				'default'
 																			])(
 																				filteredWidgets
 																			)
 																		);
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		where,
@@ -41253,7 +41421,7 @@
 																		newWidgets
 																	);
 																} else {
-																	vue__WEBPACK_IMPORTED_MODULE_3__[
+																	vue__WEBPACK_IMPORTED_MODULE_4__[
 																		'default'
 																	].set(
 																		where,
@@ -41387,7 +41555,7 @@
 						),
 						'getFilteredSelectedWidgets',
 						function getFilteredSelectedWidgets(selectedWidgets) {
-							var _this2 = this;
+							var _this3 = this;
 							if (!Array.isArray(selectedWidgets)) {
 								return [];
 							}
@@ -41395,10 +41563,10 @@
 							// Filter to only include widgets that exist in theAvailableWidgets
 							return selectedWidgets.filter(function (widgetKey) {
 								return (
-									typeof _this2.theAvailableWidgets[
+									typeof _this3.theAvailableWidgets[
 										widgetKey
 									] !== 'undefined' &&
-									_this2.theAvailableWidgets[widgetKey] !==
+									_this3.theAvailableWidgets[widgetKey] !==
 										null
 								);
 							});

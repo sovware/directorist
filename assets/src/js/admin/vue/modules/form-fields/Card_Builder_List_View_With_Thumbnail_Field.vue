@@ -670,6 +670,7 @@ export default {
       }
 
       let selectedWidgets = [];
+      const areasWithValue = new Set();
 
       // Get Active Widgets Data
       let active_widgets_data = {};
@@ -679,6 +680,8 @@ export default {
         }
 
         for (let area in value[section]) {
+          const areaKey = `${section}.${area}`;
+          areasWithValue.add(areaKey);
           if (
             !value[section][area] &&
             typeof value[section][area] !== "object"
@@ -787,9 +790,10 @@ export default {
         }
       }
 
-      // Now set selectedWidgets for each area, preserving order (listing_title first)
-      for (let key in widgetsByArea) {
-        const { section, area, widgets } = widgetsByArea[key];
+      // Now set selectedWidgets for each area present in saved value
+      areasWithValue.forEach((key) => {
+        const [section, area] = key.split(".");
+        const widgets = widgetsByArea[key]?.widgets || [];
 
         // Separate listing_title from other widgets
         const listingTitleWidgets = widgets.filter(
@@ -802,7 +806,7 @@ export default {
           ...listingTitleWidgets,
           ...otherWidgets,
         ];
-      }
+      });
     },
 
     // Import Widgets

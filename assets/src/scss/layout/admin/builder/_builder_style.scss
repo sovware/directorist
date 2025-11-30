@@ -3779,17 +3779,6 @@ input[type="radio"].cptm-radio {
 				vertical-align: top;
 			}
 		}
-		.cptm-placeholder-author-avatar-placeholder {
-			~ .cptm-widget-actions-area {
-				.cptm-widget-actions {
-					width: auto;
-					transform: unset;
-					left: 18px;
-					bottom: -5px;
-					justify-content: flex-start;
-				}
-			}
-		}
 	}
 	.cptm-widget-card-status {
 		display: flex;
@@ -3912,12 +3901,126 @@ input[type="radio"].cptm-radio {
 		align-items: center;
 		&.cptm-text-right {
 			justify-content: flex-end;
+			.cptm-placeholder-author-avatar-placeholder {
+				~ .cptm-widget-actions-area {
+					.cptm-widget-actions {
+						right: 18px;
+						left: unset;
+						transform: unset;
+					}
+					.cptm-widget-action-modal-container {
+						right: 0;
+						transform: translateX(-40px);
+						.cptm-option-card:before {
+							left: unset;
+							right: 0;
+							transform: translateX(-25px);
+						}
+					}
+				}
+			}
 		}
 		&.cptm-text-left {
 			justify-content: flex-start;
+			.cptm-placeholder-author-avatar-placeholder {
+				~ .cptm-widget-actions-area {
+					.cptm-widget-actions {
+						left: 18px;
+						transform: unset;
+					}
+					.cptm-widget-action-modal-container {
+						left: 0;
+						transform: unset;
+						.cptm-option-card:before {
+							right: unset;
+							left: 0;
+							transform: translateX(25px);
+						}
+					}
+				}
+			}
 		}
 		&.cptm-text-center {
 			justify-content: center;
+			.cptm-placeholder-author-avatar-placeholder {
+				~ .cptm-widget-actions-area {
+					.cptm-widget-actions {
+						left: 50%;
+						right: unset;
+						transform: translateX(-50%);
+					}
+					.cptm-widget-action-modal-container {
+						left: 50%;
+						right: unset;
+						transform: translateX(-50%);
+						.cptm-option-card:before {
+							right: unset;
+							left: 50%;
+							transform: translateX(-50%);
+						}
+					}
+				}
+			}
+		}
+		.cptm-placeholder-author-avatar-placeholder {
+			~ .cptm-widget-actions-area {
+				.cptm-widget-actions {
+					width: auto;
+					bottom: -3px;
+				}
+				.cptm-input-toggle-wrap {
+					margin-bottom: 20px;
+					.cptm-input-toggle {
+						padding: 0;
+					}
+				}
+				.cptm-widget-options-wrap {
+					.cptm-preview-radio-area {
+						width: 100%;
+						.cptm-radio-area {
+							display: flex;
+							gap: 0;
+							padding: 3px;
+							border-radius: 10px;
+							background: #f5f5f5;
+							.cptm-radio-item {
+								flex: 1;
+								input[type="radio"] {
+									display: none;
+									&:checked {
+										~ label {
+											color: $primary;
+											background: #ffffff;
+											box-shadow:
+												0 1px 3px 0 rgba(0, 0, 0, 0.1),
+												0 1px 2px -1px
+													rgba(0, 0, 0, 0.1);
+										}
+									}
+								}
+								label {
+									width: 100%;
+									height: 30px;
+									display: flex;
+									gap: 6px;
+									align-items: center;
+									justify-content: center;
+									font-size: 14px;
+									font-weight: 500;
+									margin: 0;
+									padding: 0 17px;
+									border-radius: 10px;
+									cursor: pointer;
+									transition: all ease 0.3s;
+									.cptm-radio-item-icon {
+										font-size: 20px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -4125,14 +4228,13 @@ input[type="radio"].cptm-radio {
 			}
 		}
 		.cptm-listing-card-preview-body {
-			padding-top: 62px;
+			padding-top: 64px;
 			&.has-avatar {
 				padding-top: 0;
 				.cptm-listing-card-author-avatar {
 					position: relative;
 					top: -14px;
 					transform: unset;
-					padding-bottom: 12px;
 					z-index: 101;
 				}
 			}
@@ -4144,14 +4246,15 @@ input[type="radio"].cptm-radio {
 
 		.cptm-listing-card-author-avatar-placeholder {
 			padding: 0 !important;
-			width: 64px !important;
-			height: 64px !important;
-			min-width: 64px !important;
-			min-height: 64px !important;
-			max-width: 64px !important;
-			max-height: 64px !important;
-			border-radius: 50% !important;
-			background: transparent !important;
+			.cptm-placeholder-author-avatar-placeholder {
+				width: 64px;
+				height: 64px;
+				min-width: 64px;
+				min-height: 64px;
+				max-width: 64px;
+				max-height: 64px;
+				border-radius: 50%;
+			}
 			&.enabled {
 				border: none;
 				background: transparent;

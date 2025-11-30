@@ -3911,6 +3911,10 @@ input[type="radio"].cptm-radio {
 					.cptm-widget-action-modal-container {
 						right: 0;
 						transform: translateX(-40px);
+						transform: translate(-40px, 20px);
+						&.active {
+							transform: translate(-40px, 0);
+						}
 						.cptm-option-card:before {
 							left: unset;
 							right: 0;
@@ -3930,7 +3934,10 @@ input[type="radio"].cptm-radio {
 					}
 					.cptm-widget-action-modal-container {
 						left: 0;
-						transform: unset;
+						transform: translate(0, 20px);
+						&.active {
+							transform: translate(0, 0);
+						}
 						.cptm-option-card:before {
 							right: unset;
 							left: 0;
@@ -3952,7 +3959,10 @@ input[type="radio"].cptm-radio {
 					.cptm-widget-action-modal-container {
 						left: 50%;
 						right: unset;
-						transform: translateX(-50%);
+						transform: translate(-50%, 20px);
+						&.active {
+							transform: translate(-50%, 0);
+						}
 						.cptm-option-card:before {
 							right: unset;
 							left: 50%;
@@ -3964,9 +3974,19 @@ input[type="radio"].cptm-radio {
 		}
 		.cptm-placeholder-author-avatar-placeholder {
 			~ .cptm-widget-actions-area {
+				left: 0;
+				transform: translate(0, 6px);
+				.cptm-widget-action-modal-container {
+					margin-top: 4px;
+				}
+				.cptm-option-card {
+					&:before {
+						display: none;
+					}
+				}
 				.cptm-widget-actions {
 					width: auto;
-					bottom: -3px;
+					transition: unset;
 				}
 				.cptm-input-toggle-wrap {
 					margin-bottom: 20px;

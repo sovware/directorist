@@ -250,6 +250,7 @@
             <div class="cptm-listing-card-author-avatar">
               <card-widget-placeholder
                 id="thumbnail_avatar"
+                :canOpenAvatarSettings="true"
                 :containerClass="getAvatarPlaceholderClass"
                 :label="local_layout.thumbnail.avatar.label"
                 :enable_widget="local_layout.thumbnail.avatar.enable_widget"
@@ -264,6 +265,9 @@
                 :maxWidget="local_layout.thumbnail.avatar.maxWidget"
                 :showWidgetsPickerWindow="
                   getActiveInsertWindowStatus('thumbnail_avatar')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('thumbnail_avatar')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
                 @insert-widget="

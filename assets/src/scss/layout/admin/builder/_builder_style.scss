@@ -3779,6 +3779,17 @@ input[type="radio"].cptm-radio {
 				vertical-align: top;
 			}
 		}
+		.cptm-placeholder-author-avatar-placeholder {
+			~ .cptm-widget-actions-area {
+				.cptm-widget-actions {
+					width: auto;
+					transform: unset;
+					left: 18px;
+					bottom: -5px;
+					justify-content: flex-start;
+				}
+			}
+		}
 	}
 	.cptm-widget-card-status {
 		display: flex;
@@ -4204,6 +4215,7 @@ input[type="radio"].cptm-radio {
 				}
 			}
 			&.disabled {
+				justify-content: center;
 				background: #f3f4f6 !important;
 			}
 		}

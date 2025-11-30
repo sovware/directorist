@@ -7150,6 +7150,8 @@
 				__webpack_require__
 			) {
 				var map = {
+					'./Avatar_Settings_Window.vue':
+						'./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue',
 					'./Card_Widget_Placeholder.vue':
 						'./assets/src/js/admin/vue/modules/Card_Widget_Placeholder.vue',
 					'./Confirmation_Modal.vue':
@@ -7415,6 +7417,113 @@
 				module.exports = webpackContext;
 				webpackContext.id =
 					'./assets/src/js/admin/vue/modules sync recursive \\w+\\.(vue%7Cjs)$';
+
+				/***/
+			},
+
+		/***/ './assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue':
+			/*!********************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue ***!
+  \********************************************************************/
+			/***/ function (
+				__unused_webpack_module,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony import */ var _Avatar_Settings_Window_vue_vue_type_template_id_6279bc94__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! ./Avatar_Settings_Window.vue?vue&type=template&id=6279bc94 */ './assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=template&id=6279bc94'
+					);
+				/* harmony import */ var _Avatar_Settings_Window_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ =
+					__webpack_require__(
+						/*! ./Avatar_Settings_Window.vue?vue&type=script&lang=js */ './assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=script&lang=js'
+					);
+				/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ './node_modules/vue-loader/lib/runtime/componentNormalizer.js'
+					);
+
+				/* normalize component */
+				var component = (0,
+				_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__[
+					'default'
+				])(
+					_Avatar_Settings_Window_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__[
+						'default'
+					],
+					_Avatar_Settings_Window_vue_vue_type_template_id_6279bc94__WEBPACK_IMPORTED_MODULE_0__.render,
+					_Avatar_Settings_Window_vue_vue_type_template_id_6279bc94__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+					false,
+					null,
+					null,
+					null
+				);
+
+				/* hot reload */
+				if (false) {
+					// removed by dead control flow
+					var api;
+				}
+				component.options.__file =
+					'assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue';
+				/* harmony default export */ __webpack_exports__['default'] =
+					component.exports;
+
+				/***/
+			},
+
+		/***/ './assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=script&lang=js':
+			/*!********************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************/
+			/***/ function (
+				__unused_webpack_module,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Avatar_Settings_Window_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Avatar_Settings_Window.vue?vue&type=script&lang=js */ './node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=script&lang=js'
+					);
+				/* harmony default export */ __webpack_exports__['default'] =
+					_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Avatar_Settings_Window_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__[
+						'default'
+					];
+
+				/***/
+			},
+
+		/***/ './assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=template&id=6279bc94':
+			/*!**************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=template&id=6279bc94 ***!
+  \**************************************************************************************************/
+			/***/ function (
+				__unused_webpack_module,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ render: function () {
+							return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Avatar_Settings_Window_vue_vue_type_template_id_6279bc94__WEBPACK_IMPORTED_MODULE_0__.render;
+						},
+						/* harmony export */ staticRenderFns: function () {
+							return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Avatar_Settings_Window_vue_vue_type_template_id_6279bc94__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns;
+						},
+						/* harmony export */
+					}
+				);
+				/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Avatar_Settings_Window_vue_vue_type_template_id_6279bc94__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Avatar_Settings_Window.vue?vue&type=template&id=6279bc94 */ './node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=template&id=6279bc94'
+					);
 
 				/***/
 			},
@@ -25565,6 +25674,385 @@
 				/***/
 			},
 
+		/***/ './node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=script&lang=js':
+			/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************/
+			/***/ function (
+				__unused_webpack_module,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/toConsumableArray */ './node_modules/@babel/runtime/helpers/esm/toConsumableArray.js'
+					);
+
+				/* harmony default export */ __webpack_exports__['default'] = {
+					name: 'avatar-settings-window',
+					props: {
+						id: {
+							type: [String, Number],
+							default: '',
+						},
+						active: {
+							type: Boolean,
+							default: false,
+						},
+						availableWidgets: {
+							type: Object,
+						},
+						selectedWidgets: {
+							type: Array,
+						},
+						maxWidgetInfoText: {
+							type: String,
+							default: 'Up to __DATA__ item{s} can be added',
+						},
+					},
+					data: function data() {
+						return {
+							isAvatarEnabled: false,
+							activeWidget: {},
+							activeWidgetKey: 'user_avatar',
+							activeWidgetOptionType: '',
+						};
+					},
+					computed: {
+						mainWrapperClass: function mainWrapperClass() {
+							return {
+								active: this.active,
+							};
+						},
+					},
+					created: function created() {
+						var _this$availableWidget;
+						this.isAvatarEnabled =
+							this.selectedWidgets &&
+							this.selectedWidgets.includes('user_avatar');
+						if (
+							this.isAvatarEnabled &&
+							(_this$availableWidget = this.availableWidgets) !==
+								null &&
+							_this$availableWidget !== void 0 &&
+							_this$availableWidget['user_avatar']
+						) {
+							var _this$activeWidget$op;
+							this.activeWidget =
+								this.availableWidgets['user_avatar'];
+							this.activeWidgetOptionType =
+								((_this$activeWidget$op =
+									this.activeWidget.options) === null ||
+								_this$activeWidget$op === void 0 ||
+								(_this$activeWidget$op =
+									_this$activeWidget$op.type) === null ||
+								_this$activeWidget$op === void 0
+									? void 0
+									: _this$activeWidget$op.value) || '';
+						}
+					},
+					mounted: function mounted() {
+						var _this$availableWidget2,
+							_this = this;
+						if (
+							this.isAvatarEnabled &&
+							(_this$availableWidget2 = this.availableWidgets) !==
+								null &&
+							_this$availableWidget2 !== void 0 &&
+							_this$availableWidget2['user_avatar']
+						) {
+							this.$nextTick(function () {
+								var _this$activeWidget$op2;
+								_this.activeWidget =
+									_this.availableWidgets['user_avatar'];
+								_this.activeWidgetOptionType =
+									((_this$activeWidget$op2 =
+										_this.activeWidget.options) === null ||
+									_this$activeWidget$op2 === void 0 ||
+									(_this$activeWidget$op2 =
+										_this$activeWidget$op2.type) === null ||
+									_this$activeWidget$op2 === void 0
+										? void 0
+										: _this$activeWidget$op2.value) || '';
+							});
+						}
+					},
+					watch: {
+						selectedWidgets: {
+							handler: function handler(newVal) {
+								var _this$availableWidget3;
+								this.isAvatarEnabled =
+									newVal &&
+									Array.isArray(newVal) &&
+									newVal.includes('user_avatar');
+								if (
+									this.isAvatarEnabled &&
+									(_this$availableWidget3 =
+										this.availableWidgets) !== null &&
+									_this$availableWidget3 !== void 0 &&
+									_this$availableWidget3['user_avatar']
+								) {
+									var _this$activeWidget$op3;
+									this.activeWidget =
+										this.availableWidgets['user_avatar'];
+									this.activeWidgetOptionType =
+										((_this$activeWidget$op3 =
+											this.activeWidget.options) ===
+											null ||
+										_this$activeWidget$op3 === void 0 ||
+										(_this$activeWidget$op3 =
+											_this$activeWidget$op3.type) ===
+											null ||
+										_this$activeWidget$op3 === void 0
+											? void 0
+											: _this$activeWidget$op3.value) ||
+										'';
+								}
+							},
+							immediate: true,
+							deep: true,
+						},
+						availableWidgets: {
+							handler: function handler() {
+								var _this$availableWidget4;
+								if (
+									this.isAvatarEnabled &&
+									(_this$availableWidget4 =
+										this.availableWidgets) !== null &&
+									_this$availableWidget4 !== void 0 &&
+									_this$availableWidget4['user_avatar']
+								) {
+									var _this$activeWidget$op4;
+									this.activeWidget =
+										this.availableWidgets['user_avatar'];
+									this.activeWidgetOptionType =
+										((_this$activeWidget$op4 =
+											this.activeWidget.options) ===
+											null ||
+										_this$activeWidget$op4 === void 0 ||
+										(_this$activeWidget$op4 =
+											_this$activeWidget$op4.type) ===
+											null ||
+										_this$activeWidget$op4 === void 0
+											? void 0
+											: _this$activeWidget$op4.value) ||
+										'';
+								}
+							},
+							deep: true,
+						},
+					},
+					methods: {
+						handleAvatarToggleChange:
+							function handleAvatarToggleChange() {
+								if (this.isAvatarEnabled) {
+									if (
+										!this.selectedWidgets ||
+										!this.selectedWidgets.includes(
+											'user_avatar'
+										)
+									) {
+										var updatedWidgets = [].concat(
+											(0,
+											_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[
+												'default'
+											])(this.selectedWidgets || []),
+											['user_avatar']
+										);
+										this.$emit('insert-widget', {
+											key: 'user_avatar',
+											selected_widgets: updatedWidgets,
+										});
+									}
+								} else {
+									this.$emit('trash-widget', 'user_avatar');
+								}
+							},
+						getFormFieldName: function getFormFieldName(
+							field_type
+						) {
+							return field_type + '-field';
+						},
+						widgetTypeField: function widgetTypeField(widgetKey) {
+							var _this$availableWidget5;
+							if (
+								!widgetKey ||
+								!this.availableWidgets ||
+								!this.availableWidgets[widgetKey]
+							) {
+								return {};
+							}
+							var hasRadioField =
+								(_this$availableWidget5 =
+									this.availableWidgets[widgetKey]
+										.options) === null ||
+								_this$availableWidget5 === void 0
+									? void 0
+									: _this$availableWidget5.type;
+							if (!hasRadioField) {
+								return {};
+							}
+							var activeWidgetFields =
+								this.availableWidgets[widgetKey].options;
+							return activeWidgetFields || {};
+						},
+						widgetFields: function widgetFields(widgetKey) {
+							var _this$availableWidget6,
+								_this$availableWidget7,
+								_this$availableWidget8;
+							if (
+								!widgetKey ||
+								!this.availableWidgets ||
+								!this.availableWidgets[widgetKey]
+							) {
+								return {};
+							}
+							var hasRadioField =
+								(_this$availableWidget6 =
+									this.availableWidgets[widgetKey]
+										.options) === null ||
+								_this$availableWidget6 === void 0
+									? void 0
+									: _this$availableWidget6.type;
+							var activeWidgetOptions = hasRadioField
+								? (_this$availableWidget7 =
+										this.availableWidgets[widgetKey]
+											.fields) === null ||
+									_this$availableWidget7 === void 0
+									? void 0
+									: _this$availableWidget7[
+											this.activeWidgetOptionType
+										]
+								: (_this$availableWidget8 =
+											this.availableWidgets[widgetKey]
+												.options) === null ||
+									  _this$availableWidget8 === void 0
+									? void 0
+									: _this$availableWidget8.fields;
+							return activeWidgetOptions || {};
+						},
+						updateWidgetOptionValue:
+							function updateWidgetOptionValue(value) {
+								var _this$availableWidget9;
+								this.activeWidgetOptionType = value;
+								if (this.activeWidget.options) {
+									this.activeWidget.options.type.value =
+										value;
+								}
+								if (
+									(_this$availableWidget9 =
+										this.availableWidgets[
+											this.activeWidgetKey
+										]) !== null &&
+									_this$availableWidget9 !== void 0 &&
+									_this$availableWidget9.options
+								) {
+									this.availableWidgets[
+										this.activeWidgetKey
+									].options.type.value = value;
+								}
+								if (value === 'icon') {
+									var _this$activeWidget;
+									var iconValue =
+										(_this$activeWidget =
+											this.activeWidget) === null ||
+										_this$activeWidget === void 0 ||
+										(_this$activeWidget =
+											_this$activeWidget.fields) ===
+											null ||
+										_this$activeWidget === void 0 ||
+										(_this$activeWidget =
+											_this$activeWidget.icon) === null ||
+										_this$activeWidget === void 0 ||
+										(_this$activeWidget =
+											_this$activeWidget.field_icon) ===
+											null ||
+										_this$activeWidget === void 0
+											? void 0
+											: _this$activeWidget.value;
+									if (this.activeWidget) {
+										this.activeWidget.icon = iconValue;
+									}
+									if (
+										this.availableWidgets[
+											this.activeWidgetKey
+										]
+									) {
+										this.availableWidgets[
+											this.activeWidgetKey
+										].icon = iconValue;
+									}
+								}
+								this.$emit('update-active-widget', {
+									widgetKey: this.activeWidgetKey,
+									updatedWidget: this.activeWidget,
+								});
+							},
+						updateWidgetFieldValue: function updateWidgetFieldValue(
+							field_key,
+							value
+						) {
+							var _this$activeWidget$op5;
+							var activeWidgetFields =
+								this.activeWidget.fields ||
+								((_this$activeWidget$op5 =
+									this.activeWidget.options) === null ||
+								_this$activeWidget$op5 === void 0
+									? void 0
+									: _this$activeWidget$op5.fields);
+							if (this.activeWidgetOptionType) {
+								var _activeWidgetFields$t;
+								if (
+									activeWidgetFields !== null &&
+									activeWidgetFields !== void 0 &&
+									(_activeWidgetFields$t =
+										activeWidgetFields[
+											this.activeWidgetOptionType
+										]) !== null &&
+									_activeWidgetFields$t !== void 0 &&
+									_activeWidgetFields$t[field_key]
+								) {
+									activeWidgetFields[
+										this.activeWidgetOptionType
+									][field_key].value = value;
+								}
+							} else {
+								if (
+									activeWidgetFields !== null &&
+									activeWidgetFields !== void 0 &&
+									activeWidgetFields[field_key]
+								) {
+									activeWidgetFields[field_key].value = value;
+								}
+							}
+							if (
+								field_key === 'field_icon' ||
+								field_key === 'icon'
+							) {
+								if (this.activeWidget) {
+									this.activeWidget.icon = value;
+								}
+								if (
+									this.availableWidgets[this.activeWidgetKey]
+								) {
+									this.availableWidgets[
+										this.activeWidgetKey
+									].icon = value;
+								}
+							}
+							this.$emit('update-active-widget', {
+								widgetKey: this.activeWidgetKey,
+								updatedWidget: this.activeWidget,
+							});
+						},
+					},
+				};
+
+				/***/
+			},
+
 		/***/ './node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Card_Widget_Placeholder.vue?vue&type=script&lang=js':
 			/*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Card_Widget_Placeholder.vue?vue&type=script&lang=js ***!
@@ -25650,6 +26138,10 @@
 							default: false,
 						},
 						canOpenSettings: {
+							type: Boolean,
+							default: false,
+						},
+						canOpenAvatarSettings: {
 							type: Boolean,
 							default: false,
 						},
@@ -25936,6 +26428,13 @@
 							// Open settings modal
 							this.$emit('open-widgets-option-window');
 						},
+						handleAvatarSettingsClick:
+							function handleAvatarSettingsClick() {
+								if (this.showWidgetsPickerWindow) {
+									this.$emit('close-widgets-picker-window');
+								}
+								this.$emit('open-widgets-option-window');
+							},
 						/**
 						 * Handle insert button click with modal mutual exclusion
 						 * Closes settings modal if open, then opens insert modal
@@ -28907,7 +29406,6 @@
 					data: function data() {
 						return {
 							localOptions: null,
-							showOptions: false,
 							isEnabled: true,
 						};
 					},
@@ -29011,23 +29509,6 @@
 									typeof this.activeWidgets[
 										this.widgetKey
 									] !== 'undefined';
-							}
-						},
-						// Toggle Options section visibility
-						toggleOptions: function toggleOptions() {
-							this.showOptions = !this.showOptions;
-						},
-						// Handle toggle change for enable/disable widget
-						handleToggleChange: function handleToggleChange() {
-							if (this.isEnabled) {
-								// Widget is enabled - add to selectedWidgets
-								this.$emit('insert-widget', {
-									key: this.widgetKey,
-									selected_widgets: [this.widgetKey],
-								});
-							} else {
-								// Widget is disabled - emit trash to remove
-								this.$emit('trash');
 							}
 						},
 						// Update field data when field value changes
@@ -52189,6 +52670,395 @@
 				/***/
 			},
 
+		/***/ './node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=template&id=6279bc94':
+			/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Avatar_Settings_Window.vue?vue&type=template&id=6279bc94 ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+			/***/ function (
+				__unused_webpack_module,
+				__webpack_exports__,
+				__webpack_require__
+			) {
+				'use strict';
+				__webpack_require__.r(__webpack_exports__);
+				/* harmony export */ __webpack_require__.d(
+					__webpack_exports__,
+					{
+						/* harmony export */ render: function () {
+							return /* binding */ render;
+						},
+						/* harmony export */ staticRenderFns: function () {
+							return /* binding */ staticRenderFns;
+						},
+						/* harmony export */
+					}
+				);
+				var render = function render() {
+					var _vm = this,
+						_c = _vm._self._c;
+					return _c(
+						'div',
+						{
+							staticClass:
+								'cptm-option-card cptm-option-card--draggable',
+							class: _vm.mainWrapperClass,
+						},
+						[
+							_c(
+								'div',
+								{
+									staticClass: 'cptm-option-card-header',
+								},
+								[
+									_c(
+										'div',
+										{
+											staticClass:
+												'cptm-option-card-header-title-section',
+										},
+										[
+											_c(
+												'h3',
+												{
+													staticClass:
+														'cptm-option-card-header-title',
+												},
+												[_vm._v('Edit Element')]
+											),
+											_vm._v(' '),
+											_c(
+												'div',
+												{
+													staticClass:
+														'cptm-header-action-area',
+												},
+												[
+													_c(
+														'a',
+														{
+															staticClass:
+																'cptm-header-action-link cptm-header-action-close',
+															attrs: {
+																href: '#',
+															},
+															on: {
+																click: function click(
+																	$event
+																) {
+																	$event.preventDefault();
+																	return _vm.$emit(
+																		'close'
+																	);
+																},
+															},
+														},
+														[
+															_c('span', {
+																staticClass:
+																	'fa fa-times',
+															}),
+														]
+													),
+												]
+											),
+										]
+									),
+								]
+							),
+							_vm._v(' '),
+							_c(
+								'div',
+								{
+									staticClass: 'cptm-option-card-body',
+								},
+								[
+									_c(
+										'div',
+										{
+											staticClass:
+												'cptm-input-toggle-wrap',
+										},
+										[
+											_vm._m(0),
+											_vm._v(' '),
+											_c(
+												'div',
+												{
+													staticClass:
+														'directorist_vertical-align-m cptm-input-toggle-btn',
+												},
+												[
+													_c(
+														'div',
+														{
+															staticClass:
+																'directorist_item',
+														},
+														[
+															_c('label', {
+																staticClass:
+																	'cptm-input-toggle',
+																class: {
+																	active: _vm.isAvatarEnabled,
+																},
+																attrs: {
+																	for: 'avatar-toggle-'.concat(
+																		_vm.id
+																	),
+																},
+															}),
+															_vm._v(' '),
+															_c('input', {
+																directives: [
+																	{
+																		name: 'model',
+																		rawName:
+																			'v-model',
+																		value: _vm.isAvatarEnabled,
+																		expression:
+																			'isAvatarEnabled',
+																	},
+																],
+																staticClass:
+																	'cptm-toggle-input',
+																staticStyle: {
+																	display:
+																		'none',
+																},
+																attrs: {
+																	type: 'checkbox',
+																	id: 'avatar-toggle-'.concat(
+																		_vm.id
+																	),
+																	name: 'avatar-toggle-'.concat(
+																		_vm.id
+																	),
+																},
+																domProps: {
+																	checked:
+																		Array.isArray(
+																			_vm.isAvatarEnabled
+																		)
+																			? _vm._i(
+																					_vm.isAvatarEnabled,
+																					null
+																				) >
+																				-1
+																			: _vm.isAvatarEnabled,
+																},
+																on: {
+																	change: [
+																		function (
+																			$event
+																		) {
+																			var $$a =
+																					_vm.isAvatarEnabled,
+																				$$el =
+																					$event.target,
+																				$$c =
+																					$$el.checked
+																						? true
+																						: false;
+																			if (
+																				Array.isArray(
+																					$$a
+																				)
+																			) {
+																				var $$v =
+																						null,
+																					$$i =
+																						_vm._i(
+																							$$a,
+																							$$v
+																						);
+																				if (
+																					$$el.checked
+																				) {
+																					$$i <
+																						0 &&
+																						(_vm.isAvatarEnabled =
+																							$$a.concat(
+																								[
+																									$$v,
+																								]
+																							));
+																				} else {
+																					$$i >
+																						-1 &&
+																						(_vm.isAvatarEnabled =
+																							$$a
+																								.slice(
+																									0,
+																									$$i
+																								)
+																								.concat(
+																									$$a.slice(
+																										$$i +
+																											1
+																									)
+																								));
+																				}
+																			} else {
+																				_vm.isAvatarEnabled =
+																					$$c;
+																			}
+																		},
+																		_vm.handleAvatarToggleChange,
+																	],
+																},
+															}),
+														]
+													),
+												]
+											),
+										]
+									),
+									_vm._v(' '),
+									_vm.isAvatarEnabled
+										? _c(
+												'div',
+												{
+													staticClass:
+														'cptm-widget-options-container',
+												},
+												[
+													_vm._l(
+														_vm.widgetTypeField(
+															'user_avatar'
+														),
+														function (
+															field,
+															field_key
+														) {
+															return _c(
+																'div',
+																{
+																	key: field_key,
+																},
+																[
+																	field
+																		? _c(
+																				_vm.getFormFieldName(
+																					field.type
+																				),
+																				_vm._b(
+																					{
+																						tag: 'component',
+																						attrs: {
+																							'field-id':
+																								'user_avatar-'.concat(
+																									field_key
+																								),
+																							fieldKey:
+																								'user_avatar-'.concat(
+																									field_key
+																								),
+																						},
+																						on: {
+																							update: function update(
+																								$event
+																							) {
+																								return _vm.updateWidgetOptionValue(
+																									$event
+																								);
+																							},
+																						},
+																					},
+																					'component',
+																					field,
+																					false
+																				)
+																			)
+																		: _vm._e(),
+																],
+																1
+															);
+														}
+													),
+													_vm._v(' '),
+													_vm._l(
+														_vm.widgetFields(
+															'user_avatar'
+														),
+														function (
+															field,
+															field_key
+														) {
+															return _c(
+																'div',
+																{
+																	key: field_key,
+																	staticClass:
+																		'cptm-widget-options-wrap',
+																},
+																[
+																	field
+																		? _c(
+																				_vm.getFormFieldName(
+																					field.type
+																				),
+																				_vm._b(
+																					{
+																						tag: 'component',
+																						attrs: {
+																							'field-id':
+																								'user_avatar-'.concat(
+																									field_key
+																								),
+																							fieldKey:
+																								'user_avatar-'.concat(
+																									field_key
+																								),
+																						},
+																						on: {
+																							update: function update(
+																								$event
+																							) {
+																								return _vm.updateWidgetFieldValue(
+																									field_key,
+																									$event
+																								);
+																							},
+																						},
+																					},
+																					'component',
+																					field,
+																					false
+																				)
+																			)
+																		: _vm._e(),
+																],
+																1
+															);
+														}
+													),
+												],
+												2
+											)
+										: _vm._e(),
+								]
+							),
+						]
+					);
+				};
+				var staticRenderFns = [
+					function () {
+						var _vm = this,
+							_c = _vm._self._c;
+						return _c(
+							'div',
+							{
+								staticClass: 'cptm-input-toggle-content',
+							},
+							[_c('label', [_c('span', [_vm._v('Avatar')])])]
+						);
+					},
+				];
+				render._withStripped = true;
+
+				/***/
+			},
+
 		/***/ './node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Card_Widget_Placeholder.vue?vue&type=template&id=7fafab09':
 			/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/Card_Widget_Placeholder.vue?vue&type=template&id=7fafab09 ***!
@@ -52246,23 +53116,58 @@
 									],
 								},
 								[
-									_c(
-										'p',
-										{
-											staticClass:
-												'cptm-placeholder-label',
-											class: {
-												hide: _vm.hasDisplayedWidgets,
-											},
-										},
-										[
-											_vm._v(
-												'\n      ' +
-													_vm._s(_vm.label) +
-													'\n    '
+									_vm.canOpenAvatarSettings
+										? _c(
+												'span',
+												{
+													staticClass:
+														'cptm-placeholder-author-thumb cptm-placeholder-author-avatar-placeholder',
+												},
+												[
+													_c(
+														'svg',
+														{
+															attrs: {
+																xmlns: 'http://www.w3.org/2000/svg',
+																width: '32',
+																height: '32',
+																viewBox:
+																	'0 0 32 32',
+																fill: 'none',
+															},
+														},
+														[
+															_c('path', {
+																attrs: {
+																	'fill-rule':
+																		'evenodd',
+																	'clip-rule':
+																		'evenodd',
+																	d: 'M16.0001 5.33268C13.4228 5.33268 11.3334 7.42202 11.3334 9.99935C11.3334 12.5767 13.4228 14.666 16.0001 14.666C18.5774 14.666 20.6668 12.5767 20.6668 9.99935C20.6668 7.42202 18.5774 5.33268 16.0001 5.33268ZM8.66678 9.99935C8.66678 5.94926 11.95 2.66602 16.0001 2.66602C20.0502 2.66602 23.3334 5.94926 23.3334 9.99935C23.3334 14.0494 20.0502 17.3327 16.0001 17.3327C11.95 17.3327 8.66678 14.0494 8.66678 9.99935ZM12.4351 19.3326C12.5112 19.3326 12.5884 19.3327 12.6668 19.3327H19.3334C19.4118 19.3327 19.489 19.3326 19.5651 19.3326C21.2015 19.332 22.3188 19.3316 23.2687 19.6197C25.3994 20.2661 27.0667 21.9334 27.713 24.0641C28.0012 25.014 28.0008 26.1313 28.0002 27.7677C28.0001 27.8438 28.0001 27.921 28.0001 27.9993C28.0001 28.7357 27.4032 29.3327 26.6668 29.3327C25.9304 29.3327 25.3334 28.7357 25.3334 27.9993C25.3334 26.0416 25.319 25.3583 25.1612 24.8382C24.7734 23.5598 23.773 22.5594 22.4946 22.1716C21.9745 22.0138 21.2912 21.9993 19.3334 21.9993H12.6668C10.709 21.9993 10.0257 22.0138 9.50564 22.1716C8.22723 22.5594 7.22682 23.5598 6.83902 24.8382C6.68125 25.3583 6.66678 26.0416 6.66678 27.9993C6.66678 28.7357 6.06982 29.3327 5.33344 29.3327C4.59706 29.3327 4.00011 28.7357 4.00011 27.9993C4.00011 27.921 4.00008 27.8438 4.00005 27.7677C3.99945 26.1313 3.99904 25.014 4.28718 24.0641C4.93351 21.9334 6.60087 20.2661 8.73154 19.6197C9.68141 19.3316 10.7988 19.332 12.4351 19.3326Z',
+																	fill: '#141921',
+																},
+															}),
+														]
+													),
+												]
+											)
+										: _c(
+												'p',
+												{
+													staticClass:
+														'cptm-placeholder-label',
+													class: {
+														hide: _vm.hasDisplayedWidgets,
+													},
+												},
+												[
+													_vm._v(
+														'\n      ' +
+															_vm._s(_vm.label) +
+															'\n    '
+													),
+												]
 											),
-										]
-									),
 									_vm._v(' '),
 									!_vm.readOnly
 										? _c(
@@ -52294,62 +53199,112 @@
 																	class: {
 																		active:
 																			_vm.showWidgetsOptionWindow &&
-																			((_vm$selectedWidgets =
+																			(((_vm$selectedWidgets =
 																				_vm.selectedWidgets) ===
 																				null ||
 																			_vm$selectedWidgets ===
 																				void 0
 																				? void 0
-																				: _vm$selectedWidgets.length) &&
+																				: _vm$selectedWidgets.length) ||
+																				_vm.canOpenAvatarSettings) &&
 																			!_vm.showWidgetsPickerWindow,
 																	},
 																},
 																[
-																	_c(
-																		'widgets-option-window',
-																		{
-																			attrs: {
-																				id: _vm.id,
-																				availableWidgets:
-																					_vm.availableWidgets,
-																				'selected-widgets':
-																					_vm.selectedWidgets,
-																				active: !!(
-																					_vm.showWidgetsOptionWindow &&
-																					(_vm$selectedWidgets2 =
-																						_vm.selectedWidgets) !==
-																						null &&
-																					_vm$selectedWidgets2 !==
-																						void 0 &&
-																					_vm$selectedWidgets2.length &&
-																					!_vm.showWidgetsPickerWindow
-																				),
-																				maxWidgetInfoText:
-																					_vm.maxWidgetInfoText,
-																			},
-																			on: {
-																				update: _vm.handleUpdateOptionWindow,
-																				'update-active-widget':
-																					_vm.handleActiveWidgetUpdate,
-																				'trash-widget':
-																					function trashWidget(
-																						$event
-																					) {
-																						return _vm.$emit(
-																							'trash-widget',
-																							$event
-																						);
+																	_vm.canOpenAvatarSettings
+																		? _c(
+																				'avatar-settings-window',
+																				{
+																					attrs: {
+																						id: _vm.id,
+																						availableWidgets:
+																							_vm.availableWidgets,
+																						'selected-widgets':
+																							_vm.selectedWidgets,
+																						active: !!(
+																							_vm.showWidgetsOptionWindow &&
+																							!_vm.showWidgetsPickerWindow
+																						),
+																						maxWidgetInfoText:
+																							_vm.maxWidgetInfoText,
 																					},
-																				close: function close(
-																					$event
-																				) {
-																					return _vm.$emit(
-																						'close-widgets-option-window'
-																					);
-																				},
-																			},
-																		}
-																	),
+																					on: {
+																						update: _vm.handleUpdateOptionWindow,
+																						'update-active-widget':
+																							_vm.handleActiveWidgetUpdate,
+																						'insert-widget':
+																							function insertWidget(
+																								$event
+																							) {
+																								return _vm.$emit(
+																									'insert-widget',
+																									$event
+																								);
+																							},
+																						'trash-widget':
+																							function trashWidget(
+																								$event
+																							) {
+																								return _vm.$emit(
+																									'trash-widget',
+																									$event
+																								);
+																							},
+																						close: function close(
+																							$event
+																						) {
+																							return _vm.$emit(
+																								'close-widgets-option-window'
+																							);
+																						},
+																					},
+																				}
+																			)
+																		: _c(
+																				'widgets-option-window',
+																				{
+																					attrs: {
+																						id: _vm.id,
+																						availableWidgets:
+																							_vm.availableWidgets,
+																						'selected-widgets':
+																							_vm.selectedWidgets,
+																						active: !!(
+																							_vm.showWidgetsOptionWindow &&
+																							(_vm$selectedWidgets2 =
+																								_vm.selectedWidgets) !==
+																								null &&
+																							_vm$selectedWidgets2 !==
+																								void 0 &&
+																							_vm$selectedWidgets2.length &&
+																							!_vm.showWidgetsPickerWindow
+																						),
+																						maxWidgetInfoText:
+																							_vm.maxWidgetInfoText,
+																					},
+																					on: {
+																						update: _vm.handleUpdateOptionWindow,
+																						'update-active-widget':
+																							_vm.handleActiveWidgetUpdate,
+																						'trash-widget':
+																							function trashWidget(
+																								$event
+																							) {
+																								return _vm.$emit(
+																									'trash-widget',
+																									$event
+																								);
+																							},
+																						close: function close(
+																							$event
+																						) {
+																							return _vm.$emit(
+																								'close-widgets-option-window'
+																							);
+																						},
+																					},
+																				}
+																			),
 																],
 																1
 															),
@@ -52426,13 +53381,47 @@
 																		'cptm-widget-actions',
 																},
 																[
+																	_vm.canOpenAvatarSettings
+																		? _c(
+																				'a',
+																				{
+																					staticClass:
+																						'cptm-widget-action-link',
+																					attrs: {
+																						href: '#',
+																					},
+																					on: {
+																						click: function click(
+																							$event
+																						) {
+																							$event.preventDefault();
+																							return _vm.handleAvatarSettingsClick.apply(
+																								null,
+																								arguments
+																							);
+																						},
+																					},
+																				},
+																				[
+																					_c(
+																						'span',
+																						{
+																							staticClass:
+																								'las la-cog',
+																						}
+																					),
+																				]
+																			)
+																		: _vm._e(),
+																	_vm._v(' '),
 																	_vm.canOpenSettings &&
 																	(_vm$selectedWidgets4 =
 																		_vm.selectedWidgets) !==
 																		null &&
 																	_vm$selectedWidgets4 !==
 																		void 0 &&
-																	_vm$selectedWidgets4.length
+																	_vm$selectedWidgets4.length &&
+																	!_vm.canOpenAvatarSettings
 																		? _c(
 																				'a',
 																				{
@@ -52465,7 +53454,8 @@
 																			)
 																		: _vm._e(),
 																	_vm._v(' '),
-																	_vm.canAddMore
+																	_vm.canAddMore &&
+																	!_vm.canOpenAvatarSettings
 																		? _c(
 																				'a',
 																				{
@@ -52505,7 +53495,8 @@
 											)
 										: _vm._e(),
 									_vm._v(' '),
-									_vm.hasDisplayedWidgets
+									_vm.hasDisplayedWidgets &&
+									!_vm.canOpenAvatarSettings
 										? _c(
 												'div',
 												{
@@ -56128,455 +57119,61 @@
 												'cptm-placeholder-author-thumb',
 										},
 										[
-											_vm.isAvailableOptions
-												? _c(
-														'svg',
-														{
-															attrs: {
-																xmlns: 'http://www.w3.org/2000/svg',
-																width: '32',
-																height: '32',
-																viewBox:
-																	'0 0 32 32',
-																fill: 'none',
-															},
+											_c(
+												'svg',
+												{
+													attrs: {
+														width: '40',
+														height: '40',
+														viewBox: '0 0 40 40',
+														fill: 'none',
+														xmlns: 'http://www.w3.org/2000/svg',
+													},
+												},
+												[
+													_c('path', {
+														attrs: {
+															d: 'M35.1667 20.8327L37.5 23.1827L26.6167 34.166L20.8333 28.3327L23.1667 25.9827L26.6167 29.4493L35.1667 20.8327ZM16.6667 28.3327L21.6667 33.3327H5V29.9993C5 26.316 10.9667 23.3327 18.3333 23.3327L21.4833 23.516L16.6667 28.3327ZM18.3333 6.66602C20.1014 6.66602 21.7971 7.36839 23.0474 8.61864C24.2976 9.86888 25 11.5646 25 13.3327C25 15.1008 24.2976 16.7965 23.0474 18.0467C21.7971 19.297 20.1014 19.9993 18.3333 19.9993C16.5652 19.9993 14.8695 19.297 13.6193 18.0467C12.369 16.7965 11.6667 15.1008 11.6667 13.3327C11.6667 11.5646 12.369 9.86888 13.6193 8.61864C14.8695 7.36839 16.5652 6.66602 18.3333 6.66602Z',
+															fill: '#141921',
 														},
-														[
-															_c('path', {
-																attrs: {
-																	'fill-rule':
-																		'evenodd',
-																	'clip-rule':
-																		'evenodd',
-																	d: 'M16.0001 5.33268C13.4228 5.33268 11.3334 7.42202 11.3334 9.99935C11.3334 12.5767 13.4228 14.666 16.0001 14.666C18.5774 14.666 20.6668 12.5767 20.6668 9.99935C20.6668 7.42202 18.5774 5.33268 16.0001 5.33268ZM8.66678 9.99935C8.66678 5.94926 11.95 2.66602 16.0001 2.66602C20.0502 2.66602 23.3334 5.94926 23.3334 9.99935C23.3334 14.0494 20.0502 17.3327 16.0001 17.3327C11.95 17.3327 8.66678 14.0494 8.66678 9.99935ZM12.4351 19.3326C12.5112 19.3326 12.5884 19.3327 12.6668 19.3327H19.3334C19.4118 19.3327 19.489 19.3326 19.5651 19.3326C21.2015 19.332 22.3188 19.3316 23.2687 19.6197C25.3994 20.2661 27.0667 21.9334 27.713 24.0641C28.0012 25.014 28.0008 26.1313 28.0002 27.7677C28.0001 27.8438 28.0001 27.921 28.0001 27.9993C28.0001 28.7357 27.4032 29.3327 26.6668 29.3327C25.9304 29.3327 25.3334 28.7357 25.3334 27.9993C25.3334 26.0416 25.319 25.3583 25.1612 24.8382C24.7734 23.5598 23.773 22.5594 22.4946 22.1716C21.9745 22.0138 21.2912 21.9993 19.3334 21.9993H12.6668C10.709 21.9993 10.0257 22.0138 9.50564 22.1716C8.22723 22.5594 7.22682 23.5598 6.83902 24.8382C6.68125 25.3583 6.66678 26.0416 6.66678 27.9993C6.66678 28.7357 6.06982 29.3327 5.33344 29.3327C4.59706 29.3327 4.00011 28.7357 4.00011 27.9993C4.00011 27.921 4.00008 27.8438 4.00005 27.7677C3.99945 26.1313 3.99904 25.014 4.28718 24.0641C4.93351 21.9334 6.60087 20.2661 8.73154 19.6197C9.68141 19.3316 10.7988 19.332 12.4351 19.3326Z',
-																	fill: '#141921',
-																},
-															}),
-														]
-													)
-												: _c(
-														'svg',
-														{
-															attrs: {
-																width: '40',
-																height: '40',
-																viewBox:
-																	'0 0 40 40',
-																fill: 'none',
-																xmlns: 'http://www.w3.org/2000/svg',
-															},
-														},
-														[
-															_c('path', {
-																attrs: {
-																	d: 'M35.1667 20.8327L37.5 23.1827L26.6167 34.166L20.8333 28.3327L23.1667 25.9827L26.6167 29.4493L35.1667 20.8327ZM16.6667 28.3327L21.6667 33.3327H5V29.9993C5 26.316 10.9667 23.3327 18.3333 23.3327L21.4833 23.516L16.6667 28.3327ZM18.3333 6.66602C20.1014 6.66602 21.7971 7.36839 23.0474 8.61864C24.2976 9.86888 25 11.5646 25 13.3327C25 15.1008 24.2976 16.7965 23.0474 18.0467C21.7971 19.297 20.1014 19.9993 18.3333 19.9993C16.5652 19.9993 14.8695 19.297 13.6193 18.0467C12.369 16.7965 11.6667 15.1008 11.6667 13.3327C11.6667 11.5646 12.369 9.86888 13.6193 8.61864C14.8695 7.36839 16.5652 6.66602 18.3333 6.66602Z',
-																	fill: '#141921',
-																},
-															}),
-														]
-													),
+													}),
+												]
+											),
 											_vm._v(' '),
-											_vm.isAvailableOptions
-												? _c(
-														'a',
-														{
-															staticClass:
-																'cptm-widget-action-link cptm-placeholder-author-thumb-options',
-															attrs: {
-																href: '#',
-															},
-															on: {
-																click: function click(
-																	$event
-																) {
-																	$event.stopPropagation();
-																	return _vm.toggleOptions.apply(
-																		null,
-																		arguments
-																	);
-																},
-															},
+											_c(
+												'a',
+												{
+													staticClass:
+														'cptm-placeholder-author-thumb-trash',
+													attrs: {
+														href: '#',
+													},
+													on: {
+														click: function click(
+															$event
+														) {
+															$event.stopPropagation();
+															return _vm.$emit(
+																'trash'
+															);
 														},
-														[
-															_c('span', {
-																staticClass:
-																	'las la-cog',
-															}),
-														]
-													)
-												: _c(
-														'a',
-														{
-															staticClass:
-																'cptm-placeholder-author-thumb-trash',
-															attrs: {
-																href: '#',
-															},
-															on: {
-																click: function click(
-																	$event
-																) {
-																	$event.stopPropagation();
-																	return _vm.$emit(
-																		'trash'
-																	);
-																},
-															},
-														},
-														[
-															_c('span', {
-																staticClass:
-																	'las la-trash-alt',
-															}),
-														]
-													),
+													},
+												},
+												[
+													_c('span', {
+														staticClass:
+															'las la-trash-alt',
+													}),
+												]
+											),
 										]
 									),
 								]
 							),
-							_vm._v(' '),
-							_vm.showOptions
-								? _c(
-										'div',
-										{
-											staticClass:
-												'cptm-widget-action-modal-container',
-										},
-										[
-											_c(
-												'div',
-												{
-													staticClass:
-														'cptm-option-card cptm-animation-slide-up',
-													class: {
-														active: _vm.showOptions,
-													},
-												},
-												[
-													_c(
-														'div',
-														{
-															staticClass:
-																'cptm-option-card-header',
-														},
-														[
-															_c(
-																'div',
-																{
-																	staticClass:
-																		'cptm-option-card-header-title-section',
-																},
-																[
-																	_c(
-																		'h3',
-																		{
-																			staticClass:
-																				'cptm-option-card-header-title',
-																		},
-																		[
-																			_vm._v(
-																				'Edit Element'
-																			),
-																		]
-																	),
-																	_vm._v(' '),
-																	_c(
-																		'div',
-																		{
-																			staticClass:
-																				'cptm-header-action-area',
-																		},
-																		[
-																			_c(
-																				'a',
-																				{
-																					staticClass:
-																						'cptm-header-action-link cptm-header-action-close',
-																					attrs: {
-																						href: '#',
-																					},
-																					on: {
-																						click: function click(
-																							$event
-																						) {
-																							$event.stopPropagation();
-																							return _vm.toggleOptions.apply(
-																								null,
-																								arguments
-																							);
-																						},
-																					},
-																				},
-																				[
-																					_c(
-																						'span',
-																						{
-																							staticClass:
-																								'fa fa-times',
-																						}
-																					),
-																				]
-																			),
-																		]
-																	),
-																]
-															),
-														]
-													),
-													_vm._v(' '),
-													_c(
-														'div',
-														{
-															staticClass:
-																'cptm-option-card-body',
-														},
-														[
-															_c(
-																'div',
-																{
-																	staticClass:
-																		'cptm-input-toggle-wrap',
-																},
-																[
-																	_vm._m(0),
-																	_vm._v(' '),
-																	_c(
-																		'div',
-																		{
-																			staticClass:
-																				'directorist_vertical-align-m cptm-input-toggle-btn',
-																		},
-																		[
-																			_c(
-																				'div',
-																				{
-																					staticClass:
-																						'directorist_item',
-																				},
-																				[
-																					_c(
-																						'label',
-																						{
-																							staticClass:
-																								'cptm-input-toggle',
-																							class: {
-																								active: _vm.isEnabled,
-																							},
-																							attrs: {
-																								for: 'avatar-toggle-'.concat(
-																									_vm.widgetKey
-																								),
-																							},
-																						}
-																					),
-																					_vm._v(
-																						' '
-																					),
-																					_c(
-																						'input',
-																						{
-																							directives:
-																								[
-																									{
-																										name: 'model',
-																										rawName:
-																											'v-model',
-																										value: _vm.isEnabled,
-																										expression:
-																											'isEnabled',
-																									},
-																								],
-																							staticClass:
-																								'cptm-toggle-input',
-																							attrs: {
-																								type: 'checkbox',
-																								id: 'avatar-toggle-'.concat(
-																									_vm.widgetKey
-																								),
-																								name: 'avatar-toggle-'.concat(
-																									_vm.widgetKey
-																								),
-																							},
-																							domProps:
-																								{
-																									checked:
-																										Array.isArray(
-																											_vm.isEnabled
-																										)
-																											? _vm._i(
-																													_vm.isEnabled,
-																													null
-																												) >
-																												-1
-																											: _vm.isEnabled,
-																								},
-																							on: {
-																								change: [
-																									function (
-																										$event
-																									) {
-																										var $$a =
-																												_vm.isEnabled,
-																											$$el =
-																												$event.target,
-																											$$c =
-																												$$el.checked
-																													? true
-																													: false;
-																										if (
-																											Array.isArray(
-																												$$a
-																											)
-																										) {
-																											var $$v =
-																													null,
-																												$$i =
-																													_vm._i(
-																														$$a,
-																														$$v
-																													);
-																											if (
-																												$$el.checked
-																											) {
-																												$$i <
-																													0 &&
-																													(_vm.isEnabled =
-																														$$a.concat(
-																															[
-																																$$v,
-																															]
-																														));
-																											} else {
-																												$$i >
-																													-1 &&
-																													(_vm.isEnabled =
-																														$$a
-																															.slice(
-																																0,
-																																$$i
-																															)
-																															.concat(
-																																$$a.slice(
-																																	$$i +
-																																		1
-																																)
-																															));
-																											}
-																										} else {
-																											_vm.isEnabled =
-																												$$c;
-																										}
-																									},
-																									_vm.handleToggleChange,
-																								],
-																							},
-																						}
-																					),
-																				]
-																			),
-																		]
-																	),
-																]
-															),
-															_vm._v(' '),
-															_vm.isAvailableOptions &&
-															_vm.hasPositionField
-																? _c(
-																		'div',
-																		{
-																			staticClass:
-																				'cptm-option-card-body-item',
-																		},
-																		[
-																			_c(
-																				'label',
-																				{
-																					staticClass:
-																						'cptm-option-card-body-item-label',
-																				},
-																				[
-																					_vm._v(
-																						'Position'
-																					),
-																				]
-																			),
-																			_vm._v(
-																				' '
-																			),
-																			_c(
-																				'div',
-																				{
-																					staticClass:
-																						'cptm-option-card-body-item-options',
-																				},
-																				_vm._l(
-																					_vm.optionFields,
-																					function (
-																						field,
-																						field_key
-																					) {
-																						return field_key ===
-																							'position' ||
-																							field_key ===
-																								'align' ||
-																							field.label ===
-																								'Position' ||
-																							field.label ===
-																								'Align'
-																							? _c(
-																									field.type +
-																										'-field',
-																									_vm._b(
-																										{
-																											key: field_key,
-																											tag: 'component',
-																											on: {
-																												update: function update(
-																													$event
-																												) {
-																													return _vm.updateFieldData(
-																														$event,
-																														field_key
-																													);
-																												},
-																											},
-																										},
-																										'component',
-																										field,
-																										false
-																									)
-																								)
-																							: _vm._e();
-																					}
-																				),
-																				1
-																			),
-																		]
-																	)
-																: _vm._e(),
-														]
-													),
-												]
-											),
-										]
-									)
-								: _vm._e(),
 						]
 					);
 				};
-				var staticRenderFns = [
-					function () {
-						var _vm = this,
-							_c = _vm._self._c;
-						return _c(
-							'div',
-							{
-								staticClass: 'cptm-input-toggle-content',
-							},
-							[_c('label', [_c('span', [_vm._v('Avatar')])])]
-						);
-					},
-				];
+				var staticRenderFns = [];
 				render._withStripped = true;
 
 				/***/
@@ -63268,6 +63865,7 @@
 																		{
 																			attrs: {
 																				id: 'thumbnail_avatar',
+																				canOpenAvatarSettings: true,
 																				containerClass:
 																					_vm.getAvatarPlaceholderClass,
 																				label: _vm
@@ -63307,6 +63905,10 @@
 																						.maxWidget,
 																				showWidgetsPickerWindow:
 																					_vm.getActiveInsertWindowStatus(
+																						'thumbnail_avatar'
+																					),
+																				showWidgetsOptionWindow:
+																					_vm.getActiveOptionWindowStatus(
 																						'thumbnail_avatar'
 																					),
 																				widgetOptionsWindow:

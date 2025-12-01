@@ -1175,10 +1175,16 @@ $light-gray: #f4f5f7;
 		}
 	}
 	&.submission_form_fields {
+		.cptm-form-builder-active-fields {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
 		.cptm-form-builder-active-fields-container {
 			height: 100%;
-			padding-bottom: 400px;
+			padding-bottom: 50px;
 			box-sizing: border-box;
+			z-index: 11;
 		}
 	}
 	&.single_listing_header {
@@ -1194,10 +1200,6 @@ $light-gray: #f4f5f7;
 		}
 	}
 	&.preview_mode {
-		position: absolute;
-		right: 24px;
-		bottom: 18px;
-		width: calc(100% - 420px);
 		padding: 20px;
 		box-sizing: border-box;
 		z-index: 10;
@@ -1213,17 +1215,6 @@ $light-gray: #f4f5f7;
 			height: 1px;
 			width: calc(100% - 86px);
 			background-color: #f3f4f6;
-		}
-		@media only screen and (min-width: 1441px) {
-			width: calc(65% - 49px);
-		}
-		@media only screen and (max-width: 1024px) {
-			width: calc(100% - 49px);
-		}
-		@media only screen and (max-width: 480px) {
-			width: 100%;
-			position: unset;
-			margin-top: 20px;
 		}
 
 		.cptm-title-area {
@@ -1559,9 +1550,6 @@ $light-gray: #f4f5f7;
 				border: none;
 				.cptm-form-builder-sidebar-content {
 					padding: 0;
-				}
-				.cptm-form-builder-active-fields-container {
-					padding-bottom: 0;
 				}
 			}
 		}

@@ -394,6 +394,37 @@
             ></button>
           </div>
         </div>
+
+        <!-- Render preview_mode section inside form builder content -->
+        <div
+          v-if="fieldKey === 'submission_form_fields' && previewModeSection"
+          class="cptm-section preview_mode"
+        >
+          <div class="cptm-form-fields" v-if="previewModeSection.fields">
+            <div
+              v-for="(field, field_key) in previewModeSection.fields"
+              v-if="fields[field] && fields[field].group !== 'container'"
+              :key="field_key"
+            >
+              <component
+                v-if="fields[field]"
+                :is="getFormFieldName(fields[field].type)"
+                :field-id="field_key"
+                :fieldKey="field"
+                :id="fieldId + '__form_options__' + field"
+                :ref="field"
+                :class="{ ['highlight-field']: getHighlightState(field) }"
+                :cached-data="cached_fields[field]"
+                v-bind="fields[field]"
+                @update="updateFieldValue(field, $event)"
+                @save="$emit('save', $event)"
+                @validate="updateFieldValidationState(field, $event)"
+                @is-visible="updateFieldData(field, 'isVisible', $event)"
+                @do-action="doAction($event, 'form-builder')"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -562,7 +593,56 @@ export default {
 
     ...mapState({
       options: "options",
+      layouts: "layouts",
+      fields: "fields",
+      cached_fields: "cached_fields",
     }),
+
+    // Get the form_options section that contains preview_mode
+    previewModeSection() {
+      if (this.fieldKey !== "submission_form_fields") {
+        return null;
+      }
+
+      // Find form_options section in layouts
+      if (!this.layouts) {
+        return null;
+      }
+
+      // Search through layouts to find form_options section
+      for (let menuKey in this.layouts) {
+        const menu = this.layouts[menuKey];
+        if (menu.sections && menu.sections.form_options) {
+          const formOptions = menu.sections.form_options;
+          if (
+            formOptions.fields &&
+            Array.isArray(formOptions.fields) &&
+            formOptions.fields.includes("preview_mode")
+          ) {
+            return formOptions;
+          }
+        }
+
+        // Also check submenu
+        if (menu.submenu) {
+          for (let submenuKey in menu.submenu) {
+            const submenu = menu.submenu[submenuKey];
+            if (submenu.sections && submenu.sections.form_options) {
+              const formOptions = submenu.sections.form_options;
+              if (
+                formOptions.fields &&
+                Array.isArray(formOptions.fields) &&
+                formOptions.fields.includes("preview_mode")
+              ) {
+                return formOptions;
+              }
+            }
+          }
+        }
+      }
+
+      return null;
+    },
   },
 
   data() {

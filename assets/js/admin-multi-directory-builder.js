@@ -28437,6 +28437,25 @@
 							}
 							return type_id;
 						},
+						// Skip specific sections that are rendered elsewhere (e.g. preview_mode in form builder)
+						shouldSkipSection: function shouldSkipSection(
+							section,
+							section_key
+						) {
+							if (!section || !Array.isArray(section.fields)) {
+								return false;
+							}
+
+							// Skip the form_options section whose first field is preview_mode,
+							// because preview_mode is rendered inside the form-builder content instead.
+							if (
+								section_key === 'form_options' &&
+								section.fields[0] === 'preview_mode'
+							) {
+								return true;
+							}
+							return false;
+						},
 					},
 				};
 
@@ -47233,93 +47252,166 @@
 						},
 					},
 					computed: _objectSpread(
-						{
-							finalValue: function finalValue() {
-								return {
-									fields: this.active_widget_fields,
-									groups: this.active_widget_groups,
-								};
-							},
-							widgetIsDragging: function widgetIsDragging() {
-								return this.currentDraggingWidget
-									? true
-									: false;
-							},
-							groupSettingsProp: function groupSettingsProp() {
-								if (!this.generalSettings) {
-									return this.groupSettings;
-								}
-								if (
-									typeof this.generalSettings.minGroup ===
-									'undefined'
-								) {
-									return this.groupSettings;
-								}
-								if (
-									this.active_widget_groups.length <=
-									this.groupSettings.minGroup
-								) {
-									this.groupSettings.canTrash = false;
-								}
-								return this.groupSettings;
-							},
-							showGroupDragToggleButton:
-								function showGroupDragToggleButton() {
-									var show_button = true;
-									if (!this.active_widget_groups) {
-										show_button = false;
-									}
-									if (
-										this.groupSettings &&
-										typeof this.groupSettings.draggable !==
-											'undefined' &&
-										!this.groupSettings.draggable
-									) {
-										show_button = false;
-									}
-									return show_button;
+						_objectSpread(
+							{
+								finalValue: function finalValue() {
+									return {
+										fields: this.active_widget_fields,
+										groups: this.active_widget_groups,
+									};
 								},
-							showAddNewGroupButton:
-								function showAddNewGroupButton() {
-									var show_button = true;
-									if (
-										this.generalSettings &&
-										typeof this.generalSettings
-											.allowAddNewGroup !== 'undefined' &&
-										!this.generalSettings.allowAddNewGroup
-									) {
-										show_button = false;
-									}
-									return show_button;
+								widgetIsDragging: function widgetIsDragging() {
+									return this.currentDraggingWidget
+										? true
+										: false;
 								},
-							addNewGroupButtonLabel:
-								function addNewGroupButtonLabel() {
-									var button_label = 'Add New';
-									var button_icon =
-										'<span aria-hidden="true" class="la la-plus"></span>';
-									if (
-										this.generalSettings &&
-										this.generalSettings
-											.addNewGroupButtonLabel
-									) {
-										button_label =
+								groupSettingsProp:
+									function groupSettingsProp() {
+										if (!this.generalSettings) {
+											return this.groupSettings;
+										}
+										if (
+											typeof this.generalSettings
+												.minGroup === 'undefined'
+										) {
+											return this.groupSettings;
+										}
+										if (
+											this.active_widget_groups.length <=
+											this.groupSettings.minGroup
+										) {
+											this.groupSettings.canTrash = false;
+										}
+										return this.groupSettings;
+									},
+								showGroupDragToggleButton:
+									function showGroupDragToggleButton() {
+										var show_button = true;
+										if (!this.active_widget_groups) {
+											show_button = false;
+										}
+										if (
+											this.groupSettings &&
+											typeof this.groupSettings
+												.draggable !== 'undefined' &&
+											!this.groupSettings.draggable
+										) {
+											show_button = false;
+										}
+										return show_button;
+									},
+								showAddNewGroupButton:
+									function showAddNewGroupButton() {
+										var show_button = true;
+										if (
+											this.generalSettings &&
+											typeof this.generalSettings
+												.allowAddNewGroup !==
+												'undefined' &&
+											!this.generalSettings
+												.allowAddNewGroup
+										) {
+											show_button = false;
+										}
+										return show_button;
+									},
+								addNewGroupButtonLabel:
+									function addNewGroupButtonLabel() {
+										var button_label = 'Add New';
+										var button_icon =
+											'<span aria-hidden="true" class="la la-plus"></span>';
+										if (
+											this.generalSettings &&
 											this.generalSettings
-												.addNewGroupButtonLabel;
-									}
-									return button_icon + button_label;
+												.addNewGroupButtonLabel
+										) {
+											button_label =
+												this.generalSettings
+													.addNewGroupButtonLabel;
+										}
+										return button_icon + button_label;
+									},
+								modalContent: function modalContent() {
+									return this.video;
 								},
-							modalContent: function modalContent() {
-								return this.video;
+								buttonText: function buttonText() {
+									return this.$store.state.is_saving
+										? 'Saving'
+										: 'Save & Preview <span class="la la-pen"></span>';
+								},
 							},
-							buttonText: function buttonText() {
-								return this.$store.state.is_saving
-									? 'Saving'
-									: 'Save & Preview <span class="la la-pen"></span>';
+							(0, vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
+								options: 'options',
+								layouts: 'layouts',
+								fields: 'fields',
+								cached_fields: 'cached_fields',
+							})
+						),
+						{},
+						{
+							// Get the form_options section that contains preview_mode
+							previewModeSection: function previewModeSection() {
+								if (
+									this.fieldKey !== 'submission_form_fields'
+								) {
+									return null;
+								}
+
+								// Find form_options section in layouts
+								if (!this.layouts) {
+									return null;
+								}
+
+								// Search through layouts to find form_options section
+								for (var menuKey in this.layouts) {
+									var menu = this.layouts[menuKey];
+									if (
+										menu.sections &&
+										menu.sections.form_options
+									) {
+										var formOptions =
+											menu.sections.form_options;
+										if (
+											formOptions.fields &&
+											Array.isArray(formOptions.fields) &&
+											formOptions.fields.includes(
+												'preview_mode'
+											)
+										) {
+											return formOptions;
+										}
+									}
+
+									// Also check submenu
+									if (menu.submenu) {
+										for (var submenuKey in menu.submenu) {
+											var submenu =
+												menu.submenu[submenuKey];
+											if (
+												submenu.sections &&
+												submenu.sections.form_options
+											) {
+												var _formOptions =
+													submenu.sections
+														.form_options;
+												if (
+													_formOptions.fields &&
+													Array.isArray(
+														_formOptions.fields
+													) &&
+													_formOptions.fields.includes(
+														'preview_mode'
+													)
+												) {
+													return _formOptions;
+												}
+											}
+										}
+									}
+								}
+								return null;
 							},
-						},
-						(0, vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
-							options: 'options',
-						})
+						}
 					),
 					data: function data() {
 						return {
@@ -55076,265 +55168,337 @@
 							class: _vm.containerClass,
 						},
 						_vm._l(_vm.sections, function (section, section_key) {
-							return _c(
-								'div',
-								{
-									key: section_key,
-									staticClass: 'cptm-section',
-									class: _vm.sectionClass(section),
-								},
-								[
-									![
-										'submission_form_fields',
-										'search_form_fields',
-										'single_listing_header',
-										'single_listings_contents',
-										'listings_card_grid_view',
-										'listings_card_list_view',
-									].includes(section.fields[0])
-										? _c(
-												'div',
-												{
-													staticClass:
-														'cptm-title-area',
-													class: _vm.sectionTitleAreaClass(
-														section
-													),
-												},
-												[
-													section.title
-														? _c('h3', {
-																staticClass:
-																	'cptm-title',
-																domProps: {
-																	innerHTML:
-																		_vm._s(
-																			section.title
-																		),
-																},
-															})
-														: _vm._e(),
-													_vm._v(' '),
-													section.description
-														? _c('div', {
-																staticClass:
-																	'cptm-des',
-																domProps: {
-																	innerHTML:
-																		_vm._s(
-																			section.description
-																		),
-																},
-															})
-														: _vm._e(),
-												]
-											)
-										: _vm._e(),
-									_vm._v(' '),
-									_vm.sectionFields(section)
-										? _c(
-												'div',
-												{
-													staticClass:
-														'cptm-form-fields',
-												},
-												_vm._l(
-													_vm.sectionFields(section),
-													function (
-														field,
-														field_key
-													) {
-														return _vm.fields[field]
-															.group !==
-															'container'
-															? _c(
-																	'div',
-																	{
-																		key: field_key,
-																	},
-																	[
-																		_vm
-																			.fields[
-																			field
-																		]
-																			? _c(
-																					_vm.getFormFieldName(
-																						_vm
-																							.fields[
-																							field
-																						]
-																							.type
+							return !_vm.shouldSkipSection(section, section_key)
+								? _c(
+										'div',
+										{
+											key: section_key,
+											staticClass: 'cptm-section',
+											class: _vm.sectionClass(section),
+										},
+										[
+											![
+												'submission_form_fields',
+												'search_form_fields',
+												'single_listing_header',
+												'single_listings_contents',
+												'listings_card_grid_view',
+												'listings_card_list_view',
+											].includes(section.fields[0])
+												? _c(
+														'div',
+														{
+															staticClass:
+																'cptm-title-area',
+															class: _vm.sectionTitleAreaClass(
+																section
+															),
+														},
+														[
+															section.title
+																? _c('h3', {
+																		staticClass:
+																			'cptm-title',
+																		domProps:
+																			{
+																				innerHTML:
+																					_vm._s(
+																						section.title
 																					),
-																					_vm._b(
-																						{
-																							ref: field,
-																							refInFor: true,
-																							tag: 'component',
-																							class: (0,
-																							_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
-																								'default'
-																							])(
-																								{},
-																								'highlight-field',
-																								_vm.getHighlightState(
+																			},
+																	})
+																: _vm._e(),
+															_vm._v(' '),
+															section.description
+																? _c('div', {
+																		staticClass:
+																			'cptm-des',
+																		domProps:
+																			{
+																				innerHTML:
+																					_vm._s(
+																						section.description
+																					),
+																			},
+																	})
+																: _vm._e(),
+														]
+													)
+												: _vm._e(),
+											_vm._v(' '),
+											_vm.sectionFields(section)
+												? _c(
+														'div',
+														{
+															staticClass:
+																'cptm-form-fields',
+														},
+														_vm._l(
+															_vm.sectionFields(
+																section
+															),
+															function (
+																field,
+																field_key
+															) {
+																return _vm
+																	.fields[
+																	field
+																].group !==
+																	'container'
+																	? _c(
+																			'div',
+																			{
+																				key: field_key,
+																			},
+																			[
+																				_vm
+																					.fields[
+																					field
+																				]
+																					? _c(
+																							_vm.getFormFieldName(
+																								_vm
+																									.fields[
 																									field
-																								)
+																								]
+																									.type
 																							),
-																							attrs: {
-																								'field-id':
-																									field_key,
-																								fieldKey:
-																									field,
-																								id:
-																									_vm.menuKey +
-																									'__' +
-																									section_key +
-																									'__' +
-																									field,
-																								'cached-data':
-																									_vm
-																										.cached_fields[
-																										field
-																									],
-																								listing_type_id:
-																									_vm.listing_type_id,
-																								video: _vm.video,
-																							},
-																							on: {
-																								update: function update(
-																									$event
-																								) {
-																									return _vm.updateFieldValue(
-																										field,
-																										$event
-																									);
-																								},
-																								save: function save(
-																									$event
-																								) {
-																									return _vm.$emit(
-																										'save',
-																										$event
-																									);
-																								},
-																								validate:
-																									function validate(
-																										$event
-																									) {
-																										return _vm.updateFieldValidationState(
+																							_vm._b(
+																								{
+																									ref: field,
+																									refInFor: true,
+																									tag: 'component',
+																									class: (0,
+																									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+																										'default'
+																									])(
+																										{},
+																										'highlight-field',
+																										_vm.getHighlightState(
+																											field
+																										)
+																									),
+																									attrs: {
+																										'field-id':
+																											field_key,
+																										fieldKey:
 																											field,
-																											$event
-																										);
-																									},
-																								'is-visible':
-																									function isVisible(
-																										$event
-																									) {
-																										return _vm.updateFieldData(
+																										id:
+																											_vm.menuKey +
+																											'__' +
+																											section_key +
+																											'__' +
 																											field,
-																											'isVisible',
+																										'cached-data':
+																											_vm
+																												.cached_fields[
+																												field
+																											],
+																										listing_type_id:
+																											_vm.listing_type_id,
+																										video: _vm.video,
+																									},
+																									on: {
+																										update: function update(
 																											$event
-																										);
+																										) {
+																											return _vm.updateFieldValue(
+																												field,
+																												$event
+																											);
+																										},
+																										save: function save(
+																											$event
+																										) {
+																											return _vm.$emit(
+																												'save',
+																												$event
+																											);
+																										},
+																										validate:
+																											function validate(
+																												$event
+																											) {
+																												return _vm.updateFieldValidationState(
+																													field,
+																													$event
+																												);
+																											},
+																										'is-visible':
+																											function isVisible(
+																												$event
+																											) {
+																												return _vm.updateFieldData(
+																													field,
+																													'isVisible',
+																													$event
+																												);
+																											},
+																										'do-action':
+																											function doAction(
+																												$event
+																											) {
+																												return _vm.doAction(
+																													$event,
+																													'sections-module'
+																												);
+																											},
 																									},
-																								'do-action':
-																									function doAction(
-																										$event
-																									) {
-																										return _vm.doAction(
-																											$event,
-																											'sections-module'
-																										);
-																									},
-																							},
-																						},
-																						'component',
-																						_vm
-																							.fields[
-																							field
-																						],
-																						false
-																					)
-																				)
-																			: _vm._e(),
-																		_vm._v(
-																			' '
-																		),
-																		field ===
-																			'listings_card_grid_view' ||
-																		field ===
-																			'listings_card_list_view'
-																			? _c(
-																					'div',
-																					{
-																						staticClass:
-																							'cptm-preview-notice',
-																					},
-																					[
-																						_c(
+																								},
+																								'component',
+																								_vm
+																									.fields[
+																									field
+																								],
+																								false
+																							)
+																						)
+																					: _vm._e(),
+																				_vm._v(
+																					' '
+																				),
+																				field ===
+																					'listings_card_grid_view' ||
+																				field ===
+																					'listings_card_list_view'
+																					? _c(
 																							'div',
 																							{
 																								staticClass:
-																									'cptm-preview-notice-content',
+																									'cptm-preview-notice',
 																							},
 																							[
 																								_c(
-																									'svg',
+																									'div',
 																									{
-																										attrs: {
-																											width: '16',
-																											height: '16',
-																											viewBox:
-																												'0 0 16 16',
-																											fill: 'none',
-																											xmlns: 'http://www.w3.org/2000/svg',
-																										},
+																										staticClass:
+																											'cptm-preview-notice-content',
 																									},
 																									[
 																										_c(
-																											'g',
+																											'svg',
 																											{
 																												attrs: {
-																													'clip-path':
-																														'url(#clip0_8301_5081)',
+																													width: '16',
+																													height: '16',
+																													viewBox:
+																														'0 0 16 16',
+																													fill: 'none',
+																													xmlns: 'http://www.w3.org/2000/svg',
 																												},
 																											},
 																											[
 																												_c(
-																													'path',
+																													'g',
 																													{
 																														attrs: {
-																															'fill-rule':
-																																'evenodd',
-																															'clip-rule':
-																																'evenodd',
-																															d: 'M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z',
-																															fill: '#3E62F5',
+																															'clip-path':
+																																'url(#clip0_8301_5081)',
 																														},
-																													}
+																													},
+																													[
+																														_c(
+																															'path',
+																															{
+																																attrs: {
+																																	'fill-rule':
+																																		'evenodd',
+																																	'clip-rule':
+																																		'evenodd',
+																																	d: 'M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z',
+																																	fill: '#3E62F5',
+																																},
+																															}
+																														),
+																													]
+																												),
+																												_vm._v(
+																													' '
+																												),
+																												_c(
+																													'defs',
+																													[
+																														_c(
+																															'clipPath',
+																															{
+																																attrs: {
+																																	id: 'clip0_8301_5081',
+																																},
+																															},
+																															[
+																																_c(
+																																	'rect',
+																																	{
+																																		attrs: {
+																																			width: '16',
+																																			height: '16',
+																																			fill: 'white',
+																																		},
+																																	}
+																																),
+																															]
+																														),
+																													]
 																												),
 																											]
 																										),
 																										_vm._v(
 																											' '
 																										),
+																										_vm._m(
+																											0,
+																											true
+																										),
+																									]
+																								),
+																								_vm._v(
+																									' '
+																								),
+																								_c(
+																									'div',
+																									{
+																										staticClass:
+																											'cptm-preview-notice-action',
+																									},
+																									[
 																										_c(
-																											'defs',
+																											'a',
+																											{
+																												staticClass:
+																													'cptm-preview-notice-btn',
+																												attrs: {
+																													href: '/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings',
+																													target: '_blank',
+																												},
+																											},
 																											[
+																												_vm._v(
+																													'\n              Go to settings\n              '
+																												),
 																												_c(
-																													'clipPath',
+																													'svg',
 																													{
 																														attrs: {
-																															id: 'clip0_8301_5081',
+																															width: '14',
+																															height: '14',
+																															viewBox:
+																																'0 0 14 14',
+																															fill: 'none',
+																															xmlns: 'http://www.w3.org/2000/svg',
 																														},
 																													},
 																													[
 																														_c(
-																															'rect',
+																															'path',
 																															{
 																																attrs: {
-																																	width: '16',
-																																	height: '16',
-																																	fill: 'white',
+																																	'fill-rule':
+																																		'evenodd',
+																																	'clip-rule':
+																																		'evenodd',
+																																	d: 'M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z',
+																																	fill: '#4D5761',
 																																},
 																															}
 																														),
@@ -55344,263 +55508,199 @@
 																										),
 																									]
 																								),
-																								_vm._v(
-																									' '
-																								),
-																								_vm._m(
-																									0,
-																									true
-																								),
 																							]
-																						),
-																						_vm._v(
-																							' '
-																						),
-																						_c(
+																						)
+																					: _vm._e(),
+																				_vm._v(
+																					' '
+																				),
+																				field ===
+																					'way_to_show_preview' &&
+																				_vm
+																					.groupedContainerFields
+																					.length >
+																					0
+																					? _c(
 																							'div',
 																							{
 																								staticClass:
-																									'cptm-preview-notice-action',
-																							},
-																							[
-																								_c(
-																									'a',
-																									{
-																										staticClass:
-																											'cptm-preview-notice-btn',
-																										attrs: {
-																											href: '/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings',
-																											target: '_blank',
-																										},
-																									},
-																									[
-																										_vm._v(
-																											'\n              Go to settings\n              '
-																										),
-																										_c(
-																											'svg',
-																											{
-																												attrs: {
-																													width: '14',
-																													height: '14',
-																													viewBox:
-																														'0 0 14 14',
-																													fill: 'none',
-																													xmlns: 'http://www.w3.org/2000/svg',
-																												},
-																											},
-																											[
-																												_c(
-																													'path',
-																													{
-																														attrs: {
-																															'fill-rule':
-																																'evenodd',
-																															'clip-rule':
-																																'evenodd',
-																															d: 'M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z',
-																															fill: '#4D5761',
-																														},
-																													}
-																												),
-																											]
-																										),
-																									]
-																								),
-																							]
-																						),
-																					]
-																				)
-																			: _vm._e(),
-																		_vm._v(
-																			' '
-																		),
-																		field ===
-																			'way_to_show_preview' &&
-																		_vm
-																			.groupedContainerFields
-																			.length >
-																			0
-																			? _c(
-																					'div',
-																					{
-																						staticClass:
-																							'cptm-field-group-container',
-																					},
-																					[
-																						_c(
-																							'div',
-																							{
-																								staticClass:
-																									'atbdp-row',
+																									'cptm-field-group-container',
 																							},
 																							[
 																								_c(
 																									'div',
 																									{
 																										staticClass:
-																											'atbdp-col atbdp-col-4',
-																									},
-																									[
-																										_c(
-																											'label',
-																											{
-																												staticClass:
-																													'cptm-field-group-container__label',
-																											},
-																											[
-																												_c(
-																													'span',
-																													[
-																														_vm._v(
-																															_vm._s(
-																																_vm.containerGroupLabel
-																															)
-																														),
-																													]
-																												),
-																											]
-																										),
-																									]
-																								),
-																								_vm._v(
-																									' '
-																								),
-																								_c(
-																									'div',
-																									{
-																										staticClass:
-																											'atbdp-col atbdp-col-8',
+																											'atbdp-row',
 																									},
 																									[
 																										_c(
 																											'div',
 																											{
 																												staticClass:
-																													'cptm-container-group-fields',
+																													'atbdp-col atbdp-col-4',
 																											},
-																											_vm._l(
-																												_vm.groupedContainerFields,
-																												function (
-																													groupedField,
-																													groupedFieldKey
-																												) {
-																													return _c(
-																														_vm.getFormFieldName(
-																															_vm
-																																.fields[
-																																groupedField
-																															]
-																																.type
-																														),
-																														_vm._b(
-																															{
-																																key: groupedFieldKey,
-																																ref: groupedField,
-																																refInFor: true,
-																																tag: 'component',
-																																class: (0,
-																																_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
-																																	'default'
-																																])(
-																																	{},
-																																	'highlight-field',
-																																	_vm.getHighlightState(
-																																		groupedField
+																											[
+																												_c(
+																													'label',
+																													{
+																														staticClass:
+																															'cptm-field-group-container__label',
+																													},
+																													[
+																														_c(
+																															'span',
+																															[
+																																_vm._v(
+																																	_vm._s(
+																																		_vm.containerGroupLabel
 																																	)
 																																),
-																																attrs: {
-																																	'field-id':
-																																		groupedFieldKey,
-																																	id:
-																																		_vm.menuKey +
-																																		'__' +
-																																		section_key +
-																																		'__' +
-																																		groupedField,
-																																	'cached-data':
-																																		_vm
-																																			.cached_fields[
-																																			groupedField
-																																		],
-																																},
-																																on: {
-																																	update: function update(
-																																		$event
-																																	) {
-																																		return _vm.updateFieldValue(
-																																			groupedField,
-																																			$event
-																																		);
-																																	},
-																																	save: function save(
-																																		$event
-																																	) {
-																																		return _vm.$emit(
-																																			'save',
-																																			$event
-																																		);
-																																	},
-																																	validate:
-																																		function validate(
-																																			$event
-																																		) {
-																																			return _vm.updateFieldValidationState(
+																															]
+																														),
+																													]
+																												),
+																											]
+																										),
+																										_vm._v(
+																											' '
+																										),
+																										_c(
+																											'div',
+																											{
+																												staticClass:
+																													'atbdp-col atbdp-col-8',
+																											},
+																											[
+																												_c(
+																													'div',
+																													{
+																														staticClass:
+																															'cptm-container-group-fields',
+																													},
+																													_vm._l(
+																														_vm.groupedContainerFields,
+																														function (
+																															groupedField,
+																															groupedFieldKey
+																														) {
+																															return _c(
+																																_vm.getFormFieldName(
+																																	_vm
+																																		.fields[
+																																		groupedField
+																																	]
+																																		.type
+																																),
+																																_vm._b(
+																																	{
+																																		key: groupedFieldKey,
+																																		ref: groupedField,
+																																		refInFor: true,
+																																		tag: 'component',
+																																		class: (0,
+																																		_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+																																			'default'
+																																		])(
+																																			{},
+																																			'highlight-field',
+																																			_vm.getHighlightState(
+																																				groupedField
+																																			)
+																																		),
+																																		attrs: {
+																																			'field-id':
+																																				groupedFieldKey,
+																																			id:
+																																				_vm.menuKey +
+																																				'__' +
+																																				section_key +
+																																				'__' +
 																																				groupedField,
+																																			'cached-data':
+																																				_vm
+																																					.cached_fields[
+																																					groupedField
+																																				],
+																																		},
+																																		on: {
+																																			update: function update(
 																																				$event
-																																			);
-																																		},
-																																	'is-visible':
-																																		function isVisible(
-																																			$event
-																																		) {
-																																			return _vm.updateFieldData(
-																																				groupedField,
-																																				'isVisible',
+																																			) {
+																																				return _vm.updateFieldValue(
+																																					groupedField,
+																																					$event
+																																				);
+																																			},
+																																			save: function save(
 																																				$event
-																																			);
+																																			) {
+																																				return _vm.$emit(
+																																					'save',
+																																					$event
+																																				);
+																																			},
+																																			validate:
+																																				function validate(
+																																					$event
+																																				) {
+																																					return _vm.updateFieldValidationState(
+																																						groupedField,
+																																						$event
+																																					);
+																																				},
+																																			'is-visible':
+																																				function isVisible(
+																																					$event
+																																				) {
+																																					return _vm.updateFieldData(
+																																						groupedField,
+																																						'isVisible',
+																																						$event
+																																					);
+																																				},
+																																			'do-action':
+																																				function doAction(
+																																					$event
+																																				) {
+																																					return _vm.doAction(
+																																						$event,
+																																						'sections-module'
+																																					);
+																																				},
 																																		},
-																																	'do-action':
-																																		function doAction(
-																																			$event
-																																		) {
-																																			return _vm.doAction(
-																																				$event,
-																																				'sections-module'
-																																			);
-																																		},
-																																},
-																															},
-																															'component',
-																															_vm
-																																.fields[
-																																groupedField
-																															],
-																															false
-																														)
-																													);
-																												}
-																											),
-																											1
+																																	},
+																																	'component',
+																																	_vm
+																																		.fields[
+																																		groupedField
+																																	],
+																																	false
+																																)
+																															);
+																														}
+																													),
+																													1
+																												),
+																											]
 																										),
 																									]
 																								),
 																							]
-																						),
-																					]
-																				)
-																			: _vm._e(),
-																	],
-																	1
-																)
-															: _vm._e();
-													}
-												),
-												0
-											)
-										: _vm._e(),
-								]
-							);
+																						)
+																					: _vm._e(),
+																			],
+																			1
+																		)
+																	: _vm._e();
+															}
+														),
+														0
+													)
+												: _vm._e(),
+										]
+									)
+								: _vm._e();
 						}),
 						0
 					);
@@ -70564,6 +70664,11 @@
 						/* harmony export */
 					}
 				);
+				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
+					);
+
 				var render = function render() {
 					var _vm$video;
 					var _vm = this,
@@ -71631,6 +71736,160 @@
 														: _vm._e(),
 												]
 											),
+											_vm._v(' '),
+											_vm.fieldKey ===
+												'submission_form_fields' &&
+											_vm.previewModeSection
+												? _c(
+														'div',
+														{
+															staticClass:
+																'cptm-section preview_mode',
+														},
+														[
+															_vm
+																.previewModeSection
+																.fields
+																? _c(
+																		'div',
+																		{
+																			staticClass:
+																				'cptm-form-fields',
+																		},
+																		_vm._l(
+																			_vm
+																				.previewModeSection
+																				.fields,
+																			function (
+																				field,
+																				field_key
+																			) {
+																				return _vm
+																					.fields[
+																					field
+																				] &&
+																					_vm
+																						.fields[
+																						field
+																					]
+																						.group !==
+																						'container'
+																					? _c(
+																							'div',
+																							{
+																								key: field_key,
+																							},
+																							[
+																								_vm
+																									.fields[
+																									field
+																								]
+																									? _c(
+																											_vm.getFormFieldName(
+																												_vm
+																													.fields[
+																													field
+																												]
+																													.type
+																											),
+																											_vm._b(
+																												{
+																													ref: field,
+																													refInFor: true,
+																													tag: 'component',
+																													class: (0,
+																													_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+																														'default'
+																													])(
+																														{},
+																														'highlight-field',
+																														_vm.getHighlightState(
+																															field
+																														)
+																													),
+																													attrs: {
+																														'field-id':
+																															field_key,
+																														fieldKey:
+																															field,
+																														id:
+																															_vm.fieldId +
+																															'__form_options__' +
+																															field,
+																														'cached-data':
+																															_vm
+																																.cached_fields[
+																																field
+																															],
+																													},
+																													on: {
+																														update: function update(
+																															$event
+																														) {
+																															return _vm.updateFieldValue(
+																																field,
+																																$event
+																															);
+																														},
+																														save: function save(
+																															$event
+																														) {
+																															return _vm.$emit(
+																																'save',
+																																$event
+																															);
+																														},
+																														validate:
+																															function validate(
+																																$event
+																															) {
+																																return _vm.updateFieldValidationState(
+																																	field,
+																																	$event
+																																);
+																															},
+																														'is-visible':
+																															function isVisible(
+																																$event
+																															) {
+																																return _vm.updateFieldData(
+																																	field,
+																																	'isVisible',
+																																	$event
+																																);
+																															},
+																														'do-action':
+																															function doAction(
+																																$event
+																															) {
+																																return _vm.doAction(
+																																	$event,
+																																	'form-builder'
+																																);
+																															},
+																													},
+																												},
+																												'component',
+																												_vm
+																													.fields[
+																													field
+																												],
+																												false
+																											)
+																										)
+																									: _vm._e(),
+																							],
+																							1
+																						)
+																					: _vm._e();
+																			}
+																		),
+																		0
+																	)
+																: _vm._e(),
+														]
+													)
+												: _vm._e(),
 										]
 									),
 								]

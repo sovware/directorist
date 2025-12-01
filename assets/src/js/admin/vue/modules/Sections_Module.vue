@@ -4,6 +4,7 @@
       class="cptm-section"
       :class="sectionClass(section)"
       v-for="(section, section_key) in sections"
+      v-if="!shouldSkipSection(section, section_key)"
       :key="section_key"
     >
       <div
@@ -290,6 +291,24 @@ export default {
         type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
       }
       return type_id;
+    },
+
+    // Skip specific sections that are rendered elsewhere (e.g. preview_mode in form builder)
+    shouldSkipSection(section, section_key) {
+      if (!section || !Array.isArray(section.fields)) {
+        return false;
+      }
+
+      // Skip the form_options section whose first field is preview_mode,
+      // because preview_mode is rendered inside the form-builder content instead.
+      if (
+        section_key === "form_options" &&
+        section.fields[0] === "preview_mode"
+      ) {
+        return true;
+      }
+
+      return false;
     },
   },
 };

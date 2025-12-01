@@ -1,22 +1,26 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
 import { Modal } from '@wordpress/components';
+import { useEffect, useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import ReactSVG from 'react-inlinesvg';
 
 /**
  * Internal dependencies
  */
-import { renderAnswerValue } from '../utils/renderAnswerValue';
-import { EnquiryDetailsModalStyle } from './style';
-import Reply from '../icons/Reply';
 import Check from '../icons/Check';
+import Reply from '../icons/Reply';
 import Trash from '../icons/Trash';
 import {
 	fetchSingleEnquiry,
 	findMatchingEnquiry,
 	getStatusBadgeText,
 } from '../utils/enquiryUtils';
+import { EnquiryDetailsModalStyle } from './style';
 
 /**
  * EnquiryDetailsModal Component
@@ -43,6 +47,12 @@ export default function EnquiryDetailsModal({
 	const [matchedEnquiry, setMatchedEnquiry] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const {
+		TableDrawerAnswer,
+		getFormattedAnswer,
+		handleAnswerIcon,
+		isProActive,
+	} = window.formgent.directorist_modules;
 
 	// Effect to fetch single item data when selectedItem changes
 	useEffect(() => {
@@ -92,51 +102,6 @@ export default function EnquiryDetailsModal({
 
 		// Call the parent's handleMarkAsRead function
 		handleMarkAsRead(singleItem.response);
-	};
-
-	// Function to render form answers
-	const renderFormAnswers = () => {
-		if (
-			!singleItem ||
-			!singleItem.fields ||
-			!singleItem.response ||
-			!singleItem.response.answers
-		) {
-			return <p>No answers available</p>;
-		}
-
-		const { fields, response } = singleItem;
-
-		return (
-			<div className="directorist-enquiry-answers">
-				{fields.map((field, index) => {
-					// Find matching answer by field name
-					const matchingAnswer = response.answers.find(
-						(answer) => answer.field_name === field.name
-					);
-
-					return (
-						<div
-							key={field.name || index}
-							className="directorist-enquiry-answer-item"
-						>
-							<h4 className="directorist-enquiry-answer-title">
-								{field.label}
-							</h4>
-							<div className="directorist-enquiry-answer-value">
-								{matchingAnswer ? (
-									renderAnswerValue(matchingAnswer)
-								) : (
-									<span className="directorist-no-answer">
-										No answer provided
-									</span>
-								)}
-							</div>
-						</div>
-					);
-				})}
-			</div>
-		);
 	};
 
 	if (!isOpen || !selectedItem) {
@@ -215,7 +180,24 @@ export default function EnquiryDetailsModal({
 						</div>
 
 						<div className="directorist-answers-section">
-							{renderFormAnswers()}
+							{/* {
+								singleItem.response.answers.ma
+							} */}
+							{singleItem?.response?.answers.map(
+								(answer, index) => {
+									return (
+										<TableDrawerAnswer
+											key={index}
+											answer={answer}
+											handleAnswerIcon={handleAnswerIcon}
+											getFormattedAnswer={
+												getFormattedAnswer
+											}
+											ReactSVG={ReactSVG}
+										/>
+									);
+								}
+							)}
 						</div>
 
 						<div className="directorist-enquiry-modal-footer">

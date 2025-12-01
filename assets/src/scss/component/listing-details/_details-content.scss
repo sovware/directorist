@@ -1,0 +1,14 @@
+// Formgent Integration Styles
+.directorist-single-wrapper {
+	.formgent-form-general {
+		.formgent-field-list--frontend {
+			padding: 0;
+		}
+	}
+	.formgent-file-upload-progress-text {
+		min-width: 40px;
+	}
+	.formgent-file-preview-action .formgent-file-delete {
+		line-height: 1;
+	}
+}

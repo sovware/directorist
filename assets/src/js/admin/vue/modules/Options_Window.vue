@@ -81,12 +81,10 @@ export default {
   watch: {
     fields: {
       handler(newFields, oldFields) {
-        console.log("@@handler", { newFields, oldFields });
         if (newFields && newFields !== oldFields) {
           // Only update if fields actually changed
           this.local_fields = { ...newFields };
           this.$emit("update", this.local_fields);
-          console.log("@@local_fields", { local_fields: this.local_fields });
         }
       },
     },

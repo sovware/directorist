@@ -96,7 +96,6 @@
             :class="{
               active:
                 showWidgetsPickerWindow &&
-                selectedWidgets?.length &&
                 !showWidgetsOptionWindow,
             }"
           >
@@ -223,12 +222,11 @@
               />
 
               <div
-                v-if="shouldShowOptionsArea(widget)"
                 class="cptm-options-area"
                 @click.stop="handleModalClick"
               >
                 <options-window
-                  :active="true"
+                  :active=isWidgetActive(widget)
                   v-bind="widgetOptionsWindow"
                   @close="handleOptionsWindowClose"
                 />
@@ -443,13 +441,6 @@ export default {
         return false;
 
       return true;
-    },
-
-    shouldShowOptionsArea(widget) {
-      return (
-        this.widgetOptionsWindow.widget === widget &&
-        this.widgetOptionsWindow.widget !== ""
-      );
     },
 
     getWidgetLabel(widget) {

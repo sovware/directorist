@@ -26315,14 +26315,6 @@
 								return false;
 							return true;
 						},
-						shouldShowOptionsArea: function shouldShowOptionsArea(
-							widget
-						) {
-							return (
-								this.widgetOptionsWindow.widget === widget &&
-								this.widgetOptionsWindow.widget !== ''
-							);
-						},
 						getWidgetLabel: function getWidgetLabel(widget) {
 							var _this$availableWidget;
 							return (
@@ -27720,10 +27712,6 @@
 					watch: {
 						fields: {
 							handler: function handler(newFields, oldFields) {
-								console.log('@@handler', {
-									newFields: newFields,
-									oldFields: oldFields,
-								});
 								if (newFields && newFields !== oldFields) {
 									// Only update if fields actually changed
 									this.local_fields = _objectSpread(
@@ -27731,9 +27719,6 @@
 										newFields
 									);
 									this.$emit('update', this.local_fields);
-									console.log('@@local_fields', {
-										local_fields: this.local_fields,
-									});
 								}
 							},
 						},
@@ -53182,8 +53167,7 @@
 				var render = function render() {
 					var _vm$selectedWidgets,
 						_vm$selectedWidgets2,
-						_vm$selectedWidgets3,
-						_vm$selectedWidgets4;
+						_vm$selectedWidgets3;
 					var _vm = this,
 						_c = _vm._self._c;
 					return _c(
@@ -53409,13 +53393,6 @@
 																	class: {
 																		active:
 																			_vm.showWidgetsPickerWindow &&
-																			((_vm$selectedWidgets3 =
-																				_vm.selectedWidgets) ===
-																				null ||
-																			_vm$selectedWidgets3 ===
-																				void 0
-																				? void 0
-																				: _vm$selectedWidgets3.length) &&
 																			!_vm.showWidgetsOptionWindow,
 																	},
 																},
@@ -53507,12 +53484,12 @@
 																		: _vm._e(),
 																	_vm._v(' '),
 																	_vm.canOpenSettings &&
-																	(_vm$selectedWidgets4 =
+																	(_vm$selectedWidgets3 =
 																		_vm.selectedWidgets) !==
 																		null &&
-																	_vm$selectedWidgets4 !==
+																	_vm$selectedWidgets3 !==
 																		void 0 &&
-																	_vm$selectedWidgets4.length &&
+																	_vm$selectedWidgets3.length &&
 																	!_vm.canOpenAvatarSettings
 																		? _c(
 																				'a',
@@ -53820,47 +53797,45 @@
 																								_vm._v(
 																									' '
 																								),
-																								_vm.shouldShowOptionsArea(
-																									widget
-																								)
-																									? _c(
-																											'div',
-																											{
-																												staticClass:
-																													'cptm-options-area',
-																												on: {
-																													click: function click(
-																														$event
-																													) {
-																														$event.stopPropagation();
-																														return _vm.handleModalClick.apply(
-																															null,
-																															arguments
-																														);
+																								_c(
+																									'div',
+																									{
+																										staticClass:
+																											'cptm-options-area',
+																										on: {
+																											click: function click(
+																												$event
+																											) {
+																												$event.stopPropagation();
+																												return _vm.handleModalClick.apply(
+																													null,
+																													arguments
+																												);
+																											},
+																										},
+																									},
+																									[
+																										_c(
+																											'options-window',
+																											_vm._b(
+																												{
+																													attrs: {
+																														active: _vm.isWidgetActive(
+																															widget
+																														),
+																													},
+																													on: {
+																														close: _vm.handleOptionsWindowClose,
 																													},
 																												},
-																											},
-																											[
-																												_c(
-																													'options-window',
-																													_vm._b(
-																														{
-																															attrs: {
-																																active: true,
-																															},
-																															on: {
-																																close: _vm.handleOptionsWindowClose,
-																															},
-																														},
-																														'options-window',
-																														_vm.widgetOptionsWindow,
-																														false
-																													)
-																												),
-																											],
-																											1
-																										)
-																									: _vm._e(),
+																												'options-window',
+																												_vm.widgetOptionsWindow,
+																												false
+																											)
+																										),
+																									],
+																									1
+																								),
 																							],
 																							1
 																						),

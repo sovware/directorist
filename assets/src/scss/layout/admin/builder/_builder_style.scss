@@ -4174,11 +4174,6 @@ input[type="radio"].cptm-radio {
 			}
 		}
 
-		.cptm-widget-option-modal-container {
-			top: unset;
-			bottom: 100%;
-		}
-
 		.cptm-card-preview-top-right,
 		.cptm-card-placeholder-top-left,
 		.cptm-card-placeholder-top-right {
@@ -4802,16 +4797,6 @@ input[type="radio"].cptm-radio {
 		gap: 6px;
 		align-items: center;
 	}
-	.cptm-widget-option-modal-container {
-		top: unset;
-		bottom: 20px;
-		.cptm-option-card {
-			&:before {
-				top: unset;
-				bottom: -6px;
-			}
-		}
-	}
 }
 
 .cptm-card-preview-bottom-left-placeholder {
@@ -4829,18 +4814,6 @@ input[type="radio"].cptm-radio {
 		justify-content: flex-end;
 		.cptm-widget-preview-container {
 			justify-content: flex-end;
-		}
-	}
-	.cptm-widget-option-modal-container {
-		top: unset;
-		bottom: 20px;
-		.cptm-option-card {
-			&:before {
-				top: unset;
-				bottom: -6px;
-				border-bottom: unset;
-				border-top: 7px solid #ffffff;
-			}
 		}
 	}
 }
@@ -5093,6 +5066,12 @@ input[type="radio"].cptm-radio {
 		border: 1px solid #e5e7eb;
 		box-sizing: border-box;
 		transition: all ease-in-out 300ms;
+		.cptm-options-area {
+			transform: translateY(10px);
+			opacity: 0;
+			visibility: hidden;
+			transition: all ease-in-out 300ms;
+		}
 		&.active,
 		&:hover {
 			background: #f3f4f6;
@@ -5105,6 +5084,11 @@ input[type="radio"].cptm-radio {
 		&.active {
 			.cptm-list-item-edit {
 				background: #e5e7eb;
+			}
+			.cptm-options-area {
+				transform: translateY(0);
+				opacity: 1;
+				visibility: visible;
 			}
 		}
 		.cptm-widget-card-wrap {

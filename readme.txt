@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.5.4
+Stable tag: 8.5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -292,6 +292,17 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.5.6 - Nov 30, 2025 =
+
+**Fixed**
+ - Gutenberg block rendering issue.
+
+= 8.5.5 - Nov 27, 2025 =
+
+**Fixed**
+ - Email body issue when editing a listing. (#2599)
+ - WordPress 6.9 beta compatibility issue with block template functions. (#2602)
 
 = 8.5.4 - Nov 18, 2025 =
 

@@ -517,6 +517,8 @@ class Directorist_Listing_Dashboard {
             return $this->restrict_access_template();
         }
 
+        do_action( 'directorist_before_load_dashboard',  $atts, $this );
+
         return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
     }
 

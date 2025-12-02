@@ -194,6 +194,9 @@ export default function EnquiryDetailsModal({
 												getFormattedAnswer
 											}
 											ReactSVG={ReactSVG}
+											useState={useState}
+											useEffect={useEffect}
+											isLoadedFromDirectorist={true}
 										/>
 									);
 								}

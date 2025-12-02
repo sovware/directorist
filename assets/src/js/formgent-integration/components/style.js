@@ -270,39 +270,31 @@ const EnquiryDetailsModalStyle = styled.div`
 		font-size: 14px;
 		font-weight: 400;
 	}
-	.directorist-enquiry-answer-repeater {
-		table {
-			width: 100%;
-			border-collapse: separate;
-			border-spacing: 0;
-			border-radius: 8px;
-			overflow: hidden;
-			border: 1px solid #eee;
+	.directorist-repeater-table-wrapper {
+		max-width: 600px;
+		@media (max-width: 768px) {
+			max-width: 500px;
 		}
-
-		thead {
-			background: linear-gradient(to bottom, #f9f9f9, #f1f3f5);
-		}
-
-		th {
-			text-align: left;
-			padding: 12px 16px;
-			font-weight: 600;
-			font-size: 14px;
-			color: #333;
-		}
-
-		td {
-			padding: 12px 16px;
-			font-size: 14px;
-			color: #000;
-			border-top: 1px solid #eee;
-		}
-
-		/* Hover effect */
-		tr:hover td {
-			background-color: #fafafa;
-		}
+	}
+	.formgent-editor-rating {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin: 5px 0;
+	}
+	.formgent-editor-rating__icons {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+	.formgent-editor-rating__icons
+		.formgent-editor-rating__icon--active
+		svg
+		path {
+		fill: var(--directorist-color-primary);
+	}
+	.formgent-google-map-external-link {
+		color: var(--directorist-color-info);
 	}
 	//stick footer to bottom
 	.directorist-enquiry-modal-footer {
@@ -372,16 +364,16 @@ const EnquiryDetailsModalStyle = styled.div`
 		border-radius: 4px;
 	}
 
-	.response-table__drawer__tab__item {
+	.formgent-response-table__drawer__tab__item {
 		display: flex;
 		gap: 12px;
 		width: 100%;
-		&.response-table__drawer__tab__item--tag {
-			.response-table__drawer__tab__item__title {
+		&.formgent-response-table__drawer__tab__item--tag {
+			.formgent-response-table__drawer__tab__item__title {
 				height: 40px;
 			}
 		}
-		.response-table__drawer__tab__item__icon {
+		.formgent-response-table__drawer__tab__item__icon {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -392,13 +384,13 @@ const EnquiryDetailsModalStyle = styled.div`
 			color: var(--directorist-color-dark);
 			background-color: var(--directorist-color-light);
 		}
-		.response-table__drawer__tab__item__content {
+		.formgent-response-table__drawer__tab__item__content {
 			display: flex;
 			gap: 6px;
 			flex-direction: column;
 			flex: 1;
 		}
-		.response-table__drawer__tab__item__title {
+		.formgent-response-table__drawer__tab__item__title {
 			display: block;
 			font-size: 15px;
 			font-weight: 600;
@@ -408,7 +400,7 @@ const EnquiryDetailsModalStyle = styled.div`
 				text-transform: uppercase;
 			}
 		}
-		.response-table__drawer__tab__item__desc {
+		.formgent-response-table__drawer__tab__item__desc {
 			display: flex;
 			gap: 5px;
 			flex-wrap: wrap;
@@ -432,7 +424,7 @@ const EnquiryDetailsModalStyle = styled.div`
 				}
 			}
 		}
-		.response-table__drawer__tab__item__desc__key {
+		.formgent-response-table__drawer__tab__item__desc__key {
 			font-size: 14px;
 			font-weight: 500;
 			display: inline-flex;
@@ -441,11 +433,11 @@ const EnquiryDetailsModalStyle = styled.div`
 				text-transform: uppercase;
 			}
 		}
-		.response-table__drawer__tab__item__desc__value {
+		.formgent-response-table__drawer__tab__item__desc__value {
 			font-size: 14px;
 			color: var(--directorist-color-light-gray);
 		}
-		.response-table__drawer__tab__item__add {
+		.formgent-response-table__drawer__tab__item__add {
 			display: flex;
 			align-items: center;
 			background: transparent;
@@ -457,11 +449,11 @@ const EnquiryDetailsModalStyle = styled.div`
 				color: var(--directorist-color-primary);
 			}
 		}
-		.response-table__drawer__tab__item__btns {
+		.formgent-response-table__drawer__tab__item__btns {
 			display: flex;
 			gap: 8px;
 			flex-wrap: wrap;
-			.response-table__drawer__tab__item__btn {
+			.formgent-response-table__drawer__tab__item__btn {
 				font-size: 14px;
 				font-weight: 500;
 				padding: 0 8px;

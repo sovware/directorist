@@ -19,6 +19,10 @@ $id    = str_replace( ' ', '-', strtolower( $label ) );
 
         <?php 
         foreach ( $section_data['fields'] as $field ) {
+            // Add conditional logic data attribute if available
+            if ( ! empty( $field['options']['conditional_logic'] ) && ! empty( $field['options']['conditional_logic']['enabled'] ) ) {
+                $field['conditional_logic_data'] = wp_json_encode( $field['options']['conditional_logic'] );
+            }
             $listing_form->field_template( $field );
         }
         ?>

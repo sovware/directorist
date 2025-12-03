@@ -13,9 +13,11 @@
       :root="field_list"
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
-      @alert="$emit( 'alert', { key: `${field.type}_${field_key}`, data: $event } )"
+      @alert="
+        $emit('alert', { key: `${field.type}_${field_key}`, data: $event })
+      "
     />
-    <button 
+    <button
       class="cptm-form-builder-group-options__advanced-toggle"
       @click="toggleAdvanced"
       v-if="hasAdvancedFields"
@@ -88,13 +90,15 @@ export default {
       });
 
       // Show basic fields or advanced fields based on the toggle state
-      return this.showAdvanced ? { ...basicFields, ...advancedFields } : basicFields;
+      return this.showAdvanced
+        ? { ...basicFields, ...advancedFields }
+        : basicFields;
     },
 
     hasAdvancedFields() {
       // Check if there are any advanced fields
       return Object.values(this.field_list).some(
-        (field) => field.field_type === "advanced"
+        (field) => field.field_type === "advanced",
       );
     },
   },
@@ -110,7 +114,7 @@ export default {
     filterFieldList() {
       this.field_list = this.getFilteredFieldList(this.fieldList);
     },
-    
+
     toggleAdvanced() {
       this.showAdvanced = !this.showAdvanced;
     },
@@ -153,6 +157,25 @@ export default {
       }
 
       for (let field_key in new_fields) {
+        // Check for new conditional logic format (options.conditional_logic)
+        if (
+          new_fields[field_key].options &&
+          new_fields[field_key].options.conditional_logic
+        ) {
+          let conditionalLogic =
+            new_fields[field_key].options.conditional_logic;
+          let shouldShow = this.evaluateConditionalLogic(
+            conditionalLogic,
+            new_fields,
+          );
+
+          if (!shouldShow) {
+            delete new_fields[field_key];
+            continue;
+          }
+        }
+
+        // Check for legacy show_if format
         if (!(new_fields[field_key].showIf || new_fields[field_key].show_if)) {
           continue;
         }
@@ -176,7 +199,10 @@ export default {
 
     update(payload) {
       this.$emit("update", payload);
-      this.filterFieldList();
+      // Re-evaluate conditional logic when any field value changes
+      this.$nextTick(() => {
+        this.filterFieldList();
+      });
     },
   },
 };

@@ -6,6 +6,14 @@ import { directoristRequestHeaders } from '../helper';
 import '../public/components/colorPicker';
 import '../public/components/directoristDropdown';
 import '../public/components/directoristSelect';
+import {
+	applyConditionalLogic as applyConditionalLogicBase,
+	evaluateConditionalLogic as evaluateConditionalLogicBase,
+	getFieldValue as getFieldValueBase,
+	initConditionalLogic as initConditionalLogicBase,
+	updateCategoryFieldLabel as updateCategoryFieldLabelBase,
+	watchFieldChanges as watchFieldChangesBase,
+} from './components/conditional-logic';
 import debounce from './components/debounce';
 
 /* eslint-disable */
@@ -622,7 +630,6 @@ $(function () {
 				formData.append('field', uploadableImages[counter].field);
 				formData.append('directory', directory_id);
 				// formData.append( 'field', uploadableImages[ counter ].field );
-				// console.log(uploadableImages, counter);
 
 				$.ajax({
 					method: 'POST',
@@ -811,8 +818,6 @@ $(function () {
 			}
 			if (error_count) {
 				enableSubmitButton();
-				console.log('Form has invalid data');
-				console.log(error_count, err_log);
 				return;
 			}
 			$.ajax({
@@ -989,7 +994,6 @@ $(function () {
 				},
 				error: function error(_error) {
 					enableSubmitButton();
-					console.log(_error);
 				},
 			});
 		}
@@ -1119,10 +1123,6 @@ $(function () {
 				}
 			},
 			error: function (error) {
-				console.log({
-					error,
-				});
-
 				$submit_button.prop('disabled', false);
 				$submit_button.html(submit_button_html);
 			},
@@ -1519,3 +1519,94 @@ function updateLocalNonce() {
 		},
 	});
 }
+
+/**
+ * Conditional Logic Evaluation for Frontend Form
+ */
+(function ($) {
+	'use strict';
+
+	// Set up conditional logic functions with dependencies
+	const getFieldValueFn = (fieldKey) => getFieldValueBase(fieldKey, $);
+	const evaluateConditionalLogicFn = (conditionalLogic) =>
+		evaluateConditionalLogicBase(conditionalLogic, getFieldValueFn);
+	const applyConditionalLogicFn = ($fieldWrapper) =>
+		applyConditionalLogicBase($fieldWrapper, evaluateConditionalLogicFn, $);
+	const initConditionalLogicFn = () =>
+		initConditionalLogicBase(
+			getWrapper,
+			getFieldValueFn,
+			applyConditionalLogicFn,
+			$
+		);
+	const watchFieldChangesFn = () =>
+		watchFieldChangesBase(
+			getWrapper,
+			getFieldValueFn,
+			applyConditionalLogicFn,
+			$
+		);
+	const updateCategoryFieldLabelFn = () =>
+		updateCategoryFieldLabelBase(initConditionalLogicFn, $);
+
+	// Initialize on page load
+	$(document).ready(function () {
+		watchFieldChangesFn();
+		// Wait a bit longer to ensure Select2 and all fields are initialized
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 800);
+
+		// Also try after a longer delay to catch any late-loading fields
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 2000);
+	});
+
+	// Re-initialize when form is reloaded (e.g., after directory type change)
+	$(window).on('directorist-type-change', function () {
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 500);
+	});
+
+	// Re-initialize after category custom fields are rendered
+	$(window).on('load', function () {
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 1000);
+	});
+
+	// Re-initialize after Select2 is initialized
+	$(document).on('select2-loaded', function () {
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 200);
+	});
+
+	// Watch for Select2 changes on category field
+	$(document).on(
+		'select2:select select2:unselect select2:clear',
+		'#at_biz_dir-categories',
+		function () {
+			updateCategoryFieldLabelFn();
+		}
+	);
+
+	// Also watch for changes on the category field
+	$(document).on('change', '#at_biz_dir-categories', function () {
+		updateCategoryFieldLabelFn();
+	});
+
+	// Watch for custom category field change events
+	$(document).on('directorist-category-changed', function () {
+		updateCategoryFieldLabelFn();
+	});
+
+	// Also trigger after category custom fields are rendered (they might update category field)
+	$(window).on('load', function () {
+		setTimeout(function () {
+			updateCategoryFieldLabelFn();
+		}, 1500);
+	});
+})(jQuery);

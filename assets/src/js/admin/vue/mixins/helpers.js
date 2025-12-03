@@ -535,6 +535,310 @@ export default {
 		},
 	},
 
+	/**
+	 * Evaluate conditional logic rules in the new format.
+	 * @param {Object} conditionalLogic - Conditional logic configuration
+	 * @param {Object} rootFields - Root fields object containing all field values
+	 * @returns {Boolean} - True if conditions are met
+	 */
+	evaluateConditionalLogic(conditionalLogic, rootFields) {
+		if (!conditionalLogic || !conditionalLogic.enabled) {
+			return true; // If not enabled, always show
+		}
+
+		if (
+			!conditionalLogic.groups ||
+			!Array.isArray(conditionalLogic.groups) ||
+			conditionalLogic.groups.length === 0
+		) {
+			return true; // If no groups, always show
+		}
+
+		// Evaluate each group - groups are combined with OR (if ANY group is true, result is true)
+		let groupResults = [];
+		for (let group of conditionalLogic.groups) {
+			if (
+				!group.conditions ||
+				!Array.isArray(group.conditions) ||
+				group.conditions.length === 0
+			) {
+				continue;
+			}
+
+			// Evaluate conditions in this group - combined with AND/OR based on group.operator
+			let conditionResults = [];
+			for (let condition of group.conditions) {
+				if (!condition.field) {
+					continue; // Skip invalid conditions
+				}
+
+				// Get the field value from rootFields
+				let fieldValue = this.getFieldValueForCondition(
+					rootFields,
+					condition.field
+				);
+				let conditionResult = this.evaluateCondition(
+					condition,
+					fieldValue
+				);
+				conditionResults.push(conditionResult);
+			}
+
+			// Combine condition results based on group operator
+			let groupResult = false;
+			if (conditionResults.length > 0) {
+				if (group.operator === 'OR') {
+					// Within group: if ANY condition is true, group is true
+					groupResult = conditionResults.some(
+						(result) => result === true
+					);
+				} else {
+					// Default to AND: ALL conditions must be true
+					groupResult = conditionResults.every(
+						(result) => result === true
+					);
+				}
+			}
+			groupResults.push(groupResult);
+		}
+
+		// Groups are combined with OR - if ANY group is true, the result is true
+		let result =
+			groupResults.length > 0
+				? groupResults.some((result) => result === true)
+				: true;
+
+		// Apply the action (show/hide)
+		if (conditionalLogic.action === 'hide') {
+			return !result; // If hide and conditions are met, return false
+		}
+
+		// Default to show
+		return result;
+	},
+
+	/**
+	 * Get field value from root fields for condition evaluation.
+	 * @param {Object} rootFields - Root fields object
+	 * @param {String} fieldKey - Field key to get value for
+	 * @returns {*} - Field value
+	 */
+	getFieldValueForCondition(rootFields, fieldKey) {
+		if (!rootFields || !fieldKey) {
+			return null;
+		}
+
+		// Try to get the field value
+		if (typeof rootFields[fieldKey] !== 'undefined') {
+			let field = rootFields[fieldKey];
+
+			// If field is an object with a value property, use that
+			if (this.isObject(field) && typeof field.value !== 'undefined') {
+				return field.value;
+			}
+
+			// Otherwise use the field itself if it's a primitive value
+			if (typeof field !== 'object') {
+				return field;
+			}
+		}
+
+		return null;
+	},
+
+	/**
+	 * Evaluate a single condition.
+	 * @param {Object} condition - Condition object with field, operator, value
+	 * @param {*} fieldValue - Current value of the field being checked
+	 * @returns {Boolean} - True if condition is met
+	 */
+	evaluateCondition(condition, fieldValue) {
+		if (!condition.operator) {
+			return false;
+		}
+
+		const operator = condition.operator.toLowerCase();
+		const conditionValue = condition.value;
+
+		// Handle empty/not empty operators first (they don't need a value)
+		if (operator === 'empty') {
+			return this.isEmpty(fieldValue);
+		}
+		if (operator === 'not empty') {
+			return !this.isEmpty(fieldValue);
+		}
+
+		// Convert fieldValue and conditionValue to comparable types
+		let fieldVal = fieldValue;
+		let condVal = conditionValue;
+
+		// Handle arrays (for multi-select fields like category)
+		if (Array.isArray(fieldVal)) {
+			return this.evaluateArrayCondition(fieldVal, condVal, operator);
+		}
+
+		// Handle strings
+		if (typeof fieldVal === 'string') {
+			fieldVal = fieldVal.trim().toLowerCase();
+		}
+		if (typeof condVal === 'string') {
+			condVal = condVal.trim().toLowerCase();
+		}
+
+		switch (operator) {
+			case 'is':
+			case '==':
+			case '=':
+				return fieldVal == condVal;
+			case 'is not':
+			case '!=':
+			case 'not':
+				return fieldVal != condVal;
+			case 'contains':
+				if (
+					typeof fieldVal === 'string' &&
+					typeof condVal === 'string'
+				) {
+					return fieldVal.includes(condVal);
+				}
+				return false;
+			case 'does not contain':
+				if (
+					typeof fieldVal === 'string' &&
+					typeof condVal === 'string'
+				) {
+					return !fieldVal.includes(condVal);
+				}
+				return true;
+			case 'greater than':
+			case '>':
+				return Number(fieldVal) > Number(condVal);
+			case 'less than':
+			case '<':
+				return Number(fieldVal) < Number(condVal);
+			case 'greater than or equal':
+			case '>=':
+				return Number(fieldVal) >= Number(condVal);
+			case 'less than or equal':
+			case '<=':
+				return Number(fieldVal) <= Number(condVal);
+			case 'starts with':
+				if (
+					typeof fieldVal === 'string' &&
+					typeof condVal === 'string'
+				) {
+					return fieldVal.startsWith(condVal);
+				}
+				return false;
+			case 'ends with':
+				if (
+					typeof fieldVal === 'string' &&
+					typeof condVal === 'string'
+				) {
+					return fieldVal.endsWith(condVal);
+				}
+				return false;
+			default:
+				return false;
+		}
+	},
+
+	/**
+	 * Evaluate condition for array values (multi-select fields).
+	 * @param {Array} fieldArray - Array of field values
+	 * @param {*} conditionValue - Value to compare against
+	 * @param {String} operator - Comparison operator
+	 * @returns {Boolean}
+	 */
+	evaluateArrayCondition(fieldArray, conditionValue, operator) {
+		if (!Array.isArray(fieldArray) || fieldArray.length === 0) {
+			return operator === 'empty';
+		}
+
+		// Convert condition value to comparable format
+		let condVal = conditionValue;
+		if (typeof condVal === 'string') {
+			condVal = condVal.trim().toLowerCase();
+		}
+
+		// Check if any item in the array matches
+		switch (operator) {
+			case 'is':
+			case '==':
+			case '=':
+			case 'contains':
+				// Check if array contains the value
+				return fieldArray.some((val) => {
+					let compareVal = val;
+					if (typeof compareVal === 'string') {
+						compareVal = compareVal.trim().toLowerCase();
+					}
+					if (typeof compareVal === 'object' && compareVal !== null) {
+						// Handle objects (e.g., category objects)
+						if (compareVal.name) compareVal = compareVal.name;
+						else if (compareVal.label)
+							compareVal = compareVal.label;
+						else if (compareVal.value)
+							compareVal = compareVal.value;
+						else if (compareVal.id) compareVal = compareVal.id;
+						else compareVal = String(compareVal);
+					}
+					return (
+						String(compareVal)
+							.toLowerCase()
+							.includes(String(condVal).toLowerCase()) ||
+						String(compareVal).toLowerCase() ===
+							String(condVal).toLowerCase()
+					);
+				});
+			case 'is not':
+			case '!=':
+			case 'does not contain':
+				return !fieldArray.some((val) => {
+					let compareVal = val;
+					if (typeof compareVal === 'string') {
+						compareVal = compareVal.trim().toLowerCase();
+					}
+					if (typeof compareVal === 'object' && compareVal !== null) {
+						if (compareVal.name) compareVal = compareVal.name;
+						else if (compareVal.label)
+							compareVal = compareVal.label;
+						else if (compareVal.value)
+							compareVal = compareVal.value;
+						else if (compareVal.id) compareVal = compareVal.id;
+						else compareVal = String(compareVal);
+					}
+					return (
+						String(compareVal)
+							.toLowerCase()
+							.includes(String(condVal).toLowerCase()) ||
+						String(compareVal).toLowerCase() ===
+							String(condVal).toLowerCase()
+					);
+				});
+			default:
+				return false;
+		}
+	},
+
+	/**
+	 * Check if a value is empty.
+	 * @param {*} value - Value to check
+	 * @returns {Boolean}
+	 */
+	isEmpty(value) {
+		if (value === null || value === undefined) {
+			return true;
+		}
+		if (typeof value === 'string' && value.trim() === '') {
+			return true;
+		}
+		if (Array.isArray(value) && value.length === 0) {
+			return true;
+		}
+		return false;
+	},
+
 	data() {
 		return {
 			default_option: { value: '', label: 'Select...' },

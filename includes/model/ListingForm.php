@@ -564,6 +564,37 @@ class Directorist_Listing_Form {
         Helper::get_template( 'listing-form/field-label', $args );
     }
 
+    /**
+     * Get conditional logic data attributes for field wrapper
+     *
+     * @param array $data Field data array
+     * @return string HTML attributes string
+     */
+    public function get_conditional_logic_attributes( $data ) {
+        $attributes = '';
+        
+        // Priority 1: Already processed conditional_logic_data (JSON string)
+        if ( ! empty( $data['conditional_logic_data'] ) ) {
+            $conditional_logic_json = is_string( $data['conditional_logic_data'] ) 
+                ? $data['conditional_logic_data'] 
+                : wp_json_encode( $data['conditional_logic_data'] );
+            $attributes = ' data-conditional-logic="' . esc_attr( $conditional_logic_json ) . '"';
+            $attributes .= ' data-field-key="' . esc_attr( $data['field_key'] ?? '' ) . '"';
+        } 
+        // Priority 2: options.conditional_logic (array)
+        elseif ( ! empty( $data['options']['conditional_logic'] ) && is_array( $data['options']['conditional_logic'] ) && ! empty( $data['options']['conditional_logic']['enabled'] ) ) {
+            $attributes = ' data-conditional-logic="' . esc_attr( wp_json_encode( $data['options']['conditional_logic'] ) ) . '"';
+            $attributes .= ' data-field-key="' . esc_attr( $data['field_key'] ?? '' ) . '"';
+        }
+        // Priority 3: Direct conditional_logic key
+        elseif ( ! empty( $data['conditional_logic'] ) && is_array( $data['conditional_logic'] ) && ! empty( $data['conditional_logic']['enabled'] ) ) {
+            $attributes = ' data-conditional-logic="' . esc_attr( wp_json_encode( $data['conditional_logic'] ) ) . '"';
+            $attributes .= ' data-field-key="' . esc_attr( $data['field_key'] ?? '' ) . '"';
+        }
+        
+        return $attributes;
+    }
+
     public function field_description_template( $data ) {
         $args = [
             'listing_form' => $this,
@@ -673,6 +704,27 @@ class Directorist_Listing_Form {
         $field_data['value'] = $value;
         $field_data['form']  = $this;
         $field_data          = apply_filters( 'directorist_form_field_data', $field_data );
+        
+        // Add conditional logic data for frontend JavaScript evaluation (after filter to ensure it's preserved)
+        // Check multiple possible locations for conditional logic
+        $conditional_logic = null;
+        
+        // Priority 1: Already processed conditional_logic_data
+        if ( ! empty( $field_data['conditional_logic_data'] ) ) {
+            // Already set, do nothing
+        }
+        // Priority 2: options.conditional_logic (most common)
+        elseif ( ! empty( $field_data['options']['conditional_logic'] ) ) {
+            $conditional_logic = $field_data['options']['conditional_logic'];
+        }
+        // Priority 3: Direct conditional_logic key
+        elseif ( ! empty( $field_data['conditional_logic'] ) ) {
+            $conditional_logic = $field_data['conditional_logic'];
+        }
+        
+        if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) && ! empty( $conditional_logic['enabled'] ) ) {
+            $field_data['conditional_logic_data'] = wp_json_encode( $conditional_logic );
+        }
 
         if ( $this->is_custom_field( $field_data ) ) {
             $template = 'listing-form/custom-fields/' . $field_data['widget_name'];

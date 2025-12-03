@@ -118,6 +118,27 @@ function get_file_upload_field_options() {
     return $options;
 }
 
+/**
+ * Get conditional logic field option configuration.
+ *
+ * @param array $args Optional arguments to override defaults.
+ * @return array Conditional logic field configuration.
+ */
+function get_conditional_logic_field( array $args = [] ) {
+    $default = [
+        'type'        => 'conditional-logic',
+        'label'       => __( 'Conditional Logic', 'directorist' ),
+        'description' => __( 'Show or hide this field based on other field values.', 'directorist' ),
+        'value'       => [
+            'enabled' => false,
+            'action'  => 'show',
+            'groups'  => [],
+        ],
+    ];
+
+    return array_merge( $default, $args );
+}
+
 return apply_filters(
     'atbdp_form_custom_widgets', [
         'text' => [
@@ -158,6 +179,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -219,6 +241,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -275,6 +298,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'min_value' => [
                     'type'  => 'number',
                     'label' => __( 'Min Value', 'directorist' ),
@@ -302,6 +326,12 @@ return apply_filters(
                     'description' => __( 'Appears after The Input', 'directorist' ),
                     'value'       => "",
                 ],
+                'only_for_admin' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Admin Only', 'directorist' ),
+                    'value' => false,
+                ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -419,6 +449,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -475,6 +506,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -526,6 +558,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -594,6 +627,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -662,6 +696,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -730,6 +765,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
                 'assign_to' => [
                     'type'  => 'toggle',
                     'label' => __( 'Assign to Category', 'directorist' ),
@@ -794,6 +830,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
     ]

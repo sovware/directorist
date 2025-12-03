@@ -1,22 +1,22 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import Inbox from '../icons/Inbox';
-import Envelope from '../icons/Envelope';
 import Calendar from '../icons/Calendar';
 import Check from '../icons/Check';
-import { EnquiriesComponentStyle } from './style';
-import Tables from './Table';
+import Envelope from '../icons/Envelope';
+import Inbox from '../icons/Inbox';
 import {
-	fetchEnquiryKPIs,
 	fetchAllEnquiries,
+	fetchEnquiryKPIs,
 	refreshEnquiryData,
 } from '../utils/enquiryUtils';
+import { EnquiriesComponentStyle } from './style';
+import Tables from './Table';
 
 const EnquiriesComponent = ({ data = {} }) => {
 	const [responseKPIs, setResponseKPIs] = useState({});
@@ -25,14 +25,12 @@ const EnquiriesComponent = ({ data = {} }) => {
 	//get response KPIs
 	useEffect(() => {
 		fetchEnquiryKPIs().then((data) => {
-			console.log('KPIs response:', data);
 			setResponseKPIs(data);
 		});
 	}, []);
 
 	useEffect(() => {
 		fetchAllEnquiries().then((data) => {
-			console.log('Responses response:', data);
 			setResponses(data);
 		});
 	}, []);

@@ -1,38 +1,22 @@
 @import "~@wordpress/dataviews/build-style/style.css";
 
-// Modal Styles
-.directorist-answers-modal {
-	.directorist-modal-content {
-		max-height: 70vh;
-		overflow-y: auto;
-		padding: 20px;
-	}
-
-	.directorist-enquiry-info {
-		margin-bottom: 30px;
-		padding-bottom: 20px;
-		border-bottom: 1px solid #e0e0e0;
-
-		h3 {
-			margin: 0 0 15px 0;
-			color: #333;
-		}
-
-		p {
-			margin: 8px 0;
-			color: #666;
-		}
-	}
-
-	.directorist-answers-section {
-		h3 {
-			margin: 0 0 20px 0;
-			color: #333;
-		}
-	}
-}
-
 .directorist-enquiry-modal {
+	--formgent-color-primary: #5e53f9;
+	--formgent-color-primary-hover: #563dee;
+	--formgent-color-primary-2: #2188ff;
+	--formgent-color-primary-50: #edefff;
+	--formgent-color-primary-100: #dee3ff;
+	--formgent-color-primary-200: #c4cbff;
+	--formgent-color-gray-100: #f3f4f6;
+	--formgent-color-gray-200: #e5e7eb;
+	--formgent-color-gray-300: #d2d6db;
+	--formgent-color-gray-400: #a1a9b2;
+	--formgent-color-gray-500: #747c89;
+	--formgent-color-gray-600: #4d5761;
+	--formgent-color-gray-700: #383f47;
+	--formgent-color-gray-800: #2c3239;
+	--formgent-color-gray-900: #141921;
+
 	.components-modal__header {
 		border-bottom: 1px solid #e0e0e0;
 	}

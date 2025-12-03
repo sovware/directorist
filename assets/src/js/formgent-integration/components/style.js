@@ -220,7 +220,9 @@ const EnquiryDetailsModalStyle = styled.div`
 		}
 	}
 	.directorist-enquiry-listing {
-		margin-bottom: 24px;
+		margin-bottom: 16px;
+		border-bottom: 1px solid var(--directorist-color-border);
+		padding-bottom: 16px;
 		h3 {
 			margin: 0 0 4px 0;
 			font-size: 16px;
@@ -268,39 +270,31 @@ const EnquiryDetailsModalStyle = styled.div`
 		font-size: 14px;
 		font-weight: 400;
 	}
-	.directorist-enquiry-answer-repeater {
-		table {
-			width: 100%;
-			border-collapse: separate;
-			border-spacing: 0;
-			border-radius: 8px;
-			overflow: hidden;
-			border: 1px solid #eee;
+	.directorist-repeater-table-wrapper {
+		max-width: 600px;
+		@media (max-width: 768px) {
+			max-width: 500px;
 		}
-
-		thead {
-			background: linear-gradient(to bottom, #f9f9f9, #f1f3f5);
-		}
-
-		th {
-			text-align: left;
-			padding: 12px 16px;
-			font-weight: 600;
-			font-size: 14px;
-			color: #333;
-		}
-
-		td {
-			padding: 12px 16px;
-			font-size: 14px;
-			color: #000;
-			border-top: 1px solid #eee;
-		}
-
-		/* Hover effect */
-		tr:hover td {
-			background-color: #fafafa;
-		}
+	}
+	.formgent-editor-rating {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin: 5px 0;
+	}
+	.formgent-editor-rating__icons {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+	.formgent-editor-rating__icons
+		.formgent-editor-rating__icon--active
+		svg
+		path {
+		fill: var(--directorist-color-primary);
+	}
+	.formgent-google-map-external-link {
+		color: var(--directorist-color-info);
 	}
 	//stick footer to bottom
 	.directorist-enquiry-modal-footer {
@@ -351,6 +345,131 @@ const EnquiryDetailsModalStyle = styled.div`
 		&:hover {
 			border-color: var(--directorist-color-info);
 			color: var(--directorist-color-info);
+		}
+	}
+	.directorist-answers-section {
+		display: flex;
+		gap: 24px;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.formgent-response-badge {
+		background-color: var(--directorist-color-light);
+		padding: 0 8px;
+		color: var(--directorist-color-dark);
+		font-size: 14px;
+		line-height: 1.6;
+		font-weight: 400;
+		border-radius: 4px;
+	}
+
+	.formgent-response-table__drawer__tab__item {
+		display: flex;
+		gap: 12px;
+		width: 100%;
+		&.formgent-response-table__drawer__tab__item--tag {
+			.formgent-response-table__drawer__tab__item__title {
+				height: 40px;
+			}
+		}
+		.formgent-response-table__drawer__tab__item__icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 40px;
+			width: 40px;
+			min-width: 40px;
+			border-radius: 10px;
+			color: var(--directorist-color-dark);
+			background-color: var(--directorist-color-light);
+		}
+		.formgent-response-table__drawer__tab__item__content {
+			display: flex;
+			gap: 6px;
+			flex-direction: column;
+			flex: 1;
+		}
+		.formgent-response-table__drawer__tab__item__title {
+			display: block;
+			font-size: 15px;
+			font-weight: 600;
+			color: var(--formgent-color-dark);
+			margin: 0;
+			&:first-letter {
+				text-transform: uppercase;
+			}
+		}
+		.formgent-response-table__drawer__tab__item__desc {
+			display: flex;
+			gap: 5px;
+			flex-wrap: wrap;
+			font-size: 14px;
+			font-weight: 400;
+			color: var(--directorist-color-light-gray);
+			margin: 0;
+			img {
+				max-width: 200px;
+			}
+			.formgent-signature-image-preview,
+			.formgent-file-upload-preview {
+				width: 100%;
+				max-width: 350px;
+			}
+			.formgent-file-upload-answer {
+				padding: 8px 0;
+				&:last-child {
+					border-bottom: 0 none;
+					padding-bottom: 0;
+				}
+			}
+		}
+		.formgent-response-table__drawer__tab__item__desc__key {
+			font-size: 14px;
+			font-weight: 500;
+			display: inline-flex;
+			padding-right: 4px;
+			&::first-letter {
+				text-transform: uppercase;
+			}
+		}
+		.formgent-response-table__drawer__tab__item__desc__value {
+			font-size: 14px;
+			color: var(--directorist-color-light-gray);
+		}
+		.formgent-response-table__drawer__tab__item__add {
+			display: flex;
+			align-items: center;
+			background: transparent;
+			border: none;
+			margin: 0;
+			padding: 0;
+			cursor: pointer;
+			&:hover {
+				color: var(--directorist-color-primary);
+			}
+		}
+		.formgent-response-table__drawer__tab__item__btns {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			.formgent-response-table__drawer__tab__item__btn {
+				font-size: 14px;
+				font-weight: 500;
+				padding: 0 8px;
+				margin: 0;
+				height: 28px;
+				color: var(--directorist-color-gray);
+				background: var(--formgent-color-border);
+				border: none;
+				border-radius: 8px;
+				cursor: pointer;
+				transition: all ease 0.3s;
+				&:hover {
+					color: var(--formgent-color-white);
+					background: var(--formgent-color-light-gray);
+				}
+			}
 		}
 	}
 `;

@@ -602,11 +602,20 @@ export default {
 			groupResults.push(groupResult);
 		}
 
-		// Groups are combined with OR - if ANY group is true, the result is true
-		let result =
-			groupResults.length > 0
-				? groupResults.some((result) => result === true)
-				: true;
+		// Combine group results based on globalOperator (AND/OR)
+		// Default to OR if globalOperator is not specified (backward compatibility)
+		const globalOperator = conditionalLogic.globalOperator || 'OR';
+		let result = true;
+
+		if (groupResults.length > 0) {
+			if (globalOperator === 'AND') {
+				// ALL groups must be true
+				result = groupResults.every((result) => result === true);
+			} else {
+				// OR: ANY group is true
+				result = groupResults.some((result) => result === true);
+			}
+		}
 
 		// Apply the action (show/hide)
 		if (conditionalLogic.action === 'hide') {

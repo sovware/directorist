@@ -7,12 +7,15 @@
  * Map widget_key/field_key to actual frontend field selector
  */
 function mapFieldKeyToSelector(fieldKey) {
-	// Map known field keys to their frontend selectors
+	// Map widget_keys and field_keys to their frontend selectors
+	// Note: widget_key (e.g., "title") may differ from field_key (e.g., "listing_title")
 	const fieldKeyMap = {
 		category: '#at_biz_dir-categories',
 		categories: '#at_biz_dir-categories',
-		description: '[name="description"], #description',
-		title: '[name="title"], #title',
+		description:
+			'[name="listing_content"], #listing_content, [name="description"], #description',
+		title: '[name="listing_title"], #listing_title, [name="title"], #title',
+		listing_title: '[name="listing_title"], #listing_title',
 		location: '[name="location"], #at_biz_dir-location',
 		address: '[name="address"], #address',
 		phone: '[name="phone"], #phone',
@@ -175,18 +178,38 @@ function getFieldValue(fieldKey, $) {
 
 	// Try multiple selectors for the field
 	if (!$field || !$field.length) {
+		// Map widget_key to field_key for common fields
+		const widgetKeyToFieldKeyMap = {
+			title: 'listing_title',
+			description: 'listing_content',
+		};
+
+		// Get both widget_key and potential field_key
+		const potentialFieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
+
 		const selectors = [
 			`[name="${fieldKey}"]`,
 			`[name="${fieldKey}[]"]`,
 			`#${fieldKey}`,
+			`[name="${potentialFieldKey}"]`,
+			`[name="${potentialFieldKey}[]"]`,
+			`#${potentialFieldKey}`,
 			`.directorist-form-${fieldKey}-field input`,
 			`.directorist-form-${fieldKey}-field select`,
 			`.directorist-form-${fieldKey}-field textarea`,
+			`.directorist-form-${potentialFieldKey}-field input`,
+			`.directorist-form-${potentialFieldKey}-field select`,
+			`.directorist-form-${potentialFieldKey}-field textarea`,
 			`input[name*="${fieldKey}"]`,
 			`select[name*="${fieldKey}"]`,
+			`input[name*="${potentialFieldKey}"]`,
+			`select[name*="${potentialFieldKey}"]`,
 			`.directorist-form-group[data-field-key="${fieldKey}"] input`,
 			`.directorist-form-group[data-field-key="${fieldKey}"] select`,
 			`.directorist-form-group[data-field-key="${fieldKey}"] textarea`,
+			`.directorist-form-group[data-field-key="${potentialFieldKey}"] input`,
+			`.directorist-form-group[data-field-key="${potentialFieldKey}"] select`,
+			`.directorist-form-group[data-field-key="${potentialFieldKey}"] textarea`,
 		];
 
 		for (let selector of selectors) {
@@ -414,7 +437,19 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
  * Evaluate conditional logic rules
  */
 function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
-	if (!conditionalLogic || !conditionalLogic.enabled) {
+	// Normalize enabled flag - handle string "1", boolean true, etc.
+	if (!conditionalLogic) {
+		return true;
+	}
+
+	// Check if enabled (handle string "1", boolean true, etc.)
+	const isEnabled =
+		conditionalLogic.enabled === true ||
+		conditionalLogic.enabled === 1 ||
+		conditionalLogic.enabled === '1' ||
+		conditionalLogic.enabled === 'true';
+
+	if (!isEnabled) {
 		return true; // If not enabled, always show
 	}
 
@@ -467,11 +502,20 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 		groupResults.push(groupResult);
 	}
 
-	// Groups are combined with OR - if ANY group is true, the result is true
-	const result =
-		groupResults.length > 0
-			? groupResults.some((result) => result === true)
-			: true;
+	// Combine group results based on globalOperator (AND/OR)
+	// Default to OR if globalOperator is not specified (backward compatibility)
+	const globalOperator = conditionalLogic.globalOperator || 'OR';
+	let result = true;
+
+	if (groupResults.length > 0) {
+		if (globalOperator === 'AND') {
+			// ALL groups must be true
+			result = groupResults.every((result) => result === true);
+		} else {
+			// OR: ANY group is true
+			result = groupResults.some((result) => result === true);
+		}
+	}
 
 	// Apply the action (show/hide)
 	if (conditionalLogic.action === 'hide') {
@@ -527,7 +571,9 @@ function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
 			}
 		}
 	} catch (e) {
-		console.error('Error parsing conditional logic:', e);
+		console.error('Error parsing conditional logic:', e, {
+			conditionalLogicData,
+		});
 	}
 }
 
@@ -659,16 +705,43 @@ function watchFieldChanges(
 									Array.isArray(group.conditions)
 								) {
 									for (let condition of group.conditions) {
+										// Map widget_key to field_key for matching
+										const widgetKeyToFieldKeyMap = {
+											title: 'listing_title',
+											description: 'listing_content',
+										};
+
+										const conditionFieldKey =
+											condition.field;
+										const conditionFieldKeyMapped =
+											widgetKeyToFieldKeyMap[
+												conditionFieldKey
+											] || conditionFieldKey;
+
 										// Check multiple possible field key formats
+										// Match by exact field key, field name, or id
 										if (
-											condition.field === fieldKey ||
-											condition.field === fieldName ||
-											(condition.field === 'category' &&
+											conditionFieldKey === fieldKey ||
+											conditionFieldKey === fieldName ||
+											conditionFieldKey ===
+												$changedField.attr('id') ||
+											conditionFieldKey ===
+												$changedField.attr('name') ||
+											conditionFieldKeyMapped ===
+												fieldKey ||
+											conditionFieldKeyMapped ===
+												fieldName ||
+											conditionFieldKeyMapped ===
+												$changedField.attr('id') ||
+											conditionFieldKeyMapped ===
+												$changedField.attr('name') ||
+											(conditionFieldKey === 'category' &&
 												(fieldKey === 'category' ||
 													fieldName.includes(
 														'category'
 													))) ||
-											(condition.field === 'categories' &&
+											(conditionFieldKey ===
+												'categories' &&
 												(fieldKey === 'category' ||
 													fieldName.includes(
 														'category'

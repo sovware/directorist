@@ -1816,6 +1816,30 @@
 								// This will be properly implemented when we connect to form builder
 								return fields;
 							},
+							/**
+							 * Check if only one rule/group exists (cannot delete)
+							 */
+							canDeleteRule: function canDeleteRule() {
+								return this.localValue.groups.length > 1;
+							},
+							/**
+							 * Check if a specific group can be deleted
+							 */
+							canDeleteGroup: function canDeleteGroup(
+								groupIndex
+							) {
+								// Can delete if there's more than one group, or if this group has multiple conditions
+								if (this.localValue.groups.length > 1) {
+									return true;
+								}
+								// If only one group exists, can only delete if it has multiple conditions
+								var group = this.localValue.groups[groupIndex];
+								return (
+									group &&
+									group.conditions &&
+									group.conditions.length > 1
+								);
+							},
 						}
 					),
 					data: function data() {
@@ -1823,9 +1847,13 @@
 							localValue: {
 								enabled: false,
 								action: 'show',
+								globalOperator: 'AND',
 								groups: [],
 							},
 							validationLog: {},
+							// Stores the field key of the widget that owns this conditional logic,
+							// so we can exclude it from the "Select a field" dropdown.
+							currentFieldKeyForExclusion: null,
 						};
 					},
 					methods: {
@@ -1837,6 +1865,7 @@
 							var defaultValue = {
 								enabled: false,
 								action: 'show',
+								globalOperator: 'AND',
 								groups: [],
 							};
 							if (
@@ -1849,6 +1878,10 @@
 								this.localValue = JSON.parse(
 									JSON.stringify(defaultValue)
 								);
+								// Store field key when initializing if enabled
+								if (this.localValue.enabled) {
+									this.storeCurrentFieldKey();
+								}
 								return;
 							}
 							this.localValue = {
@@ -1857,6 +1890,8 @@
 										? this.value.enabled
 										: false,
 								action: this.value.action || 'show',
+								globalOperator:
+									this.value.globalOperator || 'AND',
 								groups: Array.isArray(this.value.groups)
 									? JSON.parse(
 											JSON.stringify(this.value.groups)
@@ -1864,37 +1899,209 @@
 									: [],
 							};
 
-							// Ensure groups have proper structure
-							if (!this.localValue.groups.length) {
-								this.localValue.groups = [
-									this.createEmptyGroup(),
-								];
-							} else {
-								// Validate and fix group structure
-								this.localValue.groups =
-									this.localValue.groups.map(
-										function (group) {
-											if (
-												!Array.isArray(group.conditions)
-											) {
-												group.conditions = [];
-											}
-											if (!group.operator) {
-												group.operator = 'AND';
-											}
-											if (!group.conditions.length) {
-												group.conditions = [
-													_this.createEmptyCondition(),
-												];
-											}
-											return group;
-										}
-									);
+							// Validate and fix group structure
+							this.localValue.groups = this.localValue.groups.map(
+								function (group) {
+									if (!Array.isArray(group.conditions)) {
+										group.conditions = [];
+									}
+									if (!group.operator) {
+										group.operator = 'AND';
+									}
+									// Set isGroup flag if not set (for backward compatibility)
+									if (typeof group.isGroup === 'undefined') {
+										// If has multiple conditions, it's a group; otherwise it's a single rule
+										group.isGroup =
+											group.conditions.length > 1;
+									}
+									// Ensure groups have at least one condition
+									if (!group.conditions.length) {
+										group.conditions = [
+											_this.createEmptyCondition(),
+										];
+									}
+									return group;
+								}
+							);
+
+							// Auto-add first rule if enabled and no groups exist
+							if (
+								this.localValue.enabled &&
+								this.localValue.groups.length === 0
+							) {
+								this.localValue.groups.push({
+									operator: 'AND',
+									conditions: [this.createEmptyCondition()],
+									isGroup: false, // Single rule, not a group
+								});
+							}
+
+							// Store field key when initializing if enabled
+							if (
+								this.localValue.enabled &&
+								!this.currentFieldKeyForExclusion
+							) {
+								this.storeCurrentFieldKey();
 							}
 						},
 						toggleEnabled: function toggleEnabled() {
 							this.localValue.enabled = !this.localValue.enabled;
+							// Auto-add first rule when enabling conditional logic
+							if (
+								this.localValue.enabled &&
+								this.localValue.groups.length === 0
+							) {
+								this.addRule();
+								// Store the current field key when enabling conditional logic
+								this.storeCurrentFieldKey();
+							}
 							this.updateValue();
+						},
+						/**
+						 * Store the current field key for exclusion from available fields dropdown
+						 * This is called when conditional logic is enabled
+						 */
+						storeCurrentFieldKey: function storeCurrentFieldKey() {
+							var fieldKey = this.findCurrentFieldKey();
+							if (fieldKey) {
+								this.currentFieldKeyForExclusion = fieldKey;
+							}
+						},
+						/**
+						 * Find the current field key - SIMPLIFIED APPROACH
+						 * Extract from fieldId or match activeWidget with availableFields
+						 */
+						findCurrentFieldKey: function findCurrentFieldKey() {
+							var skipKeys = [
+								'logic',
+								'conditional_logic',
+								'conditional-logic',
+								'conditionalLogic',
+								'submission_form_fields',
+								'widgets',
+								'fields',
+							];
+							var shouldSkip = function shouldSkip(key) {
+								if (!key) return true;
+								var normalized = key
+									.toString()
+									.trim()
+									.toLowerCase();
+								return skipKeys.includes(normalized);
+							};
+
+							// PRIORITY 1: Extract from fieldId (format: "section_fieldKey_optionKey" or "fieldKey_optionKey")
+							if (
+								this.fieldId &&
+								this.fieldId.toString().includes('_')
+							) {
+								var parts = this.fieldId.toString().split('_');
+								// Try parts from end to beginning (last parts are usually the field key)
+								for (var i = parts.length - 2; i >= 0; i--) {
+									var possibleKey = parts[i].trim();
+									if (
+										possibleKey &&
+										!shouldSkip(possibleKey)
+									) {
+										// Verify it's in availableFields
+										var availableFields =
+											this.availableFields || [];
+										var availableFieldKeys =
+											availableFields.map(function (f) {
+												return f.value;
+											});
+										if (
+											availableFieldKeys.includes(
+												possibleKey
+											)
+										) {
+											return possibleKey;
+										}
+									}
+								}
+							}
+
+							// PRIORITY 2: Get from Options_Window widget prop or activeWidget
+							var parent = this.$parent;
+							var depth = 0;
+							while (parent && depth < 25) {
+								if (parent.$options) {
+									var componentName =
+										parent.$options.name || '';
+									if (
+										componentName === 'options-window' ||
+										componentName === 'Options_Window'
+									) {
+										// Try widget prop
+										if (
+											parent.widget &&
+											!shouldSkip(parent.widget)
+										) {
+											var widgetKey = parent.widget
+												.toString()
+												.trim();
+											var _availableFields =
+												this.availableFields || [];
+											var _availableFieldKeys =
+												_availableFields.map(
+													function (f) {
+														return f.value;
+													}
+												);
+											if (
+												_availableFieldKeys.includes(
+													widgetKey
+												)
+											) {
+												return widgetKey;
+											}
+										}
+
+										// Try activeWidget.widget_key or activeWidget.key
+										if (parent.activeWidget) {
+											var keysToCheck = [
+												parent.activeWidget.widget_key,
+												parent.activeWidget.key,
+												parent.activeWidget.widget_name,
+												parent.activeWidget.name,
+											];
+											for (
+												var _i = 0,
+													_keysToCheck = keysToCheck;
+												_i < _keysToCheck.length;
+												_i++
+											) {
+												var key = _keysToCheck[_i];
+												if (key && !shouldSkip(key)) {
+													var keyStr = key
+														.toString()
+														.trim();
+													var _availableFields2 =
+														this.availableFields ||
+														[];
+													var _availableFieldKeys2 =
+														_availableFields2.map(
+															function (f) {
+																return f.value;
+															}
+														);
+													if (
+														_availableFieldKeys2.includes(
+															keyStr
+														)
+													) {
+														return keyStr;
+													}
+												}
+											}
+										}
+										break;
+									}
+								}
+								parent = parent.$parent;
+								depth++;
+							}
+							return null;
 						},
 						updateValue: function updateValue() {
 							// Deep clone to ensure reactivity
@@ -1907,8 +2114,17 @@
 							return {
 								operator: 'AND',
 								conditions: [this.createEmptyCondition()],
+								isGroup: false, // false = single rule, true = group container
 							};
 						},
+						createEmptyGroupContainer:
+							function createEmptyGroupContainer() {
+								return {
+									operator: 'AND',
+									conditions: [this.createEmptyCondition()],
+									isGroup: true, // This is a group container
+								};
+							},
 						createEmptyCondition: function createEmptyCondition() {
 							return {
 								field: '',
@@ -1916,9 +2132,43 @@
 								value: '',
 							};
 						},
+						addRule: function addRule() {
+							// Add a single standalone rule (not a group container)
+							this.localValue.groups.push({
+								operator: 'AND',
+								conditions: [this.createEmptyCondition()],
+								isGroup: false, // Single rule, not a group
+							});
+							this.updateValue();
+						},
+						removeRule: function removeRule(groupIndex) {
+							// Cannot remove if only one rule exists
+							if (!this.canDeleteRule) {
+								return;
+							}
+							// Remove a single rule (single-condition group)
+							if (
+								!this.localValue.groups ||
+								!this.localValue.groups[groupIndex]
+							) {
+								return;
+							}
+							this.localValue.groups.splice(groupIndex, 1);
+							this.updateValue();
+						},
 						addCondition: function addCondition(groupIndex) {
+							// Add a condition to an existing group
 							if (!this.localValue.groups[groupIndex]) {
 								return;
+							}
+							// Mark as group when adding second condition
+							if (
+								this.localValue.groups[groupIndex].conditions
+									.length === 1 &&
+								!this.localValue.groups[groupIndex].isGroup
+							) {
+								this.localValue.groups[groupIndex].isGroup =
+									true;
 							}
 							this.localValue.groups[groupIndex].conditions.push(
 								this.createEmptyCondition()
@@ -1929,38 +2179,57 @@
 							groupIndex,
 							conditionIndex
 						) {
-							if (!this.localValue.groups[groupIndex]) {
+							if (
+								!this.localValue.groups ||
+								!this.localValue.groups[groupIndex]
+							) {
 								return;
 							}
+							var group = this.localValue.groups[groupIndex];
+
+							// Cannot remove if it's the only rule/group and only condition
 							if (
-								this.localValue.groups[groupIndex].conditions
-									.length <= 1
+								group.conditions.length === 1 &&
+								!this.canDeleteRule
 							) {
-								// Don't remove the last condition, just reset it
-								this.localValue.groups[groupIndex].conditions[
-									conditionIndex
-								] = this.createEmptyCondition();
+								return;
+							}
+
+							// If removing the last condition in a group
+							if (group.conditions.length <= 1) {
+								// Remove the entire group/rule
+								this.localValue.groups.splice(groupIndex, 1);
 							} else {
+								// Remove the condition
 								this.localValue.groups[
 									groupIndex
 								].conditions.splice(conditionIndex, 1);
+								// If it becomes a single condition, keep it as a group.
+								// Once a group, it should always remain rendered as a group container.
 							}
 							this.updateValue();
 						},
 						addGroup: function addGroup() {
-							this.localValue.groups.push(
-								this.createEmptyGroup()
-							);
+							// Add a new group container (starts with one condition but is a group)
+							this.localValue.groups.push({
+								operator: 'AND',
+								conditions: [this.createEmptyCondition()],
+								isGroup: true, // This is a group container
+							});
 							this.updateValue();
 						},
 						removeGroup: function removeGroup(groupIndex) {
-							if (this.localValue.groups.length <= 1) {
-								// Don't remove the last group, just reset it
-								this.localValue.groups[groupIndex] =
-									this.createEmptyGroup();
-							} else {
-								this.localValue.groups.splice(groupIndex, 1);
+							// Cannot remove if only one group exists
+							if (!this.canDeleteRule) {
+								return;
 							}
+							if (
+								!this.localValue.groups ||
+								!this.localValue.groups[groupIndex]
+							) {
+								return;
+							}
+							this.localValue.groups.splice(groupIndex, 1);
 							this.updateValue();
 						},
 						onFieldChange: function onFieldChange(condition) {
@@ -2098,17 +2367,11 @@
 									return [];
 								}
 								var fields = [];
-								var currentFieldKey =
-									this.fieldKey || this.getCurrentFieldKey();
 
 								// Iterate through all active widget fields
+								// Note: Filtering is now done in the template via filteredAvailableFields computed property
 								for (var widgetKey in activeWidgetFields) {
 									var widget = activeWidgetFields[widgetKey];
-
-									// Skip the current field being edited to avoid circular references
-									if (widgetKey === currentFieldKey) {
-										continue;
-									}
 
 									// Get field label (prefer label, fallback to widget_key)
 									var label =
@@ -2148,51 +2411,6 @@
 								});
 								return fields;
 							},
-						/**
-						 * Get the current field key being edited.
-						 * @returns {String|null} Current field key or null
-						 */
-						getCurrentFieldKey: function getCurrentFieldKey() {
-							// Try to get from props
-							if (this.fieldKey) {
-								return this.fieldKey;
-							}
-
-							// Try to get from parent component (Options_Window context)
-							var parent = this.$parent;
-							var depth = 0; // Prevent infinite loops
-							while (parent && depth < 10) {
-								// Check if parent is Options_Window and has activeWidget
-								if (
-									parent.$options &&
-									parent.$options.name === 'options-window'
-								) {
-									if (
-										parent.activeWidget &&
-										parent.activeWidget.widget_key
-									) {
-										return parent.activeWidget.widget_key;
-									}
-									if (parent.widget) {
-										return parent.widget;
-									}
-								}
-
-								// Check if parent has widget key or field key directly
-								if (parent.widget) {
-									return parent.widget;
-								}
-								if (
-									parent.activeWidget &&
-									parent.activeWidget.widget_key
-								) {
-									return parent.activeWidget.widget_key;
-								}
-								parent = parent.$parent;
-								depth++;
-							}
-							return null;
-						},
 						/**
 						 * Get value input component based on selected field type.
 						 */
@@ -7332,18 +7550,29 @@
 								groupResults.push(groupResult);
 							}
 
-							// Groups are combined with OR - if ANY group is true, the result is true
+							// Combine group results based on globalOperator (AND/OR)
+							// Default to OR if globalOperator is not specified (backward compatibility)
 						} catch (err) {
 							_iterator7.e(err);
 						} finally {
 							_iterator7.f();
 						}
-						var result =
-							groupResults.length > 0
-								? groupResults.some(function (result) {
-										return result === true;
-									})
-								: true;
+						var globalOperator =
+							conditionalLogic.globalOperator || 'OR';
+						var result = true;
+						if (groupResults.length > 0) {
+							if (globalOperator === 'AND') {
+								// ALL groups must be true
+								result = groupResults.every(function (result) {
+									return result === true;
+								});
+							} else {
+								// OR: ANY group is true
+								result = groupResults.some(function (result) {
+									return result === true;
+								});
+							}
+						}
 
 						// Apply the action (show/hide)
 						if (conditionalLogic.action === 'hide') {
@@ -50179,7 +50408,7 @@
 				__webpack_require__.r(__webpack_exports__);
 				/* harmony import */ var _mixins_form_fields_conditional_logic_field__WEBPACK_IMPORTED_MODULE_0__ =
 					__webpack_require__(
-						/*! ./../../../../mixins/form-fields/conditional-logic-field */ './assets/src/js/admin/vue/mixins/form-fields/conditional-logic-field.js'
+						/*! ../../../../mixins/form-fields/conditional-logic-field */ './assets/src/js/admin/vue/mixins/form-fields/conditional-logic-field.js'
 					);
 
 				/* harmony default export */ __webpack_exports__['default'] = {
@@ -50189,6 +50418,64 @@
 							'default'
 						],
 					],
+					computed: {
+						/**
+						 * Filtered available fields - excludes the current field being edited
+						 */
+						filteredAvailableFields:
+							function filteredAvailableFields() {
+								if (
+									!this.availableFields ||
+									!Array.isArray(this.availableFields)
+								) {
+									return [];
+								}
+
+								// Use the stored field key (set when conditional logic was enabled)
+								var currentFieldKey =
+									this.currentFieldKeyForExclusion;
+								var skipKeys = [
+									'logic',
+									'conditional_logic',
+									'conditional-logic',
+									'conditionalLogic',
+									'submission_form_fields',
+									'widgets',
+									'fields',
+								];
+
+								// Filter out the current field and conditional logic keys
+								var filtered = this.availableFields.filter(
+									function (field) {
+										if (!field || !field.value) {
+											return true;
+										}
+										var fieldValue = field.value
+											.toString()
+											.trim()
+											.toLowerCase();
+
+										// Skip conditional logic keys
+										if (skipKeys.includes(fieldValue)) {
+											return false;
+										}
+
+										// If we have a stored field key, skip if it matches
+										if (currentFieldKey) {
+											var currentKey = currentFieldKey
+												.toString()
+												.trim()
+												.toLowerCase();
+											if (fieldValue === currentKey) {
+												return false;
+											}
+										}
+										return true;
+									}
+								);
+								return filtered;
+							},
+					},
 				};
 
 				/***/
@@ -76196,18 +76483,6 @@
 														1
 													)
 												: _vm._e(),
-											_vm._v(' '),
-											_vm.description.length
-												? _c('p', {
-														staticClass:
-															'cptm-form-group-info',
-														domProps: {
-															innerHTML: _vm._s(
-																_vm.description
-															),
-														},
-													})
-												: _vm._e(),
 										]
 									),
 									_vm._v(' '),
@@ -76237,6 +76512,118 @@
 															},
 														},
 													}),
+													_vm._v(' '),
+													_c('input', {
+														directives: [
+															{
+																name: 'model',
+																rawName:
+																	'v-model',
+																value: _vm
+																	.localValue
+																	.enabled,
+																expression:
+																	'localValue.enabled',
+															},
+														],
+														staticStyle: {
+															display: 'none',
+														},
+														attrs: {
+															type: 'checkbox',
+															id:
+																_vm.fieldId +
+																'_enabled',
+														},
+														domProps: {
+															checked:
+																Array.isArray(
+																	_vm
+																		.localValue
+																		.enabled
+																)
+																	? _vm._i(
+																			_vm
+																				.localValue
+																				.enabled,
+																			null
+																		) > -1
+																	: _vm
+																			.localValue
+																			.enabled,
+														},
+														on: {
+															change: [
+																function (
+																	$event
+																) {
+																	var $$a =
+																			_vm
+																				.localValue
+																				.enabled,
+																		$$el =
+																			$event.target,
+																		$$c =
+																			$$el.checked
+																				? true
+																				: false;
+																	if (
+																		Array.isArray(
+																			$$a
+																		)
+																	) {
+																		var $$v =
+																				null,
+																			$$i =
+																				_vm._i(
+																					$$a,
+																					$$v
+																				);
+																		if (
+																			$$el.checked
+																		) {
+																			$$i <
+																				0 &&
+																				_vm.$set(
+																					_vm.localValue,
+																					'enabled',
+																					$$a.concat(
+																						[
+																							$$v,
+																						]
+																					)
+																				);
+																		} else {
+																			$$i >
+																				-1 &&
+																				_vm.$set(
+																					_vm.localValue,
+																					'enabled',
+																					$$a
+																						.slice(
+																							0,
+																							$$i
+																						)
+																						.concat(
+																							$$a.slice(
+																								$$i +
+																									1
+																							)
+																						)
+																				);
+																		}
+																	} else {
+																		_vm.$set(
+																			_vm.localValue,
+																			'enabled',
+																			$$c
+																		);
+																	}
+																},
+																_vm.updateValue,
+															],
+														},
+													}),
 												]
 											),
 										]
@@ -76252,6 +76639,18 @@
 												'directorist-conditional-logic-builder',
 										},
 										[
+											_vm.description.length
+												? _c('p', {
+														staticClass:
+															'directorist-conditional-logic-builder__description',
+														domProps: {
+															innerHTML: _vm._s(
+																_vm.description
+															),
+														},
+													})
+												: _vm._e(),
+											_vm._v(' '),
 											_c(
 												'div',
 												{
@@ -76275,7 +76674,7 @@
 																},
 															],
 															staticClass:
-																'cptm-form-control directorist-conditional-logic-builder__action',
+																'directorist-conditional-logic-builder__action',
 															on: {
 																change: [
 																	function (
@@ -76315,11 +76714,7 @@
 																				: $$selectedVal[0]
 																		);
 																	},
-																	function (
-																		$event
-																	) {
-																		return _vm.updateValue();
-																	},
+																	_vm.updateValue,
 																],
 															},
 														},
@@ -76331,16 +76726,7 @@
 																		value: 'show',
 																	},
 																},
-																[
-																	_vm._v(
-																		_vm._s(
-																			_vm.__(
-																				'Show',
-																				'directorist'
-																			)
-																		)
-																	),
-																]
+																[_vm._v('Show')]
 															),
 															_vm._v(' '),
 															_c(
@@ -76350,19 +76736,27 @@
 																		value: 'hide',
 																	},
 																},
-																[
-																	_vm._v(
-																		_vm._s(
-																			_vm.__(
-																				'Hide',
-																				'directorist'
-																			)
-																		)
-																	),
-																]
+																[_vm._v('Hide')]
 															),
 														]
 													),
+													_vm._v(' '),
+													_vm.label.length
+														? _c(
+																'span',
+																{
+																	staticClass:
+																		'directorist-conditional-logic-builder__label',
+																},
+																[
+																	_vm._v(
+																		_vm._s(
+																			_vm.label
+																		)
+																	),
+																]
+															)
+														: _vm._e(),
 													_vm._v(' '),
 													_c(
 														'span',
@@ -76370,16 +76764,7 @@
 															staticClass:
 																'directorist-conditional-logic-builder__label',
 														},
-														[
-															_vm._v(
-																_vm._s(
-																	_vm.__(
-																		'this field if',
-																		'directorist'
-																	)
-																)
-															),
-														]
+														[_vm._v('if')]
 													),
 												]
 											),
@@ -76388,45 +76773,1096 @@
 												'div',
 												{
 													staticClass:
-														'directorist-conditional-logic-builder__groups',
+														'directorist-conditional-logic-builder__rules-and-groups',
 												},
-												_vm._l(
-													_vm.localValue.groups,
-													function (
-														group,
-														groupIndex
-													) {
-														return _c(
-															'div',
-															{
-																key: groupIndex,
-																staticClass:
-																	'directorist-conditional-logic-builder__group',
-															},
-															[
-																_c(
-																	'div',
-																	{
-																		staticClass:
-																			'directorist-conditional-logic-builder__conditions',
-																	},
-																	_vm._l(
-																		group.conditions,
-																		function (
-																			condition,
-																			conditionIndex
-																		) {
-																			return _c(
+												[
+													_vm._l(
+														_vm.localValue.groups,
+														function (
+															group,
+															groupIndex
+														) {
+															return [
+																groupIndex > 0
+																	? _c(
+																			'div',
+																			{
+																				staticClass:
+																					'directorist-conditional-logic-builder__rule-separator',
+																			},
+																			[
+																				_c(
+																					'span',
+																					{
+																						staticClass:
+																							'directorist-conditional-logic-builder__separator-text',
+																					},
+																					[
+																						_vm._v(
+																							_vm._s(
+																								_vm
+																									.localValue
+																									.globalOperator
+																							)
+																						),
+																					]
+																				),
+																			]
+																		)
+																	: _vm._e(),
+																_vm._v(' '),
+																!group.isGroup
+																	? [
+																			_c(
 																				'div',
 																				{
-																					key: conditionIndex,
 																					staticClass:
-																						'directorist-conditional-logic-builder__condition',
+																						'directorist-conditional-logic-builder__rule',
 																				},
 																				[
-																					conditionIndex >
-																					0
-																						? [
+																					_c(
+																						'div',
+																						{
+																							staticClass:
+																								'directorist-conditional-logic-builder__condition',
+																						},
+																						[
+																							_c(
+																								'select',
+																								{
+																									directives:
+																										[
+																											{
+																												name: 'model',
+																												rawName:
+																													'v-model',
+																												value: group
+																													.conditions[0]
+																													.field,
+																												expression:
+																													'group.conditions[0].field',
+																											},
+																										],
+																									staticClass:
+																										'directorist-conditional-logic-builder__field',
+																									on: {
+																										change: [
+																											function (
+																												$event
+																											) {
+																												var $$selectedVal =
+																													Array.prototype.filter
+																														.call(
+																															$event
+																																.target
+																																.options,
+																															function (
+																																o
+																															) {
+																																return o.selected;
+																															}
+																														)
+																														.map(
+																															function (
+																																o
+																															) {
+																																var val =
+																																	'_value' in
+																																	o
+																																		? o._value
+																																		: o.value;
+																																return val;
+																															}
+																														);
+																												_vm.$set(
+																													group
+																														.conditions[0],
+																													'field',
+																													$event
+																														.target
+																														.multiple
+																														? $$selectedVal
+																														: $$selectedVal[0]
+																												);
+																											},
+																											function (
+																												$event
+																											) {
+																												return _vm.onFieldChange(
+																													group
+																														.conditions[0]
+																												);
+																											},
+																										],
+																									},
+																								},
+																								[
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: '',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'Select a field'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_vm._l(
+																										_vm.filteredAvailableFields,
+																										function (
+																											field
+																										) {
+																											return _c(
+																												'option',
+																												{
+																													key: field.value,
+																													domProps:
+																														{
+																															value: field.value,
+																														},
+																												},
+																												[
+																													_vm._v(
+																														'\n                  ' +
+																															_vm._s(
+																																field.label
+																															) +
+																															'\n                '
+																													),
+																												]
+																											);
+																										}
+																									),
+																								],
+																								2
+																							),
+																							_vm._v(
+																								' '
+																							),
+																							_c(
+																								'select',
+																								{
+																									directives:
+																										[
+																											{
+																												name: 'model',
+																												rawName:
+																													'v-model',
+																												value: group
+																													.conditions[0]
+																													.operator,
+																												expression:
+																													'group.conditions[0].operator',
+																											},
+																										],
+																									staticClass:
+																										'directorist-conditional-logic-builder__operator-select',
+																									on: {
+																										change: [
+																											function (
+																												$event
+																											) {
+																												var $$selectedVal =
+																													Array.prototype.filter
+																														.call(
+																															$event
+																																.target
+																																.options,
+																															function (
+																																o
+																															) {
+																																return o.selected;
+																															}
+																														)
+																														.map(
+																															function (
+																																o
+																															) {
+																																var val =
+																																	'_value' in
+																																	o
+																																		? o._value
+																																		: o.value;
+																																return val;
+																															}
+																														);
+																												_vm.$set(
+																													group
+																														.conditions[0],
+																													'operator',
+																													$event
+																														.target
+																														.multiple
+																														? $$selectedVal
+																														: $$selectedVal[0]
+																												);
+																											},
+																											_vm.updateValue,
+																										],
+																									},
+																								},
+																								[
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'is',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'is'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'is not',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'is not'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'contains',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'contains'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'does not contain',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'does not contain'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'empty',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'empty'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'not empty',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'not empty'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'greater than',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'greater than'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'less than',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'less than'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'greater than or equal',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'\n                  greater than or equal\n                '
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'less than or equal',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'less than or equal'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'starts with',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'starts with'
+																											),
+																										]
+																									),
+																									_vm._v(
+																										' '
+																									),
+																									_c(
+																										'option',
+																										{
+																											attrs: {
+																												value: 'ends with',
+																											},
+																										},
+																										[
+																											_vm._v(
+																												'ends with'
+																											),
+																										]
+																									),
+																								]
+																							),
+																							_vm._v(
+																								' '
+																							),
+																							!_vm.isValueHidden(
+																								group
+																									.conditions[0]
+																									.operator
+																							)
+																								? _c(
+																										'input',
+																										{
+																											directives:
+																												[
+																													{
+																														name: 'model',
+																														rawName:
+																															'v-model',
+																														value: group
+																															.conditions[0]
+																															.value,
+																														expression:
+																															'group.conditions[0].value',
+																													},
+																												],
+																											staticClass:
+																												'directorist-conditional-logic-builder__value',
+																											attrs: {
+																												type: 'text',
+																												placeholder:
+																													'VALUE',
+																											},
+																											domProps:
+																												{
+																													value: group
+																														.conditions[0]
+																														.value,
+																												},
+																											on: {
+																												input: [
+																													function (
+																														$event
+																													) {
+																														if (
+																															$event
+																																.target
+																																.composing
+																														)
+																															return;
+																														_vm.$set(
+																															group
+																																.conditions[0],
+																															'value',
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																													function (
+																														$event
+																													) {
+																														return _vm.onConditionValueUpdate(
+																															group
+																																.conditions[0],
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																												],
+																											},
+																										}
+																									)
+																								: _vm._e(),
+																							_vm._v(
+																								' '
+																							),
+																							_c(
+																								'button',
+																								{
+																									staticClass:
+																										'directorist-conditional-logic-builder__remove',
+																									attrs: {
+																										type: 'button',
+																										disabled:
+																											!_vm.canDeleteRule,
+																										title: _vm.__(
+																											'Remove rule',
+																											'directorist'
+																										),
+																									},
+																									on: {
+																										click: function click(
+																											$event
+																										) {
+																											return _vm.removeRule(
+																												groupIndex
+																											);
+																										},
+																									},
+																								},
+																								[
+																									_c(
+																										'i',
+																										{
+																											staticClass:
+																												'las la-times',
+																										}
+																									),
+																								]
+																							),
+																						]
+																					),
+																				]
+																			),
+																		]
+																	: group.isGroup
+																		? [
+																				_c(
+																					'div',
+																					{
+																						staticClass:
+																							'directorist-conditional-logic-builder__group',
+																					},
+																					[
+																						_c(
+																							'div',
+																							{
+																								staticClass:
+																									'directorist-conditional-logic-builder__conditions',
+																							},
+																							[
+																								_vm._l(
+																									group.conditions,
+																									function (
+																										condition,
+																										conditionIndex
+																									) {
+																										return [
+																											conditionIndex >
+																											0
+																												? _c(
+																														'div',
+																														{
+																															staticClass:
+																																'directorist-conditional-logic-builder__condition-separator',
+																														},
+																														[
+																															_c(
+																																'span',
+																																{
+																																	staticClass:
+																																		'directorist-conditional-logic-builder__separator-text',
+																																},
+																																[
+																																	_vm._v(
+																																		_vm._s(
+																																			group.operator
+																																		)
+																																	),
+																																]
+																															),
+																														]
+																													)
+																												: _vm._e(),
+																											_vm._v(
+																												' '
+																											),
+																											_c(
+																												'div',
+																												{
+																													staticClass:
+																														'directorist-conditional-logic-builder__condition',
+																												},
+																												[
+																													_c(
+																														'select',
+																														{
+																															directives:
+																																[
+																																	{
+																																		name: 'model',
+																																		rawName:
+																																			'v-model',
+																																		value: condition.field,
+																																		expression:
+																																			'condition.field',
+																																	},
+																																],
+																															staticClass:
+																																'directorist-conditional-logic-builder__field',
+																															on: {
+																																change: [
+																																	function (
+																																		$event
+																																	) {
+																																		var $$selectedVal =
+																																			Array.prototype.filter
+																																				.call(
+																																					$event
+																																						.target
+																																						.options,
+																																					function (
+																																						o
+																																					) {
+																																						return o.selected;
+																																					}
+																																				)
+																																				.map(
+																																					function (
+																																						o
+																																					) {
+																																						var val =
+																																							'_value' in
+																																							o
+																																								? o._value
+																																								: o.value;
+																																						return val;
+																																					}
+																																				);
+																																		_vm.$set(
+																																			condition,
+																																			'field',
+																																			$event
+																																				.target
+																																				.multiple
+																																				? $$selectedVal
+																																				: $$selectedVal[0]
+																																		);
+																																	},
+																																	function (
+																																		$event
+																																	) {
+																																		return _vm.onFieldChange(
+																																			condition
+																																		);
+																																	},
+																																],
+																															},
+																														},
+																														[
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: '',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'Select a field'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_vm._l(
+																																_vm.filteredAvailableFields,
+																																function (
+																																	field
+																																) {
+																																	return _c(
+																																		'option',
+																																		{
+																																			key: field.value,
+																																			domProps:
+																																				{
+																																					value: field.value,
+																																				},
+																																		},
+																																		[
+																																			_vm._v(
+																																				'\n                      ' +
+																																					_vm._s(
+																																						field.label
+																																					) +
+																																					'\n                    '
+																																			),
+																																		]
+																																	);
+																																}
+																															),
+																														],
+																														2
+																													),
+																													_vm._v(
+																														' '
+																													),
+																													_c(
+																														'select',
+																														{
+																															directives:
+																																[
+																																	{
+																																		name: 'model',
+																																		rawName:
+																																			'v-model',
+																																		value: condition.operator,
+																																		expression:
+																																			'condition.operator',
+																																	},
+																																],
+																															staticClass:
+																																'directorist-conditional-logic-builder__operator-select',
+																															on: {
+																																change: [
+																																	function (
+																																		$event
+																																	) {
+																																		var $$selectedVal =
+																																			Array.prototype.filter
+																																				.call(
+																																					$event
+																																						.target
+																																						.options,
+																																					function (
+																																						o
+																																					) {
+																																						return o.selected;
+																																					}
+																																				)
+																																				.map(
+																																					function (
+																																						o
+																																					) {
+																																						var val =
+																																							'_value' in
+																																							o
+																																								? o._value
+																																								: o.value;
+																																						return val;
+																																					}
+																																				);
+																																		_vm.$set(
+																																			condition,
+																																			'operator',
+																																			$event
+																																				.target
+																																				.multiple
+																																				? $$selectedVal
+																																				: $$selectedVal[0]
+																																		);
+																																	},
+																																	_vm.updateValue,
+																																],
+																															},
+																														},
+																														[
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'is',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'is'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'is not',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'is not'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'contains',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'contains'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'does not contain',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'does not contain'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'empty',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'empty'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'not empty',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'not empty'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'greater than',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'greater than'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'less than',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'less than'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'greater than or equal',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'\n                      greater than or equal\n                    '
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'less than or equal',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'\n                      less than or equal\n                    '
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'starts with',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'starts with'
+																																	),
+																																]
+																															),
+																															_vm._v(
+																																' '
+																															),
+																															_c(
+																																'option',
+																																{
+																																	attrs: {
+																																		value: 'ends with',
+																																	},
+																																},
+																																[
+																																	_vm._v(
+																																		'ends with'
+																																	),
+																																]
+																															),
+																														]
+																													),
+																													_vm._v(
+																														' '
+																													),
+																													!_vm.isValueHidden(
+																														condition.operator
+																													)
+																														? _c(
+																																'input',
+																																{
+																																	directives:
+																																		[
+																																			{
+																																				name: 'model',
+																																				rawName:
+																																					'v-model',
+																																				value: condition.value,
+																																				expression:
+																																					'condition.value',
+																																			},
+																																		],
+																																	staticClass:
+																																		'directorist-conditional-logic-builder__value',
+																																	attrs: {
+																																		type: 'text',
+																																		placeholder:
+																																			'VALUE',
+																																	},
+																																	domProps:
+																																		{
+																																			value: condition.value,
+																																		},
+																																	on: {
+																																		input: [
+																																			function (
+																																				$event
+																																			) {
+																																				if (
+																																					$event
+																																						.target
+																																						.composing
+																																				)
+																																					return;
+																																				_vm.$set(
+																																					condition,
+																																					'value',
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																			function (
+																																				$event
+																																			) {
+																																				return _vm.onConditionValueUpdate(
+																																					condition,
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																		],
+																																	},
+																																}
+																															)
+																														: _vm._e(),
+																													_vm._v(
+																														' '
+																													),
+																													_c(
+																														'button',
+																														{
+																															staticClass:
+																																'directorist-conditional-logic-builder__remove',
+																															attrs: {
+																																type: 'button',
+																																disabled:
+																																	!_vm.canDeleteRule &&
+																																	group
+																																		.conditions
+																																		.length ===
+																																		1,
+																																title: _vm.__(
+																																	'Remove condition',
+																																	'directorist'
+																																),
+																															},
+																															on: {
+																																click: function click(
+																																	$event
+																																) {
+																																	return _vm.removeCondition(
+																																		groupIndex,
+																																		conditionIndex
+																																	);
+																																},
+																															},
+																														},
+																														[
+																															_c(
+																																'i',
+																																{
+																																	staticClass:
+																																		'las la-times',
+																																}
+																															),
+																														]
+																													),
+																												]
+																											),
+																										];
+																									}
+																								),
+																							],
+																							2
+																						),
+																						_vm._v(
+																							' '
+																						),
+																						_c(
+																							'div',
+																							{
+																								staticClass:
+																									'directorist-conditional-logic-builder__group-footer',
+																							},
+																							[
 																								_c(
 																									'select',
 																									{
@@ -76442,7 +77878,7 @@
 																												},
 																											],
 																										staticClass:
-																											'cptm-form-control directorist-conditional-logic-builder__operator',
+																											'directorist-conditional-logic-builder__operator',
 																										on: {
 																											change: [
 																												function (
@@ -76482,11 +77918,7 @@
 																															: $$selectedVal[0]
 																													);
 																												},
-																												function (
-																													$event
-																												) {
-																													return _vm.updateValue();
-																												},
+																												_vm.updateValue,
 																											],
 																										},
 																									},
@@ -76500,12 +77932,7 @@
 																											},
 																											[
 																												_vm._v(
-																													_vm._s(
-																														_vm.__(
-																															'AND',
-																															'directorist'
-																														)
-																													)
+																													'AND'
 																												),
 																											]
 																										),
@@ -76521,670 +77948,247 @@
 																											},
 																											[
 																												_vm._v(
-																													_vm._s(
-																														_vm.__(
-																															'OR',
-																															'directorist'
-																														)
-																													)
+																													'OR'
 																												),
 																											]
 																										),
 																									]
 																								),
-																							]
-																						: _vm._e(),
-																					_vm._v(
-																						' '
-																					),
-																					_c(
-																						'select',
-																						{
-																							directives:
-																								[
-																									{
-																										name: 'model',
-																										rawName:
-																											'v-model',
-																										value: condition.field,
-																										expression:
-																											'condition.field',
-																									},
-																								],
-																							staticClass:
-																								'cptm-form-control directorist-conditional-logic-builder__field',
-																							on: {
-																								change: [
-																									function (
-																										$event
-																									) {
-																										var $$selectedVal =
-																											Array.prototype.filter
-																												.call(
-																													$event
-																														.target
-																														.options,
-																													function (
-																														o
-																													) {
-																														return o.selected;
-																													}
-																												)
-																												.map(
-																													function (
-																														o
-																													) {
-																														var val =
-																															'_value' in
-																															o
-																																? o._value
-																																: o.value;
-																														return val;
-																													}
-																												);
-																										_vm.$set(
-																											condition,
-																											'field',
-																											$event
-																												.target
-																												.multiple
-																												? $$selectedVal
-																												: $$selectedVal[0]
-																										);
-																									},
-																									function (
-																										$event
-																									) {
-																										return _vm.onFieldChange(
-																											condition
-																										);
-																									},
-																								],
-																							},
-																						},
-																						[
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: '',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'Select a field',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_vm._l(
-																								_vm.availableFields,
-																								function (
-																									field
-																								) {
-																									return _c(
-																										'option',
-																										{
-																											key: field.value,
-																											domProps:
-																												{
-																													value: field.value,
-																												},
-																										},
-																										[
-																											_vm._v(
-																												'\n                ' +
-																													_vm._s(
-																														field.label
-																													) +
-																													'\n              '
-																											),
-																										]
-																									);
-																								}
-																							),
-																						],
-																						2
-																					),
-																					_vm._v(
-																						' '
-																					),
-																					_c(
-																						'select',
-																						{
-																							directives:
-																								[
-																									{
-																										name: 'model',
-																										rawName:
-																											'v-model',
-																										value: condition.operator,
-																										expression:
-																											'condition.operator',
-																									},
-																								],
-																							staticClass:
-																								'cptm-form-control directorist-conditional-logic-builder__operator-select',
-																							on: {
-																								change: [
-																									function (
-																										$event
-																									) {
-																										var $$selectedVal =
-																											Array.prototype.filter
-																												.call(
-																													$event
-																														.target
-																														.options,
-																													function (
-																														o
-																													) {
-																														return o.selected;
-																													}
-																												)
-																												.map(
-																													function (
-																														o
-																													) {
-																														var val =
-																															'_value' in
-																															o
-																																? o._value
-																																: o.value;
-																														return val;
-																													}
-																												);
-																										_vm.$set(
-																											condition,
-																											'operator',
-																											$event
-																												.target
-																												.multiple
-																												? $$selectedVal
-																												: $$selectedVal[0]
-																										);
-																									},
-																									function (
-																										$event
-																									) {
-																										return _vm.updateValue();
-																									},
-																								],
-																							},
-																						},
-																						[
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'is',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										_vm._s(
-																											_vm.__(
-																												'is',
-																												'directorist'
-																											)
-																										)
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'is not',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'is not',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'contains',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'contains',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'does not contain',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'does not contain',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'greater than',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'greater than',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'less than',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'less than',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'greater than or equal',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'greater than or equal',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'less than or equal',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'less than or equal',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'empty',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										_vm._s(
-																											_vm.__(
-																												'empty',
-																												'directorist'
-																											)
-																										)
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'not empty',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'not empty',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'starts with',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'starts with',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																							_vm._v(
-																								' '
-																							),
-																							_c(
-																								'option',
-																								{
-																									attrs: {
-																										value: 'ends with',
-																									},
-																								},
-																								[
-																									_vm._v(
-																										'\n                ' +
-																											_vm._s(
-																												_vm.__(
-																													'ends with',
-																													'directorist'
-																												)
-																											) +
-																											'\n              '
-																									),
-																								]
-																							),
-																						]
-																					),
-																					_vm._v(
-																						' '
-																					),
-																					!_vm.isValueHidden(
-																						condition.operator
-																					)
-																						? _c(
-																								'input',
-																								{
-																									directives:
-																										[
-																											{
-																												name: 'model',
-																												rawName:
-																													'v-model',
-																												value: condition.value,
-																												expression:
-																													'condition.value',
-																											},
-																										],
-																									staticClass:
-																										'cptm-form-control directorist-conditional-logic-builder__value',
-																									attrs: {
-																										type: 'text',
-																										placeholder:
-																											_vm.__(
-																												'VALUE',
-																												'directorist'
-																											),
-																									},
-																									domProps:
-																										{
-																											value: condition.value,
-																										},
-																									on: {
-																										input: [
-																											function (
-																												$event
-																											) {
-																												if (
-																													$event
-																														.target
-																														.composing
-																												)
-																													return;
-																												_vm.$set(
-																													condition,
-																													'value',
-																													$event
-																														.target
-																														.value
-																												);
-																											},
-																											function (
-																												$event
-																											) {
-																												return _vm.updateValue();
-																											},
-																										],
-																									},
-																								}
-																							)
-																						: _vm._e(),
-																					_vm._v(
-																						' '
-																					),
-																					_c(
-																						'button',
-																						{
-																							staticClass:
-																								'directorist-conditional-logic-builder__remove',
-																							attrs: {
-																								type: 'button',
-																								title: _vm.__(
-																									'Remove rule',
-																									'directorist'
+																								_vm._v(
+																									' '
 																								),
-																							},
-																							on: {
-																								click: function click(
-																									$event
-																								) {
-																									return _vm.removeCondition(
-																										groupIndex,
-																										conditionIndex
-																									);
-																								},
-																							},
-																						},
-																						[
-																							_c(
-																								'span',
-																								{
-																									staticClass:
-																										'fa fa-times',
-																								}
-																							),
-																						]
-																					),
-																				],
-																				2
-																			);
-																		}
-																	),
-																	0
-																),
-																_vm._v(' '),
-																_c(
-																	'div',
-																	{
-																		staticClass:
-																			'directorist-conditional-logic-builder__group-footer',
-																	},
-																	[
-																		_c(
-																			'button',
-																			{
-																				staticClass:
-																					'cptm-btn cptm-btn-secondery',
-																				attrs: {
-																					type: 'button',
-																				},
-																				on: {
-																					click: function click(
-																						$event
-																					) {
-																						return _vm.addCondition(
-																							groupIndex
-																						);
-																					},
-																				},
-																			},
-																			[
-																				_vm._v(
-																					'\n            ' +
-																						_vm._s(
-																							_vm.__(
-																								'+ Add rule',
-																								'directorist'
-																							)
-																						) +
-																						'\n          '
+																								_c(
+																									'button',
+																									{
+																										staticClass:
+																											'cptm-btn',
+																										attrs: {
+																											type: 'button',
+																										},
+																										on: {
+																											click: function click(
+																												$event
+																											) {
+																												return _vm.addCondition(
+																													groupIndex
+																												);
+																											},
+																										},
+																									},
+																									[
+																										_c(
+																											'span',
+																											[
+																												_vm._v(
+																													'+'
+																												),
+																											]
+																										),
+																										_vm._v(
+																											' Rule\n              '
+																										),
+																									]
+																								),
+																								_vm._v(
+																									' '
+																								),
+																								_c(
+																									'button',
+																									{
+																										staticClass:
+																											'directorist-conditional-logic-builder__group-footer__remove-group',
+																										attrs: {
+																											type: 'button',
+																											disabled:
+																												!_vm.canDeleteRule,
+																											title: _vm.__(
+																												'Remove group',
+																												'directorist'
+																											),
+																										},
+																										on: {
+																											click: function click(
+																												$event
+																											) {
+																												return _vm.removeGroup(
+																													groupIndex
+																												);
+																											},
+																										},
+																									},
+																									[
+																										_c(
+																											'i',
+																											{
+																												staticClass:
+																													'las la-times',
+																											}
+																										),
+																									]
+																								),
+																							]
+																						),
+																					]
 																				),
 																			]
-																		),
-																	]
-																),
-															]
-														);
-													}
-												),
-												0
+																		: _vm._e(),
+															];
+														}
+													),
+												],
+												2
 											),
 											_vm._v(' '),
-											_c(
-												'div',
-												{
-													staticClass:
-														'directorist-conditional-logic-builder__footer',
-												},
-												[
-													_c(
-														'button',
+											_vm.localValue.enabled
+												? _c(
+														'div',
 														{
 															staticClass:
-																'cptm-btn cptm-btn-secondery',
-															attrs: {
-																type: 'button',
-															},
-															on: {
-																click: function click(
-																	$event
-																) {
-																	return _vm.addGroup();
-																},
-															},
+																'directorist-conditional-logic-builder__footer',
 														},
 														[
-															_vm._v(
-																'\n        ' +
-																	_vm._s(
-																		_vm.__(
-																			'+ Add group',
-																			'directorist'
-																		)
-																	) +
-																	'\n      '
+															_c(
+																'select',
+																{
+																	directives:
+																		[
+																			{
+																				name: 'model',
+																				rawName:
+																					'v-model',
+																				value: _vm
+																					.localValue
+																					.globalOperator,
+																				expression:
+																					'localValue.globalOperator',
+																			},
+																		],
+																	staticClass:
+																		'directorist-conditional-logic-builder__operator',
+																	on: {
+																		change: [
+																			function (
+																				$event
+																			) {
+																				var $$selectedVal =
+																					Array.prototype.filter
+																						.call(
+																							$event
+																								.target
+																								.options,
+																							function (
+																								o
+																							) {
+																								return o.selected;
+																							}
+																						)
+																						.map(
+																							function (
+																								o
+																							) {
+																								var val =
+																									'_value' in
+																									o
+																										? o._value
+																										: o.value;
+																								return val;
+																							}
+																						);
+																				_vm.$set(
+																					_vm.localValue,
+																					'globalOperator',
+																					$event
+																						.target
+																						.multiple
+																						? $$selectedVal
+																						: $$selectedVal[0]
+																				);
+																			},
+																			_vm.updateValue,
+																		],
+																	},
+																},
+																[
+																	_c(
+																		'option',
+																		{
+																			attrs: {
+																				value: 'AND',
+																			},
+																		},
+																		[
+																			_vm._v(
+																				'AND'
+																			),
+																		]
+																	),
+																	_vm._v(' '),
+																	_c(
+																		'option',
+																		{
+																			attrs: {
+																				value: 'OR',
+																			},
+																		},
+																		[
+																			_vm._v(
+																				'OR'
+																			),
+																		]
+																	),
+																]
+															),
+															_vm._v(' '),
+															_c(
+																'button',
+																{
+																	staticClass:
+																		'cptm-btn',
+																	attrs: {
+																		type: 'button',
+																	},
+																	on: {
+																		click: _vm.addRule,
+																	},
+																},
+																[
+																	_c('span', [
+																		_vm._v(
+																			'+'
+																		),
+																	]),
+																	_vm._v(
+																		' Rule\n      '
+																	),
+																]
+															),
+															_vm._v(' '),
+															_c(
+																'button',
+																{
+																	staticClass:
+																		'cptm-btn cptm-btn-secondery',
+																	attrs: {
+																		type: 'button',
+																	},
+																	on: {
+																		click: _vm.addGroup,
+																	},
+																},
+																[
+																	_c('span', [
+																		_vm._v(
+																			'+'
+																		),
+																	]),
+																	_vm._v(
+																		' Group\n      '
+																	),
+																]
 															),
 														]
-													),
-												]
-											),
+													)
+												: _vm._e(),
 										]
 									)
 								: _vm._e(),
@@ -77194,7 +78198,7 @@
 									'section-id': _vm.sectionId,
 									'field-id': _vm.fieldId,
 									root: _vm.root,
-									value: _vm.localValue,
+									value: _vm.value,
 									rules: _vm.rules,
 								},
 								on: {

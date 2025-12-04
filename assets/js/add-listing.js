@@ -145,12 +145,15 @@
 				 * Map widget_key/field_key to actual frontend field selector
 				 */
 				function mapFieldKeyToSelector(fieldKey) {
-					// Map known field keys to their frontend selectors
+					// Map widget_keys and field_keys to their frontend selectors
+					// Note: widget_key (e.g., "title") may differ from field_key (e.g., "listing_title")
 					var fieldKeyMap = {
 						category: '#at_biz_dir-categories',
 						categories: '#at_biz_dir-categories',
-						description: '[name="description"], #description',
-						title: '[name="title"], #title',
+						description:
+							'[name="listing_content"], #listing_content, [name="description"], #description',
+						title: '[name="listing_title"], #listing_title, [name="title"], #title',
+						listing_title: '[name="listing_title"], #listing_title',
 						location: '[name="location"], #at_biz_dir-location',
 						address: '[name="address"], #address',
 						phone: '[name="phone"], #phone',
@@ -328,10 +331,22 @@
 
 					// Try multiple selectors for the field
 					if (!$field || !$field.length) {
+						// Map widget_key to field_key for common fields
+						var widgetKeyToFieldKeyMap = {
+							title: 'listing_title',
+							description: 'listing_content',
+						};
+
+						// Get both widget_key and potential field_key
+						var potentialFieldKey =
+							widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
 						var selectors = [
 							'[name="'.concat(fieldKey, '"]'),
 							'[name="'.concat(fieldKey, '[]"]'),
 							'#'.concat(fieldKey),
+							'[name="'.concat(potentialFieldKey, '"]'),
+							'[name="'.concat(potentialFieldKey, '[]"]'),
+							'#'.concat(potentialFieldKey),
 							'.directorist-form-'.concat(
 								fieldKey,
 								'-field input'
@@ -344,8 +359,22 @@
 								fieldKey,
 								'-field textarea'
 							),
+							'.directorist-form-'.concat(
+								potentialFieldKey,
+								'-field input'
+							),
+							'.directorist-form-'.concat(
+								potentialFieldKey,
+								'-field select'
+							),
+							'.directorist-form-'.concat(
+								potentialFieldKey,
+								'-field textarea'
+							),
 							'input[name*="'.concat(fieldKey, '"]'),
 							'select[name*="'.concat(fieldKey, '"]'),
+							'input[name*="'.concat(potentialFieldKey, '"]'),
+							'select[name*="'.concat(potentialFieldKey, '"]'),
 							'.directorist-form-group[data-field-key="'.concat(
 								fieldKey,
 								'"] input'
@@ -356,6 +385,18 @@
 							),
 							'.directorist-form-group[data-field-key="'.concat(
 								fieldKey,
+								'"] textarea'
+							),
+							'.directorist-form-group[data-field-key="'.concat(
+								potentialFieldKey,
+								'"] input'
+							),
+							'.directorist-form-group[data-field-key="'.concat(
+								potentialFieldKey,
+								'"] select'
+							),
+							'.directorist-form-group[data-field-key="'.concat(
+								potentialFieldKey,
 								'"] textarea'
 							),
 						];
@@ -643,7 +684,18 @@
 					conditionalLogic,
 					getFieldValueFn
 				) {
-					if (!conditionalLogic || !conditionalLogic.enabled) {
+					// Normalize enabled flag - handle string "1", boolean true, etc.
+					if (!conditionalLogic) {
+						return true;
+					}
+
+					// Check if enabled (handle string "1", boolean true, etc.)
+					var isEnabled =
+						conditionalLogic.enabled === true ||
+						conditionalLogic.enabled === 1 ||
+						conditionalLogic.enabled === '1' ||
+						conditionalLogic.enabled === 'true';
+					if (!isEnabled) {
 						return true; // If not enabled, always show
 					}
 					if (
@@ -724,18 +776,29 @@
 							groupResults.push(groupResult);
 						}
 
-						// Groups are combined with OR - if ANY group is true, the result is true
+						// Combine group results based on globalOperator (AND/OR)
+						// Default to OR if globalOperator is not specified (backward compatibility)
 					} catch (err) {
 						_iterator.e(err);
 					} finally {
 						_iterator.f();
 					}
-					var result =
-						groupResults.length > 0
-							? groupResults.some(function (result) {
-									return result === true;
-								})
-							: true;
+					var globalOperator =
+						conditionalLogic.globalOperator || 'OR';
+					var result = true;
+					if (groupResults.length > 0) {
+						if (globalOperator === 'AND') {
+							// ALL groups must be true
+							result = groupResults.every(function (result) {
+								return result === true;
+							});
+						} else {
+							// OR: ANY group is true
+							result = groupResults.some(function (result) {
+								return result === true;
+							});
+						}
+					}
 
 					// Apply the action (show/hide)
 					if (conditionalLogic.action === 'hide') {
@@ -800,7 +863,9 @@
 							}
 						}
 					} catch (e) {
-						console.error('Error parsing conditional logic:', e);
+						console.error('Error parsing conditional logic:', e, {
+							conditionalLogicData: conditionalLogicData,
+						});
 					}
 				}
 
@@ -962,20 +1027,56 @@
 														) {
 															var condition =
 																_step4.value;
+															// Map widget_key to field_key for matching
+															var widgetKeyToFieldKeyMap =
+																{
+																	title: 'listing_title',
+																	description:
+																		'listing_content',
+																};
+															var conditionFieldKey =
+																condition.field;
+															var conditionFieldKeyMapped =
+																widgetKeyToFieldKeyMap[
+																	conditionFieldKey
+																] ||
+																conditionFieldKey;
+
 															// Check multiple possible field key formats
+															// Match by exact field key, field name, or id
 															if (
-																condition.field ===
+																conditionFieldKey ===
 																	fieldKey ||
-																condition.field ===
+																conditionFieldKey ===
 																	fieldName ||
-																(condition.field ===
+																conditionFieldKey ===
+																	$changedField.attr(
+																		'id'
+																	) ||
+																conditionFieldKey ===
+																	$changedField.attr(
+																		'name'
+																	) ||
+																conditionFieldKeyMapped ===
+																	fieldKey ||
+																conditionFieldKeyMapped ===
+																	fieldName ||
+																conditionFieldKeyMapped ===
+																	$changedField.attr(
+																		'id'
+																	) ||
+																conditionFieldKeyMapped ===
+																	$changedField.attr(
+																		'name'
+																	) ||
+																(conditionFieldKey ===
 																	'category' &&
 																	(fieldKey ===
 																		'category' ||
 																		fieldName.includes(
 																			'category'
 																		))) ||
-																(condition.field ===
+																(conditionFieldKey ===
 																	'categories' &&
 																	(fieldKey ===
 																		'category' ||

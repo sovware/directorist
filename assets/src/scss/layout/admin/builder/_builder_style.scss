@@ -2146,7 +2146,7 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 	align-items: center;
 	padding: 10px;
 	text-align: center;
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.2);
 }
 
 .cptm-form-builder-group-field-item {
@@ -7054,10 +7054,10 @@ input[type="radio"] {
 
 	&__header {
 		display: flex;
-		align-items: center;
 		gap: 8px;
-		margin-bottom: 16px;
+		align-items: center;
 		flex-wrap: wrap;
+		margin-bottom: 16px;
 
 		.directorist-conditional-logic-builder__action {
 			flex-shrink: 0;
@@ -7087,10 +7087,92 @@ input[type="radio"] {
 		}
 	}
 
+	&__rules-and-groups {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	&__rule {
+		// Single standalone rule (not in a group container)
+		margin-bottom: 0;
+
+		.directorist-conditional-logic-builder__condition {
+			background-color: #ffffff;
+			border: 1px solid #e5e7eb;
+			border-radius: 6px;
+			padding: 12px;
+		}
+	}
+
+	&__rule-separator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 12px 0;
+		position: relative;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 50%;
+			height: 1px;
+			border-top: 1px dashed #e5e7eb;
+		}
+	}
+
 	&__groups {
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
+		gap: 0;
+	}
+
+	&__group-separator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 12px 0;
+		position: relative;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 50%;
+			height: 1px;
+			border-top: 1px dashed #e5e7eb;
+		}
+	}
+
+	&__separator-text {
+		background-color: #ffffff;
+		padding: 0 12px;
+		color: #9ca3af;
+		font-size: 13px;
+		font-weight: 500;
+		position: relative;
+		z-index: 1;
+	}
+
+	&__condition-separator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 8px 0;
+		position: relative;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 50%;
+			height: 1px;
+			border-top: 1px dashed #e5e7eb;
+		}
 	}
 
 	&__group {
@@ -7099,10 +7181,6 @@ input[type="radio"] {
 		border-radius: 6px;
 		padding: 16px;
 		position: relative;
-
-		&:not(:last-child) {
-			margin-bottom: 8px;
-		}
 	}
 
 	&__conditions {
@@ -7126,98 +7204,58 @@ input[type="radio"] {
 
 		&:hover {
 			border-color: #d2d6db;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 		}
 
-		&:first-child {
-			.directorist-conditional-logic-builder__operator {
-				display: none;
+		// Integrate action dropdown into condition line if present
+		.directorist-conditional-logic-builder__action {
+			flex-shrink: 0;
+			min-width: 100px;
+			font-size: 14px;
+			font-weight: 500;
+			color: #141921;
+			border: none;
+			background-color: #ffffff;
+			cursor: pointer;
+			transition: all 0.3s ease;
+
+			&:hover,
+			&:focus {
+				outline: none;
 			}
 		}
 
 		.directorist-conditional-logic-builder__field {
 			flex: 1;
-			min-width: 150px;
-			padding: 8px 12px;
 			font-size: 13px;
 			color: #141921;
-			background-color: #ffffff;
-			border: 1px solid #d2d6db;
-			border-radius: 6px;
+			border: none;
 			transition: all 0.3s ease;
-
-			&:hover {
-				border-color: #3e62f5;
-			}
-
 			&:focus {
 				outline: none;
-				border-color: #3e62f5;
-				box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.1);
+				border: none;
 			}
 		}
 
 		.directorist-conditional-logic-builder__operator-select {
-			flex: 0 0 auto;
-			min-width: 140px;
-			padding: 8px 12px;
-			font-size: 13px;
-			color: #141921;
-			background-color: #ffffff;
-			border: 1px solid #d2d6db;
-			border-radius: 6px;
+			flex: 1;
+			border: none;
 			transition: all 0.3s ease;
-
-			&:hover {
-				border-color: #3e62f5;
-			}
-
 			&:focus {
+				border: none;
 				outline: none;
-				border-color: #3e62f5;
-				box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.1);
 			}
 		}
 
 		.directorist-conditional-logic-builder__value {
 			flex: 1;
-			min-width: 120px;
-			padding: 8px 12px;
 			font-size: 13px;
 			color: #141921;
-			background-color: #ffffff;
-			border: 1px solid #d2d6db;
-			border-radius: 6px;
+			border: none;
 			transition: all 0.3s ease;
-
-			&:hover {
-				border-color: #3e62f5;
-			}
 
 			&:focus {
 				outline: none;
-				border-color: #3e62f5;
-				box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.1);
-			}
-		}
-
-		.directorist-conditional-logic-builder__operator {
-			min-width: 80px;
-			padding: 8px 12px;
-			font-size: 13px;
-			font-weight: 500;
-			color: #4d5761;
-			background-color: #ffffff;
-			border: 1px solid #d2d6db;
-			border-radius: 6px;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			order: -1; // Place before other elements
-
-			&:hover,
-			&:focus {
-				border-color: #3e62f5;
-				outline: none;
+				border: none;
 			}
 		}
 
@@ -7225,25 +7263,42 @@ input[type="radio"] {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 28px;
-			height: 28px;
+			width: 22px;
+			height: 22px;
 			padding: 0;
 			margin: 0;
 			border: none;
-			background-color: transparent;
-			color: #747c89;
+			background-color: #e62626;
+			color: #ffffff;
 			border-radius: 4px;
 			cursor: pointer;
 			transition: all 0.3s ease;
 			flex-shrink: 0;
+			border-radius: 50%;
 
-			&:hover {
-				background-color: #fee2e2;
-				color: #dc2626;
+			i {
+				font-size: 12px;
+				color: #ffffff;
 			}
 
-			.fa-times {
-				font-size: 14px;
+			&:hover:not(:disabled) {
+				background-color: #e62626;
+			}
+
+			&:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+				background-color: #e62626;
+			}
+
+			&:hover {
+				background-color: #dc2626;
+				color: #ffffff;
+			}
+
+			i {
+				font-size: 10px;
+				color: #ffffff;
 			}
 		}
 	}
@@ -7251,23 +7306,61 @@ input[type="radio"] {
 	&__group-footer {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
 		padding-top: 12px;
-		margin-top: 12px;
-		border-top: 1px solid #e5e7eb;
 		gap: 12px;
 
 		.cptm-btn {
-			margin-left: auto;
+			// "+ Add rule" button - dark background
+			background-color: #141921;
+			color: #ffffff;
+			border: 1px solid #141921;
+
+			&:hover {
+				background-color: #1f2937;
+				border-color: #1f2937;
+			}
+		}
+
+		&__remove-group {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 22px;
+			height: 22px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background-color: #e62626;
+			color: #ffffff;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			flex-shrink: 0;
+
+			i {
+				font-size: 12px;
+				color: #ffffff;
+			}
+
+			&:hover:not(:disabled) {
+				background-color: #e62626;
+			}
+
+			&:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+				background-color: #e62626;
+			}
 		}
 	}
 
 	&__footer {
 		display: flex;
 		align-items: center;
+		justify-content: flex-start;
 		margin-top: 16px;
-		padding-top: 16px;
-		border-top: 1px solid #e5e7eb;
+		gap: 12px;
 	}
 
 	.cptm-btn {
@@ -7278,15 +7371,58 @@ input[type="radio"] {
 		font-weight: 500;
 		border-radius: 6px;
 		transition: all 0.3s ease;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		border: 1px solid transparent;
+		cursor: pointer;
+		white-space: nowrap;
 
+		// "+ Add rule" button - dark background (default style in group-footer)
+		&:not(.cptm-btn-secondery) {
+			background-color: #141921;
+			color: #ffffff;
+			border-color: #141921;
+
+			&:hover {
+				background-color: #1f2937;
+				border-color: #1f2937;
+				color: #ffffff;
+			}
+
+			// Plus icon should be white
+			span,
+			i,
+			.fa {
+				color: #ffffff;
+			}
+		}
+
+		// "+ Add group" button - white with blue border
 		&.cptm-btn-secondery {
 			color: #3e62f5;
-			border-color: #3e62f5;
+			border: 1px solid #3e62f5;
 			background-color: #ffffff;
 
 			&:hover {
 				color: #ffffff;
 				background-color: #3e62f5;
+				border-color: #3e62f5;
+
+				// Plus icon should be white on hover
+				span,
+				i,
+				.fa {
+					color: #ffffff;
+				}
+			}
+
+			// Plus icon should match text color
+			span,
+			i,
+			.fa {
+				color: #3e62f5;
 			}
 		}
 	}

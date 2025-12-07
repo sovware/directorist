@@ -1156,7 +1156,7 @@ class Builder_Data {
                         'fields' => [
                             'show_tagline' => [
                                 'type'  => 'toggle',
-                                'label' => __( 'Show Tagline', 'directorist' ),
+                                'label' => __( 'Tagline', 'directorist' ),
                                 'value' => false,
                             ],
                         ],
@@ -1550,9 +1550,9 @@ class Builder_Data {
                                 'label'   => __( 'Align', 'directorist' ),
                                 'value'   => 'left',
                                 'options' => [
-                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'value' => 'right'],
-                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'value' => 'center'],
-                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'value' => 'left'],
+                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'icon' => 'las la-align-right', 'value' => 'right'],
+                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'icon' => 'las la-align-center', 'value' => 'center'],
+                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'icon' => 'las la-align-left', 'value' => 'left'],
                                 ],
                             ],
                         ],
@@ -1887,7 +1887,7 @@ class Builder_Data {
         $listing_card_grid_view_without_thumbnail_layout = [
             'body'   => [
                 'avatar'        => [
-                    'label'             => __( 'Add Avatar', 'directorist' ),
+                    'label'             => __( 'Avatar', 'directorist' ),
                     'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => [ 'user_avatar' ],
@@ -2441,12 +2441,12 @@ class Builder_Data {
                                         'fields' => [
                                             'enable_title' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Title", "directorist" ),
+                                                'label' => __( "Title", "directorist" ),
                                                 'value' => true,
                                             ],
                                             'enable_tagline' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Tagline", "directorist" ),
+                                                'label' => __( "Tagline", "directorist" ),
                                                 'value' => true,
                                             ],
                                         ],
@@ -2488,7 +2488,7 @@ class Builder_Data {
                                     'fields' => [
                                         'enable_tagline' => [
                                             'type' => "toggle",
-                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'label' => __( "Tagline", "directorist" ),
                                             'value' => true,
                                         ],
                                     ],
@@ -2608,8 +2608,7 @@ class Builder_Data {
                             'category' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Category", "directorist" ),
-                                'icon' => 'las la-folder-open
-',
+                                'icon' => 'las la-folder-open',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [
@@ -2642,6 +2641,7 @@ class Builder_Data {
                                         'maxWidget'         => 1,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => ['back'],
+                                        'selectedWidgetList'   => ['back'],
                                     ],
                                     [
                                         'type'              => 'placeholder_item',
@@ -2650,6 +2650,7 @@ class Builder_Data {
                                         'maxWidget'         => 0,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => [ 'bookmark', 'share', 'report' ],
+                                        'selectedWidgetList'   => ['bookmark', 'share'],
                                     ],
                                 ],
                             ],
@@ -2660,6 +2661,7 @@ class Builder_Data {
                                 'maxWidget'         => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => ['title'],
+                                'selectedWidgetList'   => ['title'],
                             ],
                             [
                                 'type'              => 'placeholder_item',
@@ -2668,13 +2670,16 @@ class Builder_Data {
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
+                                'selectedWidgetList'   => ['price', 'ratings_count'],
                             ],
                             [
                                 'type'            => 'placeholder_item',
-                                'label'           => 'Image/Slider',
                                 'placeholderKey'  => 'slider-placeholder',
-                                'acceptedWidgets' => ['slider'],
+                                'label'           => 'Image/Slider',
                                 'maxWidget'       => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => ['slider'],
+                                'selectedWidgetList'   => ['slider'],
                             ],
                         ],
                     ] 

@@ -928,7 +928,7 @@ class Users_Controller extends Abstract_Controller {
                             'context'     => array( 'view', 'edit' ),
                         ),
                         'twitter' => array(
-                            'description' => __( 'Twitter profile link.', 'directorist' ),
+                            'description' => __( 'X profile link.', 'directorist' ),
                             'type'        => 'string',
                             'format'      => 'uri',
                             'context'     => array( 'view', 'edit' ),

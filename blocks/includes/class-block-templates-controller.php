@@ -90,7 +90,7 @@ class Block_Templates_Controller {
         // Check if the theme has a saved version of this template before falling back to the directorist one. Please note how
         // the slug has not been modified at this point, we're still using the default one passed to this hook.
         $maybe_template = function_exists( 'gutenberg_get_block_template' ) ?
-            gutenberg_get_block_template( $id, $template_type ) :
+            gutenberg_get_block_template( null, $id, $template_type ) :
             get_block_template( $id, $template_type );
 
         if ( null !== $maybe_template ) {
@@ -102,7 +102,7 @@ class Block_Templates_Controller {
         // been unhooked so won't run again.
         add_filter( 'get_block_file_template', [ $this, 'get_single_block_template' ], 10, 3 );
         $maybe_template = function_exists( 'gutenberg_get_block_template' ) ?
-            gutenberg_get_block_template( Block_Template_Utils::PLUGIN_SLUG . '//' . $slug, $template_type ) :
+            gutenberg_get_block_template( null, Block_Template_Utils::PLUGIN_SLUG . '//' . $slug, $template_type ) :
             get_block_template( Block_Template_Utils::PLUGIN_SLUG . '//' . $slug, $template_type );
 
         // Re-hook this function, it was only unhooked to stop recursion.

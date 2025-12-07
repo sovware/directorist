@@ -117,6 +117,7 @@
                 :is-enabled-group-dragging="isEnabledGroupDragging"
                 :expanded-group-key="expandedGroupKey"
                 :expanded-group-fields-key="expandedGroupFieldsKey"
+                :auto-edit-label="newlyCreatedGroupKey === widget_group_key"
                 @update-group-field="updateGroupField(widget_group_key, $event)"
                 @update-widget-field="updateWidgetField"
                 @trash-widget="trashWidget(widget_group_key, $event)"
@@ -593,6 +594,8 @@ export default {
 
       expandedGroupKey: null, // Track which group is currently expanded
       expandedGroupFieldsKey: null, // Track which group has its fields/config expanded
+
+      newlyCreatedGroupKey: null, // Track newly created group to auto-edit its label
 
       listing_type_id: null,
 
@@ -1154,6 +1157,17 @@ export default {
 
       let dest_index = this.active_widget_groups.length;
       this.active_widget_groups.splice(dest_index, 0, group);
+
+      // Set the newly created group key to trigger auto-edit
+      this.newlyCreatedGroupKey = dest_index;
+
+      // Clear the flag after Vue renders the component
+      this.$nextTick(() => {
+        // Use setTimeout to ensure the component is fully mounted
+        setTimeout(() => {
+          this.newlyCreatedGroupKey = null;
+        }, 100);
+      });
 
       this.$emit("updated-state");
     },

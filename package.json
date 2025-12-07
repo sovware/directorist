@@ -11,10 +11,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{css,scss,js}": [
-      "yarn format",
-      "git add"
-    ],
+    "*.{css,scss,js}": [],
     "*.php": [
       "composer format"
     ]
@@ -33,7 +30,6 @@
     "@wordpress/dom-ready": "^4.31.0",
     "@wordpress/element": "^6.29.0",
     "@wordpress/hooks": "^4.31.0",
-    "@wpmvc/components": "^0.0.23",
     "axios": "^0.21.1",
     "dom-scroll-into-view": "^2.0.1",
     "husky": "^9.1.7",

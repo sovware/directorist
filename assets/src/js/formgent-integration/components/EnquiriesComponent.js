@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -75,9 +76,9 @@ const EnquiriesComponent = ({ data = {} }) => {
 	return (
 		<EnquiriesComponentStyle className="directorist-enquiries-container">
 			<div className="directorist-enquiries-header">
-				<h1 className="directorist-enquiries-title">My Enquiries</h1>
+				<h1 className="directorist-enquiries-title">{__('My Enquiries', 'directorist')}</h1>
 				<p className="directorist-enquiries-description">
-					Track and manage all your incoming messages
+					{__('Track and manage all your incoming messages', 'directorist')}
 				</p>
 			</div>
 
@@ -100,7 +101,7 @@ const EnquiriesComponent = ({ data = {} }) => {
 
 			<div className="directorist-enquiries-table">
 				<Tables
-					items={responses?.responses}
+					items={Array.isArray(responses) ? responses : responses?.responses || []}
 					handleTableRefresh={handleRefresh}
 				/>
 			</div>

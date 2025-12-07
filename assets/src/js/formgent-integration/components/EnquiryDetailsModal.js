@@ -3,6 +3,7 @@
  */
 import { Modal } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 /**
  * External dependencies
@@ -118,7 +119,7 @@ export default function EnquiryDetailsModal({
 			<EnquiryDetailsModalStyle className="directorist-enquiry-modal-content">
 				{loading && (
 					<div className="directorist-loading">
-						<p>Loading enquiry details...</p>
+						<p>{__('Loading enquiry details...', 'directorist')}</p>
 					</div>
 				)}
 
@@ -167,22 +168,20 @@ export default function EnquiryDetailsModal({
 								</div>
 							</div>
 							<div className="directorist-enquiry-listing">
-								<h3>Regarding Listing</h3>
+								<h3>{__('Regarding Listing', 'directorist')}</h3>
 								<a
 									href="#"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									{matchedEnquiry?.listing_title ||
-										'Unknown Listing'}
+										__('Unknown Listing', 'directorist')}
 								</a>
 							</div>
 						</div>
 
 						<div className="directorist-answers-section">
-							{/* {
-								singleItem.response.answers.ma
-							} */}
+							
 							{singleItem?.response?.answers.map(
 								(answer, index) => {
 									return (
@@ -211,7 +210,7 @@ export default function EnquiryDetailsModal({
 								}
 							>
 								<Reply />
-								Send Email
+								{__('Send Email', 'directorist')}
 							</button>
 							<button
 								className={`directorist-enquiry-modal-btn directorist-enquiry-modal-btn-resolved ${singleItem?.response?.is_read === '1' ? 'directorist-btn-disabled' : ''}`}
@@ -220,8 +219,8 @@ export default function EnquiryDetailsModal({
 							>
 								<Check />
 								{singleItem?.response?.is_read === '1'
-									? 'Marked as read'
-									: 'Mark as read'}
+									? __('Marked as read', 'directorist')
+									: __('Mark as read', 'directorist')}
 							</button>
 							<button
 								className="directorist-enquiry-modal-btn directorist-enquiry-modal-btn-delete"
@@ -231,7 +230,7 @@ export default function EnquiryDetailsModal({
 								}}
 							>
 								<Trash />
-								Delete
+								{__('Delete', 'directorist')}
 							</button>
 						</div>
 					</>

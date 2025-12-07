@@ -108,6 +108,12 @@ const EnquiriesComponentStyle = styled.div`
 		border-radius: 12px;
 		border: 1px solid #e5e7eb;
 		margin-top: 30px;
+		.components-input-control__container{
+			background-color: #f0f0f0;
+		}
+		.components-input-control__backdrop{
+			border-color: transparent !important;
+		}
 		.dataviews-view-table {
 			tbody {
 				td {

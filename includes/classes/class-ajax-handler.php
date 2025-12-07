@@ -373,6 +373,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         // handle_prepare_listings_export_file_request
         public function handle_prepare_listings_export_file_request() {
 
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error(
+                    [
+                        'message' => __( 'You are not allowed to export listings.', 'directorist' ),
+                    ],
+                    403
+                );
+            }
+
             if ( ! directorist_verify_nonce() ) {
                 $data['success'] = false;
                 $data['message'] = __( 'Something is wrong! Please refresh and retry.', 'directorist' );
@@ -606,6 +615,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function directorist_type_slug_change() {
+
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error(
+                    [
+                        'error' => __( 'You are not allowed to modify directory slugs.', 'directorist' ),
+                    ],
+                    403
+                );
+            }
 
             if ( ! directorist_verify_nonce() ) {
                 wp_send_json(

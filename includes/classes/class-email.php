@@ -736,16 +736,10 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            $user = $this->get_owner( $listing_id );
+            $user    = $this->get_owner( $listing_id );
             $subject = $this->replace_in_content( get_directorist_option( 'email_sub_edit_listing' ), null, $listing_id, $user );
-            $to = $user->user_email;
-            $directory_type = directorist_get_listing_directory( $listing_id );
-            $edited_status  = directorist_get_listing_edit_status( $directory_type );
-            if ( 'publish' === $edited_status ) {
-                $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );
-            } else {
-                $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_new_listing' ), null, $listing_id, $user );
-            }
+            $to      = $user->user_email;
+            $body    = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );
             $message = atbdp_email_html( $subject, $body );
             $headers = $this->get_email_headers();
 

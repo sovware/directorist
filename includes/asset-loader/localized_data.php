@@ -235,8 +235,8 @@ class Localized_Data {
             'filterByGroupInputLabel'      => __( 'Filter By Icon Pack', 'directorist' ),
             'doneButtonLabel'              => __( 'Done', 'directorist' ),
             'iconGroupLabels'              => [
-                'fontAwesome' => __( 'Font Awesome', 'directorist' ),
                 'lineAwesome' => __( 'Line Awesome', 'directorist' ),
+                'fontAwesome' => __( 'Font Awesome', 'directorist' ),
             ],
         ];
 

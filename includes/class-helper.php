@@ -254,7 +254,7 @@ class Helper {
     public static function socials() {
         $socials = [
             'facebook'       => __( 'Facebook', 'directorist' ),
-            'twitter'        => __( 'Twitter', 'directorist' ),
+            'twitter'        => __( 'X', 'directorist' ),
             'linkedin'       => __( 'LinkedIn', 'directorist' ),
             'pinterest'      => __( 'Pinterest', 'directorist' ),
             'instagram'      => __( 'Instagram', 'directorist' ),

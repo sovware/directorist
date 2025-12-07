@@ -505,9 +505,9 @@ class Directorist_Single_Listing {
                 'link'  => "https://www.facebook.com/share.php?u={$link}&title={$title}",
             ],
             'twitter' => [
-                'title' => __( 'Twitter', 'directorist' ),
+                'title' => __( 'X', 'directorist' ),
                 'icon'  => 'lab la-twitter',
-                'link'  => 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
+                'link'  => 'https://x.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
             ],
             'linkedin' => [
                 'title' => __( 'LinkedIn', 'directorist' ),

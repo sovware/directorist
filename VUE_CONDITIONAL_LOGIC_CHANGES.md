@@ -27,7 +27,7 @@ This document explains all Vue.js-related changes made during the Conditional Lo
 
 ## 🔧 What Changed and Why
 
-### Change #1: Group Logic Updated (OR between groups)
+### Change #1: Group Logic Updated (globalOperator support)
 
 **File:** `assets/src/js/admin/vue/mixins/helpers.js`
 
@@ -46,11 +46,19 @@ let result =
 #### After:
 
 ```javascript
-// Groups are combined with OR logic (correct)
-let result =
-  groupResults.length > 0
-    ? groupResults.some((result) => result === true) // ✅ ANY group can match
-    : true;
+// Groups are combined with globalOperator (AND/OR)
+const globalOperator = (conditionalLogic.globalOperator || "OR")
+  .toString()
+  .trim()
+  .toUpperCase();
+let result = true;
+if (groupResults.length > 0) {
+  if (globalOperator === "AND") {
+    result = groupResults.every((groupRes) => groupRes === true); // ALL groups
+  } else {
+    result = groupResults.some((groupRes) => groupRes === true); // ANY group
+  }
+}
 ```
 
 #### Why This Change?
@@ -58,7 +66,8 @@ let result =
 **Problem:**
 
 - Previously, if you had multiple condition groups, **ALL** groups had to match for the field to show
-- This was incorrect behavior - users expected **ANY** group to match (OR logic)
+- This was incorrect behavior - users expected **ANY** group to match (OR logic) by default
+- Users also needed the ability to use AND logic between groups when needed
 
 **Example of the Issue:**
 
@@ -67,12 +76,16 @@ Group 1: Category = "Restaurant"
 Group 2: Category = "Cafe"
 
 Old behavior: Field shows ONLY if BOTH Restaurant AND Cafe (impossible!)
-New behavior: Field shows if Restaurant OR Cafe ✅
+New behavior (OR): Field shows if Restaurant OR Cafe ✅
+New behavior (AND): Field shows if Restaurant AND Cafe (if globalOperator = AND)
 ```
 
 **Solution:**
 
-- Changed from `.every()` (AND) to `.some()` (OR)
+- Added `globalOperator` field to control logic between groups
+- Defaults to OR (`.some()`) for backward compatibility
+- Supports AND (`.every()`) when explicitly set
+- Operators are normalized (case-insensitive, handles empty values)
 - Now matches the frontend behavior
 - Aligns with user expectations and common form builder patterns
 
@@ -122,10 +135,17 @@ evaluateConditionalLogic(conditionalLogic, rootFields) {
         groupResults.push(groupResult);
     }
 
-    // Step 4: Combine groups with OR logic (CHANGED HERE)
-    let result = groupResults.length > 0
-        ? groupResults.some((result) => result === true)  // ✅ ANY group matches
-        : true;
+    // Step 4: Combine groups with globalOperator (AND/OR)
+    const globalOperator = (conditionalLogic.globalOperator || 'OR')
+      .toString().trim().toUpperCase();
+    let result = true;
+    if (groupResults.length > 0) {
+      if (globalOperator === 'AND') {
+        result = groupResults.every((groupRes) => groupRes === true); // ALL groups
+      } else {
+        result = groupResults.some((groupRes) => groupRes === true); // ANY group
+      }
+    }
 
     // Step 5: Apply show/hide action
     if (conditionalLogic.action === 'hide') {
@@ -137,9 +157,10 @@ evaluateConditionalLogic(conditionalLogic, rootFields) {
 
 **Key Points:**
 
-- **Groups use OR:** If ANY group matches → field shows/hides
-- **Conditions in group:** Use AND/OR based on `group.operator`
+- **Groups use globalOperator:** Defaults to OR (ANY group matches), can be AND (ALL groups match)
+- **Conditions in group:** Use AND/OR based on `group.operator` (normalized to uppercase)
 - **Action:** `show` or `hide` determines final result
+- **Operators normalized:** Case-insensitive, handles empty values gracefully
 
 ---
 
@@ -305,20 +326,28 @@ isEmpty(["item"]); // false
 localValue: {
     enabled: false,        // Enable/disable conditional logic
     action: 'show',        // 'show' or 'hide'
+    globalOperator: 'OR',  // 'AND' or 'OR' - how to combine groups (defaults to OR)
     groups: [              // Array of condition groups
         {
-            operator: 'AND',  // 'AND' or 'OR' within group
+            operator: 'AND',  // 'AND' or 'OR' within group (normalized to uppercase)
             conditions: [
                 {
-                    field: '',      // Field key
-                    operator: 'is', // Operator
+                    field: '',      // Field key (widget_key like 'title' auto-maps to 'listing_title')
+                    operator: 'is', // Operator (normalized to lowercase)
                     value: ''       // Value to compare
                 }
-            ]
+            ],
+            isGroup: false  // UI flag: true for groups, false for single rules
         }
     ]
 }
 ```
+
+**Key Features:**
+
+- `currentFieldKeyForExclusion`: Stores the current field key to exclude it from available fields dropdown
+- `filteredAvailableFields`: Computed property that filters out the current field and skip keys
+- Field key detection: Automatically finds the current field key from Vue component tree
 
 ---
 
@@ -349,14 +378,16 @@ localValue: {
 
 ## 📊 Comparison: Admin vs Frontend
 
-| Aspect            | Admin (Vue.js)               | Frontend (JavaScript)        |
-| ----------------- | ---------------------------- | ---------------------------- |
-| **Purpose**       | Configure rules              | Execute rules                |
-| **Context**       | Form builder preview         | User-facing form             |
-| **Data Source**   | `rootFields` object          | DOM form fields              |
-| **Evaluation**    | `evaluateConditionalLogic()` | `evaluateConditionalLogic()` |
-| **Group Logic**   | OR (`.some()`)               | OR (`.some()`) ✅            |
-| **File Location** | `helpers.js`                 | `conditional-logic.js`       |
+| Aspect            | Admin (Vue.js)               | Frontend (JavaScript)           |
+| ----------------- | ---------------------------- | ------------------------------- |
+| **Purpose**       | Configure rules              | Execute rules                   |
+| **Context**       | Form builder preview         | User-facing form                |
+| **Data Source**   | `rootFields` object          | DOM form fields                 |
+| **Evaluation**    | `evaluateConditionalLogic()` | `evaluateConditionalLogic()`    |
+| **Group Logic**   | globalOperator (defaults OR) | globalOperator (defaults OR) ✅ |
+| **Operator Norm** | Normalized (uppercase)       | Normalized (uppercase)          |
+| **Field Mapping** | Widget key used directly     | Widget key → field_key mapped   |
+| **File Location** | `helpers.js`                 | `conditional-logic.js`          |
 
 **Key Difference:**
 
@@ -365,9 +396,17 @@ localValue: {
 
 **Same Logic:**
 
-- Both use OR logic between groups
-- Both support same operators
+- Both use globalOperator (defaults to OR) between groups
+- Both support same operators (normalized)
 - Both handle arrays the same way
+- Both normalize operators (case-insensitive)
+
+**Key Differences:**
+
+- **Admin:** Uses widget_key directly (e.g., `title`, `description`)
+- **Frontend:** Maps widget_key to field_key (e.g., `title` → `listing_title`)
+- **Admin:** Current field is excluded from available fields dropdown
+- **Frontend:** Handles TinyMCE editors, HTML entity decoding
 
 ---
 
@@ -500,15 +539,21 @@ console.log("Result:", result);
 
 ### Changed Files:
 
-1. **`helpers.js`** - Line 606-609
+1. **`helpers.js`** - `evaluateConditionalLogic()` method
+   - Added `globalOperator` support (defaults to OR)
+   - Added operator normalization (case-insensitive)
+   - Changed from hardcoded AND to dynamic globalOperator
 
-   ```javascript
-   // Changed from:
-   groupResults.every((result) => result === true); // AND
+2. **`conditional-logic-field.js`** - Mixin for conditional logic builder
+   - Added `currentFieldKeyForExclusion` to store current field key
+   - Added `findCurrentFieldKey()` to detect current field from component tree
+   - Added `storeCurrentFieldKey()` to store field key when conditional logic enabled
+   - Modified `removeCondition()` to preserve group status
 
-   // To:
-   groupResults.some((result) => result === true); // OR
-   ```
+3. **`Conditional_Logic_Field_Theme_Default.vue`** - UI component
+   - Added `filteredAvailableFields` computed property
+   - Filters out current field from available fields dropdown
+   - Filters out skip keys (logic, conditional_logic, etc.)
 
 ### Unchanged Files (but important):
 
@@ -578,6 +623,35 @@ console.log("Result:", result);
 
 ---
 
-**Last Updated:** [Current Date]
-**Changed By:** [Development Team]
+---
 
+## 🔄 Recent Updates
+
+### Global Operator Support
+
+- Added `globalOperator` field to control logic between top-level groups
+- Supports AND (all groups must match) and OR (any group matches)
+- Defaults to OR for backward compatibility
+
+### Current Field Exclusion
+
+- Current field is automatically excluded from available fields dropdown
+- Uses `currentFieldKeyForExclusion` stored when conditional logic is enabled
+- Filters out skip keys (logic, conditional_logic, etc.)
+
+### Operator Normalization
+
+- Operators are normalized to uppercase (case-insensitive)
+- Handles empty/null values gracefully
+- Applied to both group operators and globalOperator
+
+### Field Key Detection
+
+- Automatically detects current field key from Vue component tree
+- Checks multiple sources: `fieldId`, `widget` prop, `activeWidget`
+- Validates against `availableFields` before storing
+
+---
+
+**Last Updated:** December 2024
+**Changed By:** Development Team

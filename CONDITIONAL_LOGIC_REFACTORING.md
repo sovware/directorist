@@ -127,8 +127,9 @@ evaluateConditionalLogic(conditionalLogic, getFieldValueFn);
 ```
 
 - Evaluates all condition groups
-- Groups are combined with **OR** logic (if ANY group matches, show field)
-- Conditions within a group use **AND/OR** based on group operator
+- Groups are combined with **globalOperator** (AND/OR) - defaults to OR if not specified
+- Conditions within a group use **AND/OR** based on `group.operator`
+- Operators are normalized (case-insensitive, handles empty values)
 - Returns true/false (should field be shown?)
 
 #### 4. **Apply Conditional Logic**
@@ -139,7 +140,8 @@ applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $);
 
 - Shows or hides a field based on evaluation result
 - Enables/disables form inputs
-- Handles TinyMCE editors
+- Handles TinyMCE editors (wp_editor)
+- Decodes HTML entities from data attributes before parsing JSON
 
 ### How to Use (For Frontend Devs)
 
@@ -179,6 +181,8 @@ function mapFieldKeyToSelector(fieldKey) {
 }
 ```
 
+**Important:** If your field uses a different `widget_key` vs `field_key` (like `title` → `listing_title`), add mapping in `widgetKeyToFieldKeyMap` within `getFieldValue()` and `watchFieldChanges()`.
+
 #### Debugging
 
 **Error Handling:**
@@ -190,12 +194,20 @@ function mapFieldKeyToSelector(fieldKey) {
 
 1. **Field not showing/hiding:**
    - Check `data-conditional-logic` attribute exists
-   - Verify JSON is valid
+   - Verify JSON is valid (check for HTML entity encoding issues)
    - Check field key matches condition field name
+   - Verify operator is normalized correctly (case-insensitive)
 
 2. **Field value not detected:**
    - Check field selector in `mapFieldKeyToSelector()`
    - Verify field name/id matches
+   - For TinyMCE editors, ensure editor is initialized
+   - Check widget_key to field_key mapping if using preset fields
+
+3. **TinyMCE editor not triggering:**
+   - Verify editor is within `.directorist-form-group`
+   - Check editor ID matches field name/id
+   - Ensure TinyMCE is loaded before conditional logic initialization
 
 ### Code Examples
 
@@ -378,14 +390,20 @@ Supported operators for conditions:
 
 ### Group Logic
 
-**Groups are combined with OR:**
+**Groups are combined with `globalOperator` (defaults to OR):**
 
-- If **ANY** group's conditions match → field is shown/hidden
+- `globalOperator: "OR"` → If **ANY** group's conditions match → field is shown/hidden
+- `globalOperator: "AND"` → If **ALL** groups' conditions match → field is shown/hidden
 
 **Conditions within a group:**
 
-- Use `operator: "AND"` → **ALL** conditions must match
-- Use `operator: "OR"` → **ANY** condition must match
+- Use `group.operator: "AND"` → **ALL** conditions must match
+- Use `group.operator: "OR"` → **ANY** condition must match
+
+**Operator Normalization:**
+
+- Operators are normalized to uppercase (case-insensitive)
+- Empty/null operators default to appropriate values (AND for groups, OR for globalOperator)
 
 **Example:**
 
@@ -393,10 +411,11 @@ Supported operators for conditions:
 $conditional_logic = [
     'enabled' => true,
     'action' => 'show',
+    'globalOperator' => 'OR',  // Combine groups with OR (default)
     'groups' => [
         // Group 1: Show if category is Restaurant AND type is Fine Dining
         [
-            'operator' => 'AND',
+            'operator' => 'AND',  // Within group: ALL conditions must match
             'conditions' => [
                 ['field' => 'category', 'operator' => 'is', 'value' => 'Restaurant'],
                 ['field' => 'type', 'operator' => 'is', 'value' => 'Fine Dining']
@@ -412,6 +431,33 @@ $conditional_logic = [
     ]
 ];
 // Result: Field shows if (Restaurant AND Fine Dining) OR (Cafe)
+//        = Group 1 OR Group 2 (because globalOperator is OR)
+```
+
+**With AND globalOperator:**
+
+```php
+$conditional_logic = [
+    'enabled' => true,
+    'action' => 'show',
+    'globalOperator' => 'AND',  // ALL groups must match
+    'groups' => [
+        [
+            'operator' => 'AND',
+            'conditions' => [
+                ['field' => 'category', 'operator' => 'is', 'value' => 'Restaurant']
+            ]
+        ],
+        [
+            'operator' => 'OR',
+            'conditions' => [
+                ['field' => 'price', 'operator' => 'greater than', 'value' => '100'],
+                ['field' => 'rating', 'operator' => 'greater than', 'value' => '4']
+            ]
+        ]
+    ]
+];
+// Result: Field shows if (category = Restaurant) AND (price > 100 OR rating > 4)
 ```
 
 ### Common Backend Tasks
@@ -543,15 +589,24 @@ if (fieldKey === "my_field_type") {
 ### For Everyone
 
 1. **Conditional logic is automatic** - Once data attributes are set, frontend handles everything
-2. **Groups use OR logic** - If ANY group matches, field is shown/hidden
+2. **Groups use globalOperator** - Defaults to OR (ANY group matches), but can be AND (ALL groups match)
 3. **Field keys must match** - The `field` in conditions must match the `data-field-key` attribute
-4. **JSON must be valid** - Invalid JSON will cause errors
+   - **Note:** Widget keys (e.g., `title`, `description`) are automatically mapped to field keys (`listing_title`, `listing_content`)
+4. **JSON must be valid** - Invalid JSON will cause errors (HTML entities are automatically decoded)
+5. **Operators are normalized** - Case-insensitive, handles empty values gracefully
+6. **TinyMCE support** - Works with both textarea and wp_editor (TinyMCE) fields
 
 ### For Frontend Devs
 
 1. **Module is reusable** - Can import `conditional-logic.js` in other files if needed
 2. **Functions are pure** - No jQuery dependency in the module itself
 3. **Error handling** - All errors are logged with console.error
+4. **TinyMCE integration** - Automatically detects and listens to TinyMCE editor changes
+5. **Field key mapping** - Handles widget_key → field_key mapping automatically (title → listing_title, description → listing_content)
+6. **HTML entity decoding** - Automatically decodes HTML entities from data attributes before JSON parsing
+7. **TinyMCE integration** - Automatically detects and listens to TinyMCE editor changes
+8. **Field key mapping** - Handles widget_key → field_key mapping automatically (title → listing_title, description → listing_content)
+9. **HTML entity decoding** - Automatically decodes HTML entities from data attributes before JSON parsing
 
 ### For Backend Devs
 
@@ -572,6 +627,9 @@ if (fieldKey === "my_field_type") {
 ### PHP Files
 
 - **Helper function:** `includes/model/ListingForm.php` (method: `get_conditional_logic_attributes()`)
+  - Normalizes operators (converts to uppercase)
+  - Normalizes `enabled` flag (handles string "1", boolean true, etc.)
+  - Filters invalid groups/conditions
 - **Field templates:** `templates/listing-form/fields/` (preset fields)
 - **Custom field templates:** `templates/listing-form/custom-fields/` (custom fields)
 
@@ -591,6 +649,8 @@ if (fieldKey === "my_field_type") {
 - [ ] Field key is mapped in `mapFieldKeyToSelector()` (if needed)
 - [ ] Field value can be retrieved by `getFieldValue()`
 - [ ] Field selector matches actual HTML field name/id
+- [ ] For TinyMCE fields, editor is properly initialized
+- [ ] Widget key to field key mapping added (if using preset fields like title/description)
 
 ---
 
@@ -605,6 +665,42 @@ If you encounter issues:
 
 ---
 
-**Last Updated:** [Current Date]
-**Refactored By:** [Development Team]
+---
 
+## 🔄 Recent Updates
+
+### TinyMCE Editor Support
+
+- Added support for WordPress wp_editor (TinyMCE) fields
+- Automatically detects and listens to TinyMCE editor changes
+- Works with both textarea and wp_editor field types
+- Handles editor initialization timing issues
+
+### Field Key Mapping
+
+- Automatic mapping of widget_key to field_key:
+  - `title` → `listing_title`
+  - `description` → `listing_content`
+- Applied in both `getFieldValue()` and `watchFieldChanges()`
+
+### Operator Normalization
+
+- Operators are normalized to uppercase (case-insensitive)
+- Handles empty/null values gracefully
+- Defaults: AND for group operators, OR for globalOperator
+
+### Global Operator Support
+
+- Added `globalOperator` field to control logic between top-level groups
+- Supports AND (all groups must match) and OR (any group matches)
+- Defaults to OR for backward compatibility
+
+### HTML Entity Decoding
+
+- Automatically decodes HTML entities from data attributes
+- Prevents JSON parsing errors from encoded quotes (`&quot;`)
+
+---
+
+**Last Updated:** December 2024
+**Refactored By:** Development Team

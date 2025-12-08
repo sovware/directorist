@@ -41,12 +41,13 @@ $conditional_logic_attr = $listing_form->get_conditional_logic_attributes($data)
 $conditional_logic = [
     'enabled' => true,              // Must be true
     'action'  => 'show',            // 'show' or 'hide'
+    'globalOperator' => 'OR',      // 'AND' or 'OR' - how to combine groups (defaults to OR)
     'groups'  => [
         [
-            'operator'   => 'AND',  // 'AND' or 'OR'
+            'operator'   => 'AND',  // 'AND' or 'OR' - how to combine conditions within group
             'conditions' => [
                 [
-                    'field'    => 'category',     // Field key
+                    'field'    => 'category',     // Field key (widget_key like 'title' auto-maps to 'listing_title')
                     'operator' => 'is',           // See operators below
                     'value'    => 'Restaurant'    // Value to compare
                 ]
@@ -79,23 +80,36 @@ $conditional_logic = [
 
 ## 🎨 Logic Rules
 
-### Groups = OR Logic
+### Groups = globalOperator Logic
 
-If **ANY** group matches → field shows/hides
+- **OR** (default): If **ANY** group matches → field shows/hides
+- **AND**: If **ALL** groups match → field shows/hides
 
 ### Conditions in Group
 
 - **AND** = ALL conditions must match
 - **OR** = ANY condition must match
 
-### Example:
+### Example (OR between groups):
 
 ```
 Group 1: (Category = Restaurant AND Type = Fine Dining)
 Group 2: (Category = Cafe)
+globalOperator: OR
 
 Result: Show field if Group 1 OR Group 2 matches
         = (Restaurant AND Fine Dining) OR (Cafe)
+```
+
+### Example (AND between groups):
+
+```
+Group 1: (Category = Restaurant)
+Group 2: (Price > 100 OR Rating > 4)
+globalOperator: AND
+
+Result: Show field if Group 1 AND Group 2 match
+        = (Restaurant) AND (Price > 100 OR Rating > 4)
 ```
 
 ---
@@ -236,13 +250,16 @@ Result: Show field if Group 1 OR Group 2 matches
 
 ## 🐛 Troubleshooting
 
-| Problem                  | Solution                          |
-| ------------------------ | --------------------------------- |
-| Field not showing/hiding | Check `enabled: true`             |
-| Field always hidden      | Check condition field key matches |
-| Condition not working    | Verify field value format matches |
-| Invalid JSON error       | Check JSON structure is valid     |
-| Field not detected       | Add to `mapFieldKeyToSelector()`  |
+| Problem                  | Solution                                                   |
+| ------------------------ | ---------------------------------------------------------- |
+| Field not showing/hiding | Check `enabled: true`                                      |
+| Field always hidden      | Check condition field key matches                          |
+| Condition not working    | Verify field value format matches                          |
+| Invalid JSON error       | Check JSON structure is valid (HTML entities auto-decoded) |
+| Field not detected       | Add to `mapFieldKeyToSelector()`                           |
+| TinyMCE not triggering   | Ensure editor is within `.directorist-form-group`          |
+| Operator not working     | Operators are case-insensitive, check normalization        |
+| Widget key mismatch      | Use widget_key (e.g., `title`) - auto-maps to field_key    |
 
 ---
 
@@ -253,8 +270,10 @@ Result: Show field if Group 1 OR Group 2 matches
 3. **Use OR groups for flexibility:** Multiple ways to show field
 4. **Field keys are case-sensitive:** "Category" ≠ "category"
 5. **Empty values:** Use `empty` operator, not `is` with empty string
+6. **Widget keys auto-map:** `title` → `listing_title`, `description` → `listing_content`
+7. **Operators are case-insensitive:** "AND" = "and" = "And"
+8. **TinyMCE fields work:** Both textarea and wp_editor fields are supported
 
 ---
 
 **Need more details?** See `CONDITIONAL_LOGIC_REFACTORING.md`
-

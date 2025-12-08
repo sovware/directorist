@@ -3743,7 +3743,6 @@
 							) {
 								return [];
 							}
-							console.log(value);
 							return [];
 							// removed by dead control flow
 							var options_values;
@@ -27061,22 +27060,68 @@
 					__webpack_require__(
 						/*! @babel/runtime/helpers/toConsumableArray */ './node_modules/@babel/runtime/helpers/esm/toConsumableArray.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
+					);
+				/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/typeof */ './node_modules/@babel/runtime/helpers/esm/typeof.js'
 					);
-				/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
 						/*! vue-dndrop */ './node_modules/vue-dndrop/dist/vue-dndrop.esm.js'
 					);
+
+				function ownKeys(e, r) {
+					var t = Object.keys(e);
+					if (Object.getOwnPropertySymbols) {
+						var o = Object.getOwnPropertySymbols(e);
+						(r &&
+							(o = o.filter(function (r) {
+								return Object.getOwnPropertyDescriptor(e, r)
+									.enumerable;
+							})),
+							t.push.apply(t, o));
+					}
+					return t;
+				}
+				function _objectSpread(e) {
+					for (var r = 1; r < arguments.length; r++) {
+						var t = null != arguments[r] ? arguments[r] : {};
+						r % 2
+							? ownKeys(Object(t), !0).forEach(function (r) {
+									(0,
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__[
+										'default'
+									])(e, r, t[r]);
+								})
+							: Object.getOwnPropertyDescriptors
+								? Object.defineProperties(
+										e,
+										Object.getOwnPropertyDescriptors(t)
+									)
+								: ownKeys(Object(t)).forEach(function (r) {
+										Object.defineProperty(
+											e,
+											r,
+											Object.getOwnPropertyDescriptor(
+												t,
+												r
+											)
+										);
+									});
+					}
+					return e;
+				}
 
 				/* harmony default export */ __webpack_exports__['default'] = {
 					name: 'card-widget-placeholder',
 					components: {
 						Container:
-							vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Container,
+							vue_dndrop__WEBPACK_IMPORTED_MODULE_4__.Container,
 						Draggable:
-							vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Draggable,
+							vue_dndrop__WEBPACK_IMPORTED_MODULE_4__.Draggable,
 					},
 					data: function data() {
 						return {
@@ -27216,7 +27261,7 @@
 							} else if (
 								this.containerClass &&
 								(0,
-								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 									'default'
 								])(this.containerClass) === 'object' &&
 								!Array.isArray(this.containerClass)
@@ -27255,7 +27300,7 @@
 							return (
 								widget &&
 								(0,
-								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 									'default'
 								])(widget) === 'object' &&
 								typeof widget.type === 'string'
@@ -27292,7 +27337,7 @@
 								return false;
 							if (
 								(0,
-								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__[
+								_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__[
 									'default'
 								])(options) === 'object' &&
 								Object.keys(options).length === 0
@@ -27418,6 +27463,21 @@
 						 * Closes settings modal if open, then opens insert modal
 						 */
 						handleInsertClick: function handleInsertClick() {
+							// Special case for single accepted widget
+							if (this.acceptedWidgets.length === 1) {
+								this.selectedWidgets.push(
+									this.acceptedWidgets[0]
+								);
+								this.activeWidgets[this.acceptedWidgets[0]] =
+									_objectSpread(
+										{},
+										this.availableWidgets[
+											this.acceptedWidgets[0]
+										]
+									);
+								return;
+							}
+
 							// Close settings modal if it's open
 							if (this.showWidgetsOptionWindow) {
 								this.$emit('close-widgets-option-window');
@@ -30363,14 +30423,31 @@
 						activeWidgets: {
 							type: Object,
 						},
+						// Add selectedWidgets to check if widget is selected
+						selectedWidgets: {
+							type: Array,
+							default: function _default() {
+								return [];
+							},
+						},
+						// Add availableWidgets to access widget data
+						availableWidgets: {
+							type: Object,
+							default: function _default() {
+								return {};
+							},
+						},
 					},
 					data: function data() {
 						return {
 							localOptions: null,
+							showOptions: false,
+							isEnabled: true,
 						};
 					},
 					created: function created() {
 						this.init();
+						this.checkWidgetStatus();
 					},
 					watch: {
 						options: {
@@ -30380,6 +30457,12 @@
 										JSON.stringify(newOptions)
 									);
 								}
+							},
+							deep: true,
+						},
+						selectedWidgets: {
+							handler: function handler() {
+								this.checkWidgetStatus();
 							},
 							deep: true,
 						},
@@ -30418,6 +30501,27 @@
 							}
 							return this.localOptions.fields;
 						},
+						// Check if position/align field exists
+						hasPositionField: function hasPositionField() {
+							if (!this.isAvailableOptions) {
+								return false;
+							}
+							var fields = this.localOptions.fields;
+							return (
+								fields.position ||
+								fields.align ||
+								Object.keys(fields).some(function (key) {
+									return (
+										fields[key].label === 'Position' ||
+										fields[key].label === 'Align' ||
+										key
+											.toLowerCase()
+											.includes('position') ||
+										key.toLowerCase().includes('align')
+									);
+								})
+							);
+						},
 					},
 					methods: {
 						init: function init() {
@@ -30425,6 +30529,39 @@
 								this.localOptions = JSON.parse(
 									JSON.stringify(this.options)
 								);
+							}
+						},
+						// Check if widget is currently selected/enabled
+						checkWidgetStatus: function checkWidgetStatus() {
+							if (
+								this.selectedWidgets &&
+								Array.isArray(this.selectedWidgets)
+							) {
+								this.isEnabled = this.selectedWidgets.includes(
+									this.widgetKey
+								);
+							} else if (this.activeWidgets) {
+								this.isEnabled =
+									typeof this.activeWidgets[
+										this.widgetKey
+									] !== 'undefined';
+							}
+						},
+						// Toggle Options section visibility
+						toggleOptions: function toggleOptions() {
+							this.showOptions = !this.showOptions;
+						},
+						// Handle toggle change for enable/disable widget
+						handleToggleChange: function handleToggleChange() {
+							if (this.isEnabled) {
+								// Widget is enabled - add to selectedWidgets
+								this.$emit('insert-widget', {
+									key: this.widgetKey,
+									selected_widgets: [this.widgetKey],
+								});
+							} else {
+								// Widget is disabled - emit trash to remove
+								this.$emit('trash');
 							}
 						},
 						// Update field data when field value changes
@@ -33228,6 +33365,10 @@
 						expandedGroupFieldsKey: {
 							default: null,
 						},
+						autoEditLabel: {
+							default: false,
+							type: Boolean,
+						},
 					},
 					created: function created() {
 						this.setup();
@@ -33483,6 +33624,23 @@
 							}
 							return true;
 						},
+						handleGroupDragEnter: function handleGroupDragEnter(
+							event
+						) {
+							// Expand group when widget drag enters to make droppable area available
+							// Only expand if:
+							// 1. A widget is being dragged (from available_widgets or active_widgets)
+							// 2. The group can be expanded
+							// 3. The group is not already expanded
+							if (
+								this.currentDraggingWidget &&
+								this.canExpand &&
+								!this.widgetsExpanded
+							) {
+								this.widgetsExpanded = true;
+								this.$emit('group-expanded', this.groupKey);
+							}
+						},
 					},
 				};
 
@@ -33603,6 +33761,10 @@
 						expandedGroupFieldsKey: {
 							default: null,
 						},
+						autoEditLabel: {
+							default: false,
+							type: Boolean,
+						},
 					},
 					created: function created() {
 						this.setup();
@@ -33610,6 +33772,29 @@
 					watch: {
 						groupData: function groupData() {
 							this.setup();
+						},
+						autoEditLabel: function autoEditLabel(
+							newValue,
+							oldValue
+						) {
+							var _this = this;
+							// Watcher triggers when the prop changes (false -> true or true -> false)
+							// Only act when the value changes from false to true
+							// Note: This watcher won't trigger on initial mount if the prop is already true
+							// That's why we also check in the mounted() hook below
+							if (
+								newValue === true &&
+								oldValue === false &&
+								!this.getSearchGroup() &&
+								!this.isEditingLabel
+							) {
+								// Use $nextTick to ensure the component is fully rendered
+								this.$nextTick(function () {
+									if (!_this.isEditingLabel) {
+										_this.startEditingLabel();
+									}
+								});
+							}
 						},
 					},
 					computed: {
@@ -33627,6 +33812,34 @@
 								}
 								return state;
 							},
+						/**
+						 * Generate a unique key for field-list-component based on group data
+						 * This ensures the component re-renders when the label changes,
+						 * updating the input field with the new value.
+						 *
+						 * By including the label in the key, Vue will treat it as a new component
+						 * instance when the label changes, forcing a fresh render with updated values.
+						 *
+						 * @returns {string} Unique key combining groupKey and label
+						 */
+						fieldListComponentKey:
+							function fieldListComponentKey() {
+								var _this$groupData;
+								// Include label in the key so component re-renders when label changes
+								// This ensures the "Section Name" input field shows the updated label value
+								var label = this.getSearchGroup()
+									? this.getSearchLabelContent()
+									: ((_this$groupData = this.groupData) ===
+											null || _this$groupData === void 0
+											? void 0
+											: _this$groupData.label) || '';
+
+								// Use groupKey and label to create a unique key
+								// When label changes, the key changes, forcing Vue to re-render the component
+								return 'group_'
+									.concat(this.groupKey, '_label_')
+									.concat(label);
+							},
 					},
 					data: function data() {
 						return {
@@ -33635,13 +33848,34 @@
 							groupExpandedDropdown: false,
 							showConfirmationModal: false,
 							groupName: '',
+							// Editable Label Feature: State management
+							isEditingLabel: false,
+							// Tracks whether the label is currently being edited
+							editedLabelValue: '', // Stores the label value while editing (bound to input via v-model)
 						};
 					},
 					mounted: function mounted() {
+						var _this2 = this;
 						document.addEventListener(
 							'mousedown',
 							this.handleClickOutside
 						);
+
+						// Handle case where component mounts with autoEditLabel already true
+						// (Watcher won't trigger for initial prop value, only on changes)
+						// This happens when Vue creates the component AFTER newlyCreatedGroupKey is set
+						if (
+							this.autoEditLabel === true &&
+							!this.getSearchGroup() &&
+							!this.isEditingLabel
+						) {
+							// Use $nextTick to ensure everything is rendered before focusing
+							this.$nextTick(function () {
+								if (!_this2.isEditingLabel) {
+									_this2.startEditingLabel();
+								}
+							});
+						}
 					},
 					beforeDestroy: function beforeDestroy() {
 						document.removeEventListener(
@@ -33719,10 +33953,10 @@
 									!this.groupExpandedDropdown;
 							},
 						handleBlur: function handleBlur() {
-							var _this = this;
+							var _this3 = this;
 							setTimeout(function () {
-								if (!_this.isClickedInsideDropdown) {
-									_this.groupExpandedDropdown = false;
+								if (!_this3.isClickedInsideDropdown) {
+									_this3.groupExpandedDropdown = false;
 								}
 							}, 100); // Delay to ensure clicks inside dropdown content are not missed
 						},
@@ -33781,8 +34015,10 @@
 							if (
 								this.groupData.id === 'basic' ||
 								this.groupData.id === 'basic-search-form' ||
+								this.groupData.id === 'search-bar' ||
 								this.groupData.id === 'advanced' ||
-								this.groupData.id === 'advanced-search-form'
+								this.groupData.id === 'advanced-search-form' ||
+								this.groupData.id === 'search-filter'
 							) {
 								return true;
 							}
@@ -33792,14 +34028,16 @@
 							var groupIcon = '';
 							if (
 								this.groupData.id === 'basic' ||
-								this.groupData.id === 'basic-search-form'
+								this.groupData.id === 'basic-search-form' ||
+								this.groupData.id === 'search-bar'
 							) {
 								groupIcon =
 									'<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 17.5L13.875 13.875M9.16667 5C11.4679 5 13.3333 6.86548 13.3333 9.16667M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 							}
 							if (
 								this.groupData.id === 'advanced' ||
-								this.groupData.id === 'advanced-search-form'
+								this.groupData.id === 'advanced-search-form' ||
+								this.groupData.id === 'search-filter'
 							) {
 								groupIcon =
 									'<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.66602L12.5 6.66602M12.5 6.66602C12.5 8.04673 13.6193 9.16602 15 9.16602C16.3807 9.16602 17.5 8.04673 17.5 6.66602C17.5 5.2853 16.3807 4.16602 15 4.16602C13.6193 4.16602 12.5 5.2853 12.5 6.66602ZM7.5 13.3327L17.5 13.3327M7.5 13.3327C7.5 14.7134 6.38071 15.8327 5 15.8327C3.61929 15.8327 2.5 14.7134 2.5 13.3327C2.5 11.952 3.61929 10.8327 5 10.8327C6.38071 10.8327 7.5 11.952 7.5 13.3327Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -33811,18 +34049,186 @@
 								var groupLabel = '';
 								if (
 									this.groupData.id === 'basic' ||
-									this.groupData.id === 'basic-search-form'
+									this.groupData.id === 'basic-search-form' ||
+									this.groupData.id === 'search-bar'
 								) {
 									groupLabel = 'Search Bar';
 								}
 								if (
 									this.groupData.id === 'advanced' ||
-									this.groupData.id === 'advanced-search-form'
+									this.groupData.id ===
+										'advanced-search-form' ||
+									this.groupData.id === 'search-filter'
 								) {
 									groupLabel = 'Search Filter';
 								}
 								return groupLabel;
 							},
+						/**
+						 * Start editing the group label
+						 *
+						 * This method is triggered when the user clicks on the group label.
+						 * It switches from display mode to edit mode by:
+						 * 1. Checking if the group is editable (search groups are not editable)
+						 * 2. Setting isEditingLabel to true (which shows the input field)
+						 * 3. Extracting plain text from the label (handles HTML labels)
+						 * 4. Auto-focusing and selecting the input text for better UX
+						 *
+						 * @returns {void}
+						 */
+						startEditingLabel: function startEditingLabel() {
+							var _this4 = this;
+							// Don't allow editing for search groups (Search Bar, Search Filter)
+							// These have hardcoded labels that shouldn't be changed
+							if (this.getSearchGroup()) {
+								return;
+							}
+
+							// Enter edit mode - this will hide the label span and show the input
+							this.isEditingLabel = true;
+
+							// Extract plain text from label (in case it contains HTML)
+							// This ensures users edit the actual text content, not HTML tags
+							this.editedLabelValue = this.getPlainTextFromLabel(
+								this.groupData.label || ''
+							);
+
+							// Wait for Vue to render the input, then focus and select all text
+							// This provides better UX - user can immediately start typing to replace the label
+							this.$nextTick(function () {
+								if (_this4.$refs.labelInput) {
+									_this4.$refs.labelInput.focus();
+									_this4.$refs.labelInput.select();
+								}
+							});
+						},
+						/**
+						 * Extract plain text from a label that may contain HTML
+						 *
+						 * Since group labels can be rendered with v-html (allowing HTML content),
+						 * we need to extract just the text content when editing. This method:
+						 * 1. Validates the input is a string
+						 * 2. Creates a temporary DOM element
+						 * 3. Sets the HTML content and extracts the text
+						 * 4. Returns plain text without HTML tags
+						 *
+						 * Example:
+						 * Input:  "<strong>My Label</strong>"
+						 * Output: "My Label"
+						 *
+						 * @param {string} label - The label that may contain HTML
+						 * @returns {string} Plain text content without HTML tags
+						 */
+						getPlainTextFromLabel: function getPlainTextFromLabel(
+							label
+						) {
+							// Validate input - return empty string if invalid
+							if (!label || typeof label !== 'string') {
+								return '';
+							}
+
+							// Create a temporary div element to parse HTML
+							// This is a safe way to extract text from HTML without affecting the DOM
+							var tempDiv = document.createElement('div');
+							tempDiv.innerHTML = label;
+
+							// Extract text content (textContent is preferred, innerText as fallback)
+							// textContent gets all text including hidden elements
+							// innerText only gets visible text (respects CSS)
+							return (
+								tempDiv.textContent || tempDiv.innerText || ''
+							);
+						},
+						/**
+						 * Save the edited label
+						 *
+						 * This method is called when:
+						 * - User presses Enter key (@keyup.enter)
+						 * - User clicks outside the input (@blur)
+						 *
+						 * It:
+						 * 1. Trims whitespace from the edited value
+						 * 2. Compares with the current label (as plain text)
+						 * 3. Only emits update event if the value actually changed
+						 * 4. Exits edit mode (returns to display mode)
+						 *
+						 * The update event follows the same pattern as other group field updates:
+						 * - Event: "update-group-field"
+						 * - Payload: { key: "label", value: "new label text" }
+						 * - Parent component (Form_Builder_Field.vue) handles the update
+						 *
+						 * @param {Event} event - The blur or keyup event (not directly used, but kept for consistency)
+						 * @returns {void}
+						 */
+						saveLabel: function saveLabel(event) {
+							// Get the trimmed value from the input (via v-model binding)
+							var newLabel = this.editedLabelValue.trim();
+
+							// Get the current label value as plain text for comparison
+							// This ensures we compare text-to-text, not text-to-HTML
+							var currentLabel = this.getPlainTextFromLabel(
+								this.groupData.label || ''
+							);
+
+							// Only emit update if:
+							// 1. The new label is not empty
+							// 2. The new label is different from the current label
+							// This prevents unnecessary updates and API calls
+							if (newLabel && newLabel !== currentLabel) {
+								// Emit update event to parent component
+								// The parent will update the groupData.label and persist the change
+								this.$emit('update-group-field', {
+									key: 'label',
+									// Field name to update
+									value: newLabel, // New label value
+								});
+							}
+
+							// Exit edit mode regardless of whether value changed
+							// This closes the input and shows the label again
+							this.isEditingLabel = false;
+							this.editedLabelValue = '';
+						},
+						/**
+						 * Cancel editing the label
+						 *
+						 * This method is called when:
+						 * - User presses Escape key (@keyup.esc)
+						 *
+						 * It discards any changes and returns to display mode without saving.
+						 * The original label value is preserved.
+						 *
+						 * @returns {void}
+						 */
+						cancelEditingLabel: function cancelEditingLabel() {
+							// Exit edit mode without saving
+							// This discards any changes made in the input field
+							this.isEditingLabel = false;
+							this.editedLabelValue = '';
+						},
+					},
+					/**
+					 * Custom Vue Directives
+					 * =====================
+					 *
+					 * focus: Auto-focus directive
+					 * ---------------------------
+					 * This directive automatically focuses an element when it's inserted into the DOM.
+					 * Used on the label input field to provide immediate focus when edit mode starts.
+					 *
+					 * Note: We also use $nextTick in startEditingLabel() to ensure the element exists
+					 * before focusing. The directive provides an additional layer of focus handling.
+					 */
+					directives: {
+						focus: {
+							/**
+							 * Called when the element is inserted into the DOM
+							 * @param {HTMLElement} el - The element the directive is bound to
+							 */
+							inserted: function inserted(el) {
+								el.focus();
+							},
+						},
 					},
 				};
 
@@ -34820,7 +35226,7 @@
 										selectedWidgets: [],
 									},
 									avatar: {
-										label: 'Add Avatar',
+										label: 'Avatar',
 										selectedWidgets: [],
 									},
 								},
@@ -35775,99 +36181,100 @@
 								}
 								return true;
 							},
-						// Get Avatar Placeholder Class
+						/**
+						 * Get Avatar Placeholder Class
+						 * Computes CSS classes for avatar placeholder based on alignment option
+						 * Uses reactive trigger to ensure recalculation when widget position changes
+						 */
 						getAvatarPlaceholderClass:
 							function getAvatarPlaceholderClass() {
+								var _this$local_layout, _this$active_widgets;
+								// Create reactive dependencies for selectedWidgets and update trigger
+								var selectedWidgets =
+									(_this$local_layout = this.local_layout) ===
+										null ||
+									_this$local_layout === void 0 ||
+									(_this$local_layout =
+										_this$local_layout.thumbnail) ===
+										null ||
+									_this$local_layout === void 0 ||
+									(_this$local_layout =
+										_this$local_layout.avatar) === null ||
+									_this$local_layout === void 0
+										? void 0
+										: _this$local_layout.selectedWidgets;
+								var _ = this.avatarPlaceholderUpdateTrigger;
+
+								// Access alignment value through explicit property chain for reactivity
+								var alignValue =
+									(_this$active_widgets =
+										this.active_widgets) === null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.user_avatar) ===
+										null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.options) ===
+										null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.fields) === null ||
+									_this$active_widgets === void 0 ||
+									(_this$active_widgets =
+										_this$active_widgets.align) === null ||
+									_this$active_widgets === void 0
+										? void 0
+										: _this$active_widgets.value;
 								var accepted_align_options = [
 									'right',
 									'center',
 									'left',
 								];
-								var align_option = '';
-								var active_widgets = JSON.parse(
-									JSON.stringify(this.active_widgets)
-								);
-								var has_option = false;
-								if (this.isObject(active_widgets)) {
-									has_option = true;
-								}
-								if (has_option && !active_widgets.user_avatar) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!active_widgets.user_avatar.options
-								) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!active_widgets.user_avatar.options.fields
-								) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!active_widgets.user_avatar.options.fields
-										.align
-								) {
-									has_option = false;
-								}
-								if (
-									has_option &&
-									!(
-										typeof active_widgets.user_avatar
-											.options.fields.align.value ===
-										'string'
-									)
-								) {
-									has_option = false;
-								}
-								if (has_option) {
-									align_option =
-										active_widgets.user_avatar.options
-											.fields.align.value;
-								}
-								if (
-									!accepted_align_options.includes(
-										align_option
-									)
-								) {
-									align_option = 'center';
-								}
+								var align_option =
+									typeof alignValue === 'string' &&
+									accepted_align_options.includes(alignValue)
+										? alignValue
+										: 'left';
 								return {
 									'cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20': true,
-									'cptm-text-right':
-										'right' === align_option ? true : false,
+									'cptm-text-right': align_option === 'right',
 									'cptm-text-center':
-										'center' === align_option
-											? true
-											: false,
-									'cptm-text-left':
-										'left' === align_option ? true : false,
+										align_option === 'center',
+									'cptm-text-left': align_option === 'left',
 								};
 							},
 						// Check if avatar has selected widgets
 						hasAvatarWidget: function hasAvatarWidget() {
-							var _this$local_layout;
+							var _this$local_layout2;
 							return (
-								((_this$local_layout = this.local_layout) ===
+								((_this$local_layout2 = this.local_layout) ===
 									null ||
-								_this$local_layout === void 0 ||
-								(_this$local_layout =
-									_this$local_layout.thumbnail) === null ||
-								_this$local_layout === void 0 ||
-								(_this$local_layout =
-									_this$local_layout.avatar) === null ||
-								_this$local_layout === void 0
+								_this$local_layout2 === void 0 ||
+								(_this$local_layout2 =
+									_this$local_layout2.thumbnail) === null ||
+								_this$local_layout2 === void 0 ||
+								(_this$local_layout2 =
+									_this$local_layout2.avatar) === null ||
+								_this$local_layout2 === void 0
 									? void 0
-									: _this$local_layout.selectedWidgets) &&
+									: _this$local_layout2.selectedWidgets) &&
 								Array.isArray(
 									this.local_layout.thumbnail.avatar
 										.selectedWidgets
 								) &&
 								this.local_layout.thumbnail.avatar
 									.selectedWidgets.length > 0
+							);
+						},
+						// Check if excerpt widget is available in available_widgets
+						hasExcerptWidget: function hasExcerptWidget() {
+							var _this$theAvailableWid;
+							return !!(
+								(_this$theAvailableWid =
+									this.theAvailableWidgets) !== null &&
+								_this$theAvailableWid !== void 0 &&
+								_this$theAvailableWid.excerpt
 							);
 						},
 					},
@@ -35892,6 +36299,9 @@
 							available_widgets: {},
 							// Active Widgets
 							active_widgets: {},
+							// Reactive trigger to force getAvatarPlaceholderClass recalculation
+							// Incremented when user_avatar widget is updated to ensure computed property recalculates
+							avatarPlaceholderUpdateTrigger: 0,
 							// Layout
 							local_layout: {
 								thumbnail: {
@@ -35912,7 +36322,7 @@
 										selectedWidgets: [],
 									},
 									avatar: {
-										label: 'Add Avatar',
+										label: 'Avatar',
 										selectedWidgets: [],
 									},
 								},
@@ -35923,6 +36333,10 @@
 									},
 									bottom: {
 										label: 'Body Bottom',
+										selectedWidgets: [],
+									},
+									excerpt: {
+										label: 'Body Excerpt',
 										selectedWidgets: [],
 									},
 								},
@@ -36762,6 +37176,11 @@
 									widgetKey,
 									updatedWidget
 								);
+
+								// Force getAvatarPlaceholderClass to recalculate when user_avatar position changes
+								if (widgetKey === 'user_avatar') {
+									this.avatarPlaceholderUpdateTrigger += 1;
+								}
 							}
 						),
 						'toggleActivateWidgetOptions',
@@ -37244,6 +37663,16 @@
 										'left' === align_option ? true : false,
 								};
 							},
+						// Whether excerpt widget is available
+						hasExcerptWidget: function hasExcerptWidget() {
+							var _this$theAvailableWid;
+							return !!(
+								(_this$theAvailableWid =
+									this.theAvailableWidgets) !== null &&
+								_this$theAvailableWid !== void 0 &&
+								_this$theAvailableWid.excerpt
+							);
+						},
 					},
 					data: function data() {
 						return {
@@ -37270,7 +37699,7 @@
 							local_layout: {
 								body: {
 									avatar: {
-										label: 'Add Avatar',
+										label: 'Avatar',
 										selectedWidgets: [],
 									},
 									title: {
@@ -37287,6 +37716,10 @@
 									},
 									bottom: {
 										label: 'Add Elements',
+										selectedWidgets: [],
+									},
+									excerpt: {
+										label: 'Body Excerpt',
 										selectedWidgets: [],
 									},
 								},
@@ -39228,6 +39661,16 @@
 						},
 					},
 					computed: {
+						// Whether excerpt widget is available
+						hasExcerptWidget: function hasExcerptWidget() {
+							var _this$theAvailableWid;
+							return !!(
+								(_this$theAvailableWid =
+									this.theAvailableWidgets) !== null &&
+								_this$theAvailableWid !== void 0 &&
+								_this$theAvailableWid.excerpt
+							);
+						},
 						// Output Data
 						output_data: function output_data() {
 							var output = {};
@@ -39467,6 +39910,10 @@
 									},
 									bottom: {
 										label: 'Body Bottom',
+										selectedWidgets: [],
+									},
+									excerpt: {
+										label: 'Body Excerpt',
 										selectedWidgets: [],
 									},
 								},
@@ -40535,6 +40982,16 @@
 						},
 					},
 					computed: {
+						// Whether excerpt widget is available
+						hasExcerptWidget: function hasExcerptWidget() {
+							var _this$theAvailableWid;
+							return !!(
+								(_this$theAvailableWid =
+									this.theAvailableWidgets) !== null &&
+								_this$theAvailableWid !== void 0 &&
+								_this$theAvailableWid.excerpt
+							);
+						},
 						// Output Data
 						output_data: function output_data() {
 							var output = {};
@@ -41972,8 +42429,8 @@
 														subPlaceholder
 													);
 												subGroupsData.push({
-													type: placeholder.type
-														? placeholder.type
+													type: subPlaceholder.type
+														? subPlaceholder.type
 														: 'placeholder_item',
 													placeholderKey:
 														subPlaceholder.placeholderKey,
@@ -42150,6 +42607,7 @@
 							// Dragging State
 							currentDraggingIndex: null,
 							currentSettingsDraggingWidgetKey: null,
+							currentSettingsDraggingPlaceholderIndex: null,
 							// Available Widgets
 							available_widgets: {},
 							// Active Widgets
@@ -42181,6 +42639,29 @@
 					])(
 						{
 							// ===========================================
+							// HELPER METHODS
+							// ===========================================
+							// Get filtered acceptedWidgets (only available widgets) for a placeholder
+							getFilteredAcceptedWidgets:
+								function getFilteredAcceptedWidgets(
+									placeholder
+								) {
+									var _this3 = this;
+									if (
+										!placeholder ||
+										!placeholder.acceptedWidgets
+									) {
+										return [];
+									}
+									return placeholder.acceptedWidgets.filter(
+										function (widgetKey) {
+											return _this3.isWidgetAvailable(
+												widgetKey
+											);
+										}
+									);
+								},
+							// ===========================================
 							// INITIALIZATION & LIFECYCLE METHODS
 							// ===========================================
 							/**
@@ -42209,11 +42690,11 @@
 							 */
 							setupEventListeners:
 								function setupEventListeners() {
-									var _this3 = this;
+									var _this4 = this;
 									// Debounced update emitter
 									this.debouncedEmitUpdate = this.debounce(
 										function () {
-											_this3.emitUpdate();
+											_this4.emitUpdate();
 										},
 										100
 									);
@@ -42313,7 +42794,7 @@
 							 * @private
 							 */
 							debounce: function debounce(func, wait) {
-								var _this4 = this;
+								var _this5 = this;
 								return function () {
 									for (
 										var _len = arguments.length,
@@ -42324,10 +42805,10 @@
 									) {
 										args[_key] = arguments[_key];
 									}
-									clearTimeout(_this4._debounceTimer);
-									_this4._debounceTimer = setTimeout(
+									clearTimeout(_this5._debounceTimer);
+									_this5._debounceTimer = setTimeout(
 										function () {
-											return func.apply(_this4, args);
+											return func.apply(_this5, args);
 										},
 										wait
 									);
@@ -42513,6 +42994,165 @@
 							// DATA PROCESSING METHODS
 							// ===========================================
 							/**
+							 * Sync selectedWidgets with selectedWidgetList to ensure data consistency
+							 *
+							 * Problem: On reload, selectedWidgetList may have values but selectedWidgets might be empty
+							 * or incomplete, causing widgets not to load properly.
+							 *
+							 * Solution: Compare both arrays and sync selectedWidgets to match selectedWidgetList.
+							 * Priority: Preserve existing widget data (with saved customizations) when available,
+							 * fallback to active_widgets (if provided), then default widget template.
+							 *
+							 * @param {Array} selectedWidgets - Array of widget objects (may be empty or incomplete)
+							 * @param {Array} selectedWidgetList - Array of widget keys/strings (the source of truth)
+							 * @param {Object} activeWidgets - Optional. active_widgets object for fallback lookup
+							 * @returns {Array} Synced selectedWidgets array matching selectedWidgetList
+							 * @private
+							 */
+							syncSelectedWidgetsWithList:
+								function syncSelectedWidgetsWithList(
+									selectedWidgets,
+									selectedWidgetList
+								) {
+									var _this6 = this;
+									var activeWidgets =
+										arguments.length > 2 &&
+										arguments[2] !== undefined
+											? arguments[2]
+											: null;
+									// Early return if no selectedWidgetList
+									if (
+										!selectedWidgetList ||
+										!Array.isArray(selectedWidgetList) ||
+										selectedWidgetList.length === 0
+									) {
+										return selectedWidgets || [];
+									}
+									var currentSelectedWidgets =
+										selectedWidgets || [];
+
+									// Extract widget keys from selectedWidgets for comparison
+									// selectedWidgets contains widget objects, so we need to extract their keys
+									var selectedWidgetsKeys =
+										currentSelectedWidgets
+											.map(function (widget) {
+												if (
+													(0,
+													_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+														'default'
+													])(widget) === 'object' &&
+													widget !== null
+												) {
+													return (
+														widget.widget_key ||
+														widget.widget_name ||
+														widget
+													);
+												}
+												return widget;
+											})
+											.filter(function (key) {
+												return (
+													key != null && key !== ''
+												);
+											});
+
+									// Determine if sync is needed by checking:
+									// 1. selectedWidgetList has more items than selectedWidgets
+									// 2. selectedWidgetList contains keys not in selectedWidgets
+									// 3. selectedWidgets contains keys not in selectedWidgetList
+									var needsSync =
+										selectedWidgetList.length >
+											selectedWidgetsKeys.length ||
+										!selectedWidgetList.every(
+											function (key) {
+												return selectedWidgetsKeys.includes(
+													key
+												);
+											}
+										) ||
+										!selectedWidgetsKeys.every(
+											function (key) {
+												return selectedWidgetList.includes(
+													key
+												);
+											}
+										);
+
+									// Return original if no sync needed
+									if (!needsSync) {
+										return currentSelectedWidgets;
+									}
+
+									// Perform sync
+									var syncedSelectedWidgets = [];
+									selectedWidgetList.forEach(
+										function (widgetKey) {
+											var widgetData = null;
+
+											// STEP 1: Try to find existing widget data from selectedWidgets
+											// This preserves saved customizations (label, icon, etc.)
+											if (
+												Array.isArray(
+													currentSelectedWidgets
+												)
+											) {
+												widgetData =
+													currentSelectedWidgets.find(
+														function (widget) {
+															return (
+																widget &&
+																(widget.widget_key ===
+																	widgetKey ||
+																	widget.widget_name ===
+																		widgetKey)
+															);
+														}
+													);
+											}
+
+											// STEP 2: Fallback to widget from active_widgets (has latest data)
+											// Only if activeWidgets parameter is provided
+											if (
+												!widgetData &&
+												activeWidgets &&
+												activeWidgets[widgetKey]
+											) {
+												widgetData =
+													activeWidgets[widgetKey];
+											}
+
+											// STEP 3: Final fallback to default widget template
+											if (!widgetData) {
+												if (
+													typeof widgetKey !==
+														'undefined' &&
+													typeof widgetKey ===
+														'string' &&
+													typeof _this6
+														.theAvailableWidgets[
+														widgetKey
+													] !== 'undefined'
+												) {
+													widgetData =
+														_this6
+															.theAvailableWidgets[
+															widgetKey
+														];
+												}
+											}
+
+											// Add widget data if found
+											if (widgetData) {
+												syncedSelectedWidgets.push(
+													widgetData
+												);
+											}
+										}
+									);
+									return syncedSelectedWidgets;
+								},
+							/**
 							 * Get widget data with enhanced optimization
 							 * @param {Object} placeholderData - Placeholder data
 							 * @returns {Array} Widget data
@@ -42550,6 +43190,19 @@
 								) {
 									return [];
 								}
+
+								/**
+								 * SYNC SAFETY NET: Ensure selectedWidgets matches selectedWidgetList
+								 * This is a defensive check to ensure data consistency during output generation
+								 * Even if sync happened in importOldData, this ensures output is always correct
+								 * Uses active_widgets as fallback for latest data
+								 */
+								selectedWidgets =
+									this.syncSelectedWidgetsWithList(
+										selectedWidgets,
+										selectedWidgetList,
+										this.active_widgets
+									);
 
 								// Create a map for O(1) lookup instead of O(n) indexOf operations
 								var acceptedWidgetsMap = new Map();
@@ -43002,7 +43655,7 @@
 							 */
 							syncAllPlaceholderItems:
 								function syncAllPlaceholderItems() {
-									var _this5 = this;
+									var _this7 = this;
 									try {
 										var newAllPlaceholderItems = [];
 										this.placeholders.forEach(
@@ -43012,7 +43665,7 @@
 													'placeholder_item'
 												) {
 													var matchedItem =
-														_this5.allPlaceholderItems.find(
+														_this7.allPlaceholderItems.find(
 															function (item) {
 																return (
 																	item.placeholderKey ===
@@ -43065,7 +43718,7 @@
 															subPlaceholder
 														) {
 															var matchedItem =
-																_this5.allPlaceholderItems.find(
+																_this7.allPlaceholderItems.find(
 																	function (
 																		item
 																	) {
@@ -43172,11 +43825,17 @@
 											? widgetKey.widget_key ||
 												widgetKey.key
 											: widgetKey;
+
+									// Store the placeholder index to ensure correct item highlighting
+									this.currentSettingsDraggingPlaceholderIndex =
+										placeholderIndex;
 								}
 							},
 							// Handle settings drag end event
 							onSettingsDragEnd: function onSettingsDragEnd() {
 								this.currentSettingsDraggingWidgetKey = null;
+								this.currentSettingsDraggingPlaceholderIndex =
+									null;
 
 								// Remove dragging class from all dndrop-draggable-wrapper elements
 								this.$nextTick(function () {
@@ -43195,7 +43854,7 @@
 							},
 							// Handle the drop event
 							onDrop: function onDrop(dropResult) {
-								var _this6 = this;
+								var _this8 = this;
 								var draggablePlaceholders =
 									this.placeholders.filter(
 										function (placeholder) {
@@ -43238,7 +43897,7 @@
 										) {
 											// Find the matching item from allPlaceholderItems
 											var matchedItem =
-												_this6.allPlaceholderItems.find(
+												_this8.allPlaceholderItems.find(
 													function (item) {
 														return (
 															item.placeholderKey ===
@@ -43295,7 +43954,7 @@
 											placeholder.placeholders.forEach(
 												function (subPlaceholder) {
 													var matchedItem =
-														_this6.allPlaceholderItems.find(
+														_this8.allPlaceholderItems.find(
 															function (item) {
 																return (
 																	item.placeholderKey ===
@@ -43363,18 +44022,29 @@
 									draggedItemIndex,
 									placeholderIndex
 								) {
-									var _this$allPlaceholderI;
+									var placeholder =
+										this.allPlaceholderItems[
+											placeholderIndex
+										];
+									if (!placeholder) {
+										return {
+											draggedItemIndex: draggedItemIndex,
+											placeholderIndex: placeholderIndex,
+											widgetKey: null,
+										};
+									}
+
+									// Get filtered acceptedWidgets (only available widgets) to match what's displayed
+									var filteredAcceptedWidgets =
+										this.getFilteredAcceptedWidgets(
+											placeholder
+										);
+
+									// Get the widget key from the filtered array to match the displayed items
 									var widgetKey =
-										(_this$allPlaceholderI =
-											this.allPlaceholderItems[
-												placeholderIndex
-											]) === null ||
-										_this$allPlaceholderI === void 0
-											? void 0
-											: _this$allPlaceholderI
-													.acceptedWidgets[
-													draggedItemIndex
-												];
+										filteredAcceptedWidgets[
+											draggedItemIndex
+										];
 
 									// Extract the actual widget key string from the object
 									var extractedWidgetKey =
@@ -43408,7 +44078,6 @@
 									removedIndex !== null ||
 									addedIndex !== null
 								) {
-									var _this$allPlaceholderI2;
 									var destinationItemIndex;
 									var destinationPlaceholderIndex;
 									var sourceItemIndex = draggedItemIndex;
@@ -43423,28 +44092,37 @@
 										destinationPlaceholderIndex = null;
 									}
 
-									// Get the widget key from the source placeholder
+									// Get the source placeholder
+									var sourcePlaceholder =
+										this.allPlaceholderItems[
+											sourcePlaceholderIndex
+										];
+									if (!sourcePlaceholder) {
+										return;
+									}
+
+									// Get filtered acceptedWidgets (only available widgets) for the source placeholder
+									var filteredAcceptedWidgets =
+										this.getFilteredAcceptedWidgets(
+											sourcePlaceholder
+										);
+
+									// Get the widget key from the filtered acceptedWidgets
 									var widgetKey =
-										(_this$allPlaceholderI2 =
-											this.allPlaceholderItems[
-												sourcePlaceholderIndex
-											]) === null ||
-										_this$allPlaceholderI2 === void 0
-											? void 0
-											: _this$allPlaceholderI2
-													.acceptedWidgets[
-													draggedItemIndex
-												];
+										filteredAcceptedWidgets[
+											draggedItemIndex
+										];
 									if (widgetKey !== undefined) {
 										if (
 											sourcePlaceholderIndex ===
 											destinationPlaceholderIndex
 										) {
 											// Moving within the same placeholder
-											var widgets =
-												this.allPlaceholderItems[
-													sourcePlaceholderIndex
-												].acceptedWidgets;
+											// Use filtered acceptedWidgets to ensure only available widgets are used
+											var widgets = (0,
+											_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
+												'default'
+											])(filteredAcceptedWidgets);
 											var selectedWidgets =
 												this.allPlaceholderItems[
 													sourcePlaceholderIndex
@@ -43453,6 +44131,15 @@
 												this.allPlaceholderItems[
 													sourcePlaceholderIndex
 												].selectedWidgetList;
+
+											// Validate that the dragged widget is still available
+											if (
+												!this.isWidgetAvailable(
+													widgetKey
+												)
+											) {
+												return; // Don't proceed if widget is not available
+											}
 
 											// Remove the widget from the source position
 											var _widgets$splice3 =
@@ -43474,18 +44161,32 @@
 												movedWidget
 											);
 
-											// Update selectedWidgetList position based on acceptedWidgets
+											// Update acceptedWidgets with filtered list
+											this.$set(
+												this.allPlaceholderItems[
+													sourcePlaceholderIndex
+												],
+												'acceptedWidgets',
+												widgets
+											);
+
+											// Filter selectedWidgetList to only include widgets that are in filtered acceptedWidgets
+											var filteredSelectedWidgetList = (
+												selectedWidgetList || []
+											).filter(function (widgetKey) {
+												return widgets.includes(
+													widgetKey
+												);
+											});
+
+											// Update selectedWidgetList position based on filtered acceptedWidgets
 											var selectedWidgetIndex =
-												selectedWidgetList &&
-												selectedWidgetList.indexOf(
+												filteredSelectedWidgetList.indexOf(
 													movedWidget
 												);
-											if (
-												selectedWidgetIndex &&
-												selectedWidgetIndex !== -1
-											) {
+											if (selectedWidgetIndex !== -1) {
 												// Remove the widget from the selected position
-												selectedWidgetList.splice(
+												filteredSelectedWidgetList.splice(
 													selectedWidgetIndex,
 													1
 												);
@@ -43495,27 +44196,67 @@
 													widgets.indexOf(
 														movedWidget
 													);
-												selectedWidgetList.splice(
+												filteredSelectedWidgetList.splice(
 													newSelectedIndex,
 													0,
 													movedWidget
 												);
 											}
 
-											// Reorder `selectedWidgets` based on `selectedWidgetList`
-											selectedWidgets &&
-												selectedWidgets.sort(
+											// Filter selectedWidgets to only include widgets that are in filtered acceptedWidgets
+											var filteredSelectedWidgets = (
+												selectedWidgets || []
+											).filter(function (widget) {
+												return (
+													widget &&
+													widget.widget_key &&
+													widgets.includes(
+														widget.widget_key
+													)
+												);
+											});
+
+											// Reorder `selectedWidgets` based on filtered `selectedWidgetList`
+											filteredSelectedWidgets &&
+												filteredSelectedWidgets.sort(
 													function (a, b) {
 														return (
-															selectedWidgetList.indexOf(
+															filteredSelectedWidgetList.indexOf(
 																a.widget_key
 															) -
-															selectedWidgetList.indexOf(
+															filteredSelectedWidgetList.indexOf(
 																b.widget_key
 															)
 														);
 													}
 												);
+
+											// Filter out null items from selectedWidgetList
+											var finalSelectedWidgetList =
+												filteredSelectedWidgetList.filter(
+													function (key) {
+														return (
+															key != null &&
+															key !== ''
+														);
+													}
+												);
+
+											// Update selectedWidgets and selectedWidgetList in placeholder
+											this.$set(
+												this.allPlaceholderItems[
+													sourcePlaceholderIndex
+												],
+												'selectedWidgets',
+												filteredSelectedWidgets
+											);
+											this.$set(
+												this.allPlaceholderItems[
+													sourcePlaceholderIndex
+												],
+												'selectedWidgetList',
+												finalSelectedWidgetList
+											);
 
 											// Update Placeholders
 											var updatedPlaceholders =
@@ -43754,7 +44495,7 @@
 							 * @public
 							 */
 							importOldData: function importOldData() {
-								var _this7 = this;
+								var _this9 = this;
 								var value = JSON.parse(
 									JSON.stringify(this.value)
 								);
@@ -43766,12 +44507,18 @@
 
 								// Import Layout
 								// -------------------------
+								/**
+								 * Add widget to active_widgets with proper data merging and field promotion
+								 * This function merges saved widget data (from old data) with default widget template,
+								 * preserving user customizations like label and icon changes
+								 * @param {Object} widget - Widget object with saved data (may have custom label/icon)
+								 */
 								var addActiveWidget = function addActiveWidget(
 									widget
 								) {
 									// Ensure that the widget exists in the available widgets
 									if (
-										!_this7.theAvailableWidgets[
+										!_this9.theAvailableWidgets[
 											widget.widget_name
 										]
 									) {
@@ -43785,7 +44532,7 @@
 									}
 									var widgets_template = _objectSpread(
 										{},
-										_this7.theAvailableWidgets[
+										_this9.theAvailableWidgets[
 											widget.widget_name
 										]
 									);
@@ -43876,12 +44623,12 @@
 
 									// Apply field promotion logic during initialization
 									var shouldPromote =
-										_this7.shouldPromoteFieldsToRoot(
+										_this9.shouldPromoteFieldsToRoot(
 											widget.widget_name,
 											widgets_template
 										);
 									var processedWidget = shouldPromote
-										? _this7.promoteFieldsToRoot(
+										? _this9.promoteFieldsToRoot(
 												widgets_template
 											)
 										: widgets_template;
@@ -43890,50 +44637,130 @@
 									vue__WEBPACK_IMPORTED_MODULE_4__[
 										'default'
 									].set(
-										_this7.active_widgets,
+										_this9.active_widgets,
 										widget.widget_name,
 										processedWidget
 									);
 									vue__WEBPACK_IMPORTED_MODULE_4__[
 										'default'
 									].set(
-										_this7.available_widgets,
+										_this9.available_widgets,
 										widget.widget_name,
 										processedWidget
 									);
 								};
+
+								/**
+								 * Import widgets data for a placeholder from saved/old data
+								 * Handles both selectedWidgets (array of widget objects) and selectedWidgetList (array of widget keys)
+								 * Ensures they stay in sync and widgets are properly loaded into active_widgets
+								 * @param {Object} placeholder - Placeholder data from saved value
+								 * @param {Array} destination - Array to add the processed placeholder to
+								 */
 								var importWidgets = function importWidgets(
 									placeholder,
 									destination
 								) {
 									if (
-										!_this7.placeholdersMap.hasOwnProperty(
+										!_this9.placeholdersMap.hasOwnProperty(
 											placeholder.placeholderKey
 										)
 									) {
 										return;
 									}
+
+									// Clone the placeholder template from placeholdersMap
 									var newPlaceholder = JSON.parse(
 										JSON.stringify(
-											_this7.placeholdersMap[
+											_this9.placeholdersMap[
 												placeholder.placeholderKey
 											]
 										)
 									);
+
+									// Update acceptedWidgets if provided in saved data
 									if (placeholder.acceptedWidgets) {
 										newPlaceholder.acceptedWidgets =
 											placeholder.acceptedWidgets;
 									}
+
+									// Handle selectedWidgets and selectedWidgetList from old data
+									// selectedWidgets: Array of widget objects (has full widget data including customizations)
+									// selectedWidgetList: Array of widget keys/strings (just the IDs)
 									if (placeholder.selectedWidgets) {
 										newPlaceholder.selectedWidgets =
 											placeholder.selectedWidgets;
+										// Derive selectedWidgetList from selectedWidgets if not already set
+										if (!placeholder.selectedWidgetList) {
+											newPlaceholder.selectedWidgetList =
+												placeholder.selectedWidgets
+													.map(function (widget) {
+														if (
+															(0,
+															_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+																'default'
+															])(widget) ===
+																'object' &&
+															widget !== null
+														) {
+															// Use widget_key as primary, fallback to widget_name or widget itself
+															return (
+																widget.widget_key ||
+																widget.widget_name ||
+																widget
+															);
+														}
+														return widget;
+													})
+													.filter(function (key) {
+														return (
+															key != null &&
+															key !== ''
+														);
+													}); // Filter out null, undefined, and empty values
+										} else {
+											// Filter out null items from existing selectedWidgetList
+											newPlaceholder.selectedWidgetList =
+												Array.isArray(
+													placeholder.selectedWidgetList
+												)
+													? placeholder.selectedWidgetList.filter(
+															function (key) {
+																return (
+																	key !=
+																		null &&
+																	key !== ''
+																);
+															}
+														)
+													: [];
+										}
+									} else if (placeholder.selectedWidgetList) {
+										// If only selectedWidgetList exists in old data, filter out null items
 										newPlaceholder.selectedWidgetList =
-											placeholder.selectedWidgets.map(
-												function (widget) {
-													return widget.widget_name;
-												}
-											);
+											Array.isArray(
+												placeholder.selectedWidgetList
+											)
+												? placeholder.selectedWidgetList.filter(
+														function (key) {
+															return (
+																key != null &&
+																key !== ''
+															);
+														}
+													)
+												: [];
 									}
+
+									/**
+									 * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
+									 * Uses reusable sync function to keep code DRY
+									 */
+									newPlaceholder.selectedWidgets =
+										_this9.syncSelectedWidgetsWithList(
+											newPlaceholder.selectedWidgets,
+											newPlaceholder.selectedWidgetList
+										);
 									newPlaceholder.maxWidget =
 										typeof newPlaceholder.maxWidget !==
 										'undefined'
@@ -43948,22 +44775,94 @@
 										newPlaceholder
 									);
 
-									// Add active widgets based on selectedWidgets
-									placeholder.selectedWidgets.forEach(
-										function (widget) {
-											if (
-												typeof widget !== 'undefined' &&
-												typeof _this7.available_widgets[
-													widget.widget_name
-												] !== 'undefined'
-											) {
-												addActiveWidget(widget);
+									/**
+									 * Load widgets into active_widgets based on selectedWidgets
+									 * Uses synced version (newPlaceholder.selectedWidgets) if available,
+									 * otherwise falls back to original placeholder.selectedWidgets
+									 */
+									var widgetsToProcess =
+										newPlaceholder.selectedWidgets ||
+										placeholder.selectedWidgets ||
+										[];
+									if (
+										Array.isArray(widgetsToProcess) &&
+										widgetsToProcess.length > 0
+									) {
+										widgetsToProcess.forEach(
+											function (widget) {
+												// Validate widget exists in available_widgets before adding
+												if (
+													typeof widget !==
+														'undefined' &&
+													widget &&
+													(typeof _this9
+														.available_widgets[
+														widget.widget_name
+													] !== 'undefined' ||
+														typeof _this9
+															.available_widgets[
+															widget.widget_key
+														] !== 'undefined')
+												) {
+													// addActiveWidget merges saved data with default template and applies field promotion
+													addActiveWidget(widget);
+												}
 											}
-										}
-									);
+										);
+									}
+
+									/**
+									 * Fallback: Load widgets from selectedWidgetList if selectedWidgets was empty
+									 * This ensures widgets are loaded even if selectedWidgets doesn't exist or sync failed
+									 * Uses default widget templates from available_widgets
+									 */
+									var selectedWidgetListToProcess =
+										newPlaceholder.selectedWidgetList ||
+										placeholder.selectedWidgetList ||
+										[];
+									if (
+										Array.isArray(
+											selectedWidgetListToProcess
+										) &&
+										selectedWidgetListToProcess.length > 0
+									) {
+										selectedWidgetListToProcess.forEach(
+											function (widgetKey) {
+												// Skip if already in active_widgets
+												if (
+													_this9.active_widgets[
+														widgetKey
+													]
+												) {
+													return;
+												}
+
+												// Get widget from available_widgets and add to active_widgets
+												if (
+													typeof widgetKey !==
+														'undefined' &&
+													typeof widgetKey ===
+														'string' &&
+													typeof _this9
+														.available_widgets[
+														widgetKey
+													] !== 'undefined'
+												) {
+													var widget =
+														_this9
+															.available_widgets[
+															widgetKey
+														];
+													if (widget) {
+														addActiveWidget(widget);
+													}
+												}
+											}
+										);
+									}
 								};
 								value.forEach(function (placeholder, index) {
-									if (!_this7.isTruthyObject(placeholder)) {
+									if (!_this9.isTruthyObject(placeholder)) {
 										return;
 									}
 									if (
@@ -43983,7 +44882,7 @@
 										'placeholder_group' === placeholder.type
 									) {
 										if (
-											!_this7.placeholdersMap.hasOwnProperty(
+											!_this9.placeholdersMap.hasOwnProperty(
 												placeholder.placeholderKey
 											)
 										) {
@@ -43991,14 +44890,14 @@
 										}
 										var newPlaceholder = JSON.parse(
 											JSON.stringify(
-												_this7.placeholdersMap[
+												_this9.placeholdersMap[
 													placeholder.placeholderKey
 												]
 											)
 										);
 										newPlaceholder.placeholders = [];
 										var targetPlaceholderIndex =
-											_this7.placeholders.length;
+											_this9.placeholders.length;
 										newPlaceholders.splice(
 											targetPlaceholderIndex,
 											0,
@@ -44021,13 +44920,229 @@
 								});
 								this.placeholders = newPlaceholders;
 								this.allPlaceholderItems = newAllPlaceholders;
+
+								/**
+								 * Process allPlaceholderItems to ensure widgets are loaded into active_widgets
+								 * This is a second pass to catch any widgets that might have been missed
+								 * Also performs sync between selectedWidgets and selectedWidgetList
+								 */
+								if (
+									Array.isArray(this.allPlaceholderItems) &&
+									this.allPlaceholderItems.length > 0
+								) {
+									this.allPlaceholderItems.forEach(
+										function (placeholderItem) {
+											/**
+											 * Process a single placeholder item
+											 * Handles both placeholder_item and placeholder_group types recursively
+											 * @param {Object} item - Placeholder item to process
+											 */
+											var _processPlaceholder =
+												function processPlaceholder(
+													item
+												) {
+													if (
+														!item ||
+														!item.placeholderKey
+													) {
+														return;
+													}
+
+													// If selectedWidgetList is missing but selectedWidgets exists,
+													// derive selectedWidgetList from selectedWidgets by extracting widget keys
+													if (
+														(!item.selectedWidgetList ||
+															!Array.isArray(
+																item.selectedWidgetList
+															) ||
+															item
+																.selectedWidgetList
+																.length ===
+																0) &&
+														item.selectedWidgets &&
+														Array.isArray(
+															item.selectedWidgets
+														) &&
+														item.selectedWidgets
+															.length > 0
+													) {
+														item.selectedWidgetList =
+															item.selectedWidgets
+																.map(
+																	function (
+																		widget
+																	) {
+																		if (
+																			(0,
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				widget
+																			) ===
+																				'object' &&
+																			widget !==
+																				null
+																		) {
+																			// Use widget_key as primary, fallback to widget_name or widget itself
+																			return (
+																				widget.widget_key ||
+																				widget.widget_name ||
+																				widget
+																			);
+																		}
+																		return widget;
+																	}
+																)
+																.filter(
+																	function (
+																		key
+																	) {
+																		return (
+																			key !=
+																				null &&
+																			key !==
+																				''
+																		);
+																	}
+																); // Filter out null, undefined, and empty values
+
+														// Update the item with the new selectedWidgetList
+														_this9.$set(
+															item,
+															'selectedWidgetList',
+															item.selectedWidgetList
+														);
+													}
+
+													/**
+													 * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
+													 * Uses reusable sync function to keep code DRY
+													 * Updates using Vue reactivity for proper reactivity
+													 */
+													var syncedWidgets =
+														_this9.syncSelectedWidgetsWithList(
+															item.selectedWidgets,
+															item.selectedWidgetList
+														);
+													_this9.$set(
+														item,
+														'selectedWidgets',
+														syncedWidgets
+													);
+
+													// Process selectedWidgetList
+													if (
+														item.selectedWidgetList &&
+														Array.isArray(
+															item.selectedWidgetList
+														)
+													) {
+														item.selectedWidgetList.forEach(
+															function (
+																widgetKey
+															) {
+																// Skip if already in active_widgets
+																if (
+																	_this9
+																		.active_widgets[
+																		widgetKey
+																	]
+																) {
+																	return;
+																}
+
+																// Get widget from available_widgets and add to active_widgets
+																if (
+																	typeof widgetKey !==
+																		'undefined' &&
+																	typeof widgetKey ===
+																		'string' &&
+																	typeof _this9
+																		.available_widgets[
+																		widgetKey
+																	] !==
+																		'undefined'
+																) {
+																	var widget =
+																		_this9
+																			.available_widgets[
+																			widgetKey
+																		];
+																	if (
+																		widget
+																	) {
+																		_this9.$set(
+																			_this9.active_widgets,
+																			widgetKey,
+																			widget
+																		);
+																	}
+																}
+															}
+														);
+													}
+
+													// Process nested placeholders if it's a placeholder_group
+													if (
+														item.type ===
+															'placeholder_group' &&
+														item.placeholders &&
+														Array.isArray(
+															item.placeholders
+														)
+													) {
+														item.placeholders.forEach(
+															function (
+																subPlaceholder
+															) {
+																_processPlaceholder(
+																	subPlaceholder
+																);
+															}
+														);
+													}
+												};
+											_processPlaceholder(
+												placeholderItem
+											);
+										}
+									);
+								}
+
+								// Filter active_widgets to only include widgets from selectedWidgetList
+								this.filterActiveWidgetsBySelectedWidgetList();
 							},
 							// Import Widgets
 							importWidgets: function importWidgets() {
 								if (!this.isTruthyObject(this.widgets)) {
 									return;
 								}
-								this.available_widgets = this.widgets;
+
+								// Process widgets object and ensure widget_name and widget_key are set
+								// widgets is an object where keys are widget identifiers (e.g., "Bookmark")
+								var updatedWidgets = {};
+								for (var widgetKey in this.widgets) {
+									if (
+										!this.widgets.hasOwnProperty(widgetKey)
+									) {
+										continue;
+									}
+									var widget = this.widgets[widgetKey];
+
+									// Ensure widget_name and widget_key are set
+									// Use the object key if they don't exist
+									updatedWidgets[widgetKey] = _objectSpread(
+										_objectSpread({}, widget),
+										{},
+										{
+											widget_name:
+												widget.widget_name || widgetKey,
+											widget_key:
+												widget.widget_key || widgetKey,
+										}
+									);
+								}
+								this.available_widgets = updatedWidgets;
 							},
 							// Import Card Options
 							importCardOptions: function importCardOptions() {
@@ -44057,7 +45172,7 @@
 							},
 							// Import Placeholders
 							importPlaceholders: function importPlaceholders() {
-								var _this8 = this;
+								var _this0 = this;
 								this.allPlaceholderItems = [];
 								if (!Array.isArray(this.layout)) {
 									return;
@@ -44070,7 +45185,7 @@
 										placeholder
 									) {
 										if (
-											!_this8.isTruthyObject(placeholder)
+											!_this0.isTruthyObject(placeholder)
 										) {
 											placeholder = {};
 										}
@@ -44079,6 +45194,109 @@
 											'undefined'
 										) {
 											placeholder.label = '';
+										}
+
+										// Process selectedWidgetList from default data and add to active_widgets
+										if (
+											placeholder.selectedWidgetList &&
+											Array.isArray(
+												placeholder.selectedWidgetList
+											)
+										) {
+											placeholder.selectedWidgetList.forEach(
+												function (widgetKey) {
+													// Skip if already in active_widgets
+													if (
+														_this0.active_widgets[
+															widgetKey
+														]
+													) {
+														return;
+													}
+
+													// Get widget from available_widgets and add to active_widgets
+													if (
+														typeof widgetKey !==
+															'undefined' &&
+														typeof widgetKey ===
+															'string' &&
+														typeof _this0
+															.available_widgets[
+															widgetKey
+														] !== 'undefined'
+													) {
+														var widget =
+															_this0
+																.available_widgets[
+																widgetKey
+															];
+														if (widget) {
+															_this0.$set(
+																_this0.active_widgets,
+																widgetKey,
+																widget
+															);
+														}
+													}
+												}
+											);
+										}
+
+										// Also process selectedWidgets if it exists (for backward compatibility)
+										if (
+											placeholder.selectedWidgets &&
+											Array.isArray(
+												placeholder.selectedWidgets
+											)
+										) {
+											placeholder.selectedWidgets.forEach(
+												function (widget) {
+													var widgetKey =
+														(0,
+														_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+															'default'
+														])(widget) ===
+															'object' &&
+														widget !== null
+															? widget.widget_key ||
+																widget.widget_name
+															: widget;
+
+													// Skip if already in active_widgets
+													if (
+														_this0.active_widgets[
+															widgetKey
+														]
+													) {
+														return;
+													}
+
+													// Get widget from available_widgets and add to active_widgets
+													if (
+														typeof widgetKey !==
+															'undefined' &&
+														typeof widgetKey ===
+															'string' &&
+														typeof _this0
+															.available_widgets[
+															widgetKey
+														] !== 'undefined'
+													) {
+														var widgetObj =
+															_this0
+																.available_widgets[
+																widgetKey
+															];
+														if (widgetObj) {
+															_this0.$set(
+																_this0.active_widgets,
+																widgetKey,
+																widgetObj
+															);
+														}
+													}
+												}
+											);
 										}
 										return placeholder;
 									};
@@ -44091,7 +45309,7 @@
 									var _loop2 = function _loop2() {
 											var placeholder = _step5.value;
 											if (
-												!_this8.isTruthyObject(
+												!_this0.isTruthyObject(
 													placeholder
 												)
 											) {
@@ -44112,7 +45330,7 @@
 												return 0; // continue
 											}
 											if (
-												_this8.placeholdersMap.hasOwnProperty(
+												_this0.placeholdersMap.hasOwnProperty(
 													placeholderItem.placeholderKey
 												)
 											) {
@@ -44121,7 +45339,7 @@
 											vue__WEBPACK_IMPORTED_MODULE_4__[
 												'default'
 											].set(
-												_this8.placeholdersMap,
+												_this0.placeholdersMap,
 												placeholderItem.placeholderKey,
 												placeholderItem
 											);
@@ -44137,7 +45355,7 @@
 													sanitizedPlaceholders.push(
 														placeholderItemData
 													);
-													_this8.allPlaceholderItems.push(
+													_this0.allPlaceholderItems.push(
 														placeholderItemData
 													);
 												}
@@ -44172,7 +45390,7 @@
 														subPlaceholderIndex
 													) {
 														if (
-															_this8.placeholdersMap.hasOwnProperty(
+															_this0.placeholdersMap.hasOwnProperty(
 																placeholderSubItem.placeholderKey
 															)
 														) {
@@ -44185,7 +45403,7 @@
 														vue__WEBPACK_IMPORTED_MODULE_4__[
 															'default'
 														].set(
-															_this8.placeholdersMap,
+															_this0.placeholdersMap,
 															placeholderSubItem.placeholderKey,
 															placeholderSubItem
 														);
@@ -44201,7 +45419,7 @@
 																1,
 																placeholderItemData
 															);
-															_this8.allPlaceholderItems.push(
+															_this0.allPlaceholderItems.push(
 																placeholderItemData
 															);
 														}
@@ -44232,6 +45450,172 @@
 									_iterator5.f();
 								}
 								this.placeholders = sanitizedPlaceholders;
+
+								// Process allPlaceholderItems to add widgets from selectedWidgetList to active_widgets
+								if (
+									Array.isArray(this.allPlaceholderItems) &&
+									this.allPlaceholderItems.length > 0
+								) {
+									this.allPlaceholderItems.forEach(
+										function (placeholderItem) {
+											var _processPlaceholder2 =
+												function processPlaceholder(
+													item
+												) {
+													if (
+														!item ||
+														!item.placeholderKey
+													) {
+														return;
+													}
+
+													// If selectedWidgetList is not available but selectedWidgets is available,
+													// create selectedWidgetList from selectedWidgets using widget_key
+													if (
+														(!item.selectedWidgetList ||
+															!Array.isArray(
+																item.selectedWidgetList
+															) ||
+															item
+																.selectedWidgetList
+																.length ===
+																0) &&
+														item.selectedWidgets &&
+														Array.isArray(
+															item.selectedWidgets
+														) &&
+														item.selectedWidgets
+															.length > 0
+													) {
+														item.selectedWidgetList =
+															item.selectedWidgets
+																.map(
+																	function (
+																		widget
+																	) {
+																		if (
+																			(0,
+																			_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+																				'default'
+																			])(
+																				widget
+																			) ===
+																				'object' &&
+																			widget !==
+																				null
+																		) {
+																			// Use widget_key as primary, fallback to widget_name or widget itself
+																			return (
+																				widget.widget_key ||
+																				widget.widget_name ||
+																				widget
+																			);
+																		}
+																		return widget;
+																	}
+																)
+																.filter(
+																	function (
+																		key
+																	) {
+																		return (
+																			key !=
+																				null &&
+																			key !==
+																				''
+																		);
+																	}
+																); // Filter out null, undefined, and empty values
+
+														// Update the item with the new selectedWidgetList
+														_this0.$set(
+															item,
+															'selectedWidgetList',
+															item.selectedWidgetList
+														);
+													}
+
+													// Process selectedWidgetList
+													if (
+														item.selectedWidgetList &&
+														Array.isArray(
+															item.selectedWidgetList
+														)
+													) {
+														item.selectedWidgetList.forEach(
+															function (
+																widgetKey
+															) {
+																// Skip if already in active_widgets
+																if (
+																	_this0
+																		.active_widgets[
+																		widgetKey
+																	]
+																) {
+																	return;
+																}
+
+																// Get widget from available_widgets and add to active_widgets
+																if (
+																	typeof widgetKey !==
+																		'undefined' &&
+																	typeof widgetKey ===
+																		'string' &&
+																	typeof _this0
+																		.available_widgets[
+																		widgetKey
+																	] !==
+																		'undefined'
+																) {
+																	var widget =
+																		_this0
+																			.available_widgets[
+																			widgetKey
+																		];
+																	if (
+																		widget
+																	) {
+																		_this0.$set(
+																			_this0.active_widgets,
+																			widgetKey,
+																			widget
+																		);
+																	}
+																}
+															}
+														);
+													}
+
+													// Process nested placeholders if it's a placeholder_group
+													if (
+														item.type ===
+															'placeholder_group' &&
+														item.placeholders &&
+														Array.isArray(
+															item.placeholders
+														)
+													) {
+														item.placeholders.forEach(
+															function (
+																subPlaceholder
+															) {
+																_processPlaceholder2(
+																	subPlaceholder
+																);
+															}
+														);
+													}
+												};
+											_processPlaceholder2(
+												placeholderItem
+											);
+										}
+									);
+								}
+
+								// Filter active_widgets to only include widgets from selectedWidgetList
+								this.filterActiveWidgetsBySelectedWidgetList();
 							},
 							// Handle widget toggle from UI
 							handleWidgetSwitch: function handleWidgetSwitch(
@@ -44297,6 +45681,19 @@
 									if (!Array.isArray(selectedWidgets)) {
 										selectedWidgets =
 											Object.values(selectedWidgets); // Convert object to array if needed
+									}
+
+									// Filter out null items from selectedWidgetList
+									if (Array.isArray(selectedWidgetList)) {
+										selectedWidgetList =
+											selectedWidgetList.filter(
+												function (key) {
+													return (
+														key != null &&
+														key !== ''
+													);
+												}
+											);
 									}
 									if (isChecked) {
 										// Add widget if it does not exist
@@ -44364,6 +45761,16 @@
 										);
 									});
 
+									// Filter out null items from selectedWidgetList one more time after sorting
+									selectedWidgetList =
+										selectedWidgetList.filter(
+											function (key) {
+												return (
+													key != null && key !== ''
+												);
+											}
+										);
+
 									// Update selectedWidgets array
 									this.$set(
 										this.allPlaceholderItems[
@@ -44409,6 +45816,9 @@
 											widget_key
 										);
 									}
+
+									// Filter active_widgets to only include widgets from selectedWidgetList
+									this.filterActiveWidgetsBySelectedWidgetList();
 								},
 							// Sync selectedWidgets across placeholders
 							syncSelectedWidgets: function syncSelectedWidgets(
@@ -44453,6 +45863,17 @@
 																selectedWidgetList
 															);
 													}
+													// Filter out null items from selectedWidgetList
+													selectedWidgetList =
+														selectedWidgetList.filter(
+															function (key) {
+																return (
+																	key !=
+																		null &&
+																	key !== ''
+																);
+															}
+														);
 													vue__WEBPACK_IMPORTED_MODULE_4__[
 														'default'
 													].set(
@@ -44487,15 +45908,137 @@
 											}
 										);
 									};
-								return _updatePlaceholders(placeholders);
+								var result = _updatePlaceholders(placeholders);
+
+								// Filter active_widgets to only include widgets from selectedWidgetList
+								this.filterActiveWidgetsBySelectedWidgetList();
+								return result;
 							},
+							// Filter active_widgets to only include widgets from selectedWidgetList of placeholder_item types
+							filterActiveWidgetsBySelectedWidgetList:
+								function filterActiveWidgetsBySelectedWidgetList() {
+									var _this1 = this;
+									// Collect all widget keys from selectedWidgetList of placeholder_item types
+									var allowedWidgetKeys = new Set();
+									var _collectWidgetKeys =
+										function collectWidgetKeys(items) {
+											if (!Array.isArray(items)) {
+												return;
+											}
+											items.forEach(function (item) {
+												if (
+													item.type ===
+													'placeholder_item'
+												) {
+													// Collect widget keys from selectedWidgetList
+													if (
+														item.selectedWidgetList &&
+														Array.isArray(
+															item.selectedWidgetList
+														)
+													) {
+														item.selectedWidgetList
+															.filter(
+																function (
+																	widgetKey
+																) {
+																	return (
+																		widgetKey !=
+																			null &&
+																		widgetKey !==
+																			''
+																	);
+																}
+															)
+															.forEach(
+																function (
+																	widgetKey
+																) {
+																	if (
+																		typeof widgetKey ===
+																			'string' &&
+																		widgetKey
+																	) {
+																		allowedWidgetKeys.add(
+																			widgetKey
+																		);
+																	}
+																}
+															);
+													}
+												} else if (
+													item.type ===
+														'placeholder_group' &&
+													item.placeholders &&
+													Array.isArray(
+														item.placeholders
+													)
+												) {
+													// Recursively process nested placeholders
+													_collectWidgetKeys(
+														item.placeholders
+													);
+												}
+											});
+										};
+
+									// Collect from allPlaceholderItems
+									_collectWidgetKeys(
+										this.allPlaceholderItems
+									);
+
+									// Collect from placeholders (for nested groups)
+									_collectWidgetKeys(this.placeholders);
+
+									// Remove widgets from active_widgets that are not in allowedWidgetKeys
+									Object.keys(this.active_widgets).forEach(
+										function (widgetKey) {
+											if (
+												!allowedWidgetKeys.has(
+													widgetKey
+												)
+											) {
+												_this1.$delete(
+													_this1.active_widgets,
+													widgetKey
+												);
+											}
+										}
+									);
+
+									// Add widgets to active_widgets that are in allowedWidgetKeys but not yet in active_widgets
+									allowedWidgetKeys.forEach(
+										function (widgetKey) {
+											if (
+												!_this1.active_widgets[
+													widgetKey
+												] &&
+												typeof _this1.available_widgets[
+													widgetKey
+												] !== 'undefined'
+											) {
+												var widget =
+													_this1.available_widgets[
+														widgetKey
+													];
+												if (widget) {
+													_this1.$set(
+														_this1.active_widgets,
+														widgetKey,
+														widget
+													);
+												}
+											}
+										}
+									);
+								},
 							// Sync placeholders with allPlaceholderItems
 							syncPlaceholdersWithAllPlaceholderItems:
 								function syncPlaceholdersWithAllPlaceholderItems(
 									allPlaceholderItems,
 									placeholders
 								) {
-									var _this9 = this;
+									var _this10 = this;
 									var updatePlaceholderItem =
 										function updatePlaceholderItem(
 											placeholder,
@@ -44510,7 +46053,7 @@
 													allPlaceholderItem.acceptedWidgets ||
 													[]
 												).filter(function (widgetKey) {
-													return _this9.isWidgetAvailable(
+													return _this10.isWidgetAvailable(
 														widgetKey
 													);
 												});
@@ -44535,22 +46078,37 @@
 															return (
 																widget &&
 																widget.widget_key &&
-																_this9.isWidgetAvailable(
+																_this10.isWidgetAvailable(
 																	widget.widget_key
 																)
 															);
 														}
 													);
 
-												// Filter selectedWidgetList based on available widgets
+												// Filter selectedWidgetList based on available widgets and remove null items
 												var filteredSelectedWidgetList =
-													selectedWidgetList.filter(
-														function (widgetKey) {
-															return _this9.isWidgetAvailable(
+													selectedWidgetList
+														.filter(
+															function (
 																widgetKey
-															);
-														}
-													);
+															) {
+																return (
+																	widgetKey !=
+																		null &&
+																	widgetKey !==
+																		''
+																);
+															}
+														)
+														.filter(
+															function (
+																widgetKey
+															) {
+																return _this10.isWidgetAvailable(
+																	widgetKey
+																);
+															}
+														);
 												placeholder.selectedWidgets =
 													(0,
 													_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__[
@@ -44605,6 +46163,9 @@
 												);
 										};
 									_updatePlaceholders2(placeholders);
+
+									// Filter active_widgets to only include widgets from selectedWidgetList
+									this.filterActiveWidgetsBySelectedWidgetList();
 									return placeholders;
 								},
 							// Edit Widget
@@ -45560,6 +47121,9 @@
 							expandedGroupFieldsKey: null,
 							// Track which group has its fields/config expanded
 
+							newlyCreatedGroupKey: null,
+							// Track newly created group to auto-edit its label
+
 							listing_type_id: null,
 							showModal: false,
 						};
@@ -46391,6 +47955,7 @@
 									this.currentDraggingGroup = null;
 								},
 								addNewGroup: function addNewGroup() {
+									var _this = this;
 									var group = JSON.parse(
 										JSON.stringify(this.default_group[0])
 									);
@@ -46414,6 +47979,17 @@
 										0,
 										group
 									);
+
+									// Set the newly created group key to trigger auto-edit
+									this.newlyCreatedGroupKey = dest_index;
+
+									// Clear the flag after Vue renders the component
+									this.$nextTick(function () {
+										// Use setTimeout to ensure the component is fully mounted
+										setTimeout(function () {
+											_this.newlyCreatedGroupKey = null;
+										}, 100);
+									});
 									this.$emit('updated-state');
 								},
 								getUniqueSectionID:
@@ -46562,7 +48138,7 @@
 									function insertWidgetFromAvailableSectionWidgets(
 										widgets
 									) {
-										var _this = this;
+										var _this2 = this;
 										if (
 											!(0,
 											_helper__WEBPACK_IMPORTED_MODULE_4__.isObject)(
@@ -46577,34 +48153,34 @@
 												widget
 											) {
 												var field_data_options =
-													_this.getOptionDataFromWidget(
+													_this2.getOptionDataFromWidget(
 														widget
 													);
 												field_data_options.widget_key =
-													_this.genarateWidgetKeyForActiveWidgets(
+													_this2.genarateWidgetKeyForActiveWidgets(
 														widget_key
 													);
 												if (
 													field_data_options.field_key
 												) {
 													field_data_options.field_key =
-														_this.genarateFieldKeyForActiveWidgets(
+														_this2.genarateFieldKeyForActiveWidgets(
 															field_data_options
 														);
 												}
 												if (
 													!(0,
 													_helper__WEBPACK_IMPORTED_MODULE_4__.isObject)(
-														_this.active_widget_fields
+														_this2.active_widget_fields
 													)
 												) {
-													_this.active_widget_fields =
+													_this2.active_widget_fields =
 														{};
 												}
 												vue__WEBPACK_IMPORTED_MODULE_2__[
 													'default'
 												].set(
-													_this.active_widget_fields,
+													_this2.active_widget_fields,
 													field_data_options.widget_key,
 													field_data_options
 												);
@@ -51800,6 +53376,10 @@
 																												_vm.readOnly,
 																											activeWidgets:
 																												_vm.activeWidgets,
+																											selectedWidgets:
+																												_vm.selectedWidgets,
+																											availableWidgets:
+																												_vm.availableWidgets,
 																										},
 																										on: {
 																											trash: function trash(
@@ -51810,6 +53390,15 @@
 																													widget
 																												);
 																											},
+																											'insert-widget':
+																												function insertWidget(
+																													$event
+																												) {
+																													return _vm.$emit(
+																														'insert-widget',
+																														$event
+																													);
+																												},
 																											edit: function edit(
 																												$event
 																											) {
@@ -51948,6 +53537,10 @@
 																										_vm.readOnly,
 																									activeWidgets:
 																										_vm.activeWidgets,
+																									selectedWidgets:
+																										_vm.selectedWidgets,
+																									availableWidgets:
+																										_vm.availableWidgets,
 																								},
 																								on: {
 																									trash: function trash(
@@ -51958,6 +53551,15 @@
 																											widget
 																										);
 																									},
+																									'insert-widget':
+																										function insertWidget(
+																											$event
+																										) {
+																											return _vm.$emit(
+																												'insert-widget',
+																												$event
+																											);
+																										},
 																									edit: function edit(
 																										$event
 																									) {
@@ -55202,96 +56804,455 @@
 												'cptm-placeholder-author-thumb',
 										},
 										[
-											_c(
-												'svg',
-												{
-													attrs: {
-														width: '40',
-														height: '40',
-														viewBox: '0 0 40 40',
-														fill: 'none',
-														xmlns: 'http://www.w3.org/2000/svg',
-													},
-												},
-												[
-													_c('path', {
-														attrs: {
-															d: 'M35.1667 20.8327L37.5 23.1827L26.6167 34.166L20.8333 28.3327L23.1667 25.9827L26.6167 29.4493L35.1667 20.8327ZM16.6667 28.3327L21.6667 33.3327H5V29.9993C5 26.316 10.9667 23.3327 18.3333 23.3327L21.4833 23.516L16.6667 28.3327ZM18.3333 6.66602C20.1014 6.66602 21.7971 7.36839 23.0474 8.61864C24.2976 9.86888 25 11.5646 25 13.3327C25 15.1008 24.2976 16.7965 23.0474 18.0467C21.7971 19.297 20.1014 19.9993 18.3333 19.9993C16.5652 19.9993 14.8695 19.297 13.6193 18.0467C12.369 16.7965 11.6667 15.1008 11.6667 13.3327C11.6667 11.5646 12.369 9.86888 13.6193 8.61864C14.8695 7.36839 16.5652 6.66602 18.3333 6.66602Z',
-															fill: '#141921',
+											_vm.isAvailableOptions
+												? _c(
+														'svg',
+														{
+															attrs: {
+																xmlns: 'http://www.w3.org/2000/svg',
+																width: '32',
+																height: '32',
+																viewBox:
+																	'0 0 32 32',
+																fill: 'none',
+															},
 														},
-													}),
-												]
-											),
+														[
+															_c('path', {
+																attrs: {
+																	'fill-rule':
+																		'evenodd',
+																	'clip-rule':
+																		'evenodd',
+																	d: 'M16.0001 5.33268C13.4228 5.33268 11.3334 7.42202 11.3334 9.99935C11.3334 12.5767 13.4228 14.666 16.0001 14.666C18.5774 14.666 20.6668 12.5767 20.6668 9.99935C20.6668 7.42202 18.5774 5.33268 16.0001 5.33268ZM8.66678 9.99935C8.66678 5.94926 11.95 2.66602 16.0001 2.66602C20.0502 2.66602 23.3334 5.94926 23.3334 9.99935C23.3334 14.0494 20.0502 17.3327 16.0001 17.3327C11.95 17.3327 8.66678 14.0494 8.66678 9.99935ZM12.4351 19.3326C12.5112 19.3326 12.5884 19.3327 12.6668 19.3327H19.3334C19.4118 19.3327 19.489 19.3326 19.5651 19.3326C21.2015 19.332 22.3188 19.3316 23.2687 19.6197C25.3994 20.2661 27.0667 21.9334 27.713 24.0641C28.0012 25.014 28.0008 26.1313 28.0002 27.7677C28.0001 27.8438 28.0001 27.921 28.0001 27.9993C28.0001 28.7357 27.4032 29.3327 26.6668 29.3327C25.9304 29.3327 25.3334 28.7357 25.3334 27.9993C25.3334 26.0416 25.319 25.3583 25.1612 24.8382C24.7734 23.5598 23.773 22.5594 22.4946 22.1716C21.9745 22.0138 21.2912 21.9993 19.3334 21.9993H12.6668C10.709 21.9993 10.0257 22.0138 9.50564 22.1716C8.22723 22.5594 7.22682 23.5598 6.83902 24.8382C6.68125 25.3583 6.66678 26.0416 6.66678 27.9993C6.66678 28.7357 6.06982 29.3327 5.33344 29.3327C4.59706 29.3327 4.00011 28.7357 4.00011 27.9993C4.00011 27.921 4.00008 27.8438 4.00005 27.7677C3.99945 26.1313 3.99904 25.014 4.28718 24.0641C4.93351 21.9334 6.60087 20.2661 8.73154 19.6197C9.68141 19.3316 10.7988 19.332 12.4351 19.3326Z',
+																	fill: '#141921',
+																},
+															}),
+														]
+													)
+												: _c(
+														'svg',
+														{
+															attrs: {
+																width: '40',
+																height: '40',
+																viewBox:
+																	'0 0 40 40',
+																fill: 'none',
+																xmlns: 'http://www.w3.org/2000/svg',
+															},
+														},
+														[
+															_c('path', {
+																attrs: {
+																	d: 'M35.1667 20.8327L37.5 23.1827L26.6167 34.166L20.8333 28.3327L23.1667 25.9827L26.6167 29.4493L35.1667 20.8327ZM16.6667 28.3327L21.6667 33.3327H5V29.9993C5 26.316 10.9667 23.3327 18.3333 23.3327L21.4833 23.516L16.6667 28.3327ZM18.3333 6.66602C20.1014 6.66602 21.7971 7.36839 23.0474 8.61864C24.2976 9.86888 25 11.5646 25 13.3327C25 15.1008 24.2976 16.7965 23.0474 18.0467C21.7971 19.297 20.1014 19.9993 18.3333 19.9993C16.5652 19.9993 14.8695 19.297 13.6193 18.0467C12.369 16.7965 11.6667 15.1008 11.6667 13.3327C11.6667 11.5646 12.369 9.86888 13.6193 8.61864C14.8695 7.36839 16.5652 6.66602 18.3333 6.66602Z',
+																	fill: '#141921',
+																},
+															}),
+														]
+													),
 											_vm._v(' '),
-											_c(
-												'span',
-												{
-													staticClass:
-														'cptm-placeholder-author-thumb-trash',
-													on: {
-														click: function click(
-															$event
-														) {
-															$event.stopPropagation();
-															return _vm.$emit(
-																'trash'
-															);
+											_vm.isAvailableOptions
+												? _c(
+														'a',
+														{
+															staticClass:
+																'cptm-widget-action-link cptm-placeholder-author-thumb-options',
+															attrs: {
+																href: '#',
+															},
+															on: {
+																click: function click(
+																	$event
+																) {
+																	$event.stopPropagation();
+																	return _vm.toggleOptions.apply(
+																		null,
+																		arguments
+																	);
+																},
+															},
 														},
-													},
-												},
-												[
-													_c('span', {
-														staticClass:
-															'las la-trash-alt',
-													}),
-												]
-											),
+														[
+															_c('span', {
+																staticClass:
+																	'las la-cog',
+															}),
+														]
+													)
+												: _c(
+														'a',
+														{
+															staticClass:
+																'cptm-placeholder-author-thumb-trash',
+															attrs: {
+																href: '#',
+															},
+															on: {
+																click: function click(
+																	$event
+																) {
+																	$event.stopPropagation();
+																	return _vm.$emit(
+																		'trash'
+																	);
+																},
+															},
+														},
+														[
+															_c('span', {
+																staticClass:
+																	'las la-trash-alt',
+															}),
+														]
+													),
 										]
 									),
 								]
 							),
 							_vm._v(' '),
-							_vm.isAvailableOptions
+							_vm.showOptions
 								? _c(
 										'div',
 										{
 											staticClass:
-												'cptm-placeholder-author-thumb-options',
+												'cptm-widget-action-modal-container',
 										},
-										_vm._l(
-											_vm.optionFields,
-											function (field, field_key) {
-												return _c(
-													field.type + '-field',
-													_vm._b(
+										[
+											_c(
+												'div',
+												{
+													staticClass:
+														'cptm-option-card cptm-animation-slide-up',
+													class: {
+														active: _vm.showOptions,
+													},
+												},
+												[
+													_c(
+														'div',
 														{
-															key: field_key,
-															tag: 'component',
-															on: {
-																update: function update(
-																	$event
-																) {
-																	return _vm.updateFieldData(
-																		$event,
-																		field_key
-																	);
-																},
-															},
+															staticClass:
+																'cptm-option-card-header',
 														},
-														'component',
-														field,
-														false
-													)
-												);
-											}
-										),
-										1
+														[
+															_c(
+																'div',
+																{
+																	staticClass:
+																		'cptm-option-card-header-title-section',
+																},
+																[
+																	_c(
+																		'h3',
+																		{
+																			staticClass:
+																				'cptm-option-card-header-title',
+																		},
+																		[
+																			_vm._v(
+																				'Edit Element'
+																			),
+																		]
+																	),
+																	_vm._v(' '),
+																	_c(
+																		'div',
+																		{
+																			staticClass:
+																				'cptm-header-action-area',
+																		},
+																		[
+																			_c(
+																				'a',
+																				{
+																					staticClass:
+																						'cptm-header-action-link cptm-header-action-close',
+																					attrs: {
+																						href: '#',
+																					},
+																					on: {
+																						click: function click(
+																							$event
+																						) {
+																							$event.stopPropagation();
+																							return _vm.toggleOptions.apply(
+																								null,
+																								arguments
+																							);
+																						},
+																					},
+																				},
+																				[
+																					_c(
+																						'span',
+																						{
+																							staticClass:
+																								'fa fa-times',
+																						}
+																					),
+																				]
+																			),
+																		]
+																	),
+																]
+															),
+														]
+													),
+													_vm._v(' '),
+													_c(
+														'div',
+														{
+															staticClass:
+																'cptm-option-card-body',
+														},
+														[
+															_c(
+																'div',
+																{
+																	staticClass:
+																		'cptm-input-toggle-wrap',
+																},
+																[
+																	_vm._m(0),
+																	_vm._v(' '),
+																	_c(
+																		'div',
+																		{
+																			staticClass:
+																				'directorist_vertical-align-m cptm-input-toggle-btn',
+																		},
+																		[
+																			_c(
+																				'div',
+																				{
+																					staticClass:
+																						'directorist_item',
+																				},
+																				[
+																					_c(
+																						'label',
+																						{
+																							staticClass:
+																								'cptm-input-toggle',
+																							class: {
+																								active: _vm.isEnabled,
+																							},
+																							attrs: {
+																								for: 'avatar-toggle-'.concat(
+																									_vm.widgetKey
+																								),
+																							},
+																						}
+																					),
+																					_vm._v(
+																						' '
+																					),
+																					_c(
+																						'input',
+																						{
+																							directives:
+																								[
+																									{
+																										name: 'model',
+																										rawName:
+																											'v-model',
+																										value: _vm.isEnabled,
+																										expression:
+																											'isEnabled',
+																									},
+																								],
+																							staticClass:
+																								'cptm-toggle-input',
+																							attrs: {
+																								type: 'checkbox',
+																								id: 'avatar-toggle-'.concat(
+																									_vm.widgetKey
+																								),
+																								name: 'avatar-toggle-'.concat(
+																									_vm.widgetKey
+																								),
+																							},
+																							domProps:
+																								{
+																									checked:
+																										Array.isArray(
+																											_vm.isEnabled
+																										)
+																											? _vm._i(
+																													_vm.isEnabled,
+																													null
+																												) >
+																												-1
+																											: _vm.isEnabled,
+																								},
+																							on: {
+																								change: [
+																									function (
+																										$event
+																									) {
+																										var $$a =
+																												_vm.isEnabled,
+																											$$el =
+																												$event.target,
+																											$$c =
+																												$$el.checked
+																													? true
+																													: false;
+																										if (
+																											Array.isArray(
+																												$$a
+																											)
+																										) {
+																											var $$v =
+																													null,
+																												$$i =
+																													_vm._i(
+																														$$a,
+																														$$v
+																													);
+																											if (
+																												$$el.checked
+																											) {
+																												$$i <
+																													0 &&
+																													(_vm.isEnabled =
+																														$$a.concat(
+																															[
+																																$$v,
+																															]
+																														));
+																											} else {
+																												$$i >
+																													-1 &&
+																													(_vm.isEnabled =
+																														$$a
+																															.slice(
+																																0,
+																																$$i
+																															)
+																															.concat(
+																																$$a.slice(
+																																	$$i +
+																																		1
+																																)
+																															));
+																											}
+																										} else {
+																											_vm.isEnabled =
+																												$$c;
+																										}
+																									},
+																									_vm.handleToggleChange,
+																								],
+																							},
+																						}
+																					),
+																				]
+																			),
+																		]
+																	),
+																]
+															),
+															_vm._v(' '),
+															_vm.isAvailableOptions &&
+															_vm.hasPositionField
+																? _c(
+																		'div',
+																		{
+																			staticClass:
+																				'cptm-option-card-body-item',
+																		},
+																		[
+																			_c(
+																				'label',
+																				{
+																					staticClass:
+																						'cptm-option-card-body-item-label',
+																				},
+																				[
+																					_vm._v(
+																						'Position'
+																					),
+																				]
+																			),
+																			_vm._v(
+																				' '
+																			),
+																			_c(
+																				'div',
+																				{
+																					staticClass:
+																						'cptm-option-card-body-item-options',
+																				},
+																				_vm._l(
+																					_vm.optionFields,
+																					function (
+																						field,
+																						field_key
+																					) {
+																						return field_key ===
+																							'position' ||
+																							field_key ===
+																								'align' ||
+																							field.label ===
+																								'Position' ||
+																							field.label ===
+																								'Align'
+																							? _c(
+																									field.type +
+																										'-field',
+																									_vm._b(
+																										{
+																											key: field_key,
+																											tag: 'component',
+																											on: {
+																												update: function update(
+																													$event
+																												) {
+																													return _vm.updateFieldData(
+																														$event,
+																														field_key
+																													);
+																												},
+																											},
+																										},
+																										'component',
+																										field,
+																										false
+																									)
+																								)
+																							: _vm._e();
+																					}
+																				),
+																				1
+																			),
+																		]
+																	)
+																: _vm._e(),
+														]
+													),
+												]
+											),
+										]
 									)
 								: _vm._e(),
 						]
 					);
 				};
-				var staticRenderFns = [];
+				var staticRenderFns = [
+					function () {
+						var _vm = this,
+							_c = _vm._self._c;
+						return _c(
+							'div',
+							{
+								staticClass: 'cptm-input-toggle-content',
+							},
+							[_c('label', [_c('span', [_vm._v('Avatar')])])]
+						);
+					},
+				];
 				render._withStripped = true;
 
 				/***/
@@ -58669,6 +60630,18 @@
 						{
 							staticClass:
 								'cptm-form-builder-active-fields-group',
+							on: {
+								dragenter: function dragenter($event) {
+									$event.preventDefault();
+									return _vm.handleGroupDragEnter.apply(
+										null,
+										arguments
+									);
+								},
+								dragover: function dragover($event) {
+									$event.preventDefault();
+								},
+							},
 						},
 						[
 							_c(
@@ -58684,6 +60657,8 @@
 											'current-dragging-group':
 												_vm.currentDraggingGroup,
 											'group-key': _vm.groupKey,
+											'auto-edit-label':
+												_vm.autoEditLabel,
 										},
 										on: {
 											'update-group-field':
@@ -59129,42 +61104,136 @@
 																]
 															),
 															_vm._v(' '),
-															_c(
-																'span',
-																{
-																	staticClass:
-																		'cptm-form-builder-group-title-label',
-																},
-																[
-																	_vm.getSearchGroup()
-																		? _c(
-																				'span',
-																				{
-																					domProps:
+															!_vm.isEditingLabel
+																? _c(
+																		'span',
+																		{
+																			staticClass:
+																				'cptm-form-builder-group-title-label',
+																			on: {
+																				click: _vm.startEditingLabel,
+																			},
+																		},
+																		[
+																			_vm.getSearchGroup()
+																				? _c(
+																						'span',
 																						{
-																							innerHTML:
-																								_vm._s(
-																									_vm.getSearchLabelContent()
-																								),
-																						},
-																				}
-																			)
-																		: _c(
-																				'span',
-																				{
-																					domProps:
+																							domProps:
+																								{
+																									innerHTML:
+																										_vm._s(
+																											_vm.getSearchLabelContent()
+																										),
+																								},
+																						}
+																					)
+																				: _c(
+																						'span',
 																						{
-																							innerHTML:
-																								_vm._s(
-																									_vm
-																										.groupData
-																										.label
-																								),
-																						},
-																				}
-																			),
-																]
-															),
+																							domProps:
+																								{
+																									innerHTML:
+																										_vm._s(
+																											_vm
+																												.groupData
+																												.label
+																										),
+																								},
+																						}
+																					),
+																		]
+																	)
+																: _c('input', {
+																		directives:
+																			[
+																				{
+																					name: 'model',
+																					rawName:
+																						'v-model',
+																					value: _vm.editedLabelValue,
+																					expression:
+																						'editedLabelValue',
+																				},
+																				{
+																					name: 'focus',
+																					rawName:
+																						'v-focus',
+																				},
+																			],
+																		ref: 'labelInput',
+																		staticClass:
+																			'cptm-form-builder-group-title-label-input',
+																		attrs: {
+																			type: 'text',
+																		},
+																		domProps:
+																			{
+																				value: _vm.editedLabelValue,
+																			},
+																		on: {
+																			blur: _vm.saveLabel,
+																			keyup: [
+																				function (
+																					$event
+																				) {
+																					if (
+																						!$event.type.indexOf(
+																							'key'
+																						) &&
+																						_vm._k(
+																							$event.keyCode,
+																							'enter',
+																							13,
+																							$event.key,
+																							'Enter'
+																						)
+																					)
+																						return null;
+																					return _vm.saveLabel.apply(
+																						null,
+																						arguments
+																					);
+																				},
+																				function (
+																					$event
+																				) {
+																					if (
+																						!$event.type.indexOf(
+																							'key'
+																						) &&
+																						_vm._k(
+																							$event.keyCode,
+																							'esc',
+																							27,
+																							$event.key,
+																							[
+																								'Esc',
+																								'Escape',
+																							]
+																						)
+																					)
+																						return null;
+																					return _vm.cancelEditingLabel.apply(
+																						null,
+																						arguments
+																					);
+																				},
+																			],
+																			input: function input(
+																				$event
+																			) {
+																				if (
+																					$event
+																						.target
+																						.composing
+																				)
+																					return;
+																				_vm.editedLabelValue =
+																					$event.target.value;
+																			},
+																		},
+																	}),
 														]
 													),
 													_vm._v(' '),
@@ -59224,9 +61293,6 @@
 																		{
 																			staticClass:
 																				'cptm-form-builder-header-action-link',
-																			class: _vm.widgetsExpanded
-																				? 'disabled'
-																				: '',
 																			attrs: {
 																				href: '#',
 																			},
@@ -59339,6 +61405,7 @@
 											),
 											_vm._v(' '),
 											_c('field-list-component', {
+												key: _vm.fieldListComponentKey,
 												attrs: {
 													'field-list':
 														_vm.finalGroupFields,
@@ -62144,7 +64211,11 @@
 																	attrs: {
 																		id: 'thumbnail_body_bottom',
 																		containerClass:
-																			'cptm-listing-card-preview-body-placeholder',
+																			{
+																				'cptm-listing-card-preview-body-placeholder': true,
+																				'cptm-mb-12':
+																					_vm.hasExcerptWidget,
+																			},
 																		label: _vm
 																			.local_layout
 																			.body
@@ -62266,6 +64337,137 @@
 																	},
 																}
 															),
+															_vm._v(' '),
+															_vm.hasExcerptWidget
+																? _c(
+																		'card-widget-placeholder',
+																		{
+																			attrs: {
+																				id: 'thumbnail_body_excerpt',
+																				containerClass:
+																					'cptm-listing-card-preview-excerpt-placeholder',
+																				label: _vm
+																					.local_layout
+																					.body
+																					.excerpt
+																					.label,
+																				availableWidgets:
+																					_vm.theAvailableWidgets,
+																				activeWidgets:
+																					_vm.active_widgets,
+																				acceptedWidgets:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.acceptedWidgets,
+																				selectedWidgets:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.selectedWidgets,
+																				maxWidget:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.maxWidget,
+																				showWidgetsPickerWindow:
+																					_vm.getActiveInsertWindowStatus(
+																						'thumbnail_body_excerpt'
+																					),
+																				showWidgetsOptionWindow:
+																					_vm.getActiveOptionWindowStatus(
+																						'thumbnail_body_excerpt'
+																					),
+																				widgetOptionsWindow:
+																					_vm.widgetOptionsWindow,
+																				canOpenSettings: true,
+																			},
+																			on: {
+																				'insert-widget':
+																					function insertWidget(
+																						$event
+																					) {
+																						return _vm.insertWidget(
+																							$event,
+																							_vm
+																								.local_layout
+																								.body
+																								.excerpt
+																						);
+																					},
+																				'edit-widget':
+																					function editWidget(
+																						$event
+																					) {
+																						return _vm.editWidget(
+																							$event
+																						);
+																					},
+																				'trash-widget':
+																					function trashWidget(
+																						$event
+																					) {
+																						return _vm.trashWidget(
+																							$event,
+																							_vm
+																								.local_layout
+																								.body
+																								.excerpt
+																						);
+																					},
+																				'open-widgets-picker-window':
+																					function openWidgetsPickerWindow(
+																						$event
+																					) {
+																						return _vm.toggleInsertWindow(
+																							'thumbnail_body_excerpt'
+																						);
+																					},
+																				'open-widgets-option-window':
+																					function openWidgetsOptionWindow(
+																						$event
+																					) {
+																						return _vm.toggleOptionWindow(
+																							'thumbnail_body_excerpt'
+																						);
+																					},
+																				'close-widgets-picker-window':
+																					function closeWidgetsPickerWindow(
+																						$event
+																					) {
+																						return _vm.closeInsertWindow();
+																					},
+																				'close-widgets-option-window':
+																					function closeWidgetsOptionWindow(
+																						$event
+																					) {
+																						return _vm.closeOptionWindow();
+																					},
+																				'close-option-window':
+																					function closeOptionWindow(
+																						$event
+																					) {
+																						return _vm.closeWidgetOptionsWindow();
+																					},
+																				update: function update(
+																					$event
+																				) {
+																					return _vm.handleUpdateSelectedWidgets(
+																						$event,
+																						'local_layout.body.excerpt'
+																					);
+																				},
+																				'update-active-widget':
+																					_vm.handleActiveWidgetUpdate,
+																				'activate-widget-options':
+																					_vm.toggleActivateWidgetOptions,
+																			},
+																		}
+																	)
+																: _vm._e(),
 														],
 														1
 													),
@@ -63307,6 +65509,137 @@
 														1
 													),
 													_vm._v(' '),
+													_vm.hasExcerptWidget
+														? _c(
+																'card-widget-placeholder',
+																{
+																	attrs: {
+																		id: 'no_thumbnail_body_excerpt',
+																		containerClass:
+																			'cptm-listing-card-preview-excerpt-placeholder',
+																		label: _vm
+																			.local_layout
+																			.body
+																			.excerpt
+																			.label,
+																		availableWidgets:
+																			_vm.theAvailableWidgets,
+																		activeWidgets:
+																			_vm.active_widgets,
+																		acceptedWidgets:
+																			_vm
+																				.local_layout
+																				.body
+																				.excerpt
+																				.acceptedWidgets,
+																		selectedWidgets:
+																			_vm
+																				.local_layout
+																				.body
+																				.excerpt
+																				.selectedWidgets,
+																		maxWidget:
+																			_vm
+																				.local_layout
+																				.body
+																				.excerpt
+																				.maxWidget,
+																		showWidgetsPickerWindow:
+																			_vm.getActiveInsertWindowStatus(
+																				'no_thumbnail_body_excerpt'
+																			),
+																		showWidgetsOptionWindow:
+																			_vm.getActiveOptionWindowStatus(
+																				'no_thumbnail_body_excerpt'
+																			),
+																		widgetOptionsWindow:
+																			_vm.widgetOptionsWindow,
+																		canOpenSettings: true,
+																	},
+																	on: {
+																		'insert-widget':
+																			function insertWidget(
+																				$event
+																			) {
+																				return _vm.insertWidget(
+																					$event,
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																				);
+																			},
+																		'edit-widget':
+																			function editWidget(
+																				$event
+																			) {
+																				return _vm.editWidget(
+																					$event
+																				);
+																			},
+																		'trash-widget':
+																			function trashWidget(
+																				$event
+																			) {
+																				return _vm.trashWidget(
+																					$event,
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																				);
+																			},
+																		'open-widgets-picker-window':
+																			function openWidgetsPickerWindow(
+																				$event
+																			) {
+																				return _vm.toggleInsertWindow(
+																					'no_thumbnail_body_excerpt'
+																				);
+																			},
+																		'open-widgets-option-window':
+																			function openWidgetsOptionWindow(
+																				$event
+																			) {
+																				return _vm.toggleOptionWindow(
+																					'no_thumbnail_body_excerpt'
+																				);
+																			},
+																		'close-widgets-picker-window':
+																			function closeWidgetsPickerWindow(
+																				$event
+																			) {
+																				return _vm.closeInsertWindow();
+																			},
+																		'close-widgets-option-window':
+																			function closeWidgetsOptionWindow(
+																				$event
+																			) {
+																				return _vm.closeOptionWindow();
+																			},
+																		'close-option-window':
+																			function closeOptionWindow(
+																				$event
+																			) {
+																				return _vm.closeWidgetOptionsWindow();
+																			},
+																		update: function update(
+																			$event
+																		) {
+																			return _vm.handleUpdateSelectedWidgets(
+																				$event,
+																				'local_layout.body.excerpt'
+																			);
+																		},
+																		'update-active-widget':
+																			_vm.handleActiveWidgetUpdate,
+																		'activate-widget-options':
+																			_vm.toggleActivateWidgetOptions,
+																	},
+																}
+															)
+														: _vm._e(),
+													_vm._v(' '),
 													_c(
 														'div',
 														{
@@ -63593,7 +65926,8 @@
 															),
 														]
 													),
-												]
+												],
+												1
 											),
 										]
 									),
@@ -65249,7 +67583,11 @@
 																	attrs: {
 																		id: 'thumbnail_body_bottom',
 																		containerClass:
-																			'cptm-listing-card-preview-body-placeholder',
+																			{
+																				'cptm-listing-card-preview-body-placeholder': true,
+																				'cptm-mb-12':
+																					_vm.hasExcerptWidget,
+																			},
 																		label: _vm
 																			.local_layout
 																			.body
@@ -65371,6 +67709,137 @@
 																	},
 																}
 															),
+															_vm._v(' '),
+															_vm.hasExcerptWidget
+																? _c(
+																		'card-widget-placeholder',
+																		{
+																			attrs: {
+																				id: 'thumbnail_body_excerpt',
+																				containerClass:
+																					'cptm-listing-card-preview-excerpt-placeholder',
+																				label: _vm
+																					.local_layout
+																					.body
+																					.excerpt
+																					.label,
+																				availableWidgets:
+																					_vm.theAvailableWidgets,
+																				activeWidgets:
+																					_vm.active_widgets,
+																				acceptedWidgets:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.acceptedWidgets,
+																				selectedWidgets:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.selectedWidgets,
+																				maxWidget:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.maxWidget,
+																				showWidgetsPickerWindow:
+																					_vm.getActiveInsertWindowStatus(
+																						'thumbnail_body_excerpt'
+																					),
+																				showWidgetsOptionWindow:
+																					_vm.getActiveOptionWindowStatus(
+																						'thumbnail_body_excerpt'
+																					),
+																				widgetOptionsWindow:
+																					_vm.widgetOptionsWindow,
+																				canOpenSettings: true,
+																			},
+																			on: {
+																				'insert-widget':
+																					function insertWidget(
+																						$event
+																					) {
+																						return _vm.insertWidget(
+																							$event,
+																							_vm
+																								.local_layout
+																								.body
+																								.excerpt
+																						);
+																					},
+																				'edit-widget':
+																					function editWidget(
+																						$event
+																					) {
+																						return _vm.editWidget(
+																							$event
+																						);
+																					},
+																				'trash-widget':
+																					function trashWidget(
+																						$event
+																					) {
+																						return _vm.trashWidget(
+																							$event,
+																							_vm
+																								.local_layout
+																								.body
+																								.excerpt
+																						);
+																					},
+																				'open-widgets-picker-window':
+																					function openWidgetsPickerWindow(
+																						$event
+																					) {
+																						return _vm.toggleInsertWindow(
+																							'thumbnail_body_excerpt'
+																						);
+																					},
+																				'open-widgets-option-window':
+																					function openWidgetsOptionWindow(
+																						$event
+																					) {
+																						return _vm.toggleOptionWindow(
+																							'thumbnail_body_excerpt'
+																						);
+																					},
+																				'close-widgets-picker-window':
+																					function closeWidgetsPickerWindow(
+																						$event
+																					) {
+																						return _vm.closeInsertWindow();
+																					},
+																				'close-widgets-option-window':
+																					function closeWidgetsOptionWindow(
+																						$event
+																					) {
+																						return _vm.closeOptionWindow();
+																					},
+																				'close-option-window':
+																					function closeOptionWindow(
+																						$event
+																					) {
+																						return _vm.closeWidgetOptionsWindow();
+																					},
+																				update: function update(
+																					$event
+																				) {
+																					return _vm.handleUpdateSelectedWidgets(
+																						$event,
+																						'local_layout.body.excerpt'
+																					);
+																				},
+																				'update-active-widget':
+																					_vm.handleActiveWidgetUpdate,
+																				'activate-widget-options':
+																					_vm.toggleActivateWidgetOptions,
+																			},
+																		}
+																	)
+																: _vm._e(),
 														],
 														1
 													),
@@ -66159,6 +68628,137 @@
 																	},
 																}
 															),
+															_vm._v(' '),
+															_vm.hasExcerptWidget
+																? _c(
+																		'card-widget-placeholder',
+																		{
+																			attrs: {
+																				id: 'no_thumbnail_body_excerpt',
+																				containerClass:
+																					'cptm-listing-card-preview-excerpt-placeholder',
+																				label: _vm
+																					.local_layout
+																					.body
+																					.excerpt
+																					.label,
+																				availableWidgets:
+																					_vm.theAvailableWidgets,
+																				activeWidgets:
+																					_vm.active_widgets,
+																				acceptedWidgets:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.acceptedWidgets,
+																				selectedWidgets:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.selectedWidgets,
+																				maxWidget:
+																					_vm
+																						.local_layout
+																						.body
+																						.excerpt
+																						.maxWidget,
+																				showWidgetsPickerWindow:
+																					_vm.getActiveInsertWindowStatus(
+																						'no_thumbnail_body_excerpt'
+																					),
+																				showWidgetsOptionWindow:
+																					_vm.getActiveOptionWindowStatus(
+																						'no_thumbnail_body_excerpt'
+																					),
+																				widgetOptionsWindow:
+																					_vm.widgetOptionsWindow,
+																				canOpenSettings: true,
+																			},
+																			on: {
+																				'insert-widget':
+																					function insertWidget(
+																						$event
+																					) {
+																						return _vm.insertWidget(
+																							$event,
+																							_vm
+																								.local_layout
+																								.body
+																								.excerpt
+																						);
+																					},
+																				'edit-widget':
+																					function editWidget(
+																						$event
+																					) {
+																						return _vm.editWidget(
+																							$event
+																						);
+																					},
+																				'trash-widget':
+																					function trashWidget(
+																						$event
+																					) {
+																						return _vm.trashWidget(
+																							$event,
+																							_vm
+																								.local_layout
+																								.body
+																								.excerpt
+																						);
+																					},
+																				'open-widgets-picker-window':
+																					function openWidgetsPickerWindow(
+																						$event
+																					) {
+																						return _vm.toggleInsertWindow(
+																							'no_thumbnail_body_excerpt'
+																						);
+																					},
+																				'open-widgets-option-window':
+																					function openWidgetsOptionWindow(
+																						$event
+																					) {
+																						return _vm.toggleOptionWindow(
+																							'no_thumbnail_body_excerpt'
+																						);
+																					},
+																				'close-widgets-picker-window':
+																					function closeWidgetsPickerWindow(
+																						$event
+																					) {
+																						return _vm.closeInsertWindow();
+																					},
+																				'close-widgets-option-window':
+																					function closeWidgetsOptionWindow(
+																						$event
+																					) {
+																						return _vm.closeOptionWindow();
+																					},
+																				'close-option-window':
+																					function closeOptionWindow(
+																						$event
+																					) {
+																						return _vm.closeWidgetOptionsWindow();
+																					},
+																				update: function update(
+																					$event
+																				) {
+																					return _vm.handleUpdateSelectedWidgets(
+																						$event,
+																						'local_layout.body.excerpt'
+																					);
+																				},
+																				'update-active-widget':
+																					_vm.handleActiveWidgetUpdate,
+																				'activate-widget-options':
+																					_vm.toggleActivateWidgetOptions,
+																			},
+																		}
+																	)
+																: _vm._e(),
 														],
 														1
 													),
@@ -66680,8 +69280,7 @@
 																		widget_key,
 																		widget_index
 																	) {
-																		var _placeholder$selected,
-																			_placeholder$accepted;
+																		var _placeholder$accepted;
 																		return _c(
 																			'Draggable',
 																			{
@@ -66700,7 +69299,9 @@
 																				class: {
 																					dragging:
 																						_vm.currentSettingsDraggingWidgetKey ===
-																						widget_key,
+																							widget_key &&
+																						_vm.currentSettingsDraggingPlaceholderIndex ===
+																							placeholder_index,
 																				},
 																				attrs: {
 																					data: {
@@ -66715,29 +69316,6 @@
 																					{
 																						staticClass:
 																							'cptm-elements-settings__group__single',
-																						class: {
-																							'cptm-elements-settings__group__single--disabled':
-																								placeholder.maxWidget >
-																									0 &&
-																								((_placeholder$selected =
-																									placeholder.selectedWidgets) ===
-																									null ||
-																								_placeholder$selected ===
-																									void 0
-																									? void 0
-																									: _placeholder$selected.length) >=
-																									placeholder.maxWidget &&
-																								!placeholder.selectedWidgets.some(
-																									function (
-																										widget
-																									) {
-																										return (
-																											widget.widget_key ===
-																											widget_key
-																										);
-																									}
-																								),
-																						},
 																					},
 																					[
 																						((_placeholder$accepted =
@@ -66895,13 +69473,13 @@
 																												domProps:
 																													{
 																														checked:
-																															placeholder.selectedWidgets &&
-																															placeholder.selectedWidgets.some(
+																															placeholder.selectedWidgetList &&
+																															placeholder.selectedWidgetList.some(
 																																function (
 																																	widget
 																																) {
 																																	return (
-																																		widget.widget_key ===
+																																		widget ===
 																																		widget_key
 																																	);
 																																}
@@ -68188,6 +70766,9 @@
 																								_vm.expandedGroupKey,
 																							'expanded-group-fields-key':
 																								_vm.expandedGroupFieldsKey,
+																							'auto-edit-label':
+																								_vm.newlyCreatedGroupKey ===
+																								widget_group_key,
 																						},
 																						on: {
 																							'update-group-field':
@@ -73007,6 +75588,16 @@
 																				},
 																			},
 																			[
+																				option.icon
+																					? _c(
+																							'span',
+																							{
+																								staticClass:
+																									'cptm-radio-item-icon',
+																								class: option.icon,
+																							}
+																						)
+																					: _vm._e(),
 																				_vm._v(
 																					'\n                ' +
 																						_vm._s(
@@ -78566,6 +81157,16 @@
 																},
 															},
 															[
+																option.icon
+																	? _c(
+																			'span',
+																			{
+																				staticClass:
+																					'cptm-radio-item-icon',
+																				class: option.icon,
+																			}
+																		)
+																	: _vm._e(),
 																_vm._v(
 																	'\n                    ' +
 																		_vm._s(

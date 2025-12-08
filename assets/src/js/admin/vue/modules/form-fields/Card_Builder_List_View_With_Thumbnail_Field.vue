@@ -174,7 +174,10 @@
 
             <card-widget-placeholder
               id="thumbnail_body_bottom"
-              containerClass="cptm-listing-card-preview-body-placeholder"
+              :containerClass="{
+                'cptm-listing-card-preview-body-placeholder': true,
+                'cptm-mb-12': hasExcerptWidget,
+              }"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -206,6 +209,43 @@
               "
               @update-active-widget="handleActiveWidgetUpdate"
               @activate-widget-options="toggleActivateWidgetOptions"
+            />
+
+            <card-widget-placeholder
+              id="thumbnail_body_excerpt"
+              containerClass="cptm-listing-card-preview-excerpt-placeholder"
+              :label="local_layout.body.excerpt.label"
+              :availableWidgets="theAvailableWidgets"
+              :activeWidgets="active_widgets"
+              :acceptedWidgets="local_layout.body.excerpt.acceptedWidgets"
+              :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
+              :maxWidget="local_layout.body.excerpt.maxWidget"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('thumbnail_body_excerpt')
+              "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('thumbnail_body_excerpt')
+              "
+              :widgetOptionsWindow="widgetOptionsWindow"
+              :canOpenSettings="true"
+              @insert-widget="insertWidget($event, local_layout.body.excerpt)"
+              @edit-widget="editWidget($event)"
+              @trash-widget="trashWidget($event, local_layout.body.excerpt)"
+              @open-widgets-picker-window="
+                toggleInsertWindow('thumbnail_body_excerpt')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('thumbnail_body_excerpt')
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
+              @update="
+                handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt')
+              "
+              @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
+              v-if="hasExcerptWidget"
             />
           </div>
 
@@ -339,6 +379,10 @@ export default {
   },
 
   computed: {
+    // Whether excerpt widget is available
+    hasExcerptWidget() {
+      return !!this.theAvailableWidgets?.excerpt;
+    },
     // Output Data
     output_data() {
       let output = {};
@@ -523,6 +567,10 @@ export default {
           },
           bottom: {
             label: "Body Bottom",
+            selectedWidgets: [],
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: [],
           },
         },

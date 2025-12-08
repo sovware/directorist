@@ -4274,7 +4274,7 @@ body.wp-admin {
           justify-content: space-between;
   background-color: #5441b9;
   background: linear-gradient(-45deg, #5441b9 1%, #b541d8 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5441b9", endColorstr="#b541d8", GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5441b9', endColorstr='#b541d8', GradientType=1);
   padding: 20px;
   border-radius: 14px;
   margin-bottom: 30px;

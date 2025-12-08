@@ -1501,14 +1501,14 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'count_loggedin_user' => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Include Logged-In User Views', 'directorist' ),
-                        'description'   => __( 'Count views from logged-in users toward popularity.', 'directorist' ),
-                        'value'         => false,
+                        'label'         => __( 'Track Logged-In User Views', 'directorist' ),
+                        'description'   => __( 'Include visits from logged-in users in total listing view counts.', 'directorist' ),
+                        'value'         => true,
                     ],
                     'dynamic_view_count_cache' => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Dynamic View Count Cache', 'directorist' ),
-                        'description'   => __( 'Enable real-time view count updates when using page caching plugins (W3 Total Cache, LiteSpeed Cache, etc). This ensures accurate listing view statistics even with caching enabled.', 'directorist' ),
+                        'label'         => __( 'Cache-Compatible View Tracking', 'directorist' ),
+                        'description'   => __( 'Enable real-time view count updates even when using caching plugins like W3 Total Cache or LiteSpeed Cache.', 'directorist' ),
                         'value'         => false,
                     ],
                     'average_review_for_popular' => [
@@ -3696,6 +3696,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'new_user_registration', 'enable_email_verification'
                                                 ],
                                             ],
+                                            'listings_view' => [
+                                                'title'       => __( 'Listings View', 'directorist' ),
+                                                'fields'      => [
+                                                    'count_loggedin_user', 
+                                                    'dynamic_view_count_cache',
+                                                ],
+                                            ],
                                             'listings_currency' => [
                                                 'title'       => __( 'Listing Currency', 'directorist' ),
                                                 'fields'      => [
@@ -3882,7 +3889,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 'title'       => __( 'Popular Badge', 'directorist' ),
                                                 'description' => '',
                                                 'fields'      => [
-                                                    'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'count_loggedin_user', 'dynamic_view_count_cache', 'popular_back_color',
+                                                    'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'popular_back_color',
                                                 ],
                                             ],
                                             'featured_badge' => [

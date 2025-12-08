@@ -38,6 +38,7 @@ function mapFieldKeyToSelector(fieldKey) {
  * Get field value from form
  */
 function getFieldValue(fieldKey, $) {
+	console.log('getFieldValue', { fieldKey });
 	// Special handling for common field keys
 	let $field = null;
 
@@ -461,7 +462,7 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 		return true; // If no groups, always show
 	}
 
-	// Evaluate each group - groups are combined with OR (if ANY group is true, result is true)
+	// Evaluate each group
 	const groupResults = [];
 	for (let group of conditionalLogic.groups) {
 		if (
@@ -485,9 +486,30 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 		}
 
 		// Combine condition results based on group operator
+		// Normalize operator to handle case variations and empty values
+		// Get the raw operator value first
+		let groupOperator = group.operator;
+
+		// Handle various data types and empty values
+		if (
+			groupOperator === null ||
+			groupOperator === undefined ||
+			groupOperator === ''
+		) {
+			groupOperator = 'AND'; // Default to AND
+		} else {
+			// Convert to string and normalize
+			groupOperator = String(groupOperator).trim().toUpperCase();
+			// If after trimming it's empty, default to AND
+			if (!groupOperator) {
+				groupOperator = 'AND';
+			}
+		}
+
 		let groupResult = false;
 		if (conditionResults.length > 0) {
-			if (group.operator === 'OR') {
+			// Debug: Log operator and condition results
+			if (groupOperator === 'OR') {
 				// Within group: if ANY condition is true, group is true
 				groupResult = conditionResults.some(
 					(result) => result === true
@@ -504,16 +526,30 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 
 	// Combine group results based on globalOperator (AND/OR)
 	// Default to OR if globalOperator is not specified (backward compatibility)
-	const globalOperator = conditionalLogic.globalOperator || 'OR';
+	// Normalize operator to handle case variations
+	let globalOperator = conditionalLogic.globalOperator;
+	if (
+		globalOperator === null ||
+		globalOperator === undefined ||
+		globalOperator === ''
+	) {
+		globalOperator = 'OR'; // Default to OR
+	} else {
+		globalOperator = String(globalOperator).trim().toUpperCase();
+		if (!globalOperator) {
+			globalOperator = 'OR';
+		}
+	}
+
 	let result = true;
 
 	if (groupResults.length > 0) {
 		if (globalOperator === 'AND') {
 			// ALL groups must be true
-			result = groupResults.every((result) => result === true);
+			result = groupResults.every((groupRes) => groupRes === true);
 		} else {
 			// OR: ANY group is true
-			result = groupResults.some((result) => result === true);
+			result = groupResults.some((groupRes) => groupRes === true);
 		}
 	}
 
@@ -536,7 +572,15 @@ function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
 	}
 
 	try {
-		const conditionalLogic = JSON.parse(conditionalLogicData);
+		// Decode HTML entities before parsing JSON
+		let decodedData = conditionalLogicData;
+		if (typeof decodedData === 'string') {
+			// Handle HTML entity encoding (e.g., &quot; -> ")
+			const textarea = document.createElement('textarea');
+			textarea.innerHTML = decodedData;
+			decodedData = textarea.value;
+		}
+		const conditionalLogic = JSON.parse(decodedData);
 		const shouldShow = evaluateConditionalLogicFn(conditionalLogic);
 
 		if (shouldShow) {
@@ -690,8 +734,15 @@ function watchFieldChanges(
 					}
 
 					try {
-						const conditionalLogic =
-							JSON.parse(conditionalLogicData);
+						// Decode HTML entities before parsing JSON
+						let decodedData = conditionalLogicData;
+						if (typeof decodedData === 'string') {
+							// Handle HTML entity encoding (e.g., &quot; -> ")
+							const textarea = document.createElement('textarea');
+							textarea.innerHTML = decodedData;
+							decodedData = textarea.value;
+						}
+						const conditionalLogic = JSON.parse(decodedData);
 
 						// Check if this field's conditional logic depends on the changed field
 						let dependsOnField = false;

@@ -139,16 +139,6 @@
                 <template
                   v-for="(condition, conditionIndex) in group.conditions"
                 >
-                  <div
-                    class="directorist-conditional-logic-builder__condition-separator"
-                    v-if="conditionIndex > 0"
-                  >
-                    <span
-                      class="directorist-conditional-logic-builder__separator-text"
-                      >{{ group.operator }}</span
-                    >
-                  </div>
-
                   <div class="directorist-conditional-logic-builder__condition">
                     <select
                       class="directorist-conditional-logic-builder__field"

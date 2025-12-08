@@ -174,6 +174,9 @@
 				 * Get field value from form
 				 */
 				function getFieldValue(fieldKey, $) {
+					console.log('getFieldValue', {
+						fieldKey: fieldKey,
+					});
 					// Special handling for common field keys
 					var $field = null;
 
@@ -706,7 +709,7 @@
 						return true; // If no groups, always show
 					}
 
-					// Evaluate each group - groups are combined with OR (if ANY group is true, result is true)
+					// Evaluate each group
 					var groupResults = [];
 					var _iterator = _createForOfIteratorHelper(
 							conditionalLogic.groups
@@ -750,14 +753,36 @@
 								}
 
 								// Combine condition results based on group operator
+								// Normalize operator to handle case variations and empty values
+								// Get the raw operator value first
 							} catch (err) {
 								_iterator2.e(err);
 							} finally {
 								_iterator2.f();
 							}
+							var groupOperator = group.operator;
+
+							// Handle various data types and empty values
+							if (
+								groupOperator === null ||
+								groupOperator === undefined ||
+								groupOperator === ''
+							) {
+								groupOperator = 'AND'; // Default to AND
+							} else {
+								// Convert to string and normalize
+								groupOperator = String(groupOperator)
+									.trim()
+									.toUpperCase();
+								// If after trimming it's empty, default to AND
+								if (!groupOperator) {
+									groupOperator = 'AND';
+								}
+							}
 							var groupResult = false;
 							if (conditionResults.length > 0) {
-								if (group.operator === 'OR') {
+								// Debug: Log operator and condition results
+								if (groupOperator === 'OR') {
 									// Within group: if ANY condition is true, group is true
 									groupResult = conditionResults.some(
 										function (result) {
@@ -778,24 +803,38 @@
 
 						// Combine group results based on globalOperator (AND/OR)
 						// Default to OR if globalOperator is not specified (backward compatibility)
+						// Normalize operator to handle case variations
 					} catch (err) {
 						_iterator.e(err);
 					} finally {
 						_iterator.f();
 					}
-					var globalOperator =
-						conditionalLogic.globalOperator || 'OR';
+					var globalOperator = conditionalLogic.globalOperator;
+					if (
+						globalOperator === null ||
+						globalOperator === undefined ||
+						globalOperator === ''
+					) {
+						globalOperator = 'OR'; // Default to OR
+					} else {
+						globalOperator = String(globalOperator)
+							.trim()
+							.toUpperCase();
+						if (!globalOperator) {
+							globalOperator = 'OR';
+						}
+					}
 					var result = true;
 					if (groupResults.length > 0) {
 						if (globalOperator === 'AND') {
 							// ALL groups must be true
-							result = groupResults.every(function (result) {
-								return result === true;
+							result = groupResults.every(function (groupRes) {
+								return groupRes === true;
 							});
 						} else {
 							// OR: ANY group is true
-							result = groupResults.some(function (result) {
-								return result === true;
+							result = groupResults.some(function (groupRes) {
+								return groupRes === true;
 							});
 						}
 					}
@@ -824,7 +863,15 @@
 						return;
 					}
 					try {
-						var conditionalLogic = JSON.parse(conditionalLogicData);
+						// Decode HTML entities before parsing JSON
+						var decodedData = conditionalLogicData;
+						if (typeof decodedData === 'string') {
+							// Handle HTML entity encoding (e.g., &quot; -> ")
+							var textarea = document.createElement('textarea');
+							textarea.innerHTML = decodedData;
+							decodedData = textarea.value;
+						}
+						var conditionalLogic = JSON.parse(decodedData);
 						var shouldShow =
 							evaluateConditionalLogicFn(conditionalLogic);
 						if (shouldShow) {
@@ -985,8 +1032,17 @@
 									return;
 								}
 								try {
+									// Decode HTML entities before parsing JSON
+									var decodedData = conditionalLogicData;
+									if (typeof decodedData === 'string') {
+										// Handle HTML entity encoding (e.g., &quot; -> ")
+										var textarea =
+											document.createElement('textarea');
+										textarea.innerHTML = decodedData;
+										decodedData = textarea.value;
+									}
 									var conditionalLogic =
-										JSON.parse(conditionalLogicData);
+										JSON.parse(decodedData);
 
 									// Check if this field's conditional logic depends on the changed field
 									var dependsOnField = false;

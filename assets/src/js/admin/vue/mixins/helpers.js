@@ -585,9 +585,16 @@ export default {
 			}
 
 			// Combine condition results based on group operator
+			// Normalize operator to handle case variations and empty values
+			let groupOperator = group.operator;
+			if (!groupOperator || typeof groupOperator !== 'string') {
+				groupOperator = 'AND'; // Default to AND
+			}
+			groupOperator = groupOperator.toString().trim().toUpperCase();
+
 			let groupResult = false;
 			if (conditionResults.length > 0) {
-				if (group.operator === 'OR') {
+				if (groupOperator === 'OR') {
 					// Within group: if ANY condition is true, group is true
 					groupResult = conditionResults.some(
 						(result) => result === true
@@ -604,16 +611,30 @@ export default {
 
 		// Combine group results based on globalOperator (AND/OR)
 		// Default to OR if globalOperator is not specified (backward compatibility)
-		const globalOperator = conditionalLogic.globalOperator || 'OR';
+		// Normalize operator to handle case variations
+		let globalOperator = conditionalLogic.globalOperator;
+		if (
+			globalOperator === null ||
+			globalOperator === undefined ||
+			globalOperator === ''
+		) {
+			globalOperator = 'OR'; // Default to OR
+		} else {
+			globalOperator = String(globalOperator).trim().toUpperCase();
+			if (!globalOperator) {
+				globalOperator = 'OR';
+			}
+		}
+
 		let result = true;
 
 		if (groupResults.length > 0) {
 			if (globalOperator === 'AND') {
 				// ALL groups must be true
-				result = groupResults.every((result) => result === true);
+				result = groupResults.every((groupRes) => groupRes === true);
 			} else {
 				// OR: ANY group is true
-				result = groupResults.some((result) => result === true);
+				result = groupResults.some((groupRes) => groupRes === true);
 			}
 		}
 

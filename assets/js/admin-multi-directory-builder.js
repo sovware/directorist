@@ -7523,14 +7523,26 @@
 									}
 
 									// Combine condition results based on group operator
+									// Normalize operator to handle case variations and empty values
 								} catch (err) {
 									_iterator8.e(err);
 								} finally {
 									_iterator8.f();
 								}
+								var groupOperator = group.operator;
+								if (
+									!groupOperator ||
+									typeof groupOperator !== 'string'
+								) {
+									groupOperator = 'AND'; // Default to AND
+								}
+								groupOperator = groupOperator
+									.toString()
+									.trim()
+									.toUpperCase();
 								var groupResult = false;
 								if (conditionResults.length > 0) {
-									if (group.operator === 'OR') {
+									if (groupOperator === 'OR') {
 										// Within group: if ANY condition is true, group is true
 										groupResult = conditionResults.some(
 											function (result) {
@@ -7551,24 +7563,40 @@
 
 							// Combine group results based on globalOperator (AND/OR)
 							// Default to OR if globalOperator is not specified (backward compatibility)
+							// Normalize operator to handle case variations
 						} catch (err) {
 							_iterator7.e(err);
 						} finally {
 							_iterator7.f();
 						}
-						var globalOperator =
-							conditionalLogic.globalOperator || 'OR';
+						var globalOperator = conditionalLogic.globalOperator;
+						if (
+							globalOperator === null ||
+							globalOperator === undefined ||
+							globalOperator === ''
+						) {
+							globalOperator = 'OR'; // Default to OR
+						} else {
+							globalOperator = String(globalOperator)
+								.trim()
+								.toUpperCase();
+							if (!globalOperator) {
+								globalOperator = 'OR';
+							}
+						}
 						var result = true;
 						if (groupResults.length > 0) {
 							if (globalOperator === 'AND') {
 								// ALL groups must be true
-								result = groupResults.every(function (result) {
-									return result === true;
-								});
+								result = groupResults.every(
+									function (groupRes) {
+										return groupRes === true;
+									}
+								);
 							} else {
 								// OR: ANY group is true
-								result = groupResults.some(function (result) {
-									return result === true;
+								result = groupResults.some(function (groupRes) {
+									return groupRes === true;
 								});
 							}
 						}
@@ -79928,35 +79956,6 @@
 																										conditionIndex
 																									) {
 																										return [
-																											conditionIndex >
-																											0
-																												? _c(
-																														'div',
-																														{
-																															staticClass:
-																																'directorist-conditional-logic-builder__condition-separator',
-																														},
-																														[
-																															_c(
-																																'span',
-																																{
-																																	staticClass:
-																																		'directorist-conditional-logic-builder__separator-text',
-																																},
-																																[
-																																	_vm._v(
-																																		_vm._s(
-																																			group.operator
-																																		)
-																																	),
-																																]
-																															),
-																														]
-																													)
-																												: _vm._e(),
-																											_vm._v(
-																												' '
-																											),
 																											_c(
 																												'div',
 																												{

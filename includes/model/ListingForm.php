@@ -612,8 +612,12 @@ class Directorist_Listing_Form {
                 }
                 
                 // Normalize globalOperator (default to OR for backward compatibility)
-                if ( empty( $conditional_logic['globalOperator'] ) ) {
+                // Handle empty string, null, or missing operator
+                if ( empty( $conditional_logic['globalOperator'] ) || ! is_string( $conditional_logic['globalOperator'] ) ) {
                     $conditional_logic['globalOperator'] = 'OR';
+                } else {
+                    // Ensure uppercase for consistency
+                    $conditional_logic['globalOperator'] = strtoupper( trim( $conditional_logic['globalOperator'] ) );
                 }
                 
                 // Normalize groups structure
@@ -624,8 +628,12 @@ class Directorist_Listing_Form {
                     }
                     
                     // Normalize group operator (default to AND)
-                    if ( empty( $group['operator'] ) ) {
+                    // Handle empty string, null, or missing operator
+                    if ( empty( $group['operator'] ) || ! is_string( $group['operator'] ) ) {
                         $group['operator'] = 'AND';
+                    } else {
+                        // Ensure uppercase for consistency
+                        $group['operator'] = strtoupper( trim( $group['operator'] ) );
                     }
                     
                     // Filter out empty conditions

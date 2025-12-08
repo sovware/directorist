@@ -174,9 +174,6 @@
 				 * Get field value from form
 				 */
 				function getFieldValue(fieldKey, $) {
-					console.log('getFieldValue', {
-						fieldKey: fieldKey,
-					});
 					// Special handling for common field keys
 					var $field = null;
 
@@ -454,6 +451,27 @@
 							return _selectedData.map(function (item) {
 								return item.text || item.id;
 							});
+						}
+					}
+
+					// Handle TinyMCE editor (wp_editor)
+					if (typeof tinymce !== 'undefined' && $field.length) {
+						var editorId = $field.attr('id');
+						if (editorId && tinymce.get(editorId)) {
+							var editor = tinymce.get(editorId);
+							if (editor && !editor.isHidden()) {
+								// Get content from TinyMCE editor
+								var content = editor.getContent();
+								// Return text content (strip HTML tags) for comparison
+								// You can also return raw HTML if needed: return content;
+								var tempDiv = document.createElement('div');
+								tempDiv.innerHTML = content;
+								return (
+									tempDiv.textContent ||
+									tempDiv.innerText ||
+									''
+								);
+							}
 						}
 					}
 					return $field.val() || null;
@@ -990,6 +1008,220 @@
 					applyConditionalLogicFn,
 					$
 				) {
+					// Helper function to trigger conditional logic re-evaluation
+					function triggerConditionalLogicEvaluation(
+						fieldName,
+						fieldKey,
+						$changedField
+					) {
+						// Re-evaluate all fields that might depend on this field
+						$(
+							'.directorist-form-group[data-conditional-logic]'
+						).each(function () {
+							var $fieldWrapper = $(this);
+							var conditionalLogicData = $fieldWrapper.attr(
+								'data-conditional-logic'
+							);
+							if (!conditionalLogicData) {
+								return;
+							}
+							try {
+								// Decode HTML entities before parsing JSON
+								var decodedData = conditionalLogicData;
+								if (typeof decodedData === 'string') {
+									// Handle HTML entity encoding (e.g., &quot; -> ")
+									var textarea =
+										document.createElement('textarea');
+									textarea.innerHTML = decodedData;
+									decodedData = textarea.value;
+								}
+								var conditionalLogic = JSON.parse(decodedData);
+
+								// Check if this field's conditional logic depends on the changed field
+								var dependsOnField = false;
+								if (
+									conditionalLogic.groups &&
+									Array.isArray(conditionalLogic.groups)
+								) {
+									var _iterator3 = _createForOfIteratorHelper(
+											conditionalLogic.groups
+										),
+										_step3;
+									try {
+										for (
+											_iterator3.s();
+											!(_step3 = _iterator3.n()).done;
+
+										) {
+											var group = _step3.value;
+											if (
+												group.conditions &&
+												Array.isArray(group.conditions)
+											) {
+												var _iterator4 =
+														_createForOfIteratorHelper(
+															group.conditions
+														),
+													_step4;
+												try {
+													for (
+														_iterator4.s();
+														!(_step4 =
+															_iterator4.n())
+															.done;
+
+													) {
+														var condition =
+															_step4.value;
+														// Map widget_key to field_key for matching
+														var widgetKeyToFieldKeyMap =
+															{
+																title: 'listing_title',
+																description:
+																	'listing_content',
+															};
+														var conditionFieldKey =
+															condition.field;
+														var conditionFieldKeyMapped =
+															widgetKeyToFieldKeyMap[
+																conditionFieldKey
+															] ||
+															conditionFieldKey;
+
+														// Check multiple possible field key formats
+														// Match by exact field key, field name, or id
+														if (
+															conditionFieldKey ===
+																fieldKey ||
+															conditionFieldKey ===
+																fieldName ||
+															conditionFieldKey ===
+																$changedField.attr(
+																	'id'
+																) ||
+															conditionFieldKey ===
+																$changedField.attr(
+																	'name'
+																) ||
+															conditionFieldKeyMapped ===
+																fieldKey ||
+															conditionFieldKeyMapped ===
+																fieldName ||
+															conditionFieldKeyMapped ===
+																$changedField.attr(
+																	'id'
+																) ||
+															conditionFieldKeyMapped ===
+																$changedField.attr(
+																	'name'
+																)
+														) {
+															dependsOnField = true;
+															break;
+														}
+													}
+												} catch (err) {
+													_iterator4.e(err);
+												} finally {
+													_iterator4.f();
+												}
+												if (dependsOnField) {
+													break;
+												}
+											}
+										}
+									} catch (err) {
+										_iterator3.e(err);
+									} finally {
+										_iterator3.f();
+									}
+								}
+
+								// Special handling for category field
+								if (
+									fieldKey === 'category' ||
+									fieldName === 'admin_category_select[]' ||
+									$changedField.is('#at_biz_dir-categories')
+								) {
+									// Check if any condition references category
+									if (
+										conditionalLogic.groups &&
+										Array.isArray(conditionalLogic.groups)
+									) {
+										var _iterator5 =
+												_createForOfIteratorHelper(
+													conditionalLogic.groups
+												),
+											_step5;
+										try {
+											for (
+												_iterator5.s();
+												!(_step5 = _iterator5.n()).done;
+
+											) {
+												var _group = _step5.value;
+												if (
+													_group.conditions &&
+													Array.isArray(
+														_group.conditions
+													)
+												) {
+													var _iterator6 =
+															_createForOfIteratorHelper(
+																_group.conditions
+															),
+														_step6;
+													try {
+														for (
+															_iterator6.s();
+															!(_step6 =
+																_iterator6.n())
+																.done;
+
+														) {
+															var _condition =
+																_step6.value;
+															if (
+																_condition.field ===
+																	'category' ||
+																_condition.field ===
+																	'categories'
+															) {
+																dependsOnField = true;
+																break;
+															}
+														}
+													} catch (err) {
+														_iterator6.e(err);
+													} finally {
+														_iterator6.f();
+													}
+													if (dependsOnField) {
+														break;
+													}
+												}
+											}
+										} catch (err) {
+											_iterator5.e(err);
+										} finally {
+											_iterator5.f();
+										}
+									}
+								}
+
+								// If this field depends on the changed field, re-evaluate
+								if (dependsOnField) {
+									applyConditionalLogicFn($fieldWrapper);
+								}
+							} catch (e) {
+								console.error(
+									'Error in conditional logic evaluation:',
+									e
+								);
+							}
+						});
+					}
+
 					// Listen to all form field changes
 					$(getWrapperFn()).on(
 						'change input select2:select select2:unselect',
@@ -1019,157 +1251,103 @@
 							) {
 								fieldKey = 'category';
 							}
-
-							// Re-evaluate all fields that might depend on this field
-							$(
-								'.directorist-form-group[data-conditional-logic]'
-							).each(function () {
-								var $fieldWrapper = $(this);
-								var conditionalLogicData = $fieldWrapper.attr(
-									'data-conditional-logic'
-								);
-								if (!conditionalLogicData) {
-									return;
-								}
-								try {
-									// Decode HTML entities before parsing JSON
-									var decodedData = conditionalLogicData;
-									if (typeof decodedData === 'string') {
-										// Handle HTML entity encoding (e.g., &quot; -> ")
-										var textarea =
-											document.createElement('textarea');
-										textarea.innerHTML = decodedData;
-										decodedData = textarea.value;
-									}
-									var conditionalLogic =
-										JSON.parse(decodedData);
-
-									// Check if this field's conditional logic depends on the changed field
-									var dependsOnField = false;
-									if (
-										conditionalLogic.groups &&
-										Array.isArray(conditionalLogic.groups)
-									) {
-										var _iterator3 =
-												_createForOfIteratorHelper(
-													conditionalLogic.groups
-												),
-											_step3;
-										try {
-											for (
-												_iterator3.s();
-												!(_step3 = _iterator3.n()).done;
-
-											) {
-												var group = _step3.value;
-												if (
-													group.conditions &&
-													Array.isArray(
-														group.conditions
-													)
-												) {
-													var _iterator4 =
-															_createForOfIteratorHelper(
-																group.conditions
-															),
-														_step4;
-													try {
-														for (
-															_iterator4.s();
-															!(_step4 =
-																_iterator4.n())
-																.done;
-
-														) {
-															var condition =
-																_step4.value;
-															// Map widget_key to field_key for matching
-															var widgetKeyToFieldKeyMap =
-																{
-																	title: 'listing_title',
-																	description:
-																		'listing_content',
-																};
-															var conditionFieldKey =
-																condition.field;
-															var conditionFieldKeyMapped =
-																widgetKeyToFieldKeyMap[
-																	conditionFieldKey
-																] ||
-																conditionFieldKey;
-
-															// Check multiple possible field key formats
-															// Match by exact field key, field name, or id
-															if (
-																conditionFieldKey ===
-																	fieldKey ||
-																conditionFieldKey ===
-																	fieldName ||
-																conditionFieldKey ===
-																	$changedField.attr(
-																		'id'
-																	) ||
-																conditionFieldKey ===
-																	$changedField.attr(
-																		'name'
-																	) ||
-																conditionFieldKeyMapped ===
-																	fieldKey ||
-																conditionFieldKeyMapped ===
-																	fieldName ||
-																conditionFieldKeyMapped ===
-																	$changedField.attr(
-																		'id'
-																	) ||
-																conditionFieldKeyMapped ===
-																	$changedField.attr(
-																		'name'
-																	) ||
-																(conditionFieldKey ===
-																	'category' &&
-																	(fieldKey ===
-																		'category' ||
-																		fieldName.includes(
-																			'category'
-																		))) ||
-																(conditionFieldKey ===
-																	'categories' &&
-																	(fieldKey ===
-																		'category' ||
-																		fieldName.includes(
-																			'category'
-																		)))
-															) {
-																dependsOnField = true;
-																break;
-															}
-														}
-													} catch (err) {
-														_iterator4.e(err);
-													} finally {
-														_iterator4.f();
-													}
-												}
-												if (dependsOnField) break;
-											}
-										} catch (err) {
-											_iterator3.e(err);
-										} finally {
-											_iterator3.f();
-										}
-									}
-									if (dependsOnField) {
-										applyConditionalLogicFn($fieldWrapper);
-									}
-								} catch (e) {
-									console.error(
-										'Error in conditional logic:',
-										e
-									);
-								}
-							});
+							triggerConditionalLogicEvaluation(
+								fieldName,
+								fieldKey,
+								$changedField
+							);
 						}
 					);
+
+					// Listen to TinyMCE editor changes
+					// Helper function to attach TinyMCE event listeners
+					function attachTinyMCEEvents(editor) {
+						if (!editor || !editor.id) {
+							return;
+						}
+						var editorId = editor.id;
+						// Check if this editor is within a form group that might be used for conditional logic
+						// We'll check for common description/content field IDs
+						var $editorTextarea = $('#' + editorId);
+						if (!$editorTextarea.length) {
+							return;
+						}
+
+						// Check if this textarea is inside a directorist-form-group
+						var $formGroup = $editorTextarea.closest(
+							'.directorist-form-group'
+						);
+						if (!$formGroup.length) {
+							return;
+						}
+
+						// Get the field key from the textarea name or id
+						var fieldName =
+							$editorTextarea.attr('name') || editorId;
+						var fieldKey = fieldName;
+
+						// Map widget_key to field_key
+						var widgetKeyToFieldKeyMap = {
+							title: 'listing_title',
+							description: 'listing_content',
+						};
+						fieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
+
+						// Remove existing listeners to avoid duplicates
+						editor.off('input keyup change NodeChange');
+
+						// Listen to editor content changes
+						// Use NodeChange for better compatibility with TinyMCE
+						editor.on('input keyup change NodeChange', function () {
+							var $changedField = $editorTextarea;
+							triggerConditionalLogicEvaluation(
+								fieldName,
+								fieldKey,
+								$changedField
+							);
+						});
+					}
+
+					// Set up TinyMCE listeners when available
+					if (typeof tinymce !== 'undefined') {
+						// Wait for TinyMCE to be ready
+						$(document).ready(function () {
+							// Use TinyMCE's AddEditor event to attach listeners to new editors
+							if (tinymce.on) {
+								tinymce.on('AddEditor', function (e) {
+									attachTinyMCEEvents(e.editor);
+								});
+							}
+
+							// Handle editors that are already initialized
+							function initExistingEditors() {
+								if (
+									typeof tinymce !== 'undefined' &&
+									tinymce.editors
+								) {
+									tinymce.editors.forEach(function (editor) {
+										attachTinyMCEEvents(editor);
+									});
+								}
+							}
+
+							// Try immediately
+							initExistingEditors();
+
+							// Also try after a delay to catch late-loading editors
+							setTimeout(initExistingEditors, 500);
+							setTimeout(initExistingEditors, 1000);
+							setTimeout(initExistingEditors, 2000);
+						});
+
+						// Listen to WordPress TinyMCE setup events
+						$(document).on(
+							'tinymce-editor-init',
+							function (e, editor) {
+								attachTinyMCEEvents(editor);
+							}
+						);
+					}
 				}
 
 				/**

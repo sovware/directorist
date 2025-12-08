@@ -9,7 +9,7 @@
             class="cptm-header-action-link cptm-header-action-close"
             @click.prevent="$emit('close')"
           >
-            <span class="fa fa-times"></span>
+            <span class="las la-times"></span>
           </a>
         </div>
       </div>

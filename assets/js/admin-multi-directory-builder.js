@@ -53044,7 +53044,7 @@
 														[
 															_c('span', {
 																staticClass:
-																	'fa fa-times',
+																	'las la-times',
 															}),
 														]
 													),
@@ -54389,7 +54389,7 @@
 																								'span',
 																								{
 																									staticClass:
-																										'fa fa-times',
+																										'las la-times',
 																								}
 																							),
 																						]
@@ -55044,7 +55044,7 @@
 														[
 															_c('span', {
 																staticClass:
-																	'fa fa-times',
+																	'las la-times',
 															}),
 														]
 													),
@@ -56679,7 +56679,7 @@
 														[
 															_c('span', {
 																staticClass:
-																	'fa fa-times',
+																	'las la-times',
 															}),
 														]
 													),
@@ -57207,7 +57207,7 @@
 														[
 															_c('span', {
 																staticClass:
-																	'fa fa-times',
+																	'las la-times',
 															}),
 														]
 													),

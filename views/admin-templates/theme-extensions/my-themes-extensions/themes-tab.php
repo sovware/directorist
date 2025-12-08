@@ -22,7 +22,7 @@
             <?php if ( $args['current_active_theme_info']['has_update'] ) : ?>
             <div class="theme-card__footer">
                 <p class="theme-update theme-update--available"><?php esc_html_e( 'Update available', 'directorist' )?> <!-- <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a> --></p>
-                <a href="#" class="theme-update-btn" data-target="<?php echo esc_attr( $args['current_active_theme_info']['stylesheet'] ); ?>"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></a>
+                <a href="#" class="theme-update-btn" data-target="<?php echo esc_attr( $args['current_active_theme_info']['stylesheet'] ); ?>"><?php echo $args['is_beta'] ? esc_html__( 'Update Beta', 'directorist' ) : esc_html__( 'Update', 'directorist' ); ?></a>
             </div>
             <?php endif;?>
 
@@ -37,42 +37,42 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="update-list update-list--new">
-                                        <span class="update-badge update-badge--new">New</span>
+                                        <span class="update-badge update-badge--new"><?php esc_html_e( 'New', 'directorist' ); ?></span>
                                         <ul class="update-list-items">
-                                            <li>Add – Option to set custom redirection after login</li>
-                                            <li>Add – Option to set custom redirection after login</li>
-                                            <li>Add – Option to set custom redirection after login</li>
-                                            <li>Add – Option to set custom redirection after login</li>
-                                            <li>Add – Option to set custom redirection after login</li>
+                                            <li><?php esc_html_e( 'Add – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Add – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Add – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Add – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Add – Option to set custom redirection after login', 'directorist' ); ?></li>
                                         </ul>
                                     </div><!-- ends: .update-list -->
                                     <div class="update-list update-list--fixed">
-                                        <span class="update-badge update-badge--fixd">Fixed</span>
+                                        <span class="update-badge update-badge--fixd"><?php esc_html_e( 'Fixed', 'directorist' ); ?></span>
                                         <ul class="update-list-items">
-                                            <li>Fixed – Option to set custom redirection after login</li>
-                                            <li>Fixed – Option to set custom redirection after login</li>
-                                            <li>Fixed – Option to set custom redirection after login</li>
+                                            <li><?php esc_html_e( 'Fixed – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Fixed – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Fixed – Option to set custom redirection after login', 'directorist' ); ?></li>
                                         </ul>
                                     </div><!-- ends: .update-list -->
                                     <div class="update-list update-list--improved">
-                                        <span class="update-badge update-badge--improved">Improved</span>
+                                        <span class="update-badge update-badge--improved"><?php esc_html_e( 'Improved', 'directorist' ); ?></span>
                                         <ul class="update-list-items">
-                                            <li>Improved – Option to set custom redirection after login</li>
-                                            <li>Improved – Option to set custom redirection after login</li>
-                                            <li>Improved – Option to set custom redirection after login</li>
+                                            <li><?php esc_html_e( 'Improved – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Improved – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Improved – Option to set custom redirection after login', 'directorist' ); ?></li>
                                         </ul>
                                     </div><!-- ends: .update-list -->
                                     <div class="update-list update-list--removed">
-                                        <span class="update-badge update-badge--removed">Removed</span>
+                                        <span class="update-badge update-badge--removed"><?php esc_html_e( 'Removed', 'directorist' ); ?></span>
                                         <ul class="update-list-items">
-                                            <li>Removed – Option to set custom redirection after login</li>
-                                            <li>Removed – Option to set custom redirection after login</li>
-                                            <li>Removed – Option to set custom redirection after login</li>
+                                            <li><?php esc_html_e( 'Removed – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Removed – Option to set custom redirection after login', 'directorist' ); ?></li>
+                                            <li><?php esc_html_e( 'Removed – Option to set custom redirection after login', 'directorist' ); ?></li>
                                         </ul>
                                     </div><!-- ends: .update-list -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></button>
+                                    <button type="submit" class="btn btn-primary"><?php echo $args['is_beta'] ? esc_html__( 'Update Beta', 'directorist' ) : esc_html__( 'Update', 'directorist' ); ?></button>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
 
                             <?php else : ?>
                                 <a href="#" data-type="theme" data-key="<?php echo esc_attr( $_theme_base ) ?>" class="theme-action-btn file-install-btn">
-                                    <i class="la la-download"></i>                                                                   <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
+                                    <i class="la la-download"></i>                                                                   <?php echo $args['is_beta'] ? esc_html__( 'Install Beta', 'directorist' ) : esc_html__( 'Install', 'directorist' ); ?>
                                 </a>
 
                                 <?php if ( ! empty( $_theme_args['demo_link'] ) ) : ?>

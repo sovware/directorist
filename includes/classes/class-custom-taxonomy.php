@@ -330,7 +330,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                     <div id="atbdp-categories-image-wrapper">
                         <?php if ( $image_src ) : ?>
                             <img src="<?php echo esc_url( $image_src ); ?>"/>
-                            <a href="" class="remove_cat_img"><span class="fa fa-times" title="Remove it"></span></a>
+                            <a href="" class="remove_cat_img"><span class="fa fa-times" title="<?php echo esc_attr__( 'Remove it', 'directorist' ); ?>"></span></a>
                         <?php endif; ?>
                     </div>
                     <p>
@@ -383,7 +383,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                     <div id="atbdp-categories-image-wrapper">
                         <?php if ( $image_src ) : ?>
                             <img src="<?php echo esc_url( $image_src ); ?>"/>
-                            <a href="" class="remove_cat_img"><span class="fa fa-times" title="Remove it"></span></a>
+                            <a href="" class="remove_cat_img"><span class="fa fa-times" title="<?php echo esc_attr__( 'Remove it', 'directorist' ); ?>"></span></a>
                         <?php endif; ?>
                     </div>
                     <p>

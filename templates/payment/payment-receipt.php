@@ -40,7 +40,7 @@ use \Directorist\Helper;
                                 </tr>
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Transaction ID', 'directorist' ); ?></td>
-                                    <td><?php echo isset( $o_metas['_transaction_id'] ) ? esc_html( $o_metas['_transaction_id'][0] ) : 'NIL'; ?></td>
+                                    <td><?php echo isset( $o_metas['_transaction_id'] ) ? esc_html( $o_metas['_transaction_id'][0] ) : esc_html__( 'NIL', 'directorist' ); ?></td>
                                 </tr>
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Payment Method', 'directorist' ); ?></td>

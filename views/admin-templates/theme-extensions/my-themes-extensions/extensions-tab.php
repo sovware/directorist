@@ -2,7 +2,7 @@
 
 <div id="atbdp-extensions-tab" class="ext-wrapper et-contents__tab-item atbdp-tab__content active">
     <div class="ext-installed">
-        <h4>Installed</h4>
+        <h4><?php esc_html_e( 'Installed', 'directorist' ); ?></h4>
         <div class="ext-installed-table">
             <?php if ( ! empty( $args['installed_extension_list'] ) ) : ?>
                 <div class="ext-table-responsive">
@@ -20,12 +20,12 @@
                                             </div>
                                             <div class="ei-action-dropdown">
                                                 <select id="bulk-actions" name="bulk-actions">
-                                                    <option value="">Bulk Action</option>
-                                                    <option value="activate">Activate</option>
-                                                    <option value="deactivate">Deactivate</option>
+                                                    <option value=""><?php esc_html_e( 'Bulk Action', 'directorist' ); ?></option>
+                                                    <option value="activate"><?php esc_html_e( 'Activate', 'directorist' ); ?></option>
+                                                    <option value="deactivate"><?php esc_html_e( 'Deactivate', 'directorist' ); ?></option>
                                                 </select>
                                             </div>
-                                            <button type="submit" class="ei-action-btn">Apply</button>
+                                            <button type="submit" class="ei-action-btn"><?php esc_html_e( 'Apply', 'directorist' ); ?></button>
                                         </div>
                                     </th>
                                 </tr>
@@ -62,28 +62,28 @@
 
                                         <td class="directorist_status-badge">
                                             <?php if ( is_plugin_active( $extension_base ) ) : ?>
-                                                <span class="active-badge">Active</span>
+                                                <span class="active-badge"><?php esc_html_e( 'Active', 'directorist' ); ?></span>
                                             <?php endif; ?>
                                         </td>
 
                                         <td class="directorist_ext-update">
                                             <?php if ( in_array( $extension_base, $outdated_plugins_key ) ) : ?>
-                                                <p class="ext-update-info">Update available <!-- <span>What's new?</span></p> -->
+                                                <p class="ext-update-info"><?php esc_html_e( 'Update available', 'directorist' ); ?> <!-- <span>What's new?</span></p> -->
                                             <?php else : ?>
-                                                <p class="atbdp-text-muted atbdp-mb-0">Up to date</p>
+                                                <p class="atbdp-text-muted atbdp-mb-0"><?php esc_html_e( 'Up to date', 'directorist' ); ?></p>
                                             <?php endif; ?>
                                         </td>
 
                                         <td>
                                             <div class="ext-action">
                                                 <?php if ( in_array( $extension_base, $outdated_plugins_key ) ) : ?>
-                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></a>
+                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>"><?php echo $args['is_beta'] ? esc_html__( 'Update Beta', 'directorist' ) : esc_html__( 'Update', 'directorist' ); ?></a>
                                                 <?php endif; ?>
-                                                <a href="<?php echo esc_url( $args['settings_url'] ); ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
+                                                <a href="<?php echo esc_url( $args['settings_url'] ); ?>" class="ext-action-btn"><i class="la la-settings"></i> <?php esc_html_e( 'Settings', 'directorist' ); ?></a>
                                                 <div>
                                                     <a href="" class="ext-action-drop"><i class="uil uil-ellipsis-h"></i></a>
                                                     <div class="ext-action-drop__item">
-                                                        <a href="#" class="ext-action-link ext-action-uninstall" data-target="<?php echo esc_attr( $extension_base ); ?>">Uninstall</a>
+                                                        <a href="#" class="ext-action-link ext-action-uninstall" data-target="<?php echo esc_attr( $extension_base ); ?>"><?php esc_html_e( 'Uninstall', 'directorist' ); ?></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,7 +95,7 @@
                     </form>
                 </div>
             <?php else : ?>
-                <p class="atbdp-text-center"><?php esc_html_e( 'No extension found' ) ?></p>
+                <p class="atbdp-text-center"><?php esc_html_e( 'No extension found', 'directorist' ); ?></p>
             <?php endif; ?>
         </div>
     </div><!-- ends: .ext-installed -->
@@ -120,7 +120,7 @@
                                             <div class="ei-action-dropdown">
                                                 <select id="bulk-actions" name="bulk-actions">
                                                     <option value="">Bulk Action</option>
-                                                    <option value="activate"><?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?></option>
+                                                    <option value="activate"><?php echo $args['is_beta'] ? esc_html__( 'Install Beta', 'directorist' ) : esc_html__( 'Install', 'directorist' ); ?></option>
                                                 </select>
                                             </div>
                                             <button type="submit" class="ei-action-btn">Apply</button>
@@ -160,7 +160,7 @@
                                         <td>
                                             <div class="ext-action ext-action-<?php echo esc_attr( $extension_base ); ?>">
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
-                                                    <i class="la la-download"></i> <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
+                                                    <i class="la la-download"></i> <?php echo $args['is_beta'] ? esc_html__( 'Install Beta', 'directorist' ) : esc_html__( 'Install', 'directorist' ); ?>
                                                 </a>
                                             </div>
                                         </td>
@@ -193,9 +193,9 @@
                                             </div>
                                             <div class="ei-action-dropdown">
                                                 <select name="bulk-actions">
-                                                    <option value="">Bulk Action</option>
-                                                    <option value="install">Install</option>
-                                                    <option value="activate">Activate</option>
+                                                    <option value=""><?php esc_html_e( 'Bulk Action', 'directorist' ); ?></option>
+                                                    <option value="install"><?php esc_html_e( 'Install', 'directorist' ); ?></option>
+                                                    <option value="activate"><?php esc_html_e( 'Activate', 'directorist' ); ?></option>
                                                 </select>
                                             </div>
                                             <button type="submit" class="ei-action-btn">Apply</button>
@@ -259,7 +259,7 @@
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
-                                                    <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
+                                                    <?php echo $args['is_beta'] ? esc_html__( 'Install Beta', 'directorist' ) : esc_html__( 'Install', 'directorist' ); ?>
                                                 </a>
                                                 <?php else : 
                                                     $download_link = ( ! empty( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['link'] : '';

@@ -32,7 +32,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                     <div>
                         <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
                             src="<?php echo $listing_prv_img ? esc_url( $listing_prv_img ) : ''; ?>">
-                        <a href="" class="remove_prev_img"><span class="fa fa-times" title="Remove it"></span></a>
+                        <a href="" class="remove_prev_img"><span class="fa fa-times" title="<?php echo esc_attr__( 'Remove it', 'directorist' ); ?>"></span></a>
                     </div>
                 </div>
                 <div class="default_img">

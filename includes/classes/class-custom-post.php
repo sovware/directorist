@@ -247,7 +247,11 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             if ( get_post_status( $post ) !== 'publish' && current_user_can( 'publish_at_biz_dirs' ) ) {
                 $nonce              = wp_create_nonce( 'quick-publish-action' );
                 $link               = admin_url( "edit.php?update_id={$post->ID}&_wpnonce={$nonce}&post_type=at_biz_dir" );
-                $actions['publish'] = "<a href='$link' style='color: #4caf50; font-weight: bold'>Publish</a>";
+                $actions['publish'] = sprintf(
+                    "<a href='%s' style='color: #4caf50; font-weight: bold'>%s</a>",
+                    esc_url( $link ),
+                    esc_html__( 'Publish', 'directorist' )
+                );
             }
 
             return $actions;
@@ -317,7 +321,6 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                 'public'              => true,
                 'show_ui'             => current_user_can( 'edit_others_at_biz_dirs' ) ? true : false, // show the menu only to the admin
                 'show_in_menu'        => true,
-                'menu_position'       => 20,
                 'menu_icon'           => DIRECTORIST_ASSETS . 'images/menu_icon.png',
                 'show_in_admin_bar'   => true,
                 'show_in_nav_menus'   => true,
@@ -474,7 +477,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     $never_expire = get_post_meta( $post_id, '_never_expire', true );
                     $expiry_date  = '';
                     if ( ! empty( $never_expire ) ) {
-                        $expiry_date = esc_html( 'Never Expires', 'directorist' );
+                        $expiry_date = esc_html__( 'Never Expires', 'directorist' );
                     } else {
                         $get_expire = get_post_meta( $post_id, '_expiry_date', true );
 

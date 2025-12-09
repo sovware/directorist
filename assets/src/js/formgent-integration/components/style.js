@@ -196,8 +196,38 @@ const EnquiriesComponentStyle = styled.div`
 			color: var(--directorist-color-info);
 		}
 	}
+	.dataviews-view-table{
+		tr{
+			th{
+				&:first-child{
+					padding-left: 25px;
+				}
+				&:last-child{
+					padding-right: 25px;
+				}
+			}
+			td{
+				&:first-child{
+					padding-left: 25px;
+				}
+				&:last-child{
+					padding-right: 25px;
+				}
+			}
+		}
+	}
+	.dataviews__view-actions{
+		padding: 16px 25px;
+	}
 	.dataviews-view-table__actions-column {
 		padding: 30px 0;
+	}
+	.dataviews-wrapper{
+		.components-h-stack{
+			.components-dropdown{
+				display: none;
+			}
+		}
 	}
 `;
 

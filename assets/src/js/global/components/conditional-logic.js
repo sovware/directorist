@@ -49,74 +49,56 @@ function getFieldValue(fieldKey, $) {
 			return [];
 		}
 
-		// Try data-selected-label attribute first (most reliable for category names)
-		let selectedLabels = $field.attr('data-selected-label');
-		if (!selectedLabels || !selectedLabels.trim()) {
-			// If not in data attribute, try reading from Select2 selection container
-			const $select2Container = $field.next('.select2-container');
-			if ($select2Container.length) {
-				const labels = [];
-				$select2Container
-					.find('.select2-selection__choice')
-					.each(function () {
-						const $choice = $(this);
-						const label =
-							$choice
-								.find('.select2-selection__choice__display')
-								.text()
-								.trim() ||
-							$choice.text().trim().replace('×', '').trim();
-						if (label) {
-							labels.push(label);
-						}
-					});
-				if (labels.length > 0) {
-					selectedLabels = labels.join(',');
-					// Update the data attribute for future reads
-					$field.attr('data-selected-label', selectedLabels);
+		/**
+		 * Helper function to extract labels from Select2 selection container
+		 * @param {jQuery} $container - Select2 container element
+		 * @returns {string[]} Array of category labels
+		 */
+		function getLabelsFromSelect2Container($container) {
+			if (!$container || !$container.length) {
+				return [];
+			}
+			const labels = [];
+			$container.find('.select2-selection__choice').each(function () {
+				const $choice = $(this);
+				const label =
+					$choice
+						.find('.select2-selection__choice__display')
+						.text()
+						.trim() ||
+					$choice.text().trim().replace('×', '').trim();
+				if (label) {
+					labels.push(label);
 				}
-			}
+			});
+			return labels;
 		}
-		if (selectedLabels && selectedLabels.trim()) {
-			const labels = selectedLabels
+
+		/**
+		 * Helper function to parse comma-separated labels string
+		 * @param {string} labelsStr - Comma-separated labels
+		 * @returns {string[]} Array of trimmed, non-empty labels
+		 */
+		function parseLabelsString(labelsStr) {
+			if (!labelsStr || !labelsStr.trim()) {
+				return [];
+			}
+			return labelsStr
 				.split(',')
-				.map(function (label) {
-					return label.trim();
-				})
-				.filter(function (label) {
-					return label.length > 0;
-				});
-			if (labels.length > 0) {
-				return labels;
+				.map((label) => label.trim())
+				.filter((label) => label.length > 0);
+		}
+
+		// Strategy 1: Try data-selected-label attribute (most reliable, cached)
+		const cachedLabels = $field.attr('data-selected-label');
+		if (cachedLabels && cachedLabels.trim()) {
+			const parsed = parseLabelsString(cachedLabels);
+			if (parsed.length > 0) {
+				return parsed;
 			}
 		}
 
-		// Try reading from Select2 selection container (visual tags)
-		const $select2Container = $('#at_biz_dir-categories').next(
-			'.select2-container'
-		);
-		if ($select2Container.length) {
-			const labelsFromSelect2 = [];
-			$select2Container
-				.find('.select2-selection__choice')
-				.each(function () {
-					const $choice = $(this);
-					const label =
-						$choice
-							.find('.select2-selection__choice__display')
-							.text()
-							.trim() ||
-						$choice.text().trim().replace('×', '').trim();
-					if (label) {
-						labelsFromSelect2.push(label);
-					}
-				});
-			if (labelsFromSelect2.length > 0) {
-				return labelsFromSelect2;
-			}
-		}
-
-		// Try Select2 data
+		// Strategy 2: Try Select2 API (most accurate if available)
 		if (
 			$field.hasClass('select2-hidden-accessible') &&
 			typeof $field.select2 === 'function'
@@ -124,31 +106,38 @@ function getFieldValue(fieldKey, $) {
 			try {
 				const selectedData = $field.select2('data');
 				if (selectedData && selectedData.length > 0) {
-					// Return labels (category names) for comparison
 					const labels = selectedData
-						.map(function (item) {
-							return item.text || item.id || '';
-						})
-						.filter(function (item) {
-							return item.length > 0;
-						});
+						.map((item) => item.text || item.id || '')
+						.filter((item) => item.length > 0);
 					if (labels.length > 0) {
+						// Cache for future reads
+						$field.attr('data-selected-label', labels.join(','));
 						return labels;
 					}
 				}
 			} catch (e) {
-				// Select2 might not be initialized yet
+				// Select2 might not be initialized yet, continue to next strategy
 			}
 		}
 
-		// Fallback to select value (may be IDs, not names)
+		// Strategy 3: Try reading from Select2 DOM container (visual tags)
+		const $select2Container = $field.next('.select2-container');
+		if ($select2Container.length) {
+			const labels = getLabelsFromSelect2Container($select2Container);
+			if (labels.length > 0) {
+				// Cache for future reads
+				$field.attr('data-selected-label', labels.join(','));
+				return labels;
+			}
+		}
+
+		// Strategy 4: Fallback to select option text (may be IDs, try to get labels)
 		const val = $field.val();
 		if (val) {
 			const values = Array.isArray(val) ? val : [val];
-			// If we have IDs, try to get labels from selected options
 			if (values.length > 0) {
 				const labels = [];
-				values.forEach(function (id) {
+				values.forEach((id) => {
 					const $option = $field.find(`option[value="${id}"]`);
 					if ($option.length) {
 						const label = $option.text().trim();
@@ -158,10 +147,13 @@ function getFieldValue(fieldKey, $) {
 					}
 				});
 				if (labels.length > 0) {
+					// Cache for future reads
+					$field.attr('data-selected-label', labels.join(','));
 					return labels;
 				}
+				// If no labels found, return IDs as fallback
+				return values;
 			}
-			return values;
 		}
 
 		return [];
@@ -486,13 +478,19 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 			!Array.isArray(group.conditions) ||
 			group.conditions.length === 0
 		) {
-			continue;
+			continue; // Skip empty groups
 		}
 
 		// Evaluate conditions in this group
 		const conditionResults = [];
 		for (let condition of group.conditions) {
-			if (!condition.field) {
+			// Skip conditions without field (incomplete conditions)
+			if (!condition.field || !condition.field.trim()) {
+				continue;
+			}
+
+			// Skip conditions without operator (incomplete conditions)
+			if (!condition.operator || !condition.operator.trim()) {
 				continue;
 			}
 
@@ -501,9 +499,14 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 			conditionResults.push(conditionResult);
 		}
 
+		// Only process group if it has valid conditions
+		// If no valid conditions, skip this group (don't add false result)
+		if (conditionResults.length === 0) {
+			continue;
+		}
+
 		// Combine condition results based on group operator
 		// Normalize operator to handle case variations and empty values
-		// Get the raw operator value first
 		let groupOperator = group.operator;
 
 		// Handle various data types and empty values
@@ -522,21 +525,17 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 			}
 		}
 
+		// Evaluate group result based on operator
 		let groupResult = false;
-		if (conditionResults.length > 0) {
-			// Debug: Log operator and condition results
-			if (groupOperator === 'OR') {
-				// Within group: if ANY condition is true, group is true
-				groupResult = conditionResults.some(
-					(result) => result === true
-				);
-			} else {
-				// Default to AND: ALL conditions must be true
-				groupResult = conditionResults.every(
-					(result) => result === true
-				);
-			}
+		if (groupOperator === 'OR') {
+			// Within group: if ANY condition is true, group is true
+			groupResult = conditionResults.some((result) => result === true);
+		} else {
+			// Default to AND: ALL conditions must be true
+			groupResult = conditionResults.every((result) => result === true);
 		}
+
+		// Only push result if group had valid conditions
 		groupResults.push(groupResult);
 	}
 

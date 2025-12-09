@@ -7348,6 +7348,19 @@
 					 * @param {Object} rootFields - Root fields object containing all field values
 					 * @returns {Boolean} - True if conditions are met
 					 */
+					/**
+					 * Evaluate conditional logic rules for admin form builder preview
+					 *
+					 * This function is used in the ADMIN FORM BUILDER to show/hide fields in the preview
+					 * based on conditional logic rules configured by the admin user.
+					 *
+					 * @param {Object} conditionalLogic - Conditional logic configuration
+					 * @param {Object} rootFields - All field values from the form builder (rootFields object)
+					 * @returns {boolean} - true if field should be shown, false if hidden
+					 *
+					 * Usage: Called from Field_List_Component.vue (line 167) to filter visible fields
+					 * in the admin form builder preview as the admin configures conditional logic rules.
+					 */
 					evaluateConditionalLogic: function evaluateConditionalLogic(
 						conditionalLogic,
 						rootFields
@@ -7397,8 +7410,20 @@
 
 									) {
 										var condition = _step8.value;
-										if (!condition.field) {
-											continue; // Skip invalid conditions
+										// Skip conditions without field (incomplete conditions)
+										if (
+											!condition.field ||
+											!condition.field.trim()
+										) {
+											continue;
+										}
+
+										// Skip conditions without operator (incomplete conditions)
+										if (
+											!condition.operator ||
+											!condition.operator.trim()
+										) {
+											continue;
 										}
 
 										// Get the field value from rootFields
@@ -7415,13 +7440,19 @@
 										conditionResults.push(conditionResult);
 									}
 
-									// Combine condition results based on group operator
-									// Normalize operator to handle case variations and empty values
+									// Only process group if it has valid conditions
+									// If no valid conditions, skip this group (don't add false result)
 								} catch (err) {
 									_iterator8.e(err);
 								} finally {
 									_iterator8.f();
 								}
+								if (conditionResults.length === 0) {
+									continue;
+								}
+
+								// Combine condition results based on group operator
+								// Normalize operator to handle case variations and empty values
 								var groupOperator = group.operator;
 								if (
 									!groupOperator ||
@@ -7433,24 +7464,26 @@
 									.toString()
 									.trim()
 									.toUpperCase();
+
+								// Evaluate group result based on operator
 								var groupResult = false;
-								if (conditionResults.length > 0) {
-									if (groupOperator === 'OR') {
-										// Within group: if ANY condition is true, group is true
-										groupResult = conditionResults.some(
-											function (result) {
-												return result === true;
-											}
-										);
-									} else {
-										// Default to AND: ALL conditions must be true
-										groupResult = conditionResults.every(
-											function (result) {
-												return result === true;
-											}
-										);
-									}
+								if (groupOperator === 'OR') {
+									// Within group: if ANY condition is true, group is true
+									groupResult = conditionResults.some(
+										function (result) {
+											return result === true;
+										}
+									);
+								} else {
+									// Default to AND: ALL conditions must be true
+									groupResult = conditionResults.every(
+										function (result) {
+											return result === true;
+										}
+									);
 								}
+
+								// Only push result if group had valid conditions
 								groupResults.push(groupResult);
 							}
 
@@ -28116,15 +28149,57 @@
 								}
 							}
 							for (var _field_key in new_fields) {
-								// Check for new conditional logic format (options.conditional_logic)
+								var _field$options,
+									_field$options2,
+									_field$conditional_lo;
+								// Extract conditional logic configuration
+								// Structure from PHP get_conditional_logic_field():
+								// options.conditional_logic = { type: 'conditional-logic', value: { enabled, action, groups } }
+								// The actual config is in conditional_logic.value (not directly in conditional_logic)
+								var conditionalLogic = null;
+								var field = new_fields[_field_key];
+
+								// Priority 1: options.conditional_logic.value (current structure)
+								// This matches the structure returned by get_conditional_logic_field() in builder-custom-fields.php
 								if (
-									new_fields[_field_key].options &&
-									new_fields[_field_key].options
-										.conditional_logic
+									(_field$options = field.options) !== null &&
+									_field$options !== void 0 &&
+									(_field$options =
+										_field$options.conditional_logic) !==
+										null &&
+									_field$options !== void 0 &&
+									_field$options.value
 								) {
-									var conditionalLogic =
-										new_fields[_field_key].options
-											.conditional_logic;
+									conditionalLogic =
+										field.options.conditional_logic.value;
+								}
+								// Priority 2: options.conditional_logic (flat structure - backward compatibility)
+								else if (
+									((_field$options2 = field.options) ===
+										null ||
+									_field$options2 === void 0 ||
+									(_field$options2 =
+										_field$options2.conditional_logic) ===
+										null ||
+									_field$options2 === void 0
+										? void 0
+										: _field$options2.enabled) !== undefined
+								) {
+									conditionalLogic =
+										field.options.conditional_logic;
+								}
+								// Priority 3: field.conditional_logic (direct access - edge cases)
+								else if (
+									((_field$conditional_lo =
+										field.conditional_logic) === null ||
+									_field$conditional_lo === void 0
+										? void 0
+										: _field$conditional_lo.enabled) !==
+									undefined
+								) {
+									conditionalLogic = field.conditional_logic;
+								}
+								if (conditionalLogic) {
 									var shouldShow =
 										this.evaluateConditionalLogic(
 											conditionalLogic,

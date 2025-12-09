@@ -185,65 +185,17 @@
 							return [];
 						}
 
-						// Try data-selected-label attribute first (most reliable for category names)
-						var selectedLabels = $field.attr('data-selected-label');
-						if (!selectedLabels || !selectedLabels.trim()) {
-							// If not in data attribute, try reading from Select2 selection container
-							var _$select2Container =
-								$field.next('.select2-container');
-							if (_$select2Container.length) {
-								var labels = [];
-								_$select2Container
-									.find('.select2-selection__choice')
-									.each(function () {
-										var $choice = $(this);
-										var label =
-											$choice
-												.find(
-													'.select2-selection__choice__display'
-												)
-												.text()
-												.trim() ||
-											$choice
-												.text()
-												.trim()
-												.replace('×', '')
-												.trim();
-										if (label) {
-											labels.push(label);
-										}
-									});
-								if (labels.length > 0) {
-									selectedLabels = labels.join(',');
-									// Update the data attribute for future reads
-									$field.attr(
-										'data-selected-label',
-										selectedLabels
-									);
-								}
+						/**
+						 * Helper function to extract labels from Select2 selection container
+						 * @param {jQuery} $container - Select2 container element
+						 * @returns {string[]} Array of category labels
+						 */
+						function getLabelsFromSelect2Container($container) {
+							if (!$container || !$container.length) {
+								return [];
 							}
-						}
-						if (selectedLabels && selectedLabels.trim()) {
-							var _labels = selectedLabels
-								.split(',')
-								.map(function (label) {
-									return label.trim();
-								})
-								.filter(function (label) {
-									return label.length > 0;
-								});
-							if (_labels.length > 0) {
-								return _labels;
-							}
-						}
-
-						// Try reading from Select2 selection container (visual tags)
-						var $select2Container = $(
-							'#at_biz_dir-categories'
-						).next('.select2-container');
-						if ($select2Container.length) {
-							var labelsFromSelect2 = [];
-							$select2Container
+							var labels = [];
+							$container
 								.find('.select2-selection__choice')
 								.each(function () {
 									var $choice = $(this);
@@ -260,15 +212,41 @@
 											.replace('×', '')
 											.trim();
 									if (label) {
-										labelsFromSelect2.push(label);
+										labels.push(label);
 									}
 								});
-							if (labelsFromSelect2.length > 0) {
-								return labelsFromSelect2;
+							return labels;
+						}
+
+						/**
+						 * Helper function to parse comma-separated labels string
+						 * @param {string} labelsStr - Comma-separated labels
+						 * @returns {string[]} Array of trimmed, non-empty labels
+						 */
+						function parseLabelsString(labelsStr) {
+							if (!labelsStr || !labelsStr.trim()) {
+								return [];
+							}
+							return labelsStr
+								.split(',')
+								.map(function (label) {
+									return label.trim();
+								})
+								.filter(function (label) {
+									return label.length > 0;
+								});
+						}
+
+						// Strategy 1: Try data-selected-label attribute (most reliable, cached)
+						var cachedLabels = $field.attr('data-selected-label');
+						if (cachedLabels && cachedLabels.trim()) {
+							var parsed = parseLabelsString(cachedLabels);
+							if (parsed.length > 0) {
+								return parsed;
 							}
 						}
 
-						// Try Select2 data
+						// Strategy 2: Try Select2 API (most accurate if available)
 						if (
 							$field.hasClass('select2-hidden-accessible') &&
 							typeof $field.select2 === 'function'
@@ -276,30 +254,51 @@
 							try {
 								var selectedData = $field.select2('data');
 								if (selectedData && selectedData.length > 0) {
-									// Return labels (category names) for comparison
-									var _labels2 = selectedData
+									var labels = selectedData
 										.map(function (item) {
 											return item.text || item.id || '';
 										})
 										.filter(function (item) {
 											return item.length > 0;
 										});
-									if (_labels2.length > 0) {
-										return _labels2;
+									if (labels.length > 0) {
+										// Cache for future reads
+										$field.attr(
+											'data-selected-label',
+											labels.join(',')
+										);
+										return labels;
 									}
 								}
 							} catch (e) {
-								// Select2 might not be initialized yet
+								// Select2 might not be initialized yet, continue to next strategy
 							}
 						}
 
-						// Fallback to select value (may be IDs, not names)
+						// Strategy 3: Try reading from Select2 DOM container (visual tags)
+						var $select2Container =
+							$field.next('.select2-container');
+						if ($select2Container.length) {
+							var _labels =
+								getLabelsFromSelect2Container(
+									$select2Container
+								);
+							if (_labels.length > 0) {
+								// Cache for future reads
+								$field.attr(
+									'data-selected-label',
+									_labels.join(',')
+								);
+								return _labels;
+							}
+						}
+
+						// Strategy 4: Fallback to select option text (may be IDs, try to get labels)
 						var val = $field.val();
 						if (val) {
 							var values = Array.isArray(val) ? val : [val];
-							// If we have IDs, try to get labels from selected options
 							if (values.length > 0) {
-								var _labels3 = [];
+								var _labels2 = [];
 								values.forEach(function (id) {
 									var $option = $field.find(
 										'option[value="'.concat(id, '"]')
@@ -307,15 +306,21 @@
 									if ($option.length) {
 										var label = $option.text().trim();
 										if (label) {
-											_labels3.push(label);
+											_labels2.push(label);
 										}
 									}
 								});
-								if (_labels3.length > 0) {
-									return _labels3;
+								if (_labels2.length > 0) {
+									// Cache for future reads
+									$field.attr(
+										'data-selected-label',
+										_labels2.join(',')
+									);
+									return _labels2;
 								}
+								// If no labels found, return IDs as fallback
+								return values;
 							}
-							return values;
 						}
 						return [];
 					}
@@ -741,7 +746,7 @@
 								!Array.isArray(group.conditions) ||
 								group.conditions.length === 0
 							) {
-								continue;
+								continue; // Skip empty groups
 							}
 
 							// Evaluate conditions in this group
@@ -757,7 +762,19 @@
 
 								) {
 									var condition = _step2.value;
-									if (!condition.field) {
+									// Skip conditions without field (incomplete conditions)
+									if (
+										!condition.field ||
+										!condition.field.trim()
+									) {
+										continue;
+									}
+
+									// Skip conditions without operator (incomplete conditions)
+									if (
+										!condition.operator ||
+										!condition.operator.trim()
+									) {
 										continue;
 									}
 									var fieldValue = getFieldValueFn(
@@ -770,14 +787,19 @@
 									conditionResults.push(conditionResult);
 								}
 
-								// Combine condition results based on group operator
-								// Normalize operator to handle case variations and empty values
-								// Get the raw operator value first
+								// Only process group if it has valid conditions
+								// If no valid conditions, skip this group (don't add false result)
 							} catch (err) {
 								_iterator2.e(err);
 							} finally {
 								_iterator2.f();
 							}
+							if (conditionResults.length === 0) {
+								continue;
+							}
+
+							// Combine condition results based on group operator
+							// Normalize operator to handle case variations and empty values
 							var groupOperator = group.operator;
 
 							// Handle various data types and empty values
@@ -797,25 +819,26 @@
 									groupOperator = 'AND';
 								}
 							}
+
+							// Evaluate group result based on operator
 							var groupResult = false;
-							if (conditionResults.length > 0) {
-								// Debug: Log operator and condition results
-								if (groupOperator === 'OR') {
-									// Within group: if ANY condition is true, group is true
-									groupResult = conditionResults.some(
-										function (result) {
-											return result === true;
-										}
-									);
-								} else {
-									// Default to AND: ALL conditions must be true
-									groupResult = conditionResults.every(
-										function (result) {
-											return result === true;
-										}
-									);
-								}
+							if (groupOperator === 'OR') {
+								// Within group: if ANY condition is true, group is true
+								groupResult = conditionResults.some(
+									function (result) {
+										return result === true;
+									}
+								);
+							} else {
+								// Default to AND: ALL conditions must be true
+								groupResult = conditionResults.every(
+									function (result) {
+										return result === true;
+									}
+								);
 							}
+
+							// Only push result if group had valid conditions
 							groupResults.push(groupResult);
 						}
 
@@ -1385,7 +1408,7 @@
 									'.select2-selection__choice'
 								);
 								if ($select2Container.length) {
-									var _labels4 = [];
+									var _labels3 = [];
 									$select2Container.each(function () {
 										var label = $(this)
 											.find(
@@ -1394,13 +1417,13 @@
 											.text()
 											.trim();
 										if (label) {
-											_labels4.push(label);
+											_labels3.push(label);
 										}
 									});
-									if (_labels4.length > 0) {
+									if (_labels3.length > 0) {
 										$field.attr(
 											'data-selected-label',
-											_labels4.join(',')
+											_labels3.join(',')
 										);
 									}
 								}

@@ -541,6 +541,19 @@ export default {
 	 * @param {Object} rootFields - Root fields object containing all field values
 	 * @returns {Boolean} - True if conditions are met
 	 */
+	/**
+	 * Evaluate conditional logic rules for admin form builder preview
+	 *
+	 * This function is used in the ADMIN FORM BUILDER to show/hide fields in the preview
+	 * based on conditional logic rules configured by the admin user.
+	 *
+	 * @param {Object} conditionalLogic - Conditional logic configuration
+	 * @param {Object} rootFields - All field values from the form builder (rootFields object)
+	 * @returns {boolean} - true if field should be shown, false if hidden
+	 *
+	 * Usage: Called from Field_List_Component.vue (line 167) to filter visible fields
+	 * in the admin form builder preview as the admin configures conditional logic rules.
+	 */
 	evaluateConditionalLogic(conditionalLogic, rootFields) {
 		if (!conditionalLogic || !conditionalLogic.enabled) {
 			return true; // If not enabled, always show
@@ -568,8 +581,14 @@ export default {
 			// Evaluate conditions in this group - combined with AND/OR based on group.operator
 			let conditionResults = [];
 			for (let condition of group.conditions) {
-				if (!condition.field) {
-					continue; // Skip invalid conditions
+				// Skip conditions without field (incomplete conditions)
+				if (!condition.field || !condition.field.trim()) {
+					continue;
+				}
+
+				// Skip conditions without operator (incomplete conditions)
+				if (!condition.operator || !condition.operator.trim()) {
+					continue;
 				}
 
 				// Get the field value from rootFields
@@ -584,6 +603,12 @@ export default {
 				conditionResults.push(conditionResult);
 			}
 
+			// Only process group if it has valid conditions
+			// If no valid conditions, skip this group (don't add false result)
+			if (conditionResults.length === 0) {
+				continue;
+			}
+
 			// Combine condition results based on group operator
 			// Normalize operator to handle case variations and empty values
 			let groupOperator = group.operator;
@@ -592,20 +617,21 @@ export default {
 			}
 			groupOperator = groupOperator.toString().trim().toUpperCase();
 
+			// Evaluate group result based on operator
 			let groupResult = false;
-			if (conditionResults.length > 0) {
-				if (groupOperator === 'OR') {
-					// Within group: if ANY condition is true, group is true
-					groupResult = conditionResults.some(
-						(result) => result === true
-					);
-				} else {
-					// Default to AND: ALL conditions must be true
-					groupResult = conditionResults.every(
-						(result) => result === true
-					);
-				}
+			if (groupOperator === 'OR') {
+				// Within group: if ANY condition is true, group is true
+				groupResult = conditionResults.some(
+					(result) => result === true
+				);
+			} else {
+				// Default to AND: ALL conditions must be true
+				groupResult = conditionResults.every(
+					(result) => result === true
+				);
 			}
+
+			// Only push result if group had valid conditions
 			groupResults.push(groupResult);
 		}
 

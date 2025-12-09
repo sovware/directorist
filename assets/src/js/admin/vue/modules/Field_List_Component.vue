@@ -157,13 +157,29 @@ export default {
       }
 
       for (let field_key in new_fields) {
-        // Check for new conditional logic format (options.conditional_logic)
-        if (
-          new_fields[field_key].options &&
-          new_fields[field_key].options.conditional_logic
-        ) {
-          let conditionalLogic =
-            new_fields[field_key].options.conditional_logic;
+        // Extract conditional logic configuration
+        // Structure from PHP get_conditional_logic_field():
+        // options.conditional_logic = { type: 'conditional-logic', value: { enabled, action, groups } }
+        // The actual config is in conditional_logic.value (not directly in conditional_logic)
+        let conditionalLogic = null;
+
+        const field = new_fields[field_key];
+
+        // Priority 1: options.conditional_logic.value (current structure)
+        // This matches the structure returned by get_conditional_logic_field() in builder-custom-fields.php
+        if (field.options?.conditional_logic?.value) {
+          conditionalLogic = field.options.conditional_logic.value;
+        }
+        // Priority 2: options.conditional_logic (flat structure - backward compatibility)
+        else if (field.options?.conditional_logic?.enabled !== undefined) {
+          conditionalLogic = field.options.conditional_logic;
+        }
+        // Priority 3: field.conditional_logic (direct access - edge cases)
+        else if (field.conditional_logic?.enabled !== undefined) {
+          conditionalLogic = field.conditional_logic;
+        }
+
+        if (conditionalLogic) {
           let shouldShow = this.evaluateConditionalLogic(
             conditionalLogic,
             new_fields,

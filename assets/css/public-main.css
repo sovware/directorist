@@ -19457,6 +19457,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex: 1;
           flex: 1;
 }
+.directorist-single-wrapper .formgent-upload-container .formgent-upload-area p {
+  font-size: 14px;
+  margin: 8px 0 0 0;
+}
 
 .directorist-single-author-info figure {
   margin: 0;

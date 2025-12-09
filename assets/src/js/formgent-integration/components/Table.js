@@ -36,7 +36,7 @@ export default function Tables(props) {
 			field: 'created_at',
 			direction: 'desc',
 		},
-		fields: ['id', 'enquiry', 'listing', 'sender', 'status'],
+		fields: ['enquiry', 'listing', 'sender', 'status'],
 		layout: {},
 	});
 
@@ -61,19 +61,6 @@ export default function Tables(props) {
 	// Define fields configuration for DataViews
 	const fields = useMemo(
 		() => [
-			{
-				id: 'id',
-				header: 'ID',
-				enableHiding: true,
-				enableSorting: true,
-				render: ({ item }) => {
-					return (
-						<div className="directorist-table-enquiry-id">
-							<span>#{item.id}</span>
-						</div>
-					);
-				},
-			},
 			{
 				id: 'enquiry',
 				header: 'Enquiry',
@@ -270,7 +257,6 @@ export default function Tables(props) {
 			const query = view.search.toLowerCase().trim();
 			filtered = filtered.filter((item) => {
 				return (
-					item.id?.toString().includes(query) ||
 					item.listing_title?.toLowerCase().includes(query) ||
 					item.user?.display_name?.toLowerCase().includes(query) ||
 					item.user?.user_email?.toLowerCase().includes(query)
@@ -278,7 +264,7 @@ export default function Tables(props) {
 			});
 		}
 
-		return filtered;
+		return [...filtered].reverse();
 	}, [items, view.search]);
 
 	// Handle view changes

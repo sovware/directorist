@@ -15,6 +15,7 @@ const EnquiriesComponentStyle = styled.div`
 	}
 	.directorist-enquires-stats {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 20px;
 	}
@@ -22,12 +23,20 @@ const EnquiriesComponentStyle = styled.div`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		flex: 1;
 		border-radius: 12px;
-		width: 25%;
 		background-color: #fff;
 		padding: 24px;
 		border: 1px solid #e5e7eb;
 		transition: 0.3s ease;
+		@media screen and (max-width: 992px) {
+			width: 100%;
+			flex: 1 1 calc(50% - 60px);
+		}
+		@media screen and (max-width: 575px) {
+			width: 100%;
+			flex: 1 1 100%;
+		}
 		&:hover {
 			box-shadow:
 				0 0 #0000,
@@ -424,9 +433,71 @@ const EnquiryDetailsModalStyle = styled.div`
 			}
 			.formgent-file-upload-answer {
 				padding: 8px 0;
+				background-color: #fff;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				box-sizing: border-box;
 				&:last-child {
 					border-bottom: 0 none;
 					padding-bottom: 0;
+				}
+			}
+			.formgent-file-upload-answer__info,
+			.formgent-file-upload-answer__action{
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+			.formgent-file-upload-answer__media{
+				min-width: 40px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				img{
+					width: 40px;
+					height: 40px;
+					object-fit: cover;
+					border-radius: 8px;
+				}
+				video{
+					width: 40px;
+					height: 40px;
+					object-fit: cover;
+					border-radius: 8px;
+				}
+				svg{
+					width: 36px;
+					height: 36px;
+					path{
+						fill: var(--directorist-color-light-gray);
+					}
+				}
+			}
+			.formgent-file-upload-answer__file-name{
+				font-size: 13px;
+				max-width: 230px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				color: var(--directorist-color-light-gray);
+				margin-bottom: 4px;
+			}
+			.formgent-file-upload-answer__file-size {
+				font-size: 12px;
+				color: var(--directorist-color-light-gray);
+			}
+			.formgent-file-upload-answer__download,
+			.formgent-file-upload-answer__view{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: 0.3s ease;
+				cursor: pointer;
+				svg{
+					width: 20px;
+					height: 20px;
+					transition: 0.3s ease;
 				}
 			}
 		}

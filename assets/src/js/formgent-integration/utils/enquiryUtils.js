@@ -80,8 +80,6 @@ export const markEnquiryAsRead = async (item, onSuccess) => {
 			},
 		});
 
-		console.log('Mark as read response:', data);
-
 		if (onSuccess) {
 			onSuccess();
 		}
@@ -120,8 +118,6 @@ export const deleteEnquiry = async (item, onSuccess) => {
 				id: responseId,
 			},
 		});
-
-		console.log('Delete response:', data);
 
 		if (onSuccess) {
 			onSuccess();

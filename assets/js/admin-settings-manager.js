@@ -30886,7 +30886,7 @@
 						listItemStyle: function listItemStyle() {
 							var style = {};
 							if (this.dragging && 'move' === this.dragType) {
-								style.height = '0';
+								// style.height = "0";
 								style.padding = '0';
 								style.overflow = 'hidden';
 							}

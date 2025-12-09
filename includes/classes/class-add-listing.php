@@ -257,9 +257,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                         continue;
                     }
 
-                    if ( self::should_ignore_category_custom_field( $field ) ) {
-                        continue;
-                    }
+                    // Removed: should_ignore_category_custom_field check (assign_to feature removed)
 
                     switch ( $field->get_internal_key() ) {
                         case 'title':
@@ -913,16 +911,12 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             return $field->is_value_empty( $posted_data );
         }
 
-        public static function should_ignore_category_custom_field( $field ) {
-            return ( $field->is_category_only() && ( is_null( self::$selected_categories ) || ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) );
-        }
+        // Removed: should_ignore_category_custom_field method (assign_to feature removed)
 
         public static function validate_field( $field, $posted_data ) {
             $should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
-            if ( self::should_ignore_category_custom_field( $field ) ) {
-                $should_validate = false;
-            }
+            // Removed: should_ignore_category_custom_field check (assign_to feature removed)
 
             if ( ! $should_validate ) {
                 return [

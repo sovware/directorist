@@ -705,6 +705,11 @@ class Directorist_Listing_Form {
         return true; // All fields are for admin
     }
 
+    /**
+     * @deprecated This method is deprecated. The assign_to feature has been removed.
+     * Use conditional_logic instead for field visibility.
+     * This method is kept for backward compatibility but is no longer called.
+     */
     public function add_listing_category_custom_field_template( $field_data, $listing_id = NULL ) {
         $value = '';
         if ( ! empty( $listing_id ) ) {

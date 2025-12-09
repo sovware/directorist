@@ -699,21 +699,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $form_fields  = directorist_get_listing_form_fields( $directory_id );
             $result       = [];
 
-            foreach ( $form_fields as $field_key => $field_properties ) {
-                $field = directorist_get_field( $field_properties );
-
-                if ( ! $field->is_category_only() || ! $field->get_assigned_category() ) {
-                    continue;
-                }
-
-                if ( in_array( $field->get_assigned_category(), $category_ids, true ) ) {
-                    ob_start();
-
-                    \Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $field_properties, $listing_id );
-
-                    $result[ $field_key ] = ob_get_clean();
-                }
-            }
+            // Removed: Category custom fields loading (assign_to feature removed)
+            // Since is_category_only() always returns false now, this loop would never execute
+            // Conditional logic now handles field visibility dynamically
 
             wp_send_json_success( $result );
         }

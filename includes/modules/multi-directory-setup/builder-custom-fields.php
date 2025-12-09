@@ -18,72 +18,6 @@ $custom_field_meta_key_field = apply_filters(
     ]
 );
 
-function get_assign_to_field( array $args = [] ) {
-    $default = [
-        'type' => 'radio',
-        'label' => __( 'Assign to', 'directorist' ),
-        'value' => 'form',
-        'options' => [
-            [
-                'label' => __( 'Form', 'directorist' ),
-                'value' => 'form',
-            ],
-            [
-                'label' => __( 'Category', 'directorist' ),
-                'value' => 'category',
-            ],
-        ],
-    ];
-
-    return array_merge( $default, $args );
-}
-
-function get_category_select_field( array $args = [] ) {
-    $default = [
-        'type'    => 'select',
-        'label'   => __( 'Select Category', 'directorist' ),
-        'value'   => '',
-        'options' => get_cetagory_options(),
-    ];
-
-    return array_merge( $default, $args );
-}
-
-function get_cetagory_options() {
-    $terms = get_terms(
-        [
-            'taxonomy'   => ATBDP_CATEGORY,
-            'hide_empty' => false,
-        ] 
-    );
-
-    $directory_type = isset( $_GET['listing_type_id'] ) ? absint( $_GET['listing_type_id'] ) : directorist_get_default_directory();
-    $options        = [];
-
-    if ( is_wp_error( $terms ) ) {
-        return $options;
-    }
-
-    if ( ! count( $terms ) ) {
-        return $options;
-    }
-
-    foreach ( $terms as $term ) {
-        $term_directory_types = get_term_meta( $term->term_id, '_directory_type', true );
-
-        if ( is_array( $term_directory_types ) && in_array( $directory_type, $term_directory_types, true ) ) {
-            $options[] = [
-                'id'    => $term->term_id,
-                'value' => $term->term_id,
-                'label' => $term->name,
-            ];
-        }
-
-    }
-
-    return $options;
-}
-
 function get_file_upload_field_options() {
     $options = [
         [
@@ -180,21 +114,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -242,21 +161,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -293,11 +197,6 @@ return apply_filters(
                     'label' => __( 'Required', 'directorist' ),
                     'value' => false,
                 ],
-                'only_for_admin' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Admin Only', 'directorist' ),
-                    'value' => false,
-                ],
                 'conditional_logic' => get_conditional_logic_field(),
                 'min_value' => [
                     'type'  => 'number',
@@ -332,21 +231,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -393,21 +277,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -450,21 +320,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -507,21 +362,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -559,21 +399,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -628,21 +453,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -697,21 +507,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 
@@ -766,21 +561,6 @@ return apply_filters(
                     'value' => false,
                 ],
                 'conditional_logic' => get_conditional_logic_field(),
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
             ]
         ],
 

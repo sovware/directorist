@@ -336,7 +336,25 @@ function getFieldValue(fieldKey, $) {
 		};
 
 		// Get both widget_key and potential field_key
-		const potentialFieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
+		let potentialFieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
+
+		// For custom fields: widget_key might be like "custom-select" or just "select"
+		// Try to find field_key by checking if widget_key starts with "custom-"
+		// If not, try prepending "custom-" to match field_key format
+		if (
+			!fieldKey.startsWith('custom-') &&
+			!potentialFieldKey.startsWith('custom-')
+		) {
+			// Try custom field format: "custom-{type}" or "custom-{type}-{suffix}"
+			const customFieldKey = `custom-${fieldKey}`;
+			// Check if this custom field exists in the form
+			const $customField = $(
+				`[name="${customFieldKey}"], #${customFieldKey}, .directorist-form-group[data-field-key="${customFieldKey}"] select`
+			).first();
+			if ($customField.length) {
+				potentialFieldKey = customFieldKey;
+			}
+		}
 
 		const selectors = [
 			`[name="${fieldKey}"]`,
@@ -361,6 +379,25 @@ function getFieldValue(fieldKey, $) {
 			`.directorist-form-group[data-field-key="${potentialFieldKey}"] input`,
 			`.directorist-form-group[data-field-key="${potentialFieldKey}"] select`,
 			`.directorist-form-group[data-field-key="${potentialFieldKey}"] textarea`,
+			// Additional selectors for custom fields (try both widget_key and field_key formats)
+			`.directorist-custom-field-select select[name="${fieldKey}"]`,
+			`.directorist-custom-field-select select#${fieldKey}`,
+			`.directorist-custom-field-select select[name="${potentialFieldKey}"]`,
+			`.directorist-custom-field-select select#${potentialFieldKey}`,
+			`.directorist-form-group.directorist-custom-field-select select[name="${fieldKey}"]`,
+			`.directorist-form-group.directorist-custom-field-select select#${fieldKey}`,
+			`.directorist-form-group.directorist-custom-field-select select[name="${potentialFieldKey}"]`,
+			`.directorist-form-group.directorist-custom-field-select select#${potentialFieldKey}`,
+			// Try custom field format if fieldKey doesn't start with "custom-"
+			...(fieldKey && !fieldKey.startsWith('custom-')
+				? [
+						`[name="custom-${fieldKey}"]`,
+						`#custom-${fieldKey}`,
+						`.directorist-form-group[data-field-key="custom-${fieldKey}"] select`,
+						`.directorist-custom-field-select select[name="custom-${fieldKey}"]`,
+						`.directorist-custom-field-select select#custom-${fieldKey}`,
+					]
+				: []),
 		];
 
 		for (let selector of selectors) {
@@ -372,6 +409,17 @@ function getFieldValue(fieldKey, $) {
 	}
 
 	if (!$field || !$field.length) {
+		// Debug: Log when field is not found (especially for custom fields)
+		if (
+			fieldKey &&
+			(fieldKey.includes('select') || fieldKey.startsWith('custom-'))
+		) {
+			console.warn('Conditional logic: Field not found', {
+				fieldKey: fieldKey,
+				potentialFieldKey: potentialFieldKey,
+				selectorsTried: selectors ? selectors.length : 0,
+			});
+		}
 		return null;
 	}
 
@@ -720,6 +768,24 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 			}
 
 			const fieldValue = getFieldValueFn(condition.field);
+
+			// Debug logging for custom select fields
+			if (
+				condition.field &&
+				condition.field.includes('select') &&
+				!condition.field.includes('category') &&
+				!condition.field.includes('tag') &&
+				!condition.field.includes('location')
+			) {
+				console.log('Custom select field evaluation:', {
+					fieldKey: condition.field,
+					fieldValue: fieldValue,
+					conditionValue: condition.value,
+					operator: condition.operator,
+					fieldFound: fieldValue !== null && fieldValue !== undefined,
+				});
+			}
+
 			const conditionResult = evaluateCondition(condition, fieldValue);
 			conditionResults.push(conditionResult);
 		}
@@ -937,8 +1003,26 @@ function watchFieldChanges(
 		fieldKey,
 		$changedField
 	) {
+		console.log('=== triggerConditionalLogicEvaluation called ===', {
+			fieldName: fieldName,
+			fieldKey: fieldKey,
+			changedFieldValue: $changedField ? $changedField.val() : 'N/A',
+			changedFieldId: $changedField ? $changedField.attr('id') : 'N/A',
+			changedFieldName: $changedField
+				? $changedField.attr('name')
+				: 'N/A',
+		});
+
 		// Re-evaluate all fields that might depend on this field
-		$('.directorist-form-group[data-conditional-logic]').each(function () {
+		const $fieldsWithLogic = $(
+			'.directorist-form-group[data-conditional-logic]'
+		);
+		console.log(
+			'Found fields with conditional logic:',
+			$fieldsWithLogic.length
+		);
+
+		$fieldsWithLogic.each(function () {
 			const $fieldWrapper = $(this);
 			const conditionalLogicData = $fieldWrapper.attr(
 				'data-conditional-logic'
@@ -947,6 +1031,12 @@ function watchFieldChanges(
 			if (!conditionalLogicData) {
 				return;
 			}
+
+			console.log('Evaluating field with conditional logic:', {
+				fieldKey: $fieldWrapper.attr('data-field-key'),
+				conditionalLogicData:
+					conditionalLogicData.substring(0, 100) + '...',
+			});
 
 			try {
 				// Decode HTML entities before parsing JSON
@@ -982,6 +1072,42 @@ function watchFieldChanges(
 									widgetKeyToFieldKeyMap[conditionFieldKey] ||
 									conditionFieldKey;
 
+								// For custom fields: handle widget_key (e.g., "select") vs field_key (e.g., "custom-select")
+								// If condition.field is a widget_key (like "select"), try matching with "custom-{type}"
+								// If changed field is "custom-{type}", try matching with just the type (widget_key)
+								let conditionFieldKeyAsCustom = null;
+								let fieldKeyAsWidgetKey = null;
+
+								// If condition field doesn't start with "custom-", try "custom-{field}" format
+								if (
+									conditionFieldKey &&
+									!conditionFieldKey.startsWith('custom-')
+								) {
+									conditionFieldKeyAsCustom = `custom-${conditionFieldKey}`;
+								}
+
+								// If changed field starts with "custom-", extract the widget_key part
+								if (
+									fieldKey &&
+									fieldKey.startsWith('custom-')
+								) {
+									fieldKeyAsWidgetKey = fieldKey.replace(
+										/^custom-/,
+										''
+									);
+								}
+								if (
+									fieldName &&
+									fieldName.startsWith('custom-')
+								) {
+									const fieldNameAsWidgetKey =
+										fieldName.replace(/^custom-/, '');
+									if (!fieldKeyAsWidgetKey) {
+										fieldKeyAsWidgetKey =
+											fieldNameAsWidgetKey;
+									}
+								}
+
 								// Check multiple possible field key formats
 								// Match by exact field key, field name, or id
 								if (
@@ -996,10 +1122,62 @@ function watchFieldChanges(
 									conditionFieldKeyMapped ===
 										$changedField.attr('id') ||
 									conditionFieldKeyMapped ===
-										$changedField.attr('name')
+										$changedField.attr('name') ||
+									// Custom field mapping: condition "select" matches changed field "custom-select"
+									(conditionFieldKeyAsCustom &&
+										(conditionFieldKeyAsCustom ===
+											fieldKey ||
+											conditionFieldKeyAsCustom ===
+												fieldName ||
+											conditionFieldKeyAsCustom ===
+												$changedField.attr('id') ||
+											conditionFieldKeyAsCustom ===
+												$changedField.attr('name'))) ||
+									// Custom field mapping: changed field "custom-select" matches condition "select"
+									(fieldKeyAsWidgetKey &&
+										(conditionFieldKey ===
+											fieldKeyAsWidgetKey ||
+											conditionFieldKeyMapped ===
+												fieldKeyAsWidgetKey))
 								) {
+									console.log('✓ Field dependency MATCHED:', {
+										conditionField: conditionFieldKey,
+										changedField: fieldKey,
+										changedFieldName: fieldName,
+										conditionFieldAsCustom:
+											conditionFieldKeyAsCustom,
+										fieldKeyAsWidgetKey:
+											fieldKeyAsWidgetKey,
+										matched: true,
+									});
 									dependsOnField = true;
 									break;
+								} else {
+									// Debug: log when field doesn't match (only for custom select fields)
+									if (
+										conditionFieldKey &&
+										(conditionFieldKey.includes('select') ||
+											(fieldKey &&
+												fieldKey.includes('select')))
+									) {
+										console.log(
+											'✗ Field dependency NOT matched:',
+											{
+												conditionField:
+													conditionFieldKey,
+												changedField: fieldKey,
+												changedFieldName: fieldName,
+												conditionFieldAsCustom:
+													conditionFieldKeyAsCustom,
+												fieldKeyAsWidgetKey:
+													fieldKeyAsWidgetKey,
+												changedFieldId:
+													$changedField.attr('id'),
+												changedFieldNameAttr:
+													$changedField.attr('name'),
+											}
+										);
+									}
 								}
 							}
 							if (dependsOnField) {
@@ -1170,7 +1348,24 @@ function watchFieldChanges(
 			let fieldName =
 				$changedField.attr('name') || $changedField.attr('id');
 
+			// Debug: Log all field changes
+			console.log('Field change detected:', {
+				fieldName: fieldName,
+				fieldId: $changedField.attr('id'),
+				fieldType: $changedField.prop('tagName'),
+				fieldValue: $changedField.val(),
+				isCustomSelect:
+					$changedField.closest('.directorist-custom-field-select')
+						.length > 0,
+				hasName: !!$changedField.attr('name'),
+				hasId: !!$changedField.attr('id'),
+			});
+
 			if (!fieldName) {
+				console.warn(
+					'Field change detected but no name/id found:',
+					$changedField
+				);
 				return;
 			}
 
@@ -1182,6 +1377,8 @@ function watchFieldChanges(
 			if (fieldKey.endsWith('[]')) {
 				fieldKey = fieldKey.slice(0, -2);
 			}
+
+			console.log('Extracted fieldKey:', fieldKey);
 
 			// Special handling for category, tag, and location fields
 			let taxonomyFieldSelector = null;
@@ -1271,6 +1468,60 @@ function watchFieldChanges(
 				}, 50);
 				return; // Don't trigger twice
 			}
+
+			// Debug: Log before triggering evaluation
+			console.log('Triggering conditional logic evaluation for:', {
+				fieldName: fieldName,
+				fieldKey: fieldKey,
+				fieldValue: $changedField.val(),
+				isCustomSelect:
+					$changedField.closest('.directorist-custom-field-select')
+						.length > 0,
+			});
+
+			triggerConditionalLogicEvaluation(
+				fieldName,
+				fieldKey,
+				$changedField
+			);
+		}
+	);
+
+	// Also listen on document level as fallback for custom fields that might be outside the form wrapper
+	$(document).on(
+		'change',
+		'.directorist-custom-field-select select, select.directorist-form-element',
+		function () {
+			const $changedField = $(this);
+			let fieldName =
+				$changedField.attr('name') || $changedField.attr('id');
+
+			if (!fieldName) {
+				return;
+			}
+
+			console.log('Document-level change detected for custom select:', {
+				fieldName: fieldName,
+				fieldId: $changedField.attr('id'),
+				fieldValue: $changedField.val(),
+				isCustomSelect:
+					$changedField.closest('.directorist-custom-field-select')
+						.length > 0,
+			});
+
+			// Extract field key from name
+			let fieldKey = fieldName;
+			if (fieldName.includes('[')) {
+				fieldKey = fieldName.split('[')[0];
+			}
+			if (fieldKey.endsWith('[]')) {
+				fieldKey = fieldKey.slice(0, -2);
+			}
+
+			console.log('Triggering evaluation from document-level listener:', {
+				fieldName: fieldName,
+				fieldKey: fieldKey,
+			});
 
 			triggerConditionalLogicEvaluation(
 				fieldName,

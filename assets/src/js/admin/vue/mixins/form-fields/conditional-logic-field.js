@@ -570,8 +570,13 @@ export default {
 					continue;
 				}
 
+				// For custom fields, prefer field_key over widget_key if available
+				// This ensures we use the actual field_key used in HTML (e.g., "custom-select")
+				// instead of just the widget_key
+				const fieldValue = widget.field_key || widgetKey;
+
 				fields.push({
-					value: widgetKey,
+					value: fieldValue, // Use field_key if available, otherwise widget_key
 					label: label,
 					type: type,
 					widget: widget, // Store full widget data for accessing options

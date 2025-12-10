@@ -23253,7 +23253,8 @@ input.directorist-toggle-input:checked
 	-webkit-transition: 0.2s background-color ease-in-out;
 	transition: 0.2s background-color ease-in-out;
 }
-.directorist-single-listing-action:hover {
+.directorist-single-listing-action:hover,
+.directorist-single-listing-action:focus {
 	background-color: var(--directorist-color-white) !important;
 	border-color: var(--directorist-color-primary) !important;
 }

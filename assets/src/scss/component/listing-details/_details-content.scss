@@ -384,7 +384,8 @@
 	color: var(--directorist-color-body);
 	border: 2px solid var(--directorist-color-white) !important;
 	transition: 0.2s background-color ease-in-out;
-	&:hover {
+	&:hover,
+	&:focus {
 		background-color: var(--directorist-color-white) !important;
 		border-color: var(--directorist-color-primary) !important;
 	}

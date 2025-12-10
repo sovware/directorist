@@ -100,6 +100,10 @@ export default {
 			currentFieldKeyForExclusion: null,
 			// Cache for category options
 			cachedCategoryOptions: null,
+			// Cache for tag options
+			cachedTagOptions: null,
+			// Cache for location options
+			cachedLocationOptions: null,
 		};
 	},
 
@@ -628,6 +632,26 @@ export default {
 				return this.getCategoryOptions();
 			}
 
+			// Handle tag field - needs special handling via AJAX or passed data
+			if (
+				fieldType === 'tag' ||
+				fieldType === 'tags' ||
+				condition.field === 'tag' ||
+				condition.field === 'tags'
+			) {
+				return this.getTagOptions();
+			}
+
+			// Handle location field - needs special handling via AJAX or passed data
+			if (
+				fieldType === 'location' ||
+				fieldType === 'locations' ||
+				condition.field === 'location' ||
+				condition.field === 'locations'
+			) {
+				return this.getLocationOptions();
+			}
+
 			// Handle select/radio/checkbox fields - get options from widget
 			if (['select', 'radio', 'checkbox'].includes(fieldType) && widget) {
 				const options = [];
@@ -890,6 +914,251 @@ export default {
 			}
 
 			// Return empty array for now - will be populated via AJAX if needed
+			return [];
+		},
+
+		/**
+		 * Get tag options for the current directory type
+		 * Similar to getCategoryOptions() but for tags
+		 */
+		getTagOptions() {
+			// Return cached options if available
+			if (this.cachedTagOptions) {
+				return this.cachedTagOptions;
+			}
+
+			const options = [];
+
+			// Method 1: Try to get from availableFields if tag field exists
+			const tagField = this.availableFields.find(
+				(f) => f.value === 'tag' || f.value === 'tags'
+			);
+			if (tagField && tagField.widget && tagField.widget.options) {
+				if (Array.isArray(tagField.widget.options)) {
+					tagField.widget.options.forEach((option) => {
+						if (typeof option === 'object') {
+							options.push({
+								value:
+									option.value ||
+									option.id ||
+									option.term_id ||
+									'',
+								label:
+									option.label ||
+									option.name ||
+									option.text ||
+									'',
+							});
+						}
+					});
+				}
+				if (options.length > 0) {
+					this.cachedTagOptions = options;
+					return options;
+				}
+			}
+
+			// Method 2: Try to get from Vuex store
+			if (this.$store && this.$store.state.tags) {
+				const tags = this.$store.state.tags;
+				if (Array.isArray(tags)) {
+					tags.forEach((tag) => {
+						options.push({
+							value: tag.id || tag.term_id || tag.value || '',
+							label: tag.name || tag.label || tag.text || '',
+						});
+					});
+					if (options.length > 0) {
+						this.cachedTagOptions = options;
+						return options;
+					}
+				}
+			}
+
+			// Method 3: Make AJAX call to fetch tags
+			const listingTypeId = this.getListingTypeId();
+			if (
+				listingTypeId &&
+				typeof jQuery !== 'undefined' &&
+				!this.cachedTagOptions
+			) {
+				const self = this;
+				jQuery.ajax({
+					url:
+						typeof directorist !== 'undefined' &&
+						directorist.ajaxurl
+							? directorist.ajaxurl
+							: window.ajaxurl || '',
+					type: 'POST',
+					data: {
+						action: 'directorist_get_tag_options',
+						listing_type_id: listingTypeId,
+						directorist_nonce:
+							typeof directorist !== 'undefined' &&
+							directorist.directorist_nonce
+								? directorist.directorist_nonce
+								: '',
+					},
+					success: function (response) {
+						if (
+							response.success &&
+							response.data &&
+							Array.isArray(response.data)
+						) {
+							// For tags, use name as value since tag field stores names as option values
+							const fetchedOptions = response.data.map((tag) => ({
+								value: String(
+									tag.name ||
+										tag.label ||
+										tag.text ||
+										tag.id ||
+										tag.term_id ||
+										''
+								), // Use name as value for tags
+								label: tag.name || tag.label || tag.text || '',
+							}));
+							self.cachedTagOptions = fetchedOptions;
+							self.$forceUpdate();
+						}
+					},
+					error: function () {
+						console.warn(
+							'Failed to fetch tag options for conditional logic'
+						);
+					},
+				});
+			}
+
+			return [];
+		},
+
+		/**
+		 * Get location options for the current directory type
+		 * Similar to getCategoryOptions() but for locations
+		 */
+		getLocationOptions() {
+			// Return cached options if available
+			if (this.cachedLocationOptions) {
+				return this.cachedLocationOptions;
+			}
+
+			const options = [];
+
+			// Method 1: Try to get from availableFields if location field exists
+			const locationField = this.availableFields.find(
+				(f) => f.value === 'location' || f.value === 'locations'
+			);
+			if (
+				locationField &&
+				locationField.widget &&
+				locationField.widget.options
+			) {
+				if (Array.isArray(locationField.widget.options)) {
+					locationField.widget.options.forEach((option) => {
+						if (typeof option === 'object') {
+							options.push({
+								value:
+									option.value ||
+									option.id ||
+									option.term_id ||
+									'',
+								label:
+									option.label ||
+									option.name ||
+									option.text ||
+									'',
+							});
+						}
+					});
+				}
+				if (options.length > 0) {
+					this.cachedLocationOptions = options;
+					return options;
+				}
+			}
+
+			// Method 2: Try to get from Vuex store
+			if (this.$store && this.$store.state.locations) {
+				const locations = this.$store.state.locations;
+				if (Array.isArray(locations)) {
+					locations.forEach((location) => {
+						options.push({
+							value:
+								location.id ||
+								location.term_id ||
+								location.value ||
+								'',
+							label:
+								location.name ||
+								location.label ||
+								location.text ||
+								'',
+						});
+					});
+					if (options.length > 0) {
+						this.cachedLocationOptions = options;
+						return options;
+					}
+				}
+			}
+
+			// Method 3: Make AJAX call to fetch locations
+			const listingTypeId = this.getListingTypeId();
+			if (
+				listingTypeId &&
+				typeof jQuery !== 'undefined' &&
+				!this.cachedLocationOptions
+			) {
+				const self = this;
+				jQuery.ajax({
+					url:
+						typeof directorist !== 'undefined' &&
+						directorist.ajaxurl
+							? directorist.ajaxurl
+							: window.ajaxurl || '',
+					type: 'POST',
+					data: {
+						action: 'directorist_get_location_options',
+						listing_type_id: listingTypeId,
+						directorist_nonce:
+							typeof directorist !== 'undefined' &&
+							directorist.directorist_nonce
+								? directorist.directorist_nonce
+								: '',
+					},
+					success: function (response) {
+						if (
+							response.success &&
+							response.data &&
+							Array.isArray(response.data)
+						) {
+							const fetchedOptions = response.data.map(
+								(location) => ({
+									value: String(
+										location.id ||
+											location.term_id ||
+											location.value ||
+											''
+									),
+									label:
+										location.name ||
+										location.label ||
+										location.text ||
+										'',
+								})
+							);
+							self.cachedLocationOptions = fetchedOptions;
+							self.$forceUpdate();
+						}
+					},
+					error: function () {
+						console.warn(
+							'Failed to fetch location options for conditional logic'
+						);
+					},
+				});
+			}
+
 			return [];
 		},
 

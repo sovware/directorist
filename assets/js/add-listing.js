@@ -178,13 +178,37 @@
 					var $field = null;
 
 					// Map field keys to actual field names/selectors
+					// Handle category, tag, and location fields - all use Select2 with similar structure
 					if (fieldKey === 'category' || fieldKey === 'categories') {
 						// Category field uses admin_category_select[] or Select2
 						$field = $('#at_biz_dir-categories');
 						if (!$field.length) {
 							return [];
 						}
+					} else if (fieldKey === 'tag' || fieldKey === 'tags') {
+						// Tag field uses Select2
+						$field = $('#at_biz_dir-tags');
+						if (!$field.length) {
+							return [];
+						}
+					} else if (
+						fieldKey === 'location' ||
+						fieldKey === 'locations'
+					) {
+						// Location field uses Select2
+						$field = $('#at_biz_dir-location');
+						if (!$field.length) {
+							return [];
+						}
+					}
 
+					// If we matched a taxonomy field (category, tag, location), process it
+					if (
+						$field &&
+						($field.is('#at_biz_dir-categories') ||
+							$field.is('#at_biz_dir-tags') ||
+							$field.is('#at_biz_dir-location'))
+					) {
 						/**
 						 * Helper function to extract labels from Select2 selection container
 						 * @param {jQuery} $container - Select2 container element
@@ -257,6 +281,7 @@
 						// Strategy 1: Try data-selected-label AND data-selected-id (return both for comparison)
 						var cachedLabels = $field.attr('data-selected-label');
 						var cachedIds = $field.attr('data-selected-id');
+						var isTagField = $field.is('#at_biz_dir-tags');
 						if (cachedLabels && cachedLabels.trim()) {
 							var parsedLabels = parseLabelsString(cachedLabels);
 							var parsedIds = cachedIds
@@ -266,12 +291,27 @@
 							// Return combined array: both IDs and labels for flexible matching
 							// This allows condition to match either by ID (from builder dropdown) or label
 							var combined = [];
-							parsedLabels.forEach(function (label) {
-								if (label) combined.push(label);
-							});
-							parsedIds.forEach(function (id) {
-								if (id) combined.push(id);
-							});
+
+							// For tag field, prioritize labels (names) since that's what's stored in form
+							if (isTagField) {
+								parsedLabels.forEach(function (label) {
+									if (label) combined.push(label);
+								});
+								// For tags, also add IDs if they exist (though form uses names)
+								parsedIds.forEach(function (id) {
+									if (id && !parsedLabels.includes(id)) {
+										combined.push(id);
+									}
+								});
+							} else {
+								// For category and location, add both labels and IDs
+								parsedLabels.forEach(function (label) {
+									if (label) combined.push(label);
+								});
+								parsedIds.forEach(function (id) {
+									if (id) combined.push(id);
+								});
+							}
 							if (combined.length > 0) {
 								return combined;
 							}
@@ -286,12 +326,30 @@
 								var selectedData = $field.select2('data');
 								if (selectedData && selectedData.length > 0) {
 									var _combined = [];
+									var _isTagField =
+										$field.is('#at_biz_dir-tags');
 									selectedData.forEach(function (item) {
-										// Add both ID and label for flexible matching
-										if (item.id)
-											_combined.push(String(item.id));
-										if (item.text)
-											_combined.push(item.text);
+										// For tag field, Select2 stores tag name as id (since option value is name)
+										// So prioritize text (name) for tags
+										if (_isTagField) {
+											// For tags, the id in Select2 is actually the tag name (from option value)
+											// So we use both id and text, but text is more reliable
+											if (item.text) {
+												_combined.push(item.text); // Tag name
+											}
+											if (
+												item.id &&
+												item.id !== item.text
+											) {
+												_combined.push(String(item.id)); // Also add id if different
+											}
+										} else {
+											// For category and location, add both ID and label for flexible matching
+											if (item.id)
+												_combined.push(String(item.id));
+											if (item.text)
+												_combined.push(item.text);
+										}
 									});
 									if (_combined.length > 0) {
 										// Cache for future reads
@@ -371,21 +429,43 @@
 								var _combined3 = [];
 								var _labels = [];
 								var _ids = [];
-								values.forEach(function (id) {
-									var $option = $field.find(
-										'option[value="'.concat(id, '"]')
-									);
-									if ($option.length) {
-										var label = $option.text().trim();
-										if (label) {
-											_labels.push(label);
-											_combined3.push(label);
+
+								// Special handling for tag field - values are stored as names, not IDs
+								var _isTagField2 =
+									$field.is('#at_biz_dir-tags');
+								values.forEach(function (val) {
+									// For tags, the option value IS the tag name, so use it directly
+									if (_isTagField2) {
+										var tagName = String(val).trim();
+										if (tagName) {
+											// For tags, the value is the name, so add it to both labels and combined
+											_labels.push(tagName);
+											_combined3.push(tagName);
+											// Also try to find the ID from data-selected-id if available
+											var _cachedIds =
+												$field.attr('data-selected-id');
+											if (_cachedIds) {
+												// Tag IDs might be in the cache, but the actual value is the name
+												// We'll rely on name matching for tags
+											}
 										}
-										_ids.push(String(id));
-										_combined3.push(String(id));
 									} else {
-										// If option not found, treat value as-is (could be ID or label)
-										_combined3.push(String(id));
+										// For category and location, try to find option to get both ID and label
+										var $option = $field.find(
+											'option[value="'.concat(val, '"]')
+										);
+										if ($option.length) {
+											var label = $option.text().trim();
+											if (label) {
+												_labels.push(label);
+												_combined3.push(label);
+											}
+											_ids.push(String(val));
+											_combined3.push(String(val));
+										} else {
+											// If option not found, treat value as-is (could be ID or label)
+											_combined3.push(String(val));
+										}
 									}
 								});
 								if (_combined3.length > 0) {
@@ -401,12 +481,34 @@
 											'data-selected-id',
 											_ids.join(',')
 										);
+									} else if (
+										_isTagField2 &&
+										_combined3.length > 0
+									) {
+										// For tags, also cache the names as selected-id for consistency
+										// (even though they're names, not IDs)
+										$field.attr(
+											'data-selected-id',
+											_combined3.join(',')
+										);
 									}
 									return _combined3;
 								}
 							}
 						}
 						return [];
+					}
+
+					// Reset $field if it was set for taxonomy fields above, now continue with regular fields
+					if (
+						$field &&
+						!(
+							$field.is('#at_biz_dir-categories') ||
+							$field.is('#at_biz_dir-tags') ||
+							$field.is('#at_biz_dir-location')
+						)
+					) {
+						$field = null;
 					}
 
 					// Try mapped selector first
@@ -1275,13 +1377,22 @@
 									}
 								}
 
-								// Special handling for category field
-								if (
+								// Special handling for category, tag, and location fields
+								var isTaxonomyField =
 									fieldKey === 'category' ||
+									fieldKey === 'categories' ||
+									fieldKey === 'tag' ||
+									fieldKey === 'tags' ||
+									fieldKey === 'location' ||
+									fieldKey === 'locations' ||
 									fieldName === 'admin_category_select[]' ||
-									$changedField.is('#at_biz_dir-categories')
-								) {
-									// Check if any condition references category
+									$changedField.is(
+										'#at_biz_dir-categories'
+									) ||
+									$changedField.is('#at_biz_dir-tags') ||
+									$changedField.is('#at_biz_dir-location');
+								if (isTaxonomyField) {
+									// Check if any condition references category, tag, or location
 									if (
 										conditionalLogic.groups &&
 										Array.isArray(conditionalLogic.groups)
@@ -1323,7 +1434,15 @@
 																_condition.field ===
 																	'category' ||
 																_condition.field ===
-																	'categories'
+																	'categories' ||
+																_condition.field ===
+																	'tag' ||
+																_condition.field ===
+																	'tags' ||
+																_condition.field ===
+																	'location' ||
+																_condition.field ===
+																	'locations'
 															) {
 																dependsOnField = true;
 																break;
@@ -1360,108 +1479,140 @@
 						});
 					}
 
-					// Special handling for category field Select2 events
+					// Special handling for category, tag, and location field Select2 events
 					// Listen on document to catch events even if field is added dynamically
+					var taxonomyFieldSelectors =
+						'#at_biz_dir-categories, #at_biz_dir-tags, #at_biz_dir-location';
 					$(document).on(
 						'select2:select select2:unselect select2:clear',
-						'#at_biz_dir-categories',
+						taxonomyFieldSelectors,
 						function (e) {
-							// Update data attributes immediately when category changes
-							setTimeout(function () {
-								var $field = $('#at_biz_dir-categories');
-								if ($field.length) {
-									var labels = [];
-									var ids = [];
+							// Update data attributes immediately when taxonomy field changes
+							setTimeout(
+								function () {
+									var $field = $(this); // The field that triggered the event
+									if ($field.length) {
+										var labels = [];
+										var ids = [];
 
-									// Try to get data from Select2 API
-									if (typeof $field.select2 === 'function') {
-										try {
-											var selectedData =
-												$field.select2('data');
-											if (
-												selectedData &&
-												selectedData.length > 0
-											) {
-												selectedData.forEach(
-													function (item) {
-														if (item.text)
-															labels.push(
-																item.text
-															);
-														if (item.id)
-															ids.push(
-																String(item.id)
-															);
-													}
-												);
+										// Determine field key based on which field was changed
+										var fieldKey = 'category';
+										var fieldName =
+											'admin_category_select[]';
+										if ($field.is('#at_biz_dir-tags')) {
+											fieldKey = 'tag';
+											fieldName =
+												$field.attr('name') || 'tag';
+										} else if (
+											$field.is('#at_biz_dir-location')
+										) {
+											fieldKey = 'location';
+											fieldName =
+												$field.attr('name') ||
+												'location';
+										}
+
+										// Try to get data from Select2 API
+										if (
+											typeof $field.select2 === 'function'
+										) {
+											try {
+												var selectedData =
+													$field.select2('data');
+												if (
+													selectedData &&
+													selectedData.length > 0
+												) {
+													selectedData.forEach(
+														function (item) {
+															if (item.text)
+																labels.push(
+																	item.text
+																);
+															if (item.id)
+																ids.push(
+																	String(
+																		item.id
+																	)
+																);
+														}
+													);
+												}
+											} catch (e) {
+												// Select2 might throw error, continue with DOM reading
 											}
-										} catch (e) {
-											// Select2 might throw error, continue with DOM reading
 										}
-									}
 
-									// Fallback: Read from DOM if Select2 API fails
-									if (
-										labels.length === 0 &&
-										ids.length === 0
-									) {
-										// Try to read from Select2 container
-										var $container =
-											$field.next('.select2-container');
-										if ($container.length) {
-											$container
-												.find(
-													'.select2-selection__choice'
-												)
-												.each(function () {
-													var $choice = $(this);
-													var label =
-														$choice
-															.find(
-																'.select2-selection__choice__display'
-															)
-															.text()
-															.trim() ||
-														$choice
-															.text()
-															.trim()
-															.replace('×', '')
-															.trim();
-													if (label)
-														labels.push(label);
+										// Fallback: Read from DOM if Select2 API fails
+										if (
+											labels.length === 0 &&
+											ids.length === 0
+										) {
+											// Try to read from Select2 container
+											var $container =
+												$field.next(
+													'.select2-container'
+												);
+											if ($container.length) {
+												$container
+													.find(
+														'.select2-selection__choice'
+													)
+													.each(function () {
+														var $choice = $(this);
+														var label =
+															$choice
+																.find(
+																	'.select2-selection__choice__display'
+																)
+																.text()
+																.trim() ||
+															$choice
+																.text()
+																.trim()
+																.replace(
+																	'×',
+																	''
+																)
+																.trim();
+														if (label)
+															labels.push(label);
+													});
+											}
+
+											// Get IDs from actual select field value
+											var val = $field.val();
+											if (val) {
+												var values = Array.isArray(val)
+													? val
+													: [val];
+												values.forEach(function (id) {
+													if (id)
+														ids.push(String(id));
 												});
+											}
 										}
 
-										// Get IDs from actual select field value
-										var val = $field.val();
-										if (val) {
-											var values = Array.isArray(val)
-												? val
-												: [val];
-											values.forEach(function (id) {
-												if (id) ids.push(String(id));
-											});
-										}
+										// Update data attributes (empty string if no selections)
+										$field.attr(
+											'data-selected-label',
+											labels.join(',')
+										);
+										$field.attr(
+											'data-selected-id',
+											ids.join(',')
+										);
+
+										// Trigger re-evaluation after attributes are updated
+										triggerConditionalLogicEvaluation(
+											fieldName,
+											fieldKey,
+											$field
+										);
 									}
-
-									// Update data attributes (empty string if no selections)
-									$field.attr(
-										'data-selected-label',
-										labels.join(',')
-									);
-									$field.attr(
-										'data-selected-id',
-										ids.join(',')
-									);
-
-									// Trigger re-evaluation after attributes are updated
-									triggerConditionalLogicEvaluation(
-										'admin_category_select[]',
-										'category',
-										$field
-									);
-								}
-							}, 50); // Small delay to ensure Select2 has updated
+								}.bind(this),
+								50
+							); // Small delay to ensure Select2 has updated
 						}
 					);
 
@@ -1487,28 +1638,40 @@
 								fieldKey = fieldKey.slice(0, -2);
 							}
 
-							// Special handling for category field
+							// Special handling for category, tag, and location fields
+							var taxonomyFieldSelector = null;
 							if (
 								fieldName === 'admin_category_select[]' ||
 								$changedField.is('#at_biz_dir-categories')
 							) {
 								fieldKey = 'category';
-
-								// Update category field data attributes when it changes
+								taxonomyFieldSelector =
+									'#at_biz_dir-categories';
+							} else if ($changedField.is('#at_biz_dir-tags')) {
+								fieldKey = 'tag';
+								taxonomyFieldSelector = '#at_biz_dir-tags';
+							} else if (
+								$changedField.is('#at_biz_dir-location')
+							) {
+								fieldKey = 'location';
+								taxonomyFieldSelector = '#at_biz_dir-location';
+							}
+							if (taxonomyFieldSelector) {
+								// Update taxonomy field data attributes when it changes
 								setTimeout(function () {
-									var $catField = $('#at_biz_dir-categories');
-									if ($catField.length) {
+									var $taxField = $(taxonomyFieldSelector);
+									if ($taxField.length) {
 										var labels = [];
 										var ids = [];
 
 										// Try Select2 API
 										if (
-											typeof $catField.select2 ===
+											typeof $taxField.select2 ===
 											'function'
 										) {
 											try {
 												var selectedData =
-													$catField.select2('data');
+													$taxField.select2('data');
 												if (
 													selectedData &&
 													selectedData.length > 0
@@ -1536,7 +1699,7 @@
 										// Fallback to DOM
 										if (labels.length === 0) {
 											var $container =
-												$catField.next(
+												$taxField.next(
 													'.select2-container'
 												);
 											if ($container.length) {
@@ -1568,7 +1731,7 @@
 										}
 
 										// Get IDs
-										var val = $catField.val();
+										var val = $taxField.val();
 										if (val) {
 											var values = Array.isArray(val)
 												? val
@@ -1579,11 +1742,11 @@
 										}
 
 										// Update attributes
-										$catField.attr(
+										$taxField.attr(
 											'data-selected-label',
 											labels.join(',')
 										);
-										$catField.attr(
+										$taxField.attr(
 											'data-selected-id',
 											ids.join(',')
 										);
@@ -1591,8 +1754,8 @@
 
 									// Trigger evaluation after attributes are updated
 									triggerConditionalLogicEvaluation(
-										'admin_category_select[]',
-										'category',
+										fieldName,
+										fieldKey,
 										$changedField
 									);
 								}, 50);

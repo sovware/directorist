@@ -94,6 +94,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             // Get category options for conditional logic builder
             add_action( 'wp_ajax_directorist_get_category_options', [ $this, 'ajax_get_category_options' ] );
+            add_action( 'wp_ajax_directorist_get_tag_options', [ $this, 'ajax_get_tag_options' ] );
+            add_action( 'wp_ajax_directorist_get_location_options', [ $this, 'ajax_get_location_options' ] );
 
             // dashboard become author
             add_action( 'wp_ajax_atbdp_become_author', [ $this, 'atbdp_become_author' ] );
@@ -1867,6 +1869,85 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                         'value' => $term->term_id,
                         'label' => $term->name,
                         'name'  => $term->name,
+                        'term_id' => $term->term_id,
+                    ];
+                }
+            }
+
+            wp_send_json_success( $options );
+        }
+
+        /**
+         * AJAX handler to get tag options for conditional logic builder
+         */
+        public function ajax_get_tag_options() {
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json_error( [ 'message' => __( 'Invalid nonce.', 'directorist' ) ], 400 );
+            }
+
+            $listing_type_id = ! empty( $_POST['listing_type_id'] ) ? absint( $_POST['listing_type_id'] ) : directorist_get_default_directory();
+
+            // Tags don't have directory type assignment like categories/locations
+            // So we fetch all tags
+            $terms = get_terms(
+                [
+                    'taxonomy'   => ATBDP_TAGS,
+                    'hide_empty' => false,
+                ]
+            );
+
+            $options = [];
+
+            if ( is_wp_error( $terms ) || ! count( $terms ) ) {
+                wp_send_json_success( $options );
+            }
+
+            foreach ( $terms as $term ) {
+                // For tags, store name as both id and value since tag field uses names as option values
+                $options[] = [
+                    'id'      => $term->name, // Store name as id for tag field (since option value is name)
+                    'value'   => $term->name, // Store name as value
+                    'label'   => $term->name,
+                    'name'    => $term->name,
+                    'term_id' => $term->term_id, // Keep term_id for reference
+                ];
+            }
+
+            wp_send_json_success( $options );
+        }
+
+        /**
+         * AJAX handler to get location options for conditional logic builder
+         */
+        public function ajax_get_location_options() {
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json_error( [ 'message' => __( 'Invalid nonce.', 'directorist' ) ], 400 );
+            }
+
+            $listing_type_id = ! empty( $_POST['listing_type_id'] ) ? absint( $_POST['listing_type_id'] ) : directorist_get_default_directory();
+
+            $terms = get_terms(
+                [
+                    'taxonomy'   => ATBDP_LOCATION,
+                    'hide_empty' => false,
+                ]
+            );
+
+            $options = [];
+
+            if ( is_wp_error( $terms ) || ! count( $terms ) ) {
+                wp_send_json_success( $options );
+            }
+
+            foreach ( $terms as $term ) {
+                $term_directory_types = get_term_meta( $term->term_id, '_directory_type', true );
+
+                if ( is_array( $term_directory_types ) && in_array( $listing_type_id, $term_directory_types, true ) ) {
+                    $options[] = [
+                        'id'      => $term->term_id,
+                        'value'   => $term->term_id,
+                        'label'   => $term->name,
+                        'name'    => $term->name,
                         'term_id' => $term->term_id,
                     ];
                 }

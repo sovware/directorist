@@ -8455,8 +8455,77 @@
 							case 'is':
 							case '==':
 							case '=':
+								// For "is" operator: must be exactly one selection AND that value must match exactly
+								// Note: fieldArray may contain both IDs and labels (e.g., ["Food", "5"] for one selection)
+								// So we need to check if there's exactly one unique selection, not array length
+
+								// Normalize condition value for comparison
+								var condValStrForIs = String(condVal)
+									.toLowerCase()
+									.trim();
+
+								// Normalize all array values to strings for comparison
+								var normalizedValues = fieldArray.map(
+									function (val) {
+										if (typeof val === 'string') {
+											return val.trim().toLowerCase();
+										} else if (typeof val === 'number') {
+											return String(val).toLowerCase();
+										} else if (
+											(0,
+											_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__[
+												'default'
+											])(val) === 'object' &&
+											val !== null
+										) {
+											if (val.name)
+												return String(val.name)
+													.trim()
+													.toLowerCase();
+											if (val.label)
+												return String(val.label)
+													.trim()
+													.toLowerCase();
+											if (val.value)
+												return String(val.value)
+													.trim()
+													.toLowerCase();
+											if (val.id)
+												return String(
+													val.id
+												).toLowerCase();
+											return String(val).toLowerCase();
+										}
+										return String(val).toLowerCase();
+									}
+								);
+
+								// Check if condition value matches any value in the array
+								var hasMatch = normalizedValues.some(
+									function (val) {
+										return val === condValStrForIs;
+									}
+								);
+								if (!hasMatch) {
+									return false; // Condition value not found
+								}
+
+								// For "is" operator: array must represent exactly ONE selection
+								// Category/tag/location fields return ID+label pairs:
+								// - Single selection: ["Food", "5"] → 2 items (ID + label for same selection)
+								// - Multiple selections: ["Food", "5", "Travel", "10"] → 4 items (2 selections)
+								// So: if array.length <= 2, it's a single selection; if > 2, it's multiple
+
+								// Check if this is the ONLY selection
+								if (fieldArray.length > 2) {
+									return false; // Multiple selections (3+ items means at least 2 selections)
+								}
+
+								// Array has 1-2 items, meaning single selection
+								// Condition value must match
+								return hasMatch;
 							case 'contains':
-								// Check if array contains the value
+								// For "contains" operator: value can be one of many (current behavior)
 								return fieldArray.some(function (val) {
 									var compareVal = val;
 									if (typeof compareVal === 'string') {

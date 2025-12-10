@@ -237,12 +237,43 @@
 								});
 						}
 
-						// Strategy 1: Try data-selected-label attribute (most reliable, cached)
+						/**
+						 * Helper function to parse comma-separated IDs string
+						 */
+						function parseIdsString(idsStr) {
+							if (!idsStr || !idsStr.trim()) {
+								return [];
+							}
+							return idsStr
+								.split(',')
+								.map(function (id) {
+									return id.trim();
+								})
+								.filter(function (id) {
+									return id.length > 0 && !isNaN(id);
+								});
+						}
+
+						// Strategy 1: Try data-selected-label AND data-selected-id (return both for comparison)
 						var cachedLabels = $field.attr('data-selected-label');
+						var cachedIds = $field.attr('data-selected-id');
 						if (cachedLabels && cachedLabels.trim()) {
-							var parsed = parseLabelsString(cachedLabels);
-							if (parsed.length > 0) {
-								return parsed;
+							var parsedLabels = parseLabelsString(cachedLabels);
+							var parsedIds = cachedIds
+								? parseIdsString(cachedIds)
+								: [];
+
+							// Return combined array: both IDs and labels for flexible matching
+							// This allows condition to match either by ID (from builder dropdown) or label
+							var combined = [];
+							parsedLabels.forEach(function (label) {
+								if (label) combined.push(label);
+							});
+							parsedIds.forEach(function (id) {
+								if (id) combined.push(id);
+							});
+							if (combined.length > 0) {
+								return combined;
 							}
 						}
 
@@ -254,20 +285,39 @@
 							try {
 								var selectedData = $field.select2('data');
 								if (selectedData && selectedData.length > 0) {
-									var labels = selectedData
-										.map(function (item) {
-											return item.text || item.id || '';
-										})
-										.filter(function (item) {
-											return item.length > 0;
-										});
-									if (labels.length > 0) {
+									var _combined = [];
+									selectedData.forEach(function (item) {
+										// Add both ID and label for flexible matching
+										if (item.id)
+											_combined.push(String(item.id));
+										if (item.text)
+											_combined.push(item.text);
+									});
+									if (_combined.length > 0) {
 										// Cache for future reads
 										$field.attr(
 											'data-selected-label',
-											labels.join(',')
+											selectedData
+												.map(function (item) {
+													return item.text || '';
+												})
+												.filter(function (t) {
+													return t;
+												})
+												.join(',')
 										);
-										return labels;
+										$field.attr(
+											'data-selected-id',
+											selectedData
+												.map(function (item) {
+													return item.id || '';
+												})
+												.filter(function (id) {
+													return id;
+												})
+												.join(',')
+										);
+										return _combined;
 									}
 								}
 							} catch (e) {
@@ -279,26 +329,48 @@
 						var $select2Container =
 							$field.next('.select2-container');
 						if ($select2Container.length) {
-							var _labels =
+							var labels =
 								getLabelsFromSelect2Container(
 									$select2Container
 								);
-							if (_labels.length > 0) {
-								// Cache for future reads
-								$field.attr(
-									'data-selected-label',
-									_labels.join(',')
-								);
-								return _labels;
+							if (labels.length > 0) {
+								// Also get IDs from the actual select field
+								var _val = $field.val();
+								var ids = Array.isArray(_val)
+									? _val
+									: _val
+										? [_val]
+										: [];
+								var _combined2 = [];
+								labels.forEach(function (label) {
+									if (label) _combined2.push(label);
+								});
+								ids.forEach(function (id) {
+									if (id) _combined2.push(String(id));
+								});
+								if (_combined2.length > 0) {
+									// Cache for future reads
+									$field.attr(
+										'data-selected-label',
+										labels.join(',')
+									);
+									$field.attr(
+										'data-selected-id',
+										ids.join(',')
+									);
+									return _combined2;
+								}
 							}
 						}
 
-						// Strategy 4: Fallback to select option text (may be IDs, try to get labels)
+						// Strategy 4: Fallback to select option text and values
 						var val = $field.val();
 						if (val) {
 							var values = Array.isArray(val) ? val : [val];
 							if (values.length > 0) {
-								var _labels2 = [];
+								var _combined3 = [];
+								var _labels = [];
+								var _ids = [];
 								values.forEach(function (id) {
 									var $option = $field.find(
 										'option[value="'.concat(id, '"]')
@@ -306,20 +378,32 @@
 									if ($option.length) {
 										var label = $option.text().trim();
 										if (label) {
-											_labels2.push(label);
+											_labels.push(label);
+											_combined3.push(label);
 										}
+										_ids.push(String(id));
+										_combined3.push(String(id));
+									} else {
+										// If option not found, treat value as-is (could be ID or label)
+										_combined3.push(String(id));
 									}
 								});
-								if (_labels2.length > 0) {
+								if (_combined3.length > 0) {
 									// Cache for future reads
-									$field.attr(
-										'data-selected-label',
-										_labels2.join(',')
-									);
-									return _labels2;
+									if (_labels.length > 0) {
+										$field.attr(
+											'data-selected-label',
+											_labels.join(',')
+										);
+									}
+									if (_ids.length > 0) {
+										$field.attr(
+											'data-selected-id',
+											_ids.join(',')
+										);
+									}
+									return _combined3;
 								}
-								// If no labels found, return IDs as fallback
-								return values;
 							}
 						}
 						return [];
@@ -445,8 +529,12 @@
 						$field.is('select[multiple]') ||
 						$field.prop('multiple')
 					) {
-						var _val = $field.val();
-						return Array.isArray(_val) ? _val : _val ? [_val] : [];
+						var _val2 = $field.val();
+						return Array.isArray(_val2)
+							? _val2
+							: _val2
+								? [_val2]
+								: [];
 					}
 
 					// Handle Select2 fields
@@ -608,8 +696,35 @@
 					conditionValue,
 					operator
 				) {
+					// Handle empty array
 					if (!Array.isArray(fieldArray) || fieldArray.length === 0) {
-						return operator === 'empty';
+						// If array is empty, check what operator expects
+						if (operator === 'empty' || operator === 'is empty') {
+							return true;
+						}
+						if (
+							operator === 'not empty' ||
+							operator === 'is not empty'
+						) {
+							return false;
+						}
+						// For "is" operator with empty array, return false (no match)
+						// For "is not" operator with empty array, return true (condition not met = true)
+						if (
+							operator === 'is' ||
+							operator === '==' ||
+							operator === '='
+						) {
+							return false; // Empty array never matches "is X"
+						}
+						if (
+							operator === 'is not' ||
+							operator === '!=' ||
+							operator === 'not'
+						) {
+							return true; // Empty array always matches "is not X"
+						}
+						return false; // Default: empty array doesn't match
 					}
 					var condVal =
 						typeof conditionValue === 'string'
@@ -1245,6 +1360,111 @@
 						});
 					}
 
+					// Special handling for category field Select2 events
+					// Listen on document to catch events even if field is added dynamically
+					$(document).on(
+						'select2:select select2:unselect select2:clear',
+						'#at_biz_dir-categories',
+						function (e) {
+							// Update data attributes immediately when category changes
+							setTimeout(function () {
+								var $field = $('#at_biz_dir-categories');
+								if ($field.length) {
+									var labels = [];
+									var ids = [];
+
+									// Try to get data from Select2 API
+									if (typeof $field.select2 === 'function') {
+										try {
+											var selectedData =
+												$field.select2('data');
+											if (
+												selectedData &&
+												selectedData.length > 0
+											) {
+												selectedData.forEach(
+													function (item) {
+														if (item.text)
+															labels.push(
+																item.text
+															);
+														if (item.id)
+															ids.push(
+																String(item.id)
+															);
+													}
+												);
+											}
+										} catch (e) {
+											// Select2 might throw error, continue with DOM reading
+										}
+									}
+
+									// Fallback: Read from DOM if Select2 API fails
+									if (
+										labels.length === 0 &&
+										ids.length === 0
+									) {
+										// Try to read from Select2 container
+										var $container =
+											$field.next('.select2-container');
+										if ($container.length) {
+											$container
+												.find(
+													'.select2-selection__choice'
+												)
+												.each(function () {
+													var $choice = $(this);
+													var label =
+														$choice
+															.find(
+																'.select2-selection__choice__display'
+															)
+															.text()
+															.trim() ||
+														$choice
+															.text()
+															.trim()
+															.replace('×', '')
+															.trim();
+													if (label)
+														labels.push(label);
+												});
+										}
+
+										// Get IDs from actual select field value
+										var val = $field.val();
+										if (val) {
+											var values = Array.isArray(val)
+												? val
+												: [val];
+											values.forEach(function (id) {
+												if (id) ids.push(String(id));
+											});
+										}
+									}
+
+									// Update data attributes (empty string if no selections)
+									$field.attr(
+										'data-selected-label',
+										labels.join(',')
+									);
+									$field.attr(
+										'data-selected-id',
+										ids.join(',')
+									);
+
+									// Trigger re-evaluation after attributes are updated
+									triggerConditionalLogicEvaluation(
+										'admin_category_select[]',
+										'category',
+										$field
+									);
+								}
+							}, 50); // Small delay to ensure Select2 has updated
+						}
+					);
+
 					// Listen to all form field changes
 					$(getWrapperFn()).on(
 						'change input select2:select select2:unselect',
@@ -1273,6 +1493,110 @@
 								$changedField.is('#at_biz_dir-categories')
 							) {
 								fieldKey = 'category';
+
+								// Update category field data attributes when it changes
+								setTimeout(function () {
+									var $catField = $('#at_biz_dir-categories');
+									if ($catField.length) {
+										var labels = [];
+										var ids = [];
+
+										// Try Select2 API
+										if (
+											typeof $catField.select2 ===
+											'function'
+										) {
+											try {
+												var selectedData =
+													$catField.select2('data');
+												if (
+													selectedData &&
+													selectedData.length > 0
+												) {
+													selectedData.forEach(
+														function (item) {
+															if (item.text)
+																labels.push(
+																	item.text
+																);
+															if (item.id)
+																ids.push(
+																	String(
+																		item.id
+																	)
+																);
+														}
+													);
+												}
+											} catch (e) {
+												// Continue with DOM reading
+											}
+										}
+
+										// Fallback to DOM
+										if (labels.length === 0) {
+											var $container =
+												$catField.next(
+													'.select2-container'
+												);
+											if ($container.length) {
+												$container
+													.find(
+														'.select2-selection__choice'
+													)
+													.each(function () {
+														var $choice = $(this);
+														var label =
+															$choice
+																.find(
+																	'.select2-selection__choice__display'
+																)
+																.text()
+																.trim() ||
+															$choice
+																.text()
+																.trim()
+																.replace(
+																	'×',
+																	''
+																)
+																.trim();
+														if (label)
+															labels.push(label);
+													});
+											}
+										}
+
+										// Get IDs
+										var val = $catField.val();
+										if (val) {
+											var values = Array.isArray(val)
+												? val
+												: [val];
+											values.forEach(function (id) {
+												if (id) ids.push(String(id));
+											});
+										}
+
+										// Update attributes
+										$catField.attr(
+											'data-selected-label',
+											labels.join(',')
+										);
+										$catField.attr(
+											'data-selected-id',
+											ids.join(',')
+										);
+									}
+
+									// Trigger evaluation after attributes are updated
+									triggerConditionalLogicEvaluation(
+										'admin_category_select[]',
+										'category',
+										$changedField
+									);
+								}, 50);
+								return; // Don't trigger twice
 							}
 							triggerConditionalLogicEvaluation(
 								fieldName,
@@ -1408,7 +1732,7 @@
 									'.select2-selection__choice'
 								);
 								if ($select2Container.length) {
-									var _labels3 = [];
+									var _labels2 = [];
 									$select2Container.each(function () {
 										var label = $(this)
 											.find(
@@ -1417,13 +1741,13 @@
 											.text()
 											.trim();
 										if (label) {
-											_labels3.push(label);
+											_labels2.push(label);
 										}
 									});
-									if (_labels3.length > 0) {
+									if (_labels2.length > 0) {
 										$field.attr(
 											'data-selected-label',
-											_labels3.join(',')
+											_labels2.join(',')
 										);
 									}
 								}

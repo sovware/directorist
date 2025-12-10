@@ -98,6 +98,8 @@ export default {
 			// Stores the field key of the widget that owns this conditional logic,
 			// so we can exclude it from the "Select a field" dropdown.
 			currentFieldKeyForExclusion: null,
+			// Cache for category options
+			cachedCategoryOptions: null,
 		};
 	},
 
@@ -554,6 +556,7 @@ export default {
 					value: widgetKey,
 					label: label,
 					type: type,
+					widget: widget, // Store full widget data for accessing options
 				});
 			}
 
@@ -584,6 +587,310 @@ export default {
 		isValueHidden(operator) {
 			const hiddenOperators = ['empty', 'not empty'];
 			return hiddenOperators.includes(operator);
+		},
+
+		/**
+		 * Get field data by field key from availableFields
+		 */
+		getFieldData(fieldKey) {
+			if (!fieldKey || !this.availableFields) {
+				return null;
+			}
+			return (
+				this.availableFields.find((f) => f.value === fieldKey) || null
+			);
+		},
+
+		/**
+		 * Get value options for a condition based on selected field type
+		 * Returns options array or null if field doesn't need a select dropdown
+		 */
+		getValueOptions(condition) {
+			if (!condition || !condition.field) {
+				return null;
+			}
+
+			const fieldData = this.getFieldData(condition.field);
+			if (!fieldData) {
+				return null;
+			}
+
+			const fieldType = fieldData.type;
+			const widget = fieldData.widget;
+
+			// Handle category field - needs special handling via AJAX or passed data
+			if (
+				fieldType === 'category' ||
+				condition.field === 'category' ||
+				condition.field === 'categories'
+			) {
+				// Return placeholder - will be loaded via AJAX or from passed data
+				return this.getCategoryOptions();
+			}
+
+			// Handle select/radio/checkbox fields - get options from widget
+			if (['select', 'radio', 'checkbox'].includes(fieldType) && widget) {
+				const options = [];
+
+				// Priority 1: Check widget.value.options (saved field value - actual options data)
+				if (
+					widget.value &&
+					widget.value.options &&
+					Array.isArray(widget.value.options)
+				) {
+					widget.value.options.forEach((option) => {
+						if (typeof option === 'object') {
+							// Format: { option_value: 'val', option_label: 'Label' } (from multi-fields)
+							if (option.option_value !== undefined) {
+								options.push({
+									value: String(option.option_value || ''),
+									label:
+										option.option_label ||
+										option.option_value ||
+										'',
+								});
+							}
+							// Format: { value: 'val', label: 'Label' }
+							else if (option.value !== undefined) {
+								options.push({
+									value: String(option.value || ''),
+									label: option.label || option.value || '',
+								});
+							}
+						}
+					});
+					if (options.length > 0) {
+						return options;
+					}
+				}
+
+				// Priority 2: Check widget.options.value.options (nested in field definition)
+				if (
+					widget.options &&
+					widget.options.options &&
+					widget.options.options.value
+				) {
+					const savedOptions = widget.options.options.value;
+					if (Array.isArray(savedOptions)) {
+						savedOptions.forEach((option) => {
+							if (typeof option === 'object') {
+								if (option.option_value !== undefined) {
+									options.push({
+										value: String(
+											option.option_value || ''
+										),
+										label:
+											option.option_label ||
+											option.option_value ||
+											'',
+									});
+								} else if (option.value !== undefined) {
+									options.push({
+										value: String(option.value || ''),
+										label:
+											option.label || option.value || '',
+									});
+								}
+							}
+						});
+						if (options.length > 0) {
+							return options;
+						}
+					}
+				}
+
+				// Priority 3: Check widget.options (direct array - less common)
+				if (widget.options && Array.isArray(widget.options)) {
+					widget.options.forEach((option) => {
+						if (typeof option === 'object') {
+							if (option.option_value !== undefined) {
+								options.push({
+									value: String(option.option_value || ''),
+									label:
+										option.option_label ||
+										option.option_value ||
+										'',
+								});
+							} else if (option.value !== undefined) {
+								options.push({
+									value: String(option.value || ''),
+									label: option.label || option.value || '',
+								});
+							}
+						} else if (typeof option === 'string') {
+							options.push({
+								value: option,
+								label: option,
+							});
+						}
+					});
+					if (options.length > 0) {
+						return options;
+					}
+				}
+
+				// No options found
+				return null;
+			}
+
+			// For other field types, return null to show text input
+			return null;
+		},
+
+		/**
+		 * Check if condition needs a select dropdown (has options)
+		 */
+		needsSelectInput(condition) {
+			return this.getValueOptions(condition) !== null;
+		},
+
+		/**
+		 * Get listing type ID from Vue context
+		 */
+		getListingTypeId() {
+			// Try to get from URL parameter
+			const urlParams = new URLSearchParams(window.location.search);
+			const listingTypeId = urlParams.get('listing_type_id');
+			if (listingTypeId) {
+				return listingTypeId;
+			}
+
+			// Try to get from parent components
+			let parent = this.$parent;
+			let depth = 0;
+			while (parent && depth < 25) {
+				if (parent.listing_type_id) {
+					return parent.listing_type_id;
+				}
+				parent = parent.$parent;
+				depth++;
+			}
+
+			// Try to get from root
+			if (this.$root && this.$root.listing_type_id) {
+				return this.$root.listing_type_id;
+			}
+
+			return null;
+		},
+
+		/**
+		 * Get category options for the current directory type
+		 * This will be populated from available data or needs AJAX call
+		 */
+		getCategoryOptions() {
+			// Return cached options if available
+			if (this.cachedCategoryOptions) {
+				return this.cachedCategoryOptions;
+			}
+
+			const options = [];
+
+			// Method 1: Try to get from availableFields if category field exists
+			const categoryField = this.availableFields.find(
+				(f) => f.value === 'category' || f.value === 'categories'
+			);
+			if (
+				categoryField &&
+				categoryField.widget &&
+				categoryField.widget.options
+			) {
+				// If category field has options stored
+				if (Array.isArray(categoryField.widget.options)) {
+					categoryField.widget.options.forEach((option) => {
+						if (typeof option === 'object') {
+							options.push({
+								value:
+									option.value ||
+									option.id ||
+									option.term_id ||
+									'',
+								label:
+									option.label ||
+									option.name ||
+									option.text ||
+									'',
+							});
+						}
+					});
+				}
+				if (options.length > 0) {
+					this.cachedCategoryOptions = options;
+					return options;
+				}
+			}
+
+			// Method 2: Try to get from form builder context (categories might be passed)
+			// This would need to be implemented based on how categories are stored
+			if (this.$store && this.$store.state.categories) {
+				const categories = this.$store.state.categories;
+				if (Array.isArray(categories)) {
+					categories.forEach((cat) => {
+						options.push({
+							value: cat.id || cat.term_id || cat.value || '',
+							label: cat.name || cat.label || cat.text || '',
+						});
+					});
+					if (options.length > 0) {
+						this.cachedCategoryOptions = options;
+						return options;
+					}
+				}
+			}
+
+			// Method 3: Make AJAX call to fetch categories
+			// This will fetch categories for the current directory type
+			const listingTypeId = this.getListingTypeId();
+			if (
+				listingTypeId &&
+				typeof jQuery !== 'undefined' &&
+				!this.cachedCategoryOptions
+			) {
+				// Fetch categories via AJAX (only if not cached)
+				const self = this;
+				jQuery.ajax({
+					url:
+						typeof directorist !== 'undefined' &&
+						directorist.ajaxurl
+							? directorist.ajaxurl
+							: window.ajaxurl || '',
+					type: 'POST',
+					data: {
+						action: 'directorist_get_category_options',
+						listing_type_id: listingTypeId,
+						directorist_nonce:
+							typeof directorist !== 'undefined' &&
+							directorist.directorist_nonce
+								? directorist.directorist_nonce
+								: '',
+					},
+					success: function (response) {
+						if (
+							response.success &&
+							response.data &&
+							Array.isArray(response.data)
+						) {
+							const fetchedOptions = response.data.map((cat) => ({
+								value: String(
+									cat.id || cat.term_id || cat.value || ''
+								),
+								label: cat.name || cat.label || cat.text || '',
+							}));
+							self.cachedCategoryOptions = fetchedOptions;
+							// Force Vue update
+							self.$forceUpdate();
+						}
+					},
+					error: function () {
+						console.warn(
+							'Failed to fetch category options for conditional logic'
+						);
+					},
+				});
+			}
+
+			// Return empty array for now - will be populated via AJAX if needed
+			return [];
 		},
 
 		// Translation helper

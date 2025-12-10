@@ -89,12 +89,39 @@ function getFieldValue(fieldKey, $) {
 				.filter((label) => label.length > 0);
 		}
 
-		// Strategy 1: Try data-selected-label attribute (most reliable, cached)
+		/**
+		 * Helper function to parse comma-separated IDs string
+		 */
+		function parseIdsString(idsStr) {
+			if (!idsStr || !idsStr.trim()) {
+				return [];
+			}
+			return idsStr
+				.split(',')
+				.map((id) => id.trim())
+				.filter((id) => id.length > 0 && !isNaN(id));
+		}
+
+		// Strategy 1: Try data-selected-label AND data-selected-id (return both for comparison)
 		const cachedLabels = $field.attr('data-selected-label');
+		const cachedIds = $field.attr('data-selected-id');
+
 		if (cachedLabels && cachedLabels.trim()) {
-			const parsed = parseLabelsString(cachedLabels);
-			if (parsed.length > 0) {
-				return parsed;
+			const parsedLabels = parseLabelsString(cachedLabels);
+			const parsedIds = cachedIds ? parseIdsString(cachedIds) : [];
+
+			// Return combined array: both IDs and labels for flexible matching
+			// This allows condition to match either by ID (from builder dropdown) or label
+			const combined = [];
+			parsedLabels.forEach((label) => {
+				if (label) combined.push(label);
+			});
+			parsedIds.forEach((id) => {
+				if (id) combined.push(id);
+			});
+
+			if (combined.length > 0) {
+				return combined;
 			}
 		}
 
@@ -106,13 +133,29 @@ function getFieldValue(fieldKey, $) {
 			try {
 				const selectedData = $field.select2('data');
 				if (selectedData && selectedData.length > 0) {
-					const labels = selectedData
-						.map((item) => item.text || item.id || '')
-						.filter((item) => item.length > 0);
-					if (labels.length > 0) {
+					const combined = [];
+					selectedData.forEach((item) => {
+						// Add both ID and label for flexible matching
+						if (item.id) combined.push(String(item.id));
+						if (item.text) combined.push(item.text);
+					});
+					if (combined.length > 0) {
 						// Cache for future reads
-						$field.attr('data-selected-label', labels.join(','));
-						return labels;
+						$field.attr(
+							'data-selected-label',
+							selectedData
+								.map((item) => item.text || '')
+								.filter((t) => t)
+								.join(',')
+						);
+						$field.attr(
+							'data-selected-id',
+							selectedData
+								.map((item) => item.id || '')
+								.filter((id) => id)
+								.join(',')
+						);
+						return combined;
 					}
 				}
 			} catch (e) {
@@ -125,34 +168,62 @@ function getFieldValue(fieldKey, $) {
 		if ($select2Container.length) {
 			const labels = getLabelsFromSelect2Container($select2Container);
 			if (labels.length > 0) {
-				// Cache for future reads
-				$field.attr('data-selected-label', labels.join(','));
-				return labels;
+				// Also get IDs from the actual select field
+				const val = $field.val();
+				const ids = Array.isArray(val) ? val : val ? [val] : [];
+
+				const combined = [];
+				labels.forEach((label) => {
+					if (label) combined.push(label);
+				});
+				ids.forEach((id) => {
+					if (id) combined.push(String(id));
+				});
+
+				if (combined.length > 0) {
+					// Cache for future reads
+					$field.attr('data-selected-label', labels.join(','));
+					$field.attr('data-selected-id', ids.join(','));
+					return combined;
+				}
 			}
 		}
 
-		// Strategy 4: Fallback to select option text (may be IDs, try to get labels)
+		// Strategy 4: Fallback to select option text and values
 		const val = $field.val();
 		if (val) {
 			const values = Array.isArray(val) ? val : [val];
 			if (values.length > 0) {
+				const combined = [];
 				const labels = [];
+				const ids = [];
+
 				values.forEach((id) => {
 					const $option = $field.find(`option[value="${id}"]`);
 					if ($option.length) {
 						const label = $option.text().trim();
 						if (label) {
 							labels.push(label);
+							combined.push(label);
 						}
+						ids.push(String(id));
+						combined.push(String(id));
+					} else {
+						// If option not found, treat value as-is (could be ID or label)
+						combined.push(String(id));
 					}
 				});
-				if (labels.length > 0) {
+
+				if (combined.length > 0) {
 					// Cache for future reads
-					$field.attr('data-selected-label', labels.join(','));
-					return labels;
+					if (labels.length > 0) {
+						$field.attr('data-selected-label', labels.join(','));
+					}
+					if (ids.length > 0) {
+						$field.attr('data-selected-id', ids.join(','));
+					}
+					return combined;
 				}
-				// If no labels found, return IDs as fallback
-				return values;
 			}
 		}
 
@@ -372,8 +443,24 @@ function evaluateCondition(condition, fieldValue) {
  * Evaluate condition for array values
  */
 function evaluateArrayCondition(fieldArray, conditionValue, operator) {
+	// Handle empty array
 	if (!Array.isArray(fieldArray) || fieldArray.length === 0) {
-		return operator === 'empty';
+		// If array is empty, check what operator expects
+		if (operator === 'empty' || operator === 'is empty') {
+			return true;
+		}
+		if (operator === 'not empty' || operator === 'is not empty') {
+			return false;
+		}
+		// For "is" operator with empty array, return false (no match)
+		// For "is not" operator with empty array, return true (condition not met = true)
+		if (operator === 'is' || operator === '==' || operator === '=') {
+			return false; // Empty array never matches "is X"
+		}
+		if (operator === 'is not' || operator === '!=' || operator === 'not') {
+			return true; // Empty array always matches "is not X"
+		}
+		return false; // Default: empty array doesn't match
 	}
 
 	const condVal =
@@ -827,6 +914,84 @@ function watchFieldChanges(
 		});
 	}
 
+	// Special handling for category field Select2 events
+	// Listen on document to catch events even if field is added dynamically
+	$(document).on(
+		'select2:select select2:unselect select2:clear',
+		'#at_biz_dir-categories',
+		function (e) {
+			// Update data attributes immediately when category changes
+			setTimeout(function () {
+				const $field = $('#at_biz_dir-categories');
+				if ($field.length) {
+					const labels = [];
+					const ids = [];
+
+					// Try to get data from Select2 API
+					if (typeof $field.select2 === 'function') {
+						try {
+							const selectedData = $field.select2('data');
+							if (selectedData && selectedData.length > 0) {
+								selectedData.forEach(function (item) {
+									if (item.text) labels.push(item.text);
+									if (item.id) ids.push(String(item.id));
+								});
+							}
+						} catch (e) {
+							// Select2 might throw error, continue with DOM reading
+						}
+					}
+
+					// Fallback: Read from DOM if Select2 API fails
+					if (labels.length === 0 && ids.length === 0) {
+						// Try to read from Select2 container
+						const $container = $field.next('.select2-container');
+						if ($container.length) {
+							$container
+								.find('.select2-selection__choice')
+								.each(function () {
+									const $choice = $(this);
+									const label =
+										$choice
+											.find(
+												'.select2-selection__choice__display'
+											)
+											.text()
+											.trim() ||
+										$choice
+											.text()
+											.trim()
+											.replace('×', '')
+											.trim();
+									if (label) labels.push(label);
+								});
+						}
+
+						// Get IDs from actual select field value
+						const val = $field.val();
+						if (val) {
+							const values = Array.isArray(val) ? val : [val];
+							values.forEach(function (id) {
+								if (id) ids.push(String(id));
+							});
+						}
+					}
+
+					// Update data attributes (empty string if no selections)
+					$field.attr('data-selected-label', labels.join(','));
+					$field.attr('data-selected-id', ids.join(','));
+
+					// Trigger re-evaluation after attributes are updated
+					triggerConditionalLogicEvaluation(
+						'admin_category_select[]',
+						'category',
+						$field
+					);
+				}
+			}, 50); // Small delay to ensure Select2 has updated
+		}
+	);
+
 	// Listen to all form field changes
 	$(getWrapperFn()).on(
 		'change input select2:select select2:unselect',
@@ -855,6 +1020,77 @@ function watchFieldChanges(
 				$changedField.is('#at_biz_dir-categories')
 			) {
 				fieldKey = 'category';
+
+				// Update category field data attributes when it changes
+				setTimeout(function () {
+					const $catField = $('#at_biz_dir-categories');
+					if ($catField.length) {
+						const labels = [];
+						const ids = [];
+
+						// Try Select2 API
+						if (typeof $catField.select2 === 'function') {
+							try {
+								const selectedData = $catField.select2('data');
+								if (selectedData && selectedData.length > 0) {
+									selectedData.forEach(function (item) {
+										if (item.text) labels.push(item.text);
+										if (item.id) ids.push(String(item.id));
+									});
+								}
+							} catch (e) {
+								// Continue with DOM reading
+							}
+						}
+
+						// Fallback to DOM
+						if (labels.length === 0) {
+							const $container =
+								$catField.next('.select2-container');
+							if ($container.length) {
+								$container
+									.find('.select2-selection__choice')
+									.each(function () {
+										const $choice = $(this);
+										const label =
+											$choice
+												.find(
+													'.select2-selection__choice__display'
+												)
+												.text()
+												.trim() ||
+											$choice
+												.text()
+												.trim()
+												.replace('×', '')
+												.trim();
+										if (label) labels.push(label);
+									});
+							}
+						}
+
+						// Get IDs
+						const val = $catField.val();
+						if (val) {
+							const values = Array.isArray(val) ? val : [val];
+							values.forEach(function (id) {
+								if (id) ids.push(String(id));
+							});
+						}
+
+						// Update attributes
+						$catField.attr('data-selected-label', labels.join(','));
+						$catField.attr('data-selected-id', ids.join(','));
+					}
+
+					// Trigger evaluation after attributes are updated
+					triggerConditionalLogicEvaluation(
+						'admin_category_select[]',
+						'category',
+						$changedField
+					);
+				}, 50);
+				return; // Don't trigger twice
 			}
 
 			triggerConditionalLogicEvaluation(

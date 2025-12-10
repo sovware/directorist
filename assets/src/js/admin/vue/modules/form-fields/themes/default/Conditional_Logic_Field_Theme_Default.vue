@@ -29,10 +29,10 @@
       class="directorist-conditional-logic-builder"
       v-if="localValue.enabled"
     >
-      <p 
-        v-html="description" 
+      <p
+        v-html="description"
         v-if="description.length"
-        class="directorist-conditional-logic-builder__description" 
+        class="directorist-conditional-logic-builder__description"
       ></p>
       <div class="directorist-conditional-logic-builder__header">
         <select
@@ -105,8 +105,37 @@
                   <option value="ends with">ends with</option>
                 </select>
 
+                <!-- Select dropdown for fields with options (category, select, radio, checkbox) -->
+                <select
+                  v-if="
+                    !isValueHidden(group.conditions[0].operator) &&
+                    needsSelectInput(group.conditions[0])
+                  "
+                  class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
+                  v-model="group.conditions[0].value"
+                  @change="
+                    onConditionValueUpdate(
+                      group.conditions[0],
+                      $event.target.value,
+                    )
+                  "
+                >
+                  <option value="">Select value</option>
+                  <option
+                    v-for="option in getValueOptions(group.conditions[0])"
+                    :key="option.value"
+                    :value="option.value"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+
+                <!-- Text input for fields without options -->
                 <input
-                  v-if="!isValueHidden(group.conditions[0].operator)"
+                  v-if="
+                    !isValueHidden(group.conditions[0].operator) &&
+                    !needsSelectInput(group.conditions[0])
+                  "
                   type="text"
                   class="directorist-conditional-logic-builder__value"
                   v-model="group.conditions[0].value"
@@ -178,8 +207,34 @@
                       <option value="ends with">ends with</option>
                     </select>
 
+                    <!-- Select dropdown for fields with options (category, select, radio, checkbox) -->
+                    <select
+                      v-if="
+                        !isValueHidden(condition.operator) &&
+                        needsSelectInput(condition)
+                      "
+                      class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
+                      v-model="condition.value"
+                      @change="
+                        onConditionValueUpdate(condition, $event.target.value)
+                      "
+                    >
+                      <option value="">Select value</option>
+                      <option
+                        v-for="option in getValueOptions(condition)"
+                        :key="option.value"
+                        :value="option.value"
+                      >
+                        {{ option.label }}
+                      </option>
+                    </select>
+
+                    <!-- Text input for fields without options -->
                     <input
-                      v-if="!isValueHidden(condition.operator)"
+                      v-if="
+                        !isValueHidden(condition.operator) &&
+                        !needsSelectInput(condition)
+                      "
                       type="text"
                       class="directorist-conditional-logic-builder__value"
                       v-model="condition.value"

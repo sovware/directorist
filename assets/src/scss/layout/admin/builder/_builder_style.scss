@@ -7406,6 +7406,27 @@ input[type="radio"] {
 			}
 		}
 
+		.directorist-conditional-logic-builder__value-select {
+			flex: 1;
+			font-size: 13px;
+			color: #141921;
+			padding: 8px 12px;
+			background-color: #ffffff;
+			border: 1px solid #d2d6db;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+
+			&:focus {
+				outline: none;
+				border-color: #3e62f5;
+			}
+
+			option {
+				padding: 8px;
+			}
+		}
+
 		.directorist-conditional-logic-builder__remove {
 			display: flex;
 			align-items: center;

@@ -26563,6 +26563,32 @@ input[type="radio"]:checked::before {
 	border: none;
 }
 .directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	font-size: 13px;
+	color: #141921;
+	padding: 8px 12px;
+	background-color: #ffffff;
+	border: 1px solid #d2d6db;
+	border-radius: 6px;
+	cursor: pointer;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select:focus {
+	outline: none;
+	border-color: #3e62f5;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select
+	option {
+	padding: 8px;
+}
+.directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__remove {
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -36981,6 +37007,32 @@ input[type="radio"]:checked::before {
 	.directorist-conditional-logic-builder__value:focus {
 	outline: none;
 	border: none;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	font-size: 13px;
+	color: #141921;
+	padding: 8px 12px;
+	background-color: #ffffff;
+	border: 1px solid #d2d6db;
+	border-radius: 6px;
+	cursor: pointer;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select:focus {
+	outline: none;
+	border-color: #3e62f5;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select
+	option {
+	padding: 8px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__remove {
@@ -47694,6 +47746,32 @@ input[type="radio"]:checked::before {
 	.directorist-conditional-logic-builder__value:focus {
 	outline: none;
 	border: none;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	font-size: 13px;
+	color: #141921;
+	padding: 8px 12px;
+	background-color: #ffffff;
+	border: 1px solid #d2d6db;
+	border-radius: 6px;
+	cursor: pointer;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select:focus {
+	outline: none;
+	border-color: #3e62f5;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select
+	option {
+	padding: 8px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__remove {

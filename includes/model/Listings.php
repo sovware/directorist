@@ -314,7 +314,7 @@ class Directorist_Listings {
         $this->options['address_location']                = get_directorist_option( 'address_location', 'contact' );
         $this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20 );
         $this->options['g_currency']                      = directorist_get_currency();
-        $this->options['use_def_lat_long']                = get_directorist_option( 'use_def_lat_long', 1 ) ? true : false;
+        $this->options['use_def_lat_long'] = get_directorist_option( 'use_def_lat_long', false ) ? true : false;
         $this->options['display_map_info']                = get_directorist_option( 'display_map_info', 1 ) ? true : false;
         $this->options['display_image_map']               = get_directorist_option( 'display_image_map', 1 ) ? true : false;
         $this->options['display_title_map']               = get_directorist_option( 'display_title_map', 1 ) ? true : false;
@@ -1540,7 +1540,7 @@ class Directorist_Listings {
             'base_longitude'          => $this->map_base_lat_long()['longitude'],
             'default_latitude'        => get_directorist_option( 'default_latitude', 40.7127753 ),
             'default_longitude'       => get_directorist_option( 'default_longitude', -74.0059728 ),
-            'force_default_location'  => get_directorist_option( 'use_def_lat_long', true ),
+            'force_default_location'  => get_directorist_option( 'use_def_lat_long', false ),
             'disable_single_listing'  => $this->disable_single_listing,
             'openstreet_script'       => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js?ver=' . DIRECTORIST_SCRIPT_VERSION,
         ];

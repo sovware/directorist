@@ -26570,9 +26570,7 @@ input[type="radio"]:checked::before {
 	flex: 1;
 	font-size: 13px;
 	color: #141921;
-	padding: 8px 12px;
 	background-color: #ffffff;
-	border: 1px solid #d2d6db;
 	border-radius: 6px;
 	cursor: pointer;
 	-webkit-transition: all 0.3s ease;
@@ -37016,9 +37014,7 @@ input[type="radio"]:checked::before {
 	flex: 1;
 	font-size: 13px;
 	color: #141921;
-	padding: 8px 12px;
 	background-color: #ffffff;
-	border: 1px solid #d2d6db;
 	border-radius: 6px;
 	cursor: pointer;
 	-webkit-transition: all 0.3s ease;
@@ -47755,9 +47751,7 @@ input[type="radio"]:checked::before {
 	flex: 1;
 	font-size: 13px;
 	color: #141921;
-	padding: 8px 12px;
 	background-color: #ffffff;
-	border: 1px solid #d2d6db;
 	border-radius: 6px;
 	cursor: pointer;
 	-webkit-transition: all 0.3s ease;

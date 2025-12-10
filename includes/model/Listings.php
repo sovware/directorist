@@ -285,7 +285,7 @@ class Directorist_Listings {
         $this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
         $this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
         $this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
-        $this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
+        $this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'openstreet' );
         $this->options['listings_display_filter']         = get_directorist_option( 'home_display_filter', 'sliding' );
         $this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', [ 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ] );
         $this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
@@ -327,7 +327,7 @@ class Directorist_Listings {
         $this->options['display_phone_map']               = get_directorist_option( 'display_phone_map', 1 ) ? true : false;
         $this->options['crop_width']                      = get_directorist_option( 'crop_width', 360 );
         $this->options['crop_height']                     = get_directorist_option( 'crop_height', 360 );
-        $this->options['map_view_zoom_level']             = get_directorist_option( 'map_view_zoom_level', 16 );
+        $this->options['map_view_zoom_level']             = get_directorist_option( 'map_view_zoom_level', 1 );
         $this->options['default_preview_image']           = get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
         $this->options['font_type']                       = 'line';
         $this->options['display_publish_date']            = get_directorist_option( 'display_publish_date', 1 ) ? true : false;

@@ -112,6 +112,20 @@ export default {
 			// Setup initialization
 		},
 
+		/**
+		 * Decode HTML entities in a string
+		 * @param {string} str - String potentially containing HTML entities
+		 * @returns {string} - Decoded string
+		 */
+		decodeHtmlEntities(str) {
+			if (!str || typeof str !== 'string') {
+				return str;
+			}
+			const textarea = document.createElement('textarea');
+			textarea.innerHTML = str;
+			return textarea.value;
+		},
+
 		initValue() {
 			const defaultValue = {
 				enabled: false,
@@ -668,17 +682,20 @@ export default {
 							if (option.option_value !== undefined) {
 								options.push({
 									value: String(option.option_value || ''),
-									label:
+									label: this.decodeHtmlEntities(
 										option.option_label ||
-										option.option_value ||
-										'',
+											option.option_value ||
+											''
+									),
 								});
 							}
 							// Format: { value: 'val', label: 'Label' }
 							else if (option.value !== undefined) {
 								options.push({
 									value: String(option.value || ''),
-									label: option.label || option.value || '',
+									label: this.decodeHtmlEntities(
+										option.label || option.value || ''
+									),
 								});
 							}
 						}
@@ -703,16 +720,18 @@ export default {
 										value: String(
 											option.option_value || ''
 										),
-										label:
+										label: this.decodeHtmlEntities(
 											option.option_label ||
-											option.option_value ||
-											'',
+												option.option_value ||
+												''
+										),
 									});
 								} else if (option.value !== undefined) {
 									options.push({
 										value: String(option.value || ''),
-										label:
-											option.label || option.value || '',
+										label: this.decodeHtmlEntities(
+											option.label || option.value || ''
+										),
 									});
 								}
 							}
@@ -730,21 +749,24 @@ export default {
 							if (option.option_value !== undefined) {
 								options.push({
 									value: String(option.option_value || ''),
-									label:
+									label: this.decodeHtmlEntities(
 										option.option_label ||
-										option.option_value ||
-										'',
+											option.option_value ||
+											''
+									),
 								});
 							} else if (option.value !== undefined) {
 								options.push({
 									value: String(option.value || ''),
-									label: option.label || option.value || '',
+									label: this.decodeHtmlEntities(
+										option.label || option.value || ''
+									),
 								});
 							}
 						} else if (typeof option === 'string') {
 							options.push({
 								value: option,
-								label: option,
+								label: this.decodeHtmlEntities(option),
 							});
 						}
 					});
@@ -829,11 +851,12 @@ export default {
 									option.id ||
 									option.term_id ||
 									'',
-								label:
+								label: this.decodeHtmlEntities(
 									option.label ||
-									option.name ||
-									option.text ||
-									'',
+										option.name ||
+										option.text ||
+										''
+								),
 							});
 						}
 					});
@@ -898,7 +921,9 @@ export default {
 								value: String(
 									cat.id || cat.term_id || cat.value || ''
 								),
-								label: cat.name || cat.label || cat.text || '',
+								label: self.decodeHtmlEntities(
+									cat.name || cat.label || cat.text || ''
+								),
 							}));
 							self.cachedCategoryOptions = fetchedOptions;
 							// Force Vue update
@@ -943,11 +968,12 @@ export default {
 									option.id ||
 									option.term_id ||
 									'',
-								label:
+								label: this.decodeHtmlEntities(
 									option.label ||
-									option.name ||
-									option.text ||
-									'',
+										option.name ||
+										option.text ||
+										''
+								),
 							});
 						}
 					});
@@ -965,7 +991,9 @@ export default {
 					tags.forEach((tag) => {
 						options.push({
 							value: tag.id || tag.term_id || tag.value || '',
-							label: tag.name || tag.label || tag.text || '',
+							label: this.decodeHtmlEntities(
+								tag.name || tag.label || tag.text || ''
+							),
 						});
 					});
 					if (options.length > 0) {
@@ -1062,11 +1090,12 @@ export default {
 									option.id ||
 									option.term_id ||
 									'',
-								label:
+								label: this.decodeHtmlEntities(
 									option.label ||
-									option.name ||
-									option.text ||
-									'',
+										option.name ||
+										option.text ||
+										''
+								),
 							});
 						}
 					});
@@ -1088,11 +1117,12 @@ export default {
 								location.term_id ||
 								location.value ||
 								'',
-							label:
+							label: this.decodeHtmlEntities(
 								location.name ||
-								location.label ||
-								location.text ||
-								'',
+									location.label ||
+									location.text ||
+									''
+							),
 						});
 					});
 					if (options.length > 0) {
@@ -1140,11 +1170,12 @@ export default {
 											location.value ||
 											''
 									),
-									label:
+									label: self.decodeHtmlEntities(
 										location.name ||
-										location.label ||
-										location.text ||
-										'',
+											location.label ||
+											location.text ||
+											''
+									),
 								})
 							);
 							self.cachedLocationOptions = fetchedOptions;

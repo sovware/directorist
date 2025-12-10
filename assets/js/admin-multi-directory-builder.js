@@ -1866,6 +1866,19 @@
 						setup: function setup() {
 							// Setup initialization
 						},
+						/**
+						 * Decode HTML entities in a string
+						 * @param {string} str - String potentially containing HTML entities
+						 * @returns {string} - Decoded string
+						 */
+						decodeHtmlEntities: function decodeHtmlEntities(str) {
+							if (!str || typeof str !== 'string') {
+								return str;
+							}
+							var textarea = document.createElement('textarea');
+							textarea.innerHTML = str;
+							return textarea.value;
+						},
 						initValue: function initValue() {
 							var _this = this;
 							var defaultValue = {
@@ -2457,6 +2470,7 @@
 						 * Returns options array or null if field doesn't need a select dropdown
 						 */
 						getValueOptions: function getValueOptions(condition) {
+							var _this2 = this;
 							if (!condition || !condition.field) {
 								return null;
 							}
@@ -2530,10 +2544,11 @@
 															option.option_value ||
 																''
 														),
-														label:
+														label: _this2.decodeHtmlEntities(
 															option.option_label ||
-															option.option_value ||
-															'',
+																option.option_value ||
+																''
+														),
 													});
 												}
 												// Format: { value: 'val', label: 'Label' }
@@ -2544,10 +2559,11 @@
 														value: String(
 															option.value || ''
 														),
-														label:
+														label: _this2.decodeHtmlEntities(
 															option.label ||
-															option.value ||
-															'',
+																option.value ||
+																''
+														),
 													});
 												}
 											}
@@ -2583,10 +2599,11 @@
 															option.option_value ||
 																''
 														),
-														label:
+														label: _this2.decodeHtmlEntities(
 															option.option_label ||
-															option.option_value ||
-															'',
+																option.option_value ||
+																''
+														),
 													});
 												} else if (
 													option.value !== undefined
@@ -2595,10 +2612,11 @@
 														value: String(
 															option.value || ''
 														),
-														label:
+														label: _this2.decodeHtmlEntities(
 															option.label ||
-															option.value ||
-															'',
+																option.value ||
+																''
+														),
 													});
 												}
 											}
@@ -2630,10 +2648,11 @@
 														option.option_value ||
 															''
 													),
-													label:
+													label: _this2.decodeHtmlEntities(
 														option.option_label ||
-														option.option_value ||
-														'',
+															option.option_value ||
+															''
+													),
 												});
 											} else if (
 												option.value !== undefined
@@ -2642,16 +2661,19 @@
 													value: String(
 														option.value || ''
 													),
-													label:
+													label: _this2.decodeHtmlEntities(
 														option.label ||
-														option.value ||
-														'',
+															option.value ||
+															''
+													),
 												});
 											}
 										} else if (typeof option === 'string') {
 											options.push({
 												value: option,
-												label: option,
+												label: _this2.decodeHtmlEntities(
+													option
+												),
 											});
 										}
 									});
@@ -2709,6 +2731,7 @@
 						 * This will be populated from available data or needs AJAX call
 						 */
 						getCategoryOptions: function getCategoryOptions() {
+							var _this3 = this;
 							// Return cached options if available
 							if (this.cachedCategoryOptions) {
 								return this.cachedCategoryOptions;
@@ -2747,11 +2770,12 @@
 														option.id ||
 														option.term_id ||
 														'',
-													label:
+													label: _this3.decodeHtmlEntities(
 														option.label ||
-														option.name ||
-														option.text ||
-														'',
+															option.name ||
+															option.text ||
+															''
+													),
 												});
 											}
 										}
@@ -2832,11 +2856,12 @@
 																	cat.value ||
 																	''
 															),
-															label:
+															label: self.decodeHtmlEntities(
 																cat.name ||
-																cat.label ||
-																cat.text ||
-																'',
+																	cat.label ||
+																	cat.text ||
+																	''
+															),
 														};
 													}
 												);
@@ -2862,6 +2887,7 @@
 						 * Similar to getCategoryOptions() but for tags
 						 */
 						getTagOptions: function getTagOptions() {
+							var _this4 = this;
 							// Return cached options if available
 							if (this.cachedTagOptions) {
 								return this.cachedTagOptions;
@@ -2896,11 +2922,12 @@
 														option.id ||
 														option.term_id ||
 														'',
-													label:
+													label: _this4.decodeHtmlEntities(
 														option.label ||
-														option.name ||
-														option.text ||
-														'',
+															option.name ||
+															option.text ||
+															''
+													),
 												});
 											}
 										}
@@ -2923,11 +2950,12 @@
 												tag.term_id ||
 												tag.value ||
 												'',
-											label:
+											label: _this4.decodeHtmlEntities(
 												tag.name ||
-												tag.label ||
-												tag.text ||
-												'',
+													tag.label ||
+													tag.text ||
+													''
+											),
 										});
 									});
 									if (options.length > 0) {
@@ -3009,6 +3037,7 @@
 						 * Similar to getCategoryOptions() but for locations
 						 */
 						getLocationOptions: function getLocationOptions() {
+							var _this5 = this;
 							// Return cached options if available
 							if (this.cachedLocationOptions) {
 								return this.cachedLocationOptions;
@@ -3046,11 +3075,12 @@
 														option.id ||
 														option.term_id ||
 														'',
-													label:
+													label: _this5.decodeHtmlEntities(
 														option.label ||
-														option.name ||
-														option.text ||
-														'',
+															option.name ||
+															option.text ||
+															''
+													),
 												});
 											}
 										}
@@ -3073,11 +3103,12 @@
 												location.term_id ||
 												location.value ||
 												'',
-											label:
+											label: _this5.decodeHtmlEntities(
 												location.name ||
-												location.label ||
-												location.text ||
-												'',
+													location.label ||
+													location.text ||
+													''
+											),
 										});
 									});
 									if (options.length > 0) {
@@ -3128,11 +3159,12 @@
 																	location.value ||
 																	''
 															),
-															label:
+															label: self.decodeHtmlEntities(
 																location.name ||
-																location.label ||
-																location.text ||
-																'',
+																	location.label ||
+																	location.text ||
+																	''
+															),
 														};
 													}
 												);

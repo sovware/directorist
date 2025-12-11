@@ -2095,6 +2095,97 @@
 						}
 					);
 
+					/**
+					 * Handle color picker field change for conditional logic
+					 * Extracts field name/key and triggers conditional logic evaluation with a delay
+					 * to ensure the input value is updated in the DOM
+					 *
+					 * @param {jQuery|HTMLElement} field - The color picker input field (jQuery object or DOM element)
+					 */
+					function handleColorPickerChange(field) {
+						var $changedField = $(field);
+						var fieldName =
+							$changedField.attr('name') ||
+							$changedField.attr('id');
+						if (!fieldName) {
+							return;
+						}
+
+						// Extract field key from name
+						var fieldKey = fieldName;
+						if (fieldName.includes('[')) {
+							fieldKey = fieldName.split('[')[0];
+						}
+						if (fieldKey.endsWith('[]')) {
+							fieldKey = fieldKey.slice(0, -2);
+						}
+
+						// Use setTimeout to ensure the input value is updated after color change
+						// The color picker updates the value asynchronously, so we need a small delay
+						setTimeout(function () {
+							triggerConditionalLogicEvaluation(
+								fieldName,
+								fieldKey,
+								$changedField
+							);
+						}, 50);
+					}
+
+					// Also listen for wpColorPicker's change event directly on the input
+					// This catches cases where the custom event might not fire
+					$(document).on(
+						'change',
+						'.directorist-color-picker, .wp-color-picker, input.wp-color-picker',
+						function () {
+							handleColorPickerChange(this);
+						}
+					);
+
+					// Also listen for iris color change events (fired by wpColorPicker internally)
+					// This is a more direct way to catch color picker changes
+					// Note: irischange fires during color selection, but the value might not be set yet
+					$(document).on(
+						'irischange',
+						'.directorist-color-picker, .wp-color-picker, input.wp-color-picker',
+						function () {
+							handleColorPickerChange(this);
+						}
+					);
+
+					// Listen for color picker clear button click
+					// Note: The button is dynamically added to DOM when color picker is opened
+					// We use native addEventListener with capture phase to catch the event
+					// before other handlers that might stop propagation
+					// This is necessary because the button is created dynamically by wpColorPicker
+					document.addEventListener(
+						'click',
+						function (e) {
+							if (
+								e.target &&
+								(e.target.classList.contains(
+									'wp-picker-clear'
+								) ||
+									(e.target.tagName === 'INPUT' &&
+										e.target.type === 'button' &&
+										e.target.className.includes(
+											'wp-picker-clear'
+										)))
+							) {
+								// Find the associated color picker input
+								// e.target is a DOM element, so we need to wrap it in jQuery
+								var $clearButton = $(e.target);
+								var $colorPickerInput = $clearButton
+									.closest('.wp-picker-container')
+									.find(
+										'.directorist-color-picker, .wp-color-picker, input.wp-color-picker'
+									);
+								// Trigger conditional logic evaluation
+								handleColorPickerChange($colorPickerInput);
+							}
+						},
+						true
+					);
+
 					// Listen to TinyMCE editor changes
 					// Helper function to attach TinyMCE event listeners
 					function attachTinyMCEEvents(editor) {

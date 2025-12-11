@@ -347,9 +347,9 @@ function getFieldValue(fieldKey, $) {
 		) {
 			// Try custom field format: "custom-{type}" or "custom-{type}-{suffix}"
 			const customFieldKey = `custom-${fieldKey}`;
-			// Check if this custom field exists in the form
+			// Check if this custom field exists in the form (select, checkbox, or radio)
 			const $customField = $(
-				`[name="${customFieldKey}"], #${customFieldKey}, .directorist-form-group[data-field-key="${customFieldKey}"] select`
+				`[name="${customFieldKey}"], #${customFieldKey}, .directorist-form-group[data-field-key="${customFieldKey}"] select, .directorist-form-group[data-field-key="${customFieldKey}"] input[type="checkbox"], .directorist-form-group[data-field-key="${customFieldKey}"] input[type="radio"]`
 			).first();
 			if ($customField.length) {
 				potentialFieldKey = customFieldKey;
@@ -394,6 +394,7 @@ function getFieldValue(fieldKey, $) {
 						`[name="custom-${fieldKey}"]`,
 						`#custom-${fieldKey}`,
 						`.directorist-form-group[data-field-key="custom-${fieldKey}"] select`,
+						`.directorist-form-group[data-field-key="custom-${fieldKey}"] input`,
 						`.directorist-custom-field-select select[name="custom-${fieldKey}"]`,
 						`.directorist-custom-field-select select#custom-${fieldKey}`,
 					]
@@ -425,7 +426,11 @@ function getFieldValue(fieldKey, $) {
 
 	// Handle checkboxes and radio buttons
 	if ($field.is(':checkbox') || $field.is(':radio')) {
-		if ($field.is('[name$="[]"]') || $field.attr('name').includes('[]')) {
+		// For checkboxes with [] in name (multiple checkboxes with same name)
+		if (
+			$field.is('[name$="[]"]') ||
+			($field.attr('name') && $field.attr('name').includes('[]'))
+		) {
 			// Multiple checkboxes - use attribute selector to find all with same name
 			const values = [];
 			const nameAttr = $field.attr('name');
@@ -439,6 +444,14 @@ function getFieldValue(fieldKey, $) {
 				});
 			return values;
 		}
+		// For radio buttons or single checkboxes (no [] in name)
+		// Radio buttons share the same name, so find the checked one with that name
+		if ($field.is(':radio')) {
+			const nameAttr = $field.attr('name');
+			const $checkedRadio = $(`[name="${nameAttr}"]:checked`);
+			return $checkedRadio.length ? $checkedRadio.val() : null;
+		}
+		// Single checkbox
 		return $field.is(':checked') ? $field.val() : null;
 	}
 
@@ -1406,7 +1419,7 @@ function watchFieldChanges(
 	// Also listen on document level as fallback for custom fields that might be outside the form wrapper
 	$(document).on(
 		'change',
-		'.directorist-custom-field-select select, select.directorist-form-element',
+		'.directorist-custom-field-select select, select.directorist-form-element, .directorist-custom-field-radio input[type="radio"], .directorist-custom-field-checkbox input[type="checkbox"]',
 		function () {
 			const $changedField = $(this);
 			let fieldName =

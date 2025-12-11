@@ -426,10 +426,13 @@ function getFieldValue(fieldKey, $) {
 	// Handle checkboxes and radio buttons
 	if ($field.is(':checkbox') || $field.is(':radio')) {
 		if ($field.is('[name$="[]"]') || $field.attr('name').includes('[]')) {
-			// Multiple checkboxes
+			// Multiple checkboxes - use attribute selector to find all with same name
 			const values = [];
 			const nameAttr = $field.attr('name');
-			$(nameAttr)
+
+			// CRITICAL FIX: Use attribute selector [name="..."] instead of passing name directly to $()
+			// This prevents jQuery syntax error when nameAttr contains brackets like "custom-checkbox[]"
+			$(`[name="${nameAttr}"]`)
 				.filter(':checked')
 				.each(function () {
 					values.push($(this).val());
@@ -777,13 +780,7 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 				!condition.field.includes('tag') &&
 				!condition.field.includes('location')
 			) {
-				console.log('Custom select field evaluation:', {
-					fieldKey: condition.field,
-					fieldValue: fieldValue,
-					conditionValue: condition.value,
-					operator: condition.operator,
-					fieldFound: fieldValue !== null && fieldValue !== undefined,
-				});
+				// Custom select field evaluation
 			}
 
 			const conditionResult = evaluateCondition(condition, fieldValue);
@@ -1003,23 +1000,9 @@ function watchFieldChanges(
 		fieldKey,
 		$changedField
 	) {
-		console.log('=== triggerConditionalLogicEvaluation called ===', {
-			fieldName: fieldName,
-			fieldKey: fieldKey,
-			changedFieldValue: $changedField ? $changedField.val() : 'N/A',
-			changedFieldId: $changedField ? $changedField.attr('id') : 'N/A',
-			changedFieldName: $changedField
-				? $changedField.attr('name')
-				: 'N/A',
-		});
-
 		// Re-evaluate all fields that might depend on this field
 		const $fieldsWithLogic = $(
 			'.directorist-form-group[data-conditional-logic]'
-		);
-		console.log(
-			'Found fields with conditional logic:',
-			$fieldsWithLogic.length
 		);
 
 		$fieldsWithLogic.each(function () {
@@ -1031,12 +1014,6 @@ function watchFieldChanges(
 			if (!conditionalLogicData) {
 				return;
 			}
-
-			console.log('Evaluating field with conditional logic:', {
-				fieldKey: $fieldWrapper.attr('data-field-key'),
-				conditionalLogicData:
-					conditionalLogicData.substring(0, 100) + '...',
-			});
 
 			try {
 				// Decode HTML entities before parsing JSON
@@ -1140,44 +1117,8 @@ function watchFieldChanges(
 											conditionFieldKeyMapped ===
 												fieldKeyAsWidgetKey))
 								) {
-									console.log('✓ Field dependency MATCHED:', {
-										conditionField: conditionFieldKey,
-										changedField: fieldKey,
-										changedFieldName: fieldName,
-										conditionFieldAsCustom:
-											conditionFieldKeyAsCustom,
-										fieldKeyAsWidgetKey:
-											fieldKeyAsWidgetKey,
-										matched: true,
-									});
 									dependsOnField = true;
 									break;
-								} else {
-									// Debug: log when field doesn't match (only for custom select fields)
-									if (
-										conditionFieldKey &&
-										(conditionFieldKey.includes('select') ||
-											(fieldKey &&
-												fieldKey.includes('select')))
-									) {
-										console.log(
-											'✗ Field dependency NOT matched:',
-											{
-												conditionField:
-													conditionFieldKey,
-												changedField: fieldKey,
-												changedFieldName: fieldName,
-												conditionFieldAsCustom:
-													conditionFieldKeyAsCustom,
-												fieldKeyAsWidgetKey:
-													fieldKeyAsWidgetKey,
-												changedFieldId:
-													$changedField.attr('id'),
-												changedFieldNameAttr:
-													$changedField.attr('name'),
-											}
-										);
-									}
 								}
 							}
 							if (dependsOnField) {
@@ -1348,19 +1289,6 @@ function watchFieldChanges(
 			let fieldName =
 				$changedField.attr('name') || $changedField.attr('id');
 
-			// Debug: Log all field changes
-			console.log('Field change detected:', {
-				fieldName: fieldName,
-				fieldId: $changedField.attr('id'),
-				fieldType: $changedField.prop('tagName'),
-				fieldValue: $changedField.val(),
-				isCustomSelect:
-					$changedField.closest('.directorist-custom-field-select')
-						.length > 0,
-				hasName: !!$changedField.attr('name'),
-				hasId: !!$changedField.attr('id'),
-			});
-
 			if (!fieldName) {
 				console.warn(
 					'Field change detected but no name/id found:',
@@ -1377,8 +1305,6 @@ function watchFieldChanges(
 			if (fieldKey.endsWith('[]')) {
 				fieldKey = fieldKey.slice(0, -2);
 			}
-
-			console.log('Extracted fieldKey:', fieldKey);
 
 			// Special handling for category, tag, and location fields
 			let taxonomyFieldSelector = null;
@@ -1469,16 +1395,6 @@ function watchFieldChanges(
 				return; // Don't trigger twice
 			}
 
-			// Debug: Log before triggering evaluation
-			console.log('Triggering conditional logic evaluation for:', {
-				fieldName: fieldName,
-				fieldKey: fieldKey,
-				fieldValue: $changedField.val(),
-				isCustomSelect:
-					$changedField.closest('.directorist-custom-field-select')
-						.length > 0,
-			});
-
 			triggerConditionalLogicEvaluation(
 				fieldName,
 				fieldKey,
@@ -1500,15 +1416,6 @@ function watchFieldChanges(
 				return;
 			}
 
-			console.log('Document-level change detected for custom select:', {
-				fieldName: fieldName,
-				fieldId: $changedField.attr('id'),
-				fieldValue: $changedField.val(),
-				isCustomSelect:
-					$changedField.closest('.directorist-custom-field-select')
-						.length > 0,
-			});
-
 			// Extract field key from name
 			let fieldKey = fieldName;
 			if (fieldName.includes('[')) {
@@ -1517,11 +1424,6 @@ function watchFieldChanges(
 			if (fieldKey.endsWith('[]')) {
 				fieldKey = fieldKey.slice(0, -2);
 			}
-
-			console.log('Triggering evaluation from document-level listener:', {
-				fieldName: fieldName,
-				fieldKey: fieldKey,
-			});
 
 			triggerConditionalLogicEvaluation(
 				fieldName,

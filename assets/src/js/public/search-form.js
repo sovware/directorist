@@ -1480,19 +1480,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				radius_search_item_selector = '.directorist-location-js';
 			}
 
-			// Now, use jQuery to loop through the elements
-			$(radius_search_item_selector).each((index, locationDOM) => {
-				const $location = $(locationDOM);
-				const isEmpty = $location.val() === '';
+			// Check if radius search item selector elements exist
+			const $radiusSearchItems = $(radius_search_item_selector);
 
-				const $container = $location
-					.closest('.directorist-contents-wrap')
-					.find(
-						'.directorist-search-field-radius_search, .directorist-radius-search'
-					);
+			if ($radiusSearchItems.length === 0) {
+				// If no elements found, hide all radius search containers
+				$(
+					'.directorist-search-field-radius_search, .directorist-radius-search'
+				).css({
+					display: 'none',
+				});
+			} else {
+				// Loop through the elements
+				$radiusSearchItems.each((index, locationDOM) => {
+					const $location = $(locationDOM);
+					const isEmpty = $location.val() === '';
 
-				$container.css({ display: isEmpty ? 'none' : 'block' });
-			});
+					const $container = $location
+						.closest('.directorist-contents-wrap')
+						.find(
+							'.directorist-search-field-radius_search, .directorist-radius-search'
+						);
+
+					$container.css({ display: isEmpty ? 'none' : 'block' });
+				});
+			}
 		}
 
 		// handleRadiusVisibility Trigger

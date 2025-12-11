@@ -2301,13 +2301,12 @@
 
 									// Only include fields that can be used in conditions
 									// Exclude fields like conditional-logic itself and non-comparable types
+									// Note: date, time, and file fields are now included (they use specialized inputs)
 									var excludeTypes = [
 										'conditional-logic',
 										'button',
 										'submit',
 										'section',
-										'date',
-										'time',
 									];
 									if (excludeTypes.includes(type)) {
 										continue;
@@ -2411,6 +2410,16 @@
 								condition.field === 'locations'
 							) {
 								return this.getLocationOptions();
+							}
+
+							// Handle file fields - return "uploaded" option for boolean check
+							if (this.isFileField(condition)) {
+								return [
+									{
+										value: 'uploaded',
+										label: 'Uploaded',
+									},
+								];
 							}
 
 							// Handle select/radio/checkbox fields - get options from widget
@@ -2595,7 +2604,65 @@
 						 * Check if condition needs a select dropdown (has options)
 						 */
 						needsSelectInput: function needsSelectInput(condition) {
+							// File fields need a selectbox with "uploaded" option
+							if (this.isFileField(condition)) {
+								return true;
+							}
 							return this.getValueOptions(condition) !== null;
+						},
+						/**
+						 * Check if field is a date type
+						 */
+						isDateField: function isDateField(condition) {
+							if (!condition || !condition.field) {
+								return false;
+							}
+							var fieldData = this.getFieldData(condition.field);
+							if (!fieldData) {
+								return false;
+							}
+							var fieldType = (fieldData.type || '')
+								.toString()
+								.trim()
+								.toLowerCase();
+							return fieldType === 'date';
+						},
+						/**
+						 * Check if field is a time type
+						 */
+						isTimeField: function isTimeField(condition) {
+							if (!condition || !condition.field) {
+								return false;
+							}
+							var fieldData = this.getFieldData(condition.field);
+							if (!fieldData) {
+								return false;
+							}
+							var fieldType = (fieldData.type || '')
+								.toString()
+								.trim()
+								.toLowerCase();
+							return fieldType === 'time';
+						},
+						/**
+						 * Check if field is a file type
+						 */
+						isFileField: function isFileField(condition) {
+							if (!condition || !condition.field) {
+								return false;
+							}
+							var fieldData = this.getFieldData(condition.field);
+							if (!fieldData) {
+								return false;
+							}
+							var fieldType = (fieldData.type || '')
+								.toString()
+								.trim()
+								.toLowerCase();
+							return (
+								fieldType === 'file' ||
+								fieldType === 'file_upload'
+							);
 						},
 						/**
 						 * Get listing type ID from Vue context
@@ -52612,9 +52679,6 @@
 									'privacy_policy',
 								];
 
-								// Field types to exclude (fields that shouldn't be used in conditions)
-								var excludeTypes = ['date', 'time', 'file'];
-
 								// Filter out the current field, conditional logic keys, and excluded types
 								var filtered = this.availableFields.filter(
 									function (field) {
@@ -52625,18 +52689,9 @@
 											.toString()
 											.trim()
 											.toLowerCase();
-										var fieldType = (field.type || '')
-											.toString()
-											.trim()
-											.toLowerCase();
 
 										// Skip conditional logic keys
 										if (skipKeys.includes(fieldValue)) {
-											return false;
-										}
-
-										// Skip excluded input types (date, datetime, etc.)
-										if (excludeTypes.includes(fieldType)) {
 											return false;
 										}
 
@@ -80691,6 +80746,172 @@
 																							!_vm.needsSelectInput(
 																								group
 																									.conditions[0]
+																							) &&
+																							_vm.isDateField(
+																								group
+																									.conditions[0]
+																							)
+																								? _c(
+																										'input',
+																										{
+																											directives:
+																												[
+																													{
+																														name: 'model',
+																														rawName:
+																															'v-model',
+																														value: group
+																															.conditions[0]
+																															.value,
+																														expression:
+																															'group.conditions[0].value',
+																													},
+																												],
+																											staticClass:
+																												'directorist-conditional-logic-builder__value',
+																											attrs: {
+																												type: 'date',
+																											},
+																											domProps:
+																												{
+																													value: group
+																														.conditions[0]
+																														.value,
+																												},
+																											on: {
+																												input: [
+																													function (
+																														$event
+																													) {
+																														if (
+																															$event
+																																.target
+																																.composing
+																														)
+																															return;
+																														_vm.$set(
+																															group
+																																.conditions[0],
+																															'value',
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																													function (
+																														$event
+																													) {
+																														return _vm.onConditionValueUpdate(
+																															group
+																																.conditions[0],
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																												],
+																											},
+																										}
+																									)
+																								: _vm._e(),
+																							_vm._v(
+																								' '
+																							),
+																							!_vm.isValueHidden(
+																								group
+																									.conditions[0]
+																									.operator
+																							) &&
+																							!_vm.needsSelectInput(
+																								group
+																									.conditions[0]
+																							) &&
+																							_vm.isTimeField(
+																								group
+																									.conditions[0]
+																							)
+																								? _c(
+																										'input',
+																										{
+																											directives:
+																												[
+																													{
+																														name: 'model',
+																														rawName:
+																															'v-model',
+																														value: group
+																															.conditions[0]
+																															.value,
+																														expression:
+																															'group.conditions[0].value',
+																													},
+																												],
+																											staticClass:
+																												'directorist-conditional-logic-builder__value',
+																											attrs: {
+																												type: 'time',
+																											},
+																											domProps:
+																												{
+																													value: group
+																														.conditions[0]
+																														.value,
+																												},
+																											on: {
+																												input: [
+																													function (
+																														$event
+																													) {
+																														if (
+																															$event
+																																.target
+																																.composing
+																														)
+																															return;
+																														_vm.$set(
+																															group
+																																.conditions[0],
+																															'value',
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																													function (
+																														$event
+																													) {
+																														return _vm.onConditionValueUpdate(
+																															group
+																																.conditions[0],
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																												],
+																											},
+																										}
+																									)
+																								: _vm._e(),
+																							_vm._v(
+																								' '
+																							),
+																							!_vm.isValueHidden(
+																								group
+																									.conditions[0]
+																									.operator
+																							) &&
+																							!_vm.needsSelectInput(
+																								group
+																									.conditions[0]
+																							) &&
+																							!_vm.isDateField(
+																								group
+																									.conditions[0]
+																							) &&
+																							!_vm.isTimeField(
+																								group
+																									.conditions[0]
 																							)
 																								? _c(
 																										'input',
@@ -81327,6 +81548,150 @@
 																														condition.operator
 																													) &&
 																													!_vm.needsSelectInput(
+																														condition
+																													) &&
+																													_vm.isDateField(
+																														condition
+																													)
+																														? _c(
+																																'input',
+																																{
+																																	directives:
+																																		[
+																																			{
+																																				name: 'model',
+																																				rawName:
+																																					'v-model',
+																																				value: condition.value,
+																																				expression:
+																																					'condition.value',
+																																			},
+																																		],
+																																	staticClass:
+																																		'directorist-conditional-logic-builder__value',
+																																	attrs: {
+																																		type: 'date',
+																																	},
+																																	domProps:
+																																		{
+																																			value: condition.value,
+																																		},
+																																	on: {
+																																		input: [
+																																			function (
+																																				$event
+																																			) {
+																																				if (
+																																					$event
+																																						.target
+																																						.composing
+																																				)
+																																					return;
+																																				_vm.$set(
+																																					condition,
+																																					'value',
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																			function (
+																																				$event
+																																			) {
+																																				return _vm.onConditionValueUpdate(
+																																					condition,
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																		],
+																																	},
+																																}
+																															)
+																														: _vm._e(),
+																													_vm._v(
+																														' '
+																													),
+																													!_vm.isValueHidden(
+																														condition.operator
+																													) &&
+																													!_vm.needsSelectInput(
+																														condition
+																													) &&
+																													_vm.isTimeField(
+																														condition
+																													)
+																														? _c(
+																																'input',
+																																{
+																																	directives:
+																																		[
+																																			{
+																																				name: 'model',
+																																				rawName:
+																																					'v-model',
+																																				value: condition.value,
+																																				expression:
+																																					'condition.value',
+																																			},
+																																		],
+																																	staticClass:
+																																		'directorist-conditional-logic-builder__value',
+																																	attrs: {
+																																		type: 'time',
+																																	},
+																																	domProps:
+																																		{
+																																			value: condition.value,
+																																		},
+																																	on: {
+																																		input: [
+																																			function (
+																																				$event
+																																			) {
+																																				if (
+																																					$event
+																																						.target
+																																						.composing
+																																				)
+																																					return;
+																																				_vm.$set(
+																																					condition,
+																																					'value',
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																			function (
+																																				$event
+																																			) {
+																																				return _vm.onConditionValueUpdate(
+																																					condition,
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																		],
+																																	},
+																																}
+																															)
+																														: _vm._e(),
+																													_vm._v(
+																														' '
+																													),
+																													!_vm.isValueHidden(
+																														condition.operator
+																													) &&
+																													!_vm.needsSelectInput(
+																														condition
+																													) &&
+																													!_vm.isDateField(
+																														condition
+																													) &&
+																													!_vm.isTimeField(
 																														condition
 																													)
 																														? _c(

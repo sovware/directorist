@@ -590,6 +590,10 @@
 								'-field textarea'
 							),
 							'.directorist-form-'.concat(
+								fieldKey,
+								'-field input[type="file"]'
+							),
+							'.directorist-form-'.concat(
 								_potentialFieldKey,
 								'-field input'
 							),
@@ -601,10 +605,19 @@
 								_potentialFieldKey,
 								'-field textarea'
 							),
+							'.directorist-form-'.concat(
+								_potentialFieldKey,
+								'-field input[type="file"]'
+							),
 							'input[name*="'.concat(fieldKey, '"]'),
 							'select[name*="'.concat(fieldKey, '"]'),
+							'input[type="file"][name*="'.concat(fieldKey, '"]'),
 							'input[name*="'.concat(_potentialFieldKey, '"]'),
 							'select[name*="'.concat(_potentialFieldKey, '"]'),
+							'input[type="file"][name*="'.concat(
+								_potentialFieldKey,
+								'"]'
+							),
 							'.directorist-form-group[data-field-key="'.concat(
 								fieldKey,
 								'"] input'
@@ -618,6 +631,10 @@
 								'"] textarea'
 							),
 							'.directorist-form-group[data-field-key="'.concat(
+								fieldKey,
+								'"] input[type="file"]'
+							),
+							'.directorist-form-group[data-field-key="'.concat(
 								_potentialFieldKey,
 								'"] input'
 							),
@@ -628,6 +645,10 @@
 							'.directorist-form-group[data-field-key="'.concat(
 								_potentialFieldKey,
 								'"] textarea'
+							),
+							'.directorist-form-group[data-field-key="'.concat(
+								_potentialFieldKey,
+								'"] input[type="file"]'
 							), // Additional selectors for custom fields (try both widget_key and field_key formats)
 							'.directorist-custom-field-select select[name="'.concat(
 								fieldKey,
@@ -805,6 +826,117 @@
 							}
 						}
 					}
+
+					// Handle file upload fields - check if file is uploaded (boolean check)
+					// File fields can be detected by:
+					// 1. Input type="file"
+					// 2. File upload containers with uploaded files
+					// 3. Custom file field wrappers
+					// 4. Plupload file upload fields
+					var $fileWrapper = $field.closest(
+						'.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload'
+					);
+
+					// If we haven't found a wrapper yet, try to find by looking for plupload containers
+					if (!$fileWrapper.length) {
+						$fileWrapper = $field.closest(
+							'.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload'
+						);
+					}
+
+					// Check if this is a file upload field
+					var isFileUploadField =
+						$field.is('input[type="file"]') ||
+						$field.closest('.directorist-custom-field-file')
+							.length ||
+						$field.closest('.directorist-custom-field-file-upload')
+							.length ||
+						($fileWrapper.length &&
+							($fileWrapper.hasClass(
+								'directorist-custom-field-file'
+							) ||
+								$fileWrapper.hasClass(
+									'directorist-custom-field-file-upload'
+								) ||
+								$fileWrapper.find(
+									'.plupload-upload-ui, .plupload-thumbs'
+								).length > 0));
+					if (isFileUploadField) {
+						// Strategy 1: Check if file input has files selected (for new uploads)
+						if (
+							$field.is('input[type="file"]') &&
+							$field[0] &&
+							$field[0].files &&
+							$field[0].files.length > 0
+						) {
+							return 'uploaded';
+						}
+
+						// Strategy 2: Check for plupload thumbnails (most reliable for plupload)
+						// Plupload adds thumbnails to .plupload-thumbs container with class .thumb
+						if ($fileWrapper.length) {
+							var $thumbsContainer =
+								$fileWrapper.find('.plupload-thumbs');
+							if (
+								$thumbsContainer.length &&
+								$thumbsContainer.find('.thumb').length > 0
+							) {
+								return 'uploaded';
+							}
+						}
+
+						// Strategy 3: Check hidden input value (stores file data in format: "url|id|title|caption" or "url1::url2::...")
+						// The hidden input has the field_key as name attribute
+						if ($fileWrapper.length) {
+							// Try to find hidden input with field key as name
+							var fieldKeyFromWrapper =
+								$fileWrapper.attr('data-field-key') ||
+								$fileWrapper
+									.find('[data-field-key]')
+									.first()
+									.attr('data-field-key');
+							if (fieldKeyFromWrapper) {
+								var $hiddenInput = $fileWrapper.find(
+									'input[type="hidden"][name="'.concat(
+										fieldKeyFromWrapper,
+										'"]'
+									)
+								);
+								if (
+									$hiddenInput.length &&
+									$hiddenInput.val() &&
+									$hiddenInput.val().trim() !== '' &&
+									$hiddenInput.val() !== 'null'
+								) {
+									return 'uploaded';
+								}
+							}
+						}
+
+						// Strategy 4: Check for other file indicators (fallback)
+						if ($fileWrapper.length) {
+							var hasUploadedFiles =
+								$fileWrapper.find(
+									'.directorist-file-list-item, .directorist-uploaded-file, .directorist-file-item, [data-file-id], .thumb'
+								).length > 0 ||
+								$fileWrapper
+									.find(
+										'input[type="hidden"][name*="_file_id"], input[type="hidden"][name*="_file_url"]'
+									)
+									.filter(function () {
+										return (
+											$(this).val() &&
+											$(this).val().trim() !== ''
+										);
+									}).length > 0;
+							if (hasUploadedFiles) {
+								return 'uploaded';
+							}
+						}
+
+						// No file uploaded
+						return null;
+					}
 					return $field.val() || null;
 				}
 
@@ -833,6 +965,43 @@
 					}
 					var operator = condition.operator.toLowerCase();
 					var conditionValue = condition.value || '';
+
+					// Handle file fields with "uploaded" value - treat as boolean
+					// If condition value is "uploaded", check if field has uploaded files
+					if (conditionValue.toLowerCase() === 'uploaded') {
+						// For file fields, fieldValue will be "uploaded" if file exists, null/empty otherwise
+						if (
+							operator === 'is' ||
+							operator === '==' ||
+							operator === '='
+						) {
+							return (
+								fieldValue === 'uploaded' || fieldValue === true
+							);
+						}
+						if (
+							operator === 'is not' ||
+							operator === '!=' ||
+							operator === 'not'
+						) {
+							return (
+								fieldValue !== 'uploaded' &&
+								fieldValue !== true &&
+								isEmpty(fieldValue)
+							);
+						}
+						if (operator === 'empty') {
+							return (
+								isEmpty(fieldValue) || fieldValue !== 'uploaded'
+							);
+						}
+						if (operator === 'not empty') {
+							return (
+								!isEmpty(fieldValue) &&
+								fieldValue === 'uploaded'
+							);
+						}
+					}
 
 					// Handle empty/not empty operators
 					if (operator === 'empty') {
@@ -2184,6 +2353,287 @@
 							}
 						},
 						true
+					);
+
+					// Listen to file upload events (plupload)
+					// Use MutationObserver to watch for when files are uploaded or removed
+					var fileUploadObserver = new MutationObserver(function (
+						mutations
+					) {
+						mutations.forEach(function (mutation) {
+							// Handle added nodes (file uploads)
+							if (mutation.addedNodes.length > 0) {
+								mutation.addedNodes.forEach(function (node) {
+									if (node.nodeType === 1) {
+										// Element node
+										var $node = $(node);
+										// Check if a thumbnail was added to plupload-thumbs container
+										if (
+											$node.hasClass('thumb') ||
+											$node.closest('.plupload-thumbs')
+												.length ||
+											$node.find('.thumb').length
+										) {
+											// Find the file upload field wrapper
+											var $fileWrapper = $node.closest(
+												'.directorist-form-group, .directorist-custom-field-file-upload'
+											);
+											if ($fileWrapper.length) {
+												var fieldKey =
+													$fileWrapper.attr(
+														'data-field-key'
+													) ||
+													$fileWrapper
+														.find(
+															'[data-field-key]'
+														)
+														.first()
+														.attr('data-field-key');
+
+												// If we don't have field key, try to get it from hidden input
+												if (!fieldKey) {
+													var $hiddenInput =
+														$fileWrapper
+															.find(
+																'input[type="hidden"]'
+															)
+															.first();
+													if ($hiddenInput.length) {
+														var inputName =
+															$hiddenInput.attr(
+																'name'
+															);
+														if (inputName) {
+															if (
+																inputName.includes(
+																	'['
+																)
+															) {
+																inputName =
+																	inputName.split(
+																		'['
+																	)[0];
+															}
+															fieldKey =
+																inputName;
+														}
+													}
+												}
+												if (fieldKey) {
+													// Trigger conditional logic evaluation after a short delay
+													// to ensure DOM is fully updated
+													setTimeout(function () {
+														triggerConditionalLogicEvaluation(
+															fieldKey,
+															fieldKey,
+															$fileWrapper
+																.find(
+																	'input[type="hidden"]'
+																)
+																.first()
+														);
+													}, 100);
+												}
+											}
+										}
+									}
+								});
+							}
+
+							// Handle removed nodes (file deletions)
+							if (mutation.removedNodes.length > 0) {
+								mutation.removedNodes.forEach(function (node) {
+									if (node.nodeType === 1) {
+										// Element node
+										var $node = $(node);
+										// Check if a thumbnail was removed from plupload-thumbs container
+										if (
+											$node.hasClass('thumb') ||
+											$node.closest('.plupload-thumbs')
+												.length ||
+											$node.find('.thumb').length
+										) {
+											// Find the file upload field wrapper from the parent container
+											var $thumbsContainer = $(
+												mutation.target
+											);
+											if (
+												$thumbsContainer.hasClass(
+													'plupload-thumbs'
+												) ||
+												$thumbsContainer.find(
+													'.plupload-thumbs'
+												).length
+											) {
+												var $fileWrapper =
+													$thumbsContainer.closest(
+														'.directorist-form-group, .directorist-custom-field-file-upload'
+													);
+												if ($fileWrapper.length) {
+													var fieldKey =
+														$fileWrapper.attr(
+															'data-field-key'
+														) ||
+														$fileWrapper
+															.find(
+																'[data-field-key]'
+															)
+															.first()
+															.attr(
+																'data-field-key'
+															);
+
+													// If we don't have field key, try to get it from hidden input
+													if (!fieldKey) {
+														var $hiddenInput =
+															$fileWrapper
+																.find(
+																	'input[type="hidden"]'
+																)
+																.first();
+														if (
+															$hiddenInput.length
+														) {
+															var inputName =
+																$hiddenInput.attr(
+																	'name'
+																);
+															if (inputName) {
+																if (
+																	inputName.includes(
+																		'['
+																	)
+																) {
+																	inputName =
+																		inputName.split(
+																			'['
+																		)[0];
+																}
+																fieldKey =
+																	inputName;
+															}
+														}
+													}
+													if (fieldKey) {
+														// Trigger conditional logic evaluation after a delay
+														// to ensure plupload has finished updating the hidden input
+														setTimeout(function () {
+															triggerConditionalLogicEvaluation(
+																fieldKey,
+																fieldKey,
+																$fileWrapper
+																	.find(
+																		'input[type="hidden"]'
+																	)
+																	.first()
+															);
+														}, 300);
+													}
+												}
+											}
+										}
+									}
+								});
+							}
+						});
+					});
+
+					// Start observing the document body for changes
+					fileUploadObserver.observe(document.body, {
+						childList: true,
+						subtree: true,
+					});
+
+					// Also listen for click events on file remove buttons
+					// Use native event listener with capture phase to catch early
+					document.addEventListener(
+						'click',
+						function (e) {
+							// Check if the clicked element or its parent is a thumbremovelink
+							var $target = $(e.target);
+							var $removeButton =
+								$target.closest('.thumbremovelink').length > 0
+									? $target.closest('.thumbremovelink')
+									: $target.hasClass('thumbremovelink')
+										? $target
+										: null;
+							if (!$removeButton || !$removeButton.length) {
+								return;
+							}
+
+							// Find the file upload field wrapper
+							var $thumb = $removeButton.closest('.thumb');
+							if (!$thumb.length) {
+								return;
+							}
+							var $fileWrapper = $thumb.closest(
+								'.directorist-form-group, .directorist-custom-field-file-upload'
+							);
+							if ($fileWrapper.length) {
+								// Extract field key from the hidden input or data attribute
+								var fieldKey =
+									$fileWrapper.attr('data-field-key') ||
+									$fileWrapper
+										.find('[data-field-key]')
+										.first()
+										.attr('data-field-key');
+
+								// If we don't have field key from data attribute, try to get it from hidden input
+								if (!fieldKey) {
+									var $hiddenInput = $fileWrapper
+										.find('input[type="hidden"]')
+										.first();
+									if ($hiddenInput.length) {
+										var inputName =
+											$hiddenInput.attr('name');
+										if (inputName) {
+											// Remove array notation if present
+											if (inputName.includes('[')) {
+												inputName =
+													inputName.split('[')[0];
+											}
+											fieldKey = inputName;
+										}
+									}
+								}
+								if (fieldKey) {
+									// Wait for plupload to update the DOM and hidden input value
+									// plu_show_thumbs is called after the click, so we need to wait longer
+									setTimeout(function () {
+										var $hiddenInput = $fileWrapper
+											.find(
+												'input[type="hidden"][name="'
+													.concat(
+														fieldKey,
+														'"], input[type="hidden"][name="'
+													)
+													.concat(fieldKey, '[]"]')
+											)
+											.first();
+										if (!$hiddenInput.length) {
+											// Try to find any hidden input in the wrapper
+											var $anyHiddenInput = $fileWrapper
+												.find('input[type="hidden"]')
+												.first();
+											triggerConditionalLogicEvaluation(
+												fieldKey,
+												fieldKey,
+												$anyHiddenInput.length
+													? $anyHiddenInput
+													: $fileWrapper
+											);
+										} else {
+											triggerConditionalLogicEvaluation(
+												fieldKey,
+												fieldKey,
+												$hiddenInput
+											);
+										}
+									}, 400); // Increased delay to ensure plupload has finished updating
+								}
+							}
+						},
+						true // Use capture phase
 					);
 
 					// Listen to TinyMCE editor changes

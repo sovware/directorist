@@ -560,13 +560,12 @@ export default {
 
 				// Only include fields that can be used in conditions
 				// Exclude fields like conditional-logic itself and non-comparable types
+				// Note: date, time, and file fields are now included (they use specialized inputs)
 				const excludeTypes = [
 					'conditional-logic',
 					'button',
 					'submit',
 					'section',
-					'date',
-					'time',
 				];
 				if (excludeTypes.includes(type)) {
 					continue;
@@ -671,6 +670,16 @@ export default {
 				condition.field === 'locations'
 			) {
 				return this.getLocationOptions();
+			}
+
+			// Handle file fields - return "uploaded" option for boolean check
+			if (this.isFileField(condition)) {
+				return [
+					{
+						value: 'uploaded',
+						label: 'Uploaded',
+					},
+				];
 			}
 
 			// Handle select/radio/checkbox fields - get options from widget
@@ -794,7 +803,65 @@ export default {
 		 * Check if condition needs a select dropdown (has options)
 		 */
 		needsSelectInput(condition) {
+			// File fields need a selectbox with "uploaded" option
+			if (this.isFileField(condition)) {
+				return true;
+			}
 			return this.getValueOptions(condition) !== null;
+		},
+
+		/**
+		 * Check if field is a date type
+		 */
+		isDateField(condition) {
+			if (!condition || !condition.field) {
+				return false;
+			}
+			const fieldData = this.getFieldData(condition.field);
+			if (!fieldData) {
+				return false;
+			}
+			const fieldType = (fieldData.type || '')
+				.toString()
+				.trim()
+				.toLowerCase();
+			return fieldType === 'date';
+		},
+
+		/**
+		 * Check if field is a time type
+		 */
+		isTimeField(condition) {
+			if (!condition || !condition.field) {
+				return false;
+			}
+			const fieldData = this.getFieldData(condition.field);
+			if (!fieldData) {
+				return false;
+			}
+			const fieldType = (fieldData.type || '')
+				.toString()
+				.trim()
+				.toLowerCase();
+			return fieldType === 'time';
+		},
+
+		/**
+		 * Check if field is a file type
+		 */
+		isFileField(condition) {
+			if (!condition || !condition.field) {
+				return false;
+			}
+			const fieldData = this.getFieldData(condition.field);
+			if (!fieldData) {
+				return false;
+			}
+			const fieldType = (fieldData.type || '')
+				.toString()
+				.trim()
+				.toLowerCase();
+			return fieldType === 'file' || fieldType === 'file_upload';
 		},
 
 		/**

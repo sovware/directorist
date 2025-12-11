@@ -105,7 +105,7 @@
                   <option value="ends with">ends with</option>
                 </select>
 
-                <!-- Select dropdown for fields with options (category, select, radio, checkbox) -->
+                <!-- Select dropdown for fields with options (category, select, radio, checkbox, file) -->
                 <select
                   v-if="
                     !isValueHidden(group.conditions[0].operator) &&
@@ -130,11 +130,49 @@
                   </option>
                 </select>
 
+                <!-- Date input for date fields -->
+                <input
+                  v-if="
+                    !isValueHidden(group.conditions[0].operator) &&
+                    !needsSelectInput(group.conditions[0]) &&
+                    isDateField(group.conditions[0])
+                  "
+                  type="date"
+                  class="directorist-conditional-logic-builder__value"
+                  v-model="group.conditions[0].value"
+                  @input="
+                    onConditionValueUpdate(
+                      group.conditions[0],
+                      $event.target.value,
+                    )
+                  "
+                />
+
+                <!-- Time input for time fields -->
+                <input
+                  v-if="
+                    !isValueHidden(group.conditions[0].operator) &&
+                    !needsSelectInput(group.conditions[0]) &&
+                    isTimeField(group.conditions[0])
+                  "
+                  type="time"
+                  class="directorist-conditional-logic-builder__value"
+                  v-model="group.conditions[0].value"
+                  @input="
+                    onConditionValueUpdate(
+                      group.conditions[0],
+                      $event.target.value,
+                    )
+                  "
+                />
+
                 <!-- Text input for fields without options -->
                 <input
                   v-if="
                     !isValueHidden(group.conditions[0].operator) &&
-                    !needsSelectInput(group.conditions[0])
+                    !needsSelectInput(group.conditions[0]) &&
+                    !isDateField(group.conditions[0]) &&
+                    !isTimeField(group.conditions[0])
                   "
                   type="text"
                   class="directorist-conditional-logic-builder__value"
@@ -207,7 +245,7 @@
                       <option value="ends with">ends with</option>
                     </select>
 
-                    <!-- Select dropdown for fields with options (category, select, radio, checkbox) -->
+                    <!-- Select dropdown for fields with options (category, select, radio, checkbox, file) -->
                     <select
                       v-if="
                         !isValueHidden(condition.operator) &&
@@ -229,11 +267,43 @@
                       </option>
                     </select>
 
+                    <!-- Date input for date fields -->
+                    <input
+                      v-if="
+                        !isValueHidden(condition.operator) &&
+                        !needsSelectInput(condition) &&
+                        isDateField(condition)
+                      "
+                      type="date"
+                      class="directorist-conditional-logic-builder__value"
+                      v-model="condition.value"
+                      @input="
+                        onConditionValueUpdate(condition, $event.target.value)
+                      "
+                    />
+
+                    <!-- Time input for time fields -->
+                    <input
+                      v-if="
+                        !isValueHidden(condition.operator) &&
+                        !needsSelectInput(condition) &&
+                        isTimeField(condition)
+                      "
+                      type="time"
+                      class="directorist-conditional-logic-builder__value"
+                      v-model="condition.value"
+                      @input="
+                        onConditionValueUpdate(condition, $event.target.value)
+                      "
+                    />
+
                     <!-- Text input for fields without options -->
                     <input
                       v-if="
                         !isValueHidden(condition.operator) &&
-                        !needsSelectInput(condition)
+                        !needsSelectInput(condition) &&
+                        !isDateField(condition) &&
+                        !isTimeField(condition)
                       "
                       type="text"
                       class="directorist-conditional-logic-builder__value"
@@ -364,9 +434,6 @@ export default {
         "privacy_policy",
       ];
 
-      // Field types to exclude (fields that shouldn't be used in conditions)
-      const excludeTypes = ["date", "time", "file"];
-
       // Filter out the current field, conditional logic keys, and excluded types
       const filtered = this.availableFields.filter((field) => {
         if (!field || !field.value) {
@@ -374,15 +441,9 @@ export default {
         }
 
         const fieldValue = field.value.toString().trim().toLowerCase();
-        const fieldType = (field.type || "").toString().trim().toLowerCase();
 
         // Skip conditional logic keys
         if (skipKeys.includes(fieldValue)) {
-          return false;
-        }
-
-        // Skip excluded input types (date, datetime, etc.)
-        if (excludeTypes.includes(fieldType)) {
           return false;
         }
 

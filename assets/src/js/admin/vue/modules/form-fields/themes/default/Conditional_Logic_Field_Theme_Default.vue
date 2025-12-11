@@ -356,10 +356,16 @@ export default {
         "submission_form_fields",
         "widgets",
         "fields",
+        "social",
+        "pricing",
+        "map",
+        "listing_img",
+        "listing_type",
+        "privacy_policy",
       ];
 
       // Field types to exclude (fields that shouldn't be used in conditions)
-      const excludeTypes = ["date", "time"];
+      const excludeTypes = ["date", "time", "file"];
 
       // Filter out the current field, conditional logic keys, and excluded types
       const filtered = this.availableFields.filter((field) => {

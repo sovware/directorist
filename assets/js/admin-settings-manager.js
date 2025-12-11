@@ -52604,10 +52604,16 @@
 									'submission_form_fields',
 									'widgets',
 									'fields',
+									'social',
+									'pricing',
+									'map',
+									'listing_img',
+									'listing_type',
+									'privacy_policy',
 								];
 
 								// Field types to exclude (fields that shouldn't be used in conditions)
-								var excludeTypes = ['date', 'time'];
+								var excludeTypes = ['date', 'time', 'file'];
 
 								// Filter out the current field, conditional logic keys, and excluded types
 								var filtered = this.availableFields.filter(

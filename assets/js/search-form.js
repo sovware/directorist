@@ -2287,15 +2287,24 @@ document.addEventListener('DOMContentLoaded', function () {
         radius_search_item_selector = '.directorist-location-js';
       }
 
-      // Now, use jQuery to loop through the elements
-      $(radius_search_item_selector).each(function (index, locationDOM) {
-        var $location = $(locationDOM);
-        var isEmpty = $location.val() === '';
-        var $container = $location.closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search');
-        $container.css({
-          display: isEmpty ? 'none' : 'block'
+      // Check if radius search item selector elements exist
+      var $radiusSearchItems = $(radius_search_item_selector);
+      if ($radiusSearchItems.length === 0) {
+        // If no elements found, hide all radius search containers
+        $('.directorist-search-field-radius_search, .directorist-radius-search').css({
+          display: 'none'
         });
-      });
+      } else {
+        // Loop through the elements
+        $radiusSearchItems.each(function (index, locationDOM) {
+          var $location = $(locationDOM);
+          var isEmpty = $location.val() === '';
+          var $container = $location.closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search');
+          $container.css({
+            display: isEmpty ? 'none' : 'block'
+          });
+        });
+      }
     }
 
     // handleRadiusVisibility Trigger

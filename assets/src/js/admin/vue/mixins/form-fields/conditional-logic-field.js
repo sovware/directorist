@@ -565,6 +565,8 @@ export default {
 					'button',
 					'submit',
 					'section',
+					'date',
+					'time',
 				];
 				if (excludeTypes.includes(type)) {
 					continue;

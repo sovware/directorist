@@ -2306,6 +2306,8 @@
 										'button',
 										'submit',
 										'section',
+										'date',
+										'time',
 									];
 									if (excludeTypes.includes(type)) {
 										continue;
@@ -52604,13 +52606,20 @@
 									'fields',
 								];
 
-								// Filter out the current field and conditional logic keys
+								// Field types to exclude (fields that shouldn't be used in conditions)
+								var excludeTypes = ['date', 'time'];
+
+								// Filter out the current field, conditional logic keys, and excluded types
 								var filtered = this.availableFields.filter(
 									function (field) {
 										if (!field || !field.value) {
-											return true;
+											return false;
 										}
 										var fieldValue = field.value
+											.toString()
+											.trim()
+											.toLowerCase();
+										var fieldType = (field.type || '')
 											.toString()
 											.trim()
 											.toLowerCase();
@@ -52620,13 +52629,37 @@
 											return false;
 										}
 
+										// Skip excluded input types (date, datetime, etc.)
+										if (excludeTypes.includes(fieldType)) {
+											return false;
+										}
+
 										// If we have a stored field key, skip if it matches
 										if (currentFieldKey) {
 											var currentKey = currentFieldKey
 												.toString()
 												.trim()
 												.toLowerCase();
+											// Check both exact match and widget_key vs field_key variations
 											if (fieldValue === currentKey) {
+												return false;
+											}
+											// Also check if field.value matches currentFieldKey when removing "custom-" prefix
+											var fieldValueWithoutCustom =
+												fieldValue.replace(
+													/^custom-/,
+													''
+												);
+											var currentKeyWithoutCustom =
+												currentKey.replace(
+													/^custom-/,
+													''
+												);
+											if (
+												fieldValueWithoutCustom ===
+													currentKeyWithoutCustom &&
+												fieldValueWithoutCustom
+											) {
 												return false;
 											}
 										}

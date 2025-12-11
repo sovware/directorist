@@ -358,23 +358,42 @@ export default {
         "fields",
       ];
 
-      // Filter out the current field and conditional logic keys
+      // Field types to exclude (fields that shouldn't be used in conditions)
+      const excludeTypes = ["date", "time"];
+
+      // Filter out the current field, conditional logic keys, and excluded types
       const filtered = this.availableFields.filter((field) => {
         if (!field || !field.value) {
-          return true;
+          return false;
         }
 
         const fieldValue = field.value.toString().trim().toLowerCase();
+        const fieldType = (field.type || "").toString().trim().toLowerCase();
 
         // Skip conditional logic keys
         if (skipKeys.includes(fieldValue)) {
           return false;
         }
 
+        // Skip excluded input types (date, datetime, etc.)
+        if (excludeTypes.includes(fieldType)) {
+          return false;
+        }
+
         // If we have a stored field key, skip if it matches
         if (currentFieldKey) {
           const currentKey = currentFieldKey.toString().trim().toLowerCase();
+          // Check both exact match and widget_key vs field_key variations
           if (fieldValue === currentKey) {
+            return false;
+          }
+          // Also check if field.value matches currentFieldKey when removing "custom-" prefix
+          const fieldValueWithoutCustom = fieldValue.replace(/^custom-/, "");
+          const currentKeyWithoutCustom = currentKey.replace(/^custom-/, "");
+          if (
+            fieldValueWithoutCustom === currentKeyWithoutCustom &&
+            fieldValueWithoutCustom
+          ) {
             return false;
           }
         }

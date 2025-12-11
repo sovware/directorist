@@ -163,8 +163,6 @@ export default {
 				return [];
 			}
 
-			console.log(value);
-
 			return [];
 
 			let options_values = this.theOptions.map((option) => {

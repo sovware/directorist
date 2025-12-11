@@ -359,7 +359,7 @@ class ATBDP_Upgrade
                                     'fields' => [
                                         'enable_tagline' => [
                                             'type' => "toggle",
-                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'label' => __( "Tagline", "directorist" ),
                                             'value' => $tagline,
                                         ],
                                     ],

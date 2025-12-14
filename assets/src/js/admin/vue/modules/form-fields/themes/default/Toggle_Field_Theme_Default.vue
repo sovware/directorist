@@ -1,6 +1,11 @@
 <template>
   <div class="cptm-form-group">
-    <div class="cptm-input-toggle-wrap">
+    <div 
+      class="cptm-input-toggle-wrap"
+      :class="{
+        'cptm-input-toggle-left': toggle_position === 'left', 'cptm-input-toggle-right': toggle_position === 'right' 
+      }"
+    >
       <div class="cptm-input-toggle-content">
         <label v-if="label.length">
           <component :is="labelType">{{ label }}</component>

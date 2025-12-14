@@ -80,15 +80,27 @@ class Plans_Controller extends Posts_Controller {
 
     public function get_items_permissions_check( $request ) {
         if ( ! is_fee_manager_active() ) {
-            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), 400 );
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
         }
+        
+        // Verify post type is registered
+        if ( ! post_type_exists( $this->post_type ) ) {
+            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type is not registered.', 'directorist' ), array( 'status' => 500 ) );
+        }
+        
         return parent::get_items_permissions_check( $request );
     }
 
     public function get_item_permissions_check( $request ) {
         if ( ! is_fee_manager_active() ) {
-            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), 400 );
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
         }
+        
+        // Verify post type is registered
+        if ( ! post_type_exists( $this->post_type ) ) {
+            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type is not registered.', 'directorist' ), array( 'status' => 500 ) );
+        }
+        
         return parent::get_item_permissions_check( $request );
     }
 

@@ -1482,11 +1482,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			// Check if radius search item selector elements exist
 			const $radiusSearchItems = $(radius_search_item_selector);
-			
+
 			if ($radiusSearchItems.length === 0) {
 				// If no elements found, hide all radius search containers
-				$('.directorist-search-field-radius_search, .directorist-radius-search').css({ 
-					display: 'none' 
+				$(
+					'.directorist-search-field-radius_search, .directorist-radius-search'
+				).css({
+					display: 'none',
 				});
 			} else {
 				// Loop through the elements

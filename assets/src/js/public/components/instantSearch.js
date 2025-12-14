@@ -604,7 +604,10 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	}
 
 	// Perform Instant Search without required value
-	function performInstantSearchWithoutRequiredValue(searchElm, preservePaged = false) {
+	function performInstantSearchWithoutRequiredValue(
+		searchElm,
+		preservePaged = false
+	) {
 		// Check required fields
 		const allRequiredFieldsAreValid = checkRequiredFields(searchElm);
 

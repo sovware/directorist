@@ -396,7 +396,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	}
 
 	//  Build form_data from searchElm inputs.
-	function buildFormData(searchElm) {
+	function buildFormData(searchElm, preservePaged = false) {
 		let tag = [];
 		let price = [];
 		let custom_field = {};
@@ -459,27 +459,36 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		// Collect custom range slider min/max values
 		let range_slider_values = {};
 		searchElm
-			.find(
-				'.directorist-custom-range-slider__text.directorist-custom-range-slider__value__min'
-			)
+			.find('.directorist-custom-range-slider__wrap')
 			.each(function () {
-				const minVal = $(this).val();
-				if (minVal && minVal !== '0') {
-					range_slider_values[
-						'directorist-custom-range-slider__value__min'
-					] = minVal;
+				const $wrap = $(this);
+				const rangeField = $wrap.find(
+					'.directorist-custom-range-slider__range'
+				);
+				const rangeName = rangeField.attr('name');
+
+				if (!rangeName) {
+					return;
 				}
-			});
-		searchElm
-			.find(
-				'.directorist-custom-range-slider__text.directorist-custom-range-slider__value__max'
-			)
-			.each(function () {
-				const maxVal = $(this).val();
-				if (maxVal && maxVal !== '0') {
-					range_slider_values[
-						'directorist-custom-range-slider__value__max'
-					] = maxVal;
+
+				const minInput = $wrap.find(
+					'.directorist-custom-range-slider__value__min'
+				);
+				const maxInput = $wrap.find(
+					'.directorist-custom-range-slider__value__max'
+				);
+				const minVal = minInput.val();
+				const maxVal = maxInput.val();
+
+				const minName = minInput.attr('name');
+				const maxName = maxInput.attr('name');
+
+				if (minName && minVal && minVal !== '0') {
+					range_slider_values[minName] = minVal;
+				}
+
+				if (maxName && maxVal && maxVal !== '0') {
+					range_slider_values[maxName] = maxVal;
 				}
 			});
 
@@ -498,7 +507,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		const phone = searchElm.find('input[name="phone"]').val();
 		const phone2 = searchElm.find('input[name="phone2"]').val();
 		const view = form_data.view;
-		const paged = form_data.paged;
 
 		// Get directory type - look in the parent container to ensure it's found regardless of form
 		const directory_type =
@@ -526,7 +534,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			phone2,
 			custom_field,
 			view,
-			paged,
 			directory_type,
 			...range_slider_values,
 		});
@@ -566,11 +573,12 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			});
 		}
 
-		// Paging: get current page number, default 1 if not found
-		let page = parseInt(form_data.paged, 10) || 1;
-		updateFormData({
-			paged: page > 1 ? page : undefined,
-		});
+		// Reset paged to undefined for any non-pagination search
+		if (!preservePaged) {
+			updateFormData({
+				paged: undefined,
+			});
+		}
 
 		// Update URL with form data
 		update_instant_search_url(form_data);
@@ -605,14 +613,17 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	}
 
 	// Perform Instant Search without required value
-	function performInstantSearchWithoutRequiredValue(searchElm) {
+	function performInstantSearchWithoutRequiredValue(
+		searchElm,
+		preservePaged = false
+	) {
 		// Check required fields
 		const allRequiredFieldsAreValid = checkRequiredFields(searchElm);
 
 		// If required fields are valid, proceed with filtering
 		if (allRequiredFieldsAreValid) {
 			// Build form data
-			buildFormData(searchElm);
+			buildFormData(searchElm, preservePaged);
 
 			performInstantSearch(searchElm);
 		} else {
@@ -1141,7 +1152,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			} else if ($(this).hasClass('prev')) {
 				page = parseInt(page) - 1;
 			}
-			// ✅ only update `sort`, preserve others
+			// ✅ only update `paged`, preserve others
 			updateFormData({ paged: page });
 
 			// get parent element
@@ -1150,8 +1161,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			// get active form
 			const activeForm = getActiveForm(searchElm);
 
-			// Instant search without required value
-			performInstantSearchWithoutRequiredValue(activeForm);
+			// Instant search without required value - preserve paged in form_data
+			performInstantSearchWithoutRequiredValue(activeForm, true);
 		}
 	);
 

@@ -142,7 +142,11 @@ class ATBDP_Checkout
      * @return string
      */
     public function payment_receipt() {
-        if ( ! atbdp_is_user_logged_in() ) return null; // vail out showing a friendly-message, if user is not logged in.
+        ob_start();
+        if ( ! atbdp_is_user_logged_in() ) {
+            ob_end_clean();
+            return null; // vail out showing a friendly-message, if user is not logged in. 
+        }
         //content of order receipt should be outputted here.
         $order_id = (int) get_query_var( 'atbdp_order_id' );
 

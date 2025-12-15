@@ -89,20 +89,13 @@
                   v-model="group.conditions[0].operator"
                   @change="updateValue"
                 >
-                  <option value="is">is</option>
-                  <option value="is not">is not</option>
-                  <option value="contains">contains</option>
-                  <option value="does not contain">does not contain</option>
-                  <option value="empty">empty</option>
-                  <option value="not empty">not empty</option>
-                  <option value="greater than">greater than</option>
-                  <option value="less than">less than</option>
-                  <option value="greater than or equal">
-                    greater than or equal
+                  <option
+                    v-for="operator in getOperatorOptions(group.conditions[0])"
+                    :key="operator.value"
+                    :value="operator.value"
+                  >
+                    {{ operator.label }}
                   </option>
-                  <option value="less than or equal">less than or equal</option>
-                  <option value="starts with">starts with</option>
-                  <option value="ends with">ends with</option>
                 </select>
 
                 <!-- Select dropdown for fields with options (category, select, radio, checkbox, file) -->
@@ -227,22 +220,13 @@
                       v-model="condition.operator"
                       @change="updateValue"
                     >
-                      <option value="is">is</option>
-                      <option value="is not">is not</option>
-                      <option value="contains">contains</option>
-                      <option value="does not contain">does not contain</option>
-                      <option value="empty">empty</option>
-                      <option value="not empty">not empty</option>
-                      <option value="greater than">greater than</option>
-                      <option value="less than">less than</option>
-                      <option value="greater than or equal">
-                        greater than or equal
+                      <option
+                        v-for="operator in getOperatorOptions(condition)"
+                        :key="operator.value"
+                        :value="operator.value"
+                      >
+                        {{ operator.label }}
                       </option>
-                      <option value="less than or equal">
-                        less than or equal
-                      </option>
-                      <option value="starts with">starts with</option>
-                      <option value="ends with">ends with</option>
                     </select>
 
                     <!-- Select dropdown for fields with options (category, select, radio, checkbox, file) -->
@@ -409,6 +393,30 @@ export default {
   mixins: [conditional_logic_field],
   computed: {
     /**
+     * Available operator options for conditional logic conditions
+     * Centralized in one place for easy maintenance
+     */
+    operatorOptions() {
+      return [
+        { value: "is", label: "is" },
+        { value: "is not", label: "is not" },
+        { value: "contains", label: "contains" },
+        { value: "does not contain", label: "does not contain" },
+        { value: "empty", label: "empty" },
+        { value: "not empty", label: "not empty" },
+        { value: "greater than", label: "greater than" },
+        { value: "less than", label: "less than" },
+        {
+          value: "greater than or equal",
+          label: "greater than or equal",
+        },
+        { value: "less than or equal", label: "less than or equal" },
+        { value: "starts with", label: "starts with" },
+        { value: "ends with", label: "ends with" },
+      ];
+    },
+
+    /**
      * Filtered available fields - excludes the current field being edited
      */
     filteredAvailableFields() {
@@ -469,6 +477,59 @@ export default {
       });
 
       return filtered;
+    },
+  },
+  methods: {
+    /**
+     * Get filtered operator options based on the selected field type
+     * Number fields show numeric operators (greater than, less than, etc.)
+     * Other fields hide numeric operators
+     * @param {Object} condition - The condition object containing the selected field
+     * @returns {Array} Filtered array of operator options
+     */
+    getOperatorOptions(condition) {
+      if (!condition || !condition.field) {
+        return this.operatorOptions;
+      }
+
+      const fieldData = this.getFieldData(condition.field);
+      if (!fieldData) {
+        return this.operatorOptions;
+      }
+
+      const fieldType = (fieldData.type || "").toString().trim().toLowerCase();
+
+      // File fields: only show "is" and "is not"
+      if (fieldType === "file" || fieldType === "file_upload") {
+        return this.operatorOptions.filter((operator) =>
+          ["is", "is not"].includes(operator.value),
+        );
+      }
+
+      // Date and time fields: only show "is", "is not", "empty", "not empty"
+      if (fieldType === "date" || fieldType === "time") {
+        return this.operatorOptions.filter((operator) =>
+          ["is", "is not", "empty", "not empty"].includes(operator.value),
+        );
+      }
+
+      // Number fields: show all operators (including numeric comparison)
+      const isNumberField = fieldType === "number" || fieldType === "numeric";
+      if (isNumberField) {
+        return this.operatorOptions;
+      }
+
+      // For other fields, filter out numeric comparison operators
+      const numericOperators = [
+        "greater than",
+        "less than",
+        "greater than or equal",
+        "less than or equal",
+      ];
+
+      return this.operatorOptions.filter(
+        (operator) => !numericOperators.includes(operator.value),
+      );
     },
   },
 };

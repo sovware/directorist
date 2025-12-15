@@ -87,6 +87,7 @@
                 <select
                   class="directorist-conditional-logic-builder__operator-select"
                   v-model="group.conditions[0].operator"
+                  :key="`operator-${group.conditions[0].field || 'empty'}`"
                   @change="updateValue"
                 >
                   <option
@@ -104,6 +105,7 @@
                     !isValueHidden(group.conditions[0].operator) &&
                     needsSelectInput(group.conditions[0])
                   "
+                  :key="`value-select-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
                   class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
                   v-model="group.conditions[0].value"
                   @change="
@@ -130,6 +132,7 @@
                     !needsSelectInput(group.conditions[0]) &&
                     isDateField(group.conditions[0])
                   "
+                  :key="`value-date-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
                   type="date"
                   class="directorist-conditional-logic-builder__value"
                   v-model="group.conditions[0].value"
@@ -148,6 +151,7 @@
                     !needsSelectInput(group.conditions[0]) &&
                     isTimeField(group.conditions[0])
                   "
+                  :key="`value-time-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
                   type="time"
                   class="directorist-conditional-logic-builder__value"
                   v-model="group.conditions[0].value"
@@ -167,6 +171,7 @@
                     !isDateField(group.conditions[0]) &&
                     !isTimeField(group.conditions[0])
                   "
+                  :key="`value-text-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
                   type="text"
                   class="directorist-conditional-logic-builder__value"
                   v-model="group.conditions[0].value"
@@ -218,6 +223,7 @@
                     <select
                       class="directorist-conditional-logic-builder__operator-select"
                       v-model="condition.operator"
+                      :key="`operator-${condition.field || 'empty'}`"
                       @change="updateValue"
                     >
                       <option
@@ -235,6 +241,7 @@
                         !isValueHidden(condition.operator) &&
                         needsSelectInput(condition)
                       "
+                      :key="`value-select-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
                       class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
                       v-model="condition.value"
                       @change="
@@ -258,6 +265,7 @@
                         !needsSelectInput(condition) &&
                         isDateField(condition)
                       "
+                      :key="`value-date-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
                       type="date"
                       class="directorist-conditional-logic-builder__value"
                       v-model="condition.value"
@@ -273,6 +281,7 @@
                         !needsSelectInput(condition) &&
                         isTimeField(condition)
                       "
+                      :key="`value-time-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
                       type="time"
                       class="directorist-conditional-logic-builder__value"
                       v-model="condition.value"
@@ -289,6 +298,7 @@
                         !isDateField(condition) &&
                         !isTimeField(condition)
                       "
+                      :key="`value-text-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
                       type="text"
                       class="directorist-conditional-logic-builder__value"
                       v-model="condition.value"

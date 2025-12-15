@@ -441,9 +441,49 @@ export default {
 		},
 
 		onFieldChange(condition) {
-			// When field changes, reset value and potentially update operators
+			// When field changes, reset value
 			condition.value = '';
-			this.updateValue();
+
+			// Get valid operators for the new field type
+			// Check if getOperatorOptions method exists (defined in component)
+			let validOperators = [];
+			if (
+				this.getOperatorOptions &&
+				typeof this.getOperatorOptions === 'function'
+			) {
+				validOperators = this.getOperatorOptions(condition);
+			} else {
+				// Fallback: use all operatorOptions if method not available
+				validOperators = this.operatorOptions || [];
+			}
+
+			// Check if current operator is valid for the new field type
+			if (validOperators && validOperators.length > 0) {
+				const isValidOperator = validOperators.some(
+					(op) => op.value === condition.operator
+				);
+
+				// If current operator is not valid, reset to first valid operator (usually "is")
+				if (!isValidOperator && condition.operator) {
+					condition.operator = validOperators[0].value;
+				}
+				// If no operator is set, set to first valid operator
+				else if (!condition.operator) {
+					condition.operator = validOperators[0].value;
+				}
+			} else {
+				// If no valid operators found, reset to "is" as default
+				if (!condition.operator) {
+					condition.operator = 'is';
+				}
+			}
+
+			// Force Vue to update by calling updateValue in next tick
+			// This ensures the operator dropdown re-renders with correct options
+			// and value field visibility updates correctly
+			this.$nextTick(() => {
+				this.updateValue();
+			});
 		},
 
 		onConditionValueUpdate(condition, value) {

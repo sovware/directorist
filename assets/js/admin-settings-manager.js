@@ -2651,6 +2651,18 @@
 							if (!condition || !condition.field) {
 								return false;
 							}
+							var fieldValue = (condition.field || '')
+								.toString()
+								.trim()
+								.toLowerCase();
+
+							// Check by field key (listing_img, image_upload)
+							if (
+								fieldValue === 'listing_img' ||
+								fieldValue === 'image_upload'
+							) {
+								return true;
+							}
 							var fieldData = this.getFieldData(condition.field);
 							if (!fieldData) {
 								return false;
@@ -54066,7 +54078,6 @@
 									'social',
 									'pricing',
 									'map',
-									'listing_img',
 									'listing_type',
 									'privacy_policy',
 								];
@@ -54144,11 +54155,17 @@
 								.toString()
 								.trim()
 								.toLowerCase();
+							var fieldValue = (condition.field || '')
+								.toString()
+								.trim()
+								.toLowerCase();
 
-							// File fields: only show "is" and "is not"
+							// File fields (including listing_img): only show "is" and "is not"
 							if (
 								fieldType === 'file' ||
-								fieldType === 'file_upload'
+								fieldType === 'file_upload' ||
+								fieldValue === 'listing_img' ||
+								fieldValue === 'image_upload'
 							) {
 								return this.operatorOptions.filter(
 									function (operator) {

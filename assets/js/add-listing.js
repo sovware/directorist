@@ -178,6 +178,29 @@
 				 * Get field value from form
 				 */
 				function getFieldValue(fieldKey, $) {
+					// Special handling for listing_img field (image upload field)
+					// listing_img uses ez-media-uploader, not plupload
+					if (
+						fieldKey === 'listing_img' ||
+						fieldKey === 'image_upload'
+					) {
+						// Check for .directorist-form-image-upload-field wrapper
+						var $imageUploadWrapper = $(
+							'.directorist-form-image-upload-field'
+						);
+						if ($imageUploadWrapper.length) {
+							// When files are uploaded, preview section gets ezmu--show class
+							var $previewSection = $imageUploadWrapper.find(
+								'.ezmu__preview-section.ezmu--show'
+							);
+							if ($previewSection.length > 0) {
+								return 'uploaded';
+							}
+						}
+						// If no images found, return null (not uploaded)
+						return null;
+					}
+
 					// Special handling for common field keys
 					var $field = null;
 
@@ -2355,19 +2378,70 @@
 						true
 					);
 
-					// Listen to file upload events (plupload)
+					// Listen to file upload events (plupload and ez-media-uploader)
 					// Use MutationObserver to watch for when files are uploaded or removed
 					var fileUploadObserver = new MutationObserver(function (
 						mutations
 					) {
 						mutations.forEach(function (mutation) {
+							// Handle attribute changes (class changes - for ezmu--show class)
+							if (
+								mutation.type === 'attributes' &&
+								mutation.attributeName === 'class'
+							) {
+								var $target = $(mutation.target);
+								// Check if ezmu--show class was added to preview section
+								if (
+									$target.hasClass('ezmu__preview-section') &&
+									$target.hasClass('ezmu--show')
+								) {
+									var $imageWrapper = $target.closest(
+										'.directorist-form-image-upload-field'
+									);
+									if ($imageWrapper.length) {
+										var fieldKey = 'listing_img';
+										setTimeout(function () {
+											triggerConditionalLogicEvaluation(
+												fieldKey,
+												fieldKey,
+												$imageWrapper
+													.find('.ez-media-uploader')
+													.first()
+											);
+										}, 200);
+									}
+								}
+								// Also check if ezmu--show was removed (image deleted)
+								if (
+									$target.hasClass('ezmu__preview-section') &&
+									!$target.hasClass('ezmu--show')
+								) {
+									var _$imageWrapper = $target.closest(
+										'.directorist-form-image-upload-field'
+									);
+									if (_$imageWrapper.length) {
+										var _fieldKey = 'listing_img';
+										setTimeout(function () {
+											triggerConditionalLogicEvaluation(
+												_fieldKey,
+												_fieldKey,
+												_$imageWrapper
+													.find('.ez-media-uploader')
+													.first()
+											);
+										}, 200);
+									}
+								}
+							}
+
 							// Handle added nodes (file uploads)
 							if (mutation.addedNodes.length > 0) {
 								mutation.addedNodes.forEach(function (node) {
 									if (node.nodeType === 1) {
 										// Element node
 										var $node = $(node);
-										// Check if a thumbnail was added to plupload-thumbs container
+
+										// Check for plupload thumbnails
 										if (
 											$node.hasClass('thumb') ||
 											$node.closest('.plupload-thumbs')
@@ -2379,7 +2453,7 @@
 												'.directorist-form-group, .directorist-custom-field-file-upload'
 											);
 											if ($fileWrapper.length) {
-												var fieldKey =
+												var _fieldKey2 =
 													$fileWrapper.attr(
 														'data-field-key'
 													) ||
@@ -2391,7 +2465,7 @@
 														.attr('data-field-key');
 
 												// If we don't have field key, try to get it from hidden input
-												if (!fieldKey) {
+												if (!_fieldKey2) {
 													var $hiddenInput =
 														$fileWrapper
 															.find(
@@ -2414,18 +2488,18 @@
 																		'['
 																	)[0];
 															}
-															fieldKey =
+															_fieldKey2 =
 																inputName;
 														}
 													}
 												}
-												if (fieldKey) {
+												if (_fieldKey2) {
 													// Trigger conditional logic evaluation after a short delay
 													// to ensure DOM is fully updated
 													setTimeout(function () {
 														triggerConditionalLogicEvaluation(
-															fieldKey,
-															fieldKey,
+															_fieldKey2,
+															_fieldKey2,
 															$fileWrapper
 																.find(
 																	'input[type="hidden"]'
@@ -2434,6 +2508,38 @@
 														);
 													}, 100);
 												}
+											}
+										}
+
+										// Check for ez-media-uploader image uploads (listing_img)
+										// Check for preview section with ezmu--show class or file items
+										if (
+											$node.hasClass(
+												'ezmu__preview-section'
+											) ||
+											$node.hasClass('ezmu--show') ||
+											$node.closest(
+												'.ezmu__preview-section.ezmu--show'
+											).length
+										) {
+											// Find the image upload field wrapper
+											var _$imageWrapper2 = $node.closest(
+												'.directorist-form-image-upload-field'
+											);
+											if (_$imageWrapper2.length) {
+												var _fieldKey3 = 'listing_img';
+												// Trigger conditional logic evaluation after a delay
+												setTimeout(function () {
+													triggerConditionalLogicEvaluation(
+														_fieldKey3,
+														_fieldKey3,
+														_$imageWrapper2
+															.find(
+																'.ez-media-uploader'
+															)
+															.first()
+													);
+												}, 200);
 											}
 										}
 									}
@@ -2446,6 +2552,7 @@
 									if (node.nodeType === 1) {
 										// Element node
 										var $node = $(node);
+
 										// Check if a thumbnail was removed from plupload-thumbs container
 										if (
 											$node.hasClass('thumb') ||
@@ -2470,7 +2577,7 @@
 														'.directorist-form-group, .directorist-custom-field-file-upload'
 													);
 												if ($fileWrapper.length) {
-													var fieldKey =
+													var _fieldKey4 =
 														$fileWrapper.attr(
 															'data-field-key'
 														) ||
@@ -2484,7 +2591,7 @@
 															);
 
 													// If we don't have field key, try to get it from hidden input
-													if (!fieldKey) {
+													if (!_fieldKey4) {
 														var $hiddenInput =
 															$fileWrapper
 																.find(
@@ -2509,18 +2616,18 @@
 																			'['
 																		)[0];
 																}
-																fieldKey =
+																_fieldKey4 =
 																	inputName;
 															}
 														}
 													}
-													if (fieldKey) {
+													if (_fieldKey4) {
 														// Trigger conditional logic evaluation after a delay
 														// to ensure plupload has finished updating the hidden input
 														setTimeout(function () {
 															triggerConditionalLogicEvaluation(
-																fieldKey,
-																fieldKey,
+																_fieldKey4,
+																_fieldKey4,
 																$fileWrapper
 																	.find(
 																		'input[type="hidden"]'
@@ -2529,6 +2636,54 @@
 															);
 														}, 300);
 													}
+												}
+											}
+										}
+
+										// Check for ez-media-uploader image removals (listing_img)
+										if (
+											$node.hasClass('ezmu__file-item') ||
+											$node.hasClass('ezmu__new-file') ||
+											$node.closest('.ez-media-uploader')
+												.length ||
+											$node.hasClass(
+												'ezmu__old-files-meta'
+											) ||
+											$node.find(
+												'.ezmu__file-item, .ezmu__new-file'
+											).length
+										) {
+											// Find the image upload field wrapper from the parent container
+											var $uploaderContainer = $(
+												mutation.target
+											);
+											if (
+												$uploaderContainer.hasClass(
+													'ez-media-uploader'
+												) ||
+												$uploaderContainer.closest(
+													'.ez-media-uploader'
+												).length
+											) {
+												var _$imageWrapper3 =
+													$uploaderContainer.closest(
+														'.directorist-form-image-upload-field'
+													);
+												if (_$imageWrapper3.length) {
+													var _fieldKey5 =
+														'listing_img';
+													// Trigger conditional logic evaluation after a delay
+													setTimeout(function () {
+														triggerConditionalLogicEvaluation(
+															_fieldKey5,
+															_fieldKey5,
+															_$imageWrapper3
+																.find(
+																	'.ez-media-uploader'
+																)
+																.first()
+														);
+													}, 300);
 												}
 											}
 										}
@@ -2542,6 +2697,9 @@
 					fileUploadObserver.observe(document.body, {
 						childList: true,
 						subtree: true,
+						attributes: true,
+						// Watch for attribute changes (like class changes)
+						attributeFilter: ['class'], // Only watch for class attribute changes
 					});
 
 					// Also listen for click events on file remove buttons

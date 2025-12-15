@@ -437,7 +437,6 @@ export default {
         "social",
         "pricing",
         "map",
-        "listing_img",
         "listing_type",
         "privacy_policy",
       ];
@@ -498,9 +497,18 @@ export default {
       }
 
       const fieldType = (fieldData.type || "").toString().trim().toLowerCase();
+      const fieldValue = (condition.field || "")
+        .toString()
+        .trim()
+        .toLowerCase();
 
-      // File fields: only show "is" and "is not"
-      if (fieldType === "file" || fieldType === "file_upload") {
+      // File fields (including listing_img): only show "is" and "is not"
+      if (
+        fieldType === "file" ||
+        fieldType === "file_upload" ||
+        fieldValue === "listing_img" ||
+        fieldValue === "image_upload"
+      ) {
         return this.operatorOptions.filter((operator) =>
           ["is", "is not"].includes(operator.value),
         );

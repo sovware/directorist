@@ -853,6 +853,16 @@ export default {
 			if (!condition || !condition.field) {
 				return false;
 			}
+			const fieldValue = (condition.field || '')
+				.toString()
+				.trim()
+				.toLowerCase();
+
+			// Check by field key (listing_img, image_upload)
+			if (fieldValue === 'listing_img' || fieldValue === 'image_upload') {
+				return true;
+			}
+
 			const fieldData = this.getFieldData(condition.field);
 			if (!fieldData) {
 				return false;

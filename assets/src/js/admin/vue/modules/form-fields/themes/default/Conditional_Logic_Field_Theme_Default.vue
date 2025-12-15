@@ -511,13 +511,12 @@ export default {
         .toString()
         .trim()
         .toLowerCase();
-
-      // File fields (including listing_img): only show "is" and "is not"
+      
+      // File fields (including listing_img), radio fields: only show "is" and "is not"
       if (
         fieldType === "file" ||
         fieldType === "file_upload" ||
-        fieldValue === "listing_img" ||
-        fieldValue === "image_upload"
+        fieldType === "radio" 
       ) {
         return this.operatorOptions.filter((operator) =>
           ["is", "is not"].includes(operator.value),
@@ -528,6 +527,13 @@ export default {
       if (fieldType === "date" || fieldType === "time") {
         return this.operatorOptions.filter((operator) =>
           ["is", "is not", "empty", "not empty"].includes(operator.value),
+        );
+      }
+
+      // Checkbox & Select fields: only show "is", "is not", "empty", "not empty", "contains", "does not contain"
+      if (fieldType === "checkbox" || fieldType === "select") {
+        return this.operatorOptions.filter((operator) =>
+          ["is", "is not", "empty", "not empty", "contains", "does not contain"].includes(operator.value),
         );
       }
 

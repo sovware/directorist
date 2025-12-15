@@ -54551,12 +54551,11 @@
 								.trim()
 								.toLowerCase();
 
-							// File fields (including listing_img): only show "is" and "is not"
+							// File fields (including listing_img), radio fiel: only show "is" and "is not"
 							if (
 								fieldType === 'file' ||
 								fieldType === 'file_upload' ||
-								fieldValue === 'listing_img' ||
-								fieldValue === 'image_upload'
+								fieldType === 'radio'
 							) {
 								return this.operatorOptions.filter(
 									function (operator) {
@@ -54576,6 +54575,25 @@
 											'is not',
 											'empty',
 											'not empty',
+										].includes(operator.value);
+									}
+								);
+							}
+
+							// Checkbox & Select fields: only show "is", "is not", "empty", "not empty", "contains", "does not contain"
+							if (
+								fieldType === 'checkbox' ||
+								fieldType === 'select'
+							) {
+								return this.operatorOptions.filter(
+									function (operator) {
+										return [
+											'is',
+											'is not',
+											'empty',
+											'not empty',
+											'contains',
+											'does not contain',
 										].includes(operator.value);
 									}
 								);

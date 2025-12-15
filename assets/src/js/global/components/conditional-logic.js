@@ -38,6 +38,18 @@ function mapFieldKeyToSelector(fieldKey) {
  * Get field value from form
  */
 function getFieldValue(fieldKey, $) {
+	// Special handling for privacy_policy field (checkbox field)
+	if (fieldKey === 'privacy_policy') {
+		const $privacyCheckbox = $(
+			'input[name="privacy_policy"], #directorist_submit_privacy_policy'
+		);
+		if ($privacyCheckbox.length) {
+			// Return "checked" if checkbox is checked, "unchecked" if not
+			return $privacyCheckbox.is(':checked') ? 'checked' : '';
+		}
+		return ''; // Default to unchecked if field not found
+	}
+
 	// Special handling for listing_img field (image upload field)
 	// listing_img uses ez-media-uploader, not plupload
 	if (fieldKey === 'listing_img' || fieldKey === 'image_upload') {

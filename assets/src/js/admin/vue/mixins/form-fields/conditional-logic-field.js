@@ -722,6 +722,22 @@ export default {
 				];
 			}
 
+			// Handle privacy_policy field - return "Checked" and "Unchecked" options
+			if (condition && condition.field) {
+				const fieldValue = (condition.field || '')
+					.toString()
+					.trim()
+					.toLowerCase();
+				if (fieldValue === 'privacy_policy') {
+					return [
+						{
+							value: 'checked',
+							label: 'Checked',
+						},
+					];
+				}
+			}
+
 			// Handle select/radio/checkbox fields - get options from widget
 			if (['select', 'radio', 'checkbox'].includes(fieldType) && widget) {
 				const options = [];
@@ -847,6 +863,18 @@ export default {
 			if (this.isFileField(condition)) {
 				return true;
 			}
+
+			// Privacy policy field needs a selectbox with "Checked" and "Unchecked" options
+			if (condition && condition.field) {
+				const fieldValue = (condition.field || '')
+					.toString()
+					.trim()
+					.toLowerCase();
+				if (fieldValue === 'privacy_policy') {
+					return true;
+				}
+			}
+
 			return this.getValueOptions(condition) !== null;
 		},
 

@@ -2575,6 +2575,22 @@
 								];
 							}
 
+							// Handle privacy_policy field - return "Checked" and "Unchecked" options
+							if (condition && condition.field) {
+								var fieldValue = (condition.field || '')
+									.toString()
+									.trim()
+									.toLowerCase();
+								if (fieldValue === 'privacy_policy') {
+									return [
+										{
+											value: 'checked',
+											label: 'Checked',
+										},
+									];
+								}
+							}
+
 							// Handle select/radio/checkbox fields - get options from widget
 							if (
 								['select', 'radio', 'checkbox'].includes(
@@ -2760,6 +2776,17 @@
 							// File fields need a selectbox with "uploaded" option
 							if (this.isFileField(condition)) {
 								return true;
+							}
+
+							// Privacy policy field needs a selectbox with "Checked" and "Unchecked" options
+							if (condition && condition.field) {
+								var fieldValue = (condition.field || '')
+									.toString()
+									.trim()
+									.toLowerCase();
+								if (fieldValue === 'privacy_policy') {
+									return true;
+								}
 							}
 							return this.getValueOptions(condition) !== null;
 						},
@@ -54470,7 +54497,6 @@
 									'pricing',
 									'map',
 									'listing_type',
-									'privacy_policy',
 								];
 
 								// Filter out the current field, conditional logic keys, and excluded types
@@ -54551,11 +54577,12 @@
 								.trim()
 								.toLowerCase();
 
-							// File fields (including listing_img), radio fiel: only show "is" and "is not"
+							// File fields (including listing_img), radio fields, privacy policy field: only show "is" and "is not"
 							if (
 								fieldType === 'file' ||
 								fieldType === 'file_upload' ||
-								fieldType === 'radio'
+								fieldType === 'radio' ||
+								fieldValue === 'privacy_policy'
 							) {
 								return this.operatorOptions.filter(
 									function (operator) {

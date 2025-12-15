@@ -471,6 +471,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			);
 
 			searchFields.forEach((searchField) => {
+				const wrapper = searchField.closest(
+					'.directorist-search-field'
+				);
+
+				if (!wrapper) {
+					return;
+				}
+
 				let inputFieldValue = searchField.value;
 
 				if (searchField.classList.contains('directorist-select')) {
@@ -479,28 +487,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				if (inputFieldValue !== '') {
-					searchField.parentElement.classList.add('input-has-value');
+					wrapper.classList.add('input-has-value');
 
-					if (
-						!searchField.parentElement.classList.contains(
-							'input-is-focused'
-						)
-					) {
-						searchField.parentElement.classList.add(
-							'input-is-focused'
-						);
+					if (!wrapper.classList.contains('input-is-focused')) {
+						wrapper.classList.add('input-is-focused');
 					}
 				} else {
 					inputFieldValue = '';
 
-					if (
-						searchField.parentElement.classList.contains(
-							'input-has-value'
-						)
-					) {
-						searchField.parentElement.classList.remove(
-							'input-has-value'
-						);
+					if (wrapper.classList.contains('input-has-value')) {
+						wrapper.classList.remove('input-has-value');
 					}
 				}
 			});
@@ -1480,19 +1476,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				radius_search_item_selector = '.directorist-location-js';
 			}
 
-			// Now, use jQuery to loop through the elements
-			$(radius_search_item_selector).each((index, locationDOM) => {
-				const $location = $(locationDOM);
-				const isEmpty = $location.val() === '';
+			// Check if radius search item selector elements exist
+			const $radiusSearchItems = $(radius_search_item_selector);
 
-				const $container = $location
-					.closest('.directorist-contents-wrap')
-					.find(
-						'.directorist-search-field-radius_search, .directorist-radius-search'
-					);
+			if ($radiusSearchItems.length === 0) {
+				// If no elements found, hide all radius search containers
+				$(
+					'.directorist-search-field-radius_search, .directorist-radius-search'
+				).css({
+					display: 'none',
+				});
+			} else {
+				// Loop through the elements
+				$radiusSearchItems.each((index, locationDOM) => {
+					const $location = $(locationDOM);
+					const isEmpty = $location.val() === '';
 
-				$container.css({ display: isEmpty ? 'none' : 'block' });
-			});
+					const $container = $location
+						.closest('.directorist-contents-wrap')
+						.find(
+							'.directorist-search-field-radius_search, .directorist-radius-search'
+						);
+
+					$container.css({ display: isEmpty ? 'none' : 'block' });
+				});
+			}
 		}
 
 		// handleRadiusVisibility Trigger
@@ -1992,6 +2000,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				const sliderRangeValue = sliderItem.querySelector(
 					'.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range'
 				);
+				const minInputName = minInput?.getAttribute('name') || '';
+				const maxInputName = maxInput?.getAttribute('name') || '';
 
 				const isRTL = document.dir === 'rtl';
 
@@ -2003,18 +2013,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				// Parse the URL parameters
 				const urlParams = new URLSearchParams(window.location.search);
 				const customNumberParams = urlParams.get('custom-number');
-				const customRangeMinParams = urlParams.get(
+				const rangeFieldName = sliderRange?.getAttribute('name') || '';
+				const fieldRangeValueParam = rangeFieldName
+					? urlParams.get(rangeFieldName)
+					: null;
+				const specificRangeMinParam = minInputName
+					? urlParams.get(minInputName)
+					: null;
+				const specificRangeMaxParam = maxInputName
+					? urlParams.get(maxInputName)
+					: null;
+				const globalRangeMinParam = urlParams.get(
 					'directorist-custom-range-slider__value__min'
 				);
-				const customRangeMaxParams = urlParams.get(
+				const globalRangeMaxParam = urlParams.get(
 					'directorist-custom-range-slider__value__max'
 				);
+				const effectiveRangeMinParam =
+					specificRangeMinParam ?? globalRangeMinParam;
+				const effectiveRangeMaxParam =
+					specificRangeMaxParam ?? globalRangeMaxParam;
 				const locationDistanceParams = urlParams.get('miles');
-				const milesParams = new URLSearchParams(
-					window.location.search
-				).has('miles');
+				const milesParams = urlParams.has('miles');
 
 				if (
+					rangeFieldName === 'miles' &&
 					locationDistanceParams !== '0-0' &&
 					sliderDefaultValue >= 0
 				) {
@@ -2022,11 +2045,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				// if already have custom values, then slider is activated
-				if (customNumberParams && customNumberParams !== '0-0') {
+				if (fieldRangeValueParam && fieldRangeValueParam !== '0-0') {
+					sliderActivated = true;
+				} else if (customNumberParams && customNumberParams !== '0-0') {
 					sliderActivated = true;
 				} else if (
-					customRangeMaxParams &&
-					customRangeMaxParams !== '0'
+					effectiveRangeMaxParam &&
+					effectiveRangeMaxParam !== '0'
 				) {
 					sliderActivated = true;
 				}
@@ -2054,7 +2079,20 @@ document.addEventListener('DOMContentLoaded', () => {
 					let maxValue = maxInput.value;
 
 					// Assign min-max values from custom-range-slider params
-					if (customNumberParams && customNumberParams !== '0-0') {
+					if (
+						fieldRangeValueParam &&
+						fieldRangeValueParam !== '0-0'
+					) {
+						const [min, max] = fieldRangeValueParam
+							.split('-')
+							.map(Number);
+
+						minValue = min;
+						maxValue = max;
+					} else if (
+						customNumberParams &&
+						customNumberParams !== '0-0'
+					) {
 						const [min, max] = customNumberParams
 							.split('-')
 							.map(Number);
@@ -2062,10 +2100,13 @@ document.addEventListener('DOMContentLoaded', () => {
 						// Use the split values as min-max
 						minValue = min;
 						maxValue = max;
-					} else if (customRangeMinParams && customRangeMaxParams) {
+					} else if (
+						effectiveRangeMinParam &&
+						effectiveRangeMaxParam
+					) {
 						// Modal Search Form
-						minValue = customRangeMinParams;
-						maxValue = customRangeMaxParams;
+						minValue = effectiveRangeMinParam;
+						maxValue = effectiveRangeMaxParam;
 					}
 
 					// Initial with [min, max] value
@@ -2117,7 +2158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					rangeSliderObserver();
 				});
 
-				// Update slider config
+				// Update slider config - update values but don't trigger change during drag
 				slider.directoristCustomRangeSlider?.on(
 					'update',
 					function (values, handle) {
@@ -2135,12 +2176,16 @@ document.addEventListener('DOMContentLoaded', () => {
 							sliderRangeShow.innerHTML = rangeValue;
 						if (sliderRangeValue) {
 							sliderRangeValue.setAttribute('value', rangeValue);
-							if (!rangeInitLoad) {
-								$(sliderRangeValue).trigger('change');
-							}
 						}
 					}
 				);
+
+				// Trigger change only when dragging ends (mouse/touch released)
+				slider.directoristCustomRangeSlider?.on('end', function () {
+					if (sliderRangeValue && !rangeInitLoad) {
+						$(sliderRangeValue).trigger('change');
+					}
+				});
 
 				// Mark init complete
 				rangeInitLoad = false;

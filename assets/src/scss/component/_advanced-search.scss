@@ -65,7 +65,6 @@
 		flex-direction: column;
 		@include e(element) {
 			overflow: hidden;
-			&.directorist-search-field-location,
 			&.directorist-search-field-category {
 				.directorist-search-field.input-is-focused {
 					margin-top: 0;

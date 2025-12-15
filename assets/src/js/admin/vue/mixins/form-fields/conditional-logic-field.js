@@ -915,6 +915,24 @@ export default {
 		},
 
 		/**
+		 * Check if field is a color type
+		 */
+		isColorField(condition) {
+			if (!condition || !condition.field) {
+				return false;
+			}
+			const fieldData = this.getFieldData(condition.field);
+			if (!fieldData) {
+				return false;
+			}
+			const fieldType = (fieldData.type || '')
+				.toString()
+				.trim()
+				.toLowerCase();
+			return fieldType === 'color' || fieldType === 'color_picker';
+		},
+
+		/**
 		 * Check if field is a file type
 		 */
 		isFileField(condition) {

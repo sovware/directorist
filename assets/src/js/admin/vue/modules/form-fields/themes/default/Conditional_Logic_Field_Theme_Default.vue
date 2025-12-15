@@ -163,13 +163,33 @@
                   "
                 />
 
+                <!-- Color input for color fields -->
+                <input
+                  v-if="
+                    !isValueHidden(group.conditions[0].operator) &&
+                    !needsSelectInput(group.conditions[0]) &&
+                    isColorField(group.conditions[0])
+                  "
+                  :key="`value-color-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
+                  type="color"
+                  class="directorist-conditional-logic-builder__value"
+                  v-model="group.conditions[0].value"
+                  @input="
+                    onConditionValueUpdate(
+                      group.conditions[0],
+                      $event.target.value,
+                    )
+                  "
+                />
+
                 <!-- Text input for fields without options -->
                 <input
                   v-if="
                     !isValueHidden(group.conditions[0].operator) &&
                     !needsSelectInput(group.conditions[0]) &&
                     !isDateField(group.conditions[0]) &&
-                    !isTimeField(group.conditions[0])
+                    !isTimeField(group.conditions[0]) &&
+                    !isColorField(group.conditions[0])
                   "
                   :key="`value-text-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
                   type="text"
@@ -290,13 +310,30 @@
                       "
                     />
 
+                    <!-- Color input for color fields -->
+                    <input
+                      v-if="
+                        !isValueHidden(condition.operator) &&
+                        !needsSelectInput(condition) &&
+                        isColorField(condition)
+                      "
+                      :key="`value-color-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
+                      type="color"
+                      class="directorist-conditional-logic-builder__value"
+                      v-model="condition.value"
+                      @input="
+                        onConditionValueUpdate(condition, $event.target.value)
+                      "
+                    />
+
                     <!-- Text input for fields without options -->
                     <input
                       v-if="
                         !isValueHidden(condition.operator) &&
                         !needsSelectInput(condition) &&
                         !isDateField(condition) &&
-                        !isTimeField(condition)
+                        !isTimeField(condition) &&
+                        !isColorField(condition)
                       "
                       :key="`value-text-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
                       type="text"

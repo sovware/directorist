@@ -26829,6 +26829,10 @@ input[type="radio"]:checked::before {
 	transition: all 0.3s ease;
 }
 .directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value[type="color"] {
+	cursor: pointer;
+}
+.directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value:focus {
 	outline: none;
 	border: none;
@@ -37542,6 +37546,10 @@ input[type="radio"]:checked::before {
 	border: none;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value[type="color"] {
+	cursor: pointer;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value:focus {
@@ -48550,6 +48558,10 @@ input[type="radio"]:checked::before {
 	border: none;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value[type="color"] {
+	cursor: pointer;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value:focus {

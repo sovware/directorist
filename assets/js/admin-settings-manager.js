@@ -2718,6 +2718,26 @@
 							return fieldType === 'time';
 						},
 						/**
+						 * Check if field is a color type
+						 */
+						isColorField: function isColorField(condition) {
+							if (!condition || !condition.field) {
+								return false;
+							}
+							var fieldData = this.getFieldData(condition.field);
+							if (!fieldData) {
+								return false;
+							}
+							var fieldType = (fieldData.type || '')
+								.toString()
+								.trim()
+								.toLowerCase();
+							return (
+								fieldType === 'color' ||
+								fieldType === 'color_picker'
+							);
+						},
+						/**
 						 * Check if field is a file type
 						 */
 						isFileField: function isFileField(condition) {
@@ -83025,11 +83045,108 @@
 																								group
 																									.conditions[0]
 																							) &&
+																							_vm.isColorField(
+																								group
+																									.conditions[0]
+																							)
+																								? _c(
+																										'input',
+																										{
+																											directives:
+																												[
+																													{
+																														name: 'model',
+																														rawName:
+																															'v-model',
+																														value: group
+																															.conditions[0]
+																															.value,
+																														expression:
+																															'group.conditions[0].value',
+																													},
+																												],
+																											key: 'value-color-'
+																												.concat(
+																													group
+																														.conditions[0]
+																														.field ||
+																														'empty',
+																													'-'
+																												)
+																												.concat(
+																													group
+																														.conditions[0]
+																														.operator ||
+																														'empty'
+																												),
+																											staticClass:
+																												'directorist-conditional-logic-builder__value',
+																											attrs: {
+																												type: 'color',
+																											},
+																											domProps:
+																												{
+																													value: group
+																														.conditions[0]
+																														.value,
+																												},
+																											on: {
+																												input: [
+																													function (
+																														$event
+																													) {
+																														if (
+																															$event
+																																.target
+																																.composing
+																														)
+																															return;
+																														_vm.$set(
+																															group
+																																.conditions[0],
+																															'value',
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																													function (
+																														$event
+																													) {
+																														return _vm.onConditionValueUpdate(
+																															group
+																																.conditions[0],
+																															$event
+																																.target
+																																.value
+																														);
+																													},
+																												],
+																											},
+																										}
+																									)
+																								: _vm._e(),
+																							_vm._v(
+																								' '
+																							),
+																							!_vm.isValueHidden(
+																								group
+																									.conditions[0]
+																									.operator
+																							) &&
+																							!_vm.needsSelectInput(
+																								group
+																									.conditions[0]
+																							) &&
 																							!_vm.isDateField(
 																								group
 																									.conditions[0]
 																							) &&
 																							!_vm.isTimeField(
+																								group
+																									.conditions[0]
+																							) &&
+																							!_vm.isColorField(
 																								group
 																									.conditions[0]
 																							)
@@ -83694,10 +83811,92 @@
 																													!_vm.needsSelectInput(
 																														condition
 																													) &&
+																													_vm.isColorField(
+																														condition
+																													)
+																														? _c(
+																																'input',
+																																{
+																																	directives:
+																																		[
+																																			{
+																																				name: 'model',
+																																				rawName:
+																																					'v-model',
+																																				value: condition.value,
+																																				expression:
+																																					'condition.value',
+																																			},
+																																		],
+																																	key: 'value-color-'
+																																		.concat(
+																																			condition.field ||
+																																				'empty',
+																																			'-'
+																																		)
+																																		.concat(
+																																			condition.operator ||
+																																				'empty'
+																																		),
+																																	staticClass:
+																																		'directorist-conditional-logic-builder__value',
+																																	attrs: {
+																																		type: 'color',
+																																	},
+																																	domProps:
+																																		{
+																																			value: condition.value,
+																																		},
+																																	on: {
+																																		input: [
+																																			function (
+																																				$event
+																																			) {
+																																				if (
+																																					$event
+																																						.target
+																																						.composing
+																																				)
+																																					return;
+																																				_vm.$set(
+																																					condition,
+																																					'value',
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																			function (
+																																				$event
+																																			) {
+																																				return _vm.onConditionValueUpdate(
+																																					condition,
+																																					$event
+																																						.target
+																																						.value
+																																				);
+																																			},
+																																		],
+																																	},
+																																}
+																															)
+																														: _vm._e(),
+																													_vm._v(
+																														' '
+																													),
+																													!_vm.isValueHidden(
+																														condition.operator
+																													) &&
+																													!_vm.needsSelectInput(
+																														condition
+																													) &&
 																													!_vm.isDateField(
 																														condition
 																													) &&
 																													!_vm.isTimeField(
+																														condition
+																													) &&
+																													!_vm.isColorField(
 																														condition
 																													)
 																														? _c(

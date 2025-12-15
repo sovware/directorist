@@ -7643,6 +7643,9 @@ input[type="radio"] {
 			color: #141921;
 			border: none;
 			transition: all 0.3s ease;
+			&[type="color"] {
+				cursor: pointer;
+			}
 
 			&:focus {
 				outline: none;

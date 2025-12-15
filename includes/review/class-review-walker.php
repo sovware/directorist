@@ -128,7 +128,7 @@ class Walker extends Walker_Comment {
                             <div class="directorist-review-single__author__img comment-author vcard">
                                 <?php
                                 if ( $args['avatar_size'] != 0 ) {
-                                    echo wp_kses_post( get_avatar( $comment, $args['avatar_size'] ) );
+                                    echo apply_filters( 'directorist_review_avatar', wp_kses_post( get_avatar( $comment, $args['avatar_size'] ) ), $comment, $args['avatar_size'] );
                                 }
                                 ?>
                             </div>

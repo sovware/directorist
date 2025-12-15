@@ -657,7 +657,7 @@ export default {
             selectedWidgets: [],
           },
           avatar: {
-            label: "Add Avatar",
+            label: "Avatar",
             selectedWidgets: [],
           },
         },

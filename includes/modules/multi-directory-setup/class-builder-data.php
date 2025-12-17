@@ -2265,7 +2265,6 @@ class Builder_Data {
 
                 'enable_single_listing_page'                  => [
                     'type'            => 'toggle',
-                    // Toggle moved to the right side as per new UI requirement
                     'toggle_position' => 'right',
                     'label'           => __( 'Enable Custom Single Listing Page', 'directorist' ),
                     'description'     => __(
@@ -2278,7 +2277,6 @@ class Builder_Data {
                 'single_listings_shortcodes'                  => [
                     'type'        => 'shortcode-list',
                     'buttonLabel' => __( 'Generate Shortcodes', 'directorist' ),
-                    // Label & description removed as per new UI requirement
                     'label'       => __( 'Generate shortcodes', 'directorist' ),
                     'description' => '',
                     'shortcodes'  => [

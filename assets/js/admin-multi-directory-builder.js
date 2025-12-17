@@ -3661,9 +3661,6 @@
 														case 3:
 															response =
 																_context.sent;
-															console.log(
-																response
-															);
 															if (!response) {
 																_context.next = 4;
 																break;
@@ -3840,7 +3837,6 @@
 							)();
 						},
 						parseApiResponse: function parseApiResponse(response) {
-							console.log(response);
 							var data = response;
 
 							// Handle different API response formats
@@ -50679,7 +50675,7 @@
 							return options_values.includes(value);
 						},
 						/* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
 					},
 				};
@@ -72599,11 +72595,11 @@
 													},
 													[
 														_vm._v(
-															'\n            ' +
+															'\r\n            ' +
 																_vm._s(
 																	alert.message
 																) +
-																'\n        '
+																'\r\n        '
 														),
 													]
 												);

@@ -17,7 +17,7 @@ $fields = $searchform->get_basic_fields();
         <?php if ( ! empty( $fields ) ) : ?>
 
             <?php foreach ( $fields as $key => $field ) { ?>
-                <div class="directorist-search-modal__input <?php echo $key === 'radius_search' ? 'directorist-radius-search' : ''; ?>">
+                <div class="directorist-search-modal__input <?php echo $key === 'title' ? 'directorist-search-query' : ''; ?> <?php echo $key === 'radius_search' ? 'directorist-radius-search' : ''; ?>">
                     <?php $searchform->field_template( $field ); ?>
                 </div>
             <?php } ?>

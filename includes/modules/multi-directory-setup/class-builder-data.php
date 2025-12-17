@@ -2268,7 +2268,7 @@ class Builder_Data {
                     'toggle_position' => 'right',
                     'label'           => __( 'Enable Custom Single Listing Page', 'directorist' ),
                     'description'     => __(
-                        'When enabled, the default single listing is replaced by your selected page.', 'directorist' 
+                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content', 'directorist'
                     ),
                     'labelType' => 'h3',
                     'value'     => false,

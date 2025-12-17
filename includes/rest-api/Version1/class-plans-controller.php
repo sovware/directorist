@@ -757,7 +757,7 @@ class Plans_Controller extends Posts_Controller {
 
             $data = array(
                 'key'            => $field_key,
-                'label'          => !empty($form_field['label']) ? $form_field['label'] : '',
+                'label'          => ! empty( $form_field['label'] ) ? $form_field['label'] : '',
                 'is_preset'      => ( $form_field['widget_group'] === 'preset' ),
                 'is_active'      => (bool) $this->get_plan_meta( $plan, '_' . $field_key, $active_key ),
                 'hide_from_plan' => (bool) $this->get_plan_meta( $plan, '_hide_' . $field_key, $hide_key ),

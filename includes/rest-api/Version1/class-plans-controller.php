@@ -34,6 +34,14 @@ class Plans_Controller extends Posts_Controller {
     protected $post_type = 'atbdp_pricing_plans';
 
     /**
+     * Active pricing plan plugin type.
+     * 'atbdp' for directorist-pricing-plans, 'dwpp' for directorist-woocommerce-pricing-plans
+     *
+     * @var string
+     */
+    protected $active_plugin_type = null;
+
+    /**
      * Register the routes for plans.
      */
     public function register_routes() {
@@ -78,17 +86,79 @@ class Plans_Controller extends Posts_Controller {
         );
     }
 
+    /**
+     * Get active pricing plan plugin type.
+     * Priority: directorist-pricing-plans > directorist-woocommerce-pricing-plans
+     * 
+     * Note: Plugins are mutually exclusive - only one can be active at a time.
+     * This method checks both class existence and admin settings.
+     *
+     * @return string 'atbdp' or 'dwpp' or null
+     */
+    protected function get_active_plugin_type() {
+        if ( null !== $this->active_plugin_type ) {
+            return $this->active_plugin_type;
+        }
+
+        // Priority: directorist-pricing-plans first
+        // Check class exists AND admin setting is enabled
+        if ( class_exists( 'ATBDP_Pricing_Plans' ) ) {
+            $fee_manager_enabled = get_directorist_option( 'fee_manager_enable', 1 );
+            if ( $fee_manager_enabled ) {
+                $this->active_plugin_type = 'atbdp';
+                return $this->active_plugin_type;
+            }
+        }
+
+        // Fallback to WooCommerce pricing plans
+        // Check class exists AND admin setting is enabled
+        if ( class_exists( 'DWPP_Pricing_Plans' ) ) {
+            $woo_pricing_plans_enabled = get_directorist_option( 'woo_pricing_plans_enable', 1 );
+            if ( $woo_pricing_plans_enabled ) {
+                $this->active_plugin_type = 'dwpp';
+                return $this->active_plugin_type;
+            }
+        }
+
+        $this->active_plugin_type = null;
+        return $this->active_plugin_type;
+    }
+
     public function get_items_permissions_check( $request ) {
         if ( ! is_fee_manager_active() ) {
-            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), 400 );
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension disabled.', 'directorist' ), array( 'status' => 400 ) );
         }
+        
+        $plugin_type = $this->get_active_plugin_type();
+        if ( ! $plugin_type ) {
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
+        }
+
+        // Verify post type is registered
+        $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
+        if ( ! post_type_exists( $post_type ) ) {
+            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type "' . $post_type . '" is not registered.', 'directorist' ), array( 'status' => 500 ) );
+        }
+        
         return parent::get_items_permissions_check( $request );
     }
 
     public function get_item_permissions_check( $request ) {
         if ( ! is_fee_manager_active() ) {
-            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), 400 );
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension disabled.', 'directorist' ), array( 'status' => 400 ) );
         }
+        
+        $plugin_type = $this->get_active_plugin_type();
+        if ( ! $plugin_type ) {
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
+        }
+
+        // Verify post type is registered
+        $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
+        if ( ! post_type_exists( $post_type ) ) {
+            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type "' . $post_type . '" is not registered.', 'directorist' ), array( 'status' => 500 ) );
+        }
+        
         return parent::get_item_permissions_check( $request );
     }
 
@@ -106,8 +176,11 @@ class Plans_Controller extends Posts_Controller {
         $query_results = $this->get_plans( $query_args );
 
         $objects = array();
+        $plugin_type = $this->get_active_plugin_type();
+        $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
+        
         foreach ( $query_results['objects'] as $object ) {
-            if ( ! $this->check_post_permissions( $this->post_type, 'read', $object->ID ) ) {
+            if ( ! $this->check_post_permissions( $post_type, 'read', $object->ID ) ) {
                 continue;
             }
 
@@ -172,11 +245,25 @@ class Plans_Controller extends Posts_Controller {
      * @return array
      */
     protected function prepare_objects_query( $request ) {
+        $plugin_type = $this->get_active_plugin_type();
+        $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
+
         $args                   = [];
         $args['order']          = $request['order'];
         $args['orderby']        = $request['orderby'];
         $args['paged']          = $request['page'];
         $args['posts_per_page'] = $request['per_page'];
+
+        // For WooCommerce products, add tax query for product type
+        if ( 'dwpp' === $plugin_type ) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'product_type',
+                    'field'    => 'slug',
+                    'terms'    => 'listing_pricing_plans',
+                ),
+            );
+        }
 
         if ( directorist_is_multi_directory_enabled() && ! empty( $request['directory'] ) ) {
             $args['meta_key'] = '_assign_to_directory';
@@ -200,7 +287,7 @@ class Plans_Controller extends Posts_Controller {
         $args = apply_filters( "directorist_rest_{$this->post_type}_object_query", $args, $request );
 
         // Force the post_type argument, since it's not a user input variable.
-        $args['post_type'] = $this->post_type;
+        $args['post_type'] = $post_type;
 
         return $this->prepare_items_query( $args, $request );
     }
@@ -228,9 +315,19 @@ class Plans_Controller extends Posts_Controller {
         do_action( 'directorist_rest_before_query', 'get_plan_item', $request, $id );
 
         $post = get_post( $id );
+        $plugin_type = $this->get_active_plugin_type();
+        $expected_post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
 
-        if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
+        if ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $expected_post_type ) {
             return new WP_Error( "directorist_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'directorist' ), array( 'status' => 404 ) );
+        }
+
+        // For WooCommerce products, verify it's a pricing plan product
+        if ( 'dwpp' === $plugin_type ) {
+            $product = wc_get_product( $id );
+            if ( ! $product || ! $product->is_type( 'listing_pricing_plans' ) ) {
+                return new WP_Error( "directorist_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'directorist' ), array( 'status' => 404 ) );
+            }
         }
 
         $data = $this->prepare_item_for_response( $post, $request );
@@ -280,6 +377,46 @@ class Plans_Controller extends Posts_Controller {
     }
 
     /**
+     * Get meta value based on active plugin type.
+     *
+     * @param WP_Post $plan Plan post object.
+     * @param string  $meta_key Meta key (for regular pricing plans).
+     * @param string  $dwpp_meta_key Meta key for WooCommerce pricing plans (optional, uses $meta_key if not provided).
+     * @param mixed   $default Default value.
+     * @return mixed
+     */
+    protected function get_plan_meta( $plan, $meta_key, $dwpp_meta_key = null, $default = '' ) {
+        $plugin_type = $this->get_active_plugin_type();
+        $key = ( 'dwpp' === $plugin_type && null !== $dwpp_meta_key ) ? $dwpp_meta_key : $meta_key;
+        $value = get_post_meta( $plan->ID, $key, true );
+        return ( '' !== $value ) ? $value : $default;
+    }
+
+    /**
+     * Get plan price based on active plugin type.
+     *
+     * @param WP_Post $plan Plan post object.
+     * @return float
+     */
+    protected function get_plan_price( $plan ) {
+        $plugin_type = $this->get_active_plugin_type();
+        
+        if ( 'dwpp' === $plugin_type ) {
+            $product = wc_get_product( $plan->ID );
+            if ( $product ) {
+                $sale_price = $product->get_sale_price();
+                if ( '' !== $sale_price && null !== $sale_price ) {
+                    return (float) $sale_price;
+                }
+                return (float) $product->get_regular_price();
+            }
+            return 0.0;
+        }
+        
+        return (float) $this->get_plan_meta( $plan, 'fm_price', null, 0 );
+    }
+
+    /**
      * Get plan data.
      *
      * @param WP_Post   $plan WP_Post instance.
@@ -316,10 +453,10 @@ class Plans_Controller extends Posts_Controller {
                     $base_data['date_modified_gmt'] = directorist_rest_prepare_date_response( $plan->post_date_modified_gmt );
                     break;
                 case 'description':
-                    $base_data['description'] = get_post_meta( $plan->ID, 'fm_description', true );
+                    $base_data['description'] = $this->get_plan_meta( $plan, 'fm_description' );
                     break;
                 case 'hide_description_from_plan':
-                    $base_data['hide_description_from_plan'] = (bool) get_post_meta( $plan->ID, 'hide_description', true );
+                    $base_data['hide_description_from_plan'] = (bool) $this->get_plan_meta( $plan, 'hide_description', 'hide_description' );
                     break;
                 case 'directory':
                     $base_data['directory'] = $this->get_directory_id( $plan );
@@ -328,10 +465,10 @@ class Plans_Controller extends Posts_Controller {
                     $base_data['status'] = $plan->post_status;
                     break;
                 case 'is_recommended':
-                    $base_data['is_recommended'] = ( get_post_meta( $plan->ID, 'default_pln', true ) === 'yes' );
+                    $base_data['is_recommended'] = ( $this->get_plan_meta( $plan, 'default_pln' ) === 'yes' );
                     break;
                 case 'is_hidden':
-                    $base_data['is_hidden'] = ( get_post_meta( $plan->ID, '_hide_from_plans', true ) === 'yes' );
+                    $base_data['is_hidden'] = ( $this->get_plan_meta( $plan, '_hide_from_plans' ) === 'yes' );
                     break;
                 case 'type':
                     $base_data['type'] = $this->get_plan_type( $plan );
@@ -346,22 +483,28 @@ class Plans_Controller extends Posts_Controller {
                     $base_data['currency_symbol'] = html_entity_decode( atbdp_currency_symbol( atbdp_get_payment_currency() ) );
                     break;
                 case 'is_free':
-                    $base_data['is_free'] = (bool) get_post_meta( $plan->ID, 'free_plan', true );
+                    $plugin_type = $this->get_active_plugin_type();
+                    if ( 'dwpp' === $plugin_type ) {
+                        $product = wc_get_product( $plan->ID );
+                        $base_data['is_free'] = $product ? ( (float) $product->get_price() <= 0 ) : false;
+                    } else {
+                        $base_data['is_free'] = (bool) $this->get_plan_meta( $plan, 'free_plan' );
+                    }
                     break;
                 case 'price':
-                    $base_data['price'] = (float) get_post_meta( $plan->ID, 'fm_price', true );
+                    $base_data['price'] = $this->get_plan_price( $plan );
                     break;
                 case 'is_taxable':
-                    $base_data['is_taxable'] = (bool) get_post_meta( $plan->ID, 'plan_tax', true );
+                    $base_data['is_taxable'] = (bool) $this->get_plan_meta( $plan, 'plan_tax' );
                     break;
                 case 'tax_type':
                     $base_data['tax_type'] = $this->get_tax_type( $plan );
                     break;
                 case 'tax':
-                    $base_data['tax'] = (float) get_post_meta( $plan->ID, 'fm_tax', true );
+                    $base_data['tax'] = (float) $this->get_plan_meta( $plan, 'fm_tax' );
                     break;
                 case 'validity_period':
-                    $base_data['validity_period'] = (int) get_post_meta( $plan->ID, 'fm_length', true );
+                    $base_data['validity_period'] = (int) $this->get_plan_meta( $plan, 'fm_length', 'fm_length', 0 );
                     break;
                 case 'validity_period_unit':
                     $base_data['validity_period_unit'] = $this->get_validity_period_unit( $plan );
@@ -370,7 +513,7 @@ class Plans_Controller extends Posts_Controller {
                     $base_data['validity_period_label'] = $this->get_validity_period_label( $plan );
                     break;
                 case 'is_non_expiring':
-                    $base_data['is_non_expiring'] = (bool) get_post_meta( $plan->ID, 'fm_length_unl', true );
+                    $base_data['is_non_expiring'] = (bool) $this->get_plan_meta( $plan, 'fm_length_unl', 'fm_length_unl' );
                     break;
                 case 'playstore_product_id':
                     $base_data['playstore_product_id'] = get_post_meta( $plan->ID, '_dpp_playstore_product_id', true );
@@ -397,13 +540,13 @@ class Plans_Controller extends Posts_Controller {
     }
 
     protected function get_validity_period_label( $plan ) {
-        $is_non_expiring = (bool) get_post_meta( $plan->ID, 'fm_length_unl', true );
+        $is_non_expiring = (bool) $this->get_plan_meta( $plan, 'fm_length_unl', 'fm_length_unl' );
 
         if ( $is_non_expiring ) {
             return esc_html__( 'Lifetime', 'directorist' );
         }
 
-        $validity_period = (int) get_post_meta( $plan->ID, 'fm_length', true );
+        $validity_period = (int) $this->get_plan_meta( $plan, 'fm_length', 'fm_length', 0 );
 
         $translations = array(
             'day'   => _n( 'Day', '%d days', $validity_period, 'directorist' ),
@@ -416,12 +559,12 @@ class Plans_Controller extends Posts_Controller {
     }
 
     protected function get_validity_period_unit( $plan ) {
-        $unit = get_post_meta( $plan->ID, '_recurrence_period_term', true );
+        $unit = $this->get_plan_meta( $plan, '_recurrence_period_term', '_recurrence_period_term', 'day' );
         return ( in_array( $unit, array( 'day', 'week', 'month', 'year' ), true ) ? $unit : 'day' );
     }
 
     protected function get_tax_type( $plan ) {
-        $tax_type = get_post_meta( $plan->ID, 'plan_tax_type', true );
+        $tax_type = $this->get_plan_meta( $plan, 'plan_tax_type' );
 
         if ( ! empty( $tax_type ) && $tax_type === 'percent' ) {
             return 'percentage';
@@ -431,7 +574,7 @@ class Plans_Controller extends Posts_Controller {
     }
 
     protected function get_plan_type( $plan ) {
-        $plan_type = get_post_meta( $plan->ID, 'plan_type', true );
+        $plan_type = $this->get_plan_meta( $plan, 'plan_type', 'plan_type' );
 
         if ( ! empty( $plan_type ) && $plan_type === 'pay_per_listng' ) {
             return 'pay_per_listing';
@@ -442,17 +585,21 @@ class Plans_Controller extends Posts_Controller {
 
     protected function get_features_data( $plan ) {
         $features = array();
+        $plugin_type = $this->get_active_plugin_type();
 
+        // Auto renewal
+        $recurring_key = ( 'dwpp' === $plugin_type ) ? '_enable_subscription' : '_atpp_recurring';
+        $hide_recurring_key = ( 'dwpp' === $plugin_type ) ? '_hide_subscription' : 'hide_recurring';
         $features[] = array(
             'key'            => 'auto_renewal',
             'label'          => esc_html__( 'Auto renewing', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, '_atpp_recurring', true ),
-            'hide_from_plan' => (bool) get_post_meta( $plan->ID, 'hide_recurring', true ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, '_atpp_recurring', $recurring_key ),
+            'hide_from_plan' => (bool) $this->get_plan_meta( $plan, 'hide_recurring', $hide_recurring_key ),
         );
 
         if ( $this->get_plan_type( $plan ) === 'package' ) {
-            $regular_listing_count = (int) get_post_meta( $plan->ID, 'num_regular', true );
-            $unlimited_regular_listings = (bool) get_post_meta( $plan->ID, 'num_regular_unl', true );
+            $regular_listing_count = (int) $this->get_plan_meta( $plan, 'num_regular', 'num_regular', 0 );
+            $unlimited_regular_listings = (bool) $this->get_plan_meta( $plan, 'num_regular_unl', 'num_regular_unl' );
 
             if ( $unlimited_regular_listings ) {
                 $regular_listing_label = __( 'Unlimited Regular Listings', 'directorist' );
@@ -460,16 +607,17 @@ class Plans_Controller extends Posts_Controller {
                 $regular_listing_label = sprintf( _n( '%s Regular Listing', '%s Regular Listings', $regular_listing_count, 'directorist' ), $regular_listing_count );
             }
 
+            $hide_listings_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_listings' : 'hide_listings';
             $features[] = array(
                 'key'            => 'regular_listings',
                 'label'          => $regular_listing_label,
                 'is_active'      => true,
-                'hide_from_plan' => (bool) get_post_meta( $plan->ID, 'hide_listings', true ),
+                'hide_from_plan' => (bool) $this->get_plan_meta( $plan, 'hide_listings', $hide_listings_key ),
                 'limit'          => $unlimited_regular_listings ? -1 : $regular_listing_count,
             );
 
-            $featured_listing_count = (int) get_post_meta( $plan->ID, 'num_featured', true );
-            $unlimited_featured_listings = (bool) get_post_meta( $plan->ID, 'num_featured_unl', true );
+            $featured_listing_count = (int) $this->get_plan_meta( $plan, 'num_featured', 'num_featured', 0 );
+            $unlimited_featured_listings = (bool) $this->get_plan_meta( $plan, 'num_featured_unl', 'num_featured_unl' );
 
             if ( $unlimited_featured_listings ) {
                 $featured_listing_label = __( 'Unlimited Featured Listings', 'directorist' );
@@ -477,69 +625,78 @@ class Plans_Controller extends Posts_Controller {
                 $featured_listing_label = sprintf( _n( '%s Featured Listing', '%s Featured Listings', $featured_listing_count, 'directorist' ), $featured_listing_count );
             }
 
+            $hide_featured_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_featured' : 'hide_featured';
             $features[] = array(
                 'key'            => 'featured_listings',
                 'label'          => $featured_listing_label,
                 'is_active'      => true,
-                'hide_from_plan' => apply_filters( 'atbdp_plan_featured_compare', (bool) get_post_meta( $plan->ID, 'hide_featured', true ) ),
+                'hide_from_plan' => apply_filters( 'atbdp_plan_featured_compare', (bool) $this->get_plan_meta( $plan, 'hide_featured', $hide_featured_key ) ),
                 'limit'          => $unlimited_featured_listings ? -1 : $featured_listing_count,
             );
         } else {
+            $hide_listing_featured_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_listing_featured' : 'hide_listing_featured';
             $features[] = array(
                 'key'            => 'featured_listing',
                 'label'          => esc_html__( 'Listing as featured', 'directorist' ),
-                'is_active'      => (bool) get_post_meta( $plan->ID, 'is_featured_listing', true ),
-                'hide_from_plan' => apply_filters( 'atbdp_plan_featured_compare', (bool) get_post_meta( $plan->ID, 'hide_listing_featured', true ) ), //$this->get_plan_type( $plan ) !== 'pay_per_listing'
+                'is_active'      => (bool) $this->get_plan_meta( $plan, 'is_featured_listing', 'is_featured_listing' ),
+                'hide_from_plan' => apply_filters( 'atbdp_plan_featured_compare', (bool) $this->get_plan_meta( $plan, 'hide_listing_featured', $hide_listing_featured_key ) ),
             );
         }
 
+        $hide_cl_owner_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_cl_owner' : 'hide_Cowner';
         $features[] = array(
             'key'            => 'contact_listing_owner',
             'label'          => esc_html__( 'Contact Owner', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, 'cf_owner', true ),
-            'hide_from_plan' => apply_filters( 'atbdp_plan_contact_owner_compare', (bool) get_post_meta( $plan->ID, 'hide_Cowner', true ) ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, 'cf_owner', 'cf_owner' ),
+            'hide_from_plan' => apply_filters( 'atbdp_plan_contact_owner_compare', (bool) $this->get_plan_meta( $plan, 'hide_Cowner', $hide_cl_owner_key ) ),
         );
 
+        $hide_customer_review_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_customer_review' : 'hide_review';
         $features[] = array(
             'key'            => 'reviews_allowed',
             'label'          => esc_html__( 'Allow Customer Review', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, 'fm_cs_review', true ),
-            'hide_from_plan' => apply_filters( 'atbdp_plan_review_compare', (bool) get_post_meta( $plan->ID, 'hide_review', true ) ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, 'fm_cs_review', 'fm_cs_review' ),
+            'hide_from_plan' => apply_filters( 'atbdp_plan_review_compare', (bool) $this->get_plan_meta( $plan, 'hide_review', $hide_customer_review_key ) ),
         );
 
+        $hide_claim_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_claim' : '_hide_claim';
         $features[] = array(
             'key'            => 'claim_badge_included',
             'label'          => esc_html__( 'Claim Badge Included', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_claim', true ),
-            'hide_from_plan' => apply_filters( 'atbdp_plan_claim_compare', (bool) get_post_meta( $plan->ID, '_hide_claim', true ) ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, '_fm_claim', '_fm_claim' ),
+            'hide_from_plan' => apply_filters( 'atbdp_plan_claim_compare', (bool) $this->get_plan_meta( $plan, '_hide_claim', $hide_claim_key ) ),
         );
 
+        $hide_booking_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_booking' : '_hide_booking';
         $features[] = array(
             'key'            => 'booking_included',
             'label'          => esc_html__( 'Booking Included', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_booking', true ),
-            'hide_from_plan' => apply_filters( 'atbdp_plan_booking_compare', (bool) get_post_meta( $plan->ID, '_hide_booking', true ) ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, '_fm_booking', '_fm_booking' ),
+            'hide_from_plan' => apply_filters( 'atbdp_plan_booking_compare', (bool) $this->get_plan_meta( $plan, '_hide_booking', $hide_booking_key ) ),
         );
 
+        $hide_live_chat_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_live_chat' : '_hide_live_chat';
         $features[] = array(
             'key'            => 'live_chat_included',
             'label'          => esc_html__( 'Live Chat Included', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_live_chat', true ),
-            'hide_from_plan' => apply_filters( 'atbdp_plan_live_chat_compare', (bool) get_post_meta( $plan->ID, '_hide_live_chat', true ) ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, '_fm_live_chat', '_fm_live_chat' ),
+            'hide_from_plan' => apply_filters( 'atbdp_plan_live_chat_compare', (bool) $this->get_plan_meta( $plan, '_hide_live_chat', $hide_live_chat_key ) ),
         );
 
+        $hide_mark_as_sold_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_mark_as_sold' : '_hide_mark_as_sold';
         $features[] = array(
             'key'            => 'mark_as_sold_included',
             'label'          => esc_html__( 'Mark as Sold Included', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, '_fm_mark_as_sold', true ),
-            'hide_from_plan' => apply_filters( 'atbdp_plan_mark_as_sold_compare', (bool) get_post_meta( $plan->ID, '_hide_mark_as_sold', true ) ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, '_fm_mark_as_sold', '_fm_mark_as_sold' ),
+            'hide_from_plan' => apply_filters( 'atbdp_plan_mark_as_sold_compare', (bool) $this->get_plan_meta( $plan, '_hide_mark_as_sold', $hide_mark_as_sold_key ) ),
         );
 
+        $hide_category_key = ( 'dwpp' === $plugin_type ) ? '_dwpp_hide_category' : 'hide_categories';
         $features[] = array(
             'key'            => 'categories_included',
             'label'          => esc_html__( 'All Categories', 'directorist' ),
-            'is_active'      => (bool) get_post_meta( $plan->ID, 'exclude_cat', true ),
-            'hide_from_plan' => (bool) get_post_meta( $plan->ID, 'hide_categories', true ),
+            'is_active'      => (bool) $this->get_plan_meta( $plan, 'exclude_cat', 'exclude_cat' ),
+            'hide_from_plan' => (bool) $this->get_plan_meta( $plan, 'hide_categories', $hide_category_key ),
         );
 
         return $features;
@@ -583,19 +740,34 @@ class Plans_Controller extends Posts_Controller {
                 continue;
             }
 
+            $plugin_type = $this->get_active_plugin_type();
+            $active_key = '_' . $field_key;
+            $hide_key = '_hide_' . $field_key;
+            $unlimited_key = '_unlimited_' . $field_key;
+            $max_key = '_max_' . $field_key;
+            
+            // For WooCommerce, check if it uses _dwpp_ prefix
+            if ( 'dwpp' === $plugin_type ) {
+                // Try _dwpp_ prefix first, fallback to regular
+                $dwpp_active = get_post_meta( $plan->ID, '_dwpp_' . $field_key, true );
+                $dwpp_hide = get_post_meta( $plan->ID, '_dwpp_hide_' . $field_key, true );
+                $active_key = ( '' !== $dwpp_active || '' !== $dwpp_hide ) ? '_dwpp_' . $field_key : $active_key;
+                $hide_key = ( '' !== $dwpp_hide ) ? '_dwpp_hide_' . $field_key : $hide_key;
+            }
+
             $data = array(
                 'key'            => $field_key,
-                'label'          => $form_field['label'],
+                'label'          => ! empty( $form_field['label'] ) ? $form_field['label'] : '',
                 'is_preset'      => ( $form_field['widget_group'] === 'preset' ),
-                'is_active'      => (bool) get_post_meta( $plan->ID, '_' . $field_key, true ),
-                'hide_from_plan' => (bool) get_post_meta( $plan->ID, '_hide_' . $field_key, true ),
+                'is_active'      => (bool) $this->get_plan_meta( $plan, '_' . $field_key, $active_key ),
+                'hide_from_plan' => (bool) $this->get_plan_meta( $plan, '_hide_' . $field_key, $hide_key ),
             );
 
             if ( $data['is_active'] && isset( $form_field['widget_name'] ) && in_array( $form_field['widget_name'], $fields, true ) ) {
-                if ( (bool) get_post_meta( $plan->ID, '_unlimited_' . $field_key, true ) ) {
+                if ( (bool) $this->get_plan_meta( $plan, '_unlimited_' . $field_key, $unlimited_key ) ) {
                     $data['label'] = sprintf( __( '%s (unlimited)', 'directorist' ), $data['label'] );
                     $data['limit'] = -1;
-                } elseif ( ( $count = (int) get_post_meta( $plan->ID, '_max_' . $field_key, true ) ) ) {
+                } elseif ( ( $count = (int) $this->get_plan_meta( $plan, '_max_' . $field_key, $max_key, 0 ) ) ) {
                     $data['label'] = sprintf(
                         translate_nooped_plural( $translations[ $form_field['widget_name'] ], $count, 'directorist' ),
                         $data['label'],

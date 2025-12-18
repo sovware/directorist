@@ -28,6 +28,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
                 <?php endif; ?>
 
+                <!-- Archive sidebar offcanvas toggle -->
+                <?php if ( $listings->sidebar != 'no_sidebar' ) : ?>
+                    <button class="directorist-archive-sidebar-toggle" aria-label="Sidebar Filter Toggle Button">
+                        <?php directorist_icon( 'fas fa-filter' ); ?>
+                        <?php esc_html_e( 'Filter', 'directorist' ) ?>
+                    </button>
+                <?php endif; ?>
+
                 <?php if ( $listings->header ) : ?>
                 
                     <div class="listing-with-sidebar__header">

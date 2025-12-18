@@ -33,7 +33,7 @@ abstract class Posts_Controller extends Abstract_Controller {
         $valid_vars = apply_filters( 'query_vars', $wp->public_query_vars );
 
         $post_type_obj = get_post_type_object( $this->post_type );
-        if ( current_user_can( $post_type_obj->cap->edit_posts ) ) {
+        if ( $post_type_obj && isset( $post_type_obj->cap ) && current_user_can( $post_type_obj->cap->edit_posts ) ) {
             /**
              * Filter the allowed 'private' query vars for authorized users.
              *
@@ -222,7 +222,11 @@ abstract class Posts_Controller extends Abstract_Controller {
         } else {
             $cap              = $contexts[ $context ];
             $post_type_object = get_post_type_object( $post_type );
-            $permission       = current_user_can( $post_type_object->cap->$cap, $object_id );
+            if ( ! $post_type_object || ! isset( $post_type_object->cap ) || ! isset( $post_type_object->cap->$cap ) ) {
+                $permission = false;
+            } else {
+                $permission = current_user_can( $post_type_object->cap->$cap, $object_id );
+            }
         }
 
         return apply_filters( 'directorist_rest_check_permissions', $permission, $context, $object_id, $post_type );

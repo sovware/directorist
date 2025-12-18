@@ -1808,22 +1808,48 @@ export default {
               continue;
             }
 
-            widgets_template.options.fields[option_key] =
-              widget.options.fields[option_key];
+            const savedFieldValue = widget.options.fields[option_key];
+            const templateField = widgets_template.options.fields[option_key];
 
-            // Check if the option key matches a root-level widget property
-            // If it matches, update the root-level property with the field value
-            if (widgets_template.hasOwnProperty(option_key)) {
-              const fieldValue = widget.options.fields[option_key];
-              // Only update if the field has a value property (for form fields)
+            if (
+              templateField &&
+              typeof templateField === "object" &&
+              templateField.hasOwnProperty("type") &&
+              templateField.hasOwnProperty("label")
+            ) {
               if (
-                fieldValue &&
-                typeof fieldValue === "object" &&
-                fieldValue.hasOwnProperty("value")
+                savedFieldValue &&
+                typeof savedFieldValue === "object" &&
+                savedFieldValue.hasOwnProperty("value")
               ) {
-                widgets_template[option_key] = fieldValue.value;
-              } else if (fieldValue !== undefined) {
-                widgets_template[option_key] = fieldValue;
+                widgets_template.options.fields[option_key] = savedFieldValue;
+                widgets_template[option_key] = savedFieldValue.value;
+              } else {
+                widgets_template.options.fields[option_key] = {
+                  ...templateField,
+                  value:
+                    savedFieldValue !== undefined
+                      ? savedFieldValue
+                      : templateField.value,
+                };
+                widgets_template[option_key] =
+                  savedFieldValue !== undefined
+                    ? savedFieldValue
+                    : templateField.value;
+              }
+            } else {
+              widgets_template.options.fields[option_key] = savedFieldValue;
+              if (widgets_template.hasOwnProperty(option_key)) {
+                const fieldValue = savedFieldValue;
+                if (
+                  fieldValue &&
+                  typeof fieldValue === "object" &&
+                  fieldValue.hasOwnProperty("value")
+                ) {
+                  widgets_template[option_key] = fieldValue.value;
+                } else if (fieldValue !== undefined) {
+                  widgets_template[option_key] = fieldValue;
+                }
               }
             }
           }
@@ -2147,7 +2173,7 @@ export default {
         };
       }
 
-      this.available_widgets = updatedWidgets;
+      this.available_widgets = this.safeClone(updatedWidgets, true);
     },
 
     // Import Card Options

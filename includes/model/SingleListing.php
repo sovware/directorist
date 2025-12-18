@@ -646,7 +646,10 @@ class Directorist_Single_Listing {
             'data'       => $this->get_slider_data( $slider ),
         ];
 
-        Helper::get_template( 'single/slider', $args );
+        $template = 'single/slider';
+        $template = apply_filters( 'directorist_single_slider_template', $template, $args );
+
+        Helper::get_template( $template, $args );
     }
 
     public function has_badge( $data ) {

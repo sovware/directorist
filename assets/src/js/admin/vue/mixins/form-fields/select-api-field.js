@@ -136,8 +136,6 @@ export default {
 			try {
 				const response = await this.makeApiRequest();
 
-				console.log(response);
-
 				if (response) {
 					const parsedOptions = this.parseApiResponse(response);
 					this.fetchedOptions = parsedOptions;
@@ -193,8 +191,6 @@ export default {
 		},
 
 		parseApiResponse(response) {
-			console.log(response);
-
 			const data = response;
 
 			// Handle different API response formats

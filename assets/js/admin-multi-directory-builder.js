@@ -47682,6 +47682,64 @@
 									this.filterActiveWidgetsBySelectedWidgetList();
 									return placeholders;
 								},
+							/**
+							 * Check if widget has options
+							 * @param {String} widget_key - Widget key to check
+							 * @returns {Boolean} Whether widget has options
+							 * @public
+							 */
+							hasWidgetOptions: function hasWidgetOptions(
+								widget_key
+							) {
+								if (
+									!widget_key ||
+									!this.available_widgets[widget_key]
+								) {
+									return false;
+								}
+
+								// If widget_key is "title", log options and active_fields via console
+								if (widget_key === 'title') {
+									var _this$fields, _submissionFormFields;
+									var submissionFormFields =
+										(_this$fields = this.fields) === null ||
+										_this$fields === void 0
+											? void 0
+											: _this$fields.submission_form_fields;
+
+									// Get active_widget_fields (added fields) from submission_form_fields
+									var activeWidgetFields =
+										(submissionFormFields === null ||
+										submissionFormFields === void 0 ||
+										(_submissionFormFields =
+											submissionFormFields.value) ===
+											null ||
+										_submissionFormFields === void 0
+											? void 0
+											: _submissionFormFields.fields) ||
+										(submissionFormFields === null ||
+										submissionFormFields === void 0
+											? void 0
+											: submissionFormFields.fields) ||
+										{};
+
+									// Check if tagline exists in activeWidgetFields
+									if (
+										activeWidgetFields &&
+										!activeWidgetFields.hasOwnProperty(
+											'tagline'
+										)
+									) {
+										return false;
+									}
+								}
+
+								// Check if widget has options
+								var hasOptions =
+									!!this.available_widgets[widget_key]
+										.options;
+								return hasOptions;
+							},
 							// Edit Widget
 							editWidget: function editWidget(key) {
 								if (key === this.widgetOptionsWindow.widget) {
@@ -71159,11 +71217,9 @@
 																									'cptm-elements-settings__group__single__action',
 																							},
 																							[
-																								_vm
-																									.available_widgets[
+																								_vm.hasWidgetOptions(
 																									widget_key
-																								]
-																									.options
+																								)
 																									? _c(
 																											'span',
 																											{

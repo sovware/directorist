@@ -5,6 +5,11 @@
         <label v-if="label.length">
           <component :is="labelType">{{ label }}</component>
         </label>
+        <p
+          v-html="description"
+          v-if="description.length"
+          class="cptm-form-group-info"
+        ></p>
       </div>
 
       <div class="directorist_vertical-align-m cptm-input-toggle-btn">
@@ -29,11 +34,6 @@
       class="directorist-conditional-logic-builder"
       v-if="localValue.enabled"
     >
-      <p
-        v-html="description"
-        v-if="description.length"
-        class="directorist-conditional-logic-builder__description"
-      ></p>
       <div class="directorist-conditional-logic-builder__header">
         <select
           class="directorist-conditional-logic-builder__action"
@@ -43,12 +43,9 @@
           <option value="show">Show</option>
           <option value="hide">Hide</option>
         </select>
-        <span
-          class="directorist-conditional-logic-builder__label"
-          v-if="label.length"
-          >{{ label }}</span
+        <span class="directorist-conditional-logic-builder__label"
+          >this field if</span
         >
-        <span class="directorist-conditional-logic-builder__label">if</span>
       </div>
 
       <div class="directorist-conditional-logic-builder__rules-and-groups">
@@ -224,6 +221,15 @@
                 <template
                   v-for="(condition, conditionIndex) in group.conditions"
                 >
+                  <div
+                    class="directorist-conditional-logic-builder__condition-separator"
+                    v-if="conditionIndex > 0"
+                  >
+                    <span
+                      class="directorist-conditional-logic-builder__separator-text"
+                      >{{ group.operator }}</span
+                    >
+                  </div>
                   <div class="directorist-conditional-logic-builder__condition">
                     <select
                       class="directorist-conditional-logic-builder__field"
@@ -372,10 +378,10 @@
 
                 <button
                   type="button"
-                  class="cptm-btn"
+                  class="cptm-btn directorist-conditional-logic-builder__group-footer__add-rule"
                   @click="addCondition(groupIndex)"
                 >
-                  <span>+</span> Rule
+                  <span>+</span> Add Rule
                 </button>
 
                 <button
@@ -406,17 +412,25 @@
           <option value="OR">OR</option>
         </select>
 
-        <button type="button" class="cptm-btn" @click="addRule">
-          <span>+</span> Rule
-        </button>
-
         <button
           type="button"
-          class="cptm-btn cptm-btn-secondery"
-          @click="addGroup"
+          class="cptm-btn directorist-conditional-logic-builder__footer__add-rule"
+          @click="addRule"
         >
-          <span>+</span> Group
+          <span>+</span> Add Rule
         </button>
+
+        <div
+          class="directorist-conditional-logic-builder__footer__add-group-wrap"
+        >
+          <button
+            type="button"
+            class="cptm-btn cptm-btn-secondery directorist-conditional-logic-builder__footer__add-group"
+            @click="addGroup"
+          >
+            <span>+</span> Group
+          </button>
+        </div>
       </div>
     </div>
 

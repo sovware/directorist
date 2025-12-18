@@ -5643,6 +5643,9 @@ input[type="radio"].cptm-radio {
 		padding-right: 10px;
 		flex-grow: 1;
 		margin-bottom: 0;
+		~ .cptm-form-group-info {
+			margin: 5px 0 0;
+		}
 	}
 	.cptm-input-toggle-content {
 		flex: 1;
@@ -7568,7 +7571,7 @@ input[type="radio"] {
 
 	&__group {
 		background-color: #ffffff;
-		border: 1px solid #e5e7eb;
+		border: 1px solid #8c8f94;
 		border-radius: 6px;
 		padding: 16px;
 		position: relative;
@@ -7774,6 +7777,13 @@ input[type="radio"] {
 		justify-content: flex-start;
 		margin-top: 16px;
 		gap: 12px;
+		&__add-group-wrap {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 12px;
+		}
 	}
 
 	.cptm-btn {

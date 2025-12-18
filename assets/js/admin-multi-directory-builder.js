@@ -82406,6 +82406,18 @@
 														1
 													)
 												: _vm._e(),
+											_vm._v(' '),
+											_vm.description.length
+												? _c('p', {
+														staticClass:
+															'cptm-form-group-info',
+														domProps: {
+															innerHTML: _vm._s(
+																_vm.description
+															),
+														},
+													})
+												: _vm._e(),
 										]
 									),
 									_vm._v(' '),
@@ -82562,18 +82574,6 @@
 												'directorist-conditional-logic-builder',
 										},
 										[
-											_vm.description.length
-												? _c('p', {
-														staticClass:
-															'directorist-conditional-logic-builder__description',
-														domProps: {
-															innerHTML: _vm._s(
-																_vm.description
-															),
-														},
-													})
-												: _vm._e(),
-											_vm._v(' '),
 											_c(
 												'div',
 												{
@@ -82664,30 +82664,17 @@
 														]
 													),
 													_vm._v(' '),
-													_vm.label.length
-														? _c(
-																'span',
-																{
-																	staticClass:
-																		'directorist-conditional-logic-builder__label',
-																},
-																[
-																	_vm._v(
-																		_vm._s(
-																			_vm.label
-																		)
-																	),
-																]
-															)
-														: _vm._e(),
-													_vm._v(' '),
 													_c(
 														'span',
 														{
 															staticClass:
 																'directorist-conditional-logic-builder__label',
 														},
-														[_vm._v('if')]
+														[
+															_vm._v(
+																'this field if'
+															),
+														]
 													),
 												]
 											),
@@ -83562,6 +83549,35 @@
 																										conditionIndex
 																									) {
 																										return [
+																											conditionIndex >
+																											0
+																												? _c(
+																														'div',
+																														{
+																															staticClass:
+																																'directorist-conditional-logic-builder__condition-separator',
+																														},
+																														[
+																															_c(
+																																'span',
+																																{
+																																	staticClass:
+																																		'directorist-conditional-logic-builder__separator-text',
+																																},
+																																[
+																																	_vm._v(
+																																		_vm._s(
+																																			group.operator
+																																		)
+																																	),
+																																]
+																															),
+																														]
+																													)
+																												: _vm._e(),
+																											_vm._v(
+																												' '
+																											),
 																											_c(
 																												'div',
 																												{
@@ -84394,7 +84410,7 @@
 																									'button',
 																									{
 																										staticClass:
-																											'cptm-btn',
+																											'cptm-btn directorist-conditional-logic-builder__group-footer__add-rule',
 																										attrs: {
 																											type: 'button',
 																										},
@@ -84418,7 +84434,7 @@
 																											]
 																										),
 																										_vm._v(
-																											' Rule\n              '
+																											' Add Rule\n              '
 																										),
 																									]
 																								),
@@ -84576,7 +84592,7 @@
 																'button',
 																{
 																	staticClass:
-																		'cptm-btn',
+																		'cptm-btn directorist-conditional-logic-builder__footer__add-rule',
 																	attrs: {
 																		type: 'button',
 																	},
@@ -84591,31 +84607,43 @@
 																		),
 																	]),
 																	_vm._v(
-																		' Rule\n      '
+																		' Add Rule\n      '
 																	),
 																]
 															),
 															_vm._v(' '),
 															_c(
-																'button',
+																'div',
 																{
 																	staticClass:
-																		'cptm-btn cptm-btn-secondery',
-																	attrs: {
-																		type: 'button',
-																	},
-																	on: {
-																		click: _vm.addGroup,
-																	},
+																		'directorist-conditional-logic-builder__footer__add-group-wrap',
 																},
 																[
-																	_c('span', [
-																		_vm._v(
-																			'+'
-																		),
-																	]),
-																	_vm._v(
-																		' Group\n      '
+																	_c(
+																		'button',
+																		{
+																			staticClass:
+																				'cptm-btn cptm-btn-secondery directorist-conditional-logic-builder__footer__add-group',
+																			attrs: {
+																				type: 'button',
+																			},
+																			on: {
+																				click: _vm.addGroup,
+																			},
+																		},
+																		[
+																			_c(
+																				'span',
+																				[
+																					_vm._v(
+																						'+'
+																					),
+																				]
+																			),
+																			_vm._v(
+																				' Group\n        '
+																			),
+																		]
 																	),
 																]
 															),

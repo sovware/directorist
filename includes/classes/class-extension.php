@@ -2421,13 +2421,24 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $status['response'] = $response_status;
 
             if ( empty( $response_status['success'] ) ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Activation failed', 'directorist' );
+                $is_item_name_mismatch = isset( $response_status['error'] ) && $response_status['error'] === 'item_name_mismatch';
+                $response_item_id      = isset( $response_status['item_id'] ) ? (int) $response_status['item_id'] : 0;
+                $item_id               = (int) $item_id;
+                
+                // If item_name_mismatch but item_id matches, allow activation
+                if ( $is_item_name_mismatch && $response_item_id === $item_id && ! empty( $item_id ) ) {
+                    $status['success'] = true;
+                    $status['message'] = __( 'License activated successfully', 'directorist' );
+                } else {
+                    $status['success'] = false;
+                    $status['message'] = __( 'Activation failed', 'directorist' );
+                }
 
                 return $status;
             }
 
             $status['success'] = true;
+            $status['message'] = __( 'License activated successfully', 'directorist' );
 
             return $status;
         }

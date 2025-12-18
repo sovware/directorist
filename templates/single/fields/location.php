@@ -14,7 +14,7 @@ if ( empty( $listing->get_location_list() ) ) {
 
 <div class="directorist-info-item directorist-listing-location">
 
-    <?php directorist_icon( 'las la-map-marker' ); ?>
+    <?php directorist_icon( 'las la-map-marked-alt' ); ?>
 
     <span><?php echo wp_kses_post( $listing->get_location_list() ); ?></span>
 

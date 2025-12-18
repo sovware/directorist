@@ -399,8 +399,9 @@
 					.select2-selection {
 						width: 100%;
 					}
-					
-					.directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+
+					.directorist-select2-addons-area
+						.directorist-select2-dropdown-toggle {
 						right: 15px;
 						@media screen and (max-width: 575px) {
 							right: 5px;
@@ -428,24 +429,24 @@
 				}
 				.directorist-color-picker-wrap {
 					top: 12px;
-					~.directorist-search-field__btn--clear {
+					~ .directorist-search-field__btn--clear {
 						bottom: 0;
 					}
 					@media screen and (max-width: 575px) {
 						top: 0;
-						~.directorist-search-field__btn--clear {
+						~ .directorist-search-field__btn--clear {
 							bottom: unset;
 						}
 					}
 				}
 				&:not(.input-has-noLabel) {
 					.directorist-select {
-					~ .directorist-search-field__btn--clear {
-						@media screen and (max-width: 575px) {
-							right: 10px !important;
+						~ .directorist-search-field__btn--clear {
+							@media screen and (max-width: 575px) {
+								right: 10px !important;
+							}
 						}
 					}
-				}
 				}
 				&.atbdp-form-fade:after {
 					margin-top: 3px;
@@ -591,7 +592,8 @@
 					&.select2-container--default .select2-selection--single {
 						width: 100%;
 					}
-					.directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+					.directorist-select2-addons-area
+						.directorist-select2-dropdown-toggle {
 						position: absolute;
 						right: 5px;
 						padding: 0;
@@ -666,7 +668,7 @@
 						bottom: 12px;
 						&.directorist-filter-location-icon {
 							right: 0;
-        					bottom: 8px;
+							bottom: 8px;
 						}
 					}
 				}
@@ -840,7 +842,6 @@
 			}
 			.directorist-search-basic-dropdown-content {
 				position: absolute;
-				top: 100%;
 				left: 0;
 				width: 100%;
 				min-width: 150px;

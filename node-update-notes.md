@@ -89,6 +89,8 @@ For production environments, it is strongly recommended to use Node.js 20.x (LTS
 
 Each time you update Node.js or npm, record the changes here for tracking:
 
+### [2025-11-18] Node.js 22.20.0 → 24.11.1, npm 10.9.3 → 11.6.2
+
 ### [2025-09-29] Node.js 22.19.0 → 22.20.0, npm 10.9.3
 
 ### [2025-08-05] Node.js 22.17.0 → 22.19.0, npm 10.9.2 → 10.9.3
@@ -119,6 +121,6 @@ Each time you update Node.js or npm, record the changes here for tracking:
 - Notes:
   - node-sass deprecated, replaced with sass
   - Webpack 4.x may have compatibility issues with Node.js 22.x
-  - All dependencies reinstalled after cache clean
+  - All dependencies reinstalled after cache clean.
 
 ---

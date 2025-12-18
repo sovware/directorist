@@ -1,14 +1,23 @@
 <template>
   <div class="cptm-form-group">
-    <div class="cptm-input-toggle-wrap">
-      <label v-if="label.length">
-        <component :is="labelType">{{ label }}</component>
-        <small v-if="sublabel && sublabel.length" class="cptm-sub-label">{{
-          sublabel
-        }}</small>
-      </label>
+    <div 
+      class="cptm-input-toggle-wrap"
+      :class="{
+        'cptm-input-toggle-left': toggle_position === 'left', 'cptm-input-toggle-right': toggle_position === 'right' 
+      }"
+    >
+      <div class="cptm-input-toggle-content">
+        <label v-if="label.length">
+          <component :is="labelType">{{ label }}</component>
+        </label>
+        <p
+          class="cptm-form-group-info"
+          v-if="description.length"
+          v-html="description"
+        ></p>
+      </div>
 
-      <div class="directorist_vertical-align-m">
+      <div class="directorist_vertical-align-m cptm-input-toggle-btn">
         <div class="directorist_item">
           <span
             class="cptm-input-toggle"
@@ -36,12 +45,6 @@
           </a>
         </div>
       </div>
-
-      <p
-        class="cptm-form-group-info"
-        v-if="description.length"
-        v-html="description"
-      ></p>
     </div>
 
     <confirmation-modal

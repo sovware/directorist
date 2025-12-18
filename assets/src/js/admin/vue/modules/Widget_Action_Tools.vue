@@ -5,11 +5,11 @@
         </a>
 
         <a href="#" v-if="canEdit" @click.prevent="$emit('edit')">
-            <span class="uil uil-cog"></span>
+            <span class="la la-cog"></span>
         </a>
 
         <a href="#" v-if="canTrash" @click.prevent="$emit('trash')">
-            <span class="uil uil-trash-alt"></span>
+            <span class="la la-trash-alt"></span>
         </a>
     </div>
 </template>

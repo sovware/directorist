@@ -2170,6 +2170,9 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 		background-color: #f9fafb;
 		border-radius: 6px 0 0 6px;
 		cursor: move;
+		~ .cptm-form-builder-group-field-item-header-content {
+			border-radius: 0 6px 6px 0;
+		}
 	}
 	.cptm-form-builder-group-field-item-header-content {
 		display: flex;
@@ -2178,7 +2181,7 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 		flex-grow: 1;
 		padding: 8px 12px;
 		background: #ffffff;
-		border-radius: 0 6px 6px 0;
+		border-radius: 6px;
 		box-sizing: border-box;
 	}
 
@@ -2304,7 +2307,9 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 	align-items: center;
 	border-radius: 6px;
 	border: 1px solid #e5e7eb;
-	transition: border-radius ease 1s;
+	transition:
+		border-radius ease 1s,
+		border-color ease 1s;
 
 	.cptm-form-builder-group-field-item-title {
 		flex: 1;
@@ -4640,7 +4645,7 @@ input[type="radio"].cptm-radio {
 	font-size: 12px;
 	font-weight: 400;
 	color: #747c89;
-	margin: 0;
+	margin: 0 0 5px;
 }
 
 .cptm-widget-actions-tools {

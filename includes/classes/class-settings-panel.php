@@ -1501,14 +1501,14 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'count_loggedin_user' => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Include Logged-In User Views', 'directorist' ),
-                        'description'   => __( 'Count views from logged-in users toward popularity.', 'directorist' ),
-                        'value'         => false,
+                        'label'         => __( 'Track Logged-In User Views', 'directorist' ),
+                        'description'   => __( 'Include visits from logged-in users in total listing view counts.', 'directorist' ),
+                        'value'         => true,
                     ],
                     'dynamic_view_count_cache' => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Dynamic View Count Cache', 'directorist' ),
-                        'description'   => __( 'Enable real-time view count updates when using page caching plugins (W3 Total Cache, LiteSpeed Cache, etc). This ensures accurate listing view statistics even with caching enabled.', 'directorist' ),
+                        'label'         => __( 'Cache-Compatible View Tracking', 'directorist' ),
+                        'description'   => __( 'Enable real-time view count updates even when using caching plugins like W3 Total Cache or LiteSpeed Cache.', 'directorist' ),
                         'value'         => false,
                     ],
                     'average_review_for_popular' => [
@@ -1572,7 +1572,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'map_view_zoom_level' => [
                         'label'         => __( 'Zoom Level for Map View', 'directorist' ),
-                        'description'   => __( 'Here 0 means 100% zoom-out. 18 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist' ),
+                        'description'   => __( 'Here 0 means 100% zoom-out. 18 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 18.', 'directorist' ),
                         'type'          => 'number',
                         'value'         => '1',
                         'min'           => '1',
@@ -3626,14 +3626,14 @@ Please remember that your order may be canceled if you do not make your payment 
 
                     'enable_archive_template'    => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Enable Archive Template', 'directorist' ),
-                        'description' => __( 'Enable WordPress default archive template for category, location and tag. And this will disable the page based archive.','directorist' ),
+                        'label'         => __( 'Use WordPress Default Archive', 'directorist' ),
+                        'description' => __( 'Enable WordPress’s built-in archive pages for categories, locations, and tags. Turning this on will disable Directorist’s custom archive pages.','directorist' ),
                         'value'         => false
                     ],
                     'category_base'    => [
                         'type'          => 'text',
-                        'label'         => __( 'Category Base', 'directorist' ),
-                        'description' => __( 'Category base is the slug used in the URL.','directorist' ),
+                        'label'         => __( 'Category URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your category archive URLs. Example: yourdomain.com/single-category/restaurant/','directorist' ),
                         'value'         => directorist_get_default_category_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
@@ -3644,8 +3644,8 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'location_base'    => [
                         'type'          => 'text',
-                        'label'         => __( 'Location Base', 'directorist' ),
-                        'description' => __( 'Location base is the slug used in the URL.','directorist' ),
+                        'label'         => __( 'Location URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your location archive URLs. Example: yourdomain.com/single-location/new-york/','directorist' ),
                         'value'         => directorist_get_default_location_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
@@ -3656,8 +3656,8 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'tag_base'    => [
                         'type'          => 'text',
-                        'label'         => __( 'Tag Base', 'directorist' ),
-                        'description' => __( 'Tag base is the slug used in the URL.','directorist' ),
+                        'label'         => __( 'Tag URL Slug', 'directorist' ),
+                        'description' => __( 'The text used in your tag archive URLs. Example: yourdomain.com/single-tag/popular/','directorist' ),
                         'value'         => directorist_get_default_tag_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
@@ -3696,6 +3696,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'new_user_registration', 'enable_email_verification'
                                                 ],
                                             ],
+                                            'listings_view' => [
+                                                'title'       => __( 'Listings View', 'directorist' ),
+                                                'fields'      => [
+                                                    'count_loggedin_user', 
+                                                    'dynamic_view_count_cache',
+                                                ],
+                                            ],
                                             'listings_currency' => [
                                                 'title'       => __( 'Listing Currency', 'directorist' ),
                                                 'fields'      => [
@@ -3715,7 +3722,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 ],
                                             ],
                                             'listings_archive' => [
-                                                'title'       => __( 'Listings Archive', 'directorist' ),
+                                                'title'       => __( 'Taxonomy Archive', 'directorist' ),
                                                 'fields'      => [
                                                     'enable_archive_template',
                                                     'category_base',
@@ -3882,7 +3889,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 'title'       => __( 'Popular Badge', 'directorist' ),
                                                 'description' => '',
                                                 'fields'      => [
-                                                    'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'count_loggedin_user', 'dynamic_view_count_cache', 'popular_back_color',
+                                                    'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'popular_back_color',
                                                 ],
                                             ],
                                             'featured_badge' => [

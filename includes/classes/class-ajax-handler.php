@@ -278,6 +278,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $location_id            = ! empty( $_POST['in_loc'] ) ? absint( $_POST['in_loc'] ) : 0;
             $location               = get_term_by( 'id', $location_id, ATBDP_LOCATION );
 
+            // Fire hook for extensions to track search results
+            do_action( 'directorist_instant_search_completed', $listings, $args );
+
             wp_send_json(
                 [
                     'search_result'  => $archive_view,
@@ -369,6 +372,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
         // handle_prepare_listings_export_file_request
         public function handle_prepare_listings_export_file_request() {
+
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error(
+                    [
+                        'message' => __( 'You are not allowed to export listings.', 'directorist' ),
+                    ],
+                    403
+                );
+            }
 
             if ( ! directorist_verify_nonce() ) {
                 $data['success'] = false;
@@ -603,6 +615,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function directorist_type_slug_change() {
+
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error(
+                    [
+                        'error' => __( 'You are not allowed to modify directory slugs.', 'directorist' ),
+                    ],
+                    403
+                );
+            }
 
             if ( ! directorist_verify_nonce() ) {
                 wp_send_json(
@@ -1016,6 +1037,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             $listing_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
+            $label      = ( ! empty( $_POST['label'] ) ) ? sanitize_text_field( wp_unslash( $_POST['label'] ) ) : '';
             $user_id    = get_current_user_id();
             $favorites  = directorist_get_user_favorites( $user_id );
 
@@ -1025,7 +1047,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 directorist_add_user_favorites( $user_id, $listing_id );
             }
 
-            echo wp_kses_post( the_atbdp_favourites_link( $listing_id ) );
+            echo wp_kses_post( the_atbdp_favourites_link( $listing_id ) . $label );
 
             wp_die();
         }

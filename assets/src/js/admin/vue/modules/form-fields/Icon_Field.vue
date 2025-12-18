@@ -1,5 +1,8 @@
 <template>
   <div class="cptm-form-group directorist-type-icon-select">
+    <label v-if="( label.length )">
+        <component :is="labelType">{{ label }}</component>
+    </label>
     <div class="icon-picker-wrap" ref="iconPickerElm"></div>
   </div>
 </template>

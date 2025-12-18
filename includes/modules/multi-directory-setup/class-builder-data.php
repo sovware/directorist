@@ -313,7 +313,7 @@ class Builder_Data {
                         'review'                 => [
                             'type'    => 'section',
                             'label'   => __( 'Review', 'directorist' ),
-                            'icon'    => 'las la-star',
+                            'icon'    => 'la la-star-o',
                             'options' => [
                                 'custom_block_id'      => [
                                     'type'  => 'text',
@@ -463,7 +463,7 @@ class Builder_Data {
                             'options' => [
                                 'label'                => [
                                     'type'  => 'text',
-                                    'label' => __( 'Label', 'directorist' ),
+                                    'label' => __( 'Section Name', 'directorist' ),
                                     'value' => 'Author Info',
                                 ],
                                 'display_email'        => [
@@ -492,12 +492,12 @@ class Builder_Data {
                             'options' => [
                                 'label'                => [
                                     'type'  => 'text',
-                                    'label' => __( 'Label', 'directorist' ),
+                                    'label' => __( 'Section Name', 'directorist' ),
                                     'value' => 'Contact Listings Owner Form',
                                 ],
                                 'icon'                 => [
                                     'type'  => 'icon',
-                                    'label' => __( 'Icon', 'directorist' ),
+                                    'label' => __( 'Section Icon', 'directorist' ),
                                     'value' => 'las la-phone',
                                 ],
                                 'custom_block_id'      => [
@@ -574,7 +574,7 @@ class Builder_Data {
                                 ],
                             ]
                         ],
-                        'formgent-form'         => [
+                        'formgent-form'          => [
                             'type'          => 'widget',
                             'label'         => __( 'FormGent Form', 'directorist' ),
                             'icon'          => '<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.7399 1.5H4.87331C4.11485 1.5 3.5 2.11485 3.5 2.87331V5.61994C3.5 6.3784 4.11485 6.99325 4.87331 6.99325H11.7399C12.4983 6.99325 13.1132 6.3784 13.1132 5.61994V2.87331C13.1132 2.11485 12.4983 1.5 11.7399 1.5Z" fill="#747c89"/><path d="M4.87331 21.4131C4.11799 21.4131 3.5 20.7951 3.5 20.0398V11.7999C3.5 11.0446 4.11799 10.4266 4.87331 10.4266H17.9198C18.6751 10.4266 19.2931 11.0446 19.2931 11.7999V14.5465C19.2931 15.3018 18.6751 15.9198 17.9198 15.9198H8.99325V20.0398C8.99325 20.7951 8.37526 21.4131 7.61994 21.4131H4.87331Z" fill="#747c89"/><path d="M16.203 2.87329L16.718 4.41827L18.263 4.93326L16.718 5.44825L16.203 6.99323L15.688 5.44825L14.1431 4.93326L15.688 4.41827L16.203 2.87329Z" fill="#747c89"/><path d="M18.4347 1.5L18.6476 2.14546L19.2931 2.35832L18.6476 2.57118L18.4347 3.21664L18.2219 2.57118L17.5764 2.35832L18.2219 2.14546L18.4347 1.5Z" fill="#747c89"/> </svg>',
@@ -599,7 +599,7 @@ class Builder_Data {
                             'options' => [
                                 'label'                => [
                                     'type'  => 'text',
-                                    'label' => __( 'Label', 'directorist' ),
+                                    'label' => __( 'Section Name', 'directorist' ),
                                     'value' => 'Related Listings',
                                 ],
                                 'custom_block_id'      => [
@@ -663,7 +663,7 @@ class Builder_Data {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label' => __( 'label', 'directorist' ),
+                                    'label' => __( 'Label', 'directorist' ),
                                     'value' => 'Title',
                                 ],
                                 'placeholder' => [
@@ -907,6 +907,7 @@ class Builder_Data {
                             ],
 
                         ],
+                    
                         'number'       => [
                             'options' => [
                                 'label'       => [
@@ -1080,7 +1081,7 @@ class Builder_Data {
                     'widgets'       => [
                         'review'        => [
                             'label'   => 'Review',
-                            'icon'    => 'las la-star',
+                            'icon'    => 'la la-star-o',
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
@@ -1142,7 +1143,7 @@ class Builder_Data {
                 'listing_title'     => [
                     'type'    => 'title',
                     'label'   => __( 'Listing Title', 'directorist' ),
-                    'icon'    => 'uil uil-text-fields',
+                    'icon'    => 'las la-text-height',
                     'hook'    => 'atbdp_listing_title',
                     'show_if' => [
                         'where'      => 'submission_form_fields.value.fields',
@@ -1155,7 +1156,7 @@ class Builder_Data {
                         'fields' => [
                             'show_tagline' => [
                                 'type'  => 'toggle',
-                                'label' => __( 'Show Tagline', 'directorist' ),
+                                'label' => __( 'Tagline', 'directorist' ),
                                 'value' => false,
                             ],
                         ],
@@ -1165,7 +1166,7 @@ class Builder_Data {
                 'excerpt'           => [
                     'type'    => 'excerpt',
                     'label'   => __( 'Excerpt', 'directorist' ),
-                    'icon'    => 'uil uil-text-fields',
+                    'icon'    => 'las la-text-height',
                     'hook'    => 'atbdp_listing_excerpt',
                     'show_if' => [
                         'where'      => 'submission_form_fields.value.fields',
@@ -1200,7 +1201,7 @@ class Builder_Data {
                 'listings_location' => [
                     'type'    => 'list-item',
                     'label'   => __( 'Listings Location', 'directorist' ),
-                    'icon'    => 'uil uil-location-point',
+                    'icon'    => 'las la-map-marker',
                     'hook'    => 'atbdp_listings_location',
                     'show_if' => [
                         'where'      => 'submission_form_fields.value.fields',
@@ -1450,7 +1451,7 @@ class Builder_Data {
                 'pricing'           => [
                     'type'    => 'price',
                     'label'   => __( 'Pricing', 'directorist' ),
-                    'icon'    => 'uil uil-text-fields',
+                    'icon'    => 'la la-file-invoice-dollar',
                     'hook'    => 'atbdp_single_listings_price',
                     'show_if' => [
                         'where'      => 'submission_form_fields.value.fields',
@@ -1464,41 +1465,41 @@ class Builder_Data {
                     'type'  => 'rating',
                     'label' => __( 'Rating', 'directorist' ),
                     'hook'  => 'atbdp_listings_rating',
-                    'icon'  => 'uil uil-text-fields',
+                    'icon'  => 'la la-star-o',
                 ],
 
                 'featured_badge'    => [
                     'type'  => 'badge',
                     'label' => __( 'Featured', 'directorist' ),
-                    'icon'  => 'uil uil-text-fields',
+                    'icon'  => 'la la-star-o',
                     'hook'  => 'atbdp_featured_badge',
                 ],
 
                 'new_badge'         => [
                     'type'  => 'badge',
                     'label' => __( 'New', 'directorist' ),
-                    'icon'  => 'uil uil-text-fields',
+                    'icon'  => 'la la-bolt',
                     'hook'  => 'atbdp_new_badge',
                 ],
 
                 'popular_badge'     => [
                     'type'  => 'badge',
                     'label' => __( 'Popular', 'directorist' ),
-                    'icon'  => 'uil uil-text-fields',
+                    'icon'  => 'la la-fire',
                     'hook'  => 'atbdp_popular_badge',
                 ],
 
                 'favorite_badge'    => [
                     'type'  => 'icon',
                     'label' => __( 'Favorite', 'directorist' ),
-                    'icon'  => 'uil uil-text-fields',
+                    'icon'  => 'la la-heart-o',
                     'hook'  => 'atbdp_favorite_badge',
                 ],
 
                 'view_count'        => [
                     'type'    => 'view-count',
                     'label'   => __( 'View Count', 'directorist' ),
-                    'icon'    => 'uil uil-text-fields',
+                    'icon'    => 'las la-eye',
                     'hook'    => 'atbdp_view_count',
                     'options' => [
                         'title'  => __( 'View Count Settings', 'directorist' ),
@@ -1506,7 +1507,7 @@ class Builder_Data {
                             'icon' => [
                                 'type'  => 'icon',
                                 'label' => __( 'Icon', 'directorist' ),
-                                'value' => 'las la-heart',
+                                'value' => 'las la-eye',
                             ],
                         ],
                     ],
@@ -1515,7 +1516,7 @@ class Builder_Data {
                 'category'          => [
                     'type'    => 'category',
                     'label'   => __( 'Category', 'directorist' ),
-                    'icon'    => 'uil uil-text-fields',
+                    'icon'    => 'las la-text-height',
                     'hook'    => 'atbdp_category',
                     'show_if' => [
                         'where'      => 'submission_form_fields.value.fields',
@@ -1538,27 +1539,27 @@ class Builder_Data {
                 'user_avatar'       => [
                     'type'     => 'avatar',
                     'label'    => __( 'User Avatar', 'directorist' ),
-                    'icon'     => 'uil uil-text-fields',
+                    'icon'     => 'las la-user-circle',
                     'hook'     => 'atbdp_user_avatar',
-                    'can_move' => false,
+                    'canMove'  => false,
                     'options'  => [
                         'title'  => __( 'User Avatar Settings', 'directorist' ),
                         'fields' => [
                             'align' => [
                                 'type'    => 'radio',
                                 'label'   => __( 'Align', 'directorist' ),
-                                'value'   => 'center',
+                                'value'   => 'left',
                                 'options' => [
-                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'value' => 'right'],
-                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'value' => 'center'],
-                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'value' => 'left'],
+                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'icon' => 'las la-align-right', 'value' => 'right'],
+                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'icon' => 'las la-align-center', 'value' => 'center'],
+                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'icon' => 'las la-align-left', 'value' => 'left'],
                                 ],
                             ],
                         ],
                     ],
                 ],
 
-                 // Custom Fields
+                // Custom Fields
                 'text'              => [
                     'type'    => 'list-item',
                     'label'   => __( 'Text', 'directorist' ),
@@ -1781,7 +1782,7 @@ class Builder_Data {
                 'radio'             => [
                     'type'    => 'list-item',
                     'label'   => __( 'Radio', 'directorist' ),
-                    'icon'    => 'las la-circle',
+                    'icon'    => 'las la-dot-circle',
                     'hook'    => 'atbdp_custom_radio',
                     'show_if' => [
                         'where'      => 'submission_form_fields.value.fields',
@@ -1795,7 +1796,7 @@ class Builder_Data {
                             'icon'       => [
                                 'type'  => 'icon',
                                 'label' => __( 'Icon', 'directorist' ),
-                                'value' => 'las la-circle',
+                                'value' => 'las la-dot-circle',
                             ],
                             'show_label' => [
                                 'type'  => 'toggle',
@@ -1811,7 +1812,7 @@ class Builder_Data {
         $listing_card_conditional_widget = $listing_card_widget;
 
         if ( ! empty( $listing_card_conditional_widget['user_avatar'] ) ) {
-            $listing_card_conditional_widget['user_avatar']['can_move'] = true;
+            $listing_card_conditional_widget['user_avatar']['canMove'] = true;
 
             if ( ! empty( $listing_card_conditional_widget['user_avatar']['options'] ) ) {
                 unset( $listing_card_conditional_widget['user_avatar']['options'] );
@@ -1849,15 +1850,13 @@ class Builder_Data {
             'body'      => [
                 'top'     => [
                     'maxWidget'       => 0,
-                    'acceptedWidgets' => [
-                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
-                    ],
+                    'acceptedWidgets' => [ 'listing_title', "rating", "pricing" ],
+                    "selectedWidgets" => [],
                 ],
                 'bottom'  => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email',
-                        'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
                 'excerpt' => [
@@ -1891,24 +1890,24 @@ class Builder_Data {
                     'label'             => __( 'Avatar', 'directorist' ),
                     'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => [ "user_avatar" ],
+                    'acceptedWidgets' => [ 'user_avatar' ],
                 ],
                 'title'         => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['listing_title'],
+                    "selectedWidgets" => [],
                 ],
                 'quick_actions' => [
-                    'maxWidget'       => 2,
-                    'acceptedWidgets' => ['favorite_badge'],
+                    'maxWidget'       => 3,
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'quick_info'    => [
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
+                    'acceptedWidgets' => ['rating', 'pricing'],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email',
-                        'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
                 'excerpt'       => [
@@ -1930,7 +1929,7 @@ class Builder_Data {
                 ],
 
                 'left'  => [
-                    'maxWidget'       => 1,
+                    'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
                 ],
             ],
@@ -1942,7 +1941,7 @@ class Builder_Data {
                     'label'             => __( 'Top Right', 'directorist' ),
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets'   => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
             ],
 
@@ -1951,7 +1950,8 @@ class Builder_Data {
                     'label'             => __( 'Body Top', 'directorist' ),
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing", "posted_date"],
+                    'acceptedWidgets' => ['listing_title', 'rating', 'pricing'],
+                    "selectedWidgets" => [],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
@@ -1963,8 +1963,7 @@ class Builder_Data {
                     'label'           => __( 'Body Bottom', 'directorist' ),
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email',
-                        'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
                 'excerpt' => [
@@ -1998,11 +1997,12 @@ class Builder_Data {
                     'label'             => __( 'Body Top', 'directorist' ),
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets'   => ['listing_title', 'favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
+                    'acceptedWidgets'   => ['listing_title', 'rating', 'pricing'],
+                    "selectedWidgets"   => [],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
-                    'maxWidget'         => 2,
+                    'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
@@ -2010,8 +2010,7 @@ class Builder_Data {
                     'label'           => __( 'Body Bottom', 'directorist' ),
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email',
-                        'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
                 'excerpt' => [
@@ -2128,12 +2127,12 @@ class Builder_Data {
                         'groupFields'     => [
                             'label' => [
                                 'type'  => 'text',
-                                'label' => 'Group Name',
+                                'label' => 'Section Name',
                                 'value' => 'Section',
                             ],
                             'icon' => [
                                 'type'  => 'icon',
-                                'label'  => __( 'Block/Section Icon', 'directorist' ),
+                                'label'  => __( 'Section Icon', 'directorist' ),
                                 'value' => '',
                             ],
                         ],
@@ -2153,6 +2152,7 @@ class Builder_Data {
                                 [
                                     'label'  => 'General Section',
                                     'lock'   => true,
+                                    'icon'   => 'las la-align-left',
                                     'fields' => ['title'],
                                     'plans'  => [],
                                 ],
@@ -2162,7 +2162,7 @@ class Builder_Data {
                     ] 
                 ),
 
-            // Submission Settings
+                // Submission Settings
                 'enable_sidebar' => [
                     'label' => __( 'Enable Sidebar', 'directorist' ),
                     'type'  => 'toggle',
@@ -2170,6 +2170,7 @@ class Builder_Data {
                 ],
                 'preview_mode'                                => [
                     'label' => __( 'Enable Listing Preview', 'directorist' ),
+                    'description' => __( 'Enable it to see a preview of your listing before you finalize it.', 'directorist' ),
                     'type'  => 'toggle',
                     'value' => true,
                 ],
@@ -2196,12 +2197,12 @@ class Builder_Data {
                     'groupFields'     => [
                         'label'                => [
                             'type'  => 'text',
-                            'label' => __( 'Label', 'directorist' ),
+                            'label' => __( 'Section  Name', 'directorist' ),
                             'value' => 'Section',
                         ],
                         'icon'                 => [
                             'type'  => 'icon',
-                            'label' => __( 'Block/Section Icon', 'directorist' ),
+                            'label' => __( 'Section Icon', 'directorist' ),
                             'value' => '',
                         ],
                         'section_id'           => [
@@ -2261,35 +2262,23 @@ class Builder_Data {
                     ],
                     'value'           => [],
                 ],
+
                 'enable_single_listing_page'                  => [
-                    'type'      => 'toggle',
-                    'label'     => __( 'Enable Custom Single Listing Page', 'directorist' ),
-                    'description' => __(
-                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content.
-', 'directorist' 
+                    'type'            => 'toggle',
+                    'toggle_position' => 'right',
+                    'label'           => __( 'Enable Custom Single Listing Page', 'directorist' ),
+                    'description'     => __(
+                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content', 'directorist'
                     ),
                     'labelType' => 'h3',
                     'value'     => false,
                 ],
-                'single_listing_page'                         => [
-                    'label'             => __( 'Single listing page', 'directorist' ),
-                    'type'              => 'select',
-                    'value'             => '',
-                    'showDefaultOption' => true,
-                    'options'           => directorist_get_all_page_list(),
-                    'show_if'           => [
-                        'where'      => 'enable_single_listing_page',
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
 
                 'single_listings_shortcodes'                  => [
                     'type'        => 'shortcode-list',
-                    'buttonLabel' => '<i class="fas fa-magic"></i>',
+                    'buttonLabel' => __( 'Generate Shortcodes', 'directorist' ),
                     'label'       => __( 'Generate shortcodes', 'directorist' ),
-                    'description' => __( 'Generate single listing shortcodes', 'directorist' ),
+                    'description' => '',
                     'shortcodes'  => [
                         '[directorist_single_listings_header]',
                         [
@@ -2319,6 +2308,38 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                
+                'single_listing_page_title'                    => [
+                    'label'             => __( 'Single listing page', 'directorist' ),
+                    'type'              => 'title',
+                    // Title & description removed as per new UI requirement
+                    'title'             => '',
+                    'description'       => '',
+                    'show_if'           => [
+                        'where'      => 'enable_single_listing_page',
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'single_listing_page'                    => [
+                    'label'             => __( 'Single listing page', 'directorist' ),
+                    'type'              => 'select-api',
+                    'apiPath'           => home_url() . '/wp-json/directorist/v1/pages',
+                    'apiMethod'         => 'GET',
+                    'resyncLabel'       => 'Resync',
+                    'showResyncButton'  => true,
+                    'title'             => 'Assign Your Page',
+                    'description' => __( 'Select a page that contains the generated shortcodes or', 'directorist' ) . ' <a href="' . admin_url( '/post-new.php?post_type=page' ) . '" target="_blank">Create New Page</a>',
+                    'show_if'           => [
+                        'where'      => 'enable_single_listing_page',
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
+                
 
                 'search_form_fields'                          => [
                     'type'            => 'form-builder',
@@ -2334,28 +2355,37 @@ class Builder_Data {
                     'value'           => [
                         'groups' => [
                             [
-                                'label'     => __( 'Search Bar', 'directorist' ),
-                                'id'        => 'basic',
+                                'label'     => __( 'Search Bar', 'directorist' ), 
                                 'lock'      => true,
                                 'draggable' => false,
+                                'type'      => 'general_group',
                                 'fields'    => [],
                             ],
                             [
                                 'label'     => __( 'Search Filter', 'directorist' ),
-                                'id'        => 'advanced',
                                 'lock'      => true,
                                 'draggable' => false,
+                                'type'      => 'general_group',
                                 'fields'    => [],
                             ],
                         ],
                     ],
                 ],
 
-                'single_listing_header' => apply_filters(
+                'single_listing_header'                       => apply_filters(
                     'directorist_listing_header_layout', [
                         'type' => 'card-builder',
                         'template' => 'listing-header',
                         'value' => '',
+                        'icon' => 'la la-sign',
+                        'title'       => __( 'Listing Header', 'directorist' ),
+                        'video' => [
+                            'type' => 'video',
+                            'url' => 'https://www.youtube.com/embed/NtLXjEAPQzc',
+                            'button_text' => __( 'Watch Tutorial', 'directorist' ),
+                            'title' => __( 'Listing Header Tutorial', 'directorist' ),
+                            'description' => __( 'Watch the video to learn how to create listing header.', 'directorist' ),
+                        ],
                         'card-options' => [
                             'general' => [
                                 'back' => [
@@ -2412,12 +2442,12 @@ class Builder_Data {
                                         'fields' => [
                                             'enable_title' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Title", "directorist" ),
+                                                'label' => __( "Title", "directorist" ),
                                                 'value' => true,
                                             ],
                                             'enable_tagline' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Tagline", "directorist" ),
+                                                'label' => __( "Tagline", "directorist" ),
                                                 'value' => true,
                                             ],
                                         ],
@@ -2433,18 +2463,33 @@ class Builder_Data {
                             'back' => [
                                 'type' => "button",
                                 'label' => __( "Back", "directorist" ),
-                                'icon' => 'las la-arrow-left',
+                                'icon' => 'la la-arrow-left',
+                                'options' => [
+                                    'title' => __( "Back Settings", "directorist" ),
+                                    'fields' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Back',
+                                        ],
+                                        'icon' => [
+                                            'type' => "icon",
+                                            'label' => __( "Icon", "directorist" ),
+                                            'value' => 'las la-arrow-left',
+                                        ],
+                                    ],
+                                ],
                             ],
                             'title' => [
                                 'type' => "title",
                                 'label' => __( "Listing Title", "directorist" ),
-                                'icon' => 'las la-heading',
+                                'icon' => 'la la-heading',
                                 'options' => [
                                     'title' => __( "Listing Title Settings", "directorist" ),
                                     'fields' => [
                                         'enable_tagline' => [
                                             'type' => "toggle",
-                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'label' => __( "Tagline", "directorist" ),
                                             'value' => true,
                                         ],
                                     ],
@@ -2452,7 +2497,7 @@ class Builder_Data {
                             ],
                             'slider' => [
                                 'type' => "thumbnail",
-                                'label' => __( "Listing Image/Slider", "directorist" ),
+                                'label' => __( "Image/Slider", "directorist" ),
                                 'icon' => 'las la-image',
                                 'options' => [
                                     'title' => __( "Image/Slider Settings", "directorist" ),
@@ -2469,19 +2514,39 @@ class Builder_Data {
                             'bookmark' => [
                                 'type' => "button",
                                 'label' => __( "Bookmark", "directorist" ),
-                                'icon' => 'las la-bookmark',
+                                'icon' => 'la la-heart-o',
+                                'options' => [
+                                    'title' => __( "Bookmark Settings", "directorist" ),
+                                    'fields' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Bookmark',
+                                        ],
+                                        'icon' => [
+                                            'type' => "icon",
+                                            'label' => __( "Icon", "directorist" ),
+                                            'value' => 'la la-heart-o',
+                                        ],
+                                    ],
+                                ],
                             ],
                             'share' => [
                                 'type' => "badge",
                                 'label' => __( "Share", "directorist" ),
-                                'icon' => 'las la-share',
+                                'icon' => 'la la-share-square',
                                 'options' => [
                                     'title' => __( "Share Settings", "directorist" ),
                                     'fields' => [
-                                        'share_icon' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Share',
+                                        ],
+                                        'icon' => [
                                             'type' => "icon",
                                             'label' => __( "Icon", "directorist" ),
-                                            'value' => 'las la-share',
+                                            'value' => 'la la-share-square',
                                         ],
                                     ],
                                 ],
@@ -2489,28 +2554,32 @@ class Builder_Data {
                             'report' => [
                                 'type' => "badge",
                                 'label' => __( "Report", "directorist" ),
-                                'icon' => 'las la-flag',
+                                'icon' => 'la la-flag',
                                 'options' => [
                                     'title' => __( "Report Settings", "directorist" ),
                                     'fields' => [
-                                        'report_icon' => [
+                                        'label' => [
+                                            'type' => "text",
+                                            'label' => __( "Label", "directorist" ),
+                                            'value' => 'Report',
+                                        ],
+                                        'icon' => [
                                             'type' => "icon",
                                             'label' => __( "Icon", "directorist" ),
-                                            'value' => 'las la-flag',
+                                            'value' => 'la la-flag',
                                         ],
                                     ],
                                 ],
                             ],
-
                             'price' => [
                                 'type' => "badge",
                                 'label' => __( "Pricing", "directorist" ),
-                                'icon' => 'uil uil-text-fields',
+                                'icon' => 'la la-file-invoice-dollar',
                             ],
                             'badges' => [
                                 'type' => "badge",
                                 'label' => __( "Badges", "directorist" ),
-                                'icon' => 'uil uil-text-fields',
+                                'icon' => 'la la-circle-notch',
                                 'options' => [
                                     'title' => __( "Badge Settings", "directorist" ),
                                     'fields' => [
@@ -2535,12 +2604,12 @@ class Builder_Data {
                             'ratings_count' => [
                                 'type' => "ratings-count",
                                 'label' => __( "Rating", "directorist" ),
-                                'icon' => 'uil uil-text-fields',
+                                'icon' => 'la la-star-o',
                             ],
                             'category' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Category", "directorist" ),
-                                'icon' => 'uil uil-text-fields',
+                                'icon' => 'las la-folder-open',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [
@@ -2551,7 +2620,7 @@ class Builder_Data {
                             'location' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Location", "directorist" ),
-                                'icon' => 'uil uil-text-fields',
+                                'icon' => 'las la-map-marked-alt',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [
@@ -2569,18 +2638,20 @@ class Builder_Data {
                                     [
                                         'type'              => 'placeholder_item',
                                         'placeholderKey'    => 'quick-info-placeholder',
-                                        'label'             => __( 'Quick info', 'directorist' ),
+                                        'label'             => __( 'Top Left', 'directorist' ),
                                         'maxWidget'         => 1,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => ['back'],
+                                        'selectedWidgetList'   => ['back'],
                                     ],
                                     [
                                         'type'              => 'placeholder_item',
                                         'placeholderKey'    => 'quick-action-placeholder',
-                                        'label'             => __( 'Quick Action', 'directorist' ),
+                                        'label'             => __( 'Top Right', 'directorist' ),
                                         'maxWidget'         => 0,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => [ 'bookmark', 'share', 'report' ],
+                                        'selectedWidgetList'   => ['bookmark', 'share'],
                                     ],
                                 ],
                             ],
@@ -2591,28 +2662,25 @@ class Builder_Data {
                                 'maxWidget'         => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => ['title'],
+                                'selectedWidgetList'   => ['title'],
                             ],
                             [
                                 'type'              => 'placeholder_item',
                                 'placeholderKey'    => 'more-widgets-placeholder',
-                                'label'             => __( 'More Widgets', 'directorist' ),
+                                'label'             => __( 'Quick Info', 'directorist' ),
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
-                                'rejectedWidgets'   => ['slider'],
+                                'selectedWidgetList'   => ['price', 'ratings_count'],
                             ],
                             [
                                 'type'            => 'placeholder_item',
-                                'label'           => 'Slider Widget',
                                 'placeholderKey'  => 'slider-placeholder',
-                                'selectedWidgets' => ['slider'],
-                                'acceptedWidgets' => ['slider'],
+                                'label'           => 'Image/Slider',
                                 'maxWidget'       => 1,
-                                'canDelete'       => true,
-                                'insertByButton'  => true,
-                                'insertButton'    => [
-                                    'label' => 'Add Image/Slider'
-                                ],
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => ['slider'],
+                                'selectedWidgetList'   => ['slider'],
                             ],
                         ],
                     ] 
@@ -2623,13 +2691,23 @@ class Builder_Data {
                         'type'           => 'card-builder',
                         'card_templates' => [
                             'grid_view_with_thumbnail'    => [
-                                'label'    => __( 'With Preview Image', 'directorist' ),
+                                'label'     => '<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2.52344" y="2.52344" width="28.9524" height="19.0476" rx="1.88235" fill="#D2D6DB"/>
+                                <path d="M22.3614 16.3137H10.8648C10.7534 16.3137 10.6631 16.2234 10.6631 16.112V14.7281C10.6631 14.5769 10.6964 14.427 10.7774 14.2994C11.0513 13.8679 11.827 12.8849 13.21 12.8849C14.9817 12.8849 15.7569 14.4984 15.7569 14.4984C15.7569 14.4984 17.0165 10.9688 19.8402 10.9688C21.266 10.9688 22.2981 12.0712 22.519 12.3277C22.5485 12.362 22.5631 12.4052 22.5631 12.4504V16.112C22.5631 16.2234 22.4728 16.3137 22.3614 16.3137Z" fill="white"/>
+                                <circle cx="12.075" cy="9.65796" r="1.41186" fill="white"/>
+                                <rect x="8.61914" y="26.1426" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="12.4287" y="30.7148" width="9.14286" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                </svg>',
                                 'template' => 'grid-view-with-thumbnail',
                                 'widgets'  => $listing_card_widget,
                                 'layout'   => $listing_card_grid_view_with_thumbnail_layout,
                             ],
                             'grid_view_without_thumbnail' => [
-                                'label'    => __( 'Without Preview Image', 'directorist' ),
+                                'label'     => '<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8.61914" y="18.1426" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="8.61914" y="15" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="12.4287" y="22.7148" width="9.14286" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                </svg>',
                                 'template' => 'grid-view-without-thumbnail',
                                 'widgets'  => $listing_card_conditional_widget,
                                 'layout'   => $listing_card_grid_view_without_thumbnail_layout,
@@ -2643,13 +2721,25 @@ class Builder_Data {
                         'type'           => 'card-builder',
                         'card_templates' => [
                             'list_view_with_thumbnail'    => [
-                                'label'    => __( 'With Preview Image', 'directorist' ),
+                            // 'label'    => __( 'With Preview Image', 'directorist' ),
+                                'label'     => '<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2.52344" y="2.52344" width="28.9524" height="19.0476" rx="1.88235" fill="#D2D6DB"/>
+                                <path d="M22.3614 16.3137H10.8648C10.7534 16.3137 10.6631 16.2234 10.6631 16.112V14.7281C10.6631 14.5769 10.6964 14.427 10.7774 14.2994C11.0513 13.8679 11.827 12.8849 13.21 12.8849C14.9817 12.8849 15.7569 14.4984 15.7569 14.4984C15.7569 14.4984 17.0165 10.9688 19.8402 10.9688C21.266 10.9688 22.2981 12.0712 22.519 12.3277C22.5485 12.362 22.5631 12.4052 22.5631 12.4504V16.112C22.5631 16.2234 22.4728 16.3137 22.3614 16.3137Z" fill="white"/>
+                                <circle cx="12.075" cy="9.65796" r="1.41186" fill="white"/>
+                                <rect x="8.61914" y="26.1426" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="12.4287" y="30.7148" width="9.14286" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                </svg>',
                                 'template' => 'list-view-with-thumbnail',
                                 'widgets'  => $listing_card_conditional_widget,
                                 'layout'   => $listing_card_list_view_with_thumbnail_layout,
                             ],
                             'list_view_without_thumbnail' => [
-                                'label'    => __( 'Without Preview Image', 'directorist' ),
+                            // 'label'    => __( 'Without Preview Image', 'directorist' ),
+                                'label'     => '<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8.61914" y="18.1426" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="8.61914" y="15" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="12.4287" y="22.7148" width="9.14286" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                </svg>',
                                 'template' => 'list-view-without-thumbnail',
                                 'widgets'  => $listing_card_conditional_widget,
                                 'layout'   => $listing_card_list_view_without_thumbnail_layout,
@@ -2665,9 +2755,7 @@ class Builder_Data {
             'directorist_builder_layouts', [
                 'general'              => [
                     'label'    => 'General',
-                    'icon'     => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.65155 0.890914C7.87975 0.829127 8.12027 0.829127 8.34847 0.890914C8.61339 0.962641 8.83642 1.13775 9.01443 1.2775C9.03142 1.29084 9.048 1.30386 9.06418 1.31644L13.5857 4.83319C13.6031 4.84673 13.6204 4.86013 13.6375 4.87343C13.8886 5.06828 14.1098 5.23995 14.2747 5.46282C14.4193 5.6584 14.5271 5.87874 14.5927 6.11301C14.6674 6.37996 14.6671 6.65996 14.6667 6.97779C14.6667 6.99948 14.6667 7.02133 14.6667 7.04338V11.8924C14.6667 12.2438 14.6667 12.547 14.6463 12.7967C14.6248 13.0602 14.5772 13.3224 14.4487 13.5746C14.2569 13.951 13.951 14.2569 13.5747 14.4487C13.3224 14.5772 13.0603 14.6248 12.7967 14.6463C12.547 14.6667 12.2438 14.6667 11.8924 14.6667H4.10763C3.75621 14.6667 3.45304 14.6667 3.20333 14.6463C2.93976 14.6248 2.67762 14.5772 2.42536 14.4487C2.04904 14.2569 1.74308 13.951 1.55133 13.5746C1.4228 13.3224 1.37526 13.0602 1.35372 12.7967C1.33332 12.547 1.33333 12.2438 1.33334 11.8924L1.33334 7.04338C1.33334 7.02133 1.33332 6.99947 1.3333 6.97779C1.33295 6.65996 1.33265 6.37995 1.40737 6.11301C1.47295 5.87874 1.58071 5.6584 1.72537 5.46282C1.89021 5.23995 2.11142 5.06828 2.36251 4.87342C2.37964 4.86013 2.39691 4.84672 2.41431 4.83319L6.93585 1.31644C6.95202 1.30386 6.9686 1.29084 6.9856 1.2775C7.1636 1.13775 7.38664 0.962641 7.65155 0.890914ZM6.66668 13.3333H9.33335V9.06667C9.33335 8.86898 9.33283 8.76081 9.32648 8.68309C9.32622 8.67999 9.32597 8.67706 9.32571 8.6743C9.32295 8.67404 9.32002 8.67379 9.31692 8.67353C9.2392 8.66718 9.13103 8.66667 8.93334 8.66667H7.06668C6.86899 8.66667 6.76082 8.66718 6.6831 8.67353C6.68001 8.67379 6.67708 8.67404 6.67431 8.6743C6.67406 8.67706 6.6738 8.67999 6.67355 8.68309C6.6672 8.76081 6.66668 8.86898 6.66668 9.06667V13.3333ZM10.6667 13.3333L10.6667 9.04541C10.6667 8.87715 10.6667 8.71329 10.6554 8.57451C10.6429 8.42212 10.6136 8.24229 10.5214 8.06135C10.3935 7.81046 10.1896 7.60649 9.93867 7.47866C9.75772 7.38646 9.57789 7.35708 9.4255 7.34463C9.28672 7.33329 9.12286 7.33331 8.9546 7.33333H7.04542C6.87717 7.33331 6.7133 7.33329 6.57453 7.34463C6.42213 7.35708 6.24231 7.38646 6.06136 7.47866C5.81047 7.60649 5.6065 7.81046 5.47867 8.06135C5.38647 8.24229 5.35709 8.42212 5.34464 8.57451C5.3333 8.71328 5.33332 8.87714 5.33334 9.0454L5.33335 13.3333H4.13335C3.74898 13.3333 3.50079 13.3328 3.3119 13.3174C3.13079 13.3026 3.06365 13.2775 3.03068 13.2607C2.90524 13.1968 2.80326 13.0948 2.73934 12.9693C2.72255 12.9364 2.69743 12.8692 2.68263 12.6881C2.6672 12.4992 2.66668 12.251 2.66668 11.8667V7.04338C2.66668 6.62272 2.67247 6.53988 2.69135 6.47241C2.71321 6.39432 2.74913 6.32088 2.79735 6.25568C2.83901 6.19935 2.90085 6.14392 3.2329 5.88566L7.75444 2.36891C7.87904 2.272 7.94504 2.22117 7.99515 2.1877C7.99684 2.18656 7.99847 2.18549 8.00001 2.18447C8.00156 2.18549 8.00318 2.18656 8.00488 2.1877C8.05498 2.22117 8.12098 2.272 8.24559 2.36891L12.7671 5.88566C13.0992 6.14392 13.161 6.19935 13.2027 6.25568C13.2509 6.32087 13.2868 6.39432 13.3087 6.47241C13.3276 6.53988 13.3333 6.62272 13.3333 7.04338V11.8667C13.3333 12.251 13.3328 12.4992 13.3174 12.6881C13.3026 12.8692 13.2775 12.9364 13.2607 12.9693C13.1968 13.0948 13.0948 13.1968 12.9693 13.2607C12.9364 13.2775 12.8692 13.3026 12.6881 13.3174C12.4992 13.3328 12.251 13.3333 11.8667 13.3333H10.6667Z" fill="currentColor"/>
-                                </svg>',
+                    'icon'     => 'las la-home',
                     'container' => 'short-wide',
                     'sections' => [
                         'labels'          => [
@@ -2709,14 +2797,12 @@ class Builder_Data {
                         ],
                     ],
                 ],
-
                 'submission_form'      => [
                     'label'   => __( 'Add Listing Form', 'directorist' ),
-                    'icon'    => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.83913 0.666626H10.1609C10.6975 0.666618 11.1404 0.666611 11.5012 0.696089C11.8759 0.726706 12.2204 0.792415 12.544 0.957276C13.0457 1.21294 13.4537 1.62089 13.7094 2.12265C13.8742 2.44621 13.9399 2.79068 13.9705 3.16541C14 3.5262 14 3.9691 14 4.50574V6.99996C14 7.36815 13.7015 7.66663 13.3333 7.66663C12.9651 7.66663 12.6667 7.36815 12.6667 6.99996V4.53329C12.6667 3.96224 12.6661 3.57404 12.6416 3.27399C12.6178 2.98171 12.5745 2.83224 12.5213 2.72797C12.3935 2.47709 12.1895 2.27312 11.9387 2.14528C11.8344 2.09216 11.6849 2.04887 11.3926 2.02499C11.0926 2.00048 10.7044 1.99996 10.1333 1.99996H5.86667C5.29561 1.99996 4.90742 2.00048 4.60736 2.02499C4.31508 2.04887 4.16561 2.09216 4.06135 2.14528C3.81046 2.27312 3.60649 2.47709 3.47866 2.72797C3.42553 2.83224 3.38225 2.98171 3.35837 3.27399C3.33385 3.57404 3.33333 3.96224 3.33333 4.53329V11.4666C3.33333 12.0377 3.33385 12.4259 3.35837 12.7259C3.38225 13.0182 3.42553 13.1677 3.47866 13.2719C3.60649 13.5228 3.81046 13.7268 4.06135 13.8546C4.16561 13.9078 4.31508 13.951 4.60736 13.9749C4.90742 13.9994 5.29561 14 5.86667 14H8C8.36819 14 8.66667 14.2984 8.66667 14.6666C8.66667 15.0348 8.36819 15.3333 8 15.3333H5.83912C5.30248 15.3333 4.85958 15.3333 4.49878 15.3038C4.12405 15.2732 3.77958 15.2075 3.45603 15.0426C2.95426 14.787 2.54631 14.379 2.29065 13.8773C2.12579 13.5537 2.06008 13.2092 2.02946 12.8345C1.99998 12.4737 1.99999 12.0308 2 11.4942V4.50576C1.99999 3.96911 1.99998 3.52621 2.02946 3.16541C2.06008 2.79068 2.12579 2.44621 2.29065 2.12265C2.54631 1.62089 2.95426 1.21294 3.45603 0.957276C3.77958 0.792415 4.12405 0.726706 4.49878 0.696089C4.85958 0.666611 5.30249 0.666618 5.83913 0.666626ZM4.66667 4.66663C4.66667 4.29844 4.96514 3.99996 5.33333 3.99996H10.6667C11.0349 3.99996 11.3333 4.29844 11.3333 4.66663C11.3333 5.03482 11.0349 5.33329 10.6667 5.33329H5.33333C4.96514 5.33329 4.66667 5.03482 4.66667 4.66663ZM4.66667 7.33329C4.66667 6.9651 4.96514 6.66663 5.33333 6.66663H9.33333C9.70152 6.66663 10 6.9651 10 7.33329C10 7.70148 9.70152 7.99996 9.33333 7.99996H5.33333C4.96514 7.99996 4.66667 7.70148 4.66667 7.33329ZM4.66667 9.99996C4.66667 9.63177 4.96514 9.33329 5.33333 9.33329H6.66667C7.03486 9.33329 7.33333 9.63177 7.33333 9.99996C7.33333 10.3682 7.03486 10.6666 6.66667 10.6666H5.33333C4.96514 10.6666 4.66667 10.3682 4.66667 9.99996ZM12 9.33329C12.3682 9.33329 12.6667 9.63177 12.6667 9.99996V11.3333H14C14.3682 11.3333 14.6667 11.6318 14.6667 12C14.6667 12.3681 14.3682 12.6666 14 12.6666H12.6667V14C12.6667 14.3681 12.3682 14.6666 12 14.6666C11.6318 14.6666 11.3333 14.3681 11.3333 14V12.6666H10C9.63181 12.6666 9.33333 12.3681 9.33333 12C9.33333 11.6318 9.63181 11.3333 10 11.3333H11.3333V9.99996C11.3333 9.63177 11.6318 9.33329 12 9.33329Z" fill="currentColor"/>
-                    </svg>',
+                    'icon'    => 'las la-file-medical',
                     'container' => 'full-width',
                     'video' => [
+                        'type' => 'video',
                         'url' => 'https://www.youtube.com/embed/0rjSHUPZgoE',
                         'button_text' => __( 'Watch Tutorial', 'directorist' ),
                         'title' => __( 'Add Listing Form Tutorial', 'directorist' ),
@@ -2738,30 +2824,23 @@ class Builder_Data {
                         ]
                     ],
                 ],
-
                 'single_page_layout'   => [
                     'label'   => __( 'Single Page Layout', 'directorist' ),
-                    'icon'    => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8276 1.33337H5.17249C4.63584 1.33337 4.19293 1.33336 3.83214 1.36284C3.45741 1.39345 3.11294 1.45916 2.78938 1.62402C2.28761 1.87969 1.87967 2.28763 1.624 2.7894C1.45914 3.11296 1.39343 3.45743 1.36282 3.83216C1.33334 4.19295 1.33335 4.63585 1.33335 5.17249V10.8276C1.33335 11.3642 1.33334 11.8071 1.36282 12.1679C1.39343 12.5427 1.45914 12.8871 1.624 13.2107C1.87967 13.7124 2.28761 14.1204 2.78938 14.3761C3.11294 14.5409 3.45741 14.6066 3.83214 14.6372C4.19293 14.6667 4.63583 14.6667 5.17247 14.6667H10.8276C11.3642 14.6667 11.8071 14.6667 12.1679 14.6372C12.5426 14.6066 12.8871 14.5409 13.2107 14.3761C13.7124 14.1204 14.1204 13.7124 14.376 13.2107C14.5409 12.8871 14.6066 12.5427 14.6372 12.1679C14.6667 11.8071 14.6667 11.3642 14.6667 10.8276V5.17251C14.6667 4.63586 14.6667 4.19295 14.6372 3.83216C14.6066 3.45743 14.5409 3.11296 14.376 2.7894C14.1204 2.28763 13.7124 1.87969 13.2107 1.62402C12.8871 1.45916 12.5426 1.39345 12.1679 1.36284C11.8071 1.33336 11.3642 1.33337 10.8276 1.33337ZM9.33335 13.3334H5.20002C4.62897 13.3334 4.24077 13.3329 3.94071 13.3083C3.64844 13.2845 3.49897 13.2412 3.3947 13.188C3.14382 13.0602 2.93984 12.8562 2.81201 12.6054C2.75889 12.5011 2.7156 12.3516 2.69172 12.0593C2.66721 11.7593 2.66669 11.3711 2.66669 10.8V5.20004C2.66669 4.62899 2.66721 4.24079 2.69172 3.94073C2.7156 3.64846 2.75889 3.49899 2.81201 3.39472C2.93984 3.14384 3.14382 2.93986 3.3947 2.81203C3.49897 2.75891 3.64844 2.71562 3.94071 2.69174C4.24077 2.66723 4.62897 2.66671 5.20002 2.66671H9.33335L9.33335 13.3334ZM10.6667 2.66671L10.6667 13.3334H10.8C11.3711 13.3334 11.7593 13.3329 12.0593 13.3083C12.3516 13.2845 12.5011 13.2412 12.6053 13.188C12.8562 13.0602 13.0602 12.8562 13.188 12.6054C13.2412 12.5011 13.2844 12.3516 13.3083 12.0593C13.3328 11.7593 13.3334 11.3711 13.3334 10.8V5.20004C13.3334 4.62899 13.3328 4.24079 13.3083 3.94073C13.2844 3.64846 13.2412 3.49899 13.188 3.39472C13.0602 3.14384 12.8562 2.93986 12.6053 2.81203C12.5011 2.75891 12.3516 2.71562 12.0593 2.69174C11.7593 2.66723 11.3711 2.66671 10.8 2.66671H10.6667ZM8.33335 4.66671C8.33335 4.29852 8.03488 4.00004 7.66669 4.00004H4.33335C3.96516 4.00004 3.66669 4.29852 3.66669 4.66671C3.66669 5.0349 3.96516 5.33337 4.33335 5.33337H7.66669C8.03488 5.33337 8.33335 5.0349 8.33335 4.66671ZM8.33335 7.33337C8.33335 6.96518 8.03488 6.66671 7.66669 6.66671H4.33335C3.96516 6.66671 3.66669 6.96518 3.66669 7.33337C3.66669 7.70156 3.96516 8.00004 4.33335 8.00004H7.66669C8.03488 8.00004 8.33335 7.70156 8.33335 7.33337ZM8.33335 10C8.33335 9.63185 8.03488 9.33337 7.66669 9.33337H4.33335C3.96516 9.33337 3.66669 9.63185 3.66669 10C3.66669 10.3682 3.96516 10.6667 4.33335 10.6667H7.66669C8.03488 10.6667 8.33335 10.3682 8.33335 10Z" fill="currentColor"/>
-                    </svg>',
+                    'icon'    => 'las la-file-alt',
                     'submenu' => [
                         'listing_header'   => [
                             'label'     => __( 'Listing Header', 'directorist' ),
+                            'icon'    => 'las la-sign',
                             'container' => 'full-width',
-                            'video' => [
-                                'url' => 'https://www.youtube.com/embed/NtLXjEAPQzc',
-                                'button_text' => __( 'Watch Tutorial', 'directorist' ),
-                                'title' => __( 'Listing Header Tutorial', 'directorist' ),
-                                'description' => __( 'Watch the video to learn how to create listing header.', 'directorist' ),
-                            ],
                             'learn_more' => [
-                                'url' => 'https://directorist.com/features/',
-                                'title' => __( 'What is it?', 'directorist' ),
+                                'type' => 'image',
+                                'url'  => DIRECTORIST_ASSETS . 'images/single-listing-header-preview.png',
+                                'button_text' => __( 'What is it?', 'directorist' ),
+                                'title' => __( 'Single Listing Header', 'directorist' ),
+                                'description' => __( 'Details of Single Listing Header', 'directorist' ),
                             ],
                             'sections'  => [
                                 'listing_header' => [
-                                    'title'       => __( 'Listing Header', 'directorist' ),
-                                    'title_align' => 'center',
                                     'fields'      => [
                                         'single_listing_header',
                                     ],
@@ -2769,21 +2848,26 @@ class Builder_Data {
                             ],
                         ],
                         'contents'         => [
-                            'label'     => __( 'Contents', 'directorist' ),
+                            'label'     => __( 'Listing Contents', 'directorist' ),
+                            'icon'    => 'lab la-elementor',
                             'container' => 'full-width',
                             'video' => [
+                                'type' => 'video',
                                 'url' => 'https://www.youtube.com/embed/82CFngofqbM',
                                 'button_text' => __( 'Watch Tutorial', 'directorist' ),
                                 'title' => __( 'Contents Tutorial', 'directorist' ),
                                 'description' => __( 'Watch the video to learn how to create a custom contents.', 'directorist' ),
                             ],
                             'learn_more' => [
-                                'url' => 'https://directorist.com/solutions/',
-                                'title' => __( 'What is it?', 'directorist' ),
+                                'type' => 'image',
+                                'url'  => DIRECTORIST_ASSETS . 'images/single-listing-header-preview.png',
+                                'button_text' => __( 'What is it?', 'directorist' ),
+                                'title' => __( 'Single Listing Contents', 'directorist' ),
+                                'description' => __( 'Details of Single Listing Contents', 'directorist' ),
                             ],
                             'sections'  => [
                                 'contents' => [
-                                    'title'       => __( 'Contents', 'directorist' ),
+                                    'title'       => __( 'Listing Contents', 'directorist' ),
                                     'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/single-listings-layout/"> ' . __( 'Need help?', 'directorist' ) . ' </a>',
                                     'fields'      => [
                                         'single_listings_contents',
@@ -2793,13 +2877,18 @@ class Builder_Data {
                         ],
                         'similar_listings' => [
                             'label'    => __( 'Custom Single Listing Page', 'directorist' ),
+                            'icon'    => 'las la-file-alt',
                             'container' => 'short-wide',
                             'sections' => [
                                 'page_settings' => [
+                                    // Title & description removed as per new UI requirement
+                                    'title' => '',
+                                    'description' => '',
                                     'fields' => [
                                         'enable_single_listing_page',
-                                        'single_listing_page',
                                         'single_listings_shortcodes',
+                                        'single_listing_page_title',
+                                        'single_listing_page',
                                     ],
                                 ],
                             ],
@@ -2808,26 +2897,28 @@ class Builder_Data {
                 ],
                 'listings_card_layout' => [
                     'label'   => __( 'All Listing Layout', 'directorist' ),
-                    'icon'    => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.33331 3.99996C1.33331 3.26358 1.93027 2.66663 2.66665 2.66663C3.40303 2.66663 3.99998 3.26358 3.99998 3.99996C3.99998 4.73634 3.40303 5.33329 2.66665 5.33329C1.93027 5.33329 1.33331 4.73634 1.33331 3.99996ZM5.33331 3.99996C5.33331 3.63177 5.63179 3.33329 5.99998 3.33329H14C14.3682 3.33329 14.6666 3.63177 14.6666 3.99996C14.6666 4.36815 14.3682 4.66663 14 4.66663L5.99998 4.66663C5.63179 4.66663 5.33331 4.36815 5.33331 3.99996ZM1.33331 7.99996C1.33331 7.26358 1.93027 6.66663 2.66665 6.66663C3.40303 6.66663 3.99998 7.26358 3.99998 7.99996C3.99998 8.73634 3.40303 9.33329 2.66665 9.33329C1.93027 9.33329 1.33331 8.73634 1.33331 7.99996ZM5.33331 7.99996C5.33331 7.63177 5.63179 7.33329 5.99998 7.33329L14 7.33329C14.3682 7.33329 14.6666 7.63177 14.6666 7.99996C14.6666 8.36815 14.3682 8.66663 14 8.66663L5.99998 8.66663C5.63179 8.66663 5.33331 8.36815 5.33331 7.99996ZM1.33331 12C1.33331 11.2636 1.93027 10.6666 2.66665 10.6666C3.40303 10.6666 3.99998 11.2636 3.99998 12C3.99998 12.7363 3.40303 13.3333 2.66665 13.3333C1.93027 13.3333 1.33331 12.7363 1.33331 12ZM5.33331 12C5.33331 11.6318 5.63179 11.3333 5.99998 11.3333L14 11.3333C14.3682 11.3333 14.6666 11.6318 14.6666 12C14.6666 12.3681 14.3682 12.6666 14 12.6666L5.99998 12.6666C5.63179 12.6666 5.33331 12.3681 5.33331 12Z" fill="currentColor"/>
-                </svg>',
+                    'icon'    => 'las la-window-maximize',
                     'submenu' => [
                         'grid_view' => [
-                            'label'     => __( 'All Listing Grid Layout', 'directorist' ),
+                            'label'     => __( 'Grid View', 'directorist' ),
+                            'icon_type' => 'svg',
+                            'icon'      => '<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.83341 2.16602V8.83268H2.16675V2.16602H8.83341Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M18.8334 2.16602V8.83268H12.1667V2.16602H18.8334Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M18.8334 12.166V18.8327H12.1667V12.166H18.8334Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M8.83341 12.166V18.8327H2.16675V12.166H8.83341Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>',
                             'container' => 'full-width',
                             'video' => [
+                                'type' => 'video',
                                 'url' => 'https://www.youtube.com/embed/SijKFqgwXVQ',
                                 'button_text' => __( 'Watch Tutorial', 'directorist' ),
-                                'title' => __( 'All Listing Grid Tutorial', 'directorist' ),
-                                'description' => __( 'Watch the video to learn how to create all listing grid.', 'directorist' ),
-                            ],
-                            'learn_more' => [
-                                'url' => 'https://directorist.com/customers/',
-                                'title' => __( 'What is it?', 'directorist' ),
+                                'title' => __( 'Grid Tutorial', 'directorist' ),
+                                'description' => __( 'Watch the video to learn how to create listing grid.', 'directorist' ),
                             ],
                             'sections'  => [
                                 'listings_card' => [
-                                    'title'       => __( 'All Listing Grid Layout', 'directorist' ),
+                                    'title'       => __( 'All Listing Grid View', 'directorist' ),
                                     'title_align' => 'center',
                                     'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                     'fields'      => [
@@ -2837,17 +2928,23 @@ class Builder_Data {
                             ],
                         ],
                         'list_view' => [
-                            'label'     => __( 'All Listing List Layout', 'directorist' ),
+                            'label'     => __( 'List View', 'directorist' ),
+                            'icon_type' => 'svg',
+                            'icon'      => '<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4.66699L18 4.66699" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M3 4.66699L5.5 4.66699" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M8 10.5L18 10.5" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M3 10.5L5.5 10.5" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M8 16.333L18 16.333" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M3 16.333L5.5 16.333" stroke="#4D5761" stroke-width="1.5"/>
+                            </svg>',
                             'container' => 'full-width',
                             'video' => [
+                                'type' => 'video',
                                 'url' => 'https://www.youtube.com/embed/T9VovVonLV0',
                                 'button_text' => __( 'Watch Tutorial', 'directorist' ),
-                                'title' => __( 'All Listing List Tutorial', 'directorist' ),
-                                'description' => __( 'Watch the video to learn how to create all listing list.', 'directorist' ),
-                            ],
-                            'learn_more' => [
-                                'url' => 'https://directorist.com/pricing/',
-                                'title' => __( 'What is it?', 'directorist' ),
+                                'title' => __( 'List View Tutorial', 'directorist' ),
+                                'description' => __( 'Watch the video to learn how to create listing list.', 'directorist' ),
                             ],
                             'sections'  => [
                                 'listings_card' => [
@@ -2865,11 +2962,10 @@ class Builder_Data {
                 ],
                 'search_forms'         => [
                     'label'     => __( 'Search Form', 'directorist' ),
-                    'icon'      => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.33331 2.66671C4.75598 2.66671 2.66665 4.75605 2.66665 7.33337C2.66665 9.9107 4.75598 12 7.33331 12C8.59061 12 9.73178 11.5028 10.5709 10.6943C10.5885 10.6715 10.6077 10.6495 10.6286 10.6286C10.6495 10.6077 10.6714 10.5885 10.6942 10.571C11.5028 9.73184 12 8.59067 12 7.33337C12 4.75605 9.91064 2.66671 7.33331 2.66671ZM12.0212 11.0785C12.8423 10.0521 13.3333 8.75005 13.3333 7.33337C13.3333 4.01967 10.647 1.33337 7.33331 1.33337C4.0196 1.33337 1.33331 4.01967 1.33331 7.33337C1.33331 10.6471 4.0196 13.3334 7.33331 13.3334C8.74999 13.3334 10.052 12.8424 11.0784 12.0213L13.5286 14.4714C13.7889 14.7318 14.211 14.7318 14.4714 14.4714C14.7317 14.2111 14.7317 13.789 14.4714 13.5286L12.0212 11.0785Z" fill="currentColor"/>
-                    </svg>',
+                    'icon'      => 'las la-search',
                     'container' => 'full-width',
                     'video' => [
+                        'type' => 'video',
                         'url' => 'https://www.youtube.com/embed/bWRDFgFIvcI',
                         'button_text' => __( 'Watch Tutorial', 'directorist' ),
                         'title' => __( 'Search Form Tutorial', 'directorist' ),

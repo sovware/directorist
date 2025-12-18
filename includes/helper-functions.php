@@ -1705,6 +1705,11 @@ function directorist_clean_post( $var ) {
     if ( is_array( $var ) ) {
         return array_map( 'directorist_clean_post', $var );
     } else {
+        // Allow SVG tags for icon content
+        if ( is_scalar( $var ) && is_string( $var ) && ( strpos( $var, '<svg' ) !== false || strpos( $var, '<path' ) !== false ) ) {
+            // Use wp_kses with custom allowed HTML that includes SVG tags
+            return wp_kses( $var, directorist_get_svg_allowed_html() );
+        }
         return is_scalar( $var ) ? wp_kses_post( $var ) : $var;
     }
 }
@@ -3807,6 +3812,113 @@ function directorist_get_allowed_attributes() {
     ];
 
     return apply_filters( 'directorist_get_allowed_attributes', $allowed_attributes );
+}
+
+/**
+ * Get allowed HTML tags for SVG content
+ *
+ * @return array
+ */
+function directorist_get_svg_allowed_html() {
+    $allowed_html = wp_kses_allowed_html( 'post' );
+    
+    // Add SVG-specific tags and attributes
+    $allowed_html['svg'] = [
+        'xmlns'       => [],
+        'width'       => [],
+        'height'      => [],
+        'viewBox'     => [],
+        'fill'        => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+        'role'        => [],
+        'aria-label'  => [],
+        'aria-hidden' => [],
+    ];
+    
+    $allowed_html['path'] = [
+        'd'           => [],
+        'fill'        => [],
+        'fill-rule'   => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'stroke-linecap' => [],
+        'stroke-linejoin' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['circle'] = [
+        'cx'          => [],
+        'cy'          => [],
+        'r'           => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['rect'] = [
+        'x'           => [],
+        'y'           => [],
+        'width'       => [],
+        'height'      => [],
+        'rx'          => [],
+        'ry'          => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['line'] = [
+        'x1'          => [],
+        'y1'          => [],
+        'x2'          => [],
+        'y2'          => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['polygon'] = [
+        'points'      => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['polyline'] = [
+        'points'      => [],
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    $allowed_html['g'] = [
+        'fill'        => [],
+        'stroke'      => [],
+        'stroke-width' => [],
+        'class'       => [],
+        'id'          => [],
+        'style'       => [],
+    ];
+    
+    return apply_filters( 'directorist_svg_allowed_html', $allowed_html );
 }
 
 /**

@@ -98,6 +98,12 @@ function register_controllers() {
     $orders = new \Directorist\Rest_Api\Controllers\Version1\Orders_Controller();
     $orders->register_routes();
 
+    // Pages controller
+    require_once $dir . 'Version1/class-pages-controller.php';
+
+    $pages = new \Directorist\Rest_Api\Controllers\Version1\Pages_Controller();
+    $pages->register_routes();
+
     // V2 Listings
     require_once $dir . 'Version2/class-listings-controller.php';
 

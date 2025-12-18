@@ -28,6 +28,7 @@
 		"@wordpress/server-side-render": "^5.7.0",
 		"classnames": "^2.5.1",
 		"clsx": "^2.1.1",
+		"dom-scroll-into-view": "^1.2.1",
 		"react": "^18.3.1"
 	}
 }

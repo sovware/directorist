@@ -684,7 +684,18 @@ $(function () {
 		function submitForm($form, uploadedImages = []) {
 			var error_count = 0;
 			var err_log = {};
-			let form_data = new FormData();
+			const form_data = new FormData();
+
+			// Add query vars from the URL to form_data
+			const urlParams = new URLSearchParams(window.location.search);
+
+			for (const [key, value] of urlParams.entries()) {
+				// Don't override any existing FormData key
+				if (!form_data.has(key)) {
+					console.log({ key, value });
+					form_data.append(key, value);
+				}
+			}
 
 			form_data.append('action', 'add_listing_action');
 			form_data.append(

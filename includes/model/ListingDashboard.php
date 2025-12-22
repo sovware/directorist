@@ -408,11 +408,11 @@ class Directorist_Listing_Dashboard {
             'icon'      => 'las la-sliders-h',
         ];
 
-        $user_order_history = get_directorist_option('user_order_history', 1);
+        $user_order_history = get_directorist_option( 'user_order_history' );
 
-        if ($user_order_history) {
-            $dashboard_tabs['order_history'] = array(
-                'title'     => __('Order History', 'directorist-pricing-plans'),
+        if ( $user_order_history ) {
+            $dashboard_tabs[ 'order_history' ] = array(
+                'title'     => __( 'Order History', 'directorist-pricing-plans' ),
                 'content'   => Helper::get_template_contents( 'dashboard/tab-orders', [ 'dashboard' => $this ] ),
                 'icon'      => 'las la-clock',
             );
@@ -603,7 +603,7 @@ class Directorist_Listing_Dashboard {
             $dropdown_items['promote'] = [
                 'class'             => '',
                 'data_attr'         =>  '',
-                'link'              =>  directorist_get_checkout_page_link( 'featured_listing', [ 'listing_id' => $post_id ] ),
+                'link'              =>  directorist_get_checkout_page_url( 'featured_listing', [ 'listing_id' => $post_id ] ),
                 'icon'              =>  directorist_icon( 'las la-ad', false ),
                 'label'             =>  __( 'Promote', 'directorist' )
             ];

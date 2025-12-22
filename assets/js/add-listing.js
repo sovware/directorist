@@ -1736,25 +1736,49 @@ $(function () {
       var error_count = 0;
       var err_log = {};
       var form_data = new FormData();
+
+      // Add query vars from the URL to form_data
+      var urlParams = new URLSearchParams(window.location.search);
+      var _iterator4 = _createForOfIteratorHelper(urlParams.entries()),
+        _step4;
+      try {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var _step4$value = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_step4.value, 2),
+            _key = _step4$value[0],
+            value = _step4$value[1];
+          // Don't override any existing FormData key
+          if (!form_data.has(_key)) {
+            console.log({
+              key: _key,
+              value: value
+            });
+            form_data.append(_key, value);
+          }
+        }
+      } catch (err) {
+        _iterator4.e(err);
+      } finally {
+        _iterator4.f();
+      }
       form_data.append('action', 'add_listing_action');
       form_data.append('directorist_nonce', directorist.directorist_nonce);
       disableSubmitButton();
       var fieldValuePairs = $form.serializeArray();
 
       // Append Form Fields Values
-      var _iterator4 = _createForOfIteratorHelper(fieldValuePairs),
-        _step4;
+      var _iterator5 = _createForOfIteratorHelper(fieldValuePairs),
+        _step5;
       try {
-        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-          var field = _step4.value;
+        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+          var field = _step5.value;
           form_data.append(field.name, field.value);
         }
 
         // Upload existing image
       } catch (err) {
-        _iterator4.e(err);
+        _iterator5.e(err);
       } finally {
-        _iterator4.f();
+        _iterator5.f();
       }
       if (mediaUploaders.length) {
         var _loop = function _loop() {

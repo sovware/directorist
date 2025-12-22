@@ -5,17 +5,13 @@ defined( "ABSPATH" ) || exit;
 require_once __DIR__ . '/app.php';
 require_once __DIR__ . '/repositories.php';
 
-use Directorist\App\DTO\Order\DTO as OrderDTO;
+function directorist_get_checkout_page_url( string $checkout_type, array $query_args = [] ) {
+    $query_args['checkout_type'] = $checkout_type;
+    
+    $checkout_page_id = get_directorist_option( 'checkout_page', 0 );
+    $link             = add_query_arg( $query_args, get_permalink( $checkout_page_id ) );
 
-function directorist_get_checkout_page_link( string $checkout_type, array $query_args = [] ) {
-    $page_id = isset( $query_args['page_id'] ) && $query_args['page_id'] ? $query_args['page_id'] : '';
-    $link    = $page_id ? add_query_arg( $query_args, get_permalink( $page_id ) ) : home_url();
-
-    if ( $checkout_type ) {
-        $query_args['checkout_type'] = $checkout_type;
-    }
-
-    return apply_filters( 'directorist_checkout_page_url', $link, $page_id, $checkout_type, $query_args );
+    return apply_filters( 'directorist_checkout_page_url', $link, $checkout_page_id, $checkout_type, $query_args );
 }
 
 function directorist_get_checkout_types(): array {

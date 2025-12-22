@@ -1,12 +1,12 @@
 @import url(https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap);
+#directiost-listing-fields_wrapper {
+	padding: 18px 20px;
+}
 #directiost-listing-fields_wrapper .directorist-show {
 	display: block !important;
 }
 #directiost-listing-fields_wrapper .directorist-hide {
 	display: none !important;
-}
-#directiost-listing-fields_wrapper {
-	padding: 18px 20px;
 }
 #directiost-listing-fields_wrapper a:active,
 #directiost-listing-fields_wrapper a:focus {
@@ -25041,7 +25041,7 @@ input[type="radio"]:checked:before {
 	align-items: center;
 	gap: 8px;
 	padding: 9px 20px;
-	margin: 12px 0 0;
+	margin: 0;
 	background-color: #fff;
 	color: #3e62f5;
 }
@@ -25345,18 +25345,18 @@ input[type="radio"]:checked:before {
 		display: block;
 	}
 }
+.directorist_vertical-align-m {
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
 .directorist_vertical-align-m,
 .directorist_vertical-align-m .directorist_item {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-}
-.directorist_vertical-align-m {
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-ms-flex-align: center;
-	align-items: center;
 }
 .atbdp-settings-manager .atbdp-tab-sub-contents .directorist_btn-start {
 	font-size: 14px;
@@ -29532,18 +29532,6 @@ span.drop-toggle-caret:before {
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 }
-.directorist-ai-keyword-field__list-item.--h-24 {
-	height: 24px;
-}
-.directorist-ai-keyword-field__list-item.--h-32 {
-	height: 32px;
-}
-.directorist-ai-keyword-field__list-item.--px-8 {
-	padding: 0 8px;
-}
-.directorist-ai-keyword-field__list-item.--px-12 {
-	padding: 0 12px;
-}
 .directorist-ai-keyword-field__list-item {
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -29562,6 +29550,18 @@ span.drop-toggle-caret:before {
 	font-weight: 600;
 	line-height: 16px;
 	letter-spacing: 0.12px;
+}
+.directorist-ai-keyword-field__list-item.--h-24 {
+	height: 24px;
+}
+.directorist-ai-keyword-field__list-item.--h-32 {
+	height: 32px;
+}
+.directorist-ai-keyword-field__list-item.--px-8 {
+	padding: 0 8px;
+}
+.directorist-ai-keyword-field__list-item.--px-12 {
+	padding: 0 12px;
 }
 .directorist-ai-keyword-field__list-item svg {
 	width: 20px;

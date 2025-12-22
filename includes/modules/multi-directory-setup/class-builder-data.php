@@ -2265,10 +2265,10 @@ class Builder_Data {
 
                 'enable_single_listing_page'                  => [
                     'type'            => 'toggle',
-                    'toggle_position' => 'left',
+                    'toggle_position' => 'right',
                     'label'           => __( 'Enable Custom Single Listing Page', 'directorist' ),
                     'description'     => __(
-                        'When enabled, the default single listing is replaced by your selected page.', 'directorist' 
+                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content', 'directorist'
                     ),
                     'labelType' => 'h3',
                     'value'     => false,
@@ -2278,7 +2278,7 @@ class Builder_Data {
                     'type'        => 'shortcode-list',
                     'buttonLabel' => __( 'Generate Shortcodes', 'directorist' ),
                     'label'       => __( 'Generate shortcodes', 'directorist' ),
-                    'description' => __( 'Shortcodes are required. Without them, the selected page will show blank content.', 'directorist' ),
+                    'description' => '',
                     'shortcodes'  => [
                         '[directorist_single_listings_header]',
                         [
@@ -2312,8 +2312,9 @@ class Builder_Data {
                 'single_listing_page_title'                    => [
                     'label'             => __( 'Single listing page', 'directorist' ),
                     'type'              => 'title',
-                    'title'             => 'Assign Your Page',
-                    'description'       => 'Select a page that contains the generated shortcodes.',
+                    // Title & description removed as per new UI requirement
+                    'title'             => '',
+                    'description'       => '',
                     'show_if'           => [
                         'where'      => 'enable_single_listing_page',
                         'conditions' => [
@@ -2880,8 +2881,9 @@ class Builder_Data {
                             'container' => 'short-wide',
                             'sections' => [
                                 'page_settings' => [
-                                    'title' => __( 'Custom Single Listing Page', 'directorist' ),
-                                    'description' => __( 'Replace the default single listing layout with your own custom-built page.', 'directorist' ),
+                                    // Title & description removed as per new UI requirement
+                                    'title' => '',
+                                    'description' => '',
                                     'fields' => [
                                         'enable_single_listing_page',
                                         'single_listings_shortcodes',

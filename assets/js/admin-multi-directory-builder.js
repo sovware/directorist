@@ -3661,9 +3661,6 @@
 														case 3:
 															response =
 																_context.sent;
-															console.log(
-																response
-															);
 															if (!response) {
 																_context.next = 4;
 																break;
@@ -3840,7 +3837,6 @@
 							)();
 						},
 						parseApiResponse: function parseApiResponse(response) {
-							console.log(response);
 							var data = response;
 
 							// Handle different API response formats
@@ -44610,45 +44606,102 @@
 											) {
 												continue;
 											}
-											widgets_template.options.fields[
-												option_key
-											] =
+											var savedFieldValue =
 												widget.options.fields[
 													option_key
 												];
-
-											// Check if the option key matches a root-level widget property
-											// If it matches, update the root-level property with the field value
-											if (
-												widgets_template.hasOwnProperty(
+											var templateField =
+												widgets_template.options.fields[
 													option_key
+												];
+											if (
+												templateField &&
+												(0,
+												_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+													'default'
+												])(templateField) ===
+													'object' &&
+												templateField.hasOwnProperty(
+													'type'
+												) &&
+												templateField.hasOwnProperty(
+													'label'
 												)
 											) {
-												var fieldValue =
-													widget.options.fields[
-														option_key
-													];
-												// Only update if the field has a value property (for form fields)
 												if (
-													fieldValue &&
+													savedFieldValue &&
 													(0,
 													_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
 														'default'
-													])(fieldValue) ===
+													])(savedFieldValue) ===
 														'object' &&
-													fieldValue.hasOwnProperty(
+													savedFieldValue.hasOwnProperty(
 														'value'
 													)
 												) {
+													widgets_template.options.fields[
+														option_key
+													] = savedFieldValue;
 													widgets_template[
 														option_key
-													] = fieldValue.value;
-												} else if (
-													fieldValue !== undefined
+													] = savedFieldValue.value;
+												} else {
+													widgets_template.options.fields[
+														option_key
+													] = _objectSpread(
+														_objectSpread(
+															{},
+															templateField
+														),
+														{},
+														{
+															value:
+																savedFieldValue !==
+																undefined
+																	? savedFieldValue
+																	: templateField.value,
+														}
+													);
+													widgets_template[
+														option_key
+													] =
+														savedFieldValue !==
+														undefined
+															? savedFieldValue
+															: templateField.value;
+												}
+											} else {
+												widgets_template.options.fields[
+													option_key
+												] = savedFieldValue;
+												if (
+													widgets_template.hasOwnProperty(
+														option_key
+													)
 												) {
-													widgets_template[
-														option_key
-													] = fieldValue;
+													var fieldValue =
+														savedFieldValue;
+													if (
+														fieldValue &&
+														(0,
+														_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__[
+															'default'
+														])(fieldValue) ===
+															'object' &&
+														fieldValue.hasOwnProperty(
+															'value'
+														)
+													) {
+														widgets_template[
+															option_key
+														] = fieldValue.value;
+													} else if (
+														fieldValue !== undefined
+													) {
+														widgets_template[
+															option_key
+														] = fieldValue;
+													}
 												}
 											}
 										}
@@ -45175,7 +45228,10 @@
 										}
 									);
 								}
-								this.available_widgets = updatedWidgets;
+								this.available_widgets = this.safeClone(
+									updatedWidgets,
+									true
+								);
 							},
 							// Import Card Options
 							importCardOptions: function importCardOptions() {

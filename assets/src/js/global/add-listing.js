@@ -692,7 +692,6 @@ $(function () {
 			for (const [key, value] of urlParams.entries()) {
 				// Don't override any existing FormData key
 				if (!form_data.has(key)) {
-					console.log({ key, value });
 					form_data.append(key, value);
 				}
 			}

@@ -1748,10 +1748,6 @@ $(function () {
             value = _step4$value[1];
           // Don't override any existing FormData key
           if (!form_data.has(_key)) {
-            console.log({
-              key: _key,
-              value: value
-            });
             form_data.append(_key, value);
           }
         }

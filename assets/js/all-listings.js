@@ -3582,10 +3582,14 @@
 							'default'
 						])(function (e) {
 							e.preventDefault();
-							if (!$(this).val()) {
-								return; // Skip search if the value is empty
+							var isSingleCategory = $(this)
+								.closest('.directorist-search-category')
+								.hasClass(
+									'directorist-search-form__single-category'
+								);
+							if (!$(this).val() || isSingleCategory) {
+								return; // Skip search if the value is empty or it's a single category page
 							}
-							e.preventDefault();
 							var searchElm =
 								$(this).val() &&
 								$(this).closest('.listing-with-sidebar');

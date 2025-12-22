@@ -907,11 +907,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		'.directorist-instant-search .listing-with-sidebar select',
 		debounce(function (e) {
 			e.preventDefault();
-			if (!$(this).val()) {
-				return; // Skip search if the value is empty
-			}
+			const isSingleCategory = $(this)
+				.closest('.directorist-search-category')
+				.hasClass('directorist-search-form__single-category');
 
-			e.preventDefault();
+			if (!$(this).val() || isSingleCategory) {
+				return; // Skip search if the value is empty or it's a single category page
+			}
 			var searchElm =
 				$(this).val() && $(this).closest('.listing-with-sidebar');
 

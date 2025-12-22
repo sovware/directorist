@@ -2264,34 +2264,21 @@ class Builder_Data {
                 ],
 
                 'enable_single_listing_page'                  => [
-                    'type'      => 'toggle',
-                    'label'     => __( 'Enable Custom Single Listing Page', 'directorist' ),
-                    'description' => __(
-                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content.', 'directorist' 
+                    'type'            => 'toggle',
+                    'toggle_position' => 'right',
+                    'label'           => __( 'Enable Custom Single Listing Page', 'directorist' ),
+                    'description'     => __(
+                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content', 'directorist'
                     ),
                     'labelType' => 'h3',
                     'value'     => false,
                 ],
-                
-                'single_listing_page'                         => [
-                    'label'             => __( 'Single listing page', 'directorist' ),
-                    'type'              => 'select',
-                    'value'             => '',
-                    'showDefaultOption' => true,
-                    'options'           => directorist_get_all_page_list(),
-                    'show_if'           => [
-                        'where'      => 'enable_single_listing_page',
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
 
                 'single_listings_shortcodes'                  => [
                     'type'        => 'shortcode-list',
-                    'buttonLabel' => '<i class="fas fa-magic"></i>',
+                    'buttonLabel' => __( 'Generate Shortcodes', 'directorist' ),
                     'label'       => __( 'Generate shortcodes', 'directorist' ),
-                    'description' => __( 'Generate single listing shortcodes', 'directorist' ),
+                    'description' => '',
                     'shortcodes'  => [
                         '[directorist_single_listings_header]',
                         [
@@ -2321,6 +2308,38 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                
+                'single_listing_page_title'                    => [
+                    'label'             => __( 'Single listing page', 'directorist' ),
+                    'type'              => 'title',
+                    // Title & description removed as per new UI requirement
+                    'title'             => '',
+                    'description'       => '',
+                    'show_if'           => [
+                        'where'      => 'enable_single_listing_page',
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'single_listing_page'                    => [
+                    'label'             => __( 'Single listing page', 'directorist' ),
+                    'type'              => 'select-api',
+                    'apiPath'           => home_url() . '/wp-json/directorist/v1/pages',
+                    'apiMethod'         => 'GET',
+                    'resyncLabel'       => 'Resync',
+                    'showResyncButton'  => true,
+                    'title'             => 'Assign Your Page',
+                    'description' => __( 'Select a page that contains the generated shortcodes or', 'directorist' ) . ' <a href="' . admin_url( '/post-new.php?post_type=page' ) . '" target="_blank">Create New Page</a>',
+                    'show_if'           => [
+                        'where'      => 'enable_single_listing_page',
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
+                
 
                 'search_form_fields'                          => [
                     'type'            => 'form-builder',
@@ -2862,10 +2881,14 @@ class Builder_Data {
                             'container' => 'short-wide',
                             'sections' => [
                                 'page_settings' => [
+                                    // Title & description removed as per new UI requirement
+                                    'title' => '',
+                                    'description' => '',
                                     'fields' => [
                                         'enable_single_listing_page',
-                                        'single_listing_page',
                                         'single_listings_shortcodes',
+                                        'single_listing_page_title',
+                                        'single_listing_page',
                                     ],
                                 ],
                             ],

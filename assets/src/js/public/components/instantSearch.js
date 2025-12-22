@@ -459,27 +459,36 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		// Collect custom range slider min/max values
 		let range_slider_values = {};
 		searchElm
-			.find(
-				'.directorist-custom-range-slider__text.directorist-custom-range-slider__value__min'
-			)
+			.find('.directorist-custom-range-slider__wrap')
 			.each(function () {
-				const minVal = $(this).val();
-				if (minVal && minVal !== '0') {
-					range_slider_values[
-						'directorist-custom-range-slider__value__min'
-					] = minVal;
+				const $wrap = $(this);
+				const rangeField = $wrap.find(
+					'.directorist-custom-range-slider__range'
+				);
+				const rangeName = rangeField.attr('name');
+
+				if (!rangeName) {
+					return;
 				}
-			});
-		searchElm
-			.find(
-				'.directorist-custom-range-slider__text.directorist-custom-range-slider__value__max'
-			)
-			.each(function () {
-				const maxVal = $(this).val();
-				if (maxVal && maxVal !== '0') {
-					range_slider_values[
-						'directorist-custom-range-slider__value__max'
-					] = maxVal;
+
+				const minInput = $wrap.find(
+					'.directorist-custom-range-slider__value__min'
+				);
+				const maxInput = $wrap.find(
+					'.directorist-custom-range-slider__value__max'
+				);
+				const minVal = minInput.val();
+				const maxVal = maxInput.val();
+
+				const minName = minInput.attr('name');
+				const maxName = maxInput.attr('name');
+
+				if (minName && minVal && minVal !== '0') {
+					range_slider_values[minName] = minVal;
+				}
+
+				if (maxName && maxVal && maxVal !== '0') {
+					range_slider_values[maxName] = maxVal;
 				}
 			});
 

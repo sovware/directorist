@@ -2879,6 +2879,12 @@
 						'.directorist-search-field__input:not(.directorist-search-basic-dropdown)'
 					);
 					searchFields.forEach(function (searchField) {
+						var wrapper = searchField.closest(
+							'.directorist-search-field'
+						);
+						if (!wrapper) {
+							return;
+						}
 						var inputFieldValue = searchField.value;
 						if (
 							searchField.classList.contains('directorist-select')
@@ -2888,28 +2894,16 @@
 									.selectedId;
 						}
 						if (inputFieldValue !== '') {
-							searchField.parentElement.classList.add(
-								'input-has-value'
-							);
+							wrapper.classList.add('input-has-value');
 							if (
-								!searchField.parentElement.classList.contains(
-									'input-is-focused'
-								)
+								!wrapper.classList.contains('input-is-focused')
 							) {
-								searchField.parentElement.classList.add(
-									'input-is-focused'
-								);
+								wrapper.classList.add('input-is-focused');
 							}
 						} else {
 							inputFieldValue = '';
-							if (
-								searchField.parentElement.classList.contains(
-									'input-has-value'
-								)
-							) {
-								searchField.parentElement.classList.remove(
-									'input-has-value'
-								);
+							if (wrapper.classList.contains('input-has-value')) {
+								wrapper.classList.remove('input-has-value');
 							}
 						}
 					});
@@ -4478,7 +4472,9 @@
 						'.directorist-custom-range-slider'
 					);
 					sliders.forEach(function (sliderItem) {
-						var _slider$directoristCu, _slider$directoristCu2;
+						var _slider$directoristCu,
+							_slider$directoristCu2,
+							_slider$directoristCu3;
 						var slider = sliderItem.querySelector(
 							'.directorist-custom-range-slider__slide'
 						);
@@ -4510,6 +4506,14 @@
 						var sliderRangeValue = sliderItem.querySelector(
 							'.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range'
 						);
+						var minInputName =
+							(minInput === null || minInput === void 0
+								? void 0
+								: minInput.getAttribute('name')) || '';
+						var maxInputName =
+							(maxInput === null || maxInput === void 0
+								? void 0
+								: maxInput.getAttribute('name')) || '';
 						var isRTL = document.dir === 'rtl';
 
 						// Flags
@@ -4522,17 +4526,39 @@
 							window.location.search
 						);
 						var customNumberParams = urlParams.get('custom-number');
-						var customRangeMinParams = urlParams.get(
+						var rangeFieldName =
+							(sliderRange === null || sliderRange === void 0
+								? void 0
+								: sliderRange.getAttribute('name')) || '';
+						var fieldRangeValueParam = rangeFieldName
+							? urlParams.get(rangeFieldName)
+							: null;
+						var specificRangeMinParam = minInputName
+							? urlParams.get(minInputName)
+							: null;
+						var specificRangeMaxParam = maxInputName
+							? urlParams.get(maxInputName)
+							: null;
+						var globalRangeMinParam = urlParams.get(
 							'directorist-custom-range-slider__value__min'
 						);
-						var customRangeMaxParams = urlParams.get(
+						var globalRangeMaxParam = urlParams.get(
 							'directorist-custom-range-slider__value__max'
 						);
+						var effectiveRangeMinParam =
+							specificRangeMinParam !== null &&
+							specificRangeMinParam !== void 0
+								? specificRangeMinParam
+								: globalRangeMinParam;
+						var effectiveRangeMaxParam =
+							specificRangeMaxParam !== null &&
+							specificRangeMaxParam !== void 0
+								? specificRangeMaxParam
+								: globalRangeMaxParam;
 						var locationDistanceParams = urlParams.get('miles');
-						var milesParams = new URLSearchParams(
-							window.location.search
-						).has('miles');
+						var milesParams = urlParams.has('miles');
 						if (
+							rangeFieldName === 'miles' &&
 							locationDistanceParams !== '0-0' &&
 							sliderDefaultValue >= 0
 						) {
@@ -4541,13 +4567,18 @@
 
 						// if already have custom values, then slider is activated
 						if (
+							fieldRangeValueParam &&
+							fieldRangeValueParam !== '0-0'
+						) {
+							sliderActivated = true;
+						} else if (
 							customNumberParams &&
 							customNumberParams !== '0-0'
 						) {
 							sliderActivated = true;
 						} else if (
-							customRangeMaxParams &&
-							customRangeMaxParams !== '0'
+							effectiveRangeMaxParam &&
+							effectiveRangeMaxParam !== '0'
 						) {
 							sliderActivated = true;
 						}
@@ -4582,6 +4613,21 @@
 
 							// Assign min-max values from custom-range-slider params
 							if (
+								fieldRangeValueParam &&
+								fieldRangeValueParam !== '0-0'
+							) {
+								var _fieldRangeValueParam = fieldRangeValueParam
+										.split('-')
+										.map(Number),
+									_fieldRangeValueParam2 = (0,
+									_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[
+										'default'
+									])(_fieldRangeValueParam, 2),
+									min = _fieldRangeValueParam2[0],
+									max = _fieldRangeValueParam2[1];
+								minValue = min;
+								maxValue = max;
+							} else if (
 								customNumberParams &&
 								customNumberParams !== '0-0'
 							) {
@@ -4592,19 +4638,19 @@
 									_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[
 										'default'
 									])(_customNumberParams$s, 2),
-									min = _customNumberParams$s2[0],
-									max = _customNumberParams$s2[1];
+									_min = _customNumberParams$s2[0],
+									_max = _customNumberParams$s2[1];
 
 								// Use the split values as min-max
-								minValue = min;
-								maxValue = max;
+								minValue = _min;
+								maxValue = _max;
 							} else if (
-								customRangeMinParams &&
-								customRangeMaxParams
+								effectiveRangeMinParam &&
+								effectiveRangeMaxParam
 							) {
 								// Modal Search Form
-								minValue = customRangeMinParams;
-								maxValue = customRangeMaxParams;
+								minValue = effectiveRangeMinParam;
+								maxValue = effectiveRangeMaxParam;
 							}
 
 							// Initial with [min, max] value
@@ -4669,7 +4715,7 @@
 								rangeSliderObserver();
 							});
 
-						// Update slider config
+						// Update slider config - update values but don't trigger change during drag
 						(_slider$directoristCu2 =
 							slider.directoristCustomRangeSlider) === null ||
 							_slider$directoristCu2 === void 0 ||
@@ -4695,14 +4741,19 @@
 											'value',
 											rangeValue
 										);
-										if (!rangeInitLoad) {
-											$(sliderRangeValue).trigger(
-												'change'
-											);
-										}
 									}
 								}
 							);
+
+						// Trigger change only when dragging ends (mouse/touch released)
+						(_slider$directoristCu3 =
+							slider.directoristCustomRangeSlider) === null ||
+							_slider$directoristCu3 === void 0 ||
+							_slider$directoristCu3.on('end', function () {
+								if (sliderRangeValue && !rangeInitLoad) {
+									$(sliderRangeValue).trigger('change');
+								}
+							});
 
 						// Mark init complete
 						rangeInitLoad = false;
@@ -4783,24 +4834,24 @@
 					var defaultValue =
 						slider.getAttribute('default-value') || '0';
 					if (radiusSearch) {
-						var _slider$directoristCu3;
+						var _slider$directoristCu4;
 						minInput.value = '0';
 						maxInput.value = defaultValue;
-						slider === null ||
-							slider === void 0 ||
-							(_slider$directoristCu3 =
-								slider.directoristCustomRangeSlider) === null ||
-							_slider$directoristCu3 === void 0 ||
-							_slider$directoristCu3.set([0, defaultValue]); // Set initial values
-					} else {
-						var _slider$directoristCu4;
-						// Reset values to their initial state
 						slider === null ||
 							slider === void 0 ||
 							(_slider$directoristCu4 =
 								slider.directoristCustomRangeSlider) === null ||
 							_slider$directoristCu4 === void 0 ||
-							_slider$directoristCu4.set([0, 0]); // Set initial values
+							_slider$directoristCu4.set([0, defaultValue]); // Set initial values
+					} else {
+						var _slider$directoristCu5;
+						// Reset values to their initial state
+						slider === null ||
+							slider === void 0 ||
+							(_slider$directoristCu5 =
+								slider.directoristCustomRangeSlider) === null ||
+							_slider$directoristCu5 === void 0 ||
+							_slider$directoristCu5.set([0, 0]); // Set initial values
 						minInput.value = '0'; // Set initial min value
 						maxInput.value = '0'; // Set initial max value
 						rangeValue.value = '0-0';

@@ -47089,6 +47089,7 @@
 											props.widget_key
 										];
 									var updatedValue = props.payload.value;
+									var isBlur = !!props.payload.isBlur;
 									if (
 										props.payload.key === 'placeholder' &&
 										!props.payload.value
@@ -47101,7 +47102,12 @@
 										props.payload.key === 'label' &&
 										!props.payload.value
 									) {
-										if (!activeWidget.placeholder) {
+										// Only apply default label when the input loses focus (blur)
+										// and the placeholder is still empty.
+										if (
+											isBlur &&
+											!activeWidget.placeholder
+										) {
 											updatedValue =
 												directorist_admin.search_form_default_label;
 										}
@@ -50330,7 +50336,7 @@
 							return options_values.includes(value);
 						},
 						/* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 					},
 				};
@@ -54092,6 +54098,17 @@
 																			{
 																				key: field_key,
 																				value: $event,
+																			}
+																		);
+																	},
+																	blur: function blur(
+																		$event
+																	) {
+																		return _vm.update(
+																			{
+																				key: field_key,
+																				value: $event,
+																				isBlur: true,
 																			}
 																		);
 																	},
@@ -72383,11 +72400,11 @@
 													},
 													[
 														_vm._v(
-															'\r\n            ' +
+															'\n            ' +
 																_vm._s(
 																	alert.message
 																) +
-																'\r\n        '
+																'\n        '
 														),
 													]
 												);

@@ -3797,7 +3797,7 @@
 				// Listing Type Change
 				$('body').on(
 					'click',
-					'.search_listing_types',
+					'.search_listing_types, .directorist-type-nav__link',
 					function (event) {
 						event.preventDefault();
 						var parent = $(this).closest(
@@ -4164,216 +4164,227 @@
 							},
 						];
 						input_fields.forEach(function (field) {
-							if (!$(field.input_elm).length) {
-								return;
-							}
-							$(field.input_elm).on(
-								'keyup',
-								(0,
-								_global_components_debounce__WEBPACK_IMPORTED_MODULE_4__[
-									'default'
-								])(function (event) {
-									event.preventDefault();
-									var blockedKeyCodes = [
-										16, 17, 18, 19, 20, 27, 33, 34, 35, 36,
-										37, 38, 39, 40, 45, 91, 93, 112, 113,
-										114, 115, 116, 117, 118, 119, 120, 121,
-										122, 123, 144, 145,
-									];
+							$('body')
+								.off(
+									'keyup.directoristOpenstreet',
+									field.input_elm
+								)
+								.on(
+									'keyup.directoristOpenstreet',
+									field.input_elm,
+									(0,
+									_global_components_debounce__WEBPACK_IMPORTED_MODULE_4__[
+										'default'
+									])(function (event) {
+										event.preventDefault();
+										var blockedKeyCodes = [
+											16, 17, 18, 19, 20, 27, 33, 34, 35,
+											36, 37, 38, 39, 40, 45, 91, 93, 112,
+											113, 114, 115, 116, 117, 118, 119,
+											120, 121, 122, 123, 144, 145,
+										];
 
-									// Return early when blocked key is pressed.
-									if (
-										blockedKeyCodes.includes(event.keyCode)
-									) {
-										return;
-									}
-									var locationAddressField = $(this).parent(
-										'.directorist-search-field'
-									);
-									var result_container =
-										field.getResultContainer(this, field);
-									var search = $(this).val();
-									if (search.length < 3) {
-										result_container.css({
-											display: 'none',
-										});
-									} else {
-										locationAddressField.addClass(
-											'atbdp-form-fade'
-										);
-										result_container.css({
-											display: 'block',
-										});
-										$.ajax({
-											url: 'https://nominatim.openstreetmap.org/?q=%27+'.concat(
-												search,
-												'+%27&format=json'
-											),
-											type: 'GET',
-											data: {},
-											success: function success(data) {
-												var res = '';
-												var currentIconURL =
-													directorist.assets_url +
-													'icons/font-awesome/svgs/solid/paper-plane.svg';
-												var currentIconHTML =
-													directorist.icon_markup
-														.replace(
-															'##URL##',
-															currentIconURL
-														)
-														.replace(
-															'##CLASS##',
-															''
-														);
-												var currentLocationIconHTML =
-													"<span class='location-icon'>" +
-													currentIconHTML +
-													'</span>';
-												var currentLocationAddressHTML =
-													"<span class='location-address'></span>";
-												var iconURL =
-													directorist.assets_url +
-													'icons/font-awesome/svgs/solid/map-marker-alt.svg';
-												var iconHTML =
-													directorist.icon_markup
-														.replace(
-															'##URL##',
-															iconURL
-														)
-														.replace(
-															'##CLASS##',
-															''
-														);
-												var locationIconHTML =
-													"<span class='location-icon'>" +
-													iconHTML +
-													'</span>';
-												for (
-													var i = 0,
-														len =
-															data.length > 5
-																? 5
-																: data.length;
-													i < len;
-													i++
+										// Return early when blocked key is pressed.
+										if (
+											blockedKeyCodes.includes(
+												event.keyCode
+											)
+										) {
+											return;
+										}
+										var locationAddressField = $(
+											this
+										).parent('.directorist-search-field');
+										var result_container =
+											field.getResultContainer(
+												this,
+												field
+											);
+										var search = $(this).val();
+										if (search.length < 3) {
+											result_container.css({
+												display: 'none',
+											});
+										} else {
+											locationAddressField.addClass(
+												'atbdp-form-fade'
+											);
+											result_container.css({
+												display: 'block',
+											});
+											$.ajax({
+												url: 'https://nominatim.openstreetmap.org/?q=%27+'.concat(
+													search,
+													'+%27&format=json'
+												),
+												type: 'GET',
+												data: {},
+												success: function success(
+													data
 												) {
-													((res +=
-														'<li><a href="#" data-lat=' +
-														data[i].lat +
-														' data-lon=' +
-														data[i].lon +
-														'>' +
-														locationIconHTML +
-														"<span class='location-address'>" +
-														data[i].display_name),
-														+'</span></a></li>');
-												}
-												function displayLocation(
-													position,
-													event
-												) {
-													var lat =
-														position.coords
-															.latitude;
-													var lng =
-														position.coords
-															.longitude;
-													$.ajax({
-														url:
-															'https://nominatim.openstreetmap.org/reverse?format=json&lon=' +
-															lng +
-															'&lat=' +
-															lat,
-														type: 'GET',
-														data: {},
-														success:
-															function success(
-																data
-															) {
-																$(
-																	'.directorist-location-js, .atbdp-search-address'
-																).val(
-																	data.display_name
-																);
-																$(
-																	'.directorist-location-js, .atbdp-search-address'
-																).attr(
-																	'data-value',
-																	data.display_name
-																);
-																$(
-																	'#cityLat'
-																).val(lat);
-																$(
-																	'#cityLng'
-																).val(lng);
-																var locationSearch =
-																	$(
-																		'.directorist-search-location'
-																	);
-																if (
-																	locationSearch.length
-																) {
-																	locationSearch.trigger(
-																		'change'
-																	);
-																}
-															},
-													});
-												}
-												result_container.html(
-													'<ul>' +
-														"<li><a href='#' class='current-location'>" +
-														currentLocationIconHTML +
-														currentLocationAddressHTML +
-														'</a></li>' +
-														res +
-														'</ul>'
-												);
-												if (res.length) {
-													result_container.show();
-												} else {
-													result_container.hide();
-												}
-												locationAddressField.removeClass(
-													'atbdp-form-fade'
-												);
-												$('body')
-													.off(
-														'click',
-														'.address_result .current-location'
-													)
-													.on(
-														'click',
-														'.address_result .current-location',
-														function (e) {
-															e.preventDefault();
-															navigator.geolocation.getCurrentPosition(
-																function (
-																	position
-																) {
-																	return displayLocation(
-																		position,
-																		e
-																	);
-																}
+													var res = '';
+													var currentIconURL =
+														directorist.assets_url +
+														'icons/font-awesome/svgs/solid/paper-plane.svg';
+													var currentIconHTML =
+														directorist.icon_markup
+															.replace(
+																'##URL##',
+																currentIconURL
+															)
+															.replace(
+																'##CLASS##',
+																''
 															);
-														}
+													var currentLocationIconHTML =
+														"<span class='location-icon'>" +
+														currentIconHTML +
+														'</span>';
+													var currentLocationAddressHTML =
+														"<span class='location-address'></span>";
+													var iconURL =
+														directorist.assets_url +
+														'icons/font-awesome/svgs/solid/map-marker-alt.svg';
+													var iconHTML =
+														directorist.icon_markup
+															.replace(
+																'##URL##',
+																iconURL
+															)
+															.replace(
+																'##CLASS##',
+																''
+															);
+													var locationIconHTML =
+														"<span class='location-icon'>" +
+														iconHTML +
+														'</span>';
+													for (
+														var i = 0,
+															len =
+																data.length > 5
+																	? 5
+																	: data.length;
+														i < len;
+														i++
+													) {
+														((res +=
+															'<li><a href="#" data-lat=' +
+															data[i].lat +
+															' data-lon=' +
+															data[i].lon +
+															'>' +
+															locationIconHTML +
+															"<span class='location-address'>" +
+															data[i]
+																.display_name),
+															+'</span></a></li>');
+													}
+													function displayLocation(
+														position,
+														event
+													) {
+														var lat =
+															position.coords
+																.latitude;
+														var lng =
+															position.coords
+																.longitude;
+														$.ajax({
+															url:
+																'https://nominatim.openstreetmap.org/reverse?format=json&lon=' +
+																lng +
+																'&lat=' +
+																lat,
+															type: 'GET',
+															data: {},
+															success:
+																function success(
+																	data
+																) {
+																	$(
+																		'.directorist-location-js, .atbdp-search-address'
+																	).val(
+																		data.display_name
+																	);
+																	$(
+																		'.directorist-location-js, .atbdp-search-address'
+																	).attr(
+																		'data-value',
+																		data.display_name
+																	);
+																	$(
+																		'#cityLat'
+																	).val(lat);
+																	$(
+																		'#cityLng'
+																	).val(lng);
+																	var locationSearch =
+																		$(
+																			'.directorist-search-location'
+																		);
+																	if (
+																		locationSearch.length
+																	) {
+																		locationSearch.trigger(
+																			'change'
+																		);
+																	}
+																},
+														});
+													}
+													result_container.html(
+														'<ul>' +
+															"<li><a href='#' class='current-location'>" +
+															currentLocationIconHTML +
+															currentLocationAddressHTML +
+															'</a></li>' +
+															res +
+															'</ul>'
 													);
-											},
-											error: function error(_error3) {
-												console.log({
-													error: _error3,
-												});
-												locationAddressField.removeClass(
-													'atbdp-form-fade'
-												);
-											},
-										});
-									}
-								}, 750)
-							);
+													if (res.length) {
+														result_container.show();
+													} else {
+														result_container.hide();
+													}
+													locationAddressField.removeClass(
+														'atbdp-form-fade'
+													);
+													$('body')
+														.off(
+															'click',
+															'.address_result .current-location'
+														)
+														.on(
+															'click',
+															'.address_result .current-location',
+															function (e) {
+																e.preventDefault();
+																navigator.geolocation.getCurrentPosition(
+																	function (
+																		position
+																	) {
+																		return displayLocation(
+																			position,
+																			e
+																		);
+																	}
+																);
+															}
+														);
+												},
+												error: function error(_error3) {
+													console.log({
+														error: _error3,
+													});
+													locationAddressField.removeClass(
+														'atbdp-form-fade'
+													);
+												},
+											});
+										}
+									}, 750)
+								);
 						});
 
 						// hide address result when click outside the input field

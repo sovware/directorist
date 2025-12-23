@@ -1854,8 +1854,7 @@ $(function () {
           $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.submission_wait_msg, "</span>"));
         },
         success: function success(response) {
-          var redirect_url = response && response.redirect_url ? response.redirect_url : '';
-          redirect_url = redirect_url && typeof redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : '';
+          var redirect_url = response && response.redirect_url ? encodeURIComponent(response.redirect_url) : '';
           if ((response === null || response === void 0 ? void 0 : response.nonce_expired) === true) {
             updateLocalNonce();
           }
@@ -1888,7 +1887,8 @@ $(function () {
             if (response.preview_mode === true && response.need_payment !== true) {
               if (response.edited_listing !== true) {
                 $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-                window.location.href = joinQueryString(response.preview_url, "preview=1&redirect=".concat(redirect_url));
+                var navigate_to = joinQueryString(response.preview_url, "preview=1&redirect=".concat(redirect_url));
+                window.location.href = navigate_to;
               } else {
                 $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
                 if (qs.redirect) {
@@ -1904,10 +1904,10 @@ $(function () {
               var is_edited = response.edited_listing ? "listing_id=".concat(response.id, "&edited=1") : '';
               if (response.need_payment === true) {
                 $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-                window.location.href = decodeURIComponent(redirect_url);
+                window.location.href = redirect_url;
               } else {
                 $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-                window.location.href = joinQueryString(decodeURIComponent(response.redirect_url), is_edited);
+                window.location.href = joinQueryString(redirect_url, is_edited);
               }
             }
           }

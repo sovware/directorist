@@ -831,14 +831,7 @@ $(function () {
 				success(response) {
 					var redirect_url =
 						response && response.redirect_url
-							? response.redirect_url
-							: '';
-					redirect_url =
-						redirect_url && typeof redirect_url === 'string'
-							? response.redirect_url.replace(
-									/:\/\//g,
-									'%3A%2F%2F'
-								)
+							? encodeURIComponent( response.redirect_url )
 							: '';
 
 					if (response?.nonce_expired === true) {
@@ -903,10 +896,12 @@ $(function () {
 										`<span class="atbdp_success">${response.success_msg}</span>`
 									);
 
-								window.location.href = joinQueryString(
+								const navigate_to = joinQueryString(
 									response.preview_url,
-									`preview=1&redirect=${redirect_url}`
+									`preview=1&redirect=${ redirect_url }`
 								);
+
+								window.location.href = navigate_to;
 							} else {
 								$notification
 									.show()
@@ -945,18 +940,13 @@ $(function () {
 									.html(
 										`<span class="atbdp_success">${response.success_msg}</span>`
 									);
-								window.location.href =
-									decodeURIComponent(redirect_url);
+								window.location.href = redirect_url
 							} else {
 								$notification
 									.show()
-									.html(
-										`<span class="atbdp_success">${response.success_msg}</span>`
-									);
-								window.location.href = joinQueryString(
-									decodeURIComponent(response.redirect_url),
-									is_edited
-								);
+									.html( `<span class="atbdp_success">${response.success_msg}</span>` );
+
+								window.location.href = joinQueryString( redirect_url, is_edited );
 							}
 						}
 					}

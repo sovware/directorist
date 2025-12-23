@@ -117,10 +117,10 @@ const EnquiriesComponentStyle = styled.div`
 		border-radius: 12px;
 		border: 1px solid #e5e7eb;
 		margin-top: 30px;
-		.components-input-control__container{
+		.components-input-control__container {
 			background-color: #f0f0f0;
 		}
-		.components-input-control__backdrop{
+		.components-input-control__backdrop {
 			border-color: transparent !important;
 		}
 		.dataviews-view-table {
@@ -196,35 +196,35 @@ const EnquiriesComponentStyle = styled.div`
 			color: var(--directorist-color-info);
 		}
 	}
-	.dataviews-view-table{
-		tr{
-			th{
-				&:first-child{
+	.dataviews-view-table {
+		tr {
+			th {
+				&:first-child {
 					padding-left: 25px;
 				}
-				&:last-child{
+				&:last-child {
 					padding-right: 25px;
 				}
 			}
-			td{
-				&:first-child{
+			td {
+				&:first-child {
 					padding-left: 25px;
 				}
-				&:last-child{
+				&:last-child {
 					padding-right: 25px;
 				}
 			}
 		}
 	}
-	.dataviews__view-actions{
+	.dataviews__view-actions {
 		padding: 16px 25px;
 	}
 	.dataviews-view-table__actions-column {
 		padding: 30px 0;
 	}
-	.dataviews-wrapper{
-		.components-h-stack{
-			.components-dropdown{
+	.dataviews-wrapper {
+		.components-h-stack {
+			.components-dropdown {
 				display: none;
 			}
 		}
@@ -372,6 +372,11 @@ const EnquiryDetailsModalStyle = styled.div`
 			opacity: 0.5;
 			pointer-events: none;
 		}
+		@media only screen and (max-width: 480px) {
+			span {
+				display: none;
+			}
+		}
 	}
 	.directorist-enquiry-modal-btn-delete {
 		margin-left: auto;
@@ -475,56 +480,60 @@ const EnquiryDetailsModalStyle = styled.div`
 				}
 			}
 			.formgent-file-upload-answer__info,
-			.formgent-file-upload-answer__action{
+			.formgent-file-upload-answer__action {
 				display: flex;
 				align-items: center;
 				gap: 12px;
 			}
-			.formgent-file-upload-answer__media{
+			.formgent-file-upload-answer__media {
 				min-width: 40px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				img{
+				img {
 					width: 40px;
 					height: 40px;
 					object-fit: cover;
 					border-radius: 8px;
 				}
-				video{
+				video {
 					width: 40px;
 					height: 40px;
 					object-fit: cover;
 					border-radius: 8px;
 				}
-				svg{
+				svg {
 					width: 36px;
 					height: 36px;
-					path{
+					path {
 						fill: var(--directorist-color-light-gray);
 					}
 				}
 			}
-			.formgent-file-upload-answer__file-name{
+			.formgent-file-upload-answer__file-name {
 				font-size: 13px;
 				max-width: 230px;
 				text-overflow: ellipsis;
 				overflow: hidden;
 				color: var(--directorist-color-light-gray);
 				margin-bottom: 4px;
+				@media only screen and (max-width: 380px) {
+					max-width: none;
+					word-break: break-all;
+				}
 			}
 			.formgent-file-upload-answer__file-size {
 				font-size: 12px;
 				color: var(--directorist-color-light-gray);
 			}
 			.formgent-file-upload-answer__download,
-			.formgent-file-upload-answer__view{
+			.formgent-file-upload-answer__view {
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				transition: 0.3s ease;
 				cursor: pointer;
-				svg{
+				svg {
 					width: 20px;
 					height: 20px;
 					transition: 0.3s ease;

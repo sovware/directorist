@@ -168,7 +168,9 @@ export default function EnquiryDetailsModal({
 								</div>
 							</div>
 							<div className="directorist-enquiry-listing">
-								<h3>{__('Regarding Listing', 'directorist')}</h3>
+								<h3>
+									{__('Regarding Listing', 'directorist')}
+								</h3>
 								<a
 									href="#"
 									target="_blank"
@@ -181,7 +183,6 @@ export default function EnquiryDetailsModal({
 						</div>
 
 						<div className="directorist-answers-section">
-							
 							{singleItem?.response?.answers.map(
 								(answer, index) => {
 									return (
@@ -210,7 +211,7 @@ export default function EnquiryDetailsModal({
 								}
 							>
 								<Reply />
-								{__('Send Email', 'directorist')}
+								<span>{__('Send Email', 'directorist')}</span>
 							</button>
 							<button
 								className={`directorist-enquiry-modal-btn directorist-enquiry-modal-btn-resolved ${singleItem?.response?.is_read === '1' ? 'directorist-btn-disabled' : ''}`}
@@ -218,9 +219,11 @@ export default function EnquiryDetailsModal({
 								disabled={singleItem?.response?.is_read === '1'}
 							>
 								<Check />
-								{singleItem?.response?.is_read === '1'
-									? __('Marked as read', 'directorist')
-									: __('Mark as read', 'directorist')}
+								<span>
+									{singleItem?.response?.is_read === '1'
+										? __('Marked as read', 'directorist')
+										: __('Mark as read', 'directorist')}
+								</span>
 							</button>
 							<button
 								className="directorist-enquiry-modal-btn directorist-enquiry-modal-btn-delete"
@@ -230,7 +233,7 @@ export default function EnquiryDetailsModal({
 								}}
 							>
 								<Trash />
-								{__('Delete', 'directorist')}
+								<span>{__('Delete', 'directorist')}</span>
 							</button>
 						</div>
 					</>

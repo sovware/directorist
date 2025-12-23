@@ -304,7 +304,7 @@ Added
 Improved
  - Listing type handling and related logic. (#2626)
  - Custom single listing page copy and toggle alignment. (#2619)
- - Builder feedback and overall UX refinements. (#2600)
+ - Builder user experience improvements. (#2600)
  - Custom listing functionality. (#2556)
 
 Changed

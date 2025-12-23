@@ -882,8 +882,8 @@ class Directorist_Single_Listing {
         $payment    = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
         
         $redirect = '';
-        if ( isset( $_GET['redirect'] ) ) {
-            $redirect = wp_validate_redirect( wp_unslash( $_GET['redirect'] ), '' );
+        if ( ! empty( $_GET['redirect'] ) ) {
+            $redirect = wp_validate_redirect( sanitize_url( wp_unslash( $_GET['redirect'] ) ), '' );
         }
         
         
@@ -927,8 +927,8 @@ class Directorist_Single_Listing {
     public function edit_link() {
         $id = $this->id;
         $redirect = '';
-        if ( isset( $_GET['redirect'] ) ) {
-            $redirect = wp_validate_redirect( wp_unslash( $_GET['redirect'] ), '' );
+        if ( ! empty( $_GET['redirect'] ) ) {
+            $redirect = wp_validate_redirect( sanitize_url( wp_unslash( $_GET['redirect'] ) ), '' );
         }
         
         $payment = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';

@@ -119,9 +119,59 @@
 						function () {
 							(0,
 							_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.fetchAllEnquiries)().then(
-								function (data) {
-									setResponses(data);
-								}
+								/*#__PURE__*/ (function () {
+									var _ref2 = (0,
+									_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__[
+										'default'
+									])(
+										/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
+											function _callee(data) {
+												var items, enrichedItems;
+												return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
+													function (_context) {
+														while (1)
+															switch (
+																(_context.prev =
+																	_context.next)
+															) {
+																case 0:
+																	items =
+																		Array.isArray(
+																			data
+																		)
+																			? data
+																			: (data ===
+																					null ||
+																				data ===
+																					void 0
+																					? void 0
+																					: data.responses) ||
+																				[]; // Enrich items with answers data
+																	_context.next = 1;
+																	return (0,
+																	_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.enrichEnquiriesWithAnswers)(
+																		items
+																	);
+																case 1:
+																	enrichedItems =
+																		_context.sent;
+																	setResponses(
+																		enrichedItems
+																	);
+																case 2:
+																case 'end':
+																	return _context.stop();
+															}
+													},
+													_callee
+												);
+											}
+										)
+									);
+									return function (_x) {
+										return _ref2.apply(this, arguments);
+									};
+								})()
 							);
 						},
 						[]
@@ -177,65 +227,86 @@
 						},
 					];
 					var handleRefresh = /*#__PURE__*/ (function () {
-						var _ref2 = (0,
+						var _ref3 = (0,
 						_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__[
 							'default'
 						])(
 							/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
-								function _callee() {
+								function _callee2() {
 									var _yield$refreshEnquiry,
 										_responses,
 										kpis,
+										items,
+										enrichedItems,
 										_t;
 									return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
-										function (_context) {
+										function (_context2) {
 											while (1)
 												switch (
-													(_context.prev =
-														_context.next)
+													(_context2.prev =
+														_context2.next)
 												) {
 													case 0:
-														_context.prev = 0;
-														_context.next = 1;
+														_context2.prev = 0;
+														_context2.next = 1;
 														return (0,
 														_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.refreshEnquiryData)();
 													case 1:
 														_yield$refreshEnquiry =
-															_context.sent;
+															_context2.sent;
 														_responses =
 															_yield$refreshEnquiry.responses;
 														kpis =
 															_yield$refreshEnquiry.kpis;
-														setResponses(
+														items = Array.isArray(
 															_responses
+														)
+															? _responses
+															: (_responses ===
+																	null ||
+																_responses ===
+																	void 0
+																	? void 0
+																	: _responses.responses) ||
+																[]; // Enrich items with answers data
+														_context2.next = 2;
+														return (0,
+														_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.enrichEnquiriesWithAnswers)(
+															items
+														);
+													case 2:
+														enrichedItems =
+															_context2.sent;
+														setResponses(
+															enrichedItems
 														);
 														setResponseKPIs(kpis);
-														_context.next = 3;
+														_context2.next = 4;
 														break;
-													case 2:
-														_context.prev = 2;
+													case 3:
+														_context2.prev = 3;
 														_t =
-															_context['catch'](
+															_context2['catch'](
 																0
 															);
 														console.error(
 															'Error refreshing data:',
 															_t
 														);
-													case 3:
+													case 4:
 													case 'end':
-														return _context.stop();
+														return _context2.stop();
 												}
 										},
-										_callee,
+										_callee2,
 										null,
-										[[0, 2]]
+										[[0, 3]]
 									);
 								}
 							)
 						);
 						return function handleRefresh() {
-							return _ref2.apply(this, arguments);
+							return _ref3.apply(this, arguments);
 						};
 					})();
 					return (0,
@@ -342,10 +413,7 @@
 								{
 									items: Array.isArray(responses)
 										? responses
-										: (responses === null ||
-											responses === void 0
-												? void 0
-												: responses.responses) || [],
+										: [],
 									handleTableRefresh: handleRefresh,
 								}
 							)
@@ -1333,6 +1401,19 @@
 									enableSorting: false,
 									render: function render(_ref) {
 										var item = _ref.item;
+										var _extractEnquiryTitleA = (0,
+											_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_8__.extractEnquiryTitleAndPrefix)(
+												item
+											),
+											title = _extractEnquiryTitleA.title,
+											prefix =
+												_extractEnquiryTitleA.prefix;
+										//allow max 20 words in prefix
+										var maxWords = 20;
+										var words = prefix.split(' ');
+										var truncatedPrefix = words
+											.slice(0, maxWords)
+											.join(' ');
 										return (0,
 										_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(
 											'div',
@@ -1340,18 +1421,21 @@
 												className:
 													'directorist-table-enquiry',
 											},
-											(0,
-											_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(
-												'h2',
-												null,
-												item.title
-											),
-											(0,
-											_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(
-												'p',
-												null,
-												item.enquiry_prefix
-											),
+											title &&
+												(0,
+												_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(
+													'h2',
+													null,
+													title
+												),
+											prefix &&
+												(0,
+												_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(
+													'p',
+													null,
+													truncatedPrefix,
+													'...'
+												),
 											(0,
 											_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(
 												'div',
@@ -1919,7 +2003,7 @@
 							_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__[
 								'default'
 							])([
-								'\n\t.directorist-enquiries-header {\n\t\tmargin-bottom: 32px;\n\t}\n\t.directorist-enquiries-title {\n\t\tfont-size: 30px;\n\t\tfont-weight: 700;\n\t\tmargin: 0;\n\t}\n\t.directorist-enquiries-description {\n\t\tfont-size: 14px;\n\t\tmargin: 8px 0 0 0;\n\t}\n\t.directorist-enquires-stats {\n\t\tdisplay: flex;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n\t\tgap: 20px;\n\t}\n\t.directorist-enquires-stats-item {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tflex: 1;\n\t\tborder-radius: 12px;\n\t\tbackground-color: #fff;\n\t\tpadding: 24px;\n\t\tborder: 1px solid #e5e7eb;\n\t\ttransition: 0.3s ease;\n\t\t@media screen and (max-width: 992px) {\n\t\t\twidth: 100%;\n\t\t\tflex: 1 1 calc(50% - 60px);\n\t\t}\n\t\t@media screen and (max-width: 575px) {\n\t\t\twidth: 100%;\n\t\t\tflex: 1 1 100%;\n\t\t}\n\t\t&:hover {\n\t\t\tbox-shadow:\n\t\t\t\t0 0 #0000,\n\t\t\t\t0 0 #0000,\n\t\t\t\t0 4px 6px -1px rgb(0 0 0 / 0.1),\n\t\t\t\t0 2px 4px -2px rgb(0 0 0 / 0.1);\n\t\t}\n\t}\n\t.directorist-enquires-stats-left {\n\t\th2 {\n\t\t\tfont-size: 30px;\n\t\t\tfont-weight: 700;\n\t\t\tmargin: 0;\n\t\t}\n\t\tp {\n\t\t\tfont-size: 14px;\n\t\t\tmargin: 4px 0 0 0;\n\t\t}\n\t}\n\t.directorist-enquires-stats-right {\n\t\tspan {\n\t\t\twidth: 48px;\n\t\t\theight: 48px;\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tborder-radius: 8px;\n\t\t\tbackground-color: #dbeafe;\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-info);\n\t\t\t\twidth: 24px;\n\t\t\t\theight: 24px;\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--total {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #dbeafe;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-info);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--new {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #ffedd5;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-warning);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--this-week {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #dbeafe;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-info);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--resolved {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #dcfce7;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-success);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquiries-table {\n\t\tbackground: #fff;\n\t\tborder-radius: 12px;\n\t\tborder: 1px solid #e5e7eb;\n\t\tmargin-top: 30px;\n\t\t.components-input-control__container{\n\t\t\tbackground-color: #f0f0f0;\n\t\t}\n\t\t.components-input-control__backdrop{\n\t\t\tborder-color: transparent !important;\n\t\t}\n\t\t.dataviews-view-table {\n\t\t\ttbody {\n\t\t\t\ttd {\n\t\t\t\t\tvertical-align: middle;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t.dataviews__view-actions {\n\t\t\tborder-bottom: 1px solid #e5e7eb;\n\t\t}\n\t\t.directorist-table-enquiry,\n\t\t.directorist-table-enquiry-listing,\n\t\t.directorist-table-enquiry-sender {\n\t\t\th2 {\n\t\t\t\tfont-size: 14px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcolor: #1e1e1e;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t}\n\t\t.dataviews-view-table__actions-column {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tgap: 5px;\n\t\t}\n\t}\n\t.directorist-table-enquiry-sender {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 12px;\n\t\t.directorist-table-enquiry-sender-avatar {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\timg {\n\t\t\t\twidth: 32px;\n\t\t\t\theight: 32px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tobject-fit: cover;\n\t\t\t}\n\t\t}\n\t\t.directorist-table-enquiry-sender-info {\n\t\t\th2 {\n\t\t\t\tfont-size: 14px;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: #1e1e1e;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\tp {\n\t\t\t\tfont-size: 12px;\n\t\t\t\tmargin: 0 0 0 0;\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-table-enquiry {\n\t\tp {\n\t\t\tmargin: 8px 0;\n\t\t}\n\t}\n\t.directorist-table-enquiry-listing {\n\t\tspan {\n\t\t\tdisplay: block;\n\t\t\tmargin-top: 8px;\n\t\t}\n\t}\n\t.directorist-table-enquiry-action {\n\t\tdisplay: flex;\n\t\tgap: 15px;\n\t\ta {\n\t\t\ttext-decoration: none;\n\t\t\tfont-weight: 500;\n\t\t\tcolor: var(--directorist-color-info);\n\t\t}\n\t}\n\t.dataviews-view-table{\n\t\ttr{\n\t\t\tth{\n\t\t\t\t&:first-child{\n\t\t\t\t\tpadding-left: 25px;\n\t\t\t\t}\n\t\t\t\t&:last-child{\n\t\t\t\t\tpadding-right: 25px;\n\t\t\t\t}\n\t\t\t}\n\t\t\ttd{\n\t\t\t\t&:first-child{\n\t\t\t\t\tpadding-left: 25px;\n\t\t\t\t}\n\t\t\t\t&:last-child{\n\t\t\t\t\tpadding-right: 25px;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\t.dataviews__view-actions{\n\t\tpadding: 16px 25px;\n\t}\n\t.dataviews-view-table__actions-column {\n\t\tpadding: 30px 0;\n\t}\n\t.dataviews-wrapper{\n\t\t.components-h-stack{\n\t\t\t.components-dropdown{\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t}\n\t}\n',
+								'\n\t.directorist-enquiries-header {\n\t\tmargin-bottom: 32px;\n\t}\n\t.directorist-enquiries-title {\n\t\tfont-size: 30px;\n\t\tfont-weight: 700;\n\t\tmargin: 0;\n\t}\n\t.directorist-enquiries-description {\n\t\tfont-size: 14px;\n\t\tmargin: 8px 0 0 0;\n\t}\n\t.directorist-enquires-stats {\n\t\tdisplay: flex;\n\t\tflex-wrap: wrap;\n\t\talign-items: center;\n\t\tgap: 20px;\n\t}\n\t.directorist-enquires-stats-item {\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tflex: 1;\n\t\tborder-radius: 12px;\n\t\tbackground-color: #fff;\n\t\tpadding: 24px;\n\t\tborder: 1px solid #e5e7eb;\n\t\ttransition: 0.3s ease;\n\t\t@media screen and (max-width: 992px) {\n\t\t\twidth: 100%;\n\t\t\tflex: 1 1 calc(50% - 60px);\n\t\t}\n\t\t@media screen and (max-width: 575px) {\n\t\t\twidth: 100%;\n\t\t\tflex: 1 1 100%;\n\t\t}\n\t\t&:hover {\n\t\t\tbox-shadow:\n\t\t\t\t0 0 #0000,\n\t\t\t\t0 0 #0000,\n\t\t\t\t0 4px 6px -1px rgb(0 0 0 / 0.1),\n\t\t\t\t0 2px 4px -2px rgb(0 0 0 / 0.1);\n\t\t}\n\t}\n\t.directorist-enquires-stats-left {\n\t\th2 {\n\t\t\tfont-size: 30px;\n\t\t\tfont-weight: 700;\n\t\t\tmargin: 0;\n\t\t}\n\t\tp {\n\t\t\tfont-size: 14px;\n\t\t\tmargin: 4px 0 0 0;\n\t\t}\n\t}\n\t.directorist-enquires-stats-right {\n\t\tspan {\n\t\t\twidth: 48px;\n\t\t\theight: 48px;\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\tborder-radius: 8px;\n\t\t\tbackground-color: #dbeafe;\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-info);\n\t\t\t\twidth: 24px;\n\t\t\t\theight: 24px;\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--total {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #dbeafe;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-info);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--new {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #ffedd5;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-warning);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--this-week {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #dbeafe;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-info);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquires-stats-item--resolved {\n\t\t.directorist-enquires-stats-right {\n\t\t\tspan {\n\t\t\t\tbackground-color: #dcfce7;\n\t\t\t}\n\t\t\tsvg {\n\t\t\t\tfill: var(--directorist-color-success);\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquiries-table {\n\t\tbackground: #fff;\n\t\tborder-radius: 12px;\n\t\tborder: 1px solid #e5e7eb;\n\t\tmargin-top: 30px;\n\t\t.components-input-control__container {\n\t\t\tbackground-color: #f0f0f0;\n\t\t}\n\t\t.components-input-control__backdrop {\n\t\t\tborder-color: transparent !important;\n\t\t}\n\t\t.dataviews-view-table {\n\t\t\ttbody {\n\t\t\t\ttd {\n\t\t\t\t\tvertical-align: middle;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t.dataviews__view-actions {\n\t\t\tborder-bottom: 1px solid #e5e7eb;\n\t\t}\n\t\t.directorist-table-enquiry,\n\t\t.directorist-table-enquiry-listing,\n\t\t.directorist-table-enquiry-sender {\n\t\t\th2 {\n\t\t\t\tfont-size: 14px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tcolor: #1e1e1e;\n\t\t\t\tmargin: 0;\n\t\t\t\twidth: 350px;\n\t\t\t\toverflow: hidden;\n\t\t\t\ttext-overflow: ellipsis;\n\t\t\t\twhite-space: nowrap;\n\t\t\t}\n\t\t}\n\t\t.dataviews-view-table__actions-column {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tgap: 5px;\n\t\t}\n\t}\n\t.directorist-table-enquiry-sender {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 12px;\n\t\t.directorist-table-enquiry-sender-avatar {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\timg {\n\t\t\t\twidth: 32px;\n\t\t\t\theight: 32px;\n\t\t\t\tborder-radius: 50%;\n\t\t\t\tobject-fit: cover;\n\t\t\t}\n\t\t}\n\t\t.directorist-table-enquiry-sender-info {\n\t\t\th2 {\n\t\t\t\tfont-size: 14px;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tcolor: #1e1e1e;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t\tp {\n\t\t\t\tfont-size: 12px;\n\t\t\t\tmargin: 0 0 0 0;\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-table-enquiry {\n\t\tp {\n\t\t\tmargin: 8px 0;\n\t\t}\n\t}\n\t.directorist-table-enquiry-listing {\n\t\tspan {\n\t\t\tdisplay: block;\n\t\t\tmargin-top: 8px;\n\t\t}\n\t}\n\t.directorist-table-enquiry-action {\n\t\tdisplay: flex;\n\t\tgap: 15px;\n\t\ta {\n\t\t\ttext-decoration: none;\n\t\t\tfont-weight: 500;\n\t\t\tcolor: var(--directorist-color-info);\n\t\t}\n\t}\n\t.dataviews-view-table {\n\t\ttr {\n\t\t\tth {\n\t\t\t\t&:first-child {\n\t\t\t\t\tpadding-left: 25px;\n\t\t\t\t}\n\t\t\t\t&:last-child {\n\t\t\t\t\tpadding-right: 25px;\n\t\t\t\t}\n\t\t\t}\n\t\t\ttd {\n\t\t\t\t&:first-child {\n\t\t\t\t\tpadding-left: 25px;\n\t\t\t\t\twidth: 400px;\n\t\t\t\t}\n\t\t\t\t&:last-child {\n\t\t\t\t\tpadding-right: 25px;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\t.dataviews__view-actions {\n\t\tpadding: 16px 25px;\n\t}\n\t.dataviews-view-table__actions-column {\n\t\tpadding: 30px 0;\n\t}\n\t.dataviews-wrapper {\n\t\t.components-h-stack {\n\t\t\t.components-dropdown {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t}\n\t}\n',
 							]))
 					);
 				var EnquiryDetailsModalStyle =
@@ -1931,7 +2015,7 @@
 							_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__[
 								'default'
 							])([
-								'\n\tmargin-top: 20px;\n\t.directorist-enquiry-sender {\n\t\tdisplay: flex;\n\t\tgap: 16px;\n\t\talign-items: flex-start;\n\t\tmargin-bottom: 24px;\n\t}\n\t.directorist-enquiry-sender-avatar img {\n\t\twidth: 48px;\n\t\theight: 48px;\n\t\tborder-radius: 50%;\n\t\tobject-fit: cover;\n\t}\n\t.directorist-enquiry-sender-info {\n\t\th2 {\n\t\t\tmargin: 0 0 8px 0;\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tgap: 12px;\n\t\t\tfont-size: 16px;\n\t\t\tfont-weight: 600;\n\t\t}\n\t\tp {\n\t\t\tmargin: 0 0 8px 0;\n\t\t\tfont-size: 14px;\n\t\t\tcolor: var(--directorist-color-body);\n\t\t}\n\t\tspan {\n\t\t\tdisplay: flex;\n\t\t\tfont-size: 12px;\n\t\t}\n\t}\n\t.directorist-enquiry-listing {\n\t\tmargin-bottom: 16px;\n\t\tborder-bottom: 1px solid var(--directorist-color-border);\n\t\tpadding-bottom: 16px;\n\t\th3 {\n\t\t\tmargin: 0 0 4px 0;\n\t\t\tfont-size: 16px;\n\t\t\tfont-weight: 600;\n\t\t}\n\t\ta {\n\t\t\ttext-decoration: none;\n\t\t\tcolor: var(--directorist-color-info);\n\t\t\tfont-size: 14px;\n\t\t\tfont-weight: 500;\n\t\t}\n\t}\n\t.directorist-answers-section {\n\t\tmargin-bottom: 110px;\n\t}\n\t.directorist-enquiry-answer-item {\n\t\tmargin-bottom: 24px;\n\t}\n\t.directorist-enquiry-answer-title {\n\t\tmargin: 0 0 10px 0;\n\t\tfont-size: 16px;\n\t\tfont-weight: 600;\n\t\tcolor: var(--directorist-color-dark);\n\t}\n\t.directorist-enquiry-answer-value {\n\t\tmargin: 0;\n\t\tfont-size: 14px;\n\t\tfont-weight: 500;\n\t\tcolor: var(--directorist-color-deep-gray);\n\t}\n\t.directorist-enquiry-answer-child {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 12px;\n\t\tmargin-bottom: 5px;\n\t}\n\t.directorist-enquiry-answer-title-child {\n\t\tmargin: 0;\n\t\tfont-size: 14px;\n\t\tfont-weight: 600;\n\t\tcolor: var(--directorist-color-dark);\n\t}\n\t.directorist-enquiry-answer-value-child {\n\t\tmargin: 0;\n\t\tfont-size: 14px;\n\t\tfont-weight: 400;\n\t}\n\t.directorist-repeater-table-wrapper {\n\t\tmax-width: 600px;\n\t\t@media (max-width: 768px) {\n\t\t\tmax-width: 500px;\n\t\t}\n\t}\n\t.formgent-editor-rating {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 12px;\n\t\tmargin: 5px 0;\n\t}\n\t.formgent-editor-rating__icons {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 5px;\n\t}\n\t.formgent-editor-rating__icons\n\t\t.formgent-editor-rating__icon--active\n\t\tsvg\n\t\tpath {\n\t\tfill: var(--directorist-color-primary);\n\t}\n\t.formgent-google-map-external-link {\n\t\tcolor: var(--directorist-color-info);\n\t}\n\t//stick footer to bottom\n\t.directorist-enquiry-modal-footer {\n\t\tborder-top: 1px solid #e5e7eb;\n\t\tdisplay: flex;\n\t\tgap: 12px;\n\t\tposition: fixed;\n\t\tbottom: 0;\n\t\tbackground-color: #fff;\n\t\twidth: 100%;\n\t\tpadding: 20px 30px;\n\t\tbox-sizing: border-box;\n\t\tleft: 0;\n\t}\n\t.directorist-enquiry-modal-btn {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 8px;\n\t\tpadding: 0 16px;\n\t\tmin-height: 42px;\n\t\tborder-radius: 8px;\n\t\tfont-size: 14px;\n\t\tfont-weight: 500;\n\t\tbox-shadow: none;\n\t\tborder: 1px solid #e5e7eb;\n\t\tbackground: none;\n\t\tcursor: pointer;\n\t\ttransition: 0.3s ease;\n\t\t&.directorist-btn-disabled {\n\t\t\topacity: 0.5;\n\t\t\tpointer-events: none;\n\t\t}\n\t\t@media only screen and (max-width: 480px){\n\t\t\tspan{\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquiry-modal-btn-delete {\n\t\tmargin-left: auto;\n\t\t&:hover {\n\t\t\tborder-color: var(--directorist-color-danger);\n\t\t\tcolor: var(--directorist-color-danger);\n\t\t}\n\t}\n\t.directorist-enquiry-modal-btn-resolved {\n\t\t&:hover {\n\t\t\tborder-color: var(--directorist-color-success);\n\t\t\tcolor: var(--directorist-color-success);\n\t\t}\n\t}\n\t.directorist-enquiry-modal-btn-reply {\n\t\t&:hover {\n\t\t\tborder-color: var(--directorist-color-info);\n\t\t\tcolor: var(--directorist-color-info);\n\t\t}\n\t}\n\t.directorist-answers-section {\n\t\tdisplay: flex;\n\t\tgap: 24px;\n\t\tflex-direction: column;\n\t\talign-items: flex-start;\n\t}\n\n\t.formgent-response-badge {\n\t\tbackground-color: var(--directorist-color-light);\n\t\tpadding: 0 8px;\n\t\tcolor: var(--directorist-color-dark);\n\t\tfont-size: 14px;\n\t\tline-height: 1.6;\n\t\tfont-weight: 400;\n\t\tborder-radius: 4px;\n\t}\n\n\t.formgent-response-table__drawer__tab__item {\n\t\tdisplay: flex;\n\t\tgap: 12px;\n\t\twidth: 100%;\n\t\t&.formgent-response-table__drawer__tab__item--tag {\n\t\t\t.formgent-response-table__drawer__tab__item__title {\n\t\t\t\theight: 40px;\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__icon {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\theight: 40px;\n\t\t\twidth: 40px;\n\t\t\tmin-width: 40px;\n\t\t\tborder-radius: 10px;\n\t\t\tcolor: var(--directorist-color-dark);\n\t\t\tbackground-color: var(--directorist-color-light);\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__content {\n\t\t\tdisplay: flex;\n\t\t\tgap: 6px;\n\t\t\tflex-direction: column;\n\t\t\tflex: 1;\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__title {\n\t\t\tdisplay: block;\n\t\t\tfont-size: 15px;\n\t\t\tfont-weight: 600;\n\t\t\tcolor: var(--formgent-color-dark);\n\t\t\tmargin: 0;\n\t\t\t&:first-letter {\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__desc {\n\t\t\tdisplay: flex;\n\t\t\tgap: 5px;\n\t\t\tflex-wrap: wrap;\n\t\t\tfont-size: 14px;\n\t\t\tfont-weight: 400;\n\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t\tmargin: 0;\n\t\t\timg {\n\t\t\t\tmax-width: 200px;\n\t\t\t}\n\t\t\t.formgent-signature-image-preview,\n\t\t\t.formgent-file-upload-preview {\n\t\t\t\twidth: 100%;\n\t\t\t\tmax-width: 350px;\n\t\t\t}\n\t\t\t.formgent-file-upload-answer {\n\t\t\t\tpadding: 8px 0;\n\t\t\t\tbackground-color: #fff;\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\twidth: 100%;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\t&:last-child {\n\t\t\t\t\tborder-bottom: 0 none;\n\t\t\t\t\tpadding-bottom: 0;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__info,\n\t\t\t.formgent-file-upload-answer__action{\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 12px;\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__media{\n\t\t\t\tmin-width: 40px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\timg{\n\t\t\t\t\twidth: 40px;\n\t\t\t\t\theight: 40px;\n\t\t\t\t\tobject-fit: cover;\n\t\t\t\t\tborder-radius: 8px;\n\t\t\t\t}\n\t\t\t\tvideo{\n\t\t\t\t\twidth: 40px;\n\t\t\t\t\theight: 40px;\n\t\t\t\t\tobject-fit: cover;\n\t\t\t\t\tborder-radius: 8px;\n\t\t\t\t}\n\t\t\t\tsvg{\n\t\t\t\t\twidth: 36px;\n\t\t\t\t\theight: 36px;\n\t\t\t\t\tpath{\n\t\t\t\t\t\tfill: var(--directorist-color-light-gray);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__file-name{\n\t\t\t\tfont-size: 13px;\n\t\t\t\tmax-width: 230px;\n\t\t\t\ttext-overflow: ellipsis;\n\t\t\t\toverflow: hidden;\n\t\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t\t\tmargin-bottom: 4px;\n\t\t\t\t@media only screen and (max-width: 380px){\n\t\t\t\t\tmax-width: none;\n\t\t\t\t\tword-break: break-all;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__file-size {\n\t\t\t\tfont-size: 12px;\n\t\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__download,\n\t\t\t.formgent-file-upload-answer__view{\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: 0.3s ease;\n\t\t\t\tcursor: pointer;\n\t\t\t\tsvg{\n\t\t\t\t\twidth: 20px;\n\t\t\t\t\theight: 20px;\n\t\t\t\t\ttransition: 0.3s ease;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__desc__key {\n\t\t\tfont-size: 14px;\n\t\t\tfont-weight: 500;\n\t\t\tdisplay: inline-flex;\n\t\t\tpadding-right: 4px;\n\t\t\t&::first-letter {\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__desc__value {\n\t\t\tfont-size: 14px;\n\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__add {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tbackground: transparent;\n\t\t\tborder: none;\n\t\t\tmargin: 0;\n\t\t\tpadding: 0;\n\t\t\tcursor: pointer;\n\t\t\t&:hover {\n\t\t\t\tcolor: var(--directorist-color-primary);\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__btns {\n\t\t\tdisplay: flex;\n\t\t\tgap: 8px;\n\t\t\tflex-wrap: wrap;\n\t\t\t.formgent-response-table__drawer__tab__item__btn {\n\t\t\t\tfont-size: 14px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tpadding: 0 8px;\n\t\t\t\tmargin: 0;\n\t\t\t\theight: 28px;\n\t\t\t\tcolor: var(--directorist-color-gray);\n\t\t\t\tbackground: var(--formgent-color-border);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 8px;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all ease 0.3s;\n\t\t\t\t&:hover {\n\t\t\t\t\tcolor: var(--formgent-color-white);\n\t\t\t\t\tbackground: var(--formgent-color-light-gray);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n',
+								'\n\tmargin-top: 20px;\n\t.directorist-enquiry-sender {\n\t\tdisplay: flex;\n\t\tgap: 16px;\n\t\talign-items: flex-start;\n\t\tmargin-bottom: 24px;\n\t}\n\t.directorist-enquiry-sender-avatar img {\n\t\twidth: 48px;\n\t\theight: 48px;\n\t\tborder-radius: 50%;\n\t\tobject-fit: cover;\n\t}\n\t.directorist-enquiry-sender-info {\n\t\th2 {\n\t\t\tmargin: 0 0 8px 0;\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tgap: 12px;\n\t\t\tfont-size: 16px;\n\t\t\tfont-weight: 600;\n\t\t}\n\t\tp {\n\t\t\tmargin: 0 0 8px 0;\n\t\t\tfont-size: 14px;\n\t\t\tcolor: var(--directorist-color-body);\n\t\t}\n\t\tspan {\n\t\t\tdisplay: flex;\n\t\t\tfont-size: 12px;\n\t\t}\n\t}\n\t.directorist-enquiry-listing {\n\t\tmargin-bottom: 16px;\n\t\tborder-bottom: 1px solid var(--directorist-color-border);\n\t\tpadding-bottom: 16px;\n\t\th3 {\n\t\t\tmargin: 0 0 4px 0;\n\t\t\tfont-size: 16px;\n\t\t\tfont-weight: 600;\n\t\t}\n\t\ta {\n\t\t\ttext-decoration: none;\n\t\t\tcolor: var(--directorist-color-info);\n\t\t\tfont-size: 14px;\n\t\t\tfont-weight: 500;\n\t\t}\n\t}\n\t.directorist-answers-section {\n\t\tmargin-bottom: 110px;\n\t}\n\t.directorist-enquiry-answer-item {\n\t\tmargin-bottom: 24px;\n\t}\n\t.directorist-enquiry-answer-title {\n\t\tmargin: 0 0 10px 0;\n\t\tfont-size: 16px;\n\t\tfont-weight: 600;\n\t\tcolor: var(--directorist-color-dark);\n\t}\n\t.directorist-enquiry-answer-value {\n\t\tmargin: 0;\n\t\tfont-size: 14px;\n\t\tfont-weight: 500;\n\t\tcolor: var(--directorist-color-deep-gray);\n\t}\n\t.directorist-enquiry-answer-child {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 12px;\n\t\tmargin-bottom: 5px;\n\t}\n\t.directorist-enquiry-answer-title-child {\n\t\tmargin: 0;\n\t\tfont-size: 14px;\n\t\tfont-weight: 600;\n\t\tcolor: var(--directorist-color-dark);\n\t}\n\t.directorist-enquiry-answer-value-child {\n\t\tmargin: 0;\n\t\tfont-size: 14px;\n\t\tfont-weight: 400;\n\t}\n\t.directorist-repeater-table-wrapper {\n\t\tmax-width: 600px;\n\t\t@media (max-width: 768px) {\n\t\t\tmax-width: 500px;\n\t\t}\n\t}\n\t.formgent-editor-rating {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 12px;\n\t\tmargin: 5px 0;\n\t}\n\t.formgent-editor-rating__icons {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 5px;\n\t}\n\t.formgent-editor-rating__icons\n\t\t.formgent-editor-rating__icon--active\n\t\tsvg\n\t\tpath {\n\t\tfill: var(--directorist-color-primary);\n\t}\n\t.formgent-google-map-external-link {\n\t\tcolor: var(--directorist-color-info);\n\t}\n\t//stick footer to bottom\n\t.directorist-enquiry-modal-footer {\n\t\tborder-top: 1px solid #e5e7eb;\n\t\tdisplay: flex;\n\t\tgap: 12px;\n\t\tposition: fixed;\n\t\tbottom: 0;\n\t\tbackground-color: #fff;\n\t\twidth: 100%;\n\t\tpadding: 20px 30px;\n\t\tbox-sizing: border-box;\n\t\tleft: 0;\n\t}\n\t.directorist-enquiry-modal-btn {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 8px;\n\t\tpadding: 0 16px;\n\t\tmin-height: 42px;\n\t\tborder-radius: 8px;\n\t\tfont-size: 14px;\n\t\tfont-weight: 500;\n\t\tbox-shadow: none;\n\t\tborder: 1px solid #e5e7eb;\n\t\tbackground: none;\n\t\tcursor: pointer;\n\t\ttransition: 0.3s ease;\n\t\t&.directorist-btn-disabled {\n\t\t\topacity: 0.5;\n\t\t\tpointer-events: none;\n\t\t}\n\t\t@media only screen and (max-width: 480px) {\n\t\t\tspan {\n\t\t\t\tdisplay: none;\n\t\t\t}\n\t\t}\n\t}\n\t.directorist-enquiry-modal-btn-delete {\n\t\tmargin-left: auto;\n\t\t&:hover {\n\t\t\tborder-color: var(--directorist-color-danger);\n\t\t\tcolor: var(--directorist-color-danger);\n\t\t}\n\t}\n\t.directorist-enquiry-modal-btn-resolved {\n\t\t&:hover {\n\t\t\tborder-color: var(--directorist-color-success);\n\t\t\tcolor: var(--directorist-color-success);\n\t\t}\n\t}\n\t.directorist-enquiry-modal-btn-reply {\n\t\t&:hover {\n\t\t\tborder-color: var(--directorist-color-info);\n\t\t\tcolor: var(--directorist-color-info);\n\t\t}\n\t}\n\t.directorist-answers-section {\n\t\tdisplay: flex;\n\t\tgap: 24px;\n\t\tflex-direction: column;\n\t\talign-items: flex-start;\n\t}\n\n\t.formgent-response-badge {\n\t\tbackground-color: var(--directorist-color-light);\n\t\tpadding: 0 8px;\n\t\tcolor: var(--directorist-color-dark);\n\t\tfont-size: 14px;\n\t\tline-height: 1.6;\n\t\tfont-weight: 400;\n\t\tborder-radius: 4px;\n\t}\n\n\t.formgent-response-table__drawer__tab__item {\n\t\tdisplay: flex;\n\t\tgap: 12px;\n\t\twidth: 100%;\n\t\t&.formgent-response-table__drawer__tab__item--tag {\n\t\t\t.formgent-response-table__drawer__tab__item__title {\n\t\t\t\theight: 40px;\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__icon {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tjustify-content: center;\n\t\t\theight: 40px;\n\t\t\twidth: 40px;\n\t\t\tmin-width: 40px;\n\t\t\tborder-radius: 10px;\n\t\t\tcolor: var(--directorist-color-dark);\n\t\t\tbackground-color: var(--directorist-color-light);\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__content {\n\t\t\tdisplay: flex;\n\t\t\tgap: 6px;\n\t\t\tflex-direction: column;\n\t\t\tflex: 1;\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__title {\n\t\t\tdisplay: block;\n\t\t\tfont-size: 15px;\n\t\t\tfont-weight: 600;\n\t\t\tcolor: var(--formgent-color-dark);\n\t\t\tmargin: 0;\n\t\t\t&:first-letter {\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__desc {\n\t\t\tdisplay: flex;\n\t\t\tgap: 5px;\n\t\t\tflex-wrap: wrap;\n\t\t\tfont-size: 14px;\n\t\t\tfont-weight: 400;\n\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t\tmargin: 0;\n\t\t\timg {\n\t\t\t\tmax-width: 200px;\n\t\t\t}\n\t\t\t.formgent-signature-image-preview,\n\t\t\t.formgent-file-upload-preview {\n\t\t\t\twidth: 100%;\n\t\t\t\tmax-width: 350px;\n\t\t\t}\n\t\t\t.formgent-file-upload-answer {\n\t\t\t\tpadding: 8px 0;\n\t\t\t\tbackground-color: #fff;\n\t\t\t\tdisplay: flex;\n\t\t\t\tjustify-content: space-between;\n\t\t\t\talign-items: center;\n\t\t\t\twidth: 100%;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t\t&:last-child {\n\t\t\t\t\tborder-bottom: 0 none;\n\t\t\t\t\tpadding-bottom: 0;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__info,\n\t\t\t.formgent-file-upload-answer__action {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tgap: 12px;\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__media {\n\t\t\t\tmin-width: 40px;\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\timg {\n\t\t\t\t\twidth: 40px;\n\t\t\t\t\theight: 40px;\n\t\t\t\t\tobject-fit: cover;\n\t\t\t\t\tborder-radius: 8px;\n\t\t\t\t}\n\t\t\t\tvideo {\n\t\t\t\t\twidth: 40px;\n\t\t\t\t\theight: 40px;\n\t\t\t\t\tobject-fit: cover;\n\t\t\t\t\tborder-radius: 8px;\n\t\t\t\t}\n\t\t\t\tsvg {\n\t\t\t\t\twidth: 36px;\n\t\t\t\t\theight: 36px;\n\t\t\t\t\tpath {\n\t\t\t\t\t\tfill: var(--directorist-color-light-gray);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__file-name {\n\t\t\t\tfont-size: 13px;\n\t\t\t\tmax-width: 230px;\n\t\t\t\ttext-overflow: ellipsis;\n\t\t\t\toverflow: hidden;\n\t\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t\t\tmargin-bottom: 4px;\n\t\t\t\t@media only screen and (max-width: 380px) {\n\t\t\t\t\tmax-width: none;\n\t\t\t\t\tword-break: break-all;\n\t\t\t\t}\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__file-size {\n\t\t\t\tfont-size: 12px;\n\t\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t\t}\n\t\t\t.formgent-file-upload-answer__download,\n\t\t\t.formgent-file-upload-answer__view {\n\t\t\t\tdisplay: flex;\n\t\t\t\talign-items: center;\n\t\t\t\tjustify-content: center;\n\t\t\t\ttransition: 0.3s ease;\n\t\t\t\tcursor: pointer;\n\t\t\t\tsvg {\n\t\t\t\t\twidth: 20px;\n\t\t\t\t\theight: 20px;\n\t\t\t\t\ttransition: 0.3s ease;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__desc__key {\n\t\t\tfont-size: 14px;\n\t\t\tfont-weight: 500;\n\t\t\tdisplay: inline-flex;\n\t\t\tpadding-right: 4px;\n\t\t\t&::first-letter {\n\t\t\t\ttext-transform: uppercase;\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__desc__value {\n\t\t\tfont-size: 14px;\n\t\t\tcolor: var(--directorist-color-light-gray);\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__add {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tbackground: transparent;\n\t\t\tborder: none;\n\t\t\tmargin: 0;\n\t\t\tpadding: 0;\n\t\t\tcursor: pointer;\n\t\t\t&:hover {\n\t\t\t\tcolor: var(--directorist-color-primary);\n\t\t\t}\n\t\t}\n\t\t.formgent-response-table__drawer__tab__item__btns {\n\t\t\tdisplay: flex;\n\t\t\tgap: 8px;\n\t\t\tflex-wrap: wrap;\n\t\t\t.formgent-response-table__drawer__tab__item__btn {\n\t\t\t\tfont-size: 14px;\n\t\t\t\tfont-weight: 500;\n\t\t\t\tpadding: 0 8px;\n\t\t\t\tmargin: 0;\n\t\t\t\theight: 28px;\n\t\t\t\tcolor: var(--directorist-color-gray);\n\t\t\t\tbackground: var(--formgent-color-border);\n\t\t\t\tborder: none;\n\t\t\t\tborder-radius: 8px;\n\t\t\t\tcursor: pointer;\n\t\t\t\ttransition: all ease 0.3s;\n\t\t\t\t&:hover {\n\t\t\t\t\tcolor: var(--formgent-color-white);\n\t\t\t\t\tbackground: var(--formgent-color-light-gray);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n',
 							]))
 					);
 
@@ -2502,12 +2586,28 @@
 						/* harmony export */ deleteEnquiry: function () {
 							return /* binding */ deleteEnquiry;
 						},
+						/* harmony export */ enrichEnquiriesWithAnswers:
+							function () {
+								return /* binding */ enrichEnquiriesWithAnswers;
+							},
 						/* harmony export */ extractEnquiryData: function () {
 							return /* binding */ extractEnquiryData;
 						},
+						/* harmony export */ extractEnquiryTitleAndPrefix:
+							function () {
+								return /* binding */ extractEnquiryTitleAndPrefix;
+							},
 						/* harmony export */ extractItemId: function () {
 							return /* binding */ extractItemId;
 						},
+						/* harmony export */ extractPrefixFromAnswers:
+							function () {
+								return /* binding */ extractPrefixFromAnswers;
+							},
+						/* harmony export */ extractTitleFromAnswers:
+							function () {
+								return /* binding */ extractTitleFromAnswers;
+							},
 						/* harmony export */ fetchAllEnquiries: function () {
 							return /* binding */ fetchAllEnquiries;
 						},
@@ -2544,30 +2644,76 @@
 						/* harmony export */
 					}
 				);
-				/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ =
+				/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ =
+					__webpack_require__(
+						/*! @babel/runtime/helpers/defineProperty */ './node_modules/@babel/runtime/helpers/esm/defineProperty.js'
+					);
+				/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/slicedToArray */ './node_modules/@babel/runtime/helpers/esm/slicedToArray.js'
 					);
-				/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ =
+				/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ =
 					__webpack_require__(
 						/*! @babel/runtime/helpers/asyncToGenerator */ './node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js'
 					);
-				/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ =
+				/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ =
 					__webpack_require__(
 						/*! @babel/runtime/regenerator */ './node_modules/@babel/runtime/regenerator/index.js'
 					);
-				/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default =
+				/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default =
 					/*#__PURE__*/ __webpack_require__.n(
-						_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__
+						_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__
 					);
-				/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__ =
+				/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__ =
 					__webpack_require__(
 						/*! @wordpress/api-fetch */ './node_modules/@wordpress/api-fetch/build-module/index.js'
 					);
-				/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__ =
+				/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__ =
 					__webpack_require__(
 						/*! @wordpress/hooks */ './node_modules/@wordpress/hooks/build-module/index.js'
 					);
+
+				function ownKeys(e, r) {
+					var t = Object.keys(e);
+					if (Object.getOwnPropertySymbols) {
+						var o = Object.getOwnPropertySymbols(e);
+						(r &&
+							(o = o.filter(function (r) {
+								return Object.getOwnPropertyDescriptor(e, r)
+									.enumerable;
+							})),
+							t.push.apply(t, o));
+					}
+					return t;
+				}
+				function _objectSpread(e) {
+					for (var r = 1; r < arguments.length; r++) {
+						var t = null != arguments[r] ? arguments[r] : {};
+						r % 2
+							? ownKeys(Object(t), !0).forEach(function (r) {
+									(0,
+									_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[
+										'default'
+									])(e, r, t[r]);
+								})
+							: Object.getOwnPropertyDescriptors
+								? Object.defineProperties(
+										e,
+										Object.getOwnPropertyDescriptors(t)
+									)
+								: ownKeys(Object(t)).forEach(function (r) {
+										Object.defineProperty(
+											e,
+											r,
+											Object.getOwnPropertyDescriptor(
+												t,
+												r
+											)
+										);
+									});
+					}
+					return e;
+				}
 
 				/**
 				 * WordPress dependencies
@@ -2659,13 +2805,13 @@
 				 */
 				var markEnquiryAsRead = /*#__PURE__*/ (function () {
 					var _ref = (0,
-					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
-						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(
+						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee(item, onSuccess) {
 								var responseId, data, _t;
-								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(
+								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context) {
 										while (1)
 											switch (
@@ -2694,7 +2840,7 @@
 													_context.prev = 1;
 													_context.next = 2;
 													return (0,
-													_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__[
+													_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__[
 														'default'
 													])({
 														path: '/wp-json/directorist/formgent/responses/read',
@@ -2709,7 +2855,7 @@
 														onSuccess();
 													}
 													(0,
-													_wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__.doAction)(
+													_wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__.doAction)(
 														'helpgent-toast',
 														{
 															message:
@@ -2754,13 +2900,13 @@
 				 */
 				var deleteEnquiry = /*#__PURE__*/ (function () {
 					var _ref2 = (0,
-					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
-						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(
+						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee2(item, onSuccess) {
 								var responseId, data, _t2;
-								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(
+								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context2) {
 										while (1)
 											switch (
@@ -2790,7 +2936,7 @@
 													_context2.prev = 1;
 													_context2.next = 2;
 													return (0,
-													_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__[
+													_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__[
 														'default'
 													])({
 														path: '/wp-json/directorist/formgent/responses',
@@ -2805,7 +2951,7 @@
 														onSuccess();
 													}
 													(0,
-													_wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__.doAction)(
+													_wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__.doAction)(
 														'helpgent-toast',
 														{
 															message:
@@ -2861,7 +3007,7 @@
 							enquiry
 						);
 						(0,
-						_wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__.doAction)(
+						_wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__.doAction)(
 							'helpgent-toast',
 							{
 								message:
@@ -2889,12 +3035,12 @@
 				 */
 				var fetchSingleEnquiry = /*#__PURE__*/ (function () {
 					var _ref3 = (0,
-					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
-						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(
+						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee3(selectedItem) {
-								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(
+								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context3) {
 										while (1)
 											switch (
@@ -2918,7 +3064,7 @@
 													return _context3.abrupt(
 														'return',
 														(0,
-														_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__[
+														_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__[
 															'default'
 														])({
 															path: '/wp-json/directorist/formgent/responses/single?id='.concat(
@@ -2993,12 +3139,12 @@
 				 */
 				var fetchEnquiryKPIs = /*#__PURE__*/ (function () {
 					var _ref4 = (0,
-					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
-						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(
+						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee4() {
-								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(
+								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context4) {
 										while (1)
 											switch (
@@ -3009,7 +3155,7 @@
 													return _context4.abrupt(
 														'return',
 														(0,
-														_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__[
+														_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__[
 															'default'
 														])({
 															path: '/wp-json/directorist/formgent/responses/kpis',
@@ -3037,12 +3183,12 @@
 				 */
 				var fetchAllEnquiries = /*#__PURE__*/ (function () {
 					var _ref5 = (0,
-					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
-						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(
+						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee5() {
-								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(
+								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context5) {
 										while (1)
 											switch (
@@ -3053,7 +3199,7 @@
 													return _context5.abrupt(
 														'return',
 														(0,
-														_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__[
+														_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__[
 															'default'
 														])({
 															path: '/wp-json/directorist/formgent/responses',
@@ -3081,17 +3227,17 @@
 				 */
 				var refreshEnquiryData = /*#__PURE__*/ (function () {
 					var _ref6 = (0,
-					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__[
+					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
 						'default'
 					])(
-						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(
+						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee6() {
 								var _yield$Promise$all,
 									_yield$Promise$all2,
 									responses,
 									kpis,
 									_t3;
-								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(
+								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context6) {
 										while (1)
 											switch (
@@ -3109,7 +3255,7 @@
 													_yield$Promise$all =
 														_context6.sent;
 													_yield$Promise$all2 = (0,
-													_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__[
+													_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__[
 														'default'
 													])(_yield$Promise$all, 2);
 													responses =
@@ -3146,6 +3292,281 @@
 					);
 					return function refreshEnquiryData() {
 						return _ref6.apply(this, arguments);
+					};
+				})();
+
+				/**
+				 * Extract title from the first text field in answers array
+				 * @param {Array} answers - Array of answer objects
+				 * @returns {string} - The title value or empty string
+				 */
+				var extractTitleFromAnswers = function extractTitleFromAnswers(
+					answers
+				) {
+					if (!Array.isArray(answers) || answers.length === 0) {
+						return '';
+					}
+					var firstTextField = answers.find(function (answer) {
+						return answer.field_type === 'text';
+					});
+					return (
+						(firstTextField === null || firstTextField === void 0
+							? void 0
+							: firstTextField.value) ||
+						(firstTextField === null || firstTextField === void 0
+							? void 0
+							: firstTextField.answer) ||
+						''
+					);
+				};
+
+				/**
+				 * Extract prefix from the first textarea field in answers array
+				 * @param {Array} answers - Array of answer objects
+				 * @returns {string} - The prefix value or empty string
+				 */
+				var extractPrefixFromAnswers =
+					function extractPrefixFromAnswers(answers) {
+						if (!Array.isArray(answers) || answers.length === 0) {
+							return '';
+						}
+						var firstTextareaField = answers.find(
+							function (answer) {
+								return answer.field_type === 'textarea';
+							}
+						);
+						return (
+							(firstTextareaField === null ||
+							firstTextareaField === void 0
+								? void 0
+								: firstTextareaField.value) ||
+							(firstTextareaField === null ||
+							firstTextareaField === void 0
+								? void 0
+								: firstTextareaField.answer) ||
+							''
+						);
+					};
+
+				/**
+				 * Extract title and prefix from enquiry item
+				 * Supports both direct answers array and nested response.answers structure
+				 * @param {Object} item - The enquiry item
+				 * @returns {Object} - Object with title and prefix
+				 */
+				var extractEnquiryTitleAndPrefix =
+					function extractEnquiryTitleAndPrefix(item) {
+						var _item$response;
+						if (!item) {
+							return {
+								title: '',
+								prefix: '',
+							};
+						}
+
+						// Check if answers are directly on the item
+						var answers = item.answers;
+
+						// Check if answers are nested in response object
+						if (
+							!answers &&
+							(_item$response = item.response) !== null &&
+							_item$response !== void 0 &&
+							_item$response.answers
+						) {
+							answers = item.response.answers;
+						}
+
+						// If still no answers, return empty strings
+						if (!Array.isArray(answers) || answers.length === 0) {
+							return {
+								title: '',
+								prefix: '',
+							};
+						}
+						return {
+							title: extractTitleFromAnswers(answers),
+							prefix: extractPrefixFromAnswers(answers),
+						};
+					};
+
+				/**
+				 * Enrich enquiry items with answers data
+				 * Fetches answers for each item and merges them into the item object
+				 * @param {Array} items - Array of enquiry items
+				 * @returns {Promise<Array>} - Array of enriched items with answers
+				 */
+				var enrichEnquiriesWithAnswers = /*#__PURE__*/ (function () {
+					var _ref7 = (0,
+					_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
+						'default'
+					])(
+						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
+							function _callee8(items) {
+								var enrichedItems;
+								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
+									function (_context8) {
+										while (1)
+											switch (
+												(_context8.prev =
+													_context8.next)
+											) {
+												case 0:
+													if (
+														!(
+															!Array.isArray(
+																items
+															) ||
+															items.length === 0
+														)
+													) {
+														_context8.next = 1;
+														break;
+													}
+													return _context8.abrupt(
+														'return',
+														items
+													);
+												case 1:
+													_context8.next = 2;
+													return Promise.all(
+														items.map(
+															/*#__PURE__*/ (function () {
+																var _ref8 = (0,
+																_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
+																	'default'
+																])(
+																	/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
+																		function _callee7(
+																			item
+																		) {
+																			var _singleEnquiry$respon,
+																				singleEnquiry,
+																				_t4;
+																			return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
+																				function (
+																					_context7
+																				) {
+																					while (
+																						1
+																					)
+																						switch (
+																							(_context7.prev =
+																								_context7.next)
+																						) {
+																							case 0:
+																								_context7.prev = 0;
+																								_context7.next = 1;
+																								return fetchSingleEnquiry(
+																									item.id
+																								);
+																							case 1:
+																								singleEnquiry =
+																									_context7.sent;
+																								if (
+																									!(
+																										singleEnquiry !==
+																											null &&
+																										singleEnquiry !==
+																											void 0 &&
+																										(_singleEnquiry$respon =
+																											singleEnquiry.response) !==
+																											null &&
+																										_singleEnquiry$respon !==
+																											void 0 &&
+																										_singleEnquiry$respon.answers
+																									)
+																								) {
+																									_context7.next = 2;
+																									break;
+																								}
+																								return _context7.abrupt(
+																									'return',
+																									_objectSpread(
+																										_objectSpread(
+																											{},
+																											item
+																										),
+																										{},
+																										{
+																											answers:
+																												singleEnquiry
+																													.response
+																													.answers,
+																										}
+																									)
+																								);
+																							case 2:
+																								return _context7.abrupt(
+																									'return',
+																									item
+																								);
+																							case 3:
+																								_context7.prev = 3;
+																								_t4 =
+																									_context7[
+																										'catch'
+																									](
+																										0
+																									);
+																								console.error(
+																									'Error fetching answers for item '.concat(
+																										item.id,
+																										':'
+																									),
+																									_t4
+																								);
+																								return _context7.abrupt(
+																									'return',
+																									item
+																								);
+																							case 4:
+																							case 'end':
+																								return _context7.stop();
+																						}
+																				},
+																				_callee7,
+																				null,
+																				[
+																					[
+																						0,
+																						3,
+																					],
+																				]
+																			);
+																		}
+																	)
+																);
+																return function (
+																	_x7
+																) {
+																	return _ref8.apply(
+																		this,
+																		arguments
+																	);
+																};
+															})()
+														)
+													);
+												case 2:
+													enrichedItems =
+														_context8.sent;
+													return _context8.abrupt(
+														'return',
+														enrichedItems
+													);
+												case 3:
+												case 'end':
+													return _context8.stop();
+											}
+									},
+									_callee8
+								);
+							}
+						)
+					);
+					return function enrichEnquiriesWithAnswers(_x6) {
+						return _ref7.apply(this, arguments);
 					};
 				})();
 

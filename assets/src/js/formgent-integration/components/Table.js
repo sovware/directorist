@@ -19,6 +19,7 @@ import {
 	deleteEnquiry,
 	sendEmailToUser,
 	getStatusBadgeClass,
+	extractEnquiryTitleAndPrefix,
 } from '../utils/enquiryUtils';
 
 export default function Tables(props) {
@@ -67,10 +68,16 @@ export default function Tables(props) {
 				enableHiding: false,
 				enableSorting: false,
 				render: ({ item }) => {
+					const { title, prefix } =
+						extractEnquiryTitleAndPrefix(item);
+					//allow max 20 words in prefix
+					const maxWords = 20;
+					const words = prefix.split(' ');
+					const truncatedPrefix = words.slice(0, maxWords).join(' ');
 					return (
 						<div className="directorist-table-enquiry">
-							<h2>{item.title}</h2>
-							<p>{item.enquiry_prefix}</p>
+							{title && <h2>{title}</h2>}
+							{prefix && <p>{truncatedPrefix}...</p>}
 
 							<div className="directorist-table-enquiry-action">
 								<a
@@ -213,21 +220,27 @@ export default function Tables(props) {
 				RenderModal: (item) => {
 					return (
 						<div className="directorist-formgent-table-modal">
-							<h1>{__('Are you sure to delete this item?', 'directorist')}</h1>
-							<p>{__('This action cannot be undone.', 'directorist')}</p>
+							<h1>
+								{__(
+									'Are you sure to delete this item?',
+									'directorist'
+								)}
+							</h1>
+							<p>
+								{__(
+									'This action cannot be undone.',
+									'directorist'
+								)}
+							</p>
 							<div className="directorist-formgent-table-modal-action">
 								<button
-									onClick={() =>
-										handleDeleteItem(item)
-									}
+									onClick={() => handleDeleteItem(item)}
 									className="directorist-btn directorist-btn-danger"
 								>
 									{__('Delete', 'directorist')}
 								</button>
 								<button
-									onClick={() =>
-										handleCancelDelete(item)
-									}
+									onClick={() => handleCancelDelete(item)}
 									className="directorist-btn directorist-btn-light"
 								>
 									{__('Cancel', 'directorist')}

@@ -264,3 +264,103 @@ export const refreshEnquiryData = async () => {
 		throw error;
 	}
 };
+
+/**
+ * Extract title from the first text field in answers array
+ * @param {Array} answers - Array of answer objects
+ * @returns {string} - The title value or empty string
+ */
+export const extractTitleFromAnswers = (answers) => {
+	if (!Array.isArray(answers) || answers.length === 0) {
+		return '';
+	}
+
+	const firstTextField = answers.find(
+		(answer) => answer.field_type === 'text'
+	);
+
+	return firstTextField?.value || firstTextField?.answer || '';
+};
+
+/**
+ * Extract prefix from the first textarea field in answers array
+ * @param {Array} answers - Array of answer objects
+ * @returns {string} - The prefix value or empty string
+ */
+export const extractPrefixFromAnswers = (answers) => {
+	if (!Array.isArray(answers) || answers.length === 0) {
+		return '';
+	}
+
+	const firstTextareaField = answers.find(
+		(answer) => answer.field_type === 'textarea'
+	);
+
+	return firstTextareaField?.value || firstTextareaField?.answer || '';
+};
+
+/**
+ * Extract title and prefix from enquiry item
+ * Supports both direct answers array and nested response.answers structure
+ * @param {Object} item - The enquiry item
+ * @returns {Object} - Object with title and prefix
+ */
+export const extractEnquiryTitleAndPrefix = (item) => {
+	if (!item) {
+		return { title: '', prefix: '' };
+	}
+
+	// Check if answers are directly on the item
+	let answers = item.answers;
+
+	// Check if answers are nested in response object
+	if (!answers && item.response?.answers) {
+		answers = item.response.answers;
+	}
+
+	// If still no answers, return empty strings
+	if (!Array.isArray(answers) || answers.length === 0) {
+		return { title: '', prefix: '' };
+	}
+
+	return {
+		title: extractTitleFromAnswers(answers),
+		prefix: extractPrefixFromAnswers(answers),
+	};
+};
+
+/**
+ * Enrich enquiry items with answers data
+ * Fetches answers for each item and merges them into the item object
+ * @param {Array} items - Array of enquiry items
+ * @returns {Promise<Array>} - Array of enriched items with answers
+ */
+export const enrichEnquiriesWithAnswers = async (items) => {
+	if (!Array.isArray(items) || items.length === 0) {
+		return items;
+	}
+
+	// Fetch answers for all items in parallel
+	const enrichedItems = await Promise.all(
+		items.map(async (item) => {
+			try {
+				const singleEnquiry = await fetchSingleEnquiry(item.id);
+				if (singleEnquiry?.response?.answers) {
+					return {
+						...item,
+						answers: singleEnquiry.response.answers,
+					};
+				}
+				return item;
+			} catch (error) {
+				console.error(
+					`Error fetching answers for item ${item.id}:`,
+					error
+				);
+				return item;
+			}
+		})
+	);
+
+	return enrichedItems;
+};

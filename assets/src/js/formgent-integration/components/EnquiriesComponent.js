@@ -15,6 +15,7 @@ import {
 	fetchAllEnquiries,
 	fetchEnquiryKPIs,
 	refreshEnquiryData,
+	enrichEnquiriesWithAnswers,
 } from '../utils/enquiryUtils';
 import { EnquiriesComponentStyle } from './style';
 import Tables from './Table';
@@ -31,8 +32,11 @@ const EnquiriesComponent = ({ data = {} }) => {
 	}, []);
 
 	useEffect(() => {
-		fetchAllEnquiries().then((data) => {
-			setResponses(data);
+		fetchAllEnquiries().then(async (data) => {
+			const items = Array.isArray(data) ? data : data?.responses || [];
+			// Enrich items with answers data
+			const enrichedItems = await enrichEnquiriesWithAnswers(items);
+			setResponses(enrichedItems);
 		});
 	}, []);
 
@@ -66,7 +70,12 @@ const EnquiriesComponent = ({ data = {} }) => {
 	const handleRefresh = async () => {
 		try {
 			const { responses, kpis } = await refreshEnquiryData();
-			setResponses(responses);
+			const items = Array.isArray(responses)
+				? responses
+				: responses?.responses || [];
+			// Enrich items with answers data
+			const enrichedItems = await enrichEnquiriesWithAnswers(items);
+			setResponses(enrichedItems);
 			setResponseKPIs(kpis);
 		} catch (error) {
 			console.error('Error refreshing data:', error);
@@ -76,9 +85,14 @@ const EnquiriesComponent = ({ data = {} }) => {
 	return (
 		<EnquiriesComponentStyle className="directorist-enquiries-container">
 			<div className="directorist-enquiries-header">
-				<h1 className="directorist-enquiries-title">{__('My Enquiries', 'directorist')}</h1>
+				<h1 className="directorist-enquiries-title">
+					{__('My Enquiries', 'directorist')}
+				</h1>
 				<p className="directorist-enquiries-description">
-					{__('Track and manage all your incoming messages', 'directorist')}
+					{__(
+						'Track and manage all your incoming messages',
+						'directorist'
+					)}
 				</p>
 			</div>
 
@@ -101,7 +115,7 @@ const EnquiriesComponent = ({ data = {} }) => {
 
 			<div className="directorist-enquiries-table">
 				<Tables
-					items={Array.isArray(responses) ? responses : responses?.responses || []}
+					items={Array.isArray(responses) ? responses : []}
 					handleTableRefresh={handleRefresh}
 				/>
 			</div>

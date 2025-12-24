@@ -141,6 +141,10 @@ const EnquiriesComponentStyle = styled.div`
 				font-weight: 500;
 				color: #1e1e1e;
 				margin: 0;
+				width: 350px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 		}
 		.dataviews-view-table__actions-column {
@@ -209,6 +213,7 @@ const EnquiriesComponentStyle = styled.div`
 			td {
 				&:first-child {
 					padding-left: 25px;
+					width: 400px;
 				}
 				&:last-child {
 					padding-right: 25px;

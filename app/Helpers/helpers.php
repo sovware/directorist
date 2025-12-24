@@ -51,3 +51,12 @@ function directorist_calculate_tax_amount( string $tax_type, float $tax_rate, fl
         return round( $tax_rate, 2 );
     }
 }
+
+
+function directorist_is_listing_featured( int $listing_id ): bool {
+    return strval( get_post_meta( $listing_id, '_featured', true ) ) === '1';
+}
+
+function directorist_set_listing_featured( int $listing_id ): bool {
+    return update_post_meta( $listing_id, '_featured', '1' );
+}

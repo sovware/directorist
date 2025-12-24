@@ -199,7 +199,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 Post::get_table_name() . ' as post', function( $join ) {
                         $join->on_column( 'post.ID', 'response_meta.meta_value' )->on( 'post.post_author', 1 );
                 }
-            )->where_not_is_null( 'post.post_author' )->where( 'response.is_completed', 1 );
+            )->where_not_is_null( 'post.post_author' )->where( 'post.post_status', 'publish' )->where( 'response.is_completed', 1 );
         }
     }
 }

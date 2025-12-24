@@ -5634,6 +5634,10 @@ input[type="radio"].cptm-radio {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	gap: 10px;
+	&.cptm-input-toggle-left {
+		flex-direction: row-reverse;
+	}
 
 	label {
 		padding-right: 10px;
@@ -6960,6 +6964,127 @@ input[type="radio"] {
 	}
 }
 
+// Custom Single Listing Page
+.enable_single_listing_page {
+	.cptm-title-area {
+		margin: 30px 0;
+		.cptm-title {
+			font-size: 20px;
+			font-weight: 600;
+			color: #0a0a0a;
+		}
+		.cptm-des {
+			font-size: 14px;
+			color: #737373;
+			margin-top: 6px;
+		}
+	}
+	.cptm-input-toggle-content {
+		h3 {
+			font-size: 14px;
+			font-weight: 600;
+			color: #2c3239;
+			margin: 0 0 6px;
+		}
+		.cptm-form-group-info {
+			font-size: 14px;
+			color: #4d5761;
+		}
+	}
+	.cptm-form-group {
+		margin-bottom: 40px;
+	}
+	.cptm-form-group--dropdown {
+		display: flex;
+		flex-direction: column;
+		.cptm-form-group-info {
+			order: 1;
+			font-weight: 500;
+			margin-top: 6px;
+			a {
+				color: #3e62f5;
+			}
+		}
+		.directorist_dropdown {
+			border-radius: 4px;
+			border-color: #d2d6db;
+			.directorist_dropdown-toggle {
+				line-height: 1.4;
+				min-height: 40px;
+			}
+		}
+	}
+	.cptm-input-toggle {
+		width: 44px;
+		height: 22px;
+	}
+}
+
+.cptm-form-group--api-select-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	background-color: #e5e5e5;
+	border-radius: 4px;
+	margin: 0 auto 15px;
+	span.la {
+		font-size: 22px;
+		color: #0a0a0a;
+	}
+}
+
+.cptm-form-group--api-select {
+	h4 {
+		font-size: 16px;
+		color: #171717;
+	}
+	p {
+		color: #737373;
+	}
+	.cptm-form-group--api-select-re-sync {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		font-weight: 500;
+		color: #0a0a0a;
+		border: 1px solid #d4d4d4;
+		border-radius: 8px;
+		padding: 8.5px 16.5px;
+		margin: 0 auto;
+		background-color: #fff;
+		cursor: pointer;
+		box-shadow:
+			0px 1px 2px -1px rgba(0, 0, 0, 0.1),
+			0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+		span.la {
+			font-size: 16px;
+			color: #0a0a0a;
+			margin-right: 8px;
+		}
+	}
+}
+
+// Title field
+.cptm-form-title-field {
+	margin-bottom: 16px;
+	.cptm-form-title-field__label {
+		font-size: 14px;
+		font-weight: 600;
+		color: #000000;
+		margin: 0 0 4px;
+	}
+	.cptm-form-title-field__description {
+		font-size: 14px;
+		color: #4d5761;
+		a {
+			color: #345af4;
+		}
+	}
+}
+
 // Single Listing Elements Settings
 .cptm-elements-settings {
 	width: 100%;
@@ -7187,5 +7312,124 @@ input[type="radio"] {
 				}
 			}
 		}
+	}
+}
+
+// Shortcode List Field Styles
+.cptm-shortcode-generator {
+	max-width: 100%;
+
+	.cptm-generate-shortcode-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 9px 20px;
+		margin: 0;
+		background-color: #fff;
+		color: #3e62f5;
+		&:hover {
+			color: #fff;
+		}
+
+		i {
+			font-size: 14px;
+		}
+	}
+
+	.cptm-shortcodes-wrapper {
+		margin-top: 20px;
+	}
+
+	.cptm-shortcodes-box {
+		position: relative;
+		background-color: #f9fafb;
+		border: 1px solid #e5e7eb;
+		border-radius: 4px;
+		padding: 10px 12px;
+	}
+
+	.cptm-copy-icon-button {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 8px;
+		color: #555;
+		font-size: 18px;
+		transition: color 0.2s ease;
+		z-index: 10;
+
+		&:hover {
+			color: #000;
+		}
+
+		&:focus {
+			outline: 2px solid #0073aa;
+			outline-offset: 2px;
+			border-radius: 4px;
+		}
+	}
+
+	.cptm-shortcodes-content {
+		padding-right: 40px;
+	}
+
+	.cptm-shortcode-item {
+		margin: 0;
+		padding: 2px 6px;
+		font-size: 14px;
+		color: #000000;
+		line-height: 1.6;
+		&:hover {
+			background-color: #e5e7eb;
+		}
+		&:not(:last-child) {
+			margin-bottom: 4px;
+		}
+	}
+
+	.cptm-shortcodes-footer {
+		margin-top: 6px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 12px;
+		color: #747c89;
+	}
+
+	.cptm-footer-text {
+		color: #747c89;
+	}
+
+	.cptm-footer-separator {
+		color: #747c89;
+	}
+
+	.cptm-regenerate-link {
+		color: #3e62f5;
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.2s ease;
+
+		&:hover {
+			color: #3e62f5;
+			text-decoration: underline;
+		}
+
+		&:focus {
+			outline: 2px solid #3e62f5;
+			outline-offset: 2px;
+			border-radius: 2px;
+		}
+	}
+
+	.cptm-no-shortcodes {
+		margin-top: 12px;
+	}
+	.cptm-form-group-info {
+		font-size: 14px;
+		color: #4d5761;
 	}
 }

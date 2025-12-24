@@ -13408,8 +13408,6 @@ input.directorist-toggle-input:checked
 	overflow: hidden;
 }
 .directorist-advanced-filter__advanced__element.directorist-search-field-category
-	.directorist-search-field.input-is-focused,
-.directorist-advanced-filter__advanced__element.directorist-search-field-location
 	.directorist-search-field.input-is-focused {
 	margin-top: 0;
 }
@@ -21187,8 +21185,6 @@ input.directorist-toggle-input:checked
 	width: 16px;
 	height: 16px;
 	background-color: var(--directorist-color-marker-icon);
-	-webkit-mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
-	mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
 }
 .atbd_map_shape:hover:before {
 	opacity: 1;

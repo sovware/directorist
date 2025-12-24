@@ -32,11 +32,10 @@ const EnquiriesComponent = ({ data = {} }) => {
 	}, []);
 
 	useEffect(() => {
-		fetchAllEnquiries().then(async (data) => {
+		fetchAllEnquiries().then((data) => {
 			const items = Array.isArray(data) ? data : data?.responses || [];
-			// Enrich items with answers data
-			const enrichedItems = await enrichEnquiriesWithAnswers(items);
-			setResponses(enrichedItems);
+			// Don't fetch answers here - let Table component handle lazy loading
+			setResponses(items);
 		});
 	}, []);
 
@@ -73,9 +72,8 @@ const EnquiriesComponent = ({ data = {} }) => {
 			const items = Array.isArray(responses)
 				? responses
 				: responses?.responses || [];
-			// Enrich items with answers data
-			const enrichedItems = await enrichEnquiriesWithAnswers(items);
-			setResponses(enrichedItems);
+			// Don't fetch answers here - let Table component handle lazy loading
+			setResponses(items);
 			setResponseKPIs(kpis);
 		} catch (error) {
 			console.error('Error refreshing data:', error);

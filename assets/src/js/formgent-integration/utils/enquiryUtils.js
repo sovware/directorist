@@ -330,37 +330,72 @@ export const extractEnquiryTitleAndPrefix = (item) => {
 };
 
 /**
- * Enrich enquiry items with answers data
- * Fetches answers for each item and merges them into the item object
- * @param {Array} items - Array of enquiry items
- * @returns {Promise<Array>} - Array of enriched items with answers
+ * Enrich enquiry items with answers data (for specific items only)
+ * Fetches answers for given items and merges them into the item objects
+ * Uses caching to avoid refetching the same items
+ * @param {Array} items - Array of enquiry items to enrich
+ * @param {Map} cache - Cache map to store fetched answers (key: item.id, value: answers array)
+ * @returns {Promise<{enrichedItems: Array, cache: Map}>} - Enriched items and updated cache
  */
-export const enrichEnquiriesWithAnswers = async (items) => {
+export const enrichEnquiriesWithAnswers = async (items, cache = new Map()) => {
 	if (!Array.isArray(items) || items.length === 0) {
-		return items;
+		return { enrichedItems: items, cache };
 	}
 
-	// Fetch answers for all items in parallel
-	const enrichedItems = await Promise.all(
-		items.map(async (item) => {
-			try {
-				const singleEnquiry = await fetchSingleEnquiry(item.id);
-				if (singleEnquiry?.response?.answers) {
-					return {
-						...item,
-						answers: singleEnquiry.response.answers,
-					};
-				}
-				return item;
-			} catch (error) {
-				console.error(
-					`Error fetching answers for item ${item.id}:`,
-					error
-				);
-				return item;
-			}
-		})
-	);
+	// Filter out items that are already cached
+	const itemsToFetch = items.filter((item) => {
+		return item.id && !cache.has(String(item.id)) && !item.answers;
+	});
 
-	return enrichedItems;
+	if (itemsToFetch.length === 0) {
+		// All items are cached, just merge cached data
+		const enrichedItems = items.map((item) => {
+			const cachedAnswers = cache.get(String(item.id));
+			if (cachedAnswers) {
+				return { ...item, answers: cachedAnswers };
+			}
+			return item;
+		});
+		return { enrichedItems, cache };
+	}
+
+	// Fetch answers for items that aren't cached (in parallel)
+	const fetchPromises = itemsToFetch.map(async (item) => {
+		try {
+			const singleEnquiry = await fetchSingleEnquiry(item.id);
+			if (singleEnquiry?.response?.answers) {
+				// Cache the answers
+				cache.set(String(item.id), singleEnquiry.response.answers);
+				return {
+					item,
+					answers: singleEnquiry.response.answers,
+				};
+			}
+			return { item, answers: null };
+		} catch (error) {
+			console.error(`Error fetching answers for item ${item.id}:`, error);
+			return { item, answers: null };
+		}
+	});
+
+	const fetchedData = await Promise.all(fetchPromises);
+
+	// Create a map for quick lookup
+	const fetchedMap = new Map();
+	fetchedData.forEach(({ item, answers }) => {
+		if (answers) {
+			fetchedMap.set(String(item.id), answers);
+		}
+	});
+
+	// Merge cached and fetched data into items
+	const enrichedItems = items.map((item) => {
+		const answers =
+			fetchedMap.get(String(item.id)) ||
+			cache.get(String(item.id)) ||
+			item.answers;
+		return answers ? { ...item, answers } : item;
+	});
+
+	return { enrichedItems, cache };
 };

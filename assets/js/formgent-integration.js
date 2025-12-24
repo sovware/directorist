@@ -119,59 +119,15 @@
 						function () {
 							(0,
 							_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.fetchAllEnquiries)().then(
-								/*#__PURE__*/ (function () {
-									var _ref2 = (0,
-									_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__[
-										'default'
-									])(
-										/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
-											function _callee(data) {
-												var items, enrichedItems;
-												return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
-													function (_context) {
-														while (1)
-															switch (
-																(_context.prev =
-																	_context.next)
-															) {
-																case 0:
-																	items =
-																		Array.isArray(
-																			data
-																		)
-																			? data
-																			: (data ===
-																					null ||
-																				data ===
-																					void 0
-																					? void 0
-																					: data.responses) ||
-																				[]; // Enrich items with answers data
-																	_context.next = 1;
-																	return (0,
-																	_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.enrichEnquiriesWithAnswers)(
-																		items
-																	);
-																case 1:
-																	enrichedItems =
-																		_context.sent;
-																	setResponses(
-																		enrichedItems
-																	);
-																case 2:
-																case 'end':
-																	return _context.stop();
-															}
-													},
-													_callee
-												);
-											}
-										)
-									);
-									return function (_x) {
-										return _ref2.apply(this, arguments);
-									};
-								})()
+								function (data) {
+									var items = Array.isArray(data)
+										? data
+										: (data === null || data === void 0
+												? void 0
+												: data.responses) || [];
+									// Don't fetch answers here - let Table component handle lazy loading
+									setResponses(items);
+								}
 							);
 						},
 						[]
@@ -227,33 +183,32 @@
 						},
 					];
 					var handleRefresh = /*#__PURE__*/ (function () {
-						var _ref3 = (0,
+						var _ref2 = (0,
 						_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__[
 							'default'
 						])(
 							/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
-								function _callee2() {
+								function _callee() {
 									var _yield$refreshEnquiry,
 										_responses,
 										kpis,
 										items,
-										enrichedItems,
 										_t;
 									return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
-										function (_context2) {
+										function (_context) {
 											while (1)
 												switch (
-													(_context2.prev =
-														_context2.next)
+													(_context.prev =
+														_context.next)
 												) {
 													case 0:
-														_context2.prev = 0;
-														_context2.next = 1;
+														_context.prev = 0;
+														_context.next = 1;
 														return (0,
 														_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.refreshEnquiryData)();
 													case 1:
 														_yield$refreshEnquiry =
-															_context2.sent;
+															_context.sent;
 														_responses =
 															_yield$refreshEnquiry.responses;
 														kpis =
@@ -268,45 +223,35 @@
 																	void 0
 																	? void 0
 																	: _responses.responses) ||
-																[]; // Enrich items with answers data
-														_context2.next = 2;
-														return (0,
-														_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.enrichEnquiriesWithAnswers)(
-															items
-														);
-													case 2:
-														enrichedItems =
-															_context2.sent;
-														setResponses(
-															enrichedItems
-														);
+																[]; // Don't fetch answers here - let Table component handle lazy loading
+														setResponses(items);
 														setResponseKPIs(kpis);
-														_context2.next = 4;
+														_context.next = 3;
 														break;
-													case 3:
-														_context2.prev = 3;
+													case 2:
+														_context.prev = 2;
 														_t =
-															_context2['catch'](
+															_context['catch'](
 																0
 															);
 														console.error(
 															'Error refreshing data:',
 															_t
 														);
-													case 4:
+													case 3:
 													case 'end':
-														return _context2.stop();
+														return _context.stop();
 												}
 										},
-										_callee2,
+										_callee,
 										null,
-										[[0, 3]]
+										[[0, 2]]
 									);
 								}
 							)
 						);
 						return function handleRefresh() {
-							return _ref3.apply(this, arguments);
+							return _ref2.apply(this, arguments);
 						};
 					})();
 					return (0,
@@ -1337,9 +1282,33 @@
 						])(_useState3, 2),
 						selectedItem = _useState4[0],
 						setSelectedItem = _useState4[1];
+					var _useState5 = (0,
+						_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(
+							[]
+						),
+						_useState6 = (0,
+						_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__[
+							'default'
+						])(_useState5, 2),
+						enrichedItems = _useState6[0],
+						setEnrichedItems = _useState6[1];
+					var _useState7 = (0,
+						_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(
+							false
+						),
+						_useState8 = (0,
+						_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__[
+							'default'
+						])(_useState7, 2),
+						isLoadingAnswers = _useState8[0],
+						setIsLoadingAnswers = _useState8[1];
+					var answersCacheRef = (0,
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useRef)(
+						new Map()
+					); // Cache for answers data
 
 					// Initialize view state for DataViews
-					var _useState5 = (0,
+					var _useState9 = (0,
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(
 							{
 								type: 'table',
@@ -1359,12 +1328,12 @@
 								layout: {},
 							}
 						),
-						_useState6 = (0,
+						_useState0 = (0,
 						_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__[
 							'default'
-						])(_useState5, 2),
-						view = _useState6[0],
-						setView = _useState6[1];
+						])(_useState9, 2),
+						view = _useState0[0],
+						setView = _useState0[1];
 
 					// Get badge variant based on status
 					var statusBadge = function statusBadge(status) {
@@ -1894,8 +1863,115 @@
 						},
 						[filteredData, view.page, view.perPage]
 					);
+
+					// Lazy load answers only for visible/paginated items
+					(0,
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(
+						function () {
+							if (paginatedData.length === 0) {
+								return;
+							}
+
+							// Check if we need to fetch answers for any visible items
+							var needsFetch = paginatedData.some(
+								function (item) {
+									return (
+										item.id &&
+										!answersCacheRef.current.has(
+											String(item.id)
+										) &&
+										!item.answers
+									);
+								}
+							);
+							if (!needsFetch) {
+								// All visible items are cached, just merge them
+								var merged = paginatedData.map(function (item) {
+									var cachedAnswers =
+										answersCacheRef.current.get(
+											String(item.id)
+										);
+									return cachedAnswers
+										? _objectSpread(
+												_objectSpread({}, item),
+												{},
+												{
+													answers: cachedAnswers,
+												}
+											)
+										: item;
+								});
+								setEnrichedItems(merged);
+								return;
+							}
+
+							// Fetch answers for visible items that aren't cached
+							setIsLoadingAnswers(true);
+							(0,
+							_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_8__.enrichEnquiriesWithAnswers)(
+								paginatedData,
+								answersCacheRef.current
+							)
+								.then(function (_ref5) {
+									var enriched = _ref5.enrichedItems,
+										cache = _ref5.cache;
+									answersCacheRef.current = cache; // Update cache reference
+									setEnrichedItems(enriched);
+								})
+								.catch(function (error) {
+									console.error(
+										'Error enriching items:',
+										error
+									);
+									setEnrichedItems(paginatedData);
+								})
+								.finally(function () {
+									setIsLoadingAnswers(false);
+								});
+						},
+						[paginatedData]
+					);
+
+					// Update enriched items when items change (but don't refetch if already cached)
+					(0,
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(
+						function () {
+							// Merge cached answers with items
+							var merged = items.map(function (item) {
+								var cachedAnswers = answersCacheRef.current.get(
+									String(item.id)
+								);
+								return cachedAnswers
+									? _objectSpread(
+											_objectSpread({}, item),
+											{},
+											{
+												answers: cachedAnswers,
+											}
+										)
+									: item;
+							});
+							setEnrichedItems(merged);
+						},
+						[items]
+					);
 					var totalItems = filteredData.length;
 					var totalPages = Math.ceil(totalItems / view.perPage);
+
+					// Use enriched items for rendering
+					var displayData = (0,
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useMemo)(
+						function () {
+							// Merge paginated data with enriched items by ID
+							return paginatedData.map(function (item) {
+								var enriched = enrichedItems.find(function (e) {
+									return e.id === item.id;
+								});
+								return enriched || item;
+							});
+						},
+						[paginatedData, enrichedItems]
+					);
 					return (0,
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.Fragment,
@@ -1906,7 +1982,7 @@
 								'default'
 							],
 							{
-								data: paginatedData,
+								data: displayData,
 								fields: fields,
 								view: view,
 								onChangeView: handleChangeView,
@@ -3391,10 +3467,12 @@
 					};
 
 				/**
-				 * Enrich enquiry items with answers data
-				 * Fetches answers for each item and merges them into the item object
-				 * @param {Array} items - Array of enquiry items
-				 * @returns {Promise<Array>} - Array of enriched items with answers
+				 * Enrich enquiry items with answers data (for specific items only)
+				 * Fetches answers for given items and merges them into the item objects
+				 * Uses caching to avoid refetching the same items
+				 * @param {Array} items - Array of enquiry items to enrich
+				 * @param {Map} cache - Cache map to store fetched answers (key: item.id, value: answers array)
+				 * @returns {Promise<{enrichedItems: Array, cache: Map}>} - Enriched items and updated cache
 				 */
 				var enrichEnquiriesWithAnswers = /*#__PURE__*/ (function () {
 					var _ref7 = (0,
@@ -3403,7 +3481,14 @@
 					])(
 						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee8(items) {
-								var enrichedItems;
+								var cache,
+									itemsToFetch,
+									_enrichedItems,
+									fetchPromises,
+									fetchedData,
+									fetchedMap,
+									enrichedItems,
+									_args8 = arguments;
 								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context8) {
 										while (1)
@@ -3412,6 +3497,11 @@
 													_context8.next)
 											) {
 												case 0:
+													cache =
+														_args8.length > 1 &&
+														_args8[1] !== undefined
+															? _args8[1]
+															: new Map();
 													if (
 														!(
 															!Array.isArray(
@@ -3425,12 +3515,73 @@
 													}
 													return _context8.abrupt(
 														'return',
-														items
+														{
+															enrichedItems:
+																items,
+															cache: cache,
+														}
 													);
 												case 1:
-													_context8.next = 2;
-													return Promise.all(
-														items.map(
+													// Filter out items that are already cached
+													itemsToFetch = items.filter(
+														function (item) {
+															return (
+																item.id &&
+																!cache.has(
+																	String(
+																		item.id
+																	)
+																) &&
+																!item.answers
+															);
+														}
+													);
+													if (
+														!(
+															itemsToFetch.length ===
+															0
+														)
+													) {
+														_context8.next = 2;
+														break;
+													}
+													// All items are cached, just merge cached data
+													_enrichedItems = items.map(
+														function (item) {
+															var cachedAnswers =
+																cache.get(
+																	String(
+																		item.id
+																	)
+																);
+															if (cachedAnswers) {
+																return _objectSpread(
+																	_objectSpread(
+																		{},
+																		item
+																	),
+																	{},
+																	{
+																		answers:
+																			cachedAnswers,
+																	}
+																);
+															}
+															return item;
+														}
+													);
+													return _context8.abrupt(
+														'return',
+														{
+															enrichedItems:
+																_enrichedItems,
+															cache: cache,
+														}
+													);
+												case 2:
+													// Fetch answers for items that aren't cached (in parallel)
+													fetchPromises =
+														itemsToFetch.map(
 															/*#__PURE__*/ (function () {
 																var _ref8 = (0,
 																_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[
@@ -3480,26 +3631,33 @@
 																									_context7.next = 2;
 																									break;
 																								}
+																								// Cache the answers
+																								cache.set(
+																									String(
+																										item.id
+																									),
+																									singleEnquiry
+																										.response
+																										.answers
+																								);
 																								return _context7.abrupt(
 																									'return',
-																									_objectSpread(
-																										_objectSpread(
-																											{},
-																											item
-																										),
-																										{},
-																										{
-																											answers:
-																												singleEnquiry
-																													.response
-																													.answers,
-																										}
-																									)
+																									{
+																										item: item,
+																										answers:
+																											singleEnquiry
+																												.response
+																												.answers,
+																									}
 																								);
 																							case 2:
 																								return _context7.abrupt(
 																									'return',
-																									item
+																									{
+																										item: item,
+																										answers:
+																											null,
+																									}
 																								);
 																							case 3:
 																								_context7.prev = 3;
@@ -3518,7 +3676,11 @@
 																								);
 																								return _context7.abrupt(
 																									'return',
-																									item
+																									{
+																										item: item,
+																										answers:
+																											null,
+																									}
 																								);
 																							case 4:
 																							case 'end':
@@ -3546,16 +3708,72 @@
 																	);
 																};
 															})()
-														)
-													);
-												case 2:
-													enrichedItems =
-														_context8.sent;
-													return _context8.abrupt(
-														'return',
-														enrichedItems
+														);
+													_context8.next = 3;
+													return Promise.all(
+														fetchPromises
 													);
 												case 3:
+													fetchedData =
+														_context8.sent;
+													// Create a map for quick lookup
+													fetchedMap = new Map();
+													fetchedData.forEach(
+														function (_ref9) {
+															var item =
+																	_ref9.item,
+																answers =
+																	_ref9.answers;
+															if (answers) {
+																fetchedMap.set(
+																	String(
+																		item.id
+																	),
+																	answers
+																);
+															}
+														}
+													);
+
+													// Merge cached and fetched data into items
+													enrichedItems = items.map(
+														function (item) {
+															var answers =
+																fetchedMap.get(
+																	String(
+																		item.id
+																	)
+																) ||
+																cache.get(
+																	String(
+																		item.id
+																	)
+																) ||
+																item.answers;
+															return answers
+																? _objectSpread(
+																		_objectSpread(
+																			{},
+																			item
+																		),
+																		{},
+																		{
+																			answers:
+																				answers,
+																		}
+																	)
+																: item;
+														}
+													);
+													return _context8.abrupt(
+														'return',
+														{
+															enrichedItems:
+																enrichedItems,
+															cache: cache,
+														}
+													);
+												case 4:
 												case 'end':
 													return _context8.stop();
 											}

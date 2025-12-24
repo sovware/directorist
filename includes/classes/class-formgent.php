@@ -86,7 +86,22 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             $response_controller = formgent_singleton( \FormGent\App\Http\Controllers\Admin\ResponseController::class );
             $fields          = $response_controller->prepare_fields( $fields_settings );
 
-            return rest_ensure_response( [ 'success' => true, 'response' => $response, 'fields' => $fields ] );
+            $listing_id = formgent_response_repository()->get_meta_value( $response_id, 'listing_id' );
+            $listing_permalink = '';
+
+            if ( ! empty( $listing_id ) ) {
+                $listing_id        = absint( $listing_id );
+                $listing_permalink = ATBDP_Permalink::get_listing_permalink( $listing_id, get_the_permalink( $listing_id ) );
+            }
+
+            return rest_ensure_response( 
+                [ 
+                    'success'           => true,
+                    'response'          => $response,
+                    'fields'            => $fields,
+                    'listing_permalink' => $listing_permalink,
+                ]
+            );
         }
 
         public function read_responses( $request ) {

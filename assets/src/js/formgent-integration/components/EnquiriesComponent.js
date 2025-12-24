@@ -15,7 +15,6 @@ import {
 	fetchAllEnquiries,
 	fetchEnquiryKPIs,
 	refreshEnquiryData,
-	enrichEnquiriesWithAnswers,
 } from '../utils/enquiryUtils';
 import { EnquiriesComponentStyle } from './style';
 import Tables from './Table';

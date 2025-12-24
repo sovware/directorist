@@ -408,6 +408,7 @@ export default function Tables(props) {
 					deleteEnquiry(item, handleTableRefresh);
 				}}
 				handleSendEmail={handleSendEmail}
+				handleTableRefresh={handleTableRefresh}
 			/>
 		</>
 	);

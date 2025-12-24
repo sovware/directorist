@@ -61,9 +61,10 @@ export const getListingTitle = (enquiry) => {
  * Mark enquiry as read
  * @param {Object|Array} item - The enquiry item
  * @param {Function} onSuccess - Callback function to call on success
+ * @param {boolean} silent - Whether to suppress toast notification
  * @returns {Promise} - The API call promise
  */
-export const markEnquiryAsRead = async (item, onSuccess) => {
+export const markEnquiryAsRead = async (item, onSuccess, silent = false) => {
 	const responseId = extractItemId(item);
 
 	if (!responseId) {
@@ -84,10 +85,12 @@ export const markEnquiryAsRead = async (item, onSuccess) => {
 			onSuccess();
 		}
 
-		doAction('helpgent-toast', {
-			message: 'Response marked as read',
-			type: 'success',
-		});
+		if (!silent) {
+			doAction('helpgent-toast', {
+				message: 'Response marked as read',
+				type: 'success',
+			});
+		}
 
 		return data;
 	} catch (error) {

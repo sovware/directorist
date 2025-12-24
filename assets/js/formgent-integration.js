@@ -506,21 +506,22 @@
 				 */
 				function EnquiryDetailsModal(_ref) {
 					var _singleItem$response,
-						_matchedEnquiry$user,
 						_singleItem$response2,
-						_matchedEnquiry$user2,
+						_matchedEnquiry$user,
 						_singleItem$response3,
-						_matchedEnquiry$user3,
+						_matchedEnquiry$user2,
 						_singleItem$response4,
+						_matchedEnquiry$user3,
 						_singleItem$response5,
 						_singleItem$response6,
-						_matchedEnquiry$user4,
 						_singleItem$response7,
+						_matchedEnquiry$user4,
 						_singleItem$response8,
 						_singleItem$response9,
 						_singleItem$response0,
 						_singleItem$response1,
-						_singleItem$response10;
+						_singleItem$response10,
+						_singleItem$response11;
 					var isOpen = _ref.isOpen,
 						selectedItem = _ref.selectedItem,
 						onClose = _ref.onClose,
@@ -528,7 +529,8 @@
 						enquiries = _ref.enquiries,
 						handleMarkAsRead = _ref.handleMarkAsRead,
 						handleDeleteItem = _ref.handleDeleteItem,
-						handleSendEmail = _ref.handleSendEmail;
+						handleSendEmail = _ref.handleSendEmail,
+						handleTableRefresh = _ref.handleTableRefresh;
 					var _useState = (0,
 						_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(
 							null
@@ -569,6 +571,10 @@
 						])(_useState7, 2),
 						error = _useState8[0],
 						setError = _useState8[1];
+					var hasMarkedAsReadRef = (0,
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useRef)(
+						false
+					);
 					var _window$formgent$dire =
 							window.formgent.directorist_modules,
 						TableDrawerAnswer =
@@ -584,6 +590,9 @@
 					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(
 						function () {
 							if (!selectedItem) return;
+
+							// Reset the mark-as-read flag when a new item is selected
+							hasMarkedAsReadRef.current = false;
 							setLoading(true);
 							setError(null);
 							(0,
@@ -636,6 +645,69 @@
 							_singleItem$response === void 0
 								? void 0
 								: _singleItem$response.form_id,
+						]
+					);
+
+					// Automatically mark as read when modal content loads
+					(0,
+					_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(
+						function () {
+							if (
+								!isOpen ||
+								!(
+									singleItem !== null &&
+									singleItem !== void 0 &&
+									singleItem.response
+								) ||
+								loading ||
+								singleItem.response.is_read === '1' ||
+								hasMarkedAsReadRef.current
+							) {
+								return;
+							}
+
+							// Mark that we've processed this item
+							hasMarkedAsReadRef.current = true;
+
+							// Update local state immediately for instant UI feedback
+							setSingleItem(function (prevSingleItem) {
+								return _objectSpread(
+									_objectSpread({}, prevSingleItem),
+									{},
+									{
+										response: _objectSpread(
+											_objectSpread(
+												{},
+												prevSingleItem.response
+											),
+											{},
+											{
+												is_read: '1',
+											}
+										),
+									}
+								);
+							});
+
+							// Call markEnquiryAsRead with silent=true to suppress toast
+							(0,
+							_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.markEnquiryAsRead)(
+								singleItem.response,
+								handleTableRefresh || function () {},
+								true
+							);
+						},
+						[
+							isOpen,
+							singleItem === null ||
+							singleItem === void 0 ||
+							(_singleItem$response2 = singleItem.response) ===
+								null ||
+							_singleItem$response2 === void 0
+								? void 0
+								: _singleItem$response2.id,
+							loading,
+							handleTableRefresh,
 						]
 					);
 
@@ -780,13 +852,13 @@
 																null ||
 															singleItem ===
 																void 0 ||
-															(_singleItem$response2 =
+															(_singleItem$response3 =
 																singleItem.response) ===
 																null ||
-															_singleItem$response2 ===
+															_singleItem$response3 ===
 																void 0
 																? void 0
-																: _singleItem$response2.user_email),
+																: _singleItem$response3.user_email),
 														alt:
 															(matchedEnquiry ===
 																null ||
@@ -803,13 +875,13 @@
 																null ||
 															singleItem ===
 																void 0 ||
-															(_singleItem$response3 =
+															(_singleItem$response4 =
 																singleItem.response) ===
 																null ||
-															_singleItem$response3 ===
+															_singleItem$response4 ===
 																void 0
 																? void 0
-																: _singleItem$response3.username),
+																: _singleItem$response4.username),
 													}
 												)
 											),
@@ -835,13 +907,13 @@
 														: _matchedEnquiry$user3.display_name) ||
 														(singleItem === null ||
 														singleItem === void 0 ||
-														(_singleItem$response4 =
+														(_singleItem$response5 =
 															singleItem.response) ===
 															null ||
-														_singleItem$response4 ===
+														_singleItem$response5 ===
 															void 0
 															? void 0
-															: _singleItem$response4.username),
+															: _singleItem$response5.username),
 													(0,
 													_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 														'span',
@@ -853,13 +925,13 @@
 																			null ||
 																			singleItem ===
 																				void 0 ||
-																			(_singleItem$response5 =
+																			(_singleItem$response6 =
 																				singleItem.response) ===
 																				null ||
-																			_singleItem$response5 ===
+																			_singleItem$response6 ===
 																				void 0
 																			? void 0
-																			: _singleItem$response5.is_read
+																			: _singleItem$response6.is_read
 																	)
 																),
 														},
@@ -869,13 +941,13 @@
 																null ||
 																singleItem ===
 																	void 0 ||
-																(_singleItem$response6 =
+																(_singleItem$response7 =
 																	singleItem.response) ===
 																	null ||
-																_singleItem$response6 ===
+																_singleItem$response7 ===
 																	void 0
 																? void 0
-																: _singleItem$response6.is_read
+																: _singleItem$response7.is_read
 														)
 													)
 												),
@@ -894,13 +966,13 @@
 														: _matchedEnquiry$user4.user_email) ||
 														(singleItem === null ||
 														singleItem === void 0 ||
-														(_singleItem$response7 =
+														(_singleItem$response8 =
 															singleItem.response) ===
 															null ||
-														_singleItem$response7 ===
+														_singleItem$response8 ===
 															void 0
 															? void 0
-															: _singleItem$response7.user_email)
+															: _singleItem$response8.user_email)
 												),
 												(0,
 												_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
@@ -908,13 +980,13 @@
 													null,
 													singleItem === null ||
 														singleItem === void 0 ||
-														(_singleItem$response8 =
+														(_singleItem$response9 =
 															singleItem.response) ===
 															null ||
-														_singleItem$response8 ===
+														_singleItem$response9 ===
 															void 0
 														? void 0
-														: _singleItem$response8.created_at
+														: _singleItem$response9.created_at
 												)
 											)
 										),
@@ -964,11 +1036,11 @@
 										},
 										singleItem === null ||
 											singleItem === void 0 ||
-											(_singleItem$response9 =
+											(_singleItem$response0 =
 												singleItem.response) === null ||
-											_singleItem$response9 === void 0
+											_singleItem$response0 === void 0
 											? void 0
-											: _singleItem$response9.answers.map(
+											: _singleItem$response0.answers.map(
 													function (answer, index) {
 														return (0,
 														_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
@@ -1043,13 +1115,13 @@
 													'directorist-enquiry-modal-btn directorist-enquiry-modal-btn-resolved '.concat(
 														(singleItem === null ||
 														singleItem === void 0 ||
-														(_singleItem$response0 =
+														(_singleItem$response1 =
 															singleItem.response) ===
 															null ||
-														_singleItem$response0 ===
+														_singleItem$response1 ===
 															void 0
 															? void 0
-															: _singleItem$response0.is_read) ===
+															: _singleItem$response1.is_read) ===
 															'1'
 															? 'directorist-btn-disabled'
 															: ''
@@ -1058,13 +1130,13 @@
 												disabled:
 													(singleItem === null ||
 													singleItem === void 0 ||
-													(_singleItem$response1 =
+													(_singleItem$response10 =
 														singleItem.response) ===
 														null ||
-													_singleItem$response1 ===
+													_singleItem$response10 ===
 														void 0
 														? void 0
-														: _singleItem$response1.is_read) ===
+														: _singleItem$response10.is_read) ===
 													'1',
 											},
 											(0,
@@ -1080,13 +1152,13 @@
 												null,
 												(singleItem === null ||
 												singleItem === void 0 ||
-												(_singleItem$response10 =
+												(_singleItem$response11 =
 													singleItem.response) ===
 													null ||
-												_singleItem$response10 ===
+												_singleItem$response11 ===
 													void 0
 													? void 0
-													: _singleItem$response10.is_read) ===
+													: _singleItem$response11.is_read) ===
 													'1'
 													? (0,
 														_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)(
@@ -2026,6 +2098,7 @@
 									);
 								},
 								handleSendEmail: handleSendEmail,
+								handleTableRefresh: handleTableRefresh,
 							}
 						)
 					);
@@ -2877,6 +2950,7 @@
 				 * Mark enquiry as read
 				 * @param {Object|Array} item - The enquiry item
 				 * @param {Function} onSuccess - Callback function to call on success
+				 * @param {boolean} silent - Whether to suppress toast notification
 				 * @returns {Promise} - The API call promise
 				 */
 				var markEnquiryAsRead = /*#__PURE__*/ (function () {
@@ -2886,7 +2960,11 @@
 					])(
 						/*#__PURE__*/ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(
 							function _callee(item, onSuccess) {
-								var responseId, data, _t;
+								var silent,
+									responseId,
+									data,
+									_args = arguments,
+									_t;
 								return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(
 									function (_context) {
 										while (1)
@@ -2894,6 +2972,11 @@
 												(_context.prev = _context.next)
 											) {
 												case 0:
+													silent =
+														_args.length > 2 &&
+														_args[2] !== undefined
+															? _args[2]
+															: false;
 													responseId =
 														extractItemId(item);
 													if (responseId) {
@@ -2930,15 +3013,17 @@
 													if (onSuccess) {
 														onSuccess();
 													}
-													(0,
-													_wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__.doAction)(
-														'helpgent-toast',
-														{
-															message:
-																'Response marked as read',
-															type: 'success',
-														}
-													);
+													if (!silent) {
+														(0,
+														_wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__.doAction)(
+															'helpgent-toast',
+															{
+																message:
+																	'Response marked as read',
+																type: 'success',
+															}
+														);
+													}
 													return _context.abrupt(
 														'return',
 														data

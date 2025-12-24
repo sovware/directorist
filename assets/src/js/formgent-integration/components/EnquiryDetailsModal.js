@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { Modal } from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -20,6 +20,7 @@ import {
 	fetchSingleEnquiry,
 	findMatchingEnquiry,
 	getStatusBadgeText,
+	markEnquiryAsRead,
 } from '../utils/enquiryUtils';
 import { EnquiryDetailsModalStyle } from './style';
 
@@ -43,11 +44,13 @@ export default function EnquiryDetailsModal({
 	handleMarkAsRead,
 	handleDeleteItem,
 	handleSendEmail,
+	handleTableRefresh,
 }) {
 	const [singleItem, setSingleItem] = useState(null);
 	const [matchedEnquiry, setMatchedEnquiry] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const hasMarkedAsReadRef = useRef(false);
 	const {
 		TableDrawerAnswer,
 		getFormattedAnswer,
@@ -59,6 +62,8 @@ export default function EnquiryDetailsModal({
 	useEffect(() => {
 		if (!selectedItem) return;
 
+		// Reset the mark-as-read flag when a new item is selected
+		hasMarkedAsReadRef.current = false;
 		setLoading(true);
 		setError(null);
 
@@ -86,6 +91,38 @@ export default function EnquiryDetailsModal({
 			setMatchedEnquiry(matched);
 		}
 	}, [enquiries, singleItem?.response?.form_id]);
+
+	// Automatically mark as read when modal content loads
+	useEffect(() => {
+		if (
+			!isOpen ||
+			!singleItem?.response ||
+			loading ||
+			singleItem.response.is_read === '1' ||
+			hasMarkedAsReadRef.current
+		) {
+			return;
+		}
+
+		// Mark that we've processed this item
+		hasMarkedAsReadRef.current = true;
+
+		// Update local state immediately for instant UI feedback
+		setSingleItem((prevSingleItem) => ({
+			...prevSingleItem,
+			response: {
+				...prevSingleItem.response,
+				is_read: '1',
+			},
+		}));
+
+		// Call markEnquiryAsRead with silent=true to suppress toast
+		markEnquiryAsRead(
+			singleItem.response,
+			handleTableRefresh || (() => {}),
+			true
+		);
+	}, [isOpen, singleItem?.response?.id, loading, handleTableRefresh]);
 
 	// Function to handle mark as read with immediate UI update
 	const handleMarkAsReadClick = () => {

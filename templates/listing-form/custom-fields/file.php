@@ -156,20 +156,18 @@ $multiple           = false;
 
             <input type="hidden" name="<?php echo esc_attr( $id ); ?>_directory" id="<?php echo esc_attr( $id ); ?>_directory" value="general"/>
 
-            <label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-upload-label" style="display: block; width: 100%; cursor: pointer;">
-                <div class="plupload-upload-uic hide-if-no-js
+            <div class="plupload-upload-uic hide-if-no-js
                 <?php
                 if ( $multiple ) {
                     echo 'plupload-upload-uic-multiple';
                 }
                 ?>
                 " id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
-                    <input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="file"
-                           value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn"/>
-                    <span class="plupload-browse-button-label"><?php directorist_icon( $file_type_icon ); ?></span>
-                    <span class="plupload-browse-img-size"><?php echo esc_html( $file_size_text ); ?></span>
-                </div>
-            </label>
+                <input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="file"
+                       value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn"/>
+                <label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-browse-button-label"><?php directorist_icon( $file_type_icon ); ?></label>
+                <span class="plupload-browse-img-size"><?php echo esc_html( $file_size_text ); ?></span>
+            </div>
 
             <div class="plupload-thumbs
             <?php

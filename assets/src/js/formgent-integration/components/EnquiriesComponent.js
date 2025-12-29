@@ -32,7 +32,9 @@ const EnquiriesComponent = ({ data = {} }) => {
 
 	useEffect(() => {
 		fetchAllEnquiries().then((data) => {
-			setResponses(data);
+			const items = Array.isArray(data) ? data : data?.responses || [];
+			// Don't fetch answers here - let Table component handle lazy loading
+			setResponses(items);
 		});
 	}, []);
 
@@ -66,7 +68,11 @@ const EnquiriesComponent = ({ data = {} }) => {
 	const handleRefresh = async () => {
 		try {
 			const { responses, kpis } = await refreshEnquiryData();
-			setResponses(responses);
+			const items = Array.isArray(responses)
+				? responses
+				: responses?.responses || [];
+			// Don't fetch answers here - let Table component handle lazy loading
+			setResponses(items);
 			setResponseKPIs(kpis);
 		} catch (error) {
 			console.error('Error refreshing data:', error);
@@ -76,9 +82,14 @@ const EnquiriesComponent = ({ data = {} }) => {
 	return (
 		<EnquiriesComponentStyle className="directorist-enquiries-container">
 			<div className="directorist-enquiries-header">
-				<h1 className="directorist-enquiries-title">{__('My Enquiries', 'directorist')}</h1>
+				<h1 className="directorist-enquiries-title">
+					{__('My Enquiries', 'directorist')}
+				</h1>
 				<p className="directorist-enquiries-description">
-					{__('Track and manage all your incoming messages', 'directorist')}
+					{__(
+						'Track and manage all your incoming messages',
+						'directorist'
+					)}
 				</p>
 			</div>
 
@@ -101,7 +112,7 @@ const EnquiriesComponent = ({ data = {} }) => {
 
 			<div className="directorist-enquiries-table">
 				<Tables
-					items={Array.isArray(responses) ? responses : responses?.responses || []}
+					items={Array.isArray(responses) ? responses : []}
 					handleTableRefresh={handleRefresh}
 				/>
 			</div>

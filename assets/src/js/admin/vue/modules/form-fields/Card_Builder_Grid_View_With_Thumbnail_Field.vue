@@ -234,13 +234,12 @@
           </div>
 
           <!-- cptm-listing-card-preview-body -->
-          <div class="cptm-listing-card-preview-body"
-              :class="hasAvatarWidget ? 'has-avatar' : ''"
+          <div
+            class="cptm-listing-card-preview-body"
+            :class="hasAvatarWidget ? 'has-avatar' : ''"
           >
             <!-- cptm-listing-card-author-avatar -->
-            <div
-              class="cptm-listing-card-author-avatar"
-            >
+            <div class="cptm-listing-card-author-avatar">
               <card-widget-placeholder
                 id="thumbnail_avatar"
                 :containerClass="getAvatarPlaceholderClass"
@@ -320,7 +319,10 @@
 
             <card-widget-placeholder
               id="thumbnail_body_bottom"
-              containerClass="cptm-listing-card-preview-body-placeholder"
+              :containerClass="{
+                'cptm-listing-card-preview-body-placeholder': true,
+                'cptm-mb-12': hasExcerptWidget,
+              }"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -352,6 +354,43 @@
               "
               @update-active-widget="handleActiveWidgetUpdate"
               @activate-widget-options="toggleActivateWidgetOptions"
+            />
+
+            <card-widget-placeholder
+              id="thumbnail_body_excerpt"
+              containerClass="cptm-listing-card-preview-excerpt-placeholder"
+              :label="local_layout.body.excerpt.label"
+              :availableWidgets="theAvailableWidgets"
+              :activeWidgets="active_widgets"
+              :acceptedWidgets="local_layout.body.excerpt.acceptedWidgets"
+              :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
+              :maxWidget="local_layout.body.excerpt.maxWidget"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('thumbnail_body_excerpt')
+              "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('thumbnail_body_excerpt')
+              "
+              :widgetOptionsWindow="widgetOptionsWindow"
+              :canOpenSettings="true"
+              @insert-widget="insertWidget($event, local_layout.body.excerpt)"
+              @edit-widget="editWidget($event)"
+              @trash-widget="trashWidget($event, local_layout.body.excerpt)"
+              @open-widgets-picker-window="
+                toggleInsertWindow('thumbnail_body_excerpt')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('thumbnail_body_excerpt')
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
+              @update="
+                handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt')
+              "
+              @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
+              v-if="hasExcerptWidget"
             />
           </div>
 
@@ -633,53 +672,33 @@ export default {
       return true;
     },
 
-    // Get Avatar Placeholder Class
+    /**
+     * Get Avatar Placeholder Class
+     * Computes CSS classes for avatar placeholder based on alignment option
+     * Uses reactive trigger to ensure recalculation when widget position changes
+     */
     getAvatarPlaceholderClass() {
-      let accepted_align_options = ["right", "center", "left"];
-      let align_option = "";
-      let active_widgets = JSON.parse(JSON.stringify(this.active_widgets));
+      // Create reactive dependencies for selectedWidgets and update trigger
+      const selectedWidgets =
+        this.local_layout?.thumbnail?.avatar?.selectedWidgets;
+      const _ = this.avatarPlaceholderUpdateTrigger;
 
-      let has_option = false;
+      // Access alignment value through explicit property chain for reactivity
+      const alignValue =
+        this.active_widgets?.user_avatar?.options?.fields?.align?.value;
 
-      if (this.isObject(active_widgets)) {
-        has_option = true;
-      }
-      if (has_option && !active_widgets.user_avatar) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options.fields) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options.fields.align) {
-        has_option = false;
-      }
-
-      if (
-        has_option &&
-        !(
-          typeof active_widgets.user_avatar.options.fields.align.value ===
-          "string"
-        )
-      ) {
-        has_option = false;
-      }
-
-      if (has_option) {
-        align_option = active_widgets.user_avatar.options.fields.align.value;
-      }
-
-      if (!accepted_align_options.includes(align_option)) {
-        align_option = "center";
-      }
+      const accepted_align_options = ["right", "center", "left"];
+      const align_option =
+        typeof alignValue === "string" &&
+        accepted_align_options.includes(alignValue)
+          ? alignValue
+          : "left";
 
       return {
         "cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20": true,
-        "cptm-text-right": "right" === align_option ? true : false,
-        "cptm-text-center": "center" === align_option ? true : false,
-        "cptm-text-left": "left" === align_option ? true : false,
+        "cptm-text-right": align_option === "right",
+        "cptm-text-center": align_option === "center",
+        "cptm-text-left": align_option === "left",
       };
     },
 
@@ -690,6 +709,10 @@ export default {
         Array.isArray(this.local_layout.thumbnail.avatar.selectedWidgets) &&
         this.local_layout.thumbnail.avatar.selectedWidgets.length > 0
       );
+    },
+    // Check if excerpt widget is available in available_widgets
+    hasExcerptWidget() {
+      return !!this.theAvailableWidgets?.excerpt;
     },
   },
 
@@ -717,6 +740,10 @@ export default {
       // Active Widgets
       active_widgets: {},
 
+      // Reactive trigger to force getAvatarPlaceholderClass recalculation
+      // Incremented when user_avatar widget is updated to ensure computed property recalculates
+      avatarPlaceholderUpdateTrigger: 0,
+
       // Layout
       local_layout: {
         thumbnail: {
@@ -737,7 +764,7 @@ export default {
             selectedWidgets: [],
           },
           avatar: {
-            label: "Add Avatar",
+            label: "Avatar",
             selectedWidgets: [],
           },
         },
@@ -749,6 +776,10 @@ export default {
           },
           bottom: {
             label: "Body Bottom",
+            selectedWidgets: [],
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: [],
           },
         },
@@ -1124,10 +1155,19 @@ export default {
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
     },
 
-    // Handle Update Selected Widgets
+    /**
+     * Handle Active Widget Update
+     * Updates widget data in active_widgets and available_widgets
+     * For user_avatar widget, increments reactive trigger to force getAvatarPlaceholderClass recalculation
+     */
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
+
+      // Force getAvatarPlaceholderClass to recalculate when user_avatar position changes
+      if (widgetKey === "user_avatar") {
+        this.avatarPlaceholderUpdateTrigger += 1;
+      }
     },
 
     // Activate Widget Options

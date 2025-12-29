@@ -356,10 +356,13 @@ class Directorist_Listing_Author {
         $logged_in_user_only = $atts['logged_in_user_only'];
         $redirect_page_url   = $atts['redirect_page_url'];
 
-        if ( $redirect_page_url ) {
-            $redirect = '<script>window.location="' . esc_url( $redirect_page_url ) . '"</script>';
+        if ( ! empty( $redirect_page_url ) ) {
+            $validated_url = wp_validate_redirect( $redirect_page_url, '' );
+            if ( ! empty( $validated_url ) ) {
+                $redirect = '<script>window.location="' . esc_js( $validated_url ) . '"</script>';
 
-            return $redirect;
+                return $redirect;
+            }
         }
 
         if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {

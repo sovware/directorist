@@ -4,6 +4,8 @@ namespace Directorist\App\Repositories;
 
 defined( "ABSPATH" ) || exit;
 
+use Exception;
+
 use Directorist\App\Models\Post;
 use Directorist\App\DTO\Order\DTO;
 use Directorist\App\DTO\Order\Read;
@@ -106,13 +108,13 @@ class OrderRepository extends Repository {
      * @throws Exception If the insert operation fails.
      */
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
-        // do_action( 'directorist_before_order_create', $dto );
+        do_action( 'directorist_before_order_create', $dto );
         
         $order_id = parent::create( $dto );
 
         $dto->set_id( $order_id );
         
-        // do_action( 'directorist_after_order_create', $dto );
+        do_action( 'directorist_after_order_create', $dto );
 
         return $order_id;
     }

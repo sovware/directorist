@@ -52,11 +52,19 @@ function directorist_calculate_tax_amount( string $tax_type, float $tax_rate, fl
     }
 }
 
-
 function directorist_is_listing_featured( int $listing_id ): bool {
     return strval( get_post_meta( $listing_id, '_featured', true ) ) === '1';
 }
 
-function directorist_set_listing_featured( int $listing_id ): bool {
-    return update_post_meta( $listing_id, '_featured', '1' );
+function directorist_set_listing_featured( int $listing_id, bool $is_featured = true ): bool {
+    return update_post_meta( $listing_id, '_featured', $is_featured ? '1' : '0' );
+}
+
+function directorist_set_listing_status( int $listing_id, string $status ): bool {
+    return wp_update_post(
+        [
+            'ID'          => $listing_id,
+            'post_status' => $status,
+        ] 
+    );
 }

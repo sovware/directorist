@@ -1011,7 +1011,12 @@
 											_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(
 												'a',
 												{
-													href: '#',
+													href:
+														(singleItem === null ||
+														singleItem === void 0
+															? void 0
+															: singleItem.listing_permalink) ||
+														'#',
 													target: '_blank',
 													rel: 'noopener noreferrer',
 												},
@@ -3250,7 +3255,7 @@
 				})();
 
 				/**
-				 * Find matching enquiry from enquiries array based on form_id
+				 * Find matching enquiry from enquiries array based on enquiry ID
 				 * @param {Object} singleItem - The single item response
 				 * @param {Array} enquiries - The enquiries array
 				 * @returns {Object|null} - The matched enquiry or null if not found
@@ -3262,15 +3267,18 @@
 					if (
 						!singleItem ||
 						!singleItem.response ||
-						!singleItem.response.form_id ||
+						!singleItem.response.id ||
 						!enquiries
 					) {
 						return null;
 					}
+
+					// Match by enquiry ID (response.id) for accurate matching
 					return (
 						enquiries.find(function (enquiry) {
 							return (
-								enquiry.form_id === singleItem.response.form_id
+								String(enquiry.id) ===
+								String(singleItem.response.id)
 							);
 						}) || null
 					);

@@ -188,7 +188,7 @@ export const fetchSingleEnquiry = async (selectedItem) => {
 };
 
 /**
- * Find matching enquiry from enquiries array based on form_id
+ * Find matching enquiry from enquiries array based on enquiry ID
  * @param {Object} singleItem - The single item response
  * @param {Array} enquiries - The enquiries array
  * @returns {Object|null} - The matched enquiry or null if not found
@@ -197,15 +197,16 @@ export const findMatchingEnquiry = (singleItem, enquiries) => {
 	if (
 		!singleItem ||
 		!singleItem.response ||
-		!singleItem.response.form_id ||
+		!singleItem.response.id ||
 		!enquiries
 	) {
 		return null;
 	}
 
+	// Match by enquiry ID (response.id) for accurate matching
 	return (
 		enquiries.find(
-			(enquiry) => enquiry.form_id === singleItem.response.form_id
+			(enquiry) => String(enquiry.id) === String(singleItem.response.id)
 		) || null
 	);
 };

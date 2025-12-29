@@ -209,7 +209,7 @@ export default function EnquiryDetailsModal({
 									{__('Regarding Listing', 'directorist')}
 								</h3>
 								<a
-									href="#"
+									href={singleItem?.listing_permalink || '#'}
 									target="_blank"
 									rel="noopener noreferrer"
 								>

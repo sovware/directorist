@@ -86,7 +86,22 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             $response_controller = formgent_singleton( \FormGent\App\Http\Controllers\Admin\ResponseController::class );
             $fields          = $response_controller->prepare_fields( $fields_settings );
 
-            return rest_ensure_response( [ 'success' => true, 'response' => $response, 'fields' => $fields ] );
+            $listing_id = formgent_response_repository()->get_meta_value( $response_id, 'listing_id' );
+            $listing_permalink = '';
+
+            if ( ! empty( $listing_id ) ) {
+                $listing_id        = absint( $listing_id );
+                $listing_permalink = ATBDP_Permalink::get_listing_permalink( $listing_id, get_the_permalink( $listing_id ) );
+            }
+
+            return rest_ensure_response( 
+                [ 
+                    'success'           => true,
+                    'response'          => $response,
+                    'fields'            => $fields,
+                    'listing_permalink' => $listing_permalink,
+                ]
+            );
         }
 
         public function read_responses( $request ) {
@@ -184,7 +199,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 Post::get_table_name() . ' as post', function( $join ) {
                         $join->on_column( 'post.ID', 'response_meta.meta_value' )->on( 'post.post_author', 1 );
                 }
-            )->where_not_is_null( 'post.post_author' )->where( 'response.is_completed', 1 );
+            )->where_not_is_null( 'post.post_author' )->where( 'post.post_status', 'publish' )->where( 'response.is_completed', 1 );
         }
     }
 }

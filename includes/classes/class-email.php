@@ -1220,7 +1220,7 @@ We look forward to seeing you soon'
 
 
             $body = $this->replace_in_content( $body, null, null, $user );
-            $body = atbdp_email_html( $sub, $body );
+            $body = apply_filters( 'directorist_email_on_custom_wp_new_user_notification_email_body', atbdp_email_html( $sub, $body ), $user );
             $mail = $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
             if ( $mail ) {
                 delete_user_meta( $user_id, '_atbdp_generated_password' );

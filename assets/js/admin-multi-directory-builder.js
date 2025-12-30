@@ -32917,7 +32917,7 @@
 						reviewDeleteTitle: function reviewDeleteTitle() {
 							// Default message for submission form
 							if (this.fieldKey === 'submission_form_fields') {
-								return 'field will also remove it from the single and search pages.';
+								return 'field will also remove it from the single listing page and search form.';
 							}
 
 							// Message for single listing contents
@@ -32927,11 +32927,11 @@
 
 							// Message for search form
 							if (this.fieldKey === 'search_form_fields') {
-								return 'field will remove it from the search form page.';
+								return 'field will remove it from the search form.';
 							}
 
 							// Default fallback message
-							return 'field will also remove it from the single and search pages.';
+							return 'field will also remove it from the single listing page and search form.';
 						},
 					},
 					data: function data() {
@@ -33297,7 +33297,7 @@
 						reviewDeleteTitle: {
 							type: String,
 							default:
-								'field will also remove it from the single and search pages.',
+								'field will also remove it from the single listing page and search form.',
 						},
 						reviewDeleteMsg: {
 							type: String,

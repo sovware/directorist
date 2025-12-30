@@ -659,7 +659,7 @@ class Directorist_Single_Listing {
         $template = apply_filters( 'directorist_single_slider_template', 'single/slider', $args );
         Helper::get_template( $template, $args );
     }
-    
+
     public function has_badge( $data ) {
         if ( $data['new_badge'] || $data['featured_badge'] || $data['popular_badge'] ) {
             if ( Helper::badge_exists( $this->id ) ) {

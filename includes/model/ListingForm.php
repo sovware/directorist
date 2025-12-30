@@ -869,7 +869,7 @@ class Directorist_Listing_Form {
 
             $template = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
-            return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+            return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
         } else {
             // If no listing type exists
             if ( $listing_type_count == 0 ) {
@@ -895,12 +895,12 @@ class Directorist_Listing_Form {
                 $args['single_directory'] = $type;
                 $template                 = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
-                return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+                return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
             }
 
             // multiple directory available
             $template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
-            return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+            return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
         }
     }
 }

@@ -32733,6 +32733,10 @@
 							type: Boolean,
 							default: false,
 						},
+						fieldKey: {
+							type: String,
+							default: '',
+						},
 					},
 					created: function created() {
 						this.sync();
@@ -32909,6 +32913,25 @@
 							}
 							var alertKey = alertKeys[0];
 							return this.alerts[widgetKey][alertKey];
+						},
+						reviewDeleteTitle: function reviewDeleteTitle() {
+							// Default message for submission form
+							if (this.fieldKey === 'submission_form_fields') {
+								return 'field will also remove it from the single and search pages.';
+							}
+
+							// Message for single listing contents
+							if (this.fieldKey === 'single_listings_contents') {
+								return 'widget will remove it from the single listing page.';
+							}
+
+							// Message for search form
+							if (this.fieldKey === 'search_form_fields') {
+								return 'field will remove it from the search form page.';
+							}
+
+							// Default fallback message
+							return 'field will also remove it from the single and search pages.';
 						},
 					},
 					data: function data() {
@@ -33397,6 +33420,10 @@
 						autoEditLabel: {
 							default: false,
 							type: Boolean,
+						},
+						fieldKey: {
+							type: String,
+							default: '',
 						},
 					},
 					created: function created() {
@@ -50675,7 +50702,7 @@
 							return options_values.includes(value);
 						},
 						/* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
 					},
 				};
@@ -60001,6 +60028,8 @@
 													visible:
 														_vm.showConfirmationModal,
 													widgetName: _vm.widgetName,
+													reviewDeleteTitle:
+														_vm.reviewDeleteTitle,
 												},
 												on: {
 													confirm: _vm.trashWidget,
@@ -60853,6 +60882,8 @@
 																		'is-expanded':
 																			_vm.expandedWidgetKey ===
 																			widget_key,
+																		'field-key':
+																			_vm.fieldKey,
 																	},
 																	on: {
 																		'toggle-expand':
@@ -70774,6 +70805,8 @@
 																							'auto-edit-label':
 																								_vm.newlyCreatedGroupKey ===
 																								widget_group_key,
+																							'field-key':
+																								_vm.fieldKey,
 																						},
 																						on: {
 																							'update-group-field':
@@ -72595,11 +72628,11 @@
 													},
 													[
 														_vm._v(
-															'\r\n            ' +
+															'\n            ' +
 																_vm._s(
 																	alert.message
 																) +
-																'\r\n        '
+																'\n        '
 														),
 													]
 												);

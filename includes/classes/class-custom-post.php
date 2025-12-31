@@ -270,7 +270,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             // Args for ATBDP_POST_TYPE, here any constant may not be available because this function will be called from the
             // register_activation_hook .
             $labels = [
-                'menu_name'                => __( 'Directory Listings', 'directorist' ),
+                'menu_name'                => __( 'Directorist', 'directorist' ),
                 'name_admin_bar'           => __( 'Listing', 'directorist' ),
                 'name'                     => _x( 'Listings', 'post type general name', 'directorist' ),
                 'singular_name'            => _x( 'Listing', 'post type singular name', 'directorist' ),

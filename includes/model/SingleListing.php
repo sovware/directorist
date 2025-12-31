@@ -646,9 +646,17 @@ class Directorist_Single_Listing {
             'data'       => $this->get_slider_data( $slider ),
         ];
 
-        $template = 'single/slider';
-        $template = apply_filters( 'directorist_single_slider_template', $template, $args );
-
+        /**
+         * Filters the path for the single listing slider template.
+         *
+         * This hook allows developers to override or change the template path
+         * used for rendering the single listing slider.
+         *
+         * @since 8.5.7
+         *
+         * @param array  $args Arguments passed to the template, including the listing object and slider data.
+         */
+        $template = apply_filters( 'directorist_single_slider_template', 'single/slider', $args );
         Helper::get_template( $template, $args );
     }
 

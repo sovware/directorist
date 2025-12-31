@@ -68,3 +68,8 @@ function directorist_set_listing_status( int $listing_id, string $status ): bool
         ] 
     );
 }
+
+function directorist_get_directory_by_slug( string $slug ) {
+    $directory = get_term_by( 'slug', $slug, 'atbdp_listing_types' );
+    return $directory ? $directory : null;
+}

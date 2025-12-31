@@ -854,6 +854,7 @@ class Directorist_Listing_Form {
 
         $args = $this->get_map_data();
 
+        $args['listing_id']   = (int) $p_id;
         $args['is_edit_mode'] = false;
 
         $listing_types      = $this->get_listing_types();

@@ -2098,7 +2098,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 padding-top: 8px !important;
             }
 
-            #adminmenu .wp-menu-image img{
+            #adminmenu .menu-icon-at_biz_dir .wp-menu-image img{
                 padding:7px 0 0 !important
             }
 

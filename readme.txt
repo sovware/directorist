@@ -293,7 +293,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.5.7 - Dec 30, 2025 =
+= 8.5.7 - Jan 1, 2026 =
 
 Added
  - Filter hook directorist_single_slider_template. (#2623)
@@ -308,6 +308,8 @@ Improved
 
 Changed
  - Twitter label text updated to X. (#2585)
+ - Updated Directorist admin menu icon. (#2643)
+ - Adjusted admin menu position for better organization. (#2643)
 
 Fixed
  - Widget field definitions not being preserved in the listing header builder. (#2614)

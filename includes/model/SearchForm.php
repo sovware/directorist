@@ -633,9 +633,12 @@ class Directorist_Listing_Search_Form {
             return ATBDP()->helper->guard( ['type' => 'auth'] );
         }
 
-        if ( $this->redirect_page_url ) {
-            $redirect = '<script>window.location="' . esc_url( $this->redirect_page_url ) . '"</script>';
-            return $redirect;
+        if ( ! empty( $this->redirect_page_url ) ) {
+            $validated_url = wp_validate_redirect( $this->redirect_page_url, '' );
+            if ( ! empty( $validated_url ) ) {
+                $redirect = '<script>window.location="' . esc_js( $validated_url ) . '"</script>';
+                return $redirect;
+            }
         }
 
         return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );

@@ -811,7 +811,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'label'       => __( 'Permanently Delete Expired Listings', 'directorist' ),
                         'type'        => 'toggle',
                         'description' => __( 'Automatically delete trashed listings permanently after the defined duration', 'directorist' ),
-                        'value'       => true,
+                        'value'       => false,
                     ],
                     'delete_expired_listings_after' => [
                         'label' => __( 'Permanently Delete After (days) of Expiration', 'directorist' ),

@@ -43,7 +43,7 @@ function directorist_get_listing_form_fields( $directory_id ) {
 
     // Remove listing type field if pricing plan is disabled.
     // Otherwise it causes validation error.
-    if ( ! atbdp_pricing_plan_is_enabled() ) {
+    if ( ! atbdp_pricing_plan_is_enabled() && ! atbdp_wc_pricing_plan_is_enabled() ) {
         unset( $fields['listing_type'] );
     }
 

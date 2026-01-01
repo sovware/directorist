@@ -49,7 +49,7 @@ if ( ! is_fee_manager_active() || ! empty( $never_expire ) ) :
 endif;
 ?>
 <!--Show featured option if it is enabled by the user-->
-<?php if ( $f_active || is_fee_manager_active() ) { ?>
+<?php if ( ( ! empty( $f_active ) || is_fee_manager_active() ) && ! atbdp_pricing_plan_is_enabled() && ! atbdp_wc_pricing_plan_is_enabled() ) { ?>
     <div class="misc-pub-section misc-pub-atbdp-featured">
         <label>
             <input type="checkbox" name="featured" value="1" <?php checked( 1, $featured, true ); ?>>

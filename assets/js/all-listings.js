@@ -1746,6 +1746,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   //  Build form_data from searchElm inputs.
   function buildFormData(searchElm) {
+    var preservePaged = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     var tag = [];
     var price = [];
     var custom_field = {};
@@ -1800,16 +1801,24 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
     // Collect custom range slider min/max values
     var range_slider_values = {};
-    searchElm.find('.directorist-custom-range-slider__text.directorist-custom-range-slider__value__min').each(function () {
-      var minVal = $(this).val();
-      if (minVal && minVal !== '0') {
-        range_slider_values['directorist-custom-range-slider__value__min'] = minVal;
+    searchElm.find('.directorist-custom-range-slider__wrap').each(function () {
+      var $wrap = $(this);
+      var rangeField = $wrap.find('.directorist-custom-range-slider__range');
+      var rangeName = rangeField.attr('name');
+      if (!rangeName) {
+        return;
       }
-    });
-    searchElm.find('.directorist-custom-range-slider__text.directorist-custom-range-slider__value__max').each(function () {
-      var maxVal = $(this).val();
-      if (maxVal && maxVal !== '0') {
-        range_slider_values['directorist-custom-range-slider__value__max'] = maxVal;
+      var minInput = $wrap.find('.directorist-custom-range-slider__value__min');
+      var maxInput = $wrap.find('.directorist-custom-range-slider__value__max');
+      var minVal = minInput.val();
+      var maxVal = maxInput.val();
+      var minName = minInput.attr('name');
+      var maxName = maxInput.attr('name');
+      if (minName && minVal && minVal !== '0') {
+        range_slider_values[minName] = minVal;
+      }
+      if (maxName && maxVal && maxVal !== '0') {
+        range_slider_values[maxName] = maxVal;
       }
     });
 
@@ -1826,7 +1835,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var phone = searchElm.find('input[name="phone"]').val();
     var phone2 = searchElm.find('input[name="phone2"]').val();
     var view = form_data.view;
-    var paged = form_data.paged;
 
     // Get directory type - look in the parent container to ensure it's found regardless of form
     var directory_type = searchElm.find('input[name="directory_type"]').val() || searchElm.closest('.directorist-instant-search').find('input[name="directory_type"]').val();
@@ -1849,7 +1857,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       phone2: phone2,
       custom_field: custom_field,
       view: view,
-      paged: paged,
       directory_type: directory_type
     }, range_slider_values));
 
@@ -1883,11 +1890,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       });
     }
 
-    // Paging: get current page number, default 1 if not found
-    var page = parseInt(form_data.paged, 10) || 1;
-    updateFormData({
-      paged: page > 1 ? page : undefined
-    });
+    // Reset paged to undefined for any non-pagination search
+    if (!preservePaged) {
+      updateFormData({
+        paged: undefined
+      });
+    }
 
     // Update URL with form data
     update_instant_search_url(form_data);
@@ -1925,13 +1933,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Perform Instant Search without required value
   function performInstantSearchWithoutRequiredValue(searchElm) {
+    var preservePaged = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     // Check required fields
     var allRequiredFieldsAreValid = checkRequiredFields(searchElm);
 
     // If required fields are valid, proceed with filtering
     if (allRequiredFieldsAreValid) {
       // Build form data
-      buildFormData(searchElm);
+      buildFormData(searchElm, preservePaged);
       performInstantSearch(searchElm);
     } else {
       // Build form data without required value
@@ -2354,7 +2363,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     } else if ($(this).hasClass('prev')) {
       page = parseInt(page) - 1;
     }
-    // ✅ only update `sort`, preserve others
+    // ✅ only update `paged`, preserve others
     updateFormData({
       paged: page
     });
@@ -2365,8 +2374,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // get active form
     var activeForm = getActiveForm(searchElm);
 
-    // Instant search without required value
-    performInstantSearchWithoutRequiredValue(activeForm);
+    // Instant search without required value - preserve paged in form_data
+    performInstantSearchWithoutRequiredValue(activeForm, true);
   });
 
   // Submit on sidebar form
@@ -3369,6 +3378,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {

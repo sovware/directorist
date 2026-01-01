@@ -1375,6 +1375,51 @@ __webpack_require__.r(__webpack_exports__);
     },
     createFormButton: {
       required: false
+    },
+    toggle_position: {
+      required: false
+    },
+    apiPath: {
+      type: String,
+      default: ''
+    },
+    apiMethod: {
+      type: String,
+      default: 'GET'
+    },
+    apiParams: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
+    resyncLabel: {
+      type: String,
+      default: 'Reload'
+    },
+    showResyncButton: {
+      type: Boolean,
+      default: false
+    },
+    enableInfiniteScroll: {
+      type: Boolean,
+      default: true
+    },
+    perPage: {
+      type: Number,
+      default: 20
+    },
+    pageParam: {
+      type: String,
+      default: 'page'
+    },
+    perPageParam: {
+      type: String,
+      default: 'per_page'
+    },
+    scrollThreshold: {
+      type: Number,
+      default: 100
     }
   }
 });
@@ -1541,7 +1586,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (!value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) !== 'object') {
         return [];
       }
-      console.log(value);
       return [];
       // removed by dead control flow
  var options_values; 
@@ -1720,6 +1764,330 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }, 5000);
     }
   })
+});
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/mixins/form-fields/select-api-field.js":
+/*!************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/mixins/form-fields/select-api-field.js ***!
+  \************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_6__["default"], _helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  model: {
+    prop: 'value',
+    event: 'update'
+  },
+  props: {
+    apiPath: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    apiMethod: {
+      type: String,
+      default: 'GET'
+    },
+    apiParams: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
+    resyncLabel: {
+      type: String,
+      default: 'Reload'
+    },
+    showResyncButton: {
+      type: Boolean,
+      default: true
+    }
+  },
+  created: function created() {
+    this.setup();
+    this.fetchOptions();
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
+    fields: 'fields'
+  })), {}, {
+    theDefaultOption: function theDefaultOption() {
+      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.defaultOption) === 'object') {
+        return this.defaultOption;
+      }
+      return {
+        value: '',
+        label: 'Select...'
+      };
+    },
+    theCurrentOptionLabel: function theCurrentOptionLabel() {
+      if (this.isLoading) {
+        return 'Loading...';
+      }
+      if (this.hasError) {
+        return 'Error loading options';
+      }
+      if (!this.optionsInObject) {
+        return '';
+      }
+      if (typeof this.optionsInObject[this.value] === 'undefined') {
+        return this.theDefaultOption.value == this.value && this.theDefaultOption.label ? this.theDefaultOption.label : '';
+      }
+      return this.optionsInObject[this.value];
+    },
+    theOptions: function theOptions() {
+      if (!this.fetchedOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.fetchedOptions) !== 'object') {
+        return this.defaultOption ? [this.defaultOption] : [];
+      }
+      return this.parseOptions(this.fetchedOptions);
+    },
+    formGroupClass: function formGroupClass() {
+      var validation_classes = this.validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
+      return _objectSpread(_objectSpread({}, validation_classes), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])({}, '--loading', this.isLoading), '--error', this.hasError));
+    }
+  }),
+  data: function data() {
+    return {
+      local_value_ms: [],
+      optionsInObject: {},
+      show_option_modal: false,
+      clickEvent: null,
+      validationLog: {},
+      fetchedOptions: [],
+      isLoading: false,
+      hasError: false,
+      errorMessage: ''
+    };
+  },
+  methods: {
+    setup: function setup() {
+      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.defaultOption) === 'object') {
+        this.default_option = this.defaultOption;
+      }
+      var self = this;
+      document.addEventListener('click', function () {
+        self.show_option_modal = false;
+      });
+    },
+    fetchOptions: function fetchOptions() {
+      var _this = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
+        var response, parsedOptions, _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (_this.apiPath) {
+                _context.next = 1;
+                break;
+              }
+              console.error('API path is required for select-api-field');
+              return _context.abrupt("return");
+            case 1:
+              _this.isLoading = true;
+              _this.hasError = false;
+              _this.errorMessage = '';
+              _context.prev = 2;
+              _context.next = 3;
+              return _this.makeApiRequest();
+            case 3:
+              response = _context.sent;
+              if (!response) {
+                _context.next = 4;
+                break;
+              }
+              parsedOptions = _this.parseApiResponse(response);
+              _this.fetchedOptions = parsedOptions;
+              _this.optionsInObject = _this.convertOptionsToObject();
+              if (!_this.valueIsValid(_this.value)) {
+                _this.$emit('update', '');
+              }
+              _context.next = 5;
+              break;
+            case 4:
+              throw new Error('Invalid response format');
+            case 5:
+              _context.next = 7;
+              break;
+            case 6:
+              _context.prev = 6;
+              _t = _context["catch"](2);
+              _this.hasError = true;
+              _this.errorMessage = _t.message || 'Failed to fetch options';
+              console.error('Error fetching options:', _t);
+            case 7:
+              _context.prev = 7;
+              _this.isLoading = false;
+              return _context.finish(7);
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[2, 6, 7, 8]]);
+      }))();
+    },
+    makeApiRequest: function makeApiRequest() {
+      var _this2 = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
+        var options, params, url, urlParams, response, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = {
+                method: _this2.apiMethod,
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              };
+              params = _objectSpread({}, _this2.apiParams); // Add params for POST requests
+              if (_this2.apiMethod === 'POST' && Object.keys(params).length > 0) {
+                options.body = JSON.stringify(params);
+              }
+
+              // Remove trailing slash from URL
+              url = _this2.apiPath.replace(/\/$/, ''); // Add params to URL for GET requests
+              if (_this2.apiMethod === 'GET' && Object.keys(params).length > 0) {
+                urlParams = new URLSearchParams(params);
+                url = "".concat(url, "?").concat(urlParams.toString());
+              }
+              _context2.next = 1;
+              return fetch(url, options);
+            case 1:
+              response = _context2.sent;
+              if (response.ok) {
+                _context2.next = 2;
+                break;
+              }
+              throw new Error("HTTP error! status: ".concat(response.status));
+            case 2:
+              _context2.next = 3;
+              return response.json();
+            case 3:
+              data = _context2.sent;
+              return _context2.abrupt("return", data);
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    parseApiResponse: function parseApiResponse(response) {
+      var data = response;
+
+      // Handle different API response formats
+      // WordPress REST API, custom APIs, etc.
+      if (Array.isArray(data)) {
+        return data.map(function (item) {
+          // Determine the value (prefer 'value', then 'id')
+          var value = item.value !== undefined ? item.value : item.id !== undefined ? item.id : '';
+
+          // Determine the label with priority:
+          // 1. Direct 'label' property
+          // 2. WordPress 'title.rendered' (for posts/pages)
+          // 3. Direct 'name' property (for categories/tags)
+          // 4. Fallback to value or id
+          var label = '';
+          if (item.label !== undefined) {
+            label = item.label;
+          } else if (item.title && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(item.title) === 'object' && item.title.rendered) {
+            // WordPress REST API format (posts, pages, custom post types)
+            label = item.title.rendered;
+          } else if (item.name !== undefined) {
+            // WordPress taxonomies (categories, tags) or simple name property
+            label = item.name;
+          } else {
+            // Fallback
+            label = item.value || item.id || '';
+          }
+          return {
+            value: String(value),
+            label: String(label)
+          };
+        });
+      }
+
+      // If data is an object (key-value pairs), convert to array
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(data) === 'object' && data !== null) {
+        return Object.keys(data).map(function (key) {
+          return {
+            value: String(key),
+            label: String(data[key])
+          };
+        });
+      }
+      return [];
+    },
+    handleResync: function handleResync() {
+      this.fetchOptions();
+    },
+    update_value: function update_value(value) {
+      this.$emit('update', value);
+    },
+    updateOption: function updateOption(value) {
+      this.update_value(value);
+      this.show_option_modal = false;
+    },
+    toggleTheOptionModal: function toggleTheOptionModal() {
+      if (this.isLoading || this.hasError) {
+        return;
+      }
+      var self = this;
+      if (this.show_option_modal) {
+        this.show_option_modal = false;
+      } else {
+        this.show_option_modal = true;
+        setTimeout(function () {
+          self.show_option_modal = true;
+        }, 0);
+      }
+    },
+    valueIsValid: function valueIsValid(value) {
+      return this.theOptions.map(function (item) {
+        return item.value;
+      }).includes("".concat(value));
+    },
+    parseOptions: function parseOptions(options) {
+      return options.map(function (item) {
+        return _objectSpread(_objectSpread({}, item), {}, {
+          value: typeof item.value !== 'undefined' ? "".concat(item.value) : ''
+        });
+      });
+    },
+    convertOptionsToObject: function convertOptionsToObject() {
+      if (!(this.theOptions && Array.isArray(this.theOptions))) {
+        return null;
+      }
+      var option_object = {};
+      for (var option in this.theOptions) {
+        if (typeof this.theOptions[option].value === 'undefined') {
+          continue;
+        }
+        var label = this.theOptions[option].label ? this.theOptions[option].label : '';
+        option_object[this.theOptions[option].value] = label;
+      }
+      return option_object;
+    }
+  }
 });
 
 /***/ }),
@@ -3918,14 +4286,17 @@ var map = {
 	"./form-fields/Repeater_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue",
 	"./form-fields/Restore_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Restore_Field.vue",
 	"./form-fields/Select2_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Select2_Field.vue",
+	"./form-fields/Select_Api_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue",
 	"./form-fields/Select_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Select_Field.vue",
 	"./form-fields/Shortcode_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Shortcode_Field.vue",
 	"./form-fields/Shortcode_List_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Shortcode_List_Field.vue",
 	"./form-fields/Tab_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Tab_Field.vue",
 	"./form-fields/Text_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Text_Field.vue",
 	"./form-fields/TextareaField.vue": "./assets/src/js/admin/vue/modules/form-fields/TextareaField.vue",
+	"./form-fields/Title_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue",
 	"./form-fields/Toggle_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Toggle_Field.vue",
 	"./form-fields/WP_Media_Picker_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/WP_Media_Picker_Field.vue",
+	"./form-fields/examples/SelectApiFieldExample.vue": "./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue",
 	"./form-fields/themes/butterfly/Ajax_Action_Field_Theme_Butterfly.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/butterfly/Ajax_Action_Field_Theme_Butterfly.vue",
 	"./form-fields/themes/butterfly/Button_Example_Field_Theme_Butterfly.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/butterfly/Button_Example_Field_Theme_Butterfly.vue",
 	"./form-fields/themes/butterfly/Button_Field_Theme_Butterfly.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/butterfly/Button_Field_Theme_Butterfly.vue",
@@ -3956,12 +4327,14 @@ var map = {
 	"./form-fields/themes/default/Radio_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Radio_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Range_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Range_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Restore_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Restore_Field_Theme_Default.vue",
+	"./form-fields/themes/default/Select_Api_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Select_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Shortcode_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Shortcode_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Shortcode_List_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Shortcode_List_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Tab_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Tab_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Text_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Text_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Textarea_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Textarea_Field_Theme_Default.vue",
+	"./form-fields/themes/default/Title_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Toggle_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Toggle_Field_Theme_Default.vue",
 	"./form-fields/themes/default/WP_Media_Picker_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/WP_Media_Picker_Field_Theme_Default.vue"
 };
@@ -9044,6 +9417,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue":
+/*!**************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue ***!
+  \**************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Select_Api_Field_vue_vue_type_template_id_0051084d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Select_Api_Field.vue?vue&type=template&id=0051084d */ "./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=template&id=0051084d");
+/* harmony import */ var _Select_Api_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Select_Api_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Select_Api_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Select_Api_Field_vue_vue_type_template_id_0051084d__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Select_Api_Field_vue_vue_type_template_id_0051084d__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Select_Api_Field.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=template&id=0051084d":
+/*!********************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=template&id=0051084d ***!
+  \********************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_vue_vue_type_template_id_0051084d__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_vue_vue_type_template_id_0051084d__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_vue_vue_type_template_id_0051084d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Select_Api_Field.vue?vue&type=template&id=0051084d */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=template&id=0051084d");
+
+
+/***/ }),
+
 /***/ "./assets/src/js/admin/vue/modules/form-fields/Select_Field.vue":
 /*!**********************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Select_Field.vue ***!
@@ -9446,6 +9886,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue":
+/*!*********************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Title_Field_vue_vue_type_template_id_ae25c8f0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Title_Field.vue?vue&type=template&id=ae25c8f0 */ "./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=template&id=ae25c8f0");
+/* harmony import */ var _Title_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Title_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Title_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Title_Field_vue_vue_type_template_id_ae25c8f0__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Title_Field_vue_vue_type_template_id_ae25c8f0__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Title_Field.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Title_Field.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=template&id=ae25c8f0":
+/*!***************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=template&id=ae25c8f0 ***!
+  \***************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_vue_vue_type_template_id_ae25c8f0__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_vue_vue_type_template_id_ae25c8f0__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_vue_vue_type_template_id_ae25c8f0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Title_Field.vue?vue&type=template&id=ae25c8f0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=template&id=ae25c8f0");
+
+
+/***/ }),
+
 /***/ "./assets/src/js/admin/vue/modules/form-fields/Toggle_Field.vue":
 /*!**********************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Toggle_Field.vue ***!
@@ -9576,6 +10083,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_WP_Media_Picker_Field_vue_vue_type_template_id_bf787502__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_WP_Media_Picker_Field_vue_vue_type_template_id_bf787502__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./WP_Media_Picker_Field.vue?vue&type=template&id=bf787502 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/WP_Media_Picker_Field.vue?vue&type=template&id=bf787502");
+
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue":
+/*!****************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue ***!
+  \****************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SelectApiFieldExample_vue_vue_type_template_id_6f8cbd3a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a */ "./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a");
+/* harmony import */ var _SelectApiFieldExample_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SelectApiFieldExample.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SelectApiFieldExample_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SelectApiFieldExample_vue_vue_type_template_id_6f8cbd3a__WEBPACK_IMPORTED_MODULE_0__.render,
+  _SelectApiFieldExample_vue_vue_type_template_id_6f8cbd3a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=script&lang=js":
+/*!****************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=script&lang=js ***!
+  \****************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectApiFieldExample_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SelectApiFieldExample.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectApiFieldExample_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a":
+/*!**********************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a ***!
+  \**********************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectApiFieldExample_vue_vue_type_template_id_6f8cbd3a__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectApiFieldExample_vue_vue_type_template_id_6f8cbd3a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectApiFieldExample_vue_vue_type_template_id_6f8cbd3a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a");
 
 
 /***/ }),
@@ -11590,6 +12164,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue":
+/*!*******************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue ***!
+  \*******************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Select_Api_Field_Theme_Default_vue_vue_type_template_id_6ae69fa6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6 */ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6");
+/* harmony import */ var _Select_Api_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Select_Api_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Select_Api_Field_Theme_Default_vue_vue_type_template_id_6ae69fa6__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Select_Api_Field_Theme_Default_vue_vue_type_template_id_6ae69fa6__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6":
+/*!*************************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6 ***!
+  \*************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_Theme_Default_vue_vue_type_template_id_6ae69fa6__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_Theme_Default_vue_vue_type_template_id_6ae69fa6__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Select_Api_Field_Theme_Default_vue_vue_type_template_id_6ae69fa6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6");
+
+
+/***/ }),
+
 /***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Field_Theme_Default.vue":
 /*!***************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Field_Theme_Default.vue ***!
@@ -11988,6 +12629,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Textarea_Field_Theme_Default_vue_vue_type_template_id_befb7cae__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Textarea_Field_Theme_Default_vue_vue_type_template_id_befb7cae__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Textarea_Field_Theme_Default.vue?vue&type=template&id=befb7cae */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Textarea_Field_Theme_Default.vue?vue&type=template&id=befb7cae");
+
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue":
+/*!**************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Title_Field_Theme_Default_vue_vue_type_template_id_58337667__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Title_Field_Theme_Default.vue?vue&type=template&id=58337667 */ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=template&id=58337667");
+/* harmony import */ var _Title_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Title_Field_Theme_Default.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Title_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Title_Field_Theme_Default_vue_vue_type_template_id_58337667__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Title_Field_Theme_Default_vue_vue_type_template_id_58337667__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Title_Field_Theme_Default.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=template&id=58337667":
+/*!********************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=template&id=58337667 ***!
+  \********************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_Theme_Default_vue_vue_type_template_id_58337667__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_Theme_Default_vue_vue_type_template_id_58337667__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Title_Field_Theme_Default_vue_vue_type_template_id_58337667__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Title_Field_Theme_Default.vue?vue&type=template&id=58337667 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=template&id=58337667");
 
 
 /***/ }),
@@ -15565,17 +16273,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
 
 
 
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-widget-placeholder",
   components: {
-    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Container,
-    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Draggable
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__.Container,
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__.Draggable
   },
   data: function data() {
     return {
@@ -15687,7 +16399,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       if (typeof this.containerClass === "string") {
         classNames[this.containerClass] = true;
-      } else if (this.containerClass && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.containerClass) === "object" && !Array.isArray(this.containerClass)) {
+      } else if (this.containerClass && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(this.containerClass) === "object" && !Array.isArray(this.containerClass)) {
         Object.assign(classNames, this.containerClass);
       }
       return classNames;
@@ -15714,7 +16426,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     hasValidWidget: function hasValidWidget(widget_key) {
       var widget = this.availableWidgets[widget_key];
-      return widget && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(widget) === "object" && typeof widget.type === "string";
+      return widget && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widget) === "object" && typeof widget.type === "string";
     },
     isWidgetSelected: function isWidgetSelected(widget) {
       var _this$selectedWidgets3;
@@ -15729,7 +16441,7 @@ __webpack_require__.r(__webpack_exports__);
       var options = widget.options;
       if (typeof options === "string") return false;
       if (Array.isArray(options) && options.length === 0) return false;
-      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(options) === "object" && Object.keys(options).length === 0) return false;
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(options) === "object" && Object.keys(options).length === 0) return false;
       return true;
     },
     shouldShowOptionsArea: function shouldShowOptionsArea(widget) {
@@ -15808,6 +16520,13 @@ __webpack_require__.r(__webpack_exports__);
      * Closes settings modal if open, then opens insert modal
      */
     handleInsertClick: function handleInsertClick() {
+      // Special case for single accepted widget
+      if (this.acceptedWidgets.length === 1) {
+        this.selectedWidgets.push(this.acceptedWidgets[0]);
+        this.activeWidgets[this.acceptedWidgets[0]] = _objectSpread({}, this.availableWidgets[this.acceptedWidgets[0]]);
+        return;
+      }
+
       // Close settings modal if it's open
       if (this.showWidgetsOptionWindow) {
         this.$emit("close-widgets-option-window");
@@ -17671,15 +18390,32 @@ __webpack_require__.r(__webpack_exports__);
     // Add activeWidget prop to get the complete widget data
     activeWidgets: {
       type: Object
+    },
+    // Add selectedWidgets to check if widget is selected
+    selectedWidgets: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    // Add availableWidgets to access widget data
+    availableWidgets: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     }
   },
   data: function data() {
     return {
-      localOptions: null
+      localOptions: null,
+      showOptions: false,
+      isEnabled: true
     };
   },
   created: function created() {
     this.init();
+    this.checkWidgetStatus();
   },
   watch: {
     options: {
@@ -17687,6 +18423,12 @@ __webpack_require__.r(__webpack_exports__);
         if (newOptions) {
           this.localOptions = JSON.parse(JSON.stringify(newOptions));
         }
+      },
+      deep: true
+    },
+    selectedWidgets: {
+      handler: function handler() {
+        this.checkWidgetStatus();
       },
       deep: true
     }
@@ -17710,12 +18452,47 @@ __webpack_require__.r(__webpack_exports__);
         return {};
       }
       return this.localOptions.fields;
+    },
+    // Check if position/align field exists
+    hasPositionField: function hasPositionField() {
+      if (!this.isAvailableOptions) {
+        return false;
+      }
+      var fields = this.localOptions.fields;
+      return fields.position || fields.align || Object.keys(fields).some(function (key) {
+        return fields[key].label === "Position" || fields[key].label === "Align" || key.toLowerCase().includes("position") || key.toLowerCase().includes("align");
+      });
     }
   },
   methods: {
     init: function init() {
       if (this.options) {
         this.localOptions = JSON.parse(JSON.stringify(this.options));
+      }
+    },
+    // Check if widget is currently selected/enabled
+    checkWidgetStatus: function checkWidgetStatus() {
+      if (this.selectedWidgets && Array.isArray(this.selectedWidgets)) {
+        this.isEnabled = this.selectedWidgets.includes(this.widgetKey);
+      } else if (this.activeWidgets) {
+        this.isEnabled = typeof this.activeWidgets[this.widgetKey] !== "undefined";
+      }
+    },
+    // Toggle Options section visibility
+    toggleOptions: function toggleOptions() {
+      this.showOptions = !this.showOptions;
+    },
+    // Handle toggle change for enable/disable widget
+    handleToggleChange: function handleToggleChange() {
+      if (this.isEnabled) {
+        // Widget is enabled - add to selectedWidgets
+        this.$emit("insert-widget", {
+          key: this.widgetKey,
+          selected_widgets: [this.widgetKey]
+        });
+      } else {
+        // Widget is disabled - emit trash to remove
+        this.$emit("trash");
       }
     },
     // Update field data when field value changes
@@ -19583,6 +20360,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     expandedGroupFieldsKey: {
       default: null
+    },
+    autoEditLabel: {
+      default: false,
+      type: Boolean
     }
   },
   created: function created() {
@@ -19733,6 +20514,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       return true;
+    },
+    handleGroupDragEnter: function handleGroupDragEnter(event) {
+      // Expand group when widget drag enters to make droppable area available
+      // Only expand if:
+      // 1. A widget is being dragged (from available_widgets or active_widgets)
+      // 2. The group can be expanded
+      // 3. The group is not already expanded
+      if (this.currentDraggingWidget && this.canExpand && !this.widgetsExpanded) {
+        this.widgetsExpanded = true;
+        this.$emit("group-expanded", this.groupKey);
+      }
     }
   }
 });
@@ -19799,6 +20591,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     expandedGroupFieldsKey: {
       default: null
+    },
+    autoEditLabel: {
+      default: false,
+      type: Boolean
     }
   },
   created: function created() {
@@ -19807,6 +20603,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   watch: {
     groupData: function groupData() {
       this.setup();
+    },
+    autoEditLabel: function autoEditLabel(newValue, oldValue) {
+      var _this = this;
+      // Watcher triggers when the prop changes (false -> true or true -> false)
+      // Only act when the value changes from false to true
+      // Note: This watcher won't trigger on initial mount if the prop is already true
+      // That's why we also check in the mounted() hook below
+      if (newValue === true && oldValue === false && !this.getSearchGroup() && !this.isEditingLabel) {
+        // Use $nextTick to ensure the component is fully rendered
+        this.$nextTick(function () {
+          if (!_this.isEditingLabel) {
+            _this.startEditingLabel();
+          }
+        });
+      }
     }
   },
   computed: {
@@ -19820,6 +20631,26 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         state = false;
       }
       return state;
+    },
+    /**
+     * Generate a unique key for field-list-component based on group data
+     * This ensures the component re-renders when the label changes,
+     * updating the input field with the new value.
+     *
+     * By including the label in the key, Vue will treat it as a new component
+     * instance when the label changes, forcing a fresh render with updated values.
+     *
+     * @returns {string} Unique key combining groupKey and label
+     */
+    fieldListComponentKey: function fieldListComponentKey() {
+      var _this$groupData;
+      // Include label in the key so component re-renders when label changes
+      // This ensures the "Section Name" input field shows the updated label value
+      var label = this.getSearchGroup() ? this.getSearchLabelContent() : ((_this$groupData = this.groupData) === null || _this$groupData === void 0 ? void 0 : _this$groupData.label) || "";
+
+      // Use groupKey and label to create a unique key
+      // When label changes, the key changes, forcing Vue to re-render the component
+      return "group_".concat(this.groupKey, "_label_").concat(label);
     }
   },
   data: function data() {
@@ -19828,11 +20659,28 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       header_title_component_props: {},
       groupExpandedDropdown: false,
       showConfirmationModal: false,
-      groupName: ""
+      groupName: "",
+      // Editable Label Feature: State management
+      isEditingLabel: false,
+      // Tracks whether the label is currently being edited
+      editedLabelValue: "" // Stores the label value while editing (bound to input via v-model)
     };
   },
   mounted: function mounted() {
+    var _this2 = this;
     document.addEventListener("mousedown", this.handleClickOutside);
+
+    // Handle case where component mounts with autoEditLabel already true
+    // (Watcher won't trigger for initial prop value, only on changes)
+    // This happens when Vue creates the component AFTER newlyCreatedGroupKey is set
+    if (this.autoEditLabel === true && !this.getSearchGroup() && !this.isEditingLabel) {
+      // Use $nextTick to ensure everything is rendered before focusing
+      this.$nextTick(function () {
+        if (!_this2.isEditingLabel) {
+          _this2.startEditingLabel();
+        }
+      });
+    }
   },
   beforeDestroy: function beforeDestroy() {
     document.removeEventListener("mousedown", this.handleClickOutside);
@@ -19868,10 +20716,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.groupExpandedDropdown = !this.groupExpandedDropdown;
     },
     handleBlur: function handleBlur() {
-      var _this = this;
+      var _this3 = this;
       setTimeout(function () {
-        if (!_this.isClickedInsideDropdown) {
-          _this.groupExpandedDropdown = false;
+        if (!_this3.isClickedInsideDropdown) {
+          _this3.groupExpandedDropdown = false;
         }
       }, 100); // Delay to ensure clicks inside dropdown content are not missed
     },
@@ -19910,30 +20758,187 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     getSearchGroup: function getSearchGroup() {
       // Check if the group is a search group
-      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form" || this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form") {
+      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form" || this.groupData.id === "search-bar" || this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form" || this.groupData.id === "search-filter") {
         return true;
       }
       return false;
     },
     getSearchIconContent: function getSearchIconContent() {
       var groupIcon = "";
-      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form") {
+      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form" || this.groupData.id === "search-bar") {
         groupIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 17.5L13.875 13.875M9.16667 5C11.4679 5 13.3333 6.86548 13.3333 9.16667M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       }
-      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form") {
+      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form" || this.groupData.id === "search-filter") {
         groupIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.66602L12.5 6.66602M12.5 6.66602C12.5 8.04673 13.6193 9.16602 15 9.16602C16.3807 9.16602 17.5 8.04673 17.5 6.66602C17.5 5.2853 16.3807 4.16602 15 4.16602C13.6193 4.16602 12.5 5.2853 12.5 6.66602ZM7.5 13.3327L17.5 13.3327M7.5 13.3327C7.5 14.7134 6.38071 15.8327 5 15.8327C3.61929 15.8327 2.5 14.7134 2.5 13.3327C2.5 11.952 3.61929 10.8327 5 10.8327C6.38071 10.8327 7.5 11.952 7.5 13.3327Z" stroke="#141921" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       }
       return groupIcon;
     },
     getSearchLabelContent: function getSearchLabelContent() {
       var groupLabel = "";
-      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form") {
+      if (this.groupData.id === "basic" || this.groupData.id === "basic-search-form" || this.groupData.id === "search-bar") {
         groupLabel = "Search Bar";
       }
-      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form") {
+      if (this.groupData.id === "advanced" || this.groupData.id === "advanced-search-form" || this.groupData.id === "search-filter") {
         groupLabel = "Search Filter";
       }
       return groupLabel;
+    },
+    /**
+     * Start editing the group label
+     *
+     * This method is triggered when the user clicks on the group label.
+     * It switches from display mode to edit mode by:
+     * 1. Checking if the group is editable (search groups are not editable)
+     * 2. Setting isEditingLabel to true (which shows the input field)
+     * 3. Extracting plain text from the label (handles HTML labels)
+     * 4. Auto-focusing and selecting the input text for better UX
+     *
+     * @returns {void}
+     */
+    startEditingLabel: function startEditingLabel() {
+      var _this4 = this;
+      // Don't allow editing for search groups (Search Bar, Search Filter)
+      // These have hardcoded labels that shouldn't be changed
+      if (this.getSearchGroup()) {
+        return;
+      }
+
+      // Enter edit mode - this will hide the label span and show the input
+      this.isEditingLabel = true;
+
+      // Extract plain text from label (in case it contains HTML)
+      // This ensures users edit the actual text content, not HTML tags
+      this.editedLabelValue = this.getPlainTextFromLabel(this.groupData.label || "");
+
+      // Wait for Vue to render the input, then focus and select all text
+      // This provides better UX - user can immediately start typing to replace the label
+      this.$nextTick(function () {
+        if (_this4.$refs.labelInput) {
+          _this4.$refs.labelInput.focus();
+          _this4.$refs.labelInput.select();
+        }
+      });
+    },
+    /**
+     * Extract plain text from a label that may contain HTML
+     *
+     * Since group labels can be rendered with v-html (allowing HTML content),
+     * we need to extract just the text content when editing. This method:
+     * 1. Validates the input is a string
+     * 2. Creates a temporary DOM element
+     * 3. Sets the HTML content and extracts the text
+     * 4. Returns plain text without HTML tags
+     *
+     * Example:
+     * Input:  "<strong>My Label</strong>"
+     * Output: "My Label"
+     *
+     * @param {string} label - The label that may contain HTML
+     * @returns {string} Plain text content without HTML tags
+     */
+    getPlainTextFromLabel: function getPlainTextFromLabel(label) {
+      // Validate input - return empty string if invalid
+      if (!label || typeof label !== "string") {
+        return "";
+      }
+
+      // Create a temporary div element to parse HTML
+      // This is a safe way to extract text from HTML without affecting the DOM
+      var tempDiv = document.createElement("div");
+      tempDiv.innerHTML = label;
+
+      // Extract text content (textContent is preferred, innerText as fallback)
+      // textContent gets all text including hidden elements
+      // innerText only gets visible text (respects CSS)
+      return tempDiv.textContent || tempDiv.innerText || "";
+    },
+    /**
+     * Save the edited label
+     *
+     * This method is called when:
+     * - User presses Enter key (@keyup.enter)
+     * - User clicks outside the input (@blur)
+     *
+     * It:
+     * 1. Trims whitespace from the edited value
+     * 2. Compares with the current label (as plain text)
+     * 3. Only emits update event if the value actually changed
+     * 4. Exits edit mode (returns to display mode)
+     *
+     * The update event follows the same pattern as other group field updates:
+     * - Event: "update-group-field"
+     * - Payload: { key: "label", value: "new label text" }
+     * - Parent component (Form_Builder_Field.vue) handles the update
+     *
+     * @param {Event} event - The blur or keyup event (not directly used, but kept for consistency)
+     * @returns {void}
+     */
+    saveLabel: function saveLabel(event) {
+      // Get the trimmed value from the input (via v-model binding)
+      var newLabel = this.editedLabelValue.trim();
+
+      // Get the current label value as plain text for comparison
+      // This ensures we compare text-to-text, not text-to-HTML
+      var currentLabel = this.getPlainTextFromLabel(this.groupData.label || "");
+
+      // Only emit update if:
+      // 1. The new label is not empty
+      // 2. The new label is different from the current label
+      // This prevents unnecessary updates and API calls
+      if (newLabel && newLabel !== currentLabel) {
+        // Emit update event to parent component
+        // The parent will update the groupData.label and persist the change
+        this.$emit("update-group-field", {
+          key: "label",
+          // Field name to update
+          value: newLabel // New label value
+        });
+      }
+
+      // Exit edit mode regardless of whether value changed
+      // This closes the input and shows the label again
+      this.isEditingLabel = false;
+      this.editedLabelValue = "";
+    },
+    /**
+     * Cancel editing the label
+     *
+     * This method is called when:
+     * - User presses Escape key (@keyup.esc)
+     *
+     * It discards any changes and returns to display mode without saving.
+     * The original label value is preserved.
+     *
+     * @returns {void}
+     */
+    cancelEditingLabel: function cancelEditingLabel() {
+      // Exit edit mode without saving
+      // This discards any changes made in the input field
+      this.isEditingLabel = false;
+      this.editedLabelValue = "";
+    }
+  },
+  /**
+   * Custom Vue Directives
+   * =====================
+   *
+   * focus: Auto-focus directive
+   * ---------------------------
+   * This directive automatically focuses an element when it's inserted into the DOM.
+   * Used on the label input field to provide immediate focus when edit mode starts.
+   *
+   * Note: We also use $nextTick in startEditingLabel() to ensure the element exists
+   * before focusing. The directive provides an additional layer of focus handling.
+   */
+  directives: {
+    focus: {
+      /**
+       * Called when the element is inserted into the DOM
+       * @param {HTMLElement} el - The element the directive is bound to
+       */
+      inserted: function inserted(el) {
+        el.focus();
+      }
     }
   }
 });
@@ -20493,7 +21498,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             selectedWidgets: []
           },
           avatar: {
-            label: "Add Avatar",
+            label: "Avatar",
             selectedWidgets: []
           }
         },
@@ -20992,47 +21997,37 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
       return true;
     },
-    // Get Avatar Placeholder Class
+    /**
+     * Get Avatar Placeholder Class
+     * Computes CSS classes for avatar placeholder based on alignment option
+     * Uses reactive trigger to ensure recalculation when widget position changes
+     */
     getAvatarPlaceholderClass: function getAvatarPlaceholderClass() {
+      var _this$local_layout, _this$active_widgets;
+      // Create reactive dependencies for selectedWidgets and update trigger
+      var selectedWidgets = (_this$local_layout = this.local_layout) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.thumbnail) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.avatar) === null || _this$local_layout === void 0 ? void 0 : _this$local_layout.selectedWidgets;
+      var _ = this.avatarPlaceholderUpdateTrigger;
+
+      // Access alignment value through explicit property chain for reactivity
+      var alignValue = (_this$active_widgets = this.active_widgets) === null || _this$active_widgets === void 0 || (_this$active_widgets = _this$active_widgets.user_avatar) === null || _this$active_widgets === void 0 || (_this$active_widgets = _this$active_widgets.options) === null || _this$active_widgets === void 0 || (_this$active_widgets = _this$active_widgets.fields) === null || _this$active_widgets === void 0 || (_this$active_widgets = _this$active_widgets.align) === null || _this$active_widgets === void 0 ? void 0 : _this$active_widgets.value;
       var accepted_align_options = ["right", "center", "left"];
-      var align_option = "";
-      var active_widgets = JSON.parse(JSON.stringify(this.active_widgets));
-      var has_option = false;
-      if (this.isObject(active_widgets)) {
-        has_option = true;
-      }
-      if (has_option && !active_widgets.user_avatar) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options.fields) {
-        has_option = false;
-      }
-      if (has_option && !active_widgets.user_avatar.options.fields.align) {
-        has_option = false;
-      }
-      if (has_option && !(typeof active_widgets.user_avatar.options.fields.align.value === "string")) {
-        has_option = false;
-      }
-      if (has_option) {
-        align_option = active_widgets.user_avatar.options.fields.align.value;
-      }
-      if (!accepted_align_options.includes(align_option)) {
-        align_option = "center";
-      }
+      var align_option = typeof alignValue === "string" && accepted_align_options.includes(alignValue) ? alignValue : "left";
       return {
         "cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20": true,
-        "cptm-text-right": "right" === align_option ? true : false,
-        "cptm-text-center": "center" === align_option ? true : false,
-        "cptm-text-left": "left" === align_option ? true : false
+        "cptm-text-right": align_option === "right",
+        "cptm-text-center": align_option === "center",
+        "cptm-text-left": align_option === "left"
       };
     },
     // Check if avatar has selected widgets
     hasAvatarWidget: function hasAvatarWidget() {
-      var _this$local_layout;
-      return ((_this$local_layout = this.local_layout) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.thumbnail) === null || _this$local_layout === void 0 || (_this$local_layout = _this$local_layout.avatar) === null || _this$local_layout === void 0 ? void 0 : _this$local_layout.selectedWidgets) && Array.isArray(this.local_layout.thumbnail.avatar.selectedWidgets) && this.local_layout.thumbnail.avatar.selectedWidgets.length > 0;
+      var _this$local_layout2;
+      return ((_this$local_layout2 = this.local_layout) === null || _this$local_layout2 === void 0 || (_this$local_layout2 = _this$local_layout2.thumbnail) === null || _this$local_layout2 === void 0 || (_this$local_layout2 = _this$local_layout2.avatar) === null || _this$local_layout2 === void 0 ? void 0 : _this$local_layout2.selectedWidgets) && Array.isArray(this.local_layout.thumbnail.avatar.selectedWidgets) && this.local_layout.thumbnail.avatar.selectedWidgets.length > 0;
+    },
+    // Check if excerpt widget is available in available_widgets
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
     }
   },
   data: function data() {
@@ -21056,6 +22051,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       available_widgets: {},
       // Active Widgets
       active_widgets: {},
+      // Reactive trigger to force getAvatarPlaceholderClass recalculation
+      // Incremented when user_avatar widget is updated to ensure computed property recalculates
+      avatarPlaceholderUpdateTrigger: 0,
       // Layout
       local_layout: {
         thumbnail: {
@@ -21076,7 +22074,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             selectedWidgets: []
           },
           avatar: {
-            label: "Add Avatar",
+            label: "Avatar",
             selectedWidgets: []
           }
         },
@@ -21087,6 +22085,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           bottom: {
             label: "Body Bottom",
+            selectedWidgets: []
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: []
           }
         },
@@ -21403,6 +22405,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       updatedWidget = _ref.updatedWidget;
     this.$set(this.active_widgets, widgetKey, updatedWidget);
     this.$set(this.available_widgets, widgetKey, updatedWidget);
+
+    // Force getAvatarPlaceholderClass to recalculate when user_avatar position changes
+    if (widgetKey === "user_avatar") {
+      this.avatarPlaceholderUpdateTrigger += 1;
+    }
   }), "toggleActivateWidgetOptions", function toggleActivateWidgetOptions(widgetKey) {
     // Always activate the widget options
     this.$set(this.widgetOptionsWindow, "widget", widgetKey);
@@ -21606,6 +22613,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         "cptm-text-center": "center" === align_option ? true : false,
         "cptm-text-left": "left" === align_option ? true : false
       };
+    },
+    // Whether excerpt widget is available
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
     }
   },
   data: function data() {
@@ -21633,7 +22645,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       local_layout: {
         body: {
           avatar: {
-            label: "Add Avatar",
+            label: "Avatar",
             selectedWidgets: []
           },
           title: {
@@ -21650,6 +22662,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           bottom: {
             label: "Add Elements",
+            selectedWidgets: []
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: []
           }
         },
@@ -22518,6 +23534,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     }
   },
   computed: {
+    // Whether excerpt widget is available
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
     // Output Data
     output_data: function output_data() {
       var output = {};
@@ -22660,6 +23681,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           bottom: {
             label: "Body Bottom",
+            selectedWidgets: []
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: []
           }
         },
@@ -23039,6 +24064,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     }
   },
   computed: {
+    // Whether excerpt widget is available
+    hasExcerptWidget: function hasExcerptWidget() {
+      var _this$theAvailableWid;
+      return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
     // Output Data
     output_data: function output_data() {
       var output = {};
@@ -23638,7 +24668,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
                 var subPlaceholder = _step2.value;
                 var _data = this.getWidgetData(subPlaceholder);
                 subGroupsData.push({
-                  type: placeholder.type ? placeholder.type : "placeholder_item",
+                  type: subPlaceholder.type ? subPlaceholder.type : "placeholder_item",
                   placeholderKey: subPlaceholder.placeholderKey,
                   label: subPlaceholder.label,
                   selectedWidgets: _data,
@@ -23757,6 +24787,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       // Dragging State
       currentDraggingIndex: null,
       currentSettingsDraggingWidgetKey: null,
+      currentSettingsDraggingPlaceholderIndex: null,
       // Available Widgets
       available_widgets: {},
       // Active Widgets
@@ -23784,6 +24815,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
   },
   methods: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__["default"])({
     // ===========================================
+    // HELPER METHODS
+    // ===========================================
+    // Get filtered acceptedWidgets (only available widgets) for a placeholder
+    getFilteredAcceptedWidgets: function getFilteredAcceptedWidgets(placeholder) {
+      var _this3 = this;
+      if (!placeholder || !placeholder.acceptedWidgets) {
+        return [];
+      }
+      return placeholder.acceptedWidgets.filter(function (widgetKey) {
+        return _this3.isWidgetAvailable(widgetKey);
+      });
+    },
+    // ===========================================
     // INITIALIZATION & LIFECYCLE METHODS
     // ===========================================
     /**
@@ -23807,10 +24851,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     setupEventListeners: function setupEventListeners() {
-      var _this3 = this;
+      var _this4 = this;
       // Debounced update emitter
       this.debouncedEmitUpdate = this.debounce(function () {
-        _this3.emitUpdate();
+        _this4.emitUpdate();
       }, 100);
     },
     /**
@@ -23901,14 +24945,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     debounce: function debounce(func, wait) {
-      var _this4 = this;
+      var _this5 = this;
       return function () {
         for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
         }
-        clearTimeout(_this4._debounceTimer);
-        _this4._debounceTimer = setTimeout(function () {
-          return func.apply(_this4, args);
+        clearTimeout(_this5._debounceTimer);
+        _this5._debounceTimer = setTimeout(function () {
+          return func.apply(_this5, args);
         }, wait);
       };
     },
@@ -24032,6 +25076,90 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // DATA PROCESSING METHODS
     // ===========================================
     /**
+     * Sync selectedWidgets with selectedWidgetList to ensure data consistency
+     *
+     * Problem: On reload, selectedWidgetList may have values but selectedWidgets might be empty
+     * or incomplete, causing widgets not to load properly.
+     *
+     * Solution: Compare both arrays and sync selectedWidgets to match selectedWidgetList.
+     * Priority: Preserve existing widget data (with saved customizations) when available,
+     * fallback to active_widgets (if provided), then default widget template.
+     *
+     * @param {Array} selectedWidgets - Array of widget objects (may be empty or incomplete)
+     * @param {Array} selectedWidgetList - Array of widget keys/strings (the source of truth)
+     * @param {Object} activeWidgets - Optional. active_widgets object for fallback lookup
+     * @returns {Array} Synced selectedWidgets array matching selectedWidgetList
+     * @private
+     */
+    syncSelectedWidgetsWithList: function syncSelectedWidgetsWithList(selectedWidgets, selectedWidgetList) {
+      var _this6 = this;
+      var activeWidgets = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      // Early return if no selectedWidgetList
+      if (!selectedWidgetList || !Array.isArray(selectedWidgetList) || selectedWidgetList.length === 0) {
+        return selectedWidgets || [];
+      }
+      var currentSelectedWidgets = selectedWidgets || [];
+
+      // Extract widget keys from selectedWidgets for comparison
+      // selectedWidgets contains widget objects, so we need to extract their keys
+      var selectedWidgetsKeys = currentSelectedWidgets.map(function (widget) {
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widget) === "object" && widget !== null) {
+          return widget.widget_key || widget.widget_name || widget;
+        }
+        return widget;
+      }).filter(function (key) {
+        return key != null && key !== "";
+      });
+
+      // Determine if sync is needed by checking:
+      // 1. selectedWidgetList has more items than selectedWidgets
+      // 2. selectedWidgetList contains keys not in selectedWidgets
+      // 3. selectedWidgets contains keys not in selectedWidgetList
+      var needsSync = selectedWidgetList.length > selectedWidgetsKeys.length || !selectedWidgetList.every(function (key) {
+        return selectedWidgetsKeys.includes(key);
+      }) || !selectedWidgetsKeys.every(function (key) {
+        return selectedWidgetList.includes(key);
+      });
+
+      // Return original if no sync needed
+      if (!needsSync) {
+        return currentSelectedWidgets;
+      }
+
+      // Perform sync
+      var syncedSelectedWidgets = [];
+      selectedWidgetList.forEach(function (widgetKey) {
+        var widgetData = null;
+
+        // STEP 1: Try to find existing widget data from selectedWidgets
+        // This preserves saved customizations (label, icon, etc.)
+        if (Array.isArray(currentSelectedWidgets)) {
+          widgetData = currentSelectedWidgets.find(function (widget) {
+            return widget && (widget.widget_key === widgetKey || widget.widget_name === widgetKey);
+          });
+        }
+
+        // STEP 2: Fallback to widget from active_widgets (has latest data)
+        // Only if activeWidgets parameter is provided
+        if (!widgetData && activeWidgets && activeWidgets[widgetKey]) {
+          widgetData = activeWidgets[widgetKey];
+        }
+
+        // STEP 3: Final fallback to default widget template
+        if (!widgetData) {
+          if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this6.theAvailableWidgets[widgetKey] !== "undefined") {
+            widgetData = _this6.theAvailableWidgets[widgetKey];
+          }
+        }
+
+        // Add widget data if found
+        if (widgetData) {
+          syncedSelectedWidgets.push(widgetData);
+        }
+      });
+      return syncedSelectedWidgets;
+    },
+    /**
      * Get widget data with enhanced optimization
      * @param {Object} placeholderData - Placeholder data
      * @returns {Array} Widget data
@@ -24052,6 +25180,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!selectedWidgets.length && !selectedWidgetList.length) {
         return [];
       }
+
+      /**
+       * SYNC SAFETY NET: Ensure selectedWidgets matches selectedWidgetList
+       * This is a defensive check to ensure data consistency during output generation
+       * Even if sync happened in importOldData, this ensures output is always correct
+       * Uses active_widgets as fallback for latest data
+       */
+      selectedWidgets = this.syncSelectedWidgetsWithList(selectedWidgets, selectedWidgetList, this.active_widgets);
 
       // Create a map for O(1) lookup instead of O(n) indexOf operations
       var acceptedWidgetsMap = new Map();
@@ -24294,12 +25430,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     syncAllPlaceholderItems: function syncAllPlaceholderItems() {
-      var _this5 = this;
+      var _this7 = this;
       try {
         var newAllPlaceholderItems = [];
         this.placeholders.forEach(function (placeholder) {
           if (placeholder.type === "placeholder_item") {
-            var matchedItem = _this5.allPlaceholderItems.find(function (item) {
+            var matchedItem = _this7.allPlaceholderItems.find(function (item) {
               return item.placeholderKey === placeholder.placeholderKey;
             });
             if (matchedItem) {
@@ -24316,7 +25452,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             }
           } else if (placeholder.type === "placeholder_group") {
             placeholder.placeholders.forEach(function (subPlaceholder) {
-              var matchedItem = _this5.allPlaceholderItems.find(function (item) {
+              var matchedItem = _this7.allPlaceholderItems.find(function (item) {
                 return item.placeholderKey === subPlaceholder.placeholderKey;
               });
               if (matchedItem) {
@@ -24369,11 +25505,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         // Ensure we get a string widget key, not an object
         var widgetKey = draggedItem.widgetKey;
         this.currentSettingsDraggingWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
+
+        // Store the placeholder index to ensure correct item highlighting
+        this.currentSettingsDraggingPlaceholderIndex = placeholderIndex;
       }
     },
     // Handle settings drag end event
     onSettingsDragEnd: function onSettingsDragEnd() {
       this.currentSettingsDraggingWidgetKey = null;
+      this.currentSettingsDraggingPlaceholderIndex = null;
 
       // Remove dragging class from all dndrop-draggable-wrapper elements
       this.$nextTick(function () {
@@ -24385,7 +25525,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Handle the drop event
     onDrop: function onDrop(dropResult) {
-      var _this6 = this;
+      var _this8 = this;
       var draggablePlaceholders = this.placeholders.filter(function (placeholder) {
         return placeholder.type === "placeholder_item";
       });
@@ -24408,7 +25548,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       this.placeholders.forEach(function (placeholder) {
         if (placeholder.type === "placeholder_item") {
           // Find the matching item from allPlaceholderItems
-          var matchedItem = _this6.allPlaceholderItems.find(function (item) {
+          var matchedItem = _this8.allPlaceholderItems.find(function (item) {
             return item.placeholderKey === placeholder.placeholderKey;
           });
 
@@ -24431,7 +25571,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         } else if (placeholder.type === "placeholder_group") {
           // Iterate over subPlaceholders for a group
           placeholder.placeholders.forEach(function (subPlaceholder) {
-            var matchedItem = _this6.allPlaceholderItems.find(function (item) {
+            var matchedItem = _this8.allPlaceholderItems.find(function (item) {
               return item.placeholderKey === subPlaceholder.placeholderKey;
             });
 
@@ -24462,8 +25602,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Get the payload for the settings child
     getSettingsChildPayload: function getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
-      var _this$allPlaceholderI;
-      var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
+      var placeholder = this.allPlaceholderItems[placeholderIndex];
+      if (!placeholder) {
+        return {
+          draggedItemIndex: draggedItemIndex,
+          placeholderIndex: placeholderIndex,
+          widgetKey: null
+        };
+      }
+
+      // Get filtered acceptedWidgets (only available widgets) to match what's displayed
+      var filteredAcceptedWidgets = this.getFilteredAcceptedWidgets(placeholder);
+
+      // Get the widget key from the filtered array to match the displayed items
+      var widgetKey = filteredAcceptedWidgets[draggedItemIndex];
 
       // Extract the actual widget key string from the object
       var extractedWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
@@ -24484,7 +25636,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var draggedItemIndex = payload.draggedItemIndex,
         placeholderIndex = payload.placeholderIndex;
       if (removedIndex !== null || addedIndex !== null) {
-        var _this$allPlaceholderI2;
         var destinationItemIndex;
         var destinationPlaceholderIndex;
         var sourceItemIndex = draggedItemIndex;
@@ -24497,14 +25648,29 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           destinationPlaceholderIndex = null;
         }
 
-        // Get the widget key from the source placeholder
-        var widgetKey = (_this$allPlaceholderI2 = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI2 === void 0 ? void 0 : _this$allPlaceholderI2.acceptedWidgets[draggedItemIndex];
+        // Get the source placeholder
+        var sourcePlaceholder = this.allPlaceholderItems[sourcePlaceholderIndex];
+        if (!sourcePlaceholder) {
+          return;
+        }
+
+        // Get filtered acceptedWidgets (only available widgets) for the source placeholder
+        var filteredAcceptedWidgets = this.getFilteredAcceptedWidgets(sourcePlaceholder);
+
+        // Get the widget key from the filtered acceptedWidgets
+        var widgetKey = filteredAcceptedWidgets[draggedItemIndex];
         if (widgetKey !== undefined) {
           if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
             // Moving within the same placeholder
-            var widgets = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets;
+            // Use filtered acceptedWidgets to ensure only available widgets are used
+            var widgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredAcceptedWidgets);
             var selectedWidgets = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgets;
             var selectedWidgetList = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList;
+
+            // Validate that the dragged widget is still available
+            if (!this.isWidgetAvailable(widgetKey)) {
+              return; // Don't proceed if widget is not available
+            }
 
             // Remove the widget from the source position
             var _widgets$splice3 = widgets.splice(sourceItemIndex, 1),
@@ -24514,21 +25680,43 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             // Insert the widget at the destination position
             widgets.splice(destinationItemIndex, 0, movedWidget);
 
-            // Update selectedWidgetList position based on acceptedWidgets
-            var selectedWidgetIndex = selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
-            if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
+            // Update acceptedWidgets with filtered list
+            this.$set(this.allPlaceholderItems[sourcePlaceholderIndex], "acceptedWidgets", widgets);
+
+            // Filter selectedWidgetList to only include widgets that are in filtered acceptedWidgets
+            var filteredSelectedWidgetList = (selectedWidgetList || []).filter(function (widgetKey) {
+              return widgets.includes(widgetKey);
+            });
+
+            // Update selectedWidgetList position based on filtered acceptedWidgets
+            var selectedWidgetIndex = filteredSelectedWidgetList.indexOf(movedWidget);
+            if (selectedWidgetIndex !== -1) {
               // Remove the widget from the selected position
-              selectedWidgetList.splice(selectedWidgetIndex, 1);
+              filteredSelectedWidgetList.splice(selectedWidgetIndex, 1);
 
               // Insert the widget at the new position
               var newSelectedIndex = widgets.indexOf(movedWidget);
-              selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
+              filteredSelectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
             }
 
-            // Reorder `selectedWidgets` based on `selectedWidgetList`
-            selectedWidgets && selectedWidgets.sort(function (a, b) {
-              return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
+            // Filter selectedWidgets to only include widgets that are in filtered acceptedWidgets
+            var filteredSelectedWidgets = (selectedWidgets || []).filter(function (widget) {
+              return widget && widget.widget_key && widgets.includes(widget.widget_key);
             });
+
+            // Reorder `selectedWidgets` based on filtered `selectedWidgetList`
+            filteredSelectedWidgets && filteredSelectedWidgets.sort(function (a, b) {
+              return filteredSelectedWidgetList.indexOf(a.widget_key) - filteredSelectedWidgetList.indexOf(b.widget_key);
+            });
+
+            // Filter out null items from selectedWidgetList
+            var finalSelectedWidgetList = filteredSelectedWidgetList.filter(function (key) {
+              return key != null && key !== "";
+            });
+
+            // Update selectedWidgets and selectedWidgetList in placeholder
+            this.$set(this.allPlaceholderItems[sourcePlaceholderIndex], "selectedWidgets", filteredSelectedWidgets);
+            this.$set(this.allPlaceholderItems[sourcePlaceholderIndex], "selectedWidgetList", finalSelectedWidgetList);
 
             // Update Placeholders
             var updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(this.allPlaceholderItems, this.placeholders || []);
@@ -24677,7 +25865,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @public
      */
     importOldData: function importOldData() {
-      var _this7 = this;
+      var _this9 = this;
       var value = JSON.parse(JSON.stringify(this.value));
       if (!Array.isArray(value)) {
         return;
@@ -24687,13 +25875,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Import Layout
       // -------------------------
+      /**
+       * Add widget to active_widgets with proper data merging and field promotion
+       * This function merges saved widget data (from old data) with default widget template,
+       * preserving user customizations like label and icon changes
+       * @param {Object} widget - Widget object with saved data (may have custom label/icon)
+       */
       var addActiveWidget = function addActiveWidget(widget) {
         // Ensure that the widget exists in the available widgets
-        if (!_this7.theAvailableWidgets[widget.widget_name]) {
+        if (!_this9.theAvailableWidgets[widget.widget_name]) {
           console.error("Widget ".concat(widget.widget_name, " not found in available widgets."));
           return; // Exit if widget is not available
         }
-        var widgets_template = _objectSpread({}, _this7.theAvailableWidgets[widget.widget_name]);
+        var widgets_template = _objectSpread({}, _this9.theAvailableWidgets[widget.widget_name]);
         var has_widget_options = false;
         if (widgets_template.options && widgets_template.options.fields) {
           has_widget_options = true;
@@ -24719,58 +25913,141 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             if (typeof ((_widget$options = widget.options) === null || _widget$options === void 0 ? void 0 : _widget$options.fields[option_key]) === "undefined") {
               continue;
             }
-            widgets_template.options.fields[option_key] = widget.options.fields[option_key];
-
-            // Check if the option key matches a root-level widget property
-            // If it matches, update the root-level property with the field value
-            if (widgets_template.hasOwnProperty(option_key)) {
-              var fieldValue = widget.options.fields[option_key];
-              // Only update if the field has a value property (for form fields)
-              if (fieldValue && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(fieldValue) === "object" && fieldValue.hasOwnProperty("value")) {
-                widgets_template[option_key] = fieldValue.value;
-              } else if (fieldValue !== undefined) {
-                widgets_template[option_key] = fieldValue;
+            var savedFieldValue = widget.options.fields[option_key];
+            var templateField = widgets_template.options.fields[option_key];
+            if (templateField && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(templateField) === "object" && templateField.hasOwnProperty("type") && templateField.hasOwnProperty("label")) {
+              if (savedFieldValue && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(savedFieldValue) === "object" && savedFieldValue.hasOwnProperty("value")) {
+                widgets_template.options.fields[option_key] = savedFieldValue;
+                widgets_template[option_key] = savedFieldValue.value;
+              } else {
+                widgets_template.options.fields[option_key] = _objectSpread(_objectSpread({}, templateField), {}, {
+                  value: savedFieldValue !== undefined ? savedFieldValue : templateField.value
+                });
+                widgets_template[option_key] = savedFieldValue !== undefined ? savedFieldValue : templateField.value;
+              }
+            } else {
+              widgets_template.options.fields[option_key] = savedFieldValue;
+              if (widgets_template.hasOwnProperty(option_key)) {
+                var fieldValue = savedFieldValue;
+                if (fieldValue && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(fieldValue) === "object" && fieldValue.hasOwnProperty("value")) {
+                  widgets_template[option_key] = fieldValue.value;
+                } else if (fieldValue !== undefined) {
+                  widgets_template[option_key] = fieldValue;
+                }
               }
             }
           }
         }
 
         // Apply field promotion logic during initialization
-        var shouldPromote = _this7.shouldPromoteFieldsToRoot(widget.widget_name, widgets_template);
-        var processedWidget = shouldPromote ? _this7.promoteFieldsToRoot(widgets_template) : widgets_template;
+        var shouldPromote = _this9.shouldPromoteFieldsToRoot(widget.widget_name, widgets_template);
+        var processedWidget = shouldPromote ? _this9.promoteFieldsToRoot(widgets_template) : widgets_template;
 
         // Set the widget data in the active_widgets object
-        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this7.active_widgets, widget.widget_name, processedWidget);
-        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this7.available_widgets, widget.widget_name, processedWidget);
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.active_widgets, widget.widget_name, processedWidget);
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.available_widgets, widget.widget_name, processedWidget);
       };
+
+      /**
+       * Import widgets data for a placeholder from saved/old data
+       * Handles both selectedWidgets (array of widget objects) and selectedWidgetList (array of widget keys)
+       * Ensures they stay in sync and widgets are properly loaded into active_widgets
+       * @param {Object} placeholder - Placeholder data from saved value
+       * @param {Array} destination - Array to add the processed placeholder to
+       */
       var importWidgets = function importWidgets(placeholder, destination) {
-        if (!_this7.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+        if (!_this9.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
           return;
         }
-        var newPlaceholder = JSON.parse(JSON.stringify(_this7.placeholdersMap[placeholder.placeholderKey]));
+
+        // Clone the placeholder template from placeholdersMap
+        var newPlaceholder = JSON.parse(JSON.stringify(_this9.placeholdersMap[placeholder.placeholderKey]));
+
+        // Update acceptedWidgets if provided in saved data
         if (placeholder.acceptedWidgets) {
           newPlaceholder.acceptedWidgets = placeholder.acceptedWidgets;
         }
+
+        // Handle selectedWidgets and selectedWidgetList from old data
+        // selectedWidgets: Array of widget objects (has full widget data including customizations)
+        // selectedWidgetList: Array of widget keys/strings (just the IDs)
         if (placeholder.selectedWidgets) {
           newPlaceholder.selectedWidgets = placeholder.selectedWidgets;
-          newPlaceholder.selectedWidgetList = placeholder.selectedWidgets.map(function (widget) {
-            return widget.widget_name;
-          });
+          // Derive selectedWidgetList from selectedWidgets if not already set
+          if (!placeholder.selectedWidgetList) {
+            newPlaceholder.selectedWidgetList = placeholder.selectedWidgets.map(function (widget) {
+              if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widget) === "object" && widget !== null) {
+                // Use widget_key as primary, fallback to widget_name or widget itself
+                return widget.widget_key || widget.widget_name || widget;
+              }
+              return widget;
+            }).filter(function (key) {
+              return key != null && key !== "";
+            }); // Filter out null, undefined, and empty values
+          } else {
+            // Filter out null items from existing selectedWidgetList
+            newPlaceholder.selectedWidgetList = Array.isArray(placeholder.selectedWidgetList) ? placeholder.selectedWidgetList.filter(function (key) {
+              return key != null && key !== "";
+            }) : [];
+          }
+        } else if (placeholder.selectedWidgetList) {
+          // If only selectedWidgetList exists in old data, filter out null items
+          newPlaceholder.selectedWidgetList = Array.isArray(placeholder.selectedWidgetList) ? placeholder.selectedWidgetList.filter(function (key) {
+            return key != null && key !== "";
+          }) : [];
         }
+
+        /**
+         * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
+         * Uses reusable sync function to keep code DRY
+         */
+        newPlaceholder.selectedWidgets = _this9.syncSelectedWidgetsWithList(newPlaceholder.selectedWidgets, newPlaceholder.selectedWidgetList);
         newPlaceholder.maxWidget = typeof newPlaceholder.maxWidget !== "undefined" ? parseInt(newPlaceholder.maxWidget) : 0;
         newAllPlaceholders.push(newPlaceholder);
         var targetPlaceholderIndex = destination.length;
         destination.splice(targetPlaceholderIndex, 0, newPlaceholder);
 
-        // Add active widgets based on selectedWidgets
-        placeholder.selectedWidgets.forEach(function (widget) {
-          if (typeof widget !== "undefined" && typeof _this7.available_widgets[widget.widget_name] !== "undefined") {
-            addActiveWidget(widget);
-          }
-        });
+        /**
+         * Load widgets into active_widgets based on selectedWidgets
+         * Uses synced version (newPlaceholder.selectedWidgets) if available,
+         * otherwise falls back to original placeholder.selectedWidgets
+         */
+        var widgetsToProcess = newPlaceholder.selectedWidgets || placeholder.selectedWidgets || [];
+        if (Array.isArray(widgetsToProcess) && widgetsToProcess.length > 0) {
+          widgetsToProcess.forEach(function (widget) {
+            // Validate widget exists in available_widgets before adding
+            if (typeof widget !== "undefined" && widget && (typeof _this9.available_widgets[widget.widget_name] !== "undefined" || typeof _this9.available_widgets[widget.widget_key] !== "undefined")) {
+              // addActiveWidget merges saved data with default template and applies field promotion
+              addActiveWidget(widget);
+            }
+          });
+        }
+
+        /**
+         * Fallback: Load widgets from selectedWidgetList if selectedWidgets was empty
+         * This ensures widgets are loaded even if selectedWidgets doesn't exist or sync failed
+         * Uses default widget templates from available_widgets
+         */
+        var selectedWidgetListToProcess = newPlaceholder.selectedWidgetList || placeholder.selectedWidgetList || [];
+        if (Array.isArray(selectedWidgetListToProcess) && selectedWidgetListToProcess.length > 0) {
+          selectedWidgetListToProcess.forEach(function (widgetKey) {
+            // Skip if already in active_widgets
+            if (_this9.active_widgets[widgetKey]) {
+              return;
+            }
+
+            // Get widget from available_widgets and add to active_widgets
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this9.available_widgets[widgetKey] !== "undefined") {
+              var widget = _this9.available_widgets[widgetKey];
+              if (widget) {
+                addActiveWidget(widget);
+              }
+            }
+          });
+        }
       };
       value.forEach(function (placeholder, index) {
-        if (!_this7.isTruthyObject(placeholder)) {
+        if (!_this9.isTruthyObject(placeholder)) {
           return;
         }
         if ("placeholder_item" === placeholder.type) {
@@ -24782,12 +26059,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           return;
         }
         if ("placeholder_group" === placeholder.type) {
-          if (!_this7.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+          if (!_this9.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
             return;
           }
-          var newPlaceholder = JSON.parse(JSON.stringify(_this7.placeholdersMap[placeholder.placeholderKey]));
+          var newPlaceholder = JSON.parse(JSON.stringify(_this9.placeholdersMap[placeholder.placeholderKey]));
           newPlaceholder.placeholders = [];
-          var targetPlaceholderIndex = _this7.placeholders.length;
+          var targetPlaceholderIndex = _this9.placeholders.length;
           newPlaceholders.splice(targetPlaceholderIndex, 0, newPlaceholder);
           placeholder.placeholders.forEach(function (subPlaceholder) {
             // if (!Array.isArray(subPlaceholder.selectedWidgets)) {
@@ -24800,13 +26077,104 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       });
       this.placeholders = newPlaceholders;
       this.allPlaceholderItems = newAllPlaceholders;
+
+      /**
+       * Process allPlaceholderItems to ensure widgets are loaded into active_widgets
+       * This is a second pass to catch any widgets that might have been missed
+       * Also performs sync between selectedWidgets and selectedWidgetList
+       */
+      if (Array.isArray(this.allPlaceholderItems) && this.allPlaceholderItems.length > 0) {
+        this.allPlaceholderItems.forEach(function (placeholderItem) {
+          /**
+           * Process a single placeholder item
+           * Handles both placeholder_item and placeholder_group types recursively
+           * @param {Object} item - Placeholder item to process
+           */
+          var _processPlaceholder = function processPlaceholder(item) {
+            if (!item || !item.placeholderKey) {
+              return;
+            }
+
+            // If selectedWidgetList is missing but selectedWidgets exists,
+            // derive selectedWidgetList from selectedWidgets by extracting widget keys
+            if ((!item.selectedWidgetList || !Array.isArray(item.selectedWidgetList) || item.selectedWidgetList.length === 0) && item.selectedWidgets && Array.isArray(item.selectedWidgets) && item.selectedWidgets.length > 0) {
+              item.selectedWidgetList = item.selectedWidgets.map(function (widget) {
+                if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widget) === "object" && widget !== null) {
+                  // Use widget_key as primary, fallback to widget_name or widget itself
+                  return widget.widget_key || widget.widget_name || widget;
+                }
+                return widget;
+              }).filter(function (key) {
+                return key != null && key !== "";
+              }); // Filter out null, undefined, and empty values
+
+              // Update the item with the new selectedWidgetList
+              _this9.$set(item, "selectedWidgetList", item.selectedWidgetList);
+            }
+
+            /**
+             * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
+             * Uses reusable sync function to keep code DRY
+             * Updates using Vue reactivity for proper reactivity
+             */
+            var syncedWidgets = _this9.syncSelectedWidgetsWithList(item.selectedWidgets, item.selectedWidgetList);
+            _this9.$set(item, "selectedWidgets", syncedWidgets);
+
+            // Process selectedWidgetList
+            if (item.selectedWidgetList && Array.isArray(item.selectedWidgetList)) {
+              item.selectedWidgetList.forEach(function (widgetKey) {
+                // Skip if already in active_widgets
+                if (_this9.active_widgets[widgetKey]) {
+                  return;
+                }
+
+                // Get widget from available_widgets and add to active_widgets
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this9.available_widgets[widgetKey] !== "undefined") {
+                  var widget = _this9.available_widgets[widgetKey];
+                  if (widget) {
+                    _this9.$set(_this9.active_widgets, widgetKey, widget);
+                  }
+                }
+              });
+            }
+
+            // Process nested placeholders if it's a placeholder_group
+            if (item.type === "placeholder_group" && item.placeholders && Array.isArray(item.placeholders)) {
+              item.placeholders.forEach(function (subPlaceholder) {
+                _processPlaceholder(subPlaceholder);
+              });
+            }
+          };
+          _processPlaceholder(placeholderItem);
+        });
+      }
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
     },
     // Import Widgets
     importWidgets: function importWidgets() {
       if (!this.isTruthyObject(this.widgets)) {
         return;
       }
-      this.available_widgets = this.widgets;
+
+      // Process widgets object and ensure widget_name and widget_key are set
+      // widgets is an object where keys are widget identifiers (e.g., "Bookmark")
+      var updatedWidgets = {};
+      for (var widgetKey in this.widgets) {
+        if (!this.widgets.hasOwnProperty(widgetKey)) {
+          continue;
+        }
+        var widget = this.widgets[widgetKey];
+
+        // Ensure widget_name and widget_key are set
+        // Use the object key if they don't exist
+        updatedWidgets[widgetKey] = _objectSpread(_objectSpread({}, widget), {}, {
+          widget_name: widget.widget_name || widgetKey,
+          widget_key: widget.widget_key || widgetKey
+        });
+      }
+      this.available_widgets = this.safeClone(updatedWidgets, true);
     },
     // Import Card Options
     importCardOptions: function importCardOptions() {
@@ -24822,7 +26190,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Import Placeholders
     importPlaceholders: function importPlaceholders() {
-      var _this8 = this;
+      var _this0 = this;
       this.allPlaceholderItems = [];
       if (!Array.isArray(this.layout)) {
         return;
@@ -24831,11 +26199,49 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         return;
       }
       var sanitizePlaceholderData = function sanitizePlaceholderData(placeholder) {
-        if (!_this8.isTruthyObject(placeholder)) {
+        if (!_this0.isTruthyObject(placeholder)) {
           placeholder = {};
         }
         if (typeof placeholder.label === "undefined") {
           placeholder.label = "";
+        }
+
+        // Process selectedWidgetList from default data and add to active_widgets
+        if (placeholder.selectedWidgetList && Array.isArray(placeholder.selectedWidgetList)) {
+          placeholder.selectedWidgetList.forEach(function (widgetKey) {
+            // Skip if already in active_widgets
+            if (_this0.active_widgets[widgetKey]) {
+              return;
+            }
+
+            // Get widget from available_widgets and add to active_widgets
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this0.available_widgets[widgetKey] !== "undefined") {
+              var widget = _this0.available_widgets[widgetKey];
+              if (widget) {
+                _this0.$set(_this0.active_widgets, widgetKey, widget);
+              }
+            }
+          });
+        }
+
+        // Also process selectedWidgets if it exists (for backward compatibility)
+        if (placeholder.selectedWidgets && Array.isArray(placeholder.selectedWidgets)) {
+          placeholder.selectedWidgets.forEach(function (widget) {
+            var widgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widget) === "object" && widget !== null ? widget.widget_key || widget.widget_name : widget;
+
+            // Skip if already in active_widgets
+            if (_this0.active_widgets[widgetKey]) {
+              return;
+            }
+
+            // Get widget from available_widgets and add to active_widgets
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this0.available_widgets[widgetKey] !== "undefined") {
+              var widgetObj = _this0.available_widgets[widgetKey];
+              if (widgetObj) {
+                _this0.$set(_this0.active_widgets, widgetKey, widgetObj);
+              }
+            }
+          });
         }
         return placeholder;
       };
@@ -24845,7 +26251,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       try {
         var _loop2 = function _loop2() {
             var placeholder = _step5.value;
-            if (!_this8.isTruthyObject(placeholder)) {
+            if (!_this0.isTruthyObject(placeholder)) {
               return 0; // continue
             }
             var placeholderItem = placeholder;
@@ -24855,15 +26261,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             if (typeof placeholderItem.placeholderKey === "undefined") {
               return 0; // continue
             }
-            if (_this8.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)) {
+            if (_this0.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)) {
               return 0; // continue
             }
-            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this8.placeholdersMap, placeholderItem.placeholderKey, placeholderItem);
+            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this0.placeholdersMap, placeholderItem.placeholderKey, placeholderItem);
             if (placeholderItem.type === "placeholder_item") {
               var placeholderItemData = sanitizePlaceholderData(placeholderItem);
               if (placeholderItemData) {
                 sanitizedPlaceholders.push(placeholderItemData);
-                _this8.allPlaceholderItems.push(placeholderItemData);
+                _this0.allPlaceholderItems.push(placeholderItemData);
               }
               return 0; // continue
             }
@@ -24878,15 +26284,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
                 return 0; // continue
               }
               placeholderItem.placeholders.forEach(function (placeholderSubItem, subPlaceholderIndex) {
-                if (_this8.placeholdersMap.hasOwnProperty(placeholderSubItem.placeholderKey)) {
+                if (_this0.placeholdersMap.hasOwnProperty(placeholderSubItem.placeholderKey)) {
                   placeholderItem.placeholders.splice(subPlaceholderIndex, 1);
                   return;
                 }
-                vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this8.placeholdersMap, placeholderSubItem.placeholderKey, placeholderSubItem);
+                vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this0.placeholdersMap, placeholderSubItem.placeholderKey, placeholderSubItem);
                 var placeholderItemData = sanitizePlaceholderData(placeholderSubItem);
                 if (placeholderItemData) {
                   placeholderItem.placeholders.splice(subPlaceholderIndex, 1, placeholderItemData);
-                  _this8.allPlaceholderItems.push(placeholderItemData);
+                  _this0.allPlaceholderItems.push(placeholderItemData);
                 }
               });
               if (placeholderItem.placeholders.length) {
@@ -24905,6 +26311,63 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         _iterator5.f();
       }
       this.placeholders = sanitizedPlaceholders;
+
+      // Process allPlaceholderItems to add widgets from selectedWidgetList to active_widgets
+      if (Array.isArray(this.allPlaceholderItems) && this.allPlaceholderItems.length > 0) {
+        this.allPlaceholderItems.forEach(function (placeholderItem) {
+          var _processPlaceholder2 = function processPlaceholder(item) {
+            if (!item || !item.placeholderKey) {
+              return;
+            }
+
+            // If selectedWidgetList is not available but selectedWidgets is available,
+            // create selectedWidgetList from selectedWidgets using widget_key
+            if ((!item.selectedWidgetList || !Array.isArray(item.selectedWidgetList) || item.selectedWidgetList.length === 0) && item.selectedWidgets && Array.isArray(item.selectedWidgets) && item.selectedWidgets.length > 0) {
+              item.selectedWidgetList = item.selectedWidgets.map(function (widget) {
+                if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widget) === "object" && widget !== null) {
+                  // Use widget_key as primary, fallback to widget_name or widget itself
+                  return widget.widget_key || widget.widget_name || widget;
+                }
+                return widget;
+              }).filter(function (key) {
+                return key != null && key !== "";
+              }); // Filter out null, undefined, and empty values
+
+              // Update the item with the new selectedWidgetList
+              _this0.$set(item, "selectedWidgetList", item.selectedWidgetList);
+            }
+
+            // Process selectedWidgetList
+            if (item.selectedWidgetList && Array.isArray(item.selectedWidgetList)) {
+              item.selectedWidgetList.forEach(function (widgetKey) {
+                // Skip if already in active_widgets
+                if (_this0.active_widgets[widgetKey]) {
+                  return;
+                }
+
+                // Get widget from available_widgets and add to active_widgets
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this0.available_widgets[widgetKey] !== "undefined") {
+                  var widget = _this0.available_widgets[widgetKey];
+                  if (widget) {
+                    _this0.$set(_this0.active_widgets, widgetKey, widget);
+                  }
+                }
+              });
+            }
+
+            // Process nested placeholders if it's a placeholder_group
+            if (item.type === "placeholder_group" && item.placeholders && Array.isArray(item.placeholders)) {
+              item.placeholders.forEach(function (subPlaceholder) {
+                _processPlaceholder2(subPlaceholder);
+              });
+            }
+          };
+          _processPlaceholder2(placeholderItem);
+        });
+      }
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
     },
     // Handle widget toggle from UI
     handleWidgetSwitch: function handleWidgetSwitch(event, widget_key, placeholder_index) {
@@ -24938,6 +26401,13 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (!Array.isArray(selectedWidgets)) {
         selectedWidgets = Object.values(selectedWidgets); // Convert object to array if needed
       }
+
+      // Filter out null items from selectedWidgetList
+      if (Array.isArray(selectedWidgetList)) {
+        selectedWidgetList = selectedWidgetList.filter(function (key) {
+          return key != null && key !== "";
+        });
+      }
       if (isChecked) {
         // Add widget if it does not exist
         if (!selectedWidgets.some(function (widget) {
@@ -24967,6 +26437,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         return acceptedWidgets.indexOf(a.widget_key) - acceptedWidgets.indexOf(b.widget_key);
       });
 
+      // Filter out null items from selectedWidgetList one more time after sorting
+      selectedWidgetList = selectedWidgetList.filter(function (key) {
+        return key != null && key !== "";
+      });
+
       // Update selectedWidgets array
       this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgets", selectedWidgets);
       this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgetList", selectedWidgetList);
@@ -24982,6 +26457,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       } else {
         this.$delete(this.active_widgets, widget_key);
       }
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
     },
     // Sync selectedWidgets across placeholders
     syncSelectedWidgets: function syncSelectedWidgets(allPlaceholderItems, placeholders) {
@@ -24997,6 +26475,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             if (!Array.isArray(selectedWidgetList)) {
               selectedWidgetList = Object.values(selectedWidgetList);
             }
+            // Filter out null items from selectedWidgetList
+            selectedWidgetList = selectedWidgetList.filter(function (key) {
+              return key != null && key !== "";
+            });
             vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "selectedWidgets", selectedWidgets);
             vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "selectedWidgetList", selectedWidgetList);
           }
@@ -25006,16 +26488,71 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           return placeholder;
         });
       };
-      return _updatePlaceholders(placeholders);
+      var result = _updatePlaceholders(placeholders);
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
+      return result;
+    },
+    // Filter active_widgets to only include widgets from selectedWidgetList of placeholder_item types
+    filterActiveWidgetsBySelectedWidgetList: function filterActiveWidgetsBySelectedWidgetList() {
+      var _this1 = this;
+      // Collect all widget keys from selectedWidgetList of placeholder_item types
+      var allowedWidgetKeys = new Set();
+      var _collectWidgetKeys = function collectWidgetKeys(items) {
+        if (!Array.isArray(items)) {
+          return;
+        }
+        items.forEach(function (item) {
+          if (item.type === "placeholder_item") {
+            // Collect widget keys from selectedWidgetList
+            if (item.selectedWidgetList && Array.isArray(item.selectedWidgetList)) {
+              item.selectedWidgetList.filter(function (widgetKey) {
+                return widgetKey != null && widgetKey !== "";
+              }).forEach(function (widgetKey) {
+                if (typeof widgetKey === "string" && widgetKey) {
+                  allowedWidgetKeys.add(widgetKey);
+                }
+              });
+            }
+          } else if (item.type === "placeholder_group" && item.placeholders && Array.isArray(item.placeholders)) {
+            // Recursively process nested placeholders
+            _collectWidgetKeys(item.placeholders);
+          }
+        });
+      };
+
+      // Collect from allPlaceholderItems
+      _collectWidgetKeys(this.allPlaceholderItems);
+
+      // Collect from placeholders (for nested groups)
+      _collectWidgetKeys(this.placeholders);
+
+      // Remove widgets from active_widgets that are not in allowedWidgetKeys
+      Object.keys(this.active_widgets).forEach(function (widgetKey) {
+        if (!allowedWidgetKeys.has(widgetKey)) {
+          _this1.$delete(_this1.active_widgets, widgetKey);
+        }
+      });
+
+      // Add widgets to active_widgets that are in allowedWidgetKeys but not yet in active_widgets
+      allowedWidgetKeys.forEach(function (widgetKey) {
+        if (!_this1.active_widgets[widgetKey] && typeof _this1.available_widgets[widgetKey] !== "undefined") {
+          var widget = _this1.available_widgets[widgetKey];
+          if (widget) {
+            _this1.$set(_this1.active_widgets, widgetKey, widget);
+          }
+        }
+      });
     },
     // Sync placeholders with allPlaceholderItems
     syncPlaceholdersWithAllPlaceholderItems: function syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
-      var _this9 = this;
+      var _this10 = this;
       var updatePlaceholderItem = function updatePlaceholderItem(placeholder, allPlaceholderItem) {
         if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
           // Filter acceptedWidgets to only include available widgets
           var filteredAcceptedWidgets = (allPlaceholderItem.acceptedWidgets || []).filter(function (widgetKey) {
-            return _this9.isWidgetAvailable(widgetKey);
+            return _this10.isWidgetAvailable(widgetKey);
           });
           placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredAcceptedWidgets);
 
@@ -25025,12 +26562,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
           // Filter selectedWidgets based on available widgets
           var filteredSelectedWidgets = selectedWidgets.filter(function (widget) {
-            return widget && widget.widget_key && _this9.isWidgetAvailable(widget.widget_key);
+            return widget && widget.widget_key && _this10.isWidgetAvailable(widget.widget_key);
           });
 
-          // Filter selectedWidgetList based on available widgets
+          // Filter selectedWidgetList based on available widgets and remove null items
           var filteredSelectedWidgetList = selectedWidgetList.filter(function (widgetKey) {
-            return _this9.isWidgetAvailable(widgetKey);
+            return widgetKey != null && widgetKey !== "";
+          }).filter(function (widgetKey) {
+            return _this10.isWidgetAvailable(widgetKey);
           });
           placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredSelectedWidgets);
           placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredSelectedWidgetList);
@@ -25051,6 +26590,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         });
       };
       _updatePlaceholders2(placeholders);
+
+      // Filter active_widgets to only include widgets from selectedWidgetList
+      this.filterActiveWidgetsBySelectedWidgetList();
       return placeholders;
     },
     // Edit Widget
@@ -25563,6 +27105,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       expandedGroupFieldsKey: null,
       // Track which group has its fields/config expanded
 
+      newlyCreatedGroupKey: null,
+      // Track newly created group to auto-edit its label
+
       listing_type_id: null,
       showModal: false
     };
@@ -25943,6 +27488,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.currentDraggingGroup = null;
     },
     addNewGroup: function addNewGroup() {
+      var _this = this;
       var group = JSON.parse(JSON.stringify(this.default_group[0]));
       if (this.groupSettings) {
         Object.assign(group, this.groupSettings);
@@ -25952,6 +27498,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var dest_index = this.active_widget_groups.length;
       this.active_widget_groups.splice(dest_index, 0, group);
+
+      // Set the newly created group key to trigger auto-edit
+      this.newlyCreatedGroupKey = dest_index;
+
+      // Clear the flag after Vue renders the component
+      this.$nextTick(function () {
+        // Use setTimeout to ensure the component is fully mounted
+        setTimeout(function () {
+          _this.newlyCreatedGroupKey = null;
+        }, 100);
+      });
       this.$emit("updated-state");
     },
     getUniqueSectionID: function getUniqueSectionID() {
@@ -26011,20 +27568,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.$emit("active-widgets-updated");
     },
     insertWidgetFromAvailableSectionWidgets: function insertWidgetFromAvailableSectionWidgets(widgets) {
-      var _this = this;
+      var _this2 = this;
       if (!(0,_helper__WEBPACK_IMPORTED_MODULE_4__.isObject)(widgets)) {
         return [];
       }
       var insertWidgetAndGetKey = function insertWidgetAndGetKey(widget_key, widget) {
-        var field_data_options = _this.getOptionDataFromWidget(widget);
-        field_data_options.widget_key = _this.genarateWidgetKeyForActiveWidgets(widget_key);
+        var field_data_options = _this2.getOptionDataFromWidget(widget);
+        field_data_options.widget_key = _this2.genarateWidgetKeyForActiveWidgets(widget_key);
         if (field_data_options.field_key) {
-          field_data_options.field_key = _this.genarateFieldKeyForActiveWidgets(field_data_options);
+          field_data_options.field_key = _this2.genarateFieldKeyForActiveWidgets(field_data_options);
         }
-        if (!(0,_helper__WEBPACK_IMPORTED_MODULE_4__.isObject)(_this.active_widget_fields)) {
-          _this.active_widget_fields = {};
+        if (!(0,_helper__WEBPACK_IMPORTED_MODULE_4__.isObject)(_this2.active_widget_fields)) {
+          _this2.active_widget_fields = {};
         }
-        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(_this.active_widget_fields, field_data_options.widget_key, field_data_options);
+        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(_this2.active_widget_fields, field_data_options.widget_key, field_data_options);
         return field_data_options.widget_key;
       };
       return Object.keys(widgets).map(function (widgetKey) {
@@ -27528,6 +29085,59 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/form-fields/helper */ "./assets/src/js/admin/vue/mixins/form-fields/helper.js");
+/* harmony import */ var _mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/form-fields/input-field-props */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'select-api-field',
+  mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  model: {
+    prop: 'value',
+    event: 'update'
+  },
+  props: {
+    apiPath: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    apiMethod: {
+      type: String,
+      default: 'GET'
+    },
+    apiParams: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    },
+    resyncLabel: {
+      type: String,
+      default: 'Reload'
+    },
+    showResyncButton: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    handleResync: function handleResync() {
+      this.$emit('resync');
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Field.vue?vue&type=script&lang=js":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Field.vue?vue&type=script&lang=js ***!
@@ -27650,6 +29260,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/form-fields/helper */ "./assets/src/js/admin/vue/mixins/form-fields/helper.js");
+/* harmony import */ var _mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/form-fields/input-field-props */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'title-field',
+  mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js ***!
@@ -27684,6 +29313,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'wp-media-picker-field',
   mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=script&lang=js":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'select-api-field-example',
+  data: function data() {
+    return {
+      selectedPost: '',
+      selectedCategory: '',
+      selectedUser: '',
+      selectedCustomOption: '',
+      selectedPostInfinite: '',
+      selectedPageNoInfinite: '',
+      selectedCustomPagination: '',
+      selectedMedia: ''
+    };
+  },
+  methods: {
+    handleCategoryChange: function handleCategoryChange(value) {
+      console.log('Category changed to:', value);
+    },
+    handleUpdate: function handleUpdate(value) {
+      console.log('Value updated to:', value);
+    },
+    handleResync: function handleResync() {
+      console.log('Resync button clicked');
+    }
+  }
 });
 
 /***/ }),
@@ -28254,6 +29920,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_select_api_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/select-api-field */ "./assets/src/js/admin/vue/mixins/form-fields/select-api-field.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "select-api-field-theme-default",
+  mixins: [_mixins_form_fields_select_api_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Field_Theme_Default.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Field_Theme_Default.vue?vue&type=script&lang=js ***!
@@ -28300,7 +29983,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'shortcode-list-field-theme-default',
-  mixins: [_mixins_form_fields_shortcode_list_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_mixins_form_fields_shortcode_list_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  methods: {
+    handleCopyAll: function handleCopyAll() {
+      this.copyToClip('all-shortcodes');
+    },
+    handleCopyKeydown: function handleCopyKeydown(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        this.handleCopyAll();
+      }
+    },
+    handleRegenerate: function handleRegenerate() {
+      var _this = this;
+      this.dirty = false;
+      this.shortcodes_list = [];
+      this.$nextTick(function () {
+        _this.generateShortcode();
+      });
+    },
+    handleRegenerateKeydown: function handleRegenerateKeydown(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        this.handleRegenerate();
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -28423,6 +30131,23 @@ __webpack_require__.r(__webpack_exports__);
     this.editorInstance = null; // Make sure to clean up
     this.initializeEditor();
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_note_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/note-field */ "./assets/src/js/admin/vue/mixins/form-fields/note-field.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "title-field-theme-default",
+  mixins: [_mixins_form_fields_note_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
 /***/ }),
@@ -28868,11 +30593,16 @@ var render = function render() {
         "fields": _vm.getWidgetFields(widget),
         "disabled": _vm.readOnly && !_vm.isWidgetSelected(widget),
         "readOnly": _vm.readOnly,
-        "activeWidgets": _vm.activeWidgets
+        "activeWidgets": _vm.activeWidgets,
+        "selectedWidgets": _vm.selectedWidgets,
+        "availableWidgets": _vm.availableWidgets
       },
       on: {
         "trash": function trash($event) {
           return _vm.$emit('trash-widget', widget);
+        },
+        "insert-widget": function insertWidget($event) {
+          return _vm.$emit('insert-widget', $event);
         },
         "edit": function edit($event) {
           return _vm.editWidget($event);
@@ -28915,11 +30645,16 @@ var render = function render() {
         "fields": _vm.getWidgetFields(widget),
         "disabled": _vm.readOnly && !_vm.isWidgetSelected(widget),
         "readOnly": _vm.readOnly,
-        "activeWidgets": _vm.activeWidgets
+        "activeWidgets": _vm.activeWidgets,
+        "selectedWidgets": _vm.selectedWidgets,
+        "availableWidgets": _vm.availableWidgets
       },
       on: {
         "trash": function trash($event) {
           return _vm.$emit('trash-widget', widget);
+        },
+        "insert-widget": function insertWidget($event) {
+          return _vm.$emit('insert-widget', $event);
         },
         "edit": function edit($event) {
           return _vm.editWidget($event);
@@ -30180,7 +31915,22 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c('div', {
     staticClass: "cptm-placeholder-author-thumb"
-  }, [_c('svg', {
+  }, [_vm.isAvailableOptions ? _c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "width": "32",
+      "height": "32",
+      "viewBox": "0 0 32 32",
+      "fill": "none"
+    }
+  }, [_c('path', {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      "d": "M16.0001 5.33268C13.4228 5.33268 11.3334 7.42202 11.3334 9.99935C11.3334 12.5767 13.4228 14.666 16.0001 14.666C18.5774 14.666 20.6668 12.5767 20.6668 9.99935C20.6668 7.42202 18.5774 5.33268 16.0001 5.33268ZM8.66678 9.99935C8.66678 5.94926 11.95 2.66602 16.0001 2.66602C20.0502 2.66602 23.3334 5.94926 23.3334 9.99935C23.3334 14.0494 20.0502 17.3327 16.0001 17.3327C11.95 17.3327 8.66678 14.0494 8.66678 9.99935ZM12.4351 19.3326C12.5112 19.3326 12.5884 19.3327 12.6668 19.3327H19.3334C19.4118 19.3327 19.489 19.3326 19.5651 19.3326C21.2015 19.332 22.3188 19.3316 23.2687 19.6197C25.3994 20.2661 27.0667 21.9334 27.713 24.0641C28.0012 25.014 28.0008 26.1313 28.0002 27.7677C28.0001 27.8438 28.0001 27.921 28.0001 27.9993C28.0001 28.7357 27.4032 29.3327 26.6668 29.3327C25.9304 29.3327 25.3334 28.7357 25.3334 27.9993C25.3334 26.0416 25.319 25.3583 25.1612 24.8382C24.7734 23.5598 23.773 22.5594 22.4946 22.1716C21.9745 22.0138 21.2912 21.9993 19.3334 21.9993H12.6668C10.709 21.9993 10.0257 22.0138 9.50564 22.1716C8.22723 22.5594 7.22682 23.5598 6.83902 24.8382C6.68125 25.3583 6.66678 26.0416 6.66678 27.9993C6.66678 28.7357 6.06982 29.3327 5.33344 29.3327C4.59706 29.3327 4.00011 28.7357 4.00011 27.9993C4.00011 27.921 4.00008 27.8438 4.00005 27.7677C3.99945 26.1313 3.99904 25.014 4.28718 24.0641C4.93351 21.9334 6.60087 20.2661 8.73154 19.6197C9.68141 19.3316 10.7988 19.332 12.4351 19.3326Z",
+      "fill": "#141921"
+    }
+  })]) : _c('svg', {
     attrs: {
       "width": "40",
       "height": "40",
@@ -30193,8 +31943,24 @@ var render = function render() {
       "d": "M35.1667 20.8327L37.5 23.1827L26.6167 34.166L20.8333 28.3327L23.1667 25.9827L26.6167 29.4493L35.1667 20.8327ZM16.6667 28.3327L21.6667 33.3327H5V29.9993C5 26.316 10.9667 23.3327 18.3333 23.3327L21.4833 23.516L16.6667 28.3327ZM18.3333 6.66602C20.1014 6.66602 21.7971 7.36839 23.0474 8.61864C24.2976 9.86888 25 11.5646 25 13.3327C25 15.1008 24.2976 16.7965 23.0474 18.0467C21.7971 19.297 20.1014 19.9993 18.3333 19.9993C16.5652 19.9993 14.8695 19.297 13.6193 18.0467C12.369 16.7965 11.6667 15.1008 11.6667 13.3327C11.6667 11.5646 12.369 9.86888 13.6193 8.61864C14.8695 7.36839 16.5652 6.66602 18.3333 6.66602Z",
       "fill": "#141921"
     }
-  })]), _vm._v(" "), _c('span', {
+  })]), _vm._v(" "), _vm.isAvailableOptions ? _c('a', {
+    staticClass: "cptm-widget-action-link cptm-placeholder-author-thumb-options",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.toggleOptions.apply(null, arguments);
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-cog"
+  })]) : _c('a', {
     staticClass: "cptm-placeholder-author-thumb-trash",
+    attrs: {
+      "href": "#"
+    },
     on: {
       "click": function click($event) {
         $event.stopPropagation();
@@ -30203,10 +31969,92 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-trash-alt"
-  })])])]), _vm._v(" "), _vm.isAvailableOptions ? _c('div', {
-    staticClass: "cptm-placeholder-author-thumb-options"
+  })])])]), _vm._v(" "), _vm.showOptions ? _c('div', {
+    staticClass: "cptm-widget-action-modal-container"
+  }, [_c('div', {
+    staticClass: "cptm-option-card cptm-animation-slide-up",
+    class: {
+      active: _vm.showOptions
+    }
+  }, [_c('div', {
+    staticClass: "cptm-option-card-header"
+  }, [_c('div', {
+    staticClass: "cptm-option-card-header-title-section"
+  }, [_c('h3', {
+    staticClass: "cptm-option-card-header-title"
+  }, [_vm._v("Edit Element")]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-header-action-area"
+  }, [_c('a', {
+    staticClass: "cptm-header-action-link cptm-header-action-close",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.toggleOptions.apply(null, arguments);
+      }
+    }
+  }, [_c('span', {
+    staticClass: "fa fa-times"
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-option-card-body"
+  }, [_c('div', {
+    staticClass: "cptm-input-toggle-wrap"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "directorist_vertical-align-m cptm-input-toggle-btn"
+  }, [_c('div', {
+    staticClass: "directorist_item"
+  }, [_c('label', {
+    staticClass: "cptm-input-toggle",
+    class: {
+      active: _vm.isEnabled
+    },
+    attrs: {
+      "for": "avatar-toggle-".concat(_vm.widgetKey)
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.isEnabled,
+      expression: "isEnabled"
+    }],
+    staticClass: "cptm-toggle-input",
+    attrs: {
+      "type": "checkbox",
+      "id": "avatar-toggle-".concat(_vm.widgetKey),
+      "name": "avatar-toggle-".concat(_vm.widgetKey)
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.isEnabled) ? _vm._i(_vm.isEnabled, null) > -1 : _vm.isEnabled
+    },
+    on: {
+      "change": [function ($event) {
+        var $$a = _vm.isEnabled,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.isEnabled = $$a.concat([$$v]));
+          } else {
+            $$i > -1 && (_vm.isEnabled = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.isEnabled = $$c;
+        }
+      }, _vm.handleToggleChange]
+    }
+  })])])]), _vm._v(" "), _vm.isAvailableOptions && _vm.hasPositionField ? _c('div', {
+    staticClass: "cptm-option-card-body-item"
+  }, [_c('label', {
+    staticClass: "cptm-option-card-body-item-label"
+  }, [_vm._v("Position")]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-option-card-body-item-options"
   }, _vm._l(_vm.optionFields, function (field, field_key) {
-    return _c(field.type + '-field', _vm._b({
+    return field_key === 'position' || field_key === 'align' || field.label === 'Position' || field.label === 'Align' ? _c(field.type + '-field', _vm._b({
       key: field_key,
       tag: "component",
       on: {
@@ -30214,10 +32062,16 @@ var render = function render() {
           return _vm.updateFieldData($event, field_key);
         }
       }
-    }, 'component', field, false));
-  }), 1) : _vm._e()]);
+    }, 'component', field, false)) : _vm._e();
+  }), 1)]) : _vm._e()])])]) : _vm._e()]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "cptm-input-toggle-content"
+  }, [_c('label', [_c('span', [_vm._v("Avatar")])])]);
+}];
 render._withStripped = true;
 
 
@@ -31583,7 +33437,16 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "cptm-form-builder-active-fields-group"
+    staticClass: "cptm-form-builder-active-fields-group",
+    on: {
+      "dragenter": function dragenter($event) {
+        $event.preventDefault();
+        return _vm.handleGroupDragEnter.apply(null, arguments);
+      },
+      "dragover": function dragover($event) {
+        $event.preventDefault();
+      }
+    }
   }, [_c('form-builder-widget-group-header-component', _vm._b({
     attrs: {
       "widgets-expanded": _vm.widgetsExpandState,
@@ -31591,7 +33454,8 @@ var render = function render() {
       "can-trash": _vm.canTrashGroup,
       "draggable": _vm.canDrag,
       "current-dragging-group": _vm.currentDraggingGroup,
-      "group-key": _vm.groupKey
+      "group-key": _vm.groupKey,
+      "auto-edit-label": _vm.autoEditLabel
     },
     on: {
       "update-group-field": function updateGroupField($event) {
@@ -31709,7 +33573,7 @@ var render = function render() {
   return _c('div', {
     staticClass: "cptm-form-builder-group-header-section",
     class: [_vm.widgetsExpanded ? 'expanded' : '', {
-      'locked': _vm.groupData.lock
+      locked: _vm.groupData.lock
     }]
   }, [_c('draggable-list-item', {
     attrs: {
@@ -31771,8 +33635,11 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _c('span', {
-    staticClass: "cptm-form-builder-group-title-label"
+  })]), _vm._v(" "), !_vm.isEditingLabel ? _c('span', {
+    staticClass: "cptm-form-builder-group-title-label",
+    on: {
+      "click": _vm.startEditingLabel
+    }
   }, [_vm.getSearchGroup() ? _c('span', {
     domProps: {
       "innerHTML": _vm._s(_vm.getSearchLabelContent())
@@ -31781,7 +33648,39 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.groupData.label)
     }
-  })])]), _vm._v(" "), _c('div', {
+  })]) : _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.editedLabelValue,
+      expression: "editedLabelValue"
+    }, {
+      name: "focus",
+      rawName: "v-focus"
+    }],
+    ref: "labelInput",
+    staticClass: "cptm-form-builder-group-title-label-input",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": _vm.editedLabelValue
+    },
+    on: {
+      "blur": _vm.saveLabel,
+      "keyup": [function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.saveLabel.apply(null, arguments);
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) return null;
+        return _vm.cancelEditingLabel.apply(null, arguments);
+      }],
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.editedLabelValue = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
     staticClass: "cptm-form-builder-header-actions"
   }, [_vm.groupFields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.groupFields) === 'object' ? _c('a', {
     staticClass: "cptm-form-builder-header-action-link",
@@ -31801,7 +33700,6 @@ var render = function render() {
     }
   })]) : _vm._e(), _vm._v(" "), !_vm.groupData.lock ? _c('a', {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.widgetsExpanded ? 'disabled' : '',
     attrs: {
       "href": "#"
     },
@@ -31845,6 +33743,7 @@ var render = function render() {
       "aria-hidden": "true"
     }
   })])]), _vm._v(" "), _c('field-list-component', {
+    key: _vm.fieldListComponentKey,
     attrs: {
       "field-list": _vm.finalGroupFields,
       "value": _vm.groupData
@@ -32867,7 +34766,10 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder",
+      "containerClass": {
+        'cptm-listing-card-preview-body-placeholder': true,
+        'cptm-mb-12': _vm.hasExcerptWidget
+      },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -32910,7 +34812,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -33266,7 +35214,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "no_thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('no_thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('no_thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -33364,7 +35358,7 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1)])])])])]);
+  })], 1)])], 1)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -33935,7 +35929,10 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder",
+      "containerClass": {
+        'cptm-listing-card-preview-body-placeholder': true,
+        'cptm-mb-12': _vm.hasExcerptWidget
+      },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -33978,7 +35975,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -34256,7 +36299,53 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "no_thumbnail_body_excerpt",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "label": _vm.local_layout.body.excerpt.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_excerpt'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_excerpt'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('no_thumbnail_body_excerpt');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('no_thumbnail_body_excerpt');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -34438,11 +36527,11 @@ var render = function render() {
         "drag-end": _vm.onSettingsDragEnd
       }
     }, _vm._l(_vm.getAvailableWidgetsForPlaceholder(placeholder), function (widget_key, widget_index) {
-      var _placeholder$selected, _placeholder$accepted;
+      var _placeholder$accepted;
       return _c('Draggable', {
         key: "".concat(placeholder_index, "_").concat(widget_key, "_").concat(widget_index),
         class: {
-          dragging: _vm.currentSettingsDraggingWidgetKey === widget_key
+          dragging: _vm.currentSettingsDraggingWidgetKey === widget_key && _vm.currentSettingsDraggingPlaceholderIndex === placeholder_index
         },
         attrs: {
           "data": {
@@ -34450,12 +36539,7 @@ var render = function render() {
           }
         }
       }, [_c('div', {
-        staticClass: "cptm-elements-settings__group__single",
-        class: {
-          'cptm-elements-settings__group__single--disabled': placeholder.maxWidget > 0 && ((_placeholder$selected = placeholder.selectedWidgets) === null || _placeholder$selected === void 0 ? void 0 : _placeholder$selected.length) >= placeholder.maxWidget && !placeholder.selectedWidgets.some(function (widget) {
-            return widget.widget_key === widget_key;
-          })
-        }
+        staticClass: "cptm-elements-settings__group__single"
       }, [((_placeholder$accepted = placeholder.acceptedWidgets) === null || _placeholder$accepted === void 0 ? void 0 : _placeholder$accepted.length) > 1 ? _c('span', {
         staticClass: "drag-handle drag-icon uil uil-draggabledots"
       }) : _vm._e(), _vm._v(" "), _c('span', {
@@ -34488,8 +36572,8 @@ var render = function render() {
           "id": "settings-".concat(widget_key, "-").concat(placeholder_index)
         },
         domProps: {
-          "checked": placeholder.selectedWidgets && placeholder.selectedWidgets.some(function (widget) {
-            return widget.widget_key === widget_key;
+          "checked": placeholder.selectedWidgetList && placeholder.selectedWidgetList.some(function (widget) {
+            return widget === widget_key;
           })
         },
         on: {
@@ -35014,7 +37098,8 @@ var render = function render() {
         "current-dragging-widget": _vm.currentDraggingWidget,
         "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
         "expanded-group-key": _vm.expandedGroupKey,
-        "expanded-group-fields-key": _vm.expandedGroupFieldsKey
+        "expanded-group-fields-key": _vm.expandedGroupFieldsKey,
+        "auto-edit-label": _vm.newlyCreatedGroupKey === widget_group_key
       },
       on: {
         "update-group-field": function updateGroupField($event) {
@@ -36213,6 +38298,40 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=template&id=0051084d":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Api_Field.vue?vue&type=template&id=0051084d ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.canShow ? _c(_vm.getTheTheme('select-api-field'), _vm._b({
+    tag: "component",
+    on: {
+      "do-action": function doAction($event) {
+        return _vm.$emit('do-action', $event);
+      },
+      "update": function update($event) {
+        return _vm.$emit('update', $event);
+      },
+      "resync": _vm.handleResync
+    }
+  }, 'component', _vm.$props, false)) : _vm._e();
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Field.vue?vue&type=template&id=dbc8a75c":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Select_Field.vue?vue&type=template&id=dbc8a75c ***!
@@ -36429,6 +38548,39 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=template&id=ae25c8f0":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Title_Field.vue?vue&type=template&id=ae25c8f0 ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.canShow ? _c(_vm.getTheTheme('title-field'), _vm._b({
+    tag: "component",
+    on: {
+      "do-action": function doAction($event) {
+        return _vm.$emit('do-action', $event);
+      },
+      "update": function update($event) {
+        return _vm.$emit('update', $event);
+      }
+    }
+  }, 'component', _vm.$props, false)) : _vm._e();
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=146db6ac":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=146db6ac ***!
@@ -36488,6 +38640,201 @@ var render = function render() {
       }
     }
   }, 'component', _vm.$props, false)) : _vm._e();
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/examples/SelectApiFieldExample.vue?vue&type=template&id=6f8cbd3a ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "select-api-field-examples"
+  }, [_c('h2', [_vm._v("Select API Field Examples")]), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 1: WordPress Posts")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Select Post",
+      "api-path": "/wp-json/wp/v2/posts",
+      "api-params": {
+        per_page: 20,
+        status: 'publish'
+      },
+      "description": "Select a published post from WordPress",
+      "resync-label": "Refresh Posts"
+    },
+    model: {
+      value: _vm.selectedPost,
+      callback: function callback($$v) {
+        _vm.selectedPost = $$v;
+      },
+      expression: "selectedPost"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected Post ID: " + _vm._s(_vm.selectedPost || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 2: Categories")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Select Category",
+      "api-path": "/wp-json/wp/v2/categories",
+      "api-params": {
+        per_page: 50,
+        orderby: 'name'
+      },
+      "description": "Select a category",
+      "resync-label": "Refresh Categories"
+    },
+    on: {
+      "update": _vm.handleCategoryChange
+    },
+    model: {
+      value: _vm.selectedCategory,
+      callback: function callback($$v) {
+        _vm.selectedCategory = $$v;
+      },
+      expression: "selectedCategory"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected Category ID: " + _vm._s(_vm.selectedCategory || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 3: Without Resync Button")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Select User",
+      "api-path": "/wp-json/wp/v2/users",
+      "api-params": {
+        per_page: 100
+      },
+      "show-resync-button": false,
+      "description": "User list without resync option"
+    },
+    model: {
+      value: _vm.selectedUser,
+      callback: function callback($$v) {
+        _vm.selectedUser = $$v;
+      },
+      expression: "selectedUser"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected User ID: " + _vm._s(_vm.selectedUser || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 4: With Event Handlers")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Custom Options",
+      "api-path": "/wp-json/wp/v2/tags",
+      "description": "With event handlers",
+      "resync-label": "Refresh"
+    },
+    on: {
+      "update": _vm.handleUpdate,
+      "resync": _vm.handleResync
+    },
+    model: {
+      value: _vm.selectedCustomOption,
+      callback: function callback($$v) {
+        _vm.selectedCustomOption = $$v;
+      },
+      expression: "selectedCustomOption"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedCustomOption || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 5: Infinite Scroll - Small Page Size")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Posts with Infinite Scroll",
+      "api-path": "/wp-json/wp/v2/posts",
+      "per-page": 10,
+      "enable-infinite-scroll": true,
+      "description": "Loads 10 posts at a time. Scroll down to load more.",
+      "resync-label": "Refresh Posts"
+    },
+    model: {
+      value: _vm.selectedPostInfinite,
+      callback: function callback($$v) {
+        _vm.selectedPostInfinite = $$v;
+      },
+      expression: "selectedPostInfinite"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedPostInfinite || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 6: Infinite Scroll Disabled")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Pages without Infinite Scroll",
+      "api-path": "/wp-json/wp/v2/pages",
+      "enable-infinite-scroll": false,
+      "description": "Loads all available items in a single request"
+    },
+    model: {
+      value: _vm.selectedPageNoInfinite,
+      callback: function callback($$v) {
+        _vm.selectedPageNoInfinite = $$v;
+      },
+      expression: "selectedPageNoInfinite"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedPageNoInfinite || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 7: Custom Pagination Params")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Custom API Pagination",
+      "api-path": "/wp-json/wp/v2/posts",
+      "per-page": 15,
+      "scroll-threshold": 50,
+      "page-param": "page",
+      "per-page-param": "per_page",
+      "description": "Custom scroll threshold (50px from bottom)"
+    },
+    model: {
+      value: _vm.selectedCustomPagination,
+      callback: function callback($$v) {
+        _vm.selectedCustomPagination = $$v;
+      },
+      expression: "selectedCustomPagination"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected: " + _vm._s(_vm.selectedCustomPagination || 'None'))])], 1), _vm._v(" "), _c('div', {
+    staticClass: "example-section"
+  }, [_c('h3', [_vm._v("Example 8: Media Library")]), _vm._v(" "), _c('select-api-field', {
+    attrs: {
+      "label": "Select Media",
+      "api-path": "/wp-json/wp/v2/media",
+      "per-page": 20,
+      "api-params": {
+        media_type: 'image'
+      },
+      "description": "Browse media library with infinite scroll"
+    },
+    model: {
+      value: _vm.selectedMedia,
+      callback: function callback($$v) {
+        _vm.selectedMedia = $$v;
+      },
+      expression: "selectedMedia"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "selected-value"
+  }, [_vm._v("Selected Media ID: " + _vm._s(_vm.selectedMedia || 'None'))])], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -37111,7 +39458,10 @@ var render = function render() {
       attrs: {
         "for": _vm.getOptionID(option, option_index, _vm.sectionId)
       }
-    }, [_vm._v("\n                " + _vm._s(option.label) + "\n              ")])]);
+    }, [option.icon ? _c('span', {
+      staticClass: "cptm-radio-item-icon",
+      class: option.icon
+    }) : _vm._e(), _vm._v("\n                " + _vm._s(option.label) + "\n              ")])]);
   }), 0), _vm._v(" "), !_vm.theOptions.length ? _c('p', {
     staticClass: "cptm-info-text"
   }, [_vm._v("\n            " + _vm._s(_vm.infoTextForNoOption) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
@@ -38605,7 +40955,10 @@ var render = function render() {
       attrs: {
         "for": _vm.getOptionID(option, option_index, _vm.sectionId)
       }
-    }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                ")])]);
+    }, [option.icon ? _c('span', {
+      staticClass: "cptm-radio-item-icon",
+      class: option.icon
+    }) : _vm._e(), _vm._v("\n                    " + _vm._s(option.label) + "\n                ")])]);
   }), 0), _vm._v(" "), !_vm.theOptions.length ? _c('p', {
     staticClass: "cptm-info-text"
   }, [_vm._v(_vm._s(_vm.infoTextForNoOption))]) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
@@ -38784,6 +41137,276 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Api_Field_Theme_Default.vue?vue&type=template&id=6ae69fa6 ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "cptm-form-group cptm-form-group--dropdown cptm-form-group--api-select",
+    class: _vm.formGroupClass
+  }, [_c('div', {
+    staticClass: "cptm-form-title-field"
+  }, [_vm.label.length ? _c('label', {
+    staticClass: "cptm-form-title-field__label"
+  }, [_c(_vm.labelType, {
+    tag: "component"
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('div', {
+    staticClass: "cptm-form-title-field__description",
+    domProps: {
+      "innerHTML": _vm._s(_vm.description)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "directorist_dropdown",
+    class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, '--open', _vm.show_option_modal), '--disabled', _vm.isLoading || _vm.hasError)
+  }, [_c('a', {
+    staticClass: "directorist_dropdown-toggle",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.toggleTheOptionModal();
+      }
+    }
+  }, [_c('span', {
+    staticClass: "directorist_dropdown-toggle__text"
+  }, [_vm._v(_vm._s(_vm.theCurrentOptionLabel))])]), _vm._v(" "), _vm.theOptions && _vm.theOptions.length && !_vm.isLoading && !_vm.hasError ? _c('div', {
+    ref: "dropdownOptions",
+    staticClass: "directorist_dropdown-option",
+    class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, '--show', _vm.show_option_modal)
+  }, [_c('ul', _vm._l(_vm.theOptions, function (option, option_key) {
+    return _c('li', {
+      key: option_key
+    }, [_c('a', {
+      class: {
+        active: option.value == _vm.value ? true : false
+      },
+      attrs: {
+        "href": "#"
+      },
+      domProps: {
+        "innerHTML": _vm._s(option.label ? option.label : '')
+      },
+      on: {
+        "click": function click($event) {
+          $event.preventDefault();
+          return _vm.updateOption(option.value);
+        }
+      }
+    })]);
+  }), 0)]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "center",
+      "padding": "40px 20px",
+      "background": "#ffffff",
+      "border": "1px solid #E5E7EB",
+      "border-radius": "8px",
+      "margin-top": "10px",
+      "box-shadow": "0px 2px 8px 0px rgba(16, 24, 40, 0.08)"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('h4', {
+    staticStyle: {
+      "margin": "0 0 10px 0",
+      "font-size": "16px",
+      "font-weight": "600",
+      "color": "#333"
+    }
+  }, [_vm._v("No page found yet")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm.showResyncButton ? _c('button', {
+    staticClass: "cptm-form-group--api-select-re-sync",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.handleResync
+    }
+  }, [_c('span', {
+    staticClass: "la la-refresh"
+  }), _vm._v("\n      Reload\n    ")]) : _vm._e()]), _vm._v(" "), _vm.hasError ? _c('div', {
+    staticStyle: {
+      "text-align": "center",
+      "padding": "40px 20px",
+      "background": "#fef2f2",
+      "border": "1px solid #fecaca",
+      "border-radius": "4px",
+      "margin-top": "10px"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "margin-bottom": "15px"
+    }
+  }, [_c('svg', {
+    staticStyle: {
+      "margin": "0 auto",
+      "display": "block"
+    },
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "width": "48",
+      "height": "48",
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "#dc2626",
+      "stroke-width": "2"
+    }
+  }, [_c('circle', {
+    attrs: {
+      "cx": "12",
+      "cy": "12",
+      "r": "10"
+    }
+  }), _vm._v(" "), _c('line', {
+    attrs: {
+      "x1": "12",
+      "y1": "8",
+      "x2": "12",
+      "y2": "12"
+    }
+  }), _vm._v(" "), _c('line', {
+    attrs: {
+      "x1": "12",
+      "y1": "16",
+      "x2": "12.01",
+      "y2": "16"
+    }
+  })])]), _vm._v(" "), _c('h4', {
+    staticStyle: {
+      "margin": "0 0 10px 0",
+      "font-size": "16px",
+      "font-weight": "600",
+      "color": "#dc2626"
+    }
+  }, [_vm._v("Error Loading Data")]), _vm._v(" "), _c('p', {
+    staticStyle: {
+      "margin": "0 0 20px 0",
+      "color": "#991b1b",
+      "font-size": "14px"
+    }
+  }, [_vm._v(_vm._s(_vm.errorMessage))]), _vm._v(" "), _c('button', {
+    staticStyle: {
+      "display": "inline-flex",
+      "align-items": "center",
+      "gap": "8px",
+      "padding": "10px 20px",
+      "background": "#dc2626",
+      "color": "white",
+      "border": "none",
+      "border-radius": "4px",
+      "font-size": "14px",
+      "cursor": "pointer",
+      "font-weight": "500"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.handleResync
+    }
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "width": "16",
+      "height": "16",
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c('polyline', {
+    attrs: {
+      "points": "23 4 23 10 17 10"
+    }
+  }), _vm._v(" "), _c('polyline', {
+    attrs: {
+      "points": "1 20 1 14 7 14"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
+    }
+  })]), _vm._v("\n      Retry\n    ")])]) : _vm._e(), _vm._v(" "), _c('select', {
+    staticClass: "cptm-d-none",
+    attrs: {
+      "disabled": _vm.isLoading || _vm.hasError
+    },
+    domProps: {
+      "value": _vm.value
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.update_value($event.target.value);
+      }
+    }
+  }, [_vm.showDefaultOption && _vm.default_option ? _c('option', {
+    domProps: {
+      "value": _vm.default_option.value
+    }
+  }, [_vm._v("\n      " + _vm._s(_vm.default_option.label) + "\n    ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
+    return _c('option', {
+      key: option_key,
+      domProps: {
+        "value": option.value
+      }
+    }, [_vm._v("\n      " + _vm._s(option.label) + "\n    ")]);
+  })], 2), _vm._v(" "), _c('form-field-validatior', {
+    attrs: {
+      "section-id": _vm.sectionId,
+      "field-id": _vm.fieldId,
+      "root": _vm.root,
+      "value": _vm.value,
+      "rules": _vm.rules
+    },
+    on: {
+      "validate": function validate($event) {
+        return _vm.$emit('validate', $event);
+      }
+    },
+    model: {
+      value: _vm.validationLog,
+      callback: function callback($$v) {
+        _vm.validationLog = $$v;
+      },
+      expression: "validationLog"
+    }
+  })], 1);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "cptm-form-group--api-select-icon"
+  }, [_c('span', {
+    staticClass: "la la-file-text"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('p', {
+    staticStyle: {
+      "margin": "0 0 20px 0",
+      "color": "#666",
+      "font-size": "14px"
+    }
+  }, [_vm._v("\n      Click the Reload button below to sync"), _c('br'), _vm._v("newly created pages here.\n    ")]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Field_Theme_Default.vue?vue&type=template&id=2438a56b":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Select_Field_Theme_Default.vue?vue&type=template&id=2438a56b ***!
@@ -38802,7 +41425,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "cptm-form-group",
+    staticClass: "cptm-form-group cptm-form-group--dropdown",
     class: _vm.formGroupClass
   }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
     tag: "component"
@@ -38965,12 +41588,8 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "cptm-form-group",
+    staticClass: "cptm-form-group cptm-shortcode-generator",
     class: _vm.formGroupClass
-  }, [_c('div', {
-    staticClass: "atbdp-row"
-  }, [_c('div', {
-    staticClass: "atbdp-col atbdp-col-6"
   }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
     tag: "component"
   }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
@@ -38978,53 +41597,74 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "atbdp-col atbdp-col-6 directorist-text-right directorist-mb-n20"
-  }, [_vm.successMsg.length ? _c('span', {
-    staticClass: "cptm-info-text cptm-info-success directorist-center-content-inline",
-    domProps: {
-      "innerHTML": _vm._s(_vm.successMsg)
-    }
-  }) : _vm._e(), _vm._v(" "), _vm.shortcodes_list.length ? _c('button', {
-    staticClass: "cptm-btn cptm-generate-shortcode-button",
+  }) : _vm._e(), _vm._v(" "), !_vm.dirty ? _c('button', {
+    staticClass: "cptm-btn cptm-btn-primary cptm-generate-shortcode-button",
     attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.copyToClip('all-shortcodes');
-      }
-    }
-  }, [_c('span', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.copyButtonLabel)
-    }
-  })]) : _vm._e(), _vm._v(" "), _c('button', {
-    staticClass: "cptm-btn cptm-generate-shortcode-button",
-    attrs: {
-      "type": "button"
+      "type": "button",
+      "tabindex": "0",
+      "aria-label": "Generate Shortcodes"
     },
     on: {
       "click": _vm.generateShortcode
     }
-  }, [_c('span', {
+  }, [_c('i', {
+    staticClass: "fas fa-code"
+  }), _vm._v(" "), _c('span', {
     domProps: {
-      "innerHTML": _vm._s(_vm.generateButtonLabel)
+      "innerHTML": _vm._s(_vm.generateButtonLabel || 'Generate Shortcodes')
     }
-  })])])]), _vm._v(" "), _vm.dirty ? _c('div', [_vm.shortcodes_list.length ? _c('div', {
+  })]) : _vm._e(), _vm._v(" "), _vm.dirty ? _c('div', [_vm.shortcodes_list.length ? _c('div', {
+    staticClass: "cptm-shortcodes-wrapper"
+  }, [_c('div', {
+    staticClass: "cptm-shortcodes-box"
+  }, [_c('button', {
+    staticClass: "cptm-copy-icon-button",
+    attrs: {
+      "type": "button",
+      "tabindex": "0",
+      "aria-label": "Click to copy all shortcodes",
+      "title": "Click to copy this"
+    },
+    on: {
+      "click": _vm.handleCopyAll,
+      "keydown": _vm.handleCopyKeydown
+    }
+  }, [_c('i', {
+    staticClass: "far fa-copy"
+  })]), _vm._v(" "), _c('div', {
     ref: "all-shortcodes",
-    staticClass: "cptm-shortcodes"
+    staticClass: "cptm-shortcodes-content"
   }, _vm._l(_vm.shortcodes_list, function (shortcode, i) {
     return _c('p', {
       key: i,
-      ref: "shortcodes",
-      refInFor: true,
-      staticClass: "directorist-alert",
+      staticClass: "cptm-shortcode-item",
       domProps: {
         "innerHTML": _vm._s(shortcode)
       }
     });
-  }), 0) : _c('div', [_c('p', {
+  }), 0)]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-shortcodes-footer"
+  }, [_c('span', {
+    staticClass: "cptm-footer-text"
+  }, [_vm._v("Copy & Paste shortcodes into a new or existing page")]), _vm._v(" "), _c('span', {
+    staticClass: "cptm-footer-separator"
+  }, [_vm._v("|")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-regenerate-link",
+    attrs: {
+      "href": "#",
+      "tabindex": "0",
+      "aria-label": "Regenerate shortcodes"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.handleRegenerate.apply(null, arguments);
+      },
+      "keydown": _vm.handleRegenerateKeydown
+    }
+  }, [_vm._v("\n                    Re-Generate Code\n                ")])])]) : _c('div', {
+    staticClass: "cptm-no-shortcodes"
+  }, [_c('p', {
     staticClass: "directorist-alert"
   }, [_vm._v("Nothing to generate")])])]) : _vm._e()]);
 };
@@ -39283,6 +41923,41 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=template&id=58337667":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Title_Field_Theme_Default.vue?vue&type=template&id=58337667 ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "cptm-form-title-field"
+  }, [_c('div', [_c('h2', {
+    staticClass: "cptm-form-title-field__label",
+    domProps: {
+      "innerHTML": _vm._s(_vm.title)
+    }
+  }), _vm._v(" "), _vm.description.length ? _c('div', {
+    staticClass: "cptm-form-title-field__description",
+    domProps: {
+      "innerHTML": _vm._s(_vm.description)
+    }
+  }) : _vm._e()])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Toggle_Field_Theme_Default.vue?vue&type=template&id=5b3eb87a":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Toggle_Field_Theme_Default.vue?vue&type=template&id=5b3eb87a ***!
@@ -39301,7 +41976,11 @@ var render = function render() {
   return _c('div', {
     staticClass: "cptm-form-group"
   }, [_c('div', {
-    staticClass: "cptm-input-toggle-wrap"
+    staticClass: "cptm-input-toggle-wrap",
+    class: {
+      'cptm-input-toggle-left': _vm.toggle_position === 'left',
+      'cptm-input-toggle-right': _vm.toggle_position === 'right'
+    }
   }, [_c('div', {
     staticClass: "cptm-input-toggle-content"
   }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
@@ -57901,6 +60580,12 @@ var index = {
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {

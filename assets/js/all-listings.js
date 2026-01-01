@@ -3467,31 +3467,43 @@
 							shortcode === 'directorist_category' &&
 							category.trim() !== ''
 						) {
-							var categorySelect = document.querySelector(
+							var categorySelects = document.querySelectorAll(
 								'.directorist-search-form .directorist-category-select'
 							);
-							if (categorySelect) {
-								categorySelect
-									.closest('.directorist-search-category')
-									.classList.add(
-										'directorist-search-form__single-category'
-									);
-							}
+							categorySelects.forEach(function (categorySelect) {
+								if (categorySelect) {
+									var categoryContainer =
+										categorySelect.closest(
+											'.directorist-search-category'
+										);
+									if (categoryContainer) {
+										categoryContainer.classList.add(
+											'directorist-search-form__single-category'
+										);
+									}
+								}
+							});
 						}
 						if (
 							shortcode === 'directorist_location' &&
 							location.trim() !== ''
 						) {
-							var locationSelect = document.querySelector(
+							var locationSelects = document.querySelectorAll(
 								'.directorist-search-form .directorist-location-select'
 							);
-							if (locationSelect) {
-								locationSelect
-									.closest('.directorist-search-location')
-									.classList.add(
-										'directorist-search-form__single-location'
-									);
-							}
+							locationSelects.forEach(function (locationSelect) {
+								if (locationSelect) {
+									var locationContainer =
+										locationSelect.closest(
+											'.directorist-search-location'
+										);
+									if (locationContainer) {
+										locationContainer.classList.add(
+											'directorist-search-form__single-location'
+										);
+									}
+								}
+							});
 						}
 					}
 

@@ -15641,50 +15641,6 @@ input.directorist-toggle-input:checked
 	.directorist-select2-dropdown-close {
 	display: none;
 }
-.directorist-search-form__top .directorist-search-form__single-category {
-	cursor: not-allowed;
-}
-.directorist-search-form__top
-	.directorist-search-form__single-category
-	.directorist-category-select {
-	opacity: 0.6;
-	pointer-events: none;
-}
-.directorist-search-form__top
-	.directorist-search-form__single-category
-	.directorist-category-select
-	~ .select2-container {
-	opacity: 0.6;
-	pointer-events: none;
-}
-.directorist-search-form__top
-	.directorist-search-form__single-category
-	~ .directorist-search-field__btn {
-	cursor: not-allowed;
-	pointer-events: none;
-}
-.directorist-search-form__top .directorist-search-form__single-location {
-	cursor: not-allowed;
-}
-.directorist-search-form__top
-	.directorist-search-form__single-location
-	.directorist-location-select {
-	opacity: 0.6;
-	pointer-events: none;
-}
-.directorist-search-form__top
-	.directorist-search-form__single-location
-	.directorist-location-select
-	~ .select2-container {
-	opacity: 0.6;
-	pointer-events: none;
-}
-.directorist-search-form__top
-	.directorist-search-form__single-location
-	~ .directorist-search-field__btn {
-	cursor: not-allowed;
-	pointer-events: none;
-}
 .directorist-search-form__top .directorist-search-field {
 	-webkit-box-flex: 30%;
 	-webkit-flex: 30%;
@@ -16739,6 +16695,40 @@ input.directorist-toggle-input:checked
 	.directorist-form-group__with-prefix
 	~ .directorist-search-field__btn--clear {
 	bottom: 12px;
+}
+.directorist-search-form__single-category {
+	cursor: not-allowed;
+}
+.directorist-search-form__single-category .directorist-category-select {
+	opacity: 0.6;
+	pointer-events: none;
+}
+.directorist-search-form__single-category
+	.directorist-category-select
+	~ .select2-container {
+	opacity: 0.6;
+	pointer-events: none;
+}
+.directorist-search-form__single-category ~ .directorist-search-field__btn {
+	cursor: not-allowed;
+	pointer-events: none;
+}
+.directorist-search-form__single-location {
+	cursor: not-allowed;
+}
+.directorist-search-form__single-location .directorist-location-select {
+	opacity: 0.6;
+	pointer-events: none;
+}
+.directorist-search-form__single-location
+	.directorist-location-select
+	~ .select2-container {
+	opacity: 0.6;
+	pointer-events: none;
+}
+.directorist-search-form__single-location ~ .directorist-search-field__btn {
+	cursor: not-allowed;
+	pointer-events: none;
 }
 
 .directorist-search-form-action {

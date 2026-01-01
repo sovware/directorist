@@ -2097,6 +2097,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 margin-top: 8px !important;
                 padding-top: 8px !important;
             }
+
+            #adminmenu .wp-menu-image img{
+                padding:7px 0 0 !important
+            }
+
             </style>
             <script>
             /* Minimal JS - WordPress doesn't allow PHP to modify admin menu <li> classes */

@@ -487,6 +487,7 @@ export default {
 
       // Use the stored field key (set when conditional logic was enabled)
       const currentFieldKey = this.currentFieldKeyForExclusion;
+
       const skipKeys = [
         "logic",
         "conditional_logic",
@@ -521,6 +522,30 @@ export default {
           if (fieldValue === currentKey) {
             return false;
           }
+
+          // Also check field.widget.field_key (which is used in formatFieldsForDropdown: widget.field_key || widgetKey)
+          if (field.widget && field.widget.field_key) {
+            const widgetFieldKey = field.widget.field_key
+              .toString()
+              .trim()
+              .toLowerCase();
+            if (widgetFieldKey === currentKey) {
+              return false;
+            }
+            // Also check without "custom-" prefix
+            const widgetFieldKeyWithoutCustom = widgetFieldKey.replace(
+              /^custom-/,
+              "",
+            );
+            const currentKeyWithoutCustom = currentKey.replace(/^custom-/, "");
+            if (
+              widgetFieldKeyWithoutCustom === currentKeyWithoutCustom &&
+              widgetFieldKeyWithoutCustom
+            ) {
+              return false;
+            }
+          }
+
           // Also check if field.value matches currentFieldKey when removing "custom-" prefix
           const fieldValueWithoutCustom = fieldValue.replace(/^custom-/, "");
           const currentKeyWithoutCustom = currentKey.replace(/^custom-/, "");

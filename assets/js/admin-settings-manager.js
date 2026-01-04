@@ -1902,117 +1902,161 @@
 								return skipKeys.includes(normalized);
 							};
 
-							// PRIORITY 1: Extract from fieldId (format: "section_fieldKey_optionKey" or "fieldKey_optionKey")
+							// PRIORITY 0: Check fieldKey prop directly (most reliable)
+							if (this.fieldKey && !shouldSkip(this.fieldKey)) {
+								var fieldKeyStr = this.fieldKey
+									.toString()
+									.trim();
+								var availableFields =
+									this.availableFields || [];
+								var availableFieldKeys = availableFields.map(
+									function (f) {
+										return f.value;
+									}
+								);
+								if (availableFieldKeys.includes(fieldKeyStr)) {
+									return fieldKeyStr;
+								}
+								// Even if not in availableFields, return it if it looks valid (availableFields might not be loaded yet)
+								if (fieldKeyStr && fieldKeyStr.length > 0) {
+									return fieldKeyStr;
+								}
+							}
+
+							// PRIORITY 1: Extract from fieldId (e.g., "section_category_conditional_logic" -> "category")
 							if (
 								this.fieldId &&
 								this.fieldId.toString().includes('_')
 							) {
+								var _parts, _parts2;
 								var parts = this.fieldId.toString().split('_');
-								// Try parts from end to beginning (last parts are usually the field key)
-								for (var i = parts.length - 2; i >= 0; i--) {
-									var possibleKey = parts[i].trim();
-									if (
-										possibleKey &&
-										!shouldSkip(possibleKey)
+								var lastPart =
+									(_parts = parts[parts.length - 1]) ===
+										null || _parts === void 0
+										? void 0
+										: _parts.toLowerCase();
+								var secondLastPart =
+									(_parts2 = parts[parts.length - 2]) ===
+										null || _parts2 === void 0
+										? void 0
+										: _parts2.toLowerCase();
+								var isConditionalLogicField =
+									(lastPart === 'conditional' ||
+										lastPart === 'logic') &&
+									(secondLastPart === 'conditional' ||
+										secondLastPart === 'logic');
+								var extractedKey = null;
+								if (isConditionalLogicField) {
+									extractedKey = parts
+										.slice(0, parts.length - 2)
+										.join('_');
+								} else {
+									for (
+										var i = parts.length - 2;
+										i >= 0;
+										i--
 									) {
-										// Verify it's in availableFields
-										var availableFields =
-											this.availableFields || [];
-										var availableFieldKeys =
-											availableFields.map(function (f) {
-												return f.value;
-											});
-										if (
-											availableFieldKeys.includes(
-												possibleKey
-											)
-										) {
-											return possibleKey;
+										var key = parts[i].trim();
+										if (key && !shouldSkip(key)) {
+											extractedKey = key;
+											break;
 										}
 									}
 								}
-							}
-
-							// PRIORITY 2: Get from Options_Window widget prop or activeWidget
-							var parent = this.$parent;
-							var depth = 0;
-							while (parent && depth < 25) {
-								if (parent.$options) {
-									var componentName =
-										parent.$options.name || '';
-									if (
-										componentName === 'options-window' ||
-										componentName === 'Options_Window'
-									) {
-										// Try widget prop
-										if (
-											parent.widget &&
-											!shouldSkip(parent.widget)
-										) {
-											var widgetKey = parent.widget
-												.toString()
-												.trim();
-											var _availableFields =
-												this.availableFields || [];
-											var _availableFieldKeys =
-												_availableFields.map(
-													function (f) {
-														return f.value;
-													}
+								if (extractedKey && !shouldSkip(extractedKey)) {
+									var _availableFields =
+										this.availableFields || [];
+									if (_availableFields.length > 0) {
+										var match = _availableFields.find(
+											function (f) {
+												if (f.value === extractedKey)
+													return true;
+												if (!f.widget) return false;
+												return (
+													f.widget.widget_key ===
+														extractedKey ||
+													f.widget.widget_name ===
+														extractedKey ||
+													f.widget.name ===
+														extractedKey ||
+													f.widget.type ===
+														extractedKey
 												);
-											if (
-												_availableFieldKeys.includes(
-													widgetKey
-												)
-											) {
-												return widgetKey;
 											}
+										);
+										if (match) {
+											return match.value;
 										}
-
-										// Try activeWidget.widget_key or activeWidget.key
-										if (parent.activeWidget) {
-											var keysToCheck = [
-												parent.activeWidget.widget_key,
-												parent.activeWidget.key,
-												parent.activeWidget.widget_name,
-												parent.activeWidget.name,
-											];
-											for (
-												var _i = 0,
-													_keysToCheck = keysToCheck;
-												_i < _keysToCheck.length;
-												_i++
-											) {
-												var key = _keysToCheck[_i];
-												if (key && !shouldSkip(key)) {
-													var keyStr = key
-														.toString()
-														.trim();
-													var _availableFields2 =
-														this.availableFields ||
-														[];
-													var _availableFieldKeys2 =
-														_availableFields2.map(
-															function (f) {
-																return f.value;
-															}
-														);
-													if (
-														_availableFieldKeys2.includes(
-															keyStr
-														)
-													) {
-														return keyStr;
-													}
-												}
-											}
-										}
-										break;
 									}
+									return extractedKey;
 								}
-								parent = parent.$parent;
-								depth++;
 							}
+
+							// PRIORITY 2: Get from parent Options_Window component (widget prop or activeWidget)
+							// let parent = this.$parent;
+							// let depth = 0;
+							// while (parent && depth < 25) {
+							// 	if (
+							// 		parent.$options &&
+							// 		(parent.$options.name === 'options-window' ||
+							// 			parent.$options.name === 'Options_Window')
+							// 	) {
+							// 		// Method 1: Get widgetKey from widget prop (e.g., "title_123")
+							// 		if (parent.widget && !shouldSkip(parent.widget)) {
+							// 			const widgetKey = parent.widget.toString().trim();
+							// 			const availableFields = this.availableFields || [];
+
+							// 			if (availableFields.length > 0) {
+							// 				const match = availableFields.find((f) => {
+							// 					return (
+							// 						f.value === widgetKey ||
+							// 						(f.widget &&
+							// 							(f.widget.widget_key === widgetKey ||
+							// 								f.widget.field_key === widgetKey))
+							// 					);
+							// 				});
+							// 				if (match) {
+							// 					return match.value;
+							// 				}
+							// 			}
+							// 			return widgetKey;
+							// 		}
+
+							// 		// Method 2: Get key from activeWidget object properties
+							// 		if (parent.activeWidget) {
+							// 			const keysToCheck = [
+							// 				parent.activeWidget.widget_key,
+							// 				parent.activeWidget.field_key,
+							// 				parent.activeWidget.options?.field_key,
+							// 				parent.activeWidget.key,
+							// 				parent.activeWidget.widget_name,
+							// 				parent.activeWidget.name,
+							// 			];
+
+							// 			for (let key of keysToCheck) {
+							// 				if (key && !shouldSkip(key)) {
+							// 					const keyStr = key.toString().trim();
+							// 					const availableFields =
+							// 						this.availableFields || [];
+							// 					if (availableFields.length > 0) {
+							// 						const match = availableFields.find(
+							// 							(f) => f.value === keyStr
+							// 						);
+							// 						if (match) {
+							// 							return match.value;
+							// 						}
+							// 					} else {
+							// 						return keyStr;
+							// 					}
+							// 				}
+							// 			}
+							// 		}
+							// 		break;
+							// 	}
+							// 	parent = parent.$parent;
+							// 	depth++;
+							// }
+
 							return null;
 						},
 						updateValue: function updateValue() {
@@ -54251,6 +54295,43 @@
 											if (fieldValue === currentKey) {
 												return false;
 											}
+
+											// Also check field.widget.field_key (which is used in formatFieldsForDropdown: widget.field_key || widgetKey)
+											if (
+												field.widget &&
+												field.widget.field_key
+											) {
+												var widgetFieldKey =
+													field.widget.field_key
+														.toString()
+														.trim()
+														.toLowerCase();
+												if (
+													widgetFieldKey ===
+													currentKey
+												) {
+													return false;
+												}
+												// Also check without "custom-" prefix
+												var widgetFieldKeyWithoutCustom =
+													widgetFieldKey.replace(
+														/^custom-/,
+														''
+													);
+												var _currentKeyWithoutCustom =
+													currentKey.replace(
+														/^custom-/,
+														''
+													);
+												if (
+													widgetFieldKeyWithoutCustom ===
+														_currentKeyWithoutCustom &&
+													widgetFieldKeyWithoutCustom
+												) {
+													return false;
+												}
+											}
+
 											// Also check if field.value matches currentFieldKey when removing "custom-" prefix
 											var fieldValueWithoutCustom =
 												fieldValue.replace(

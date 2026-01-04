@@ -683,32 +683,18 @@ export default {
 			const widget = fieldData.widget;
 
 			// Handle category field - needs special handling via AJAX or passed data
-			if (
-				fieldType === 'category' ||
-				condition.field === 'category' ||
-				condition.field === 'categories'
-			) {
+			if (condition.field === 'admin_category_select[]') {
 				// Return placeholder - will be loaded via AJAX or from passed data
 				return this.getCategoryOptions();
 			}
 
 			// Handle tag field - needs special handling via AJAX or passed data
-			if (
-				fieldType === 'tag' ||
-				fieldType === 'tags' ||
-				condition.field === 'tag' ||
-				condition.field === 'tags'
-			) {
+			if (condition.field === 'tax_input[at_biz_dir-tags][]') {
 				return this.getTagOptions();
 			}
 
 			// Handle location field - needs special handling via AJAX or passed data
-			if (
-				fieldType === 'location' ||
-				fieldType === 'locations' ||
-				condition.field === 'location' ||
-				condition.field === 'locations'
-			) {
+			if (condition.field === 'tax_input[at_biz_dir-location][]') {
 				return this.getLocationOptions();
 			}
 
@@ -1003,9 +989,11 @@ export default {
 			const options = [];
 
 			// Method 1: Try to get from availableFields if category field exists
+			// Check by field value (field_key) or widget_name/type
 			const categoryField = this.availableFields.find(
-				(f) => f.value === 'category' || f.value === 'categories'
+				(f) => f.value === 'admin_category_select[]'
 			);
+
 			if (
 				categoryField &&
 				categoryField.widget &&
@@ -1125,9 +1113,11 @@ export default {
 			const options = [];
 
 			// Method 1: Try to get from availableFields if tag field exists
+			// Check by field value (field_key) or widget_name/type
 			const tagField = this.availableFields.find(
-				(f) => f.value === 'tag' || f.value === 'tags'
+				(f) => f.value === 'tax_input[at_biz_dir-tags][]'
 			);
+
 			if (tagField && tagField.widget && tagField.widget.options) {
 				if (Array.isArray(tagField.widget.options)) {
 					tagField.widget.options.forEach((option) => {
@@ -1243,8 +1233,9 @@ export default {
 			const options = [];
 
 			// Method 1: Try to get from availableFields if location field exists
+			// Check by field value (field_key) or widget_name/type
 			const locationField = this.availableFields.find(
-				(f) => f.value === 'location' || f.value === 'locations'
+				(f) => f.value === 'tax_input[at_biz_dir-location][]'
 			);
 			if (
 				locationField &&

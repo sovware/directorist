@@ -1221,8 +1221,11 @@ class Directorist_Listings {
         ob_start();
 
         if ( ! empty( $this->redirect_page_url ) ) {
-            $redirect = '<script>window.location="' . esc_url( $this->redirect_page_url ) . '"</script>';
-            return $redirect;
+            $validated_url = wp_validate_redirect( $this->redirect_page_url, '' );
+            if ( ! empty( $validated_url ) ) {
+                $redirect = '<script>window.location="' . esc_js( $validated_url ) . '"</script>';
+                return $redirect;
+            }
         }
 
         if ( $this->logged_in_user_only && ! is_user_logged_in() ) {

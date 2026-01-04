@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.5.6
+Stable tag: 8.5.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -292,6 +292,38 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.5.7 - Jan 1, 2026 =
+
+Added
+ - Filter hook directorist_single_slider_template. (#2623)
+ - Filter hook for review avatar customization. (#2618)
+ - Filter hook on registration success email body. (#2617)
+ - Filter hook directorist_rest_listing_data for REST listing responses. (#2603)
+
+Improved
+ - Listing type handling and related logic. (#2626)
+ - Custom single listing page copy and toggle alignment. (#2619)
+ - Builder user experience improvements. (#2600)
+
+Changed
+ - Twitter label text updated to X. (#2585)
+ - Updated Directorist admin menu icon. (#2643)
+ - Adjusted admin menu position for better organization. (#2643)
+
+Fixed
+ - Widget field definitions not being preserved in the listing header builder. (#2614)
+ - Map view initialization and default zoom level issues. (#2613)
+ - Media playback issues in listing descriptions. (#2594)
+ - Radius search field visibility when the location selector is unavailable. (#2584)
+ - Featured option visibility when the Directorist Pricing Plans plugin is active. (#2583)
+ - Range slider triggering instant search while dragging. (#2582)
+ - Search pagination not working correctly. (#2580)
+ - Category icon not displaying correctly on the map. (#2554)
+ - Open redirect vulnerability by implementing proper URL validation for redirect parameters. (#2631)
+
+Refactored
+ - Removed duplicate CSS classes from `create-directory.scss` to reduce duplication and improve maintainability. Fixed broken icons in the settings panel after the refactor. (#2629)
 
 = 8.5.6 - Nov 30, 2025 =
 

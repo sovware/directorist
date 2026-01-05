@@ -97,30 +97,44 @@
                 </select>
 
                 <!-- Select dropdown for fields with options (category, select, radio, checkbox, file) -->
-                <select
+                <div
                   v-if="
                     !isValueHidden(group.conditions[0].operator) &&
                     needsSelectInput(group.conditions[0])
                   "
-                  :key="`value-select-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
-                  class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
-                  v-model="group.conditions[0].value"
-                  @change="
-                    onConditionValueUpdate(
-                      group.conditions[0],
-                      $event.target.value,
-                    )
-                  "
+                  class="directorist-conditional-logic-builder__value-select-wrapper"
+                  :key="`value-select-wrapper-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
                 >
-                  <option value="">Select value</option>
-                  <option
-                    v-for="option in getValueOptions(group.conditions[0])"
-                    :key="option.value"
-                    :value="option.value"
+                  <select
+                    :key="`value-select-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
+                    class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
+                    v-model="group.conditions[0].value"
+                    @change="
+                      onConditionValueUpdate(
+                        group.conditions[0],
+                        $event.target.value,
+                      )
+                    "
                   >
-                    {{ option.label }}
-                  </option>
-                </select>
+                    <option value="">Select value</option>
+                    <option
+                      v-for="option in getValueOptions(group.conditions[0])"
+                      :key="option.value"
+                      :value="option.value"
+                    >
+                      {{ option.label }}
+                    </option>
+                  </select>
+                  <button
+                    v-if="group.conditions[0].value"
+                    type="button"
+                    class="directorist-conditional-logic-builder__value-clear"
+                    @click="onConditionValueUpdate(group.conditions[0], '')"
+                    title="Clear selection"
+                  >
+                    <span class="fa fa-times"></span>
+                  </button>
+                </div>
 
                 <!-- Date input for date fields -->
                 <input
@@ -262,27 +276,41 @@
                     </select>
 
                     <!-- Select dropdown for fields with options (category, select, radio, checkbox, file) -->
-                    <select
+                    <div
                       v-if="
                         !isValueHidden(condition.operator) &&
                         needsSelectInput(condition)
                       "
-                      :key="`value-select-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
-                      class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
-                      v-model="condition.value"
-                      @change="
-                        onConditionValueUpdate(condition, $event.target.value)
-                      "
+                      class="directorist-conditional-logic-builder__value-select-wrapper"
+                      :key="`value-select-wrapper-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
                     >
-                      <option value="">Select value</option>
-                      <option
-                        v-for="option in getValueOptions(condition)"
-                        :key="option.value"
-                        :value="option.value"
+                      <select
+                        :key="`value-select-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
+                        class="directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select"
+                        v-model="condition.value"
+                        @change="
+                          onConditionValueUpdate(condition, $event.target.value)
+                        "
                       >
-                        {{ option.label }}
-                      </option>
-                    </select>
+                        <option value="">Select value</option>
+                        <option
+                          v-for="option in getValueOptions(condition)"
+                          :key="option.value"
+                          :value="option.value"
+                        >
+                          {{ option.label }}
+                        </option>
+                      </select>
+                      <button
+                        v-if="condition.value"
+                        type="button"
+                        class="directorist-conditional-logic-builder__value-clear"
+                        @click="onConditionValueUpdate(condition, '')"
+                        title="Clear selection"
+                      >
+                        <span class="fa fa-times"></span>
+                      </button>
+                    </div>
 
                     <!-- Date input for date fields -->
                     <input

@@ -26836,6 +26836,22 @@ input[type="radio"]:checked::before {
 	border: none;
 }
 .directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select-wrapper {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value-select {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -26848,6 +26864,7 @@ input[type="radio"]:checked::before {
 	cursor: pointer;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
+	padding-left: 30px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value-select:focus {
@@ -26858,6 +26875,46 @@ input[type="radio"]:checked::before {
 	.directorist-conditional-logic-builder__value-select
 	option {
 	padding: 8px;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear {
+	position: absolute;
+	left: 20px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	background-color: transparent;
+	color: #9ca3af;
+	cursor: pointer;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	z-index: 1;
+	-webkit-transition: color 0.2s ease;
+	transition: color 0.2s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear:hover {
+	color: #e62626;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear
+	.fa-times {
+	font-size: 12px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__remove {
@@ -37577,6 +37634,22 @@ input[type="radio"]:checked::before {
 	border: none;
 }
 .directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select-wrapper {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value-select {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -37589,6 +37662,7 @@ input[type="radio"]:checked::before {
 	cursor: pointer;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
+	padding-left: 30px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value-select:focus {
@@ -37599,6 +37673,46 @@ input[type="radio"]:checked::before {
 	.directorist-conditional-logic-builder__value-select
 	option {
 	padding: 8px;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear {
+	position: absolute;
+	left: 20px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	background-color: transparent;
+	color: #9ca3af;
+	cursor: pointer;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	z-index: 1;
+	-webkit-transition: color 0.2s ease;
+	transition: color 0.2s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear:hover {
+	color: #e62626;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear
+	.fa-times {
+	font-size: 12px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__remove {
@@ -48611,6 +48725,22 @@ input[type="radio"]:checked::before {
 	border: none;
 }
 .directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-select-wrapper {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value-select {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -48623,6 +48753,7 @@ input[type="radio"]:checked::before {
 	cursor: pointer;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
+	padding-left: 30px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__value-select:focus {
@@ -48633,6 +48764,46 @@ input[type="radio"]:checked::before {
 	.directorist-conditional-logic-builder__value-select
 	option {
 	padding: 8px;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear {
+	position: absolute;
+	left: 20px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	background-color: transparent;
+	color: #9ca3af;
+	cursor: pointer;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	z-index: 1;
+	-webkit-transition: color 0.2s ease;
+	transition: color 0.2s ease;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear:hover {
+	color: #e62626;
+}
+.directorist-conditional-logic-builder__condition
+	.directorist-conditional-logic-builder__value-clear
+	.fa-times {
+	font-size: 12px;
 }
 .directorist-conditional-logic-builder__condition
 	.directorist-conditional-logic-builder__remove {

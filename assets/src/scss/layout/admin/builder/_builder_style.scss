@@ -7656,6 +7656,13 @@ input[type="radio"] {
 			}
 		}
 
+		.directorist-conditional-logic-builder__value-select-wrapper {
+			flex: 1;
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+
 		.directorist-conditional-logic-builder__value-select {
 			flex: 1;
 			font-size: 13px;
@@ -7664,6 +7671,7 @@ input[type="radio"] {
 			border-radius: 6px;
 			cursor: pointer;
 			transition: all 0.3s ease;
+			padding-right: 30px;
 
 			&:focus {
 				outline: none;
@@ -7672,6 +7680,34 @@ input[type="radio"] {
 
 			option {
 				padding: 8px;
+			}
+		}
+
+		.directorist-conditional-logic-builder__value-clear {
+			position: absolute;
+			right: 20px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 18px;
+			height: 18px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background-color: transparent;
+			color: #9ca3af;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 1;
+			transition: color 0.2s ease;
+
+			&:hover {
+				color: #e62626;
+			}
+
+			.fa-times {
+				font-size: 12px;
 			}
 		}
 

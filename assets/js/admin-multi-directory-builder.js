@@ -83043,22 +83043,9 @@
 																									.conditions[0]
 																							)
 																								? _c(
-																										'select',
+																										'div',
 																										{
-																											directives:
-																												[
-																													{
-																														name: 'model',
-																														rawName:
-																															'v-model',
-																														value: group
-																															.conditions[0]
-																															.value,
-																														expression:
-																															'group.conditions[0].value',
-																													},
-																												],
-																											key: 'value-select-'
+																											key: 'value-select-wrapper-'
 																												.concat(
 																													group
 																														.conditions[0]
@@ -83073,109 +83060,183 @@
 																														'empty'
 																												),
 																											staticClass:
-																												'directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select',
-																											on: {
-																												change: [
-																													function (
-																														$event
-																													) {
-																														var $$selectedVal =
-																															Array.prototype.filter
-																																.call(
-																																	$event
-																																		.target
-																																		.options,
-																																	function (
-																																		o
-																																	) {
-																																		return o.selected;
-																																	}
-																																)
-																																.map(
-																																	function (
-																																		o
-																																	) {
-																																		var val =
-																																			'_value' in
-																																			o
-																																				? o._value
-																																				: o.value;
-																																		return val;
-																																	}
-																																);
-																														_vm.$set(
-																															group
-																																.conditions[0],
-																															'value',
-																															$event
-																																.target
-																																.multiple
-																																? $$selectedVal
-																																: $$selectedVal[0]
-																														);
-																													},
-																													function (
-																														$event
-																													) {
-																														return _vm.onConditionValueUpdate(
-																															group
-																																.conditions[0],
-																															$event
-																																.target
-																																.value
-																														);
-																													},
-																												],
-																											},
+																												'directorist-conditional-logic-builder__value-select-wrapper',
 																										},
 																										[
 																											_c(
-																												'option',
+																												'select',
 																												{
-																													attrs: {
-																														value: '',
+																													directives:
+																														[
+																															{
+																																name: 'model',
+																																rawName:
+																																	'v-model',
+																																value: group
+																																	.conditions[0]
+																																	.value,
+																																expression:
+																																	'group.conditions[0].value',
+																															},
+																														],
+																													key: 'value-select-'
+																														.concat(
+																															group
+																																.conditions[0]
+																																.field ||
+																																'empty',
+																															'-'
+																														)
+																														.concat(
+																															group
+																																.conditions[0]
+																																.operator ||
+																																'empty'
+																														),
+																													staticClass:
+																														'directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select',
+																													on: {
+																														change: [
+																															function (
+																																$event
+																															) {
+																																var $$selectedVal =
+																																	Array.prototype.filter
+																																		.call(
+																																			$event
+																																				.target
+																																				.options,
+																																			function (
+																																				o
+																																			) {
+																																				return o.selected;
+																																			}
+																																		)
+																																		.map(
+																																			function (
+																																				o
+																																			) {
+																																				var val =
+																																					'_value' in
+																																					o
+																																						? o._value
+																																						: o.value;
+																																				return val;
+																																			}
+																																		);
+																																_vm.$set(
+																																	group
+																																		.conditions[0],
+																																	'value',
+																																	$event
+																																		.target
+																																		.multiple
+																																		? $$selectedVal
+																																		: $$selectedVal[0]
+																																);
+																															},
+																															function (
+																																$event
+																															) {
+																																return _vm.onConditionValueUpdate(
+																																	group
+																																		.conditions[0],
+																																	$event
+																																		.target
+																																		.value
+																																);
+																															},
+																														],
 																													},
 																												},
 																												[
-																													_vm._v(
-																														'Select value'
+																													_c(
+																														'option',
+																														{
+																															attrs: {
+																																value: '',
+																															},
+																														},
+																														[
+																															_vm._v(
+																																'Select value'
+																															),
+																														]
 																													),
-																												]
+																													_vm._v(
+																														' '
+																													),
+																													_vm._l(
+																														_vm.getValueOptions(
+																															group
+																																.conditions[0]
+																														),
+																														function (
+																															option
+																														) {
+																															return _c(
+																																'option',
+																																{
+																																	key: option.value,
+																																	domProps:
+																																		{
+																																			value: option.value,
+																																		},
+																																},
+																																[
+																																	_vm._v(
+																																		'\n                    ' +
+																																			_vm._s(
+																																				option.label
+																																			) +
+																																			'\n                  '
+																																	),
+																																]
+																															);
+																														}
+																													),
+																												],
+																												2
 																											),
 																											_vm._v(
 																												' '
 																											),
-																											_vm._l(
-																												_vm.getValueOptions(
-																													group
-																														.conditions[0]
-																												),
-																												function (
-																													option
-																												) {
-																													return _c(
-																														'option',
+																											group
+																												.conditions[0]
+																												.value
+																												? _c(
+																														'button',
 																														{
-																															key: option.value,
-																															domProps:
-																																{
-																																	value: option.value,
+																															staticClass:
+																																'directorist-conditional-logic-builder__value-clear',
+																															attrs: {
+																																type: 'button',
+																																title: 'Clear selection',
+																															},
+																															on: {
+																																click: function click(
+																																	$event
+																																) {
+																																	return _vm.onConditionValueUpdate(
+																																		group
+																																			.conditions[0],
+																																		''
+																																	);
 																																},
+																															},
 																														},
 																														[
-																															_vm._v(
-																																'\n                  ' +
-																																	_vm._s(
-																																		option.label
-																																	) +
-																																	'\n                '
+																															_c(
+																																'span',
+																																{
+																																	staticClass:
+																																		'fa fa-times',
+																																}
 																															),
 																														]
-																													);
-																												}
-																											),
-																										],
-																										2
+																													)
+																												: _vm._e(),
+																										]
 																									)
 																								: _vm._e(),
 																							_vm._v(
@@ -83878,20 +83939,9 @@
 																														condition
 																													)
 																														? _c(
-																																'select',
+																																'div',
 																																{
-																																	directives:
-																																		[
-																																			{
-																																				name: 'model',
-																																				rawName:
-																																					'v-model',
-																																				value: condition.value,
-																																				expression:
-																																					'condition.value',
-																																			},
-																																		],
-																																	key: 'value-select-'
+																																	key: 'value-select-wrapper-'
 																																		.concat(
 																																			condition.field ||
 																																				'empty',
@@ -83902,106 +83952,171 @@
 																																				'empty'
 																																		),
 																																	staticClass:
-																																		'directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select',
-																																	on: {
-																																		change: [
-																																			function (
-																																				$event
-																																			) {
-																																				var $$selectedVal =
-																																					Array.prototype.filter
-																																						.call(
-																																							$event
-																																								.target
-																																								.options,
-																																							function (
-																																								o
-																																							) {
-																																								return o.selected;
-																																							}
-																																						)
-																																						.map(
-																																							function (
-																																								o
-																																							) {
-																																								var val =
-																																									'_value' in
-																																									o
-																																										? o._value
-																																										: o.value;
-																																								return val;
-																																							}
-																																						);
-																																				_vm.$set(
-																																					condition,
-																																					'value',
-																																					$event
-																																						.target
-																																						.multiple
-																																						? $$selectedVal
-																																						: $$selectedVal[0]
-																																				);
-																																			},
-																																			function (
-																																				$event
-																																			) {
-																																				return _vm.onConditionValueUpdate(
-																																					condition,
-																																					$event
-																																						.target
-																																						.value
-																																				);
-																																			},
-																																		],
-																																	},
+																																		'directorist-conditional-logic-builder__value-select-wrapper',
 																																},
 																																[
 																																	_c(
-																																		'option',
+																																		'select',
 																																		{
-																																			attrs: {
-																																				value: '',
+																																			directives:
+																																				[
+																																					{
+																																						name: 'model',
+																																						rawName:
+																																							'v-model',
+																																						value: condition.value,
+																																						expression:
+																																							'condition.value',
+																																					},
+																																				],
+																																			key: 'value-select-'
+																																				.concat(
+																																					condition.field ||
+																																						'empty',
+																																					'-'
+																																				)
+																																				.concat(
+																																					condition.operator ||
+																																						'empty'
+																																				),
+																																			staticClass:
+																																				'directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select',
+																																			on: {
+																																				change: [
+																																					function (
+																																						$event
+																																					) {
+																																						var $$selectedVal =
+																																							Array.prototype.filter
+																																								.call(
+																																									$event
+																																										.target
+																																										.options,
+																																									function (
+																																										o
+																																									) {
+																																										return o.selected;
+																																									}
+																																								)
+																																								.map(
+																																									function (
+																																										o
+																																									) {
+																																										var val =
+																																											'_value' in
+																																											o
+																																												? o._value
+																																												: o.value;
+																																										return val;
+																																									}
+																																								);
+																																						_vm.$set(
+																																							condition,
+																																							'value',
+																																							$event
+																																								.target
+																																								.multiple
+																																								? $$selectedVal
+																																								: $$selectedVal[0]
+																																						);
+																																					},
+																																					function (
+																																						$event
+																																					) {
+																																						return _vm.onConditionValueUpdate(
+																																							condition,
+																																							$event
+																																								.target
+																																								.value
+																																						);
+																																					},
+																																				],
 																																			},
 																																		},
 																																		[
-																																			_vm._v(
-																																				'Select value'
+																																			_c(
+																																				'option',
+																																				{
+																																					attrs: {
+																																						value: '',
+																																					},
+																																				},
+																																				[
+																																					_vm._v(
+																																						'Select value'
+																																					),
+																																				]
 																																			),
-																																		]
+																																			_vm._v(
+																																				' '
+																																			),
+																																			_vm._l(
+																																				_vm.getValueOptions(
+																																					condition
+																																				),
+																																				function (
+																																					option
+																																				) {
+																																					return _c(
+																																						'option',
+																																						{
+																																							key: option.value,
+																																							domProps:
+																																								{
+																																									value: option.value,
+																																								},
+																																						},
+																																						[
+																																							_vm._v(
+																																								'\n                        ' +
+																																									_vm._s(
+																																										option.label
+																																									) +
+																																									'\n                      '
+																																							),
+																																						]
+																																					);
+																																				}
+																																			),
+																																		],
+																																		2
 																																	),
 																																	_vm._v(
 																																		' '
 																																	),
-																																	_vm._l(
-																																		_vm.getValueOptions(
-																																			condition
-																																		),
-																																		function (
-																																			option
-																																		) {
-																																			return _c(
-																																				'option',
+																																	condition.value
+																																		? _c(
+																																				'button',
 																																				{
-																																					key: option.value,
-																																					domProps:
-																																						{
-																																							value: option.value,
+																																					staticClass:
+																																						'directorist-conditional-logic-builder__value-clear',
+																																					attrs: {
+																																						type: 'button',
+																																						title: 'Clear selection',
+																																					},
+																																					on: {
+																																						click: function click(
+																																							$event
+																																						) {
+																																							return _vm.onConditionValueUpdate(
+																																								condition,
+																																								''
+																																							);
 																																						},
+																																					},
 																																				},
 																																				[
-																																					_vm._v(
-																																						'\n                      ' +
-																																							_vm._s(
-																																								option.label
-																																							) +
-																																							'\n                    '
+																																					_c(
+																																						'span',
+																																						{
+																																							staticClass:
+																																								'fa fa-times',
+																																						}
 																																					),
 																																				]
-																																			);
-																																		}
-																																	),
-																																],
-																																2
+																																			)
+																																		: _vm._e(),
+																																]
 																															)
 																														: _vm._e(),
 																													_vm._v(

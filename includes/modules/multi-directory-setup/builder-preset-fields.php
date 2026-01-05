@@ -658,12 +658,12 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'conditional_logic' => directorist_get_conditional_logic_field(),
                 'whatsapp' => [
                     'type'  => 'toggle',
                     'label' => __( 'Link with WhatsApp', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 

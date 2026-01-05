@@ -7762,6 +7762,17 @@ input[type="radio"] {
 		padding-top: 12px;
 		gap: 12px;
 
+		&__label {
+			font-size: 14px;
+			font-weight: 500;
+			color: #141921;
+		}
+
+		.directorist-conditional-logic-builder__operator {
+			border-radius: 6px;
+			border-color: #e5e7eb;
+		}
+
 		.cptm-btn {
 			// "+ Add rule" button - dark background
 			background-color: #141921;
@@ -7813,12 +7824,22 @@ input[type="radio"] {
 		justify-content: flex-start;
 		margin-top: 16px;
 		gap: 12px;
+		&__label {
+			font-size: 14px;
+			font-weight: 500;
+			color: #141921;
+		}
 		&__add-group-wrap {
 			flex: 1;
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
 			gap: 12px;
+		}
+		.directorist-conditional-logic-builder__operator {
+			height: 32px;
+			border-radius: 6px;
+			border-color: #e5e7eb;
 		}
 	}
 
@@ -7860,14 +7881,14 @@ input[type="radio"] {
 
 		// "+ Add group" button - white with blue border
 		&.cptm-btn-secondery {
-			color: #3e62f5;
-			border: 1px solid #3e62f5;
+			color: #141921;
+			border: 1px solid #141921;
 			background-color: #ffffff;
 
 			&:hover {
 				color: #ffffff;
-				background-color: #3e62f5;
-				border-color: #3e62f5;
+				background-color: #141921;
+				border-color: #141921;
 
 				// Plus icon should be white on hover
 				span,
@@ -7881,7 +7902,7 @@ input[type="radio"] {
 			span,
 			i,
 			.fa {
-				color: #3e62f5;
+				color: #141921;
 			}
 		}
 	}

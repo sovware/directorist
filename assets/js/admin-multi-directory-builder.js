@@ -84504,6 +84504,21 @@
 																							},
 																							[
 																								_c(
+																									'span',
+																									{
+																										staticClass:
+																											'directorist-conditional-logic-builder__group-footer__label',
+																									},
+																									[
+																										_vm._v(
+																											'Match:'
+																										),
+																									]
+																								),
+																								_vm._v(
+																									' '
+																								),
+																								_c(
 																									'select',
 																									{
 																										directives:
@@ -84572,7 +84587,7 @@
 																											},
 																											[
 																												_vm._v(
-																													'AND'
+																													'All Conditions (AND)'
 																												),
 																											]
 																										),
@@ -84588,7 +84603,7 @@
 																											},
 																											[
 																												_vm._v(
-																													'OR'
+																													'Any Condition (OR)'
 																												),
 																											]
 																										),
@@ -84625,7 +84640,7 @@
 																											]
 																										),
 																										_vm._v(
-																											' Add Rule\n              '
+																											' Add Condition\n              '
 																										),
 																									]
 																								),
@@ -84687,6 +84702,19 @@
 																'directorist-conditional-logic-builder__footer',
 														},
 														[
+															_c(
+																'span',
+																{
+																	staticClass:
+																		'directorist-conditional-logic-builder__footer__label',
+																},
+																[
+																	_vm._v(
+																		'Match:'
+																	),
+																]
+															),
+															_vm._v(' '),
 															_c(
 																'select',
 																{
@@ -84758,7 +84786,7 @@
 																		},
 																		[
 																			_vm._v(
-																				'AND'
+																				'All Conditions (AND)'
 																			),
 																		]
 																	),
@@ -84772,33 +84800,9 @@
 																		},
 																		[
 																			_vm._v(
-																				'OR'
+																				'Any Condition (OR)'
 																			),
 																		]
-																	),
-																]
-															),
-															_vm._v(' '),
-															_c(
-																'button',
-																{
-																	staticClass:
-																		'cptm-btn directorist-conditional-logic-builder__footer__add-rule',
-																	attrs: {
-																		type: 'button',
-																	},
-																	on: {
-																		click: _vm.addRule,
-																	},
-																},
-																[
-																	_c('span', [
-																		_vm._v(
-																			'+'
-																		),
-																	]),
-																	_vm._v(
-																		' Add Rule\n      '
 																	),
 																]
 															),
@@ -84832,7 +84836,34 @@
 																				]
 																			),
 																			_vm._v(
-																				' Group\n        '
+																				' Add Group\n        '
+																			),
+																		]
+																	),
+																	_vm._v(' '),
+																	_c(
+																		'button',
+																		{
+																			staticClass:
+																				'cptm-btn directorist-conditional-logic-builder__footer__add-rule',
+																			attrs: {
+																				type: 'button',
+																			},
+																			on: {
+																				click: _vm.addRule,
+																			},
+																		},
+																		[
+																			_c(
+																				'span',
+																				[
+																					_vm._v(
+																						'+'
+																					),
+																				]
+																			),
+																			_vm._v(
+																				' Add Condition\n        '
 																			),
 																		]
 																	),

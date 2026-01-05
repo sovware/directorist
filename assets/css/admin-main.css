@@ -26989,6 +26989,16 @@ input[type="radio"]:checked::before {
 	padding-top: 12px;
 	gap: 12px;
 }
+.directorist-conditional-logic-builder__group-footer__label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #141921;
+}
+.directorist-conditional-logic-builder__group-footer
+	.directorist-conditional-logic-builder__operator {
+	border-radius: 6px;
+	border-color: #e5e7eb;
+}
 .directorist-conditional-logic-builder__group-footer .cptm-btn {
 	background-color: #141921;
 	color: #ffffff;
@@ -27056,6 +27066,11 @@ input[type="radio"]:checked::before {
 	margin-top: 16px;
 	gap: 12px;
 }
+.directorist-conditional-logic-builder__footer__label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #141921;
+}
 .directorist-conditional-logic-builder__footer__add-group-wrap {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -27074,6 +27089,12 @@ input[type="radio"]:checked::before {
 	-ms-flex-pack: end;
 	justify-content: flex-end;
 	gap: 12px;
+}
+.directorist-conditional-logic-builder__footer
+	.directorist-conditional-logic-builder__operator {
+	height: 32px;
+	border-radius: 6px;
+	border-color: #e5e7eb;
 }
 .directorist-conditional-logic-builder .cptm-btn {
 	margin: 0;
@@ -27118,14 +27139,14 @@ input[type="radio"]:checked::before {
 	color: #ffffff;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery {
-	color: #3e62f5;
-	border: 1px solid #3e62f5;
+	color: #141921;
+	border: 1px solid #141921;
 	background-color: #ffffff;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover {
 	color: #ffffff;
-	background-color: #3e62f5;
-	border-color: #3e62f5;
+	background-color: #141921;
+	border-color: #141921;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover span,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover i,
@@ -27135,7 +27156,7 @@ input[type="radio"]:checked::before {
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery span,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery i,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery .fa {
-	color: #3e62f5;
+	color: #141921;
 }
 
 @media only screen and (max-width: 767px) {
@@ -37787,6 +37808,16 @@ input[type="radio"]:checked::before {
 	padding-top: 12px;
 	gap: 12px;
 }
+.directorist-conditional-logic-builder__group-footer__label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #141921;
+}
+.directorist-conditional-logic-builder__group-footer
+	.directorist-conditional-logic-builder__operator {
+	border-radius: 6px;
+	border-color: #e5e7eb;
+}
 .directorist-conditional-logic-builder__group-footer .cptm-btn {
 	background-color: #141921;
 	color: #ffffff;
@@ -37854,6 +37885,11 @@ input[type="radio"]:checked::before {
 	margin-top: 16px;
 	gap: 12px;
 }
+.directorist-conditional-logic-builder__footer__label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #141921;
+}
 .directorist-conditional-logic-builder__footer__add-group-wrap {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -37872,6 +37908,12 @@ input[type="radio"]:checked::before {
 	-ms-flex-pack: end;
 	justify-content: flex-end;
 	gap: 12px;
+}
+.directorist-conditional-logic-builder__footer
+	.directorist-conditional-logic-builder__operator {
+	height: 32px;
+	border-radius: 6px;
+	border-color: #e5e7eb;
 }
 .directorist-conditional-logic-builder .cptm-btn {
 	margin: 0;
@@ -37916,14 +37958,14 @@ input[type="radio"]:checked::before {
 	color: #ffffff;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery {
-	color: #3e62f5;
-	border: 1px solid #3e62f5;
+	color: #141921;
+	border: 1px solid #141921;
 	background-color: #ffffff;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover {
 	color: #ffffff;
-	background-color: #3e62f5;
-	border-color: #3e62f5;
+	background-color: #141921;
+	border-color: #141921;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover span,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover i,
@@ -37933,7 +37975,7 @@ input[type="radio"]:checked::before {
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery span,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery i,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery .fa {
-	color: #3e62f5;
+	color: #141921;
 }
 
 @media only screen and (max-width: 767px) {
@@ -48878,6 +48920,16 @@ input[type="radio"]:checked::before {
 	padding-top: 12px;
 	gap: 12px;
 }
+.directorist-conditional-logic-builder__group-footer__label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #141921;
+}
+.directorist-conditional-logic-builder__group-footer
+	.directorist-conditional-logic-builder__operator {
+	border-radius: 6px;
+	border-color: #e5e7eb;
+}
 .directorist-conditional-logic-builder__group-footer .cptm-btn {
 	background-color: #141921;
 	color: #ffffff;
@@ -48945,6 +48997,11 @@ input[type="radio"]:checked::before {
 	margin-top: 16px;
 	gap: 12px;
 }
+.directorist-conditional-logic-builder__footer__label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #141921;
+}
 .directorist-conditional-logic-builder__footer__add-group-wrap {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
@@ -48963,6 +49020,12 @@ input[type="radio"]:checked::before {
 	-ms-flex-pack: end;
 	justify-content: flex-end;
 	gap: 12px;
+}
+.directorist-conditional-logic-builder__footer
+	.directorist-conditional-logic-builder__operator {
+	height: 32px;
+	border-radius: 6px;
+	border-color: #e5e7eb;
 }
 .directorist-conditional-logic-builder .cptm-btn {
 	margin: 0;
@@ -49007,14 +49070,14 @@ input[type="radio"]:checked::before {
 	color: #ffffff;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery {
-	color: #3e62f5;
-	border: 1px solid #3e62f5;
+	color: #141921;
+	border: 1px solid #141921;
 	background-color: #ffffff;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover {
 	color: #ffffff;
-	background-color: #3e62f5;
-	border-color: #3e62f5;
+	background-color: #141921;
+	border-color: #141921;
 }
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover span,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery:hover i,
@@ -49024,7 +49087,7 @@ input[type="radio"]:checked::before {
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery span,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery i,
 .directorist-conditional-logic-builder .cptm-btn.cptm-btn-secondery .fa {
-	color: #3e62f5;
+	color: #141921;
 }
 
 @media only screen and (max-width: 767px) {

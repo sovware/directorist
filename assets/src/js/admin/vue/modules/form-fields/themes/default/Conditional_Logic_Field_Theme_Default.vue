@@ -395,13 +395,14 @@
               </div>
 
               <div class="directorist-conditional-logic-builder__group-footer">
+                <span class="directorist-conditional-logic-builder__group-footer__label">Match:</span>
                 <select
                   class="directorist-conditional-logic-builder__operator"
                   v-model="group.operator"
                   @change="updateValue"
                 >
-                  <option value="AND">AND</option>
-                  <option value="OR">OR</option>
+                  <option value="AND">All Conditions (AND)</option>
+                  <option value="OR">Any Condition (OR)</option>
                 </select>
 
                 <button
@@ -409,7 +410,7 @@
                   class="cptm-btn directorist-conditional-logic-builder__group-footer__add-rule"
                   @click="addCondition(groupIndex)"
                 >
-                  <span>+</span> Add Rule
+                  <span>+</span> Add Condition
                 </button>
 
                 <button
@@ -431,22 +432,15 @@
         class="directorist-conditional-logic-builder__footer"
         v-if="localValue.enabled"
       >
+        <span class="directorist-conditional-logic-builder__footer__label">Match:</span>
         <select
           class="directorist-conditional-logic-builder__operator"
           v-model="localValue.globalOperator"
           @change="updateValue"
         >
-          <option value="AND">AND</option>
-          <option value="OR">OR</option>
+          <option value="AND">All Conditions (AND)</option>
+          <option value="OR">Any Condition (OR)</option>
         </select>
-
-        <button
-          type="button"
-          class="cptm-btn directorist-conditional-logic-builder__footer__add-rule"
-          @click="addRule"
-        >
-          <span>+</span> Add Rule
-        </button>
 
         <div
           class="directorist-conditional-logic-builder__footer__add-group-wrap"
@@ -456,7 +450,14 @@
             class="cptm-btn cptm-btn-secondery directorist-conditional-logic-builder__footer__add-group"
             @click="addGroup"
           >
-            <span>+</span> Group
+            <span>+</span> Add Group
+          </button>
+          <button
+            type="button"
+            class="cptm-btn directorist-conditional-logic-builder__footer__add-rule"
+            @click="addRule"
+          >
+            <span>+</span> Add Condition
           </button>
         </div>
       </div>

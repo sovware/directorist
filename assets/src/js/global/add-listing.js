@@ -831,7 +831,7 @@ $(function () {
 				success(response) {
 					var redirect_url =
 						response && response.redirect_url
-							? encodeURIComponent( response.redirect_url )
+							? encodeURIComponent(response.redirect_url)
 							: '';
 
 					if (response?.nonce_expired === true) {
@@ -898,7 +898,7 @@ $(function () {
 
 								const navigate_to = joinQueryString(
 									response.preview_url,
-									`preview=1&redirect=${ redirect_url }`
+									`preview=1&redirect=${redirect_url}`
 								);
 
 								window.location.href = navigate_to;
@@ -940,13 +940,18 @@ $(function () {
 									.html(
 										`<span class="atbdp_success">${response.success_msg}</span>`
 									);
-								window.location.href = redirect_url
+								window.location.href = redirect_url;
 							} else {
 								$notification
 									.show()
-									.html( `<span class="atbdp_success">${response.success_msg}</span>` );
+									.html(
+										`<span class="atbdp_success">${response.success_msg}</span>`
+									);
 
-								window.location.href = joinQueryString( redirect_url, is_edited );
+								window.location.href = joinQueryString(
+									redirect_url,
+									is_edited
+								);
 							}
 						}
 					}

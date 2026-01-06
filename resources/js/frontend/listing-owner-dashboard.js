@@ -1,1 +1,1 @@
-console.log( 'listing-owner-dashboard' );
+console.log('listing-owner-dashboard');

@@ -88,16 +88,15 @@ const basicFields: ExtendedFieldType = {
 			},
 		},
 		actions: (props) => {
-
 			return <Icon icon={pencil} />;
 		},
 		description: 'Add multiple items',
 	},
 	options: {
 		type: 'repeater',
-		label: __( 'Single Choice Items', 'formgent' ),
+		label: __('Single Choice Items', 'formgent'),
 		// allowDuplication: false,
-		onChange: ()=>{},
+		onChange: () => {},
 		// hideLabel: true,
 		labelField: 'label',
 		showFieldInHeader: true,

@@ -270,7 +270,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             // Args for ATBDP_POST_TYPE, here any constant may not be available because this function will be called from the
             // register_activation_hook .
             $labels = [
-                'menu_name'                => __( 'Directory Listings', 'directorist' ),
+                'menu_name'                => __( 'Directorist', 'directorist' ),
                 'name_admin_bar'           => __( 'Listing', 'directorist' ),
                 'name'                     => _x( 'Listings', 'post type general name', 'directorist' ),
                 'singular_name'            => _x( 'Listing', 'post type singular name', 'directorist' ),
@@ -317,8 +317,8 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                 'public'              => true,
                 'show_ui'             => current_user_can( 'edit_others_at_biz_dirs' ) ? true : false, // show the menu only to the admin
                 'show_in_menu'        => true,
-                'menu_position'       => 20,
-                'menu_icon'           => DIRECTORIST_ASSETS . 'images/menu_icon.png',
+                'menu_position'       => 5,
+                'menu_icon'           => DIRECTORIST_ASSETS . 'images/menu_icon.svg',
                 'show_in_admin_bar'   => true,
                 'show_in_nav_menus'   => true,
                 'can_export'          => true,
@@ -327,7 +327,6 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                 'publicly_queryable'  => true,
                 'capability_type'     => ATBDP_POST_TYPE,
                 'map_meta_cap'        => true, // set this true, otherwise, even admin will not be able to edit this post. WordPress will map cap from edit_post to edit_at_biz_dir etc,
-                'menu_position'       => 5,
             ];
 
             $slug = get_directorist_option( 'atbdp_listing_slug', 'directory' );

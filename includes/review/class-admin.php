@@ -82,7 +82,9 @@ class Metabox {
             __( 'Reviews', 'directorist' ),
             __( 'Reviews', 'directorist' ),
             'edit_posts',
-            $submenu_slug
+            $submenu_slug,
+            null,
+            5
         );
 
         // Make sure "Reviews" menu is active

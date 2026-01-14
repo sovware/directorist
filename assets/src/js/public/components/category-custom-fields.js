@@ -21,9 +21,6 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
 		if (!$field.length) {
 			$field = $container.find(`[name="custom_field\[${field}][]"\]`);
 		}
-		const shouldShow = Array.isArray(fieldCategory)
-			? fieldCategory.includes(String(category)) // Convert for type-safe match
-			: String(fieldCategory) === String(category);
 
 		// Check if the field category matches any of the selected categories
 		const shouldShow = categoryArray.some(

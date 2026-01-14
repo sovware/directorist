@@ -13077,13 +13077,6 @@ input.directorist-toggle-input:checked
 	.directorist-content-active
 		.directorist-archive-contents__top
 		.directorist-header-bar
-		.directorist-listings-header
-		.directorist-modal-btn--full {
-		display: none;
-	}
-	.directorist-content-active
-		.directorist-archive-contents__top
-		.directorist-header-bar
 		.directorist-container-fluid {
 		padding: 0;
 	}

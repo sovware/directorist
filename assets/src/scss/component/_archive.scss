@@ -117,11 +117,6 @@
 			display: flex;
 			margin: 30px 0;
 			@media screen and (max-width: 575px) {
-				.directorist-listings-header {
-					.directorist-modal-btn--full {
-						display: none;
-					}
-				}
 				.directorist-container-fluid {
 					padding: 0;
 				}

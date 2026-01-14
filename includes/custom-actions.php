@@ -179,7 +179,12 @@ function atbdp_get_preview_button() {
             $id = isset( $_GET['p'] ) ? directorist_clean( wp_unslash( $_GET['p'] ) ) : '';
             $post_id = isset( $_GET['post_id'] ) ? directorist_clean( wp_unslash( $_GET['post_id'] ) ) : get_the_ID();
             $edited = isset( $_GET['edited'] ) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '';
-            $redirect =  directorist_clean( wp_unslash( $_GET['redirect'] ) );
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $redirect = wp_validate_redirect( wp_unslash( $_GET['redirect'] ), '' );
+            
+            if ( empty( $redirect ) ) {
+                return '';
+            }
             $id = empty( $id ) ? $post_id : $id;
             if ( empty( $payment ) ) {
                 $url = add_query_arg( ['p' => $id, 'post_id' => $id, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'], $redirect );

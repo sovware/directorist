@@ -278,6 +278,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $location_id            = ! empty( $_POST['in_loc'] ) ? absint( $_POST['in_loc'] ) : 0;
             $location               = get_term_by( 'id', $location_id, ATBDP_LOCATION );
 
+            // Fire hook for extensions to track search results
+            do_action( 'directorist_instant_search_completed', $listings, $args );
+
             wp_send_json(
                 [
                     'search_result'  => $archive_view,
@@ -369,6 +372,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
         // handle_prepare_listings_export_file_request
         public function handle_prepare_listings_export_file_request() {
+
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error(
+                    [
+                        'message' => __( 'You are not allowed to export listings.', 'directorist' ),
+                    ],
+                    403
+                );
+            }
 
             if ( ! directorist_verify_nonce() ) {
                 $data['success'] = false;
@@ -603,6 +615,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function directorist_type_slug_change() {
+
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error(
+                    [
+                        'error' => __( 'You are not allowed to modify directory slugs.', 'directorist' ),
+                    ],
+                    403
+                );
+            }
 
             if ( ! directorist_verify_nonce() ) {
                 wp_send_json(
@@ -1016,6 +1037,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             $listing_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
+            $label      = ( ! empty( $_POST['label'] ) ) ? sanitize_text_field( wp_unslash( $_POST['label'] ) ) : '';
             $user_id    = get_current_user_id();
             $favorites  = directorist_get_user_favorites( $user_id );
 
@@ -1025,7 +1047,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 directorist_add_user_favorites( $user_id, $listing_id );
             }
 
-            echo wp_kses_post( the_atbdp_favourites_link( $listing_id ) );
+            echo wp_kses_post( the_atbdp_favourites_link( $listing_id ) . $label );
 
             wp_die();
         }
@@ -1483,6 +1505,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 '==TODAY=='         => date_i18n( $date_format, $current_time ),
                 '==NOW=='           => date_i18n( $date_format . ' ' . $time_format, $current_time ),
             ];
+
+            /**
+             * Filter the placeholders for the contact owner email
+             * @since 8.4.8
+             * @param array $placeholders The placeholders for the contact owner email
+             * @param array $_POST The POST data
+             * @return array The placeholders for the contact owner email
+             */
+            $placeholders = apply_filters( 'directorist_contact_owner_email_placeholders', $placeholders, $_POST );
+
             if ( 'listing_email' == $user_email ) {
                 $to = $listing_email;
             } else {
@@ -1520,7 +1552,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 'site_name'      => $site_name,
             ];
 
-            do_action( 'directorist_email_on_send_contact_messaage_to_listing_owner', $action_args );
+            /**
+             * Fires after a contact message is sent to the listing owner.
+             *
+             * @since 8.4.6
+             *
+             * @param array $action_args Arguments related to the sent contact message.
+             */
+            do_action( 'directorist_email_on_send_contact_message_to_listing_owner', $action_args );
 
             return $is_sent;
         }
@@ -1562,11 +1601,32 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 '{today}'         => date_i18n( $date_format, $current_time ),
                 '{now}'           => date_i18n( $date_format . ' ' . $time_format, $current_time ),
             ];
+
+            /**
+             * Filter the placeholders for the contact admin email
+             * @since 8.4.8
+             * @param array $placeholders The placeholders for the contact admin email
+             * @param array $_POST The POST data
+             * @return array The placeholders for the contact admin email
+             */
+            $placeholders = apply_filters( 'directorist_contact_admin_email_placeholders', $placeholders, $_POST );
+
             $send_emails   = ATBDP()->email->get_admin_email_list();
             $to            = ! empty( $send_emails ) ? $send_emails : get_bloginfo( 'admin_email' );
             $subject       = __( '{site_name} Contact via {listing_title}', 'directorist' );
             $subject       = strtr( $subject, $placeholders );
             $message       = __( "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary.", 'directorist' );
+
+            /**
+             * Filter the message for the contact admin email
+             * @since 8.4.8
+             * @param string $message The message for the contact admin email
+             * @param array $placeholders The placeholders for the contact admin email
+             * @param array $_POST The POST data
+             * @return string The message for the contact admin email
+             */
+            $message       = apply_filters( 'directorist_contact_admin_email_message', $message, $_POST );
+
             $message       = strtr( $message, $placeholders );
             $headers       = "From: {$name} <{$email}>\r\n";
             $headers      .= "Reply-To: {$email}\r\n";
@@ -1595,7 +1655,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 'site_name'     => $site_name,
             ];
 
-            do_action( 'directorist_email_on_send_contact_messaage_to_admin', $action_args );
+            /**
+             * Fires after a contact message is sent to the site administrator from a listing.
+             *
+             * @since 8.4.6
+             *
+             * @param array $action_args Arguments related to the sent contact message.
+             */
+            do_action( 'directorist_email_on_send_contact_message_to_admin', $action_args );
 
             return $is_sent;
         }
@@ -1671,7 +1738,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             echo wp_json_encode(
                 [
-                    'error' => 1,
+                    'error' => 0,
                     'message' => __( 'Your message sent successfully.', 'directorist' )
                 ]
             );

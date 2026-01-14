@@ -65,7 +65,6 @@
 		flex-direction: column;
 		@include e(element) {
 			overflow: hidden;
-			&.directorist-search-field-location,
 			&.directorist-search-field-category {
 				.directorist-search-field.input-is-focused {
 					margin-top: 0;
@@ -140,6 +139,14 @@
 						}
 						&[type="time"] {
 							padding-right: 20px;
+						}
+					}
+				}
+
+				&.input-has-noLabel {
+					.directorist-search-field__input {
+						&::placeholder {
+							opacity: 1;
 						}
 					}
 				}
@@ -441,6 +448,7 @@
 	}
 	@include e(currency) {
 		line-height: 1;
+		margin-right: 4px;
 	}
 	@include e("price-frequency") {
 		display: flex;

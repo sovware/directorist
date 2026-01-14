@@ -18,6 +18,11 @@ function directorist_get_directory_meta( $directory_id, string $meta_key ) {
 
 function directorist_get_listing_form_fields( $directory_id ) {
     $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+
+    if ( empty( $form_data ) || empty( $form_data['fields'] ) ) {
+        return array();
+    }
+
     $_fields   = directorist_get_var( $form_data['fields'], [] );
     $_groups   = directorist_get_var( $form_data['groups'], [] );
 
@@ -36,6 +41,12 @@ function directorist_get_listing_form_fields( $directory_id ) {
         unset( $fields['view_count'] );
     }
 
+    // Remove listing type field if pricing plan is disabled.
+    // Otherwise it causes validation error.
+    if ( ! atbdp_pricing_plan_is_enabled() && ! atbdp_wc_pricing_plan_is_enabled() ) {
+        unset( $fields['listing_type'] );
+    }
+
     return $fields;
 }
 
@@ -47,6 +58,7 @@ function directorist_get_listing_form_groups( $directory_id ) {
     foreach ( $_groups as $group ) {
         $groups[] = [
             'label' => $group['label'],
+            'icon'  => isset( $group['icon'] ) ? $group['icon'] : '',
             'fields' => $group['fields'],
         ];
     }

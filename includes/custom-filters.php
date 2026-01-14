@@ -1,7 +1,6 @@
 <?php
 /*This file will contain most common filters that will help other developer extends / modify our plugin settings or design */
 
-
 /**
  * It lets you modify button classes used by the directorist plugin. You can add your custom class or modify existing ones.
  * @param string $type the type of the button being printed. eg. default or primary etc.

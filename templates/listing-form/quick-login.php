@@ -33,6 +33,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                         <input type="password" name="password" placeholder="Password" class="directorist-form-element">
                     </div>
 
+                    <div class="directorist-form-group directorist-mb-15 directorist-text-right">
+                        <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" class="directorist-recover-password-link">
+                            <?php esc_html_e( 'Forgot your password?', 'directorist' ); ?>
+                        </a>                                                                            
+                    </div>
+
                     <?php wp_nonce_field( 'directorist-quick-login-nonce', 'directorist-quick-login-security' ); ?>
                     <div class="directorist-form-feedback"></div>
 

@@ -70,6 +70,10 @@ export default {
 			type: [String, Number],
 			default: '',
 		},
+		sublabel: {
+			type: [String, Number],
+			default: '',
+		},
 		labelType: {
 			type: [String],
 			default: 'span',
@@ -227,6 +231,50 @@ export default {
 		},
 		createFormButton: {
 			required: false,
+		},
+		toggle_position: {
+			required: false,
+		},
+
+		apiPath: {
+			type: String,
+			default: '',
+		},
+		apiMethod: {
+			type: String,
+			default: 'GET',
+		},
+		apiParams: {
+			type: Object,
+			default: () => ({}),
+		},
+		resyncLabel: {
+			type: String,
+			default: 'Reload',
+		},
+		showResyncButton: {
+			type: Boolean,
+			default: false,
+		},
+		enableInfiniteScroll: {
+			type: Boolean,
+			default: true,
+		},
+		perPage: {
+			type: Number,
+			default: 20,
+		},
+		pageParam: {
+			type: String,
+			default: 'page',
+		},
+		perPageParam: {
+			type: String,
+			default: 'per_page',
+		},
+		scrollThreshold: {
+			type: Number,
+			default: 100,
 		},
 	},
 };

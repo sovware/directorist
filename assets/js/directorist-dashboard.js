@@ -657,7 +657,8 @@ __webpack_require__.r(__webpack_exports__);
       var data = {
         action: 'atbdp_public_add_remove_favorites',
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data('listing_id')
+        post_id: $(this).data('listing_id'),
+        label: $(this).data('label')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -1145,6 +1146,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {

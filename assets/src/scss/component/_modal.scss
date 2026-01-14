@@ -236,6 +236,7 @@
 						}
 					}
 				}
+
 				@include e(btn) {
 					position: absolute;
 					bottom: 12px;
@@ -320,6 +321,14 @@
 						margin-top: 0;
 					}
 				}
+				&.directorist-search-field-text_range {
+					position: relative;
+					.directorist-search-field__label {
+						font-size: 16px;
+						font-weight: 500;
+						position: unset;
+					}
+				}
 
 				.directorist-select {
 					.directorist-search-field__label {
@@ -353,6 +362,27 @@
 
 			.directorist-search-form-dropdown {
 				border-bottom: 1px solid var(--directorist-color-border);
+			}
+
+			.wp-picker-container {
+				display: flex;
+				.wp-picker-input-wrap {
+					margin: 0 !important;
+					label {
+						width: 70px;
+						input {
+							padding-right: 10px !important;
+							bottom: 0;
+						}
+					}
+					.wp-picker-clear {
+						margin: 0;
+						width: 100px;
+					}
+				}
+				.wp-picker-holder {
+					top: 45px;
+				}
 			}
 		}
 		@include e(footer) {
@@ -502,6 +532,7 @@
 				.directorist-search-field {
 					width: 100%;
 					margin: 0 20px;
+					padding-right: 15px;
 					.directorist-search-field__label:before {
 						content: "";
 						width: 14px;
@@ -522,7 +553,7 @@
 					}
 					.directorist-search-field__btn {
 						bottom: unset;
-						right: 0;
+						right: 20px;
 						top: 50%;
 						transform: translateY(-50%);
 						transition: all 0.3s ease;
@@ -536,6 +567,15 @@
 						padding-right: 0;
 					}
 
+					.directorist-select {
+						width: calc(100% + 20px);
+						.select2-container
+							.directorist-select2-addons-area
+							.directorist-select2-dropdown-toggle {
+							right: 5px;
+						}
+					}
+
 					.directorist-custom-range-slider__value {
 						border-bottom: none;
 						&:focus-within {
@@ -543,6 +583,10 @@
 							border-bottom: 2px solid
 								var(--directorist-color-primary);
 						}
+					}
+
+					&.directorist-search-field-text_range {
+						padding: 5px 0;
 					}
 
 					&.directorist-search-field-radius_search {
@@ -555,6 +599,11 @@
 
 					&.input-is-focused:not(.input-has-noLabel) {
 						margin: 0 40px;
+						@media screen and (max-width: 575px) {
+							.directorist-select {
+								width: calc(100% + 20px);
+							}
+						}
 						.directorist-search-field__label {
 							font-size: 0 !important;
 							top: 50%;
@@ -577,7 +626,7 @@
 						.directorist-select,
 						.directorist-filter-location-icon {
 							~ .directorist-search-field__btn--clear {
-								right: 5px;
+								right: 5px !important;
 							}
 						}
 
@@ -592,13 +641,6 @@
 						.directorist-filter-location-icon {
 							margin-top: 0;
 						}
-
-						&.directorist-icon-right .directorist-input-icon,
-						.select2-container
-							.directorist-select2-addons-area
-							.directorist-select2-dropdown-toggle {
-							right: -20px;
-						}
 					}
 
 					&.input-has-value:not(.input-is-focused) {
@@ -609,6 +651,22 @@
 						.directorist-search-field__input::placeholder {
 							opacity: 0;
 							transition: opacity 0.3s ease;
+						}
+					}
+
+					&.input-is-focused,
+					&.input-has-value {
+						padding-right: 0;
+						.directorist-select {
+							width: 100%;
+							.select2-container
+								.directorist-select2-addons-area
+								.directorist-select2-dropdown-toggle {
+								right: 0;
+							}
+							~ .directorist-search-field__btn--clear {
+								right: 20px !important;
+							}
 						}
 					}
 				}
@@ -654,11 +712,12 @@
 		.directorist-select
 			.select2-container.select2-container--default
 			.select2-selection--single {
-			height: 40px;
+			min-height: 40px;
 			display: flex;
 		}
 		.directorist-search-field-pricing,
 		.directorist-search-field__number,
+		.directorist-search-field-text_range,
 		.directorist-search-field-price_range,
 		.directorist-search-field-radius_search {
 			> label {
@@ -666,13 +725,7 @@
 				transform: unset;
 				display: block;
 				font-size: 14px;
-				font-weight: 500;
 				margin-bottom: 15px;
-			}
-		}
-		.directorist-search-field-text_range {
-			> label {
-				display: none;
 			}
 		}
 	}
@@ -870,7 +923,6 @@
 		}
 		.directorist-search-basic-dropdown-content {
 			position: absolute;
-			top: 100%;
 			left: 0;
 			width: 100%;
 			min-width: 150px;

@@ -337,6 +337,12 @@ class Directorist_Listing_Search_Form {
                 unset( $search_form_fields['fields'][$key]['original_widget_key'] );
 
                 if ( $form_key ) {
+                    // Check if the submission field still exists (safety check)
+                    if ( empty( $submission_form_fields['fields'][$form_key] ) ) {
+                        // Skip this field if the submission field was deleted
+                        continue;
+                    }
+                    
                     if ( ! empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
                         $search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
                     }
@@ -435,7 +441,7 @@ class Directorist_Listing_Search_Form {
     public function field_template( $field_data ) {
         $key = $field_data['field_key'];
 
-        $field_data['lazy_load'] = get_directorist_option( 'lazy_load_taxonomy_fields', true );
+        $field_data['lazy_load'] = false;
 
         if ( $this->is_custom_field( $field_data ) ) {
             if ( ! empty( $_REQUEST['custom_field'][$key] ) ) {
@@ -627,9 +633,12 @@ class Directorist_Listing_Search_Form {
             return ATBDP()->helper->guard( ['type' => 'auth'] );
         }
 
-        if ( $this->redirect_page_url ) {
-            $redirect = '<script>window.location="' . esc_url( $this->redirect_page_url ) . '"</script>';
-            return $redirect;
+        if ( ! empty( $this->redirect_page_url ) ) {
+            $validated_url = wp_validate_redirect( $this->redirect_page_url, '' );
+            if ( ! empty( $validated_url ) ) {
+                $redirect = '<script>window.location="' . esc_js( $validated_url ) . '"</script>';
+                return $redirect;
+            }
         }
 
         return Helper::get_template_contents( 'search-form-contents', [ 'searchform' => $this ] );

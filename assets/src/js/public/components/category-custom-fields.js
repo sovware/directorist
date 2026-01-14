@@ -1,5 +1,5 @@
 // Search Category Change
-function hideAllCustomFieldsExceptSelected(relations, category, $container) {
+function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
 	const fields = Object.keys(relations);
 	const wrappers = [
 		'.directorist-advanced-filter__advanced__element',
@@ -10,6 +10,9 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
 	if (!fields.length) {
 		return;
 	}
+
+	// Convert categories to array if it's not already
+	const categoryArray = Array.isArray(categories) ? categories : [categories];
 
 	fields.forEach((field) => {
 		const fieldCategory = relations[field];
@@ -22,7 +25,11 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
 			? fieldCategory.includes(String(category)) // Convert for type-safe match
 			: String(fieldCategory) === String(category);
 
-		console.log(fieldCategory);
+		// Check if the field category matches any of the selected categories
+		const shouldShow = categoryArray.some(
+			(category) => Number(category) === Number(fieldCategory)
+		);
+
 		if (shouldShow) {
 			$field.prop('disabled', false);
 
@@ -46,106 +53,117 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
 }
 
 export default function initSearchCategoryCustomFields($) {
-	const $searchPageContainer = $('.directorist-search-contents');
-	const $archivePageContainer = $('.directorist-archive-contents');
+	// Handle multiple search forms and containers
+	const containers = [
+		'.directorist-search-contents',
+		'.directorist-archive-contents',
+		'.directorist-search-form',
+		'.directorist-add-listing-form',
+	];
 
-	let $pageContainer;
+	containers.forEach((containerSelector) => {
+		const $container = $(containerSelector);
 
-	if ($searchPageContainer.length) {
-		$pageContainer = $searchPageContainer;
-	} else if ($archivePageContainer.length) {
-		$pageContainer = $archivePageContainer;
-	}
+		if ($container.length) {
+			// Bind events to all category selects within this container
+			$container.on(
+				'change',
+				'.directorist-category-select, .directorist-search-category select, .bdas-category-search',
+				function (event) {
+					const $this = $(this);
+					const $form = $this.parents('form');
+					let categories = $this.val();
+					let attributes = $form.data('atts');
 
-	if ($pageContainer?.length) {
-		// let $fieldsContainer = null;
+					// If form doesn't have attributes, try container
+					if (!attributes) {
+						attributes = $container.data('atts');
+					}
 
-		$pageContainer.on(
-			'change',
-			'.directorist-category-select, .directorist-search-category select',
-			function (event) {
-				const $this = $(this);
-				const $form = $this.parents('form');
-				// const $advancedForm = $('.directorist-search-form');
-				const category = Number($this.val());
-				// const directory      = $pageContainer.find('[name="directory_type"]').val(); // Sidebar has multiple forms that's why it's safe to use page container
-				// const formData       = new FormData();
-				let attributes = $form.data('atts');
-				// const hasCustomField = $this.find('option[value="'+category+'"]').data('custom-field');
+					// If still no attributes, try document body
+					if (!attributes) {
+						attributes = $(document.body).data('atts');
+					}
 
-				// if (!hasCustomField) {
-				//     return;
-				// }
+					if (
+						!attributes ||
+						!attributes.category_custom_fields_relations
+					) {
+						return;
+					}
 
-				// formData.append('action', 'directorist_category_custom_field_search');
-				// formData.append('nonce', directorist.directorist_nonce);
-				// formData.append('directory', directory);
-				// formData.append('cat_id', category);
+					// Handle both single and multiple category selections
+					if (categories) {
+						// Convert to array if it's a single value
+						if (!Array.isArray(categories)) {
+							categories = [categories];
+						}
+						// Convert string values to numbers and filter out empty values
+						categories = categories
+							.map((cat) => Number(cat))
+							.filter((cat) => cat > 0); // Filter out 0, null, undefined, etc.
+					} else {
+						categories = [];
+					}
 
-				if (!attributes) {
-					attributes = $pageContainer.data('atts');
+					// Use the specific container for field search to avoid conflicts
+					hideAllCustomFieldsExceptSelected(
+						attributes.category_custom_fields_relations,
+						categories,
+						$container
+					);
 				}
+			);
 
-				if (!attributes.category_custom_fields_relations) {
-					return;
-				}
+			// Trigger change event on page load for all category selects in this container
+			$container
+				.find(
+					'.directorist-category-select, .directorist-search-category select, .bdas-category-search'
+				)
+				.each(function () {
+					$(this).trigger('change');
+				});
+		}
+	});
 
-				hideAllCustomFieldsExceptSelected(
-					attributes.category_custom_fields_relations,
-					category,
-					$(document.body)
-				);
+	// Also handle global category selects that might not be in specific containers
+	const globalSelectors =
+		'.directorist-category-select, .directorist-search-category select, .bdas-category-search';
 
-				// console.log(, category);
+	$(document).on('change', globalSelectors, function (event) {
+		const $this = $(this);
 
-				// formData.append('atts', JSON.stringify(atts));
-				// $form.addClass('atbdp-form-fade');
-				// $advancedForm.addClass('atbdp-form-fade');
+		// Only handle if not already handled by container-specific handlers
+		if (!event.isDefaultPrevented()) {
+			const $form = $this.parents('form');
+			let categories = $this.val();
+			let attributes = $form.data('atts');
 
-				// $.ajax({
-				//     method     : 'POST',
-				//     processData: false,
-				//     contentType: false,
-				//     url        : directorist.ajax_url,
-				//     data       : formData,
-				//     success: function success(response) {
-				//         if (response) {
-				//             $fieldsContainer = $pageContainer.find(response['container']);
-
-				//             $fieldsContainer.html(response['search_form']);
-
-				//             // $form.find('.directorist-category-select option').data('custom-field', 1);
-				//             // $this.find('option').data('custom-field', 1);
-				//             $this.val(category);
-
-				//             [
-				//                 'directorist-search-form-nav-tab-reloaded',
-				//                 'directorist-reload-select2-fields',
-				//                 'directorist-reload-map-api-field',
-				//                 'triggerSlice'
-				//             ].forEach(function(event) {
-				//                 event = new CustomEvent(event);
-				//                 document.body.dispatchEvent(event);
-				//                 window.dispatchEvent(event);
-				//             });
-				//         }
-
-				//         onSuccessCallback();
-
-				//         $form.removeClass('atbdp-form-fade');
-				//         $advancedForm.removeClass('atbdp-form-fade');
-				//     },
-				//     error: function error(_error) {
-				//         //console.log(_error);
-				//     }
-				// });
+			if (!attributes) {
+				attributes = $(document.body).data('atts');
 			}
-		);
 
-		$pageContainer
-			.find(
-				'.directorist-category-select, .directorist-search-category select'
-			)
-			.trigger('change');
-	}
+			if (!attributes || !attributes.category_custom_fields_relations) {
+				return;
+			}
+
+			// Handle both single and multiple category selections
+			if (categories) {
+				if (!Array.isArray(categories)) {
+					categories = [categories];
+				}
+				categories = categories
+					.map((cat) => Number(cat))
+					.filter((cat) => cat > 0);
+			} else {
+				categories = [];
+			}
+
+			hideAllCustomFieldsExceptSelected(
+				attributes.category_custom_fields_relations,
+				categories,
+				$(document.body)
+			);
+		}
+	});
 }

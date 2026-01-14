@@ -1,6 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || die( 'Direct access is not allowed.' );
 
+use Directorist\Helper;
 if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
     class ATBDP_Custom_Taxonomy {
         public function __construct() {
@@ -34,8 +35,8 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             // Other actions.
             add_filter( 'term_updated_messages', [ $this, 'add_term_updated_messages' ] );
 
-            add_filter( 'term_link', [ $this, 'taxonomy_redirect_page' ], 10, 3 );
-            add_action( 'template_redirect', [ $this, 'atbdp_template_redirect' ] );
+            add_filter( 'term_link', [ $this, 'update_term_link' ], 10, 3 );
+            // add_action( 'template_redirect', [ $this, 'atbdp_template_redirect' ] );
 
             add_action( 'wp_loaded', [ $this, 'directorist_bulk_term_update' ] );
 
@@ -98,7 +99,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
         }
 
         public function atbdp_template_redirect() {
-            if ( is_feed() || ! is_tax( ATBDP_CATEGORY ) ) {
+            if ( is_feed() || directorist_is_archive_template_enabled() || ! is_tax( ATBDP_CATEGORY ) ) {
                 return;
             }
 
@@ -116,36 +117,40 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             exit();
         }
 
-        public function taxonomy_redirect_page( $url, $term, $taxonomy ) {
-            $directory_type_id       = get_post_meta( get_the_ID(), '_directory_type', true );
-            $directory_type_slug     = '';
-            $is_directorist_taxonomy = false;
-
-            if ( ! empty( $directory_type_id ) ) {
-                $directory_type_term = get_term_by( 'id', $directory_type_id, ATBDP_DIRECTORY_TYPE );
-                $directory_type_slug = ( $directory_type_term && is_object( $directory_type_term ) ) ? $directory_type_term->slug : '';
+        public function update_term_link( $url, $term, $taxonomy ) {
+            if ( ! in_array( $taxonomy, [ ATBDP_CATEGORY, ATBDP_LOCATION, ATBDP_TAGS ], true ) ) {
+                return $url;
             }
 
+            remove_filter( 'term_link', [ $this, 'update_term_link' ], 10 );
+
             // Categories
-            if ( ATBDP_CATEGORY == $taxonomy ) {
-                $url                     = ATBDP_Permalink::atbdp_get_category_page( $term );
-                $is_directorist_taxonomy = true;
+            if ( ATBDP_CATEGORY === $taxonomy ) {
+                $url = ATBDP_Permalink::atbdp_get_category_page( $term );
             }
 
             // Location
-            if ( ATBDP_LOCATION == $taxonomy ) {
-                $url                     = ATBDP_Permalink::atbdp_get_location_page( $term );
-                $is_directorist_taxonomy = true;
+            if ( ATBDP_LOCATION === $taxonomy ) {
+                $url = ATBDP_Permalink::atbdp_get_location_page( $term );
             }
 
             // Tag
-            if ( ATBDP_TAGS == $taxonomy ) {
-                $url                     = ATBDP_Permalink::atbdp_get_tag_page( $term );
-                $is_directorist_taxonomy = true;
+            if ( ATBDP_TAGS === $taxonomy ) {
+                $url = ATBDP_Permalink::atbdp_get_tag_page( $term );
             }
 
-            if ( $is_directorist_taxonomy && ! empty( $directory_type_slug ) ) {
-                $url = add_query_arg( 'directory_type', $directory_type_slug, $url );
+            add_filter( 'term_link', [ $this, 'update_term_link' ], 10, 3 );
+
+            $directory_id   = directorist_get_listing_directory( get_the_ID() );
+            $directory_slug = '';
+
+            if ( ! empty( $directory_id ) ) {
+                $directory_term = get_term_by( 'id', $directory_id, ATBDP_DIRECTORY_TYPE );
+                $directory_slug = ( $directory_term && is_object( $directory_term ) ) ? $directory_term->slug : '';
+            }
+
+            if ( ! empty( $directory_slug ) ) {
+                $url = add_query_arg( 'directory_type', $directory_slug, $url );
             }
 
             return $url;
@@ -283,7 +288,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             $directories          = directorist_get_directories(
                 [
                     'fields' => 'id=>name',
-                ] 
+                ]
             );
 
             wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' );
@@ -344,7 +349,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             $directories          = directorist_get_directories(
                 [
                     'fields' => 'id=>name',
-                ] 
+                ]
             );
 
             wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' );
@@ -445,7 +450,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             $directories = directorist_get_directories(
                 [
                     'fields' => 'id=>name',
-                ] 
+                ]
             );
 
             wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' );
@@ -487,7 +492,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             $directories          = directorist_get_directories(
                 [
                     'fields' => 'id=>name'
-                ] 
+                ]
             );
 
             wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' );
@@ -553,10 +558,11 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 ],
             ];
 
-            $slug = ATBDP_LOCATION;
-            if ( ! empty( $slug ) ) {
+            $location_base = directorist_get_location_base();
+            if ( directorist_is_archive_template_enabled() && $location_base ) {
                 $args['rewrite'] = [
-                    'slug' => $slug,
+                    'slug'         => $location_base,
+                    'hierarchical' => true,
                 ];
             }
 
@@ -591,10 +597,11 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 ],
             ];
 
-            $slug = ATBDP_CATEGORY;
-            if ( ! empty( $slug ) ) {
+            $category_base = directorist_get_category_base();
+            if ( directorist_is_archive_template_enabled() && $category_base ) {
                 $args['rewrite'] = [
-                    'slug' => $slug,
+                    'slug' => $category_base,
+                    'hierarchical' => true,
                 ];
             }
 
@@ -629,11 +636,10 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 ],
             ];
 
-            // get the rewrite slug from the user settings, if exist use it.
-            $slug = ATBDP_TAGS;
-            if ( ! empty( $slug ) ) {
-                $args2['rewrite'] = [
-                    'slug' => $slug,
+            $tag_base = directorist_get_tag_base();
+            if ( directorist_is_archive_template_enabled() && $tag_base ) {
+                $args['rewrite'] = [
+                    'slug' => $tag_base,
                 ];
             }
 
@@ -683,7 +689,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 $directories = directorist_get_directories(
                     [
                         'fields'  => 'id=>name',
-                    ] 
+                    ]
                 );
 
                 $directories = array_intersect_key( $directories, array_flip( $selected_directories ) );
@@ -707,7 +713,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 $directories = directorist_get_directories(
                     [
                         'fields'  => 'id=>name',
-                    ] 
+                    ]
                 );
 
                 $directories = array_intersect_key( $directories, array_flip( $selected_directories ) );
@@ -937,7 +943,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                     'fields'  => 'id=>name',
                     'order'   => 'asc',
                     'orderby' => 'id'
-                ] 
+                ]
             );
 
             if ( is_wp_error( $directories ) ) {

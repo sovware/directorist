@@ -128,7 +128,17 @@ class Walker extends Walker_Comment {
                             <div class="directorist-review-single__author__img comment-author vcard">
                                 <?php
                                 if ( $args['avatar_size'] != 0 ) {
-                                    echo wp_kses_post( get_avatar( $comment, $args['avatar_size'] ) );
+                                    /**
+                                     * Filters the review avatar HTML output.
+                                     *
+                                     * @since 8.5.7
+                                     *
+                                     * @param string     $avatar_html The avatar HTML output (sanitized).
+                                     * @param WP_Comment $comment     The comment object.
+                                     * @param int        $avatar_size The avatar size in pixels.
+                                     * @return string Filtered avatar HTML. Must be safe for output.
+                                     */
+                                    echo apply_filters( 'directorist_review_avatar', wp_kses_post( get_avatar( $comment, $args['avatar_size'] ) ), $comment, $args['avatar_size'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 }
                                 ?>
                             </div>
@@ -163,7 +173,7 @@ class Walker extends Walker_Comment {
                 <?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
                 <div class="directorist-review-single__actions">
                     <?php
-                    echo wp_kses_post( $comment_reply_link );
+                    echo wp_kses_post( $comment_reply_link ?? '' );
 
                     $edit_link = directorist_get_comment_edit_link(
                         array_merge(
@@ -178,7 +188,7 @@ class Walker extends Walker_Comment {
 
                     if ( $edit_link ) {
 
-                        echo wp_kses_post( $edit_link );
+                        echo wp_kses_post( $edit_link ?? '' );
                         
                     }
                     ?>

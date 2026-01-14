@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 8.4.1
+ * @version 8.4.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -42,6 +42,8 @@ $fields = $listing->contact_owner_fields( $section_data['fields'] );
                 <div class="directorist-form-group">
                     <input type="email" class="directorist-form-element" name="atbdp-contact-email" placeholder="<?php echo esc_attr( $fields['email']['placeholder'] ); ?>" required />
                 </div>
+
+                <?php do_action( 'directorist_before_contact_form_message_field' ); ?>
 
                 <div class="directorist-form-group">
                     <textarea class="directorist-form-element" name="atbdp-contact-message" rows="3" placeholder="<?php echo esc_attr( $fields['message']['placeholder'] ); ?>" required></textarea>

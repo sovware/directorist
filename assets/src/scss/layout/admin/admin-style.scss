@@ -2470,11 +2470,6 @@ span.atbdp-tick-cross {
 	}
 }
 
-.vp-wrap .vp-menus ul.vp-menu-level-2 > li a i.fa,
-.fa {
-	font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
-}
-
 // Listing Gallery
 .atbdb_content_module_contents {
 	.ez-media-uploader {
@@ -4254,11 +4249,16 @@ body.wp-admin {
 	margin-top: 20px;
 
 	.directorist_builder__title {
-		font-size: 19px;
-		line-height: 25px;
+		font-size: 26px;
+		line-height: 34px;
 		font-weight: 600;
 		margin: 0;
-		color: #000;
+		color: #2c3239;
+		.directorist_count {
+			color: #747c89;
+			font-weight: 500;
+			margin-left: 5px;
+		}
 	}
 }
 
@@ -4566,12 +4566,24 @@ body.wp-admin {
 		align-items: center;
 		flex-wrap: wrap;
 		gap: 10px 20px;
+	}
+
+	.directorist_builder__content__right {
+		width: 100%;
+		.directorist-total-types {
+			display: flex;
+			gap: 16px 30px;
+			align-items: center;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			margin-bottom: 32px;
+		}
 
 		.directorist_link-block-wrapper {
 			display: inline-flex;
 			align-items: center;
 			flex-wrap: wrap;
-			gap: 6px 8px;
+			gap: 16px;
 		}
 
 		.directorist_link-block {
@@ -4583,14 +4595,9 @@ body.wp-admin {
 			text-decoration: none;
 			padding: 0 16px;
 			height: 40px;
-			border: 1px solid #3e62f5;
+			border: none;
 			cursor: pointer;
 			box-sizing: border-box;
-
-			@media only screen and (max-width: 575px) {
-				min-width: 100%;
-				margin: 0;
-			}
 
 			&.directorist_new-directory {
 				box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
@@ -4607,8 +4614,13 @@ body.wp-admin {
 			}
 
 			&.directorist_link-block-primary-outline {
-				background-color: transparent;
+				background-color: #ffffff;
 				color: #3e62f5;
+				box-shadow: 0 1px 0 0 rgba(27, 31, 35, 0.1);
+				&:hover {
+					color: #5a7aff;
+					border-color: #5a7aff;
+				}
 			}
 
 			.directorist_link-icon {
@@ -4644,30 +4656,6 @@ body.wp-admin {
 				border: 0 none;
 			}
 		}
-	}
-
-	.directorist_builder__content__right {
-		width: 100%;
-		@media only screen and (max-width: 1199px) {
-			background: #e3e6ef;
-			border-radius: 8px;
-			padding: 10px 10px;
-			width: calc(100% - 20px);
-		}
-
-		.directorist-total-types {
-			margin-bottom: 15px;
-			text-decoration: none;
-			font-size: 12px;
-			font-weight: 500;
-			color: #747c89;
-			line-height: 14px;
-			letter-spacing: 0.24px;
-			text-transform: uppercase;
-			display: inline-flex;
-			align-items: center;
-			gap: 5px;
-		}
 
 		.directorist_table {
 			width: 100%;
@@ -4676,37 +4664,42 @@ body.wp-admin {
 			empty-cells: show;
 			margin-bottom: 0;
 			margin-top: 0;
+			border: 1px solid #e5e7eb;
+			border-radius: 12px;
 			white-space: nowrap;
 			@media only screen and (max-width: 1199px) {
-				overflow-x: auto;
 				display: inline-grid;
-				border-radius: 8px;
+				overflow-x: auto;
 				overflow-y: hidden;
-				padding-bottom: 83px;
 			}
 
 			.directorist_table-header {
 				background: #f9fafb;
-				border: 1px solid #e5e7eb;
-				border-radius: 8px;
-				margin-bottom: 8px;
+				border-bottom: 1px solid #e5e7eb;
+				border-radius: 12px 12px 0 0;
 
 				.directorist_table-row {
 					display: flex;
 					align-items: center;
-					font-size: 12px;
+					font-size: 14px;
 					font-style: normal;
-					font-weight: 500;
-					line-height: 14px;
-					letter-spacing: 0.72px;
+					font-weight: 600;
+					line-height: 16px;
+					letter-spacing: 0.42px;
 					text-transform: uppercase;
-					color: #747c89;
-					max-height: 44px;
-					min-height: 44px;
+					color: #141921;
+					max-height: 56px;
+					min-height: 56px;
 
 					> div {
 						flex: 1;
-						padding: 0 20px;
+						padding: 0 50px;
+						&:not(:first-child) {
+							text-align: center;
+						}
+						&:last-child {
+							text-align: right;
+						}
 					}
 					.directorist_listing-c-action {
 						display: inline-flex;
@@ -4720,56 +4713,81 @@ body.wp-admin {
 			.directorist_table-body {
 				display: flex;
 				flex-direction: column;
-				gap: 8px;
+				gap: 16px;
+				padding: 24px;
+				background: #fff;
+				border-top: none;
+				border-radius: 0 0 12px 12px;
 
 				.directorist_table-row {
-					background: white;
-					border-radius: 8px;
+					position: relative;
 					display: flex;
 					align-items: center;
 					min-height: 72px;
 					max-height: 72px;
-					font-size: 13px;
+					font-size: 16px;
 					font-weight: 500;
-					line-height: 14px;
+					line-height: 18px;
 					color: #4d5761;
-					text-transform: capitalize;
-					box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-					border-left: 4px solid white;
+					background: white;
+					border-radius: 12px;
+					border: 1px solid #e5e7eb;
 					transition: 0.3s ease;
+					&:before {
+						content: "";
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 8px;
+						height: 100%;
+						background: #e5e7eb;
+						border-radius: 12px 0 0 12px;
+						z-index: 1;
+					}
 
 					&:hover {
-						border-color: #3e62f5;
-
-						.directorist-type-actions .directorist_listing-actions {
-							> a {
-								background-color: #3e62f5;
-								color: white;
-
-								svg {
-									color: inherit;
-								}
-							}
-
-							.directorist_more-dropdown
-								.directorist_more-dropdown-toggle
-								svg {
-								color: #747c89;
-							}
+						&:before {
+							background: #113997;
 						}
 					}
 
 					> div {
 						flex: 1;
 						padding: 10px 20px;
+						&:not(:first-child) {
+							text-align: center;
+						}
+						&:last-child {
+							text-align: right;
+						}
+					}
+				}
+
+				.directorist_drag {
+					height: 72px;
+					display: flex;
+					align-items: center;
+					flex: unset !important;
+					padding: 0 6px 0 12px !important;
+					border-radius: 12px 0 0 12px;
+					cursor: grabbing;
+					transition: background 0.3s ease;
+					&:before {
+						display: none;
+					}
+					&:after {
+						bottom: -3px;
+					}
+					&:hover {
+						background: #f3f4f6;
 					}
 				}
 
 				.directorist_title {
-					color: #2c3239;
-					font-size: 15px;
-					font-weight: 500;
-					line-height: 16px;
+					color: #141921;
+					font-weight: 600;
+					padding-left: 17px !important;
+					margin-left: 8px;
 
 					a {
 						color: inherit;
@@ -4777,43 +4795,40 @@ body.wp-admin {
 						box-shadow: none;
 						display: inline-flex;
 						align-items: center;
-						gap: 8px;
+						gap: 4px;
 
 						&:hover {
-							color: #3e62f5;
+							color: #113997;
 						}
 					}
 
 					.directorist_badge {
 						display: inline-flex;
-						padding: 0 6px;
+						gap: 4px;
 						justify-content: center;
 						align-items: center;
-						gap: 8px;
+						color: #113997;
+						background: #d7e4ff;
+						font-size: 14px;
+						font-weight: 500;
+						line-height: 24px;
+						letter-spacing: 0.14px;
 						border-radius: 4px;
-						background: #d8e0fd;
-						color: #061e7e;
-						font-size: 10px;
-						font-weight: 600;
-						line-height: 14px;
-						letter-spacing: 0.4px;
-						text-transform: uppercase;
-						height: 18px;
+						padding: 0 8px;
 						margin: 0;
 					}
 
 					.directorist_listing-id {
-						color: #747c89;
-						font-size: 12px;
+						color: #000833a6;
+						font-size: 14px;
 						font-weight: 500;
-						line-height: 14px;
-						letter-spacing: 0.12px;
-						margin-top: 8px;
+						line-height: 16px;
+						margin-top: 4px;
 					}
 				}
 
 				.directorist-type-count {
-					color: #2e94fa;
+					color: #1974a8;
 				}
 
 				.directorist-type-actions {
@@ -4832,32 +4847,53 @@ body.wp-admin {
 							align-items: center;
 							padding: 0 12px;
 							justify-content: center;
-							gap: 6px;
-							border-radius: 8px;
-							background: #e5e7eb;
-							color: #2c3239;
-							font-size: 13px;
-							font-weight: 500;
-							line-height: 14px;
+							gap: 8px;
+							border-radius: 4px;
+							background: transparent;
+							color: #3e63dd;
+							font-size: 12px;
+							font-weight: 600;
+							line-height: 16px;
 							height: 32px;
+							border: 1px solid #000d4d33;
 							transition: 0.3s ease;
 
 							svg {
-								width: 14px;
-								height: 14px;
-								color: #747c89;
+								width: 16px;
+								height: 16px;
+								color: #3e63dd;
+								path {
+									fill: #3e63dd;
+								}
+							}
+							&:hover {
+								border-color: #113997;
+								color: #113997;
+								svg {
+									color: #113997;
+									path {
+										fill: #113997;
+									}
+								}
 							}
 						}
 
 						.directorist_more-dropdown {
 							.directorist_more-dropdown-toggle {
+								display: inline-flex;
+								align-items: center;
+								justify-content: center;
 								width: 32px;
 								height: 32px;
-								border-radius: 8px !important;
+								border: 1px solid #000d4d33;
+								border-radius: 100% !important;
+								box-sizing: border-box;
 								transition: 0.3s ease;
 
 								svg {
-									color: #d2d6db;
+									width: 14px;
+									height: 14px;
+									color: #3e63dd;
 									transition: 0.3s ease;
 								}
 							}
@@ -4865,11 +4901,7 @@ body.wp-admin {
 							.directorist_more-dropdown-toggle {
 								&:hover,
 								&.active {
-									background-color: #e5e7eb !important;
-
-									svg {
-										color: #2c3239 !important;
-									}
+									border-color: #3e63dd !important;
 								}
 							}
 
@@ -4973,6 +5005,44 @@ body.wp-admin {
 						transition: 0.3s ease;
 					}
 				}
+
+				&.directorist_builder__list {
+					.directorist_builder__list__item {
+						&.dragging.drag-clone {
+							border: 1px solid #c0ccfc;
+							box-shadow: 0 20px 40px 0 #00000040;
+						}
+						&.dragging:not(.drag-clone) {
+							background: #e5e7eb;
+							border: 1px dashed #a1a9b2;
+							* {
+								opacity: 0;
+							}
+						}
+						&.drag-over {
+							position: relative;
+							&:before {
+								content: "";
+								position: absolute;
+								top: -10px;
+								left: 0;
+								height: 3px;
+								width: 100%;
+								background: #3e62f5;
+							}
+							&:after {
+								content: "";
+								position: absolute;
+								top: -14px;
+								left: 0;
+								height: 10px;
+								width: 10px;
+								border-radius: 50%;
+								background: #3e62f5;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -5010,23 +5080,29 @@ body.wp-admin {
 
 		&:before {
 			content: "";
-			border: 5px solid transparent;
 			z-index: 100;
+			top: 100%;
+			left: 50%;
+			transform: translateX(-50%);
+			border: 5px solid transparent;
+			border-bottom: 5px solid #141921;
 		}
 
 		&:after {
 			content: attr(data-tooltip);
-			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
+			white-space: nowrap;
 			border-radius: 6px;
 			background: #141921;
 			color: #ffffff;
 			z-index: 99;
 			padding: 10px 12px;
-			height: 34px;
 			align-items: center;
 			line-height: normal;
+			left: 50%;
+			top: calc(100% + 10px);
+			transform: translateX(-50%);
 		}
 
 		&:hover:before,
@@ -5478,16 +5554,6 @@ body.wp-admin {
 					padding: 9px 10px;
 					border-radius: 4px;
 					color: #5a5f7d;
-				}
-			}
-			&:empty {
-				position: relative;
-				height: 50px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				&:before {
-					content: "No Items Found";
 				}
 			}
 		}

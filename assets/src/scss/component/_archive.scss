@@ -186,6 +186,16 @@
 			flex-wrap: wrap;
 			gap: 10px;
 
+			@media screen and (max-width: 425px) {
+				flex: 0 0 100%;
+				flex-direction: column;
+				.directorist-dropdown__links {
+					right: unset;
+					left: 0;
+					max-width: 250px;
+				}
+			}
+
 			.directorist-dropdown .directorist-dropdown__links__single {
 				cursor: pointer;
 
@@ -328,7 +338,6 @@
 				transform: unset;
 				display: block;
 				font-size: 14px;
-				font-weight: 500;
 				margin-bottom: 15px;
 			}
 		}
@@ -420,6 +429,12 @@
 			}
 		}
 
+		@media only screen and (max-width: 575px) {
+			.directorist-search-field .directorist-price-ranges {
+				margin-top: 15px;
+			}
+		}
+
 		@include m(open) {
 			left: 0;
 			visibility: visible;
@@ -489,6 +504,7 @@
 				> label {
 					position: unset;
 					margin-bottom: 15px;
+					color: var(--directorist-color-body);
 				}
 			}
 			&.directorist-search-field__number {
@@ -501,6 +517,9 @@
 			.directorist-radio-wrapper,
 			.directorist-checkbox-wrapper {
 				margin-top: 13px;
+				@media only screen and (max-width: 575px) {
+					margin-top: 5px;
+				}
 			}
 		}
 		.directorist-form-group:last-child .directorist-search-field {
@@ -616,6 +635,9 @@
 							opacity: 1;
 						}
 					}
+					&.input-has-noLabel {
+						margin-top: 0;
+					}
 				}
 			}
 			&.directorist-icon-right .directorist-input-icon {
@@ -623,6 +645,21 @@
 			}
 			&.directorist-icon-left .directorist-input-icon {
 				left: 0;
+			}
+		}
+
+		.directorist-color-picker-wrap {
+			.wp-picker-container {
+				.wp-picker-input-wrap {
+					margin-bottom: 0;
+					.wp-picker-clear {
+						margin: 0;
+						width: 100px;
+					}
+				}
+				.wp-picker-holder {
+					margin-top: 10px;
+				}
 			}
 		}
 	}
@@ -654,13 +691,21 @@
 	.directorist-search-form__top {
 		.directorist-search-field {
 			@media screen and (max-width: 575px) {
+				padding: 0;
 				margin: 0 20px 0 0;
+				.directorist-select {
+					width: calc(100% + 20px);
+				}
+				&.input-has-value,
 				&.input-is-focused {
 					margin: 0 25px;
 					&.input-has-noLabel {
 						margin: 0;
 						.directorist-filter-location-icon {
 							right: 0;
+						}
+						.directorist-select {
+							width: 100%;
 						}
 					}
 				}

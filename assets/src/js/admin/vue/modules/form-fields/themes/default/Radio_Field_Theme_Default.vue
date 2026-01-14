@@ -16,6 +16,7 @@
                         v-model="local_value"
                     >
                     <label :for="getOptionID( option, option_index, sectionId )">
+                        <span class="cptm-radio-item-icon" :class="option.icon" v-if="option.icon"></span>
                         {{ option.label }}
                     </label>
                 </div>

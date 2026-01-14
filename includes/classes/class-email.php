@@ -161,6 +161,23 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
                 '==CONFIRM_EMAIL_ADDRESS_URL=='                  => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw( directorist_password_reset_url( $user, false, true ) ), __( 'Confirm Email Address', 'directorist' ) ) : '',
                 '==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw( directorist_password_reset_url( $user, true, true ) ), __( 'Set Password And Confirm Email Address', 'directorist' ) ) : ''
             ];
+
+            /**
+             * Filters the find & replace array used to modify the email content.
+             *
+             * This filter allows developers to add, remove, or modify the list of shortcodes 
+             * or placeholders and their corresponding replacements in email content.
+             *
+             * @since 8.4.6
+             *
+             * @param array   $find_replace The associative array of placeholders and their replacement values.
+             * @param int     $listing_id   The current listing ID being processed.
+             * @param WP_User $user         The user object.
+             *
+             * @return array Modified find & replace array.
+             */
+            $find_replace = apply_filters( 'directorist_replace_in_content', $find_replace, $listing_id, $user );
+
             $c = nl2br( strtr( $content, $find_replace ) );
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
             return str_replace( '==ORDER_DETAILS==', ATBDP_Order::get_order_details( $order_id ), $c );
@@ -719,16 +736,10 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            $user = $this->get_owner( $listing_id );
+            $user    = $this->get_owner( $listing_id );
             $subject = $this->replace_in_content( get_directorist_option( 'email_sub_edit_listing' ), null, $listing_id, $user );
-            $to = $user->user_email;
-            $directory_type = directorist_get_listing_directory( $listing_id );
-            $edited_status  = directorist_get_listing_edit_status( $directory_type );
-            if ( 'publish' === $edited_status ) {
-                $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );
-            } else {
-                $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_new_listing' ), null, $listing_id, $user );
-            }
+            $to      = $user->user_email;
+            $body    = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );
             $message = atbdp_email_html( $subject, $body );
             $headers = $this->get_email_headers();
 
@@ -1209,10 +1220,35 @@ We look forward to seeing you soon'
 
 
             $body = $this->replace_in_content( $body, null, null, $user );
-            $body = atbdp_email_html( $sub, $body );
+
+            /**
+             * Filters the new user notification email body HTML.
+             *
+             * This filter is applied after the email template has been processed
+             * and wrapped in the full HTML email template structure.
+             *
+             * @since 8.5.7
+             *
+             * @param string  $body The complete HTML email body (wrapped in email template).
+             * @param WP_User $user The user object for whom the email is being sent.
+             * @return string Filtered email body HTML.
+             */
+            $body = apply_filters( 'directorist_new_user_notification_email_body', atbdp_email_html( $sub, $body ), $user );
             $mail = $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
+            
             if ( $mail ) {
                 delete_user_meta( $user_id, '_atbdp_generated_password' );
+                /**
+                 * Fires after a registration confirmation email is sent to a new user.
+                 *
+                 * @since 8.4.6
+                 *
+                 * @param int    $user_id   The user ID.
+                 * @param object $user      WP_User object.
+                 * @param string $sub       The email subject.
+                 * @param string $body      The email body.
+                 */
+                do_action( 'directorist_after_user_registration_confirmation_email_sent', $user_id, $user, $sub, $body );
             }
         }
 

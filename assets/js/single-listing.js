@@ -217,7 +217,8 @@ function modalToggle() {
       var data = {
         action: 'atbdp_public_add_remove_favorites',
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data('listing_id')
+        post_id: $(this).data('listing_id'),
+        label: $(this).data('label')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -364,7 +365,7 @@ window.addEventListener('load', function () {
     // Validate contact form
     $('.directorist-contact-owner-form').on('submit', function (e) {
       e.preventDefault();
-      var form = $(this);
+      var $form = $(this);
       var submit_button = $(this).find('button[type="submit"]');
       var status_area = $(this).find('.directorist-contact-message-display');
 
@@ -373,7 +374,7 @@ window.addEventListener('load', function () {
       status_area.html(msg);
 
       // Serialize form data
-      var form_data = form.serializeArray();
+      var form_data = $form.serializeArray();
       var data = {
         action: 'atbdp_public_send_contact_email',
         directorist_nonce: directorist.directorist_nonce
@@ -383,28 +384,27 @@ window.addEventListener('load', function () {
       $.each(form_data, function (index, elem) {
         data[elem.name] = elem.value;
       });
-      submit_button.prop('disabled', true);
       $.post(directorist.ajaxurl, data, function (response) {
         submit_button.prop('disabled', false);
         if (1 == response.error) {
           atbdp_contact_submitted = false;
 
           // Show error message
-          var msg = '<div class="atbdp-alert alert-danger-light"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
+          var msg = '<div class="directorist-alert directorist-alert-danger"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         } else {
-          name.val('');
-          message.val('');
-          contact_email.val('');
+          $form.trigger('reset');
 
           // Show success message
-          var msg = '<div class="atbdp-alert alert-success-light"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
+          var msg = '<div class="directorist-alert directorist-alert-success"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         }
         setTimeout(function () {
           status_area.html('');
         }, 5000);
-      }, 'json');
+      }, 'json').always(function () {
+        submit_button.prop('disabled', false);
+      });
     });
     $('#atbdp-contact-form,#directorist-contact-owner-form').removeAttr('novalidate');
   });

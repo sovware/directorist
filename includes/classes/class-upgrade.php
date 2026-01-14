@@ -27,11 +27,130 @@ class ATBDP_Upgrade
 
         add_action( 'directorist_before_all_directory_types', [$this, 'promo_banner'] );
 
-        // add_action('directorist_before_directory_type_edited', array($this, 'promo_banner') );
-
         add_action( 'admin_notices', [ $this, 'bfcm_notice'] );
 
         add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
+
+        // will be removed in future
+        add_action( 'admin_init', [ $this, 'review_migration' ] );
+    }
+
+    /**
+     * Run review consent migration for all directory types.
+     *
+     * @since 8.0
+     * @return void
+     */
+    public function review_migration() {
+        // Skip if migration already done
+        if ( get_option( 'directorist_review_consent_migrated' ) ) {
+            return;
+        }
+
+        $directory_types = get_terms(
+            array(
+                'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+                'hide_empty' => false,
+            )
+        );
+
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+            update_option( 'directorist_review_consent_migrated', true );
+            return;
+        }
+
+        foreach ( $directory_types as $directory_type ) {
+            $this->add_review_consent_field( $directory_type->term_id );
+        }
+
+        update_option( 'directorist_review_consent_migrated', true );
+    }
+
+    /**
+     * Add review consent field to directory type.
+     *
+     * @since 8.0
+     * @param int $term_id Directory type term ID.
+     * @return void
+     */
+    private function add_review_consent_field( $term_id ) {
+        // Validate term ID
+        $term_id = absint( $term_id );
+        if ( empty( $term_id ) ) {
+            return;
+        }
+
+        $contents = get_term_meta( $term_id, 'single_listings_contents', true );
+
+        // Must be array with groups
+        if ( empty( $contents ) || ! is_array( $contents ) ) {
+            return;
+        }
+
+        $fields = isset( $contents['fields'] ) && is_array( $contents['fields'] ) ? $contents['fields'] : array();
+        $groups = isset( $contents['groups'] ) && is_array( $contents['groups'] ) ? $contents['groups'] : array();
+
+        // Already has consent → skip
+        if ( isset( $fields['review_consent'] ) ) {
+            return;
+        }
+
+        $updated = false;
+
+        foreach ( $groups as $index => $group ) {
+            if ( ! is_array( $group ) || empty( $group['widget_name'] ) ) {
+                continue;
+            }
+
+            if ( 'review' === $group['widget_name'] ) {
+                // Add review_consent field
+                $fields['review_consent'] = array(
+                    'enable_cookie_consent' => false,
+                    'enable_gdpr_consent'   => false,
+                    'consent_label'         => sprintf(
+                        /* translators: %1$s: Privacy Policy URL, %2$s: Terms of Service URL */
+                        __( 'I have read and agree to the <a href="%1$s" target="_blank">Privacy Policy</a> and <a href="%2$s" target="_blank">Terms of Service</a>', 'directorist' ),
+                        esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ),
+                        esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() )
+                    ),
+                    'widget_group'      => 'other_widgets',
+                    'widget_name'       => 'review',
+                    'widget_child_name' => 'review_consent',
+                    'widget_key'        => 'review_consent',
+                );
+
+                // Ensure group fields is array
+                if ( ! isset( $group['fields'] ) || ! is_array( $group['fields'] ) ) {
+                    $group['fields'] = array();
+                }
+
+                if ( ! in_array( 'review_consent', $group['fields'], true ) ) {
+                    $group['fields'][] = 'review_consent';
+                }
+
+                // Update accepted_widgets if it exists
+                if ( isset( $group['accepted_widgets'] ) && is_array( $group['accepted_widgets'] ) ) {
+                    $group['accepted_widgets'][] = array(
+                        'widget_group'      => 'other_widgets',
+                        'widget_name'       => 'review',
+                        'widget_child_name' => 'review_consent',
+                    );
+                }
+
+                // Save back the modified group
+                $groups[ $index ] = $group;
+                $updated = true;
+                break;
+            }
+        }
+
+        // Only update database if changes were made
+        if ( $updated ) {
+            $contents['fields'] = $fields;
+            $contents['groups'] = $groups;
+            
+            update_term_meta( $term_id, 'single_listings_contents', $contents );
+        }
     }
 
     public function v8_force_migration() {
@@ -240,7 +359,7 @@ class ATBDP_Upgrade
                                     'fields' => [
                                         'enable_tagline' => [
                                             'type' => "toggle",
-                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'label' => __( "Tagline", "directorist" ),
                                             'value' => $tagline,
                                         ],
                                     ],

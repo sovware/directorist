@@ -11,6 +11,8 @@
           @save="$emit('save', $event)"
           :is="tab.type"
           v-bind="tab"
+          :tab-key="tab.key"
+          :class="tab.key"
         ></component>
       </div>
     </template>

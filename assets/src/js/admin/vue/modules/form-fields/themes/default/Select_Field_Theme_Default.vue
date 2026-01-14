@@ -1,5 +1,5 @@
 <template>
-  <div class="cptm-form-group" :class="formGroupClass">
+  <div class="cptm-form-group cptm-form-group--dropdown" :class="formGroupClass">
     <label v-if="label.length">
       <component :is="labelType">{{ label }}</component>
     </label>

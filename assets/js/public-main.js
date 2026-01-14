@@ -264,6 +264,7 @@ var $ = jQuery;
 window.addEventListener('load', initSelect2);
 document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
 document.body.addEventListener('directorist-reload-select2-fields', initSelect2);
+window.addEventListener('directorist-instant-search-reloaded', initSelect2);
 
 // Init Static Select 2 Fields
 function initSelect2() {
@@ -959,6 +960,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {

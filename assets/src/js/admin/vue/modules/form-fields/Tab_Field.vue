@@ -3,8 +3,10 @@
     :is="getTheTheme('tab-field')"
     v-if="canShow"
     v-bind="$props"
+    @do-action="$emit('do-action', $event)"
     @update="$emit('update', $event)"
-  />
+  >
+  </component>
 </template>
 
 <script>
@@ -14,5 +16,9 @@ import props from "../../mixins/form-fields/input-field-props";
 export default {
   name: "tab-field",
   mixins: [props, feild_helper],
+  model: {
+    prop: "value",
+    event: "update",
+  },
 };
 </script>

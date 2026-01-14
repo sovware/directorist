@@ -254,7 +254,7 @@ class Helper {
     public static function socials() {
         $socials = [
             'facebook'       => __( 'Facebook', 'directorist' ),
-            'twitter'        => __( 'Twitter', 'directorist' ),
+            'twitter'        => __( 'X', 'directorist' ),
             'linkedin'       => __( 'LinkedIn', 'directorist' ),
             'pinterest'      => __( 'Pinterest', 'directorist' ),
             'instagram'      => __( 'Instagram', 'directorist' ),
@@ -279,7 +279,21 @@ class Helper {
 
     public static function pricing_type( $listing_id ) {
         $pricing_type = get_post_meta( $listing_id, '_atbd_listing_pricing', true );
+        if ( ! $pricing_type ) return self::default_pricing_type( $listing_id ); 
         return $pricing_type;
+    }
+
+    public static function default_pricing_type( $listing_id ) {
+        $default_pricing_type = 'price';
+        $directory_type = directorist_get_listing_directory( $listing_id );
+        $directory_type = ( ! empty( $directory_type ) ) ? $directory_type : default_directory_type();
+        $form_fields = get_term_meta( $directory_type, 'submission_form_fields', true );
+        if ( isset( $form_fields['fields']['pricing']['pricing_type'] ) ) {
+            if ( $form_fields['fields']['pricing']['pricing_type'] == 'price_range' ) {
+                $default_pricing_type = 'range';
+            }
+        }
+        return apply_filters( 'directorist_default_pricing_type', $default_pricing_type, $listing_id );
     }
 
     public static function has_price( $listing_id ) {

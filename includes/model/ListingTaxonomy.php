@@ -366,15 +366,16 @@ class Directorist_Listing_Taxonomy {
 
     public function render_shortcode( $atts = [] ) {
 
-        // e_var_dump($atts);
-
         if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
             return ATBDP()->helper->guard( ['type' => 'auth'] );
         }
 
-        if ( $this->redirect_page_url ) {
-            $redirect = '<script>window.location="' . esc_url( $this->redirect_page_url ) . '"</script>';
-            return $redirect;
+        if ( ! empty( $this->redirect_page_url ) ) {
+            $validated_url = wp_validate_redirect( $this->redirect_page_url, '' );
+            if ( ! empty( $validated_url ) ) {
+                $redirect = '<script>window.location="' . esc_js( $validated_url ) . '"</script>';
+                return $redirect;
+            }
         }
 
         if ( $this->type == 'category' ) {

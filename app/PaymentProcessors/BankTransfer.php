@@ -9,7 +9,7 @@ use Directorist\App\Enums\Payment\Status;
 use Directorist\App\Contracts\PaymentInterface;
 use Directorist\App\DTO\Order\DTO as OrderDTO;
 
-class BankTransfer implements PaymentInterface {
+class BankTransfer extends Payment implements PaymentInterface {
     public static function get_key(): string {
         return 'bank_transfer';
     }

@@ -24,7 +24,7 @@ Node.js 22.x is currently in development and not yet released for production use
 - Some dependencies might need to be updated to their latest versions
 
 ## Update Steps
-1. Update Node.js version in package.json to 22.15.0
+1. Update Node.js version in package.json to 24.13.0
 2. Update npm version to 10.x (recommended for Node.js 22.x)
 3. Replace `node-sass` with `sass` in dependencies
 4. Update other dependencies to their latest compatible versions
@@ -89,7 +89,7 @@ For production environments, it is strongly recommended to use Node.js 20.x (LTS
 
 Each time you update Node.js or npm, record the changes here for tracking:
 
-### [2025-12-29] Node.js 22.11.1 → 24.12.0, npm 11.6.2
+### [2025-12-29] Node.js 22.11.1 → 24.13.0, npm 11.6.2
 
 ### [2025-11-18] Node.js 22.20.0 → 24.11.1, npm 10.9.3 → 11.6.2
 

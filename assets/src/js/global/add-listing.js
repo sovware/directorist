@@ -684,7 +684,17 @@ $(function () {
 		function submitForm($form, uploadedImages = []) {
 			var error_count = 0;
 			var err_log = {};
-			let form_data = new FormData();
+			const form_data = new FormData();
+
+			// Add query vars from the URL to form_data
+			const urlParams = new URLSearchParams(window.location.search);
+
+			for (const [key, value] of urlParams.entries()) {
+				// Don't override any existing FormData key
+				if (!form_data.has(key)) {
+					form_data.append(key, value);
+				}
+			}
 
 			form_data.append('action', 'add_listing_action');
 			form_data.append(
@@ -821,14 +831,7 @@ $(function () {
 				success(response) {
 					var redirect_url =
 						response && response.redirect_url
-							? response.redirect_url
-							: '';
-					redirect_url =
-						redirect_url && typeof redirect_url === 'string'
-							? response.redirect_url.replace(
-									/:\/\//g,
-									'%3A%2F%2F'
-								)
+							? encodeURIComponent(response.redirect_url)
 							: '';
 
 					if (response?.nonce_expired === true) {
@@ -893,10 +896,12 @@ $(function () {
 										`<span class="atbdp_success">${response.success_msg}</span>`
 									);
 
-								window.location.href = joinQueryString(
+								const navigate_to = joinQueryString(
 									response.preview_url,
 									`preview=1&redirect=${redirect_url}`
 								);
+
+								window.location.href = navigate_to;
 							} else {
 								$notification
 									.show()
@@ -935,16 +940,16 @@ $(function () {
 									.html(
 										`<span class="atbdp_success">${response.success_msg}</span>`
 									);
-								window.location.href =
-									decodeURIComponent(redirect_url);
+								window.location.href = redirect_url;
 							} else {
 								$notification
 									.show()
 									.html(
 										`<span class="atbdp_success">${response.success_msg}</span>`
 									);
+
 								window.location.href = joinQueryString(
-									decodeURIComponent(response.redirect_url),
+									redirect_url,
 									is_edited
 								);
 							}

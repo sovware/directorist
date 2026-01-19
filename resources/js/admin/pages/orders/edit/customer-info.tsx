@@ -18,8 +18,7 @@ export default function CustomerInfo({ order }: DetailsProps) {
 						{order?.user?.user_email}
 					</span>
 				</li>
-				{
-					order?.user?.phone &&
+				{order?.user?.phone && (
 					<li className="directorist-infobox-item">
 						<span className="directorist-infobox-item-label">
 							{__('Phone Number', 'directorist')}
@@ -28,7 +27,7 @@ export default function CustomerInfo({ order }: DetailsProps) {
 							{order?.user?.phone}
 						</span>
 					</li>
-				}
+				)}
 			</InfoBox>
 		</Card>
 	);

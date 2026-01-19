@@ -854,6 +854,9 @@ class Directorist_Listing_Form {
 
         $args = $this->get_map_data();
 
+        $args['listing_id']   = (int) $p_id;
+        $args['is_edit_mode'] = false;
+
         $listing_types      = $this->get_listing_types();
         $listing_type_count = count( $listing_types );
 
@@ -865,9 +868,11 @@ class Directorist_Listing_Form {
             $args['enable_sidebar'] = (bool) get_directorist_type_option( $type, 'enable_sidebar', 1 );
             $args['is_edit_mode']   = true;
 
-            return Helper::get_template_contents( 'listing-form/add-listing', $args );
+            $template = Helper::get_template_contents( 'listing-form/add-listing', $args );
+
+            return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
         } else {
-            // if no listing type exists
+            // If no listing type exists
             if ( $listing_type_count == 0 ) {
 
                 if ( ! directory_types() ) {
@@ -891,12 +896,12 @@ class Directorist_Listing_Form {
                 $args['single_directory'] = $type;
                 $template                 = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
-                return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+                return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
             }
 
             // multiple directory available
             $template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
-            return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+            return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
         }
     }
 }

@@ -11,7 +11,7 @@ defined( "ABSPATH" ) || exit;
 <input type="hidden" name="listing_id" value="<?php echo esc_attr( $listing->ID ); ?>">
 <tr>
     <td>Featured Listing</td>
-    <td><?php echo $listing->post_title; ?></td>
+    <td><?php echo esc_html( $listing->post_title ); ?></td>
 </tr>
 <tr class="atbdp_ch_subtotal">
     <td colspan="2" class="">

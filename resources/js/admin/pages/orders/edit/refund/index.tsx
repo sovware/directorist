@@ -24,7 +24,7 @@ import { displayPrice } from '@/admin/helper/payment';
 
 const columns = [
 	{ id: 'id', label: __('Refund ID', 'directorist') },
-	{ 
+	{
 		id: 'amount',
 		label: __('Amount', 'directorist'),
 		render: ({ item }: { item: any }) => {
@@ -33,7 +33,7 @@ const columns = [
 					{displayPrice(item?.amount, item?.currency)}
 				</span>
 			);
-		},	
+		},
 	},
 	{ id: 'reason', label: __('Reason', 'directorist') },
 	{
@@ -42,8 +42,8 @@ const columns = [
 		render: ({ item }: { item: any }) => {
 			return (
 				<Badge
-					className='directorist-badge'
-					variant={ getBadgeVariantByStatus(item?.status) }
+					className="directorist-badge"
+					variant={getBadgeVariantByStatus(item?.status)}
 				>
 					{item?.status}
 				</Badge>

@@ -85,15 +85,12 @@ function modalToggle() {
 		restoreModalToOriginalPosition(modalElement[0]);
 	});
 
-	$(document).bind('click', function (e) {
-		// Check if click is on any modal backdrop
-		var clickedModal = $(e.target).closest('.directorist-modal-js');
-		if (clickedModal.length && e.target === clickedModal[0]) {
-			// Hide modal
-			clickedModal.removeClass('directorist-show');
-
-			// Restore to original position
-			restoreModalToOriginalPosition(clickedModal[0]);
+	// Close modal when clicking backdrop (not content inside)
+	$('body').on('click', '.directorist-modal-js', function (e) {
+		// Only close if clicking the backdrop itself, not children
+		if (e.target === this && $(this).hasClass('directorist-show')) {
+			$(this).removeClass('directorist-show');
+			restoreModalToOriginalPosition(this);
 		}
 	});
 }

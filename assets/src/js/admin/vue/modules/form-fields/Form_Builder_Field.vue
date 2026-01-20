@@ -118,6 +118,7 @@
                 :expanded-group-key="expandedGroupKey"
                 :expanded-group-fields-key="expandedGroupFieldsKey"
                 :auto-edit-label="newlyCreatedGroupKey === widget_group_key"
+                :field-key="fieldKey"
                 @update-group-field="updateGroupField(widget_group_key, $event)"
                 @update-widget-field="updateWidgetField"
                 @trash-widget="trashWidget(widget_group_key, $event)"

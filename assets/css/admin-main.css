@@ -10471,8 +10471,11 @@ body.stop-scrolling {
   width: 100%;
   top: 0;
   left: 0;
+  z-index: 10;
+  pointer-events: none;
 }
 .plupload-thumbs .atbdp-thumb-actions .thumbremovelink {
+  pointer-events: auto;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -10539,6 +10542,84 @@ body.stop-scrolling {
   font-size: 50px;
   padding-top: 10%;
   z-index: 1;
+}
+
+.plupload-thumbs .thumb .atbdp-file-wrapper {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px;
+  background: var(--directorist-color-bg-gray, #f8f9fa);
+  border-radius: 12px;
+  cursor: move;
+  position: relative;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+  pointer-events: auto;
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper:hover {
+  background: var(--directorist-color-border-gray, #e9ecef);
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper .atbdp-file-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper .atbdp-file-icon::after {
+  width: 64px;
+  height: 64px;
+  background-color: var(--directorist-color-primary, #2563eb);
+  opacity: 0.15;
+  border-radius: 8px;
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper .atbdp-file-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--directorist-color-body, #374151);
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.4;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-top: 4px;
 }
 
 .plupload-thumbs .thumb .thumbi {

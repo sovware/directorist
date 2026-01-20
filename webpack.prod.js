@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackRTLPlugin = require('webpack-rtl-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const { vueEntries } = require('./webpack-entry-list.js');
 
 const prodConfig = {
@@ -16,6 +17,12 @@ const prodConfig = {
 		['admin-settings-manager']: './assets/src/js/admin/settings-manager.js',
 	},
 	plugins: [
+		new WebpackBar({
+			name: 'Production Build',
+			color: '#4CAF50',
+			profile: true,
+			basic: false,
+		}),
 		new MiniCssExtractPlugin({
 			filename: '../css/[name].min.css',
 		}),
@@ -105,6 +112,12 @@ const devConfig = {
 	watch: true,
 	entry: vueEntries,
 	plugins: [
+		new WebpackBar({
+			name: 'Vue Dev Build',
+			color: '#42B983',
+			profile: true,
+			basic: false,
+		}),
 		new MiniCssExtractPlugin({
 			filename: '../css/[name].css',
 		}),

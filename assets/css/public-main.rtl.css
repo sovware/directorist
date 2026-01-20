@@ -3185,6 +3185,7 @@ body.stop-scrolling {
   border: 1px solid var(--directorist-color-border-light);
   -webkit-transition: background 0.2s ease;
   transition: background 0.2s ease;
+  /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link .directorist-icon-mask {
   display: -webkit-box;
@@ -3221,9 +3222,6 @@ body.stop-scrolling {
 }
 .directorist-add-listing-types__single__link:hover .directorist-icon-mask:after {
   background-color: var(--directorist-color-primary);
-}
-.directorist-add-listing-types__single__link {
-  /* Legacy Icon */
 }
 .directorist-add-listing-types__single__link > i:not(.directorist-icon-mask) {
   display: inline-block;
@@ -3264,6 +3262,7 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module {
   margin-bottom: 35px;
   border-radius: 12px;
+  /* social info */
 }
 @media (max-width: 991px) {
   .directorist-add-listing-form .directorist-content-module,
@@ -3323,10 +3322,6 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade:after {
   height: 40px;
   top: 26px;
-}
-.directorist-add-listing-form .directorist-content-module,
-#directiost-listing-fields_wrapper .directorist-content-module {
-  /* social info */
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-social-fields,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-social-fields {
@@ -5325,8 +5320,11 @@ body.stop-scrolling {
   width: 100%;
   top: 0;
   right: 0;
+  z-index: 10;
+  pointer-events: none;
 }
 .plupload-thumbs .atbdp-thumb-actions .thumbremovelink {
+  pointer-events: auto;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -5393,6 +5391,84 @@ body.stop-scrolling {
   font-size: 50px;
   padding-top: 10%;
   z-index: 1;
+}
+
+.plupload-thumbs .thumb .atbdp-file-wrapper {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px;
+  background: var(--directorist-color-bg-gray, #f8f9fa);
+  border-radius: 12px;
+  cursor: move;
+  position: relative;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+  pointer-events: auto;
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper:hover {
+  background: var(--directorist-color-border-gray, #e9ecef);
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper .atbdp-file-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper .atbdp-file-icon::after {
+  width: 64px;
+  height: 64px;
+  background-color: var(--directorist-color-primary, #2563eb);
+  opacity: 0.15;
+  border-radius: 8px;
+}
+.plupload-thumbs .thumb .atbdp-file-wrapper .atbdp-file-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--directorist-color-body, #374151);
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.4;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-top: 4px;
 }
 
 .plupload-thumbs .thumb .thumbi {
@@ -10968,12 +11044,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-author-social__item a:hover {
   background-color: var(--directorist-color-primary);
+  /* Legacy Icon */
 }
 .directorist-content-active .directorist-author-social__item a:hover .directorist-icon-mask::after {
   background-color: var(--directorist-color-white);
-}
-.directorist-content-active .directorist-author-social__item a:hover {
-  /* Legacy Icon */
 }
 .directorist-content-active .directorist-author-social__item a:hover span.la,
 .directorist-content-active .directorist-author-social__item a:hover span.fa {
@@ -14748,6 +14822,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: center;
           justify-content: center;
   background-color: var(--directorist-color-white);
+  /* Styles */
 }
 .directorist-categories__single--image {
   background-position: center;
@@ -14799,9 +14874,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   top: 0;
   width: 100%;
   height: 100%;
-}
-.directorist-categories__single {
-  /* Styles */
 }
 .directorist-categories__single--style-one .directorist-categories__single__content .directorist-icon-mask::after {
   width: 50px;
@@ -14911,6 +14983,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 /* Taxonomy List Style One */
+.directorist-taxonomy-list-one .directorist-taxonomy-list {
+  /* Sub Item */
+  /* Sub Item Toggle */
+}
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card {
   display: -webkit-box;
   display: -webkit-flex;
@@ -14990,9 +15066,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.directorist-taxonomy-list-one .directorist-taxonomy-list {
-  /* Sub Item */
-}
 .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item {
   margin: 0;
   list-style: none;
@@ -15051,9 +15124,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   visibility: visible;
   opacity: 1;
   margin-top: 0;
-}
-.directorist-taxonomy-list-one .directorist-taxonomy-list {
-  /* Sub Item Toggle */
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle {
   display: -webkit-box;
@@ -15898,6 +15968,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -ms-flexbox;
   display: flex;
   margin: 0;
+  /* Legacy Icon */
 }
 .directorist-content-active .directorist-authors__card__info-list li:not(:last-child) {
   margin-bottom: 5px;
@@ -15916,9 +15987,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-authors__card__info-list li .directorist-icon-mask:after {
   width: 16px;
   height: 16px;
-}
-.directorist-content-active .directorist-authors__card__info-list li {
-  /* Legacy Icon */
 }
 .directorist-content-active .directorist-authors__card__info-list li > i:not(.directorist-icon-mask) {
   display: inline-block;
@@ -16623,14 +16691,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-align: center;
           align-items: center;
   gap: 5px;
+  /* Legacy Icon */
 }
 .directorist-content-active .directorist-listing-single__meta .directorist-view-count .directorist-icon-mask:after {
   width: 15px;
   height: 15px;
   background-color: var(--directorist-color-light-gray);
-}
-.directorist-content-active .directorist-listing-single__meta .directorist-view-count {
-  /* Legacy Icon */
 }
 .directorist-content-active .directorist-listing-single__meta .directorist-view-count > span {
   display: inline-block;
@@ -16650,6 +16716,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-listing-single__meta .directorist-mark-as-favorite__btn {
   width: auto;
   height: auto;
+}
+.directorist-content-active .directorist-listing-single__meta .directorist-listing-category > a {
+  /* Legacy Icon */
 }
 .directorist-content-active .directorist-listing-single__meta .directorist-listing-category > a .directorist-icon-mask {
   height: 34px;
@@ -16674,9 +16743,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-primary);
   width: 14px;
   height: 14px;
-}
-.directorist-content-active .directorist-listing-single__meta .directorist-listing-category > a {
-  /* Legacy Icon */
 }
 .directorist-content-active .directorist-listing-single__meta .directorist-listing-category > a > span {
   width: 36px;
@@ -18691,6 +18757,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -ms-flexbox;
   display: flex;
   gap: 10px;
+  /* Legacy Icon */
 }
 .directorist-single-tag-list a .directorist-icon-mask {
   display: -webkit-inline-box;
@@ -18717,9 +18784,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-single-tag-list a .directorist-icon-mask:after {
   font-size: 15px;
-}
-.directorist-single-tag-list a {
-  /* Legacy Icon */
 }
 .directorist-single-tag-list a > span:not(.directorist-icon-mask) {
   display: -webkit-inline-box;
@@ -21622,15 +21686,13 @@ Review: New Style
   line-height: 2.65;
   opacity: 0;
   visibility: hidden;
+  /* Legacy Icon */
 }
 .directorist-favourite-items-wrap .directorist-dashboard-items-list__single__action .directorist-favourite-remove-btn .directorist-icon-mask {
   margin-left: 5px;
 }
 .directorist-favourite-items-wrap .directorist-dashboard-items-list__single__action .directorist-favourite-remove-btn .directorist-icon-mask:after {
   background-color: var(--directorist-color-white);
-}
-.directorist-favourite-items-wrap .directorist-dashboard-items-list__single__action .directorist-favourite-remove-btn {
-  /* Legacy Icon */
 }
 .directorist-favourite-items-wrap .directorist-dashboard-items-list__single__action .directorist-favourite-remove-btn > i:not(.directorist-icon-mask) {
   margin-left: 5px;

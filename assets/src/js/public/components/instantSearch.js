@@ -820,25 +820,39 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		);
 
 		if (shortcode === 'directorist_category' && category.trim() !== '') {
-			const categorySelect = document.querySelector(
+			const categorySelects = document.querySelectorAll(
 				'.directorist-search-form .directorist-category-select'
 			);
-			if (categorySelect) {
-				categorySelect
-					.closest('.directorist-search-category')
-					.classList.add('directorist-search-form__single-category');
-			}
+			categorySelects.forEach((categorySelect) => {
+				if (categorySelect) {
+					const categoryContainer = categorySelect.closest(
+						'.directorist-search-category'
+					);
+					if (categoryContainer) {
+						categoryContainer.classList.add(
+							'directorist-search-form__single-category'
+						);
+					}
+				}
+			});
 		}
 
 		if (shortcode === 'directorist_location' && location.trim() !== '') {
-			const locationSelect = document.querySelector(
+			const locationSelects = document.querySelectorAll(
 				'.directorist-search-form .directorist-location-select'
 			);
-			if (locationSelect) {
-				locationSelect
-					.closest('.directorist-search-location')
-					.classList.add('directorist-search-form__single-location');
-			}
+			locationSelects.forEach((locationSelect) => {
+				if (locationSelect) {
+					const locationContainer = locationSelect.closest(
+						'.directorist-search-location'
+					);
+					if (locationContainer) {
+						locationContainer.classList.add(
+							'directorist-search-form__single-location'
+						);
+					}
+				}
+			});
 		}
 	}
 
@@ -907,11 +921,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		'.directorist-instant-search .listing-with-sidebar select',
 		debounce(function (e) {
 			e.preventDefault();
-			if (!$(this).val()) {
-				return; // Skip search if the value is empty
-			}
+			const isSingleCategory = $(this)
+				.closest('.directorist-search-category')
+				.hasClass('directorist-search-form__single-category');
 
-			e.preventDefault();
+			if (!$(this).val() || isSingleCategory) {
+				return; // Skip search if the value is empty or it's a single category page
+			}
 			var searchElm =
 				$(this).val() && $(this).closest('.listing-with-sidebar');
 

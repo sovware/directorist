@@ -53,6 +53,7 @@
             :is-enabled-group-dragging="isEnabledGroupDragging"
             :untrashable-widgets="untrashableWidgets"
             :is-expanded="expandedWidgetKey === widget_key"
+            :field-key="fieldKey"
             @toggle-expand="handleWidgetToggleExpand(widget_key)"
             @found-untrashable-widget="
               updateDetectedUntrashableWidgets(widget_key)
@@ -118,6 +119,10 @@ export default {
     autoEditLabel: {
       default: false,
       type: Boolean,
+    },
+    fieldKey: {
+      type: String,
+      default: "",
     },
   },
 

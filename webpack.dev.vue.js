@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackRTLPlugin = require('webpack-rtl-plugin');
+const WebpackBar = require('webpackbar');
 //const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { vueEntries } = require('./webpack-entry-list.js');
 
@@ -11,6 +12,12 @@ const devConfig = {
 	watch: true,
 	entry: vueEntries,
 	plugins: [
+		new WebpackBar({
+			name: 'Vue Dev Build',
+			color: '#42B983',
+			profile: true,
+			basic: false,
+		}),
 		new MiniCssExtractPlugin({
 			filename: '../css/[name].css',
 		}),

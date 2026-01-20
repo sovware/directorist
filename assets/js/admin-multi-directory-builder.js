@@ -20012,6 +20012,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     isExpanded: {
       type: Boolean,
       default: false
+    },
+    fieldKey: {
+      type: String,
+      default: ""
     }
   },
   created: function created() {
@@ -20125,6 +20129,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var alertKey = alertKeys[0];
       return this.alerts[widgetKey][alertKey];
+    },
+    reviewDeleteTitle: function reviewDeleteTitle() {
+      // Default message for submission form
+      if (this.fieldKey === "submission_form_fields") {
+        return "field will also remove it from the single listing page and search form.";
+      }
+
+      // Message for single listing contents
+      if (this.fieldKey === "single_listings_contents") {
+        return "widget will remove it from the single listing page.";
+      }
+
+      // Message for search form
+      if (this.fieldKey === "search_form_fields") {
+        return "field will remove it from the search form.";
+      }
+
+      // Default fallback message
+      return "field will also remove it from the single listing page and search form.";
     }
   },
   data: function data() {
@@ -20390,7 +20413,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     reviewDeleteTitle: {
       type: String,
-      default: 'field will also remove it from the single and search pages.'
+      default: 'field will also remove it from the single listing page and search form.'
     },
     reviewDeleteMsg: {
       type: String,
@@ -20506,6 +20529,10 @@ __webpack_require__.r(__webpack_exports__);
     autoEditLabel: {
       default: false,
       type: Boolean
+    },
+    fieldKey: {
+      type: String,
+      default: ""
     }
   },
   created: function created() {
@@ -27375,12 +27402,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.isDataChanged = true;
       var activeWidget = this.active_widget_fields[props.widget_key];
       var updatedValue = props.payload.value;
+      var isBlur = !!props.payload.isBlur;
       if (props.payload.key === "placeholder" && !props.payload.value) {
-        if (!activeWidget.label) {
+        // Only apply default placeholder when the input loses focus (blur)
+        // and the placeholder is still empty.
+        if (isBlur && !activeWidget.label) {
           updatedValue = directorist_admin.search_form_default_placeholder;
         }
       } else if (props.payload.key === "label" && !props.payload.value) {
-        if (!activeWidget.placeholder) {
+        // Only apply default label when the input loses focus (blur)
+        // and the placeholder is still empty.
+        if (isBlur && !activeWidget.placeholder) {
           updatedValue = directorist_admin.search_form_default_label;
         }
       }
@@ -31078,6 +31110,13 @@ var render = function render() {
             value: $event
           });
         },
+        "blur": function blur($event) {
+          return _vm.update({
+            key: field_key,
+            value: $event,
+            isBlur: true
+          });
+        },
         "alert": function alert($event) {
           return _vm.$emit('alert', {
             key: "".concat(field.type, "_").concat(field_key),
@@ -33289,7 +33328,8 @@ var render = function render() {
   })], 1) : _vm._e()]), _vm._v(" "), _c('confirmation-modal', {
     attrs: {
       "visible": _vm.showConfirmationModal,
-      "widgetName": _vm.widgetName
+      "widgetName": _vm.widgetName,
+      "reviewDeleteTitle": _vm.reviewDeleteTitle
     },
     on: {
       "confirm": _vm.trashWidget,
@@ -33638,7 +33678,8 @@ var render = function render() {
         "group-data": _vm.groupData,
         "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
         "untrashable-widgets": _vm.untrashableWidgets,
-        "is-expanded": _vm.expandedWidgetKey === widget_key
+        "is-expanded": _vm.expandedWidgetKey === widget_key,
+        "field-key": _vm.fieldKey
       },
       on: {
         "toggle-expand": function toggleExpand($event) {
@@ -37230,7 +37271,8 @@ var render = function render() {
         "is-enabled-group-dragging": _vm.isEnabledGroupDragging,
         "expanded-group-key": _vm.expandedGroupKey,
         "expanded-group-fields-key": _vm.expandedGroupFieldsKey,
-        "auto-edit-label": _vm.newlyCreatedGroupKey === widget_group_key
+        "auto-edit-label": _vm.newlyCreatedGroupKey === widget_group_key,
+        "field-key": _vm.fieldKey
       },
       on: {
         "update-group-field": function updateGroupField($event) {
@@ -60711,12 +60753,6 @@ var index = {
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {

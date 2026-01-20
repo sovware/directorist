@@ -9,10 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $post_id    = ! empty( $data['field_key'] ) ? $data['field_key'] : rand();
 $file_types = 'all_types';
+$groups     = directorist_get_supported_file_types_groups();
 
 if ( ! empty( $data['file_type'] ) ) {
-    $groups = directorist_get_supported_file_types_groups();
-
     if ( isset( $groups[ $data['file_type'] ] ) ) {
         $file_types = implode( ',', $groups[ $data['file_type'] ] );
     } else {
@@ -21,6 +20,45 @@ if ( ! empty( $data['file_type'] ) ) {
 }
 
 $file_size         = ! empty( $data['file_size'] ) ? $data['file_size'] : '2mb';
+
+// Get file type icon based on selected file type
+$file_type_icon = 'far fa-image'; // Default icon
+if ( ! empty( $data['file_type'] ) ) {
+    $selected_file_type = $data['file_type'];
+    switch ( $selected_file_type ) {
+        case 'image':
+            $file_type_icon = 'far fa-image';
+            break;
+        case 'audio':
+            $file_type_icon = 'fas fa-file-audio';
+            break;
+        case 'video':
+            $file_type_icon = 'fas fa-file-video';
+            break;
+        case 'document':
+            $file_type_icon = 'far fa-file';
+            break;
+        case 'all_types':
+            $file_type_icon = 'fas fa-file-upload';
+            break;
+        default:
+            // For specific file extensions, determine icon based on extension
+            if ( isset( $groups['image'] ) && in_array( $selected_file_type, $groups['image'], true ) ) {
+                $file_type_icon = 'far fa-image';
+            } elseif ( isset( $groups['audio'] ) && in_array( $selected_file_type, $groups['audio'], true ) ) {
+                $file_type_icon = 'fas fa-file-audio';
+            } elseif ( isset( $groups['video'] ) && in_array( $selected_file_type, $groups['video'], true ) ) {
+                $file_type_icon = 'fas fa-file-video';
+            } elseif ( isset( $groups['document'] ) && in_array( $selected_file_type, $groups['document'], true ) ) {
+                $file_type_icon = 'far fa-file';
+            }
+            break;
+    }
+}
+
+// Get file size text for display
+$file_size_text = ! empty( $file_size ) ? sprintf( __( 'Maximum file size: %s', 'directorist' ), $file_size ) : '';
+
 // place js config array for plupload
 $plupload_init = [
     'runtimes'            => 'html5,silverlight,html4',
@@ -119,16 +157,16 @@ $multiple           = false;
             <input type="hidden" name="<?php echo esc_attr( $id ); ?>_directory" id="<?php echo esc_attr( $id ); ?>_directory" value="general"/>
 
             <div class="plupload-upload-uic hide-if-no-js
-            <?php
-            if ( $multiple ) {
-                echo 'plupload-upload-uic-multiple';
-            }
-            ?>
-            " id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
+                <?php
+                if ( $multiple ) {
+                    echo 'plupload-upload-uic-multiple';
+                }
+                ?>
+                " id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
                 <input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="file"
                        value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn"/>
-                <label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-browse-button-label"><?php directorist_icon( 'far fa-image' ); ?></label>
-                <span class="plupload-browse-img-size">1600×1200 or larger</span>
+                <label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-browse-button-label"><?php directorist_icon( $file_type_icon ); ?></label>
+                <span class="plupload-browse-img-size"><?php echo esc_html( $file_size_text ); ?></span>
             </div>
 
             <div class="plupload-thumbs

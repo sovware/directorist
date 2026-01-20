@@ -1504,6 +1504,13 @@ document.addEventListener('DOMContentLoaded', function () {
     $('body').removeClass('directorist-preload');
     $('.button.wp-color-result').attr('style', ' ');
 
+    // Escape text for safe HTML insertion (XSS prevention)
+    function escapeHtml(text) {
+      var div = document.createElement('div');
+      div.textContent = text == null ? '' : String(text);
+      return div.innerHTML;
+    }
+
     /* ----------------
           Search Form
           ------------------ */
@@ -2439,7 +2446,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 display: 'block'
               });
               $.ajax({
-                url: 'https://nominatim.openstreetmap.org/?q=%27+'.concat(search, '+%27&format=json'),
+                url: 'https://nominatim.openstreetmap.org/?q=' + encodeURIComponent(search) + '&format=json&limit=5',
                 type: 'GET',
                 data: {},
                 success: function success(data) {
@@ -2452,7 +2459,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
                   var locationIconHTML = "<span class='location-icon'>" + iconHTML + '</span>';
                   for (var i = 0, len = data.length > 5 ? 5 : data.length; i < len; i++) {
-                    res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +'</span></a></li>';
+                    res += '<li><a href="#" data-lat="' + escapeHtml(String(data[i].lat)) + '" data-lon="' + escapeHtml(String(data[i].lon)) + '">' + locationIconHTML + "<span class='location-address'>" + escapeHtml(String(data[i].display_name || '')) + '</span></a></li>';
                   }
                   function displayLocation(position, event) {
                     var lat = position.coords.latitude;
@@ -2804,7 +2811,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (directorist.i18n_text.select_listing_map === 'google') {
         var url = directorist.ajax_url;
       } else {
-        url = "https://nominatim.openstreetmap.org/?postalcode=".concat(zipcode, "&format=json&addressdetails=1");
+        url = "https://nominatim.openstreetmap.org/?postalcode=".concat(encodeURIComponent(zipcode), "&format=json&addressdetails=1");
         $('.directorist-country').css({
           display: 'block'
         });
@@ -2844,7 +2851,8 @@ document.addEventListener('DOMContentLoaded', function () {
               zipcode_search.find('.zip-cityLng').val(lon);
             } else {
               for (var i = 0; i < data.length; i++) {
-                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
+                var country = data[i] && data[i].address && data[i].address.country ? data[i].address.country : '';
+                res += '<li><a href="#" data-lat="' + escapeHtml(String(data[i].lat)) + '" data-lon="' + escapeHtml(String(data[i].lon)) + '">' + escapeHtml(country) + '</a></li>';
               }
             }
             $(country_suggest).html("<ul>".concat(res, "</ul>"));

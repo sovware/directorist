@@ -73,6 +73,12 @@ function convertToSelect2(selector) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -401,25 +407,71 @@ function plu_show_thumbs(imgId) {
           image_caption_html = '<span class="atbdp-caption-preview">' + image_caption + '</span>';
         }
       } else {
-        var file_type_class = 'la-file';
+        // Map file extensions to Directorist icon classes
+        var icon_class = 'las la-file';
         if (file_ext == 'pdf') {
-          file_type_class = 'la-file-pdf-o';
-        } else if (file_ext == 'zip' || file_ext == 'tar') {
-          file_type_class = 'la-file-zip-o';
-        } else if (file_ext == 'doc' || file_ext == 'odt') {
-          file_type_class = 'la-file-word-0';
+          icon_class = 'fas fa-file-pdf';
+        } else if (file_ext == 'zip' || file_ext == 'tar' || file_ext == 'rar' || file_ext == '7z') {
+          icon_class = 'fas fa-file-archive';
+        } else if (file_ext == 'doc' || file_ext == 'docx' || file_ext == 'odt') {
+          icon_class = 'fas fa-file-word';
         } else if (file_ext == 'txt' || file_ext == 'text') {
-          file_type_class = 'la-file-text-0';
-        } else if (file_ext == 'csv' || file_ext == 'ods' || file_ext == 'ots') {
-          file_type_class = 'la-file-excel-0';
-        } else if (file_ext == 'avi' || file_ext == 'mp4' || file_ext == 'mov') {
-          file_type_class = 'la-file-video-0';
+          icon_class = 'far fa-file-alt';
+        } else if (file_ext == 'csv' || file_ext == 'ods' || file_ext == 'ots' || file_ext == 'xls' || file_ext == 'xlsx') {
+          icon_class = 'fas fa-file-excel';
+        } else if (file_ext == 'avi' || file_ext == 'mp4' || file_ext == 'mov' || file_ext == 'wmv' || file_ext == 'flv' || file_ext == 'mkv') {
+          icon_class = 'fas fa-file-video';
+        } else if (file_ext == 'mp3' || file_ext == 'wav' || file_ext == 'ogg' || file_ext == 'm4a' || file_ext == 'flac') {
+          icon_class = 'fas fa-file-audio';
+        } else if (file_ext == 'ppt' || file_ext == 'pptx') {
+          icon_class = 'fas fa-file-powerpoint';
+        } else if (file_ext == 'xps') {
+          icon_class = 'fas fa-file-alt';
+        }
+
+        // Get icon URL using Directorist icon system
+        var iconURL = '';
+        var iconPath = '';
+        if (typeof directorist !== 'undefined' && directorist.assets_url) {
+          // Map icon class to file path
+          if (icon_class.indexOf('fa-file-pdf') !== -1) {
+            iconPath = 'font-awesome/svgs/solid/file-pdf.svg';
+          } else if (icon_class.indexOf('fa-file-archive') !== -1) {
+            iconPath = 'font-awesome/svgs/solid/file-archive.svg';
+          } else if (icon_class.indexOf('fa-file-word') !== -1) {
+            iconPath = 'font-awesome/svgs/solid/file-word.svg';
+          } else if (icon_class.indexOf('fa-file-alt') !== -1) {
+            iconPath = 'font-awesome/svgs/regular/file-alt.svg';
+          } else if (icon_class.indexOf('fa-file-excel') !== -1) {
+            iconPath = 'font-awesome/svgs/solid/file-excel.svg';
+          } else if (icon_class.indexOf('fa-file-video') !== -1) {
+            iconPath = 'font-awesome/svgs/solid/file-video.svg';
+          } else if (icon_class.indexOf('fa-file-audio') !== -1) {
+            iconPath = 'font-awesome/svgs/solid/file-audio.svg';
+          } else if (icon_class.indexOf('fa-file-powerpoint') !== -1) {
+            iconPath = 'font-awesome/svgs/solid/file-powerpoint.svg';
+          } else {
+            iconPath = 'font-awesome/svgs/regular/file.svg';
+          }
+          iconURL = directorist.assets_url + 'icons/' + iconPath;
+        }
+
+        // Generate Directorist icon HTML for file
+        var fileIconHTML = '';
+        if (iconURL && typeof directorist !== 'undefined' && directorist.icon_markup) {
+          fileIconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', 'atbdp-file-icon');
+        } else if (iconURL) {
+          // Fallback to simple icon if directorist.icon_markup is not available
+          fileIconHTML = '<i class="directorist-icon-mask atbdp-file-icon" aria-hidden="true" style="--directorist-icon: url(' + iconURL + ')"></i>';
+        } else {
+          // Final fallback - use a generic file icon
+          fileIconHTML = '<i class="directorist-icon-mask atbdp-file-icon" aria-hidden="true"></i>';
         }
         file_display_class = 'file-thumb';
-        file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
+        file_display = '<div class="atbdp-file-wrapper atbdp-file-info" title="' + atbdp_esc_entities(file_name) + '" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '">' + fileIconHTML + '<span class="atbdp-file-name">' + atbdp_esc_entities(file_name) + '</span>' + '</div>';
       }
-      var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash-alt.svg';
-      var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+      var removeIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash-alt.svg';
+      var iconHTML = directorist.icon_markup.replace('##URL##', removeIconURL).replace('##CLASS##', '');
       var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' + image_title_html + file_display + image_caption_html + '<div class="atbdp-thumb-actions">' + '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '">' + iconHTML + '</span>' + '</div>' + '</div>');
       thumbsC.append(thumb);
       thumb.find('.thumbremovelink').click(function () {

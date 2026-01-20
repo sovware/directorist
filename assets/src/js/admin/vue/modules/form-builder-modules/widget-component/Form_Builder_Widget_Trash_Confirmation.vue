@@ -35,7 +35,7 @@ export default {
     },
     reviewDeleteTitle: {
       type: String,
-      default: 'field will also remove it from the single and search pages.',
+      default: 'field will also remove it from the single listing page and search form.',
     },
     reviewDeleteMsg: {
       type: String,

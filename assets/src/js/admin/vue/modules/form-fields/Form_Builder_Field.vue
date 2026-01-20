@@ -761,13 +761,18 @@ export default {
       this.isDataChanged = true;
       let activeWidget = this.active_widget_fields[props.widget_key];
       let updatedValue = props.payload.value;
+      const isBlur = !!props.payload.isBlur;
 
       if (props.payload.key === "placeholder" && !props.payload.value) {
-        if (!activeWidget.label) {
+        // Only apply default placeholder when the input loses focus (blur)
+        // and the placeholder is still empty.
+        if (isBlur && !activeWidget.label) {
           updatedValue = directorist_admin.search_form_default_placeholder;
         }
       } else if (props.payload.key === "label" && !props.payload.value) {
-        if (!activeWidget.placeholder) {
+        // Only apply default label when the input loses focus (blur)
+        // and the placeholder is still empty.
+        if (isBlur && !activeWidget.placeholder) {
           updatedValue = directorist_admin.search_form_default_label;
         }
       }

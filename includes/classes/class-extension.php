@@ -2494,7 +2494,22 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     ]
                 );
 
-                $response_status = json_decode( $response['body'], true );
+                // Check for WP_Error before accessing response as array
+                if ( is_wp_error( $response ) ) {
+                    $status['success'] = false;
+                    $status['message'] = sprintf( 
+                        __( 'License activation failed: %s', 'directorist' ),
+                        $response->get_error_message()
+                    );
+                    $status['response'] = [
+                        'error' => $response->get_error_code(),
+                        'message' => $response->get_error_message(),
+                    ];
+                    return $status;
+                }
+
+                // Now safe to access response body
+                $response_status = json_decode( wp_remote_retrieve_body( $response ), true );
             } catch ( Exception $e ) {
                 $status['success']  = false;
                 $status['message']  = $e->getMessage();
@@ -2617,12 +2632,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     ]
                 );
 
-                $response = json_decode( $response['body'], true );
+                // Check for WP_Error before accessing response as array
+                if ( is_wp_error( $response ) ) {
+                    return '';
+                }
+
+                $response = json_decode( wp_remote_retrieve_body( $response ), true );
             } catch ( Exception $e ) {
                 return '';
             }
-
-            $status['response'] = $response;
 
             if ( empty( $response['success'] ) && empty( $response['data'] ) ) {
                 return '';

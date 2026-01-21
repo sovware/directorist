@@ -953,20 +953,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// Search Modal Open
 		function searchModalOpen(searchModalParent) {
+			// Modal Overlay
 			let modalOverlay = searchModalParent.querySelector(
 				'.directorist-search-modal__overlay'
 			);
+			// Modal Content
 			let modalContent = searchModalParent.querySelector(
 				'.directorist-search-modal__contents'
 			);
 
-			// Overlay Style
+			// Modal Overlay Style
 			modalOverlay.style.cssText =
 				'opacity: 1; visibility: visible; transition: 0.3s ease;';
 
 			// Modal Content Style
 			modalContent.style.cssText =
-				'opacity: 1; visibility: visible; bottom:0;';
+				'opacity: 1; visibility: visible';
+
+			
+			// Check if backdrop is added to body
+			const bodyElement = document.body;
+			const bodyStyles = getComputedStyle(bodyElement);
+			const bodyBackdropStyle = bodyStyles?.backdropFilter || "";
+
+			// If backdrop is not added to body, set bottom to 0
+			if (bodyBackdropStyle === "none" || bodyBackdropStyle === "") {
+				modalContent.style.cssText +=
+					'bottom: 0';
+			} else {
+				modalContent.style.cssText +=
+					'bottom: 50%; transform: translate(-50%, 50%)';
+			}
 		}
 
 		// Search Modal Close

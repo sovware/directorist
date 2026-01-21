@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.5.7
+Stable tag: 8.5.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -293,6 +293,18 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.5.8 - Jan 27, 2025 =
+
+**Improved**
+ - Dynamic field delete confirmation messages now adapt based on the current page context. (#2638)
+ - File upload field UI improved with dynamic icons, accurate file size display, and better accessibility support. (#2634)
+ - Default label and placeholder support for the review form. (#2586)
+
+**Fixed**
+ - OpenStreet location autocomplete issue on directory type change. (#2632)
+ - Custom input labels now properly override default labels. (#2628)
+ - Back navigation issue on the single category page. (#2627)
+
 = 8.5.7 - Jan 1, 2026 =
 
 Added
@@ -311,7 +323,7 @@ Changed
  - Updated Directorist admin menu icon. (#2643)
  - Adjusted admin menu position for better organization. (#2643)
 
-Fixed
+**Fixed**
  - Widget field definitions not being preserved in the listing header builder. (#2614)
  - Map view initialization and default zoom level issues. (#2613)
  - Media playback issues in listing descriptions. (#2594)

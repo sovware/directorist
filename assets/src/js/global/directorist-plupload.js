@@ -438,9 +438,18 @@ function plu_show_thumbs(imgId) {
 				var icon_class = 'las la-file';
 				if (file_ext == 'pdf') {
 					icon_class = 'fas fa-file-pdf';
-				} else if (file_ext == 'zip' || file_ext == 'tar' || file_ext == 'rar' || file_ext == '7z') {
+				} else if (
+					file_ext == 'zip' ||
+					file_ext == 'tar' ||
+					file_ext == 'rar' ||
+					file_ext == '7z'
+				) {
 					icon_class = 'fas fa-file-archive';
-				} else if (file_ext == 'doc' || file_ext == 'docx' || file_ext == 'odt') {
+				} else if (
+					file_ext == 'doc' ||
+					file_ext == 'docx' ||
+					file_ext == 'odt'
+				) {
 					icon_class = 'fas fa-file-word';
 				} else if (file_ext == 'txt' || file_ext == 'text') {
 					icon_class = 'far fa-file-alt';
@@ -478,8 +487,11 @@ function plu_show_thumbs(imgId) {
 				// Get icon URL using Directorist icon system
 				var iconURL = '';
 				var iconPath = '';
-				
-				if (typeof directorist !== 'undefined' && directorist.assets_url) {
+
+				if (
+					typeof directorist !== 'undefined' &&
+					directorist.assets_url
+				) {
 					// Map icon class to file path
 					if (icon_class.indexOf('fa-file-pdf') !== -1) {
 						iconPath = 'font-awesome/svgs/solid/file-pdf.svg';
@@ -495,8 +507,11 @@ function plu_show_thumbs(imgId) {
 						iconPath = 'font-awesome/svgs/solid/file-video.svg';
 					} else if (icon_class.indexOf('fa-file-audio') !== -1) {
 						iconPath = 'font-awesome/svgs/solid/file-audio.svg';
-					} else if (icon_class.indexOf('fa-file-powerpoint') !== -1) {
-						iconPath = 'font-awesome/svgs/solid/file-powerpoint.svg';
+					} else if (
+						icon_class.indexOf('fa-file-powerpoint') !== -1
+					) {
+						iconPath =
+							'font-awesome/svgs/solid/file-powerpoint.svg';
 					} else {
 						iconPath = 'font-awesome/svgs/regular/file.svg';
 					}
@@ -505,16 +520,24 @@ function plu_show_thumbs(imgId) {
 
 				// Generate Directorist icon HTML for file
 				var fileIconHTML = '';
-				if (iconURL && typeof directorist !== 'undefined' && directorist.icon_markup) {
+				if (
+					iconURL &&
+					typeof directorist !== 'undefined' &&
+					directorist.icon_markup
+				) {
 					fileIconHTML = directorist.icon_markup
 						.replace('##URL##', iconURL)
 						.replace('##CLASS##', 'atbdp-file-icon');
 				} else if (iconURL) {
 					// Fallback to simple icon if directorist.icon_markup is not available
-					fileIconHTML = '<i class="directorist-icon-mask atbdp-file-icon" aria-hidden="true" style="--directorist-icon: url(' + iconURL + ')"></i>';
+					fileIconHTML =
+						'<i class="directorist-icon-mask atbdp-file-icon" aria-hidden="true" style="--directorist-icon: url(' +
+						iconURL +
+						')"></i>';
 				} else {
 					// Final fallback - use a generic file icon
-					fileIconHTML = '<i class="directorist-icon-mask atbdp-file-icon" aria-hidden="true"></i>';
+					fileIconHTML =
+						'<i class="directorist-icon-mask atbdp-file-icon" aria-hidden="true"></i>';
 				}
 
 				file_display_class = 'file-thumb';

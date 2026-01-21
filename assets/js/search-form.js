@@ -1995,7 +1995,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Overlay Style
       if (modalOverlay) {
-        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden; transition: 0.5s ease';
+        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden';
       }
 
       // Modal Content Style

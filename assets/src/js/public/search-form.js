@@ -981,7 +981,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			// Overlay Style
 			if (modalOverlay) {
 				modalOverlay.style.cssText =
-					'opacity: 0; visibility: hidden; transition: 0.5s ease';
+					'opacity: 0; visibility: hidden';
 			}
 
 			// Modal Content Style

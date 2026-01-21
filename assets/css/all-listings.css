@@ -13398,6 +13398,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     position: unset;
     opacity: 1 !important;
     visibility: visible !important;
+    background: transparent;
     -webkit-transform: unset;
             transform: unset;
     width: 100%;

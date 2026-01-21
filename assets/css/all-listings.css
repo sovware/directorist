@@ -8855,7 +8855,6 @@ body.modal-overlay-enabled:before {
   bottom: -100%;
   width: 90%;
   max-width: 600px;
-  margin-bottom: 100px;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
@@ -8868,7 +8867,6 @@ body.modal-overlay-enabled:before {
 @media only screen and (max-width: 575px) {
   .directorist-search-modal__contents {
     width: 100%;
-    margin-bottom: 0;
     border-radius: 16px 16px 0 0;
   }
 }
@@ -9831,25 +9829,12 @@ body.modal-overlay-enabled:before {
   opacity: 1;
   -webkit-transition: all ease 0.4s;
   transition: all ease 0.4s;
+  z-index: 1;
 }
 .directorist-content-active.directorist-overlay-active .directorist-search-modal__overlay::before {
   display: none;
 }
 @media screen and (min-width: 576px) {
-  .directorist-content-active.directorist-overlay-active .directorist-search-form__box {
-    position: relative;
-  }
-  .directorist-content-active.directorist-overlay-active .directorist-search-form__box:before {
-    content: "";
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    border: 1px solid rgba(var(--directorist-color-dark-rgb), 0.05);
-    background: rgba(var(--directorist-color-dark-rgb), 0.5);
-  }
   .directorist-content-active.directorist-overlay-active .directorist-search-form__box .directorist-search-adv-filter.directorist-advanced-filter.directorist-search-modal__contents {
     background-color: transparent;
   }
@@ -9858,7 +9843,6 @@ body.modal-overlay-enabled:before {
   }
 }
 .directorist-content-active.directorist-overlay-active .directorist-search-form__box ~ .directorist-search-form-action__modal .directorist-search-form-action__modal__btn-search {
-  background-color: rgba(var(--directorist-color-dark-rgb), 0.5);
   border: none;
   color: var(--directorist-color-gray);
 }

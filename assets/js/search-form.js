@@ -1987,16 +1987,22 @@ document.addEventListener('DOMContentLoaded', function () {
       modalOverlay.style.cssText = 'opacity: 1; visibility: visible; transition: 0.3s ease;';
 
       // Modal Content Style
-      modalContent.style.cssText = 'opacity: 1; visibility: visible; bottom: 0;';
+      modalContent.style.cssText = 'opacity: 1; visibility: visible; bottom: 50%; transform: translate(-50%, 50%)';
 
-      // Check if backdrop is added to body
-      var bodyElement = document.body;
-      var bodyStyles = getComputedStyle(bodyElement);
-      var bodyBackdropStyle = (bodyStyles === null || bodyStyles === void 0 ? void 0 : bodyStyles.backdropFilter) || "";
-
-      // If backdrop is added to body, set bottom to 50%
-      if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
-        modalContent.style.cssText += 'bottom: 50%; transform: translate(-50%, 50%)';
+      // Check if container width is less than 576px
+      var containerWidth = document.body.offsetWidth;
+      if (containerWidth < 576) {
+        // Check if backdrop is added to body
+        var bodyElement = document.body;
+        var bodyStyles = getComputedStyle(bodyElement);
+        var bodyBackdropStyle = (bodyStyles === null || bodyStyles === void 0 ? void 0 : bodyStyles.backdropFilter) || "";
+        if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
+          // If backdrop is added to body, set bottom to 50%
+          modalContent.style.cssText += 'bottom: 50%; transform: translate(-50%, 50%)';
+        } else {
+          // If backdrop is not added to body, set bottom to 0
+          modalContent.style.cssText += 'bottom: 0; transform: translate(-50%, 0)';
+        }
       }
     }
 

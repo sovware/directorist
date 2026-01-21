@@ -968,19 +968,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			// Modal Content Style
 			modalContent.style.cssText =
-				'opacity: 1; visibility: visible; bottom: 0;';
+				'opacity: 1; visibility: visible; bottom: 50%; transform: translate(-50%, 50%)';
 
-			
-			// Check if backdrop is added to body
-			const bodyElement = document.body;
-			const bodyStyles = getComputedStyle(bodyElement);
-			const bodyBackdropStyle = bodyStyles?.backdropFilter || "";
+			// Check if container width is less than 576px
+			const containerWidth = document.body.offsetWidth;
+			if (containerWidth < 576) {
+				// Check if backdrop is added to body
+				const bodyElement = document.body;
+				const bodyStyles = getComputedStyle(bodyElement);
+				const bodyBackdropStyle = bodyStyles?.backdropFilter || "";
 
-			// If backdrop is added to body, set bottom to 50%
-			if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
-				modalContent.style.cssText +=
-					'bottom: 50%; transform: translate(-50%, 50%)';
-			} 
+				if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
+					// If backdrop is added to body, set bottom to 50%
+					modalContent.style.cssText +=
+						'bottom: 50%; transform: translate(-50%, 50%)';
+				} else {
+					// If backdrop is not added to body, set bottom to 0
+					modalContent.style.cssText +=
+						'bottom: 0; transform: translate(-50%, 0)';
+				}
+			}
 		}
 
 		// Search Modal Close

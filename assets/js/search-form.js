@@ -1987,17 +1987,15 @@ document.addEventListener('DOMContentLoaded', function () {
       modalOverlay.style.cssText = 'opacity: 1; visibility: visible; transition: 0.3s ease;';
 
       // Modal Content Style
-      modalContent.style.cssText = 'opacity: 1; visibility: visible';
+      modalContent.style.cssText = 'opacity: 1; visibility: visible; bottom: 0;';
 
       // Check if backdrop is added to body
       var bodyElement = document.body;
       var bodyStyles = getComputedStyle(bodyElement);
       var bodyBackdropStyle = (bodyStyles === null || bodyStyles === void 0 ? void 0 : bodyStyles.backdropFilter) || "";
 
-      // If backdrop is not added to body, set bottom to 0
-      if (bodyBackdropStyle === "none" || bodyBackdropStyle === "") {
-        modalContent.style.cssText += 'bottom: 0';
-      } else {
+      // If backdrop is added to body, set bottom to 50%
+      if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
         modalContent.style.cssText += 'bottom: 50%; transform: translate(-50%, 50%)';
       }
     }

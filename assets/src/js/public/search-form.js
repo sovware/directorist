@@ -968,7 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			// Modal Content Style
 			modalContent.style.cssText =
-				'opacity: 1; visibility: visible';
+				'opacity: 1; visibility: visible; bottom: 0;';
 
 			
 			// Check if backdrop is added to body
@@ -976,14 +976,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			const bodyStyles = getComputedStyle(bodyElement);
 			const bodyBackdropStyle = bodyStyles?.backdropFilter || "";
 
-			// If backdrop is not added to body, set bottom to 0
-			if (bodyBackdropStyle === "none" || bodyBackdropStyle === "") {
-				modalContent.style.cssText +=
-					'bottom: 0';
-			} else {
+			// If backdrop is added to body, set bottom to 50%
+			if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
 				modalContent.style.cssText +=
 					'bottom: 50%; transform: translate(-50%, 50%)';
-			}
+			} 
 		}
 
 		// Search Modal Close

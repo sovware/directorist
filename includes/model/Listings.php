@@ -1297,11 +1297,21 @@ class Directorist_Listings {
         }
 
         foreach ( $post_ids as $listing_id ) {
-            ?>
-            <div class="<?php Helper::directorist_column( $this->columns ); ?>">
+
+            $is_slider = apply_filters(
+                'addonskit_directorist_is_slider',
+                false,
+                $this
+            );        
+            if ( ! $is_slider ) : ?>
+                <div class="<?php Helper::directorist_column( $this->columns ); ?>">
+            <?php endif; ?>
+        
                 <?php $this->loop_template( 'grid', $listing_id ); ?>
-            </div>
-            <?php
+        
+            <?php if ( ! $is_slider ) : ?>
+                </div>
+            <?php endif;
         }
     }
 
@@ -1339,7 +1349,7 @@ class Directorist_Listings {
             $template = ( $active_template == 'list_view_with_thumbnail' && $this->display_preview_image ) ? 'loop-list' : 'loop-list-nothumb';
             Helper::get_template( 'archive/' . $template, [ 'listings' => $this ] );
         }
-
+        
         wp_reset_postdata();
     }
 

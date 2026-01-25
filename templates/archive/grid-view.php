@@ -16,13 +16,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <?php do_action( 'directorist_before_grid_listings_loop' ); ?>
 
         <?php if ( $listings->have_posts() ) : ?>
-
-            <div class="<?php echo $listings->has_masonry() ? 'directorist-masonry' : ''; ?> <?php Helper::directorist_row(); ?>">
-
-            <?php $listings->render_grid_view( $listings->post_ids() ) ?>
-
+            <?php
+            ob_start();
+            Helper::directorist_row();
+            $row_class = trim( ob_get_clean() );
+            $default_class = ( $listings->has_masonry() ? 'directorist-masonry' : '' ) . ' ' . $row_class;
+            ?>
+                <div class="<?php echo esc_attr( apply_filters(
+                    'addonskit_directorist_grid_wrapper_class',
+                    $default_class,
+                    $listings
+                ) ); ?>">
+                <?php $listings->render_grid_view( $listings->post_ids() ) ?>
             </div>
-
             <?php
             if ( $listings->show_pagination && 'numbered' === $listings->options['pagination_type'] ) {
 

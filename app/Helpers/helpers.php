@@ -9,10 +9,21 @@ use Directorist\App\DTO\Order\DTO as OrderDTO;
 
 function directorist_get_checkout_page_link( string $checkout_type, array $query_args = [] ) {
     $page_id = isset( $query_args['page_id'] ) && $query_args['page_id'] ? $query_args['page_id'] : '';
-    $link    = $page_id ? add_query_arg( $query_args, get_permalink( $page_id ) ) : home_url();
+    
+    // Get checkout page ID from settings
+    if ( empty( $page_id ) ) {
+        $page_id = get_directorist_option( 'checkout_page', '' );
+    }
+    
+    $link = $page_id ? get_permalink( $page_id ) : home_url();
 
     if ( $checkout_type ) {
         $query_args['checkout_type'] = $checkout_type;
+    }
+
+    // Add all query args to the URL
+    if ( ! empty( $query_args ) ) {
+        $link = add_query_arg( $query_args, $link );
     }
 
     return apply_filters( 'directorist_checkout_page_url', $link, $page_id, $checkout_type, $query_args );

@@ -53,7 +53,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
 
         $listing = get_post( $request->get_param( 'listing_id' ) );
 
-        if ( ! $listing || $listing->post_type !== ATBDP_POST_TYPE || $listing->post_status !== 'publish' ) {
+        if ( ! $listing || $listing->post_type !== ATBDP_POST_TYPE ) {
             throw new \Exception( __( 'Invalid listing id.', 'directorist' ) );
         }
     }

@@ -877,6 +877,10 @@ class Directorist_Single_Listing {
     }
 
     public function submit_link() {
+        return isset( $_GET['redirect'] ) ? rawurldecode( $_GET['redirect'] ) : '';
+    }
+
+    public function old_submit_link() {
         $payment    = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $redirect   = isset( $_GET['redirect'] ) ? sanitize_url( wp_unslash( $_GET['redirect'] ) ) : '';

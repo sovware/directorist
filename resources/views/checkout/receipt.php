@@ -118,7 +118,7 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                         if ( $order->get_coupon_discount_type() == 'percentage' ) {
                                             echo '- ' . esc_html( $order->get_coupon_discount() ) . '%';
                                         } else {
-                                            echo '- ' . wp_kses_post( directorist_price( $order->get_coupon_discount() ) );
+                                            echo '- ' . esc_html( wp_kses_post( directorist_price( $order->get_coupon_discount() ) ) );
                                         }
                                         ?>
                                     </td>

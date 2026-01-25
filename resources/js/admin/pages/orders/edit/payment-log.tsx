@@ -18,7 +18,10 @@ export default function PaymentLog({ order }: DetailsProps) {
 		switch (payment.status) {
 			case 'paid':
 				return sprintf(
-					__('Payment of %1$s %2$s was successfully processed via %3$s. Transaction ID: %4$s', 'directorist'),
+					__(
+						'Payment of %1$s %2$s was successfully processed via %3$s. Transaction ID: %4$s',
+						'directorist'
+					),
 					currency,
 					amount,
 					method,
@@ -26,7 +29,10 @@ export default function PaymentLog({ order }: DetailsProps) {
 				);
 			case 'pending':
 				return sprintf(
-					__('Payment of %1$s %2$s is pending confirmation via %3$s. Transaction ID: %4$s', 'directorist'),
+					__(
+						'Payment of %1$s %2$s is pending confirmation via %3$s. Transaction ID: %4$s',
+						'directorist'
+					),
 					currency,
 					amount,
 					method,
@@ -34,7 +40,10 @@ export default function PaymentLog({ order }: DetailsProps) {
 				);
 			case 'failed':
 				return sprintf(
-					__('Payment of %1$s %2$s failed via %3$s. Transaction ID: %4$s', 'directorist'),
+					__(
+						'Payment of %1$s %2$s failed via %3$s. Transaction ID: %4$s',
+						'directorist'
+					),
 					currency,
 					amount,
 					method,
@@ -42,7 +51,10 @@ export default function PaymentLog({ order }: DetailsProps) {
 				);
 			case 'cancelled':
 				return sprintf(
-					__('Payment of %1$s %2$s was cancelled via %3$s. Transaction ID: %4$s', 'directorist'),
+					__(
+						'Payment of %1$s %2$s was cancelled via %3$s. Transaction ID: %4$s',
+						'directorist'
+					),
 					currency,
 					amount,
 					method,
@@ -50,7 +62,10 @@ export default function PaymentLog({ order }: DetailsProps) {
 				);
 			case 'refunded':
 				return sprintf(
-					__('Payment of %1$s %2$s was refunded via %3$s. Transaction ID: %4$s', 'directorist'),
+					__(
+						'Payment of %1$s %2$s was refunded via %3$s. Transaction ID: %4$s',
+						'directorist'
+					),
 					currency,
 					amount,
 					method,
@@ -58,7 +73,10 @@ export default function PaymentLog({ order }: DetailsProps) {
 				);
 			case 'unpaid':
 				return sprintf(
-					__('Payment of %1$s %2$s is unpaid via %3$s. Transaction ID: %4$s', 'directorist'),
+					__(
+						'Payment of %1$s %2$s is unpaid via %3$s. Transaction ID: %4$s',
+						'directorist'
+					),
 					currency,
 					amount,
 					method,
@@ -66,14 +84,20 @@ export default function PaymentLog({ order }: DetailsProps) {
 				);
 			case 'expired':
 				return sprintf(
-					__('Payment of %1$s %2$s has expired via %3$s. Transaction ID: %4$s', 'directorist'),
+					__(
+						'Payment of %1$s %2$s has expired via %3$s. Transaction ID: %4$s',
+						'directorist'
+					),
 					currency,
 					amount,
 					method,
 					transaction_id
 				);
 			default:
-				return sprintf(__('Payment status: %s', 'directorist'), payment.status);
+				return sprintf(
+					__('Payment status: %s', 'directorist'),
+					payment.status
+				);
 		}
 	};
 

@@ -48,8 +48,8 @@ const InfoList = styled.ul`
 			color: var(--color-gray-600);
 			font-weight: 500;
 		}
-		.directorist-list-coupon{
-			.directorist-badge{
+		.directorist-list-coupon {
+			.directorist-badge {
 				margin-right: 8px;
 			}
 		}
@@ -107,4 +107,3 @@ const SubscriptionAction = styled.div`
 `;
 
 export { InfoBox, InfoHead, InfoList, LogItem, LogList, SubscriptionAction };
-

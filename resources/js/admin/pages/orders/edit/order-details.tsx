@@ -18,7 +18,7 @@ export default function OrderDetails({ order }: DetailsProps) {
 						{sprintf(__('Order ID: %s', 'directorist'), order?.id)}
 					</span>
 					<Badge
-						className='directorist-badge'
+						className="directorist-badge"
 						variant={
 							order?.status === 'pending'
 								? 'warning'
@@ -31,24 +31,27 @@ export default function OrderDetails({ order }: DetailsProps) {
 					</Badge>
 				</div>
 				<span className="directorist-order-details-meta">
-					{ sprintf(__('Placed on: %s', 'directorist'), formatDate(
-						'en-US',
-						order?.created_at,
-						{
-							year: 'numeric',
-							month: 'long',
-							day: 'numeric',
-						},
-						true
-					))}
+					{sprintf(
+						__('Placed on: %s', 'directorist'),
+						formatDate(
+							'en-US',
+							order?.created_at,
+							{
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric',
+							},
+							true
+						)
+					)}
 				</span>
 			</InfoHead>
 			<InfoList className="directorist-has-border">
 				{order?.listing_id && (
-				<li>
-					<span>{__('Listing', 'directorist')}</span>
-					<span>{order?.listing_title}</span>
-				</li>
+					<li>
+						<span>{__('Listing', 'directorist')}</span>
+						<span>{order?.listing_title}</span>
+					</li>
 				)}
 				<li>
 					<span>{__('Order Type', 'directorist')}</span>
@@ -65,27 +68,50 @@ export default function OrderDetails({ order }: DetailsProps) {
 				{order?.coupon_code && (
 					<>
 						<li>
-						<span>{__('Coupon Discount', 'directorist')}</span>
-						<span className='directorist-list-coupon'>
-							<Badge variant='success' className='directorist-badge'>{order?.coupon_code}</Badge>
-							- { order?.coupon_discount_type === 'fixed' ? displayPrice(order?.coupon_discount || 0, order?.currency) : `${order?.coupon_discount}%` }
-						</span>
-					</li>
-					<li>
-						<span>{__('Sub Total', 'directorist')}</span>
-						<span>{displayPrice(order?.sub_total, order?.currency)}</span>
-					</li>
+							<span>{__('Coupon Discount', 'directorist')}</span>
+							<span className="directorist-list-coupon">
+								<Badge
+									variant="success"
+									className="directorist-badge"
+								>
+									{order?.coupon_code}
+								</Badge>
+								-{' '}
+								{order?.coupon_discount_type === 'fixed'
+									? displayPrice(
+											order?.coupon_discount || 0,
+											order?.currency
+										)
+									: `${order?.coupon_discount}%`}
+							</span>
+						</li>
+						<li>
+							<span>{__('Sub Total', 'directorist')}</span>
+							<span>
+								{displayPrice(
+									order?.sub_total,
+									order?.currency
+								)}
+							</span>
+						</li>
 					</>
 				)}
 				{order?.tax_type && (
 					<li>
 						<span>{__('Tax', 'directorist')}</span>
-						<span>{order?.tax_rate}{order?.tax_type === 'percent' ? '%' : order?.currency}</span>
+						<span>
+							{order?.tax_rate}
+							{order?.tax_type === 'percent'
+								? '%'
+								: order?.currency}
+						</span>
 					</li>
 				)}
 				<li className="directorist-list-highlight">
 					<span>{__('Total Amount', 'directorist')}</span>
-					<span>{displayPrice(order?.total_amount, order?.currency)}</span>
+					<span>
+						{displayPrice(order?.total_amount, order?.currency)}
+					</span>
 				</li>
 			</InfoList>
 		</Card>

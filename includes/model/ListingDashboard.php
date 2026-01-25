@@ -53,7 +53,7 @@ class Directorist_Listing_Dashboard {
         $action     = isset( $_POST['task'] ) ? sanitize_key( $_POST['task'] ) : '';
         $listing_id = isset( $_POST['taskdata'] ) ? absint( $_POST['taskdata'] ) : 0;
 
-        if ( $action && $listing_id && in_array( $action, [ 'delete' ], true ) ) {
+        if ( $action && $listing_id && in_array( $action, [ 'delete', 'unfeature' ], true ) ) {
             $this->handle_listing_action( $action, $listing_id );
         }
 
@@ -73,11 +73,54 @@ class Directorist_Listing_Dashboard {
     }
 
     public function handle_listing_action( $action, $listing_id ) {
-        if ( $action === 'delete' && current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $listing_id ) ) {
+        $post_type_object = get_post_type_object( ATBDP_POST_TYPE );
+        
+        if ( ! $post_type_object ) {
+            return;
+        }
+    
+        if ( $action === 'delete' && current_user_can( $post_type_object->cap->delete_post, $listing_id ) ) {
             wp_delete_post( $listing_id );
-
             do_action( 'directorist_listing_deleted', $listing_id );
         }
+    
+        if ( $action === 'unfeature' && current_user_can( $post_type_object->cap->edit_post, $listing_id ) ) {
+            $this->unfeature_listing( $listing_id );
+        }
+    }
+    
+    /**
+     * Unfeature a listing.
+     *
+     * @param int $listing_id Listing ID.
+     * @return bool True on success, false on failure.
+     */
+    private function unfeature_listing( int $listing_id ): bool {
+        // Verify listing exists and user owns it.
+        $listing = get_post( $listing_id );
+        
+        if ( ! $listing || $listing->post_type !== ATBDP_POST_TYPE ) {
+            return false;
+        }
+    
+        // Check if user can edit this listing.
+        if ( ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_post, $listing_id ) ) {
+            return false;
+        }
+    
+        // Verify listing is actually featured.
+        if ( ! directorist_is_listing_featured( $listing_id ) ) {
+            return false;
+        }
+    
+        // Remove featured status.
+        $result = directorist_set_listing_featured( $listing_id, false );
+    
+        if ( $result ) {
+            do_action( 'directorist_listing_unfeatured', $listing_id );
+        }
+    
+        return (bool) $result;
     }
 
     public function listings_query( $status = 'all', $paged = 1, $search = '' ) {
@@ -575,6 +618,32 @@ class Directorist_Listing_Dashboard {
         return true;
     }
 
+    /**
+     * Check if listing can be unfeatured.
+     *
+     * @return bool True if listing can be unfeatured, false otherwise.
+     */
+    public function can_unfeature(): bool {
+        if ( ! directorist_is_featured_listing_enabled() ) {
+            return false;
+        }
+
+        $post_id = get_the_ID();
+        
+        if ( ! $post_id ) {
+            return false;
+        }
+
+        // Check if user can edit this listing.
+        $post_type_object = get_post_type_object( ATBDP_POST_TYPE );
+        if ( ! $post_type_object || ! current_user_can( $post_type_object->cap->edit_post, $post_id ) ) {
+            return false;
+        }
+
+        // Only show if listing is actually featured.
+        return directorist_is_listing_featured( $post_id );
+    }
+
     public function get_renewal_link( $listing_id ) {
         if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
             return ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id );
@@ -606,6 +675,17 @@ class Directorist_Listing_Dashboard {
                 'link'              =>  directorist_get_checkout_page_url( 'featured_listing', [ 'listing_id' => $post_id ] ),
                 'icon'              =>  directorist_icon( 'las la-ad', false ),
                 'label'             =>  __( 'Promote', 'directorist' )
+            ];
+        }
+
+        // Add unfeature option if listing is featured.
+        if ( $this->can_unfeature() ) {
+            $dropdown_items['unfeature'] = [
+                'class'             => '',
+                'data_attr'         => 'data-task="unfeature"',
+                'link'              => '#',
+                'icon'              => directorist_icon( 'las la-ad', false ),
+                'label'             => __( 'Unfeature', 'directorist' )
             ];
         }
 

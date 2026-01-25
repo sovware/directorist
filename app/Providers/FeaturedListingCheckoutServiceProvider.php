@@ -106,6 +106,17 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
 
         if ( Status::PAID === $order->status ) {
             update_post_meta( $order->listing_id, '_featured', 1 );
+
+            // Publish the listing if it's pending
+            $listing = get_post( $order->listing_id );
+            if ( $listing && 'pending' === $listing->post_status ) {
+                wp_update_post(
+                    [
+                        'ID'          => $order->listing_id,
+                        'post_status' => 'publish',
+                    ]
+                );
+            }
         } else {
             update_post_meta( $order->listing_id, '_featured', 0 );
         }

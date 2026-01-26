@@ -293,7 +293,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.5.8 - Jan 27, 2025 =
+= 8.5.8 - Jan 26, 2025 =
 
 **Improved**
  - Dynamic field delete confirmation messages now adapt based on the current page context. (#2638)

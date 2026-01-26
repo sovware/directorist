@@ -13,9 +13,12 @@
       :root="field_list"
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
-      @alert="$emit( 'alert', { key: `${field.type}_${field_key}`, data: $event } )"
+      @blur="update({ key: field_key, value: $event, isBlur: true })"
+      @alert="
+        $emit('alert', { key: `${field.type}_${field_key}`, data: $event })
+      "
     />
-    <button 
+    <button
       class="cptm-form-builder-group-options__advanced-toggle"
       @click="toggleAdvanced"
       v-if="hasAdvancedFields"
@@ -88,13 +91,15 @@ export default {
       });
 
       // Show basic fields or advanced fields based on the toggle state
-      return this.showAdvanced ? { ...basicFields, ...advancedFields } : basicFields;
+      return this.showAdvanced
+        ? { ...basicFields, ...advancedFields }
+        : basicFields;
     },
 
     hasAdvancedFields() {
       // Check if there are any advanced fields
       return Object.values(this.field_list).some(
-        (field) => field.field_type === "advanced"
+        (field) => field.field_type === "advanced",
       );
     },
   },
@@ -110,7 +115,7 @@ export default {
     filterFieldList() {
       this.field_list = this.getFilteredFieldList(this.fieldList);
     },
-    
+
     toggleAdvanced() {
       this.showAdvanced = !this.showAdvanced;
     },

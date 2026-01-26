@@ -8,25 +8,7 @@ jobs:
     name: Deploy on new tag
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
-    - name: Install SVN
-      run: sudo apt-get update && sudo apt-get install -y subversion
-    - name: Fix SVN checksum mismatch
-      run: |
-        svn checkout --depth empty https://plugins.svn.wordpress.org/directorist/trunk /tmp/directorist-svn
-        cd /tmp/directorist-svn
-        svn update --set-depth infinity includes/rest-api/Version2/class-listings-controller.php
-        cp "$GITHUB_WORKSPACE/includes/rest-api/Version2/class-listings-controller.php" includes/rest-api/Version2/class-listings-controller.php
-        svn update includes/rest-api/Version2/class-listings-controller.php
-        if svn status includes/rest-api/Version2/class-listings-controller.php | grep -q "^M"; then
-          svn commit -m "Sync class-listings-controller.php to fix checksum mismatch"
-        else
-          echo "File is already in sync, no commit needed"
-        fi
-      env:
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-      continue-on-error: true
+    - uses: actions/checkout@master
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
       env:

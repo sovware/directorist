@@ -20,7 +20,7 @@ use \Directorist\Helper;
                     /**
                      * @since 6.5.6
                      */
-                    // do_action( 'atbdp_before_checkout_table', $form_data );
+                     do_action( 'atbdp_before_checkout_table', $request );
                     ?>
                     <div class="directorist-card directorist-checkout-card">
                         <div class="directorist-card__header">

@@ -73,3 +73,7 @@ function directorist_get_directory_by_slug( string $slug ) {
     $directory = get_term_by( 'slug', $slug, 'atbdp_listing_types' );
     return $directory ? $directory : null;
 }
+
+function directorist_date_time_format() {
+    return apply_filters( 'directorist_date_time_format', 'Y-m-d H:i:s' );
+}

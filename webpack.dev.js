@@ -3,12 +3,19 @@ const { merge } = require('webpack-merge');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackRTLPlugin = require('webpack-rtl-plugin');
+const WebpackBar = require('webpackbar');
 //const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const devConfig = {
 	mode: 'development', // production | development
 	watch: true,
 	plugins: [
+		new WebpackBar({
+			name: 'Dev Build',
+			color: '#2196F3',
+			profile: true,
+			basic: false,
+		}),
 		new MiniCssExtractPlugin({
 			filename: '../css/[name].css',
 		}),

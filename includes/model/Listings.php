@@ -1299,7 +1299,7 @@ class Directorist_Listings {
         foreach ( $post_ids as $listing_id ) {
 
             $is_slider = apply_filters(
-                'addonskit_directorist_is_slider',
+                'directorist_listings_is_slider',
                 false,
                 $this
             );        

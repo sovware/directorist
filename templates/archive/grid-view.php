@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             $default_class = ( $listings->has_masonry() ? 'directorist-masonry' : '' ) . ' ' . $row_class;
             ?>
                 <div class="<?php echo esc_attr( apply_filters(
-                    'addonskit_directorist_grid_wrapper_class',
+                    'directorist_grid_view_wrapper_class',
                     $default_class,
                     $listings
                 ) ); ?>">

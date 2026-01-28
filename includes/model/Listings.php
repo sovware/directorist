@@ -1282,11 +1282,20 @@ class Directorist_Listings {
         }
 
         foreach ( $post_ids as $listing_id ) {
-            ?>
-            <div class="directorist-col-12">
-            <?php $this->loop_template( 'list', $listing_id ); ?>
-            </div>
-            <?php
+
+            $is_slider = apply_filters(
+                'directorist_listings_list_items_view_before',
+                false,
+                $this
+            );
+        
+            if ( $is_slider ) : ?>
+                <div class="listing-slider-style">
+                    <?php $this->loop_template( 'list', $listing_id ); ?>
+                </div>
+            <?php else :
+                $this->loop_template( 'list', $listing_id );
+            endif;
         }
     }
 
@@ -1299,17 +1308,31 @@ class Directorist_Listings {
         foreach ( $post_ids as $listing_id ) {
 
             $is_slider = apply_filters(
-                'directorist_listings_is_slider',
+                'directorist_listings_grid_items_view_before',
                 false,
                 $this
-            );        
-            if ( ! $is_slider ) : ?>
-                <div class="<?php Helper::directorist_column( $this->columns ); ?>">
+            );
+
+            $default_wrapper_class = '';
+            ob_start();
+            Helper::directorist_column( $this->columns );
+            $default_wrapper_class = trim( ob_get_clean() );
+
+            $grid_item_wrapper_class = apply_filters(
+                'directorist_listings_grid_item_wrapper_class',
+                $default_wrapper_class,
+                $this
+            );
+
+            $has_grid_item_wrapper = ( ! $is_slider && '' !== trim( (string) $grid_item_wrapper_class ) );
+
+            if ( $has_grid_item_wrapper ) : ?>
+                <div class="<?php echo esc_attr( $grid_item_wrapper_class ); ?>">
             <?php endif; ?>
         
                 <?php $this->loop_template( 'grid', $listing_id ); ?>
         
-            <?php if ( ! $is_slider ) : ?>
+            <?php if ( $has_grid_item_wrapper ) : ?>
                 </div>
             <?php endif;
         }

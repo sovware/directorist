@@ -16,24 +16,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <?php do_action( 'directorist_before_list_listings_loop' ); ?>
 
             <?php if ( $listings->have_posts() ) : ?>
-
-                <div class="<?php Helper::directorist_row(); ?>">
-                    <?php $listings->render_list_view( $listings->post_ids() ) ?>
-                    </div>
-                <div/>
-                
-                <?php
-                if ( $listings->show_pagination && 'numbered' === $listings->options['pagination_type'] ) {
-
-                    do_action( 'directorist_before_listings_pagination' );
-
-                    $listings->pagination();
-
-                    do_action( 'directorist_after_listings_pagination' );
-                }
-                ?>
-
-                <?php do_action( 'directorist_after_grid_listings_loop' ); ?>
+            <?php 
+             ob_start();
+            Helper::directorist_row();
+            $row_class = trim( ob_get_clean() );
+            ?>
+                <div class="<?php echo esc_attr(
+                    apply_filters(
+                        'directorist_list_view_wrapper_class',
+                        $row_class,
+                        $listings
+                    )
+                ); ?>">
+                 <?php $listings->render_list_view( $listings->post_ids() ) ?>
+                </div>
 
             <?php else : ?>
 

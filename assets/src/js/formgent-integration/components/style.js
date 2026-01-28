@@ -124,11 +124,15 @@ const EnquiriesComponentStyle = styled.div`
 			border-color: transparent !important;
 		}
 		.dataviews-view-table {
+			border:none;
 			tbody {
 				td {
 					vertical-align: middle;
 				}
 			}
+		}
+		.dataviews-view-table__row{
+			white-space: nowrap;
 		}
 		.dataviews__view-actions {
 			border-bottom: 1px solid #e5e7eb;
@@ -226,6 +230,8 @@ const EnquiriesComponentStyle = styled.div`
 	}
 	.dataviews-view-table__actions-column {
 		padding: 30px 0;
+		width: auto;
+		border:none;
 	}
 	.dataviews-wrapper {
 		.components-h-stack {

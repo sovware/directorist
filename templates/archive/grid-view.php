@@ -22,17 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             $row_class = trim( ob_get_clean() );
             $default_class = ( $listings->has_masonry() ? 'directorist-masonry' : '' ) . ' ' . $row_class;
             ?>
-
-            <div class="<?php echo esc_attr( apply_filters(
+                <div class="<?php echo esc_attr( apply_filters(
                     'directorist_grid_view_wrapper_class',
                     $default_class,
                     $listings
                 ) ); ?>">
-                
                 <?php $listings->render_grid_view( $listings->post_ids() ) ?>
-
             </div>
-            
             <?php
             if ( $listings->show_pagination && 'numbered' === $listings->options['pagination_type'] ) {
 

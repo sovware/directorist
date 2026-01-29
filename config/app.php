@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || exit;
 use Directorist\App\Providers\ShortcodeServiceProvider;
 use Directorist\App\Providers\Admin\MenuServiceProvider;
 use Directorist\App\Http\Middleware\EnsureIsUserAdmin;
+use Directorist\App\Http\Middleware\Auth;
 use Directorist\App\Providers\FeaturedListingCheckoutServiceProvider;
 use Directorist\App\Providers\PaymentServiceProvider;
 
@@ -32,7 +33,8 @@ return [
     ],
 
     'middleware'              => [
-        'admin' => EnsureIsUserAdmin::class
+        'admin' => EnsureIsUserAdmin::class,
+        'user'  => Auth::class,
     ],
 
     'migration_db_option_key' => 'directorist_migrations',

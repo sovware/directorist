@@ -38,8 +38,11 @@ const columns: Column[] = [
 		label: __('Status', 'directorist'),
 		render: ({ item }) => {
 			return (
-				<Badge variant={ getBadgeVariantByStatus( item.status ) } className='directorist-badge'>
-					{ STATUSES[ item.status ] }
+				<Badge
+					variant={getBadgeVariantByStatus(item.status)}
+					className="directorist-badge"
+				>
+					{STATUSES[item.status]}
 				</Badge>
 			);
 		},
@@ -59,7 +62,11 @@ const columns: Column[] = [
 		id: 'order_type',
 		label: __('Order Type', 'directorist'),
 		render: ({ item }) => {
-			return <Badge variant={'info'} className='directorist-badge'>{item?.order_type}</Badge>;
+			return (
+				<Badge variant={'info'} className="directorist-badge">
+					{item?.order_type}
+				</Badge>
+			);
 		},
 	},
 	{
@@ -77,7 +84,9 @@ const columns: Column[] = [
 					>
 						{item.user_display_name}
 					</UserLink>
-					<span className='directorist-table-text-light'>{item.user_email}</span>
+					<span className="directorist-table-text-light">
+						{item.user_email}
+					</span>
 				</UserInfoContainer>
 			);
 		},
@@ -86,7 +95,11 @@ const columns: Column[] = [
 		id: 'date',
 		label: __('Order Date', 'directorist'),
 		render: ({ item }) => {
-			return <span className='directorist-table-text-light'>{moment(item.created_at).format('MMM D, YYYY')}</span>;
+			return (
+				<span className="directorist-table-text-light">
+					{moment(item.created_at).format('MMM D, YYYY')}
+				</span>
+			);
 		},
 	},
 ];

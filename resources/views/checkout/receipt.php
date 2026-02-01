@@ -67,7 +67,7 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Payment Status', 'directorist' ); ?></td>
                                     <td>
-                                        <?php echo Status::get_i18n( $order->get_status() ); ?>
+                                        <?php echo esc_html( Status::get_i18n( $order->get_status() ) ); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -116,9 +116,9 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                     <td>
                                         <?php
                                         if ( $order->get_coupon_discount_type() == 'percentage' ) {
-                                            echo '- ' . $order->get_coupon_discount() . '%';
+                                            echo '- ' . esc_html( $order->get_coupon_discount() ) . '%';
                                         } else {
-                                            echo '- ' . wp_kses_post( directorist_price( $order->get_coupon_discount() ) );
+                                            echo '- ' . esc_html( wp_kses_post( directorist_price( $order->get_coupon_discount() ) ) );
                                         }
                                         ?>
                                     </td>

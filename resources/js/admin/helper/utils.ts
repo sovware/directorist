@@ -1,4 +1,3 @@
-
 import type { BadgeVariant } from '@wpmvc/components/build-types/gutenberg/badge/type';
 // Define interfaces for the user objects
 interface WordPressUser {
@@ -90,7 +89,6 @@ export function formatDate(
 
 	return dataObject.toLocaleString(formatType, mergedOptions);
 }
-
 
 /**
  * Map subscription status to Badge variant

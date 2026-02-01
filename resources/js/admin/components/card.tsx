@@ -83,4 +83,3 @@ export default function Card({
 
 // Export types for external use
 export type { CardProps };
-

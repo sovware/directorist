@@ -15,7 +15,6 @@ const components = {
 
 export default function Controls(props) {
 	const { fields, attributes, setAttributes, errors, setErrors } = props;
-	console.log('control', errors);
 
 	return (
 		<Fields

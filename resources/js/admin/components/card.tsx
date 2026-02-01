@@ -45,7 +45,7 @@ const CardTitle = styled.h3`
 	margin: 0;
 	font-size: 16px;
 	font-weight: 600;
-	color: var(--color-gray-900);
+	color: var(--wpmvc-gray-900);
 `;
 
 const CardContent = styled.div`

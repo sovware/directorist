@@ -23,7 +23,14 @@ export interface FieldValidation {
 
 export const validators: Record<string, ValidatorFn> = {
 	required: (value) => {
-		if (!value || value.trim() === '') {
+		// Consider empty string, null/undefined, empty array/object as missing; 0 is valid
+		if (
+			value === null ||
+			value === undefined ||
+			(typeof value === 'string' && value.trim() === '') ||
+			(Array.isArray(value) && value.length === 0) ||
+			(typeof value === 'object' && !Array.isArray(value) && !(value instanceof Date) && Object.keys(value).length === 0)
+		) {
 			return 'This field is required';
 		}
 		return null;
@@ -134,11 +141,12 @@ export const validateField = (
 	attributes: Record<string, any> = {}
 ): ValidationResult => {
 	if (!field?.validation) return { isValid: true, errors: [] };
-
+	if(field.validation.condition && !field.validation.condition(attributes)) return { isValid: true, errors: [] };
+	
 	const errors: string[] = [];
 
 	Object.entries(field.validation).forEach(([rule, ruleValue]) => {
-		if (typeof ruleValue === 'function') {
+		if (typeof ruleValue === 'function' && rule !== 'conditional_required' ) {
 			try {
 				const error = (ruleValue as ValidatorFn)(
 					value,
@@ -153,10 +161,17 @@ export const validateField = (
 				errors.push('Validation error occurred');
 			}
 		} else if (validators[rule]) {
-			const error = validators[rule](value, ruleValue);
-			if (error) {
-				errors.push(error);
+			if (typeof ruleValue === 'function') {
+				const error = validators[rule](value, ruleValue, attributes);
+				
+				if (error) {
+					errors.push(error);
+				}
+			}else{
+				const error = validators[rule](value, ruleValue);
+				if (error) errors.push(error);
 			}
+			
 		} else if (rule === 'regex' && Array.isArray(ruleValue)) {
 			const [pattern, message] = ruleValue;
 			const error = validators.regex(value, pattern, message);
@@ -204,19 +219,7 @@ export const validateFieldAsync = async (
 	const asyncValidations: Promise<string | null>[] = [];
 
 	Object.entries(field.validation).forEach(([rule, ruleValue]) => {
-		if (
-			typeof ruleValue === 'function' &&
-			ruleValue.constructor.name === 'AsyncFunction'
-		) {
-			asyncValidations.push(
-				(ruleValue as AsyncValidatorFn)(value, attributes, field).catch(
-					(err) => {
-						console.error('Async validation error:', err);
-						return 'Validation error occurred';
-					}
-				)
-			);
-		} else if (typeof ruleValue === 'function') {
+		if (typeof ruleValue === 'function') {
 			try {
 				const error = (ruleValue as ValidatorFn)(
 					value,

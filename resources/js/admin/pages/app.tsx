@@ -3,10 +3,15 @@ import { Dashboard } from '@wpmvc/dashboard';
 import { RouteType } from '@wpmvc/dashboard/build-types/components/dashboard/types';
 import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/types';
 import styled from 'styled-components';
-import validateField from '../controls/custom-field/validation';
+import { FieldValidator } from '../controls/custom-field/validation/FieldValidator';
+import { EmailValidator } from '../controls/custom-field/validation/validators/EmailValidator';
+import { MaxLengthValidator } from '../controls/custom-field/validation/validators/MaxLengthValidator';
+import { MinLengthValidator } from '../controls/custom-field/validation/validators/MinLengthValidator';
+import { NumberValidator } from '../controls/custom-field/validation/validators/NumberValidator';
+import { RequiredValidator } from '../controls/custom-field/validation/validators/RequiredValidator';
+import CommentIcon from '../icons/CommentIcon';
 import DocIcon from '../icons/DocIcon';
 import QuestionCircleIcon from '../icons/QuestionCircleIcon';
-// import OrderEdit from './orders/edit';
 import Orders from './orders';
 import OrderEdit from './orders/edit';
 
@@ -23,22 +28,48 @@ const actionItems: MenuItemsType = {
 	},
 	feedback: {
 		path: 'https://directorist.com/dashboard/#feedback',
-		icon: <i className="la la-comment"></i>,
+		icon: <CommentIcon />,
 	},
 };
 
 const ThemeWrapper = styled.div`
-	--color-primary-500: #3e62f5;
-	--color-gray-900: #141921;
-	--color-gray-600: #4d5761;
-	--color-gray-500: #747c89;
-	--color-gray-300: #d2d6db;
-	--color-gray-200: #e5e7eb;
-
 	--color-light: #e7ecee;
 `;
 
 export default function App() {
+	// const fieldValidation = ({
+	// 	value,
+	// 	field,
+	// 	fieldKey,
+	// 	attributes,
+	// 	errors,
+	// 	setErrors,
+	// }: {
+	// 	value: any;
+	// 	field: any;
+	// 	fieldKey: string;
+	// 	attributes: Record<string, any>;
+	// 	errors: Record<string, string[]>;
+	// 	setErrors: (next: Record<string, string[]>) => void;
+	// }) => {
+	// 	if (!field?.validation) return;
+
+	// 	// Use the validation module
+	// 	const errorResult = validateField(value, field, attributes);
+		
+	// 	if (errorResult?.errors?.length > 0) {
+	// 		setErrors({
+	// 			...errors,
+	// 			[fieldKey]: errorResult?.errors
+	// 		});
+	// 	} else {
+	// 		setErrors({
+	// 			[fieldKey]: []
+	// 		});
+	// 	}
+	// }
+
+
 	const fieldValidation = ({
 		value,
 		field,
@@ -46,22 +77,54 @@ export default function App() {
 		attributes,
 		errors,
 		setErrors,
+	}: {
+		value: any;
+		field: any;
+		fieldKey: string;
+		attributes: Record<string, any>;
+		errors: Record<string, string[]>;
+		setErrors: (next: Record<string, string[]>) => void;
 	}) => {
 		if (!field?.validation) return;
 
-		// Use the validation module
-		const errorResult = validateField(value, field, attributes);
-
-		const updatedValidationErrors = { ...errors };
-		if (errorResult?.errors?.length > 0) {
-			updatedValidationErrors[fieldKey] = errorResult?.errors;
-		} else {
-			updatedValidationErrors[fieldKey] = [];
+		const validatorContext = new FieldValidator();
+		let errorResult = null
+		if(field.validation.condition && !field.validation.condition(attributes)){
+			errorResult = { isValid: true, errors: [] };
+		}else{
+			Object.entries(field.validation).forEach(([rule, ruleValue]) => {
+				switch (rule) {
+				  case "required":
+					validatorContext.addValidator(new RequiredValidator());
+					break;
+				  case "email":
+					validatorContext.addValidator(new EmailValidator());
+					break;
+				  case "min_length":
+					validatorContext.addValidator(new MinLengthValidator(ruleValue));
+					break;
+				  case "max_length":
+					validatorContext.addValidator(new MaxLengthValidator(ruleValue));
+					break;
+				  case "number":
+					validatorContext.addValidator(new NumberValidator());
+					break;
+				}
+			});
+			errorResult = validatorContext.validate(value, attributes);
 		}
-
-		setErrors(updatedValidationErrors);
-	};
-
+		
+		if (errorResult?.errors?.length > 0) {
+			setErrors({
+				...errors,
+				[fieldKey]: errorResult?.errors
+			});
+		} else {
+			setErrors({
+				[fieldKey]: []
+			});
+		}
+	}
 	addAction(
 		'wpmvc-field-on-blur',
 		'directorist-form-validation',
@@ -93,6 +156,7 @@ export default function App() {
 				rootPaths={[]}
 				colors={{
 					primary: '#3e62f5',
+					error: '#D94A4A',
 					gray: '#141921',
 				}}
 				header={{

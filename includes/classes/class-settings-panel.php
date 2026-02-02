@@ -811,7 +811,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'label'       => __( 'Permanently Delete Expired Listings', 'directorist' ),
                         'type'        => 'toggle',
                         'description' => __( 'Automatically delete trashed listings permanently after the defined duration', 'directorist' ),
-                        'value'       => true,
+                        'value'       => false,
                     ],
                     'delete_expired_listings_after' => [
                         'label' => __( 'Permanently Delete After (days) of Expiration', 'directorist' ),
@@ -1572,7 +1572,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'map_view_zoom_level' => [
                         'label'         => __( 'Zoom Level for Map View', 'directorist' ),
-                        'description'   => __( 'Here 0 means 100% zoom-out. 18 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist' ),
+                        'description'   => __( 'Here 0 means 100% zoom-out. 18 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 18.', 'directorist' ),
                         'type'          => 'number',
                         'value'         => '1',
                         'min'           => '1',

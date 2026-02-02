@@ -1220,8 +1220,22 @@ We look forward to seeing you soon'
 
 
             $body = $this->replace_in_content( $body, null, null, $user );
-            $body = atbdp_email_html( $sub, $body );
+
+            /**
+             * Filters the new user notification email body HTML.
+             *
+             * This filter is applied after the email template has been processed
+             * and wrapped in the full HTML email template structure.
+             *
+             * @since 8.5.7
+             *
+             * @param string  $body The complete HTML email body (wrapped in email template).
+             * @param WP_User $user The user object for whom the email is being sent.
+             * @return string Filtered email body HTML.
+             */
+            $body = apply_filters( 'directorist_new_user_notification_email_body', atbdp_email_html( $sub, $body ), $user );
             $mail = $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
+            
             if ( $mail ) {
                 delete_user_meta( $user_id, '_atbdp_generated_password' );
                 /**

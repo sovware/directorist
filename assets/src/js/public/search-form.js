@@ -224,6 +224,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		$('body').removeClass('directorist-preload');
 		$('.button.wp-color-result').attr('style', ' ');
 
+		// Escape text for safe HTML insertion (XSS prevention)
+		function escapeHtml(text) {
+			const div = document.createElement('div');
+			div.textContent = text == null ? '' : String(text);
+			return div.innerHTML;
+		}
+
 		/* ----------------
         Search Form
         ------------------ */
@@ -471,6 +478,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			);
 
 			searchFields.forEach((searchField) => {
+				const wrapper = searchField.closest(
+					'.directorist-search-field'
+				);
+
+				if (!wrapper) {
+					return;
+				}
+
 				let inputFieldValue = searchField.value;
 
 				if (searchField.classList.contains('directorist-select')) {
@@ -479,28 +494,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				if (inputFieldValue !== '') {
-					searchField.parentElement.classList.add('input-has-value');
+					wrapper.classList.add('input-has-value');
 
-					if (
-						!searchField.parentElement.classList.contains(
-							'input-is-focused'
-						)
-					) {
-						searchField.parentElement.classList.add(
-							'input-is-focused'
-						);
+					if (!wrapper.classList.contains('input-is-focused')) {
+						wrapper.classList.add('input-is-focused');
 					}
 				} else {
 					inputFieldValue = '';
 
-					if (
-						searchField.parentElement.classList.contains(
-							'input-has-value'
-						)
-					) {
-						searchField.parentElement.classList.remove(
-							'input-has-value'
-						);
+					if (wrapper.classList.contains('input-has-value')) {
+						wrapper.classList.remove('input-has-value');
 					}
 				}
 			});
@@ -1329,124 +1332,134 @@ document.addEventListener('DOMContentLoaded', () => {
 		);
 
 		// Listing Type Change
-		$('body').on('click', '.search_listing_types', function (event) {
-			event.preventDefault();
-			let parent = $(this).closest('.directorist-search-contents');
-			let listing_type = $(this).attr('data-listing_type');
-			let type_current = parent.find(
-				'.directorist-listing-type-selection__link--current'
-			);
-
-			if (type_current.length) {
-				type_current.removeClass(
-					'directorist-listing-type-selection__link--current'
+		$('body').on(
+			'click',
+			'.search_listing_types, .directorist-type-nav__link',
+			function (event) {
+				event.preventDefault();
+				let parent = $(this).closest('.directorist-search-contents');
+				let listing_type = $(this).attr('data-listing_type');
+				let type_current = parent.find(
+					'.directorist-listing-type-selection__link--current'
 				);
-				$(this).addClass(
-					'directorist-listing-type-selection__link--current'
-				);
-			}
 
-			parent.find('.listing_type').val(listing_type);
-
-			let form_data = new FormData();
-			form_data.append('action', 'atbdp_listing_types_form');
-			form_data.append('nonce', directorist.directorist_nonce);
-			form_data.append('listing_type', listing_type);
-
-			let atts = parent.attr('data-atts');
-			let atts_decoded = btoa(atts);
-
-			form_data.append('atts', atts_decoded);
-
-			parent
-				.find('.directorist-search-form-box')
-				.addClass('atbdp-form-fade');
-
-			$.ajax({
-				method: 'POST',
-				processData: false,
-				contentType: false,
-				url: directorist.ajax_url,
-				data: form_data,
-				success(response) {
-					if (response) {
-						// Add Temp Element
-						let new_inserted_elm =
-							'<div class="directorist_search_temp"><div>';
-						parent.before(new_inserted_elm);
-
-						// Remove Old Parent
-						parent.remove();
-
-						// Insert New Parent
-						$('.directorist_search_temp').after(
-							response['search_form']
-						);
-						let newParent = $('.directorist_search_temp').next();
-
-						// Toggle Active Class
-						newParent
-							.find(
-								'.directorist-listing-type-selection__link--current'
-							)
-							.removeClass(
-								'directorist-listing-type-selection__link--current'
-							);
-						newParent
-							.find("[data-listing_type='" + listing_type + "']")
-							.addClass(
-								'directorist-listing-type-selection__link--current'
-							);
-
-						// Remove Temp Element
-						$('.directorist_search_temp').remove();
-
-						let events = [
-							new CustomEvent(
-								'directorist-search-form-nav-tab-reloaded'
-							),
-							new CustomEvent(
-								'directorist-reload-select2-fields'
-							),
-							new CustomEvent('directorist-reload-map-api-field'),
-							new CustomEvent('triggerSlice'),
-						];
-
-						events.forEach((event) => {
-							document.body.dispatchEvent(event);
-							window.dispatchEvent(event);
-						});
-
-						handleRadiusVisibility();
-						directorist_custom_range_slider();
-
-						initSearchFields();
-
-						initSearchCategoryCustomFields($);
-					}
-
-					let parentAfterAjax = $(this).closest(
-						'.directorist-search-contents'
+				if (type_current.length) {
+					type_current.removeClass(
+						'directorist-listing-type-selection__link--current'
 					);
+					$(this).addClass(
+						'directorist-listing-type-selection__link--current'
+					);
+				}
 
-					parentAfterAjax
-						.find('.directorist-search-form-box')
-						.removeClass('atbdp-form-fade');
-					if (
+				parent.find('.listing_type').val(listing_type);
+
+				let form_data = new FormData();
+				form_data.append('action', 'atbdp_listing_types_form');
+				form_data.append('nonce', directorist.directorist_nonce);
+				form_data.append('listing_type', listing_type);
+
+				let atts = parent.attr('data-atts');
+				let atts_decoded = btoa(atts);
+
+				form_data.append('atts', atts_decoded);
+
+				parent
+					.find('.directorist-search-form-box')
+					.addClass('atbdp-form-fade');
+
+				$.ajax({
+					method: 'POST',
+					processData: false,
+					contentType: false,
+					url: directorist.ajax_url,
+					data: form_data,
+					success(response) {
+						if (response) {
+							// Add Temp Element
+							let new_inserted_elm =
+								'<div class="directorist_search_temp"><div>';
+							parent.before(new_inserted_elm);
+
+							// Remove Old Parent
+							parent.remove();
+
+							// Insert New Parent
+							$('.directorist_search_temp').after(
+								response['search_form']
+							);
+							let newParent = $(
+								'.directorist_search_temp'
+							).next();
+
+							// Toggle Active Class
+							newParent
+								.find(
+									'.directorist-listing-type-selection__link--current'
+								)
+								.removeClass(
+									'directorist-listing-type-selection__link--current'
+								);
+							newParent
+								.find(
+									"[data-listing_type='" + listing_type + "']"
+								)
+								.addClass(
+									'directorist-listing-type-selection__link--current'
+								);
+
+							// Remove Temp Element
+							$('.directorist_search_temp').remove();
+
+							let events = [
+								new CustomEvent(
+									'directorist-search-form-nav-tab-reloaded'
+								),
+								new CustomEvent(
+									'directorist-reload-select2-fields'
+								),
+								new CustomEvent(
+									'directorist-reload-map-api-field'
+								),
+								new CustomEvent('triggerSlice'),
+							];
+
+							events.forEach((event) => {
+								document.body.dispatchEvent(event);
+								window.dispatchEvent(event);
+							});
+
+							handleRadiusVisibility();
+							directorist_custom_range_slider();
+
+							initSearchFields();
+
+							initSearchCategoryCustomFields($);
+						}
+
+						let parentAfterAjax = $(this).closest(
+							'.directorist-search-contents'
+						);
+
 						parentAfterAjax
 							.find('.directorist-search-form-box')
-							.find('.directorist-search-field-radius_search')
-							.length
-					) {
-						handleRadiusVisibility();
-						directorist_custom_range_slider();
-					}
-				},
-				error(error) {
-					// console.log(error);
-				},
-			});
-		});
+							.removeClass('atbdp-form-fade');
+						if (
+							parentAfterAjax
+								.find('.directorist-search-form-box')
+								.find('.directorist-search-field-radius_search')
+								.length
+						) {
+							handleRadiusVisibility();
+							directorist_custom_range_slider();
+						}
+					},
+					error(error) {
+						// console.log(error);
+					},
+				});
+			}
+		);
 
 		initSearchCategoryCustomFields($);
 
@@ -1480,19 +1493,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				radius_search_item_selector = '.directorist-location-js';
 			}
 
-			// Now, use jQuery to loop through the elements
-			$(radius_search_item_selector).each((index, locationDOM) => {
-				const $location = $(locationDOM);
-				const isEmpty = $location.val() === '';
+			// Check if radius search item selector elements exist
+			const $radiusSearchItems = $(radius_search_item_selector);
 
-				const $container = $location
-					.closest('.directorist-contents-wrap')
-					.find(
-						'.directorist-search-field-radius_search, .directorist-radius-search'
-					);
+			if ($radiusSearchItems.length === 0) {
+				// If no elements found, hide all radius search containers
+				$(
+					'.directorist-search-field-radius_search, .directorist-radius-search'
+				).css({
+					display: 'none',
+				});
+			} else {
+				// Loop through the elements
+				$radiusSearchItems.each((index, locationDOM) => {
+					const $location = $(locationDOM);
+					const isEmpty = $location.val() === '';
 
-				$container.css({ display: isEmpty ? 'none' : 'block' });
-			});
+					const $container = $location
+						.closest('.directorist-contents-wrap')
+						.find(
+							'.directorist-search-field-radius_search, .directorist-radius-search'
+						);
+
+					$container.css({ display: isEmpty ? 'none' : 'block' });
+				});
+			}
 		}
 
 		// handleRadiusVisibility Trigger
@@ -1666,200 +1691,220 @@ document.addEventListener('DOMContentLoaded', () => {
 				];
 
 				input_fields.forEach((field) => {
-					if (!$(field.input_elm).length) {
-						return;
-					}
+					$('body')
+						.off('keyup.directoristOpenstreet', field.input_elm)
+						.on(
+							'keyup.directoristOpenstreet',
+							field.input_elm,
+							debounce(function (event) {
+								event.preventDefault();
 
-					$(field.input_elm).on(
-						'keyup',
-						debounce(function (event) {
-							event.preventDefault();
+								let blockedKeyCodes = [
+									16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37,
+									38, 39, 40, 45, 91, 93, 112, 113, 114, 115,
+									116, 117, 118, 119, 120, 121, 122, 123, 144,
+									145,
+								];
 
-							let blockedKeyCodes = [
-								16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38,
-								39, 40, 45, 91, 93, 112, 113, 114, 115, 116,
-								117, 118, 119, 120, 121, 122, 123, 144, 145,
-							];
+								// Return early when blocked key is pressed.
+								if (blockedKeyCodes.includes(event.keyCode)) {
+									return;
+								}
 
-							// Return early when blocked key is pressed.
-							if (blockedKeyCodes.includes(event.keyCode)) {
-								return;
-							}
-
-							let locationAddressField = $(this).parent(
-								'.directorist-search-field'
-							);
-							let result_container = field.getResultContainer(
-								this,
-								field
-							);
-							let search = $(this).val();
-
-							if (search.length < 3) {
-								result_container.css({
-									display: 'none',
-								});
-							} else {
-								locationAddressField.addClass(
-									'atbdp-form-fade'
+								let locationAddressField = $(this).parent(
+									'.directorist-search-field'
 								);
-								result_container.css({
-									display: 'block',
-								});
+								let result_container = field.getResultContainer(
+									this,
+									field
+								);
+								let search = $(this).val();
 
-								$.ajax({
-									url: 'https://nominatim.openstreetmap.org/?q=%27+'.concat(
-										search,
-										'+%27&format=json'
-									),
-									type: 'GET',
-									data: {},
-									success: function success(data) {
-										let res = '';
+								if (search.length < 3) {
+									result_container.css({
+										display: 'none',
+									});
+								} else {
+									locationAddressField.addClass(
+										'atbdp-form-fade'
+									);
+									result_container.css({
+										display: 'block',
+									});
 
-										let currentIconURL =
-											directorist.assets_url +
-											'icons/font-awesome/svgs/solid/paper-plane.svg';
-										let currentIconHTML =
-											directorist.icon_markup
-												.replace(
-													'##URL##',
-													currentIconURL
-												)
-												.replace('##CLASS##', '');
-										let currentLocationIconHTML =
-											"<span class='location-icon'>" +
-											currentIconHTML +
-											'</span>';
-										let currentLocationAddressHTML =
-											"<span class='location-address'></span>";
+									$.ajax({
+										url:
+											'https://nominatim.openstreetmap.org/?q=' +
+											encodeURIComponent(search) +
+											'&format=json&limit=5',
+										type: 'GET',
+										data: {},
+										success: function success(data) {
+											let res = '';
 
-										let iconURL =
-											directorist.assets_url +
-											'icons/font-awesome/svgs/solid/map-marker-alt.svg';
-										let iconHTML = directorist.icon_markup
-											.replace('##URL##', iconURL)
-											.replace('##CLASS##', '');
-										let locationIconHTML =
-											"<span class='location-icon'>" +
-											iconHTML +
-											'</span>';
+											let currentIconURL =
+												directorist.assets_url +
+												'icons/font-awesome/svgs/solid/paper-plane.svg';
+											let currentIconHTML =
+												directorist.icon_markup
+													.replace(
+														'##URL##',
+														currentIconURL
+													)
+													.replace('##CLASS##', '');
+											let currentLocationIconHTML =
+												"<span class='location-icon'>" +
+												currentIconHTML +
+												'</span>';
+											let currentLocationAddressHTML =
+												"<span class='location-address'></span>";
 
-										for (
-											let i = 0,
-												len =
-													data.length > 5
-														? 5
-														: data.length;
-											i < len;
-											i++
-										) {
-											((res +=
-												'<li><a href="#" data-lat=' +
-												data[i].lat +
-												' data-lon=' +
-												data[i].lon +
-												'>' +
-												locationIconHTML +
-												"<span class='location-address'>" +
-												data[i].display_name),
-												+'</span></a></li>');
-										}
+											let iconURL =
+												directorist.assets_url +
+												'icons/font-awesome/svgs/solid/map-marker-alt.svg';
+											let iconHTML =
+												directorist.icon_markup
+													.replace('##URL##', iconURL)
+													.replace('##CLASS##', '');
+											let locationIconHTML =
+												"<span class='location-icon'>" +
+												iconHTML +
+												'</span>';
 
-										function displayLocation(
-											position,
-											event
-										) {
-											let lat = position.coords.latitude;
-											let lng = position.coords.longitude;
-											$.ajax({
-												url:
-													'https://nominatim.openstreetmap.org/reverse?format=json&lon=' +
-													lng +
-													'&lat=' +
-													lat,
-												type: 'GET',
-												data: {},
-												success: function success(
-													data
-												) {
-													$(
-														'.directorist-location-js, .atbdp-search-address'
-													).val(data.display_name);
-													$(
-														'.directorist-location-js, .atbdp-search-address'
-													).attr(
-														'data-value',
-														data.display_name
-													);
-													$('#cityLat').val(lat);
-													$('#cityLng').val(lng);
+											for (
+												let i = 0,
+													len =
+														data.length > 5
+															? 5
+															: data.length;
+												i < len;
+												i++
+											) {
+												res +=
+													'<li><a href="#" data-lat="' +
+													escapeHtml(
+														String(data[i].lat)
+													) +
+													'" data-lon="' +
+													escapeHtml(
+														String(data[i].lon)
+													) +
+													'">' +
+													locationIconHTML +
+													"<span class='location-address'>" +
+													escapeHtml(
+														String(
+															data[i]
+																.display_name ||
+																''
+														)
+													) +
+													'</span></a></li>';
+											}
 
-													const locationSearch = $(
-														'.directorist-search-location'
-													);
-													if (locationSearch.length) {
-														locationSearch.trigger(
-															'change'
+											function displayLocation(
+												position,
+												event
+											) {
+												let lat =
+													position.coords.latitude;
+												let lng =
+													position.coords.longitude;
+												$.ajax({
+													url:
+														'https://nominatim.openstreetmap.org/reverse?format=json&lon=' +
+														lng +
+														'&lat=' +
+														lat,
+													type: 'GET',
+													data: {},
+													success: function success(
+														data
+													) {
+														$(
+															'.directorist-location-js, .atbdp-search-address'
+														).val(
+															data.display_name
 														);
-													}
-												},
-											});
-										}
+														$(
+															'.directorist-location-js, .atbdp-search-address'
+														).attr(
+															'data-value',
+															data.display_name
+														);
+														$('#cityLat').val(lat);
+														$('#cityLng').val(lng);
 
-										result_container.html(
-											'<ul>' +
-												"<li><a href='#' class='current-location'>" +
-												currentLocationIconHTML +
-												currentLocationAddressHTML +
-												'</a></li>' +
-												res +
-												'</ul>'
-										);
-										if (res.length) {
-											result_container.show();
-										} else {
-											result_container.hide();
-										}
-
-										locationAddressField.removeClass(
-											'atbdp-form-fade'
-										);
-
-										$('body')
-											.off(
-												'click',
-												'.address_result .current-location'
-											)
-											.on(
-												'click',
-												'.address_result .current-location',
-												function (e) {
-													e.preventDefault();
-
-													navigator.geolocation.getCurrentPosition(
-														function (position) {
-															return displayLocation(
-																position,
-																e
+														const locationSearch =
+															$(
+																'.directorist-search-location'
+															);
+														if (
+															locationSearch.length
+														) {
+															locationSearch.trigger(
+																'change'
 															);
 														}
-													);
-												}
+													},
+												});
+											}
+
+											result_container.html(
+												'<ul>' +
+													"<li><a href='#' class='current-location'>" +
+													currentLocationIconHTML +
+													currentLocationAddressHTML +
+													'</a></li>' +
+													res +
+													'</ul>'
 											);
-									},
-									error: function error(_error3) {
-										console.log({
-											error: _error3,
-										});
-										locationAddressField.removeClass(
-											'atbdp-form-fade'
-										);
-									},
-								});
-							}
-						}, 750)
-					);
+											if (res.length) {
+												result_container.show();
+											} else {
+												result_container.hide();
+											}
+
+											locationAddressField.removeClass(
+												'atbdp-form-fade'
+											);
+
+											$('body')
+												.off(
+													'click',
+													'.address_result .current-location'
+												)
+												.on(
+													'click',
+													'.address_result .current-location',
+													function (e) {
+														e.preventDefault();
+
+														navigator.geolocation.getCurrentPosition(
+															function (
+																position
+															) {
+																return displayLocation(
+																	position,
+																	e
+																);
+															}
+														);
+													}
+												);
+										},
+										error: function error(_error3) {
+											console.log({
+												error: _error3,
+											});
+											locationAddressField.removeClass(
+												'atbdp-form-fade'
+											);
+										},
+									});
+								}
+							}, 750)
+						);
 				});
 
 				// hide address result when click outside the input field
@@ -1992,6 +2037,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				const sliderRangeValue = sliderItem.querySelector(
 					'.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range'
 				);
+				const minInputName = minInput?.getAttribute('name') || '';
+				const maxInputName = maxInput?.getAttribute('name') || '';
 
 				const isRTL = document.dir === 'rtl';
 
@@ -2003,18 +2050,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				// Parse the URL parameters
 				const urlParams = new URLSearchParams(window.location.search);
 				const customNumberParams = urlParams.get('custom-number');
-				const customRangeMinParams = urlParams.get(
+				const rangeFieldName = sliderRange?.getAttribute('name') || '';
+				const fieldRangeValueParam = rangeFieldName
+					? urlParams.get(rangeFieldName)
+					: null;
+				const specificRangeMinParam = minInputName
+					? urlParams.get(minInputName)
+					: null;
+				const specificRangeMaxParam = maxInputName
+					? urlParams.get(maxInputName)
+					: null;
+				const globalRangeMinParam = urlParams.get(
 					'directorist-custom-range-slider__value__min'
 				);
-				const customRangeMaxParams = urlParams.get(
+				const globalRangeMaxParam = urlParams.get(
 					'directorist-custom-range-slider__value__max'
 				);
+				const effectiveRangeMinParam =
+					specificRangeMinParam ?? globalRangeMinParam;
+				const effectiveRangeMaxParam =
+					specificRangeMaxParam ?? globalRangeMaxParam;
 				const locationDistanceParams = urlParams.get('miles');
-				const milesParams = new URLSearchParams(
-					window.location.search
-				).has('miles');
+				const milesParams = urlParams.has('miles');
 
 				if (
+					rangeFieldName === 'miles' &&
 					locationDistanceParams !== '0-0' &&
 					sliderDefaultValue >= 0
 				) {
@@ -2022,11 +2082,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				// if already have custom values, then slider is activated
-				if (customNumberParams && customNumberParams !== '0-0') {
+				if (fieldRangeValueParam && fieldRangeValueParam !== '0-0') {
+					sliderActivated = true;
+				} else if (customNumberParams && customNumberParams !== '0-0') {
 					sliderActivated = true;
 				} else if (
-					customRangeMaxParams &&
-					customRangeMaxParams !== '0'
+					effectiveRangeMaxParam &&
+					effectiveRangeMaxParam !== '0'
 				) {
 					sliderActivated = true;
 				}
@@ -2054,7 +2116,20 @@ document.addEventListener('DOMContentLoaded', () => {
 					let maxValue = maxInput.value;
 
 					// Assign min-max values from custom-range-slider params
-					if (customNumberParams && customNumberParams !== '0-0') {
+					if (
+						fieldRangeValueParam &&
+						fieldRangeValueParam !== '0-0'
+					) {
+						const [min, max] = fieldRangeValueParam
+							.split('-')
+							.map(Number);
+
+						minValue = min;
+						maxValue = max;
+					} else if (
+						customNumberParams &&
+						customNumberParams !== '0-0'
+					) {
 						const [min, max] = customNumberParams
 							.split('-')
 							.map(Number);
@@ -2062,10 +2137,13 @@ document.addEventListener('DOMContentLoaded', () => {
 						// Use the split values as min-max
 						minValue = min;
 						maxValue = max;
-					} else if (customRangeMinParams && customRangeMaxParams) {
+					} else if (
+						effectiveRangeMinParam &&
+						effectiveRangeMaxParam
+					) {
 						// Modal Search Form
-						minValue = customRangeMinParams;
-						maxValue = customRangeMaxParams;
+						minValue = effectiveRangeMinParam;
+						maxValue = effectiveRangeMaxParam;
 					}
 
 					// Initial with [min, max] value
@@ -2117,7 +2195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					rangeSliderObserver();
 				});
 
-				// Update slider config
+				// Update slider config - update values but don't trigger change during drag
 				slider.directoristCustomRangeSlider?.on(
 					'update',
 					function (values, handle) {
@@ -2135,12 +2213,16 @@ document.addEventListener('DOMContentLoaded', () => {
 							sliderRangeShow.innerHTML = rangeValue;
 						if (sliderRangeValue) {
 							sliderRangeValue.setAttribute('value', rangeValue);
-							if (!rangeInitLoad) {
-								$(sliderRangeValue).trigger('change');
-							}
 						}
 					}
 				);
+
+				// Trigger change only when dragging ends (mouse/touch released)
+				slider.directoristCustomRangeSlider?.on('end', function () {
+					if (sliderRangeValue && !rangeInitLoad) {
+						$(sliderRangeValue).trigger('change');
+					}
+				});
 
 				// Mark init complete
 				rangeInitLoad = false;
@@ -2270,7 +2352,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (directorist.i18n_text.select_listing_map === 'google') {
 					var url = directorist.ajax_url;
 				} else {
-					url = `https://nominatim.openstreetmap.org/?postalcode=${zipcode}&format=json&addressdetails=1`;
+					url = `https://nominatim.openstreetmap.org/?postalcode=${encodeURIComponent(
+						zipcode
+					)}&format=json&addressdetails=1`;
 
 					$('.directorist-country').css({
 						display: 'block',
@@ -2321,7 +2405,20 @@ document.addEventListener('DOMContentLoaded', () => {
 								zipcode_search.find('.zip-cityLng').val(lon);
 							} else {
 								for (let i = 0; i < data.length; i++) {
-									res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
+									let country =
+										data[i] &&
+										data[i].address &&
+										data[i].address.country
+											? data[i].address.country
+											: '';
+									res +=
+										'<li><a href="#" data-lat="' +
+										escapeHtml(String(data[i].lat)) +
+										'" data-lon="' +
+										escapeHtml(String(data[i].lon)) +
+										'">' +
+										escapeHtml(country) +
+										'</a></li>';
 								}
 							}
 

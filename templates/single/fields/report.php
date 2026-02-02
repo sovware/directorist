@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <button class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-action-report directorist-action-report-not-loggedin directorist-btn-modal directorist-btn-modal-js"><?php directorist_icon( $icon );?> <span class="directorist-single-listing-action__text" aria-label="Report Modal"> <?php esc_html_e( 'Report', 'directorist' ); ?></span></button>
 <?php endif; ?>
 
-<section class="directorist-modal directorist-modal-js directorist-fade directorist-report-abuse-modal">
+<div class="directorist-modal directorist-modal-js directorist-fade directorist-report-abuse-modal">
 
     <div class="directorist-modal__dialog">
 
@@ -62,4 +62,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     </div>
 
-</section>
+</div>

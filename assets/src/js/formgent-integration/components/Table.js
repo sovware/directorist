@@ -1,7 +1,13 @@
 /**
  * WordPress dependencies
  */
-import { useState, useMemo, useCallback } from '@wordpress/element';
+import {
+	useState,
+	useMemo,
+	useCallback,
+	useEffect,
+	useRef,
+} from '@wordpress/element';
 import { DataViews } from '@wordpress/dataviews';
 import { __ } from '@wordpress/i18n';
 
@@ -19,12 +25,17 @@ import {
 	deleteEnquiry,
 	sendEmailToUser,
 	getStatusBadgeClass,
+	extractEnquiryTitleAndPrefix,
+	enrichEnquiriesWithAnswers,
 } from '../utils/enquiryUtils';
 
 export default function Tables(props) {
 	const { items = [], handleTableRefresh } = props;
 	const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(null);
+	const [enrichedItems, setEnrichedItems] = useState([]);
+	const [isLoadingAnswers, setIsLoadingAnswers] = useState(false);
+	const answersCacheRef = useRef(new Map()); // Cache for answers data
 
 	// Initialize view state for DataViews
 	const [view, setView] = useState({
@@ -67,10 +78,16 @@ export default function Tables(props) {
 				enableHiding: false,
 				enableSorting: false,
 				render: ({ item }) => {
+					const { title, prefix } =
+						extractEnquiryTitleAndPrefix(item);
+					//allow max 20 words in prefix
+					const maxWords = 20;
+					const words = prefix.split(' ');
+					const truncatedPrefix = words.slice(0, maxWords).join(' ');
 					return (
 						<div className="directorist-table-enquiry">
-							<h2>{item.title}</h2>
-							<p>{item.enquiry_prefix}</p>
+							{title && <h2>{title}</h2>}
+							{prefix && <p>{truncatedPrefix}...</p>}
 
 							<div className="directorist-table-enquiry-action">
 								<a
@@ -213,21 +230,27 @@ export default function Tables(props) {
 				RenderModal: (item) => {
 					return (
 						<div className="directorist-formgent-table-modal">
-							<h1>{__('Are you sure to delete this item?', 'directorist')}</h1>
-							<p>{__('This action cannot be undone.', 'directorist')}</p>
+							<h1>
+								{__(
+									'Are you sure to delete this item?',
+									'directorist'
+								)}
+							</h1>
+							<p>
+								{__(
+									'This action cannot be undone.',
+									'directorist'
+								)}
+							</p>
 							<div className="directorist-formgent-table-modal-action">
 								<button
-									onClick={() =>
-										handleDeleteItem(item)
-									}
+									onClick={() => handleDeleteItem(item)}
 									className="directorist-btn directorist-btn-danger"
 								>
 									{__('Delete', 'directorist')}
 								</button>
 								<button
-									onClick={() =>
-										handleCancelDelete(item)
-									}
+									onClick={() => handleCancelDelete(item)}
 									className="directorist-btn directorist-btn-light"
 								>
 									{__('Cancel', 'directorist')}
@@ -282,13 +305,76 @@ export default function Tables(props) {
 		return filteredData.slice(start, end);
 	}, [filteredData, view.page, view.perPage]);
 
+	// Lazy load answers only for visible/paginated items
+	useEffect(() => {
+		if (paginatedData.length === 0) {
+			return;
+		}
+
+		// Check if we need to fetch answers for any visible items
+		const needsFetch = paginatedData.some(
+			(item) =>
+				item.id &&
+				!answersCacheRef.current.has(String(item.id)) &&
+				!item.answers
+		);
+
+		if (!needsFetch) {
+			// All visible items are cached, just merge them
+			const merged = paginatedData.map((item) => {
+				const cachedAnswers = answersCacheRef.current.get(
+					String(item.id)
+				);
+				return cachedAnswers
+					? { ...item, answers: cachedAnswers }
+					: item;
+			});
+			setEnrichedItems(merged);
+			return;
+		}
+
+		// Fetch answers for visible items that aren't cached
+		setIsLoadingAnswers(true);
+		enrichEnquiriesWithAnswers(paginatedData, answersCacheRef.current)
+			.then(({ enrichedItems: enriched, cache }) => {
+				answersCacheRef.current = cache; // Update cache reference
+				setEnrichedItems(enriched);
+			})
+			.catch((error) => {
+				console.error('Error enriching items:', error);
+				setEnrichedItems(paginatedData);
+			})
+			.finally(() => {
+				setIsLoadingAnswers(false);
+			});
+	}, [paginatedData]);
+
+	// Update enriched items when items change (but don't refetch if already cached)
+	useEffect(() => {
+		// Merge cached answers with items
+		const merged = items.map((item) => {
+			const cachedAnswers = answersCacheRef.current.get(String(item.id));
+			return cachedAnswers ? { ...item, answers: cachedAnswers } : item;
+		});
+		setEnrichedItems(merged);
+	}, [items]);
+
 	const totalItems = filteredData.length;
 	const totalPages = Math.ceil(totalItems / view.perPage);
+
+	// Use enriched items for rendering
+	const displayData = useMemo(() => {
+		// Merge paginated data with enriched items by ID
+		return paginatedData.map((item) => {
+			const enriched = enrichedItems.find((e) => e.id === item.id);
+			return enriched || item;
+		});
+	}, [paginatedData, enrichedItems]);
 
 	return (
 		<>
 			<DataViews
-				data={paginatedData}
+				data={displayData}
 				fields={fields}
 				view={view}
 				onChangeView={handleChangeView}
@@ -322,6 +408,7 @@ export default function Tables(props) {
 					deleteEnquiry(item, handleTableRefresh);
 				}}
 				handleSendEmail={handleSendEmail}
+				handleTableRefresh={handleTableRefresh}
 			/>
 		</>
 	);

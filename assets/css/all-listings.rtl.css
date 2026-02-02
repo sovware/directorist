@@ -19554,6 +19554,29 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0 0 15px;
 }
 
+.directorist-single-wrapper .formgent-field-list--frontend {
+  max-width: 100%;
+}
+.directorist-single-wrapper .formgent-form-general .formgent-field-list--frontend {
+  padding: 0;
+}
+.directorist-single-wrapper .formgent-file-upload-progress-text {
+  min-width: 40px;
+}
+.directorist-single-wrapper .formgent-file-preview-action .formgent-file-delete {
+  line-height: 1;
+}
+.directorist-single-wrapper .formgent-rating-wrapper .formgent-rating-single {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.directorist-single-wrapper .formgent-upload-container .formgent-upload-area p {
+  font-size: 14px;
+  margin: 8px 0 0 0;
+}
+
 .directorist-single-author-info figure {
   margin: 0;
 }

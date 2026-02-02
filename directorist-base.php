@@ -181,6 +181,8 @@ final class Directorist_Base {
 
     public $background_image_process = null;
 
+    public $formgent;
+
     /**
      * Main Directorist_Base Instance.
      *
@@ -243,6 +245,7 @@ final class Directorist_Base {
             self::$instance->shortcode = new \Directorist\ATBDP_Shortcode();
             self::$instance->email = new ATBDP_Email();
             self::$instance->seo = new ATBDP_SEO();
+            self::$instance->formgent = new ATBDP_Formgent();
             // self::$instance->validator = new ATBDP_Validator;
             // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->tools = new ATBDP_Tools();

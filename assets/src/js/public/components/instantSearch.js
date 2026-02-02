@@ -355,7 +355,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	function checkRequiredFields(searchElm) {
 		// Select all required inputs and selects inside searchElm
 		const requiredInputs = searchElm.find(
-			'input[required], select[required], textarea[required]'
+			'.directorist-search-field input[required], .directorist-search-field select[required], .directorist-search-field textarea[required]'
 		);
 
 		let requiredFieldsAreValid = true;

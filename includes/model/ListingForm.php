@@ -630,7 +630,7 @@ class Directorist_Listing_Form {
             $template = 'listing-form/fields/' . $field_data['widget_name'];
         }
 
-        $template = apply_filters( 'directorist_field_template', $template, $field_data );
+        $template = apply_filters( 'directorist_field_template', $template, $field_data, $this->get_current_listing_type() );
 
         if ( is_admin() && empty( $field_data['request_from_no_admin'] ) ) {
             $admin_template = 'listing-form/' . $field_data['widget_name'];
@@ -685,7 +685,7 @@ class Directorist_Listing_Form {
             $template = 'listing-form/fields/' . $field_data['widget_name'];
         }
 
-        $template = apply_filters( 'directorist_field_template', $template, $field_data );
+        $template = apply_filters( 'directorist_field_template', $template, $field_data, $this->get_current_listing_type() );
 
         $args = [
             'listing_form'  => $this,

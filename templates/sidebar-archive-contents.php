@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div <?php $listings->wrapper_class(); $listings->data_atts(); ?>>
     <div class="listing-with-sidebar">
-        <div class="directorist-container">
+        <div class="directorist-container-fluid">
             <div class="listing-with-sidebar__wrapper">
                 <div class="listing-with-sidebar__type-nav">
                     <?php

@@ -1,6 +1,6 @@
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@3.6.0_webpack@5.104.1/node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/.pnpm/resolve-url-loader@3.1.5/node_modules/resolve-url-loader/index.js!./node_modules/.pnpm/postcss-loader@3.0.0/node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/.pnpm/sass-loader@16.0.6_sass@1.97.3_webpack@5.104.1/node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* typography */
 @-webkit-keyframes rotate360 {
   0% {
@@ -4449,6 +4449,13 @@ body.stop-scrolling {
   width: 16px;
   height: 16px;
 }
+.directorist-add-listing-form .select2-container .select2-selection .select2-search__field {
+  width: 100% !important;
+  height: 28px !important;
+  line-height: 1.4;
+  padding: 0 !important;
+  border: none !important;
+}
 
 /* Custom Fields */
 /* select */
@@ -6535,6 +6542,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   margin: 0;
   font-size: 0;
   color: var(--directorist-color-white);
+  background: transparent;
+  border: none;
 }
 .directorist-content-active .select2.select2-container.select2-container--default .select2-selection__choice__remove:before {
   content: "";
@@ -6547,8 +6556,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: var(--directorist-color-white);
   position: absolute;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  right: 50%;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
 }
 .directorist-content-active .select2.select2-container.select2-container--default .select2-selection__rendered {
   display: -webkit-box;

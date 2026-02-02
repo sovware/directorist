@@ -9593,6 +9593,13 @@ body.stop-scrolling {
   width: 16px;
   height: 16px;
 }
+.directorist-add-listing-form .select2-container .select2-selection .select2-search__field {
+  width: 100% !important;
+  height: 28px !important;
+  line-height: 1.4;
+  padding: 0 !important;
+  border: none !important;
+}
 
 /* Custom Fields */
 /* select */

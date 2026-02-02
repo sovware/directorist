@@ -4362,7 +4362,7 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
 }
 
 function directorist_validate_youtube_vimeo_url( $url ) {
-    if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
+    if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)(\/\d+)?$/i', $url ) ) {
         return true;
     }
 

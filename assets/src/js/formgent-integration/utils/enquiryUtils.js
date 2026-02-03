@@ -74,7 +74,7 @@ export const markEnquiryAsRead = async (item, onSuccess, silent = false) => {
 
 	try {
 		const data = await apiFetch({
-			path: `/wp-json/directorist/formgent/responses/read`,
+			path: `/directorist/formgent/responses/read`,
 			method: 'POST',
 			data: {
 				id: responseId,
@@ -115,7 +115,7 @@ export const deleteEnquiry = async (item, onSuccess) => {
 
 	try {
 		const data = await apiFetch({
-			path: `/wp-json/directorist/formgent/responses`,
+			path: `/directorist/formgent/responses`,
 			method: 'DELETE',
 			data: {
 				id: responseId,
@@ -182,7 +182,7 @@ export const fetchSingleEnquiry = async (selectedItem) => {
 	}
 
 	return apiFetch({
-		path: `/wp-json/directorist/formgent/responses/single?id=${selectedItem}`,
+		path: `/directorist/formgent/responses/single?id=${selectedItem}`,
 		method: 'GET',
 	});
 };
@@ -235,7 +235,7 @@ export const getStatusBadgeText = (isRead) => {
  */
 export const fetchEnquiryKPIs = async () => {
 	return apiFetch({
-		path: '/wp-json/directorist/formgent/responses/kpis',
+		path: '/directorist/formgent/responses/kpis',
 		method: 'GET',
 	});
 };
@@ -246,7 +246,7 @@ export const fetchEnquiryKPIs = async () => {
  */
 export const fetchAllEnquiries = async () => {
 	return apiFetch({
-		path: '/wp-json/directorist/formgent/responses',
+		path: '/directorist/formgent/responses',
 		method: 'GET',
 	});
 };

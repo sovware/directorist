@@ -79,6 +79,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             
             // If user ID is 0, try to authenticate from cookies
             if ( empty( $user_id ) && isset( $_COOKIE[ LOGGED_IN_COOKIE ] ) ) {
+                // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- wp_validate_auth_cookie() handles sanitization
                 $cookie_value = wp_unslash( $_COOKIE[ LOGGED_IN_COOKIE ] );
                 $user_id = wp_validate_auth_cookie( $cookie_value, 'logged_in' );
                 if ( $user_id ) {

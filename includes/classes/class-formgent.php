@@ -31,36 +31,63 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 'directorist', '/formgent/responses', [
                     'methods' => 'GET',
                     'callback' => [ $this, 'get_responses' ],
+                    'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-
+        
             register_rest_route(
                 'directorist', '/formgent/responses/kpis', [
                     'methods' => 'GET',
                     'callback' => [ $this, 'get_kpis' ],
+                    'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-
+        
             register_rest_route(
                 'directorist', '/formgent/responses', [
                     'methods' => 'DELETE',
                     'callback' => [ $this, 'delete_responses' ],
+                    'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-
+        
             register_rest_route(
                 'directorist', '/formgent/responses/read', [
                     'methods' => 'POST',
                     'callback' => [ $this, 'read_responses' ],
+                    'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-
+        
             register_rest_route(
                 'directorist', '/formgent/responses/single', [
                     'methods' => 'GET',
                     'callback' => [ $this, 'single_response' ],
+                    'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
+        }
+
+        /**
+         * Check if user is logged in for dashboard access.
+         *
+         * @param \WP_REST_Request $request REST request object.
+         * @return bool
+         */
+        public function check_permission( $request ) {
+            $user_id = get_current_user_id();
+            
+            // If user ID is 0, try to authenticate from cookies
+            if ( empty( $user_id ) && isset( $_COOKIE[ LOGGED_IN_COOKIE ] ) ) {
+                // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- wp_validate_auth_cookie() handles sanitization
+                $cookie_value = wp_unslash( $_COOKIE[ LOGGED_IN_COOKIE ] );
+                $user_id = wp_validate_auth_cookie( $cookie_value, 'logged_in' );
+                if ( $user_id ) {
+                    wp_set_current_user( $user_id );
+                }
+            }
+            
+            return ! empty( $user_id );
         }
 
         public function single_response( $request ) {
@@ -191,15 +218,25 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
         }
 
         protected function get_responses_query() {
+            $user_id = get_current_user_id();
+            
+            if ( empty( $user_id ) ) {
+                return Response::query( 'response' )->where( 'response.id', 0 );
+            }
+            
             return Response::query( 'response' )->join(
                 ResponseMeta::get_table_name() . ' as response_meta', function( $join ) {
-                    $join->on_column( 'response_meta.response_id', 'response.id' )->on( 'response_meta.meta_key', 'listing_id' );
+                    $join->on_column( 'response_meta.response_id', 'response.id' )
+                         ->on( 'response_meta.meta_key', 'listing_id' );
                 }
             )->left_join(
-                Post::get_table_name() . ' as post', function( $join ) {
-                        $join->on_column( 'post.ID', 'response_meta.meta_value' )->on( 'post.post_author', 1 );
+                Post::get_table_name() . ' as post', function( $join ) use ( $user_id ) {
+                    $join->on_raw( 'post.ID = CAST(response_meta.meta_value AS UNSIGNED)' )
+                         ->on( 'post.post_author', $user_id );
                 }
-            )->where_not_is_null( 'post.post_author' )->where( 'post.post_status', 'publish' )->where( 'response.is_completed', 1 );
+            )->where_not_is_null( 'post.post_author' )
+             ->where( 'post.post_status', 'publish' )
+             ->where( 'response.is_completed', 1 );
         }
     }
 }

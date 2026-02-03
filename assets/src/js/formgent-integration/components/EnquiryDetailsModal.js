@@ -22,7 +22,7 @@ import {
 	getStatusBadgeText,
 	markEnquiryAsRead,
 } from '../utils/enquiryUtils';
-import { EnquiryDetailsModalStyle } from './style';
+import { EnquiryDetailsModalStyle, EnquiryModalGlobalStyle } from './style';
 
 /**
  * EnquiryDetailsModal Component
@@ -92,6 +92,34 @@ export default function EnquiryDetailsModal({
 		}
 	}, [enquiries, singleItem?.response?.form_id]);
 
+	// Remove tooltip from modal close button
+	// Simple solution: CSS handles most cases, minimal JS for edge cases
+	useEffect(() => {
+		if (!isOpen) return;
+
+		// Minimal JS: Just hide tooltips if they appear (CSS does the heavy lifting)
+		const hideTooltips = () => {
+			document
+				.querySelectorAll('[id^="portal/tooltip"]')
+				.forEach((el) => {
+					el.style.cssText =
+						'display: none !important; visibility: hidden !important;';
+				});
+		};
+
+		// Check once after modal opens
+		const timer = setTimeout(hideTooltips, 100);
+
+		// Watch for new tooltips (minimal observer)
+		const observer = new MutationObserver(hideTooltips);
+		observer.observe(document.body, { childList: true, subtree: true });
+
+		return () => {
+			clearTimeout(timer);
+			observer.disconnect();
+		};
+	}, [isOpen]);
+
 	// Automatically mark as read when modal content loads
 	useEffect(() => {
 		if (
@@ -147,135 +175,161 @@ export default function EnquiryDetailsModal({
 	}
 
 	return (
-		<Modal
-			title={`Enquiry Details - ${matchedEnquiry?.listing_title || 'Unknown Listing'}`}
-			onRequestClose={onClose}
-			className="directorist-enquiry-modal"
-			size="large"
-		>
-			<EnquiryDetailsModalStyle className="directorist-enquiry-modal-content">
-				{loading && (
-					<div className="directorist-loading">
-						<p>{__('Loading enquiry details...', 'directorist')}</p>
-					</div>
-				)}
-
-				{error && (
-					<div className="directorist-error">
-						<p>{error}</p>
-					</div>
-				)}
-
-				{!loading && !error && (
-					<>
-						<div className="directorist-enquiry-modal-info">
-							<div className="directorist-enquiry-sender">
-								<div className="directorist-enquiry-sender-avatar">
-									<img
-										src={
-											matchedEnquiry?.user?.profile_url ||
-											singleItem?.response?.user_email
-										}
-										alt={
-											matchedEnquiry?.user
-												?.display_name ||
-											singleItem?.response?.username
-										}
-									/>
-								</div>
-								<div className="directorist-enquiry-sender-info">
-									<h2>
-										{matchedEnquiry?.user?.display_name ||
-											singleItem?.response?.username}
-										<span
-											className={`directorist-badge directorist-badge-${statusBadge(singleItem?.response?.is_read)}`}
-										>
-											{getStatusBadgeText(
-												singleItem?.response?.is_read
-											)}
-										</span>
-									</h2>
-									<p>
-										{matchedEnquiry?.user?.user_email ||
-											singleItem?.response?.user_email}
-									</p>
-									<span>
-										{singleItem?.response?.created_at}
-									</span>
-								</div>
-							</div>
-							<div className="directorist-enquiry-listing">
-								<h3>
-									{__('Regarding Listing', 'directorist')}
-								</h3>
-								<a
-									href={singleItem?.listing_permalink || '#'}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									{matchedEnquiry?.listing_title ||
-										__('Unknown Listing', 'directorist')}
-								</a>
-							</div>
+		<>
+			<EnquiryModalGlobalStyle />
+			<Modal
+				title={`Enquiry Details - ${matchedEnquiry?.listing_title || 'Unknown Listing'}`}
+				onRequestClose={onClose}
+				className="directorist-enquiry-modal"
+				size="large"
+			>
+				<EnquiryDetailsModalStyle className="directorist-enquiry-modal-content">
+					{loading && (
+						<div className="directorist-loading">
+							<p>
+								{__(
+									'Loading enquiry details...',
+									'directorist'
+								)}
+							</p>
 						</div>
+					)}
 
-						<div className="directorist-answers-section">
-							{singleItem?.response?.answers.map(
-								(answer, index) => {
-									return (
-										<TableDrawerAnswer
-											key={index}
-											answer={answer}
-											handleAnswerIcon={handleAnswerIcon}
-											getFormattedAnswer={
-												getFormattedAnswer
+					{error && (
+						<div className="directorist-error">
+							<p>{error}</p>
+						</div>
+					)}
+
+					{!loading && !error && (
+						<>
+							<div className="directorist-enquiry-modal-info">
+								<div className="directorist-enquiry-sender">
+									<div className="directorist-enquiry-sender-avatar">
+										<img
+											src={
+												matchedEnquiry?.user
+													?.profile_url ||
+												singleItem?.response?.user_email
 											}
-											ReactSVG={ReactSVG}
-											useState={useState}
-											useEffect={useEffect}
-											isLoadedFromDirectorist={true}
+											alt={
+												matchedEnquiry?.user
+													?.display_name ||
+												singleItem?.response?.username
+											}
 										/>
-									);
-								}
-							)}
-						</div>
+									</div>
+									<div className="directorist-enquiry-sender-info">
+										<h2>
+											{matchedEnquiry?.user
+												?.display_name ||
+												singleItem?.response?.username}
+											<span
+												className={`directorist-badge directorist-badge-${statusBadge(singleItem?.response?.is_read)}`}
+											>
+												{getStatusBadgeText(
+													singleItem?.response
+														?.is_read
+												)}
+											</span>
+										</h2>
+										<p>
+											{matchedEnquiry?.user?.user_email ||
+												singleItem?.response
+													?.user_email}
+										</p>
+										<span>
+											{singleItem?.response?.created_at}
+										</span>
+									</div>
+								</div>
+								<div className="directorist-enquiry-listing">
+									<h3>
+										{__('Regarding Listing', 'directorist')}
+									</h3>
+									<a
+										href={
+											singleItem?.listing_permalink || '#'
+										}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{matchedEnquiry?.listing_title ||
+											__(
+												'Unknown Listing',
+												'directorist'
+											)}
+									</a>
+								</div>
+							</div>
 
-						<div className="directorist-enquiry-modal-footer">
-							<button
-								className="directorist-enquiry-modal-btn directorist-enquiry-modal-btn-reply"
-								onClick={() =>
-									handleSendEmail(singleItem?.response)
-								}
-							>
-								<Reply />
-								<span>{__('Send Email', 'directorist')}</span>
-							</button>
-							<button
-								className={`directorist-enquiry-modal-btn directorist-enquiry-modal-btn-resolved ${singleItem?.response?.is_read === '1' ? 'directorist-btn-disabled' : ''}`}
-								onClick={handleMarkAsReadClick}
-								disabled={singleItem?.response?.is_read === '1'}
-							>
-								<Check />
-								<span>
-									{singleItem?.response?.is_read === '1'
-										? __('Marked as read', 'directorist')
-										: __('Mark as read', 'directorist')}
-								</span>
-							</button>
-							<button
-								className="directorist-enquiry-modal-btn directorist-enquiry-modal-btn-delete"
-								onClick={() => {
-									handleDeleteItem(singleItem?.response);
-									onClose();
-								}}
-							>
-								<Trash />
-								<span>{__('Delete', 'directorist')}</span>
-							</button>
-						</div>
-					</>
-				)}
-			</EnquiryDetailsModalStyle>
-		</Modal>
+							<div className="directorist-answers-section">
+								{singleItem?.response?.answers.map(
+									(answer, index) => {
+										return (
+											<TableDrawerAnswer
+												key={index}
+												answer={answer}
+												handleAnswerIcon={
+													handleAnswerIcon
+												}
+												getFormattedAnswer={
+													getFormattedAnswer
+												}
+												ReactSVG={ReactSVG}
+												useState={useState}
+												useEffect={useEffect}
+												isLoadedFromDirectorist={true}
+											/>
+										);
+									}
+								)}
+							</div>
+
+							<div className="directorist-enquiry-modal-footer">
+								<button
+									className="directorist-enquiry-modal-btn directorist-enquiry-modal-btn-reply"
+									onClick={() =>
+										handleSendEmail(singleItem?.response)
+									}
+								>
+									<Reply />
+									<span>
+										{__('Send Email', 'directorist')}
+									</span>
+								</button>
+								<button
+									className={`directorist-enquiry-modal-btn directorist-enquiry-modal-btn-resolved ${singleItem?.response?.is_read === '1' ? 'directorist-btn-disabled' : ''}`}
+									onClick={handleMarkAsReadClick}
+									disabled={
+										singleItem?.response?.is_read === '1'
+									}
+								>
+									<Check />
+									<span>
+										{singleItem?.response?.is_read === '1'
+											? __(
+													'Marked as read',
+													'directorist'
+												)
+											: __('Mark as read', 'directorist')}
+									</span>
+								</button>
+								<button
+									className="directorist-enquiry-modal-btn directorist-enquiry-modal-btn-delete"
+									onClick={() => {
+										handleDeleteItem(singleItem?.response);
+										onClose();
+									}}
+								>
+									<Trash />
+									<span>{__('Delete', 'directorist')}</span>
+								</button>
+							</div>
+						</>
+					)}
+				</EnquiryDetailsModalStyle>
+			</Modal>
+		</>
 	);
 }

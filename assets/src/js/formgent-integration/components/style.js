@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const EnquiriesComponentStyle = styled.div`
 	.directorist-enquiries-header {
@@ -124,14 +124,14 @@ const EnquiriesComponentStyle = styled.div`
 			border-color: transparent !important;
 		}
 		.dataviews-view-table {
-			border:none;
+			border: none;
 			tbody {
 				td {
 					vertical-align: middle;
 				}
 			}
 		}
-		.dataviews-view-table__row{
+		.dataviews-view-table__row {
 			white-space: nowrap;
 		}
 		.dataviews__view-actions {
@@ -231,7 +231,7 @@ const EnquiriesComponentStyle = styled.div`
 	.dataviews-view-table__actions-column {
 		padding: 30px 0;
 		width: auto;
-		border:none;
+		border: none;
 	}
 	.dataviews-wrapper {
 		.components-h-stack {
@@ -601,4 +601,42 @@ const EnquiryDetailsModalStyle = styled.div`
 	}
 `;
 
-export { EnquiriesComponentStyle, EnquiryDetailsModalStyle };
+/**
+ * Global style to prevent WordPress portal-based tooltip on modal close button
+ * This CSS ensures tooltips are hidden at the stylesheet level for better performance
+ */
+const EnquiryModalGlobalStyle = createGlobalStyle`
+	/* Hide WordPress portal-based tooltips - most specific selector first */
+	body > [id^="portal/tooltip"] {
+		display: none !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+		position: absolute !important;
+		left: -9999px !important;
+		top: -9999px !important;
+	}
+	
+	/* Hide tooltip elements with specific attributes */
+	.components-tooltip[data-open="true"],
+	.components-tooltip[role="tooltip"] {
+		display: none !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+	}
+	
+	/* Additional fallback for any tooltip containers */
+	[id*="tooltip"][id*="portal"] {
+		display: none !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+	}
+`;
+
+export {
+	EnquiriesComponentStyle,
+	EnquiryDetailsModalStyle,
+	EnquiryModalGlobalStyle,
+};

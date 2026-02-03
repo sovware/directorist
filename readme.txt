@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.5.8
+Stable tag: 8.5.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -293,7 +293,19 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.5.8 - Jan 26, 2025 =
+= 8.5.9 - Feb 9, 2026 =
+
+**Improved**
+ - Formgent integration enhanced with a new Formgent Enquiry table in the frontend user dashboard. (#2610)
+ - Builder-compatible components now use container-fluid for better responsiveness. (#2641)
+ - Select2 package updated to version 4.1.0-rc.0. (#2609)
+
+**Fixed**
+ - Instant search not working when an extra required input field is added. (#2652)
+ - Custom input labels now properly override default labels. (#2628)
+ - Back navigation issue on the single category page. (#2627)
+
+= 8.5.8 - Jan 26, 2026 =
 
 **Improved**
  - Dynamic field delete confirmation messages now adapt based on the current page context. (#2638)

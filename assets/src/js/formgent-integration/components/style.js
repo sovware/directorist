@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const EnquiriesComponentStyle = styled.div`
 	.directorist-enquiries-header {
@@ -124,14 +124,14 @@ const EnquiriesComponentStyle = styled.div`
 			border-color: transparent !important;
 		}
 		.dataviews-view-table {
-			border:none;
+			border: none;
 			tbody {
 				td {
 					vertical-align: middle;
 				}
 			}
 		}
-		.dataviews-view-table__row{
+		.dataviews-view-table__row {
 			white-space: nowrap;
 		}
 		.dataviews__view-actions {
@@ -231,7 +231,7 @@ const EnquiriesComponentStyle = styled.div`
 	.dataviews-view-table__actions-column {
 		padding: 30px 0;
 		width: auto;
-		border:none;
+		border: none;
 	}
 	.dataviews-wrapper {
 		.components-h-stack {
@@ -601,4 +601,44 @@ const EnquiryDetailsModalStyle = styled.div`
 	}
 `;
 
-export { EnquiriesComponentStyle, EnquiryDetailsModalStyle };
+// Global style for custom close button in modal header
+const EnquiryModalGlobalStyle = createGlobalStyle`
+	.directorist-enquiry-modal .components-modal__header {
+		position: relative;
+		padding: 0 40px 0 0;
+	}
+	.directorist-enquiry-modal .components-modal__content {
+		margin-top: 0 !important;
+	}
+	.directorist-enquiry-modal-close {
+		position: absolute;
+		top: 40px;
+		right: 16px;
+		transform: translateY(-50%);
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		padding: 0;
+		color: #1e1e1e;
+		transition: opacity 0.2s;
+		&:hover {
+			opacity: 0.7;
+		}
+		svg {
+			width: 24px;
+			height: 24px;
+			fill: currentColor;
+		}
+	}
+`;
+
+export {
+	EnquiriesComponentStyle,
+	EnquiryDetailsModalStyle,
+	EnquiryModalGlobalStyle,
+};

@@ -134,33 +134,57 @@ class Users_Account_Controller extends Abstract_Controller {
     }
 
     public function check_send_password_permission( $request ) {
-        $user = $this->get_user_by_email( $request['email'] );
-
-        if ( is_wp_error( $user ) ) {
-            return $user;
-        }
-
-        return true;
+        return $this->check_password_reset_permission( $request );
     }
 
     public function check_verify_reset_pin_permission( $request ) {
-        $user = $this->get_user_by_email( $request['email'] );
-
-        if ( is_wp_error( $user ) ) {
-            return $user;
-        }
-
-        return true;
+        return $this->check_password_reset_permission( $request );
     }
 
     public function check_reset_password_permission( $request ) {
+        return $this->check_password_reset_permission( $request );
+    }
+
+    /**
+     * Centralized permission check for password reset operations.
+     *
+     * Security: Prevents authenticated users from performing password reset
+     * operations on other users' accounts, mitigating Broken Access Control.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return bool|WP_Error True if the request has access, WP_Error otherwise.
+     */
+    protected function check_password_reset_permission( $request ) {
+        if ( empty( $request['email'] ) ) {
+            return new WP_Error(
+                'directorist_rest_missing_email',
+                __( 'Email address is required.', 'directorist' ),
+                array( 'status' => 400 )
+            );
+        }
+
         $user = $this->get_user_by_email( $request['email'] );
 
         if ( is_wp_error( $user ) ) {
             return $user;
         }
 
-        return true;
+        // Allow unauthenticated users for legitimate password reset flows
+        $current_user_id = get_current_user_id();
+        if ( ! $current_user_id ) {
+            return true;
+        }
+
+        // Authenticated users can only act on their own account or with edit_user capability
+        if ( $current_user_id === $user->ID || current_user_can( 'edit_user', $user->ID ) ) {
+            return true;
+        }
+
+        return new WP_Error(
+            'directorist_rest_cannot_reset_password',
+            __( 'Sorry, you are not allowed to reset password for this user.', 'directorist' ),
+            array( 'status' => rest_authorization_required_code() )
+        );
     }
 
     public function check_change_password_permission( $request ) {

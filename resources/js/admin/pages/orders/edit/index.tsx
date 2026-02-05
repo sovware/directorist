@@ -9,8 +9,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import { Button, Select } from '@wpmvc/components';
-import { registerValuesStore, useValuesStore, useValuesStoreData } from '@wpmvc/data';
+import { Button, Select } from '@shamim-ahmed/components';
+import { registerValuesStore, useValuesStore, useValuesStoreData } from '@shamim-ahmed/data';
 import styled from 'styled-components';
 
 /**

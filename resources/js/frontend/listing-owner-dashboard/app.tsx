@@ -6,8 +6,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import { Column } from '@wpmvc/components/build-types/gutenberg/table/types';
-import { Table } from '@wpmvc/dashboard';
+import { Column } from '@shamim-ahmed/components/build-types/gutenberg/table/types';
+import { Table } from '@shamim-ahmed/dashboard';
 import moment from 'moment';
 
 /**

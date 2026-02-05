@@ -4,7 +4,7 @@ import {
 	Option as BaseOption,
 	FieldsType,
 	Options,
-} from '@wpmvc/fields/build-types/types/field';
+} from '@shamim-ahmed/fields/build-types/types/field';
 
 export type Option = BaseOption & {
 	fields?: FieldsType;

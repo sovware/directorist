@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.5.8
+Stable tag: 8.5.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -293,7 +293,12 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.5.8 - Jan 26, 2025 =
+= 8.5.9 - Feb 5, 2026 =
+
+**Fixed**
+- Broken Access Control vulnerability in password reset endpoints. (#2676)
+
+= 8.5.8 - Jan 26, 2026 =
 
 **Improved**
  - Dynamic field delete confirmation messages now adapt based on the current page context. (#2638)

@@ -296,7 +296,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 = 8.5.9 - Feb 5, 2026 =
 
 **Fixed**
-- Broken Access Control vulnerability in password reset endpoints. (#2676)
+- Broken Access Control vulnerability in password reset endpoints. (#2678)
 
 = 8.5.8 - Jan 26, 2026 =
 

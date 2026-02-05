@@ -304,7 +304,6 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Instant search not working when an extra required input field is added. (#2652)
  - Custom input labels now properly override default labels. (#2628)
  - Back navigation issue on the single category page. (#2627)
- - Broken Access Control vulnerability in password reset endpoints. (#2676)
 
 = 8.5.8 - Jan 26, 2026 =
 

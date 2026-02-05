@@ -271,6 +271,7 @@
 				position: unset;
 				opacity: 1 !important;
 				visibility: visible !important;
+				background: transparent;
 				transform: unset;
 				width: 100%;
 				margin: 0;
@@ -325,38 +326,6 @@
 		.directorist-search-modal__input {
 			.directorist-select2-dropdown-close {
 				display: none;
-			}
-		}
-
-		.directorist-search-form__single-category {
-			cursor: not-allowed;
-			.directorist-category-select {
-				opacity: 0.6;
-				pointer-events: none;
-				~ .select2-container {
-					opacity: 0.6;
-					pointer-events: none;
-				}
-			}
-			~ .directorist-search-field__btn {
-				cursor: not-allowed;
-				pointer-events: none;
-			}
-		}
-
-		.directorist-search-form__single-location {
-			cursor: not-allowed;
-			.directorist-location-select {
-				opacity: 0.6;
-				pointer-events: none;
-				~ .select2-container {
-					opacity: 0.6;
-					pointer-events: none;
-				}
-			}
-			~ .directorist-search-field__btn {
-				cursor: not-allowed;
-				pointer-events: none;
 			}
 		}
 
@@ -884,6 +853,38 @@
 			~ .directorist-search-field__btn--clear {
 				bottom: 12px;
 			}
+		}
+	}
+
+	@include e("single-category") {
+		cursor: not-allowed;
+		.directorist-category-select {
+			opacity: 0.6;
+			pointer-events: none;
+			~ .select2-container {
+				opacity: 0.6;
+				pointer-events: none;
+			}
+		}
+		~ .directorist-search-field__btn {
+			cursor: not-allowed;
+			pointer-events: none;
+		}
+	}
+
+	@include e("single-location") {
+		cursor: not-allowed;
+		.directorist-location-select {
+			opacity: 0.6;
+			pointer-events: none;
+			~ .select2-container {
+				opacity: 0.6;
+				pointer-events: none;
+			}
+		}
+		~ .directorist-search-field__btn {
+			cursor: not-allowed;
+			pointer-events: none;
 		}
 	}
 }

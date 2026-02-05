@@ -10,13 +10,23 @@ class SuppressWarningsPlugin {
 	}
 
 	apply(compiler) {
-		compiler.hooks.afterCompile.tap('SuppressWarningsPlugin', (compilation) => {
-			compilation.warnings = compilation.warnings.filter(warning => {
-				return !this.warningsToSuppress.some(suppressPattern => {
-					return warning.message && warning.message.includes(suppressPattern);
-				});
-			});
-		});
+		compiler.hooks.afterCompile.tap(
+			'SuppressWarningsPlugin',
+			(compilation) => {
+				compilation.warnings = compilation.warnings.filter(
+					(warning) => {
+						return !this.warningsToSuppress.some(
+							(suppressPattern) => {
+								return (
+									warning.message &&
+									warning.message.includes(suppressPattern)
+								);
+							}
+						);
+					}
+				);
+			}
+		);
 	}
 }
 

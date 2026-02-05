@@ -13,6 +13,7 @@
       :root="field_list"
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
+      @blur="update({ key: field_key, value: $event, isBlur: true })"
       @alert="
         $emit('alert', { key: `${field.type}_${field_key}`, data: $event })
       "

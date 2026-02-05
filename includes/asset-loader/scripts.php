@@ -67,6 +67,12 @@ class Scripts {
                 'path' => DIRECTORIST_CSS . 'public-main',
                 'rtl' => true,
             ],
+            'directorist-formgent-integration-style' => [
+                'type' => 'css',
+                'path' => DIRECTORIST_CSS . 'formgent-integration',
+                'rtl' => true,
+                'dep' => ['wp-components'],
+            ],
 
             // Admin CSS
             'directorist-admin-style' => [
@@ -338,6 +344,11 @@ class Scripts {
                 'type' => 'js',
                 'path' => DIRECTORIST_JS . 'admin-import-export',
             ],
+            'directorist-formgent-integration' => [
+                'type' => 'js',
+                'path' => DIRECTORIST_JS . 'formgent-integration',
+                'dep' => ['wp-element', 'wp-api-fetch'],
+            ],
         ];
 
         return apply_filters( 'directorist_scripts', $scripts );
@@ -350,7 +361,7 @@ class Scripts {
             sprintf(
                 '//maps.googleapis.com/maps/api/js?loading=async&libraries=places,marker&callback=directoristLoadGoogleMap&key=%s',
                 $google_map_api_key
-            ) 
+            )
         );
     }
 }

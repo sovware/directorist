@@ -1537,7 +1537,8 @@ function updateLocalNonce() {
 			getWrapper,
 			getFieldValueFn,
 			applyConditionalLogicFn,
-			$
+			$,
+			localized_data.admin_conditional_logic_targets || []
 		);
 	const watchFieldChangesFn = () =>
 		watchFieldChangesBase(

@@ -29,9 +29,13 @@ function mapFieldKeyToSelector(fieldKey) {
     categories: "#at_biz_dir-categories",
     "admin_category_select[]": "#at_biz_dir-categories",
     description:
-      '[name="listing_content"], #listing_content, [name="description"], #description',
-    title: '[name="listing_title"], #listing_title, [name="title"], #title',
-    listing_title: '[name="listing_title"], #listing_title',
+      '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
+    listing_content:
+      '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
+    title:
+      '[name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
+    listing_title:
+      '[name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
     location: '[name="location"], #at_biz_dir-location',
     address: '[name="address"], #address',
     phone: '[name="phone"], #phone',
@@ -96,9 +100,22 @@ function getFieldValue(fieldKey, $) {
     fieldKey === "categories" ||
     fieldKey === "admin_category_select[]"
   ) {
-    // Category field uses admin_category_select[] or Select2
+    // Frontend: Select2 #at_biz_dir-categories
+    // Admin: taxonomy checkboxes #at_biz_dir-categorychecklist
     $field = $("#at_biz_dir-categories");
     if (!$field.length) {
+      // Admin context: use taxonomy metabox checkboxes
+      const $checkboxes = $(
+        "#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked",
+      );
+      if ($checkboxes.length) {
+        const values = $checkboxes
+          .map(function () {
+            return $(this).val();
+          })
+          .get();
+        return values;
+      }
       return [];
     }
   } else if (
@@ -106,9 +123,52 @@ function getFieldValue(fieldKey, $) {
     fieldKey === "tags" ||
     fieldKey === "tax_input[at_biz_dir-tags][]"
   ) {
-    // Tag field uses Select2
+    // Frontend: Select2 #at_biz_dir-tags
+    // Admin: (1) WordPress free-form tag UI uses .tagchecklist li (no checkboxes)
+    //        (2) Some setups use checkbox-style #at_biz_dir-tagschecklist
     $field = $("#at_biz_dir-tags");
     if (!$field.length) {
+      // Try checkbox-style (if used)
+      const $checkboxes = $(
+        '#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked',
+      );
+      if ($checkboxes.length) {
+        return $checkboxes
+          .map(function () {
+            return $(this).val();
+          })
+          .get();
+      }
+      return [];
+    }
+    // Admin: #at_biz_dir-tags is a div with .tagchecklist (WordPress default tag UI)
+    if ($field.is("div") && !$field.is("select")) {
+      const $tagItems = $(
+        "#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li",
+      );
+      if ($tagItems.length) {
+        return $tagItems
+          .map(function () {
+            const text = $(this)
+              .clone()
+              .children()
+              .remove()
+              .end()
+              .text()
+              .trim();
+            return text || null;
+          })
+          .get()
+          .filter(Boolean);
+      }
+      // Fallback: read from textarea.the-tags (WordPress stores comma-separated tags there)
+      const $textarea = $("#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags");
+      if ($textarea.length && $textarea.val()) {
+        const raw = String($textarea.val()).trim();
+        if (raw) {
+          return raw.split(/[,\u00A0]+/).map((s) => s.trim()).filter(Boolean);
+        }
+      }
       return [];
     }
   } else if (
@@ -116,9 +176,20 @@ function getFieldValue(fieldKey, $) {
     fieldKey === "locations" ||
     fieldKey === "tax_input[at_biz_dir-location][]"
   ) {
-    // Location field uses Select2
+    // Frontend: Select2 #at_biz_dir-location
+    // Admin: taxonomy checkboxes #at_biz_dir-locationchecklist
     $field = $("#at_biz_dir-location");
     if (!$field.length) {
+      const $checkboxes = $(
+        '#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked',
+      );
+      if ($checkboxes.length) {
+        return $checkboxes
+          .map(function () {
+            return $(this).val();
+          })
+          .get();
+      }
       return [];
     }
   }
@@ -1110,12 +1181,18 @@ function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
 
 /**
  * Initialize conditional logic for all fields
+ * @param {Function} getWrapperFn
+ * @param {Function} getFieldValueFn
+ * @param {Function} applyConditionalLogicFn
+ * @param {jQuery} $
+ * @param {Array} [adminTargets] - Optional. For admin: [{selector, fieldKey, conditionalLogic}]
  */
 function initConditionalLogic(
   getWrapperFn,
   getFieldValueFn,
   applyConditionalLogicFn,
   $,
+  adminTargets = [],
 ) {
   // First, update category field label if needed
   const $categoryField = $("#at_biz_dir-categories");
@@ -1167,6 +1244,30 @@ function initConditionalLogic(
 
     applyConditionalLogicFn($fieldWrapper);
   });
+
+  // Admin: apply conditional logic to title/description (WordPress core elements)
+  if (
+    adminTargets &&
+    Array.isArray(adminTargets) &&
+    adminTargets.length > 0
+  ) {
+    adminTargets.forEach(function (target) {
+      const $el = $(target.selector);
+      if ($el.length && target.conditionalLogic) {
+        $el.addClass("directorist-conditional-logic-target");
+        $el.attr(
+          "data-conditional-logic",
+          typeof target.conditionalLogic === "string"
+            ? target.conditionalLogic
+            : JSON.stringify(target.conditionalLogic),
+        );
+        if (target.fieldKey) {
+          $el.attr("data-field-key", target.fieldKey);
+        }
+        applyConditionalLogicFn($el);
+      }
+    });
+  }
 }
 
 /**
@@ -1185,8 +1286,9 @@ function watchFieldChanges(
     $changedField,
   ) {
     // Re-evaluate all fields that might depend on this field
+    // Include admin targets (title, description) which use directorist-conditional-logic-target
     const $fieldsWithLogic = $(
-      ".directorist-form-group[data-conditional-logic]",
+      ".directorist-form-group[data-conditional-logic], .directorist-conditional-logic-target[data-conditional-logic]",
     );
 
     $fieldsWithLogic.each(function () {
@@ -1296,9 +1398,15 @@ function watchFieldChanges(
           fieldKey === "location" ||
           fieldKey === "locations" ||
           fieldName === "admin_category_select[]" ||
+          fieldName === "tax_input[at_biz_dir-category][]" ||
+          fieldName === "tax_input[at_biz_dir-location][]" ||
+          fieldName === "tax_input[at_biz_dir-tags][]" ||
           $changedField.is("#at_biz_dir-categories") ||
           $changedField.is("#at_biz_dir-tags") ||
-          $changedField.is("#at_biz_dir-location");
+          $changedField.is("#at_biz_dir-location") ||
+          $changedField.closest("#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop").length ||
+          $changedField.closest("#at_biz_dir-locationchecklist, #at_biz_dir-locationchecklist-pop").length ||
+          $changedField.closest("#at_biz_dir-tagschecklist, #at_biz_dir-tagschecklist-pop, #tagsdiv-at_biz_dir-tags").length;
 
         if (isTaxonomyField) {
           // Check if any condition references category, tag, or location
@@ -1312,10 +1420,13 @@ function watchFieldChanges(
                   if (
                     condition.field === "category" ||
                     condition.field === "categories" ||
+                    condition.field === "admin_category_select[]" ||
                     condition.field === "tag" ||
                     condition.field === "tags" ||
                     condition.field === "location" ||
-                    condition.field === "locations"
+                    condition.field === "locations" ||
+                    condition.field === "tax_input[at_biz_dir-location][]" ||
+                    condition.field === "tax_input[at_biz_dir-tags][]"
                   ) {
                     dependsOnField = true;
                     break;
@@ -1448,13 +1559,47 @@ function watchFieldChanges(
       }
 
       // Special handling for category, tag, and location fields
+      // Also map WordPress admin title/description to Directorist field keys
       let taxonomyFieldSelector = null;
       if (
+        fieldName === "post_title" ||
+        $changedField.attr("id") === "title"
+      ) {
+        // WordPress admin: title input -> listing_title
+        fieldKey = "listing_title";
+      } else if (
+        fieldName === "content" ||
+        $changedField.attr("id") === "content"
+      ) {
+        // WordPress admin: content editor -> listing_content (handled by TinyMCE)
+        fieldKey = "listing_content";
+      } else if (
         fieldName === "admin_category_select[]" ||
         $changedField.is("#at_biz_dir-categories")
       ) {
         fieldKey = "category";
         taxonomyFieldSelector = "#at_biz_dir-categories";
+      } else if (
+        fieldName === "tax_input[at_biz_dir-category][]" ||
+        $changedField.closest("#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop").length
+      ) {
+        // Admin: taxonomy metabox checkboxes
+        fieldKey = "admin_category_select[]";
+        taxonomyFieldSelector = "#at_biz_dir-categorychecklist";
+      } else if (
+        fieldName === "tax_input[at_biz_dir-location][]" ||
+        $changedField.closest("#at_biz_dir-locationchecklist, #at_biz_dir-locationchecklist-pop").length
+      ) {
+        // Admin: location taxonomy checkboxes
+        fieldKey = "tax_input[at_biz_dir-location][]";
+        taxonomyFieldSelector = "#at_biz_dir-locationchecklist";
+      } else if (
+        fieldName === "tax_input[at_biz_dir-tags][]" ||
+        $changedField.closest("#at_biz_dir-tagschecklist, #at_biz_dir-tagschecklist-pop, #tagsdiv-at_biz_dir-tags").length
+      ) {
+        // Admin: tags taxonomy checkboxes
+        fieldKey = "tax_input[at_biz_dir-tags][]";
+        taxonomyFieldSelector = "#at_biz_dir-tagschecklist";
       } else if ($changedField.is("#at_biz_dir-tags")) {
         fieldKey = "tag";
         taxonomyFieldSelector = "#at_biz_dir-tags";
@@ -1525,6 +1670,57 @@ function watchFieldChanges(
       triggerConditionalLogicEvaluation(fieldName, fieldKey, $changedField);
     },
   );
+
+  // Admin: WordPress tag metabox - tagchecklist (add/remove tags via UI, not checkboxes)
+  // Listen for tag add (button click), tag remove (ntdelbutton), and Enter in newtag input
+  $(document).on(
+    "click",
+    "#tagsdiv-at_biz_dir-tags .ntdelbutton, #tagsdiv-at_biz_dir-tags input.tagadd, #tagsdiv-at_biz_dir-tags .button",
+    function () {
+      setTimeout(function () {
+        triggerConditionalLogicEvaluation(
+          "tax_input[at_biz_dir-tags][]",
+          "tax_input[at_biz_dir-tags][]",
+          $("#tagsdiv-at_biz_dir-tags .tagchecklist"),
+        );
+      }, 100);
+    },
+  );
+  $(document).on(
+    "keypress",
+    "#tagsdiv-at_biz_dir-tags input.newtag, #at_biz_dir-tags input.newtag",
+    function (e) {
+      if (e.which === 13) {
+        setTimeout(function () {
+          triggerConditionalLogicEvaluation(
+            "tax_input[at_biz_dir-tags][]",
+            "tax_input[at_biz_dir-tags][]",
+            $("#tagsdiv-at_biz_dir-tags .tagchecklist, #at_biz_dir-tags .tagchecklist"),
+          );
+        }, 50);
+      }
+    },
+  );
+
+  // Admin: MutationObserver for tagchecklist - catches tag add/remove (may load via AJAX)
+  function observeTagchecklist() {
+    const $tagchecklist = $("#tagsdiv-at_biz_dir-tags .tagchecklist");
+    if ($tagchecklist.length && typeof MutationObserver !== "undefined") {
+      const tagObserver = new MutationObserver(function () {
+        triggerConditionalLogicEvaluation(
+          "tax_input[at_biz_dir-tags][]",
+          "tax_input[at_biz_dir-tags][]",
+          $tagchecklist,
+        );
+      });
+      tagObserver.observe($tagchecklist[0], {
+        childList: true,
+        subtree: true,
+      });
+    }
+  }
+  observeTagchecklist();
+  setTimeout(observeTagchecklist, 1000); // Retry if loaded via AJAX
 
   // Also listen on document level as fallback for custom fields that might be outside the form wrapper
   $(document).on(
@@ -1962,16 +2158,17 @@ function watchFieldChanges(
     }
 
     const editorId = editor.id;
-    // Check if this editor is within a form group that might be used for conditional logic
-    // We'll check for common description/content field IDs
     const $editorTextarea = $("#" + editorId);
     if (!$editorTextarea.length) {
       return;
     }
 
-    // Check if this textarea is inside a directorist-form-group
+    // Include: (1) editors inside directorist-form-group, (2) WordPress admin content editor (#content)
     const $formGroup = $editorTextarea.closest(".directorist-form-group");
-    if (!$formGroup.length) {
+    const isWordPressContentEditor =
+      editorId === "content" &&
+      $editorTextarea.closest("#postdivrich, #wp-content-wrap").length;
+    if (!$formGroup.length && !isWordPressContentEditor) {
       return;
     }
 
@@ -1979,10 +2176,11 @@ function watchFieldChanges(
     const fieldName = $editorTextarea.attr("name") || editorId;
     let fieldKey = fieldName;
 
-    // Map widget_key to field_key
+    // Map widget_key to field_key (WordPress uses "content" for post body)
     const widgetKeyToFieldKeyMap = {
       title: "listing_title",
       description: "listing_content",
+      content: "listing_content",
     };
     fieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
 
@@ -1990,7 +2188,6 @@ function watchFieldChanges(
     editor.off("input keyup change NodeChange");
 
     // Listen to editor content changes
-    // Use NodeChange for better compatibility with TinyMCE
     editor.on("input keyup change NodeChange", function () {
       const $changedField = $editorTextarea;
       triggerConditionalLogicEvaluation(fieldName, fieldKey, $changedField);

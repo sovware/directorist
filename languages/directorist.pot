@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-05 04:39+0000\n"
+"POT-Creation-Date: 2026-02-08 06:09+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -867,7 +867,7 @@ msgstr ""
 msgid "Do you really want to remove this review!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:116, ../includes/asset-loader/localized_data.php:121, ../includes/asset-loader/localized_data.php:179, ../includes/asset-loader/localized_data.php:218
+#: ../includes/asset-loader/localized_data.php:116, ../includes/asset-loader/localized_data.php:121, ../includes/asset-loader/localized_data.php:185, ../includes/asset-loader/localized_data.php:270
 msgid "Yes, Delete it!"
 msgstr ""
 
@@ -899,7 +899,7 @@ msgstr ""
 msgid "Select or Upload a profile picture"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:126, ../includes/asset-loader/localized_data.php:223
+#: ../includes/asset-loader/localized_data.php:126, ../includes/asset-loader/localized_data.php:275
 msgid "Use this Image"
 msgstr ""
 
@@ -927,147 +927,147 @@ msgstr ""
 msgid "Loading more..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:174, ../templates/listing-form/custom-fields/checkbox.php:57, ../templates/listing-form/custom-fields/radio.php:57
+#: ../includes/asset-loader/localized_data.php:180, ../templates/listing-form/custom-fields/checkbox.php:57, ../templates/listing-form/custom-fields/radio.php:57
 msgid "See More"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:175
+#: ../includes/asset-loader/localized_data.php:181
 msgid "See Less"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:176, ../includes/asset-loader/localized_data.php:216
+#: ../includes/asset-loader/localized_data.php:182, ../includes/asset-loader/localized_data.php:268
 msgid "Are you sure"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:177, ../includes/asset-loader/localized_data.php:217
+#: ../includes/asset-loader/localized_data.php:183, ../includes/asset-loader/localized_data.php:269
 msgid "Do you really want to remove this Social Link!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:178
+#: ../includes/asset-loader/localized_data.php:184
 msgid "Do you really want to remove this FAQ!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:180, ../includes/asset-loader/localized_data.php:219
+#: ../includes/asset-loader/localized_data.php:186, ../includes/asset-loader/localized_data.php:271
 msgid "Deleted!"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:182
+#: ../includes/asset-loader/localized_data.php:188
 msgid "You can only use %s"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:183
+#: ../includes/asset-loader/localized_data.php:189
 msgid "Please wait, your submission is being processed."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:184
+#: ../includes/asset-loader/localized_data.php:190
 msgid "Please wait, your selected images being uploaded."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:199
+#: ../includes/asset-loader/localized_data.php:205
 msgid "Listing gallery has invalid files"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:207
+#: ../includes/asset-loader/localized_data.php:213
 msgid "Sorry! You have crossed the maximum image limit"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:220
+#: ../includes/asset-loader/localized_data.php:272
 msgid "Select an icon"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:221
+#: ../includes/asset-loader/localized_data.php:273
 msgid "Select or Upload Slider Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:222
+#: ../includes/asset-loader/localized_data.php:274
 msgid "Select Category Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:224
+#: ../includes/asset-loader/localized_data.php:276
 msgid "Select Preview Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:225
+#: ../includes/asset-loader/localized_data.php:277
 msgid "Insert Preview Image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:227
+#: ../includes/asset-loader/localized_data.php:279
 msgid "Select or upload image"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:231
+#: ../includes/asset-loader/localized_data.php:283
 msgid "Change Icon"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:232
+#: ../includes/asset-loader/localized_data.php:284
 msgid "Click to select icon"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:233
+#: ../includes/asset-loader/localized_data.php:285
 msgid "Filter By Name"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:234, ../includes/classes/class-settings-panel.php:3935, ../includes/widgets/search-form.php:26, ../includes/widgets/search-form.php:55, ../templates/archive/mobile-search-form.php:20, ../templates/archive/mobile-search-form.php:59
+#: ../includes/asset-loader/localized_data.php:286, ../includes/classes/class-settings-panel.php:3935, ../includes/widgets/search-form.php:26, ../includes/widgets/search-form.php:55, ../templates/archive/mobile-search-form.php:20, ../templates/archive/mobile-search-form.php:59
 msgid "Search"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:235
+#: ../includes/asset-loader/localized_data.php:287
 msgid "Filter By Icon Pack"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:236, ../includes/classes/class-tools.php:751
+#: ../includes/asset-loader/localized_data.php:288, ../includes/classes/class-tools.php:751
 msgid "Done"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:238
+#: ../includes/asset-loader/localized_data.php:290
 msgid "Line Awesome"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:239
+#: ../includes/asset-loader/localized_data.php:291
 msgid "Font Awesome"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:283, ../includes/asset-loader/localized_data.php:297, ../includes/model/Listings.php:301, ../includes/model/Listings.php:354
+#: ../includes/asset-loader/localized_data.php:335, ../includes/asset-loader/localized_data.php:349, ../includes/model/Listings.php:301, ../includes/model/Listings.php:354
 msgid "Select a category"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:284, ../includes/asset-loader/localized_data.php:298, ../includes/model/Listings.php:302, ../includes/model/Listings.php:355
+#: ../includes/asset-loader/localized_data.php:336, ../includes/asset-loader/localized_data.php:350, ../includes/model/Listings.php:302, ../includes/model/Listings.php:355
 msgid "Select a location"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:292
+#: ../includes/asset-loader/localized_data.php:344
 msgid " Miles"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:290
+#: ../includes/asset-loader/localized_data.php:342
 msgid " Kilometers"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:299, ../templates/search-form/fields/tag.php:53
+#: ../includes/asset-loader/localized_data.php:351, ../templates/search-form/fields/tag.php:53
 msgid "Show More"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:300
+#: ../includes/asset-loader/localized_data.php:352
 msgid "Show Less"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:301
+#: ../includes/asset-loader/localized_data.php:353
 msgid "Added to favorite"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:302
+#: ../includes/asset-loader/localized_data.php:354
 msgid "Please login first"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:343
+#: ../includes/asset-loader/localized_data.php:395
 msgid "Sending user info, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:344, ../includes/classes/class-ajax-handler.php:349, ../includes/classes/class-ajax-handler.php:469
+#: ../includes/asset-loader/localized_data.php:396, ../includes/classes/class-ajax-handler.php:349, ../includes/classes/class-ajax-handler.php:469
 msgid "Wrong username or password."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:363, ../includes/model/ListingDashboard.php:400
+#: ../includes/asset-loader/localized_data.php:415, ../includes/model/ListingDashboard.php:400
 msgid "Enquiries"
 msgstr ""
 

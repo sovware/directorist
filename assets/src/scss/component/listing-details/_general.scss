@@ -164,15 +164,19 @@
 }
 
 .directorist-single-tag-list {
-  li {
+  li:not(:last-child) {
     margin: 0 0 10px;
   }
   a {
     text-decoration: none;
-    color: var(--directorist-color-body);
+    color: var(--directorist-color-dark) !important;
     transition: 0.3s ease;
     display: flex;
+    align-items: center;
     gap: 10px;
+    &:hover {
+      color: var(--directorist-color-primary) !important;
+    }
     .directorist-icon-mask {
       display: inline-flex;
       align-items: center;
@@ -183,7 +187,7 @@
       border-radius: 50%;
       background-color: var(--directorist-color-bg-light);
       position: relative;
-      top: -5px;
+      top: 0;
       transition: 0.3s ease;
       &:after {
         font-size: 15px;

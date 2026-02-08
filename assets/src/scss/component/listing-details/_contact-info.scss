@@ -57,15 +57,17 @@
   }
 
   .directorist-single-info__label__text {
+    display: inline-flex;
+    align-items: center;
     position: relative;
     min-width: 70px;
-    margin-top: 5px;
     padding-right: 10px;
     &:before {
       content: ":";
       position: absolute;
       right: 0;
-      top: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     @media screen and (max-width: 375px) {
@@ -80,7 +82,8 @@
   }
 
   .directorist-single-info__value {
-    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
     flex: 1;
     color: var(--directorist-color-body);
     @media screen and (max-width: 575px) {

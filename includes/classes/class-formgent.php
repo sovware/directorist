@@ -175,23 +175,34 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
         public function get_responses( $request ) {
             $page = absint( $request->get_param( 'page' ) );
             $per_page = absint( $request->get_param( 'per_page' ) );
-
+        
             $query = $this->get_responses_query();
             $count_query = clone $query;
-
+        
             $responses = $query->select( 'response.*', 'post.post_title as listing_title', 'post.post_author as listing_owner' )->with(
                 'user', function( $query ) {
                     $query->select( 'ID', 'user_email', 'display_name' );
                 }
             )->pagination( $page, $per_page );
-
+        
             $responses = array_map(
                 function( $response ) {
-                    $response->user->profile_url = get_avatar_url( isset( $response->user->user_email ) ? $response->user->user_email : '' );
+                    // Handle cases where user might be null (non-logged-in submissions)
+                    if ( isset( $response->user ) && is_object( $response->user ) && isset( $response->user->user_email ) ) {
+                        $response->user->profile_url = get_avatar_url( $response->user->user_email );
+                    } else {
+                        // Create a default user object for non-logged-in submissions
+                        $response->user = (object) [
+                            'ID' => 0,
+                            'user_email' => '',
+                            'display_name' => __( 'Guest', 'directorist' ),
+                            'profile_url' => get_avatar_url( '' ),
+                        ];
+                    }
                     return $response;
                 }, $responses
             );
-
+        
             return [
                 'total' => $count_query->count(),
                 'responses' => $responses
@@ -224,19 +235,22 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 return Response::query( 'response' )->where( 'response.id', 0 );
             }
             
-            return Response::query( 'response' )->join(
-                ResponseMeta::get_table_name() . ' as response_meta', function( $join ) {
-                    $join->on_column( 'response_meta.response_id', 'response.id' )
-                         ->on( 'response_meta.meta_key', 'listing_id' );
-                }
-            )->left_join(
-                Post::get_table_name() . ' as post', function( $join ) use ( $user_id ) {
-                    $join->on_raw( 'post.ID = CAST(response_meta.meta_value AS UNSIGNED)' )
-                         ->on( 'post.post_author', $user_id );
-                }
-            )->where_not_is_null( 'post.post_author' )
-             ->where( 'post.post_status', 'publish' )
-             ->where( 'response.is_completed', 1 );
+            return Response::query( 'response' )
+                ->join(
+                    ResponseMeta::get_table_name() . ' as response_meta', function( $join ) {
+                        $join->on_column( 'response_meta.response_id', 'response.id' )
+                             ->on( 'response_meta.meta_key', 'listing_id' );
+                    }
+                )
+                ->left_join(
+                    Post::get_table_name() . ' as post', function( $join ) {
+                        $join->on_raw( 'post.ID = CAST(response_meta.meta_value AS UNSIGNED)' );
+                    }
+                )
+                ->where_not_is_null( 'post.post_author' )
+                ->where( 'post.post_author', $user_id )
+                ->where( 'post.post_status', 'publish' )
+                ->where( 'response.is_completed', 1 );
         }
     }
 }

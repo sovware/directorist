@@ -408,7 +408,7 @@ class Directorist_Listing_Dashboard {
             'icon'      => 'las la-sliders-h',
         ];
 
-        $user_order_history = get_directorist_option( 'user_order_history' );
+        $user_order_history = apply_filters( 'directorist_show_user_order_history_tab', 1 === (int) get_directorist_option( 'enable_monetization' ) );
 
         if ( $user_order_history ) {
             $dashboard_tabs[ 'order_history' ] = array(
@@ -522,28 +522,13 @@ class Directorist_Listing_Dashboard {
     }
 
     public function can_renew() {
-        // TODO: Status has been migrated, remove related code.
-        // $post_id = get_the_ID();
-        // $status  = get_post_meta( $post_id, '_listing_status', true );
-
-        // if ( 'renewal' == $status || 'expired' == $status ) {
-        //  $can_renew = get_directorist_option( 'can_renew_listing' );
-        //  if ( $can_renew ) {
-        //      return true;
-        //  }
-        // }
-
         if ( ! directorist_can_user_renew_listings() ) {
             return false;
         }
 
         $status = get_post_status( get_the_ID() );
 
-        if ( $status !== 'expired' || ( $status === 'publish' && get_post_meta( get_the_ID(), '_listing_status', true ) !== 'renewal' ) ) {
-            return false;
-        }
-
-        return true;
+        return $status === 'expired' || ( $status === 'publish' && get_post_meta( get_the_ID(), '_listing_status', true ) === 'renewal' );
     }
 
     public function can_promote() {
@@ -568,6 +553,7 @@ class Directorist_Listing_Dashboard {
         }
 
         $is_featured = (bool) get_post_meta( get_the_ID(), '_featured', true );
+        
         if ( $is_featured ) {
             return false;
         }
@@ -585,10 +571,9 @@ class Directorist_Listing_Dashboard {
 
     public function get_action_dropdown_item() {
         $dropdown_items = apply_filters( 'directorist_dashboard_listing_action_items', [], $this );
+        $post_id        = get_the_ID();
 
-        $post_id = get_the_ID();
-
-        if ( $this->can_renew() ) {
+        if ( apply_filters( 'directorist_can_renew_listing', $this->can_renew(), $this ) ) {
             $renewal_url = add_query_arg( 'renew_from', 'dashboard', $this->get_renewal_link( $post_id ) );
             $dropdown_items['renew'] = [
                 'class'     => '',
@@ -599,7 +584,7 @@ class Directorist_Listing_Dashboard {
             ];
         }
 
-        if ( $this->can_promote() ) {
+        if ( apply_filters( 'directorist_can_promote_listing', $this->can_promote(), $this ) ) {
             $dropdown_items['promote'] = [
                 'class'             => '',
                 'data_attr'         =>  '',
@@ -617,6 +602,6 @@ class Directorist_Listing_Dashboard {
             'label'             =>  __( 'Delete Listing', 'directorist' )
         ];
 
-        return apply_filters( 'directorist_dashboard_listing_action_items_end', $dropdown_items, $this );
+        return apply_filters( 'directorist_dashboard_listing_action_items_end', $dropdown_items, $post_id, $this );
     }
 }

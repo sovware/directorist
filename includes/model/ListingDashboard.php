@@ -408,7 +408,7 @@ class Directorist_Listing_Dashboard {
             'icon'      => 'las la-sliders-h',
         ];
 
-        $user_order_history = get_directorist_option( 'user_order_history' );
+        $user_order_history = apply_filters( 'directorist_show_user_order_history_tab', 1 === (int) get_directorist_option( 'enable_monetization' ) );
 
         if ( $user_order_history ) {
             $dashboard_tabs[ 'order_history' ] = array(

@@ -53,7 +53,10 @@ class CheckoutController {
         }
 
         $repository = directorist_order_repository();
-        $repository->create( $dto );
+
+        if ( ! $dto->is_initialized( 'id' ) ) {
+            $repository->create( $dto );
+        }
 
         if ( $dto->get_amount() == 0 ) {
             $repository->update( ( new DTO )->set_id( $dto->get_id() )->set_status( Status::PAID ) );

@@ -564,6 +564,106 @@ class Directorist_Listing_Form {
         Helper::get_template( 'listing-form/field-label', $args );
     }
 
+    /**
+     * Get conditional logic data attributes for field wrapper
+     *
+     * @param array $data Field data array
+     * @return string HTML attributes string
+     */
+    public function get_conditional_logic_attributes( $data ) {
+        $attributes = '';
+        
+        // Get conditional logic data from various possible locations
+        $conditional_logic = null;
+        
+        // Priority 1: Already processed conditional_logic_data (JSON string)
+        if ( ! empty( $data['conditional_logic_data'] ) ) {
+            if ( is_string( $data['conditional_logic_data'] ) ) {
+                $conditional_logic = json_decode( $data['conditional_logic_data'], true );
+            } else {
+                $conditional_logic = $data['conditional_logic_data'];
+            }
+        } 
+        // Priority 2: options.conditional_logic (array)
+        elseif ( ! empty( $data['options']['conditional_logic'] ) && is_array( $data['options']['conditional_logic'] ) ) {
+            $conditional_logic = $data['options']['conditional_logic'];
+        }
+        // Priority 3: Direct conditional_logic key
+        elseif ( ! empty( $data['conditional_logic'] ) && is_array( $data['conditional_logic'] ) ) {
+            $conditional_logic = $data['conditional_logic'];
+        }
+        
+        // Normalize and validate conditional logic data
+        if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) ) {
+            // Normalize enabled flag (handle string "1", boolean true, etc.)
+            if ( isset( $conditional_logic['enabled'] ) ) {
+                $conditional_logic['enabled'] = filter_var( $conditional_logic['enabled'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+                // If still null, treat as false
+                if ( is_null( $conditional_logic['enabled'] ) ) {
+                    $conditional_logic['enabled'] = false;
+                }
+            }
+            
+            // Only output if enabled is true
+            if ( ! empty( $conditional_logic['enabled'] ) ) {
+                // Ensure groups array exists and is properly formatted
+                if ( ! isset( $conditional_logic['groups'] ) || ! is_array( $conditional_logic['groups'] ) ) {
+                    $conditional_logic['groups'] = [];
+                }
+                
+                // Normalize globalOperator (default to OR for backward compatibility)
+                // Handle empty string, null, or missing operator
+                if ( empty( $conditional_logic['globalOperator'] ) || ! is_string( $conditional_logic['globalOperator'] ) ) {
+                    $conditional_logic['globalOperator'] = 'OR';
+                } else {
+                    // Ensure uppercase for consistency
+                    $conditional_logic['globalOperator'] = strtoupper( trim( $conditional_logic['globalOperator'] ) );
+                }
+                
+                // Normalize groups structure
+                $normalized_groups = [];
+                foreach ( $conditional_logic['groups'] as $group ) {
+                    if ( ! is_array( $group ) || empty( $group['conditions'] ) || ! is_array( $group['conditions'] ) ) {
+                        continue;
+                    }
+                    
+                    // Normalize group operator (default to AND)
+                    // Handle empty string, null, or missing operator
+                    if ( empty( $group['operator'] ) || ! is_string( $group['operator'] ) ) {
+                        $group['operator'] = 'AND';
+                    } else {
+                        // Ensure uppercase for consistency
+                        $group['operator'] = strtoupper( trim( $group['operator'] ) );
+                    }
+                    
+                    // Filter out empty conditions
+                    $valid_conditions = [];
+                    foreach ( $group['conditions'] as $condition ) {
+                        if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
+                            $valid_conditions[] = $condition;
+                        }
+                    }
+                    
+                    // Only add group if it has valid conditions
+                    if ( ! empty( $valid_conditions ) ) {
+                        $group['conditions'] = $valid_conditions;
+                        $normalized_groups[] = $group;
+                    }
+                }
+                
+                // Only output if we have valid groups
+                if ( ! empty( $normalized_groups ) ) {
+                    $conditional_logic['groups'] = $normalized_groups;
+                    $conditional_logic_json = wp_json_encode( $conditional_logic );
+                    $attributes = ' data-conditional-logic="' . esc_attr( $conditional_logic_json ) . '"';
+                    $attributes .= ' data-field-key="' . esc_attr( $data['field_key'] ?? '' ) . '"';
+                }
+            }
+        }
+        
+        return $attributes;
+    }
+
     public function field_description_template( $data ) {
         $args = [
             'listing_form' => $this,
@@ -605,6 +705,11 @@ class Directorist_Listing_Form {
         return true; // All fields are for admin
     }
 
+    /**
+     * @deprecated This method is deprecated. The assign_to feature has been removed.
+     * Use conditional_logic instead for field visibility.
+     * This method is kept for backward compatibility but is no longer called.
+     */
     public function add_listing_category_custom_field_template( $field_data, $listing_id = NULL ) {
         $value = '';
         if ( ! empty( $listing_id ) ) {
@@ -673,6 +778,27 @@ class Directorist_Listing_Form {
         $field_data['value'] = $value;
         $field_data['form']  = $this;
         $field_data          = apply_filters( 'directorist_form_field_data', $field_data );
+        
+        // Add conditional logic data for frontend JavaScript evaluation (after filter to ensure it's preserved)
+        // Check multiple possible locations for conditional logic
+        $conditional_logic = null;
+        
+        // Priority 1: Already processed conditional_logic_data
+        if ( ! empty( $field_data['conditional_logic_data'] ) ) {
+            // Already set, do nothing
+        }
+        // Priority 2: options.conditional_logic (most common)
+        elseif ( ! empty( $field_data['options']['conditional_logic'] ) ) {
+            $conditional_logic = $field_data['options']['conditional_logic'];
+        }
+        // Priority 3: Direct conditional_logic key
+        elseif ( ! empty( $field_data['conditional_logic'] ) ) {
+            $conditional_logic = $field_data['conditional_logic'];
+        }
+        
+        if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) && ! empty( $conditional_logic['enabled'] ) ) {
+            $field_data['conditional_logic_data'] = wp_json_encode( $conditional_logic );
+        }
 
         if ( $this->is_custom_field( $field_data ) ) {
             $template = 'listing-form/custom-fields/' . $field_data['widget_name'];

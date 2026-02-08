@@ -31,9 +31,38 @@ $img_upload_data = [
 ];
 
 $img_upload_data = json_encode( $img_upload_data );
+
+// Get conditional logic data attributes using helper method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
+
+// Additional fallback check - try multiple locations for conditional logic data
+if ( empty( $conditional_logic_attr ) ) {
+    $conditional_logic = null;
+    
+    // Check conditional_logic_data first
+    if ( ! empty( $data['conditional_logic_data'] ) ) {
+        $conditional_logic = is_string( $data['conditional_logic_data'] ) 
+            ? json_decode( $data['conditional_logic_data'], true ) 
+            : $data['conditional_logic_data'];
+    }
+    // Check options.conditional_logic
+    elseif ( ! empty( $data['options']['conditional_logic'] ) ) {
+        $conditional_logic = $data['options']['conditional_logic'];
+    }
+    // Check direct conditional_logic key
+    elseif ( ! empty( $data['conditional_logic'] ) ) {
+        $conditional_logic = $data['conditional_logic'];
+    }
+    
+    // If we found conditional logic and it's enabled, create attributes
+    if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) && ! empty( $conditional_logic['enabled'] ) ) {
+        $conditional_logic_attr = ' data-conditional-logic="' . esc_attr( wp_json_encode( $conditional_logic ) ) . '"';
+        $conditional_logic_attr .= ' data-field-key="' . esc_attr( $data['field_key'] ?? '' ) . '"';
+    }
+}
 ?>
 
-<div class="directorist-form-group directorist-form-image-upload-field">
+<div class="directorist-form-group directorist-form-image-upload-field"<?php echo $conditional_logic_attr; ?>>
     <div class="ez-media-uploader directorist-image-upload" data-uploader="<?php echo esc_attr( $img_upload_data ); ?>">
         <div class="ezmu__loading-section ezmu--show">
             <span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>

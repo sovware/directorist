@@ -505,13 +505,17 @@ function getFieldValue(fieldKey, $) {
     return Array.isArray(_val2) ? _val2 : _val2 ? [_val2] : [];
   }
 
-  // Handle Select2 fields
+  // Handle Select2 fields (only if actually initialized - avoid error on admin checklists)
   if ($field.hasClass("select2-hidden-accessible")) {
-    var _selectedData = $field.select2("data");
-    if (_selectedData && _selectedData.length > 0) {
-      return _selectedData.map(function (item) {
-        return item.text || item.id;
-      });
+    try {
+      var _selectedData = $field.select2("data");
+      if (_selectedData && _selectedData.length > 0) {
+        return _selectedData.map(function (item) {
+          return item.text || item.id;
+        });
+      }
+    } catch (e) {
+      // Select2 not initialized on this element
     }
   }
 
@@ -1018,8 +1022,8 @@ function initConditionalLogic(getWrapperFn, getFieldValueFn, applyConditionalLog
   // First, update category field label if needed
   var $categoryField = $("#at_biz_dir-categories");
   if ($categoryField.length) {
-    // Ensure data-selected-label is up to date
-    if ($categoryField.hasClass("select2-hidden-accessible") && typeof $categoryField.select2 === "function") {
+    // Ensure data-selected-label is up to date (only if Select2-initialized, not admin checklists)
+    if ($categoryField.hasClass("select2-hidden-accessible") && $categoryField.is("select") && typeof $categoryField.select2 === "function") {
       try {
         var selectedData = $categoryField.select2("data");
         if (selectedData && selectedData.length > 0) {
@@ -1236,8 +1240,8 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
           fieldName = $field.attr("name") || "location";
         }
 
-        // Try to get data from Select2 API
-        if (typeof $field.select2 === "function") {
+        // Try to get data from Select2 API (only if element is Select2-initialized)
+        if ($field.hasClass("select2-hidden-accessible") && typeof $field.select2 === "function") {
           try {
             var selectedData = $field.select2("data");
             if (selectedData && selectedData.length > 0) {
@@ -1247,7 +1251,7 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
               });
             }
           } catch (e) {
-            // Select2 might throw error, continue with DOM reading
+            // Select2 might throw if not initialized (e.g. admin checklist), continue with DOM
           }
         }
 
@@ -1340,8 +1344,10 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
           var labels = [];
           var ids = [];
 
-          // Try Select2 API
-          if (typeof $taxField.select2 === "function") {
+          // Admin checklists (#at_biz_dir-categorychecklist, etc.) are checkbox containers, NOT Select2.
+          // Only use Select2 API on elements that are actually Select2-initialized (have select2-hidden-accessible).
+          var isChecklist = $taxField.attr("id") === "at_biz_dir-categorychecklist" || $taxField.attr("id") === "at_biz_dir-categorychecklist-pop" || $taxField.attr("id") === "at_biz_dir-locationchecklist" || $taxField.attr("id") === "at_biz_dir-locationchecklist-pop" || $taxField.closest("#at_biz_dir-categorychecklist, #at_biz_dir-locationchecklist").length > 0;
+          if (!isChecklist && $taxField.hasClass("select2-hidden-accessible") && typeof $taxField.select2 === "function") {
             try {
               var selectedData = $taxField.select2("data");
               if (selectedData && selectedData.length > 0) {
@@ -1351,11 +1357,21 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
                 });
               }
             } catch (e) {
-              // Continue with DOM reading
+              // Select2 not initialized, continue with DOM/checkbox reading
             }
           }
 
-          // Fallback to DOM
+          // Admin checklist: read from checked checkboxes (label text = term name, value = term id)
+          if (isChecklist && labels.length === 0 && ids.length === 0) {
+            $taxField.find("input:checked").each(function () {
+              var $cb = $(this);
+              ids.push(String($cb.val()));
+              var labelText = $cb.closest("label").text().trim();
+              if (labelText) labels.push(labelText);
+            });
+          }
+
+          // Fallback to DOM (Select2 container)
           if (labels.length === 0) {
             var $container = $taxField.next(".select2-container");
             if ($container.length) {
@@ -1789,8 +1805,8 @@ function updateCategoryFieldLabel(initConditionalLogicFn, $) {
     return;
   }
   setTimeout(function () {
-    // Get selected labels from Select2
-    if ($field.hasClass("select2-hidden-accessible") && typeof $field.select2 === "function") {
+    // Get selected labels from Select2 (only if element is select and Select2-initialized)
+    if ($field.is("select") && $field.hasClass("select2-hidden-accessible") && typeof $field.select2 === "function") {
       try {
         var selectedData = $field.select2("data");
         if (selectedData && selectedData.length > 0) {

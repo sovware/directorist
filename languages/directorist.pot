@@ -10034,14 +10034,10 @@ msgid "Create New Directory"
 msgstr ""
 
 #: ../views/admin-templates/post-types-manager/all-listing-types.php:235
-msgid " Let AI create it or choose a template or start from scratch."
+msgid "Let AI create it or start from scratch."
 msgstr ""
 
-#: ../views/admin-templates/post-types-manager/all-listing-types.php:260
-msgid "Use Template"
-msgstr ""
-
-#: ../views/admin-templates/post-types-manager/all-listing-types.php:270
+#: ../views/admin-templates/post-types-manager/all-listing-types.php:253
 msgid "Create from Scratch"
 msgstr ""
 

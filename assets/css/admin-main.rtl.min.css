@@ -6635,17 +6635,6 @@ img.atbdp-file-info {
 .cptm-create-directory-modal .cptm-create-directory-modal__body {
 	padding-top: 36px;
 }
-.cptm-create-directory-modal
-	.cptm-create-directory-modal__body
-	.directorist_template_notice {
-	margin-top: 10px;
-	color: #f80718;
-}
-.cptm-create-directory-modal
-	.cptm-create-directory-modal__body
-	.directorist_template_notice.cptm-section-alert-success {
-	color: #28a800;
-}
 .cptm-create-directory-modal .cptm-create-directory-modal__title {
 	font-size: 20px;
 	line-height: 28px;
@@ -6744,12 +6733,6 @@ img.atbdp-file-info {
 	min-width: 40px;
 	border-radius: 50%;
 	background-color: #0b99ff;
-}
-.cptm-create-directory-modal
-	.cptm-create-directory-modal__action
-	.cptm-create-directory-modal__action__single
-	.modal-btn-icon.create-template {
-	background-color: #ff5c16;
 }
 .cptm-create-directory-modal
 	.cptm-create-directory-modal__action

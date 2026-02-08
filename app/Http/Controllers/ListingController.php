@@ -19,10 +19,12 @@ class ListingController {
     }
 
     public function update_status( Validator $validator, WP_REST_Request $request ): array {
-        $validator->validate( [
-            'id'     => 'required|integer',
-            'status' => 'required|string,accepted:publish,private',
-        ] );
+        $validator->validate(
+            [
+                'id'     => 'required|integer',
+                'status' => 'required|string,accepted:publish,private',
+            ] 
+        );
 
         $id     = (int) $request->get_param( 'id' );
         $status = $request->get_param( 'status' );

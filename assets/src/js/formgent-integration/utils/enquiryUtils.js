@@ -100,6 +100,39 @@ export const markEnquiryAsRead = async (item, onSuccess, silent = false) => {
 };
 
 /**
+ * Bulk mark multiple enquiries as read with a single notification
+ * @param {Array} items - Array of enquiry items to mark as read
+ * @param {Function} onSuccess - Callback function to call on success
+ * @returns {Promise} - The API call promise
+ */
+export const bulkMarkEnquiriesAsRead = async (items, onSuccess) => {
+	const ids = items.map((item) => extractItemId(item)).filter(Boolean);
+	if (ids.length === 0) return;
+
+	try {
+		await Promise.all(
+			ids.map((id) =>
+				apiFetch({
+					path: '/directorist/formgent/responses/read',
+					method: 'POST',
+					data: { id },
+				})
+			)
+		);
+
+		if (onSuccess) onSuccess();
+
+		doAction('helpgent-toast', {
+			message: `${ids.length} response(s) marked as read.`,
+			type: 'success',
+		});
+	} catch (error) {
+		console.error('Error marking items as read:', error);
+		throw error;
+	}
+};
+
+/**
  * Delete enquiry
  * @param {Object|Array} item - The enquiry item
  * @param {Function} onSuccess - Callback function to call on success
@@ -134,6 +167,39 @@ export const deleteEnquiry = async (item, onSuccess) => {
 		return data;
 	} catch (error) {
 		console.error('Error deleting item:', error);
+		throw error;
+	}
+};
+
+/**
+ * Bulk delete multiple enquiries with a single notification
+ * @param {Array} items - Array of enquiry items to delete
+ * @param {Function} onSuccess - Callback function to call on success
+ * @returns {Promise} - The API call promise
+ */
+export const bulkDeleteEnquiries = async (items, onSuccess) => {
+	const ids = items.map((item) => extractItemId(item)).filter(Boolean);
+	if (ids.length === 0) return;
+
+	try {
+		await Promise.all(
+			ids.map((id) =>
+				apiFetch({
+					path: '/directorist/formgent/responses',
+					method: 'DELETE',
+					data: { id },
+				})
+			)
+		);
+
+		if (onSuccess) onSuccess();
+
+		doAction('helpgent-toast', {
+			message: `${ids.length} response(s) deleted successfully.`,
+			type: 'success',
+		});
+	} catch (error) {
+		console.error('Error deleting items:', error);
 		throw error;
 	}
 };

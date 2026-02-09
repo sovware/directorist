@@ -23,7 +23,9 @@ import TrashIcon from '../icons/Trash';
 import EnquiryDetailsModal from './EnquiryDetailsModal';
 import {
 	markEnquiryAsRead,
+	bulkMarkEnquiriesAsRead,
 	deleteEnquiry,
+	bulkDeleteEnquiries,
 	sendEmailToUser,
 	getStatusBadgeClass,
 	extractEnquiryTitleAndPrefix,
@@ -225,7 +227,11 @@ export default function Tables(props) {
 				icon: <CheckIcon />,
 				callback: (items) => {
 					const itemsArray = Array.isArray(items) ? items : [items];
-					itemsArray.forEach((item) => handleMarkAsRead(item));
+					if (itemsArray.length > 1) {
+						bulkMarkEnquiriesAsRead(itemsArray, handleTableRefresh);
+					} else {
+						handleMarkAsRead(itemsArray[0]);
+					}
 				},
 				isEligible: (item) => {
 					return item.is_read === '0';
@@ -255,8 +261,9 @@ export default function Tables(props) {
 							<div className="directorist-formgent-table-modal-action">
 								<button
 									onClick={() => {
-										items.forEach((item) =>
-											handleDeleteItem(item)
+										bulkDeleteEnquiries(
+											items,
+											handleTableRefresh
 										);
 										closeModal();
 									}}

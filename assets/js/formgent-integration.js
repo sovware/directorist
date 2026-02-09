@@ -618,9 +618,11 @@ function Tables(props) {
       icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_icons_Check__WEBPACK_IMPORTED_MODULE_6__["default"], null),
       callback: function callback(items) {
         var itemsArray = Array.isArray(items) ? items : [items];
-        itemsArray.forEach(function (item) {
-          return handleMarkAsRead(item);
-        });
+        if (itemsArray.length > 1) {
+          (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.bulkMarkEnquiriesAsRead)(itemsArray, handleTableRefresh);
+        } else {
+          handleMarkAsRead(itemsArray[0]);
+        }
       },
       isEligible: function isEligible(item) {
         return item.is_read === '0';
@@ -635,9 +637,7 @@ function Tables(props) {
           className: "directorist-formgent-table-modal-action"
         }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("button", {
           onClick: function onClick() {
-            items.forEach(function (item) {
-              return handleDeleteItem(item);
-            });
+            (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.bulkDeleteEnquiries)(items, handleTableRefresh);
             closeModal();
           },
           className: "directorist-btn directorist-btn-danger"
@@ -1150,6 +1150,8 @@ var Notification = function Notification() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   bulkDeleteEnquiries: function() { return /* binding */ bulkDeleteEnquiries; },
+/* harmony export */   bulkMarkEnquiriesAsRead: function() { return /* binding */ bulkMarkEnquiriesAsRead; },
 /* harmony export */   deleteEnquiry: function() { return /* binding */ deleteEnquiry; },
 /* harmony export */   enrichEnquiriesWithAnswers: function() { return /* binding */ enrichEnquiriesWithAnswers; },
 /* harmony export */   extractEnquiryData: function() { return /* binding */ extractEnquiryData; },
@@ -1307,27 +1309,83 @@ var markEnquiryAsRead = /*#__PURE__*/function () {
 }();
 
 /**
+ * Bulk mark multiple enquiries as read with a single notification
+ * @param {Array} items - Array of enquiry items to mark as read
+ * @param {Function} onSuccess - Callback function to call on success
+ * @returns {Promise} - The API call promise
+ */
+var bulkMarkEnquiriesAsRead = /*#__PURE__*/function () {
+  var _ref2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(items, onSuccess) {
+    var ids, _t2;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          ids = items.map(function (item) {
+            return extractItemId(item);
+          }).filter(Boolean);
+          if (!(ids.length === 0)) {
+            _context2.next = 1;
+            break;
+          }
+          return _context2.abrupt("return");
+        case 1:
+          _context2.prev = 1;
+          _context2.next = 2;
+          return Promise.all(ids.map(function (id) {
+            return (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
+              path: '/directorist/formgent/responses/read',
+              method: 'POST',
+              data: {
+                id: id
+              }
+            });
+          }));
+        case 2:
+          if (onSuccess) onSuccess();
+          (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__.doAction)('helpgent-toast', {
+            message: "".concat(ids.length, " response(s) marked as read."),
+            type: 'success'
+          });
+          _context2.next = 4;
+          break;
+        case 3:
+          _context2.prev = 3;
+          _t2 = _context2["catch"](1);
+          console.error('Error marking items as read:', _t2);
+          throw _t2;
+        case 4:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[1, 3]]);
+  }));
+  return function bulkMarkEnquiriesAsRead(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+/**
  * Delete enquiry
  * @param {Object|Array} item - The enquiry item
  * @param {Function} onSuccess - Callback function to call on success
  * @returns {Promise} - The API call promise
  */
 var deleteEnquiry = /*#__PURE__*/function () {
-  var _ref2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(item, onSuccess) {
-    var responseId, data, _t2;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+  var _ref3 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(item, onSuccess) {
+    var responseId, data, _t3;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
           responseId = extractItemId(item);
           if (responseId) {
-            _context2.next = 1;
+            _context3.next = 1;
             break;
           }
           console.error('No valid ID found in item:', item);
-          return _context2.abrupt("return", Promise.reject(new Error('No valid ID found')));
+          return _context3.abrupt("return", Promise.reject(new Error('No valid ID found')));
         case 1:
-          _context2.prev = 1;
-          _context2.next = 2;
+          _context3.prev = 1;
+          _context3.next = 2;
           return (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
             path: "/directorist/formgent/responses",
             method: 'DELETE',
@@ -1336,7 +1394,7 @@ var deleteEnquiry = /*#__PURE__*/function () {
             }
           });
         case 2:
-          data = _context2.sent;
+          data = _context3.sent;
           if (onSuccess) {
             onSuccess();
           }
@@ -1344,20 +1402,76 @@ var deleteEnquiry = /*#__PURE__*/function () {
             message: 'Response deleted successfully.',
             type: 'success'
           });
-          return _context2.abrupt("return", data);
+          return _context3.abrupt("return", data);
         case 3:
-          _context2.prev = 3;
-          _t2 = _context2["catch"](1);
-          console.error('Error deleting item:', _t2);
-          throw _t2;
+          _context3.prev = 3;
+          _t3 = _context3["catch"](1);
+          console.error('Error deleting item:', _t3);
+          throw _t3;
         case 4:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2, null, [[1, 3]]);
+    }, _callee3, null, [[1, 3]]);
   }));
-  return function deleteEnquiry(_x3, _x4) {
-    return _ref2.apply(this, arguments);
+  return function deleteEnquiry(_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+/**
+ * Bulk delete multiple enquiries with a single notification
+ * @param {Array} items - Array of enquiry items to delete
+ * @param {Function} onSuccess - Callback function to call on success
+ * @returns {Promise} - The API call promise
+ */
+var bulkDeleteEnquiries = /*#__PURE__*/function () {
+  var _ref4 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee4(items, onSuccess) {
+    var ids, _t4;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          ids = items.map(function (item) {
+            return extractItemId(item);
+          }).filter(Boolean);
+          if (!(ids.length === 0)) {
+            _context4.next = 1;
+            break;
+          }
+          return _context4.abrupt("return");
+        case 1:
+          _context4.prev = 1;
+          _context4.next = 2;
+          return Promise.all(ids.map(function (id) {
+            return (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
+              path: '/directorist/formgent/responses',
+              method: 'DELETE',
+              data: {
+                id: id
+              }
+            });
+          }));
+        case 2:
+          if (onSuccess) onSuccess();
+          (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_5__.doAction)('helpgent-toast', {
+            message: "".concat(ids.length, " response(s) deleted successfully."),
+            type: 'success'
+          });
+          _context4.next = 4;
+          break;
+        case 3:
+          _context4.prev = 3;
+          _t4 = _context4["catch"](1);
+          console.error('Error deleting items:', _t4);
+          throw _t4;
+        case 4:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4, null, [[1, 3]]);
+  }));
+  return function bulkDeleteEnquiries(_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }();
 
@@ -1397,28 +1511,28 @@ var sendEmailToUser = function sendEmailToUser(item) {
  * @returns {Promise} - The API call promise
  */
 var fetchSingleEnquiry = /*#__PURE__*/function () {
-  var _ref3 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(selectedItem) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+  var _ref5 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee5(selectedItem) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
         case 0:
           if (selectedItem) {
-            _context3.next = 1;
+            _context5.next = 1;
             break;
           }
-          return _context3.abrupt("return", Promise.reject(new Error('No selected item provided')));
+          return _context5.abrupt("return", Promise.reject(new Error('No selected item provided')));
         case 1:
-          return _context3.abrupt("return", (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
+          return _context5.abrupt("return", (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
             path: "/directorist/formgent/responses/single?id=".concat(selectedItem),
             method: 'GET'
           }));
         case 2:
         case "end":
-          return _context3.stop();
+          return _context5.stop();
       }
-    }, _callee3);
+    }, _callee5);
   }));
-  return function fetchSingleEnquiry(_x5) {
-    return _ref3.apply(this, arguments);
+  return function fetchSingleEnquiry(_x9) {
+    return _ref5.apply(this, arguments);
   };
 }();
 
@@ -1462,22 +1576,22 @@ var getStatusBadgeText = function getStatusBadgeText(isRead) {
  * @returns {Promise} - The API call promise
  */
 var fetchEnquiryKPIs = /*#__PURE__*/function () {
-  var _ref4 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee4() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+  var _ref6 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee6() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          return _context4.abrupt("return", (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
+          return _context6.abrupt("return", (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
             path: '/directorist/formgent/responses/kpis',
             method: 'GET'
           }));
         case 1:
         case "end":
-          return _context4.stop();
+          return _context6.stop();
       }
-    }, _callee4);
+    }, _callee6);
   }));
   return function fetchEnquiryKPIs() {
-    return _ref4.apply(this, arguments);
+    return _ref6.apply(this, arguments);
   };
 }();
 
@@ -1486,22 +1600,22 @@ var fetchEnquiryKPIs = /*#__PURE__*/function () {
  * @returns {Promise} - The API call promise
  */
 var fetchAllEnquiries = /*#__PURE__*/function () {
-  var _ref5 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee5() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
+  var _ref7 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee7() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
         case 0:
-          return _context5.abrupt("return", (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
+          return _context7.abrupt("return", (0,_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__["default"])({
             path: '/directorist/formgent/responses',
             method: 'GET'
           }));
         case 1:
         case "end":
-          return _context5.stop();
+          return _context7.stop();
       }
-    }, _callee5);
+    }, _callee7);
   }));
   return function fetchAllEnquiries() {
-    return _ref5.apply(this, arguments);
+    return _ref7.apply(this, arguments);
   };
 }();
 
@@ -1510,36 +1624,36 @@ var fetchAllEnquiries = /*#__PURE__*/function () {
  * @returns {Promise<Object>} - Object containing responses and kpis
  */
 var refreshEnquiryData = /*#__PURE__*/function () {
-  var _ref6 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee6() {
-    var _yield$Promise$all, _yield$Promise$all2, responses, kpis, _t3;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context6) {
-      while (1) switch (_context6.prev = _context6.next) {
+  var _ref8 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee8() {
+    var _yield$Promise$all, _yield$Promise$all2, responses, kpis, _t5;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
         case 0:
-          _context6.prev = 0;
-          _context6.next = 1;
+          _context8.prev = 0;
+          _context8.next = 1;
           return Promise.all([fetchAllEnquiries(), fetchEnquiryKPIs()]);
         case 1:
-          _yield$Promise$all = _context6.sent;
+          _yield$Promise$all = _context8.sent;
           _yield$Promise$all2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_yield$Promise$all, 2);
           responses = _yield$Promise$all2[0];
           kpis = _yield$Promise$all2[1];
-          return _context6.abrupt("return", {
+          return _context8.abrupt("return", {
             responses: responses,
             kpis: kpis
           });
         case 2:
-          _context6.prev = 2;
-          _t3 = _context6["catch"](0);
-          console.error('Error refreshing enquiry data:', _t3);
-          throw _t3;
+          _context8.prev = 2;
+          _t5 = _context8["catch"](0);
+          console.error('Error refreshing enquiry data:', _t5);
+          throw _t5;
         case 3:
         case "end":
-          return _context6.stop();
+          return _context8.stop();
       }
-    }, _callee6, null, [[0, 2]]);
+    }, _callee8, null, [[0, 2]]);
   }));
   return function refreshEnquiryData() {
-    return _ref6.apply(this, arguments);
+    return _ref8.apply(this, arguments);
   };
 }();
 
@@ -1618,7 +1732,7 @@ var extractEnquiryTitleAndPrefix = function extractEnquiryTitleAndPrefix(item) {
  * @returns {Promise<{enrichedItems: Array, cache: Map}>} - Enriched items and updated cache
  */
 var enrichEnquiriesWithAnswers = /*#__PURE__*/function () {
-  var _ref7 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee8(items) {
+  var _ref9 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee0(items) {
     var cache,
       itemsToFetch,
       _enrichedItems,
@@ -1626,16 +1740,16 @@ var enrichEnquiriesWithAnswers = /*#__PURE__*/function () {
       fetchedData,
       fetchedMap,
       enrichedItems,
-      _args8 = arguments;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context8) {
-      while (1) switch (_context8.prev = _context8.next) {
+      _args0 = arguments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context0) {
+      while (1) switch (_context0.prev = _context0.next) {
         case 0:
-          cache = _args8.length > 1 && _args8[1] !== undefined ? _args8[1] : new Map();
+          cache = _args0.length > 1 && _args0[1] !== undefined ? _args0[1] : new Map();
           if (!(!Array.isArray(items) || items.length === 0)) {
-            _context8.next = 1;
+            _context0.next = 1;
             break;
           }
-          return _context8.abrupt("return", {
+          return _context0.abrupt("return", {
             enrichedItems: items,
             cache: cache
           });
@@ -1645,7 +1759,7 @@ var enrichEnquiriesWithAnswers = /*#__PURE__*/function () {
             return item.id && !cache.has(String(item.id)) && !item.answers;
           });
           if (!(itemsToFetch.length === 0)) {
-            _context8.next = 2;
+            _context0.next = 2;
             break;
           }
           // All items are cached, just merge cached data
@@ -1658,65 +1772,65 @@ var enrichEnquiriesWithAnswers = /*#__PURE__*/function () {
             }
             return item;
           });
-          return _context8.abrupt("return", {
+          return _context0.abrupt("return", {
             enrichedItems: _enrichedItems,
             cache: cache
           });
         case 2:
           // Fetch answers for items that aren't cached (in parallel)
           fetchPromises = itemsToFetch.map(/*#__PURE__*/function () {
-            var _ref8 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee7(item) {
-              var _singleEnquiry$respon, singleEnquiry, _t4;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context7) {
-                while (1) switch (_context7.prev = _context7.next) {
+            var _ref0 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee9(item) {
+              var _singleEnquiry$respon, singleEnquiry, _t6;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context9) {
+                while (1) switch (_context9.prev = _context9.next) {
                   case 0:
-                    _context7.prev = 0;
-                    _context7.next = 1;
+                    _context9.prev = 0;
+                    _context9.next = 1;
                     return fetchSingleEnquiry(item.id);
                   case 1:
-                    singleEnquiry = _context7.sent;
+                    singleEnquiry = _context9.sent;
                     if (!(singleEnquiry !== null && singleEnquiry !== void 0 && (_singleEnquiry$respon = singleEnquiry.response) !== null && _singleEnquiry$respon !== void 0 && _singleEnquiry$respon.answers)) {
-                      _context7.next = 2;
+                      _context9.next = 2;
                       break;
                     }
                     // Cache the answers
                     cache.set(String(item.id), singleEnquiry.response.answers);
-                    return _context7.abrupt("return", {
+                    return _context9.abrupt("return", {
                       item: item,
                       answers: singleEnquiry.response.answers
                     });
                   case 2:
-                    return _context7.abrupt("return", {
+                    return _context9.abrupt("return", {
                       item: item,
                       answers: null
                     });
                   case 3:
-                    _context7.prev = 3;
-                    _t4 = _context7["catch"](0);
-                    console.error("Error fetching answers for item ".concat(item.id, ":"), _t4);
-                    return _context7.abrupt("return", {
+                    _context9.prev = 3;
+                    _t6 = _context9["catch"](0);
+                    console.error("Error fetching answers for item ".concat(item.id, ":"), _t6);
+                    return _context9.abrupt("return", {
                       item: item,
                       answers: null
                     });
                   case 4:
                   case "end":
-                    return _context7.stop();
+                    return _context9.stop();
                 }
-              }, _callee7, null, [[0, 3]]);
+              }, _callee9, null, [[0, 3]]);
             }));
-            return function (_x7) {
-              return _ref8.apply(this, arguments);
+            return function (_x1) {
+              return _ref0.apply(this, arguments);
             };
           }());
-          _context8.next = 3;
+          _context0.next = 3;
           return Promise.all(fetchPromises);
         case 3:
-          fetchedData = _context8.sent;
+          fetchedData = _context0.sent;
           // Create a map for quick lookup
           fetchedMap = new Map();
-          fetchedData.forEach(function (_ref9) {
-            var item = _ref9.item,
-              answers = _ref9.answers;
+          fetchedData.forEach(function (_ref1) {
+            var item = _ref1.item,
+              answers = _ref1.answers;
             if (answers) {
               fetchedMap.set(String(item.id), answers);
             }
@@ -1729,18 +1843,18 @@ var enrichEnquiriesWithAnswers = /*#__PURE__*/function () {
               answers: answers
             }) : item;
           });
-          return _context8.abrupt("return", {
+          return _context0.abrupt("return", {
             enrichedItems: enrichedItems,
             cache: cache
           });
         case 4:
         case "end":
-          return _context8.stop();
+          return _context0.stop();
       }
-    }, _callee8);
+    }, _callee0);
   }));
-  return function enrichEnquiriesWithAnswers(_x6) {
-    return _ref7.apply(this, arguments);
+  return function enrichEnquiriesWithAnswers(_x0) {
+    return _ref9.apply(this, arguments);
   };
 }();
 

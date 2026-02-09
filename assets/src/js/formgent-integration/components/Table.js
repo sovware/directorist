@@ -58,7 +58,7 @@ export default function Tables(props) {
 		const badgeClass = getStatusBadgeClass(status);
 		switch (badgeClass) {
 			case 'read':
-				return 'primary';
+				return 'success';
 			case 'unread':
 				return 'info';
 			default:

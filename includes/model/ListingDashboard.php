@@ -396,8 +396,11 @@ class Directorist_Listing_Dashboard {
         }
 
         if ( $is_formgent_active ) {
+            $enquiry_kpis  = ATBDP()->formgent->get_kpis();
+            $enquiry_count = ! empty( $enquiry_kpis['total'] ) ? $enquiry_kpis['total'] : 0;
+
             $dashboard_tabs['dashboard_formgent'] = [
-                'title'     => __( 'Enquiries', 'directorist' ),
+                'title'     => sprintf( '%1$s (%2$s)', __( 'Enquiries', 'directorist' ), $enquiry_count ),
                 'content'   => Helper::get_template_contents( 'dashboard/tab-formgent', [ 'dashboard' => $this ] ),
                 'icon'      => 'las la-inbox',
             ];

@@ -372,6 +372,7 @@ class Directorist_Listing_Dashboard {
         $my_listing_tab     = get_directorist_option( 'my_listing_tab', 1 );
         $my_profile_tab     = get_directorist_option( 'my_profile_tab', 1 );
         $fav_listings_tab   = get_directorist_option( 'fav_listings_tab', 1 );
+        $is_formgent_active = Helper::is_the_plugin_active( 'formgent' );
 
         if ( $my_listing_tab && ( 'general' != $this->user_type && 'become_author' != $this->user_type ) ) {
             $my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
@@ -391,6 +392,23 @@ class Directorist_Listing_Dashboard {
                 'title'     => get_directorist_option( 'my_profile_tab_text', __( 'My Profile', 'directorist' ) ),
                 'icon'      => 'las la-user',
                 'content'   => Helper::get_template_contents( 'dashboard/tab-profile', [ 'dashboard' => $this ] ),
+            ];
+        }
+
+        if ( $is_formgent_active ) {
+            $formgent      = new \ATBDP_Formgent();
+            $kpis          = $formgent->get_kpis();
+            $unread_count  = isset( $kpis['unread'] ) ? absint( $kpis['unread'] ) : 0;
+            $enquiry_title = __( 'Enquiries', 'directorist' );
+
+            if ( $unread_count > 0 ) {
+                $enquiry_title .= ' <span class="directorist-enquiry-badge">' . $unread_count . ' ' . __( 'new', 'directorist' ) . '</span>';
+            }
+
+            $dashboard_tabs['dashboard_formgent'] = [
+                'title'     => $enquiry_title,
+                'content'   => Helper::get_template_contents( 'dashboard/tab-formgent', [ 'dashboard' => $this ] ),
+                'icon'      => 'las la-inbox',
             ];
         }
 
@@ -507,6 +525,8 @@ class Directorist_Listing_Dashboard {
         if ( ! is_user_logged_in() ) {
             return $this->restrict_access_template();
         }
+
+        do_action( 'directorist_before_load_dashboard',  $atts, $this );
 
         return Helper::get_template_contents( 'dashboard-contents', [ 'dashboard' => $this ] );
     }

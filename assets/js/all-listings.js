@@ -1711,7 +1711,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Check required fields are valid or not
   function checkRequiredFields(searchElm) {
     // Select all required inputs and selects inside searchElm
-    var requiredInputs = searchElm.find('input[required], select[required], textarea[required]');
+    var requiredInputs = searchElm.find('.directorist-search-field input[required], .directorist-search-field select[required], .directorist-search-field textarea[required]');
     var requiredFieldsAreValid = true;
     requiredInputs.each(function () {
       var $el = $(this);

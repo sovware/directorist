@@ -4449,6 +4449,13 @@ body.stop-scrolling {
   width: 16px;
   height: 16px;
 }
+.directorist-add-listing-form .select2-container .select2-selection .select2-search__field {
+  width: 100% !important;
+  height: 28px !important;
+  line-height: 1.4;
+  padding: 0 !important;
+  border: none !important;
+}
 
 /* Custom Fields */
 /* select */
@@ -6535,6 +6542,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   margin: 0;
   font-size: 0;
   color: var(--directorist-color-white);
+  background: transparent;
+  border: none;
 }
 .directorist-content-active .select2.select2-container.select2-container--default .select2-selection__choice__remove:before {
   content: "";
@@ -6547,8 +6556,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: var(--directorist-color-white);
   position: absolute;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  right: 50%;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
 }
 .directorist-content-active .select2.select2-container.select2-container--default .select2-selection__rendered {
   display: -webkit-box;
@@ -8711,7 +8721,7 @@ body.modal-overlay-enabled:before {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  min-height: calc(100% - 80px);
+  min-height: calc(100dvh - 80px);
   pointer-events: none;
 }
 
@@ -8860,7 +8870,6 @@ body.modal-overlay-enabled:before {
   bottom: -100%;
   width: 90%;
   max-width: 600px;
-  margin-bottom: 100px;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
@@ -8873,7 +8882,6 @@ body.modal-overlay-enabled:before {
 @media only screen and (max-width: 575px) {
   .directorist-search-modal__contents {
     width: 100%;
-    margin-bottom: 0;
     border-radius: 16px 16px 0 0;
   }
 }
@@ -9823,7 +9831,35 @@ body.modal-overlay-enabled:before {
 }
 
 .directorist-content-active.directorist-overlay-active {
-  overflow: hidden;
+  position: relative;
+}
+.directorist-content-active.directorist-overlay-active:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--directorist-color-dark-rgb), 0.5);
+  opacity: 1;
+  -webkit-transition: all ease 0.4s;
+  transition: all ease 0.4s;
+  z-index: 1;
+}
+.directorist-content-active.directorist-overlay-active .directorist-search-modal__overlay::before {
+  display: none;
+}
+@media screen and (min-width: 576px) {
+  .directorist-content-active.directorist-overlay-active .directorist-search-form__box .directorist-search-adv-filter.directorist-advanced-filter.directorist-search-modal__contents {
+    background-color: transparent;
+  }
+  .directorist-content-active.directorist-overlay-active .directorist-search-form__box .directorist-search-modal__input:not(:nth-last-child(1)) .directorist-search-field {
+    border-color: rgba(var(--directorist-color-dark-rgb), 0.05);
+  }
+}
+.directorist-content-active.directorist-overlay-active .directorist-search-form__box ~ .directorist-search-form-action__modal .directorist-search-form-action__modal__btn-search {
+  border: none;
+  color: var(--directorist-color-gray);
 }
 .directorist-content-active .directorist-search-modal__input .select2.select2-container .select2-selection {
   border: 0 none !important;
@@ -13363,6 +13399,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     position: unset;
     opacity: 1 !important;
     visibility: visible !important;
+    background: transparent;
     -webkit-transform: unset;
             transform: unset;
     width: 100%;
@@ -19517,6 +19554,29 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0 0 15px;
 }
 
+.directorist-single-wrapper .formgent-field-list--frontend {
+  max-width: 100%;
+}
+.directorist-single-wrapper .formgent-form-general .formgent-field-list--frontend {
+  padding: 0;
+}
+.directorist-single-wrapper .formgent-file-upload-progress-text {
+  min-width: 40px;
+}
+.directorist-single-wrapper .formgent-file-preview-action .formgent-file-delete {
+  line-height: 1;
+}
+.directorist-single-wrapper .formgent-rating-wrapper .formgent-rating-single {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.directorist-single-wrapper .formgent-upload-container .formgent-upload-area p {
+  font-size: 14px;
+  margin: 8px 0 0 0;
+}
+
 .directorist-single-author-info figure {
   margin: 0;
 }
@@ -22727,6 +22787,35 @@ Review: New Style
 }
 .directorist-tab__nav__link.directorist-tab__nav__active.atbd-dash-nav-dropdown, .directorist-tab__nav__link:focus.atbd-dash-nav-dropdown {
   background-color: transparent;
+}
+
+/* Enquiry unread badge */
+.directorist-enquiry-badge {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 3px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background-color: var(--directorist-color-info);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  text-transform: capitalize;
 }
 
 /* user dashboard sidebar nav action */

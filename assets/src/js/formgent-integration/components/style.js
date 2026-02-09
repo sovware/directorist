@@ -117,11 +117,31 @@ const EnquiriesComponentStyle = styled.div`
 		border-radius: 12px;
 		border: 1px solid #e5e7eb;
 		margin-top: 30px;
+		.dataviews-search {
+			max-width: 320px;
+		}
+		.dataviews-footer {
+			border-radius: 0 0 12px 12px;
+		}
 		.components-input-control__container {
-			background-color: #f0f0f0;
+			border: 1px solid #e5e7eb;
+			background-color: transparent;
+			border-radius: 6px;
+			height: 40px;
+		}
+		.components-input-control__input {
+			font-size: 14px;
+			color: #6b7280;
+			&::placeholder {
+				color: #9ca3af;
+			}
+		}
+		.components-input-control__prefix svg {
+			color: #9ca3af;
 		}
 		.components-input-control__backdrop {
 			border-color: transparent !important;
+			border-radius: 8px !important;
 		}
 		.dataviews-view-table {
 			border: none;
@@ -133,9 +153,126 @@ const EnquiriesComponentStyle = styled.div`
 		}
 		.dataviews-view-table__row {
 			white-space: nowrap;
+			td:last-child {
+				text-align: left !important;
+				.dataviews-item-actions {
+					justify-content: flex-start !important;
+					@media screen and (max-width: 992px) {
+						justify-content: center !important;
+					}
+				}
+			}
 		}
 		.dataviews__view-actions {
 			border-bottom: 1px solid #e5e7eb;
+		}
+		// Action icon buttons
+		.dataviews-item-actions {
+			gap: 4px;
+			.components-button {
+				width: 32px;
+				height: 32px;
+				min-width: 32px;
+				border-radius: 6px;
+				padding: 0;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				border: 1px solid transparent;
+				background: transparent;
+				color: #6b7280;
+				transition: all 0.15s ease;
+				opacity: 1 !important;
+				svg {
+					width: 18px;
+					height: 18px;
+					fill: currentColor;
+				}
+				&:hover {
+					border-color: #e5e7eb;
+					background-color: #f9fafb;
+					color: #374151;
+				}
+				&.is-destructive:hover {
+					border-color: #fecaca;
+					background-color: #fef2f2;
+					color: var(--directorist-color-danger);
+				}
+			}
+			// Three-dot menu button
+			.dataviews-all-actions-button {
+				color: #9ca3af;
+				&:hover {
+					color: #374151;
+					border-color: #e5e7eb;
+					background-color: #f9fafb;
+				}
+			}
+		}
+		// Selection checkbox styling
+		.dataviews-selection-checkbox,
+		.dataviews-view-table-selection-checkbox {
+			.components-checkbox-control__input-container {
+				width: 18px;
+				height: 18px;
+				.components-checkbox-control__input {
+					width: 18px;
+					height: 18px;
+					border-radius: 4px;
+					border: 1.5px solid #d1d5db;
+					opacity: 0.5;
+					transition: opacity 0.15s ease;
+					&:checked,
+					&:indeterminate {
+						background-color: var(--directorist-color-primary);
+						border-color: var(--directorist-color-primary);
+					}
+				}
+				svg {
+					width: 14px;
+					height: 14px;
+				}
+			}
+		}
+		// Checkbox always visible on hover/selected
+		.dataviews-view-table__row:hover,
+		.dataviews-view-table__row.is-selected {
+			.components-checkbox-control__input {
+				opacity: 1 !important;
+			}
+		}
+		// Selected row highlight
+		.dataviews-view-table__row.is-selected {
+			background-color: #f8faff;
+			&:hover {
+				background-color: #f0f4ff;
+			}
+			.dataviews-view-table__actions-column--sticky {
+				background-color: #f8faff;
+			}
+			&:hover .dataviews-view-table__actions-column--sticky {
+				background-color: #f0f4ff;
+			}
+		}
+		// Bulk actions footer bar
+		.dataviews-bulk-actions-footer__container {
+			background: #fff;
+			border-top: 1px solid #e5e7eb;
+			border-radius: 0 0 12px 12px;
+			padding: 8px 16px;
+			.components-button {
+				font-size: 13px;
+				font-weight: 500;
+				border-radius: 6px;
+				min-height: 34px;
+				padding: 0 8px;
+			}
+		}
+		.dataviews-bulk-actions-footer__item-count {
+			font-size: 13px;
+			font-weight: 500;
+			color: #374151;
+			text-transform: none;
 		}
 		.directorist-table-enquiry,
 		.directorist-table-enquiry-listing,
@@ -143,18 +280,16 @@ const EnquiriesComponentStyle = styled.div`
 			h2 {
 				font-size: 14px;
 				font-weight: 500;
-				color: #1e1e1e;
+				color: var(--directorist-color-dark);
 				margin: 0;
 				width: 350px;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
+				@media screen and (max-width: 992px) {
+					width: auto;
+				}
 			}
-		}
-		.dataviews-view-table__actions-column {
-			display: flex;
-			align-items: center;
-			gap: 5px;
 		}
 	}
 	.directorist-table-enquiry-sender {
@@ -185,8 +320,11 @@ const EnquiriesComponentStyle = styled.div`
 		}
 	}
 	.directorist-table-enquiry {
+		display: inline-flex;
+		flex-direction: column;
+		gap: 6px;
 		p {
-			margin: 8px 0;
+			margin: 0;
 		}
 	}
 	.directorist-table-enquiry-listing {
@@ -212,6 +350,9 @@ const EnquiriesComponentStyle = styled.div`
 				}
 				&:last-child {
 					padding-right: 25px;
+					@media screen and (max-width: 992px) {
+						padding-left: 16px;
+					}
 				}
 			}
 			td {
@@ -229,7 +370,7 @@ const EnquiriesComponentStyle = styled.div`
 		padding: 16px 25px;
 	}
 	.dataviews-view-table__actions-column {
-		padding: 30px 0;
+		padding: 16px 0;
 		width: auto;
 		border: none;
 	}

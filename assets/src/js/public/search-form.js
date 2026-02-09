@@ -976,9 +976,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				// Check if backdrop is added to body
 				const bodyElement = document.body;
 				const bodyStyles = getComputedStyle(bodyElement);
-				const bodyBackdropStyle = bodyStyles?.backdropFilter || "";
+				const bodyBackdropStyle = bodyStyles?.backdropFilter || '';
 
-				if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
+				if (bodyBackdropStyle !== 'none' && bodyBackdropStyle !== '') {
 					// If backdrop is added to body, set bottom to 50%
 					modalContent.style.cssText +=
 						'bottom: 50%; transform: translate(-50%, 50%)';
@@ -1001,8 +1001,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			// Overlay Style
 			if (modalOverlay) {
-				modalOverlay.style.cssText =
-					'opacity: 0; visibility: hidden';
+				modalOverlay.style.cssText = 'opacity: 0; visibility: hidden';
 			}
 
 			// Modal Content Style

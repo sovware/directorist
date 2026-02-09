@@ -22790,6 +22790,35 @@ Review: New Style
   background-color: transparent;
 }
 
+/* Enquiry unread badge */
+.directorist-enquiry-badge {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 3px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background-color: var(--directorist-color-info);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
 /* user dashboard sidebar nav action */
 .directorist-tab__nav__action {
   margin-top: 15px;

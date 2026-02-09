@@ -1804,6 +1804,15 @@ div.dataviews-view-list {
   gap: 10px;
 }
 
+.dataviews-view-table .dataviews-view-table-header,
+.dataviews-view-table .dataviews-view-table-header-button {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #4b5563 !important;
+  letter-spacing: 0.025em;
+}
+
 #helpgent-toast div[role=status] {
   font-size: 16px;
   font-family: inherit;

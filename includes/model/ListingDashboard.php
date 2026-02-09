@@ -396,11 +396,17 @@ class Directorist_Listing_Dashboard {
         }
 
         if ( $is_formgent_active ) {
-            $enquiry_kpis  = ATBDP()->formgent->get_kpis();
-            $enquiry_count = ! empty( $enquiry_kpis['total'] ) ? $enquiry_kpis['total'] : 0;
+            $formgent      = new \ATBDP_Formgent();
+            $kpis          = $formgent->get_kpis();
+            $unread_count  = isset( $kpis['unread'] ) ? absint( $kpis['unread'] ) : 0;
+            $enquiry_title = __( 'Enquiries', 'directorist' );
+
+            if ( $unread_count > 0 ) {
+                $enquiry_title .= ' <span class="directorist-enquiry-badge">' . $unread_count . ' ' . __( 'new', 'directorist' ) . '</span>';
+            }
 
             $dashboard_tabs['dashboard_formgent'] = [
-                'title'     => sprintf( '%1$s (%2$s)', __( 'Enquiries', 'directorist' ), $enquiry_count ),
+                'title'     => $enquiry_title,
                 'content'   => Helper::get_template_contents( 'dashboard/tab-formgent', [ 'dashboard' => $this ] ),
                 'icon'      => 'las la-inbox',
             ];

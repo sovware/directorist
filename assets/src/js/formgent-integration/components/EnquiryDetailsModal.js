@@ -21,6 +21,7 @@ import {
 	findMatchingEnquiry,
 	getStatusBadgeText,
 	markEnquiryAsRead,
+	formatRelativeDate,
 } from '../utils/enquiryUtils';
 import { EnquiryDetailsModalStyle, EnquiryModalGlobalStyle } from './style';
 
@@ -230,7 +231,9 @@ export default function EnquiryDetailsModal({
 													?.user_email}
 										</p>
 										<span>
-											{singleItem?.response?.created_at}
+											{formatRelativeDate(
+												singleItem?.response?.created_at
+											)}
 										</span>
 									</div>
 								</div>

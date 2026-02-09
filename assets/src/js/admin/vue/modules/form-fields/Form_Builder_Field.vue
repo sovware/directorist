@@ -412,7 +412,7 @@
 <script>
 import Vue from "vue";
 import { mapGetters, mapState } from "vuex";
-import { findObjectItem, isObject } from "../../../../helper";
+import { findObjectItem, isObject, toCapitalize } from "../../../../helper";
 import helpers from "../../mixins/helpers";
 
 export default {
@@ -767,13 +767,13 @@ export default {
         // Only apply default placeholder when the input loses focus (blur)
         // and the placeholder is still empty.
         if (isBlur && !activeWidget.label) {
-          updatedValue = directorist_admin.search_form_default_placeholder;
+          updatedValue = toCapitalize(props?.widget_key) || directorist_admin.search_form_default_label;
         }
       } else if (props.payload.key === "label" && !props.payload.value) {
         // Only apply default label when the input loses focus (blur)
         // and the placeholder is still empty.
         if (isBlur && !activeWidget.placeholder) {
-          updatedValue = directorist_admin.search_form_default_label;
+          updatedValue = toCapitalize(props?.widget_key) || directorist_admin.search_form_default_label;
         }
       }
 

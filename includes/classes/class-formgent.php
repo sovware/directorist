@@ -247,7 +247,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                         $join->on_raw( 'post.ID = CAST(response_meta.meta_value AS UNSIGNED)' );
                     }
                 )
-                ->where_not_is_null( 'post.post_author' )
+                ->where_not_null( 'post.post_author' )
                 ->where( 'post.post_author', $user_id )
                 ->where( 'post.post_status', 'publish' )
                 ->where( 'response.is_completed', 1 );

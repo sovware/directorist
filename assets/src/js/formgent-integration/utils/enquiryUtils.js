@@ -100,6 +100,39 @@ export const markEnquiryAsRead = async (item, onSuccess, silent = false) => {
 };
 
 /**
+ * Bulk mark multiple enquiries as read with a single notification
+ * @param {Array} items - Array of enquiry items to mark as read
+ * @param {Function} onSuccess - Callback function to call on success
+ * @returns {Promise} - The API call promise
+ */
+export const bulkMarkEnquiriesAsRead = async (items, onSuccess) => {
+	const ids = items.map((item) => extractItemId(item)).filter(Boolean);
+	if (ids.length === 0) return;
+
+	try {
+		await Promise.all(
+			ids.map((id) =>
+				apiFetch({
+					path: '/directorist/formgent/responses/read',
+					method: 'POST',
+					data: { id },
+				})
+			)
+		);
+
+		if (onSuccess) onSuccess();
+
+		doAction('helpgent-toast', {
+			message: `${ids.length} response(s) marked as read.`,
+			type: 'success',
+		});
+	} catch (error) {
+		console.error('Error marking items as read:', error);
+		throw error;
+	}
+};
+
+/**
  * Delete enquiry
  * @param {Object|Array} item - The enquiry item
  * @param {Function} onSuccess - Callback function to call on success
@@ -134,6 +167,39 @@ export const deleteEnquiry = async (item, onSuccess) => {
 		return data;
 	} catch (error) {
 		console.error('Error deleting item:', error);
+		throw error;
+	}
+};
+
+/**
+ * Bulk delete multiple enquiries with a single notification
+ * @param {Array} items - Array of enquiry items to delete
+ * @param {Function} onSuccess - Callback function to call on success
+ * @returns {Promise} - The API call promise
+ */
+export const bulkDeleteEnquiries = async (items, onSuccess) => {
+	const ids = items.map((item) => extractItemId(item)).filter(Boolean);
+	if (ids.length === 0) return;
+
+	try {
+		await Promise.all(
+			ids.map((id) =>
+				apiFetch({
+					path: '/directorist/formgent/responses',
+					method: 'DELETE',
+					data: { id },
+				})
+			)
+		);
+
+		if (onSuccess) onSuccess();
+
+		doAction('helpgent-toast', {
+			message: `${ids.length} response(s) deleted successfully.`,
+			type: 'success',
+		});
+	} catch (error) {
+		console.error('Error deleting items:', error);
 		throw error;
 	}
 };
@@ -402,4 +468,49 @@ export const enrichEnquiriesWithAnswers = async (items, cache = new Map()) => {
 	});
 
 	return { enrichedItems, cache };
+};
+
+/**
+ * Format a date string as relative time or full date.
+ * - Under 1 minute  -> "just now"
+ * - Under 1 hour    -> "X minutes ago"
+ * - Under 24 hours  -> "X hours ago"
+ * - Under 3 days    -> "X days ago"
+ * - 3 days or older -> full date (e.g. "Feb 9, 2026")
+ *
+ * @param {string} dateString - A date string (e.g. "2026-02-09 09:53:47")
+ * @returns {string} - Formatted relative time or full date
+ */
+export const formatRelativeDate = (dateString) => {
+	if (!dateString) return '';
+
+	const date = new Date(dateString.replace(' ', 'T'));
+	if (isNaN(date.getTime())) return dateString;
+
+	const now = new Date();
+	const diffMs = now - date;
+	const diffSeconds = Math.floor(diffMs / 1000);
+	const diffMinutes = Math.floor(diffSeconds / 60);
+	const diffHours = Math.floor(diffMinutes / 60);
+	const diffDays = Math.floor(diffHours / 24);
+
+	if (diffSeconds < 60) {
+		return 'just now';
+	}
+	if (diffMinutes < 60) {
+		return `${diffMinutes} ${diffMinutes === 1 ? 'minute' : 'minutes'} ago`;
+	}
+	if (diffHours < 24) {
+		return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
+	}
+	if (diffDays < 3) {
+		return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
+	}
+
+	// 3 days or older — show full date
+	return date.toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
 };

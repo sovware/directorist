@@ -37,7 +37,6 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
-        add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
     }
 
     public static function builder_data_backup( $term_id ) {
@@ -445,41 +444,6 @@ class Multi_Directory_Manager {
         }
 
         wp_send_json( $this->run_force_migration() );
-    }
-
-    public function directorist_directory_type_library() {
-
-        if ( ! directorist_verify_nonce() ) {
-            wp_send_json(
-                [
-                    'status' => [
-                        'success' => false,
-                        'message' => __( 'Something is wrong! Please refresh and retryyy.', 'directorist' ),
-                    ],
-                ], 200
-            );
-        }
-
-        if ( ! current_user_can( 'install_plugins' ) || ! current_user_can( 'activate_plugins' ) ) {
-            wp_send_json(
-                [
-                    'status' => [
-                        'success' => false,
-                        'message' => __( 'You are not allowed to add/activate new plugin', 'directorist' ),
-                    ],
-                ], 200
-            );
-        }
-
-        $installed = directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/templatiq.zip' ] );
-        $path = WP_PLUGIN_DIR . '/templatiq/templatiq.php';
-
-        if ( ! is_plugin_active( $path ) ) {
-            activate_plugin( $path );
-        }
-
-        $installed['redirect'] = admin_url( 'admin.php?page=templatiq' );
-        wp_send_json( $installed );
     }
 
     // run_force_migration

@@ -2001,8 +2001,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Check if backdrop is added to body
         var bodyElement = document.body;
         var bodyStyles = getComputedStyle(bodyElement);
-        var bodyBackdropStyle = (bodyStyles === null || bodyStyles === void 0 ? void 0 : bodyStyles.backdropFilter) || "";
-        if (bodyBackdropStyle !== "none" && bodyBackdropStyle !== "") {
+        var bodyBackdropStyle = (bodyStyles === null || bodyStyles === void 0 ? void 0 : bodyStyles.backdropFilter) || '';
+        if (bodyBackdropStyle !== 'none' && bodyBackdropStyle !== '') {
           // If backdrop is added to body, set bottom to 50%
           modalContent.style.cssText += 'bottom: 50%; transform: translate(-50%, 50%)';
         } else {

@@ -2340,49 +2340,6 @@ __webpack_require__.r(__webpack_exports__);
 var $ = jQuery;
 var axios = (__webpack_require__(/*! axios */ "./node_modules/.pnpm/axios@0.21.4/node_modules/axios/index.js")["default"]);
 window.addEventListener('load', function () {
-  // Migration Link
-  $('.directorist_directory_template_library').on('click', function (e) {
-    e.preventDefault();
-    var self = this;
-    // Add 'disabled' class to all siblings with the specific class and also to self
-    $(self).siblings('.cptm-create-directory-modal__action__single').addBack().addClass('disabled');
-    $('.cptm-create-directory-modal__action').after("<span class='directorist_template_notice'>Installing Templatiq, Please wait..</span>");
-    var form_data = new FormData();
-    form_data.append('action', 'directorist_directory_type_library');
-    form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
-
-    // Response Success Callback
-    var responseSuccessCallback = function responseSuccessCallback(response) {
-      var _response$data;
-      if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
-        var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
-        $('.directorist_template_notice').addClass('cptm-section-alert-success').text(msg);
-        location.reload();
-        return;
-      }
-      responseFieldCallback(response);
-    };
-
-    // Response Error Callback
-    var responseFieldCallback = function responseFieldCallback(response) {
-      var _response$data$messag2, _response$data3;
-      // Remove 'disabled' class from all siblings and self in case of failure
-      $(self).siblings('.cptm-create-directory-modal__action__single').addBack().removeClass('disabled');
-      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
-      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
-      $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
-      $(self).remove();
-    };
-
-    // Send Request
-    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-      responseSuccessCallback(response);
-    }).catch(function (response) {
-      responseFieldCallback(response);
-    });
-  });
-
   // Show the form when the '.directorist-ai-directory-creation' element is clicked
   $('.directorist-ai-directory-creation').on('click', function (e) {
     e.preventDefault();
@@ -2393,11 +2350,11 @@ window.addEventListener('load', function () {
 
     // Send the request using Axios
     axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-      var _response$data4;
-      if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
-        var _response$data5;
+      var _response$data;
+      if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
+        var _response$data2;
         // Replace the content inside '#wpbody' with the response HTML
-        $('#wpbody').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 || (_response$data5 = _response$data5.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.form);
+        $('#wpbody').empty().html(response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 || (_response$data2 = _response$data2.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.form);
 
         // Initialize Step Contents
         initialStepContents();
@@ -2845,14 +2802,14 @@ function handleKeywordStep() {
 
 // Handle Generated Fields
 function handleGenerateFields(response) {
-  var _response$data6;
+  var _response$data3;
   $('#directorist-create-directory__ai-fields').show();
   $('.directorist-create-directory__header').show();
   $('.directorist_regenerate_fields').show();
   $('#directorist-create-directory__generating').hide();
   $('.directorist-create-directory__content__footer').show();
   $('.directorist-create-directory__content').removeClass('full-width');
-  $('#directorist-ai-generated-fields-array').val(JSON.stringify(response === null || response === void 0 || (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.fields));
+  $('#directorist-ai-generated-fields-array').val(JSON.stringify(response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.fields));
   $('#directorist_ai_generated_fields').empty().html(response);
   initializeDropdownField();
   currentStep = 4;
@@ -2868,8 +2825,8 @@ function handleCreateDirectory(redirect_url) {
 
 // Response Success Callback
 function handleAIFormResponse(response) {
-  var _response$data7;
-  if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
+  var _response$data4;
+  if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
     $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
@@ -2878,18 +2835,18 @@ function handleAIFormResponse(response) {
       $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
     }
     if (currentStep == 2) {
-      var _response$data8;
-      handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
+      var _response$data5;
+      handlePromptStep(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 || (_response$data5 = _response$data5.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
     } else if (currentStep == 3) {
-      var _response$data0;
+      var _response$data7;
       setTimeout(function () {
-        var _response$data9;
-        handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+        var _response$data6;
+        handleGenerateFields(response === null || response === void 0 || (_response$data6 = response.data) === null || _response$data6 === void 0 || (_response$data6 = _response$data6.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.html);
       }, 1000);
-      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data0 = response.data) === null || _response$data0 === void 0 || (_response$data0 = _response$data0.data) === null || _response$data0 === void 0 ? void 0 : _response$data0.fields);
+      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 || (_response$data7 = _response$data7.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.fields);
     } else if (currentStep == 4) {
-      var _response$data1;
-      handleCreateDirectory(response === null || response === void 0 || (_response$data1 = response.data) === null || _response$data1 === void 0 || (_response$data1 = _response$data1.data) === null || _response$data1 === void 0 ? void 0 : _response$data1.url);
+      var _response$data8;
+      handleCreateDirectory(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.url);
     }
   } else {
     console.error(response === null || response === void 0 ? void 0 : response.data);
@@ -2963,9 +2920,9 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
 
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-    var _response$data10;
+    var _response$data9;
     $(_this).removeClass('loading');
-    handleGenerateFields(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.html);
+    handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
     $('.directorist_regenerate_fields').hide();
     directoryFields = JSON.stringify(response.data.data.fields);
   }).catch(function (error) {

@@ -15,6 +15,7 @@ import { __ } from '@wordpress/i18n';
  * External dependencies
  */
 import CheckIcon from '../icons/Check';
+import TrashIcon from '../icons/Trash';
 
 /**
  * Internal dependencies
@@ -27,6 +28,7 @@ import {
 	getStatusBadgeClass,
 	extractEnquiryTitleAndPrefix,
 	enrichEnquiriesWithAnswers,
+	formatRelativeDate,
 } from '../utils/enquiryUtils';
 
 export default function Tables(props) {
@@ -58,7 +60,7 @@ export default function Tables(props) {
 			case 'read':
 				return 'primary';
 			case 'unread':
-				return 'warning';
+				return 'info';
 			default:
 				return 'primary';
 		}
@@ -95,6 +97,7 @@ export default function Tables(props) {
 									className="directorist-table-enquiry-view"
 									onClick={(e) => {
 										e.preventDefault();
+										e.stopPropagation();
 										setSelectedItem(item.id);
 										setIsViewModalOpen(true);
 									}}
@@ -106,6 +109,7 @@ export default function Tables(props) {
 									className="directorist-table-enquiry-send-email"
 									onClick={(e) => {
 										e.preventDefault();
+										e.stopPropagation();
 										handleSendEmail(item);
 									}}
 								>
@@ -125,7 +129,7 @@ export default function Tables(props) {
 					return (
 						<div className="directorist-table-enquiry-listing">
 							<h2>{item.listing_title}</h2>
-							<span>{item.created_at}</span>
+							<span>{formatRelativeDate(item.created_at)}</span>
 						</div>
 					);
 				},
@@ -211,30 +215,36 @@ export default function Tables(props) {
 	}, []);
 
 	// Define actions for DataViews
+	const hasBulk = items.length > 1;
 	const actions = useMemo(
 		() => [
 			{
 				id: 'mark-as-read',
 				label: __('Mark as read', 'directorist'),
-				isPrimary: false,
+				supportsBulk: hasBulk,
 				icon: <CheckIcon />,
 				callback: (items) => {
-					const item = Array.isArray(items) ? items[0] : items;
-					handleMarkAsRead(item);
+					const itemsArray = Array.isArray(items) ? items : [items];
+					itemsArray.forEach((item) => handleMarkAsRead(item));
 				},
 				isEligible: (item) => {
 					return item.is_read === '0';
 				},
 			},
 			{
-				RenderModal: (item) => {
+				RenderModal: ({ items, closeModal }) => {
 					return (
 						<div className="directorist-formgent-table-modal">
 							<h1>
-								{__(
-									'Are you sure to delete this item?',
-									'directorist'
-								)}
+								{items.length > 1
+									? __(
+											`Are you sure to delete ${items.length} items?`,
+											'directorist'
+										)
+									: __(
+											'Are you sure to delete this item?',
+											'directorist'
+										)}
 							</h1>
 							<p>
 								{__(
@@ -244,13 +254,18 @@ export default function Tables(props) {
 							</p>
 							<div className="directorist-formgent-table-modal-action">
 								<button
-									onClick={() => handleDeleteItem(item)}
+									onClick={() => {
+										items.forEach((item) =>
+											handleDeleteItem(item)
+										);
+										closeModal();
+									}}
 									className="directorist-btn directorist-btn-danger"
 								>
 									{__('Delete', 'directorist')}
 								</button>
 								<button
-									onClick={() => handleCancelDelete(item)}
+									onClick={closeModal}
 									className="directorist-btn directorist-btn-light"
 								>
 									{__('Cancel', 'directorist')}
@@ -262,11 +277,13 @@ export default function Tables(props) {
 				hideModalHeader: true,
 				id: 'delete',
 				label: __('Delete', 'directorist'),
+				icon: <TrashIcon />,
+				isDestructive: true,
 				modalFocusOnMount: 'firstContentElement',
-				supportsBulk: false,
+				supportsBulk: hasBulk,
 			},
 		],
-		[handleMarkAsRead, handleOpenDeleteModal]
+		[handleMarkAsRead, handleOpenDeleteModal, hasBulk]
 	);
 
 	// Filter and search items
@@ -379,6 +396,9 @@ export default function Tables(props) {
 				view={view}
 				onChangeView={handleChangeView}
 				actions={actions}
+				getItemId={(item) => String(item.id)}
+				search
+				searchLabel={__('Search enquiries...', 'directorist')}
 				paginationInfo={{
 					totalItems: totalItems,
 					totalPages: totalPages,

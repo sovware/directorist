@@ -50,6 +50,16 @@
 	}
 }
 
+// Plugin fix
+.dataviews-view-table .dataviews-view-table-header,
+.dataviews-view-table .dataviews-view-table-header-button {
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 600;
+	color: #4b5563 !important;
+	letter-spacing: 0.025em;
+}
+
 // hepgent toast
 #helpgent-toast {
 	div[role="status"] {

@@ -246,25 +246,21 @@ export default {
     },
 
     /**
-     * Generate a unique key for field-list-component based on group data
-     * This ensures the component re-renders when the label changes,
-     * updating the input field with the new value.
+     * Generate a stable key for field-list-component.
      *
-     * By including the label in the key, Vue will treat it as a new component
-     * instance when the label changes, forcing a fresh render with updated values.
+     * Important: Do NOT include groupData.label (or any value the user is
+     * actively typing) in this key. Doing so causes Vue to destroy and
+     * recreate the field-list-component on every keystroke, which makes
+     * the Section Name input lose focus after a single character.
      *
-     * @returns {string} Unique key combining groupKey and label
+     * Reactivity for label changes coming from other sources (e.g. inline
+     * header editing) is handled by the deep watcher on the `value` prop
+     * inside Field_List_Component.vue.
+     *
+     * @returns {string} Stable key based on groupKey only
      */
     fieldListComponentKey() {
-      // Include label in the key so component re-renders when label changes
-      // This ensures the "Section Name" input field shows the updated label value
-      const label = this.getSearchGroup()
-        ? this.getSearchLabelContent()
-        : this.groupData?.label || "";
-
-      // Use groupKey and label to create a unique key
-      // When label changes, the key changes, forcing Vue to re-render the component
-      return `group_${this.groupKey}_label_${label}`;
+      return `group_${this.groupKey}`;
     },
   },
 

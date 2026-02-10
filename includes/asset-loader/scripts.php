@@ -326,15 +326,20 @@ class Scripts {
                 'type' => 'js',
                 'path' => DIRECTORIST_JS . 'admin-builder-archive',
             ],
+            'directorist-admin-vue-vendor' => [
+                'type' => 'js',
+                'path' => DIRECTORIST_JS . 'admin-vue-vendor',
+                'dep'  => [ 'jquery' ],
+            ],
             'directorist-multi-directory-builder' => [
                 'type' => 'js',
                 'path' => DIRECTORIST_JS . 'admin-multi-directory-builder',
-                'dep'  => [ 'lodash', 'wp-api-fetch' ]
+                'dep'  => [ 'directorist-admin-vue-vendor', 'lodash', 'wp-api-fetch' ]
             ],
             'directorist-settings-manager' => [
                 'type' => 'js',
                 'path' => DIRECTORIST_JS . 'admin-settings-manager',
-                'dep'  => [ 'lodash' ]
+                'dep'  => [ 'directorist-admin-vue-vendor', 'lodash' ]
             ],
             'directorist-plugins' => [
                 'type' => 'js',
@@ -347,7 +352,15 @@ class Scripts {
             'directorist-formgent-integration' => [
                 'type' => 'js',
                 'path' => DIRECTORIST_JS . 'formgent-integration',
-                'dep' => ['wp-element', 'wp-api-fetch'],
+                'dep' => [
+                    'wp-element',
+                    'wp-components',
+                    'wp-api-fetch',
+                    'wp-hooks',
+                    'wp-i18n',
+                    'wp-dom-ready',
+                    'wp-dataviews',
+                ],
             ],
         ];
 

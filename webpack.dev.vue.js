@@ -11,6 +11,18 @@ const devConfig = {
 	mode: 'development', // production | development
 	watch: true,
 	entry: vueEntries,
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				vueVendor: {
+					test: /[\\/]node_modules[\\/](vue|vuex|vue-slide-up-down|vuedraggable|vue-dndrop|vue-multiselect|vue-native-color-picker)[\\/]/,
+					name: 'admin-vue-vendor',
+					chunks: 'all',
+					minSize: 0,
+				},
+			},
+		},
+	},
 	plugins: [
 		new WebpackBar({
 			name: 'Vue Dev Build',

@@ -31,6 +31,19 @@ class SuppressWarningsPlugin {
 }
 
 const commonConfig = {
+	externals: {
+		jquery: 'jQuery',
+		lodash: 'lodash',
+		react: 'React',
+		'react-dom': 'ReactDOM',
+		'@wordpress/element': 'wp.element',
+		'@wordpress/components': 'wp.components',
+		'@wordpress/api-fetch': 'wp.apiFetch',
+		'@wordpress/hooks': 'wp.hooks',
+		'@wordpress/i18n': 'wp.i18n',
+		'@wordpress/dom-ready': 'wp.domReady',
+		'@wordpress/dataviews': 'wp.dataViews',
+	},
 	resolve: {
 		extensions: ['.js', '.vue'],
 		alias: {

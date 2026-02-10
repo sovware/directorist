@@ -71,7 +71,6 @@ class Scripts {
                 'type' => 'css',
                 'path' => DIRECTORIST_CSS . 'formgent-integration',
                 'rtl' => true,
-                'dep' => ['wp-components'],
             ],
 
             // Admin CSS
@@ -354,12 +353,10 @@ class Scripts {
                 'path' => DIRECTORIST_JS . 'formgent-integration',
                 'dep' => [
                     'wp-element',
-                    'wp-components',
                     'wp-api-fetch',
                     'wp-hooks',
                     'wp-i18n',
                     'wp-dom-ready',
-                    'wp-dataviews',
                 ],
             ],
         ];

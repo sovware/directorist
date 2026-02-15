@@ -131,7 +131,7 @@ class ATBDP_Upgrade
                         'conditions' => array(
                             array(
                                 'field'    => 'admin_category_select[]',
-                                'operator' => 'is',
+                                'operator' => 'contains',
                                 'value'    => (string) $category_id,
                             ),
                         ),

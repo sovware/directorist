@@ -40,13 +40,17 @@ class ATBDP_Upgrade
      *
      * Converts old custom fields with assign_to category to new conditional logic format.
      * Only processes custom fields (not preset fields) and supports single category only.
+     * Note: Old assign_to and category fields are preserved for backward compatibility.
      *
      * @since 8.0
      * @return void
      */
     public function migrate_assign_to_conditional_logic() {
+        error_log( '[Directorist Migration] Starting assign_to to conditional_logic migration' );
+        
         // Skip if migration already done
         if ( get_option( 'directorist_assign_to_conditional_logic_migrated' ) ) {
+            error_log( '[Directorist Migration] Migration already completed, skipping' );
             return;
         }
 
@@ -57,17 +61,28 @@ class ATBDP_Upgrade
             )
         );
 
-        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+        if ( is_wp_error( $directory_types ) ) {
+            error_log( '[Directorist Migration] Error getting directory types: ' . $directory_types->get_error_message() );
             update_option( 'directorist_assign_to_conditional_logic_migrated', true );
             return;
         }
 
+        if ( empty( $directory_types ) ) {
+            error_log( '[Directorist Migration] No directory types found' );
+            update_option( 'directorist_assign_to_conditional_logic_migrated', true );
+            return;
+        }
+
+        error_log( '[Directorist Migration] Found ' . count( $directory_types ) . ' directory type(s)' );
+
         foreach ( $directory_types as $directory_type ) {
+            error_log( '[Directorist Migration] Processing directory type: ' . $directory_type->term_id . ' (' . $directory_type->name . ')' );
             $this->migrate_directory_assign_to_fields( $directory_type->term_id );
         }
 
         // Mark migration as complete
         update_option( 'directorist_assign_to_conditional_logic_migrated', true );
+        error_log( '[Directorist Migration] Migration completed' );
     }
 
     /**
@@ -79,56 +94,86 @@ class ATBDP_Upgrade
     private function migrate_directory_assign_to_fields( $directory_id ) {
         $directory_id = absint( $directory_id );
         if ( empty( $directory_id ) ) {
+            error_log( '[Directorist Migration] Invalid directory ID: ' . $directory_id );
             return;
         }
+
+        error_log( '[Directorist Migration] Processing directory ID: ' . $directory_id );
 
         $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
 
         if ( empty( $submission_form_fields ) || ! is_array( $submission_form_fields ) ) {
+            error_log( '[Directorist Migration] No submission_form_fields found for directory ID: ' . $directory_id );
             return;
         }
 
         if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
+            error_log( '[Directorist Migration] No fields found for directory ID: ' . $directory_id );
             return;
         }
 
+        error_log( '[Directorist Migration] Found ' . count( $submission_form_fields['fields'] ) . ' field(s) in directory ID: ' . $directory_id );
+
         $updated = false;
+        $processed_count = 0;
+        $skipped_count = 0;
 
         foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
             if ( ! is_array( $field ) ) {
+                error_log( '[Directorist Migration] Field "' . $field_key . '" is not an array, skipping' );
                 continue;
             }
 
+            error_log( '[Directorist Migration] Checking field: ' . $field_key );
+
             // Only process custom fields
             if ( ! $this->is_custom_field_for_migration( $field ) ) {
+                error_log( '[Directorist Migration] Field "' . $field_key . '" is not a custom field, skipping' );
+                $skipped_count++;
                 continue;
             }
+
+            error_log( '[Directorist Migration] Field "' . $field_key . '" is a custom field' );
 
             // Skip if field already has valid conditional_logic with enabled=true
             if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
                 $existing_logic = $field['options']['conditional_logic']['value'];
-                // Check if enabled and has valid groups
                 if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) && is_array( $existing_logic['groups'] ) ) {
+                    error_log( '[Directorist Migration] Field "' . $field_key . '" already has conditional_logic, skipping' );
+                    $skipped_count++;
                     continue;
                 }
             }
 
+            // Debug: Log field data
+            error_log( '[Directorist Migration] Field "' . $field_key . '" data: assign_to=' . ( isset( $field['assign_to'] ) ? var_export( $field['assign_to'], true ) : 'not set' ) . ', category=' . ( isset( $field['category'] ) ? var_export( $field['category'], true ) : 'not set' ) );
+
             // Check for old assign_to field (assign_to is boolean flag, category is the ID)
             if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+                error_log( '[Directorist Migration] Field "' . $field_key . '" missing assign_to or category, skipping' );
+                $skipped_count++;
                 continue;
             }
 
             // Get category ID
             $category_id = absint( $field['category'] );
             if ( empty( $category_id ) ) {
+                error_log( '[Directorist Migration] Field "' . $field_key . '" has invalid category ID: ' . var_export( $field['category'], true ) );
+                $skipped_count++;
                 continue;
             }
+
+            error_log( '[Directorist Migration] Field "' . $field_key . '" has category ID: ' . $category_id );
 
             // Verify category exists
             $category = get_term( $category_id, ATBDP_CATEGORY );
             if ( is_wp_error( $category ) || empty( $category ) ) {
+                error_log( '[Directorist Migration] Field "' . $field_key . '" category ID ' . $category_id . ' does not exist, skipping' );
+                $skipped_count++;
                 continue;
             }
+
+            error_log( '[Directorist Migration] Category found: ' . $category->name . ' (ID: ' . $category_id . ')' );
 
             // Ensure options array exists
             if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
@@ -136,6 +181,7 @@ class ATBDP_Upgrade
             }
 
             // Create conditional logic structure (matches form builder format exactly)
+            // Note: We preserve the old assign_to and category fields for backward compatibility
             $field['options']['conditional_logic'] = array(
                 'type'  => 'conditional-logic',
                 'value' => array(
@@ -157,13 +203,30 @@ class ATBDP_Upgrade
                 ),
             );
 
+            // Note: assign_to and category fields are NOT deleted - they remain in the field array
+            // This ensures backward compatibility and allows the old system to still work if needed
+
+            error_log( '[Directorist Migration] Created conditional_logic for field "' . $field_key . '" with category ID: ' . $category_id );
+            error_log( '[Directorist Migration] Conditional_logic structure: ' . wp_json_encode( $field['options']['conditional_logic'] ) );
+            error_log( '[Directorist Migration] Old assign_to and category fields preserved: assign_to=' . var_export( $field['assign_to'], true ) . ', category=' . var_export( $field['category'], true ) );
+
             $submission_form_fields['fields'][ $field_key ] = $field;
             $updated = true;
+            $processed_count++;
         }
+
+        error_log( '[Directorist Migration] Directory ID ' . $directory_id . ': Processed ' . $processed_count . ' field(s), Skipped ' . $skipped_count . ' field(s)' );
 
         // Update term meta if any fields were migrated
         if ( $updated ) {
-            update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
+            $result = update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
+            if ( $result ) {
+                error_log( '[Directorist Migration] Successfully updated directory ID: ' . $directory_id );
+            } else {
+                error_log( '[Directorist Migration] Failed to update directory ID: ' . $directory_id );
+            }
+        } else {
+            error_log( '[Directorist Migration] No fields updated for directory ID: ' . $directory_id );
         }
     }
 

@@ -289,26 +289,32 @@ class ATBDP_Upgrade
 
             // Create conditional logic structure (matches form builder format exactly)
             // Note: We preserve the old assign_to and category fields for backward compatibility
-            $field['options']['conditional_logic'] = array(
-                'type'  => 'conditional-logic',
-                'value' => array(
-                    'enabled'        => true,
-                    'action'         => 'show',
-                    'globalOperator' => 'OR',
-                    'groups'         => array(
-                        array(
-                            'operator'   => 'AND',
-                            'conditions' => array(
-                                array(
-                                    'field'    => 'category',
-                                    'operator' => 'is',
-                                    'value'    => (string) $category_id,
-                                ),
+            $conditional_logic_value = array(
+                'enabled'        => true,
+                'action'         => 'show',
+                'globalOperator' => 'OR',
+                'groups'         => array(
+                    array(
+                        'operator'   => 'AND',
+                        'conditions' => array(
+                            array(
+                                'field'    => 'category',
+                                'operator' => 'is',
+                                'value'    => (string) $category_id,
                             ),
                         ),
                     ),
                 ),
             );
+
+            // Set in options.conditional_logic (field definition structure)
+            $field['options']['conditional_logic'] = array(
+                'type'  => 'conditional-logic',
+                'value' => $conditional_logic_value,
+            );
+
+            // Also set at root level (form builder expects this for loading)
+            $field['conditional_logic'] = $conditional_logic_value;
 
             // Note: assign_to and category fields are NOT deleted - they remain in the field array
             // This ensures backward compatibility and allows the old system to still work if needed

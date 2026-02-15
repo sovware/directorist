@@ -114,7 +114,7 @@ class ATBDP_Upgrade
             if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
                 continue;
             }
-
+            error_log( print_r( $field['category'], true ) );
             // Convert category ID to conditional logic (single category only)
             $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'] );
 

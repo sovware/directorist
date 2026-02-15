@@ -177,6 +177,22 @@ class ATBDP_Upgrade
                     $conditional_logic['groups'] = array();
                     $updated = true;
                 }
+                // Fix field key: change 'category' to 'admin_category_select[]' for category conditions
+                if ( ! empty( $conditional_logic['groups'] ) && is_array( $conditional_logic['groups'] ) ) {
+                    foreach ( $conditional_logic['groups'] as $group_index => $group ) {
+                        if ( ! empty( $group['conditions'] ) && is_array( $group['conditions'] ) ) {
+                            foreach ( $group['conditions'] as $condition_index => $condition ) {
+                                // Fix field key from 'category' to 'admin_category_select[]'
+                                if ( isset( $condition['field'] ) && $condition['field'] === 'category' ) {
+                                    // Update through the reference to ensure changes persist
+                                    $submission_form_fields['fields'][ $field_key ]['options']['conditional_logic']['value']['groups'][ $group_index ]['conditions'][ $condition_index ]['field'] = 'admin_category_select[]';
+                                    $updated = true;
+                                    error_log( '[Directorist Migration] Fixed field key from "category" to "admin_category_select[]" for field "' . $field_key . '" in directory ID: ' . $directory_type->term_id );
+                                }
+                            }
+                        }
+                    }
+                }
             }
     
             error_log( '[Directorist Migration] Checked ' . $checked_count . ' field(s) with conditional_logic in directory ID: ' . $directory_type->term_id );
@@ -298,7 +314,7 @@ class ATBDP_Upgrade
                         'operator'   => 'AND',
                         'conditions' => array(
                             array(
-                                'field'    => 'category',
+                                'field'    => 'admin_category_select[]', // Use correct field key for category
                                 'operator' => 'is',
                                 'value'    => (string) $category_id,
                             ),

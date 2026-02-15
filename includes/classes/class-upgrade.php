@@ -45,8 +45,14 @@ class ATBDP_Upgrade
      * @return void
      */
     public function migrate_assign_to_conditional_logic() {
+        error_log( 'Migration: Function called' );
+        
         // Skip if migration already done
-        if ( get_option( 'directorist_assign_to_conditional_logic_migrated' ) ) {
+        $migration_done = get_option( 'directorist_assign_to_conditional_logic_migrated' );
+        error_log( 'Migration: Migration flag = ' . ( $migration_done ? 'true' : 'false' ) );
+        
+        if ( $migration_done ) {
+            error_log( 'Migration: Already migrated, skipping' );
             return;
         }
 
@@ -57,17 +63,28 @@ class ATBDP_Upgrade
             )
         );
 
-        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+        error_log( 'Migration: Found ' . count( $directory_types ) . ' directory types' );
+
+        if ( is_wp_error( $directory_types ) ) {
+            error_log( 'Migration: Error getting directory types: ' . $directory_types->get_error_message() );
+            update_option( 'directorist_assign_to_conditional_logic_migrated', true );
+            return;
+        }
+
+        if ( empty( $directory_types ) ) {
+            error_log( 'Migration: No directory types found' );
             update_option( 'directorist_assign_to_conditional_logic_migrated', true );
             return;
         }
 
         foreach ( $directory_types as $directory_type ) {
+            error_log( 'Migration: Processing directory type ID: ' . $directory_type->term_id );
             $this->migrate_directory_assign_to_fields( $directory_type->term_id );
         }
 
         // Mark migration as complete
         update_option( 'directorist_assign_to_conditional_logic_migrated', true );
+        error_log( 'Migration: Completed' );
     }
 
     /**
@@ -78,29 +95,41 @@ class ATBDP_Upgrade
      */
     private function migrate_directory_assign_to_fields( $directory_id ) {
         $directory_id = absint( $directory_id );
+        error_log( 'Migration: Processing directory ID: ' . $directory_id );
+        
         if ( empty( $directory_id ) ) {
+            error_log( 'Migration: Empty directory ID, skipping' );
             return;
         }
 
         $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
 
         if ( empty( $submission_form_fields ) || ! is_array( $submission_form_fields ) ) {
+            error_log( 'Migration: No submission form fields found for directory ' . $directory_id );
             return;
         }
 
         if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
+            error_log( 'Migration: No fields array found for directory ' . $directory_id );
             return;
         }
 
+        error_log( 'Migration: Found ' . count( $submission_form_fields['fields'] ) . ' fields' );
+
         $updated = false;
+        $processed_count = 0;
+        $skipped_count = 0;
 
         foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
             if ( ! is_array( $field ) ) {
                 continue;
             }
 
+            $processed_count++;
+
             // Only process custom fields
             if ( ! $this->is_custom_field_for_migration( $field ) ) {
+                $skipped_count++;
                 continue;
             }
 
@@ -110,6 +139,8 @@ class ATBDP_Upgrade
                 // Check if enabled is true
                 $existing_logic = $field['options']['conditional_logic']['value'];
                 if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                    error_log( 'Migration: Field ' . $field_key . ' already has conditional logic, skipping' );
+                    $skipped_count++;
                     continue; // Already has valid conditional logic
                 }
             }
@@ -117,8 +148,12 @@ class ATBDP_Upgrade
             // Check for old assign_to field (root level only)
             // assign_to is a boolean flag, category contains the actual category ID
             if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+                error_log( 'Migration: Field ' . $field_key . ' - assign_to: ' . ( isset( $field['assign_to'] ) ? print_r( $field['assign_to'], true ) : 'not set' ) . ', category: ' . ( isset( $field['category'] ) ? print_r( $field['category'], true ) : 'not set' ) );
+                $skipped_count++;
                 continue;
             }
+
+            error_log( 'Migration: Field ' . $field_key . ' - assign_to: ' . print_r( $field['assign_to'], true ) . ', category: ' . print_r( $field['category'], true ) );
 
             // Convert category ID to conditional logic (single category only)
             $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'] );
@@ -134,18 +169,23 @@ class ATBDP_Upgrade
                     'type'  => 'conditional-logic',
                     'value' => $conditional_logic,
                 );
-                error_log( 'Migration: Field ' . $field_key . ' - Category: ' . print_r( $field['category'], true ) );
+
+                error_log( 'Migration: Migrating field ' . $field_key . ' - Category: ' . print_r( $field['category'], true ) );
                 error_log( 'Migration: Conditional Logic: ' . print_r( $conditional_logic, true ) );
-                error_log( 'Migration: Full Field: ' . print_r( $field, true ) );
                 
                 $submission_form_fields['fields'][ $field_key ] = $field;
                 $updated = true;
+            } else {
+                error_log( 'Migration: Failed to convert conditional logic for field ' . $field_key );
             }
         }
+
+        error_log( 'Migration: Processed ' . $processed_count . ' fields, skipped ' . $skipped_count . ', updated ' . ( $updated ? '1' : '0' ) );
 
         // Update term meta if any fields were migrated
         if ( $updated ) {
             update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
+            error_log( 'Migration: Updated term meta for directory ' . $directory_id );
         }
     }
 
@@ -214,8 +254,9 @@ class ATBDP_Upgrade
         }
 
         // Build conditional logic structure for single category
+        // Use boolean true instead of integer 1 for enabled flag
         return array(
-            'enabled'        => true,
+            'enabled'        => true,  // Changed from 1 to true
             'action'         => 'show',
             'globalOperator' => 'OR',
             'groups'         => array(

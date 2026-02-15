@@ -14,6 +14,9 @@ class Localized_Data {
         // Load in frontend and backend
         wp_localize_script( 'jquery', 'directorist', self::public_data() );
 
+        // Load formgent integration data for frontend
+        wp_localize_script( 'directorist-formgent-integration', 'directoristFormgentData', self::formgent_data() );
+
         // Load in backend only
         if ( is_admin() ) {
             wp_localize_script( 'jquery', 'directorist_admin', self::admin_data() );
@@ -38,7 +41,7 @@ class Localized_Data {
                 'Referer-Page-ID' => get_the_ID(),
             ]
         ];
-        
+
         return $data;
     }
 
@@ -352,5 +355,15 @@ class Localized_Data {
         }
 
         return $relation;
+    }
+
+    public static function formgent_data() {
+        $data = [
+            'strings' => [
+                'enquiries' => __( 'Enquiries', 'directorist' ),
+            ]
+        ];
+
+        return apply_filters( 'directorist_formgent_data', $data );
     }
 }

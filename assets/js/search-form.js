@@ -1984,14 +1984,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Search Modal Open
     function searchModalOpen(searchModalParent) {
+      // Modal Overlay
       var modalOverlay = searchModalParent.querySelector('.directorist-search-modal__overlay');
+      // Modal Content
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
 
-      // Overlay Style
+      // Modal Overlay Style
       modalOverlay.style.cssText = 'opacity: 1; visibility: visible; transition: 0.3s ease;';
 
       // Modal Content Style
-      modalContent.style.cssText = 'opacity: 1; visibility: visible; bottom:0;';
+      modalContent.style.cssText = 'opacity: 1; visibility: visible; bottom: 50%; transform: translate(-50%, 50%)';
+
+      // Check if container width is less than 576px
+      var containerWidth = document.body.offsetWidth;
+      if (containerWidth < 576) {
+        // Check if backdrop is added to body
+        var bodyElement = document.body;
+        var bodyStyles = getComputedStyle(bodyElement);
+        var bodyBackdropStyle = (bodyStyles === null || bodyStyles === void 0 ? void 0 : bodyStyles.backdropFilter) || '';
+        if (bodyBackdropStyle !== 'none' && bodyBackdropStyle !== '') {
+          // If backdrop is added to body, set bottom to 50%
+          modalContent.style.cssText += 'bottom: 50%; transform: translate(-50%, 50%)';
+        } else {
+          // If backdrop is not added to body, set bottom to 0
+          modalContent.style.cssText += 'bottom: 0; transform: translate(-50%, 0)';
+        }
+      }
     }
 
     // Search Modal Close
@@ -2001,7 +2019,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Overlay Style
       if (modalOverlay) {
-        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden; transition: 0.5s ease';
+        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden';
       }
 
       // Modal Content Style

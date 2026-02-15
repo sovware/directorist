@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.5.9
+Stable tag: 8.5.10
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,9 +13,24 @@ Build any type of directory website such as a business directory, job directory,
 
 == Description ==
 
-Create and grow your business directory, classified listings, job directory, event directory, membership directory, service marketplace, or real estate directory with ease using Directorist.
+>👉 __[Directorist is the Best Directory Plugin out there](https://wordpress.org/support/topic/directorist-is-the-best-directory-plugin-out-there/)__
+>⭐⭐⭐⭐⭐
+>*I’ve been using Directorist for my directory website for over a year now, and I can honestly say it’s one of the most reliable and feature-rich directory plugins I’ve worked with.*
+
+>*I currently manage over 19,000 listings, and the plugin has handled them efficiently without major performance issues.*
+
+>*The interface is clean, user-friendly, and easy to customize, even for large-scale directories like mine.*
+
+>👤 sammybabz (@sammybabz)
+
 
 [Try Demo](https://directorist.com/demos/) | [Extensions](https://directorist.com/extensions/) | [Themes](https://directorist.com/themes/) | [Documentation](https://directorist.com/documentation/directorist/) | [Roadmap](https://directorist.com/roadmap/)
+
+[youtube https://www.youtube.com/watch?v=HfZ3VGnDB9c]
+
+Create and grow your business directory, classified listings, job directory, event directory, membership directory, service marketplace, or real estate directory with ease using Directorist - Business Directory Plugin.
+
+Directorist is built for people who want control, freedom, and real income from their directory website. You are not just creating listings. You are building a platform where businesses get discovered, services are found, and communities connect. From submissions to payments and search to monetization, everything works together so you can launch your directory faster, manage less, and grow with confidence.
 
 ==Discover how Directorist has evolved in 2025 with smarter AI capabilities==
 
@@ -26,8 +41,6 @@ Discover how Directorist has evolved in 2025, bringing smarter AI, faster workfl
 ==Turn your ideas into a profitable directory effortlessly.==
 
 Powered by AI, Directorist is the ultimate directory plugin that helps you create, manage, and monetize listings with ease. Built-in SEO optimization ensures your directories rank higher and attract organic traffic, while seamless payment integrations let you monetize effortlessly through paid listings, subscriptions, and premium features.
-
-[youtube https://www.youtube.com/watch?v=HfZ3VGnDB9c]
 
 
 With over 580+ five-star reviews and 20,000+ active directory owners, Directorist stands as the leading directory plugin. Plus, our outstanding support team and extensive documentation are always ready to guide you through every step.
@@ -292,6 +305,18 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.5.10 - Feb 9, 2026 =
+
+**Improved**
+ - Formgent integration enhanced with a new Formgent Enquiry table in the frontend user dashboard. (#2610)
+ - Builder-compatible components now use container-fluid for better responsiveness. (#2641)
+ - Select2 package updated to version 4.1.0-rc.0. (#2609)
+
+**Fixed**
+ - Instant search not working when an extra required input field is added. (#2652)
+ - Custom input labels now properly override default labels. (#2628)
+ - Back navigation issue on the single category page. (#2627)
 
 = 8.5.9 - Feb 5, 2026 =
 

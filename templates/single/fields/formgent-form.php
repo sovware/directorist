@@ -15,10 +15,11 @@ if ( ! directorist_is_plugin_active( 'formgent/formgent.php' ) ) {
     return;
 }
 
+$listing = get_post();
 ?>
 
 <div class="directorist-single-info directorist-single-formgent-form">
 
-    <?php echo do_shortcode( "[formgent id='{$value}']" ); ?>
+    <?php echo do_shortcode( "[formgent id='{$value}' listing_id={$listing->ID}]" ); ?>
 
 </div>

@@ -103,6 +103,12 @@ function register_controllers() {
 
     $pages = new \Directorist\Rest_Api\Controllers\Version1\Pages_Controller();
     $pages->register_routes();
+    
+    // Admin controller.
+    require_once $dir . 'Version1/class-admin-controller.php';
+
+    $admin = new \Directorist\Rest_Api\Controllers\Version1\Admin_Controller();
+    $admin->register_routes();
 
     // V2 Listings
     require_once $dir . 'Version2/class-listings-controller.php';

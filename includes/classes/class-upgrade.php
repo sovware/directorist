@@ -51,6 +51,8 @@ class ATBDP_Upgrade
         // Skip if migration already done
         if ( get_option( 'directorist_assign_to_conditional_logic_migrated' ) ) {
             error_log( '[Directorist Migration] Migration already completed, skipping' );
+            // Run normalization fix for existing migrated data
+            $this->normalize_conditional_logic_data();
             return;
         }
 
@@ -83,6 +85,91 @@ class ATBDP_Upgrade
         // Mark migration as complete
         update_option( 'directorist_assign_to_conditional_logic_migrated', true );
         error_log( '[Directorist Migration] Migration completed' );
+        
+        // Run normalization after migration
+        $this->normalize_conditional_logic_data();
+    }
+
+    /**
+     * Normalize conditional logic data to ensure enabled is boolean true
+     *
+     * @return void
+     */
+    private function normalize_conditional_logic_data() {
+        $directory_types = get_terms(
+            array(
+                'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+                'hide_empty' => false,
+            )
+        );
+
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+            return;
+        }
+
+        foreach ( $directory_types as $directory_type ) {
+            $submission_form_fields = get_term_meta( $directory_type->term_id, 'submission_form_fields', true );
+
+            if ( empty( $submission_form_fields ) || ! is_array( $submission_form_fields ) ) {
+                continue;
+            }
+
+            if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
+                continue;
+            }
+
+            $updated = false;
+
+            foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
+                if ( ! is_array( $field ) ) {
+                    continue;
+                }
+
+                // Check if field has conditional_logic
+                if ( empty( $field['options']['conditional_logic']['value'] ) || ! is_array( $field['options']['conditional_logic']['value'] ) ) {
+                    continue;
+                }
+
+                $conditional_logic = &$submission_form_fields['fields'][ $field_key ]['options']['conditional_logic']['value'];
+
+                // Normalize enabled to boolean true (not 1 or string "1")
+                if ( isset( $conditional_logic['enabled'] ) ) {
+                    $current_enabled = $conditional_logic['enabled'];
+                    // Convert to boolean: true if truthy, false otherwise
+                    $normalized_enabled = (bool) $current_enabled;
+                    
+                    // Only update if it's truthy but not already boolean true
+                    if ( $normalized_enabled && $current_enabled !== true ) {
+                        $conditional_logic['enabled'] = true;
+                        $updated = true;
+                        error_log( '[Directorist Migration] Normalized enabled value for field "' . $field_key . '" in directory ID: ' . $directory_type->term_id . ' (was: ' . var_export( $current_enabled, true ) . ')' );
+                    }
+                }
+
+                // Ensure action is set
+                if ( empty( $conditional_logic['action'] ) ) {
+                    $conditional_logic['action'] = 'show';
+                    $updated = true;
+                }
+
+                // Ensure globalOperator is set
+                if ( empty( $conditional_logic['globalOperator'] ) ) {
+                    $conditional_logic['globalOperator'] = 'OR';
+                    $updated = true;
+                }
+
+                // Ensure groups is an array
+                if ( ! isset( $conditional_logic['groups'] ) || ! is_array( $conditional_logic['groups'] ) ) {
+                    $conditional_logic['groups'] = array();
+                    $updated = true;
+                }
+            }
+
+            if ( $updated ) {
+                update_term_meta( $directory_type->term_id, 'submission_form_fields', $submission_form_fields );
+                error_log( '[Directorist Migration] Normalized conditional_logic data for directory ID: ' . $directory_type->term_id );
+            }
+        }
     }
 
     /**

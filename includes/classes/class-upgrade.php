@@ -110,12 +110,13 @@ class ATBDP_Upgrade
             }
 
             // Check for old assign_to field (root level only)
-            if ( empty( $field['assign_to'] ) ) {
+            // assign_to is a boolean flag, category contains the actual category ID
+            if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
                 continue;
             }
 
-            // Convert assign_to to conditional logic (single category only)
-            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['assign_to'] );
+            // Convert category ID to conditional logic (single category only)
+            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'] );
 
             if ( ! empty( $conditional_logic ) ) {
                 // Ensure options array exists

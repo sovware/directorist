@@ -6,9 +6,11 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-    $selected_item = $searchform::get_selected_category_option_data();
+
+$conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
+$selected_item          = $searchform::get_selected_category_option_data();
 ?>
-<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
+<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; ?>>
     <div class="directorist-select directorist-search-category directorist-search-field__input">
 
         <?php if ( ! empty( $data['label'] ) ) : ?>

@@ -1032,7 +1032,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
      * Extract from fieldId or match activeWidget with availableFields
      */
     findCurrentFieldKey: function findCurrentFieldKey() {
-      var skipKeys = ['logic', 'conditional_logic', 'conditional-logic', 'conditionalLogic', 'submission_form_fields', 'widgets', 'fields'];
+      var skipKeys = ['logic', 'conditional_logic', 'conditional-logic', 'conditionalLogic', 'submission_form_fields', 'search_form_fields', 'widgets', 'fields'];
       var shouldSkip = function shouldSkip(key) {
         if (!key) return true;
         var normalized = key.toString().trim().toLowerCase();
@@ -1466,21 +1466,37 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var fieldType = fieldData.type;
       var widget = fieldData.widget;
+      var widgetName = widget && widget.widget_name || widget && widget.widget_key || '';
+      var fieldKeyNorm = (condition.field || '').toString().trim().toLowerCase();
+
+      // Helper: check if field is category (submission form + search form)
+      var isCategoryField = function isCategoryField() {
+        return fieldKeyNorm === 'admin_category_select[]' || fieldKeyNorm === 'category' || fieldKeyNorm === 'categories' || fieldKeyNorm === 'in_cat' || widgetName && String(widgetName).toLowerCase() === 'category';
+      };
+
+      // Helper: check if field is tag (submission form + search form)
+      var isTagField = function isTagField() {
+        return fieldKeyNorm === 'tax_input[at_biz_dir-tags][]' || fieldKeyNorm === 'tag' || fieldKeyNorm === 'tags' || fieldKeyNorm === 'in_tag[]' || widgetName && String(widgetName).toLowerCase() === 'tag';
+      };
+
+      // Helper: check if field is location (submission form + search form)
+      var isLocationField = function isLocationField() {
+        return fieldKeyNorm === 'tax_input[at_biz_dir-location][]' || fieldKeyNorm === 'location' || fieldKeyNorm === 'locations' || fieldKeyNorm === 'in_loc' || widgetName && String(widgetName).toLowerCase() === 'location';
+      };
 
       // Handle category field - needs special handling via AJAX or passed data
-      if (condition.field === 'admin_category_select[]') {
-        // Return placeholder - will be loaded via AJAX or from passed data
-        return this.getCategoryOptions();
+      if (isCategoryField()) {
+        return this.getCategoryOptions(condition.field);
       }
 
       // Handle tag field - needs special handling via AJAX or passed data
-      if (condition.field === 'tax_input[at_biz_dir-tags][]') {
-        return this.getTagOptions();
+      if (isTagField()) {
+        return this.getTagOptions(condition.field);
       }
 
       // Handle location field - needs special handling via AJAX or passed data
-      if (condition.field === 'tax_input[at_biz_dir-location][]') {
-        return this.getLocationOptions();
+      if (isLocationField()) {
+        return this.getLocationOptions(condition.field);
       }
 
       // Handle file fields - return "uploaded" option for boolean check
@@ -1701,8 +1717,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     /**
      * Get category options for the current directory type
      * This will be populated from available data or needs AJAX call
+     * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
      */
-    getCategoryOptions: function getCategoryOptions() {
+    getCategoryOptions: function getCategoryOptions(fieldKey) {
       var _this4 = this;
       // Return cached options if available
       if (this.cachedCategoryOptions) {
@@ -1711,9 +1728,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var options = [];
 
       // Method 1: Try to get from availableFields if category field exists
-      // Check by field value (field_key) or widget_name/type
+      // Check by field value (field_key) - support both submission and search form keys
+      var categoryKeys = ['admin_category_select[]', 'category', 'categories', 'in_cat'];
       var categoryField = this.availableFields.find(function (f) {
-        return f.value === 'admin_category_select[]';
+        return categoryKeys.includes(f.value) || f.widget && (f.widget.widget_name === 'category' || f.widget.widget_key === 'category');
       });
       if (categoryField && categoryField.widget && categoryField.widget.options) {
         // If category field has options stored
@@ -1790,8 +1808,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     /**
      * Get tag options for the current directory type
      * Similar to getCategoryOptions() but for tags
+     * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
      */
-    getTagOptions: function getTagOptions() {
+    getTagOptions: function getTagOptions(fieldKey) {
       var _this5 = this;
       // Return cached options if available
       if (this.cachedTagOptions) {
@@ -1800,9 +1819,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var options = [];
 
       // Method 1: Try to get from availableFields if tag field exists
-      // Check by field value (field_key) or widget_name/type
+      // Support both submission and search form keys
+      var tagKeys = ['tax_input[at_biz_dir-tags][]', 'tag', 'tags', 'in_tag[]'];
       var tagField = this.availableFields.find(function (f) {
-        return f.value === 'tax_input[at_biz_dir-tags][]';
+        return tagKeys.includes(f.value) || f.widget && (f.widget.widget_name === 'tag' || f.widget.widget_key === 'tag');
       });
       if (tagField && tagField.widget && tagField.widget.options) {
         if (Array.isArray(tagField.widget.options)) {
@@ -1856,7 +1876,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               var fetchedOptions = response.data.map(function (tag) {
                 return {
                   value: String(tag.name || tag.label || tag.text || tag.id || tag.term_id || ''),
-                  // Use name as value for tags
                   label: tag.name || tag.label || tag.text || ''
                 };
               });
@@ -1874,8 +1893,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     /**
      * Get location options for the current directory type
      * Similar to getCategoryOptions() but for locations
+     * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
      */
-    getLocationOptions: function getLocationOptions() {
+    getLocationOptions: function getLocationOptions(fieldKey) {
       var _this6 = this;
       // Return cached options if available
       if (this.cachedLocationOptions) {
@@ -1884,9 +1904,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var options = [];
 
       // Method 1: Try to get from availableFields if location field exists
-      // Check by field value (field_key) or widget_name/type
+      // Support both submission and search form keys
+      var locationKeys = ['tax_input[at_biz_dir-location][]', 'location', 'locations', 'in_loc'];
       var locationField = this.availableFields.find(function (f) {
-        return f.value === 'tax_input[at_biz_dir-location][]';
+        return locationKeys.includes(f.value) || f.widget && (f.widget.widget_name === 'location' || f.widget.widget_key === 'location');
       });
       if (locationField && locationField.widget && locationField.widget.options) {
         if (Array.isArray(locationField.widget.options)) {
@@ -30980,7 +31001,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // Use the stored field key (set when conditional logic was enabled)
       var currentFieldKey = this.currentFieldKeyForExclusion;
-      var skipKeys = ["logic", "conditional_logic", "conditional-logic", "conditionalLogic", "submission_form_fields", "widgets", "fields", "social", "pricing", "map", "listing_type"];
+      var skipKeys = ["logic", "conditional_logic", "conditional-logic", "conditionalLogic", "submission_form_fields", "search_form_fields", "widgets", "fields", "social", "pricing", "map", "listing_type"];
 
       // Filter out the current field, conditional logic keys, and excluded types
       var filtered = this.availableFields.filter(function (field) {

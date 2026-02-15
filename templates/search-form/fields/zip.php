@@ -6,11 +6,13 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-$lat = ! empty( $_REQUEST['zip_cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ) : '';
-$lng = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ) : '';
+
+$conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
+$lat                    = ! empty( $_REQUEST['zip_cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ) : '';
+$lng                    = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ) : '';
 ?>
 
-<div class="directorist-search-field directorist-form-group directorist-zipcode-search <?php echo esc_attr( $empty_label ); ?>">
+<div class="directorist-search-field directorist-form-group directorist-zipcode-search <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; ?>>
 
     <?php if ( ! empty( $data['label'] ) ) : ?>
         <label class="directorist-search-field__label" for="<?php echo esc_attr( $data['field_key'] ?? '' ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

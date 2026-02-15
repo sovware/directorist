@@ -523,6 +523,7 @@ export default {
         "conditional-logic",
         "conditionalLogic",
         "submission_form_fields",
+        "search_form_fields",
         "widgets",
         "fields",
         "social",

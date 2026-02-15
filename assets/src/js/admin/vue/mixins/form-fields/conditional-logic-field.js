@@ -229,6 +229,7 @@ export default {
 				'conditional-logic',
 				'conditionalLogic',
 				'submission_form_fields',
+				'search_form_fields',
 				'widgets',
 				'fields',
 			];
@@ -735,21 +736,46 @@ export default {
 
 			const fieldType = fieldData.type;
 			const widget = fieldData.widget;
+			const widgetName = (widget && widget.widget_name) || (widget && widget.widget_key) || '';
+			const fieldKeyNorm = (condition.field || '').toString().trim().toLowerCase();
+
+			// Helper: check if field is category (submission form + search form)
+			const isCategoryField = () =>
+				fieldKeyNorm === 'admin_category_select[]' ||
+				fieldKeyNorm === 'category' ||
+				fieldKeyNorm === 'categories' ||
+				fieldKeyNorm === 'in_cat' ||
+				(widgetName && String(widgetName).toLowerCase() === 'category');
+
+			// Helper: check if field is tag (submission form + search form)
+			const isTagField = () =>
+				fieldKeyNorm === 'tax_input[at_biz_dir-tags][]' ||
+				fieldKeyNorm === 'tag' ||
+				fieldKeyNorm === 'tags' ||
+				fieldKeyNorm === 'in_tag[]' ||
+				(widgetName && String(widgetName).toLowerCase() === 'tag');
+
+			// Helper: check if field is location (submission form + search form)
+			const isLocationField = () =>
+				fieldKeyNorm === 'tax_input[at_biz_dir-location][]' ||
+				fieldKeyNorm === 'location' ||
+				fieldKeyNorm === 'locations' ||
+				fieldKeyNorm === 'in_loc' ||
+				(widgetName && String(widgetName).toLowerCase() === 'location');
 
 			// Handle category field - needs special handling via AJAX or passed data
-			if (condition.field === 'admin_category_select[]') {
-				// Return placeholder - will be loaded via AJAX or from passed data
-				return this.getCategoryOptions();
+			if (isCategoryField()) {
+				return this.getCategoryOptions(condition.field);
 			}
 
 			// Handle tag field - needs special handling via AJAX or passed data
-			if (condition.field === 'tax_input[at_biz_dir-tags][]') {
-				return this.getTagOptions();
+			if (isTagField()) {
+				return this.getTagOptions(condition.field);
 			}
 
 			// Handle location field - needs special handling via AJAX or passed data
-			if (condition.field === 'tax_input[at_biz_dir-location][]') {
-				return this.getLocationOptions();
+			if (isLocationField()) {
+				return this.getLocationOptions(condition.field);
 			}
 
 			// Handle file fields - return "uploaded" option for boolean check
@@ -1033,8 +1059,9 @@ export default {
 		/**
 		 * Get category options for the current directory type
 		 * This will be populated from available data or needs AJAX call
+		 * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
 		 */
-		getCategoryOptions() {
+		getCategoryOptions(fieldKey) {
 			// Return cached options if available
 			if (this.cachedCategoryOptions) {
 				return this.cachedCategoryOptions;
@@ -1043,9 +1070,19 @@ export default {
 			const options = [];
 
 			// Method 1: Try to get from availableFields if category field exists
-			// Check by field value (field_key) or widget_name/type
+			// Check by field value (field_key) - support both submission and search form keys
+			const categoryKeys = [
+				'admin_category_select[]',
+				'category',
+				'categories',
+				'in_cat',
+			];
 			const categoryField = this.availableFields.find(
-				(f) => f.value === 'admin_category_select[]'
+				(f) =>
+					categoryKeys.includes(f.value) ||
+					(f.widget &&
+						(f.widget.widget_name === 'category' ||
+							f.widget.widget_key === 'category'))
 			);
 
 			if (
@@ -1157,8 +1194,9 @@ export default {
 		/**
 		 * Get tag options for the current directory type
 		 * Similar to getCategoryOptions() but for tags
+		 * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
 		 */
-		getTagOptions() {
+		getTagOptions(fieldKey) {
 			// Return cached options if available
 			if (this.cachedTagOptions) {
 				return this.cachedTagOptions;
@@ -1167,9 +1205,19 @@ export default {
 			const options = [];
 
 			// Method 1: Try to get from availableFields if tag field exists
-			// Check by field value (field_key) or widget_name/type
+			// Support both submission and search form keys
+			const tagKeys = [
+				'tax_input[at_biz_dir-tags][]',
+				'tag',
+				'tags',
+				'in_tag[]',
+			];
 			const tagField = this.availableFields.find(
-				(f) => f.value === 'tax_input[at_biz_dir-tags][]'
+				(f) =>
+					tagKeys.includes(f.value) ||
+					(f.widget &&
+						(f.widget.widget_name === 'tag' ||
+							f.widget.widget_key === 'tag'))
 			);
 
 			if (tagField && tagField.widget && tagField.widget.options) {
@@ -1256,7 +1304,7 @@ export default {
 										tag.id ||
 										tag.term_id ||
 										''
-								), // Use name as value for tags
+								),
 								label: tag.name || tag.label || tag.text || '',
 							}));
 							self.cachedTagOptions = fetchedOptions;
@@ -1277,8 +1325,9 @@ export default {
 		/**
 		 * Get location options for the current directory type
 		 * Similar to getCategoryOptions() but for locations
+		 * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
 		 */
-		getLocationOptions() {
+		getLocationOptions(fieldKey) {
 			// Return cached options if available
 			if (this.cachedLocationOptions) {
 				return this.cachedLocationOptions;
@@ -1287,9 +1336,19 @@ export default {
 			const options = [];
 
 			// Method 1: Try to get from availableFields if location field exists
-			// Check by field value (field_key) or widget_name/type
+			// Support both submission and search form keys
+			const locationKeys = [
+				'tax_input[at_biz_dir-location][]',
+				'location',
+				'locations',
+				'in_loc',
+			];
 			const locationField = this.availableFields.find(
-				(f) => f.value === 'tax_input[at_biz_dir-location][]'
+				(f) =>
+					locationKeys.includes(f.value) ||
+					(f.widget &&
+						(f.widget.widget_name === 'location' ||
+							f.widget.widget_key === 'location'))
 			);
 			if (
 				locationField &&

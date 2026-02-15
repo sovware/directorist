@@ -55,22 +55,28 @@ function mapFieldKeyToSelector(fieldKey) {
   // Map widget_keys and field_keys to their frontend selectors
   // Note: widget_key (e.g., "title") may differ from field_key (e.g., "listing_title")
   var fieldKeyMap = {
-    category: "#at_biz_dir-categories",
-    categories: "#at_biz_dir-categories",
-    "admin_category_select[]": "#at_biz_dir-categories",
+    category: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    categories: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    "admin_category_select[]": "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    in_cat: "select[name='in_cat'], .directorist-search-category select",
     description: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
     listing_content: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
-    title: '[name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
-    listing_title: '[name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
-    location: '[name="location"], #at_biz_dir-location',
+    title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
+    listing_title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
+    q: '.directorist-search-query input, input[name="q"]',
+    location: '[name="location"], #at_biz_dir-location, select[name="in_loc"], .directorist-search-location select',
+    in_loc: 'select[name="in_loc"], .directorist-search-location select',
     address: '[name="address"], #address',
     phone: '[name="phone"], #phone',
     email: '[name="email"], #email',
     website: '[name="website"], #website',
-    tag: '[name="tag"], #at_biz_dir-tags',
-    "tax_input[at_biz_dir-tags][]": "#at_biz_dir-tags",
-    "tax_input[at_biz_dir-location][]": "#at_biz_dir-location",
+    tag: '[name="tag"], #at_biz_dir-tags, [name="in_tag[]"]',
+    "in_tag[]": '[name="in_tag[]"]',
+    "tax_input[at_biz_dir-tags][]": "#at_biz_dir-tags, [name='in_tag[]']",
+    "tax_input[at_biz_dir-location][]": "#at_biz_dir-location, select[name='in_loc']",
     zip: '[name="zip"], #zip',
+    miles: '[name="miles"], .directorist-custom-range-slider__range',
+    search_by_rating: '[name="search_by_rating[]"]',
     image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
   };
   if (fieldKeyMap[fieldKey]) {
@@ -114,10 +120,10 @@ function getFieldValue(fieldKey, $) {
 
   // Map field keys to actual field names/selectors
   // Handle category, tag, and location fields - all use Select2 with similar structure
-  if (fieldKey === "category" || fieldKey === "categories" || fieldKey === "admin_category_select[]") {
-    // Frontend: Select2 #at_biz_dir-categories
-    // Admin: taxonomy checkboxes #at_biz_dir-categorychecklist
-    $field = $("#at_biz_dir-categories");
+  if (fieldKey === "category" || fieldKey === "categories" || fieldKey === "admin_category_select[]" || fieldKey === "in_cat") {
+    // Add listing: Select2 #at_biz_dir-categories
+    // Search form: select[name='in_cat']
+    $field = $("#at_biz_dir-categories, select[name='in_cat']").first();
     if (!$field.length) {
       // Admin context: use taxonomy metabox checkboxes
       var $checkboxes = $("#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked");
@@ -129,11 +135,10 @@ function getFieldValue(fieldKey, $) {
       }
       return [];
     }
-  } else if (fieldKey === "tag" || fieldKey === "tags" || fieldKey === "tax_input[at_biz_dir-tags][]") {
-    // Frontend: Select2 #at_biz_dir-tags
-    // Admin: (1) WordPress free-form tag UI uses .tagchecklist li (no checkboxes)
-    //        (2) Some setups use checkbox-style #at_biz_dir-tagschecklist
-    $field = $("#at_biz_dir-tags");
+  } else if (fieldKey === "tag" || fieldKey === "tags" || fieldKey === "tax_input[at_biz_dir-tags][]" || fieldKey === "in_tag[]") {
+    // Add listing: Select2 #at_biz_dir-tags
+    // Search form: input[name="in_tag[]"] checkboxes
+    $field = $("#at_biz_dir-tags, input[name='in_tag[]']").first();
     if (!$field.length) {
       // Try checkbox-style (if used)
       var _$checkboxes = $('#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked');
@@ -165,11 +170,17 @@ function getFieldValue(fieldKey, $) {
       }
       return [];
     }
-  } else if (fieldKey === "location" || fieldKey === "locations" || fieldKey === "tax_input[at_biz_dir-location][]") {
-    // Frontend: Select2 #at_biz_dir-location
-    // Admin: taxonomy checkboxes #at_biz_dir-locationchecklist
-    $field = $("#at_biz_dir-location");
+  } else if (fieldKey === "location" || fieldKey === "locations" || fieldKey === "tax_input[at_biz_dir-location][]" || fieldKey === "in_loc" || fieldKey === "address") {
+    // Add listing: Select2 #at_biz_dir-location
+    // Search form: select[name="in_loc"] (dropdown) or input[name="address"] (map - typed)
+    $field = $("#at_biz_dir-location, select[name='in_loc']").first();
     if (!$field.length) {
+      // Map source: location is an address input (user types)
+      var $addressInput = $(".directorist-search-location input[name='address']");
+      if ($addressInput.length) {
+        var val = $addressInput.val();
+        return val && val.trim() ? [val.trim()] : [];
+      }
       var _$checkboxes2 = $('#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked');
       if (_$checkboxes2.length) {
         return _$checkboxes2.map(function () {
@@ -180,8 +191,30 @@ function getFieldValue(fieldKey, $) {
     }
   }
 
+  // Search form: in_tag[] checkboxes - get all checked values (IDs and labels)
+  // Checkbox value is term ID; condition often uses tag name (e.g. "Beauty")
+  if ((fieldKey === "in_tag[]" || fieldKey === "tag" || fieldKey === "tags") && $field && $field.is('input[name="in_tag[]"]')) {
+    var _$checkboxes3 = $('input[name="in_tag[]"]:checked');
+    if (_$checkboxes3.length) {
+      var _values = [];
+      _$checkboxes3.each(function () {
+        var id = $(this).val();
+        if (id) _values.push(String(id));
+        // Include label (tag name) for matching conditions like "tag is Beauty"
+        var $label = $(this).siblings('label').first();
+        if ($label.length) {
+          var label = $label.text().trim();
+          if (label && !_values.includes(label)) _values.push(label);
+        }
+      });
+      return _values;
+    }
+    return [];
+  }
+
   // If we matched a taxonomy field (category, tag, location), process it
-  if ($field && ($field.is("#at_biz_dir-categories") || $field.is("#at_biz_dir-tags") || $field.is("#at_biz_dir-location"))) {
+  var isTaxonomyField = $field && ($field.is("#at_biz_dir-categories") || $field.is("#at_biz_dir-tags") || $field.is("#at_biz_dir-location") || $field.is('select[name="in_cat"]') || $field.is('select[name="in_loc"]'));
+  if (isTaxonomyField) {
     /**
      * Helper function to extract labels from Select2 selection container
      * @param {jQuery} $container - Select2 container element
@@ -339,17 +372,17 @@ function getFieldValue(fieldKey, $) {
     }
 
     // Strategy 4: Fallback to select option text and values
-    var val = $field.val();
-    if (val) {
-      var _values = Array.isArray(val) ? val : [val];
-      if (_values.length > 0) {
+    var _val2 = $field.val();
+    if (_val2) {
+      var _values2 = Array.isArray(_val2) ? _val2 : [_val2];
+      if (_values2.length > 0) {
         var _combined3 = [];
         var _labels = [];
         var _ids = [];
 
         // Special handling for tag field - values are stored as names, not IDs
         var _isTagField2 = $field.is("#at_biz_dir-tags");
-        _values.forEach(function (val) {
+        _values2.forEach(function (val) {
           // For tags, the option value IS the tag name, so use it directly
           if (_isTagField2) {
             var tagName = String(val).trim();
@@ -478,15 +511,15 @@ function getFieldValue(fieldKey, $) {
     // For checkboxes with [] in name (multiple checkboxes with same name)
     if ($field.is('[name$="[]"]') || $field.attr("name") && $field.attr("name").includes("[]")) {
       // Multiple checkboxes - use attribute selector to find all with same name
-      var _values2 = [];
+      var _values3 = [];
       var nameAttr = $field.attr("name");
 
       // CRITICAL FIX: Use attribute selector [name="..."] instead of passing name directly to $()
       // This prevents jQuery syntax error when nameAttr contains brackets like "custom-checkbox[]"
       $("[name=\"".concat(nameAttr, "\"]")).filter(":checked").each(function () {
-        _values2.push($(this).val());
+        _values3.push($(this).val());
       });
-      return _values2;
+      return _values3;
     }
     // For radio buttons or single checkboxes (no [] in name)
     // Radio buttons share the same name, so find the checked one with that name
@@ -501,8 +534,8 @@ function getFieldValue(fieldKey, $) {
 
   // Handle multi-select
   if ($field.is("select[multiple]") || $field.prop("multiple")) {
-    var _val2 = $field.val();
-    return Array.isArray(_val2) ? _val2 : _val2 ? [_val2] : [];
+    var _val3 = $field.val();
+    return Array.isArray(_val3) ? _val3 : _val3 ? [_val3] : [];
   }
 
   // Handle Select2 fields (only if actually initialized - avoid error on admin checklists)
@@ -785,7 +818,10 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
       // Condition value must match
       return hasMatch;
     case "contains":
-      // For "contains" operator: value can be one of many (current behavior)
+      // For "contains" operator: field value must contain the condition value
+      // "location contains Ankara" = location field value must contain "Ankara"
+      // Do NOT use condValStr.includes(compareValStr) - that would make "a" match "Ankara"
+      var condValStrContains = String(condVal).toLowerCase();
       return fieldArray.some(function (val) {
         var compareVal = val;
         if (typeof compareVal === "string") {
@@ -798,10 +834,8 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
             compareVal = compareVal.trim().toLowerCase();
           }
         }
-        var condValStr = String(condVal).toLowerCase();
         var compareValStr = String(compareVal).toLowerCase();
-        // Check for exact match or contains match
-        return compareValStr === condValStr || compareValStr.includes(condValStr) || condValStr.includes(compareValStr);
+        return compareValStr === condValStrContains || compareValStr.includes(condValStrContains);
       });
     case "is not":
     case "!=":
@@ -984,6 +1018,11 @@ function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
     if (shouldShow) {
       $fieldWrapper.show();
       $fieldWrapper.find("input, select, textarea").prop("disabled", false);
+      // Sync parent directorist-search-modal__input visibility (search form layout)
+      var $modalInput = $fieldWrapper.closest(".directorist-search-modal__input");
+      if ($modalInput.length) {
+        $modalInput.show();
+      }
       // Enable TinyMCE editor if present
       if ($fieldWrapper.find("textarea").length && typeof tinymce !== "undefined") {
         var editorId = $fieldWrapper.find("textarea").attr("id");
@@ -994,6 +1033,11 @@ function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
     } else {
       $fieldWrapper.hide();
       $fieldWrapper.find("input, select, textarea").prop("disabled", true);
+      // Sync parent directorist-search-modal__input visibility (search form layout)
+      var _$modalInput = $fieldWrapper.closest(".directorist-search-modal__input");
+      if (_$modalInput.length) {
+        _$modalInput.hide();
+      }
       // Disable TinyMCE editor if present
       if ($fieldWrapper.find("textarea").length && typeof tinymce !== "undefined") {
         var _editorId = $fieldWrapper.find("textarea").attr("id");
@@ -1170,7 +1214,7 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
         }
 
         // Special handling for category, tag, and location fields
-        var isTaxonomyField = fieldKey === "category" || fieldKey === "categories" || fieldKey === "tag" || fieldKey === "tags" || fieldKey === "location" || fieldKey === "locations" || fieldName === "admin_category_select[]" || fieldName === "tax_input[at_biz_dir-category][]" || fieldName === "tax_input[at_biz_dir-location][]" || fieldName === "tax_input[at_biz_dir-tags][]" || $changedField.is("#at_biz_dir-categories") || $changedField.is("#at_biz_dir-tags") || $changedField.is("#at_biz_dir-location") || $changedField.closest("#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop").length || $changedField.closest("#at_biz_dir-locationchecklist, #at_biz_dir-locationchecklist-pop").length || $changedField.closest("#at_biz_dir-tagschecklist, #at_biz_dir-tagschecklist-pop, #tagsdiv-at_biz_dir-tags").length;
+        var isTaxonomyField = fieldKey === "category" || fieldKey === "categories" || fieldKey === "in_cat" || fieldKey === "tag" || fieldKey === "tags" || fieldKey === "in_tag" || fieldKey === "location" || fieldKey === "locations" || fieldKey === "in_loc" || fieldName === "admin_category_select[]" || fieldName === "tax_input[at_biz_dir-category][]" || fieldName === "tax_input[at_biz_dir-location][]" || fieldName === "tax_input[at_biz_dir-tags][]" || fieldName === "in_cat" || fieldName === "in_loc" || fieldName === "in_tag[]" || $changedField.is("#at_biz_dir-categories") || $changedField.is("#at_biz_dir-tags") || $changedField.is("#at_biz_dir-location") || $changedField.is("select[name='in_loc']") || $changedField.is("select[name='in_cat']") || $changedField.is("input[name='in_tag[]']") || $changedField.closest("#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop").length || $changedField.closest("#at_biz_dir-locationchecklist, #at_biz_dir-locationchecklist-pop").length || $changedField.closest("#at_biz_dir-tagschecklist, #at_biz_dir-tagschecklist-pop, #tagsdiv-at_biz_dir-tags").length;
         if (isTaxonomyField) {
           // Check if any condition references category, tag, or location
           if (conditionalLogic.groups && Array.isArray(conditionalLogic.groups)) {
@@ -1185,7 +1229,7 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
                   try {
                     for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
                       var _condition = _step7.value;
-                      if (_condition.field === "category" || _condition.field === "categories" || _condition.field === "admin_category_select[]" || _condition.field === "tag" || _condition.field === "tags" || _condition.field === "location" || _condition.field === "locations" || _condition.field === "tax_input[at_biz_dir-location][]" || _condition.field === "tax_input[at_biz_dir-tags][]") {
+                      if (_condition.field === "category" || _condition.field === "categories" || _condition.field === "admin_category_select[]" || _condition.field === "in_cat" || _condition.field === "tag" || _condition.field === "tags" || _condition.field === "in_tag[]" || _condition.field === "location" || _condition.field === "locations" || _condition.field === "tax_input[at_biz_dir-location][]" || _condition.field === "in_loc" || _condition.field === "tax_input[at_biz_dir-tags][]") {
                         dependsOnField = true;
                         break;
                       }
@@ -1220,7 +1264,8 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
 
   // Special handling for category, tag, and location field Select2 events
   // Listen on document to catch events even if field is added dynamically
-  var taxonomyFieldSelectors = "#at_biz_dir-categories, #at_biz_dir-tags, #at_biz_dir-location";
+  // Include search form fields (in_loc, in_cat) so they work like submission form
+  var taxonomyFieldSelectors = "#at_biz_dir-categories, #at_biz_dir-tags, #at_biz_dir-location, select[name='in_loc'], select[name='in_cat']";
   $(document).on("select2:select select2:unselect select2:clear", taxonomyFieldSelectors, function (e) {
     // Update data attributes immediately when taxonomy field changes
     setTimeout(function () {
@@ -1235,9 +1280,12 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
         if ($field.is("#at_biz_dir-tags")) {
           fieldKey = "tag";
           fieldName = $field.attr("name") || "tag";
-        } else if ($field.is("#at_biz_dir-location")) {
+        } else if ($field.is("#at_biz_dir-location") || $field.is("select[name='in_loc']")) {
           fieldKey = "location";
-          fieldName = $field.attr("name") || "location";
+          fieldName = $field.attr("name") || "tax_input[at_biz_dir-location][]";
+        } else if ($field.is("select[name='in_cat']")) {
+          fieldKey = "category";
+          fieldName = $field.attr("name") || "in_cat";
         }
 
         // Try to get data from Select2 API (only if element is Select2-initialized)
@@ -1311,6 +1359,9 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
     if (fieldName === "post_title" || $changedField.attr("id") === "title") {
       // WordPress admin: title input -> listing_title
       fieldKey = "listing_title";
+    } else if (fieldName === "q" || $changedField.attr("name") === "q" && $changedField.closest(".directorist-search-query, .directorist-search-form-wrap, .directorist-search-form").length) {
+      // Search form: "What are you looking for?" input (name="q") is the title field
+      fieldKey = "title";
     } else if (fieldName === "content" || $changedField.attr("id") === "content") {
       // WordPress admin: content editor -> listing_content (handled by TinyMCE)
       fieldKey = "listing_content";
@@ -1335,11 +1386,35 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
     } else if ($changedField.is("#at_biz_dir-location")) {
       fieldKey = "location";
       taxonomyFieldSelector = "#at_biz_dir-location";
+    } else if (fieldName === "in_loc" || $changedField.is("select[name='in_loc']")) {
+      // Search form: location field (select)
+      fieldKey = "location";
+      taxonomyFieldSelector = "search_form_field"; // Use $changedField
+    } else if ((fieldName === "address" || $changedField.is("input[name='address']")) && $changedField.closest(".directorist-search-location").length) {
+      // Search form: location field (map - typed address)
+      fieldKey = "location";
+      taxonomyFieldSelector = "search_form_address"; // Use $changedField, different update logic
+    } else if (fieldName === "in_cat" || $changedField.is("select[name='in_cat']")) {
+      // Search form: category field
+      fieldKey = "category";
+      taxonomyFieldSelector = "search_form_field";
+    } else if (fieldName === "in_tag[]" || $changedField.is("input[name='in_tag[]']")) {
+      // Search form: tag checkboxes
+      fieldKey = "tag";
+      taxonomyFieldSelector = "search_form_field";
     }
     if (taxonomyFieldSelector) {
       // Update taxonomy field data attributes when it changes
+      // For address (typed), skip attribute update and just trigger re-evaluation
+      if (taxonomyFieldSelector === "search_form_address") {
+        setTimeout(function () {
+          triggerConditionalLogicEvaluation(fieldName, fieldKey, $changedField);
+        }, 50);
+        return;
+      }
+      var $fieldToUpdate = taxonomyFieldSelector === "search_form_field" ? $changedField : $(taxonomyFieldSelector);
       setTimeout(function () {
-        var $taxField = $(taxonomyFieldSelector);
+        var $taxField = $fieldToUpdate;
         if ($taxField.length) {
           var labels = [];
           var ids = [];
@@ -1435,6 +1510,42 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
   }
   observeTagchecklist();
   setTimeout(observeTagchecklist, 1000); // Retry if loaded via AJAX
+
+  // Search form: when clear button is clicked, checkboxes/radios are cleared without firing change
+  // Trigger re-evaluation so conditional logic updates (e.g. hide fields when tag is cleared)
+  $(document).on("click", ".directorist-search-field__btn--clear", function () {
+    var $fieldWrap = $(this).closest(".directorist-search-field");
+    if (!$fieldWrap.length) return;
+    var fieldKey = null;
+    var fieldName = null;
+    var $changedField = null;
+    if ($fieldWrap.find('input[name="in_tag[]"]').length) {
+      fieldKey = "tag";
+      fieldName = "in_tag[]";
+      $changedField = $fieldWrap.find('input[name="in_tag[]"]').first();
+    } else if ($fieldWrap.find("select[name='in_cat']").length) {
+      fieldKey = "category";
+      fieldName = "in_cat";
+      $changedField = $fieldWrap.find("select[name='in_cat']").first();
+    } else if ($fieldWrap.find("select[name='in_loc']").length) {
+      fieldKey = "location";
+      fieldName = "in_loc";
+      $changedField = $fieldWrap.find("select[name='in_loc']").first();
+    } else if ($fieldWrap.find('input[name="address"]').length && $fieldWrap.hasClass("directorist-search-location")) {
+      fieldKey = "location";
+      fieldName = "address";
+      $changedField = $fieldWrap.find('input[name="address"]').first();
+    } else if ($fieldWrap.find('input[name="q"]').length || $fieldWrap.hasClass("directorist-search-query")) {
+      fieldKey = "title";
+      fieldName = "q";
+      $changedField = $fieldWrap.find('input[name="q"]').first();
+    }
+    if (fieldKey) {
+      setTimeout(function () {
+        triggerConditionalLogicEvaluation(fieldName, fieldKey, $changedField);
+      }, 50);
+    }
+  });
 
   // Also listen on document level as fallback for custom fields that might be outside the form wrapper
   $(document).on("change", '.directorist-custom-field-select select, select.directorist-form-element, .directorist-custom-field-radio input[type="radio"], .directorist-custom-field-checkbox input[type="checkbox"]', function () {

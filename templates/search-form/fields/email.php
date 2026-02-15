@@ -6,9 +6,11 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
+<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; ?>>
     
     <?php if ( ! empty( $data['label'] ) ) : ?>
         <label class="directorist-search-field__label" for="<?php echo esc_attr( $data['field_key'] ?? '' ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

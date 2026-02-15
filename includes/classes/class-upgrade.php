@@ -254,9 +254,9 @@ class ATBDP_Upgrade
         }
 
         // Build conditional logic structure for single category
-        // Use boolean true instead of integer 1 for enabled flag
+        // Use boolean true - WordPress will serialize/unserialize but filter_var handles both
         return array(
-            'enabled'        => true,  // Changed from 1 to true
+            'enabled'        => true,
             'action'         => 'show',
             'globalOperator' => 'OR',
             'groups'         => array(

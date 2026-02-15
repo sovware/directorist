@@ -45,14 +45,8 @@ class ATBDP_Upgrade
      * @return void
      */
     public function migrate_assign_to_conditional_logic() {
-        error_log( 'Migration: Function called' );
-        
         // Skip if migration already done
-        $migration_done = get_option( 'directorist_assign_to_conditional_logic_migrated' );
-        error_log( 'Migration: Migration flag = ' . ( $migration_done ? 'true' : 'false' ) );
-        
-        if ( $migration_done ) {
-            error_log( 'Migration: Already migrated, skipping' );
+        if ( get_option( 'directorist_assign_to_conditional_logic_migrated' ) ) {
             return;
         }
 
@@ -63,28 +57,17 @@ class ATBDP_Upgrade
             )
         );
 
-        error_log( 'Migration: Found ' . count( $directory_types ) . ' directory types' );
-
-        if ( is_wp_error( $directory_types ) ) {
-            error_log( 'Migration: Error getting directory types: ' . $directory_types->get_error_message() );
-            update_option( 'directorist_assign_to_conditional_logic_migrated', true );
-            return;
-        }
-
-        if ( empty( $directory_types ) ) {
-            error_log( 'Migration: No directory types found' );
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
             update_option( 'directorist_assign_to_conditional_logic_migrated', true );
             return;
         }
 
         foreach ( $directory_types as $directory_type ) {
-            error_log( 'Migration: Processing directory type ID: ' . $directory_type->term_id );
             $this->migrate_directory_assign_to_fields( $directory_type->term_id );
         }
 
         // Mark migration as complete
         update_option( 'directorist_assign_to_conditional_logic_migrated', true );
-        error_log( 'Migration: Completed' );
     }
 
     /**
@@ -121,60 +104,66 @@ class ATBDP_Upgrade
                 continue;
             }
 
-            // Skip if field already has valid conditional_logic
+            // Skip if field already has valid conditional_logic with enabled=true
             if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
                 $existing_logic = $field['options']['conditional_logic']['value'];
-                // Check if enabled is truthy (handles both true and 1)
-                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                // Check if enabled and has valid groups
+                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) && is_array( $existing_logic['groups'] ) ) {
                     continue;
                 }
             }
 
-            // Check for old assign_to field (root level only)
+            // Check for old assign_to field (assign_to is boolean flag, category is the ID)
             if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
                 continue;
             }
 
-            // Convert category ID to conditional logic
-            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'] );
-
-            if ( ! empty( $conditional_logic ) ) {
-                // Ensure options array exists
-                if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
-                    $field['options'] = array();
-                }
-
-                // Force enabled to be boolean true (not integer 1)
-                // WordPress serialization may convert it, but this ensures it starts as boolean
-                $conditional_logic['enabled'] = (bool) true;
-
-                // Add conditional logic to options (nested structure for form builder)
-                $field['options']['conditional_logic'] = array(
-                    'type'  => 'conditional-logic',
-                    'value' => $conditional_logic,
-                );
-
-                $submission_form_fields['fields'][ $field_key ] = $field;
-                $updated = true;
+            // Get category ID
+            $category_id = absint( $field['category'] );
+            if ( empty( $category_id ) ) {
+                continue;
             }
+
+            // Verify category exists
+            $category = get_term( $category_id, ATBDP_CATEGORY );
+            if ( is_wp_error( $category ) || empty( $category ) ) {
+                continue;
+            }
+
+            // Ensure options array exists
+            if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
+                $field['options'] = array();
+            }
+
+            // Create conditional logic structure (matches form builder format exactly)
+            $field['options']['conditional_logic'] = array(
+                'type'  => 'conditional-logic',
+                'value' => array(
+                    'enabled'        => true,
+                    'action'         => 'show',
+                    'globalOperator' => 'OR',
+                    'groups'         => array(
+                        array(
+                            'operator'   => 'AND',
+                            'conditions' => array(
+                                array(
+                                    'field'    => 'category',
+                                    'operator' => 'is',
+                                    'value'    => (string) $category_id,
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            );
+
+            $submission_form_fields['fields'][ $field_key ] = $field;
+            $updated = true;
         }
 
         // Update term meta if any fields were migrated
         if ( $updated ) {
-            // Force update to ensure data is saved
             update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
-            
-            // Verify what was actually saved
-            $verify = get_term_meta( $directory_id, 'submission_form_fields', true );
-            if ( ! empty( $verify['fields'] ) ) {
-                foreach ( $verify['fields'] as $key => $f ) {
-                    if ( ! empty( $f['options']['conditional_logic']['value'] ) ) {
-                        $cl = $f['options']['conditional_logic']['value'];
-                        // Log verification - enabled should be truthy (1 or true both work)
-                        error_log( 'Migration Verify: Field ' . $key . ' - enabled: ' . var_export( $cl['enabled'], true ) . ' (type: ' . gettype( $cl['enabled'] ) . ')' );
-                    }
-                }
-            }
         }
     }
 
@@ -203,58 +192,6 @@ class ATBDP_Upgrade
         }
 
         return false;
-    }
-
-    /**
-     * Convert assign_to category value to conditional logic format
-     *
-     * @param mixed $assign_to Category ID
-     * @return array|null Conditional logic array or null if invalid
-     */
-    private function convert_assign_to_to_conditional_logic( $assign_to ) {
-        if ( empty( $assign_to ) ) {
-            return null;
-        }
-
-        $category_id = null;
-        
-        if ( is_array( $assign_to ) ) {
-            $category_id = ! empty( $assign_to[0] ) ? absint( $assign_to[0] ) : null;
-        } elseif ( is_numeric( $assign_to ) ) {
-            $category_id = absint( $assign_to );
-        } elseif ( is_string( $assign_to ) ) {
-            $ids = explode( ',', $assign_to );
-            $category_id = ! empty( $ids[0] ) ? absint( trim( $ids[0] ) ) : null;
-        }
-
-        if ( empty( $category_id ) ) {
-            return null;
-        }
-
-        // Verify category exists
-        $category = get_term( $category_id, ATBDP_CATEGORY );
-        if ( is_wp_error( $category ) || empty( $category ) ) {
-            return null;
-        }
-
-        // Build conditional logic - use boolean true explicitly
-        return array(
-            'enabled'        => true,  // Explicit boolean
-            'action'         => 'show',
-            'globalOperator' => 'OR',
-            'groups'         => array(
-                array(
-                    'operator'   => 'AND',
-                    'conditions' => array(
-                        array(
-                            'field'    => 'category',
-                            'operator' => 'is',
-                            'value'    => (string) $category_id,
-                        ),
-                    ),
-                ),
-            ),
-        );
     }
 
     public function v8_force_migration() {

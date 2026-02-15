@@ -1711,7 +1711,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Check required fields are valid or not
   function checkRequiredFields(searchElm) {
     // Select all required inputs and selects inside searchElm
-    var requiredInputs = searchElm.find('input[required], select[required], textarea[required]');
+    var requiredInputs = searchElm.find('.directorist-search-field input[required], .directorist-search-field select[required], .directorist-search-field textarea[required]');
     var requiredFieldsAreValid = true;
     requiredInputs.each(function () {
       var $el = $(this);
@@ -3388,6 +3388,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {

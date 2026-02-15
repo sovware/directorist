@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-w-100 directorist-authors-section" id="directorist-all-authors">
 
-    <div class="directorist-container">
+    <div class="directorist-container-fluid">
 
         <div class="directorist-authors">
 

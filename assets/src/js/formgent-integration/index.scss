@@ -1,0 +1,70 @@
+@import "~@wordpress/dataviews/build-style/style.css";
+
+.directorist-enquiry-modal {
+	--formgent-color-primary: #5e53f9;
+	--formgent-color-primary-hover: #563dee;
+	--formgent-color-primary-2: #2188ff;
+	--formgent-color-primary-50: #edefff;
+	--formgent-color-primary-100: #dee3ff;
+	--formgent-color-primary-200: #c4cbff;
+	--formgent-color-gray-100: #f3f4f6;
+	--formgent-color-gray-200: #e5e7eb;
+	--formgent-color-gray-300: #d2d6db;
+	--formgent-color-gray-400: #a1a9b2;
+	--formgent-color-gray-500: #747c89;
+	--formgent-color-gray-600: #4d5761;
+	--formgent-color-gray-700: #383f47;
+	--formgent-color-gray-800: #2c3239;
+	--formgent-color-gray-900: #141921;
+
+	.components-modal__header {
+		border-bottom: 1px solid #e0e0e0;
+		@media only screen and (max-width: 380px) {
+			padding: 24px 15px;
+		}
+	}
+	.components-modal__header .components-modal__header-heading {
+		@media only screen and (max-width: 380px) {
+			font-size: 16px;
+			line-height: 1.3;
+		}
+	}
+}
+
+// Table item delete modal
+.directorist-formgent-table-modal {
+	h1 {
+		font-size: 22px;
+		font-weight: 600;
+		margin: 0 0 10px 0;
+	}
+	p {
+		font-size: 16px;
+		font-weight: 400;
+		margin: 0 0 20px 0;
+	}
+	.directorist-formgent-table-modal-action {
+		display: flex;
+		justify-content: flex-end;
+		gap: 10px;
+	}
+}
+
+// Plugin fix
+.dataviews-view-table .dataviews-view-table-header,
+.dataviews-view-table .dataviews-view-table-header-button {
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 600;
+	color: #4b5563 !important;
+	letter-spacing: 0.025em;
+}
+
+// hepgent toast
+#helpgent-toast {
+	div[role="status"] {
+		font-size: 16px;
+		font-family: inherit;
+		font-weight: 400;
+	}
+}

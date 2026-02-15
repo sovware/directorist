@@ -28,9 +28,11 @@ $current_labels = array_map(
 $current_ids_as_string    = implode( ',', $current_ids );
 $current_labels_as_string = implode( ',', $current_labels );
 
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-form-categories-field">
+<div class="directorist-form-group directorist-form-categories-field"<?php echo $conditional_logic_attr; ?>>
 
     <?php $listing_form->field_label_template( $data );?>
 

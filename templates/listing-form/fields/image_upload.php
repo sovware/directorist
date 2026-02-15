@@ -31,9 +31,12 @@ $img_upload_data = [
 ];
 
 $img_upload_data = json_encode( $img_upload_data );
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-form-image-upload-field">
+<div class="directorist-form-group directorist-form-image-upload-field"<?php echo $conditional_logic_attr; ?>>
     <div class="ez-media-uploader directorist-image-upload" data-uploader="<?php echo esc_attr( $img_upload_data ); ?>">
         <div class="ezmu__loading-section ezmu--show">
             <span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>

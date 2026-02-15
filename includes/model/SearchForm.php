@@ -415,27 +415,16 @@ class Directorist_Listing_Search_Form {
         return $ptype;
     }
 
-    // custom field assign to category
+    /**
+     * @deprecated Use conditional_logic instead of assign_to for field visibility.
+     * This method returns empty arrays to maintain backward compatibility.
+     */
     public function assign_to_category() {
-        $submission_form_fields = get_term_meta( $this->listing_type , 'submission_form_fields', true );
-        $category_id = isset( $_REQUEST['cat_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cat_id'] ) ) : '';
-        $custom_field_key = [];
-        $assign_to_cat = [];
-
-        if ( $submission_form_fields['fields'] ) {
-            foreach ( $submission_form_fields['fields'] as $field ) {
-                if ( ! empty( $field['assign_to'] ) && $category_id != $field['category'] ) {
-                    $custom_field_key[] = $field['field_key'];
-                    $assign_to_cat[]    = $field['category'];
-                }
-            }
-        }
-
-        $category_custom_field = [
-            'custom_field_key'  => $custom_field_key,
-            'assign_to_cat'     => $assign_to_cat,
+        // Deprecated: assign_to feature has been removed in favor of conditional_logic
+        return [
+            'custom_field_key' => [],
+            'assign_to_cat'    => [],
         ];
-        return $category_custom_field;
     }
 
     public function field_template( $field_data ) {
@@ -622,7 +611,8 @@ class Directorist_Listing_Search_Form {
     }
 
     public function get_atts_data() {
-        $this->params['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->listing_type );
+        // Removed: category_custom_fields_relations is no longer used (assign_to feature removed)
+        // $this->params['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->listing_type );
 
         return json_encode( $this->params );
     }

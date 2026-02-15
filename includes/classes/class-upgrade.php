@@ -31,19 +31,28 @@ class ATBDP_Upgrade
 
         add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
 
-        // will be removed in future
-        add_action( 'admin_init', [ $this, 'review_migration' ] );
+        // Migrate assign_to to conditional logic (custom fields only)
+        add_action( 'admin_init', [ $this, 'migrate_assign_to_conditional_logic' ] );
     }
 
     /**
-     * Run review consent migration for all directory types.
+     * Migrate assign_to category fields to conditional logic
+     *
+     * Converts old custom fields with assign_to category to new conditional logic format.
+     * Only processes custom fields (not preset fields) and supports single category only.
      *
      * @since 8.0
      * @return void
      */
-    public function review_migration() {
+    public function migrate_assign_to_conditional_logic() {
+        error_log( 'Migration: Function called' );
+        
         // Skip if migration already done
-        if ( get_option( 'directorist_review_consent_migrated' ) ) {
+        $migration_done = get_option( 'directorist_assign_to_conditional_logic_migrated' );
+        error_log( 'Migration: Migration flag = ' . ( $migration_done ? 'true' : 'false' ) );
+        
+        if ( $migration_done ) {
+            error_log( 'Migration: Already migrated, skipping' );
             return;
         }
 
@@ -54,103 +63,215 @@ class ATBDP_Upgrade
             )
         );
 
-        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
-            update_option( 'directorist_review_consent_migrated', true );
+        error_log( 'Migration: Found ' . count( $directory_types ) . ' directory types' );
+
+        if ( is_wp_error( $directory_types ) ) {
+            error_log( 'Migration: Error getting directory types: ' . $directory_types->get_error_message() );
+            update_option( 'directorist_assign_to_conditional_logic_migrated', true );
+            return;
+        }
+
+        if ( empty( $directory_types ) ) {
+            error_log( 'Migration: No directory types found' );
+            update_option( 'directorist_assign_to_conditional_logic_migrated', true );
             return;
         }
 
         foreach ( $directory_types as $directory_type ) {
-            $this->add_review_consent_field( $directory_type->term_id );
+            error_log( 'Migration: Processing directory type ID: ' . $directory_type->term_id );
+            $this->migrate_directory_assign_to_fields( $directory_type->term_id );
         }
 
-        update_option( 'directorist_review_consent_migrated', true );
+        // Mark migration as complete
+        update_option( 'directorist_assign_to_conditional_logic_migrated', true );
+        error_log( 'Migration: Completed' );
     }
 
     /**
-     * Add review consent field to directory type.
+     * Migrate assign_to fields for a specific directory type
      *
-     * @since 8.0
-     * @param int $term_id Directory type term ID.
+     * @param int $directory_id Directory type term ID
      * @return void
      */
-    private function add_review_consent_field( $term_id ) {
-        // Validate term ID
-        $term_id = absint( $term_id );
-        if ( empty( $term_id ) ) {
+    private function migrate_directory_assign_to_fields( $directory_id ) {
+        $directory_id = absint( $directory_id );
+        error_log( 'Migration: Processing directory ID: ' . $directory_id );
+        
+        if ( empty( $directory_id ) ) {
+            error_log( 'Migration: Empty directory ID, skipping' );
             return;
         }
 
-        $contents = get_term_meta( $term_id, 'single_listings_contents', true );
+        $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
 
-        // Must be array with groups
-        if ( empty( $contents ) || ! is_array( $contents ) ) {
+        if ( empty( $submission_form_fields ) || ! is_array( $submission_form_fields ) ) {
+            error_log( 'Migration: No submission form fields found for directory ' . $directory_id );
             return;
         }
 
-        $fields = isset( $contents['fields'] ) && is_array( $contents['fields'] ) ? $contents['fields'] : array();
-        $groups = isset( $contents['groups'] ) && is_array( $contents['groups'] ) ? $contents['groups'] : array();
-
-        // Already has consent → skip
-        if ( isset( $fields['review_consent'] ) ) {
+        if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
+            error_log( 'Migration: No fields array found for directory ' . $directory_id );
             return;
         }
+
+        error_log( 'Migration: Found ' . count( $submission_form_fields['fields'] ) . ' fields' );
 
         $updated = false;
+        $processed_count = 0;
+        $skipped_count = 0;
 
-        foreach ( $groups as $index => $group ) {
-            if ( ! is_array( $group ) || empty( $group['widget_name'] ) ) {
+        foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
+            if ( ! is_array( $field ) ) {
                 continue;
             }
 
-            if ( 'review' === $group['widget_name'] ) {
-                // Add review_consent field
-                $fields['review_consent'] = array(
-                    'enable_cookie_consent' => false,
-                    'enable_gdpr_consent'   => false,
-                    'consent_label'         => sprintf(
-                        /* translators: %1$s: Privacy Policy URL, %2$s: Terms of Service URL */
-                        __( 'I have read and agree to the <a href="%1$s" target="_blank">Privacy Policy</a> and <a href="%2$s" target="_blank">Terms of Service</a>', 'directorist' ),
-                        esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ),
-                        esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() )
-                    ),
-                    'widget_group'      => 'other_widgets',
-                    'widget_name'       => 'review',
-                    'widget_child_name' => 'review_consent',
-                    'widget_key'        => 'review_consent',
+            $processed_count++;
+
+            // Only process custom fields
+            if ( ! $this->is_custom_field_for_migration( $field ) ) {
+                $skipped_count++;
+                continue;
+            }
+
+            // Skip if field already has valid conditional_logic
+            // Check if it's the nested structure with value
+            if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
+                // Check if enabled is true
+                $existing_logic = $field['options']['conditional_logic']['value'];
+                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                    error_log( 'Migration: Field ' . $field_key . ' already has conditional logic, skipping' );
+                    $skipped_count++;
+                    continue; // Already has valid conditional logic
+                }
+            }
+
+            // Check for old assign_to field (root level only)
+            // assign_to is a boolean flag, category contains the actual category ID
+            if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+                error_log( 'Migration: Field ' . $field_key . ' - assign_to: ' . ( isset( $field['assign_to'] ) ? print_r( $field['assign_to'], true ) : 'not set' ) . ', category: ' . ( isset( $field['category'] ) ? print_r( $field['category'], true ) : 'not set' ) );
+                $skipped_count++;
+                continue;
+            }
+
+            error_log( 'Migration: Field ' . $field_key . ' - assign_to: ' . print_r( $field['assign_to'], true ) . ', category: ' . print_r( $field['category'], true ) );
+
+            // Convert category ID to conditional logic (single category only)
+            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'] );
+
+            if ( ! empty( $conditional_logic ) ) {
+                // Ensure options array exists
+                if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
+                    $field['options'] = array();
+                }
+
+                // Add conditional logic to options (nested structure for form builder)
+                $field['options']['conditional_logic'] = array(
+                    'type'  => 'conditional-logic',
+                    'value' => $conditional_logic,
                 );
 
-                // Ensure group fields is array
-                if ( ! isset( $group['fields'] ) || ! is_array( $group['fields'] ) ) {
-                    $group['fields'] = array();
-                }
-
-                if ( ! in_array( 'review_consent', $group['fields'], true ) ) {
-                    $group['fields'][] = 'review_consent';
-                }
-
-                // Update accepted_widgets if it exists
-                if ( isset( $group['accepted_widgets'] ) && is_array( $group['accepted_widgets'] ) ) {
-                    $group['accepted_widgets'][] = array(
-                        'widget_group'      => 'other_widgets',
-                        'widget_name'       => 'review',
-                        'widget_child_name' => 'review_consent',
-                    );
-                }
-
-                // Save back the modified group
-                $groups[ $index ] = $group;
+                error_log( 'Migration: Migrating field ' . $field_key . ' - Category: ' . print_r( $field['category'], true ) );
+                error_log( 'Migration: Conditional Logic: ' . print_r( $conditional_logic, true ) );
+                
+                $submission_form_fields['fields'][ $field_key ] = $field;
                 $updated = true;
-                break;
+            } else {
+                error_log( 'Migration: Failed to convert conditional logic for field ' . $field_key );
             }
         }
 
-        // Only update database if changes were made
+        error_log( 'Migration: Processed ' . $processed_count . ' fields, skipped ' . $skipped_count . ', updated ' . ( $updated ? '1' : '0' ) );
+
+        // Update term meta if any fields were migrated
         if ( $updated ) {
-            $contents['fields'] = $fields;
-            $contents['groups'] = $groups;
-            
-            update_term_meta( $term_id, 'single_listings_contents', $contents );
+            update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
+            error_log( 'Migration: Updated term meta for directory ' . $directory_id );
         }
+    }
+
+    /**
+     * Check if field is a custom field for migration
+     *
+     * @param array $field Field data array
+     * @return bool True if custom field, false otherwise
+     */
+    private function is_custom_field_for_migration( $field ) {
+        // Check widget_group
+        if ( ! empty( $field['widget_group'] ) && $field['widget_group'] === 'custom' ) {
+            return true;
+        }
+
+        // Check widget_name against custom field types
+        $custom_field_types = array( 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' );
+        
+        if ( ! empty( $field['widget_name'] ) && in_array( $field['widget_name'], $custom_field_types, true ) ) {
+            return true;
+        }
+
+        // Check if field_key starts with 'custom-'
+        if ( ! empty( $field['field_key'] ) && strpos( $field['field_key'], 'custom-' ) === 0 ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Convert assign_to category value to conditional logic format
+     *
+     * Supports single category only. If multiple categories provided, uses the first one.
+     *
+     * @param mixed $assign_to Category ID - can be int, string, or array (uses first)
+     * @return array|null Conditional logic array or null if invalid
+     */
+    private function convert_assign_to_to_conditional_logic( $assign_to ) {
+        if ( empty( $assign_to ) ) {
+            return null;
+        }
+
+        // Get single category ID (assign_to supports only one category per field)
+        $category_id = null;
+        
+        if ( is_array( $assign_to ) ) {
+            // If array, take first valid category ID
+            $category_id = ! empty( $assign_to[0] ) ? absint( $assign_to[0] ) : null;
+        } elseif ( is_numeric( $assign_to ) ) {
+            $category_id = absint( $assign_to );
+        } elseif ( is_string( $assign_to ) ) {
+            // Handle comma-separated string - take first
+            $ids = explode( ',', $assign_to );
+            $category_id = ! empty( $ids[0] ) ? absint( trim( $ids[0] ) ) : null;
+        }
+
+        if ( empty( $category_id ) ) {
+            return null;
+        }
+
+        // Verify category exists
+        $category = get_term( $category_id, ATBDP_CATEGORY );
+        if ( is_wp_error( $category ) || empty( $category ) ) {
+            return null;
+        }
+
+        // Build conditional logic structure for single category
+        // Use boolean true instead of integer 1 for enabled flag
+        return array(
+            'enabled'        => true,  // Changed from 1 to true
+            'action'         => 'show',
+            'globalOperator' => 'OR',
+            'groups'         => array(
+                array(
+                    'operator'   => 'AND',
+                    'conditions' => array(
+                        array(
+                            'field'    => 'category',
+                            'operator' => 'is',
+                            'value'    => (string) $category_id,
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
 
     public function v8_force_migration() {

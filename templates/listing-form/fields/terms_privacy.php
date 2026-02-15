@@ -6,8 +6,11 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
-<div class="directorist-add-listing-form__privacy">
+<div class="directorist-add-listing-form__privacy"<?php echo $conditional_logic_attr; ?>>
     <?php
     do_action( 'atbdp_before_terms_and_conditions_font' )
     ?>

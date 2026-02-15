@@ -3049,26 +3049,6 @@ class Builder_Data {
         self::$config = $config;
     }
 
-    protected static function get_assign_to_field( array $args = [] ) {
-        $default = [
-            'type' => 'radio',
-            'label' => __( 'Assign to', 'directorist' ),
-            'value' => 'form',
-            'options' => [
-                [
-                    'label' => __( 'Form', 'directorist' ),
-                    'value' => 'form',
-                ],
-                [
-                    'label' => __( 'Category', 'directorist' ),
-                    'value' => 'category',
-                ],
-            ],
-        ];
-
-        return array_merge( $default, $args );
-    }
-
     protected static function get_file_upload_field_options() {
         $options = [
             [

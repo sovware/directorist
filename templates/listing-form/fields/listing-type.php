@@ -10,9 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( is_admin() || $data['value'] ) {
     return;
 }
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-form-listing-type">
+<div class="directorist-form-group directorist-form-listing-type"<?php echo $conditional_logic_attr; ?>>
 
     <?php $listing_form->field_label_template( $data );?>
 

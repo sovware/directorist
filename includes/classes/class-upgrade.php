@@ -104,9 +104,14 @@ class ATBDP_Upgrade
                 continue;
             }
 
-            // Skip if field already has conditional_logic
-            if ( ! empty( $field['options']['conditional_logic'] ) ) {
-                continue;
+            // Skip if field already has valid conditional_logic
+            // Check if it's the nested structure with value
+            if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
+                // Check if enabled is true
+                $existing_logic = $field['options']['conditional_logic']['value'];
+                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                    continue; // Already has valid conditional logic
+                }
             }
 
             // Check for old assign_to field (root level only)
@@ -114,7 +119,7 @@ class ATBDP_Upgrade
             if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
                 continue;
             }
-            error_log( print_r( $field['category'], true ) );
+
             // Convert category ID to conditional logic (single category only)
             $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'] );
 
@@ -124,12 +129,15 @@ class ATBDP_Upgrade
                     $field['options'] = array();
                 }
 
-                // Add conditional logic to options
+                // Add conditional logic to options (nested structure for form builder)
                 $field['options']['conditional_logic'] = array(
                     'type'  => 'conditional-logic',
                     'value' => $conditional_logic,
                 );
-
+                error_log( 'Migration: Field ' . $field_key . ' - Category: ' . print_r( $field['category'], true ) );
+                error_log( 'Migration: Conditional Logic: ' . print_r( $conditional_logic, true ) );
+                error_log( 'Migration: Full Field: ' . print_r( $field, true ) );
+                
                 $submission_form_fields['fields'][ $field_key ] = $field;
                 $updated = true;
             }

@@ -567,101 +567,176 @@ class Directorist_Listing_Form {
     /**
      * Get conditional logic data attributes for field wrapper
      *
+     * Handles all possible data structure locations including nested structures.
+     * This method centralizes all conditional logic processing to eliminate duplication.
+     *
      * @param array $data Field data array
-     * @return string HTML attributes string
+     * @return string HTML attributes string (empty if no conditional logic or not enabled)
      */
     public function get_conditional_logic_attributes( $data ) {
-        $attributes = '';
+        $conditional_logic = $this->extract_conditional_logic( $data );
         
-        // Get conditional logic data from various possible locations
-        $conditional_logic = null;
+        if ( empty( $conditional_logic ) ) {
+            return '';
+        }
         
-        // Priority 1: Already processed conditional_logic_data (JSON string)
+        $normalized = $this->normalize_conditional_logic( $conditional_logic );
+        
+        if ( empty( $normalized ) ) {
+            return '';
+        }
+        
+        $field_key = isset( $data['field_key'] ) ? $data['field_key'] : '';
+        $json      = wp_json_encode( $normalized );
+        
+        return ' data-conditional-logic="' . esc_attr( $json ) . '" data-field-key="' . esc_attr( $field_key ) . '"';
+    }
+
+    /**
+     * Extract conditional logic from field data
+     *
+     * Handles all possible data structure locations:
+     * 1. conditional_logic_data (already processed JSON string or array)
+     * 2. options.conditional_logic.value (nested structure from form builder)
+     * 3. options.conditional_logic (flat structure - backward compatibility)
+     * 4. conditional_logic (direct key - edge cases)
+     *
+     * @param array $data Field data array
+     * @return array|null Conditional logic array or null if not found
+     */
+    private function extract_conditional_logic( $data ) {
+        // Priority 1: Already processed conditional_logic_data
         if ( ! empty( $data['conditional_logic_data'] ) ) {
             if ( is_string( $data['conditional_logic_data'] ) ) {
-                $conditional_logic = json_decode( $data['conditional_logic_data'], true );
-            } else {
-                $conditional_logic = $data['conditional_logic_data'];
+                $decoded = json_decode( $data['conditional_logic_data'], true );
+                if ( json_last_error() === JSON_ERROR_NONE && is_array( $decoded ) ) {
+                    return $decoded;
+                }
+            } elseif ( is_array( $data['conditional_logic_data'] ) ) {
+                return $data['conditional_logic_data'];
             }
-        } 
-        // Priority 2: options.conditional_logic (array)
-        elseif ( ! empty( $data['options']['conditional_logic'] ) && is_array( $data['options']['conditional_logic'] ) ) {
-            $conditional_logic = $data['options']['conditional_logic'];
-        }
-        // Priority 3: Direct conditional_logic key
-        elseif ( ! empty( $data['conditional_logic'] ) && is_array( $data['conditional_logic'] ) ) {
-            $conditional_logic = $data['conditional_logic'];
         }
         
-        // Normalize and validate conditional logic data
-        if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) ) {
-            // Normalize enabled flag (handle string "1", boolean true, etc.)
-            if ( isset( $conditional_logic['enabled'] ) ) {
-                $conditional_logic['enabled'] = filter_var( $conditional_logic['enabled'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
-                // If still null, treat as false
-                if ( is_null( $conditional_logic['enabled'] ) ) {
-                    $conditional_logic['enabled'] = false;
+        // Priority 2: options.conditional_logic.value (nested structure from form builder)
+        if ( ! empty( $data['options']['conditional_logic']['value'] ) && is_array( $data['options']['conditional_logic']['value'] ) ) {
+            return $data['options']['conditional_logic']['value'];
+        }
+        
+        // Priority 3: options.conditional_logic (flat structure - backward compatibility)
+        if ( ! empty( $data['options']['conditional_logic'] ) && is_array( $data['options']['conditional_logic'] ) ) {
+            // Check if it's the nested structure wrapper
+            if ( isset( $data['options']['conditional_logic']['value'] ) ) {
+                return null; // Already handled in Priority 2
+            }
+            return $data['options']['conditional_logic'];
+        }
+        
+        // Priority 4: Direct conditional_logic key
+        if ( ! empty( $data['conditional_logic'] ) && is_array( $data['conditional_logic'] ) ) {
+            return $data['conditional_logic'];
+        }
+        
+        return null;
+    }
+
+    /**
+     * Normalize and validate conditional logic data
+     *
+     * @param array $conditional_logic Raw conditional logic array
+     * @return array|null Normalized conditional logic array or null if invalid
+     */
+    private function normalize_conditional_logic( $conditional_logic ) {
+        if ( ! is_array( $conditional_logic ) ) {
+            return null;
+        }
+        
+        // Normalize enabled flag
+        $enabled = isset( $conditional_logic['enabled'] ) 
+            ? filter_var( $conditional_logic['enabled'], FILTER_VALIDATE_BOOLEAN ) 
+            : false;
+        
+        if ( ! $enabled ) {
+            return null;
+        }
+        
+        // Ensure groups array exists
+        if ( ! isset( $conditional_logic['groups'] ) || ! is_array( $conditional_logic['groups'] ) ) {
+            return null;
+        }
+        
+        // Normalize globalOperator
+        $global_operator = $this->normalize_operator( 
+            $conditional_logic['globalOperator'] ?? 'OR' 
+        );
+        
+        // Normalize groups
+        $normalized_groups = $this->normalize_groups( $conditional_logic['groups'] );
+        
+        if ( empty( $normalized_groups ) ) {
+            return null;
+        }
+        
+        return [
+            'enabled'        => true,
+            'action'         => $conditional_logic['action'] ?? 'show',
+            'globalOperator' => $global_operator,
+            'groups'         => $normalized_groups,
+        ];
+    }
+
+    /**
+     * Normalize operator value
+     *
+     * @param mixed $operator Operator value
+     * @return string Normalized operator (AND or OR)
+     */
+    private function normalize_operator( $operator ) {
+        if ( empty( $operator ) || ! is_string( $operator ) ) {
+            return 'OR';
+        }
+        
+        $normalized = strtoupper( trim( $operator ) );
+        
+        return in_array( $normalized, [ 'AND', 'OR' ], true ) ? $normalized : 'OR';
+    }
+
+    /**
+     * Normalize groups array
+     *
+     * @param array $groups Raw groups array
+     * @return array Normalized groups array
+     */
+    private function normalize_groups( $groups ) {
+        if ( ! is_array( $groups ) ) {
+            return [];
+        }
+        
+        $normalized = [];
+        
+        foreach ( $groups as $group ) {
+            if ( ! is_array( $group ) || empty( $group['conditions'] ) || ! is_array( $group['conditions'] ) ) {
+                continue;
+            }
+            
+            $operator = $this->normalize_operator( $group['operator'] ?? 'AND' );
+            
+            // Filter and validate conditions
+            $valid_conditions = [];
+            foreach ( $group['conditions'] as $condition ) {
+                if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
+                    $valid_conditions[] = $condition;
                 }
             }
             
-            // Only output if enabled is true
-            if ( ! empty( $conditional_logic['enabled'] ) ) {
-                // Ensure groups array exists and is properly formatted
-                if ( ! isset( $conditional_logic['groups'] ) || ! is_array( $conditional_logic['groups'] ) ) {
-                    $conditional_logic['groups'] = [];
-                }
-                
-                // Normalize globalOperator (default to OR for backward compatibility)
-                // Handle empty string, null, or missing operator
-                if ( empty( $conditional_logic['globalOperator'] ) || ! is_string( $conditional_logic['globalOperator'] ) ) {
-                    $conditional_logic['globalOperator'] = 'OR';
-                } else {
-                    // Ensure uppercase for consistency
-                    $conditional_logic['globalOperator'] = strtoupper( trim( $conditional_logic['globalOperator'] ) );
-                }
-                
-                // Normalize groups structure
-                $normalized_groups = [];
-                foreach ( $conditional_logic['groups'] as $group ) {
-                    if ( ! is_array( $group ) || empty( $group['conditions'] ) || ! is_array( $group['conditions'] ) ) {
-                        continue;
-                    }
-                    
-                    // Normalize group operator (default to AND)
-                    // Handle empty string, null, or missing operator
-                    if ( empty( $group['operator'] ) || ! is_string( $group['operator'] ) ) {
-                        $group['operator'] = 'AND';
-                    } else {
-                        // Ensure uppercase for consistency
-                        $group['operator'] = strtoupper( trim( $group['operator'] ) );
-                    }
-                    
-                    // Filter out empty conditions
-                    $valid_conditions = [];
-                    foreach ( $group['conditions'] as $condition ) {
-                        if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
-                            $valid_conditions[] = $condition;
-                        }
-                    }
-                    
-                    // Only add group if it has valid conditions
-                    if ( ! empty( $valid_conditions ) ) {
-                        $group['conditions'] = $valid_conditions;
-                        $normalized_groups[] = $group;
-                    }
-                }
-                
-                // Only output if we have valid groups
-                if ( ! empty( $normalized_groups ) ) {
-                    $conditional_logic['groups'] = $normalized_groups;
-                    $conditional_logic_json = wp_json_encode( $conditional_logic );
-                    $attributes = ' data-conditional-logic="' . esc_attr( $conditional_logic_json ) . '"';
-                    $attributes .= ' data-field-key="' . esc_attr( $data['field_key'] ?? '' ) . '"';
-                }
+            if ( ! empty( $valid_conditions ) ) {
+                $normalized[] = [
+                    'operator'   => $operator,
+                    'conditions' => $valid_conditions,
+                ];
             }
         }
         
-        return $attributes;
+        return $normalized;
     }
 
     public function field_description_template( $data ) {
@@ -779,24 +854,12 @@ class Directorist_Listing_Form {
         $field_data['form']  = $this;
         $field_data          = apply_filters( 'directorist_form_field_data', $field_data );
         
-        // Add conditional logic data for frontend JavaScript evaluation (after filter to ensure it's preserved)
-        // Check multiple possible locations for conditional logic
-        $conditional_logic = null;
+        // Extract and prepare conditional logic data for frontend
+        // This ensures conditional_logic_data is available in templates
+        $conditional_logic = $this->extract_conditional_logic( $field_data );
         
-        // Priority 1: Already processed conditional_logic_data
-        if ( ! empty( $field_data['conditional_logic_data'] ) ) {
-            // Already set, do nothing
-        }
-        // Priority 2: options.conditional_logic (most common)
-        elseif ( ! empty( $field_data['options']['conditional_logic'] ) ) {
-            $conditional_logic = $field_data['options']['conditional_logic'];
-        }
-        // Priority 3: Direct conditional_logic key
-        elseif ( ! empty( $field_data['conditional_logic'] ) ) {
-            $conditional_logic = $field_data['conditional_logic'];
-        }
-        
-        if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) && ! empty( $conditional_logic['enabled'] ) ) {
+        if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) ) {
+            // Store as JSON string for template use (only encode once)
             $field_data['conditional_logic_data'] = wp_json_encode( $conditional_logic );
         }
 

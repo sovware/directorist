@@ -650,8 +650,14 @@ export default {
 					widgetKey ||
 					'Unnamed Field';
 
-				// Get field type
-				const type = widget.type || widget.field_type || 'text';
+				// Get field type (use widget_name for custom fields - e.g. search form radio)
+				let type = widget.type || widget.field_type || 'text';
+				if (type === 'text' && widget.widget_name) {
+					const wn = String(widget.widget_name).toLowerCase();
+					if (['select', 'radio', 'checkbox'].includes(wn)) {
+						type = wn;
+					}
+				}
 
 				// Only include fields that can be used in conditions
 				// Exclude fields like conditional-logic itself and non-comparable types
@@ -667,15 +673,31 @@ export default {
 				}
 
 				// For custom fields, prefer field_key over widget_key if available
-				// This ensures we use the actual field_key used in HTML (e.g., "custom-select")
-				// instead of just the widget_key
+				// Same logic for both submission and search form
 				const fieldValue = widget.field_key || widgetKey;
 
+				// Enrich widget with options when field links to another (e.g. search form
+				// custom field → submission form). Same structure for both forms.
+				let widgetData = widget;
+				if (widget.original_widget_key) {
+					const linkedOptions =
+						this.getOptionsFromLinkedField(widget);
+					if (linkedOptions && linkedOptions.length > 0) {
+						widgetData = {
+							...widget,
+							value: {
+								...(widget.value || {}),
+								options: linkedOptions,
+							},
+						};
+					}
+				}
+
 				fields.push({
-					value: fieldValue, // Use field_key if available, otherwise widget_key
+					value: fieldValue,
 					label: label,
 					type: type,
-					widget: widget, // Store full widget data for accessing options
+					widget: widgetData,
 				});
 			}
 
@@ -736,8 +758,14 @@ export default {
 
 			const fieldType = fieldData.type;
 			const widget = fieldData.widget;
-			const widgetName = (widget && widget.widget_name) || (widget && widget.widget_key) || '';
-			const fieldKeyNorm = (condition.field || '').toString().trim().toLowerCase();
+			const widgetName =
+				(widget && widget.widget_name) ||
+				(widget && widget.widget_key) ||
+				'';
+			const fieldKeyNorm = (condition.field || '')
+				.toString()
+				.trim()
+				.toLowerCase();
 
 			// Helper: check if field is category (submission form + search form)
 			const isCategoryField = () =>
@@ -805,7 +833,14 @@ export default {
 			}
 
 			// Handle select/radio/checkbox fields - get options from widget
-			if (['select', 'radio', 'checkbox'].includes(fieldType) && widget) {
+			// Include widget_name for search form custom fields that may not have type set
+			const hasOptionsType =
+				['select', 'radio', 'checkbox'].includes(fieldType) ||
+				(widgetName &&
+					['select', 'radio', 'checkbox'].includes(
+						String(widgetName).toLowerCase()
+					));
+			if (hasOptionsType && widget) {
 				const options = [];
 
 				// Priority 1: Check widget.value.options (saved field value - actual options data)
@@ -913,12 +948,131 @@ export default {
 					}
 				}
 
+				// Fallback: linked field (e.g. search form custom → submission form)
+				if (widget.original_widget_key) {
+					const linkedOptions =
+						this.getOptionsFromLinkedField(widget);
+					if (linkedOptions && linkedOptions.length > 0) {
+						return linkedOptions;
+					}
+				}
+
 				// No options found
 				return null;
 			}
 
 			// For other field types, return null to show text input
 			return null;
+		},
+
+		/**
+		 * Get options from linked field (widget.original_widget_key).
+		 * Same structure for both forms - used when a field references another for options.
+		 */
+		getOptionsFromLinkedField(widget) {
+			const originalKey = widget && widget.original_widget_key;
+			if (!originalKey || !this.fields) return null;
+			const linked = this.fields.submission_form_fields;
+			if (!linked || !linked.value || !linked.value.fields) return null;
+			const sourceWidget = linked.value.fields[originalKey];
+			return this.extractOptionsFromWidget(sourceWidget);
+		},
+
+		/**
+		 * Extract option array from a widget (select/radio/checkbox)
+		 */
+		extractOptionsFromWidget(sourceWidget) {
+			if (!sourceWidget) return null;
+			const options = [];
+			if (
+				sourceWidget.value &&
+				sourceWidget.value.options &&
+				Array.isArray(sourceWidget.value.options)
+			) {
+				sourceWidget.value.options.forEach((option) => {
+					if (typeof option === 'object') {
+						if (option.option_value !== undefined) {
+							options.push({
+								value: String(option.option_value || ''),
+								label: this.decodeHtmlEntities(
+									option.option_label ||
+										option.option_value ||
+										''
+								),
+							});
+						} else if (option.value !== undefined) {
+							options.push({
+								value: String(option.value || ''),
+								label: this.decodeHtmlEntities(
+									option.label || option.value || ''
+								),
+							});
+						}
+					}
+				});
+				if (options.length > 0) return options;
+			}
+			if (
+				sourceWidget.options &&
+				sourceWidget.options.options &&
+				sourceWidget.options.options.value
+			) {
+				const savedOptions = sourceWidget.options.options.value;
+				if (Array.isArray(savedOptions)) {
+					savedOptions.forEach((option) => {
+						if (typeof option === 'object') {
+							if (option.option_value !== undefined) {
+								options.push({
+									value: String(option.option_value || ''),
+									label: this.decodeHtmlEntities(
+										option.option_label ||
+											option.option_value ||
+											''
+									),
+								});
+							} else if (option.value !== undefined) {
+								options.push({
+									value: String(option.value || ''),
+									label: this.decodeHtmlEntities(
+										option.label || option.value || ''
+									),
+								});
+							}
+						}
+					});
+					if (options.length > 0) return options;
+				}
+			}
+			if (sourceWidget.options && Array.isArray(sourceWidget.options)) {
+				sourceWidget.options.forEach((option) => {
+					if (typeof option === 'object') {
+						if (option.option_value !== undefined) {
+							options.push({
+								value: String(option.option_value || ''),
+								label: this.decodeHtmlEntities(
+									option.option_label ||
+										option.option_value ||
+										''
+								),
+							});
+						} else if (option.value !== undefined) {
+							options.push({
+								value: String(option.value || ''),
+								label: this.decodeHtmlEntities(
+									option.label || option.value || ''
+								),
+							});
+						}
+					} else if (typeof option === 'string') {
+						options.push({
+							value: option,
+							label: this.decodeHtmlEntities(option),
+						});
+					}
+				});
+				if (options.length > 0) return options;
+			}
+			return options.length > 0 ? options : null;
 		},
 
 		/**

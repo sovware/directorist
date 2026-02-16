@@ -395,7 +395,10 @@
               </div>
 
               <div class="directorist-conditional-logic-builder__group-footer">
-                <span class="directorist-conditional-logic-builder__group-footer__label">Match:</span>
+                <span
+                  class="directorist-conditional-logic-builder__group-footer__label"
+                  >Match:</span
+                >
                 <select
                   class="directorist-conditional-logic-builder__operator"
                   v-model="group.operator"
@@ -432,7 +435,9 @@
         class="directorist-conditional-logic-builder__footer"
         v-if="localValue.enabled"
       >
-        <span class="directorist-conditional-logic-builder__footer__label">Match:</span>
+        <span class="directorist-conditional-logic-builder__footer__label"
+          >Match:</span
+        >
         <select
           class="directorist-conditional-logic-builder__operator"
           v-model="localValue.globalOperator"

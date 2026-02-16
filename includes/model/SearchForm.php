@@ -350,9 +350,11 @@ class Directorist_Listing_Search_Form {
                         if ( ! empty( $submission_field['field_key'] ) ) {
                             $search_form_fields['fields'][$key]['field_key'] = $submission_field['field_key'];
                         }
-                        // Add option choices (options.options) from submission - required for select/radio/checkbox to work
-                        if ( ! empty( $submission_field['options']['options'] ) && is_array( $submission_field['options']['options'] ) ) {
-                            $search_form_fields['fields'][$key]['options']['options'] = $submission_field['options']['options'];
+                        // Add option choices from submission - required for select/radio/checkbox to work.
+                        // Builder stores options at options.options.value (nested) or options.options (array).
+                        $option_choices = $this->get_custom_field_options_from_submission( $submission_field );
+                        if ( ! empty( $option_choices ) ) {
+                            $search_form_fields['fields'][$key]['options']['options'] = $option_choices;
                         }
                     }
                 }
@@ -387,6 +389,60 @@ class Directorist_Listing_Search_Form {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Get options array for custom select/radio/checkbox from submission form field.
+     * Handles different saved data structures from the form builder.
+     *
+     * @param array $submission_field Submission form field config.
+     * @return array Options with option_value and option_label keys, or empty array.
+     */
+    protected function get_custom_field_options_from_submission( $submission_field ) {
+        if ( empty( $submission_field['options'] ) || ! is_array( $submission_field['options'] ) ) {
+            return [];
+        }
+        $opts = $submission_field['options'];
+
+        // Builder stores options at options.options.value (nested structure)
+        if ( ! empty( $opts['options']['value'] ) && is_array( $opts['options']['value'] ) ) {
+            return $this->normalize_option_items( $opts['options']['value'] );
+        }
+        // Fallback: options.options as direct array
+        if ( ! empty( $opts['options'] ) && is_array( $opts['options'] ) && isset( $opts['options'][0] ) ) {
+            return $this->normalize_option_items( $opts['options'] );
+        }
+        // Fallback: options as flat array (listing form style)
+        if ( isset( $opts[0] ) && is_array( $opts[0] ) ) {
+            return $this->normalize_option_items( $opts );
+        }
+
+        return [];
+    }
+
+    /**
+     * Normalize option items to have option_value and option_label keys.
+     *
+     * @param array $items Raw option items (may use value/label or option_value/option_label).
+     * @return array Normalized options.
+     */
+    protected function normalize_option_items( $items ) {
+        if ( ! is_array( $items ) ) {
+            return [];
+        }
+        $normalized = [];
+        foreach ( $items as $item ) {
+            if ( ! is_array( $item ) ) {
+                continue;
+            }
+            $val = isset( $item['option_value'] ) ? $item['option_value'] : ( isset( $item['value'] ) ? $item['value'] : '' );
+            $lbl = isset( $item['option_label'] ) ? $item['option_label'] : ( isset( $item['label'] ) ? $item['label'] : $val );
+            $normalized[] = [
+                'option_value' => $val,
+                'option_label' => $lbl,
+            ];
+        }
+        return $normalized;
     }
 
     public function buttons_template() {
@@ -446,7 +502,7 @@ class Directorist_Listing_Search_Form {
             return '';
         }
 
-        $normalized = $this->normalize_conditional_logic( $conditional_logic );
+        $normalized = $this->normalize_conditional_logic( $conditional_logic, $data );
 
         if ( empty( $normalized ) ) {
             return '';
@@ -582,6 +638,7 @@ class Directorist_Listing_Search_Form {
         }
 
         $normalized = [];
+        $field_key_map = $this->get_submission_widget_key_to_field_key_map();
 
         foreach ( $groups as $group ) {
             if ( ! is_array( $group ) || empty( $group['conditions'] ) || ! is_array( $group['conditions'] ) ) {
@@ -593,7 +650,15 @@ class Directorist_Listing_Search_Form {
             $valid_conditions = [];
             foreach ( $group['conditions'] as $condition ) {
                 if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
-                    $valid_conditions[] = $condition;
+                    $cond = $condition;
+                    $raw_field = $cond['field'];
+                    $mapped = $field_key_map[ $raw_field ] ?? null;
+                    if ( $mapped ) {
+                        $cond['field'] = $mapped;
+                    } else {
+                        $cond['field'] = $this->widget_name_to_custom_field_key( $raw_field );
+                    }
+                    $valid_conditions[] = $cond;
                 }
             }
 
@@ -606,6 +671,52 @@ class Directorist_Listing_Search_Form {
         }
 
         return $normalized;
+    }
+
+    /**
+     * Map widget_name (select, select_2, radio, checkbox) to field_key for custom fields.
+     * Search form uses name="custom_field[custom-select]" so condition.field must be custom-select.
+     *
+     * @param string $raw Field value from condition (e.g. select, select_2, radio)
+     * @return string Mapped field_key (e.g. custom-select, custom-select-2)
+     */
+    private function widget_name_to_custom_field_key( $raw ) {
+        if ( empty( $raw ) || is_array( $raw ) ) {
+            return $raw;
+        }
+        $raw = (string) $raw;
+        if ( strpos( $raw, 'custom-' ) === 0 ) {
+            return $raw;
+        }
+        $custom_types = [ 'select', 'radio', 'checkbox', 'text', 'textarea', 'number', 'date', 'time', 'url', 'file', 'color_picker' ];
+        foreach ( $custom_types as $type ) {
+            if ( $raw === $type || preg_match( '/^' . preg_quote( $type, '/' ) . '_\d+$/', $raw ) ) {
+                return 'custom-' . preg_replace( '/^([a-z_]+)_(\d+)$/i', '$1-$2', $raw );
+            }
+        }
+        return $raw;
+    }
+
+    /**
+     * Get map of widget_key => field_key from submission form for custom fields.
+     *
+     * @return array<string, string>
+     */
+    private function get_submission_widget_key_to_field_key_map() {
+        $submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
+        $map = [];
+
+        if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
+            return $map;
+        }
+
+        foreach ( $submission_form_fields['fields'] as $widget_key => $field ) {
+            if ( ! empty( $field['field_key'] ) && $this->is_custom_field( $field ) ) {
+                $map[ $widget_key ] = $field['field_key'];
+            }
+        }
+
+        return $map;
     }
 
     public function field_template( $field_data ) {

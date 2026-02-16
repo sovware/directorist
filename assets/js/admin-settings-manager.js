@@ -1324,8 +1324,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         // Get field label (prefer label, fallback to widget_key)
         var label = widget.label || widget.name || widget.placeholder || widgetKey || 'Unnamed Field';
 
-        // Get field type
+        // Get field type (use widget_name for custom fields - e.g. search form radio)
         var type = widget.type || widget.field_type || 'text';
+        if (type === 'text' && widget.widget_name) {
+          var wn = String(widget.widget_name).toLowerCase();
+          if (['select', 'radio', 'checkbox'].includes(wn)) {
+            type = wn;
+          }
+        }
 
         // Only include fields that can be used in conditions
         // Exclude fields like conditional-logic itself and non-comparable types
@@ -1336,15 +1342,27 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }
 
         // For custom fields, prefer field_key over widget_key if available
-        // This ensures we use the actual field_key used in HTML (e.g., "custom-select")
-        // instead of just the widget_key
+        // Same logic for both submission and search form
         var fieldValue = widget.field_key || widgetKey;
+
+        // Enrich widget with options when field links to another (e.g. search form
+        // custom field → submission form). Same structure for both forms.
+        var widgetData = widget;
+        if (widget.original_widget_key) {
+          var linkedOptions = this.getOptionsFromLinkedField(widget);
+          if (linkedOptions && linkedOptions.length > 0) {
+            widgetData = _objectSpread(_objectSpread({}, widget), {}, {
+              value: _objectSpread(_objectSpread({}, widget.value || {}), {}, {
+                options: linkedOptions
+              })
+            });
+          }
+        }
         fields.push({
           value: fieldValue,
-          // Use field_key if available, otherwise widget_key
           label: label,
           type: type,
-          widget: widget // Store full widget data for accessing options
+          widget: widgetData
         });
       }
 
@@ -1452,7 +1470,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
 
       // Handle select/radio/checkbox fields - get options from widget
-      if (['select', 'radio', 'checkbox'].includes(fieldType) && widget) {
+      // Include widget_name for search form custom fields that may not have type set
+      var hasOptionsType = ['select', 'radio', 'checkbox'].includes(fieldType) || widgetName && ['select', 'radio', 'checkbox'].includes(String(widgetName).toLowerCase());
+      if (hasOptionsType && widget) {
         var options = [];
 
         // Priority 1: Check widget.value.options (saved field value - actual options data)
@@ -1532,12 +1552,103 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           }
         }
 
+        // Fallback: linked field (e.g. search form custom → submission form)
+        if (widget.original_widget_key) {
+          var linkedOptions = this.getOptionsFromLinkedField(widget);
+          if (linkedOptions && linkedOptions.length > 0) {
+            return linkedOptions;
+          }
+        }
+
         // No options found
         return null;
       }
 
       // For other field types, return null to show text input
       return null;
+    },
+    /**
+     * Get options from linked field (widget.original_widget_key).
+     * Same structure for both forms - used when a field references another for options.
+     */
+    getOptionsFromLinkedField: function getOptionsFromLinkedField(widget) {
+      var originalKey = widget && widget.original_widget_key;
+      if (!originalKey || !this.fields) return null;
+      var linked = this.fields.submission_form_fields;
+      if (!linked || !linked.value || !linked.value.fields) return null;
+      var sourceWidget = linked.value.fields[originalKey];
+      return this.extractOptionsFromWidget(sourceWidget);
+    },
+    /**
+     * Extract option array from a widget (select/radio/checkbox)
+     */
+    extractOptionsFromWidget: function extractOptionsFromWidget(sourceWidget) {
+      var _this4 = this;
+      if (!sourceWidget) return null;
+      var options = [];
+      if (sourceWidget.value && sourceWidget.value.options && Array.isArray(sourceWidget.value.options)) {
+        sourceWidget.value.options.forEach(function (option) {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+            if (option.option_value !== undefined) {
+              options.push({
+                value: String(option.option_value || ''),
+                label: _this4.decodeHtmlEntities(option.option_label || option.option_value || '')
+              });
+            } else if (option.value !== undefined) {
+              options.push({
+                value: String(option.value || ''),
+                label: _this4.decodeHtmlEntities(option.label || option.value || '')
+              });
+            }
+          }
+        });
+        if (options.length > 0) return options;
+      }
+      if (sourceWidget.options && sourceWidget.options.options && sourceWidget.options.options.value) {
+        var savedOptions = sourceWidget.options.options.value;
+        if (Array.isArray(savedOptions)) {
+          savedOptions.forEach(function (option) {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+              if (option.option_value !== undefined) {
+                options.push({
+                  value: String(option.option_value || ''),
+                  label: _this4.decodeHtmlEntities(option.option_label || option.option_value || '')
+                });
+              } else if (option.value !== undefined) {
+                options.push({
+                  value: String(option.value || ''),
+                  label: _this4.decodeHtmlEntities(option.label || option.value || '')
+                });
+              }
+            }
+          });
+          if (options.length > 0) return options;
+        }
+      }
+      if (sourceWidget.options && Array.isArray(sourceWidget.options)) {
+        sourceWidget.options.forEach(function (option) {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+            if (option.option_value !== undefined) {
+              options.push({
+                value: String(option.option_value || ''),
+                label: _this4.decodeHtmlEntities(option.option_label || option.option_value || '')
+              });
+            } else if (option.value !== undefined) {
+              options.push({
+                value: String(option.value || ''),
+                label: _this4.decodeHtmlEntities(option.label || option.value || '')
+              });
+            }
+          } else if (typeof option === 'string') {
+            options.push({
+              value: option,
+              label: _this4.decodeHtmlEntities(option)
+            });
+          }
+        });
+        if (options.length > 0) return options;
+      }
+      return options.length > 0 ? options : null;
     },
     /**
      * Check if condition needs a select dropdown (has options)
@@ -1653,7 +1764,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
      * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
      */
     getCategoryOptions: function getCategoryOptions(fieldKey) {
-      var _this4 = this;
+      var _this5 = this;
       // Return cached options if available
       if (this.cachedCategoryOptions) {
         return this.cachedCategoryOptions;
@@ -1673,7 +1784,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
               options.push({
                 value: option.value || option.id || option.term_id || '',
-                label: _this4.decodeHtmlEntities(option.label || option.name || option.text || '')
+                label: _this5.decodeHtmlEntities(option.label || option.name || option.text || '')
               });
             }
           });
@@ -1744,7 +1855,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
      * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
      */
     getTagOptions: function getTagOptions(fieldKey) {
-      var _this5 = this;
+      var _this6 = this;
       // Return cached options if available
       if (this.cachedTagOptions) {
         return this.cachedTagOptions;
@@ -1763,7 +1874,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
               options.push({
                 value: option.value || option.id || option.term_id || '',
-                label: _this5.decodeHtmlEntities(option.label || option.name || option.text || '')
+                label: _this6.decodeHtmlEntities(option.label || option.name || option.text || '')
               });
             }
           });
@@ -1781,7 +1892,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           tags.forEach(function (tag) {
             options.push({
               value: tag.id || tag.term_id || tag.value || '',
-              label: _this5.decodeHtmlEntities(tag.name || tag.label || tag.text || '')
+              label: _this6.decodeHtmlEntities(tag.name || tag.label || tag.text || '')
             });
           });
           if (options.length > 0) {
@@ -1829,7 +1940,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
      * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
      */
     getLocationOptions: function getLocationOptions(fieldKey) {
-      var _this6 = this;
+      var _this7 = this;
       // Return cached options if available
       if (this.cachedLocationOptions) {
         return this.cachedLocationOptions;
@@ -1848,7 +1959,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
               options.push({
                 value: option.value || option.id || option.term_id || '',
-                label: _this6.decodeHtmlEntities(option.label || option.name || option.text || '')
+                label: _this7.decodeHtmlEntities(option.label || option.name || option.text || '')
               });
             }
           });
@@ -1866,7 +1977,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           locations.forEach(function (location) {
             options.push({
               value: location.id || location.term_id || location.value || '',
-              label: _this6.decodeHtmlEntities(location.name || location.label || location.text || '')
+              label: _this7.decodeHtmlEntities(location.name || location.label || location.text || '')
             });
           });
           if (options.length > 0) {

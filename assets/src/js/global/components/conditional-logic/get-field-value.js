@@ -2,17 +2,17 @@
  * Extract field values from form elements
  */
 import {
-	getLabelsFromSelect2Container,
-	parseLabelsString,
-	parseIdsString,
-} from './helpers.js';
-import {
 	escapeCssId,
-	mapFieldKeyToSelector,
-	WIDGET_KEY_TO_FIELD_KEY,
-	SELECTORS,
 	isTaxonomySelectField,
+	mapFieldKeyToSelector,
+	SELECTORS,
+	WIDGET_KEY_TO_FIELD_KEY,
 } from './field-mapping.js';
+import {
+	getLabelsFromSelect2Container,
+	parseIdsString,
+	parseLabelsString,
+} from './helpers.js';
 
 /**
  * Get field value from form by field key.
@@ -59,9 +59,11 @@ export function getFieldValue(fieldKey, $) {
 		if (!$field.length) {
 			const $checkboxes = $(SELECTORS.CATEGORY_CHECKLIST_CHECKED);
 			if ($checkboxes.length) {
-				return $checkboxes.map(function () {
-					return $(this).val();
-				}).get();
+				return $checkboxes
+					.map(function () {
+						return $(this).val();
+					})
+					.get();
 			}
 			return [];
 		}
@@ -75,9 +77,11 @@ export function getFieldValue(fieldKey, $) {
 		if (!$field.length) {
 			const $checkboxes = $(SELECTORS.TAGS_CHECKLIST_CHECKED);
 			if ($checkboxes.length) {
-				return $checkboxes.map(function () {
-					return $(this).val();
-				}).get();
+				return $checkboxes
+					.map(function () {
+						return $(this).val();
+					})
+					.get();
 			}
 			return [];
 		}
@@ -125,17 +129,21 @@ export function getFieldValue(fieldKey, $) {
 			}
 			const $checkboxes = $(SELECTORS.LOCATION_CHECKLIST_CHECKED);
 			if ($checkboxes.length) {
-				return $checkboxes.map(function () {
-					return $(this).val();
-				}).get();
+				return $checkboxes
+					.map(function () {
+						return $(this).val();
+					})
+					.get();
 			}
 			return [];
 		}
 	}
 
-	// Search form: in_tag[] checkboxes
+	// Search form: in_tag[] checkboxes (1 value per selected = label or ID)
 	if (
-		(fieldKey === 'in_tag[]' || fieldKey === 'tag' || fieldKey === 'tags') &&
+		(fieldKey === 'in_tag[]' ||
+			fieldKey === 'tag' ||
+			fieldKey === 'tags') &&
 		$field &&
 		$field.is(SELECTORS.IN_TAG)
 	) {
@@ -143,12 +151,17 @@ export function getFieldValue(fieldKey, $) {
 		if ($checkboxes.length) {
 			const values = [];
 			$checkboxes.each(function () {
-				const id = $(this).val();
-				if (id) values.push(String(id));
-				const $label = $(this).siblings('label').first();
-				if ($label.length) {
-					const label = $label.text().trim();
-					if (label && !values.includes(label)) values.push(label);
+				const $cb = $(this);
+				let $label = $cb.siblings('label').first();
+				if (!$label.length && $cb.attr('id')) {
+					$label = $(`label[for="${$cb.attr('id')}"]`);
+				}
+				const label = $label.length ? $label.text().trim() : '';
+				if (label) {
+					values.push(label);
+				} else {
+					const id = $cb.val();
+					if (id) values.push(String(id));
 				}
 			});
 			return values;
@@ -240,10 +253,7 @@ export function getFieldValue(fieldKey, $) {
 		// Strategy 3: Select2 DOM container
 		const $select2Container = $field.next('.select2-container');
 		if ($select2Container.length) {
-			const labels = getLabelsFromSelect2Container(
-				$select2Container,
-				$
-			);
+			const labels = getLabelsFromSelect2Container($select2Container, $);
 			if (labels.length > 0) {
 				const val = $field.val();
 				const ids = Array.isArray(val) ? val : val ? [val] : [];
@@ -265,12 +275,12 @@ export function getFieldValue(fieldKey, $) {
 		// Strategy 4: Fallback to select option text and values
 		const val = $field.val();
 		if (val) {
-				const values = Array.isArray(val) ? val : [val];
-				if (values.length > 0) {
-					const combined = [];
-					const labels = [];
-					const ids = [];
-					const isTagField = $field.is(SELECTORS.TAGS);
+			const values = Array.isArray(val) ? val : [val];
+			if (values.length > 0) {
+				const combined = [];
+				const labels = [];
+				const ids = [];
+				const isTagField = $field.is(SELECTORS.TAGS);
 
 				values.forEach((val) => {
 					if (isTagField) {
@@ -462,8 +472,15 @@ export function getFieldValue(fieldKey, $) {
 			const editorId = $field.attr('id');
 			if (editorId) {
 				const editor = tinymce.get(editorId);
-				if (editor && typeof editor.isHidden === 'function' && !editor.isHidden()) {
-					const content = typeof editor.getContent === 'function' ? editor.getContent() : '';
+				if (
+					editor &&
+					typeof editor.isHidden === 'function' &&
+					!editor.isHidden()
+				) {
+					const content =
+						typeof editor.getContent === 'function'
+							? editor.getContent()
+							: '';
 					if (content) {
 						const tempDiv = document.createElement('div');
 						tempDiv.innerHTML = content;

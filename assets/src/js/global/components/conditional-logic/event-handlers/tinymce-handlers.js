@@ -19,7 +19,8 @@ export function setupTinyMCEHandlers($, triggerFn) {
 
 		const $formGroup = $editorTextarea.closest('.directorist-form-group');
 		const isWordPressContentEditor =
-			editorId === 'content' && $editorTextarea.closest('#postdivrich, #wp-content-wrap').length;
+			editorId === 'content' &&
+			$editorTextarea.closest('#postdivrich, #wp-content-wrap').length;
 		if (!$formGroup.length && !isWordPressContentEditor) return;
 
 		const fieldName = $editorTextarea.attr('name') || editorId;
@@ -42,7 +43,11 @@ export function setupTinyMCEHandlers($, triggerFn) {
 
 		function initExistingEditors() {
 			try {
-				if (typeof tinymce !== 'undefined' && tinymce.editors && typeof tinymce.editors.forEach === 'function') {
+				if (
+					typeof tinymce !== 'undefined' &&
+					tinymce.editors &&
+					typeof tinymce.editors.forEach === 'function'
+				) {
 					tinymce.editors.forEach(function (editor) {
 						if (editor) attachTinyMCEEvents(editor);
 					});

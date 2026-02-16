@@ -1,8 +1,8 @@
 /**
  * Condition evaluation logic
  */
-import { normalizeOperator } from './helpers.js';
 import { normalizeConditionFieldKey } from './field-mapping.js';
+import { normalizeOperator } from './helpers.js';
 
 /**
  * Check if value is empty (null, undefined, '', or []).
@@ -164,8 +164,10 @@ export function evaluateArrayCondition(fieldArray, conditionValue, operator) {
 					return String(val).toLowerCase();
 				} else if (typeof val === 'object' && val !== null) {
 					if (val.name) return String(val.name).trim().toLowerCase();
-					if (val.label) return String(val.label).trim().toLowerCase();
-					if (val.value) return String(val.value).trim().toLowerCase();
+					if (val.label)
+						return String(val.label).trim().toLowerCase();
+					if (val.value)
+						return String(val.value).trim().toLowerCase();
 					if (val.id) return String(val.id).toLowerCase();
 					return String(val).toLowerCase();
 				}
@@ -175,7 +177,7 @@ export function evaluateArrayCondition(fieldArray, conditionValue, operator) {
 				(val) => val === condValStrForIs
 			);
 			if (!hasMatch) return false;
-			// "is" = exactly that value only. 
+			// "is" = exactly that value only.
 			return normalizedValues.every((val) => val === condValStrForIs);
 		}
 		case 'contains': {

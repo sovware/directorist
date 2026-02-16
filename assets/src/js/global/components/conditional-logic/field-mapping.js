@@ -34,9 +34,12 @@ export const SELECTORS = {
 	IN_CAT: "select[name='in_cat']",
 	IN_LOC: "select[name='in_loc']",
 	IN_TAG: "input[name='in_tag[]']",
-	CATEGORY_CHECKLIST: '#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop',
-	LOCATION_CHECKLIST: '#at_biz_dir-locationchecklist, #at_biz_dir-locationchecklist-pop',
-	TAGS_CHECKLIST: '#at_biz_dir-tagschecklist, #at_biz_dir-tagschecklist-pop, #tagsdiv-at_biz_dir-tags',
+	CATEGORY_CHECKLIST:
+		'#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop',
+	LOCATION_CHECKLIST:
+		'#at_biz_dir-locationchecklist, #at_biz_dir-locationchecklist-pop',
+	TAGS_CHECKLIST:
+		'#at_biz_dir-tagschecklist, #at_biz_dir-tagschecklist-pop, #tagsdiv-at_biz_dir-tags',
 	CATEGORY_CHECKLIST_ID: '#at_biz_dir-categorychecklist',
 	LOCATION_CHECKLIST_ID: '#at_biz_dir-locationchecklist',
 	TAGS_CHECKLIST_ID: '#at_biz_dir-tagschecklist',
@@ -45,12 +48,17 @@ export const SELECTORS = {
 	CATEGORY_SELECT: "#at_biz_dir-categories, select[name='in_cat']",
 	TAGS_SELECT: "#at_biz_dir-tags, input[name='in_tag[]']",
 	LOCATION_SELECT: "#at_biz_dir-location, select[name='in_loc']",
-	CATEGORY_CHECKLIST_CHECKED: '#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked',
-	TAGS_CHECKLIST_CHECKED: "#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name=\"tax_input[at_biz_dir-tags][]\"]:checked",
-	LOCATION_CHECKLIST_CHECKED: "#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name=\"tax_input[at_biz_dir-location][]\"]:checked",
+	CATEGORY_CHECKLIST_CHECKED:
+		'#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked',
+	TAGS_CHECKLIST_CHECKED:
+		'#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked',
+	LOCATION_CHECKLIST_CHECKED:
+		'#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked',
 	SEARCH_ADDRESS: ".directorist-search-location input[name='address']",
-	TAG_CHECKLIST_ITEMS: '#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li',
-	TAG_TEXTAREA: '#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags',
+	TAG_CHECKLIST_ITEMS:
+		'#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li',
+	TAG_TEXTAREA:
+		'#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags',
 };
 
 /** Sentinel values for extractFieldKeyFromChange: taxonomy field is in search form (use $changedField) */
@@ -83,11 +91,21 @@ export function isTaxonomySelectField($field) {
  * @param {jQuery} $changedField
  * @returns {boolean}
  */
-export function isTaxonomyFieldKeyOrElement(fieldKey, fieldName, $changedField) {
-	if (TAXONOMY_FIELD_KEYS.includes(fieldKey) || TAXONOMY_FIELD_KEYS.includes(fieldName)) {
+export function isTaxonomyFieldKeyOrElement(
+	fieldKey,
+	fieldName,
+	$changedField
+) {
+	if (
+		TAXONOMY_FIELD_KEYS.includes(fieldKey) ||
+		TAXONOMY_FIELD_KEYS.includes(fieldName)
+	) {
 		return true;
 	}
-	const hasField = $changedField && typeof $changedField.length !== 'undefined' && $changedField.length > 0;
+	const hasField =
+		$changedField &&
+		typeof $changedField.length !== 'undefined' &&
+		$changedField.length > 0;
 	if (!hasField) return false;
 	return (
 		$changedField.is(SELECTORS.CATEGORY) ||
@@ -216,64 +234,122 @@ export function extractFieldKeyFromName(fieldName) {
  * @param {Object} [selectors] - SELECTORS (default)
  * @returns {{ fieldKey: string, fieldName: string, taxonomyFieldSelector: string|null }}
  */
-export function extractFieldKeyFromChange(fieldName, $changedField, selectors = SELECTORS) {
+export function extractFieldKeyFromChange(
+	fieldName,
+	$changedField,
+	selectors = SELECTORS
+) {
 	let fieldKey = extractFieldKeyFromName(fieldName);
 	let taxonomyFieldSelector = null;
 
 	if (fieldName === 'post_title' || $changedField.attr('id') === 'title') {
-		return { fieldKey: 'listing_title', fieldName, taxonomyFieldSelector: null };
+		return {
+			fieldKey: 'listing_title',
+			fieldName,
+			taxonomyFieldSelector: null,
+		};
 	}
 	if (
 		fieldName === 'q' ||
 		($changedField.attr('name') === 'q' &&
-			$changedField.closest('.directorist-search-query, .directorist-search-form-wrap, .directorist-search-form').length)
+			$changedField.closest(
+				'.directorist-search-query, .directorist-search-form-wrap, .directorist-search-form'
+			).length)
 	) {
 		return { fieldKey: 'title', fieldName, taxonomyFieldSelector: null };
 	}
 	if (fieldName === 'content' || $changedField.attr('id') === 'content') {
-		return { fieldKey: 'listing_content', fieldName, taxonomyFieldSelector: null };
+		return {
+			fieldKey: 'listing_content',
+			fieldName,
+			taxonomyFieldSelector: null,
+		};
 	}
-	if (fieldName === 'admin_category_select[]' || $changedField.is(selectors.CATEGORY)) {
-		return { fieldKey: 'category', fieldName, taxonomyFieldSelector: selectors.CATEGORY };
+	if (
+		fieldName === 'admin_category_select[]' ||
+		$changedField.is(selectors.CATEGORY)
+	) {
+		return {
+			fieldKey: 'category',
+			fieldName,
+			taxonomyFieldSelector: selectors.CATEGORY,
+		};
 	}
 	if (
 		fieldName === 'tax_input[at_biz_dir-category][]' ||
 		$changedField.closest(selectors.CATEGORY_CHECKLIST).length
 	) {
-		return { fieldKey: 'admin_category_select[]', fieldName, taxonomyFieldSelector: selectors.CATEGORY_CHECKLIST_ID };
+		return {
+			fieldKey: 'admin_category_select[]',
+			fieldName,
+			taxonomyFieldSelector: selectors.CATEGORY_CHECKLIST_ID,
+		};
 	}
 	if (
 		fieldName === 'tax_input[at_biz_dir-location][]' ||
 		$changedField.closest(selectors.LOCATION_CHECKLIST).length
 	) {
-		return { fieldKey: 'tax_input[at_biz_dir-location][]', fieldName, taxonomyFieldSelector: selectors.LOCATION_CHECKLIST_ID };
+		return {
+			fieldKey: 'tax_input[at_biz_dir-location][]',
+			fieldName,
+			taxonomyFieldSelector: selectors.LOCATION_CHECKLIST_ID,
+		};
 	}
 	if (
 		fieldName === 'tax_input[at_biz_dir-tags][]' ||
 		$changedField.closest(selectors.TAGS_CHECKLIST).length
 	) {
-		return { fieldKey: 'tax_input[at_biz_dir-tags][]', fieldName, taxonomyFieldSelector: selectors.TAGS_CHECKLIST_ID };
+		return {
+			fieldKey: 'tax_input[at_biz_dir-tags][]',
+			fieldName,
+			taxonomyFieldSelector: selectors.TAGS_CHECKLIST_ID,
+		};
 	}
 	if ($changedField.is(selectors.TAGS)) {
-		return { fieldKey: 'tag', fieldName, taxonomyFieldSelector: selectors.TAGS };
+		return {
+			fieldKey: 'tag',
+			fieldName,
+			taxonomyFieldSelector: selectors.TAGS,
+		};
 	}
 	if ($changedField.is(selectors.LOCATION)) {
-		return { fieldKey: 'location', fieldName, taxonomyFieldSelector: selectors.LOCATION };
+		return {
+			fieldKey: 'location',
+			fieldName,
+			taxonomyFieldSelector: selectors.LOCATION,
+		};
 	}
 	if (fieldName === 'in_loc' || $changedField.is(selectors.IN_LOC)) {
-		return { fieldKey: 'location', fieldName, taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD };
+		return {
+			fieldKey: 'location',
+			fieldName,
+			taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD,
+		};
 	}
 	if (
-		(fieldName === 'address' || $changedField.is("input[name='address']")) &&
+		(fieldName === 'address' ||
+			$changedField.is("input[name='address']")) &&
 		$changedField.closest('.directorist-search-location').length
 	) {
-		return { fieldKey: 'location', fieldName, taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_ADDRESS };
+		return {
+			fieldKey: 'location',
+			fieldName,
+			taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_ADDRESS,
+		};
 	}
 	if (fieldName === 'in_cat' || $changedField.is(selectors.IN_CAT)) {
-		return { fieldKey: 'category', fieldName, taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD };
+		return {
+			fieldKey: 'category',
+			fieldName,
+			taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD,
+		};
 	}
 	if (fieldName === 'in_tag[]' || $changedField.is(selectors.IN_TAG)) {
-		return { fieldKey: 'tag', fieldName, taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD };
+		return {
+			fieldKey: 'tag',
+			fieldName,
+			taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD,
+		};
 	}
 
 	return { fieldKey, fieldName, taxonomyFieldSelector: null };
@@ -285,30 +361,69 @@ export function extractFieldKeyFromChange(fieldName, $changedField, selectors = 
  * @returns {{ fieldKey: string|null, fieldName: string|null, $changedField: jQuery|null }}
  */
 export function extractFieldFromClearButton($fieldWrap) {
-	if (!$fieldWrap || !$fieldWrap.length) return { fieldKey: null, fieldName: null, $changedField: null };
+	if (!$fieldWrap || !$fieldWrap.length)
+		return { fieldKey: null, fieldName: null, $changedField: null };
 
 	const checks = [
-		{ sel: 'input[name="in_tag[]"]', fieldKey: 'tag', fieldName: 'in_tag[]' },
-		{ sel: "select[name='in_cat']", fieldKey: 'category', fieldName: 'in_cat' },
-		{ sel: "select[name='in_loc']", fieldKey: 'location', fieldName: 'in_loc' },
+		{
+			sel: 'input[name="in_tag[]"]',
+			fieldKey: 'tag',
+			fieldName: 'in_tag[]',
+		},
+		{
+			sel: "select[name='in_cat']",
+			fieldKey: 'category',
+			fieldName: 'in_cat',
+		},
+		{
+			sel: "select[name='in_loc']",
+			fieldKey: 'location',
+			fieldName: 'in_loc',
+		},
 	];
 	for (const c of checks) {
 		const $el = $fieldWrap.find(c.sel).first();
-		if ($el.length) return { fieldKey: c.fieldKey, fieldName: c.fieldName, $changedField: $el };
+		if ($el.length)
+			return {
+				fieldKey: c.fieldKey,
+				fieldName: c.fieldName,
+				$changedField: $el,
+			};
 	}
 
-	if ($fieldWrap.find('input[name="address"]').length && $fieldWrap.hasClass('directorist-search-location')) {
-		return { fieldKey: 'location', fieldName: 'address', $changedField: $fieldWrap.find('input[name="address"]').first() };
+	if (
+		$fieldWrap.find('input[name="address"]').length &&
+		$fieldWrap.hasClass('directorist-search-location')
+	) {
+		return {
+			fieldKey: 'location',
+			fieldName: 'address',
+			$changedField: $fieldWrap.find('input[name="address"]').first(),
+		};
 	}
-	if ($fieldWrap.find('input[name="q"]').length || $fieldWrap.hasClass('directorist-search-query')) {
-		return { fieldKey: 'title', fieldName: 'q', $changedField: $fieldWrap.find('input[name="q"]').first() };
+	if (
+		$fieldWrap.find('input[name="q"]').length ||
+		$fieldWrap.hasClass('directorist-search-query')
+	) {
+		return {
+			fieldKey: 'title',
+			fieldName: 'q',
+			$changedField: $fieldWrap.find('input[name="q"]').first(),
+		};
 	}
 
-	const $customInput = $fieldWrap.find('select[name^="custom_field["], input[name^="custom_field["]').first();
+	const $customInput = $fieldWrap
+		.find('select[name^="custom_field["], input[name^="custom_field["]')
+		.first();
 	if ($customInput.length) {
 		const fieldName = $customInput.attr('name');
 		const match = fieldName && fieldName.match(/^custom_field\[([^\]]+)\]/);
-		if (match) return { fieldKey: match[1], fieldName, $changedField: $customInput };
+		if (match)
+			return {
+				fieldKey: match[1],
+				fieldName,
+				$changedField: $customInput,
+			};
 	}
 
 	return { fieldKey: null, fieldName: null, $changedField: null };

@@ -17,10 +17,7 @@ export function getLabelsFromSelect2Container($container, $) {
 	$container.find('.select2-selection__choice').each(function () {
 		const $choice = $(this);
 		const label =
-			$choice
-				.find('.select2-selection__choice__display')
-				.text()
-				.trim() ||
+			$choice.find('.select2-selection__choice__display').text().trim() ||
 			$choice.text().trim().replace('×', '').trim();
 		if (label) {
 			labels.push(label);
@@ -108,7 +105,9 @@ export function syncSelect2DataAttributes($field, $) {
 	if (labels.length === 0) {
 		const $container = $field.next('.select2-container');
 		if ($container.length) {
-			getLabelsFromSelect2Container($container, $).forEach((l) => labels.push(l));
+			getLabelsFromSelect2Container($container, $).forEach((l) =>
+				labels.push(l)
+			);
 		}
 	}
 

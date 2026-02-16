@@ -9,8 +9,7 @@ import { syncSelect2DataAttributes } from '../helpers.js';
  * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
  */
 export function setupTaxonomyHandlers($, triggerFn) {
-	const taxonomyFieldSelectors =
-		`${SELECTORS.CATEGORY}, ${SELECTORS.TAGS}, ${SELECTORS.LOCATION}, ${SELECTORS.IN_LOC}, ${SELECTORS.IN_CAT}`;
+	const taxonomyFieldSelectors = `${SELECTORS.CATEGORY}, ${SELECTORS.TAGS}, ${SELECTORS.LOCATION}, ${SELECTORS.IN_LOC}, ${SELECTORS.IN_CAT}`;
 
 	// Select2: delay so DOM is updated before we read data-selected-*
 	$(document).on(
@@ -28,9 +27,14 @@ export function setupTaxonomyHandlers($, triggerFn) {
 					if ($field.is(SELECTORS.TAGS)) {
 						fieldKey = 'tag';
 						fieldName = $field.attr('name') || 'tag';
-					} else if ($field.is(SELECTORS.LOCATION) || $field.is(SELECTORS.IN_LOC)) {
+					} else if (
+						$field.is(SELECTORS.LOCATION) ||
+						$field.is(SELECTORS.IN_LOC)
+					) {
 						fieldKey = 'location';
-						fieldName = $field.attr('name') || 'tax_input[at_biz_dir-location][]';
+						fieldName =
+							$field.attr('name') ||
+							'tax_input[at_biz_dir-location][]';
 					} else if ($field.is(SELECTORS.IN_CAT)) {
 						fieldKey = 'category';
 						fieldName = $field.attr('name') || 'in_cat';
@@ -67,7 +71,9 @@ export function setupTaxonomyHandlers($, triggerFn) {
 					triggerFn(
 						'tax_input[at_biz_dir-tags][]',
 						'tax_input[at_biz_dir-tags][]',
-						$(`${SELECTORS.TAG_METABOX} .tagchecklist, ${SELECTORS.TAGS} .tagchecklist`)
+						$(
+							`${SELECTORS.TAG_METABOX} .tagchecklist, ${SELECTORS.TAGS} .tagchecklist`
+						)
 					);
 				}, 50);
 			}
@@ -85,7 +91,10 @@ export function setupTaxonomyHandlers($, triggerFn) {
 					$tagchecklist
 				);
 			});
-			tagObserver.observe($tagchecklist[0], { childList: true, subtree: true });
+			tagObserver.observe($tagchecklist[0], {
+				childList: true,
+				subtree: true,
+			});
 		}
 	}
 	observeTagchecklist();

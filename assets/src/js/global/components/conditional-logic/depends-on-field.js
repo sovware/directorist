@@ -9,7 +9,11 @@
  * @param {Function} normalizeConditionFieldKey - Normalizer for field keys
  * @returns {boolean} True if any condition in the config references the changed field
  */
-import { WIDGET_KEY_TO_FIELD_KEY, TAXONOMY_FIELD_KEYS, SELECTORS } from './field-mapping.js';
+import {
+	WIDGET_KEY_TO_FIELD_KEY,
+	TAXONOMY_FIELD_KEYS,
+	SELECTORS,
+} from './field-mapping.js';
 
 export function fieldDependsOnChange(
 	conditionalLogic,
@@ -18,14 +22,14 @@ export function fieldDependsOnChange(
 	$changedField,
 	normalizeConditionFieldKey
 ) {
-	if (
-		!conditionalLogic.groups ||
-		!Array.isArray(conditionalLogic.groups)
-	) {
+	if (!conditionalLogic.groups || !Array.isArray(conditionalLogic.groups)) {
 		return false;
 	}
 
-	const hasChangedField = $changedField && typeof $changedField.length !== 'undefined' && $changedField.length > 0;
+	const hasChangedField =
+		$changedField &&
+		typeof $changedField.length !== 'undefined' &&
+		$changedField.length > 0;
 	const isTaxonomyField =
 		TAXONOMY_FIELD_KEYS.includes(fieldKey) ||
 		TAXONOMY_FIELD_KEYS.includes(fieldName) ||
@@ -48,9 +52,8 @@ export function fieldDependsOnChange(
 			const conditionFieldKey = (condition.field || '').trim();
 			const conditionFieldKeyMapped =
 				WIDGET_KEY_TO_FIELD_KEY[conditionFieldKey] || conditionFieldKey;
-			const conditionFieldKeyNormalized = normalizeConditionFieldKey(
-				conditionFieldKey
-			);
+			const conditionFieldKeyNormalized =
+				normalizeConditionFieldKey(conditionFieldKey);
 
 			let fieldKeyAsWidgetKey = null;
 			if (fieldKey && fieldKey.startsWith('custom-')) {
@@ -66,7 +69,9 @@ export function fieldDependsOnChange(
 			}
 
 			const changedId = hasChangedField ? $changedField.attr('id') : null;
-			const changedName = hasChangedField ? $changedField.attr('name') : null;
+			const changedName = hasChangedField
+				? $changedField.attr('name')
+				: null;
 
 			const matches =
 				conditionFieldKey === fieldKey ||
@@ -82,8 +87,10 @@ export function fieldDependsOnChange(
 						conditionFieldKeyNormalized === fieldName ||
 						conditionFieldKeyNormalized === changedId ||
 						conditionFieldKeyNormalized === changedName ||
-						`custom_field[${conditionFieldKeyNormalized}]` === fieldName ||
-						`custom_field[${conditionFieldKeyNormalized}][]` === fieldName)) ||
+						`custom_field[${conditionFieldKeyNormalized}]` ===
+							fieldName ||
+						`custom_field[${conditionFieldKeyNormalized}][]` ===
+							fieldName)) ||
 				(fieldKeyAsWidgetKey &&
 					(conditionFieldKey === fieldKeyAsWidgetKey ||
 						conditionFieldKeyMapped === fieldKeyAsWidgetKey));

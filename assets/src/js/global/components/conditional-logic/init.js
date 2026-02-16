@@ -16,7 +16,11 @@ import { setupTinyMCEHandlers } from './event-handlers/tinymce-handlers.js';
  * @param {Function} evaluateConditionalLogicFn - (conditionalLogic) => boolean
  * @param {jQuery} $
  */
-export function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
+export function applyConditionalLogic(
+	$fieldWrapper,
+	evaluateConditionalLogicFn,
+	$
+) {
 	const conditionalLogicData = $fieldWrapper.attr('data-conditional-logic');
 	if (!conditionalLogicData) {
 		return;
@@ -35,29 +39,47 @@ export function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn,
 
 		if (shouldShow) {
 			$fieldWrapper.show();
-			$fieldWrapper.find('input, select, textarea').prop('disabled', false);
-			const $modalInput = $fieldWrapper.closest('.directorist-search-modal__input');
+			$fieldWrapper
+				.find('input, select, textarea')
+				.prop('disabled', false);
+			const $modalInput = $fieldWrapper.closest(
+				'.directorist-search-modal__input'
+			);
 			if ($modalInput.length) $modalInput.show();
-			const $advancedElement = $fieldWrapper.closest('.directorist-advanced-filter__advanced__element');
+			const $advancedElement = $fieldWrapper.closest(
+				'.directorist-advanced-filter__advanced__element'
+			);
 			if ($advancedElement.length) $advancedElement.show();
 			setTinyMCEMode($fieldWrapper, 'design');
 		} else {
 			$fieldWrapper.hide();
-			$fieldWrapper.find('input, select, textarea').prop('disabled', true);
-			const $modalInput = $fieldWrapper.closest('.directorist-search-modal__input');
+			$fieldWrapper
+				.find('input, select, textarea')
+				.prop('disabled', true);
+			const $modalInput = $fieldWrapper.closest(
+				'.directorist-search-modal__input'
+			);
 			if ($modalInput.length) $modalInput.hide();
-			const $advancedElement = $fieldWrapper.closest('.directorist-advanced-filter__advanced__element');
+			const $advancedElement = $fieldWrapper.closest(
+				'.directorist-advanced-filter__advanced__element'
+			);
 			if ($advancedElement.length) $advancedElement.hide();
 			setTinyMCEMode($fieldWrapper, 'readonly');
 		}
 	} catch (e) {
-		console.error('Error parsing conditional logic:', e, { conditionalLogicData });
+		console.error('Error parsing conditional logic:', e, {
+			conditionalLogicData,
+		});
 	}
 }
 
 /** Set TinyMCE design/readonly mode when field visibility changes. */
 function setTinyMCEMode($fieldWrapper, mode) {
-	if (!$fieldWrapper.find('textarea').length || typeof tinymce === 'undefined') return;
+	if (
+		!$fieldWrapper.find('textarea').length ||
+		typeof tinymce === 'undefined'
+	)
+		return;
 	try {
 		const editorId = $fieldWrapper.find('textarea').attr('id');
 		if (editorId) {
@@ -85,38 +107,57 @@ export function initConditionalLogic(
 	adminTargets = []
 ) {
 	const $categoryField = $(SELECTORS.CATEGORY);
-	if ($categoryField.length && $categoryField.hasClass('select2-hidden-accessible') && $categoryField.is('select') && typeof $categoryField.select2 === 'function') {
+	if (
+		$categoryField.length &&
+		$categoryField.hasClass('select2-hidden-accessible') &&
+		$categoryField.is('select') &&
+		typeof $categoryField.select2 === 'function'
+	) {
 		try {
 			const selectedData = $categoryField.select2('data');
 			if (selectedData && selectedData.length > 0) {
 				$categoryField.attr(
 					'data-selected-label',
-					selectedData.map((item) => item.text || '').filter((item) => item.length > 0).join(',')
+					selectedData
+						.map((item) => item.text || '')
+						.filter((item) => item.length > 0)
+						.join(',')
 				);
 			}
 		} catch (e) {}
 	}
 
 	const $formWrapper = $(getWrapperFn());
-	let $fieldsWithConditionalLogic = $formWrapper.find('.directorist-form-group[data-conditional-logic]');
+	let $fieldsWithConditionalLogic = $formWrapper.find(
+		'.directorist-form-group[data-conditional-logic]'
+	);
 	if ($fieldsWithConditionalLogic.length === 0) {
-		$fieldsWithConditionalLogic = $('.directorist-form-group[data-conditional-logic]');
+		$fieldsWithConditionalLogic = $(
+			'.directorist-form-group[data-conditional-logic]'
+		);
 	}
 
 	$fieldsWithConditionalLogic.each(function () {
 		applyConditionalLogicFn($(this));
 	});
 
-	if (adminTargets && Array.isArray(adminTargets) && adminTargets.length > 0) {
+	if (
+		adminTargets &&
+		Array.isArray(adminTargets) &&
+		adminTargets.length > 0
+	) {
 		adminTargets.forEach(function (target) {
 			const $el = $(target.selector);
 			if ($el.length && target.conditionalLogic) {
 				$el.addClass('directorist-conditional-logic-target');
 				$el.attr(
 					'data-conditional-logic',
-					typeof target.conditionalLogic === 'string' ? target.conditionalLogic : JSON.stringify(target.conditionalLogic)
+					typeof target.conditionalLogic === 'string'
+						? target.conditionalLogic
+						: JSON.stringify(target.conditionalLogic)
 				);
-				if (target.fieldKey) $el.attr('data-field-key', target.fieldKey);
+				if (target.fieldKey)
+					$el.attr('data-field-key', target.fieldKey);
 				applyConditionalLogicFn($el);
 			}
 		});
@@ -131,15 +172,26 @@ export function initConditionalLogic(
  * @param {Function} applyConditionalLogicFn - ($fieldWrapper) => void
  * @param {jQuery} $
  */
-export function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicFn, $) {
-	function triggerConditionalLogicEvaluation(fieldName, fieldKey, $changedField) {
+export function watchFieldChanges(
+	getWrapperFn,
+	getFieldValueFn,
+	applyConditionalLogicFn,
+	$
+) {
+	function triggerConditionalLogicEvaluation(
+		fieldName,
+		fieldKey,
+		$changedField
+	) {
 		const $fieldsWithLogic = $(
 			'.directorist-form-group[data-conditional-logic], .directorist-conditional-logic-target[data-conditional-logic]'
 		);
 
 		$fieldsWithLogic.each(function () {
 			const $fieldWrapper = $(this);
-			const conditionalLogicData = $fieldWrapper.attr('data-conditional-logic');
+			const conditionalLogicData = $fieldWrapper.attr(
+				'data-conditional-logic'
+			);
 			if (!conditionalLogicData) return;
 
 			try {

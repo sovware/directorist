@@ -158,8 +158,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isEmpty: function() { return /* binding */ isEmpty; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
-/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -327,7 +327,7 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
           return val === condValStrForIs;
         });
         if (!hasMatch) return false;
-        // "is" = exactly that value only. 
+        // "is" = exactly that value only.
         return normalizedValues.every(function (val) {
           return val === condValStrForIs;
         });
@@ -414,7 +414,7 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
           if (!condition.operator || !condition.operator.trim()) {
             continue;
           }
-          var fieldKeyForLookup = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.normalizeConditionFieldKey)(rawField);
+          var fieldKeyForLookup = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.normalizeConditionFieldKey)(rawField);
           var fieldValue = getFieldValueFn(fieldKeyForLookup);
           var conditionResult = evaluateCondition(condition, fieldValue);
           conditionResults.push(conditionResult);
@@ -427,7 +427,7 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
       if (conditionResults.length === 0) {
         continue;
       }
-      var groupOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.normalizeOperator)(group.operator, 'AND');
+      var groupOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.normalizeOperator)(group.operator, 'AND');
       var groupResult = groupOperator === 'OR' ? conditionResults.some(function (result) {
         return result === true;
       }) : conditionResults.every(function (result) {
@@ -440,7 +440,7 @@ function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
   } finally {
     _iterator.f();
   }
-  var globalOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.normalizeOperator)(conditionalLogic.globalOperator, 'OR');
+  var globalOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.normalizeOperator)(conditionalLogic.globalOperator, 'OR');
   var result = true;
   if (groupResults.length > 0) {
     result = globalOperator === 'AND' ? groupResults.every(function (groupRes) {
@@ -906,8 +906,8 @@ var SELECTORS = {
   TAGS_SELECT: "#at_biz_dir-tags, input[name='in_tag[]']",
   LOCATION_SELECT: "#at_biz_dir-location, select[name='in_loc']",
   CATEGORY_CHECKLIST_CHECKED: '#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked',
-  TAGS_CHECKLIST_CHECKED: "#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name=\"tax_input[at_biz_dir-tags][]\"]:checked",
-  LOCATION_CHECKLIST_CHECKED: "#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name=\"tax_input[at_biz_dir-location][]\"]:checked",
+  TAGS_CHECKLIST_CHECKED: '#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked',
+  LOCATION_CHECKLIST_CHECKED: '#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked',
   SEARCH_ADDRESS: ".directorist-search-location input[name='address']",
   TAG_CHECKLIST_ITEMS: '#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li',
   TAG_TEXTAREA: '#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags'
@@ -1234,8 +1234,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getFieldValue: function() { return /* binding */ getFieldValue; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
-/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -1277,9 +1277,9 @@ function getFieldValue(fieldKey, $) {
 
   // Handle category, tag, and location fields
   if (fieldKey === 'category' || fieldKey === 'categories' || fieldKey === 'admin_category_select[]' || fieldKey === 'in_cat') {
-    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.CATEGORY_SELECT).first();
+    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.CATEGORY_SELECT).first();
     if (!$field.length) {
-      var $checkboxes = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.CATEGORY_CHECKLIST_CHECKED);
+      var $checkboxes = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.CATEGORY_CHECKLIST_CHECKED);
       if ($checkboxes.length) {
         return $checkboxes.map(function () {
           return $(this).val();
@@ -1288,9 +1288,9 @@ function getFieldValue(fieldKey, $) {
       return [];
     }
   } else if (fieldKey === 'tag' || fieldKey === 'tags' || fieldKey === 'tax_input[at_biz_dir-tags][]' || fieldKey === 'in_tag[]') {
-    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.TAGS_SELECT).first();
+    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS_SELECT).first();
     if (!$field.length) {
-      var _$checkboxes = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.TAGS_CHECKLIST_CHECKED);
+      var _$checkboxes = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS_CHECKLIST_CHECKED);
       if (_$checkboxes.length) {
         return _$checkboxes.map(function () {
           return $(this).val();
@@ -1299,13 +1299,13 @@ function getFieldValue(fieldKey, $) {
       return [];
     }
     if ($field.is('div') && !$field.is('select')) {
-      var $tagItems = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.TAG_CHECKLIST_ITEMS);
+      var $tagItems = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAG_CHECKLIST_ITEMS);
       if ($tagItems.length) {
         return $tagItems.map(function () {
           return $(this).clone().children().remove().end().text().trim();
         }).get().filter(Boolean);
       }
-      var $textarea = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.TAG_TEXTAREA);
+      var $textarea = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAG_TEXTAREA);
       if ($textarea.length && $textarea.val()) {
         var raw = String($textarea.val()).trim();
         if (raw) {
@@ -1317,14 +1317,14 @@ function getFieldValue(fieldKey, $) {
       return [];
     }
   } else if (fieldKey === 'location' || fieldKey === 'locations' || fieldKey === 'tax_input[at_biz_dir-location][]' || fieldKey === 'in_loc' || fieldKey === 'address') {
-    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.LOCATION_SELECT).first();
+    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.LOCATION_SELECT).first();
     if (!$field.length) {
-      var $addressInput = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.SEARCH_ADDRESS);
+      var $addressInput = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.SEARCH_ADDRESS);
       if ($addressInput.length) {
         var val = $addressInput.val();
         return val && val.trim() ? [val.trim()] : [];
       }
-      var _$checkboxes2 = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.LOCATION_CHECKLIST_CHECKED);
+      var _$checkboxes2 = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.LOCATION_CHECKLIST_CHECKED);
       if (_$checkboxes2.length) {
         return _$checkboxes2.map(function () {
           return $(this).val();
@@ -1334,33 +1334,38 @@ function getFieldValue(fieldKey, $) {
     }
   }
 
-  // Search form: in_tag[] checkboxes
-  if ((fieldKey === 'in_tag[]' || fieldKey === 'tag' || fieldKey === 'tags') && $field && $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.IN_TAG)) {
-    var _$checkboxes3 = $("".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.IN_TAG, ":checked"));
+  // Search form: in_tag[] checkboxes (1 value per selected = label or ID)
+  if ((fieldKey === 'in_tag[]' || fieldKey === 'tag' || fieldKey === 'tags') && $field && $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.IN_TAG)) {
+    var _$checkboxes3 = $("".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.IN_TAG, ":checked"));
     if (_$checkboxes3.length) {
       var values = [];
       _$checkboxes3.each(function () {
-        var id = $(this).val();
-        if (id) values.push(String(id));
-        var $label = $(this).siblings('label').first();
-        if ($label.length) {
-          var label = $label.text().trim();
-          if (label && !values.includes(label)) values.push(label);
+        var $cb = $(this);
+        var $label = $cb.siblings('label').first();
+        if (!$label.length && $cb.attr('id')) {
+          $label = $("label[for=\"".concat($cb.attr('id'), "\"]"));
+        }
+        var label = $label.length ? $label.text().trim() : '';
+        if (label) {
+          values.push(label);
+        } else {
+          var id = $cb.val();
+          if (id) values.push(String(id));
         }
       });
       return values;
     }
     return [];
   }
-  var isTaxonomyField = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.isTaxonomySelectField)($field);
+  var isTaxonomyField = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.isTaxonomySelectField)($field);
   if (isTaxonomyField) {
     // Strategy 1: data-selected-label AND data-selected-id
     var cachedLabels = $field.attr('data-selected-label');
     var cachedIds = $field.attr('data-selected-id');
-    var isTagField = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.TAGS);
+    var isTagField = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS);
     if (cachedLabels && cachedLabels.trim()) {
-      var parsedLabels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.parseLabelsString)(cachedLabels);
-      var parsedIds = cachedIds ? (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.parseIdsString)(cachedIds) : [];
+      var parsedLabels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.parseLabelsString)(cachedLabels);
+      var parsedIds = cachedIds ? (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.parseIdsString)(cachedIds) : [];
       var combined = [];
       if (isTagField) {
         parsedLabels.forEach(function (label) {
@@ -1390,7 +1395,7 @@ function getFieldValue(fieldKey, $) {
         var selectedData = $field.select2('data');
         if (selectedData && selectedData.length > 0) {
           var _combined = [];
-          var _isTagField = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.TAGS);
+          var _isTagField = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS);
           selectedData.forEach(function (item) {
             if (_isTagField) {
               if (item.text) _combined.push(item.text);
@@ -1424,7 +1429,7 @@ function getFieldValue(fieldKey, $) {
     // Strategy 3: Select2 DOM container
     var $select2Container = $field.next('.select2-container');
     if ($select2Container.length) {
-      var labels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.getLabelsFromSelect2Container)($select2Container, $);
+      var labels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.getLabelsFromSelect2Container)($select2Container, $);
       if (labels.length > 0) {
         var _val = $field.val();
         var ids = Array.isArray(_val) ? _val : _val ? [_val] : [];
@@ -1451,7 +1456,7 @@ function getFieldValue(fieldKey, $) {
         var _combined3 = [];
         var _labels = [];
         var _ids = [];
-        var _isTagField2 = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.SELECTORS.TAGS);
+        var _isTagField2 = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS);
         _values.forEach(function (val) {
           if (_isTagField2) {
             var tagName = String(val).trim();
@@ -1491,26 +1496,26 @@ function getFieldValue(fieldKey, $) {
   }
 
   // Reset $field for regular fields (not taxonomy selects)
-  if ($field && !(0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.isTaxonomySelectField)($field)) {
+  if ($field && !(0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.isTaxonomySelectField)($field)) {
     $field = null;
   }
-  var mappedSelector = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.mapFieldKeyToSelector)(fieldKey);
+  var mappedSelector = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.mapFieldKeyToSelector)(fieldKey);
   if (mappedSelector) {
     $field = $(mappedSelector).first();
   }
   if (!$field || !$field.length) {
-    var potentialFieldKey = _field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.WIDGET_KEY_TO_FIELD_KEY[fieldKey] || fieldKey;
+    var potentialFieldKey = _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.WIDGET_KEY_TO_FIELD_KEY[fieldKey] || fieldKey;
     if (!fieldKey.startsWith('custom-') && !potentialFieldKey.startsWith('custom-')) {
       var customFieldKey = "custom-".concat(fieldKey);
-      var customFieldIdEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)(customFieldKey);
+      var customFieldIdEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)(customFieldKey);
       var $customField = $("[name=\"".concat(customFieldKey, "\"], #").concat(customFieldIdEscaped, ", .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] select, .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"checkbox\"], .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"radio\"]")).first();
       if ($customField.length) {
         potentialFieldKey = customFieldKey;
       }
     }
-    var fieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)(fieldKey);
-    var potentialFieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)(potentialFieldKey);
-    var selectors = ["[name=\"".concat(fieldKey, "\"]"), "[name=\"".concat(fieldKey, "[]\"]"), "#".concat(fieldKeyEscaped), "[name=\"".concat(potentialFieldKey, "\"]"), "[name=\"".concat(potentialFieldKey, "[]\"]"), "#".concat(potentialFieldKeyEscaped), ".directorist-form-".concat(fieldKeyEscaped, "-field input"), ".directorist-form-".concat(fieldKeyEscaped, "-field select"), ".directorist-form-".concat(fieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(fieldKeyEscaped, "-field input[type=\"file\"]"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field select"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input[type=\"file\"]"), "input[name*=\"".concat(fieldKey, "\"]"), "select[name*=\"".concat(fieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(fieldKey, "\"]"), "input[name*=\"".concat(potentialFieldKey, "\"]"), "select[name*=\"".concat(potentialFieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input[type=\"file\"]"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input[type=\"file\"]"), ".directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), "select[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "][]\"]"), "select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(potentialFieldKey, "]\"]")].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(fieldKey && !fieldKey.startsWith('custom-') ? ["[name=\"custom-".concat(fieldKey, "\"]"), "[name=\"custom-".concat(fieldKey.replace(/_/g, '-'), "\"]"), "select[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "input[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)('custom-' + fieldKey)), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] input"), ".directorist-custom-field-select select[name=\"custom-".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)('custom-' + fieldKey))] : []));
+    var fieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)(fieldKey);
+    var potentialFieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)(potentialFieldKey);
+    var selectors = ["[name=\"".concat(fieldKey, "\"]"), "[name=\"".concat(fieldKey, "[]\"]"), "#".concat(fieldKeyEscaped), "[name=\"".concat(potentialFieldKey, "\"]"), "[name=\"".concat(potentialFieldKey, "[]\"]"), "#".concat(potentialFieldKeyEscaped), ".directorist-form-".concat(fieldKeyEscaped, "-field input"), ".directorist-form-".concat(fieldKeyEscaped, "-field select"), ".directorist-form-".concat(fieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(fieldKeyEscaped, "-field input[type=\"file\"]"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field select"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input[type=\"file\"]"), "input[name*=\"".concat(fieldKey, "\"]"), "select[name*=\"".concat(fieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(fieldKey, "\"]"), "input[name*=\"".concat(potentialFieldKey, "\"]"), "select[name*=\"".concat(potentialFieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input[type=\"file\"]"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input[type=\"file\"]"), ".directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), "select[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "][]\"]"), "select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(potentialFieldKey, "]\"]")].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(fieldKey && !fieldKey.startsWith('custom-') ? ["[name=\"custom-".concat(fieldKey, "\"]"), "[name=\"custom-".concat(fieldKey.replace(/_/g, '-'), "\"]"), "select[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "input[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)('custom-' + fieldKey)), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] input"), ".directorist-custom-field-select select[name=\"custom-".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)('custom-' + fieldKey))] : []));
     var _iterator = _createForOfIteratorHelper(selectors),
       _step;
     try {

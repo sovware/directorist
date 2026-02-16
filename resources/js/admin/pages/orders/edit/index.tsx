@@ -201,13 +201,11 @@ export default function OrderEdit({}: EditProps) {
 		if (loading && isOrderResolved) {
 			setLoading(false);
 			setOrderStatus(order?.status);
-			console.log(order?.status);
 		}
 	}, [isOrderResolved, loading]);
 
 	const saveOrderStatus = async () => {
 		if (!orderId) {
-			console.log("Order id is misssing");
 			return;
 		}
 

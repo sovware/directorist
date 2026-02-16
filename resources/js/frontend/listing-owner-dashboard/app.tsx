@@ -74,7 +74,7 @@ const columns: Column[] = [
 		id: 'date',
 		label: __('Order Date', 'directorist'),
 		render: ({ item }) => {
-			return <span className='directorist-table-text-light'>{moment(item.created_at).format('MMM D, YYYY')}</span>;
+			return <span className='directorist-table-text-light'>{moment(item?.created_at).format('MMM D, YYYY')}</span>;
 		},
 	},
 	{

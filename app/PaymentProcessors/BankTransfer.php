@@ -14,7 +14,7 @@ class BankTransfer extends Payment implements PaymentInterface {
         return 'bank_transfer';
     }
 
-    public function pay( OrderDTO $dto ): ?string {
+    public function pay( OrderDTO $dto, array $params = [] ): ?string {
         $payment_dto = ( new DTO )
         ->set_order_id( $dto->get_id() )
         ->set_amount( $dto->get_amount() )

@@ -200,7 +200,8 @@ export default function OrderEdit({}: EditProps) {
 	useEffect(() => {
 		if (loading && isOrderResolved) {
 			setLoading(false);
-			setOrderStatus(order?.status)
+			setOrderStatus(order?.status);
+			console.log(order?.status);
 		}
 	}, [isOrderResolved, loading]);
 
@@ -261,12 +262,10 @@ export default function OrderEdit({}: EditProps) {
 							<Select
 								options={ orderStatusOptions }
 								onChange={(option: any) => {
-									console.log(option);
-									
-									setOrderStatus(option.value);
+									setOrderStatus(option);
 								}}
-								isSearchable= {false}
-								defaultValue={orderStatusOptions.filter(items=> items.value === orderStatus)}
+								isSearchable={false}
+								value={orderStatus}
 								isDisabled={isSaving}
 							/>
 						</StatusSelection>

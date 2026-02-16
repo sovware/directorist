@@ -2,6 +2,8 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { moreVertical } from '@wordpress/icons';
+import { DropdownMenu } from '@wordpress/components';
 
 /**
  * External dependencies
@@ -18,7 +20,9 @@ import { STATUSES } from '@/admin/constants/status';
 import { displayPrice } from '@/admin/helper/payment';
 import { getBadgeVariantByStatus } from '@/admin/helper/utils';
 import { OrderTableContainer } from './style';
+import { ActionsDropdownWrapper } from './style';
 
+const checkoutPageUrl = directorist_pricing_plans_data.checkout_page_url;
 const columns: Column[] = [
 	{
 		id: 'id',
@@ -71,6 +75,36 @@ const columns: Column[] = [
 		label: __('Order Date', 'directorist'),
 		render: ({ item }) => {
 			return <span className='directorist-table-text-light'>{moment(item.created_at).format('MMM D, YYYY')}</span>;
+		},
+	},
+	{
+		id: 'actions',
+		label: __( 'Actions', 'directorist' ),
+		render: ( { item } ) => {
+			const controls: any[] = [];
+
+			if ( item?.status === 'pending' ) {
+				controls.push( {
+					title: __( 'Pay', 'directorist' ),
+					onClick: () => {
+						window.location.href = `${checkoutPageUrl}?checkout_type=payment&order_id=${item?.id}`;
+					}
+				} );
+			}
+
+			return (
+				<ActionsDropdownWrapper>
+					<DropdownMenu
+						icon={ moreVertical }
+						label={ __( 'Actions', 'directorist' ) }
+						controls={ controls }
+						placement="right-end"
+						toggleProps={ {
+							'aria-label': __( 'Package actions', 'directorist' ),
+						} }
+					/>
+				</ActionsDropdownWrapper>
+			);
 		},
 	},
 ];

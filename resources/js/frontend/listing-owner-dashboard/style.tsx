@@ -35,3 +35,24 @@ export const OrderTableContainer = styled.div`
     color: var(--wpmvc-gray-900);
   }
 `;
+
+export const ActionsDropdownWrapper = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	white-space: nowrap;
+
+	.components-dropdown-menu__toggle {
+		min-width: 32px;
+		height: 32px;
+		padding: 0;
+	}
+
+	.components-button.has-icon {
+		padding: 0;
+	}
+
+	svg {
+		width: 18px;
+		height: 18px;
+	}
+`;

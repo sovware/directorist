@@ -114,6 +114,7 @@ export default function Orders() {
 				columns={columns}
 				create={{ status: false }}
 				edit={{ status: false }}
+				destroy={{ status: true }}
 			/>
 		</OrderTableContainer>
 	);

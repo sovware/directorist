@@ -3,7 +3,7 @@ export const isObject = (value) =>
 
 export const toCapitalize = (value) => {
 	return value ? value.charAt(0).toUpperCase() + value.slice(1) : '';
-}
+};
 
 export function findObjectItem(path, data, defaultValue) {
 	if (typeof path !== 'string') {

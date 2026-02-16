@@ -1484,6 +1484,17 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
       fieldKey = 'title';
       fieldName = 'q';
       $changedField = $fieldWrap.find('input[name="q"]').first();
+    } else {
+      // Custom fields: custom_field[custom-radio], custom_field[custom-select], etc.
+      var $customInput = $fieldWrap.find('select[name^="custom_field["], input[name^="custom_field["]').first();
+      if ($customInput.length) {
+        fieldName = $customInput.attr('name');
+        var match = fieldName && fieldName.match(/^custom_field\[([^\]]+)\]/);
+        if (match) {
+          fieldKey = match[1];
+          $changedField = $customInput;
+        }
+      }
     }
     if (fieldKey) {
       setTimeout(function () {

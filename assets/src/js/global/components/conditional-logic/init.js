@@ -866,6 +866,19 @@ export function watchFieldChanges(
 				fieldKey = 'title';
 				fieldName = 'q';
 				$changedField = $fieldWrap.find('input[name="q"]').first();
+			} else {
+				// Custom fields: custom_field[custom-radio], custom_field[custom-select], etc.
+				const $customInput = $fieldWrap.find(
+					'select[name^="custom_field["], input[name^="custom_field["]'
+				).first();
+				if ($customInput.length) {
+					fieldName = $customInput.attr('name');
+					const match = fieldName && fieldName.match(/^custom_field\[([^\]]+)\]/);
+					if (match) {
+						fieldKey = match[1];
+						$changedField = $customInput;
+					}
+				}
 			}
 			if (fieldKey) {
 				setTimeout(function () {

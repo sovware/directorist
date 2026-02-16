@@ -174,6 +174,7 @@ export function mapFieldKeyToSelector(fieldKey) {
 		zip: '[name="zip"], #zip',
 		miles: '[name="miles"], .directorist-custom-range-slider__range',
 		search_by_rating: '[name="search_by_rating[]"]',
+		review: '[name="search_by_rating[]"]',
 		image_upload:
 			'[name="listing_img[]"], .directorist-form-image_upload-field',
 	};
@@ -379,6 +380,11 @@ export function extractFieldFromClearButton($fieldWrap) {
 			sel: "select[name='in_loc']",
 			fieldKey: 'location',
 			fieldName: 'in_loc',
+		},
+		{
+			sel: 'input[name="search_by_rating[]"]',
+			fieldKey: 'search_by_rating',
+			fieldName: 'search_by_rating[]',
 		},
 	];
 	for (const c of checks) {

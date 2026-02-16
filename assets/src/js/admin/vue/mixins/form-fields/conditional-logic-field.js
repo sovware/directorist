@@ -832,6 +832,22 @@ export default {
 				}
 			}
 
+			// Handle search_by_rating (Review) - checkbox field with star options
+			if (
+				fieldKeyNorm === 'search_by_rating' ||
+				fieldKeyNorm === 'search_by_rating[]' ||
+				fieldKeyNorm === 'review' ||
+				(widgetName && String(widgetName).toLowerCase() === 'review')
+			) {
+				return [
+					{ value: '5', label: '5 Star' },
+					{ value: '4', label: '4 Star & Up' },
+					{ value: '3', label: '3 Star & Up' },
+					{ value: '2', label: '2 Star & Up' },
+					{ value: '1', label: '1 Star & Up' },
+				];
+			}
+
 			// Handle select/radio/checkbox fields - get options from widget
 			// Include widget_name for search form custom fields that may not have type set
 			const hasOptionsType =

@@ -92,7 +92,10 @@ function fieldDependsOnChange(conditionalLogic, fieldKey, fieldName, $changedFie
           }
           var changedId = hasChangedField ? $changedField.attr('id') : null;
           var changedName = hasChangedField ? $changedField.attr('name') : null;
-          var matches = conditionFieldKey === fieldKey || conditionFieldKey === fieldName || conditionFieldKey === changedId || conditionFieldKey === changedName || conditionFieldKeyMapped === fieldKey || conditionFieldKeyMapped === fieldName || conditionFieldKeyMapped === changedId || conditionFieldKeyMapped === changedName || conditionFieldKeyNormalized && (conditionFieldKeyNormalized === fieldKey || conditionFieldKeyNormalized === fieldName || conditionFieldKeyNormalized === changedId || conditionFieldKeyNormalized === changedName || "custom_field[".concat(conditionFieldKeyNormalized, "]") === fieldName || "custom_field[".concat(conditionFieldKeyNormalized, "][]") === fieldName) || fieldKeyAsWidgetKey && (conditionFieldKey === fieldKeyAsWidgetKey || conditionFieldKeyMapped === fieldKeyAsWidgetKey);
+
+          // review (builder field) = search_by_rating[] (DOM name)
+          var isReviewField = conditionFieldKey === 'review' && (fieldKey === 'search_by_rating' || fieldName === 'search_by_rating[]') || conditionFieldKey === 'search_by_rating' && fieldKey === 'review';
+          var matches = isReviewField || conditionFieldKey === fieldKey || conditionFieldKey === fieldName || conditionFieldKey === changedId || conditionFieldKey === changedName || conditionFieldKeyMapped === fieldKey || conditionFieldKeyMapped === fieldName || conditionFieldKeyMapped === changedId || conditionFieldKeyMapped === changedName || conditionFieldKeyNormalized && (conditionFieldKeyNormalized === fieldKey || conditionFieldKeyNormalized === fieldName || conditionFieldKeyNormalized === changedId || conditionFieldKeyNormalized === changedName || "custom_field[".concat(conditionFieldKeyNormalized, "]") === fieldName || "custom_field[".concat(conditionFieldKeyNormalized, "][]") === fieldName) || fieldKeyAsWidgetKey && (conditionFieldKey === fieldKeyAsWidgetKey || conditionFieldKeyMapped === fieldKeyAsWidgetKey);
           if (matches) {
             return true;
           }
@@ -990,6 +993,7 @@ function mapFieldKeyToSelector(fieldKey) {
     zip: '[name="zip"], #zip',
     miles: '[name="miles"], .directorist-custom-range-slider__range',
     search_by_rating: '[name="search_by_rating[]"]',
+    review: '[name="search_by_rating[]"]',
     image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
   };
   if (fieldKeyMap[fieldKey]) {
@@ -1156,6 +1160,10 @@ function extractFieldFromClearButton($fieldWrap) {
     sel: "select[name='in_loc']",
     fieldKey: 'location',
     fieldName: 'in_loc'
+  }, {
+    sel: 'input[name="search_by_rating[]"]',
+    fieldKey: 'search_by_rating',
+    fieldName: 'search_by_rating[]'
   }];
   for (var _i = 0, _checks = checks; _i < _checks.length; _i++) {
     var c = _checks[_i];

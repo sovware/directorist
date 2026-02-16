@@ -1,6 +1,7 @@
 /**
  * Helper utilities for conditional logic
  */
+import { SELECTORS } from './field-mapping.js';
 
 /**
  * Extract labels from Select2 selection container
@@ -45,8 +46,9 @@ export function parseLabelsString(labelsStr) {
 
 /**
  * Parse comma-separated IDs string
+ * Accepts both numeric IDs and string slugs (e.g. taxonomy slugs)
  * @param {string} idsStr - Comma-separated IDs
- * @returns {string[]} Array of trimmed, valid ID strings
+ * @returns {string[]} Array of trimmed, non-empty ID strings
  */
 export function parseIdsString(idsStr) {
 	if (!idsStr || !idsStr.trim()) {
@@ -55,7 +57,71 @@ export function parseIdsString(idsStr) {
 	return idsStr
 		.split(',')
 		.map((id) => id.trim())
-		.filter((id) => id.length > 0 && !isNaN(id));
+		.filter((id) => id.length > 0);
+}
+
+/**
+ * Sync data-selected-label and data-selected-id from Select2/DOM to element.
+ * Handles Select2 API, DOM fallback, and admin checklist checkboxes.
+ * @param {jQuery} $field - The select/field element
+ * @param {jQuery} $ - jQuery instance
+ * @returns {void}
+ */
+export function syncSelect2DataAttributes($field, $) {
+	if (!$field || !$field.length || !$) return;
+
+	const labels = [];
+	const ids = [];
+	const isChecklist =
+		$field.is(SELECTORS.CATEGORY_CHECKLIST) ||
+		$field.closest(SELECTORS.CATEGORY_CHECKLIST).length > 0 ||
+		$field.is(SELECTORS.LOCATION_CHECKLIST) ||
+		$field.closest(SELECTORS.LOCATION_CHECKLIST).length > 0;
+
+	if (
+		!isChecklist &&
+		$field.hasClass('select2-hidden-accessible') &&
+		typeof $field.select2 === 'function'
+	) {
+		try {
+			const selectedData = $field.select2('data');
+			if (selectedData && selectedData.length > 0) {
+				selectedData.forEach(function (item) {
+					if (item.text) labels.push(item.text);
+					if (item.id) ids.push(String(item.id));
+				});
+			}
+		} catch (e) {
+			// Select2 might throw if not initialized
+		}
+	}
+
+	if (isChecklist && labels.length === 0 && ids.length === 0) {
+		$field.find('input:checked').each(function () {
+			const $cb = $(this);
+			ids.push(String($cb.val()));
+			const labelText = $cb.closest('label').text().trim();
+			if (labelText) labels.push(labelText);
+		});
+	}
+
+	if (labels.length === 0) {
+		const $container = $field.next('.select2-container');
+		if ($container.length) {
+			getLabelsFromSelect2Container($container, $).forEach((l) => labels.push(l));
+		}
+	}
+
+	const val = $field.val();
+	if (val && ids.length === 0) {
+		const values = Array.isArray(val) ? val : [val];
+		values.forEach((id) => {
+			if (id) ids.push(String(id));
+		});
+	}
+
+	$field.attr('data-selected-label', labels.join(','));
+	$field.attr('data-selected-id', ids.join(','));
 }
 
 /**

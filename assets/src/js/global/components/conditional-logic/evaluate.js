@@ -5,7 +5,9 @@ import { normalizeOperator } from './helpers.js';
 import { normalizeConditionFieldKey } from './field-mapping.js';
 
 /**
- * Check if value is empty
+ * Check if value is empty (null, undefined, '', or []).
+ * @param {*} value
+ * @returns {boolean}
  */
 export function isEmpty(value) {
 	if (value === null || value === undefined) {
@@ -21,7 +23,10 @@ export function isEmpty(value) {
 }
 
 /**
- * Evaluate a single condition
+ * Evaluate a single condition (operator + value).
+ * @param {Object} condition - { field, operator, value }
+ * @param {*} fieldValue - Current field value
+ * @returns {boolean}
  */
 export function evaluateCondition(condition, fieldValue) {
 	if (!condition.operator) {
@@ -119,7 +124,11 @@ export function evaluateCondition(condition, fieldValue) {
 }
 
 /**
- * Evaluate condition for array values
+ * Evaluate condition when field value is an array (e.g. multi-select).
+ * @param {Array} fieldArray
+ * @param {*} conditionValue
+ * @param {string} operator
+ * @returns {boolean}
  */
 export function evaluateArrayCondition(fieldArray, conditionValue, operator) {
 	if (!Array.isArray(fieldArray) || fieldArray.length === 0) {
@@ -232,7 +241,10 @@ export function evaluateArrayCondition(fieldArray, conditionValue, operator) {
 }
 
 /**
- * Evaluate conditional logic rules
+ * Evaluate full conditional logic (groups, operators, action).
+ * @param {Object} conditionalLogic - { enabled, action, globalOperator, groups }
+ * @param {Function} getFieldValueFn - (fieldKey) => value
+ * @returns {boolean} True if field should show
  */
 export function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
 	if (!conditionalLogic) {

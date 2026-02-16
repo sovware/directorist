@@ -9,10 +9,16 @@ import {
 import {
 	escapeCssId,
 	mapFieldKeyToSelector,
+	WIDGET_KEY_TO_FIELD_KEY,
+	SELECTORS,
+	isTaxonomySelectField,
 } from './field-mapping.js';
 
 /**
- * Get field value from form
+ * Get field value from form by field key.
+ * @param {string} fieldKey - Field key (e.g. 'category', 'custom-select')
+ * @param {jQuery} $ - jQuery
+ * @returns {*} Value, array, 'uploaded', or null
  */
 export function getFieldValue(fieldKey, $) {
 	// Special handling for privacy_policy field (checkbox field)
@@ -49,17 +55,13 @@ export function getFieldValue(fieldKey, $) {
 		fieldKey === 'admin_category_select[]' ||
 		fieldKey === 'in_cat'
 	) {
-		$field = $("#at_biz_dir-categories, select[name='in_cat']").first();
+		$field = $(SELECTORS.CATEGORY_SELECT).first();
 		if (!$field.length) {
-			const $checkboxes = $(
-				'#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked'
-			);
+			const $checkboxes = $(SELECTORS.CATEGORY_CHECKLIST_CHECKED);
 			if ($checkboxes.length) {
-				return $checkboxes
-					.map(function () {
-						return $(this).val();
-					})
-					.get();
+				return $checkboxes.map(function () {
+					return $(this).val();
+				}).get();
 			}
 			return [];
 		}
@@ -69,24 +71,18 @@ export function getFieldValue(fieldKey, $) {
 		fieldKey === 'tax_input[at_biz_dir-tags][]' ||
 		fieldKey === 'in_tag[]'
 	) {
-		$field = $("#at_biz_dir-tags, input[name='in_tag[]']").first();
+		$field = $(SELECTORS.TAGS_SELECT).first();
 		if (!$field.length) {
-			const $checkboxes = $(
-				'#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked'
-			);
+			const $checkboxes = $(SELECTORS.TAGS_CHECKLIST_CHECKED);
 			if ($checkboxes.length) {
-				return $checkboxes
-					.map(function () {
-						return $(this).val();
-					})
-					.get();
+				return $checkboxes.map(function () {
+					return $(this).val();
+				}).get();
 			}
 			return [];
 		}
 		if ($field.is('div') && !$field.is('select')) {
-			const $tagItems = $(
-				'#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li'
-			);
+			const $tagItems = $(SELECTORS.TAG_CHECKLIST_ITEMS);
 			if ($tagItems.length) {
 				return $tagItems
 					.map(function () {
@@ -101,9 +97,7 @@ export function getFieldValue(fieldKey, $) {
 					.get()
 					.filter(Boolean);
 			}
-			const $textarea = $(
-				'#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags'
-			);
+			const $textarea = $(SELECTORS.TAG_TEXTAREA);
 			if ($textarea.length && $textarea.val()) {
 				const raw = String($textarea.val()).trim();
 				if (raw) {
@@ -122,24 +116,18 @@ export function getFieldValue(fieldKey, $) {
 		fieldKey === 'in_loc' ||
 		fieldKey === 'address'
 	) {
-		$field = $("#at_biz_dir-location, select[name='in_loc']").first();
+		$field = $(SELECTORS.LOCATION_SELECT).first();
 		if (!$field.length) {
-			const $addressInput = $(
-				".directorist-search-location input[name='address']"
-			);
+			const $addressInput = $(SELECTORS.SEARCH_ADDRESS);
 			if ($addressInput.length) {
 				const val = $addressInput.val();
 				return val && val.trim() ? [val.trim()] : [];
 			}
-			const $checkboxes = $(
-				'#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked'
-			);
+			const $checkboxes = $(SELECTORS.LOCATION_CHECKLIST_CHECKED);
 			if ($checkboxes.length) {
-				return $checkboxes
-					.map(function () {
-						return $(this).val();
-					})
-					.get();
+				return $checkboxes.map(function () {
+					return $(this).val();
+				}).get();
 			}
 			return [];
 		}
@@ -147,13 +135,11 @@ export function getFieldValue(fieldKey, $) {
 
 	// Search form: in_tag[] checkboxes
 	if (
-		(fieldKey === 'in_tag[]' ||
-			fieldKey === 'tag' ||
-			fieldKey === 'tags') &&
+		(fieldKey === 'in_tag[]' || fieldKey === 'tag' || fieldKey === 'tags') &&
 		$field &&
-		$field.is('input[name="in_tag[]"]')
+		$field.is(SELECTORS.IN_TAG)
 	) {
-		const $checkboxes = $('input[name="in_tag[]"]:checked');
+		const $checkboxes = $(`${SELECTORS.IN_TAG}:checked`);
 		if ($checkboxes.length) {
 			const values = [];
 			$checkboxes.each(function () {
@@ -170,19 +156,13 @@ export function getFieldValue(fieldKey, $) {
 		return [];
 	}
 
-	const isTaxonomyField =
-		$field &&
-		($field.is('#at_biz_dir-categories') ||
-			$field.is('#at_biz_dir-tags') ||
-			$field.is('#at_biz_dir-location') ||
-			$field.is('select[name="in_cat"]') ||
-			$field.is('select[name="in_loc"]'));
+	const isTaxonomyField = isTaxonomySelectField($field);
 
 	if (isTaxonomyField) {
 		// Strategy 1: data-selected-label AND data-selected-id
 		const cachedLabels = $field.attr('data-selected-label');
 		const cachedIds = $field.attr('data-selected-id');
-		const isTagField = $field.is('#at_biz_dir-tags');
+		const isTagField = $field.is(SELECTORS.TAGS);
 
 		if (cachedLabels && cachedLabels.trim()) {
 			const parsedLabels = parseLabelsString(cachedLabels);
@@ -221,7 +201,7 @@ export function getFieldValue(fieldKey, $) {
 				const selectedData = $field.select2('data');
 				if (selectedData && selectedData.length > 0) {
 					const combined = [];
-					const isTagField = $field.is('#at_biz_dir-tags');
+					const isTagField = $field.is(SELECTORS.TAGS);
 
 					selectedData.forEach((item) => {
 						if (isTagField) {
@@ -285,12 +265,12 @@ export function getFieldValue(fieldKey, $) {
 		// Strategy 4: Fallback to select option text and values
 		const val = $field.val();
 		if (val) {
-			const values = Array.isArray(val) ? val : [val];
-			if (values.length > 0) {
-				const combined = [];
-				const labels = [];
-				const ids = [];
-				const isTagField = $field.is('#at_biz_dir-tags');
+				const values = Array.isArray(val) ? val : [val];
+				if (values.length > 0) {
+					const combined = [];
+					const labels = [];
+					const ids = [];
+					const isTagField = $field.is(SELECTORS.TAGS);
 
 				values.forEach((val) => {
 					if (isTagField) {
@@ -332,15 +312,8 @@ export function getFieldValue(fieldKey, $) {
 		return [];
 	}
 
-	// Reset $field for regular fields
-	if (
-		$field &&
-		!(
-			$field.is('#at_biz_dir-categories') ||
-			$field.is('#at_biz_dir-tags') ||
-			$field.is('#at_biz_dir-location')
-		)
-	) {
+	// Reset $field for regular fields (not taxonomy selects)
+	if ($field && !isTaxonomySelectField($field)) {
 		$field = null;
 	}
 
@@ -350,11 +323,7 @@ export function getFieldValue(fieldKey, $) {
 	}
 
 	if (!$field || !$field.length) {
-		const widgetKeyToFieldKeyMap = {
-			title: 'listing_title',
-			description: 'listing_content',
-		};
-		let potentialFieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
+		let potentialFieldKey = WIDGET_KEY_TO_FIELD_KEY[fieldKey] || fieldKey;
 
 		if (
 			!fieldKey.startsWith('custom-') &&
@@ -489,15 +458,21 @@ export function getFieldValue(fieldKey, $) {
 
 	// TinyMCE editor
 	if (typeof tinymce !== 'undefined' && $field.length) {
-		const editorId = $field.attr('id');
-		if (editorId && tinymce.get(editorId)) {
-			const editor = tinymce.get(editorId);
-			if (editor && !editor.isHidden()) {
-				const content = editor.getContent();
-				const tempDiv = document.createElement('div');
-				tempDiv.innerHTML = content;
-				return tempDiv.textContent || tempDiv.innerText || '';
+		try {
+			const editorId = $field.attr('id');
+			if (editorId) {
+				const editor = tinymce.get(editorId);
+				if (editor && typeof editor.isHidden === 'function' && !editor.isHidden()) {
+					const content = typeof editor.getContent === 'function' ? editor.getContent() : '';
+					if (content) {
+						const tempDiv = document.createElement('div');
+						tempDiv.innerHTML = content;
+						return tempDiv.textContent || tempDiv.innerText || '';
+					}
+				}
 			}
+		} catch (e) {
+			// TinyMCE may not be ready or editor not found
 		}
 	}
 

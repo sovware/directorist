@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-15 05:45+0000\n"
+"POT-Creation-Date: 2026-02-16 06:08+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -3460,7 +3460,7 @@ msgstr ""
 msgid "Section Title"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1989, ../includes/model/SearchForm.php:250, ../includes/model/SearchForm.php:748
+#: ../includes/classes/class-settings-panel.php:1989, ../includes/model/SearchForm.php:250, ../includes/model/SearchForm.php:857
 msgid "Browse by popular categories"
 msgstr ""
 
@@ -5695,31 +5695,31 @@ msgstr ""
 msgid "Or"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:402
+#: ../includes/model/SearchForm.php:456
 msgid "Kilometers"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:402
+#: ../includes/model/SearchForm.php:456
 msgid "Miles"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:863
+#: ../includes/model/SearchForm.php:972
 msgid "5 Star"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:868
+#: ../includes/model/SearchForm.php:977
 msgid "4 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:873
+#: ../includes/model/SearchForm.php:982
 msgid "3 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:878
+#: ../includes/model/SearchForm.php:987
 msgid "2 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:883
+#: ../includes/model/SearchForm.php:992
 msgid "1 Star & Up"
 msgstr ""
 

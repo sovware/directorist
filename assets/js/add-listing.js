@@ -206,8 +206,10 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
           return val === condValStrForIs;
         });
         if (!hasMatch) return false;
-        if (fieldArray.length > 2) return false;
-        return hasMatch;
+        // "is" = exactly that value only. 
+        return normalizedValues.every(function (val) {
+          return val === condValStrForIs;
+        });
       }
     case 'contains':
       {

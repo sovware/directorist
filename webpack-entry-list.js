@@ -30,6 +30,10 @@ module.exports = {
 		],
 		['public-atmodal']: ['./assets/src/js/public/atmodal.js'],
 		['widgets']: ['./assets/src/js/public/modules/widgets.js'],
+		['formgent-integration']: [
+			'./assets/src/js/formgent-integration/index.js',
+			'./assets/src/js/formgent-integration/index.scss',
+		],
 
 		// Admin
 		// -------------------------------------------

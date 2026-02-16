@@ -232,7 +232,7 @@
                 <div class="cptm-modal-header cptm-create-directory-modal__header">
                     <div class="cptm-create-directory-modal__header__content">
                         <h3 class="cptm-modal-header-title cptm-create-directory-modal__title"><?php esc_html_e( 'Create New Directory', 'directorist' ); ?></h3>
-                        <p class="cptm-create-directory-modal__desc"><?php esc_html_e( ' Let AI create it or choose a template or start from scratch.', 'directorist' ); ?></p>
+                        <p class="cptm-create-directory-modal__desc"><?php esc_html_e( 'Let AI create it or start from scratch.', 'directorist' ); ?></p>
                     </div>
                     <button class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-create-directory-modal">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -243,23 +243,6 @@
 
                 <div class="cptm-modal-body cptm-center-content cptm-content-wide cptm-create-directory-modal__body">
                     <div class="cptm-create-directory-modal__action">
-                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=templatiq' ) ) ?>" class="cptm-create-directory-modal__action__single <?php echo ! is_plugin_active( 'templatiq/templatiq.php' ) ? 'directorist_directory_template_library' : ''; ?>">
-                            <span class="modal-btn-icon create-template">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_5814_6155)">
-                                        <path d="M9.18492 1.6665L9.40142 0.94843C9.21009 0.890745 9.00364 0.911803 8.8279 1.00693C8.65216 1.10206 8.52164 1.2634 8.46532 1.45514L9.18492 1.6665ZM18.334 4.4249L19.0536 4.63627C19.1697 4.24085 18.9451 3.82579 18.5505 3.70683L18.334 4.4249ZM14.983 15.8332L14.7665 16.5512C14.9579 16.6089 15.1643 16.5879 15.3401 16.4927C15.5158 16.3976 15.6463 16.2363 15.7026 16.0445L14.983 15.8332ZM5.83398 13.0748L5.11438 12.8634C4.99824 13.2588 5.22291 13.6739 5.61749 13.7928L5.83398 13.0748ZM10.5416 6.57169L14.5191 7.63143L14.9052 6.18199L10.9278 5.12225L10.5416 6.57169ZM9.68903 9.73568L11.6777 10.2656L12.0639 8.81612L10.0752 8.28625L9.68903 9.73568ZM8.96843 2.38458L18.1175 5.14297L18.5505 3.70683L9.40142 0.94843L8.96843 2.38458ZM15.1995 15.1151L6.05048 12.3567L5.61749 13.7928L14.7665 16.5512L15.1995 15.1151ZM6.55358 13.2861L9.90452 1.87787L8.46532 1.45514L5.11438 12.8634L6.55358 13.2861ZM17.6144 4.21353L14.2634 15.6218L15.7026 16.0445L19.0536 4.63627L17.6144 4.21353Z" fill="white"/>
-                                        <path d="M5.83366 5.66846L1.66699 6.92469L5.01793 18.333L10.8337 16.5795" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_5814_6155">
-                                            <rect width="20" height="20" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </span>
-                            <span class="modal-btn-text"><?php esc_html_e( 'Use Template', 'directorist' ); ?></span>
-                            <span class="modal-btn-desc"><?php echo esc_html( 'This will install the Templatiq plugin', 'directorist' ); ?></span>
-                        </a>
                         <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="cptm-create-directory-modal__action__single">
                             <span class="modal-btn-icon create-scratch">
                                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

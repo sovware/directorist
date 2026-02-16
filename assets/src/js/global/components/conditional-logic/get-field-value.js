@@ -1,0 +1,583 @@
+/**
+ * Extract field values from form elements
+ */
+import {
+	getLabelsFromSelect2Container,
+	parseLabelsString,
+	parseIdsString,
+} from './helpers.js';
+import {
+	escapeCssId,
+	mapFieldKeyToSelector,
+} from './field-mapping.js';
+
+/**
+ * Get field value from form
+ */
+export function getFieldValue(fieldKey, $) {
+	// Special handling for privacy_policy field (checkbox field)
+	if (fieldKey === 'privacy_policy') {
+		const $privacyCheckbox = $(
+			'input[name="privacy_policy"], #directorist_submit_privacy_policy'
+		);
+		if ($privacyCheckbox.length) {
+			return $privacyCheckbox.is(':checked') ? 'checked' : '';
+		}
+		return '';
+	}
+
+	// Special handling for listing_img field (image upload field)
+	if (fieldKey === 'listing_img' || fieldKey === 'image_upload') {
+		const $imageUploadWrapper = $('.directorist-form-image-upload-field');
+		if ($imageUploadWrapper.length) {
+			const $previewSection = $imageUploadWrapper.find(
+				'.ezmu__preview-section.ezmu--show'
+			);
+			if ($previewSection.length > 0) {
+				return 'uploaded';
+			}
+		}
+		return null;
+	}
+
+	let $field = null;
+
+	// Handle category, tag, and location fields
+	if (
+		fieldKey === 'category' ||
+		fieldKey === 'categories' ||
+		fieldKey === 'admin_category_select[]' ||
+		fieldKey === 'in_cat'
+	) {
+		$field = $("#at_biz_dir-categories, select[name='in_cat']").first();
+		if (!$field.length) {
+			const $checkboxes = $(
+				'#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked'
+			);
+			if ($checkboxes.length) {
+				return $checkboxes
+					.map(function () {
+						return $(this).val();
+					})
+					.get();
+			}
+			return [];
+		}
+	} else if (
+		fieldKey === 'tag' ||
+		fieldKey === 'tags' ||
+		fieldKey === 'tax_input[at_biz_dir-tags][]' ||
+		fieldKey === 'in_tag[]'
+	) {
+		$field = $("#at_biz_dir-tags, input[name='in_tag[]']").first();
+		if (!$field.length) {
+			const $checkboxes = $(
+				'#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked'
+			);
+			if ($checkboxes.length) {
+				return $checkboxes
+					.map(function () {
+						return $(this).val();
+					})
+					.get();
+			}
+			return [];
+		}
+		if ($field.is('div') && !$field.is('select')) {
+			const $tagItems = $(
+				'#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li'
+			);
+			if ($tagItems.length) {
+				return $tagItems
+					.map(function () {
+						return $(this)
+							.clone()
+							.children()
+							.remove()
+							.end()
+							.text()
+							.trim();
+					})
+					.get()
+					.filter(Boolean);
+			}
+			const $textarea = $(
+				'#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags'
+			);
+			if ($textarea.length && $textarea.val()) {
+				const raw = String($textarea.val()).trim();
+				if (raw) {
+					return raw
+						.split(/[,\u00A0]+/)
+						.map((s) => s.trim())
+						.filter(Boolean);
+				}
+			}
+			return [];
+		}
+	} else if (
+		fieldKey === 'location' ||
+		fieldKey === 'locations' ||
+		fieldKey === 'tax_input[at_biz_dir-location][]' ||
+		fieldKey === 'in_loc' ||
+		fieldKey === 'address'
+	) {
+		$field = $("#at_biz_dir-location, select[name='in_loc']").first();
+		if (!$field.length) {
+			const $addressInput = $(
+				".directorist-search-location input[name='address']"
+			);
+			if ($addressInput.length) {
+				const val = $addressInput.val();
+				return val && val.trim() ? [val.trim()] : [];
+			}
+			const $checkboxes = $(
+				'#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked'
+			);
+			if ($checkboxes.length) {
+				return $checkboxes
+					.map(function () {
+						return $(this).val();
+					})
+					.get();
+			}
+			return [];
+		}
+	}
+
+	// Search form: in_tag[] checkboxes
+	if (
+		(fieldKey === 'in_tag[]' ||
+			fieldKey === 'tag' ||
+			fieldKey === 'tags') &&
+		$field &&
+		$field.is('input[name="in_tag[]"]')
+	) {
+		const $checkboxes = $('input[name="in_tag[]"]:checked');
+		if ($checkboxes.length) {
+			const values = [];
+			$checkboxes.each(function () {
+				const id = $(this).val();
+				if (id) values.push(String(id));
+				const $label = $(this).siblings('label').first();
+				if ($label.length) {
+					const label = $label.text().trim();
+					if (label && !values.includes(label)) values.push(label);
+				}
+			});
+			return values;
+		}
+		return [];
+	}
+
+	const isTaxonomyField =
+		$field &&
+		($field.is('#at_biz_dir-categories') ||
+			$field.is('#at_biz_dir-tags') ||
+			$field.is('#at_biz_dir-location') ||
+			$field.is('select[name="in_cat"]') ||
+			$field.is('select[name="in_loc"]'));
+
+	if (isTaxonomyField) {
+		// Strategy 1: data-selected-label AND data-selected-id
+		const cachedLabels = $field.attr('data-selected-label');
+		const cachedIds = $field.attr('data-selected-id');
+		const isTagField = $field.is('#at_biz_dir-tags');
+
+		if (cachedLabels && cachedLabels.trim()) {
+			const parsedLabels = parseLabelsString(cachedLabels);
+			const parsedIds = cachedIds ? parseIdsString(cachedIds) : [];
+			const combined = [];
+
+			if (isTagField) {
+				parsedLabels.forEach((label) => {
+					if (label) combined.push(label);
+				});
+				parsedIds.forEach((id) => {
+					if (id && !parsedLabels.includes(id)) {
+						combined.push(id);
+					}
+				});
+			} else {
+				parsedLabels.forEach((label) => {
+					if (label) combined.push(label);
+				});
+				parsedIds.forEach((id) => {
+					if (id) combined.push(id);
+				});
+			}
+
+			if (combined.length > 0) {
+				return combined;
+			}
+		}
+
+		// Strategy 2: Select2 API
+		if (
+			$field.hasClass('select2-hidden-accessible') &&
+			typeof $field.select2 === 'function'
+		) {
+			try {
+				const selectedData = $field.select2('data');
+				if (selectedData && selectedData.length > 0) {
+					const combined = [];
+					const isTagField = $field.is('#at_biz_dir-tags');
+
+					selectedData.forEach((item) => {
+						if (isTagField) {
+							if (item.text) combined.push(item.text);
+							if (item.id && item.id !== item.text) {
+								combined.push(String(item.id));
+							}
+						} else {
+							if (item.id) combined.push(String(item.id));
+							if (item.text) combined.push(item.text);
+						}
+					});
+					if (combined.length > 0) {
+						$field.attr(
+							'data-selected-label',
+							selectedData
+								.map((item) => item.text || '')
+								.filter((t) => t)
+								.join(',')
+						);
+						$field.attr(
+							'data-selected-id',
+							selectedData
+								.map((item) => item.id || '')
+								.filter((id) => id)
+								.join(',')
+						);
+						return combined;
+					}
+				}
+			} catch (e) {
+				// Select2 might not be initialized yet
+			}
+		}
+
+		// Strategy 3: Select2 DOM container
+		const $select2Container = $field.next('.select2-container');
+		if ($select2Container.length) {
+			const labels = getLabelsFromSelect2Container(
+				$select2Container,
+				$
+			);
+			if (labels.length > 0) {
+				const val = $field.val();
+				const ids = Array.isArray(val) ? val : val ? [val] : [];
+				const combined = [];
+				labels.forEach((label) => {
+					if (label) combined.push(label);
+				});
+				ids.forEach((id) => {
+					if (id) combined.push(String(id));
+				});
+				if (combined.length > 0) {
+					$field.attr('data-selected-label', labels.join(','));
+					$field.attr('data-selected-id', ids.join(','));
+					return combined;
+				}
+			}
+		}
+
+		// Strategy 4: Fallback to select option text and values
+		const val = $field.val();
+		if (val) {
+			const values = Array.isArray(val) ? val : [val];
+			if (values.length > 0) {
+				const combined = [];
+				const labels = [];
+				const ids = [];
+				const isTagField = $field.is('#at_biz_dir-tags');
+
+				values.forEach((val) => {
+					if (isTagField) {
+						const tagName = String(val).trim();
+						if (tagName) {
+							labels.push(tagName);
+							combined.push(tagName);
+						}
+					} else {
+						const $option = $field.find(`option[value="${val}"]`);
+						if ($option.length) {
+							const label = $option.text().trim();
+							if (label) {
+								labels.push(label);
+								combined.push(label);
+							}
+							ids.push(String(val));
+							combined.push(String(val));
+						} else {
+							combined.push(String(val));
+						}
+					}
+				});
+
+				if (combined.length > 0) {
+					if (labels.length > 0) {
+						$field.attr('data-selected-label', labels.join(','));
+					}
+					if (ids.length > 0) {
+						$field.attr('data-selected-id', ids.join(','));
+					} else if (isTagField && combined.length > 0) {
+						$field.attr('data-selected-id', combined.join(','));
+					}
+					return combined;
+				}
+			}
+		}
+
+		return [];
+	}
+
+	// Reset $field for regular fields
+	if (
+		$field &&
+		!(
+			$field.is('#at_biz_dir-categories') ||
+			$field.is('#at_biz_dir-tags') ||
+			$field.is('#at_biz_dir-location')
+		)
+	) {
+		$field = null;
+	}
+
+	const mappedSelector = mapFieldKeyToSelector(fieldKey);
+	if (mappedSelector) {
+		$field = $(mappedSelector).first();
+	}
+
+	if (!$field || !$field.length) {
+		const widgetKeyToFieldKeyMap = {
+			title: 'listing_title',
+			description: 'listing_content',
+		};
+		let potentialFieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
+
+		if (
+			!fieldKey.startsWith('custom-') &&
+			!potentialFieldKey.startsWith('custom-')
+		) {
+			const customFieldKey = `custom-${fieldKey}`;
+			const customFieldIdEscaped = escapeCssId(customFieldKey);
+			const $customField = $(
+				`[name="${customFieldKey}"], #${customFieldIdEscaped}, .directorist-form-group[data-field-key="${customFieldKey}"] select, .directorist-form-group[data-field-key="${customFieldKey}"] input[type="checkbox"], .directorist-form-group[data-field-key="${customFieldKey}"] input[type="radio"]`
+			).first();
+			if ($customField.length) {
+				potentialFieldKey = customFieldKey;
+			}
+		}
+
+		const fieldKeyEscaped = escapeCssId(fieldKey);
+		const potentialFieldKeyEscaped = escapeCssId(potentialFieldKey);
+		const selectors = [
+			`[name="${fieldKey}"]`,
+			`[name="${fieldKey}[]"]`,
+			`#${fieldKeyEscaped}`,
+			`[name="${potentialFieldKey}"]`,
+			`[name="${potentialFieldKey}[]"]`,
+			`#${potentialFieldKeyEscaped}`,
+			`.directorist-form-${fieldKeyEscaped}-field input`,
+			`.directorist-form-${fieldKeyEscaped}-field select`,
+			`.directorist-form-${fieldKeyEscaped}-field textarea`,
+			`.directorist-form-${fieldKeyEscaped}-field input[type="file"]`,
+			`.directorist-form-${potentialFieldKeyEscaped}-field input`,
+			`.directorist-form-${potentialFieldKeyEscaped}-field select`,
+			`.directorist-form-${potentialFieldKeyEscaped}-field textarea`,
+			`.directorist-form-${potentialFieldKeyEscaped}-field input[type="file"]`,
+			`input[name*="${fieldKey}"]`,
+			`select[name*="${fieldKey}"]`,
+			`input[type="file"][name*="${fieldKey}"]`,
+			`input[name*="${potentialFieldKey}"]`,
+			`select[name*="${potentialFieldKey}"]`,
+			`input[type="file"][name*="${potentialFieldKey}"]`,
+			`.directorist-form-group[data-field-key="${fieldKey}"] input`,
+			`.directorist-form-group[data-field-key="${fieldKey}"] select`,
+			`.directorist-form-group[data-field-key="${fieldKey}"] textarea`,
+			`.directorist-form-group[data-field-key="${fieldKey}"] input[type="file"]`,
+			`.directorist-form-group[data-field-key="${potentialFieldKey}"] input`,
+			`.directorist-form-group[data-field-key="${potentialFieldKey}"] select`,
+			`.directorist-form-group[data-field-key="${potentialFieldKey}"] textarea`,
+			`.directorist-form-group[data-field-key="${potentialFieldKey}"] input[type="file"]`,
+			`.directorist-custom-field-select select[name="${fieldKey}"]`,
+			`.directorist-custom-field-select select#${fieldKeyEscaped}`,
+			`.directorist-custom-field-select select[name="${potentialFieldKey}"]`,
+			`.directorist-custom-field-select select#${potentialFieldKeyEscaped}`,
+			`.directorist-form-group.directorist-custom-field-select select[name="${fieldKey}"]`,
+			`.directorist-form-group.directorist-custom-field-select select#${fieldKeyEscaped}`,
+			`.directorist-form-group.directorist-custom-field-select select[name="${potentialFieldKey}"]`,
+			`.directorist-form-group.directorist-custom-field-select select#${potentialFieldKeyEscaped}`,
+			`select[name="custom_field[${fieldKey}]"]`,
+			`input[name="custom_field[${fieldKey}]"]`,
+			`input[name="custom_field[${fieldKey}][]"]`,
+			`select[name="custom_field[${potentialFieldKey}]"]`,
+			`input[name="custom_field[${potentialFieldKey}]"]`,
+			`input[name="custom_field[${potentialFieldKey}][]"]`,
+			`.directorist-search-field select[name="custom_field[${fieldKey}]"]`,
+			`.directorist-search-field input[name="custom_field[${fieldKey}]"]`,
+			`.directorist-search-field select[name="custom_field[${potentialFieldKey}]"]`,
+			`.directorist-search-field input[name="custom_field[${potentialFieldKey}]"]`,
+			...(fieldKey && !fieldKey.startsWith('custom-')
+				? [
+						`[name="custom-${fieldKey}"]`,
+						`[name="custom-${fieldKey.replace(/_/g, '-')}"]`,
+						`select[name="custom_field[custom-${fieldKey.replace(/_/g, '-')}]"]`,
+						`input[name="custom_field[custom-${fieldKey.replace(/_/g, '-')}]"]`,
+						`#${escapeCssId('custom-' + fieldKey)}`,
+						`.directorist-form-group[data-field-key="custom-${fieldKey}"] select`,
+						`.directorist-form-group[data-field-key="custom-${fieldKey}"] input`,
+						`.directorist-custom-field-select select[name="custom-${fieldKey}"]`,
+						`.directorist-custom-field-select select#${escapeCssId('custom-' + fieldKey)}`,
+					]
+				: []),
+		];
+
+		for (let selector of selectors) {
+			$field = $(selector).first();
+			if ($field.length) {
+				break;
+			}
+		}
+	}
+
+	if (!$field || !$field.length) {
+		return null;
+	}
+
+	// Checkboxes and radio buttons
+	if ($field.is(':checkbox') || $field.is(':radio')) {
+		if (
+			$field.is('[name$="[]"]') ||
+			($field.attr('name') && $field.attr('name').includes('[]'))
+		) {
+			const values = [];
+			const nameAttr = $field.attr('name');
+			$(`[name="${nameAttr}"]`)
+				.filter(':checked')
+				.each(function () {
+					values.push($(this).val());
+				});
+			return values;
+		}
+		if ($field.is(':radio')) {
+			const nameAttr = $field.attr('name');
+			const $checkedRadio = $(`[name="${nameAttr}"]:checked`);
+			return $checkedRadio.length ? $checkedRadio.val() : null;
+		}
+		return $field.is(':checked') ? $field.val() : null;
+	}
+
+	// Multi-select
+	if ($field.is('select[multiple]') || $field.prop('multiple')) {
+		const val = $field.val();
+		return Array.isArray(val) ? val : val ? [val] : [];
+	}
+
+	// Select2 fields
+	if ($field.hasClass('select2-hidden-accessible')) {
+		try {
+			const selectedData = $field.select2('data');
+			if (selectedData && selectedData.length > 0) {
+				return selectedData.map(function (item) {
+					return item.text || item.id;
+				});
+			}
+		} catch (e) {}
+	}
+
+	// TinyMCE editor
+	if (typeof tinymce !== 'undefined' && $field.length) {
+		const editorId = $field.attr('id');
+		if (editorId && tinymce.get(editorId)) {
+			const editor = tinymce.get(editorId);
+			if (editor && !editor.isHidden()) {
+				const content = editor.getContent();
+				const tempDiv = document.createElement('div');
+				tempDiv.innerHTML = content;
+				return tempDiv.textContent || tempDiv.innerText || '';
+			}
+		}
+	}
+
+	// File upload fields
+	let $fileWrapper = $field.closest(
+		'.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload'
+	);
+	if (!$fileWrapper.length) {
+		$fileWrapper = $field.closest(
+			'.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload'
+		);
+	}
+
+	const isFileUploadField =
+		$field.is('input[type="file"]') ||
+		$field.closest('.directorist-custom-field-file').length ||
+		$field.closest('.directorist-custom-field-file-upload').length ||
+		($fileWrapper.length &&
+			($fileWrapper.hasClass('directorist-custom-field-file') ||
+				$fileWrapper.hasClass('directorist-custom-field-file-upload') ||
+				$fileWrapper.find('.plupload-upload-ui, .plupload-thumbs')
+					.length > 0));
+
+	if (isFileUploadField) {
+		if (
+			$field.is('input[type="file"]') &&
+			$field[0] &&
+			$field[0].files &&
+			$field[0].files.length > 0
+		) {
+			return 'uploaded';
+		}
+		if ($fileWrapper.length) {
+			const $thumbsContainer = $fileWrapper.find('.plupload-thumbs');
+			if (
+				$thumbsContainer.length &&
+				$thumbsContainer.find('.thumb').length > 0
+			) {
+				return 'uploaded';
+			}
+		}
+		if ($fileWrapper.length) {
+			const fieldKeyFromWrapper =
+				$fileWrapper.attr('data-field-key') ||
+				$fileWrapper
+					.find('[data-field-key]')
+					.first()
+					.attr('data-field-key');
+			if (fieldKeyFromWrapper) {
+				const $hiddenInput = $fileWrapper.find(
+					`input[type="hidden"][name="${fieldKeyFromWrapper}"]`
+				);
+				if (
+					$hiddenInput.length &&
+					$hiddenInput.val() &&
+					$hiddenInput.val().trim() !== '' &&
+					$hiddenInput.val() !== 'null'
+				) {
+					return 'uploaded';
+				}
+			}
+		}
+		if ($fileWrapper.length) {
+			const hasUploadedFiles =
+				$fileWrapper.find(
+					'.directorist-file-list-item, .directorist-uploaded-file, .directorist-file-item, [data-file-id], .thumb'
+				).length > 0 ||
+				$fileWrapper
+					.find(
+						'input[type="hidden"][name*="_file_id"], input[type="hidden"][name*="_file_url"]'
+					)
+					.filter(function () {
+						return $(this).val() && $(this).val().trim() !== '';
+					}).length > 0;
+			if (hasUploadedFiles) {
+				return 'uploaded';
+			}
+		}
+		return null;
+	}
+
+	return $field.val() || null;
+}

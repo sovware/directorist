@@ -10,657 +10,53 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   applyConditionalLogic: function() { return /* binding */ applyConditionalLogic; },
+/* harmony export */   applyConditionalLogic: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.applyConditionalLogic; },
+/* harmony export */   evaluateConditionalLogic: function() { return /* reexport safe */ _conditional_logic_evaluate_js__WEBPACK_IMPORTED_MODULE_1__.evaluateConditionalLogic; },
+/* harmony export */   getFieldValue: function() { return /* reexport safe */ _conditional_logic_get_field_value_js__WEBPACK_IMPORTED_MODULE_0__.getFieldValue; },
+/* harmony export */   initConditionalLogic: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.initConditionalLogic; },
+/* harmony export */   updateCategoryFieldLabel: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.updateCategoryFieldLabel; },
+/* harmony export */   watchFieldChanges: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.watchFieldChanges; }
+/* harmony export */ });
+/* harmony import */ var _conditional_logic_get_field_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./conditional-logic/get-field-value.js */ "./assets/src/js/global/components/conditional-logic/get-field-value.js");
+/* harmony import */ var _conditional_logic_evaluate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./conditional-logic/evaluate.js */ "./assets/src/js/global/components/conditional-logic/evaluate.js");
+/* harmony import */ var _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./conditional-logic/init.js */ "./assets/src/js/global/components/conditional-logic/init.js");
+/**
+ * Conditional Logic Evaluation for Frontend Form
+ * Combines all submodules and re-exports for consumers
+ */
+
+
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/evaluate.js":
+/*!***********************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/evaluate.js ***!
+  \***********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateArrayCondition: function() { return /* binding */ evaluateArrayCondition; },
 /* harmony export */   evaluateCondition: function() { return /* binding */ evaluateCondition; },
 /* harmony export */   evaluateConditionalLogic: function() { return /* binding */ evaluateConditionalLogic; },
-/* harmony export */   getFieldValue: function() { return /* binding */ getFieldValue; },
-/* harmony export */   initConditionalLogic: function() { return /* binding */ initConditionalLogic; },
-/* harmony export */   isEmpty: function() { return /* binding */ isEmpty; },
-/* harmony export */   mapFieldKeyToSelector: function() { return /* binding */ mapFieldKeyToSelector; },
-/* harmony export */   updateCategoryFieldLabel: function() { return /* binding */ updateCategoryFieldLabel; },
-/* harmony export */   watchFieldChanges: function() { return /* binding */ watchFieldChanges; }
+/* harmony export */   isEmpty: function() { return /* binding */ isEmpty; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 /**
- * Conditional Logic Evaluation for Frontend Form
- * Handles showing/hiding form fields based on conditional rules
+ * Condition evaluation logic
  */
 
-/**
- * Escape a string for use in CSS ID/class selectors.
- * Characters like [ ] in field keys (e.g. admin_category_select[]) break jQuery selectors.
- */
-function escapeCssId(str) {
-  if (typeof str !== 'string') return str;
-  try {
-    if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') {
-      return CSS.escape(str);
-    }
-  } catch (e) {}
-  // Fallback: escape [ ] and other chars that break ID/class selectors
-  return str.replace(/([!"#$%&'()*+,./:;<=>?@[\]^`{|}~\\])/g, '\\$1');
-}
 
-/**
- * Map widget_key/field_key to actual frontend field selector
- */
-function mapFieldKeyToSelector(fieldKey) {
-  // Map widget_keys and field_keys to their frontend selectors
-  // Note: widget_key (e.g., "title") may differ from field_key (e.g., "listing_title")
-  var fieldKeyMap = {
-    category: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
-    categories: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
-    'admin_category_select[]': "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
-    in_cat: "select[name='in_cat'], .directorist-search-category select",
-    description: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
-    listing_content: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
-    title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
-    listing_title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
-    q: '.directorist-search-query input, input[name="q"]',
-    location: '[name="location"], #at_biz_dir-location, select[name="in_loc"], .directorist-search-location select',
-    in_loc: 'select[name="in_loc"], .directorist-search-location select',
-    address: '[name="address"], #address',
-    phone: '[name="phone"], #phone',
-    email: '[name="email"], #email',
-    website: '[name="website"], #website',
-    tag: '[name="tag"], #at_biz_dir-tags, [name="in_tag[]"]',
-    'in_tag[]': '[name="in_tag[]"]',
-    'tax_input[at_biz_dir-tags][]': "#at_biz_dir-tags, [name='in_tag[]']",
-    'tax_input[at_biz_dir-location][]': "#at_biz_dir-location, select[name='in_loc']",
-    zip: '[name="zip"], #zip',
-    miles: '[name="miles"], .directorist-custom-range-slider__range',
-    search_by_rating: '[name="search_by_rating[]"]',
-    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
-  };
-  if (fieldKeyMap[fieldKey]) {
-    return fieldKeyMap[fieldKey];
-  }
-
-  // Search form custom fields: name="custom_field[field_key]" (e.g. custom-select, custom-select-2)
-  // condition.field and actual name must align: field_key = value inside custom_field[]
-  if (fieldKey && (fieldKey.startsWith('custom-') || ['select', 'radio', 'checkbox'].some(function (t) {
-    return fieldKey === t || fieldKey.startsWith(t + '_');
-  }))) {
-    var fk = fieldKey.startsWith('custom-') ? fieldKey : "custom-".concat(fieldKey.replace(/_/g, '-'));
-    return ["select[name=\"custom_field[".concat(fk, "]\"]"), "input[name=\"custom_field[".concat(fk, "]\"]"), "input[name=\"custom_field[".concat(fk, "][]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-select select[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-radio input[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-checkbox input[name=\"custom_field[".concat(fk, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fk, "][]\"]")].join(', ');
-  }
-  return null;
-}
-
-/**
- * Normalize condition.field to match actual field name in DOM.
- * Search form custom fields use name="custom_field[custom-select]" etc.
- * Conditions may be stored as "select", "select_2" from builder.
- */
-function normalizeConditionFieldKey(fieldKey) {
-  if (!fieldKey || typeof fieldKey !== 'string') {
-    return fieldKey;
-  }
-  var key = String(fieldKey).trim();
-  // Already in custom-* format
-  if (key.startsWith('custom-')) {
-    return key;
-  }
-  // Widget-style: select, select_2, radio, radio_3 -> custom-select, custom-select-2
-  var m = key.match(/^(select|radio|checkbox)(?:_(\d+))?$/i);
-  if (m) {
-    var suffix = m[2] ? '-' + m[2] : '';
-    return 'custom-' + m[1].toLowerCase() + suffix;
-  }
-  return key;
-}
-
-/**
- * Get field value from form
- */
-function getFieldValue(fieldKey, $) {
-  // Special handling for privacy_policy field (checkbox field)
-  if (fieldKey === 'privacy_policy') {
-    var $privacyCheckbox = $('input[name="privacy_policy"], #directorist_submit_privacy_policy');
-    if ($privacyCheckbox.length) {
-      // Return "checked" if checkbox is checked, "unchecked" if not
-      return $privacyCheckbox.is(':checked') ? 'checked' : '';
-    }
-    return ''; // Default to unchecked if field not found
-  }
-
-  // Special handling for listing_img field (image upload field)
-  // listing_img uses ez-media-uploader, not plupload
-  if (fieldKey === 'listing_img' || fieldKey === 'image_upload') {
-    // Check for .directorist-form-image-upload-field wrapper
-    var $imageUploadWrapper = $('.directorist-form-image-upload-field');
-    if ($imageUploadWrapper.length) {
-      // When files are uploaded, preview section gets ezmu--show class
-      var $previewSection = $imageUploadWrapper.find('.ezmu__preview-section.ezmu--show');
-      if ($previewSection.length > 0) {
-        return 'uploaded';
-      }
-    }
-    // If no images found, return null (not uploaded)
-    return null;
-  }
-
-  // Special handling for common field keys
-  var $field = null;
-
-  // Map field keys to actual field names/selectors
-  // Handle category, tag, and location fields - all use Select2 with similar structure
-  if (fieldKey === 'category' || fieldKey === 'categories' || fieldKey === 'admin_category_select[]' || fieldKey === 'in_cat') {
-    // Add listing: Select2 #at_biz_dir-categories
-    // Search form: select[name='in_cat']
-    $field = $("#at_biz_dir-categories, select[name='in_cat']").first();
-    if (!$field.length) {
-      // Admin context: use taxonomy metabox checkboxes
-      var $checkboxes = $('#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked');
-      if ($checkboxes.length) {
-        var values = $checkboxes.map(function () {
-          return $(this).val();
-        }).get();
-        return values;
-      }
-      return [];
-    }
-  } else if (fieldKey === 'tag' || fieldKey === 'tags' || fieldKey === 'tax_input[at_biz_dir-tags][]' || fieldKey === 'in_tag[]') {
-    // Add listing: Select2 #at_biz_dir-tags
-    // Search form: input[name="in_tag[]"] checkboxes
-    $field = $("#at_biz_dir-tags, input[name='in_tag[]']").first();
-    if (!$field.length) {
-      // Try checkbox-style (if used)
-      var _$checkboxes = $('#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked');
-      if (_$checkboxes.length) {
-        return _$checkboxes.map(function () {
-          return $(this).val();
-        }).get();
-      }
-      return [];
-    }
-    // Admin: #at_biz_dir-tags is a div with .tagchecklist (WordPress default tag UI)
-    if ($field.is('div') && !$field.is('select')) {
-      var $tagItems = $('#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li');
-      if ($tagItems.length) {
-        return $tagItems.map(function () {
-          var text = $(this).clone().children().remove().end().text().trim();
-          return text || null;
-        }).get().filter(Boolean);
-      }
-      // Fallback: read from textarea.the-tags (WordPress stores comma-separated tags there)
-      var $textarea = $('#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags');
-      if ($textarea.length && $textarea.val()) {
-        var raw = String($textarea.val()).trim();
-        if (raw) {
-          return raw.split(/[,\u00A0]+/).map(function (s) {
-            return s.trim();
-          }).filter(Boolean);
-        }
-      }
-      return [];
-    }
-  } else if (fieldKey === 'location' || fieldKey === 'locations' || fieldKey === 'tax_input[at_biz_dir-location][]' || fieldKey === 'in_loc' || fieldKey === 'address') {
-    // Add listing: Select2 #at_biz_dir-location
-    // Search form: select[name="in_loc"] (dropdown) or input[name="address"] (map - typed)
-    $field = $("#at_biz_dir-location, select[name='in_loc']").first();
-    if (!$field.length) {
-      // Map source: location is an address input (user types)
-      var $addressInput = $(".directorist-search-location input[name='address']");
-      if ($addressInput.length) {
-        var val = $addressInput.val();
-        return val && val.trim() ? [val.trim()] : [];
-      }
-      var _$checkboxes2 = $('#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked');
-      if (_$checkboxes2.length) {
-        return _$checkboxes2.map(function () {
-          return $(this).val();
-        }).get();
-      }
-      return [];
-    }
-  }
-
-  // Search form: in_tag[] checkboxes - get all checked values (IDs and labels)
-  // Checkbox value is term ID; condition often uses tag name (e.g. "Beauty")
-  if ((fieldKey === 'in_tag[]' || fieldKey === 'tag' || fieldKey === 'tags') && $field && $field.is('input[name="in_tag[]"]')) {
-    var _$checkboxes3 = $('input[name="in_tag[]"]:checked');
-    if (_$checkboxes3.length) {
-      var _values = [];
-      _$checkboxes3.each(function () {
-        var id = $(this).val();
-        if (id) _values.push(String(id));
-        // Include label (tag name) for matching conditions like "tag is Beauty"
-        var $label = $(this).siblings('label').first();
-        if ($label.length) {
-          var label = $label.text().trim();
-          if (label && !_values.includes(label)) _values.push(label);
-        }
-      });
-      return _values;
-    }
-    return [];
-  }
-
-  // If we matched a taxonomy field (category, tag, location), process it
-  var isTaxonomyField = $field && ($field.is('#at_biz_dir-categories') || $field.is('#at_biz_dir-tags') || $field.is('#at_biz_dir-location') || $field.is('select[name="in_cat"]') || $field.is('select[name="in_loc"]'));
-  if (isTaxonomyField) {
-    /**
-     * Helper function to extract labels from Select2 selection container
-     * @param {jQuery} $container - Select2 container element
-     * @returns {string[]} Array of category labels
-     */
-    function getLabelsFromSelect2Container($container) {
-      if (!$container || !$container.length) {
-        return [];
-      }
-      var labels = [];
-      $container.find('.select2-selection__choice').each(function () {
-        var $choice = $(this);
-        var label = $choice.find('.select2-selection__choice__display').text().trim() || $choice.text().trim().replace('×', '').trim();
-        if (label) {
-          labels.push(label);
-        }
-      });
-      return labels;
-    }
-
-    /**
-     * Helper function to parse comma-separated labels string
-     * @param {string} labelsStr - Comma-separated labels
-     * @returns {string[]} Array of trimmed, non-empty labels
-     */
-    function parseLabelsString(labelsStr) {
-      if (!labelsStr || !labelsStr.trim()) {
-        return [];
-      }
-      return labelsStr.split(',').map(function (label) {
-        return label.trim();
-      }).filter(function (label) {
-        return label.length > 0;
-      });
-    }
-
-    /**
-     * Helper function to parse comma-separated IDs string
-     */
-    function parseIdsString(idsStr) {
-      if (!idsStr || !idsStr.trim()) {
-        return [];
-      }
-      return idsStr.split(',').map(function (id) {
-        return id.trim();
-      }).filter(function (id) {
-        return id.length > 0 && !isNaN(id);
-      });
-    }
-
-    // Strategy 1: Try data-selected-label AND data-selected-id (return both for comparison)
-    var cachedLabels = $field.attr('data-selected-label');
-    var cachedIds = $field.attr('data-selected-id');
-    var isTagField = $field.is('#at_biz_dir-tags');
-    if (cachedLabels && cachedLabels.trim()) {
-      var parsedLabels = parseLabelsString(cachedLabels);
-      var parsedIds = cachedIds ? parseIdsString(cachedIds) : [];
-
-      // Return combined array: both IDs and labels for flexible matching
-      // This allows condition to match either by ID (from builder dropdown) or label
-      var combined = [];
-
-      // For tag field, prioritize labels (names) since that's what's stored in form
-      if (isTagField) {
-        parsedLabels.forEach(function (label) {
-          if (label) combined.push(label);
-        });
-        // For tags, also add IDs if they exist (though form uses names)
-        parsedIds.forEach(function (id) {
-          if (id && !parsedLabels.includes(id)) {
-            combined.push(id);
-          }
-        });
-      } else {
-        // For category and location, add both labels and IDs
-        parsedLabels.forEach(function (label) {
-          if (label) combined.push(label);
-        });
-        parsedIds.forEach(function (id) {
-          if (id) combined.push(id);
-        });
-      }
-      if (combined.length > 0) {
-        return combined;
-      }
-    }
-
-    // Strategy 2: Try Select2 API (most accurate if available)
-    if ($field.hasClass('select2-hidden-accessible') && typeof $field.select2 === 'function') {
-      try {
-        var selectedData = $field.select2('data');
-        if (selectedData && selectedData.length > 0) {
-          var _combined = [];
-          var _isTagField = $field.is('#at_biz_dir-tags');
-          selectedData.forEach(function (item) {
-            // For tag field, Select2 stores tag name as id (since option value is name)
-            // So prioritize text (name) for tags
-            if (_isTagField) {
-              // For tags, the id in Select2 is actually the tag name (from option value)
-              // So we use both id and text, but text is more reliable
-              if (item.text) {
-                _combined.push(item.text); // Tag name
-              }
-              if (item.id && item.id !== item.text) {
-                _combined.push(String(item.id)); // Also add id if different
-              }
-            } else {
-              // For category and location, add both ID and label for flexible matching
-              if (item.id) _combined.push(String(item.id));
-              if (item.text) _combined.push(item.text);
-            }
-          });
-          if (_combined.length > 0) {
-            // Cache for future reads
-            $field.attr('data-selected-label', selectedData.map(function (item) {
-              return item.text || '';
-            }).filter(function (t) {
-              return t;
-            }).join(','));
-            $field.attr('data-selected-id', selectedData.map(function (item) {
-              return item.id || '';
-            }).filter(function (id) {
-              return id;
-            }).join(','));
-            return _combined;
-          }
-        }
-      } catch (e) {
-        // Select2 might not be initialized yet, continue to next strategy
-      }
-    }
-
-    // Strategy 3: Try reading from Select2 DOM container (visual tags)
-    var $select2Container = $field.next('.select2-container');
-    if ($select2Container.length) {
-      var labels = getLabelsFromSelect2Container($select2Container);
-      if (labels.length > 0) {
-        // Also get IDs from the actual select field
-        var _val = $field.val();
-        var ids = Array.isArray(_val) ? _val : _val ? [_val] : [];
-        var _combined2 = [];
-        labels.forEach(function (label) {
-          if (label) _combined2.push(label);
-        });
-        ids.forEach(function (id) {
-          if (id) _combined2.push(String(id));
-        });
-        if (_combined2.length > 0) {
-          // Cache for future reads
-          $field.attr('data-selected-label', labels.join(','));
-          $field.attr('data-selected-id', ids.join(','));
-          return _combined2;
-        }
-      }
-    }
-
-    // Strategy 4: Fallback to select option text and values
-    var _val2 = $field.val();
-    if (_val2) {
-      var _values2 = Array.isArray(_val2) ? _val2 : [_val2];
-      if (_values2.length > 0) {
-        var _combined3 = [];
-        var _labels = [];
-        var _ids = [];
-
-        // Special handling for tag field - values are stored as names, not IDs
-        var _isTagField2 = $field.is('#at_biz_dir-tags');
-        _values2.forEach(function (val) {
-          // For tags, the option value IS the tag name, so use it directly
-          if (_isTagField2) {
-            var tagName = String(val).trim();
-            if (tagName) {
-              // For tags, the value is the name, so add it to both labels and combined
-              _labels.push(tagName);
-              _combined3.push(tagName);
-              // Also try to find the ID from data-selected-id if available
-              var _cachedIds = $field.attr('data-selected-id');
-              if (_cachedIds) {
-                // Tag IDs might be in the cache, but the actual value is the name
-                // We'll rely on name matching for tags
-              }
-            }
-          } else {
-            // For category and location, try to find option to get both ID and label
-            var $option = $field.find("option[value=\"".concat(val, "\"]"));
-            if ($option.length) {
-              var label = $option.text().trim();
-              if (label) {
-                _labels.push(label);
-                _combined3.push(label);
-              }
-              _ids.push(String(val));
-              _combined3.push(String(val));
-            } else {
-              // If option not found, treat value as-is (could be ID or label)
-              _combined3.push(String(val));
-            }
-          }
-        });
-        if (_combined3.length > 0) {
-          // Cache for future reads
-          if (_labels.length > 0) {
-            $field.attr('data-selected-label', _labels.join(','));
-          }
-          if (_ids.length > 0) {
-            $field.attr('data-selected-id', _ids.join(','));
-          } else if (_isTagField2 && _combined3.length > 0) {
-            // For tags, also cache the names as selected-id for consistency
-            // (even though they're names, not IDs)
-            $field.attr('data-selected-id', _combined3.join(','));
-          }
-          return _combined3;
-        }
-      }
-    }
-    return [];
-  }
-
-  // Reset $field if it was set for taxonomy fields above, now continue with regular fields
-  if ($field && !($field.is('#at_biz_dir-categories') || $field.is('#at_biz_dir-tags') || $field.is('#at_biz_dir-location'))) {
-    $field = null;
-  }
-
-  // Try mapped selector first
-  var mappedSelector = mapFieldKeyToSelector(fieldKey);
-  if (mappedSelector) {
-    $field = $(mappedSelector).first();
-    if ($field.length) {
-      // Use the mapped field
-    }
-  }
-
-  // Try multiple selectors for the field
-  if (!$field || !$field.length) {
-    // Map widget_key to field_key for common fields
-    var widgetKeyToFieldKeyMap = {
-      title: 'listing_title',
-      description: 'listing_content'
-    };
-
-    // Get both widget_key and potential field_key
-    var _potentialFieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
-
-    // For custom fields: widget_key might be like "custom-select" or just "select"
-    // Try to find field_key by checking if widget_key starts with "custom-"
-    // If not, try prepending "custom-" to match field_key format
-    if (!fieldKey.startsWith('custom-') && !_potentialFieldKey.startsWith('custom-')) {
-      // Try custom field format: "custom-{type}" or "custom-{type}-{suffix}"
-      var customFieldKey = "custom-".concat(fieldKey);
-      // Check if this custom field exists in the form (select, checkbox, or radio)
-      // Use escapeCssId for #id selector - field keys like admin_category_select[] break jQuery
-      var customFieldIdEscaped = escapeCssId(customFieldKey);
-      var $customField = $("[name=\"".concat(customFieldKey, "\"], #").concat(customFieldIdEscaped, ", .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] select, .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"checkbox\"], .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"radio\"]")).first();
-      if ($customField.length) {
-        _potentialFieldKey = customFieldKey;
-      }
-    }
-
-    // Escape field keys for use in #id and .class selectors - chars like [] break jQuery
-    var fieldKeyEscaped = escapeCssId(fieldKey);
-    var potentialFieldKeyEscaped = escapeCssId(_potentialFieldKey);
-    var _selectors = ["[name=\"".concat(fieldKey, "\"]"), "[name=\"".concat(fieldKey, "[]\"]"), "#".concat(fieldKeyEscaped), "[name=\"".concat(_potentialFieldKey, "\"]"), "[name=\"".concat(_potentialFieldKey, "[]\"]"), "#".concat(potentialFieldKeyEscaped), ".directorist-form-".concat(fieldKeyEscaped, "-field input"), ".directorist-form-".concat(fieldKeyEscaped, "-field select"), ".directorist-form-".concat(fieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(fieldKeyEscaped, "-field input[type=\"file\"]"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field select"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input[type=\"file\"]"), "input[name*=\"".concat(fieldKey, "\"]"), "select[name*=\"".concat(fieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(fieldKey, "\"]"), "input[name*=\"".concat(_potentialFieldKey, "\"]"), "select[name*=\"".concat(_potentialFieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(_potentialFieldKey, "\"]"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input[type=\"file\"]"), ".directorist-form-group[data-field-key=\"".concat(_potentialFieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(_potentialFieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(_potentialFieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(_potentialFieldKey, "\"] input[type=\"file\"]"), // Additional selectors for custom fields (try both widget_key and field_key formats)
-    ".directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-custom-field-select select[name=\"".concat(_potentialFieldKey, "\"]"), ".directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(_potentialFieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), // Search form: name="custom_field[field_key]" - must match condition.field (e.g. custom-select)
-    "select[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "][]\"]"), "select[name=\"custom_field[".concat(_potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(_potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(_potentialFieldKey, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(_potentialFieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(_potentialFieldKey, "]\"]")].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(fieldKey && !fieldKey.startsWith('custom-') ? ["[name=\"custom-".concat(fieldKey, "\"]"), "[name=\"custom-".concat(fieldKey.replace(/_/g, '-'), "\"]"), "select[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "input[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "#".concat(escapeCssId('custom-' + fieldKey)), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] input"), ".directorist-custom-field-select select[name=\"custom-".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat(escapeCssId('custom-' + fieldKey))] : []));
-    var _iterator = _createForOfIteratorHelper(_selectors),
-      _step;
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var selector = _step.value;
-        $field = $(selector).first();
-        if ($field.length) {
-          break;
-        }
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-  }
-  if (!$field || !$field.length) {
-    // Debug: Log when field is not found (especially for custom fields)
-    if (fieldKey && (fieldKey.includes('select') || fieldKey.startsWith('custom-'))) {
-      var fallbackKey = typeof potentialFieldKey !== 'undefined' ? potentialFieldKey : fieldKey;
-      console.warn('Conditional logic: Field not found', {
-        fieldKey: fieldKey,
-        potentialFieldKey: fallbackKey,
-        selectorsTried: typeof selectors !== 'undefined' ? selectors.length : 0
-      });
-    }
-    return null;
-  }
-
-  // Handle checkboxes and radio buttons
-  if ($field.is(':checkbox') || $field.is(':radio')) {
-    // For checkboxes with [] in name (multiple checkboxes with same name)
-    if ($field.is('[name$="[]"]') || $field.attr('name') && $field.attr('name').includes('[]')) {
-      // Multiple checkboxes - use attribute selector to find all with same name
-      var _values3 = [];
-      var nameAttr = $field.attr('name');
-
-      // CRITICAL FIX: Use attribute selector [name="..."] instead of passing name directly to $()
-      // This prevents jQuery syntax error when nameAttr contains brackets like "custom-checkbox[]"
-      $("[name=\"".concat(nameAttr, "\"]")).filter(':checked').each(function () {
-        _values3.push($(this).val());
-      });
-      return _values3;
-    }
-    // For radio buttons or single checkboxes (no [] in name)
-    // Radio buttons share the same name, so find the checked one with that name
-    if ($field.is(':radio')) {
-      var _nameAttr = $field.attr('name');
-      var $checkedRadio = $("[name=\"".concat(_nameAttr, "\"]:checked"));
-      return $checkedRadio.length ? $checkedRadio.val() : null;
-    }
-    // Single checkbox
-    return $field.is(':checked') ? $field.val() : null;
-  }
-
-  // Handle multi-select
-  if ($field.is('select[multiple]') || $field.prop('multiple')) {
-    var _val3 = $field.val();
-    return Array.isArray(_val3) ? _val3 : _val3 ? [_val3] : [];
-  }
-
-  // Handle Select2 fields (only if actually initialized - avoid error on admin checklists)
-  if ($field.hasClass('select2-hidden-accessible')) {
-    try {
-      var _selectedData = $field.select2('data');
-      if (_selectedData && _selectedData.length > 0) {
-        return _selectedData.map(function (item) {
-          return item.text || item.id;
-        });
-      }
-    } catch (e) {
-      // Select2 not initialized on this element
-    }
-  }
-
-  // Handle TinyMCE editor (wp_editor)
-  if (typeof tinymce !== 'undefined' && $field.length) {
-    var editorId = $field.attr('id');
-    if (editorId && tinymce.get(editorId)) {
-      var editor = tinymce.get(editorId);
-      if (editor && !editor.isHidden()) {
-        // Get content from TinyMCE editor
-        var content = editor.getContent();
-        // Return text content (strip HTML tags) for comparison
-        // You can also return raw HTML if needed: return content;
-        var tempDiv = document.createElement('div');
-        tempDiv.innerHTML = content;
-        return tempDiv.textContent || tempDiv.innerText || '';
-      }
-    }
-  }
-
-  // Handle file upload fields - check if file is uploaded (boolean check)
-  // File fields can be detected by:
-  // 1. Input type="file"
-  // 2. File upload containers with uploaded files
-  // 3. Custom file field wrappers
-  // 4. Plupload file upload fields
-  var $fileWrapper = $field.closest('.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload');
-
-  // If we haven't found a wrapper yet, try to find by looking for plupload containers
-  if (!$fileWrapper.length) {
-    $fileWrapper = $field.closest('.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload');
-  }
-
-  // Check if this is a file upload field
-  var isFileUploadField = $field.is('input[type="file"]') || $field.closest('.directorist-custom-field-file').length || $field.closest('.directorist-custom-field-file-upload').length || $fileWrapper.length && ($fileWrapper.hasClass('directorist-custom-field-file') || $fileWrapper.hasClass('directorist-custom-field-file-upload') || $fileWrapper.find('.plupload-upload-ui, .plupload-thumbs').length > 0);
-  if (isFileUploadField) {
-    // Strategy 1: Check if file input has files selected (for new uploads)
-    if ($field.is('input[type="file"]') && $field[0] && $field[0].files && $field[0].files.length > 0) {
-      return 'uploaded';
-    }
-
-    // Strategy 2: Check for plupload thumbnails (most reliable for plupload)
-    // Plupload adds thumbnails to .plupload-thumbs container with class .thumb
-    if ($fileWrapper.length) {
-      var $thumbsContainer = $fileWrapper.find('.plupload-thumbs');
-      if ($thumbsContainer.length && $thumbsContainer.find('.thumb').length > 0) {
-        return 'uploaded';
-      }
-    }
-
-    // Strategy 3: Check hidden input value (stores file data in format: "url|id|title|caption" or "url1::url2::...")
-    // The hidden input has the field_key as name attribute
-    if ($fileWrapper.length) {
-      // Try to find hidden input with field key as name
-      var fieldKeyFromWrapper = $fileWrapper.attr('data-field-key') || $fileWrapper.find('[data-field-key]').first().attr('data-field-key');
-      if (fieldKeyFromWrapper) {
-        var $hiddenInput = $fileWrapper.find("input[type=\"hidden\"][name=\"".concat(fieldKeyFromWrapper, "\"]"));
-        if ($hiddenInput.length && $hiddenInput.val() && $hiddenInput.val().trim() !== '' && $hiddenInput.val() !== 'null') {
-          return 'uploaded';
-        }
-      }
-    }
-
-    // Strategy 4: Check for other file indicators (fallback)
-    if ($fileWrapper.length) {
-      var hasUploadedFiles = $fileWrapper.find('.directorist-file-list-item, .directorist-uploaded-file, .directorist-file-item, [data-file-id], .thumb').length > 0 || $fileWrapper.find('input[type="hidden"][name*="_file_id"], input[type="hidden"][name*="_file_url"]').filter(function () {
-        return $(this).val() && $(this).val().trim() !== '';
-      }).length > 0;
-      if (hasUploadedFiles) {
-        return 'uploaded';
-      }
-    }
-
-    // No file uploaded
-    return null;
-  }
-  return $field.val() || null;
-}
 
 /**
  * Check if value is empty
@@ -688,10 +84,8 @@ function evaluateCondition(condition, fieldValue) {
   var operator = condition.operator.toLowerCase();
   var conditionValue = condition.value || '';
 
-  // Handle file fields with "uploaded" value - treat as boolean
-  // If condition value is "uploaded", check if field has uploaded files
+  // Handle file fields with "uploaded" value
   if (conditionValue.toLowerCase() === 'uploaded') {
-    // For file fields, fieldValue will be "uploaded" if file exists, null/empty otherwise
     if (operator === 'is' || operator === '==' || operator === '=') {
       return fieldValue === 'uploaded' || fieldValue === true;
     }
@@ -705,21 +99,15 @@ function evaluateCondition(condition, fieldValue) {
       return !isEmpty(fieldValue) && fieldValue === 'uploaded';
     }
   }
-
-  // Handle empty/not empty operators
   if (operator === 'empty') {
     return isEmpty(fieldValue);
   }
   if (operator === 'not empty') {
     return !isEmpty(fieldValue);
   }
-
-  // Handle arrays (multi-select fields)
   if (Array.isArray(fieldValue)) {
     return evaluateArrayCondition(fieldValue, conditionValue, operator);
   }
-
-  // Convert values for comparison
   var fieldVal = fieldValue;
   var condVal = conditionValue;
   if (typeof fieldVal === 'string') {
@@ -728,8 +116,6 @@ function evaluateCondition(condition, fieldValue) {
   if (typeof condVal === 'string') {
     condVal = condVal.trim().toLowerCase();
   }
-
-  // Evaluate based on operator
   switch (operator) {
     case 'is':
     case '==':
@@ -741,13 +127,11 @@ function evaluateCondition(condition, fieldValue) {
       return String(fieldVal) !== String(condVal);
     case 'contains':
       if (typeof fieldVal === 'string' && typeof condVal === 'string') {
-        // Case-insensitive contains check
         return fieldVal.toLowerCase().includes(condVal.toLowerCase());
       }
       return false;
     case 'does not contain':
       if (typeof fieldVal === 'string' && typeof condVal === 'string') {
-        // Case-insensitive does not contain check
         return !fieldVal.toLowerCase().includes(condVal.toLowerCase());
       }
       return true;
@@ -782,95 +166,68 @@ function evaluateCondition(condition, fieldValue) {
  * Evaluate condition for array values
  */
 function evaluateArrayCondition(fieldArray, conditionValue, operator) {
-  // Handle empty array
   if (!Array.isArray(fieldArray) || fieldArray.length === 0) {
-    // If array is empty, check what operator expects
     if (operator === 'empty' || operator === 'is empty') {
       return true;
     }
     if (operator === 'not empty' || operator === 'is not empty') {
       return false;
     }
-    // For "is" operator with empty array, return false (no match)
-    // For "is not" operator with empty array, return true (condition not met = true)
     if (operator === 'is' || operator === '==' || operator === '=') {
-      return false; // Empty array never matches "is X"
+      return false;
     }
     if (operator === 'is not' || operator === '!=' || operator === 'not') {
-      return true; // Empty array always matches "is not X"
+      return true;
     }
-    return false; // Default: empty array doesn't match
+    return false;
   }
   var condVal = typeof conditionValue === 'string' ? conditionValue.trim().toLowerCase() : conditionValue;
   switch (operator) {
     case 'is':
     case '==':
     case '=':
-      // For "is" operator: must be exactly one selection AND that value must match exactly
-      // Note: fieldArray may contain both IDs and labels (e.g., ["Food", "5"] for one selection)
-      // So we need to check if there's exactly one unique selection, not array length
-
-      // Normalize condition value for comparison
-      var condValStrForIs = String(condVal).toLowerCase().trim();
-
-      // Normalize all array values to strings for comparison
-      var normalizedValues = fieldArray.map(function (val) {
-        if (typeof val === 'string') {
-          return val.trim().toLowerCase();
-        } else if (typeof val === 'number') {
+      {
+        var condValStrForIs = String(condVal).toLowerCase().trim();
+        var normalizedValues = fieldArray.map(function (val) {
+          if (typeof val === 'string') {
+            return val.trim().toLowerCase();
+          } else if (typeof val === 'number') {
+            return String(val).toLowerCase();
+          } else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(val) === 'object' && val !== null) {
+            if (val.name) return String(val.name).trim().toLowerCase();
+            if (val.label) return String(val.label).trim().toLowerCase();
+            if (val.value) return String(val.value).trim().toLowerCase();
+            if (val.id) return String(val.id).toLowerCase();
+            return String(val).toLowerCase();
+          }
           return String(val).toLowerCase();
-        } else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(val) === 'object' && val !== null) {
-          if (val.name) return String(val.name).trim().toLowerCase();
-          if (val.label) return String(val.label).trim().toLowerCase();
-          if (val.value) return String(val.value).trim().toLowerCase();
-          if (val.id) return String(val.id).toLowerCase();
-          return String(val).toLowerCase();
-        }
-        return String(val).toLowerCase();
-      });
-
-      // Check if condition value matches any value in the array
-      var hasMatch = normalizedValues.some(function (val) {
-        return val === condValStrForIs;
-      });
-      if (!hasMatch) {
-        return false; // Condition value not found
+        });
+        var hasMatch = normalizedValues.some(function (val) {
+          return val === condValStrForIs;
+        });
+        if (!hasMatch) return false;
+        if (fieldArray.length > 2) return false;
+        return hasMatch;
       }
-
-      // For "is" operator: array must represent exactly ONE selection
-      // Category/tag/location fields return ID+label pairs:
-      // - Single selection: ["Food", "5"] → 2 items (ID + label for same selection)
-      // - Multiple selections: ["Food", "5", "Travel", "10"] → 4 items (2 selections)
-      // So: if array.length <= 2, it's a single selection; if > 2, it's multiple
-
-      // Check if this is the ONLY selection
-      if (fieldArray.length > 2) {
-        return false; // Multiple selections (3+ items means at least 2 selections)
-      }
-
-      // Array has 1-2 items, meaning single selection
-      // Condition value must match
-      return hasMatch;
     case 'contains':
-      // For "contains" operator: field value must contain the condition value
-      // "location contains Ankara" = location field value must contain "Ankara"
-      // Do NOT use condValStr.includes(compareValStr) - that would make "a" match "Ankara"
-      var condValStrContains = String(condVal).toLowerCase();
-      return fieldArray.some(function (val) {
-        var compareVal = val;
-        if (typeof compareVal === 'string') {
-          compareVal = compareVal.trim().toLowerCase();
-        } else if (typeof compareVal === 'number') {
-          compareVal = String(compareVal).toLowerCase();
-        } else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(compareVal) === 'object' && compareVal !== null) {
-          if (compareVal.name) compareVal = compareVal.name;else if (compareVal.label) compareVal = compareVal.label;else if (compareVal.value) compareVal = compareVal.value;else if (compareVal.id) compareVal = compareVal.id;else compareVal = String(compareVal);
+      {
+        var condValStrContains = String(condVal).toLowerCase();
+        return fieldArray.some(function (val) {
+          var compareVal = val;
           if (typeof compareVal === 'string') {
             compareVal = compareVal.trim().toLowerCase();
+          } else if (typeof compareVal === 'number') {
+            compareVal = String(compareVal).toLowerCase();
+          } else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(compareVal) === 'object' && compareVal !== null) {
+            if (compareVal.name) compareVal = compareVal.name;else if (compareVal.label) compareVal = compareVal.label;else if (compareVal.value) compareVal = compareVal.value;else if (compareVal.id) compareVal = compareVal.id;else compareVal = String(compareVal);
+            if (typeof compareVal === 'string') {
+              compareVal = compareVal.trim().toLowerCase();
+            }
           }
-        }
-        var compareValStr = String(compareVal).toLowerCase();
-        return compareValStr === condValStrContains || compareValStr.includes(condValStrContains);
-      });
+          var compareValStr = String(compareVal).toLowerCase();
+          return compareValStr === condValStrContains || compareValStr.includes(condValStrContains);
+        });
+      }
     case 'is not':
     case '!=':
     case 'does not contain':
@@ -884,6 +241,12 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
         }
         return String(compareVal).toLowerCase().includes(String(condVal).toLowerCase()) || String(compareVal).toLowerCase() === String(condVal).toLowerCase();
       });
+    case 'empty':
+    case 'is empty':
+      return fieldArray.length === 0;
+    case 'not empty':
+    case 'is not empty':
+      return fieldArray.length > 0;
     default:
       return false;
   }
@@ -893,151 +256,689 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
  * Evaluate conditional logic rules
  */
 function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
-  // Normalize enabled flag - handle string "1", boolean true, etc.
   if (!conditionalLogic) {
     return true;
   }
-
-  // Check if enabled (handle string "1", boolean true, etc.)
   var isEnabled = conditionalLogic.enabled === true || conditionalLogic.enabled === 1 || conditionalLogic.enabled === '1' || conditionalLogic.enabled === 'true';
   if (!isEnabled) {
-    return true; // If not enabled, always show
+    return true;
   }
   if (!conditionalLogic.groups || !Array.isArray(conditionalLogic.groups) || conditionalLogic.groups.length === 0) {
-    return true; // If no groups, always show
+    return true;
   }
-
-  // Evaluate each group
   var groupResults = [];
-  var _iterator2 = _createForOfIteratorHelper(conditionalLogic.groups),
-    _step2;
+  var _iterator = _createForOfIteratorHelper(conditionalLogic.groups),
+    _step;
   try {
-    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-      var group = _step2.value;
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var group = _step.value;
       if (!group.conditions || !Array.isArray(group.conditions) || group.conditions.length === 0) {
-        continue; // Skip empty groups
+        continue;
       }
-
-      // Evaluate conditions in this group
       var conditionResults = [];
-      var _iterator3 = _createForOfIteratorHelper(group.conditions),
-        _step3;
+      var _iterator2 = _createForOfIteratorHelper(group.conditions),
+        _step2;
       try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var condition = _step3.value;
-          // Skip conditions without field (incomplete conditions)
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var condition = _step2.value;
           var rawField = (condition.field || '').trim();
           if (!rawField) {
             continue;
           }
-
-          // Skip conditions without operator (incomplete conditions)
           if (!condition.operator || !condition.operator.trim()) {
             continue;
           }
-
-          // Normalize field key for custom fields: "select"/"select_2" -> "custom-select"/"custom-select-2"
-          // Search form uses name="custom_field[custom-select]", so condition.field must match
-          var fieldKeyForLookup = normalizeConditionFieldKey(rawField);
+          var fieldKeyForLookup = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.normalizeConditionFieldKey)(rawField);
           var fieldValue = getFieldValueFn(fieldKeyForLookup);
-
-          // Debug logging for custom select fields
-          if (condition.field && condition.field.includes('select') && !condition.field.includes('category') && !condition.field.includes('tag') && !condition.field.includes('location')) {
-            // Custom select field evaluation
-          }
           var conditionResult = evaluateCondition(condition, fieldValue);
           conditionResults.push(conditionResult);
         }
-
-        // Only process group if it has valid conditions
-        // If no valid conditions, skip this group (don't add false result)
       } catch (err) {
-        _iterator3.e(err);
+        _iterator2.e(err);
       } finally {
-        _iterator3.f();
+        _iterator2.f();
       }
       if (conditionResults.length === 0) {
         continue;
       }
-
-      // Combine condition results based on group operator
-      // Normalize operator to handle case variations and empty values
-      var groupOperator = group.operator;
-
-      // Handle various data types and empty values
-      if (groupOperator === null || groupOperator === undefined || groupOperator === '') {
-        groupOperator = 'AND'; // Default to AND
-      } else {
-        // Convert to string and normalize
-        groupOperator = String(groupOperator).trim().toUpperCase();
-        // If after trimming it's empty, default to AND
-        if (!groupOperator) {
-          groupOperator = 'AND';
-        }
-      }
-
-      // Evaluate group result based on operator
-      var groupResult = false;
-      if (groupOperator === 'OR') {
-        // Within group: if ANY condition is true, group is true
-        groupResult = conditionResults.some(function (result) {
-          return result === true;
-        });
-      } else {
-        // Default to AND: ALL conditions must be true
-        groupResult = conditionResults.every(function (result) {
-          return result === true;
-        });
-      }
-
-      // Only push result if group had valid conditions
+      var groupOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.normalizeOperator)(group.operator, 'AND');
+      var groupResult = groupOperator === 'OR' ? conditionResults.some(function (result) {
+        return result === true;
+      }) : conditionResults.every(function (result) {
+        return result === true;
+      });
       groupResults.push(groupResult);
     }
-
-    // Combine group results based on globalOperator (AND/OR)
-    // Default to OR if globalOperator is not specified (backward compatibility)
-    // Normalize operator to handle case variations
   } catch (err) {
-    _iterator2.e(err);
+    _iterator.e(err);
   } finally {
-    _iterator2.f();
+    _iterator.f();
   }
-  var globalOperator = conditionalLogic.globalOperator;
-  if (globalOperator === null || globalOperator === undefined || globalOperator === '') {
-    globalOperator = 'OR'; // Default to OR
-  } else {
-    globalOperator = String(globalOperator).trim().toUpperCase();
-    if (!globalOperator) {
-      globalOperator = 'OR';
-    }
-  }
+  var globalOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.normalizeOperator)(conditionalLogic.globalOperator, 'OR');
   var result = true;
   if (groupResults.length > 0) {
-    if (globalOperator === 'AND') {
-      // ALL groups must be true
-      result = groupResults.every(function (groupRes) {
-        return groupRes === true;
-      });
-    } else {
-      // OR: ANY group is true
-      result = groupResults.some(function (groupRes) {
-        return groupRes === true;
-      });
-    }
+    result = globalOperator === 'AND' ? groupResults.every(function (groupRes) {
+      return groupRes === true;
+    }) : groupResults.some(function (groupRes) {
+      return groupRes === true;
+    });
   }
-
-  // Apply the action (show/hide)
   if (conditionalLogic.action === 'hide') {
-    return !result; // If hide and conditions are met, return false
+    return !result;
   }
-
-  // Default to show
   return result;
 }
 
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/field-mapping.js":
+/*!****************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/field-mapping.js ***!
+  \****************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   escapeCssId: function() { return /* binding */ escapeCssId; },
+/* harmony export */   mapFieldKeyToSelector: function() { return /* binding */ mapFieldKeyToSelector; },
+/* harmony export */   normalizeConditionFieldKey: function() { return /* binding */ normalizeConditionFieldKey; }
+/* harmony export */ });
 /**
- * Apply conditional logic to a field
+ * Field mapping: escape IDs, map field keys to selectors, normalize field keys
  */
+
+/**
+ * Escape a string for use in CSS ID/class selectors.
+ * Characters like [ ] in field keys (e.g. admin_category_select[]) break jQuery selectors.
+ */
+function escapeCssId(str) {
+  if (typeof str !== 'string') return str;
+  try {
+    if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') {
+      return CSS.escape(str);
+    }
+  } catch (e) {}
+  // Fallback: escape [ ] and other chars that break ID/class selectors
+  return str.replace(/([!"#$%&'()*+,./:;<=>?@[\]^`{|}~\\])/g, '\\$1');
+}
+
+/**
+ * Map widget_key/field_key to actual frontend field selector
+ */
+function mapFieldKeyToSelector(fieldKey) {
+  var fieldKeyMap = {
+    category: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    categories: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    'admin_category_select[]': "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    in_cat: "select[name='in_cat'], .directorist-search-category select",
+    description: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
+    listing_content: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
+    title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
+    listing_title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
+    q: '.directorist-search-query input, input[name="q"]',
+    location: '[name="location"], #at_biz_dir-location, select[name="in_loc"], .directorist-search-location select',
+    in_loc: 'select[name="in_loc"], .directorist-search-location select',
+    address: '[name="address"], #address',
+    phone: '[name="phone"], #phone',
+    email: '[name="email"], #email',
+    website: '[name="website"], #website',
+    tag: '[name="tag"], #at_biz_dir-tags, [name="in_tag[]"]',
+    'in_tag[]': '[name="in_tag[]"]',
+    'tax_input[at_biz_dir-tags][]': "#at_biz_dir-tags, [name='in_tag[]']",
+    'tax_input[at_biz_dir-location][]': "#at_biz_dir-location, select[name='in_loc']",
+    zip: '[name="zip"], #zip',
+    miles: '[name="miles"], .directorist-custom-range-slider__range',
+    search_by_rating: '[name="search_by_rating[]"]',
+    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
+  };
+  if (fieldKeyMap[fieldKey]) {
+    return fieldKeyMap[fieldKey];
+  }
+
+  // Search form custom fields: name="custom_field[field_key]"
+  if (fieldKey && (fieldKey.startsWith('custom-') || ['select', 'radio', 'checkbox'].some(function (t) {
+    return fieldKey === t || fieldKey.startsWith(t + '_');
+  }))) {
+    var fk = fieldKey.startsWith('custom-') ? fieldKey : "custom-".concat(fieldKey.replace(/_/g, '-'));
+    return ["select[name=\"custom_field[".concat(fk, "]\"]"), "input[name=\"custom_field[".concat(fk, "]\"]"), "input[name=\"custom_field[".concat(fk, "][]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-select select[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-radio input[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-checkbox input[name=\"custom_field[".concat(fk, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fk, "][]\"]")].join(', ');
+  }
+  return null;
+}
+
+/**
+ * Normalize condition.field to match actual field name in DOM.
+ * Search form custom fields use name="custom_field[custom-select]" etc.
+ * Conditions may be stored as "select", "select_2" from builder.
+ */
+function normalizeConditionFieldKey(fieldKey) {
+  if (!fieldKey || typeof fieldKey !== 'string') {
+    return fieldKey;
+  }
+  var key = String(fieldKey).trim();
+  if (key.startsWith('custom-')) {
+    return key;
+  }
+  var m = key.match(/^(select|radio|checkbox)(?:_(\d+))?$/i);
+  if (m) {
+    var suffix = m[2] ? '-' + m[2] : '';
+    return 'custom-' + m[1].toLowerCase() + suffix;
+  }
+  return key;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/get-field-value.js":
+/*!******************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/get-field-value.js ***!
+  \******************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getFieldValue: function() { return /* binding */ getFieldValue; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+/**
+ * Extract field values from form elements
+ */
+
+
+
+/**
+ * Get field value from form
+ */
+function getFieldValue(fieldKey, $) {
+  // Special handling for privacy_policy field (checkbox field)
+  if (fieldKey === 'privacy_policy') {
+    var $privacyCheckbox = $('input[name="privacy_policy"], #directorist_submit_privacy_policy');
+    if ($privacyCheckbox.length) {
+      return $privacyCheckbox.is(':checked') ? 'checked' : '';
+    }
+    return '';
+  }
+
+  // Special handling for listing_img field (image upload field)
+  if (fieldKey === 'listing_img' || fieldKey === 'image_upload') {
+    var $imageUploadWrapper = $('.directorist-form-image-upload-field');
+    if ($imageUploadWrapper.length) {
+      var $previewSection = $imageUploadWrapper.find('.ezmu__preview-section.ezmu--show');
+      if ($previewSection.length > 0) {
+        return 'uploaded';
+      }
+    }
+    return null;
+  }
+  var $field = null;
+
+  // Handle category, tag, and location fields
+  if (fieldKey === 'category' || fieldKey === 'categories' || fieldKey === 'admin_category_select[]' || fieldKey === 'in_cat') {
+    $field = $("#at_biz_dir-categories, select[name='in_cat']").first();
+    if (!$field.length) {
+      var $checkboxes = $('#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked');
+      if ($checkboxes.length) {
+        return $checkboxes.map(function () {
+          return $(this).val();
+        }).get();
+      }
+      return [];
+    }
+  } else if (fieldKey === 'tag' || fieldKey === 'tags' || fieldKey === 'tax_input[at_biz_dir-tags][]' || fieldKey === 'in_tag[]') {
+    $field = $("#at_biz_dir-tags, input[name='in_tag[]']").first();
+    if (!$field.length) {
+      var _$checkboxes = $('#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked');
+      if (_$checkboxes.length) {
+        return _$checkboxes.map(function () {
+          return $(this).val();
+        }).get();
+      }
+      return [];
+    }
+    if ($field.is('div') && !$field.is('select')) {
+      var $tagItems = $('#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li');
+      if ($tagItems.length) {
+        return $tagItems.map(function () {
+          return $(this).clone().children().remove().end().text().trim();
+        }).get().filter(Boolean);
+      }
+      var $textarea = $('#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags');
+      if ($textarea.length && $textarea.val()) {
+        var raw = String($textarea.val()).trim();
+        if (raw) {
+          return raw.split(/[,\u00A0]+/).map(function (s) {
+            return s.trim();
+          }).filter(Boolean);
+        }
+      }
+      return [];
+    }
+  } else if (fieldKey === 'location' || fieldKey === 'locations' || fieldKey === 'tax_input[at_biz_dir-location][]' || fieldKey === 'in_loc' || fieldKey === 'address') {
+    $field = $("#at_biz_dir-location, select[name='in_loc']").first();
+    if (!$field.length) {
+      var $addressInput = $(".directorist-search-location input[name='address']");
+      if ($addressInput.length) {
+        var val = $addressInput.val();
+        return val && val.trim() ? [val.trim()] : [];
+      }
+      var _$checkboxes2 = $('#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked');
+      if (_$checkboxes2.length) {
+        return _$checkboxes2.map(function () {
+          return $(this).val();
+        }).get();
+      }
+      return [];
+    }
+  }
+
+  // Search form: in_tag[] checkboxes
+  if ((fieldKey === 'in_tag[]' || fieldKey === 'tag' || fieldKey === 'tags') && $field && $field.is('input[name="in_tag[]"]')) {
+    var _$checkboxes3 = $('input[name="in_tag[]"]:checked');
+    if (_$checkboxes3.length) {
+      var values = [];
+      _$checkboxes3.each(function () {
+        var id = $(this).val();
+        if (id) values.push(String(id));
+        var $label = $(this).siblings('label').first();
+        if ($label.length) {
+          var label = $label.text().trim();
+          if (label && !values.includes(label)) values.push(label);
+        }
+      });
+      return values;
+    }
+    return [];
+  }
+  var isTaxonomyField = $field && ($field.is('#at_biz_dir-categories') || $field.is('#at_biz_dir-tags') || $field.is('#at_biz_dir-location') || $field.is('select[name="in_cat"]') || $field.is('select[name="in_loc"]'));
+  if (isTaxonomyField) {
+    // Strategy 1: data-selected-label AND data-selected-id
+    var cachedLabels = $field.attr('data-selected-label');
+    var cachedIds = $field.attr('data-selected-id');
+    var isTagField = $field.is('#at_biz_dir-tags');
+    if (cachedLabels && cachedLabels.trim()) {
+      var parsedLabels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.parseLabelsString)(cachedLabels);
+      var parsedIds = cachedIds ? (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.parseIdsString)(cachedIds) : [];
+      var combined = [];
+      if (isTagField) {
+        parsedLabels.forEach(function (label) {
+          if (label) combined.push(label);
+        });
+        parsedIds.forEach(function (id) {
+          if (id && !parsedLabels.includes(id)) {
+            combined.push(id);
+          }
+        });
+      } else {
+        parsedLabels.forEach(function (label) {
+          if (label) combined.push(label);
+        });
+        parsedIds.forEach(function (id) {
+          if (id) combined.push(id);
+        });
+      }
+      if (combined.length > 0) {
+        return combined;
+      }
+    }
+
+    // Strategy 2: Select2 API
+    if ($field.hasClass('select2-hidden-accessible') && typeof $field.select2 === 'function') {
+      try {
+        var selectedData = $field.select2('data');
+        if (selectedData && selectedData.length > 0) {
+          var _combined = [];
+          var _isTagField = $field.is('#at_biz_dir-tags');
+          selectedData.forEach(function (item) {
+            if (_isTagField) {
+              if (item.text) _combined.push(item.text);
+              if (item.id && item.id !== item.text) {
+                _combined.push(String(item.id));
+              }
+            } else {
+              if (item.id) _combined.push(String(item.id));
+              if (item.text) _combined.push(item.text);
+            }
+          });
+          if (_combined.length > 0) {
+            $field.attr('data-selected-label', selectedData.map(function (item) {
+              return item.text || '';
+            }).filter(function (t) {
+              return t;
+            }).join(','));
+            $field.attr('data-selected-id', selectedData.map(function (item) {
+              return item.id || '';
+            }).filter(function (id) {
+              return id;
+            }).join(','));
+            return _combined;
+          }
+        }
+      } catch (e) {
+        // Select2 might not be initialized yet
+      }
+    }
+
+    // Strategy 3: Select2 DOM container
+    var $select2Container = $field.next('.select2-container');
+    if ($select2Container.length) {
+      var labels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.getLabelsFromSelect2Container)($select2Container, $);
+      if (labels.length > 0) {
+        var _val = $field.val();
+        var ids = Array.isArray(_val) ? _val : _val ? [_val] : [];
+        var _combined2 = [];
+        labels.forEach(function (label) {
+          if (label) _combined2.push(label);
+        });
+        ids.forEach(function (id) {
+          if (id) _combined2.push(String(id));
+        });
+        if (_combined2.length > 0) {
+          $field.attr('data-selected-label', labels.join(','));
+          $field.attr('data-selected-id', ids.join(','));
+          return _combined2;
+        }
+      }
+    }
+
+    // Strategy 4: Fallback to select option text and values
+    var _val2 = $field.val();
+    if (_val2) {
+      var _values = Array.isArray(_val2) ? _val2 : [_val2];
+      if (_values.length > 0) {
+        var _combined3 = [];
+        var _labels = [];
+        var _ids = [];
+        var _isTagField2 = $field.is('#at_biz_dir-tags');
+        _values.forEach(function (val) {
+          if (_isTagField2) {
+            var tagName = String(val).trim();
+            if (tagName) {
+              _labels.push(tagName);
+              _combined3.push(tagName);
+            }
+          } else {
+            var $option = $field.find("option[value=\"".concat(val, "\"]"));
+            if ($option.length) {
+              var label = $option.text().trim();
+              if (label) {
+                _labels.push(label);
+                _combined3.push(label);
+              }
+              _ids.push(String(val));
+              _combined3.push(String(val));
+            } else {
+              _combined3.push(String(val));
+            }
+          }
+        });
+        if (_combined3.length > 0) {
+          if (_labels.length > 0) {
+            $field.attr('data-selected-label', _labels.join(','));
+          }
+          if (_ids.length > 0) {
+            $field.attr('data-selected-id', _ids.join(','));
+          } else if (_isTagField2 && _combined3.length > 0) {
+            $field.attr('data-selected-id', _combined3.join(','));
+          }
+          return _combined3;
+        }
+      }
+    }
+    return [];
+  }
+
+  // Reset $field for regular fields
+  if ($field && !($field.is('#at_biz_dir-categories') || $field.is('#at_biz_dir-tags') || $field.is('#at_biz_dir-location'))) {
+    $field = null;
+  }
+  var mappedSelector = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.mapFieldKeyToSelector)(fieldKey);
+  if (mappedSelector) {
+    $field = $(mappedSelector).first();
+  }
+  if (!$field || !$field.length) {
+    var widgetKeyToFieldKeyMap = {
+      title: 'listing_title',
+      description: 'listing_content'
+    };
+    var potentialFieldKey = widgetKeyToFieldKeyMap[fieldKey] || fieldKey;
+    if (!fieldKey.startsWith('custom-') && !potentialFieldKey.startsWith('custom-')) {
+      var customFieldKey = "custom-".concat(fieldKey);
+      var customFieldIdEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)(customFieldKey);
+      var $customField = $("[name=\"".concat(customFieldKey, "\"], #").concat(customFieldIdEscaped, ", .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] select, .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"checkbox\"], .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"radio\"]")).first();
+      if ($customField.length) {
+        potentialFieldKey = customFieldKey;
+      }
+    }
+    var fieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)(fieldKey);
+    var potentialFieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)(potentialFieldKey);
+    var selectors = ["[name=\"".concat(fieldKey, "\"]"), "[name=\"".concat(fieldKey, "[]\"]"), "#".concat(fieldKeyEscaped), "[name=\"".concat(potentialFieldKey, "\"]"), "[name=\"".concat(potentialFieldKey, "[]\"]"), "#".concat(potentialFieldKeyEscaped), ".directorist-form-".concat(fieldKeyEscaped, "-field input"), ".directorist-form-".concat(fieldKeyEscaped, "-field select"), ".directorist-form-".concat(fieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(fieldKeyEscaped, "-field input[type=\"file\"]"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field select"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input[type=\"file\"]"), "input[name*=\"".concat(fieldKey, "\"]"), "select[name*=\"".concat(fieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(fieldKey, "\"]"), "input[name*=\"".concat(potentialFieldKey, "\"]"), "select[name*=\"".concat(potentialFieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input[type=\"file\"]"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input[type=\"file\"]"), ".directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), "select[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "][]\"]"), "select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(potentialFieldKey, "]\"]")].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(fieldKey && !fieldKey.startsWith('custom-') ? ["[name=\"custom-".concat(fieldKey, "\"]"), "[name=\"custom-".concat(fieldKey.replace(/_/g, '-'), "\"]"), "select[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "input[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)('custom-' + fieldKey)), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] input"), ".directorist-custom-field-select select[name=\"custom-".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_2__.escapeCssId)('custom-' + fieldKey))] : []));
+    var _iterator = _createForOfIteratorHelper(selectors),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var selector = _step.value;
+        $field = $(selector).first();
+        if ($field.length) {
+          break;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+  if (!$field || !$field.length) {
+    return null;
+  }
+
+  // Checkboxes and radio buttons
+  if ($field.is(':checkbox') || $field.is(':radio')) {
+    if ($field.is('[name$="[]"]') || $field.attr('name') && $field.attr('name').includes('[]')) {
+      var _values2 = [];
+      var nameAttr = $field.attr('name');
+      $("[name=\"".concat(nameAttr, "\"]")).filter(':checked').each(function () {
+        _values2.push($(this).val());
+      });
+      return _values2;
+    }
+    if ($field.is(':radio')) {
+      var _nameAttr = $field.attr('name');
+      var $checkedRadio = $("[name=\"".concat(_nameAttr, "\"]:checked"));
+      return $checkedRadio.length ? $checkedRadio.val() : null;
+    }
+    return $field.is(':checked') ? $field.val() : null;
+  }
+
+  // Multi-select
+  if ($field.is('select[multiple]') || $field.prop('multiple')) {
+    var _val3 = $field.val();
+    return Array.isArray(_val3) ? _val3 : _val3 ? [_val3] : [];
+  }
+
+  // Select2 fields
+  if ($field.hasClass('select2-hidden-accessible')) {
+    try {
+      var _selectedData = $field.select2('data');
+      if (_selectedData && _selectedData.length > 0) {
+        return _selectedData.map(function (item) {
+          return item.text || item.id;
+        });
+      }
+    } catch (e) {}
+  }
+
+  // TinyMCE editor
+  if (typeof tinymce !== 'undefined' && $field.length) {
+    var editorId = $field.attr('id');
+    if (editorId && tinymce.get(editorId)) {
+      var editor = tinymce.get(editorId);
+      if (editor && !editor.isHidden()) {
+        var content = editor.getContent();
+        var tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+        return tempDiv.textContent || tempDiv.innerText || '';
+      }
+    }
+  }
+
+  // File upload fields
+  var $fileWrapper = $field.closest('.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload');
+  if (!$fileWrapper.length) {
+    $fileWrapper = $field.closest('.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload');
+  }
+  var isFileUploadField = $field.is('input[type="file"]') || $field.closest('.directorist-custom-field-file').length || $field.closest('.directorist-custom-field-file-upload').length || $fileWrapper.length && ($fileWrapper.hasClass('directorist-custom-field-file') || $fileWrapper.hasClass('directorist-custom-field-file-upload') || $fileWrapper.find('.plupload-upload-ui, .plupload-thumbs').length > 0);
+  if (isFileUploadField) {
+    if ($field.is('input[type="file"]') && $field[0] && $field[0].files && $field[0].files.length > 0) {
+      return 'uploaded';
+    }
+    if ($fileWrapper.length) {
+      var $thumbsContainer = $fileWrapper.find('.plupload-thumbs');
+      if ($thumbsContainer.length && $thumbsContainer.find('.thumb').length > 0) {
+        return 'uploaded';
+      }
+    }
+    if ($fileWrapper.length) {
+      var fieldKeyFromWrapper = $fileWrapper.attr('data-field-key') || $fileWrapper.find('[data-field-key]').first().attr('data-field-key');
+      if (fieldKeyFromWrapper) {
+        var $hiddenInput = $fileWrapper.find("input[type=\"hidden\"][name=\"".concat(fieldKeyFromWrapper, "\"]"));
+        if ($hiddenInput.length && $hiddenInput.val() && $hiddenInput.val().trim() !== '' && $hiddenInput.val() !== 'null') {
+          return 'uploaded';
+        }
+      }
+    }
+    if ($fileWrapper.length) {
+      var hasUploadedFiles = $fileWrapper.find('.directorist-file-list-item, .directorist-uploaded-file, .directorist-file-item, [data-file-id], .thumb').length > 0 || $fileWrapper.find('input[type="hidden"][name*="_file_id"], input[type="hidden"][name*="_file_url"]').filter(function () {
+        return $(this).val() && $(this).val().trim() !== '';
+      }).length > 0;
+      if (hasUploadedFiles) {
+        return 'uploaded';
+      }
+    }
+    return null;
+  }
+  return $field.val() || null;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/helpers.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/helpers.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getLabelsFromSelect2Container: function() { return /* binding */ getLabelsFromSelect2Container; },
+/* harmony export */   normalizeOperator: function() { return /* binding */ normalizeOperator; },
+/* harmony export */   parseIdsString: function() { return /* binding */ parseIdsString; },
+/* harmony export */   parseLabelsString: function() { return /* binding */ parseLabelsString; }
+/* harmony export */ });
+/**
+ * Helper utilities for conditional logic
+ */
+
+/**
+ * Extract labels from Select2 selection container
+ * @param {jQuery} $container - Select2 container element
+ * @param {jQuery} $ - jQuery instance
+ * @returns {string[]} Array of labels
+ */
+function getLabelsFromSelect2Container($container, $) {
+  if (!$container || !$container.length || !$) {
+    return [];
+  }
+  var labels = [];
+  $container.find('.select2-selection__choice').each(function () {
+    var $choice = $(this);
+    var label = $choice.find('.select2-selection__choice__display').text().trim() || $choice.text().trim().replace('×', '').trim();
+    if (label) {
+      labels.push(label);
+    }
+  });
+  return labels;
+}
+
+/**
+ * Parse comma-separated labels string
+ * @param {string} labelsStr - Comma-separated labels
+ * @returns {string[]} Array of trimmed, non-empty labels
+ */
+function parseLabelsString(labelsStr) {
+  if (!labelsStr || !labelsStr.trim()) {
+    return [];
+  }
+  return labelsStr.split(',').map(function (label) {
+    return label.trim();
+  }).filter(function (label) {
+    return label.length > 0;
+  });
+}
+
+/**
+ * Parse comma-separated IDs string
+ * @param {string} idsStr - Comma-separated IDs
+ * @returns {string[]} Array of trimmed, valid ID strings
+ */
+function parseIdsString(idsStr) {
+  if (!idsStr || !idsStr.trim()) {
+    return [];
+  }
+  return idsStr.split(',').map(function (id) {
+    return id.trim();
+  }).filter(function (id) {
+    return id.length > 0 && !isNaN(id);
+  });
+}
+
+/**
+ * Normalize AND/OR operator - handle null, empty, case variations
+ * @param {*} op - Operator value
+ * @param {string} defaultOp - Default when invalid (e.g. 'AND' or 'OR')
+ * @returns {string} 'AND' or 'OR'
+ */
+function normalizeOperator(op) {
+  var defaultOp = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'OR';
+  if (op === null || op === undefined || op === '') {
+    return defaultOp;
+  }
+  var normalized = String(op).trim().toUpperCase();
+  return normalized || defaultOp;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/init.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/init.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   applyConditionalLogic: function() { return /* binding */ applyConditionalLogic; },
+/* harmony export */   initConditionalLogic: function() { return /* binding */ initConditionalLogic; },
+/* harmony export */   updateCategoryFieldLabel: function() { return /* binding */ updateCategoryFieldLabel; },
+/* harmony export */   watchFieldChanges: function() { return /* binding */ watchFieldChanges; }
+/* harmony export */ });
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+/**
+ * Init, apply, and event binding for conditional logic
+ */
+
 function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
   var conditionalLogicData = $fieldWrapper.attr('data-conditional-logic');
   if (!conditionalLogicData) {
@@ -1193,17 +1094,17 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
         // Check if this field's conditional logic depends on the changed field
         var dependsOnField = false;
         if (conditionalLogic.groups && Array.isArray(conditionalLogic.groups)) {
-          var _iterator4 = _createForOfIteratorHelper(conditionalLogic.groups),
-            _step4;
+          var _iterator = _createForOfIteratorHelper(conditionalLogic.groups),
+            _step;
           try {
-            for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-              var group = _step4.value;
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var group = _step.value;
               if (group.conditions && Array.isArray(group.conditions)) {
-                var _iterator5 = _createForOfIteratorHelper(group.conditions),
-                  _step5;
+                var _iterator2 = _createForOfIteratorHelper(group.conditions),
+                  _step2;
                 try {
-                  for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-                    var condition = _step5.value;
+                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                    var condition = _step2.value;
                     // Map widget_key to field_key for matching
                     var widgetKeyToFieldKeyMap = {
                       title: 'listing_title',
@@ -1213,7 +1114,7 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
                     var conditionFieldKeyMapped = widgetKeyToFieldKeyMap[conditionFieldKey] || conditionFieldKey;
 
                     // Normalize condition field for custom fields: "select_2" -> "custom-select-2"
-                    var conditionFieldKeyNormalized = normalizeConditionFieldKey(conditionFieldKey);
+                    var conditionFieldKeyNormalized = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.normalizeConditionFieldKey)(conditionFieldKey);
 
                     // For custom fields: handle widget_key (e.g., "select") vs field_key (e.g., "custom-select")
                     var fieldKeyAsWidgetKey = null;
@@ -1241,9 +1142,9 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
                     }
                   }
                 } catch (err) {
-                  _iterator5.e(err);
+                  _iterator2.e(err);
                 } finally {
-                  _iterator5.f();
+                  _iterator2.f();
                 }
                 if (dependsOnField) {
                   break;
@@ -1251,9 +1152,9 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
               }
             }
           } catch (err) {
-            _iterator4.e(err);
+            _iterator.e(err);
           } finally {
-            _iterator4.f();
+            _iterator.f();
           }
         }
 
@@ -1262,26 +1163,26 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
         if (isTaxonomyField) {
           // Check if any condition references category, tag, or location
           if (conditionalLogic.groups && Array.isArray(conditionalLogic.groups)) {
-            var _iterator6 = _createForOfIteratorHelper(conditionalLogic.groups),
-              _step6;
+            var _iterator3 = _createForOfIteratorHelper(conditionalLogic.groups),
+              _step3;
             try {
-              for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-                var _group = _step6.value;
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                var _group = _step3.value;
                 if (_group.conditions && Array.isArray(_group.conditions)) {
-                  var _iterator7 = _createForOfIteratorHelper(_group.conditions),
-                    _step7;
+                  var _iterator4 = _createForOfIteratorHelper(_group.conditions),
+                    _step4;
                   try {
-                    for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-                      var _condition = _step7.value;
+                    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                      var _condition = _step4.value;
                       if (_condition.field === 'category' || _condition.field === 'categories' || _condition.field === 'admin_category_select[]' || _condition.field === 'in_cat' || _condition.field === 'tag' || _condition.field === 'tags' || _condition.field === 'in_tag[]' || _condition.field === 'location' || _condition.field === 'locations' || _condition.field === 'tax_input[at_biz_dir-location][]' || _condition.field === 'in_loc' || _condition.field === 'tax_input[at_biz_dir-tags][]') {
                         dependsOnField = true;
                         break;
                       }
                     }
                   } catch (err) {
-                    _iterator7.e(err);
+                    _iterator4.e(err);
                   } finally {
-                    _iterator7.f();
+                    _iterator4.f();
                   }
                   if (dependsOnField) {
                     break;
@@ -1289,9 +1190,9 @@ function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicF
                 }
               }
             } catch (err) {
-              _iterator6.e(err);
+              _iterator3.e(err);
             } finally {
-              _iterator6.f();
+              _iterator3.f();
             }
           }
         }
@@ -1978,15 +1879,15 @@ function updateCategoryFieldLabel(initConditionalLogicFn, $) {
         // Select2 might not be initialized yet, try reading from DOM
         var $select2Container = $('.select2-selection__choice');
         if ($select2Container.length) {
-          var _labels2 = [];
+          var _labels = [];
           $select2Container.each(function () {
             var label = $(this).find('.select2-selection__choice__display').text().trim();
             if (label) {
-              _labels2.push(label);
+              _labels.push(label);
             }
           });
-          if (_labels2.length > 0) {
-            $field.attr('data-selected-label', _labels2.join(','));
+          if (_labels.length > 0) {
+            $field.attr('data-selected-label', _labels.join(','));
           }
         }
       }
@@ -1996,9 +1897,6 @@ function updateCategoryFieldLabel(initConditionalLogicFn, $) {
     initConditionalLogicFn();
   }, 150);
 }
-
-// Export all functions
-
 
 /***/ }),
 

@@ -77,7 +77,23 @@
 			return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		}
 
-		$('#atbdp-checkout-form').on('submit', function (e) {
+		function get_error_message( error ) {
+			let message = '';
+
+			if ( error.message ) {
+				message = error.message;
+			} else if ( error.messages ) {
+				const messages = Object.values( error.messages );
+
+				if ( messages.length > 0 ) {
+					message = messages[0][0];
+				}
+			}
+
+			return message;
+		}
+
+		$('#atbdp-checkout-form').on('submit', async function (e) {
 			e.preventDefault();
 
 			// Show loading state
@@ -94,17 +110,21 @@
 			const data = Object.fromEntries(formData);
 
 			try {
-				wp.apiFetch({
+				const response = await wp.apiFetch({
 					path: '/directorist/checkout',
 					method: 'POST',
 					data: data,
-				}).then((response) => {
-					if (response.redirect_url) {
-						window.location.href = response.redirect_url;
-					}
 				});
+
+				if ( response.redirect_url ) {
+					window.location.href = response.redirect_url;
+				}
 			} catch (error) {
-				console.log(error);
+				const message = get_error_message( error );
+
+				alert( message );
+				console.log( error );
+				
 				// Reset loading state on error
 				submitBtn.prop('disabled', false);
 				btnText.text(originalText);

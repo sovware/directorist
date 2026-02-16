@@ -137,11 +137,11 @@ class OrderRepository extends Repository {
      * @throws Exception If the update operation fails.
      */
     public function update( \Directorist\WpMVC\DTO\DTO $dto ) {
-        do_action( 'directorist_before_order_update', $dto );
+        do_action( 'directorist_repository_before_order_update', $dto );
 
         $update = parent::update( $dto );
 
-        do_action( 'directorist_after_order_update', $dto );
+        do_action( 'directorist_repository_after_order_update', $dto );
 
         return $update;
     }

@@ -1,6 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const { commonEntries } = require('./webpack-entry-list.js');
 
 const commonConfig = {
@@ -67,15 +67,15 @@ const commonConfig = {
 						},
 					},
 					'resolve-url-loader',
-					{
-						loader: 'postcss-loader',
-						options: {
-							sourceMap: true,
-							config: {
-								path: 'postcss.config.js',
-							},
+				{
+					loader: 'postcss-loader',
+					options: {
+						sourceMap: true,
+						postcssOptions: {
+							config: 'postcss.config.js',
 						},
 					},
+				},
 					{
 						loader: 'sass-loader',
 						options: {
@@ -83,7 +83,6 @@ const commonConfig = {
 							implementation: require('sass'),
 							sassOptions: {
 								silenceDeprecations: [
-									'mixed-decls',
 									'import',
 									'color-functions',
 									'global-builtin',

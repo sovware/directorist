@@ -1,7 +1,7 @@
 import { addAction, applyFilters } from '@wordpress/hooks';
-import { Dashboard } from '@wpmvc/dashboard';
-import { RouteType } from '@wpmvc/dashboard/build-types/components/dashboard/types';
-import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/types';
+import { Dashboard } from '@shamim-ahmed/dashboard';
+import { RouteType } from '@shamim-ahmed/dashboard/build-types/components/dashboard/types';
+import { MenuItemsType } from '@shamim-ahmed/dashboard/build-types/components/menu/types';
 import styled from 'styled-components';
 import { FieldValidator } from '../controls/custom-field/validation/FieldValidator';
 import { EmailValidator } from '../controls/custom-field/validation/validators/EmailValidator';

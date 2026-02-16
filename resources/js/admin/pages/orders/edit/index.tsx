@@ -9,8 +9,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import { Button, Select } from '@wpmvc/components';
-import { registerValuesStore, useValuesStore, useValuesStoreData } from '@wpmvc/data';
+import { Button, Select } from '@shamim-ahmed/components';
+import { registerValuesStore, useValuesStore, useValuesStoreData } from '@shamim-ahmed/data';
 import styled from 'styled-components';
 
 /**
@@ -200,13 +200,12 @@ export default function OrderEdit({}: EditProps) {
 	useEffect(() => {
 		if (loading && isOrderResolved) {
 			setLoading(false);
-			setOrderStatus(order?.status)
+			setOrderStatus(order?.status);
 		}
 	}, [isOrderResolved, loading]);
 
 	const saveOrderStatus = async () => {
 		if (!orderId) {
-			console.log("Order id is misssing");
 			return;
 		}
 
@@ -261,12 +260,10 @@ export default function OrderEdit({}: EditProps) {
 							<Select
 								options={ orderStatusOptions }
 								onChange={(option: any) => {
-									console.log(option);
-									
-									setOrderStatus(option.value);
+									setOrderStatus(option);
 								}}
-								isSearchable= {false}
-								defaultValue={orderStatusOptions.filter(items=> items.value === orderStatus)}
+								isSearchable={false}
+								value={orderStatus}
 								isDisabled={isSaving}
 							/>
 						</StatusSelection>

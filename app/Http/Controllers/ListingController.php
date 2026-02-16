@@ -22,7 +22,7 @@ class ListingController {
         $validator->validate(
             [
                 'id'     => 'required|integer',
-                'status' => 'required|string,accepted:publish,private',
+                'status' => 'required|string|accepted:publish,private',
             ] 
         );
 

@@ -1,4 +1,4 @@
-import { Fields } from '@wpmvc/fields';
+import { Fields } from '@shamim-ahmed/fields';
 import Text from './custom-field';
 import Label from './label';
 import Radio from './radio';

@@ -326,12 +326,8 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
           }
           return String(val).toLowerCase();
         });
-        var hasMatch = normalizedValues.some(function (val) {
-          return val === condValStrForIs;
-        });
-        if (!hasMatch) return false;
-        // "is" = exactly that value only.
-        return normalizedValues.every(function (val) {
+        // "is" = condition value is in the field (category/location return [id, label])
+        return normalizedValues.some(function (val) {
           return val === condValStrForIs;
         });
       }

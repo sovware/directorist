@@ -42,8 +42,11 @@ const columns: Column[] = [
 		label: __('Status', 'directorist'),
 		render: ({ item }) => {
 			return (
-				<Badge variant={ getBadgeVariantByStatus( item.status ) } className='directorist-badge'>
-					{ STATUSES[ item.status ] }
+				<Badge
+					variant={getBadgeVariantByStatus(item.status)}
+					className="directorist-badge"
+				>
+					{STATUSES[item.status]}
 				</Badge>
 			);
 		},
@@ -63,7 +66,11 @@ const columns: Column[] = [
 		id: 'order_type',
 		label: __('Order Type', 'directorist'),
 		render: ({ item }) => {
-			return <Badge variant={'info'} className='directorist-badge'>{item?.order_type}</Badge>;
+			return (
+				<Badge variant={'info'} className="directorist-badge">
+					{item?.order_type}
+				</Badge>
+			);
 		},
 	},
 	{
@@ -74,34 +81,38 @@ const columns: Column[] = [
 		id: 'date',
 		label: __('Order Date', 'directorist'),
 		render: ({ item }) => {
-			return <span className='directorist-table-text-light'>{moment(item?.created_at).format('MMM D, YYYY')}</span>;
+			return (
+				<span className="directorist-table-text-light">
+					{moment(item?.created_at).format('MMM D, YYYY')}
+				</span>
+			);
 		},
 	},
 	{
 		id: 'actions',
-		label: __( 'Actions', 'directorist' ),
-		render: ( { item } ) => {
+		label: __('Actions', 'directorist'),
+		render: ({ item }) => {
 			const controls: any[] = [];
 
-			if ( item?.status === 'pending' ) {
-				controls.push( {
-					title: __( 'Pay', 'directorist' ),
+			if (item?.status === 'pending') {
+				controls.push({
+					title: __('Pay', 'directorist'),
 					onClick: () => {
 						window.location.href = `${checkoutPageUrl}?checkout_type=payment&order_id=${item?.id}`;
-					}
-				} );
+					},
+				});
 			}
 
 			return (
 				<ActionsDropdownWrapper>
 					<DropdownMenu
-						icon={ moreVertical }
-						label={ __( 'Actions', 'directorist' ) }
-						controls={ controls }
+						icon={moreVertical}
+						label={__('Actions', 'directorist')}
+						controls={controls}
 						placement="right-end"
-						toggleProps={ {
-							'aria-label': __( 'Package actions', 'directorist' ),
-						} }
+						toggleProps={{
+							'aria-label': __('Package actions', 'directorist'),
+						}}
 					/>
 				</ActionsDropdownWrapper>
 			);

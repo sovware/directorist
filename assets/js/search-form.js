@@ -326,8 +326,12 @@ function evaluateArrayCondition(fieldArray, conditionValue, operator) {
           }
           return String(val).toLowerCase();
         });
-        // "is" = condition value is in the field (category/location return [id, label])
-        return normalizedValues.some(function (val) {
+        // "is" = strict: all values must match (category/location return IDs only)
+        var hasMatch = normalizedValues.some(function (val) {
+          return val === condValStrForIs;
+        });
+        if (!hasMatch) return false;
+        return normalizedValues.every(function (val) {
           return val === condValStrForIs;
         });
       }
@@ -1382,9 +1386,7 @@ function getFieldValue(fieldKey, $) {
           }
         });
       } else {
-        parsedLabels.forEach(function (label) {
-          if (label) combined.push(label);
-        });
+        // Category/location: return IDs only so "is" = strict match (not "contains")
         parsedIds.forEach(function (id) {
           if (id) combined.push(id);
         });
@@ -1408,8 +1410,8 @@ function getFieldValue(fieldKey, $) {
                 _combined.push(String(item.id));
               }
             } else {
+              // Category/location: IDs only for strict "is" match
               if (item.id) _combined.push(String(item.id));
-              if (item.text) _combined.push(item.text);
             }
           });
           if (_combined.length > 0) {
@@ -1439,9 +1441,11 @@ function getFieldValue(fieldKey, $) {
         var _val = $field.val();
         var ids = Array.isArray(_val) ? _val : _val ? [_val] : [];
         var _combined2 = [];
-        labels.forEach(function (label) {
-          if (label) _combined2.push(label);
-        });
+        if (isTagField) {
+          labels.forEach(function (label) {
+            if (label) _combined2.push(label);
+          });
+        }
         ids.forEach(function (id) {
           if (id) _combined2.push(String(id));
         });
@@ -1473,10 +1477,7 @@ function getFieldValue(fieldKey, $) {
             var $option = $field.find("option[value=\"".concat(val, "\"]"));
             if ($option.length) {
               var label = $option.text().trim();
-              if (label) {
-                _labels.push(label);
-                _combined3.push(label);
-              }
+              if (label) _labels.push(label);
               _ids.push(String(val));
               _combined3.push(String(val));
             } else {

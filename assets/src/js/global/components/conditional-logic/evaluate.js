@@ -173,8 +173,12 @@ export function evaluateArrayCondition(fieldArray, conditionValue, operator) {
 				}
 				return String(val).toLowerCase();
 			});
-			// "is" = condition value is in the field (category/location return [id, label])
-			return normalizedValues.some((val) => val === condValStrForIs);
+			// "is" = strict: all values must match (category/location return IDs only)
+			const hasMatch = normalizedValues.some(
+				(val) => val === condValStrForIs
+			);
+			if (!hasMatch) return false;
+			return normalizedValues.every((val) => val === condValStrForIs);
 		}
 		case 'contains': {
 			const condValStrContains = String(condVal).toLowerCase();

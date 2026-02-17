@@ -192,9 +192,7 @@ export function getFieldValue(fieldKey, $) {
 					}
 				});
 			} else {
-				parsedLabels.forEach((label) => {
-					if (label) combined.push(label);
-				});
+				// Category/location: return IDs only so "is" = strict match (not "contains")
 				parsedIds.forEach((id) => {
 					if (id) combined.push(id);
 				});
@@ -223,8 +221,8 @@ export function getFieldValue(fieldKey, $) {
 								combined.push(String(item.id));
 							}
 						} else {
+							// Category/location: IDs only for strict "is" match
 							if (item.id) combined.push(String(item.id));
-							if (item.text) combined.push(item.text);
 						}
 					});
 					if (combined.length > 0) {
@@ -258,9 +256,11 @@ export function getFieldValue(fieldKey, $) {
 				const val = $field.val();
 				const ids = Array.isArray(val) ? val : val ? [val] : [];
 				const combined = [];
-				labels.forEach((label) => {
-					if (label) combined.push(label);
-				});
+				if (isTagField) {
+					labels.forEach((label) => {
+						if (label) combined.push(label);
+					});
+				}
 				ids.forEach((id) => {
 					if (id) combined.push(String(id));
 				});
@@ -293,10 +293,7 @@ export function getFieldValue(fieldKey, $) {
 						const $option = $field.find(`option[value="${val}"]`);
 						if ($option.length) {
 							const label = $option.text().trim();
-							if (label) {
-								labels.push(label);
-								combined.push(label);
-							}
+							if (label) labels.push(label);
 							ids.push(String(val));
 							combined.push(String(val));
 						} else {

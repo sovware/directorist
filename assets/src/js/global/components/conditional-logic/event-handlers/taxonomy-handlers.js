@@ -12,8 +12,9 @@ export function setupTaxonomyHandlers($, triggerFn) {
 	const taxonomyFieldSelectors = `${SELECTORS.CATEGORY}, ${SELECTORS.TAGS}, ${SELECTORS.LOCATION}, ${SELECTORS.IN_LOC}, ${SELECTORS.IN_CAT}`;
 
 	// Select2: delay so DOM is updated before we read data-selected-*
+	// 'change' needed for search form in_cat/in_loc (Select2 may not fire select2:select in some setups)
 	$(document).on(
-		'select2:select select2:unselect select2:clear',
+		'change select2:select select2:unselect select2:clear',
 		taxonomyFieldSelectors,
 		function () {
 			setTimeout(

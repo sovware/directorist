@@ -727,7 +727,8 @@ function setupTaxonomyHandlers($, triggerFn) {
   var taxonomyFieldSelectors = "".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.CATEGORY, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAGS, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.LOCATION, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_LOC, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_CAT);
 
   // Select2: delay so DOM is updated before we read data-selected-*
-  $(document).on('select2:select select2:unselect select2:clear', taxonomyFieldSelectors, function () {
+  // 'change' needed for search form in_cat/in_loc (Select2 may not fire select2:select in some setups)
+  $(document).on('change select2:select select2:unselect select2:clear', taxonomyFieldSelectors, function () {
     setTimeout(function () {
       var $field = $(this);
       if (!$field.length) return;

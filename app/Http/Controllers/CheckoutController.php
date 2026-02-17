@@ -79,8 +79,10 @@ class CheckoutController {
             );
         }
 
+        $dto->set_id( $dto->get_id() )->set_status( Status::PAID );
+
         // Update the order status to paid
-        $repository->update( ( new DTO )->set_id( $dto->get_id() )->set_status( Status::PAID ) );
+        $repository->update( $dto );
         
         do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
 

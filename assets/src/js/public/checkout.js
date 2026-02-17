@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 (function ($) {
 	window.addEventListener('load', () => {
 		// Update checkout pricing on product item change
@@ -77,15 +79,15 @@
 			return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		}
 
-		function get_error_message( error ) {
+		function get_error_message(error) {
 			let message = '';
 
-			if ( error.message ) {
+			if (error.message) {
 				message = error.message;
-			} else if ( error.messages ) {
-				const messages = Object.values( error.messages );
+			} else if (error.messages) {
+				const messages = Object.values(error.messages);
 
-				if ( messages.length > 0 ) {
+				if (messages.length > 0) {
 					message = messages[0][0];
 				}
 			}
@@ -116,15 +118,20 @@
 					data: data,
 				});
 
-				if ( response.redirect_url ) {
+				if (response.redirect_url) {
 					window.location.href = response.redirect_url;
 				}
 			} catch (error) {
-				const message = get_error_message( error );
+				const message = get_error_message(error);
+				setTimeout(() => {
+					wp.hooks.doAction('directorist-toast', {
+						message:
+							message || __('An error occurred', 'directorist'),
+						type: 'error',
+					});
+				}, 500);
+				console.log('Error message:', error);
 
-				alert( message );
-				console.log( error );
-				
 				// Reset loading state on error
 				submitBtn.prop('disabled', false);
 				btnText.text(originalText);

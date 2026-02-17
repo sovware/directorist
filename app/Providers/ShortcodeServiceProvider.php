@@ -89,6 +89,7 @@ class ShortcodeServiceProvider implements Provider {
             return "<div class='notice_wrapper'><div class='directorist-alert directorist-alert-warning'>{$th->getMessage()}</div></div>";
         }
 
+        wp_enqueue_script( 'directorist-notification' );
         wp_enqueue_script( 'directorist-checkout' );
         wp_enqueue_script( 'wp-api-fetch' );
 

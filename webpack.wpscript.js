@@ -8,6 +8,7 @@ module.exports = {
 		'css/admin-order': './resources/sass/app.scss',
 		'js/admin/order': './resources/js/admin/pages/index.tsx',
 		'css/frontend': './resources/sass/frontend.scss',
+		'js/frontend/notification': './resources/js/components/Notification.ts',
 		'js/frontend/payment-receipt':
 			'./resources/js/frontend/payment-receipt.js',
 		'js/frontend/listing-owner-dashboard':

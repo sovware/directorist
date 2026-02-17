@@ -56,7 +56,7 @@ export default function App() {
 
 	// 	// Use the validation module
 	// 	const errorResult = validateField(value, field, attributes);
-		
+
 	// 	if (errorResult?.errors?.length > 0) {
 	// 		setErrors({
 	// 			...errors,
@@ -68,7 +68,6 @@ export default function App() {
 	// 		});
 	// 	}
 	// }
-
 
 	const fieldValidation = ({
 		value,
@@ -88,43 +87,50 @@ export default function App() {
 		if (!field?.validation) return;
 
 		const validatorContext = new FieldValidator();
-		let errorResult = null
-		if(field.validation.condition && !field.validation.condition(attributes)){
+		let errorResult = null;
+		if (
+			field.validation.condition &&
+			!field.validation.condition(attributes)
+		) {
 			errorResult = { isValid: true, errors: [] };
-		}else{
+		} else {
 			Object.entries(field.validation).forEach(([rule, ruleValue]) => {
 				switch (rule) {
-				  case "required":
-					validatorContext.addValidator(new RequiredValidator());
-					break;
-				  case "email":
-					validatorContext.addValidator(new EmailValidator());
-					break;
-				  case "min_length":
-					validatorContext.addValidator(new MinLengthValidator(ruleValue));
-					break;
-				  case "max_length":
-					validatorContext.addValidator(new MaxLengthValidator(ruleValue));
-					break;
-				  case "number":
-					validatorContext.addValidator(new NumberValidator());
-					break;
+					case 'required':
+						validatorContext.addValidator(new RequiredValidator());
+						break;
+					case 'email':
+						validatorContext.addValidator(new EmailValidator());
+						break;
+					case 'min_length':
+						validatorContext.addValidator(
+							new MinLengthValidator(ruleValue)
+						);
+						break;
+					case 'max_length':
+						validatorContext.addValidator(
+							new MaxLengthValidator(ruleValue)
+						);
+						break;
+					case 'number':
+						validatorContext.addValidator(new NumberValidator());
+						break;
 				}
 			});
 			errorResult = validatorContext.validate(value, attributes);
 		}
-		
+
 		if (errorResult?.errors?.length > 0) {
 			setErrors({
 				...errors,
-				[fieldKey]: errorResult?.errors
+				[fieldKey]: errorResult?.errors,
 			});
 		} else {
 			setErrors({
-				[fieldKey]: []
+				[fieldKey]: [],
 			});
 		}
-	}
+	};
 	addAction(
 		'wpmvc-field-on-blur',
 		'directorist-form-validation',

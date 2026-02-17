@@ -97,7 +97,7 @@ const columns: Column[] = [
 		render: ({ item }) => {
 			return (
 				<span className="directorist-table-text-light">
-					{moment(item.created_at).format('MMM D, YYYY')}
+					{moment(item?.created_at).format('MMM D, YYYY')}
 				</span>
 			);
 		},

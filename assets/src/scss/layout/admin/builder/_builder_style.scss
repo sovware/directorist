@@ -164,6 +164,8 @@ $light-gray: #f4f5f7;
 	font-weight: 600;
 	color: #141921;
 	line-height: 16px;
+	pointer-events: none;
+	user-select: none;
 	span {
 		font-size: 20px;
 		color: #747c89;

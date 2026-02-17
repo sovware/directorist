@@ -2040,6 +2040,15 @@ class Builder_Data {
 
         self::$fields = apply_filters(
             'atbdp_listing_type_settings_field_list', [
+                'directory_name' => [
+                    'label'       => '',
+                    'type'        => 'text',
+                    'value'       => '',
+                    'placeholder' => __( 'Enter directory name', 'directorist' ),
+                    'rules'       => [
+                        'required' => true,
+                    ],
+                ],
                 'icon' => [
                     'label'       => '',
                     'type'        => 'icon',
@@ -2758,6 +2767,12 @@ class Builder_Data {
                     'icon'     => 'las la-home',
                     'container' => 'short-wide',
                     'sections' => [
+                        'directory_name'  => [
+                            'title'       => __( 'Directory name', 'directorist' ) . ' <span class="la la-pen"></span>',
+                            'description' => __( 'Give your directory a unique name to identify it across listings, add listing, and search pages.', 'directorist' ),
+                            'fields'      => ['directory_name'],
+                        ],
+
                         'labels'          => [
                             'title'  => __( 'Directory icon', 'directorist' ),
                             'description' => __( 'Select a directory type icon to display in all listings, add listing, and search pages.', 'directorist' ),

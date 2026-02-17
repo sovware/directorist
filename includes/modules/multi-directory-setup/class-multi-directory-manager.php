@@ -845,6 +845,11 @@ class Multi_Directory_Manager {
 
         self::$options['name']['value'] = $term_name;
 
+        // Sync directory_name field with the term name so it appears in the General tab.
+        if ( isset( self::$fields['directory_name'] ) ) {
+            self::$fields['directory_name']['value'] = $term_name;
+        }
+
         $all_term_meta = get_term_meta( $term_id );
         $test_migration = apply_filters( 'atbdp_test_migration', false );
 

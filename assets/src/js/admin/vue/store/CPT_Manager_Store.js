@@ -225,6 +225,12 @@ export default new Vuex.Store({
 
 		updateFieldValue: (state, payload) => {
 			Vue.set(state.fields[payload.field_key], 'value', payload.value);
+
+			// Keep options.name in sync when the directory_name field changes,
+			// so the header label and save payload stay up-to-date.
+			if (payload.field_key === 'directory_name' && state.options.name) {
+				state.options.name.value = payload.value;
+			}
 		},
 
 		updateFieldData: (state, payload) => {

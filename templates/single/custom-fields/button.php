@@ -26,9 +26,12 @@ $target       = ! empty( $form_data['open_in_new_tab'] ) ? ' target="_blank" rel
 
     <?php if ( $button_text && $button_url_label ) : ?>
         <div class="directorist-single-info__value">
-            <a class="directorist-btn directorist-btn-<?php echo esc_attr( $button_style ); ?>"
+            <a class="directorist-btn directorist-btn-xs directorist-btn-outline-<?php echo esc_attr( $button_style ); ?>"
                href="<?php echo esc_url( $button_url_label ); ?>"<?php echo $target; ?>>
                 <?php echo esc_html( $button_text ); ?>
+                <span class="directorist-icon-arrow-right">
+                    <?php directorist_icon( 'fas fa-external-link-alt' ); ?>
+                </span>
             </a>
         </div>
     <?php endif; ?>

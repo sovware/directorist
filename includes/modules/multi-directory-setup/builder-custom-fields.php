@@ -810,18 +810,6 @@ return apply_filters(
                         'value' => 'custom-button',
                     ]
                 ),
-                'label' => [
-                    'type'        => 'text',
-                    'label'       => __( 'Label', 'directorist' ),
-                    'value'       => __( 'Button', 'directorist' ),
-                    'description' => __( 'Field name shown in the Add Listing form (e.g., Booking Link, Website Link).', 'directorist' ),
-                ],
-                'description' => [
-                    'type'        => 'text',
-                    'label'       => __( 'Description', 'directorist' ),
-                    'value'       => '',
-                    'description' => __( 'Optional help text displayed below the input field.', 'directorist' ),
-                ],
                 'button_text' => [
                     'type'        => 'text',
                     'label'       => __( 'Button Text Label', 'directorist' ),
@@ -834,6 +822,12 @@ return apply_filters(
                     'value'       => __( 'Visit Now', 'directorist' ),
                     'description' => __( 'Placeholder example for the Button Text input (e.g., Book Now, Visit Site).', 'directorist' ),
                 ],
+                'button_text_description' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button Text Description', 'directorist' ),
+                    'value'       => '',
+                    'description' => __( 'Help text displayed below the Button Text input (e.g., This text will appear as the button label on your listing).', 'directorist' ),
+                ],
                 'button_url_label' => [
                     'type'        => 'text',
                     'label'       => __( 'Button URL Label', 'directorist' ),
@@ -845,6 +839,12 @@ return apply_filters(
                     'label'       => __( 'Button URL Placeholder', 'directorist' ),
                     'value'       => 'https://yourlink.com',
                     'description' => __( 'Placeholder example for the Button URL input (e.g., https://yourlink.com).', 'directorist' ),
+                ],
+                'button_url_description' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button URL Description', 'directorist' ),
+                    'value'       => '',
+                    'description' => __( 'Help text displayed below the Button URL input (e.g., Add the full website link).', 'directorist' ),
                 ],
                 'button_style' => [
                     'type'    => 'select',

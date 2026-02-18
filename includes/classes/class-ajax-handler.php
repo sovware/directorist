@@ -743,7 +743,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 wp_send_json( $data, 200 );
             }
 
-            if ( ! get_option( 'users_can_register' ) ) {
+            if ( ! get_option( 'users_can_register' ) || ! directorist_is_user_registration_enabled() ) {
                 $data = [
                     'status'      => false,
                     'status_code' => 'registration_disabled',

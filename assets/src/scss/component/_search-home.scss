@@ -315,27 +315,6 @@
 		@media screen and (max-width: 767px) {
 			.directorist-search-modal__input {
 				flex: 44%;
-				.directorist-search-query {
-					border-right: none !important;
-				}
-				&.directorist-search-query {
-					flex: 100%;
-					padding-right: 0;
-					border-right: none;
-					&:after {
-						display: none;
-					}
-					.directorist-search-field__btn--clear {
-						right: 0;
-					}
-				}
-			}
-		}
-		@media screen and (max-width: 575px) {
-			.directorist-search-modal__input {
-				&.directorist-search-query {
-					border-right: 1px solid var(--directorist-color-border);
-				}
 			}
 		}
 		.directorist-search-modal__input {
@@ -584,14 +563,6 @@
 
 			@media screen and (max-width: 767px) {
 				flex: 44%;
-				&.directorist-search-query {
-					flex: 100%;
-					padding-right: 0;
-					border-right: none;
-					.directorist-search-field__btn--clear {
-						right: 0;
-					}
-				}
 			}
 
 			@media screen and (max-width: 575px) {

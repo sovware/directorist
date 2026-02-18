@@ -38,21 +38,10 @@ class ATBDP_Upgrade
     /**
      * Migrate assign_to category fields to conditional logic
      *
-     * Converts old custom fields with assign_to category to new conditional logic format.
-     * Only processes custom fields (not preset fields) and supports single category only.
-     *
-     * @since 8.0
      * @return void
      */
     public function migrate_assign_to_conditional_logic() {
-        error_log( 'Migration: Function called' );
-        
-        // Skip if migration already done
-        $migration_done = get_option( 'directorist_assign_to_conditional_logic_migrated' );
-        error_log( 'Migration: Migration flag = ' . ( $migration_done ? 'true' : 'false' ) );
-        
-        if ( $migration_done ) {
-            error_log( 'Migration: Already migrated, skipping' );
+        if ( get_option( 'directorist_assign_to_conditional_logic_migrated', false ) ) {
             return;
         }
 
@@ -63,28 +52,16 @@ class ATBDP_Upgrade
             )
         );
 
-        error_log( 'Migration: Found ' . count( $directory_types ) . ' directory types' );
-
-        if ( is_wp_error( $directory_types ) ) {
-            error_log( 'Migration: Error getting directory types: ' . $directory_types->get_error_message() );
-            update_option( 'directorist_assign_to_conditional_logic_migrated', true );
-            return;
-        }
-
-        if ( empty( $directory_types ) ) {
-            error_log( 'Migration: No directory types found' );
+        if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
             update_option( 'directorist_assign_to_conditional_logic_migrated', true );
             return;
         }
 
         foreach ( $directory_types as $directory_type ) {
-            error_log( 'Migration: Processing directory type ID: ' . $directory_type->term_id );
             $this->migrate_directory_assign_to_fields( $directory_type->term_id );
         }
 
-        // Mark migration as complete
         update_option( 'directorist_assign_to_conditional_logic_migrated', true );
-        error_log( 'Migration: Completed' );
     }
 
     /**
@@ -95,97 +72,86 @@ class ATBDP_Upgrade
      */
     private function migrate_directory_assign_to_fields( $directory_id ) {
         $directory_id = absint( $directory_id );
-        error_log( 'Migration: Processing directory ID: ' . $directory_id );
-        
         if ( empty( $directory_id ) ) {
-            error_log( 'Migration: Empty directory ID, skipping' );
             return;
         }
 
         $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
 
-        if ( empty( $submission_form_fields ) || ! is_array( $submission_form_fields ) ) {
-            error_log( 'Migration: No submission form fields found for directory ' . $directory_id );
-            return;
-        }
-
         if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
-            error_log( 'Migration: No fields array found for directory ' . $directory_id );
             return;
         }
-
-        error_log( 'Migration: Found ' . count( $submission_form_fields['fields'] ) . ' fields' );
 
         $updated = false;
-        $processed_count = 0;
-        $skipped_count = 0;
 
         foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
             if ( ! is_array( $field ) ) {
                 continue;
             }
 
-            $processed_count++;
-
             // Only process custom fields
             if ( ! $this->is_custom_field_for_migration( $field ) ) {
-                $skipped_count++;
                 continue;
             }
 
-            // Skip if field already has valid conditional_logic
-            // Check if it's the nested structure with value
-            if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
-                // Check if enabled is true
-                $existing_logic = $field['options']['conditional_logic']['value'];
-                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
-                    error_log( 'Migration: Field ' . $field_key . ' already has conditional logic, skipping' );
-                    $skipped_count++;
-                    continue; // Already has valid conditional logic
-                }
+            // Skip if already migrated
+            if ( ! empty( $field['options']['conditional_logic']['value']['enabled'] ) && ! empty( $field['options']['conditional_logic']['value']['groups'] ) ) {
+                continue;
             }
 
-            // Check for old assign_to field (root level only)
-            // assign_to is a boolean flag, category contains the actual category ID
+            // Check for old assign_to field
             if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
-                error_log( 'Migration: Field ' . $field_key . ' - assign_to: ' . ( isset( $field['assign_to'] ) ? print_r( $field['assign_to'], true ) : 'not set' ) . ', category: ' . ( isset( $field['category'] ) ? print_r( $field['category'], true ) : 'not set' ) );
-                $skipped_count++;
                 continue;
             }
 
-            error_log( 'Migration: Field ' . $field_key . ' - assign_to: ' . print_r( $field['assign_to'], true ) . ', category: ' . print_r( $field['category'], true ) );
-
-            // Convert category ID to conditional logic (single category only)
-            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'] );
-
-            if ( ! empty( $conditional_logic ) ) {
-                // Ensure options array exists
-                if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
-                    $field['options'] = array();
-                }
-
-                // Add conditional logic to options (nested structure for form builder)
-                $field['options']['conditional_logic'] = array(
-                    'type'  => 'conditional-logic',
-                    'value' => $conditional_logic,
-                );
-
-                error_log( 'Migration: Migrating field ' . $field_key . ' - Category: ' . print_r( $field['category'], true ) );
-                error_log( 'Migration: Conditional Logic: ' . print_r( $conditional_logic, true ) );
-                
-                $submission_form_fields['fields'][ $field_key ] = $field;
-                $updated = true;
-            } else {
-                error_log( 'Migration: Failed to convert conditional logic for field ' . $field_key );
+            $category_id = absint( $field['category'] );
+            if ( empty( $category_id ) ) {
+                continue;
             }
+
+            // Verify category exists
+            $category = get_term( $category_id, ATBDP_CATEGORY );
+            if ( is_wp_error( $category ) || empty( $category ) ) {
+                continue;
+            }
+
+            // Ensure options array exists
+            if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
+                $field['options'] = array();
+            }
+
+            // Create conditional logic structure
+            $conditional_logic_value = array(
+                'enabled'        => true,
+                'action'         => 'show',
+                'globalOperator' => 'OR',
+                'groups'         => array(
+                    array(
+                        'operator'   => 'AND',
+                        'conditions' => array(
+                            array(
+                                'field'    => 'admin_category_select[]',
+                                'operator' => 'contains',
+                                'value'    => (string) $category_id,
+                            ),
+                        ),
+                    ),
+                ),
+            );
+
+            // Set in options.conditional_logic and root level
+            $field['options']['conditional_logic'] = array(
+                'type'  => 'conditional-logic',
+                'value' => $conditional_logic_value,
+            );
+            $field['conditional_logic'] = $conditional_logic_value;
+
+            $submission_form_fields['fields'][ $field_key ] = $field;
+            $updated = true;
         }
 
-        error_log( 'Migration: Processed ' . $processed_count . ' fields, skipped ' . $skipped_count . ', updated ' . ( $updated ? '1' : '0' ) );
-
-        // Update term meta if any fields were migrated
         if ( $updated ) {
             update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
-            error_log( 'Migration: Updated term meta for directory ' . $directory_id );
         }
     }
 
@@ -196,82 +162,20 @@ class ATBDP_Upgrade
      * @return bool True if custom field, false otherwise
      */
     private function is_custom_field_for_migration( $field ) {
-        // Check widget_group
         if ( ! empty( $field['widget_group'] ) && $field['widget_group'] === 'custom' ) {
             return true;
         }
 
-        // Check widget_name against custom field types
         $custom_field_types = array( 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' );
-        
         if ( ! empty( $field['widget_name'] ) && in_array( $field['widget_name'], $custom_field_types, true ) ) {
             return true;
         }
 
-        // Check if field_key starts with 'custom-'
         if ( ! empty( $field['field_key'] ) && strpos( $field['field_key'], 'custom-' ) === 0 ) {
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Convert assign_to category value to conditional logic format
-     *
-     * Supports single category only. If multiple categories provided, uses the first one.
-     *
-     * @param mixed $assign_to Category ID - can be int, string, or array (uses first)
-     * @return array|null Conditional logic array or null if invalid
-     */
-    private function convert_assign_to_to_conditional_logic( $assign_to ) {
-        if ( empty( $assign_to ) ) {
-            return null;
-        }
-
-        // Get single category ID (assign_to supports only one category per field)
-        $category_id = null;
-        
-        if ( is_array( $assign_to ) ) {
-            // If array, take first valid category ID
-            $category_id = ! empty( $assign_to[0] ) ? absint( $assign_to[0] ) : null;
-        } elseif ( is_numeric( $assign_to ) ) {
-            $category_id = absint( $assign_to );
-        } elseif ( is_string( $assign_to ) ) {
-            // Handle comma-separated string - take first
-            $ids = explode( ',', $assign_to );
-            $category_id = ! empty( $ids[0] ) ? absint( trim( $ids[0] ) ) : null;
-        }
-
-        if ( empty( $category_id ) ) {
-            return null;
-        }
-
-        // Verify category exists
-        $category = get_term( $category_id, ATBDP_CATEGORY );
-        if ( is_wp_error( $category ) || empty( $category ) ) {
-            return null;
-        }
-
-        // Build conditional logic structure for single category
-        // Use boolean true instead of integer 1 for enabled flag
-        return array(
-            'enabled'        => true,  // Changed from 1 to true
-            'action'         => 'show',
-            'globalOperator' => 'OR',
-            'groups'         => array(
-                array(
-                    'operator'   => 'AND',
-                    'conditions' => array(
-                        array(
-                            'field'    => 'category',
-                            'operator' => 'is',
-                            'value'    => (string) $category_id,
-                        ),
-                    ),
-                ),
-            ),
-        );
     }
 
     public function v8_force_migration() {

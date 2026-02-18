@@ -1391,11 +1391,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         // Get field label (prefer label, fallback to widget_key)
         var label = widget.label || widget.name || widget.placeholder || widgetKey || 'Unnamed Field';
 
-        // Get field type (use widget_name for custom fields - e.g. search form radio)
+        // Get field type (use widget_name for custom fields - e.g. search form radio, date, time, color)
         var type = widget.type || widget.field_type || 'text';
         if (type === 'text' && widget.widget_name) {
           var wn = String(widget.widget_name).toLowerCase();
           if (['select', 'radio', 'checkbox'].includes(wn)) {
+            type = wn;
+          } else if (['date', 'time', 'color', 'color_picker'].includes(wn)) {
+            // Search form custom fields: date/time/color use widget_name for type
             type = wn;
           }
         }

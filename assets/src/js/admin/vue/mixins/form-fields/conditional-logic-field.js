@@ -650,11 +650,14 @@ export default {
 					widgetKey ||
 					'Unnamed Field';
 
-				// Get field type (use widget_name for custom fields - e.g. search form radio)
+				// Get field type (use widget_name for custom fields - e.g. search form radio, date, time, color)
 				let type = widget.type || widget.field_type || 'text';
 				if (type === 'text' && widget.widget_name) {
 					const wn = String(widget.widget_name).toLowerCase();
 					if (['select', 'radio', 'checkbox'].includes(wn)) {
+						type = wn;
+					} else if (['date', 'time', 'color', 'color_picker'].includes(wn)) {
+						// Search form custom fields: date/time/color use widget_name for type
 						type = wn;
 					}
 				}

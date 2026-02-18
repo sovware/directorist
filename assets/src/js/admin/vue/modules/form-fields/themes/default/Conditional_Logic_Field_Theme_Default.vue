@@ -174,24 +174,66 @@
                   "
                 />
 
-                <!-- Color input for color fields -->
-                <input
+                <!-- Color input for color fields (empty state supported) -->
+                <div
                   v-if="
                     !isValueHidden(group.conditions[0].operator) &&
                     !needsSelectInput(group.conditions[0]) &&
                     isColorField(group.conditions[0])
                   "
                   :key="`value-color-${group.conditions[0].field || 'empty'}-${group.conditions[0].operator || 'empty'}`"
-                  type="color"
-                  class="directorist-conditional-logic-builder__value"
-                  v-model="group.conditions[0].value"
-                  @input="
-                    onConditionValueUpdate(
-                      group.conditions[0],
-                      $event.target.value,
-                    )
-                  "
-                />
+                  class="directorist-conditional-logic-builder__value-color-wrapper"
+                >
+                  <div
+                    class="directorist-conditional-logic-builder__value-color-swatch"
+                    :class="{ 'is-empty': !group.conditions[0].value }"
+                  >
+                    <span
+                      v-if="group.conditions[0].value"
+                      class="directorist-conditional-logic-builder__value-color-preview"
+                      :style="{
+                        backgroundColor: group.conditions[0].value,
+                      }"
+                    ></span>
+                    <span
+                      v-if="group.conditions[0].value"
+                      class="directorist-conditional-logic-builder__value-color-code"
+                    >
+                      {{ group.conditions[0].value }}
+                    </span>
+                    <span
+                      v-else
+                      class="directorist-conditional-logic-builder__value-color-placeholder"
+                    >
+                      Select color
+                    </span>
+                    <input
+                      type="color"
+                      class="directorist-conditional-logic-builder__value-color-input"
+                      :value="group.conditions[0].value || '#000000'"
+                      @input="
+                        onConditionValueUpdate(
+                          group.conditions[0],
+                          $event.target.value,
+                        )
+                      "
+                    />
+                    <button
+                      v-if="group.conditions[0].value"
+                      type="button"
+                      class="directorist-conditional-logic-builder__value-clear directorist-conditional-logic-builder__value-clear--color"
+                      :style="{
+                        color: '#f00',
+                      }"
+                      @click.stop="
+                        onConditionValueUpdate(group.conditions[0], '')
+                      "
+                      title="Clear selection"
+                    >
+                      <span class="fa fa-times"></span>
+                    </button>
+                  </div>
+                </div>
 
                 <!-- Text input for fields without options -->
                 <input
@@ -344,21 +386,64 @@
                       "
                     />
 
-                    <!-- Color input for color fields -->
-                    <input
+                    <!-- Color input for color fields (empty state supported) -->
+                    <div
                       v-if="
                         !isValueHidden(condition.operator) &&
                         !needsSelectInput(condition) &&
                         isColorField(condition)
                       "
                       :key="`value-color-${condition.field || 'empty'}-${condition.operator || 'empty'}`"
-                      type="color"
-                      class="directorist-conditional-logic-builder__value"
-                      v-model="condition.value"
-                      @input="
-                        onConditionValueUpdate(condition, $event.target.value)
-                      "
-                    />
+                      class="directorist-conditional-logic-builder__value-color-wrapper"
+                    >
+                      <div
+                        class="directorist-conditional-logic-builder__value-color-swatch"
+                        :class="{ 'is-empty': !condition.value }"
+                      >
+                        <span
+                          v-if="condition.value"
+                          class="directorist-conditional-logic-builder__value-color-preview"
+                          :style="{
+                            backgroundColor: condition.value,
+                          }"
+                        ></span>
+                        <span
+                          v-if="condition.value"
+                          class="directorist-conditional-logic-builder__value-color-code"
+                        >
+                          {{ condition.value }}
+                        </span>
+                        <span
+                          v-else
+                          class="directorist-conditional-logic-builder__value-color-placeholder"
+                        >
+                          Select color
+                        </span>
+                        <input
+                          type="color"
+                          class="directorist-conditional-logic-builder__value-color-input"
+                          :value="condition.value || '#000000'"
+                          @input="
+                            onConditionValueUpdate(
+                              condition,
+                              $event.target.value,
+                            )
+                          "
+                        />
+                        <button
+                          v-if="condition.value"
+                          type="button"
+                          class="directorist-conditional-logic-builder__value-clear directorist-conditional-logic-builder__value-clear--color"
+                          :style="{
+                            color: condition.value,
+                          }"
+                          @click.stop="onConditionValueUpdate(condition, '')"
+                          title="Clear selection"
+                        >
+                          <span class="fa fa-times"></span>
+                        </button>
+                      </div>
+                    </div>
 
                     <!-- Text input for fields without options -->
                     <input
@@ -395,7 +480,10 @@
               </div>
 
               <div class="directorist-conditional-logic-builder__group-footer">
-                <span class="directorist-conditional-logic-builder__group-footer__label">Match:</span>
+                <span
+                  class="directorist-conditional-logic-builder__group-footer__label"
+                  >Match:</span
+                >
                 <select
                   class="directorist-conditional-logic-builder__operator"
                   v-model="group.operator"
@@ -432,7 +520,9 @@
         class="directorist-conditional-logic-builder__footer"
         v-if="localValue.enabled"
       >
-        <span class="directorist-conditional-logic-builder__footer__label">Match:</span>
+        <span class="directorist-conditional-logic-builder__footer__label"
+          >Match:</span
+        >
         <select
           class="directorist-conditional-logic-builder__operator"
           v-model="localValue.globalOperator"
@@ -523,6 +613,7 @@ export default {
         "conditional-logic",
         "conditionalLogic",
         "submission_form_fields",
+        "search_form_fields",
         "widgets",
         "fields",
         "social",
@@ -628,8 +719,13 @@ export default {
         );
       }
 
-      // Date and time fields: only show "is", "is not", "empty", "not empty"
-      if (fieldType === "date" || fieldType === "time") {
+      // Date, time and color fields: only show "is", "is not", "empty", "not empty"
+      if (
+        fieldType === "date" ||
+        fieldType === "time" ||
+        fieldType === "color" ||
+        fieldType === "color_picker"
+      ) {
         return this.operatorOptions.filter((operator) =>
           ["is", "is not", "empty", "not empty"].includes(operator.value),
         );

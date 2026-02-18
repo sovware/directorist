@@ -676,6 +676,7 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -697,6 +698,7 @@ class Builder_Data {
                                     'label' => __( 'Placeholder', 'directorist' ),
                                     'value' => 'Category',
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -733,6 +735,7 @@ class Builder_Data {
                                     ],
                                     'value'   => 'from_map_api',
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -743,6 +746,7 @@ class Builder_Data {
                                     'label' => __( 'Label', 'directorist' ),
                                     'value' => 'Tag',
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -763,6 +767,7 @@ class Builder_Data {
                                     'label' => __( 'Price Range Max Placeholder', 'directorist' ),
                                     'value' => 'Max',
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -783,6 +788,7 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -804,6 +810,7 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -824,6 +831,7 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -844,6 +852,7 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -864,6 +873,7 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -884,6 +894,7 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
 
@@ -904,8 +915,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
                     
                         'number'       => [
@@ -936,8 +947,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                         'url'          => [
@@ -957,8 +968,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                         'date'         => [
@@ -978,8 +989,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                         'time'         => [
@@ -999,8 +1010,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                         'color_picker' => [
@@ -1015,8 +1026,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                         'select'       => [
@@ -1036,8 +1047,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                         'checkbox'     => [
@@ -1052,8 +1063,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                         'radio'        => [
@@ -1068,8 +1079,8 @@ class Builder_Data {
                                     'label' => __( 'Required', 'directorist' ),
                                     'value' => false,
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
-
                         ],
 
                     ],
@@ -1088,6 +1099,7 @@ class Builder_Data {
                                     'label' => __( 'Label', 'directorist' ),
                                     'value' => 'Review',
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
                         'radius_search' => [
@@ -1131,6 +1143,7 @@ class Builder_Data {
                                         ['value' => 'zip', 'label' => 'Zip Code'],
                                     ],
                                 ],
+                                'conditional_logic' => directorist_get_conditional_logic_field(),
                             ],
                         ],
                     ],

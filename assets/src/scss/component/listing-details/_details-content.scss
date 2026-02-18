@@ -113,12 +113,14 @@
 
 	.directorist-details-info-wrap {
 		a {
-			font-size: 15px;
-			text-decoration: none;
-			box-shadow: none;
-			color: var(--directorist-color-body);
-			&:hover {
-				color: var(--directorist-color-primary);
+			&:not(.directorist-btn) {
+				font-size: 15px;
+				text-decoration: none;
+				box-shadow: none;
+				color: var(--directorist-color-body);
+				&:hover {
+					color: var(--directorist-color-primary);
+				}
 			}
 		}
 		ul {
@@ -174,6 +176,14 @@
 					height: auto;
 					line-height: unset;
 					color: var(--directorist-color-body);
+				}
+			}
+		}
+		.directorist-single-info-button{
+			.directorist-single-info__value{
+				.directorist-icon-mask:after{
+					width: 12px;
+					height: 12px;
 				}
 			}
 		}

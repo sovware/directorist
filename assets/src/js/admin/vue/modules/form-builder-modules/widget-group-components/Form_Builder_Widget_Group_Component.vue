@@ -1,5 +1,9 @@
 <template>
-  <div class="cptm-form-builder-active-fields-group">
+  <div
+    class="cptm-form-builder-active-fields-group"
+    @dragenter.prevent="handleGroupDragEnter"
+    @dragover.prevent=""
+  >
     <!-- Group Header -->
     <form-builder-widget-group-header-component
       v-bind="$props"
@@ -9,6 +13,7 @@
       :draggable="canDrag"
       :current-dragging-group="currentDraggingGroup"
       :group-key="groupKey"
+      :auto-edit-label="autoEditLabel"
       @update-group-field="$emit('update-group-field', $event)"
       @toggle-expand-widgets="toggleExpandWidgets"
       @toggle-group-fields-expand="handleToggleGroupFieldsExpand"
@@ -48,6 +53,7 @@
             :is-enabled-group-dragging="isEnabledGroupDragging"
             :untrashable-widgets="untrashableWidgets"
             :is-expanded="expandedWidgetKey === widget_key"
+            :field-key="fieldKey"
             @toggle-expand="handleWidgetToggleExpand(widget_key)"
             @found-untrashable-widget="
               updateDetectedUntrashableWidgets(widget_key)
@@ -110,6 +116,14 @@ export default {
     expandedGroupFieldsKey: {
       default: null,
     },
+    autoEditLabel: {
+      default: false,
+      type: Boolean,
+    },
+    fieldKey: {
+      type: String,
+      default: "",
+    },
   },
 
   created() {
@@ -161,8 +175,13 @@ export default {
 
     canExpand() {
       const expandStatus =
-        this.groupData.fields.length > 0 || this.groupData?.type === "general_group" || this.groupData?.id === "basic-search-form" || this.groupData?.id === "basic" || this.groupData?.id === "advanced-search-form" || this.groupData?.id === "advanced";
-      
+        this.groupData.fields.length > 0 ||
+        this.groupData?.type === "general_group" ||
+        this.groupData?.id === "basic-search-form" ||
+        this.groupData?.id === "basic" ||
+        this.groupData?.id === "advanced-search-form" ||
+        this.groupData?.id === "advanced";
+
       return expandStatus;
     },
 
@@ -312,6 +331,22 @@ export default {
       }
 
       return true;
+    },
+
+    handleGroupDragEnter(event) {
+      // Expand group when widget drag enters to make droppable area available
+      // Only expand if:
+      // 1. A widget is being dragged (from available_widgets or active_widgets)
+      // 2. The group can be expanded
+      // 3. The group is not already expanded
+      if (
+        this.currentDraggingWidget &&
+        this.canExpand &&
+        !this.widgetsExpanded
+      ) {
+        this.widgetsExpanded = true;
+        this.$emit("group-expanded", this.groupKey);
+      }
     },
   },
 };

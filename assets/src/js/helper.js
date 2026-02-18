@@ -1,6 +1,10 @@
 export const isObject = (value) =>
 	value && typeof value === 'object' && !Array.isArray(value);
 
+export const toCapitalize = (value) => {
+	return value ? value.charAt(0).toUpperCase() + value.slice(1) : '';
+}
+
 export function findObjectItem(path, data, defaultValue) {
 	if (typeof path !== 'string') {
 		return defaultValue;

@@ -119,6 +119,7 @@
       <confirmation-modal
         :visible="showConfirmationModal"
         :widgetName="widgetName"
+        :reviewDeleteTitle="reviewDeleteTitle"
         @confirm="trashWidget"
         @cancel="closeConfirmationModal"
       />
@@ -158,6 +159,10 @@ export default {
     isExpanded: {
       type: Boolean,
       default: false,
+    },
+    fieldKey: {
+      type: String,
+      default: "",
     },
   },
 
@@ -323,6 +328,26 @@ export default {
       const alertKey = alertKeys[0];
 
       return this.alerts[widgetKey][alertKey];
+    },
+
+    reviewDeleteTitle() {
+      // Default message for submission form
+      if (this.fieldKey === "submission_form_fields") {
+        return "field will also remove it from the single listing page and search form.";
+      }
+
+      // Message for single listing contents
+      if (this.fieldKey === "single_listings_contents") {
+        return "widget will remove it from the single listing page.";
+      }
+
+      // Message for search form
+      if (this.fieldKey === "search_form_fields") {
+        return "field will remove it from the search form.";
+      }
+
+      // Default fallback message
+      return "field will also remove it from the single listing page and search form.";
     },
   },
 

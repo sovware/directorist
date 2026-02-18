@@ -374,7 +374,7 @@ class Builder_Data {
                                         'placeholder' => [
                                             'label' => __( 'Placeholder', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Enter Your Comment',
                                         ],
                                     ]
                                 ],
@@ -386,12 +386,12 @@ class Builder_Data {
                                         'label' => [
                                             'label' => __( 'Label', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Email',
                                         ],
                                         'placeholder' => [
                                             'label' => __( 'Placeholder', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Enter Your Email',
                                         ],
                                     ]
                                 ],
@@ -403,12 +403,12 @@ class Builder_Data {
                                         'label' => [
                                             'label' => __( 'Label', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Name',
                                         ],
                                         'placeholder' => [
                                             'label' => __( 'Placeholder', 'directorist' ),
                                             'type'  => 'text',
-                                            'value' => '',
+                                            'value' => 'Enter Your Name',
                                         ],
                                     ]
                                 ],
@@ -425,12 +425,12 @@ class Builder_Data {
                                         'label' => [
                                             'label'   => __( 'Label', 'directorist' ),
                                             'type'    => 'text',
-                                            'value'   => '',
+                                            'value'   => 'Website',
                                         ],
                                         'placeholder' => [
                                             'label'   => __( 'Placeholder', 'directorist' ),
                                             'type'    => 'text',
-                                            'value'   => '',
+                                            'value'   => 'Enter Your Website',
                                         ],
                                     ]
                                 ],
@@ -1165,7 +1165,7 @@ class Builder_Data {
                         'fields' => [
                             'show_tagline' => [
                                 'type'  => 'toggle',
-                                'label' => __( 'Show Tagline', 'directorist' ),
+                                'label' => __( 'Tagline', 'directorist' ),
                                 'value' => false,
                             ],
                         ],
@@ -1559,9 +1559,9 @@ class Builder_Data {
                                 'label'   => __( 'Align', 'directorist' ),
                                 'value'   => 'left',
                                 'options' => [
-                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'value' => 'right'],
-                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'value' => 'center'],
-                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'value' => 'left'],
+                                    ['id' => 'atbdp_user_avatar_align_right', 'label' => __( 'Right', 'directorist' ), 'icon' => 'las la-align-right', 'value' => 'right'],
+                                    ['id' => 'atbdp_user_avatar_align_center', 'label' => __( 'Center', 'directorist' ), 'icon' => 'las la-align-center', 'value' => 'center'],
+                                    ['id' => 'atbdp_user_avatar_align_left', 'label' => __( 'Left', 'directorist' ), 'icon' => 'las la-align-left', 'value' => 'left'],
                                 ],
                             ],
                         ],
@@ -1896,7 +1896,7 @@ class Builder_Data {
         $listing_card_grid_view_without_thumbnail_layout = [
             'body'   => [
                 'avatar'        => [
-                    'label'             => __( 'Add Avatar', 'directorist' ),
+                    'label'             => __( 'Avatar', 'directorist' ),
                     'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => [ 'user_avatar' ],
@@ -2273,34 +2273,21 @@ class Builder_Data {
                 ],
 
                 'enable_single_listing_page'                  => [
-                    'type'      => 'toggle',
-                    'label'     => __( 'Enable Custom Single Listing Page', 'directorist' ),
-                    'description' => __(
-                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content.', 'directorist' 
+                    'type'            => 'toggle',
+                    'toggle_position' => 'right',
+                    'label'           => __( 'Enable Custom Single Listing Page', 'directorist' ),
+                    'description'     => __(
+                        'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content', 'directorist'
                     ),
                     'labelType' => 'h3',
                     'value'     => false,
                 ],
-                
-                'single_listing_page'                         => [
-                    'label'             => __( 'Single listing page', 'directorist' ),
-                    'type'              => 'select',
-                    'value'             => '',
-                    'showDefaultOption' => true,
-                    'options'           => directorist_get_all_page_list(),
-                    'show_if'           => [
-                        'where'      => 'enable_single_listing_page',
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
 
                 'single_listings_shortcodes'                  => [
                     'type'        => 'shortcode-list',
-                    'buttonLabel' => '<i class="fas fa-magic"></i>',
+                    'buttonLabel' => __( 'Generate Shortcodes', 'directorist' ),
                     'label'       => __( 'Generate shortcodes', 'directorist' ),
-                    'description' => __( 'Generate single listing shortcodes', 'directorist' ),
+                    'description' => '',
                     'shortcodes'  => [
                         '[directorist_single_listings_header]',
                         [
@@ -2330,6 +2317,38 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                
+                'single_listing_page_title'                    => [
+                    'label'             => __( 'Single listing page', 'directorist' ),
+                    'type'              => 'title',
+                    // Title & description removed as per new UI requirement
+                    'title'             => '',
+                    'description'       => '',
+                    'show_if'           => [
+                        'where'      => 'enable_single_listing_page',
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'single_listing_page'                    => [
+                    'label'             => __( 'Single listing page', 'directorist' ),
+                    'type'              => 'select-api',
+                    'apiPath'           => home_url() . '/wp-json/directorist/v1/pages',
+                    'apiMethod'         => 'GET',
+                    'resyncLabel'       => 'Resync',
+                    'showResyncButton'  => true,
+                    'title'             => 'Assign Your Page',
+                    'description' => __( 'Select a page that contains the generated shortcodes or', 'directorist' ) . ' <a href="' . admin_url( '/post-new.php?post_type=page' ) . '" target="_blank">Create New Page</a>',
+                    'show_if'           => [
+                        'where'      => 'enable_single_listing_page',
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
+                
 
                 'search_form_fields'                          => [
                     'type'            => 'form-builder',
@@ -2432,12 +2451,12 @@ class Builder_Data {
                                         'fields' => [
                                             'enable_title' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Title", "directorist" ),
+                                                'label' => __( "Title", "directorist" ),
                                                 'value' => true,
                                             ],
                                             'enable_tagline' => [
                                                 'type' => "toggle",
-                                                'label' => __( "Show Tagline", "directorist" ),
+                                                'label' => __( "Tagline", "directorist" ),
                                                 'value' => true,
                                             ],
                                         ],
@@ -2479,7 +2498,7 @@ class Builder_Data {
                                     'fields' => [
                                         'enable_tagline' => [
                                             'type' => "toggle",
-                                            'label' => __( "Show Tagline", "directorist" ),
+                                            'label' => __( "Tagline", "directorist" ),
                                             'value' => true,
                                         ],
                                     ],
@@ -2599,8 +2618,7 @@ class Builder_Data {
                             'category' => [
                                 'type' => "badge",
                                 'label' => __( "Listings Category", "directorist" ),
-                                'icon' => 'las la-folder-open
-',
+                                'icon' => 'las la-folder-open',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
                                     'conditions' => [
@@ -2633,6 +2651,7 @@ class Builder_Data {
                                         'maxWidget'         => 1,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => ['back'],
+                                        'selectedWidgetList'   => ['back'],
                                     ],
                                     [
                                         'type'              => 'placeholder_item',
@@ -2641,6 +2660,7 @@ class Builder_Data {
                                         'maxWidget'         => 0,
                                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                         'acceptedWidgets'   => [ 'bookmark', 'share', 'report' ],
+                                        'selectedWidgetList'   => ['bookmark', 'share'],
                                     ],
                                 ],
                             ],
@@ -2651,6 +2671,7 @@ class Builder_Data {
                                 'maxWidget'         => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => ['title'],
+                                'selectedWidgetList'   => ['title'],
                             ],
                             [
                                 'type'              => 'placeholder_item',
@@ -2659,13 +2680,16 @@ class Builder_Data {
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
+                                'selectedWidgetList'   => ['price', 'ratings_count'],
                             ],
                             [
                                 'type'            => 'placeholder_item',
-                                'label'           => 'Image/Slider',
                                 'placeholderKey'  => 'slider-placeholder',
-                                'acceptedWidgets' => ['slider'],
+                                'label'           => 'Image/Slider',
                                 'maxWidget'       => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => ['slider'],
+                                'selectedWidgetList'   => ['slider'],
                             ],
                         ],
                     ] 
@@ -2866,10 +2890,14 @@ class Builder_Data {
                             'container' => 'short-wide',
                             'sections' => [
                                 'page_settings' => [
+                                    // Title & description removed as per new UI requirement
+                                    'title' => '',
+                                    'description' => '',
                                     'fields' => [
                                         'enable_single_listing_page',
-                                        'single_listing_page',
                                         'single_listings_shortcodes',
+                                        'single_listing_page_title',
+                                        'single_listing_page',
                                     ],
                                 ],
                             ],

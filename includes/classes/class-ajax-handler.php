@@ -743,6 +743,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 wp_send_json( $data, 200 );
             }
 
+            if ( ! get_option( 'users_can_register' ) ) {
+                $data = [
+                    'status'      => false,
+                    'status_code' => 'registration_disabled',
+                    'message'     => __( 'User registration is currently disabled.', 'directorist' ),
+                    'data'        => null,
+                ];
+                wp_send_json( $data, 200 );
+            }
+
             // Get the data
             $email = ( ! empty( $_REQUEST['email'] ) ) ? sanitize_email( wp_unslash( $_REQUEST['email'] ) ) : '';
 

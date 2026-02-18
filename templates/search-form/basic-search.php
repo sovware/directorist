@@ -9,12 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $fields = $searchform->get_basic_fields();
 ?>
 
-<div class="directorist-search-modal__overlay"></div>
-<div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
-    <span class="directorist-search-modal__minimizer"></span>
-    <div class="directorist-search-modal__contents__body">
-
-        <?php if ( ! empty( $fields ) ) : ?>
+<div class="directorist-search-adv-filter directorist-advanced-filter">
+    <?php if ( ! empty( $fields ) ) : ?>
 
             <?php foreach ( $fields as $key => $field ) { ?>
                 <div class="directorist-search-modal__input <?php echo $key === 'title' ? 'directorist-search-query' : ''; ?> <?php echo $key === 'radius_search' ? 'directorist-radius-search' : ''; ?>">

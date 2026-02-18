@@ -264,9 +264,6 @@
 			width: 100%;
 			margin: 0;
 		}
-		.directorist-search-form-action__submit {
-			display: block;
-		}
 		.listing-with-sidebar__header .directorist-header-bar {
 			display: flex;
 		}
@@ -297,11 +294,19 @@
 		}
 		.directorist-search-form {
 			display: flex;
-			.directorist-filter-location-icon {
-				right: 15px;
-				top: unset;
-				transform: unset;
-				bottom: 8px;
+			.directorist-search-location {
+				.directorist-filter-location-icon {
+					right: 15px;
+					top: unset;
+					transform: unset;
+					bottom: 12px;
+					@media screen and (max-width: 575px) {
+						right: 0;
+					}
+				}
+				.directorist-search-field__btn--clear {
+					bottom: 12px !important;
+				}
 			}
 		}
 		.directorist-advanced-filter__form {
@@ -417,8 +422,8 @@
 			@media only screen and (max-width: 767px) {
 				display: block;
 				height: 100svh;
-				box-shadow: none;
-				border: none;
+				box-shadow: none !important;
+				border: none !important;
 				.directorist-advanced-filter__advanced {
 					display: block;
 				}

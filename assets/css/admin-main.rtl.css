@@ -13259,11 +13259,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 12px;
   background-color: #808080;
 }
-@media screen and (max-width: 575px) {
-  .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-label:before {
-    right: -20px !important;
-  }
-}
 .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content {
   position: absolute;
   right: 0;

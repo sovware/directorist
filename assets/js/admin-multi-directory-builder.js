@@ -42455,30 +42455,54 @@ var render = function render() {
           return _vm.onConditionValueUpdate(group.conditions[0], $event.target.value);
         }]
       }
-    }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && _vm.isColorField(group.conditions[0]) ? _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: group.conditions[0].value,
-        expression: "group.conditions[0].value"
-      }],
+    }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && _vm.isColorField(group.conditions[0]) ? _c('div', {
       key: "value-color-".concat(group.conditions[0].field || 'empty', "-").concat(group.conditions[0].operator || 'empty'),
-      staticClass: "directorist-conditional-logic-builder__value",
+      staticClass: "directorist-conditional-logic-builder__value-color-wrapper"
+    }, [_c('div', {
+      staticClass: "directorist-conditional-logic-builder__value-color-swatch",
+      class: {
+        'is-empty': !group.conditions[0].value
+      }
+    }, [group.conditions[0].value ? _c('span', {
+      staticClass: "directorist-conditional-logic-builder__value-color-preview",
+      style: {
+        backgroundColor: group.conditions[0].value
+      }
+    }) : _vm._e(), _vm._v(" "), group.conditions[0].value ? _c('span', {
+      staticClass: "directorist-conditional-logic-builder__value-color-code"
+    }, [_vm._v("\n                    " + _vm._s(group.conditions[0].value) + "\n                  ")]) : _c('span', {
+      staticClass: "directorist-conditional-logic-builder__value-color-placeholder"
+    }, [_vm._v("\n                    Select color\n                  ")]), _vm._v(" "), _c('input', {
+      staticClass: "directorist-conditional-logic-builder__value-color-input",
       attrs: {
         "type": "color"
       },
       domProps: {
-        "value": group.conditions[0].value
+        "value": group.conditions[0].value || '#000000'
       },
       on: {
-        "input": [function ($event) {
-          if ($event.target.composing) return;
-          _vm.$set(group.conditions[0], "value", $event.target.value);
-        }, function ($event) {
+        "input": function input($event) {
           return _vm.onConditionValueUpdate(group.conditions[0], $event.target.value);
-        }]
+        }
       }
-    }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && !_vm.isDateField(group.conditions[0]) && !_vm.isTimeField(group.conditions[0]) && !_vm.isColorField(group.conditions[0]) ? _c('input', {
+    }), _vm._v(" "), group.conditions[0].value ? _c('button', {
+      staticClass: "directorist-conditional-logic-builder__value-clear directorist-conditional-logic-builder__value-clear--color",
+      style: {
+        color: '#f00'
+      },
+      attrs: {
+        "type": "button",
+        "title": "Clear selection"
+      },
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+          return _vm.onConditionValueUpdate(group.conditions[0], '');
+        }
+      }
+    }, [_c('span', {
+      staticClass: "fa fa-times"
+    })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && !_vm.isDateField(group.conditions[0]) && !_vm.isTimeField(group.conditions[0]) && !_vm.isColorField(group.conditions[0]) ? _c('input', {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -42681,30 +42705,54 @@ var render = function render() {
             return _vm.onConditionValueUpdate(condition, $event.target.value);
           }]
         }
-      }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && _vm.isColorField(condition) ? _c('input', {
-        directives: [{
-          name: "model",
-          rawName: "v-model",
-          value: condition.value,
-          expression: "condition.value"
-        }],
+      }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && _vm.isColorField(condition) ? _c('div', {
         key: "value-color-".concat(condition.field || 'empty', "-").concat(condition.operator || 'empty'),
-        staticClass: "directorist-conditional-logic-builder__value",
+        staticClass: "directorist-conditional-logic-builder__value-color-wrapper"
+      }, [_c('div', {
+        staticClass: "directorist-conditional-logic-builder__value-color-swatch",
+        class: {
+          'is-empty': !condition.value
+        }
+      }, [condition.value ? _c('span', {
+        staticClass: "directorist-conditional-logic-builder__value-color-preview",
+        style: {
+          backgroundColor: condition.value
+        }
+      }) : _vm._e(), _vm._v(" "), condition.value ? _c('span', {
+        staticClass: "directorist-conditional-logic-builder__value-color-code"
+      }, [_vm._v("\n                        " + _vm._s(condition.value) + "\n                      ")]) : _c('span', {
+        staticClass: "directorist-conditional-logic-builder__value-color-placeholder"
+      }, [_vm._v("\n                        Select color\n                      ")]), _vm._v(" "), _c('input', {
+        staticClass: "directorist-conditional-logic-builder__value-color-input",
         attrs: {
           "type": "color"
         },
         domProps: {
-          "value": condition.value
+          "value": condition.value || '#000000'
         },
         on: {
-          "input": [function ($event) {
-            if ($event.target.composing) return;
-            _vm.$set(condition, "value", $event.target.value);
-          }, function ($event) {
+          "input": function input($event) {
             return _vm.onConditionValueUpdate(condition, $event.target.value);
-          }]
+          }
         }
-      }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && !_vm.isDateField(condition) && !_vm.isTimeField(condition) && !_vm.isColorField(condition) ? _c('input', {
+      }), _vm._v(" "), condition.value ? _c('button', {
+        staticClass: "directorist-conditional-logic-builder__value-clear directorist-conditional-logic-builder__value-clear--color",
+        style: {
+          color: condition.value
+        },
+        attrs: {
+          "type": "button",
+          "title": "Clear selection"
+        },
+        on: {
+          "click": function click($event) {
+            $event.stopPropagation();
+            return _vm.onConditionValueUpdate(condition, '');
+          }
+        }
+      }, [_c('span', {
+        staticClass: "fa fa-times"
+      })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && !_vm.isDateField(condition) && !_vm.isTimeField(condition) && !_vm.isColorField(condition) ? _c('input', {
         directives: [{
           name: "model",
           rawName: "v-model",

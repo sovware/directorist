@@ -7656,6 +7656,77 @@ input[type="radio"] {
 			}
 		}
 
+		.directorist-conditional-logic-builder__value-color-wrapper {
+			flex: 1;
+			position: relative;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.directorist-conditional-logic-builder__value-color-swatch {
+			position: relative;
+			flex: 1;
+			min-width: 80px;
+			min-height: 32px;
+			border-radius: 6px;
+			cursor: pointer;
+			overflow: visible;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			border: 1px solid #e5e7eb;
+			background-color: #f9fafb;
+			padding: 0 8px;
+			padding-right: 36px;
+
+			&.is-empty {
+				padding-right: 8px;
+
+				.directorist-conditional-logic-builder__value-color-placeholder {
+					display: inline;
+					font-size: 12px;
+					color: #9ca3af;
+				}
+			}
+		}
+
+		.directorist-conditional-logic-builder__value-color-preview {
+			display: block;
+			width: 24px;
+			height: 24px;
+			min-width: 24px;
+			border-radius: 4px;
+			flex-shrink: 0;
+		}
+
+		.directorist-conditional-logic-builder__value-color-code {
+			font-size: 12px;
+			font-family: monospace;
+			color: #374151;
+			position: relative;
+			z-index: 0;
+		}
+
+		.directorist-conditional-logic-builder__value-color-placeholder {
+			display: none;
+			position: relative;
+			z-index: 0;
+		}
+
+		.directorist-conditional-logic-builder__value-color-input {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			cursor: pointer;
+			border: none;
+			padding: 0;
+			margin: 0;
+			z-index: 1;
+		}
+
 		.directorist-conditional-logic-builder__value-select-wrapper {
 			flex: 1;
 			position: relative;
@@ -7680,6 +7751,36 @@ input[type="radio"] {
 
 			option {
 				padding: 8px;
+			}
+		}
+
+		.directorist-conditional-logic-builder__value-color-wrapper
+			.directorist-conditional-logic-builder__value-clear--color {
+			position: absolute;
+			right: 6px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 20px;
+			height: 20px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background-color: transparent;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 2;
+			border-radius: 50%;
+			transition: opacity 0.2s ease, background-color 0.2s ease;
+
+			.fa-times {
+				font-size: 11px;
+			}
+
+			&:hover {
+				opacity: 0.9;
+				background-color: rgba(0, 0, 0, 0.06);
 			}
 		}
 

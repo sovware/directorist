@@ -1165,6 +1165,30 @@ function extractFieldFromClearButton($fieldWrap) {
     sel: 'input[name="search_by_rating[]"]',
     fieldKey: 'search_by_rating',
     fieldName: 'search_by_rating[]'
+  }, {
+    sel: 'input[name="email"]',
+    fieldKey: 'email',
+    fieldName: 'email'
+  }, {
+    sel: 'input[name="phone"]',
+    fieldKey: 'phone',
+    fieldName: 'phone'
+  }, {
+    sel: 'input[name="phone2"]',
+    fieldKey: 'phone2',
+    fieldName: 'phone2'
+  }, {
+    sel: 'input[name="fax"]',
+    fieldKey: 'fax',
+    fieldName: 'fax'
+  }, {
+    sel: 'input[name="website"]',
+    fieldKey: 'website',
+    fieldName: 'website'
+  }, {
+    sel: 'input[name="zip"]',
+    fieldKey: 'zip',
+    fieldName: 'zip'
   }];
   for (var _i = 0, _checks = checks; _i < _checks.length; _i++) {
     var c = _checks[_i];

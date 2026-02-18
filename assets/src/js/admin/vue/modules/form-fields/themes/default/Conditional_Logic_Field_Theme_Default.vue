@@ -634,8 +634,13 @@ export default {
         );
       }
 
-      // Date and time fields: only show "is", "is not", "empty", "not empty"
-      if (fieldType === "date" || fieldType === "time") {
+      // Date, time and color fields: only show "is", "is not", "empty", "not empty"
+      if (
+        fieldType === "date" ||
+        fieldType === "time" ||
+        fieldType === "color" ||
+        fieldType === "color_picker"
+      ) {
         return this.operatorOptions.filter((operator) =>
           ["is", "is not", "empty", "not empty"].includes(operator.value),
         );

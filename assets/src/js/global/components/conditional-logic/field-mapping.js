@@ -386,6 +386,36 @@ export function extractFieldFromClearButton($fieldWrap) {
 			fieldKey: 'search_by_rating',
 			fieldName: 'search_by_rating[]',
 		},
+		{
+			sel: 'input[name="email"]',
+			fieldKey: 'email',
+			fieldName: 'email',
+		},
+		{
+			sel: 'input[name="phone"]',
+			fieldKey: 'phone',
+			fieldName: 'phone',
+		},
+		{
+			sel: 'input[name="phone2"]',
+			fieldKey: 'phone2',
+			fieldName: 'phone2',
+		},
+		{
+			sel: 'input[name="fax"]',
+			fieldKey: 'fax',
+			fieldName: 'fax',
+		},
+		{
+			sel: 'input[name="website"]',
+			fieldKey: 'website',
+			fieldName: 'website',
+		},
+		{
+			sel: 'input[name="zip"]',
+			fieldKey: 'zip',
+			fieldName: 'zip',
+		},
 	];
 	for (const c of checks) {
 		const $el = $fieldWrap.find(c.sel).first();

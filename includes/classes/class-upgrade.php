@@ -148,10 +148,8 @@ class ATBDP_Upgrade
                     'value' => $conditional_logic,
                 );
                 
-                // For listing form builder, also set at root level (keep existing perfect behavior)
-                if ( $form_type === 'submission' ) {
-                    $field['conditional_logic'] = $conditional_logic;
-                }
+                // Set at root level for both forms (SearchForm also checks root level)
+                $field['conditional_logic'] = $conditional_logic;
                 
                 $fields[ $field_key ] = $field;
                 $updated = true;

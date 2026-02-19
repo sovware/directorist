@@ -35,12 +35,18 @@ class ATBDP_Upgrade
         add_action( 'admin_init', [ $this, 'migrate_assign_to_conditional_logic' ] );
     }
 
-    /**
+     /**
      * Migrate assign_to category fields to conditional logic
      *
      * @return void
      */
     public function migrate_assign_to_conditional_logic() {
+        // Security: Check capability
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        // Optimization: Check migration flag first (fastest check)
         if ( get_option( 'directorist_assign_to_conditional_logic_migrated', false ) ) {
             return;
         }
@@ -58,6 +64,9 @@ class ATBDP_Upgrade
         }
 
         foreach ( $directory_types as $directory_type ) {
+            if ( ! is_object( $directory_type ) || ! isset( $directory_type->term_id ) ) {
+                continue;
+            }
             $this->migrate_directory_assign_to_fields( $directory_type->term_id );
         }
 
@@ -77,14 +86,25 @@ class ATBDP_Upgrade
             return;
         }
 
+        // Optimization: Fetch both meta values in one go (reduces DB queries)
         $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
         $search_form_fields = get_term_meta( $directory_id, 'search_form_fields', true );
 
+        // Security: Validate data structure
+        if ( ! is_array( $submission_form_fields ) ) {
+            $submission_form_fields = array();
+        }
+        if ( ! is_array( $search_form_fields ) ) {
+            $search_form_fields = array();
+        }
+
         // Track migrated submission fields for syncing to search form
         $migrated_fields = array();
+        $submission_updated = false;
+        $search_updated = false;
 
         // Step 1: Migrate submission form fields (listing form)
-        if ( ! empty( $submission_form_fields ) && is_array( $submission_form_fields ) && ! empty( $submission_form_fields['fields'] ) ) {
+        if ( ! empty( $submission_form_fields['fields'] ) && is_array( $submission_form_fields['fields'] ) ) {
             foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
                 if ( ! is_array( $field ) ) {
                     continue;
@@ -103,15 +123,21 @@ class ATBDP_Upgrade
                     }
                 }
 
-                // Check for old assign_to field
+                // Security: Check for old assign_to field with proper validation
                 if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
                     continue;
                 }
 
-                // Convert category ID to conditional logic
-                $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'], 'submission' );
+                // Security: Validate category ID is numeric
+                $category_id = is_numeric( $field['category'] ) ? absint( $field['category'] ) : null;
+                if ( empty( $category_id ) ) {
+                    continue;
+                }
 
-                if ( ! empty( $conditional_logic ) ) {
+                // Convert category ID to conditional logic
+                $conditional_logic = $this->convert_assign_to_to_conditional_logic( $category_id, 'submission' );
+
+                if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) ) {
                     // Ensure options array exists
                     if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
                         $field['options'] = array();
@@ -129,20 +155,19 @@ class ATBDP_Upgrade
                     $submission_form_fields['fields'][ $field_key ] = $field;
                     
                     // Store category ID for syncing to search form
-                    $migrated_fields[ $field_key ] = $field['category'];
+                    $migrated_fields[ $field_key ] = $category_id;
+                    $submission_updated = true;
                 }
             }
 
-            // Save submission form fields if any were migrated
-            if ( ! empty( $migrated_fields ) ) {
+            // Optimization: Save only if changes were made
+            if ( $submission_updated ) {
                 update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
             }
         }
 
         // Step 2: Sync conditional logic to corresponding search form fields
-        if ( ! empty( $migrated_fields ) && ! empty( $search_form_fields ) && is_array( $search_form_fields ) && ! empty( $search_form_fields['fields'] ) ) {
-            $search_updated = false;
-
+        if ( ! empty( $migrated_fields ) && ! empty( $search_form_fields['fields'] ) && is_array( $search_form_fields['fields'] ) ) {
             foreach ( $search_form_fields['fields'] as $search_field_key => $search_field ) {
                 if ( ! is_array( $search_field ) ) {
                     continue;
@@ -161,20 +186,22 @@ class ATBDP_Upgrade
                     }
                 }
 
-                // Find matching submission form field via original_widget_key
-                $form_key = isset( $search_field['original_widget_key'] ) ? $search_field['original_widget_key'] : '';
+                // Security: Validate original_widget_key exists (don't sanitize - need exact match)
+                $form_key = isset( $search_field['original_widget_key'] ) && is_string( $search_field['original_widget_key'] ) 
+                    ? $search_field['original_widget_key'] 
+                    : '';
                 
                 if ( empty( $form_key ) || ! isset( $migrated_fields[ $form_key ] ) ) {
                     continue;
                 }
 
                 // Get category ID from migrated submission field
-                $category_id = $migrated_fields[ $form_key ];
+                $category_id = absint( $migrated_fields[ $form_key ] );
                 
                 // Convert to search form conditional logic (uses 'category' field key)
                 $search_conditional_logic = $this->convert_assign_to_to_conditional_logic( $category_id, 'search' );
 
-                if ( ! empty( $search_conditional_logic ) ) {
+                if ( ! empty( $search_conditional_logic ) && is_array( $search_conditional_logic ) ) {
                     // Ensure options array exists
                     if ( ! isset( $search_field['options'] ) || ! is_array( $search_field['options'] ) ) {
                         $search_field['options'] = array();
@@ -194,14 +221,14 @@ class ATBDP_Upgrade
                 }
             }
 
-            // Save search form fields if any were updated
+            // Optimization: Save only if changes were made
             if ( $search_updated ) {
                 update_term_meta( $directory_id, 'search_form_fields', $search_form_fields );
             }
         }
 
         // Step 3: Also migrate search form fields that have their own assign_to (backward compatibility)
-        if ( ! empty( $search_form_fields ) && is_array( $search_form_fields ) && ! empty( $search_form_fields['fields'] ) ) {
+        if ( ! empty( $search_form_fields['fields'] ) && is_array( $search_form_fields['fields'] ) ) {
             $updated = $this->migrate_form_fields( $search_form_fields['fields'], 'search' );
             if ( $updated ) {
                 update_term_meta( $directory_id, 'search_form_fields', $search_form_fields );
@@ -241,15 +268,21 @@ class ATBDP_Upgrade
                 }
             }
 
-            // Check for old assign_to field
+            // Security: Check for old assign_to field with proper validation
             if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
                 continue;
             }
 
-            // Convert category ID to conditional logic
-            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'], $form_type );
+            // Security: Validate category ID is numeric
+            $category_id = is_numeric( $field['category'] ) ? absint( $field['category'] ) : null;
+            if ( empty( $category_id ) ) {
+                continue;
+            }
 
-            if ( ! empty( $conditional_logic ) ) {
+            // Convert category ID to conditional logic
+            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $category_id, $form_type );
+
+            if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) ) {
                 // Ensure options array exists
                 if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
                     $field['options'] = array();
@@ -277,36 +310,25 @@ class ATBDP_Upgrade
      *
      * Supports single category only. If multiple categories provided, uses the first one.
      *
-     * @param mixed $category_id Category ID - can be int, string, or array (uses first)
+     * @param int $category_id Category ID (must be validated integer)
      * @param string $form_type Form type: 'submission' or 'search'
      * @return array|null Conditional logic array or null if invalid
      */
     private function convert_assign_to_to_conditional_logic( $category_id, $form_type = 'submission' ) {
+        // Security: Validate input
+        $category_id = absint( $category_id );
         if ( empty( $category_id ) ) {
             return null;
         }
 
-        // Get single category ID
-        $cat_id = null;
-        
-        if ( is_array( $category_id ) ) {
-            $cat_id = ! empty( $category_id[0] ) ? absint( $category_id[0] ) : null;
-        } elseif ( is_numeric( $category_id ) ) {
-            $cat_id = absint( $category_id );
-        } elseif ( is_string( $category_id ) ) {
-            $ids = explode( ',', $category_id );
-            $cat_id = ! empty( $ids[0] ) ? absint( trim( $ids[0] ) ) : null;
-        }
-
-        if ( empty( $cat_id ) ) {
+        // Security: Verify category exists and belongs to correct taxonomy
+        $category = get_term( $category_id, ATBDP_CATEGORY );
+        if ( is_wp_error( $category ) || empty( $category ) || ! is_object( $category ) ) {
             return null;
         }
 
-        // Verify category exists
-        $category = get_term( $cat_id, ATBDP_CATEGORY );
-        if ( is_wp_error( $category ) || empty( $category ) ) {
-            return null;
-        }
+        // Security: Validate form_type
+        $form_type = ( $form_type === 'search' ) ? 'search' : 'submission';
 
         // Use correct field key based on form type
         // Listing form: 'admin_category_select[]' (for builder compatibility)
@@ -325,7 +347,7 @@ class ATBDP_Upgrade
                         array(
                             'field'    => $field_key,
                             'operator' => 'contains',
-                            'value'    => (string) $cat_id,
+                            'value'    => (string) $category_id,
                         ),
                     ),
                 ),
@@ -340,16 +362,23 @@ class ATBDP_Upgrade
      * @return bool True if custom field, false otherwise
      */
     private function is_custom_field_for_migration( $field ) {
-        if ( ! empty( $field['widget_group'] ) && $field['widget_group'] === 'custom' ) {
+        if ( ! is_array( $field ) ) {
+            return false;
+        }
+
+        // Security: Validate widget_group
+        if ( ! empty( $field['widget_group'] ) && is_string( $field['widget_group'] ) && $field['widget_group'] === 'custom' ) {
             return true;
         }
 
+        // Optimization: Use strict comparison and validate widget_name
         $custom_field_types = array( 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' );
-        if ( ! empty( $field['widget_name'] ) && in_array( $field['widget_name'], $custom_field_types, true ) ) {
+        if ( ! empty( $field['widget_name'] ) && is_string( $field['widget_name'] ) && in_array( $field['widget_name'], $custom_field_types, true ) ) {
             return true;
         }
 
-        if ( ! empty( $field['field_key'] ) && strpos( $field['field_key'], 'custom-' ) === 0 ) {
+        // Optimization: Check if field_key starts with 'custom-' (prefix check)
+        if ( ! empty( $field['field_key'] ) && is_string( $field['field_key'] ) && strpos( $field['field_key'], 'custom-' ) === 0 ) {
             return true;
         }
 

@@ -72,19 +72,45 @@ class ATBDP_Upgrade
      */
     private function migrate_directory_assign_to_fields( $directory_id ) {
         $directory_id = absint( $directory_id );
+        
         if ( empty( $directory_id ) ) {
             return;
         }
 
+        // Migrate submission form fields (listing form)
         $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
+        if ( ! empty( $submission_form_fields ) && is_array( $submission_form_fields ) && ! empty( $submission_form_fields['fields'] ) ) {
+            $updated = $this->migrate_form_fields( $submission_form_fields['fields'], 'submission' );
+            if ( $updated ) {
+                update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
+            }
+        }
 
-        if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
-            return;
+        // Migrate search form fields
+        $search_form_fields = get_term_meta( $directory_id, 'search_form_fields', true );
+        if ( ! empty( $search_form_fields ) && is_array( $search_form_fields ) && ! empty( $search_form_fields['fields'] ) ) {
+            $updated = $this->migrate_form_fields( $search_form_fields['fields'], 'search' );
+            if ( $updated ) {
+                update_term_meta( $directory_id, 'search_form_fields', $search_form_fields );
+            }
+        }
+    }
+
+    /**
+     * Migrate assign_to fields in a fields array
+     *
+     * @param array $fields Fields array (passed by reference)
+     * @param string $form_type Form type: 'submission' or 'search'
+     * @return bool True if any field was updated, false otherwise
+     */
+    private function migrate_form_fields( &$fields, $form_type = 'submission' ) {
+        if ( ! is_array( $fields ) ) {
+            return false;
         }
 
         $updated = false;
 
-        foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
+        foreach ( $fields as $field_key => $field ) {
             if ( ! is_array( $field ) ) {
                 continue;
             }
@@ -94,9 +120,12 @@ class ATBDP_Upgrade
                 continue;
             }
 
-            // Skip if already migrated
-            if ( ! empty( $field['options']['conditional_logic']['value']['enabled'] ) && ! empty( $field['options']['conditional_logic']['value']['groups'] ) ) {
-                continue;
+            // Skip if field already has valid conditional_logic
+            if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
+                $existing_logic = $field['options']['conditional_logic']['value'];
+                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                    continue; // Already has valid conditional logic
+                }
             }
 
             // Check for old assign_to field
@@ -104,55 +133,93 @@ class ATBDP_Upgrade
                 continue;
             }
 
-            $category_id = absint( $field['category'] );
-            if ( empty( $category_id ) ) {
-                continue;
-            }
+            // Convert category ID to conditional logic
+            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'], $form_type );
 
-            // Verify category exists
-            $category = get_term( $category_id, ATBDP_CATEGORY );
-            if ( is_wp_error( $category ) || empty( $category ) ) {
-                continue;
-            }
+            if ( ! empty( $conditional_logic ) ) {
+                // Ensure options array exists
+                if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
+                    $field['options'] = array();
+                }
 
-            // Ensure options array exists
-            if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
-                $field['options'] = array();
+                // Add conditional logic to options
+                $field['options']['conditional_logic'] = array(
+                    'type'  => 'conditional-logic',
+                    'value' => $conditional_logic,
+                );
+                
+                // For listing form builder, also set at root level (keep existing perfect behavior)
+                if ( $form_type === 'submission' ) {
+                    $field['conditional_logic'] = $conditional_logic;
+                }
+                
+                $fields[ $field_key ] = $field;
+                $updated = true;
             }
+        }
 
-            // Create conditional logic structure
-            $conditional_logic_value = array(
-                'enabled'        => true,
-                'action'         => 'show',
-                'globalOperator' => 'OR',
-                'groups'         => array(
-                    array(
-                        'operator'   => 'AND',
-                        'conditions' => array(
-                            array(
-                                'field'    => 'admin_category_select[]',
-                                'operator' => 'contains',
-                                'value'    => (string) $category_id,
-                            ),
+        return $updated;
+    }
+
+    /**
+     * Convert assign_to category value to conditional logic format
+     *
+     * Supports single category only. If multiple categories provided, uses the first one.
+     *
+     * @param mixed $category_id Category ID - can be int, string, or array (uses first)
+     * @param string $form_type Form type: 'submission' or 'search'
+     * @return array|null Conditional logic array or null if invalid
+     */
+    private function convert_assign_to_to_conditional_logic( $category_id, $form_type = 'submission' ) {
+        if ( empty( $category_id ) ) {
+            return null;
+        }
+
+        // Get single category ID
+        $cat_id = null;
+        
+        if ( is_array( $category_id ) ) {
+            $cat_id = ! empty( $category_id[0] ) ? absint( $category_id[0] ) : null;
+        } elseif ( is_numeric( $category_id ) ) {
+            $cat_id = absint( $category_id );
+        } elseif ( is_string( $category_id ) ) {
+            $ids = explode( ',', $category_id );
+            $cat_id = ! empty( $ids[0] ) ? absint( trim( $ids[0] ) ) : null;
+        }
+
+        if ( empty( $cat_id ) ) {
+            return null;
+        }
+
+        // Verify category exists
+        $category = get_term( $cat_id, ATBDP_CATEGORY );
+        if ( is_wp_error( $category ) || empty( $category ) ) {
+            return null;
+        }
+
+        // Use correct field key based on form type
+        // Listing form: 'admin_category_select[]' (for builder compatibility)
+        // Search form: 'category' (as SearchForm normalizes it)
+        $field_key = ( $form_type === 'submission' ) ? 'admin_category_select[]' : 'category';
+
+        // Build conditional logic structure for single category
+        return array(
+            'enabled'        => true,
+            'action'         => 'show',
+            'globalOperator' => 'OR',
+            'groups'         => array(
+                array(
+                    'operator'   => 'AND',
+                    'conditions' => array(
+                        array(
+                            'field'    => $field_key,
+                            'operator' => 'contains',
+                            'value'    => (string) $cat_id,
                         ),
                     ),
                 ),
-            );
-
-            // Set in options.conditional_logic and root level
-            $field['options']['conditional_logic'] = array(
-                'type'  => 'conditional-logic',
-                'value' => $conditional_logic_value,
-            );
-            $field['conditional_logic'] = $conditional_logic_value;
-
-            $submission_form_fields['fields'][ $field_key ] = $field;
-            $updated = true;
-        }
-
-        if ( $updated ) {
-            update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
-        }
+            ),
+        );
     }
 
     /**

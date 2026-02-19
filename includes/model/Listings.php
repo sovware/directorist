@@ -2234,41 +2234,6 @@ class Directorist_Listings {
         }
     }
 
-    /**
-     * Render action-zone widgets as linked buttons (phone / email / custom-button).
-     *
-     * @since 8.5.5
-     *
-     * @param array $fields Action-zone widget list from the card layout.
-     */
-    public function render_action_fields( $fields ) {
-        if ( empty( $fields ) || ! is_array( $fields ) ) {
-            return;
-        }
-
-        $post_id                = get_the_id();
-        $submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
-
-        foreach ( $fields as $field ) {
-            $widget_name = $field['widget_name'] ?? '';
-
-            // Resolve original submission-form field data.
-            $original = [];
-            if ( isset( $field['original_widget_key'], $submission_form_fields['fields'][ $field['original_widget_key'] ] ) ) {
-                $original = $submission_form_fields['fields'][ $field['original_widget_key'] ];
-            }
-
-            $args = [
-                'listings'  => $this,
-                'data'      => $field,
-                'original'  => $original,
-                'post_id'   => $post_id,
-            ];
-
-            Helper::get_template( 'archive/action-fields/' . $widget_name, $args );
-        }
-    }
-
     public function render_badge_template( $field ) {
         global $post;
         $id = get_the_ID();

@@ -83,12 +83,12 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_t
 
             <?php if ( ! empty( $loop_fields['body']['action'] ) ) : ?>
                 <?php ob_start(); ?>
-                <?php $listings->render_action_fields( $loop_fields['body']['action'] ); ?>
+                <?php $listings->render_loop_fields( $loop_fields['body']['action'], 'li', 'li' ); ?>
                 <?php $action_html = ob_get_clean(); ?>
                 <?php if ( trim( $action_html ) ) : ?>
-                    <div class="directorist-listing-actions">
+                    <ul class="directorist-listing-single__info__list directorist-listing-single__action-list">
                         <?php echo $action_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                    </div>
+                    </ul>
                 <?php endif; ?>
             <?php endif; ?>
         </section>

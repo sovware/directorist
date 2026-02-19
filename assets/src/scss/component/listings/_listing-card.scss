@@ -1540,16 +1540,11 @@
 	}
 }
 
-// Action Buttons Section (single listing header + archive cards)
-.directorist-listing-actions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	padding: 12px 20px;
-
-	.directorist-btn {
-		font-size: 13px;
-	}
+// Action list section below excerpt in listing cards
+.directorist-listing-single__action-list {
+	margin-top: 12px;
+	padding-top: 12px;
+	border-top: 1px solid var(--directorist-color-border-light);
 }
 
 // Directorist Archive Grid Fix

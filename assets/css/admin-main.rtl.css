@@ -6473,6 +6473,18 @@ img.atbdp-file-info {
 .directorist-content-module__contents .directorist-form-social-info-field select {
   color: var(--directorist-color-primary);
 }
+.directorist-content-module__contents .directorist-form-button-field {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 40px 0;
+}
 .directorist-content-module__contents .directorist-checkbox .directorist-checkbox__label {
   margin-right: 0;
 }
@@ -12060,21 +12072,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn.directorist-btn-outline-primary {
   background: transparent;
-  border: 1px solid var(--directorist-color-primary) !important;
-  color: var(--directorist-color-primary);
+  border: 1px solid var(--directorist-color-btn-primary-border) !important;
+  color: var(--directorist-color-btn-primary-bg);
 }
 .directorist-btn.directorist-btn-outline-primary:focus, .directorist-btn.directorist-btn-outline-primary:hover {
   color: var(--directorist-color-white);
-  background-color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-btn-primary-bg);
 }
 .directorist-btn.directorist-btn-outline-secondary {
   background: transparent;
-  border: 1px solid var(--directorist-color-secondary) !important;
-  color: var(--directorist-color-secondary);
+  border: 1px solid var(--directorist-color-btn-secondary-border) !important;
+  color: var(--directorist-color-btn-secondary-bg);
 }
 .directorist-btn.directorist-btn-outline-secondary:focus, .directorist-btn.directorist-btn-outline-secondary:hover {
   color: var(--directorist-color-white);
-  background-color: var(--directorist-color-secondary);
+  background-color: var(--directorist-color-btn-secondary-bg);
 }
 .directorist-btn.directorist-btn-outline-success {
   background: transparent;
@@ -12132,6 +12144,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   min-height: 40px;
 }
 .directorist-btn.directorist-btn-xs {
+  padding: 0 15px;
   min-height: 36px;
 }
 .directorist-btn.directorist-btn-px-15 {

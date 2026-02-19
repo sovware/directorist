@@ -1815,6 +1815,34 @@ class Builder_Data {
                         ],
                     ],
                 ],
+
+                'button'            => [
+                    'type'    => 'list-item',
+                    'label'   => __( 'Button', 'directorist' ),
+                    'icon'    => 'las la-link',
+                    'hook'    => 'atbdp_custom_button',
+                    'show_if' => [
+                        'where'      => 'submission_form_fields.value.fields',
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'button'],
+                        ],
+                    ],
+                    'options' => [
+                        'title'  => __( 'Button Settings', 'directorist' ),
+                        'fields' => [
+                            'icon'       => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-link',
+                            ],
+                            'show_label' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Show Label', 'directorist' ),
+                                'value' => false,
+                            ],
+                        ],
+                    ],
+                ],
             ] 
         );
 
@@ -1878,6 +1906,11 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                'action'  => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 0,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
+                ],
             ],
 
             'footer'    => [
@@ -1928,6 +1961,11 @@ class Builder_Data {
                             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
                         ],
                     ],
+                ],
+                'action'        => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 0,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
 
@@ -1985,6 +2023,11 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                'action'  => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 0,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
+                ],
             ],
 
             'footer'    => [
@@ -2031,6 +2074,11 @@ class Builder_Data {
                             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
                         ],
                     ],
+                ],
+                'action'  => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 0,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
 
@@ -2637,6 +2685,39 @@ class Builder_Data {
                                     ],
                                 ],
                             ],
+                            'phone' => [
+                                'type' => "badge",
+                                'label' => __( "Phone", "directorist" ),
+                                'icon' => 'las la-phone',
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'phone'],
+                                    ],
+                                ],
+                            ],
+                            'email' => [
+                                'type' => "badge",
+                                'label' => __( "Email", "directorist" ),
+                                'icon' => 'las la-envelope',
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'email'],
+                                    ],
+                                ],
+                            ],
+                            'button' => [
+                                'type' => "badge",
+                                'label' => __( "Button", "directorist" ),
+                                'icon' => 'las la-link',
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'button'],
+                                    ],
+                                ],
+                            ],
                         ],
 
                         'layout' => [
@@ -2681,6 +2762,15 @@ class Builder_Data {
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
                                 'selectedWidgetList'   => ['price', 'ratings_count'],
+                            ],
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'action-placeholder',
+                                'label'             => __( 'Action', 'directorist' ),
+                                'maxWidget'         => 0,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => [ 'phone', 'email', 'button' ],
+                                'selectedWidgetList'   => [],
                             ],
                             [
                                 'type'            => 'placeholder_item',

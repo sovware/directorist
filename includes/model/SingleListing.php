@@ -545,6 +545,20 @@ class Directorist_Single_Listing {
         }
     }
 
+    public function action_template() {
+
+        $actions = $this->listing_header( '', 'action-placeholder' );
+
+        $args = [
+            'listing' => $this,
+            'actions' => $actions,
+        ];
+
+        if ( $actions ) {
+            Helper::get_template( 'single/action-section', $args );
+        }
+    }
+
     public function get_slider_data( $data = null ) {
 
         $show_slider = get_directorist_option( 'dsiplay_slider_single_page', true );

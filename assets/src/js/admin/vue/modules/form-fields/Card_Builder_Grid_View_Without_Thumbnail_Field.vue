@@ -242,6 +242,42 @@
             v-if="hasExcerptWidget"
           />
 
+          <card-widget-placeholder
+            id="no_thumbnail_body_action"
+            containerClass="cptm-listing-card-preview-action-placeholder"
+            :label="local_layout.body.action.label"
+            :availableWidgets="theAvailableWidgets"
+            :activeWidgets="active_widgets"
+            :acceptedWidgets="local_layout.body.action.acceptedWidgets"
+            :selectedWidgets="local_layout.body.action.selectedWidgets"
+            :maxWidget="local_layout.body.action.maxWidget"
+            :showWidgetsPickerWindow="
+              getActiveInsertWindowStatus('no_thumbnail_body_action')
+            "
+            :showWidgetsOptionWindow="
+              getActiveOptionWindowStatus('no_thumbnail_body_action')
+            "
+            :widgetOptionsWindow="widgetOptionsWindow"
+            :canOpenSettings="true"
+            @insert-widget="insertWidget($event, local_layout.body.action)"
+            @edit-widget="editWidget($event)"
+            @trash-widget="trashWidget($event, local_layout.body.action)"
+            @open-widgets-picker-window="
+              toggleInsertWindow('no_thumbnail_body_action')
+            "
+            @open-widgets-option-window="
+              toggleOptionWindow('no_thumbnail_body_action')
+            "
+            @close-widgets-picker-window="closeInsertWindow()"
+            @close-widgets-option-window="closeOptionWindow()"
+            @close-option-window="closeWidgetOptionsWindow()"
+            @update="
+              handleUpdateSelectedWidgets($event, 'local_layout.body.action')
+            "
+            @update-active-widget="handleActiveWidgetUpdate"
+            @activate-widget-options="toggleActivateWidgetOptions"
+          />
+
           <!-- cptm-listing-card-preview-footer -->
           <div class="cptm-listing-card-preview-footer">
             <!-- cptm-listing-card-preview-footer-left-placeholder -->
@@ -622,6 +658,10 @@ export default {
           },
           excerpt: {
             label: "Body Excerpt",
+            selectedWidgets: [],
+          },
+          action: {
+            label: "Action",
             selectedWidgets: [],
           },
         },

@@ -849,8 +849,12 @@ return apply_filters(
                 'button_style' => [
                     'type'    => 'select',
                     'label'   => __( 'Button Style', 'directorist' ),
-                    'value'   => 'primary',
+                    'value'   => 'default',
                     'options' => [
+                        [
+                            'value' => 'default',
+                            'label' => __( 'Default', 'directorist' ),
+                        ],
                         [
                             'value' => 'primary',
                             'label' => __( 'Primary', 'directorist' ),

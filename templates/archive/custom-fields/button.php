@@ -17,14 +17,23 @@ if ( ! $button_text || ! $button_url_label ) {
 
 // Get button settings from the original submission form field
 $original  = ! empty( $data['original_field'] ) ? $data['original_field'] : [];
-$btn_style = ! empty( $original['button_style'] ) ? $original['button_style'] : 'primary';
+$btn_style = ! empty( $original['button_style'] ) ? $original['button_style'] : 'default';
 $target    = ! empty( $original['open_in_new_tab'] ) ? ' target="_blank" rel="noopener"' : '';
+
+$btn_class = 'directorist-btn directorist-btn-xs';
+if ( 'primary' === $btn_style ) {
+	$btn_class .= ' directorist-btn-primary';
+} elseif ( 'secondary' === $btn_style ) {
+	$btn_class .= ' directorist-btn-outline-secondary';
+} else {
+	$btn_class .= ' directorist-btn-default';
+}
 ?>
 
 <<?php echo tag_escape( $before ? $before : 'div' ); ?> class="directorist-listing-card-button">
     <?php directorist_icon( $icon ); ?>
     <?php $listings->print_label( $label ); ?>
-    <a class="directorist-btn directorist-btn-xs directorist-btn-outline-<?php echo esc_attr( $btn_style ); ?>"
+    <a class="<?php echo esc_attr( $btn_class ); ?>"
        href="<?php echo esc_url( $button_url_label ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
         <?php echo esc_html( $button_text ); ?>
         <span class="directorist-icon-arrow-right">

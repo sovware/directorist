@@ -21,12 +21,12 @@ foreach ( $actions as $action ) {
 	switch ( $widget ) {
 		case 'phone':
 			$phone_value = get_post_meta( $listing_id, '_phone', true );
-			if ( $phone_value ) { $has_action = true; }
+			if ( $phone_value ) { $has_action = true; break 2; }
 			break;
 
 		case 'email':
 			$email_value = get_post_meta( $listing_id, '_email', true );
-			if ( $email_value ) { $has_action = true; }
+			if ( $email_value ) { $has_action = true; break 2; }
 			break;
 
 		case 'button':
@@ -35,7 +35,7 @@ foreach ( $actions as $action ) {
 			$btn_value   = is_array( $btn_raw ) ? $btn_raw : maybe_unserialize( $btn_raw );
 			$btn_text    = $btn_value['button_text'] ?? '';
 			$btn_url     = $btn_value['button_url_label'] ?? '';
-			if ( $btn_text && $btn_url ) { $has_action = true; }
+			if ( $btn_text && $btn_url ) { $has_action = true; break 2; }
 			break;
 	}
 }
@@ -102,10 +102,19 @@ if ( ! $has_action ) {
 				if ( ! $btn_text || ! $btn_url ) { break; }
 
 				$form_data    = $action['form_data'] ?? $action;
-				$button_style = ! empty( $form_data['button_style'] ) ? $form_data['button_style'] : 'primary';
+				$button_style = ! empty( $form_data['button_style'] ) ? $form_data['button_style'] : 'default';
 				$target       = ! empty( $form_data['open_in_new_tab'] ) ? ' target="_blank" rel="noopener"' : '';
+
+				$btn_class = 'directorist-btn directorist-btn-sm';
+				if ( 'primary' === $button_style ) {
+					$btn_class .= ' directorist-btn-primary';
+				} elseif ( 'secondary' === $button_style ) {
+					$btn_class .= ' directorist-btn-outline-secondary';
+				} else {
+					$btn_class .= ' directorist-btn-default';
+				}
 				?>
-				<a class="directorist-btn directorist-btn-sm directorist-btn-outline-<?php echo esc_attr( $button_style ); ?>"
+				<a class="<?php echo esc_attr( $btn_class ); ?>"
 				   href="<?php echo esc_url( $btn_url ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 					<?php directorist_icon( 'las la-link' ); ?>
 					<?php echo esc_html( $btn_text ); ?>

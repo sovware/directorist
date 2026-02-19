@@ -549,14 +549,37 @@ class Directorist_Single_Listing {
 
         $actions = $this->listing_header( '', 'action-placeholder' );
 
+        if ( empty( $actions ) ) {
+            return;
+        }
+
+        // Filter out action widgets whose form field no longer exists in the submission form.
+        $submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
+        $active_form_widgets    = [];
+
+        if ( ! empty( $submission_form_fields['fields'] ) ) {
+            foreach ( $submission_form_fields['fields'] as $field ) {
+                if ( ! empty( $field['widget_name'] ) ) {
+                    $active_form_widgets[] = $field['widget_name'];
+                }
+            }
+        }
+
+        $actions = array_filter( $actions, function ( $action ) use ( $active_form_widgets ) {
+            $widget = $action['widget_name'] ?? '';
+            return in_array( $widget, $active_form_widgets, true );
+        } );
+
+        if ( empty( $actions ) ) {
+            return;
+        }
+
         $args = [
             'listing' => $this,
             'actions' => $actions,
         ];
 
-        if ( $actions ) {
-            Helper::get_template( 'single/action-section', $args );
-        }
+        Helper::get_template( 'single/action-section', $args );
     }
 
     public function get_slider_data( $data = null ) {

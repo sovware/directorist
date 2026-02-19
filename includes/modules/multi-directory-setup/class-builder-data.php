@@ -1908,7 +1908,7 @@ class Builder_Data {
                 ],
                 'action'  => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 0,
+                    'maxWidget'       => 2,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
@@ -1964,7 +1964,7 @@ class Builder_Data {
                 ],
                 'action'        => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 0,
+                    'maxWidget'       => 2,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
@@ -2025,7 +2025,7 @@ class Builder_Data {
                 ],
                 'action'  => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 0,
+                    'maxWidget'       => 2,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
@@ -2077,7 +2077,7 @@ class Builder_Data {
                 ],
                 'action'  => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 0,
+                    'maxWidget'       => 2,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],

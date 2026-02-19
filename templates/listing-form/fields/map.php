@@ -25,7 +25,7 @@ Directorist\Helper::add_hidden_data_to_dom( 'map_data', $map_data );
 $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-form-map-field"<?php echo $conditional_logic_attr; ?>>
+<div class="directorist-form-group directorist-form-map-field"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <div class="directorist-form-map-field__wrapper">
 

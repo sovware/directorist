@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-search-field directorist-search-form-dropdown directorist-form-group"<?php echo $conditional_logic_attr; ?>>
+<div class="directorist-search-field directorist-search-form-dropdown directorist-form-group"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     <div class="directorist-search-basic-dropdown directorist-search-field__input">
         <?php if ( ! empty( $data['label'] ) ) : ?>
             <label class="directorist-search-field__label directorist-search-basic-dropdown-label">

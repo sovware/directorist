@@ -12,7 +12,7 @@ $field_key              = ! empty( $data['field_key'] ) ? $data['field_key'] : (
 
 ?>
 
-<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; ?>>
+<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     
     <?php if ( ! empty( $data['label'] ) ) : ?>
         <label class="directorist-search-field__label" for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

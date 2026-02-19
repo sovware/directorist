@@ -24,7 +24,7 @@ if ( ! $tag_terms ) {
 
 $conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
 ?>
-<div class="directorist-search-field directorist-search-form-dropdown directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; ?>>
+<div class="directorist-search-field directorist-search-form-dropdown directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     <div class="directorist-search-basic-dropdown directorist-search-field__input">
 
         <?php if ( ! empty( $data['label'] ) ) : ?>

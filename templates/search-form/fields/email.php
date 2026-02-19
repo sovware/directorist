@@ -11,7 +11,7 @@ $conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data )
 $field_key              = ! empty( $data['field_key'] ) ? $data['field_key'] : ( ! empty( $data['widget_name'] ) ? $data['widget_name'] : 'email' );
 ?>
 
-<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; ?>>
+<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     
     <?php if ( ! empty( $data['label'] ) ) : ?>
         <label class="directorist-search-field__label" for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

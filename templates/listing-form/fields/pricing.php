@@ -17,7 +17,7 @@ $currency_symbol         = atbdp_currency_symbol( directorist_get_currency() );
 // Get conditional logic attributes using centralized method
 $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
-<div class="directorist-form-group directorist-form-pricing-field price-type-<?php echo esc_attr( $data['pricing_type'] ); ?>"<?php echo $conditional_logic_attr; ?>>
+<div class="directorist-form-group directorist-form-pricing-field price-type-<?php echo esc_attr( $data['pricing_type'] ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     <?php $listing_form->field_label_template( $data ); ?>
 
     <?php if ( $data['pricing_type'] === 'both' ) { ?>

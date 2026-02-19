@@ -13,7 +13,7 @@ $lat                    = ! empty( $_REQUEST['zip_cityLat'] ) ? sanitize_text_fi
 $lng                    = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ) : '';
 ?>
 
-<div class="directorist-search-field directorist-form-group directorist-zipcode-search <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; ?>>
+<div class="directorist-search-field directorist-form-group directorist-zipcode-search <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <?php if ( ! empty( $data['label'] ) ) : ?>
         <label class="directorist-search-field__label" for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

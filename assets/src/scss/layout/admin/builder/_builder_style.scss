@@ -3848,6 +3848,14 @@ input[type="radio"].cptm-radio {
 			}
 		}
 	}
+	.cptm-listing-card-preview-action-placeholder {
+		.cptm-widget-preview-container {
+			width: 100%;
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+		}
+	}
 	.cptm-listing-card-preview-tagline-placeholder,
 	.cptm-listing-card-preview-rating-placeholder {
 		.cptm-placeholder-label {

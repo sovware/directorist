@@ -101,9 +101,20 @@ if ( ! $has_action ) {
 
 				if ( ! $btn_text || ! $btn_url ) { break; }
 
-				$form_data    = $action['form_data'] ?? $action;
-				$button_style = ! empty( $form_data['button_style'] ) ? $form_data['button_style'] : 'default';
-				$target       = ! empty( $form_data['open_in_new_tab'] ) ? ' target="_blank" rel="noopener"' : '';
+				// Resolve button_style / open_in_new_tab from the submission form field.
+				$button_style = 'default';
+				$target       = '';
+
+				$submission_fields = get_term_meta( $listing->type, 'submission_form_fields', true );
+				if ( ! empty( $submission_fields['fields'] ) ) {
+					foreach ( $submission_fields['fields'] as $sf ) {
+						if ( ! empty( $sf['field_key'] ) && $sf['field_key'] === $field_key ) {
+							$button_style = ! empty( $sf['button_style'] ) ? $sf['button_style'] : 'default';
+							$target       = ! empty( $sf['open_in_new_tab'] ) ? ' target="_blank" rel="noopener"' : '';
+							break;
+						}
+					}
+				}
 
 				$btn_class = 'directorist-btn directorist-btn-sm';
 				if ( 'primary' === $button_style ) {

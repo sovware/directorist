@@ -8,9 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<li class="directorist-listing-card-email"><?php directorist_icon( $icon );?>
+<<?php echo tag_escape( ! empty( $before ) ? $before : 'li' ); ?> class="directorist-listing-card-email"><?php directorist_icon( $icon );?>
     <?php $listings->print_label( $label ); ?>
     <a target="_top" href="mailto:<?php echo esc_attr( $value );?>">
     <?php echo esc_html( $value );?>
     </a>
-</li>
+</<?php echo tag_escape( ! empty( $after ) ? $after : 'li' ); ?>>

@@ -18952,6 +18952,17 @@ input[type=radio].cptm-radio {
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card .cptm-widget-badge-trash {
   margin-left: 8px;
 }
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-action-placeholder .cptm-widget-preview-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {
   left: 12px;
@@ -28139,6 +28150,17 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card .cptm-widget-badge-trash {
   margin-left: 8px;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-action-placeholder .cptm-widget-preview-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {
@@ -37615,6 +37637,17 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card .cptm-widget-badge-trash {
   margin-left: 8px;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-action-placeholder .cptm-widget-preview-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {

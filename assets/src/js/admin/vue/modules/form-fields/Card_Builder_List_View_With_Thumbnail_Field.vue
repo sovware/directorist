@@ -213,7 +213,7 @@
 
             <card-widget-placeholder
               id="thumbnail_body_excerpt"
-              containerClass="cptm-listing-card-preview-excerpt-placeholder"
+              containerClass="cptm-listing-card-preview-excerpt-placeholder cptm-mb-12"
               :label="local_layout.body.excerpt.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"

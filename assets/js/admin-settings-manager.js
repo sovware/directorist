@@ -34876,7 +34876,7 @@ var render = function render() {
   }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -35324,7 +35324,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "no_thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36131,7 +36131,7 @@ var render = function render() {
   }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36501,7 +36501,7 @@ var render = function render() {
   }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "no_thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,

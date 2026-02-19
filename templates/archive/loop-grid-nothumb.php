@@ -123,12 +123,12 @@ $quick_info_field = ob_get_clean();
 
             <?php if ( ! empty( $loop_fields['body']['action'] ) ) : ?>
                 <?php ob_start(); ?>
-                <?php $listings->render_loop_fields( $loop_fields['body']['action'], 'li', 'li' ); ?>
+                <?php $listings->render_loop_fields( $loop_fields['body']['action'], 'div', 'div' ); ?>
                 <?php $action_html = ob_get_clean(); ?>
                 <?php if ( trim( $action_html ) ) : ?>
-                    <ul class="directorist-listing-single__info__list directorist-listing-single__action-list">
+                    <div class="directorist-listing-single__action-list">
                         <?php echo $action_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                    </ul>
+                    </div>
                 <?php endif; ?>
             <?php endif; ?>
     </section>

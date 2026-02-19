@@ -2092,7 +2092,12 @@ class Directorist_Listings {
     }
 
     public function render_card_field( $field, $before = '', $after = '' ) {
-        if ( $field['type'] == 'badge' ) {
+        // Only route actual visual badges to the badge renderer.
+        // Widgets like phone, email, and button have type 'badge' in the
+        // builder data but should be rendered through the regular template path.
+        $visual_badges = [ 'popular_badge', 'featured_badge', 'new_badge' ];
+
+        if ( $field['type'] == 'badge' && in_array( $field['widget_key'], $visual_badges, true ) ) {
             $this->render_badge_template( $field );
         } else {
             $original_field         = '';

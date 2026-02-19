@@ -1542,9 +1542,83 @@
 
 // Action list section below excerpt in listing cards
 .directorist-listing-single__action-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 8px;
 	margin-top: 12px;
 	padding-top: 12px;
 	border-top: 1px solid var(--directorist-color-border-light);
+
+	> li,
+	> div {
+		display: inline-flex;
+		margin: 0;
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 0 16px;
+			min-height: 36px;
+			border-radius: 8px;
+			border: 1px solid var(--directorist-color-border-light);
+			background-color: var(--directorist-color-light);
+			font-size: 13px;
+			font-weight: 500;
+			text-decoration: none;
+			color: var(--directorist-color-body);
+			transition: all ease 0.3s;
+			box-sizing: border-box;
+
+			&:hover {
+				border-color: var(--directorist-color-primary);
+				color: var(--directorist-color-primary);
+			}
+
+			.directorist-icon-mask:after {
+				width: 14px;
+				height: 14px;
+				background-color: currentColor;
+			}
+		}
+
+		// Hide standalone icon and label outside the link
+		> .directorist-icon-mask,
+		> i,
+		> span:not(.directorist-listing-card-info-label) {
+			display: none;
+		}
+
+		.directorist-listing-card-info-label {
+			display: none;
+		}
+	}
+
+	// Button custom field already has .directorist-btn – override to match
+	.directorist-listing-card-button {
+		> .directorist-icon-mask,
+		> i {
+			display: none;
+		}
+
+		.directorist-btn {
+			min-height: 36px;
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 500;
+
+			.directorist-icon-arrow-right {
+				display: inline-flex;
+				align-items: center;
+
+				.directorist-icon-mask:after {
+					width: 12px;
+					height: 12px;
+				}
+			}
+		}
+	}
 }
 
 // Directorist Archive Grid Fix

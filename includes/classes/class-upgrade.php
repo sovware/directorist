@@ -77,17 +77,130 @@ class ATBDP_Upgrade
             return;
         }
 
-        // Migrate submission form fields (listing form)
         $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
+        $search_form_fields = get_term_meta( $directory_id, 'search_form_fields', true );
+
+        // Track migrated submission fields for syncing to search form
+        $migrated_fields = array();
+
+        // Step 1: Migrate submission form fields (listing form)
         if ( ! empty( $submission_form_fields ) && is_array( $submission_form_fields ) && ! empty( $submission_form_fields['fields'] ) ) {
-            $updated = $this->migrate_form_fields( $submission_form_fields['fields'], 'submission' );
-            if ( $updated ) {
+            foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
+                if ( ! is_array( $field ) ) {
+                    continue;
+                }
+
+                // Only process custom fields
+                if ( ! $this->is_custom_field_for_migration( $field ) ) {
+                    continue;
+                }
+
+                // Skip if field already has valid conditional_logic
+                if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
+                    $existing_logic = $field['options']['conditional_logic']['value'];
+                    if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                        continue;
+                    }
+                }
+
+                // Check for old assign_to field
+                if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+                    continue;
+                }
+
+                // Convert category ID to conditional logic
+                $conditional_logic = $this->convert_assign_to_to_conditional_logic( $field['category'], 'submission' );
+
+                if ( ! empty( $conditional_logic ) ) {
+                    // Ensure options array exists
+                    if ( ! isset( $field['options'] ) || ! is_array( $field['options'] ) ) {
+                        $field['options'] = array();
+                    }
+
+                    // Add conditional logic to options
+                    $field['options']['conditional_logic'] = array(
+                        'type'  => 'conditional-logic',
+                        'value' => $conditional_logic,
+                    );
+                    
+                    // Set at root level for listing form builder
+                    $field['conditional_logic'] = $conditional_logic;
+                    
+                    $submission_form_fields['fields'][ $field_key ] = $field;
+                    
+                    // Store category ID for syncing to search form
+                    $migrated_fields[ $field_key ] = $field['category'];
+                }
+            }
+
+            // Save submission form fields if any were migrated
+            if ( ! empty( $migrated_fields ) ) {
                 update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
             }
         }
 
-        // Migrate search form fields
-        $search_form_fields = get_term_meta( $directory_id, 'search_form_fields', true );
+        // Step 2: Sync conditional logic to corresponding search form fields
+        if ( ! empty( $migrated_fields ) && ! empty( $search_form_fields ) && is_array( $search_form_fields ) && ! empty( $search_form_fields['fields'] ) ) {
+            $search_updated = false;
+
+            foreach ( $search_form_fields['fields'] as $search_field_key => $search_field ) {
+                if ( ! is_array( $search_field ) ) {
+                    continue;
+                }
+
+                // Only process custom fields
+                if ( ! $this->is_custom_field_for_migration( $search_field ) ) {
+                    continue;
+                }
+
+                // Skip if field already has valid conditional_logic
+                if ( ! empty( $search_field['options']['conditional_logic']['value'] ) && is_array( $search_field['options']['conditional_logic']['value'] ) ) {
+                    $existing_logic = $search_field['options']['conditional_logic']['value'];
+                    if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                        continue;
+                    }
+                }
+
+                // Find matching submission form field via original_widget_key
+                $form_key = isset( $search_field['original_widget_key'] ) ? $search_field['original_widget_key'] : '';
+                
+                if ( empty( $form_key ) || ! isset( $migrated_fields[ $form_key ] ) ) {
+                    continue;
+                }
+
+                // Get category ID from migrated submission field
+                $category_id = $migrated_fields[ $form_key ];
+                
+                // Convert to search form conditional logic (uses 'category' field key)
+                $search_conditional_logic = $this->convert_assign_to_to_conditional_logic( $category_id, 'search' );
+
+                if ( ! empty( $search_conditional_logic ) ) {
+                    // Ensure options array exists
+                    if ( ! isset( $search_field['options'] ) || ! is_array( $search_field['options'] ) ) {
+                        $search_field['options'] = array();
+                    }
+
+                    // Add conditional logic to options
+                    $search_field['options']['conditional_logic'] = array(
+                        'type'  => 'conditional-logic',
+                        'value' => $search_conditional_logic,
+                    );
+                    
+                    // Set at root level for search form
+                    $search_field['conditional_logic'] = $search_conditional_logic;
+                    
+                    $search_form_fields['fields'][ $search_field_key ] = $search_field;
+                    $search_updated = true;
+                }
+            }
+
+            // Save search form fields if any were updated
+            if ( $search_updated ) {
+                update_term_meta( $directory_id, 'search_form_fields', $search_form_fields );
+            }
+        }
+
+        // Step 3: Also migrate search form fields that have their own assign_to (backward compatibility)
         if ( ! empty( $search_form_fields ) && is_array( $search_form_fields ) && ! empty( $search_form_fields['fields'] ) ) {
             $updated = $this->migrate_form_fields( $search_form_fields['fields'], 'search' );
             if ( $updated ) {

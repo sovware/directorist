@@ -57,8 +57,11 @@ export default {
     fieldList() {
       this.filterFieldList();
     },
-    value() {
-      this.filterFieldList();
+    value: {
+      handler() {
+        this.filterFieldList();
+      },
+      deep: true,
     },
   },
 

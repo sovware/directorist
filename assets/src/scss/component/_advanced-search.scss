@@ -113,6 +113,7 @@
 					}
 				}
 
+				&.input-has-value,
 				&.input-is-focused {
 					width: 100%;
 					display: inline-flex;
@@ -139,6 +140,14 @@
 						}
 						&[type="time"] {
 							padding-right: 20px;
+						}
+					}
+					&.directorist-date,
+					&.directorist-time,
+					&.directorist-search-location,
+					&.directorist-search-form-dropdown {
+						.directorist-search-field__btn--clear {
+							bottom: 12px;
 						}
 					}
 				}

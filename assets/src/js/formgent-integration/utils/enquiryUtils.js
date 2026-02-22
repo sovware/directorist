@@ -481,11 +481,62 @@ export const enrichEnquiriesWithAnswers = async (items, cache = new Map()) => {
  * @param {string} dateString - A date string (e.g. "2026-02-09 09:53:47")
  * @returns {string} - Formatted relative time or full date
  */
+function parseMysqlDateTimeAsUTC(value) {
+	// Matches: 2026-02-15 03:00:00 (optionally with milliseconds)
+	const match = String(value).match(
+		/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d{1,3}))?$/
+	);
+	if (!match) return null;
+
+	const year = Number(match[1]);
+	const month = Number(match[2]) - 1;
+	const day = Number(match[3]);
+	const hour = Number(match[4]);
+	const minute = Number(match[5]);
+	const second = match[6] ? Number(match[6]) : 0;
+	const ms = match[7] ? Number(match[7].padEnd(3, '0')) : 0;
+
+	const utcMs = Date.UTC(year, month, day, hour, minute, second, ms);
+	const d = new Date(utcMs);
+	return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function normalizeDateInput(value, { assumeUTC = false } = {}) {
+	if (value == null || value === '') return null;
+
+	if (value instanceof Date) {
+		return Number.isNaN(value.getTime()) ? null : value;
+	}
+
+	// Epoch milliseconds
+	if (typeof value === 'number') {
+		const d = new Date(value);
+		return Number.isNaN(d.getTime()) ? null : d;
+	}
+
+	const raw = String(value);
+
+	// MySQL-style datetime strings have no timezone; when requested, treat them as UTC
+	// BEFORE letting the browser parse it as local time.
+	if (assumeUTC) {
+		const utcParsed = parseMysqlDateTimeAsUTC(raw);
+		if (utcParsed) return utcParsed;
+	}
+
+	// ISO 8601 (with timezone) is safe to hand to the Date parser.
+	const isoParsed = new Date(raw);
+	if (!Number.isNaN(isoParsed.getTime())) return isoParsed;
+
+	const localParsed = new Date(raw);
+	return Number.isNaN(localParsed.getTime()) ? null : localParsed;
+}
+
 export const formatRelativeDate = (dateString) => {
 	if (!dateString) return '';
 
-	const date = new Date(dateString.replace(' ', 'T'));
-	if (isNaN(date.getTime())) return dateString;
+	// MySQL-style datetimes have no timezone; treat them as UTC
+	const date = normalizeDateInput(dateString, { assumeUTC: true });
+	if (!date) return dateString;
 
 	const now = new Date();
 	const diffMs = now - date;

@@ -4497,8 +4497,10 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-listing-card-preview-body {
-	display: block;
-	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 16px 16px 12px;
 	position: relative;
 }
 
@@ -4849,7 +4851,7 @@ input[type="radio"].cptm-radio {
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		padding: 20px;
+		padding: 16px;
 		@media only screen and (max-width: 480px) {
 			box-sizing: border-box;
 		}
@@ -4889,7 +4891,7 @@ input[type="radio"].cptm-radio {
 	}
 	.cptm-listing-card-preview-footer {
 		display: flex;
-		gap: 8px;
+		gap: 12px;
 		padding: 0;
 	}
 	.cptm-listing-card-author-avatar {
@@ -4937,7 +4939,7 @@ input[type="radio"].cptm-radio {
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		padding: 20px;
+		padding: 16px;
 		@media only screen and (max-width: 480px) {
 			box-sizing: border-box;
 		}
@@ -4981,7 +4983,7 @@ input[type="radio"].cptm-radio {
 	}
 	.cptm-listing-card-preview-footer {
 		display: flex;
-		gap: 8px;
+		gap: 12px;
 		padding: 0;
 	}
 }
@@ -4996,7 +4998,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-listing-card-preview-footer {
 	display: flex;
-	gap: 22px;
+	gap: 12px;
 	flex-wrap: wrap;
 	padding: 0 16px 24px;
 	.cptm-widget-preview-area {

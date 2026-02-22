@@ -283,7 +283,7 @@
 
             <card-widget-placeholder
               id="thumbnail_body_top"
-              containerClass="cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left"
+              containerClass="cptm-listing-card-preview-top-placeholder cptm-align-left"
               :label="local_layout.body.top.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -321,7 +321,7 @@
               id="thumbnail_body_bottom"
               :containerClass="{
                 'cptm-listing-card-preview-body-placeholder': true,
-                'cptm-mb-12': hasExcerptWidget,
+                '': hasExcerptWidget,
               }"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
@@ -358,7 +358,7 @@
 
             <card-widget-placeholder
               id="thumbnail_body_excerpt"
-              containerClass="cptm-listing-card-preview-excerpt-placeholder cptm-mb-12"
+              containerClass="cptm-listing-card-preview-excerpt-placeholder"
               :label="local_layout.body.excerpt.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -397,7 +397,7 @@
               id="thumbnail_body_action"
               :containerClass="{
                 'cptm-listing-card-preview-action-placeholder': true,
-                'cptm-mb-12': hasActionWidget,
+                '': hasActionWidget,
               }"
               :label="local_layout.body.action.label"
               :availableWidgets="theAvailableWidgets"

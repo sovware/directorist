@@ -19735,8 +19735,17 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-listing-card-preview-body {
-  display: block;
-  padding: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 12px;
   position: relative;
 }
 
@@ -20191,7 +20200,7 @@ input[type=radio].cptm-radio {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 12px;
-  padding: 20px;
+  padding: 16px;
 }
 @media only screen and (max-width: 480px) {
   .grid-view-without-thumbnail .cptm-card-preview-widget-content {
@@ -20250,7 +20259,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   padding: 0;
 }
 .grid-view-without-thumbnail .cptm-listing-card-author-avatar {
@@ -20315,7 +20324,7 @@ input[type=radio].cptm-radio {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 12px;
-  padding: 20px;
+  padding: 16px;
 }
 @media only screen and (max-width: 480px) {
   .list-view-without-thumbnail .cptm-card-preview-widget-content {
@@ -20393,7 +20402,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   padding: 0;
 }
 
@@ -20419,7 +20428,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 22px;
+  gap: 12px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -29048,8 +29057,17 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-listing-card-preview-body {
-  display: block;
-  padding: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 12px;
   position: relative;
 }
 
@@ -29504,7 +29522,7 @@ input[type=radio].cptm-radio {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 12px;
-  padding: 20px;
+  padding: 16px;
 }
 @media only screen and (max-width: 480px) {
   .grid-view-without-thumbnail .cptm-card-preview-widget-content {
@@ -29563,7 +29581,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   padding: 0;
 }
 .grid-view-without-thumbnail .cptm-listing-card-author-avatar {
@@ -29628,7 +29646,7 @@ input[type=radio].cptm-radio {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 12px;
-  padding: 20px;
+  padding: 16px;
 }
 @media only screen and (max-width: 480px) {
   .list-view-without-thumbnail .cptm-card-preview-widget-content {
@@ -29706,7 +29724,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   padding: 0;
 }
 
@@ -29732,7 +29750,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 22px;
+  gap: 12px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -38649,8 +38667,17 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-listing-card-preview-body {
-  display: block;
-  padding: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 12px;
   position: relative;
 }
 
@@ -39105,7 +39132,7 @@ input[type=radio].cptm-radio {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 12px;
-  padding: 20px;
+  padding: 16px;
 }
 @media only screen and (max-width: 480px) {
   .grid-view-without-thumbnail .cptm-card-preview-widget-content {
@@ -39164,7 +39191,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   padding: 0;
 }
 .grid-view-without-thumbnail .cptm-listing-card-author-avatar {
@@ -39229,7 +39256,7 @@ input[type=radio].cptm-radio {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 12px;
-  padding: 20px;
+  padding: 16px;
 }
 @media only screen and (max-width: 480px) {
   .list-view-without-thumbnail .cptm-card-preview-widget-content {
@@ -39307,7 +39334,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   padding: 0;
 }
 
@@ -39333,7 +39360,7 @@ input[type=radio].cptm-radio {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 22px;
+  gap: 12px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;

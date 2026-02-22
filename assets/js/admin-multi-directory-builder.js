@@ -22805,6 +22805,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     hasExcerptWidget: function hasExcerptWidget() {
       var _this$theAvailableWid;
       return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
+    // Check if action area has any accepted widget that is actually available
+    hasActionWidget: function hasActionWidget() {
+      var _this = this;
+      var accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!(accepted !== null && accepted !== void 0 && accepted.length)) return false;
+      return accepted.some(function (key) {
+        var _this$theAvailableWid2;
+        return !!((_this$theAvailableWid2 = _this.theAvailableWidgets) !== null && _this$theAvailableWid2 !== void 0 && _this$theAvailableWid2[key]);
+      });
     }
   },
   data: function data() {
@@ -23062,16 +23072,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Toggle Widget Status
     toggleWidgetStatus: function toggleWidgetStatus(layout) {
-      var _this = this;
+      var _this2 = this;
       if (layout.selectedWidgets.length > 0) {
         var _layout$selectedWidge;
         (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
-          _this.trashWidget(widget, layout);
+          _this2.trashWidget(widget, layout);
         });
       } else {
         var _layout$acceptedWidge;
         (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
-          _this.insertWidget({
+          _this2.insertWidget({
             key: widget,
             selected_widgets: [widget]
           }, layout);
@@ -23730,6 +23740,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var _this$theAvailableWid;
       return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
     },
+    // Check if action area has any accepted widget that is actually available
+    hasActionWidget: function hasActionWidget() {
+      var _this = this;
+      var accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!(accepted !== null && accepted !== void 0 && accepted.length)) return false;
+      return accepted.some(function (key) {
+        var _this$theAvailableWid2;
+        return !!((_this$theAvailableWid2 = _this.theAvailableWidgets) !== null && _this$theAvailableWid2 !== void 0 && _this$theAvailableWid2[key]);
+      });
+    },
     // Output Data
     output_data: function output_data() {
       var output = {};
@@ -24084,16 +24104,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Toggle Widget Status
     toggleWidgetStatus: function toggleWidgetStatus(layout) {
-      var _this = this;
+      var _this2 = this;
       if (layout.selectedWidgets.length > 0) {
         var _layout$selectedWidge;
         (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
-          _this.trashWidget(widget, layout);
+          _this2.trashWidget(widget, layout);
         });
       } else {
         var _layout$acceptedWidge;
         (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
-          _this.insertWidget({
+          _this2.insertWidget({
             key: widget,
             selected_widgets: [widget]
           }, layout);
@@ -24263,6 +24283,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     hasExcerptWidget: function hasExcerptWidget() {
       var _this$theAvailableWid;
       return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
+    // Check if action area has any accepted widget that is actually available
+    hasActionWidget: function hasActionWidget() {
+      var _this = this;
+      var accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!(accepted !== null && accepted !== void 0 && accepted.length)) return false;
+      return accepted.some(function (key) {
+        var _this$theAvailableWid2;
+        return !!((_this$theAvailableWid2 = _this.theAvailableWidgets) !== null && _this$theAvailableWid2 !== void 0 && _this$theAvailableWid2[key]);
+      });
     },
     // Output Data
     output_data: function output_data() {
@@ -24623,16 +24653,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Toggle Widget Status
     toggleWidgetStatus: function toggleWidgetStatus(layout) {
-      var _this = this;
+      var _this2 = this;
       if (layout.selectedWidgets.length > 0) {
         var _layout$selectedWidge;
         (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
-          _this.trashWidget(widget, layout);
+          _this2.trashWidget(widget, layout);
         });
       } else {
         var _layout$acceptedWidge;
         (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
-          _this.insertWidget({
+          _this2.insertWidget({
             key: widget,
             selected_widgets: [widget]
           }, layout);
@@ -34922,7 +34952,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-align-left",
       "label": _vm.local_layout.body.top.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -34970,7 +35000,7 @@ var render = function render() {
       "id": "thumbnail_body_bottom",
       "containerClass": {
         'cptm-listing-card-preview-body-placeholder': true,
-        'cptm-mb-12': _vm.hasExcerptWidget
+        '': _vm.hasExcerptWidget
       },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -35017,7 +35047,7 @@ var render = function render() {
   }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -35065,7 +35095,7 @@ var render = function render() {
       "id": "thumbnail_body_action",
       "containerClass": {
         'cptm-listing-card-preview-action-placeholder': true,
-        'cptm-mb-12': _vm.hasActionWidget
+        '': _vm.hasActionWidget
       },
       "label": _vm.local_layout.body.action.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -35468,7 +35498,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "no_thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -35511,10 +35541,13 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  }) : _vm._e(), _vm._v(" "), _c('card-widget-placeholder', {
+  }) : _vm._e(), _vm._v(" "), _vm.hasActionWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "no_thumbnail_body_action",
-      "containerClass": "cptm-listing-card-preview-action-placeholder",
+      "containerClass": {
+        'cptm-listing-card-preview-action-placeholder': true,
+        '': _vm.hasActionWidget
+      },
       "label": _vm.local_layout.body.action.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -35557,7 +35590,7 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  }), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -36129,7 +36162,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-mb-20",
+      "containerClass": "cptm-listing-card-quick-actions-placeholder",
       "label": _vm.local_layout.body.top.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36177,7 +36210,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_right",
-      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right",
+      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-text-right",
       "label": _vm.local_layout.body.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36228,7 +36261,7 @@ var render = function render() {
       "id": "thumbnail_body_bottom",
       "containerClass": {
         'cptm-listing-card-preview-body-placeholder': true,
-        'cptm-mb-12': _vm.hasExcerptWidget
+        '': _vm.hasExcerptWidget
       },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -36275,7 +36308,7 @@ var render = function render() {
   }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36318,10 +36351,13 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  }) : _vm._e(), _vm._v(" "), _c('card-widget-placeholder', {
+  }) : _vm._e(), _vm._v(" "), _vm.hasActionWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_action",
-      "containerClass": "cptm-listing-card-preview-action-placeholder",
+      "containerClass": {
+        'cptm-listing-card-preview-action-placeholder': true,
+        '': _vm.hasActionWidget
+      },
       "label": _vm.local_layout.body.action.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36364,7 +36400,7 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -36645,7 +36681,7 @@ var render = function render() {
   }), _vm._v(" "), _vm.hasExcerptWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "no_thumbnail_body_excerpt",
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-mb-12",
+      "containerClass": "cptm-listing-card-preview-excerpt-placeholder",
       "label": _vm.local_layout.body.excerpt.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36688,10 +36724,13 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  }) : _vm._e(), _vm._v(" "), _c('card-widget-placeholder', {
+  }) : _vm._e(), _vm._v(" "), _vm.hasActionWidget ? _c('card-widget-placeholder', {
     attrs: {
       "id": "no_thumbnail_body_action",
-      "containerClass": "cptm-listing-card-preview-action-placeholder",
+      "containerClass": {
+        'cptm-listing-card-preview-action-placeholder': true,
+        '': _vm.hasActionWidget
+      },
       "label": _vm.local_layout.body.action.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -36734,7 +36773,7 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"

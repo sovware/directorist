@@ -50,6 +50,39 @@ function initSingleMapWidget() {
     return;
   }
   if ($('#gmap-widget').length) {
+    var Marker = function Marker(options) {
+      google.maps.Marker.apply(this, arguments);
+      if (options.map_icon_label) {
+        this.MarkerLabel = new MarkerLabel({
+          map: this.map,
+          marker: this,
+          text: options.map_icon_label
+        });
+        this.MarkerLabel.bindTo('position', this, 'position');
+      }
+    }; // Apply the inheritance
+    var initMap = function initMap() {
+      /* Create new map instance*/
+      map = new google.maps.Map(document.getElementById(map_container), {
+        zoom: loc_map_zoom_level,
+        center: saved_lat_lng,
+        mapId: 'single_listing_map_widget'
+      });
+      var marker = new google.maps.marker.AdvancedMarkerElement({
+        map: map,
+        position: saved_lat_lng,
+        content: markerShape
+      });
+      if (display_map_info) {
+        marker.addListener('click', function () {
+          if (info_window.getMap()) {
+            info_window.close(); // If already open, close it
+          } else {
+            info_window.open(map, marker); // Otherwise, open it
+          }
+        });
+      }
+    };
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
     var markerShape = document.createElement('div');
     markerShape.className = 'atbd_map_shape';
@@ -62,19 +95,6 @@ function initSingleMapWidget() {
       childCtor.prototype = new tempCtor();
       childCtor.prototype.constructor = childCtor;
     };
-    function Marker(options) {
-      google.maps.Marker.apply(this, arguments);
-      if (options.map_icon_label) {
-        this.MarkerLabel = new MarkerLabel({
-          map: this.map,
-          marker: this,
-          text: options.map_icon_label
-        });
-        this.MarkerLabel.bindTo('position', this, 'position');
-      }
-    }
-
-    // Apply the inheritance
     inherits(Marker, google.maps.Marker);
 
     // Custom Marker SetMap
@@ -179,28 +199,6 @@ function initSingleMapWidget() {
         display_map_info = true;
       }
     });
-    function initMap() {
-      /* Create new map instance*/
-      map = new google.maps.Map(document.getElementById(map_container), {
-        zoom: loc_map_zoom_level,
-        center: saved_lat_lng,
-        mapId: 'single_listing_map_widget'
-      });
-      var marker = new google.maps.marker.AdvancedMarkerElement({
-        map: map,
-        position: saved_lat_lng,
-        content: markerShape
-      });
-      if (display_map_info) {
-        marker.addListener('click', function () {
-          if (info_window.getMap()) {
-            info_window.close(); // If already open, close it
-          } else {
-            info_window.open(map, marker); // Otherwise, open it
-          }
-        });
-      }
-    }
     $(document).ready(function () {
       initMap();
       //Convert address tags to google map links -

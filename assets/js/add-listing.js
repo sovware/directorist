@@ -466,7 +466,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
   }
   $el.length && $el.select2(select2Options);
   if (directorist.lazy_load_taxonomy_fields) {
-    function setupSelectedItems($el, selectedId, selectedLabel) {
+    var setupSelectedItems = function setupSelectedItems($el, selectedId, selectedLabel) {
       if (!$el.length || !selectedId) {
         return;
       }
@@ -486,7 +486,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
           }
         });
       });
-    }
+    };
     setupSelectedItems($el, $el.data('selected-id'), $el.data('selected-label'));
   }
 }
@@ -1682,8 +1682,7 @@ $(function () {
       }
     }
     if (selectedImages.length) {
-      var counter = 0;
-      function uploadImage() {
+      var _uploadImage = function uploadImage() {
         var formData = new FormData();
         formData.append('action', 'directorist_upload_listing_image');
         formData.append('directorist_nonce', directorist.directorist_nonce);
@@ -1718,7 +1717,7 @@ $(function () {
             });
             counter++;
             if (counter < selectedImages.length) {
-              uploadImage();
+              _uploadImage();
             } else {
               submitForm($form, uploadedImages);
             }
@@ -1728,11 +1727,12 @@ $(function () {
             $notification.html("<span class=\"atbdp_error\">".concat(response.responseJSON.data, "</span>"));
           }
         });
-      }
+      };
+      var counter = 0;
       if (uploadedImages.length === selectedImages.length) {
         submitForm($form, uploadedImages);
       } else {
-        uploadImage();
+        _uploadImage();
       }
     } else {
       submitForm($form);
@@ -2057,6 +2057,57 @@ $(function () {
 function multiStepWizard() {
   var defaultAddListing = document.querySelector('.multistep-wizard.default-add-listing');
   if (!defaultAddListing) {
+    // Active Wizard
+    var activeWizard = function activeWizard(value) {
+      // Add Active Class
+      totalWizard.forEach(function (item, index) {
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+          item.style.display = 'none';
+        } else if (value - 1 === index) {
+          item.classList.add('active');
+          item.style.display = 'block';
+        }
+      });
+
+      // Add Completed Class
+      totalStep.forEach(function (item, index) {
+        if (index + 1 < value) {
+          item.classList.add('completed');
+        } else {
+          item.classList.remove('completed');
+        }
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+        } else if (value - 1 === index) {
+          item.classList.add('active');
+        }
+      });
+
+      // Enable Previous Button
+      if (value > 1) {
+        $('.multistep-wizard__btn--prev').removeAttr('disabled');
+      }
+
+      // Change Button Text on Last Step
+      var nextBtn = document.querySelector('.multistep-wizard__btn--next');
+      var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
+      var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
+      if (value === totalWizard.length) {
+        nextBtn.style.cssText = 'display:none; width: 0; height: 0; opacity: 0; visibility: hidden;';
+        previewBtn.style.cssText = 'height: 54px; flex: unset; opacity: 1; visibility: visible;';
+        submitBtn.style.cssText = 'height: 54px; opacity: 1; visibility: visible;';
+      } else {
+        nextBtn.style.cssText = 'display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;';
+        previewBtn.style.cssText = 'height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;';
+        submitBtn.style.cssText = 'height: 0; opacity: 0; visibility: hidden;';
+      }
+
+      // Update Wizard Count & Progressbar
+      currentWizardCount.innerHTML = value;
+      progressWidth.style.width = progressPerStep * value + '%';
+      progressWidth.style.transition = '0.5s ease';
+    };
     var totalStep = document.querySelectorAll('.multistep-wizard .multistep-wizard__nav__btn');
     var totalWizard = document.querySelectorAll('.multistep-wizard .multistep-wizard__single');
     var totalWizardCount = document.querySelector('.multistep-wizard .multistep-wizard__count__total');
@@ -2127,58 +2178,6 @@ function multiStepWizard() {
         $('.multistep-wizard__btn--prev').attr('disabled', true);
       }
     });
-
-    // Active Wizard
-    function activeWizard(value) {
-      // Add Active Class
-      totalWizard.forEach(function (item, index) {
-        if (item.classList.contains('active')) {
-          item.classList.remove('active');
-          item.style.display = 'none';
-        } else if (value - 1 === index) {
-          item.classList.add('active');
-          item.style.display = 'block';
-        }
-      });
-
-      // Add Completed Class
-      totalStep.forEach(function (item, index) {
-        if (index + 1 < value) {
-          item.classList.add('completed');
-        } else {
-          item.classList.remove('completed');
-        }
-        if (item.classList.contains('active')) {
-          item.classList.remove('active');
-        } else if (value - 1 === index) {
-          item.classList.add('active');
-        }
-      });
-
-      // Enable Previous Button
-      if (value > 1) {
-        $('.multistep-wizard__btn--prev').removeAttr('disabled');
-      }
-
-      // Change Button Text on Last Step
-      var nextBtn = document.querySelector('.multistep-wizard__btn--next');
-      var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
-      var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
-      if (value === totalWizard.length) {
-        nextBtn.style.cssText = 'display:none; width: 0; height: 0; opacity: 0; visibility: hidden;';
-        previewBtn.style.cssText = 'height: 54px; flex: unset; opacity: 1; visibility: visible;';
-        submitBtn.style.cssText = 'height: 54px; opacity: 1; visibility: visible;';
-      } else {
-        nextBtn.style.cssText = 'display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;';
-        previewBtn.style.cssText = 'height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;';
-        submitBtn.style.cssText = 'height: 0; opacity: 0; visibility: hidden;';
-      }
-
-      // Update Wizard Count & Progressbar
-      currentWizardCount.innerHTML = value;
-      progressWidth.style.width = progressPerStep * value + '%';
-      progressWidth.style.transition = '0.5s ease';
-    }
   }
 }
 

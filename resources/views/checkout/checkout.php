@@ -43,20 +43,23 @@ use \Directorist\Helper;
                         </div>
                     </div>
 
-                    <?php if ( $subtotal > 0 ) : ?>
+                    <?php
+                    $show_payment_gateways = apply_filters( 'directorist_checkout_show_payment_gateways', $subtotal > 0, $checkout_type, $subtotal, $request );
+                    if ( $show_payment_gateways ) : ?>
                     <div class="directorist-card directorist-mt-30 directorist-payment-gateways directorist-mb-15 directorist-checkout-card directorist-checkout-payment" id="directorist_payment_gateways">
                         <div class="directorist-card__header">
                             <h3 class="directorist-card__header__title"><?php esc_html_e( 'Choose a payment method', 'directorist' ); ?></h3>
                         </div>
 
                         <div class="directorist-card__body">
-                            <?php echo directorist_kses( ATBDP_Gateway::gateways_markup(), 'all' ); ?>
+                            <?php echo directorist_kses( ATBDP_Gateway::gateways_markup( apply_filters( 'directorist_checkout_active_gateways', ATBDP_Gateway::get_active_gateways(), $checkout_type, $request ) ), 'all' ); ?>
                         </div>
                     </div>
                     <?php endif; 
                     
                     
                     $submit_button_label = ( $subtotal < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );
+                    $submit_button_label = apply_filters( 'directorist_checkout_submit_button_label', $submit_button_label, $checkout_type, $subtotal, $request );
                     ?>
 
                     <p id="atbdp_checkout_errors" class="text-danger"></p>

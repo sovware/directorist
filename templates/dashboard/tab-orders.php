@@ -1,3 +1,1 @@
-<div>
-    <h1>Orders</h1>
-</div>
+<div class="directorist-user-dashboard-orders"></div>

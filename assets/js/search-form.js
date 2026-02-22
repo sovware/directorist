@@ -466,7 +466,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
   }
   $el.length && $el.select2(select2Options);
   if (directorist.lazy_load_taxonomy_fields) {
-    function setupSelectedItems($el, selectedId, selectedLabel) {
+    var setupSelectedItems = function setupSelectedItems($el, selectedId, selectedLabel) {
       if (!$el.length || !selectedId) {
         return;
       }
@@ -486,7 +486,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
           }
         });
       });
-    }
+    };
     setupSelectedItems($el, $el.data('selected-id'), $el.data('selected-label'));
   }
 }
@@ -2054,7 +2054,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
     function init_map_api_field() {
       if (directorist.i18n_text.select_listing_map === 'google') {
-        function initialize() {
+        var initialize = function initialize() {
           var opt = {
             types: ['geocode'],
             componentRestrictions: {
@@ -2090,7 +2090,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           input_fields.forEach(function (field) {
             setupAutocomplete(field);
           });
-        }
+        };
         initialize();
       } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
         var getResultContainer = function getResultContainer(context, field) {

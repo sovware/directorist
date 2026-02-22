@@ -447,7 +447,7 @@ class Directorist_Listings {
         $this->current_listing_type       = $this->get_current_listing_type();
 
         $this->has_featured                = $this->options['enable_featured_listing'];
-        $this->has_featured                = $this->has_featured || is_fee_manager_active() ? $this->_featured : $this->has_featured;
+        $this->has_featured                = apply_filters( 'directorist_query_arg_has_featured', $this->has_featured ? $this->_featured : $this->has_featured, $this->params );
         $this->popular_by                  = $this->options['listing_popular_by'];
         $this->average_review_for_popular  = $this->options['average_review_for_popular'];
         $this->view_to_popular             = $this->options['views_for_popular'];

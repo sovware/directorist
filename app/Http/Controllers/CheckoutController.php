@@ -37,37 +37,56 @@ class CheckoutController {
 
         do_action( 'directorist_checkout_create_order', $dto, $checkout_type, $request );
 
-        if ( $dto->get_amount() > 0 ) {
-            $payment_gateway    = $request->get_param( 'payment_gateway' );
+        $processor_instance = null;
+        $process_payment    = apply_filters( 'directorist_checkout_process_payment', $dto->get_amount() > 0, $dto, $request );
+
+        if ( $process_payment ) {
+            $payment_gateway = $request->get_param( 'payment_gateway' );
+
+            if ( ! $payment_gateway ) {
+                throw new Exception( __( 'Payment gateway is required.', 'directorist' ) );
+            }
+
             $payment_processors = directorist_get_payment_processors();
 
-            if ( ! isset( $payment_processors[$payment_gateway] ) || ! class_exists( $payment_processors[$payment_gateway] ) ) {
-                throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
+            if ( ! isset( $payment_processors[ $payment_gateway ] ) || ! class_exists( $payment_processors[ $payment_gateway ] ) ) {
+                throw new Exception( __( 'Invalid payment gateway.', 'directorist' ) );
             }
 
-            $processor_instance = directorist_make( $payment_processors[$payment_gateway] );
+            /**
+             * @var PaymentInterface
+             */
+            $processor_instance = directorist_make( $payment_processors[ $payment_gateway ] );
 
             if ( ! $processor_instance instanceof PaymentInterface ) {
-                throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
+                throw new Exception( __( 'Invalid payment gateway.', 'directorist' ) );
             }
+
+            do_action( 'directorist_checkout_validate_payment_processor', $processor_instance, $dto, $request );
         }
 
         $repository = directorist_order_repository();
-        $repository->create( $dto );
 
-        if ( $dto->get_amount() == 0 ) {
-            $repository->update( ( new DTO )->set_id( $dto->get_id() )->set_status( Status::PAID ) );
+        if ( ! $dto->is_initialized( 'id' ) ) {
+            $repository->create( $dto );
+        }
 
+        if ( $process_payment ) {
             return Response::send(
                 [
-                    "redirect_url" => $this->get_redirect_url( $dto )
+                    "redirect_url" => $processor_instance->pay( $dto, $request->get_params() ) ?? $this->get_redirect_url( $dto )
                 ]
             );
         }
 
+        // Update the order status to paid
+        $repository->update( ( new DTO )->set_id( $dto->get_id() )->set_status( Status::PAID ) );
+        
+        do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
+
         return Response::send(
             [
-                "redirect_url" => $processor_instance->pay( $dto ) ?? $this->get_redirect_url( $dto )
+                "redirect_url" => $this->get_redirect_url( $dto )
             ]
         );
     }

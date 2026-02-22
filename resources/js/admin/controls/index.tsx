@@ -1,4 +1,4 @@
-import { Fields } from '@wpmvc/fields';
+import { Fields } from '@shamim-ahmed/fields';
 import Text from './custom-field';
 import Label from './label';
 import Radio from './radio';
@@ -15,7 +15,6 @@ const components = {
 
 export default function Controls(props) {
 	const { fields, attributes, setAttributes, errors, setErrors } = props;
-	console.log('control', errors);
 
 	return (
 		<Fields

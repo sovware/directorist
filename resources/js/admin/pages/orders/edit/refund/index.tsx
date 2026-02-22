@@ -7,9 +7,9 @@ import { __ } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import { Table } from '@wpmvc/dashboard';
-import { registerCrudStore, useCrudStoreData } from '@wpmvc/data';
-import { FieldsType } from '@wpmvc/fields/build-types/types/field';
+import { Table } from '@shamim-ahmed/dashboard';
+import { registerCrudStore, useCrudStoreData } from '@shamim-ahmed/data';
+import { FieldsType } from '@shamim-ahmed/fields/build-types/types/field';
 
 /**
  * Internal dependencies

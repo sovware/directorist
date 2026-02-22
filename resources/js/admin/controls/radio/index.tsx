@@ -12,7 +12,7 @@ import { size } from 'lodash';
 /**
  * Internal dependencies
  */
-// import { updateAttributes } from '@wpmvc/fields';
+// import { updateAttributes } from '@shamim-ahmed/fields';
 import { doAction } from '@wordpress/hooks';
 import styled from 'styled-components';
 import { validateField } from '../custom-field/validation';

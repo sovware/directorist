@@ -108,6 +108,7 @@ export default function PaymentLog({ order }: DetailsProps) {
 					return (
 						<LogItem key={index}>
 							<Badge
+								className="directorist-badge"
 								variant={
 									payment?.status === 'pending'
 										? 'warning'

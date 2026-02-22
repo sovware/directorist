@@ -2687,7 +2687,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
   }
   $el.length && $el.select2(select2Options);
   if (directorist.lazy_load_taxonomy_fields) {
-    function setupSelectedItems($el, selectedId, selectedLabel) {
+    var setupSelectedItems = function setupSelectedItems($el, selectedId, selectedLabel) {
       if (!$el.length || !selectedId) {
         return;
       }
@@ -2707,7 +2707,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
           }
         });
       });
-    }
+    };
     setupSelectedItems($el, $el.data('selected-id'), $el.data('selected-label'));
   }
 }

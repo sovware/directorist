@@ -6,8 +6,8 @@ import { __ } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import { Column } from '@wpmvc/components/build-types/gutenberg/table/types';
-import { Table } from '@wpmvc/dashboard';
+import { Column } from '@shamim-ahmed/components/build-types/gutenberg/table/types';
+import { Table } from '@shamim-ahmed/dashboard';
 import moment from 'moment';
 
 /**
@@ -114,6 +114,7 @@ export default function Orders() {
 				columns={columns}
 				create={{ status: false }}
 				edit={{ status: false }}
+				destroy={{ status: true }}
 			/>
 		</OrderTableContainer>
 	);

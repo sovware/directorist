@@ -479,7 +479,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     $rejectable_payment_status = [ 'failed', 'cancelled', 'refunded' ];
 
                     if ( empty( $payment_status ) || in_array( $payment_status, $rejectable_payment_status, true ) ) {
-                        $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link( $listing_id );
+                        $data['redirect_url'] = directorist_get_checkout_page_url( 'featured_listing', [ 'listing_id' => $listing_id ] );
                         $data['need_payment'] = true;
 
                         wp_update_post(

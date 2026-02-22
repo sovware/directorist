@@ -114,6 +114,39 @@
 							}
 						}
 					);
+				} else if (task == 'unfeature') {
+					swal(
+						{
+							title: directorist.listing_unfeature_title || 'Unfeature Listing',
+							text: directorist.listing_unfeature_text || 'Are you sure you want to unfeature this listing?',
+							type: 'warning',
+							cancelButtonText:
+								directorist.review_cancel_btn_text || 'Cancel',
+							showCancelButton: true,
+							confirmButtonColor: '#DD6B55',
+							confirmButtonText:
+								directorist.listing_unfeature_confirm_text || 'Yes, Unfeature',
+							showLoaderOnConfirm: true,
+							closeOnConfirm: false,
+						},
+						function (isConfirm) {
+							if (isConfirm) {
+								directorist_dashboard_listing_ajax(
+									$activeTab,
+									paged,
+									search,
+									task,
+									postid
+								);
+								swal({
+									title: directorist.listing_unfeatured || 'Listing Unfeatured',
+									type: 'success',
+									timer: 200,
+									showConfirmButton: false,
+								});
+							}
+						}
+					);
 				}
 
 				return false;

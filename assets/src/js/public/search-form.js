@@ -1,10 +1,3 @@
-import debounce from '../global/components/debounce';
-import './../global/components/select2-custom-control';
-import './../global/components/setup-select2';
-import initSearchCategoryCustomFields from './components/category-custom-fields';
-import './components/colorPicker';
-import './components/directoristDropdown';
-import './components/directoristSelect';
 import {
 	applyConditionalLogic as applyConditionalLogicBase,
 	evaluateConditionalLogic as evaluateConditionalLogicBase,
@@ -12,6 +5,13 @@ import {
 	initConditionalLogic as initConditionalLogicBase,
 	watchFieldChanges as watchFieldChangesBase,
 } from '../global/components/conditional-logic';
+import debounce from '../global/components/debounce';
+import './../global/components/select2-custom-control';
+import './../global/components/setup-select2';
+import initSearchCategoryCustomFields from './components/category-custom-fields';
+import './components/colorPicker';
+import './components/directoristDropdown';
+import './components/directoristSelect';
 
 class ViewportAwareDropdown {
 	constructor(options = {}) {
@@ -1450,11 +1450,14 @@ document.addEventListener('DOMContentLoaded', () => {
 								),
 								new CustomEvent('triggerSlice'),
 							];
-
 							events.forEach((event) => {
 								document.body.dispatchEvent(event);
 								window.dispatchEvent(event);
 							});
+							// So conditional logic re-runs (listens via jQuery)
+							$(document).trigger(
+								'directorist-search-form-nav-tab-reloaded'
+							);
 
 							handleRadiusVisibility();
 							directorist_custom_range_slider();
@@ -2565,7 +2568,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				jQuery
 			);
 
-			function runConditionalLogic() {
+			function runSearchFormConditionalLogic() {
 				initConditionalLogicBase(
 					getSearchFormWrapper,
 					getFieldValueFn,
@@ -2575,13 +2578,18 @@ document.addEventListener('DOMContentLoaded', () => {
 				);
 			}
 
-			runConditionalLogic();
-			setTimeout(runConditionalLogic, 500);
-			setTimeout(runConditionalLogic, 1500);
+			// On load
+			runSearchFormConditionalLogic();
+			setTimeout(runSearchFormConditionalLogic, 300);
+
+			// Re-run when triggerSlice fires
+			window.addEventListener('triggerSlice', function () {
+				setTimeout(runSearchFormConditionalLogic, 100);
+			});
 
 			// Re-run when Select2 loads for search form
 			jQuery(document).on('select2-loaded', function () {
-				setTimeout(runConditionalLogic, 200);
+				setTimeout(runSearchFormConditionalLogic, 200);
 			});
 
 			// Re-run when advanced search modal opens
@@ -2589,7 +2597,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				'click',
 				'.directorist-modal-btn--advanced, .directorist-search-form-action__modal__btn-advanced',
 				function () {
-					setTimeout(runConditionalLogic, 300);
+					setTimeout(runSearchFormConditionalLogic, 300);
 				}
 			);
 
@@ -2597,7 +2605,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			jQuery(document).on(
 				'directorist-search-form-nav-tab-reloaded',
 				function () {
-					setTimeout(runConditionalLogic, 300);
+					setTimeout(runSearchFormConditionalLogic, 300);
 				}
 			);
 		})();

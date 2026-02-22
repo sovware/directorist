@@ -623,7 +623,14 @@ __webpack_require__.r(__webpack_exports__);
  * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
  */
 function setupFormHandlers(getWrapperFn, $, triggerFn) {
-  $(getWrapperFn()).on('change input select2:select select2:unselect', 'input, select, textarea, .select2-hidden-accessible', function () {
+  // Delegate from document so handlers work after AJAX form replace (e.g. search form tab change)
+  var wrapper = getWrapperFn();
+  var delegatedSelector = wrapper.split(',').map(function (s) {
+    return s.trim();
+  }).flatMap(function (s) {
+    return [s + ' input', s + ' select', s + ' textarea', s + ' .select2-hidden-accessible'];
+  }).join(', ');
+  $(document).on('change input select2:select select2:unselect', delegatedSelector, function () {
     var $changedField = $(this);
     var fieldName = $changedField.attr('name') || $changedField.attr('id');
     if (!fieldName) {
@@ -3405,18 +3412,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
-/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/category-custom-fields */ "./assets/src/js/public/components/category-custom-fields.js");
-/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../global/components/conditional-logic */ "./assets/src/js/global/components/conditional-logic.js");
+/* harmony import */ var _global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../global/components/conditional-logic */ "./assets/src/js/global/components/conditional-logic.js");
+/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _components_category_custom_fields__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/category-custom-fields */ "./assets/src/js/public/components/category-custom-fields.js");
+/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__);
 
 
 
@@ -3464,10 +3471,10 @@ var ViewportAwareDropdown = /*#__PURE__*/function () {
     key: "bindEvents",
     value: function bindEvents() {
       var _this2 = this;
-      var debouncedResize = (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_4__["default"])(function () {
+      var debouncedResize = (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_5__["default"])(function () {
         return _this2.updateVisibleDropdowns();
       }, 100);
-      var debouncedScroll = (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_4__["default"])(function () {
+      var debouncedScroll = (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_5__["default"])(function () {
         return _this2.updateVisibleDropdowns();
       }, 50);
       window.addEventListener('resize', debouncedResize);
@@ -4381,10 +4388,12 @@ document.addEventListener('DOMContentLoaded', function () {
               document.body.dispatchEvent(event);
               window.dispatchEvent(event);
             });
+            // So conditional logic re-runs (listens via jQuery)
+            $(document).trigger('directorist-search-form-nav-tab-reloaded');
             handleRadiusVisibility();
             directorist_custom_range_slider();
             initSearchFields();
-            (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($);
+            (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_8__["default"])($);
           }
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
           parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
@@ -4398,7 +4407,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
-    (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($);
+    (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_8__["default"])($);
 
     // Back Button to go back to the previous page
     $('body').on('click', '.directorist-btn__back', function (e) {
@@ -4554,7 +4563,7 @@ document.addEventListener('DOMContentLoaded', function () {
           getResultContainer: getWidgetResultContainer
         }];
         input_fields.forEach(function (field) {
-          $('body').off('keyup.directoristOpenstreet', field.input_elm).on('keyup.directoristOpenstreet', field.input_elm, (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_4__["default"])(function (event) {
+          $('body').off('keyup.directoristOpenstreet', field.input_elm).on('keyup.directoristOpenstreet', field.input_elm, (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_5__["default"])(function (event) {
             event.preventDefault();
             var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
 
@@ -5067,35 +5076,41 @@ document.addEventListener('DOMContentLoaded', function () {
         return '.directorist-search-form-wrap, .directorist-search-form, .directorist-search-modal, .directorist-search-adv-filter';
       }
       var getFieldValueFn = function getFieldValueFn(fieldKey) {
-        return (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_11__.getFieldValue)(fieldKey, jQuery);
+        return (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_4__.getFieldValue)(fieldKey, jQuery);
       };
       var evaluateConditionalLogicFn = function evaluateConditionalLogicFn(conditionalLogic) {
-        return (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_11__.evaluateConditionalLogic)(conditionalLogic, getFieldValueFn);
+        return (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_4__.evaluateConditionalLogic)(conditionalLogic, getFieldValueFn);
       };
       var applyConditionalLogicFn = function applyConditionalLogicFn($fieldWrapper) {
-        return (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_11__.applyConditionalLogic)($fieldWrapper, evaluateConditionalLogicFn, jQuery);
+        return (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_4__.applyConditionalLogic)($fieldWrapper, evaluateConditionalLogicFn, jQuery);
       };
-      (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_11__.watchFieldChanges)(getSearchFormWrapper, getFieldValueFn, applyConditionalLogicFn, jQuery);
-      function runConditionalLogic() {
-        (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_11__.initConditionalLogic)(getSearchFormWrapper, getFieldValueFn, applyConditionalLogicFn, jQuery, []);
+      (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_4__.watchFieldChanges)(getSearchFormWrapper, getFieldValueFn, applyConditionalLogicFn, jQuery);
+      function runSearchFormConditionalLogic() {
+        (0,_global_components_conditional_logic__WEBPACK_IMPORTED_MODULE_4__.initConditionalLogic)(getSearchFormWrapper, getFieldValueFn, applyConditionalLogicFn, jQuery, []);
       }
-      runConditionalLogic();
-      setTimeout(runConditionalLogic, 500);
-      setTimeout(runConditionalLogic, 1500);
+
+      // On load
+      runSearchFormConditionalLogic();
+      setTimeout(runSearchFormConditionalLogic, 300);
+
+      // Re-run when triggerSlice fires
+      window.addEventListener('triggerSlice', function () {
+        setTimeout(runSearchFormConditionalLogic, 100);
+      });
 
       // Re-run when Select2 loads for search form
       jQuery(document).on('select2-loaded', function () {
-        setTimeout(runConditionalLogic, 200);
+        setTimeout(runSearchFormConditionalLogic, 200);
       });
 
       // Re-run when advanced search modal opens
       jQuery('body').on('click', '.directorist-modal-btn--advanced, .directorist-search-form-action__modal__btn-advanced', function () {
-        setTimeout(runConditionalLogic, 300);
+        setTimeout(runSearchFormConditionalLogic, 300);
       });
 
       // Re-run when search form nav tab reloads
       jQuery(document).on('directorist-search-form-nav-tab-reloaded', function () {
-        setTimeout(runConditionalLogic, 300);
+        setTimeout(runSearchFormConditionalLogic, 300);
       });
     })();
   });

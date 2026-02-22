@@ -623,7 +623,14 @@ __webpack_require__.r(__webpack_exports__);
  * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
  */
 function setupFormHandlers(getWrapperFn, $, triggerFn) {
-  $(getWrapperFn()).on('change input select2:select select2:unselect', 'input, select, textarea, .select2-hidden-accessible', function () {
+  // Delegate from document so handlers work after AJAX form replace (e.g. search form tab change)
+  var wrapper = getWrapperFn();
+  var delegatedSelector = wrapper.split(',').map(function (s) {
+    return s.trim();
+  }).flatMap(function (s) {
+    return [s + ' input', s + ' select', s + ' textarea', s + ' .select2-hidden-accessible'];
+  }).join(', ');
+  $(document).on('change input select2:select select2:unselect', delegatedSelector, function () {
     var $changedField = $(this);
     var fieldName = $changedField.attr('name') || $changedField.attr('id');
     if (!fieldName) {

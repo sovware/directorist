@@ -16,9 +16,21 @@ import { syncSelect2DataAttributes } from '../helpers.js';
  * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
  */
 export function setupFormHandlers(getWrapperFn, $, triggerFn) {
-	$(getWrapperFn()).on(
+	// Delegate from document so handlers work after AJAX form replace (e.g. search form tab change)
+	const wrapper = getWrapperFn();
+	const delegatedSelector = wrapper
+		.split(',')
+		.map((s) => s.trim())
+		.flatMap((s) => [
+			s + ' input',
+			s + ' select',
+			s + ' textarea',
+			s + ' .select2-hidden-accessible',
+		])
+		.join(', ');
+	$(document).on(
 		'change input select2:select select2:unselect',
-		'input, select, textarea, .select2-hidden-accessible',
+		delegatedSelector,
 		function () {
 			const $changedField = $(this);
 			const fieldName =

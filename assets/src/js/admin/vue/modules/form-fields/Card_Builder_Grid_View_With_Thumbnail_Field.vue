@@ -395,7 +395,10 @@
 
             <card-widget-placeholder
               id="thumbnail_body_action"
-              containerClass="cptm-listing-card-preview-action-placeholder"
+              :containerClass="{
+                'cptm-listing-card-preview-action-placeholder': true,
+                'cptm-mb-12': hasActionWidget,
+              }"
               :label="local_layout.body.action.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -427,6 +430,7 @@
               "
               @update-active-widget="handleActiveWidgetUpdate"
               @activate-widget-options="toggleActivateWidgetOptions"
+              v-if="hasActionWidget"
             />
           </div>
 
@@ -749,6 +753,12 @@ export default {
     // Check if excerpt widget is available in available_widgets
     hasExcerptWidget() {
       return !!this.theAvailableWidgets?.excerpt;
+    },
+    // Check if action area has any accepted widget that is actually available
+    hasActionWidget() {
+      const accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!accepted?.length) return false;
+      return accepted.some((key) => !!this.theAvailableWidgets?.[key]);
     },
   },
 

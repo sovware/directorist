@@ -261,16 +261,16 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                     
                     // if deletion threshold is set then add deletion date
                     if ( $delete_threshold > 0 ) {
-                        $metas['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
+                        $meta_input['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
                     } else {
-                        $metas['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
+                        $meta_input['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
                     }
 
                     wp_update_post(
                         [
                             'ID'          => $listing->ID,
                             'post_status' => 'expired',      // update the status to private so that we do not run this func a second time
-                            'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
+                            'meta_input'  => $meta_input,         // insert all meta data once to reduce update meta query
                         ]
                     );
                     // Hook for developers

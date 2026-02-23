@@ -58,18 +58,22 @@ class Base_Field {
         return ( bool ) ( $this->widget_group === 'preset' );
     }
 
+    /**
+     * @deprecated Use conditional_logic instead of assign_to.
+     * This method always returns false to maintain backward compatibility.
+     */
     public function is_category_only() {
-        if ( $this->is_preset() || empty( $this->__get( 'assign_to' ) ) || $this->__get( 'assign_to' ) === 'form' ) {
-            return false;
-        }
-
-        return true;
+        // Deprecated: assign_to feature has been removed in favor of conditional_logic
+        return false;
     }
 
+    /**
+     * @deprecated Use conditional_logic instead of assign_to.
+     * This method always returns 0 to maintain backward compatibility.
+     */
     public function get_assigned_category() {
-        if ( ! $this->is_category_only() || empty( $this->__get( 'category' ) ) ) {
-            return 0;
-        }
+        // Deprecated: assign_to feature has been removed in favor of conditional_logic
+        return 0;
 
         return absint( $this->__get( 'category' ) );
     }

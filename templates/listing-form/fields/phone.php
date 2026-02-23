@@ -6,9 +6,12 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-form-phone-field">
+<div class="directorist-form-group directorist-form-phone-field"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <?php $listing_form->field_label_template( $data );?>
 

@@ -1,3 +1,10 @@
+import {
+	applyConditionalLogic as applyConditionalLogicBase,
+	evaluateConditionalLogic as evaluateConditionalLogicBase,
+	getFieldValue as getFieldValueBase,
+	initConditionalLogic as initConditionalLogicBase,
+	watchFieldChanges as watchFieldChangesBase,
+} from '../global/components/conditional-logic';
 import debounce from '../global/components/debounce';
 import './../global/components/select2-custom-control';
 import './../global/components/setup-select2';
@@ -1443,11 +1450,14 @@ document.addEventListener('DOMContentLoaded', () => {
 								),
 								new CustomEvent('triggerSlice'),
 							];
-
 							events.forEach((event) => {
 								document.body.dispatchEvent(event);
 								window.dispatchEvent(event);
 							});
+							// So conditional logic re-runs (listens via jQuery)
+							$(document).trigger(
+								'directorist-search-form-nav-tab-reloaded'
+							);
 
 							handleRadiusVisibility();
 							directorist_custom_range_slider();
@@ -2533,5 +2543,71 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		rangeSliderObserver();
+
+		// Conditional logic for search form (Search Bar & Search Filter)
+		(function initSearchFormConditionalLogic() {
+			function getSearchFormWrapper() {
+				return '.directorist-search-form-wrap, .directorist-search-form, .directorist-search-modal, .directorist-search-adv-filter';
+			}
+
+			const getFieldValueFn = (fieldKey) =>
+				getFieldValueBase(fieldKey, jQuery);
+			const evaluateConditionalLogicFn = (conditionalLogic) =>
+				evaluateConditionalLogicBase(conditionalLogic, getFieldValueFn);
+			const applyConditionalLogicFn = ($fieldWrapper) =>
+				applyConditionalLogicBase(
+					$fieldWrapper,
+					evaluateConditionalLogicFn,
+					jQuery
+				);
+
+			watchFieldChangesBase(
+				getSearchFormWrapper,
+				getFieldValueFn,
+				applyConditionalLogicFn,
+				jQuery
+			);
+
+			function runSearchFormConditionalLogic() {
+				initConditionalLogicBase(
+					getSearchFormWrapper,
+					getFieldValueFn,
+					applyConditionalLogicFn,
+					jQuery,
+					[]
+				);
+			}
+
+			// On load
+			runSearchFormConditionalLogic();
+			setTimeout(runSearchFormConditionalLogic, 300);
+
+			// Re-run when triggerSlice fires
+			window.addEventListener('triggerSlice', function () {
+				setTimeout(runSearchFormConditionalLogic, 100);
+			});
+
+			// Re-run when Select2 loads for search form
+			jQuery(document).on('select2-loaded', function () {
+				setTimeout(runSearchFormConditionalLogic, 200);
+			});
+
+			// Re-run when advanced search modal opens
+			jQuery('body').on(
+				'click',
+				'.directorist-modal-btn--advanced, .directorist-search-form-action__modal__btn-advanced',
+				function () {
+					setTimeout(runSearchFormConditionalLogic, 300);
+				}
+			);
+
+			// Re-run when search form nav tab reloads
+			jQuery(document).on(
+				'directorist-search-form-nav-tab-reloaded',
+				function () {
+					setTimeout(runSearchFormConditionalLogic, 300);
+				}
+			);
+		})();
 	});
 })(jQuery);

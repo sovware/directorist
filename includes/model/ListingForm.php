@@ -778,6 +778,13 @@ class Directorist_Listing_Form {
         return $this->current_listing_type;
     }
 
+    public function get_listing_owner_id(): int {
+        if ( $this->add_listing_id ) {
+            return (int) get_post_field( 'post_author', $this->add_listing_id );
+        }
+        return get_current_user_id();
+    }
+
     public function build_form_data( $type ) {
         $form_data = [];
 
@@ -785,7 +792,13 @@ class Directorist_Listing_Form {
             return $form_data;
         }
 
-        $submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
+        $submission_form_fields = directorist_submission_form_fields(
+            (int) $type,
+            [
+                'listing_id'        => $this->add_listing_id,
+                'listing_owner_id'  => $this->get_listing_owner_id(),
+            ]
+        );
 
         if ( ! empty( $submission_form_fields['groups'] ) ) {
             foreach ( $submission_form_fields['groups'] as $group ) {

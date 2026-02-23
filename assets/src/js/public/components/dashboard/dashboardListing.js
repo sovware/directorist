@@ -117,15 +117,20 @@
 				} else if (task == 'unfeature') {
 					swal(
 						{
-							title: directorist.listing_unfeature_title || 'Unfeature Listing',
-							text: directorist.listing_unfeature_text || 'Are you sure you want to unfeature this listing?',
+							title:
+								directorist.listing_unfeature_title ||
+								'Unfeature Listing',
+							text:
+								directorist.listing_unfeature_text ||
+								'Are you sure you want to unfeature this listing?',
 							type: 'warning',
 							cancelButtonText:
 								directorist.review_cancel_btn_text || 'Cancel',
 							showCancelButton: true,
 							confirmButtonColor: '#DD6B55',
 							confirmButtonText:
-								directorist.listing_unfeature_confirm_text || 'Yes, Unfeature',
+								directorist.listing_unfeature_confirm_text ||
+								'Yes, Unfeature',
 							showLoaderOnConfirm: true,
 							closeOnConfirm: false,
 						},
@@ -139,7 +144,9 @@
 									postid
 								);
 								swal({
-									title: directorist.listing_unfeatured || 'Listing Unfeatured',
+									title:
+										directorist.listing_unfeatured ||
+										'Listing Unfeatured',
 									type: 'success',
 									timer: 200,
 									showConfirmButton: false,

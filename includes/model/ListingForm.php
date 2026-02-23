@@ -778,7 +778,7 @@ class Directorist_Listing_Form {
         return $this->current_listing_type;
     }
 
-    protected function get_listing_owner_id(): int {
+    public function get_listing_owner_id(): int {
         if ( $this->add_listing_id ) {
             return (int) get_post_field( 'post_author', $this->add_listing_id );
         }

@@ -4774,3 +4774,38 @@ function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );
 }
+
+function directorist_submission_form_fields_raw( int $directory_type_id ): array {
+    return get_term_meta( $directory_type_id, 'submission_form_fields', true );
+}
+
+function directorist_submission_form_fields( int $directory_type_id, array $data = [] ): array {
+    $data['directory_type_id'] = $directory_type_id;
+    return apply_filters( 'directorist_submission_form_fields', directorist_submission_form_fields_raw( $directory_type_id ), $data );
+}
+
+function directorist_single_listing_header( int $directory_type_id, array $data = [] ): array {
+    $data['directory_type_id'] = $directory_type_id;
+    return apply_filters( 'directorist_single_listing_header', get_term_meta( $directory_type_id, 'single_listing_header', true ), $data );
+}
+
+function directorist_single_listings_contents( int $directory_type_id, array $data = [] ): array {
+    $data['directory_type_id'] = $directory_type_id;
+    return apply_filters( 'directorist_single_listings_contents', get_term_meta( $directory_type_id, 'single_listings_contents', true ), $data );
+}
+
+function directorist_listing_archive_fields( int $directory_type_id, array $data = [] ): array {
+    $card_fields = get_term_meta( $directory_type_id, 'listings_card_grid_view', true );
+    $list_fields = get_term_meta( $directory_type_id, 'listings_card_list_view', true );
+
+    $data['directory_type_id'] = $directory_type_id;
+
+    return apply_filters(
+        'directorist_listing_archive_fields',
+        [
+            'card_fields' => ! empty( $card_fields ) && is_array( $card_fields ) ? $card_fields : [],
+            'list_fields' => ! empty( $list_fields ) && is_array( $list_fields ) ? $list_fields : [],
+        ],
+        $data
+    );
+}

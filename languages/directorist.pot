@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-18 10:42+0000\n"
+"POT-Creation-Date: 2026-02-23 04:56+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../blocks/init.php:107, ../includes/classes/class-custom-post.php:273, ../includes/elementor/init.php:41
+#: ../blocks/init.php:107, ../includes/classes/class-custom-post.php:388, ../includes/elementor/init.php:41
 msgid "Directorist"
 msgstr ""
 
@@ -490,7 +490,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:60, ../includes/classes/class-ajax-handler.php:422, ../includes/classes/class-custom-post.php:367
+#: ../includes/directorist-core-functions.php:60, ../includes/classes/class-ajax-handler.php:422, ../includes/classes/class-custom-post.php:482
 msgid "Author"
 msgstr ""
 
@@ -510,7 +510,7 @@ msgstr ""
 msgid "You need to be logged in to view the content of this page"
 msgstr ""
 
-#: ../includes/helper-functions.php:896, ../includes/checkout/class-checkout.php:184, ../includes/classes/class-custom-post.php:370, ../includes/classes/class-custom-post.php:378, ../includes/classes/class-settings-panel.php:1438, ../includes/model/Listings.php:308, ../includes/model/Listings.php:2510, ../includes/payments/class-order.php:379, ../includes/modules/multi-directory-setup/class-builder-data.php:1486, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/helper-functions.php:896, ../includes/checkout/class-checkout.php:184, ../includes/classes/class-custom-post.php:485, ../includes/classes/class-custom-post.php:493, ../includes/classes/class-settings-panel.php:1438, ../includes/model/Listings.php:308, ../includes/model/Listings.php:2510, ../includes/payments/class-order.php:379, ../includes/modules/multi-directory-setup/class-builder-data.php:1486, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -634,7 +634,7 @@ msgstr ""
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:2578, ../includes/classes/class-custom-post.php:287, ../includes/classes/class-settings-panel.php:3737, ../includes/elementor/all-listing.php:15, ../templates/dashboard/tab-my-listings.php:22
+#: ../includes/helper-functions.php:2578, ../includes/classes/class-custom-post.php:402, ../includes/classes/class-settings-panel.php:3737, ../includes/elementor/all-listing.php:15, ../templates/dashboard/tab-my-listings.php:22
 msgid "All Listings"
 msgstr ""
 
@@ -1172,7 +1172,7 @@ msgstr ""
 msgid "Your are already loggedin"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:357, ../includes/classes/class-ajax-handler.php:480, ../includes/classes/class-ajax-handler.php:841, ../includes/classes/class-ajax-handler.php:870
+#: ../includes/classes/class-ajax-handler.php:357, ../includes/classes/class-ajax-handler.php:480, ../includes/classes/class-ajax-handler.php:851, ../includes/classes/class-ajax-handler.php:880
 msgid "Login successful, redirecting..."
 msgstr ""
 
@@ -1180,7 +1180,7 @@ msgstr ""
 msgid "You are not allowed to export listings."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:392, ../includes/classes/class-ajax-handler.php:1416, ../includes/classes/class-ajax-handler.php:1674, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:418, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:507, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:633
+#: ../includes/classes/class-ajax-handler.php:392, ../includes/classes/class-ajax-handler.php:1426, ../includes/classes/class-ajax-handler.php:1684, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:418, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:507, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:633
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
@@ -1224,91 +1224,95 @@ msgstr ""
 msgid "The session has expired, please reload and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:820
+#: ../includes/classes/class-ajax-handler.php:743
+msgid "User registration is currently disabled."
+msgstr ""
+
+#: ../includes/classes/class-ajax-handler.php:830
 msgid "Congratulations! All old pages have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:829
+#: ../includes/classes/class-ajax-handler.php:839
 msgid "Something went wrong, please reload the page"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:891
+#: ../includes/classes/class-ajax-handler.php:901
 msgid "Invalid upload request!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:895
+#: ../includes/classes/class-ajax-handler.php:905
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1057, ../includes/classes/class-ajax-handler.php:1099
+#: ../includes/classes/class-ajax-handler.php:1067, ../includes/classes/class-ajax-handler.php:1109
 msgid "You are not allowed to perform this operation"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1061, ../includes/classes/class-ajax-handler.php:1086, ../includes/classes/class-ajax-handler.php:1090, ../includes/classes/class-ajax-handler.php:1103
+#: ../includes/classes/class-ajax-handler.php:1071, ../includes/classes/class-ajax-handler.php:1096, ../includes/classes/class-ajax-handler.php:1100, ../includes/classes/class-ajax-handler.php:1113
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1083
+#: ../includes/classes/class-ajax-handler.php:1093
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1124
+#: ../includes/classes/class-ajax-handler.php:1134
 msgid "Preferences updated successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1215, ../includes/classes/class-ajax-handler.php:1288, ../includes/review/class-email.php:76
+#: ../includes/classes/class-ajax-handler.php:1225, ../includes/classes/class-ajax-handler.php:1298, ../includes/review/class-email.php:76
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1218
+#: ../includes/classes/class-ajax-handler.php:1228
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1291
+#: ../includes/classes/class-ajax-handler.php:1301
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1396, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
+#: ../includes/classes/class-ajax-handler.php:1406, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1399, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
+#: ../includes/classes/class-ajax-handler.php:1409, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1426
+#: ../includes/classes/class-ajax-handler.php:1436
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1433
+#: ../includes/classes/class-ajax-handler.php:1443
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1441, ../includes/classes/class-ajax-handler.php:1690
+#: ../includes/classes/class-ajax-handler.php:1451, ../includes/classes/class-ajax-handler.php:1700
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1446, ../includes/classes/class-ajax-handler.php:1735
+#: ../includes/classes/class-ajax-handler.php:1456, ../includes/classes/class-ajax-handler.php:1745
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1609
+#: ../includes/classes/class-ajax-handler.php:1619
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1611
+#: ../includes/classes/class-ajax-handler.php:1621
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1830
+#: ../includes/classes/class-ajax-handler.php:1840
 msgid "User not logged in."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1845, ../includes/classes/class-ajax-handler.php:1885, ../includes/classes/class-ajax-handler.php:1924, ../includes/classes/class-ajax-handler.php:1961
+#: ../includes/classes/class-ajax-handler.php:1855, ../includes/classes/class-ajax-handler.php:1895, ../includes/classes/class-ajax-handler.php:1934, ../includes/classes/class-ajax-handler.php:1971
 msgid "Invalid nonce."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1966
+#: ../includes/classes/class-ajax-handler.php:1976
 msgid "No listing ID found."
 msgstr ""
 
@@ -1328,207 +1332,241 @@ msgid_plural "Expired <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-custom-post.php:170, ../includes/classes/class-custom-post.php:363, ../includes/classes/class-custom-taxonomy.php:298, ../includes/classes/class-custom-taxonomy.php:359, ../includes/classes/class-custom-taxonomy.php:460, ../includes/classes/class-custom-taxonomy.php:502, ../includes/classes/class-custom-taxonomy.php:656, ../includes/classes/class-custom-taxonomy.php:669, ../includes/classes/class-metabox.php:238
+#: ../includes/classes/class-custom-post.php:240, ../includes/classes/class-custom-post.php:478, ../includes/classes/class-custom-taxonomy.php:298, ../includes/classes/class-custom-taxonomy.php:359, ../includes/classes/class-custom-taxonomy.php:460, ../includes/classes/class-custom-taxonomy.php:502, ../includes/classes/class-custom-taxonomy.php:656, ../includes/classes/class-custom-taxonomy.php:669, ../includes/classes/class-metabox.php:238
 msgid "Directory"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:172
+#: ../includes/classes/class-custom-post.php:242
 msgid "Select type"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:191, ../includes/classes/class-settings-panel.php:1488, ../includes/modules/multi-directory-setup/class-builder-data.php:1514
+#: ../includes/classes/class-custom-post.php:261, ../includes/classes/class-settings-panel.php:1488, ../includes/modules/multi-directory-setup/class-builder-data.php:1514
 msgid "View Count"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:274
+#: ../includes/classes/class-custom-post.php:273, ../includes/classes/class-metabox.php:193, ../views/admin-templates/listing-form/expiration-featured-fields.php:10
+msgid "Expiration"
+msgstr ""
+
+#: ../includes/classes/class-custom-post.php:274, ../includes/classes/class-metabox.php:194, ../views/admin-templates/listing-form/expiration-featured-fields.php:11
+msgid "Date & Time"
+msgstr ""
+
+#: ../includes/classes/class-custom-post.php:279, ../includes/rest-api/Version1/class-plans-controller.php:554
+msgid "Month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../includes/classes/class-custom-post.php:290
+msgid "day"
+msgstr ""
+
+#: ../includes/classes/class-custom-post.php:293
+msgid "year"
+msgstr ""
+
+#: ../includes/classes/class-custom-post.php:296
+msgid "hour"
+msgstr ""
+
+#: ../includes/classes/class-custom-post.php:299
+msgid "min"
+msgstr ""
+
+#: ../includes/classes/class-custom-post.php:306, ../includes/classes/class-email.php:144, ../includes/model/ListingDashboard.php:141, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
+msgid "Never Expires"
+msgstr ""
+
+#: ../includes/classes/class-custom-post.php:389
 msgid "Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:275
+#: ../includes/classes/class-custom-post.php:390
 msgctxt "post type general name"
 msgid "Listings"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:276
+#: ../includes/classes/class-custom-post.php:391
 msgctxt "post type singular name"
 msgid "Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:277
+#: ../includes/classes/class-custom-post.php:392
 msgctxt "listing"
 msgid "Add New"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:278
+#: ../includes/classes/class-custom-post.php:393
 msgid "Add New Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:279
+#: ../includes/classes/class-custom-post.php:394
 msgid "Edit Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:280
+#: ../includes/classes/class-custom-post.php:395
 msgid "Update Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:281
+#: ../includes/classes/class-custom-post.php:396
 msgid "New Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:282
+#: ../includes/classes/class-custom-post.php:397
 msgid "View Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:283
+#: ../includes/classes/class-custom-post.php:398
 msgid "View Listings"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:284
+#: ../includes/classes/class-custom-post.php:399
 msgid "Search Listings"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:285, ../templates/archive/grid-view.php:41, ../templates/archive/list-view.php:40
+#: ../includes/classes/class-custom-post.php:400, ../templates/archive/grid-view.php:41, ../templates/archive/list-view.php:40
 msgid "No listings found."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:286
+#: ../includes/classes/class-custom-post.php:401
 msgid "No listings found in Trash."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:288
+#: ../includes/classes/class-custom-post.php:403
 msgid "Listing Archives"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:289
+#: ../includes/classes/class-custom-post.php:404
 msgid "Listing Attributes"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:290
+#: ../includes/classes/class-custom-post.php:405
 msgid "Insert into listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:291
+#: ../includes/classes/class-custom-post.php:406
 msgid "Uploaded to this listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:292
+#: ../includes/classes/class-custom-post.php:407
 msgctxt "listing"
 msgid "Featured image"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:293
+#: ../includes/classes/class-custom-post.php:408
 msgctxt "listing"
 msgid "Set featured image"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:294
+#: ../includes/classes/class-custom-post.php:409
 msgctxt "listing"
 msgid "Remove featured image"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:295
+#: ../includes/classes/class-custom-post.php:410
 msgctxt "listing"
 msgid "Use as featured image"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:296
+#: ../includes/classes/class-custom-post.php:411
 msgid "Filter listings list"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:297
+#: ../includes/classes/class-custom-post.php:412
 msgid "Listings list navigation"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:298
+#: ../includes/classes/class-custom-post.php:413
 msgid "Listings list"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:299
+#: ../includes/classes/class-custom-post.php:414
 msgid "Listing published."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:300
+#: ../includes/classes/class-custom-post.php:415
 msgid "Listing published privately."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:301
+#: ../includes/classes/class-custom-post.php:416
 msgid "Listing reverted to draft."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:302
+#: ../includes/classes/class-custom-post.php:417
 msgid "Listing trashed."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:303
+#: ../includes/classes/class-custom-post.php:418
 msgid "Listing scheduled."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:304
+#: ../includes/classes/class-custom-post.php:419
 msgid "Listing updated."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:305
+#: ../includes/classes/class-custom-post.php:420
 msgctxt "navigation link block title"
 msgid "Listing Link"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:306
+#: ../includes/classes/class-custom-post.php:421
 msgctxt "navigation link block description"
 msgid "A link to a listing."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:310
+#: ../includes/classes/class-custom-post.php:425
 msgid "Directory Listing"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:311
+#: ../includes/classes/class-custom-post.php:426
 msgid "Directory listings"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:361, ../includes/classes/class-settings-panel.php:2679, ../includes/classes/class-settings-panel.php:2789, ../includes/classes/class-settings-panel.php:3147, ../includes/elementor/all-categories.php:92, ../includes/elementor/all-locations.php:92, ../includes/model/SingleListing.php:740, ../includes/review/class-comment-form-renderer.php:221, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:58, ../includes/widgets/all-locations.php:58, ../includes/widgets/all-tags.php:57, ../includes/modules/multi-directory-setup/class-builder-data.php:390, ../includes/modules/multi-directory-setup/class-builder-data.php:535, ../includes/modules/multi-directory-setup/class-builder-data.php:547, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:197, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:111, ../templates/widgets/contact-form.php:15
+#: ../includes/classes/class-custom-post.php:476, ../includes/classes/class-settings-panel.php:2679, ../includes/classes/class-settings-panel.php:2789, ../includes/classes/class-settings-panel.php:3147, ../includes/elementor/all-categories.php:92, ../includes/elementor/all-locations.php:92, ../includes/model/SingleListing.php:740, ../includes/review/class-comment-form-renderer.php:221, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:58, ../includes/widgets/all-locations.php:58, ../includes/widgets/all-tags.php:57, ../includes/modules/multi-directory-setup/class-builder-data.php:390, ../includes/modules/multi-directory-setup/class-builder-data.php:535, ../includes/modules/multi-directory-setup/class-builder-data.php:547, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:197, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:111, ../templates/widgets/contact-form.php:15
 msgid "Name"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:365, ../includes/model/SingleListing.php:1371, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:671
+#: ../includes/classes/class-custom-post.php:480, ../includes/model/SingleListing.php:1371, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:671
 msgid "Location"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:366, ../includes/classes/class-custom-taxonomy.php:584
+#: ../includes/classes/class-custom-post.php:481, ../includes/classes/class-custom-taxonomy.php:584
 msgid "Categories"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:368, ../templates/dashboard/tab-my-listings.php:60
+#: ../includes/classes/class-custom-post.php:483, ../templates/dashboard/tab-my-listings.php:60
 msgid "Status"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:381
+#: ../includes/classes/class-custom-post.php:496
 msgid "Listing views"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:383, ../includes/elementor/all-listing.php:191, ../includes/elementor/category.php:92, ../includes/elementor/location.php:91, ../includes/elementor/search-result.php:105, ../includes/elementor/tag.php:91, ../includes/payments/class-order.php:338, ../includes/modules/multi-directory-setup/builder-custom-fields.php:285, ../includes/modules/multi-directory-setup/class-builder-data.php:1662, ../templates/payment/payment-receipt.php:38
+#: ../includes/classes/class-custom-post.php:498, ../includes/elementor/all-listing.php:191, ../includes/elementor/category.php:92, ../includes/elementor/location.php:91, ../includes/elementor/search-result.php:105, ../includes/elementor/tag.php:91, ../includes/payments/class-order.php:338, ../includes/modules/multi-directory-setup/builder-custom-fields.php:285, ../includes/modules/multi-directory-setup/class-builder-data.php:1662, ../templates/payment/payment-receipt.php:38
 msgid "Date"
 msgstr ""
 
 #. translators: 1: Author name
-#: ../includes/classes/class-custom-post.php:437
+#: ../includes/classes/class-custom-post.php:552
 msgctxt "Author filter link"
 msgid "Filter by %1$s"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:450
+#: ../includes/classes/class-custom-post.php:565
 msgctxt "Noun: listing status"
 msgid "Renewal"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:494
+#: ../includes/classes/class-custom-post.php:609
 msgid "Created:"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:496
+#: ../includes/classes/class-custom-post.php:611
 msgid "Expires:"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:523, ../includes/classes/class-custom-post.php:524
+#: ../includes/classes/class-custom-post.php:638, ../includes/classes/class-custom-post.php:639
 msgid "Enter a title"
 msgstr ""
 
@@ -1801,10 +1839,6 @@ msgstr ""
 
 #: ../includes/classes/class-custom-taxonomy.php:960, ../includes/classes/class-settings-panel.php:4693, ../templates/all-authors.php:25, ../templates/archive/directory-type-nav.php:26
 msgid "All"
-msgstr ""
-
-#: ../includes/classes/class-email.php:144, ../includes/model/ListingDashboard.php:141, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
-msgid "Never Expires"
 msgstr ""
 
 #: ../includes/classes/class-email.php:146
@@ -2370,14 +2404,6 @@ msgstr ""
 
 #: ../includes/classes/class-metabox.php:159
 msgid "Listing Information"
-msgstr ""
-
-#: ../includes/classes/class-metabox.php:193, ../views/admin-templates/listing-form/expiration-featured-fields.php:10
-msgid "Expiration"
-msgstr ""
-
-#: ../includes/classes/class-metabox.php:194, ../views/admin-templates/listing-form/expiration-featured-fields.php:11
-msgid "Date & Time"
 msgstr ""
 
 #: ../includes/classes/class-metabox.php:240
@@ -4882,35 +4908,35 @@ msgstr ""
 msgid "Directorist data update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:355
+#: ../includes/classes/class-upgrade.php:562
 msgid "Listings Slider Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:359
+#: ../includes/classes/class-upgrade.php:566
 msgid "Enable Footer Thumbnail"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:383, ../includes/modules/multi-directory-setup/class-builder-data.php:1168, ../includes/modules/multi-directory-setup/class-builder-data.php:2454, ../includes/modules/multi-directory-setup/class-builder-data.php:2501
+#: ../includes/classes/class-upgrade.php:590, ../includes/modules/multi-directory-setup/class-builder-data.php:1168, ../includes/modules/multi-directory-setup/class-builder-data.php:2454, ../includes/modules/multi-directory-setup/class-builder-data.php:2501
 msgid "Listing Title Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:387, ../includes/modules/multi-directory-setup/builder-preset-fields.php:128, ../includes/modules/multi-directory-setup/class-builder-data.php:1172, ../includes/modules/multi-directory-setup/class-builder-data.php:2463, ../includes/modules/multi-directory-setup/class-builder-data.php:2505
+#: ../includes/classes/class-upgrade.php:594, ../includes/modules/multi-directory-setup/builder-preset-fields.php:128, ../includes/modules/multi-directory-setup/class-builder-data.php:1172, ../includes/modules/multi-directory-setup/class-builder-data.php:2463, ../includes/modules/multi-directory-setup/class-builder-data.php:2505
 msgid "Tagline"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:504
+#: ../includes/classes/class-upgrade.php:711
 msgid "Dismiss this notice."
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:558
+#: ../includes/classes/class-upgrade.php:765
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with <a href=\"%s\" target=\"_blank\">some cool new features</a>. You are using <b style=\"color:#dba617\">%s outdated extension(s)</b> which are incompatible with Directorist v8.0. Please update the following outdated extensions:<br>%s</p><br>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:565, ../includes/classes/class-upgrade.php:601
+#: ../includes/classes/class-upgrade.php:772, ../includes/classes/class-upgrade.php:808
 msgid "<p class=\"directorist__notice_new_action\">Mistakenly updated? Use <a target=\"_blank\" href=\"%s\">WP Rollback</a> to install your old Directorist</p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:598
+#: ../includes/classes/class-upgrade.php:805
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Theme Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.Please update <a target=\"_blank\" href=\"%s\">%s theme</a> </p>"
 msgstr ""
 
@@ -8717,12 +8743,6 @@ msgstr[1] ""
 #: ../includes/rest-api/Version1/class-plans-controller.php:553
 msgid "Week"
 msgid_plural "%d weeks"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../includes/rest-api/Version1/class-plans-controller.php:554
-msgid "Month"
-msgid_plural "%d months"
 msgstr[0] ""
 msgstr[1] ""
 

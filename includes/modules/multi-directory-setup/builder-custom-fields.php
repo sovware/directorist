@@ -810,7 +810,7 @@ return apply_filters(
                         'value' => 'custom-button',
                     ]
                 ),
-                'button_text' => [
+                'label' => [
                     'type'        => 'text',
                     'label'       => __( 'Button Text Label', 'directorist' ),
                     'value'       => __( 'Name', 'directorist' ),

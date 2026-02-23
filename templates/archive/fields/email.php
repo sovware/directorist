@@ -6,11 +6,23 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+$is_action = ! empty( $before ) && 'div' === $before;
 ?>
 
-<<?php echo tag_escape( ! empty( $before ) ? $before : 'li' ); ?> class="directorist-listing-card-email"><?php directorist_icon( $icon );?>
-    <?php $listings->print_label( $label ); ?>
-    <a target="_top" href="mailto:<?php echo esc_attr( $value );?>">
-    <?php echo esc_html( $value );?>
+<?php if ( $is_action ) : ?>
+<div class="directorist-listing-card-email">
+    <a class="directorist-btn directorist-btn-xs directorist-btn-default" href="mailto:<?php echo esc_attr( $value ); ?>">
+        <?php directorist_icon( $icon ); ?>
+        <?php echo esc_html( $data['label'] ); ?>
     </a>
-</<?php echo tag_escape( ! empty( $after ) ? $after : 'li' ); ?>>
+</div>
+<?php else : ?>
+<li class="directorist-listing-card-email">
+    <?php directorist_icon( $icon ); ?>
+    <?php $listings->print_label( $label ); ?>
+    <a href="mailto:<?php echo esc_attr( $value ); ?>">
+        <?php echo esc_html( $value ); ?>
+    </a>
+</li>
+<?php endif; ?>

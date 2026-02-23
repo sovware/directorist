@@ -90,6 +90,24 @@
     a:not(.directorist-btn) {
       color: var(--directorist-color-body);
     }
+    .directorist-btn{
+      .directorist-icon-mask:after {
+        background-color: currentColor;
+        width: 13px;
+        height: 13px;
+      }
+			&.directorist-btn-default{
+				background-color: var(--directorist-color-white) !important;
+				background: transparent;
+    			border: 1px solid var(--directorist-color-bg-light) !important;
+				color: var(--directorist-color-body) !important;
+				&:hover {
+					background-color: var(--directorist-color-bg-light) !important;
+					border-color: var(--directorist-color-bg-light) !important;
+					color: var(--directorist-color-dark) !important;
+				}
+			}
+		}
   }
 
   @media screen and (max-width: 575px) {

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <div class="directorist-form-button-field__text">
 
         <label class="directorist-form-label" for="<?php echo esc_attr( $data['field_key'] . '_text' ); ?>">
-            <?php echo esc_html( ! empty( $data['button_text'] ) ? $data['button_text'] : __( 'Button Text', 'directorist' ) ); ?>:<?php echo ! empty( $data['required'] ) ? '<span class="directorist-form-required"> *</span>' : ''; ?>
+            <?php echo esc_html( ! empty( $data['label'] ) ? $data['label'] : __( 'Button Text', 'directorist' ) ); ?>:<?php echo ! empty( $data['required'] ) ? '<span class="directorist-form-required"> *</span>' : ''; ?>
         </label>
 
         <input type="text" autocomplete="off" name="<?php echo esc_attr( $data['field_key'] . '[button_text]' ); ?>" id="<?php echo esc_attr( $data['field_key'] . '_text' ); ?>" class="directorist-form-element" value="<?php echo esc_attr( $button_text ); ?>" placeholder="<?php echo esc_attr( $button_text_placeholder ); ?>" <?php $listing_form->required( $data ); ?>>

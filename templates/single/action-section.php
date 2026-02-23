@@ -29,14 +29,14 @@ foreach ( $actions as $action ) {
 			if ( $email_value ) { $has_action = true; break 2; }
 			break;
 
-		case 'button':
-			$field_key   = ! empty( $action['field_key'] ) ? $action['field_key'] : 'custom-button';
-			$btn_raw     = get_post_meta( $listing_id, '_' . $field_key, true );
-			$btn_value   = is_array( $btn_raw ) ? $btn_raw : maybe_unserialize( $btn_raw );
-			$btn_text    = $btn_value['button_text'] ?? '';
-			$btn_url     = $btn_value['button_url_label'] ?? '';
-			if ( $btn_text && $btn_url ) { $has_action = true; break 2; }
-			break;
+	case 'button':
+		$field_key   = ! empty( $action['field_key'] ) ? $action['field_key'] : 'custom-button';
+		$btn_raw     = get_post_meta( $listing_id, '_' . $field_key, true );
+		$btn_value   = is_array( $btn_raw ) ? $btn_raw : maybe_unserialize( $btn_raw );
+		$btn_text    = $btn_value['button_text'] ?? '';
+		$btn_url     = $btn_value['button_url_label'] ?? '';
+		if ( $btn_text && $btn_url ) { $has_action = true; break 2; }
+		break;
 	}
 }
 
@@ -63,19 +63,25 @@ if ( ! $has_action ) {
 				];
 				$phone_link = Helper::phone_link( $phone_args );
 
-				if ( ! empty( $action['form_data']['whatsapp'] ) ) : ?>
-					<a class="directorist-btn directorist-btn-sm directorist-btn-outline-secondary"
-					   href="<?php echo esc_url( $phone_link ); ?>">
-						<?php directorist_icon( 'lab la-whatsapp' ); ?>
-						<?php esc_html_e( 'WhatsApp', 'directorist' ); ?>
-					</a>
-				<?php else : ?>
-					<a class="directorist-btn directorist-btn-sm directorist-btn-primary"
-					   href="<?php echo esc_url( $phone_link ); ?>">
-						<?php directorist_icon( 'las la-phone' ); ?>
-						<?php esc_html_e( 'Call Now', 'directorist' ); ?>
-					</a>
-				<?php endif;
+			$phone_icon = ! empty( $action['icon'] ) ? $action['icon'] : 'las la-phone';
+
+			if ( ! empty( $action['form_data']['whatsapp'] ) ) :
+				$phone_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : __( 'WhatsApp', 'directorist' );
+				?>
+				<a class="directorist-btn directorist-btn-sm directorist-btn-outline-secondary"
+				   href="<?php echo esc_url( $phone_link ); ?>">
+					<?php directorist_icon( $phone_icon ); ?>
+					<?php echo esc_html( $phone_label ); ?>
+				</a>
+			<?php else :
+				$phone_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : __( 'Call Now', 'directorist' );
+				?>
+				<a class="directorist-btn directorist-btn-sm directorist-btn-primary"
+				   href="<?php echo esc_url( $phone_link ); ?>">
+					<?php directorist_icon( $phone_icon ); ?>
+					<?php echo esc_html( $phone_label ); ?>
+				</a>
+			<?php endif;
 				break;
 
 			// ── Email ────────────────────────────────
@@ -83,53 +89,49 @@ if ( ! $has_action ) {
 				$email = get_post_meta( $listing_id, '_email', true );
 				if ( ! $email ) { break; }
 				?>
-				<a class="directorist-btn directorist-btn-sm directorist-btn-outline-secondary"
-				   href="mailto:<?php echo esc_attr( $email ); ?>">
-					<?php directorist_icon( 'las la-envelope' ); ?>
-					<?php esc_html_e( 'Send Email', 'directorist' ); ?>
-				</a>
+			<?php
+				$email_icon  = ! empty( $action['icon'] ) ? $action['icon'] : 'las la-envelope';
+				$email_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : __( 'Send Email', 'directorist' );
+				?>
+			<a class="directorist-btn directorist-btn-sm directorist-btn-default"
+			   href="mailto:<?php echo esc_attr( $email ); ?>">
+				<?php directorist_icon( $email_icon ); ?>
+				<?php echo esc_html( $email_label ); ?>
+			</a>
 				<?php
 				break;
 
 			// ── Custom Button ────────────────────────
-			case 'button':
-				$field_key   = ! empty( $action['field_key'] ) ? $action['field_key'] : 'custom-button';
-				$btn_raw     = get_post_meta( $listing_id, '_' . $field_key, true );
+		case 'button':
+			$field_key   = ! empty( $action['field_key'] ) ? $action['field_key'] : 'custom-button';
+			$btn_raw     = get_post_meta( $listing_id, '_' . $field_key, true );
 				$btn_value   = is_array( $btn_raw ) ? $btn_raw : maybe_unserialize( $btn_raw );
 				$btn_text    = $btn_value['button_text'] ?? '';
 				$btn_url     = $btn_value['button_url_label'] ?? '';
 
 				if ( ! $btn_text || ! $btn_url ) { break; }
 
-				// Resolve button_style / open_in_new_tab from the submission form field.
-				$button_style = 'default';
-				$target       = '';
-
-				$submission_fields = get_term_meta( $listing->type, 'submission_form_fields', true );
-				if ( ! empty( $submission_fields['fields'] ) ) {
-					foreach ( $submission_fields['fields'] as $sf ) {
-						if ( ! empty( $sf['field_key'] ) && $sf['field_key'] === $field_key ) {
-							$button_style = ! empty( $sf['button_style'] ) ? $sf['button_style'] : 'default';
-							$target       = ! empty( $sf['open_in_new_tab'] ) ? ' target="_blank" rel="noopener"' : '';
-							break;
-						}
-					}
-				}
+				$button_style = ! empty( $action['form_data']['button_style'] ) ? $action['form_data']['button_style'] : 'default';
+				$target       = ! empty( $action['form_data']['open_in_new_tab'] ) ? ' target="_blank" rel="noopener"' : '';
 
 				$btn_class = 'directorist-btn directorist-btn-sm';
 				if ( 'primary' === $button_style ) {
-					$btn_class .= ' directorist-btn-primary';
+					$btn_class .= ' directorist-btn-outline-primary';
 				} elseif ( 'secondary' === $button_style ) {
 					$btn_class .= ' directorist-btn-outline-secondary';
 				} else {
 					$btn_class .= ' directorist-btn-default';
 				}
 				?>
-				<a class="<?php echo esc_attr( $btn_class ); ?>"
-				   href="<?php echo esc_url( $btn_url ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-					<?php directorist_icon( 'las la-link' ); ?>
-					<?php echo esc_html( $btn_text ); ?>
-				</a>
+			<?php
+				$button_icon  = ! empty( $action['icon'] ) ? $action['icon'] : 'las la-link';
+				$button_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : $btn_text;
+				?>
+			<a class="<?php echo esc_attr( $btn_class ); ?>"
+			   href="<?php echo esc_url( $btn_url ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			   <?php echo esc_html( $btn_text ); ?>
+			   <?php directorist_icon( $button_icon ); ?>
+			</a>
 				<?php
 				break;
 

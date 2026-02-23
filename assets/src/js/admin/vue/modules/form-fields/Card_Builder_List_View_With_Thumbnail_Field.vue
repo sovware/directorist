@@ -257,7 +257,7 @@
               :label="local_layout.body.action.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.action.acceptedWidgets"
+              :acceptedWidgets="actionAcceptedWidgets"
               :selectedWidgets="local_layout.body.action.selectedWidgets"
               :maxWidget="local_layout.body.action.maxWidget"
               :showWidgetsPickerWindow="
@@ -267,7 +267,8 @@
                 getActiveOptionWindowStatus('thumbnail_body_action')
               "
               :widgetOptionsWindow="widgetOptionsWindow"
-              :canOpenSettings="true"
+              :canOpenSettings="false"
+              :disableWidgetEdit="true"
               @insert-widget="insertWidget($event, local_layout.body.action)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.action)"
@@ -424,11 +425,20 @@ export default {
       return !!this.theAvailableWidgets?.excerpt;
     },
 
-    // Check if action area has any accepted widget that is actually available
-    hasActionWidget() {
+    actionAcceptedWidgets() {
       const accepted = this.local_layout.body.action.acceptedWidgets;
-      if (!accepted?.length) return false;
-      return accepted.some((key) => !!this.theAvailableWidgets?.[key]);
+      if (!accepted?.length) return [];
+      const acceptedSet = new Set(accepted);
+      return Object.keys(this.theAvailableWidgets).filter((widgetKey) => {
+        const widget = this.theAvailableWidgets[widgetKey];
+        return (
+          acceptedSet.has(widgetKey) ||
+          (widget && widget.widget_name && acceptedSet.has(widget.widget_name))
+        );
+      });
+    },
+    hasActionWidget() {
+      return this.actionAcceptedWidgets.length > 0;
     },
     // Output Data
     output_data() {

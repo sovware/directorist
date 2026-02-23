@@ -251,6 +251,31 @@
 	margin-bottom: 25px;
 	margin-top: -15px;
 	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	@media screen and (max-width: 575px) {
+		gap: 8px;
+	}
+	.directorist-listing-actions{
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+		.directorist-btn{
+			&.directorist-btn-default{
+				background-color: var(--directorist-color-white) !important;
+				background: transparent;
+    			border: 1px solid var(--directorist-color-bg-light) !important;
+				color: var(--directorist-color-body) !important;
+				&:hover {
+					background-color: var(--directorist-color-bg-light) !important;
+					border-color: var(--directorist-color-bg-light) !important;
+					color: var(--directorist-color-dark) !important;
+				}
+			}
+		}
+	}
 }
 .directorist-single-wrapper {
 	.directorist-listing-single__info {
@@ -258,7 +283,7 @@
 	}
 	.directorist-single-listing-slider-wrap {
 		padding: 0;
-		margin: 15px 0;
+		margin: 0;
 		&.background-contain {
 			.directorist-single-listing-slider {
 				.swiper-slide {
@@ -468,7 +493,7 @@
 
 // Listing Details
 .directorist-listing-details {
-	margin: 15px 0 30px;
+	
 	@include e("text") {
 		p {
 			margin: 0 0 15px;
@@ -485,10 +510,10 @@
 		}
 	}
 	@include e("listing-title") {
+		margin: 0;
 		font-size: 30px;
 		font-weight: 600;
 		display: inline-block;
-		margin: 15px 0 0;
 		color: var(--directorist-color-dark);
 		@media screen and (max-width: 575px) {
 			font-size: 24px;

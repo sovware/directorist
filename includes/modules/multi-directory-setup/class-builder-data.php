@@ -1908,7 +1908,7 @@ class Builder_Data {
                 ],
                 'action'  => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
@@ -1964,7 +1964,7 @@ class Builder_Data {
                 ],
                 'action'        => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
@@ -2025,7 +2025,7 @@ class Builder_Data {
                 ],
                 'action'  => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
@@ -2077,7 +2077,7 @@ class Builder_Data {
                 ],
                 'action'  => [
                     'label'           => __( 'Action', 'directorist' ),
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'acceptedWidgets' => [ 'phone', 'email', 'button' ],
                 ],
             ],
@@ -2094,6 +2094,19 @@ class Builder_Data {
                 ],
             ],
         ];
+
+        $directory_type        = isset( $_GET['listing_type_id'] ) ? absint( $_GET['listing_type_id'] ) : directorist_get_default_directory();
+        $submission_form_data  = get_term_meta( $directory_type, 'submission_form_fields', true );
+        $form_field_labels     = [];
+
+        if ( ! empty( $submission_form_data['fields'] ) ) {
+            foreach ( $submission_form_data['fields'] as $field ) {
+                $widget_name = $field['widget_name'] ?? '';
+                if ( $widget_name && ! empty( $field['label'] ) ) {
+                    $form_field_labels[ $widget_name ] = $field['label'];
+                }
+            }
+        }
 
         self::$fields = apply_filters(
             'atbdp_listing_type_settings_field_list', [
@@ -2687,7 +2700,7 @@ class Builder_Data {
                             ],
                             'phone' => [
                                 'type' => "badge",
-                                'label' => __( "Phone", "directorist" ),
+                                'label' => $form_field_labels['phone'] ?? __( "Phone", "directorist" ),
                                 'icon' => 'las la-phone',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
@@ -2698,7 +2711,7 @@ class Builder_Data {
                             ],
                             'email' => [
                                 'type' => "badge",
-                                'label' => __( "Email", "directorist" ),
+                                'label' => $form_field_labels['email'] ?? __( "Email", "directorist" ),
                                 'icon' => 'las la-envelope',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",
@@ -2709,7 +2722,7 @@ class Builder_Data {
                             ],
                             'button' => [
                                 'type' => "badge",
-                                'label' => __( "Button", "directorist" ),
+                                'label' => $form_field_labels['button'] ?? __( "Button", "directorist" ),
                                 'icon' => 'las la-link',
                                 'show_if' => [
                                     'where' => "submission_form_fields.value.fields",

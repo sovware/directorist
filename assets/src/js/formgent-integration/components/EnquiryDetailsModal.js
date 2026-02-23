@@ -53,7 +53,7 @@ export default function EnquiryDetailsModal({
 	const [error, setError] = useState(null);
 	const hasMarkedAsReadRef = useRef(false);
 	const {
-		TableDrawerAnswer,
+		SingleResponseAnswer,
 		getFormattedAnswer,
 		handleAnswerIcon,
 		isProActive,
@@ -261,7 +261,7 @@ export default function EnquiryDetailsModal({
 								{singleItem?.response?.answers.map(
 									(answer, index) => {
 										return (
-											<TableDrawerAnswer
+											<SingleResponseAnswer
 												key={index}
 												answer={answer}
 												handleAnswerIcon={

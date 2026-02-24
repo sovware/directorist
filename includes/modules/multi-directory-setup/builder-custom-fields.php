@@ -693,7 +693,21 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'conditional_logic' => get_conditional_logic_field(),
+                'assign_to' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Assign to Category', 'directorist' ),
+                    'value' => false,
+                ],
+                'category'  => get_category_select_field(
+                    [
+                        'show_if' => [
+                            'where'      => "self.assign_to",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ]
+                ),
             ]
         ],
     ]

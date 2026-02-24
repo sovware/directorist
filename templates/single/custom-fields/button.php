@@ -11,10 +11,23 @@ $button_value     = is_array( $value ) ? $value : maybe_unserialize( $value );
 $button_text      = isset( $button_value['button_text'] ) ? $button_value['button_text'] : '';
 $button_url_label = isset( $button_value['button_url_label'] ) ? $button_value['button_url_label'] : '';
 
+if ( ! $button_text || ! $button_url_label ) {
+	return;
+}
+
 // Get button settings from form_data if available
 $form_data    = isset( $data['form_data'] ) ? $data['form_data'] : $data;
-$button_style = ! empty( $form_data['button_style'] ) ? $form_data['button_style'] : 'primary';
+$button_style = ! empty( $form_data['button_style'] ) ? $form_data['button_style'] : 'default';
 $target       = ! empty( $form_data['open_in_new_tab'] ) ? ' target="_blank" rel="noopener"' : '';
+
+$btn_class = 'directorist-btn directorist-btn-xs';
+if ( 'primary' === $button_style ) {
+	$btn_class .= ' directorist-btn-outline-primary';
+} elseif ( 'secondary' === $button_style ) {
+	$btn_class .= ' directorist-btn-outline-secondary';
+} else {
+	$btn_class .= ' directorist-btn-default';
+}
 
 ?>
 
@@ -24,12 +37,13 @@ $target       = ! empty( $form_data['open_in_new_tab'] ) ? ' target="_blank" rel
         <span class="directorist-single-info__label__text"><?php echo esc_html( $data['label'] ); ?></span>
     </div>
 
-    <?php if ( $button_text && $button_url_label ) : ?>
-        <div class="directorist-single-info__value">
-            <a class="directorist-btn directorist-btn-<?php echo esc_attr( $button_style ); ?>"
-               href="<?php echo esc_url( $button_url_label ); ?>"<?php echo $target; ?>>
-                <?php echo esc_html( $button_text ); ?>
-            </a>
-        </div>
-    <?php endif; ?>
+    <div class="directorist-single-info__value">
+        <a class="<?php echo esc_attr( $btn_class ); ?>"
+           href="<?php echo esc_url( $button_url_label ); ?>"<?php echo $target; ?>>
+            <?php echo esc_html( $button_text ); ?>
+            <span class="directorist-icon-arrow-right">
+                <?php directorist_icon( 'fas fa-external-link-alt' ); ?>
+            </span>
+        </a>
+    </div>
 </div>

@@ -854,6 +854,12 @@ class Multi_Directory_Manager {
             }
         }
 
+        // Merge new layout placeholders into saved card-builder field values.
+        // When a new placeholder (e.g. action-placeholder) is added to the default
+        // layout but the directory was saved before it existed, this ensures the
+        // placeholder appears in the builder UI for existing directory types.
+        $this->merge_new_layout_placeholders_into_saved_value( 'single_listing_header' );
+
         foreach ( self::$config['fields_group'] as $group_key => $group_fields ) {
             if ( array_key_exists( $group_key, $all_term_meta ) ) {
                 $_group_meta_value = ( ! $test_migration ) ? $all_term_meta[$group_key][0] : $all_term_meta[$group_key];
@@ -877,6 +883,66 @@ class Multi_Directory_Manager {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Merge new layout placeholders into saved card-builder field values.
+     *
+     * When a new placeholder is added to the default layout definition but the
+     * directory type was saved before that placeholder existed, the saved value
+     * (from term meta) won't contain it. This method detects the gap and injects
+     * the missing placeholder(s) at the correct position so the builder UI
+     * shows them without requiring a manual reset.
+     *
+     * @param string $field_key The field key (e.g. 'single_listing_header').
+     */
+    protected function merge_new_layout_placeholders_into_saved_value( $field_key ) {
+        if ( ! isset( self::$fields[ $field_key ] ) ) {
+            return;
+        }
+
+        $field  = self::$fields[ $field_key ];
+        $value  = isset( $field['value'] ) ? $field['value'] : null;
+        $layout = isset( $field['layout'] ) ? $field['layout'] : null;
+
+        if ( ! is_array( $value ) || ! is_array( $layout ) ) {
+            return;
+        }
+
+        // Collect all placeholder keys already present in the saved value.
+        $saved_keys = [];
+        $collect_keys = function ( $items ) use ( &$saved_keys, &$collect_keys ) {
+            foreach ( $items as $item ) {
+                if ( isset( $item['placeholderKey'] ) ) {
+                    $saved_keys[] = $item['placeholderKey'];
+                }
+                if ( isset( $item['placeholders'] ) && is_array( $item['placeholders'] ) ) {
+                    $collect_keys( $item['placeholders'] );
+                }
+            }
+        };
+        $collect_keys( $value );
+
+        // Walk the default layout and inject any missing placeholders.
+        $offset = 0;
+        foreach ( $layout as $index => $layout_item ) {
+            if ( ! isset( $layout_item['placeholderKey'] ) ) {
+                continue;
+            }
+
+            if ( in_array( $layout_item['placeholderKey'], $saved_keys, true ) ) {
+                continue;
+            }
+
+            // Placeholder exists in default layout but not in saved value — inject it.
+            $insert_position = min( $index + $offset, count( $value ) );
+            array_splice( $value, $insert_position, 0, [ $layout_item ] );
+            $offset++;
+        }
+
+        if ( $offset > 0 ) {
+            self::$fields[ $field_key ]['value'] = $value;
         }
     }
 

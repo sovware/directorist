@@ -6,9 +6,12 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-checkbox directorist-form-hide-owner-field">
+<div class="directorist-form-group directorist-checkbox directorist-form-hide-owner-field"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <input type="checkbox" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" <?php checked( $data['value'], 'on' ); ?> >
 

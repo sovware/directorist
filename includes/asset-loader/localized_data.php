@@ -163,6 +163,12 @@ class Localized_Data {
             $listing_id = (int) $important;
         }
 
+        // For admin post edit (post.php?post=123&action=edit)
+        if ( is_admin() && empty( $listing_id ) && ! empty( $_GET['post'] ) && get_post_type( (int) $_GET['post'] ) === 'at_biz_dir' ) {
+            $listing_id = (int) $_GET['post'];
+            $current_listing_type = directorist_get_listing_directory( $listing_id );
+        }
+
         $submission_form  = get_term_meta( $current_listing_type, 'submission_form_fields', true );
         $new_tag          = ! empty( $submission_form['fields']['tag']['allow_new'] ) ? $submission_form['fields']['tag']['allow_new'] : '';
         $new_loc          = ! empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
@@ -206,9 +212,55 @@ class Localized_Data {
             'create_new_cat'                  => $new_cat,
             'image_notice'                    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
             'category_custom_field_relations' => static::get_fields_category_relation(),
+            'admin_conditional_logic_targets' => static::get_admin_conditional_logic_targets( $submission_form ),
         ];
 
         return $data;
+    }
+
+    /**
+     * Get conditional logic targets for admin title/description (WordPress core elements).
+     * Used when conditional logic should show/hide title or description based on category etc.
+     *
+     * @param array $submission_form Submission form fields from directory type.
+     * @return array Array of { selector, fieldKey, conditionalLogic } for #titlediv, #postdivrich.
+     */
+    public static function get_admin_conditional_logic_targets( $submission_form ) {
+        if ( ! is_admin() || empty( $submission_form['fields'] ) ) {
+            return [];
+        }
+
+        $targets = [];
+        $admin_selectors = [
+            'title'       => [ 'selector' => '#titlediv', 'field_key' => 'listing_title' ],
+            'description' => [ 'selector' => '#postdivrich', 'field_key' => 'listing_content' ],
+        ];
+
+        foreach ( $admin_selectors as $widget_key => $config ) {
+            $field = $submission_form['fields'][ $widget_key ] ?? null;
+            if ( ! $field ) {
+                continue;
+            }
+
+            $conditional_logic = null;
+            if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
+                $conditional_logic = $field['options']['conditional_logic']['value'];
+            } elseif ( ! empty( $field['options']['conditional_logic'] ) && is_array( $field['options']['conditional_logic'] ) ) {
+                $conditional_logic = $field['options']['conditional_logic'];
+            } elseif ( ! empty( $field['conditional_logic'] ) && is_array( $field['conditional_logic'] ) ) {
+                $conditional_logic = $field['conditional_logic'];
+            }
+
+            if ( ! empty( $conditional_logic['enabled'] ) && ! empty( $conditional_logic['groups'] ) ) {
+                $targets[] = [
+                    'selector'          => $config['selector'],
+                    'fieldKey'          => $config['field_key'],
+                    'conditionalLogic'  => $conditional_logic,
+                ];
+            }
+        }
+
+        return $targets;
     }
 
     public static function get_admin_script_data() {

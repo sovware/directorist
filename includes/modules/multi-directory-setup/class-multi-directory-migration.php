@@ -1806,10 +1806,12 @@ class Multi_Directory_Migration {
 
             $field_data['only_for_admin'] = ( $admin_use == 1 ) ? true : false;
 
-            $assign_to = get_post_meta( $old_field_id, 'associate', true );
-            $assign_to = ( 'categories' === $assign_to ) ? 'category' : $assign_to;
-            $field_data['assign_to']   = $assign_to;
-            $field_data['category']    = ( is_numeric( $category_pass ) ) ? ( int ) $category_pass : '';
+            // Deprecated: assign_to feature removed - migrate to conditional_logic instead
+            // Note: Old fields with assign_to should be manually migrated to use conditional_logic
+            // Example: If field was assigned to category ID 5, create conditional_logic:
+            // enabled: true, action: 'show', groups: [{
+            //   operator: 'AND', conditions: [{ field: 'category', operator: 'is', value: '5' }]
+            // }]
             $field_data['searchable']  = ( $searchable == 1 ) ? true : false;
 
             $field_data['widget_group'] = 'custom';

@@ -57,8 +57,11 @@ export default {
     fieldList() {
       this.filterFieldList();
     },
-    value() {
-      this.filterFieldList();
+    value: {
+      handler() {
+        this.filterFieldList();
+      },
+      deep: true,
     },
   },
 
@@ -158,6 +161,41 @@ export default {
       }
 
       for (let field_key in new_fields) {
+        // Extract conditional logic configuration
+        // Structure from PHP get_conditional_logic_field():
+        // options.conditional_logic = { type: 'conditional-logic', value: { enabled, action, groups } }
+        // The actual config is in conditional_logic.value (not directly in conditional_logic)
+        let conditionalLogic = null;
+
+        const field = new_fields[field_key];
+
+        // Priority 1: options.conditional_logic.value (current structure)
+        // This matches the structure returned by get_conditional_logic_field() in builder-custom-fields.php
+        if (field.options?.conditional_logic?.value) {
+          conditionalLogic = field.options.conditional_logic.value;
+        }
+        // Priority 2: options.conditional_logic (flat structure - backward compatibility)
+        else if (field.options?.conditional_logic?.enabled !== undefined) {
+          conditionalLogic = field.options.conditional_logic;
+        }
+        // Priority 3: field.conditional_logic (direct access - edge cases)
+        else if (field.conditional_logic?.enabled !== undefined) {
+          conditionalLogic = field.conditional_logic;
+        }
+
+        if (conditionalLogic) {
+          let shouldShow = this.evaluateConditionalLogic(
+            conditionalLogic,
+            new_fields,
+          );
+
+          if (!shouldShow) {
+            delete new_fields[field_key];
+            continue;
+          }
+        }
+
+        // Check for legacy show_if format
         if (!(new_fields[field_key].showIf || new_fields[field_key].show_if)) {
           continue;
         }
@@ -181,7 +219,10 @@ export default {
 
     update(payload) {
       this.$emit("update", payload);
-      this.filterFieldList();
+      // Re-evaluate conditional logic when any field value changes
+      this.$nextTick(() => {
+        this.filterFieldList();
+      });
     },
   },
 };

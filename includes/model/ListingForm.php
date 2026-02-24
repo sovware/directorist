@@ -564,6 +564,181 @@ class Directorist_Listing_Form {
         Helper::get_template( 'listing-form/field-label', $args );
     }
 
+    /**
+     * Get conditional logic data attributes for field wrapper
+     *
+     * Handles all possible data structure locations including nested structures.
+     * This method centralizes all conditional logic processing to eliminate duplication.
+     *
+     * @param array $data Field data array
+     * @return string HTML attributes string (empty if no conditional logic or not enabled)
+     */
+    public function get_conditional_logic_attributes( $data ) {
+        $conditional_logic = $this->extract_conditional_logic( $data );
+        
+        if ( empty( $conditional_logic ) ) {
+            return '';
+        }
+        
+        $normalized = $this->normalize_conditional_logic( $conditional_logic );
+        
+        if ( empty( $normalized ) ) {
+            return '';
+        }
+        
+        $field_key = isset( $data['field_key'] ) ? $data['field_key'] : '';
+        $json      = wp_json_encode( $normalized );
+        
+        return ' data-conditional-logic="' . esc_attr( $json ) . '" data-field-key="' . esc_attr( $field_key ) . '"';
+    }
+
+    /**
+     * Extract conditional logic from field data
+     *
+     * Handles all possible data structure locations:
+     * 1. conditional_logic_data (already processed JSON string or array)
+     * 2. options.conditional_logic.value (nested structure from form builder)
+     * 3. options.conditional_logic (flat structure - backward compatibility)
+     * 4. conditional_logic (direct key - edge cases)
+     *
+     * @param array $data Field data array
+     * @return array|null Conditional logic array or null if not found
+     */
+    private function extract_conditional_logic( $data ) {
+        // Priority 1: Already processed conditional_logic_data
+        if ( ! empty( $data['conditional_logic_data'] ) ) {
+            if ( is_string( $data['conditional_logic_data'] ) ) {
+                $decoded = json_decode( $data['conditional_logic_data'], true );
+                if ( json_last_error() === JSON_ERROR_NONE && is_array( $decoded ) ) {
+                    return $decoded;
+                }
+            } elseif ( is_array( $data['conditional_logic_data'] ) ) {
+                return $data['conditional_logic_data'];
+            }
+        }
+        
+        // Priority 2: options.conditional_logic.value (nested structure from form builder)
+        if ( ! empty( $data['options']['conditional_logic']['value'] ) && is_array( $data['options']['conditional_logic']['value'] ) ) {
+            return $data['options']['conditional_logic']['value'];
+        }
+        
+        // Priority 3: options.conditional_logic (flat structure - backward compatibility)
+        if ( ! empty( $data['options']['conditional_logic'] ) && is_array( $data['options']['conditional_logic'] ) ) {
+            // Check if it's the nested structure wrapper
+            if ( isset( $data['options']['conditional_logic']['value'] ) ) {
+                return null; // Already handled in Priority 2
+            }
+            return $data['options']['conditional_logic'];
+        }
+        
+        // Priority 4: Direct conditional_logic key
+        if ( ! empty( $data['conditional_logic'] ) && is_array( $data['conditional_logic'] ) ) {
+            return $data['conditional_logic'];
+        }
+        
+        return null;
+    }
+
+    /**
+     * Normalize and validate conditional logic data
+     *
+     * @param array $conditional_logic Raw conditional logic array
+     * @return array|null Normalized conditional logic array or null if invalid
+     */
+    private function normalize_conditional_logic( $conditional_logic ) {
+        if ( ! is_array( $conditional_logic ) ) {
+            return null;
+        }
+        
+        // Normalize enabled flag
+        $enabled = isset( $conditional_logic['enabled'] ) 
+            ? filter_var( $conditional_logic['enabled'], FILTER_VALIDATE_BOOLEAN ) 
+            : false;
+        
+        if ( ! $enabled ) {
+            return null;
+        }
+        
+        // Ensure groups array exists
+        if ( ! isset( $conditional_logic['groups'] ) || ! is_array( $conditional_logic['groups'] ) ) {
+            return null;
+        }
+        
+        // Normalize globalOperator
+        $global_operator = $this->normalize_operator( 
+            $conditional_logic['globalOperator'] ?? 'OR' 
+        );
+        
+        // Normalize groups
+        $normalized_groups = $this->normalize_groups( $conditional_logic['groups'] );
+        
+        if ( empty( $normalized_groups ) ) {
+            return null;
+        }
+        
+        return [
+            'enabled'        => true,
+            'action'         => $conditional_logic['action'] ?? 'show',
+            'globalOperator' => $global_operator,
+            'groups'         => $normalized_groups,
+        ];
+    }
+
+    /**
+     * Normalize operator value
+     *
+     * @param mixed $operator Operator value
+     * @return string Normalized operator (AND or OR)
+     */
+    private function normalize_operator( $operator ) {
+        if ( empty( $operator ) || ! is_string( $operator ) ) {
+            return 'OR';
+        }
+        
+        $normalized = strtoupper( trim( $operator ) );
+        
+        return in_array( $normalized, [ 'AND', 'OR' ], true ) ? $normalized : 'OR';
+    }
+
+    /**
+     * Normalize groups array
+     *
+     * @param array $groups Raw groups array
+     * @return array Normalized groups array
+     */
+    private function normalize_groups( $groups ) {
+        if ( ! is_array( $groups ) ) {
+            return [];
+        }
+        
+        $normalized = [];
+        
+        foreach ( $groups as $group ) {
+            if ( ! is_array( $group ) || empty( $group['conditions'] ) || ! is_array( $group['conditions'] ) ) {
+                continue;
+            }
+            
+            $operator = $this->normalize_operator( $group['operator'] ?? 'AND' );
+            
+            // Filter and validate conditions
+            $valid_conditions = [];
+            foreach ( $group['conditions'] as $condition ) {
+                if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
+                    $valid_conditions[] = $condition;
+                }
+            }
+            
+            if ( ! empty( $valid_conditions ) ) {
+                $normalized[] = [
+                    'operator'   => $operator,
+                    'conditions' => $valid_conditions,
+                ];
+            }
+        }
+        
+        return $normalized;
+    }
+
     public function field_description_template( $data ) {
         $args = [
             'listing_form' => $this,
@@ -605,6 +780,11 @@ class Directorist_Listing_Form {
         return true; // All fields are for admin
     }
 
+    /**
+     * @deprecated This method is deprecated. The assign_to feature has been removed.
+     * Use conditional_logic instead for field visibility.
+     * This method is kept for backward compatibility but is no longer called.
+     */
     public function add_listing_category_custom_field_template( $field_data, $listing_id = NULL ) {
         $value = '';
         if ( ! empty( $listing_id ) ) {
@@ -673,6 +853,15 @@ class Directorist_Listing_Form {
         $field_data['value'] = $value;
         $field_data['form']  = $this;
         $field_data          = apply_filters( 'directorist_form_field_data', $field_data );
+        
+        // Extract and prepare conditional logic data for frontend
+        // This ensures conditional_logic_data is available in templates
+        $conditional_logic = $this->extract_conditional_logic( $field_data );
+        
+        if ( ! empty( $conditional_logic ) && is_array( $conditional_logic ) ) {
+            // Store as JSON string for template use (only encode once)
+            $field_data['conditional_logic_data'] = wp_json_encode( $conditional_logic );
+        }
 
         if ( $this->is_custom_field( $field_data ) ) {
             $template = 'listing-form/custom-fields/' . $field_data['widget_name'];

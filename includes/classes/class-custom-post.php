@@ -97,6 +97,34 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                         $view_count_input.val( view_count );
                     }
                 }
+                // Handle bulk edit - clear expiration date fields when bulk edit is triggered.
+                $( document ).on( 'click', '#doaction, #doaction2', function() {
+                    var $form = $( this ).closest( 'form' );
+                    var action = $form.find( 'select[name="action"], select[name="action2"]' ).val();
+
+                    if ( action === 'edit' ) {
+                        setTimeout( function() {
+                            // Clear expiration date fields on bulk edit.
+                            $( 'input[name^="directorist_exp_date"]' ).val( '' );
+                            $( 'select[name="directorist_exp_date[mm]"]' ).val( '' );
+                            $( 'input[name="directorist_never_expire"]' ).prop( 'checked', false );
+                            $( '.atbdp-timestamp-wrap' ).show();
+                        }, 100 );
+                    }
+                } );
+
+                // Toggle expiration date fields based on "Never Expires" checkbox.
+                $( document ).on( 'change', 'input[name="directorist_never_expire"]', function() {
+                    var $expiryFields = $( '.atbdp-timestamp-wrap' );
+                    var $expiryInputs = $( 'input[name^="directorist_exp_date"], select[name="directorist_exp_date[mm]"]' );
+
+                    if ( $( this ).is( ':checked' ) ) {
+                        $expiryFields.hide();
+                        $expiryInputs.val( '' );
+                    } else {
+                        $expiryFields.show();
+                    }
+                } );
             });
             </script>
             <?php
@@ -122,6 +150,48 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
             if ( ! empty( $_REQUEST['directorist_listing_view_count'] ) ) {
                 update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), absint( wp_unslash( $_REQUEST['directorist_listing_view_count'] ) ) );
+            }
+
+            // Handle expiration date and never expire option.
+            $never_expire = ! empty( $_REQUEST['directorist_never_expire'] );
+
+            if ( $never_expire ) {
+                update_post_meta( $listing_id, '_never_expire', true );
+                delete_post_meta( $listing_id, '_expiry_date' );
+            } else {
+                $exp_date = ! empty( $_REQUEST['directorist_exp_date'] ) ? directorist_clean( wp_unslash( $_REQUEST['directorist_exp_date'] ) ) : [];
+
+                if ( ! empty( $exp_date ) && ! empty( $exp_date['aa'] ) && ! empty( $exp_date['mm'] ) && ! empty( $exp_date['jj'] ) ) {
+                    $year  = isset( $exp_date['aa'] ) ? absint( $exp_date['aa'] ) : 0;
+                    $month = isset( $exp_date['mm'] ) ? absint( $exp_date['mm'] ) : 0;
+                    $day   = isset( $exp_date['jj'] ) ? absint( $exp_date['jj'] ) : 0;
+                    $hour  = isset( $exp_date['hh'] ) ? absint( $exp_date['hh'] ) : 0;
+                    $min   = isset( $exp_date['mn'] ) ? absint( $exp_date['mn'] ) : 0;
+
+                    // Validate date values.
+                    if ( $year > 0 && $month >= 1 && $month <= 12 && $day >= 1 && $day <= 31 && $hour >= 0 && $hour <= 23 && $min >= 0 && $min <= 59 ) {
+                        // Validate day against month (e.g., February can't have 31 days).
+                        $days_in_month = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
+                        
+                        if ( $day <= $days_in_month ) {
+                            $expiry_date = get_date_in_mysql_format(
+                                [
+                                    'year'  => $year,
+                                    'month' => $month,
+                                    'day'   => $day,
+                                    'hour'  => $hour,
+                                    'min'   => $min,
+                                ]
+                            );
+
+                            // Validate the formatted date.
+                            if ( $expiry_date && strtotime( $expiry_date ) !== false ) {
+                                update_post_meta( $listing_id, '_expiry_date', $expiry_date );
+                                delete_post_meta( $listing_id, '_never_expire' );
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -191,6 +261,51 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                             <span class="title"><?php esc_html_e( 'View Count', 'directorist' ); ?></span>
                             <input type="number" name="directorist_listing_view_count" min="0" step="1" value="">
                         </label>
+                    </div>
+                </fieldset>
+            <?php endif;
+
+            if ( 'atbdp_date' === $column_name ) : ?>
+                <fieldset class="inline-edit-col-right">
+                    <div class="inline-edit-group wp-clearfix">
+                        <div class="misc-pub-section misc-pub-atbdp-expiration-time">
+                            <span id="atbdp-timestamp">
+                                <strong><?php esc_html_e( 'Expiration', 'directorist' ); ?></strong>
+                                <?php esc_html_e( 'Date & Time', 'directorist' ); ?>
+                            </span>
+                            <div id="atbdp-timestamp-wrap" class="atbdp-timestamp-wrap" style="display: inline-block;">
+                                <label style="display: inline;">
+                                    <select name="directorist_exp_date[mm]">
+                                        <option value=""><?php esc_html_e( 'Month', 'directorist' ); ?></option>
+                                        <?php
+                                        $months = atbdp_get_months();
+                                        foreach ( $months as $key => $month_name ) {
+                                            $key += 1;
+                                            printf( '<option value="%1$d">%1$d-%2$s</option>', esc_attr( $key ), esc_html( $month_name ) );
+                                        }
+                                        ?>
+                                    </select>
+                                </label>
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[jj]" placeholder="<?php esc_attr_e( 'day', 'directorist' ); ?>" size="3" maxlength="2">
+                                </label>,
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[aa]" placeholder="<?php esc_attr_e( 'year', 'directorist' ); ?>" size="4" maxlength="4">
+                                </label>@
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[hh]" placeholder="<?php esc_attr_e( 'hour', 'directorist' ); ?>" size="4" maxlength="2">
+                                </label> :
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[mn]" placeholder="<?php esc_attr_e( 'min', 'directorist' ); ?>" size="3" maxlength="2">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="misc-pub-section misc-pub-atbdp-never-expires">
+                            <label>
+                                <input type="checkbox" name="directorist_never_expire" value="1">
+                                <strong><?php esc_html_e( 'Never Expires', 'directorist' ); ?></strong>
+                            </label>
+                        </div>
                     </div>
                 </fieldset>
             <?php endif;

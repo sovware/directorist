@@ -5643,6 +5643,9 @@ input[type="radio"].cptm-radio {
 		padding-right: 10px;
 		flex-grow: 1;
 		margin-bottom: 0;
+		~ .cptm-form-group-info {
+			margin: 5px 0 0;
+		}
 	}
 	.cptm-input-toggle-content {
 		flex: 1;
@@ -7431,5 +7434,610 @@ input[type="radio"] {
 	.cptm-form-group-info {
 		font-size: 14px;
 		color: #4d5761;
+	}
+}
+
+// Conditional Logic Builder Styles
+.directorist-conditional-logic-builder {
+	margin-top: 16px;
+	padding: 16px;
+	background-color: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+	&__header {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+		flex-wrap: wrap;
+		margin-bottom: 16px;
+
+		.directorist-conditional-logic-builder__action {
+			flex-shrink: 0;
+			min-width: 100px;
+			padding: 8px 12px;
+			font-size: 14px;
+			font-weight: 500;
+			color: #141921;
+			background-color: #ffffff;
+			border: 1px solid #d2d6db;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+
+			&:hover,
+			&:focus {
+				border-color: #3e62f5;
+				outline: none;
+			}
+		}
+
+		.directorist-conditional-logic-builder__label {
+			font-size: 14px;
+			font-weight: 500;
+			color: #4d5761;
+			white-space: nowrap;
+		}
+	}
+
+	&__rules-and-groups {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	&__rule {
+		// Single standalone rule (not in a group container)
+		margin-bottom: 0;
+
+		.directorist-conditional-logic-builder__condition {
+			background-color: #ffffff;
+			border: 1px solid #e5e7eb;
+			border-radius: 6px;
+			padding: 12px;
+		}
+	}
+
+	&__rule-separator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 12px 0;
+		position: relative;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 50%;
+			height: 1px;
+			border-top: 1px dashed #e5e7eb;
+		}
+	}
+
+	&__groups {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	&__group-separator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 12px 0;
+		position: relative;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 50%;
+			height: 1px;
+			border-top: 1px dashed #e5e7eb;
+		}
+	}
+
+	&__separator-text {
+		background-color: #ffffff;
+		padding: 0 12px;
+		color: #9ca3af;
+		font-size: 13px;
+		font-weight: 500;
+		position: relative;
+		z-index: 1;
+	}
+
+	&__condition-separator {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 8px 0;
+		position: relative;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 50%;
+			height: 1px;
+			border-top: 1px dashed #e5e7eb;
+		}
+	}
+
+	&__group {
+		background-color: #ffffff;
+		border: 1px solid #8c8f94;
+		border-radius: 6px;
+		padding: 16px;
+		position: relative;
+	}
+
+	&__conditions {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		margin-bottom: 12px;
+	}
+
+	&__condition {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+		position: relative;
+		padding: 12px;
+		background-color: #ffffff;
+		border-radius: 6px;
+		border: 1px solid #e5e7eb;
+		transition: all 0.3s ease;
+
+		&:hover {
+			border-color: #d2d6db;
+		}
+
+		// Integrate action dropdown into condition line if present
+		.directorist-conditional-logic-builder__action {
+			flex-shrink: 0;
+			min-width: 100px;
+			font-size: 14px;
+			font-weight: 500;
+			color: #141921;
+			border: none;
+			background-color: #ffffff;
+			cursor: pointer;
+			transition: all 0.3s ease;
+
+			&:hover,
+			&:focus {
+				outline: none;
+			}
+		}
+
+		.directorist-conditional-logic-builder__field {
+			flex: 1;
+			font-size: 13px;
+			color: #141921;
+			border: none;
+			transition: all 0.3s ease;
+			&:focus {
+				outline: none;
+				border: none;
+			}
+		}
+
+		.directorist-conditional-logic-builder__operator-select {
+			flex: 1;
+			border: none;
+			transition: all 0.3s ease;
+			&:focus {
+				border: none;
+				outline: none;
+			}
+		}
+
+		.directorist-conditional-logic-builder__value {
+			flex: 1;
+			font-size: 13px;
+			color: #141921;
+			border: none;
+			transition: all 0.3s ease;
+			&[type="color"] {
+				cursor: pointer;
+			}
+
+			&:focus {
+				outline: none;
+				border: none;
+			}
+		}
+
+		.directorist-conditional-logic-builder__value-color-wrapper {
+			flex: 1;
+			position: relative;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.directorist-conditional-logic-builder__value-color-swatch {
+			position: relative;
+			flex: 1;
+			min-width: 80px;
+			min-height: 32px;
+			border-radius: 6px;
+			cursor: pointer;
+			overflow: visible;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			border: 1px solid #e5e7eb;
+			background-color: #f9fafb;
+			padding: 0 8px;
+			padding-right: 36px;
+
+			&.is-empty {
+				padding-right: 8px;
+
+				.directorist-conditional-logic-builder__value-color-placeholder {
+					display: inline;
+					font-size: 12px;
+					color: #9ca3af;
+				}
+			}
+		}
+
+		.directorist-conditional-logic-builder__value-color-preview {
+			display: block;
+			width: 24px;
+			height: 24px;
+			min-width: 24px;
+			border-radius: 4px;
+			flex-shrink: 0;
+		}
+
+		.directorist-conditional-logic-builder__value-color-code {
+			font-size: 12px;
+			font-family: monospace;
+			color: #374151;
+			position: relative;
+			z-index: 0;
+		}
+
+		.directorist-conditional-logic-builder__value-color-placeholder {
+			display: none;
+			position: relative;
+			z-index: 0;
+		}
+
+		.directorist-conditional-logic-builder__value-color-input {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			cursor: pointer;
+			border: none;
+			padding: 0;
+			margin: 0;
+			z-index: 1;
+		}
+
+		.directorist-conditional-logic-builder__value-select-wrapper {
+			flex: 1;
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+
+		.directorist-conditional-logic-builder__value-select {
+			flex: 1;
+			font-size: 13px;
+			color: #141921;
+			background-color: #ffffff;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			padding-right: 30px;
+
+			&:focus {
+				outline: none;
+				border-color: #3e62f5;
+			}
+
+			option {
+				padding: 8px;
+			}
+		}
+
+		.directorist-conditional-logic-builder__value-color-wrapper
+			.directorist-conditional-logic-builder__value-clear--color {
+			position: absolute;
+			right: 6px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 20px;
+			height: 20px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background-color: transparent;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 2;
+			border-radius: 50%;
+			transition: opacity 0.2s ease, background-color 0.2s ease;
+
+			.fa-times {
+				font-size: 11px;
+			}
+
+			&:hover {
+				opacity: 0.9;
+				background-color: rgba(0, 0, 0, 0.06);
+			}
+		}
+
+		.directorist-conditional-logic-builder__value-clear {
+			position: absolute;
+			right: 20px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 18px;
+			height: 18px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background-color: transparent;
+			color: #9ca3af;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 1;
+			transition: color 0.2s ease;
+
+			&:hover {
+				color: #e62626;
+			}
+
+			.fa-times {
+				font-size: 12px;
+			}
+		}
+
+		.directorist-conditional-logic-builder__remove {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 22px;
+			height: 22px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background-color: #e62626;
+			color: #ffffff;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			flex-shrink: 0;
+			border-radius: 50%;
+
+			i {
+				font-size: 12px;
+				color: #ffffff;
+			}
+
+			&:hover:not(:disabled) {
+				background-color: #e62626;
+			}
+
+			&:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+				background-color: #e62626;
+			}
+
+			&:hover {
+				background-color: #dc2626;
+				color: #ffffff;
+			}
+
+			i {
+				font-size: 10px;
+				color: #ffffff;
+			}
+		}
+	}
+
+	&__group-footer {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding-top: 12px;
+		gap: 12px;
+
+		&__label {
+			font-size: 14px;
+			font-weight: 500;
+			color: #141921;
+		}
+
+		.directorist-conditional-logic-builder__operator {
+			border-radius: 6px;
+			border-color: #e5e7eb;
+		}
+
+		.cptm-btn {
+			// "+ Add rule" button - dark background
+			background-color: #141921;
+			color: #ffffff;
+			border: 1px solid #141921;
+
+			&:hover {
+				background-color: #1f2937;
+				border-color: #1f2937;
+			}
+		}
+
+		&__remove-group {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 22px;
+			height: 22px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background-color: #e62626;
+			color: #ffffff;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			flex-shrink: 0;
+
+			i {
+				font-size: 12px;
+				color: #ffffff;
+			}
+
+			&:hover:not(:disabled) {
+				background-color: #e62626;
+			}
+
+			&:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+				background-color: #e62626;
+			}
+		}
+	}
+
+	&__footer {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin-top: 16px;
+		gap: 12px;
+		&__label {
+			font-size: 14px;
+			font-weight: 500;
+			color: #141921;
+		}
+		&__add-group-wrap {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 12px;
+		}
+		.directorist-conditional-logic-builder__operator {
+			height: 32px;
+			border-radius: 6px;
+			border-color: #e5e7eb;
+		}
+	}
+
+	.cptm-btn {
+		margin: 0;
+		padding: 8px 16px;
+		height: 32px;
+		font-size: 13px;
+		font-weight: 500;
+		border-radius: 6px;
+		transition: all 0.3s ease;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		border: 1px solid transparent;
+		cursor: pointer;
+		white-space: nowrap;
+
+		// "+ Add rule" button - dark background (default style in group-footer)
+		&:not(.cptm-btn-secondery) {
+			background-color: #141921;
+			color: #ffffff;
+			border-color: #141921;
+
+			&:hover {
+				background-color: #1f2937;
+				border-color: #1f2937;
+				color: #ffffff;
+			}
+
+			// Plus icon should be white
+			span,
+			i,
+			.fa {
+				color: #ffffff;
+			}
+		}
+
+		// "+ Add group" button - white with blue border
+		&.cptm-btn-secondery {
+			color: #141921;
+			border: 1px solid #141921;
+			background-color: #ffffff;
+
+			&:hover {
+				color: #ffffff;
+				background-color: #141921;
+				border-color: #141921;
+
+				// Plus icon should be white on hover
+				span,
+				i,
+				.fa {
+					color: #ffffff;
+				}
+			}
+
+			// Plus icon should match text color
+			span,
+			i,
+			.fa {
+				color: #141921;
+			}
+		}
+	}
+}
+
+// Responsive adjustments for conditional logic builder
+@media only screen and (max-width: 767px) {
+	.directorist-conditional-logic-builder {
+		&__condition {
+			flex-direction: column;
+			align-items: stretch;
+
+			.directorist-conditional-logic-builder__field,
+			.directorist-conditional-logic-builder__operator-select,
+			.directorist-conditional-logic-builder__value,
+			.directorist-conditional-logic-builder__operator {
+				width: 100%;
+				min-width: 100%;
+			}
+
+			.directorist-conditional-logic-builder__remove {
+				position: absolute;
+				top: 8px;
+				right: 8px;
+			}
+		}
+
+		&__header {
+			flex-direction: column;
+			align-items: flex-start;
+
+			.directorist-conditional-logic-builder__action {
+				width: 100%;
+			}
+		}
 	}
 }

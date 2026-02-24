@@ -200,21 +200,21 @@
 
   &.directorist-btn-outline-primary {
     background: transparent;
-    border: 1px solid var(--directorist-color-primary) !important;
-    color: var(--directorist-color-primary);
+    border: 1px solid var(--directorist-color-btn-primary-border) !important;
+    color: var(--directorist-color-btn-primary-bg);
     &:focus,&:hover{
       color:var(--directorist-color-white);
-      background-color: var(--directorist-color-primary);
+      background-color: var(--directorist-color-btn-primary-bg);
     }
   }
 
   &.directorist-btn-outline-secondary {
     background: transparent;
-    border: 1px solid var(--directorist-color-secondary) !important;
-    color: var(--directorist-color-secondary);
+    border: 1px solid var(--directorist-color-btn-secondary-border) !important;
+    color: var(--directorist-color-btn-secondary-bg);
     &:focus,&:hover{
       color:var(--directorist-color-white);
-      background-color: var(--directorist-color-secondary);
+      background-color: var(--directorist-color-btn-secondary-bg);
     }
   }
 
@@ -284,6 +284,7 @@
   }
 
   &.directorist-btn-xs {
+    padding: 0 15px;
     min-height: 36px;
   }
 

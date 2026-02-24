@@ -1869,10 +1869,58 @@ var enrichEnquiriesWithAnswers = /*#__PURE__*/function () {
  * @param {string} dateString - A date string (e.g. "2026-02-09 09:53:47")
  * @returns {string} - Formatted relative time or full date
  */
+function parseMysqlDateTimeAsUTC(value) {
+  // Matches: 2026-02-15 03:00:00 (optionally with milliseconds)
+  var match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?(?:\.(\d{1,3}))?$/);
+  if (!match) return null;
+  var year = Number(match[1]);
+  var month = Number(match[2]) - 1;
+  var day = Number(match[3]);
+  var hour = Number(match[4]);
+  var minute = Number(match[5]);
+  var second = match[6] ? Number(match[6]) : 0;
+  var ms = match[7] ? Number(match[7].padEnd(3, '0')) : 0;
+  var utcMs = Date.UTC(year, month, day, hour, minute, second, ms);
+  var d = new Date(utcMs);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+function normalizeDateInput(value) {
+  var _ref10 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+    _ref10$assumeUTC = _ref10.assumeUTC,
+    assumeUTC = _ref10$assumeUTC === void 0 ? false : _ref10$assumeUTC;
+  if (value == null || value === '') return null;
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? null : value;
+  }
+
+  // Epoch milliseconds
+  if (typeof value === 'number') {
+    var d = new Date(value);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+  var raw = String(value);
+
+  // MySQL-style datetime strings have no timezone; when requested, treat them as UTC
+  // BEFORE letting the browser parse it as local time.
+  if (assumeUTC) {
+    var utcParsed = parseMysqlDateTimeAsUTC(raw);
+    if (utcParsed) return utcParsed;
+  }
+
+  // ISO 8601 (with timezone) is safe to hand to the Date parser.
+  var isoParsed = new Date(raw);
+  if (!Number.isNaN(isoParsed.getTime())) return isoParsed;
+  var localParsed = new Date(raw);
+  return Number.isNaN(localParsed.getTime()) ? null : localParsed;
+}
 var formatRelativeDate = function formatRelativeDate(dateString) {
   if (!dateString) return '';
-  var date = new Date(dateString.replace(' ', 'T'));
-  if (isNaN(date.getTime())) return dateString;
+
+  // MySQL-style datetimes have no timezone; treat them as UTC
+  var date = normalizeDateInput(dateString, {
+    assumeUTC: true
+  });
+  if (!date) return dateString;
   var now = new Date();
   var diffMs = now - date;
   var diffSeconds = Math.floor(diffMs / 1000);

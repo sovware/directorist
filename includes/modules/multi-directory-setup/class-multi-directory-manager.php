@@ -68,25 +68,14 @@ class Multi_Directory_Manager {
     public static function migrate_custom_field( $term_id ) {
 
         $submission_form_fields = get_term_meta( $term_id , 'submission_form_fields', true );
-        // custom field assign to category migration
+        // Deprecated: assign_to feature has been removed in favor of conditional_logic
+        // This migration function is now a no-op
         if ( empty( $submission_form_fields['fields'] ) ) {
             return;
         }
 
-        // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
-        foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
-            if ( empty( $options['assign_to'] ) ) {
-                continue;
-            }
-
-            if ( $options['assign_to'] === 'category' ) {
-                $submission_form_fields['fields'][ $field_type ]['assign_to'] = 1;
-            } else {
-                $submission_form_fields['fields'][ $field_type ]['assign_to'] = false;
-            }
-        }
-
-        update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
+        // Removed assign_to migration - use conditional_logic instead
+        // Fields using assign_to should be migrated to use conditional_logic manually
     }
 
     public static function migrate_review_settings( $term_id ) {

@@ -162,7 +162,7 @@ function initAddListingMap() {
     var loc_manual_lat = parseFloat(localized_data.manual_lat);
     var loc_manual_lng = parseFloat(localized_data.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-    var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
+    var searchIcon = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/map-marker-alt.svg')\"></i>");
     var markerShape = document.createElement('div');
     markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;

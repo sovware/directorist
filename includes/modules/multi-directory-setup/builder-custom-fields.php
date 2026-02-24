@@ -164,6 +164,48 @@ return apply_filters(
             ]
         ],
 
+        'html' => [
+            'label'   => __( 'Html', 'directorist' ),
+            'icon'    => 'las la-code',
+            'options' => [
+                'type' => [
+                    'type'  => 'hidden',
+                    'value' => 'wp_editor',
+                ],
+                'field_key' => array_merge(
+                    $custom_field_meta_key_field, [
+                        'value' => 'custom-html',
+                    ]
+                ),
+                'label' => [
+                    'type'  => 'text',
+                    'label' => __( 'Label', 'directorist' ),
+                    'value' => 'Html',
+                ],
+                'description' => [
+                    'type'  => 'text',
+                    'label' => __( 'Description', 'directorist' ),
+                    'value' => '',
+                ],
+                'placeholder' => [
+                    'type'  => 'text',
+                    'label' => __( 'Placeholder', 'directorist' ),
+                    'value' => '',
+                ],
+                'required' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Required', 'directorist' ),
+                    'value' => false,
+                ],
+                'only_for_admin' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Admin Only', 'directorist' ),
+                    'value' => false,
+                ],
+                'conditional_logic' => get_conditional_logic_field(),
+            ]
+        ],
+
         'number' => [
             'label'   => __( 'Number', 'directorist' ),
             'icon'    => 'las la-hashtag',

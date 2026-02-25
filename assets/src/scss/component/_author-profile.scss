@@ -367,8 +367,6 @@
 		}
 
 		.directorist-type-nav {
-			display: flex;
-
 			@include e(link) {
 				flex-direction: row;
 				gap: 7px;
@@ -426,12 +424,6 @@
 				}
 			}
 		}
-
-		@media screen and (max-width: 575px) {
-			.directorist-type-nav .directorist-type-nav__link i {
-				display: none;
-			}
-		}
 	}
 
 	// Author Content Fix
@@ -443,6 +435,7 @@
 	}
 
 	.directorist-author-listing-type {
+		overflow-x: auto;
 		.directorist-type-nav {
 			background: none;
 		}

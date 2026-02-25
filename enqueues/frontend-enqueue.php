@@ -14,8 +14,9 @@ $c_position   = directorist_get_currency_position();
     
 wp_localize_script(
     'directorist-listing-owner-dashboard', 'directorist_admin_order', [
-        'symbol_position' => $c_position,
-        'currency'        => $currency,
-        'symbol'          => $symbol,
+        'checkout_page_url' => get_permalink( get_directorist_option( 'checkout_page', 0 ) ),
+        'symbol_position'   => $c_position,
+        'currency'          => $currency,
+        'symbol'            => $symbol,
     ] 
 );

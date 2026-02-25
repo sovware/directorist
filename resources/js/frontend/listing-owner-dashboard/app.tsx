@@ -22,7 +22,7 @@ import { getBadgeVariantByStatus } from '@/admin/helper/utils';
 import { OrderTableContainer } from './style';
 import { ActionsDropdownWrapper } from './style';
 
-const checkoutPageUrl = directorist_pricing_plans_data.checkout_page_url;
+const checkoutPageUrl = directorist_admin_order.checkout_page_url;
 const columns: Column[] = [
 	{
 		id: 'id',

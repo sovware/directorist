@@ -22,9 +22,9 @@ $target       = ! empty( $form_data['open_in_new_tab'] ) ? ' target="_blank" rel
 
 $btn_class = 'directorist-btn directorist-btn-xs';
 if ( 'primary' === $button_style ) {
-    $btn_class .= ' directorist-btn-outline-primary';
+    $btn_class .= ' directorist-btn-primary';
 } elseif ( 'secondary' === $button_style ) {
-    $btn_class .= ' directorist-btn-outline-secondary';
+    $btn_class .= ' directorist-btn-secondary';
 } else {
     $btn_class .= ' directorist-btn-default';
 }

@@ -79,17 +79,18 @@ if ( empty( $action_data ) ) {
             // ── Phone / WhatsApp ─────────────────────
             case 'phone':
                 $phone      = $data['value'];
+                $is_whatsapp = $listing->has_whatsapp( $action );
                 $phone_args = [
                     'number'   => $phone,
-                    'whatsapp' => $listing->has_whatsapp( $action ),
+                    'whatsapp' => $is_whatsapp,
                 ];
                 $phone_link = Helper::phone_link( $phone_args );
                 $phone_icon = ! empty( $action['icon'] ) ? $action['icon'] : 'las la-phone';
 
-                if ( ! empty( $action['form_data']['whatsapp'] ) ) :
+                if ( $is_whatsapp ) :
                     $phone_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : __( 'WhatsApp', 'directorist' );
                     ?>
-                    <a class="directorist-btn directorist-btn-sm directorist-btn-outline-secondary"
+                    <a class="directorist-btn directorist-btn-sm directorist-btn-primary"
                        href="<?php echo esc_url( $phone_link ); ?>">
                         <?php directorist_icon( $phone_icon ); ?>
                         <?php echo esc_html( $phone_label ); ?>
@@ -129,15 +130,15 @@ if ( empty( $action_data ) ) {
 
                 $btn_class = 'directorist-btn directorist-btn-sm';
                 if ( 'primary' === $button_style ) {
-                    $btn_class .= ' directorist-btn-outline-primary';
+                    $btn_class .= ' directorist-btn-primary';
                 } elseif ( 'secondary' === $button_style ) {
-                    $btn_class .= ' directorist-btn-outline-secondary';
+                    $btn_class .= ' directorist-btn-secondary';
                 } else {
                     $btn_class .= ' directorist-btn-default';
                 }
 
                 $button_icon  = ! empty( $action['icon'] ) ? $action['icon'] : 'las la-link';
-                $button_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : $btn_text;
+                $button_label = $btn_text;
 
                 $target_attr = $open_new_tab ? ' target="_blank" rel="noopener"' : '';
                 ?>

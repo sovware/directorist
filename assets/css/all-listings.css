@@ -7233,9 +7233,10 @@ body.modal-overlay-enabled:before {
   border: 1px solid var(--directorist-color-btn-secondary-border);
 }
 .directorist-btn.directorist-btn-secondary:focus, .directorist-btn.directorist-btn-secondary:hover {
-  background-color: transparent;
-  color: currentColor;
-  border-color: var(--directorist-color-btn-secondary-bg);
+  background-color: rgba(var(--directorist-color-btn-secondary-rgb), 0.8);
+}
+.directorist-btn.directorist-btn-secondary:focus .directorist-icon-mask:after, .directorist-btn.directorist-btn-secondary:hover .directorist-icon-mask:after {
+  background-color: var(--directorist-color-btn-secondary);
 }
 .directorist-btn.directorist-btn-dark {
   background-color: var(--directorist-color-dark);
@@ -7365,7 +7366,7 @@ body.modal-overlay-enabled:before {
 .directorist-btn.directorist-btn-outline-secondary {
   background: transparent;
   border: 1px solid var(--directorist-color-btn-secondary-border) !important;
-  color: var(--directorist-color-btn-secondary-bg);
+  color: var(--directorist-color-btn-secondary);
 }
 .directorist-btn.directorist-btn-outline-secondary:focus, .directorist-btn.directorist-btn-outline-secondary:hover {
   color: var(--directorist-color-white);

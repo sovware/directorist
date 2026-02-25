@@ -12,7 +12,7 @@ $button_text      = isset( $button_value['button_text'] ) ? $button_value['butto
 $button_url_label = isset( $button_value['button_url_label'] ) ? $button_value['button_url_label'] : '';
 
 if ( ! $button_text || ! $button_url_label ) {
-	return;
+    return;
 }
 
 // Get button settings from form_data if available
@@ -22,11 +22,11 @@ $target       = ! empty( $form_data['open_in_new_tab'] ) ? ' target="_blank" rel
 
 $btn_class = 'directorist-btn directorist-btn-xs';
 if ( 'primary' === $button_style ) {
-	$btn_class .= ' directorist-btn-outline-primary';
+    $btn_class .= ' directorist-btn-outline-primary';
 } elseif ( 'secondary' === $button_style ) {
-	$btn_class .= ' directorist-btn-outline-secondary';
+    $btn_class .= ' directorist-btn-outline-secondary';
 } else {
-	$btn_class .= ' directorist-btn-default';
+    $btn_class .= ' directorist-btn-default';
 }
 
 ?>
@@ -39,7 +39,7 @@ if ( 'primary' === $button_style ) {
 
     <div class="directorist-single-info__value">
         <a class="<?php echo esc_attr( $btn_class ); ?>"
-           href="<?php echo esc_url( $button_url_label ); ?>"<?php echo $target; ?>>
+           href="<?php echo esc_url( $button_url_label ); ?>"<?php echo esc_attr( $target ); ?>>
             <?php echo esc_html( $button_text ); ?>
             <span class="directorist-icon-arrow-right">
                 <?php directorist_icon( 'fas fa-external-link-alt' ); ?>

@@ -574,10 +574,12 @@ class Directorist_Single_Listing {
         }
 
         if ( ! empty( $actions ) ) {
-            $actions = array_filter( $actions, function ( $action ) use ( $active_form_widgets ) {
-                $widget = $action['widget_name'] ?? '';
-                return in_array( $widget, $active_form_widgets, true );
-            } );
+            $actions = array_filter(
+                $actions, function ( $action ) use ( $active_form_widgets ) {
+                    $widget = $action['widget_name'] ?? '';
+                    return in_array( $widget, $active_form_widgets, true );
+                } 
+            );
 
             foreach ( $actions as &$action ) {
                 $widget     = $action['widget_name'] ?? '';

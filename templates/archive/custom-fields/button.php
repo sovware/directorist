@@ -22,11 +22,11 @@ $target    = ! empty( $original['open_in_new_tab'] ) ? ' target="_blank" rel="no
 
 $btn_class = 'directorist-btn directorist-btn-xs';
 if ( 'primary' === $btn_style ) {
-	$btn_class .= ' directorist-btn-primary';
+    $btn_class .= ' directorist-btn-primary';
 } elseif ( 'secondary' === $btn_style ) {
-	$btn_class .= ' directorist-btn-outline-secondary';
+    $btn_class .= ' directorist-btn-outline-secondary';
 } else {
-	$btn_class .= ' directorist-btn-default';
+    $btn_class .= ' directorist-btn-default';
 }
 ?>
 

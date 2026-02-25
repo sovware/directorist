@@ -66,9 +66,10 @@
     border: 1px solid var(--directorist-color-btn-secondary-border);
     &:focus,
     &:hover{
-      background-color: transparent;
-      color:currentColor;
-      border-color: var(--directorist-color-btn-secondary-bg);
+      background-color: rgba(var(--directorist-color-btn-secondary-rgb), 0.80) ;
+      .directorist-icon-mask:after {
+        background-color: var(--directorist-color-btn-secondary);
+      }
     }
   }
 
@@ -211,7 +212,7 @@
   &.directorist-btn-outline-secondary {
     background: transparent;
     border: 1px solid var(--directorist-color-btn-secondary-border) !important;
-    color: var(--directorist-color-btn-secondary-bg);
+    color: var(--directorist-color-btn-secondary);
     &:focus,&:hover{
       color:var(--directorist-color-white);
       background-color: var(--directorist-color-btn-secondary-bg);

@@ -24,7 +24,7 @@ $btn_class = 'directorist-btn directorist-btn-xs';
 if ( 'primary' === $btn_style ) {
     $btn_class .= ' directorist-btn-primary';
 } elseif ( 'secondary' === $btn_style ) {
-    $btn_class .= ' directorist-btn-outline-secondary';
+    $btn_class .= ' directorist-btn-secondary';
 } else {
     $btn_class .= ' directorist-btn-default';
 }

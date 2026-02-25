@@ -476,7 +476,13 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
 	});
 
 	const directory_type = $('select[name="directory_type"]').val();
-	if (directory_type) {
+	const hasRenderedListingFields =
+		$('#directiost-listing-fields_wrapper .directorist-listing-fields')
+			.children().length > 0;
+	const isEditListingScreen =
+		$('body').hasClass('post-php') &&
+		$('body').hasClass('post-type-at_biz_dir');
+	if (directory_type && !(isEditListingScreen && hasRenderedListingFields)) {
 		admin_listing_form(directory_type);
 	}
 

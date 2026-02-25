@@ -891,7 +891,9 @@ window.addEventListener('load', function () {
     $('.atbds_tooltip__text').removeClass('show');
   });
   var directory_type = $('select[name="directory_type"]').val();
-  if (directory_type) {
+  var hasRenderedListingFields = $('#directiost-listing-fields_wrapper .directorist-listing-fields').children().length > 0;
+  var isEditListingScreen = $('body').hasClass('post-php') && $('body').hasClass('post-type-at_biz_dir');
+  if (directory_type && !(isEditListingScreen && hasRenderedListingFields)) {
     admin_listing_form(directory_type);
   }
   var localized_data = directorist_admin.add_listing_data;

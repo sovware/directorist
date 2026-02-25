@@ -20,6 +20,17 @@ class HTML_Field extends Textarea_Field {
     public static function allowed_html( $field = null ) {
         $allowed_html = wp_kses_allowed_html( 'post' );
 
+        // Keep editor visual formatting/alignment classes and safe inline styles.
+        $formatting_tags = [ 'p', 'div', 'span', 'strong', 'em', 'b', 'i', 'u', 'ul', 'ol', 'li', 'blockquote', 'a', 'img', 'figure', 'figcaption' ];
+        foreach ( $formatting_tags as $tag ) {
+            if ( ! isset( $allowed_html[ $tag ] ) || ! is_array( $allowed_html[ $tag ] ) ) {
+                $allowed_html[ $tag ] = [];
+            }
+            $allowed_html[ $tag ]['class'] = true;
+            $allowed_html[ $tag ]['style'] = true;
+            $allowed_html[ $tag ]['id']    = true;
+        }
+
         // Allow common embed iframe markup for video/map/widgets.
         $allowed_html['iframe'] = [
             'src'             => true,

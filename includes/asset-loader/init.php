@@ -128,6 +128,7 @@ class Asset_Loader {
             case 'listing-form/add-listing':
                 wp_enqueue_script( 'directorist-select2-script' );
                 wp_enqueue_script( 'directorist-add-listing' );
+                wp_enqueue_media();
                 break;
 
             // Dashboard

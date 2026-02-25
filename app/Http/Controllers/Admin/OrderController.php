@@ -138,8 +138,17 @@ class OrderController {
             'status' => "required|accepted:". implode(',', OrderStatus::all()),
         ]);
 
-        $dto = new DTO;
-        $dto->set_id( $request->get_param( "id" ) )->set_status($request->get_param("status"));
+        $old_item = $this->repository->get_by_id( $request->get_param( "id" ) );
+
+        if ( ! $old_item ) {
+            throw new Exception( esc_html__( "Order not found" ) );
+        }
+
+        $dto = $this->repository->to_dto( $old_item );
+
+        $dto->set_status($request->get_param("status"));
+
+        do_action( 'directorist_after_order_updated_by_admin', $dto, $request );
 
         $this->repository->update( $dto );
 

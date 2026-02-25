@@ -8641,6 +8641,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       type: Boolean,
       default: false
     },
+    disableWidgetEdit: {
+      type: Boolean,
+      default: false
+    },
     canDragAndDrop: {
       type: Boolean,
       default: false
@@ -8756,6 +8760,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     editWidget: function editWidget(widgetKey) {
       var _event;
+      if (this.disableWidgetEdit) return;
+
       // Check if click target is inside modal
       if ((_event = event) !== null && _event !== void 0 && (_event = _event.target) !== null && _event !== void 0 && _event.closest(".cptm-options-area")) {
         return;
@@ -11169,6 +11175,10 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    disableEdit: {
+      type: Boolean,
+      default: false
     }
   },
   data: function data() {
@@ -11200,11 +11210,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    // Check if the widget is editable
     isEditable: function isEditable(widgetOptions) {
+      if (this.disableEdit) return false;
       if (!widgetOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(widgetOptions) !== "object") return false;
-
-      // Add more custom checks if needed
       return true;
     },
     // Edit Widget
@@ -14377,6 +14385,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     hasExcerptWidget: function hasExcerptWidget() {
       var _this$theAvailableWid;
       return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
+    actionAcceptedWidgets: function actionAcceptedWidgets() {
+      var _this = this;
+      var accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!(accepted !== null && accepted !== void 0 && accepted.length)) return [];
+      var acceptedSet = new Set(accepted);
+      return Object.keys(this.theAvailableWidgets).filter(function (widgetKey) {
+        var widget = _this.theAvailableWidgets[widgetKey];
+        return acceptedSet.has(widgetKey) || widget && widget.widget_name && acceptedSet.has(widget.widget_name);
+      });
+    },
+    hasActionWidget: function hasActionWidget() {
+      return this.actionAcceptedWidgets.length > 0;
     }
   },
   data: function data() {
@@ -14438,6 +14459,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           excerpt: {
             label: "Body Excerpt",
+            selectedWidgets: []
+          },
+          action: {
+            label: "Action",
             selectedWidgets: []
           }
         },
@@ -14643,16 +14668,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Toggle Widget Status
     toggleWidgetStatus: function toggleWidgetStatus(layout) {
-      var _this = this;
+      var _this2 = this;
       if (layout.selectedWidgets.length > 0) {
         var _layout$selectedWidge;
         (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
-          _this.trashWidget(widget, layout);
+          _this2.trashWidget(widget, layout);
         });
       } else {
         var _layout$acceptedWidge;
         (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
-          _this.insertWidget({
+          _this2.insertWidget({
             key: widget,
             selected_widgets: [widget]
           }, layout);
@@ -14967,6 +14992,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     hasExcerptWidget: function hasExcerptWidget() {
       var _this$theAvailableWid;
       return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
+    },
+    actionAcceptedWidgets: function actionAcceptedWidgets() {
+      var _this = this;
+      var accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!(accepted !== null && accepted !== void 0 && accepted.length)) return [];
+      var acceptedSet = new Set(accepted);
+      return Object.keys(this.theAvailableWidgets).filter(function (widgetKey) {
+        var widget = _this.theAvailableWidgets[widgetKey];
+        return acceptedSet.has(widgetKey) || widget && widget.widget_name && acceptedSet.has(widget.widget_name);
+      });
+    },
+    hasActionWidget: function hasActionWidget() {
+      return this.actionAcceptedWidgets.length > 0;
     }
   },
   data: function data() {
@@ -15015,6 +15053,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           excerpt: {
             label: "Body Excerpt",
+            selectedWidgets: []
+          },
+          action: {
+            label: "Action",
             selectedWidgets: []
           }
         },
@@ -15220,16 +15262,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Toggle Widget Status
     toggleWidgetStatus: function toggleWidgetStatus(layout) {
-      var _this = this;
+      var _this2 = this;
       if (layout.selectedWidgets.length > 0) {
         var _layout$selectedWidge;
         (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
-          _this.trashWidget(widget, layout);
+          _this2.trashWidget(widget, layout);
         });
       } else {
         var _layout$acceptedWidge;
         (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
-          _this.insertWidget({
+          _this2.insertWidget({
             key: widget,
             selected_widgets: [widget]
           }, layout);
@@ -15888,6 +15930,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var _this$theAvailableWid;
       return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
     },
+    actionAcceptedWidgets: function actionAcceptedWidgets() {
+      var _this = this;
+      var accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!(accepted !== null && accepted !== void 0 && accepted.length)) return [];
+      var acceptedSet = new Set(accepted);
+      return Object.keys(this.theAvailableWidgets).filter(function (widgetKey) {
+        var widget = _this.theAvailableWidgets[widgetKey];
+        return acceptedSet.has(widgetKey) || widget && widget.widget_name && acceptedSet.has(widget.widget_name);
+      });
+    },
+    hasActionWidget: function hasActionWidget() {
+      return this.actionAcceptedWidgets.length > 0;
+    },
     // Output Data
     output_data: function output_data() {
       var output = {};
@@ -16034,6 +16089,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           excerpt: {
             label: "Body Excerpt",
+            selectedWidgets: []
+          },
+          action: {
+            label: "Action",
             selectedWidgets: []
           }
         },
@@ -16238,16 +16297,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Toggle Widget Status
     toggleWidgetStatus: function toggleWidgetStatus(layout) {
-      var _this = this;
+      var _this2 = this;
       if (layout.selectedWidgets.length > 0) {
         var _layout$selectedWidge;
         (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
-          _this.trashWidget(widget, layout);
+          _this2.trashWidget(widget, layout);
         });
       } else {
         var _layout$acceptedWidge;
         (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
-          _this.insertWidget({
+          _this2.insertWidget({
             key: widget,
             selected_widgets: [widget]
           }, layout);
@@ -16418,6 +16477,19 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var _this$theAvailableWid;
       return !!((_this$theAvailableWid = this.theAvailableWidgets) !== null && _this$theAvailableWid !== void 0 && _this$theAvailableWid.excerpt);
     },
+    actionAcceptedWidgets: function actionAcceptedWidgets() {
+      var _this = this;
+      var accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!(accepted !== null && accepted !== void 0 && accepted.length)) return [];
+      var acceptedSet = new Set(accepted);
+      return Object.keys(this.theAvailableWidgets).filter(function (widgetKey) {
+        var widget = _this.theAvailableWidgets[widgetKey];
+        return acceptedSet.has(widgetKey) || widget && widget.widget_name && acceptedSet.has(widget.widget_name);
+      });
+    },
+    hasActionWidget: function hasActionWidget() {
+      return this.actionAcceptedWidgets.length > 0;
+    },
     // Output Data
     output_data: function output_data() {
       var output = {};
@@ -16569,6 +16641,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           excerpt: {
             label: "Body Excerpt",
+            selectedWidgets: []
+          },
+          action: {
+            label: "Action",
             selectedWidgets: []
           }
         },
@@ -16773,16 +16849,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Toggle Widget Status
     toggleWidgetStatus: function toggleWidgetStatus(layout) {
-      var _this = this;
+      var _this2 = this;
       if (layout.selectedWidgets.length > 0) {
         var _layout$selectedWidge;
         (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
-          _this.trashWidget(widget, layout);
+          _this2.trashWidget(widget, layout);
         });
       } else {
         var _layout$acceptedWidge;
         (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
-          _this.insertWidget({
+          _this2.insertWidget({
             key: widget,
             selected_widgets: [widget]
           }, layout);
@@ -17074,6 +17150,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               var finalKey = matchedField.widget_key || currentKey;
               processedWidgets[finalKey] = _objectSpread(_objectSpread({}, optimizedWidget), {}, {
                 widget_key: finalKey,
+                field_key: matchedField.field_key || finalKey,
                 label: matchedField.label || optimizedWidget.label
               });
             });
@@ -17092,27 +17169,22 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       return this.video;
     },
     // Optimized method to get available widgets for a placeholder
+    // Includes dynamically generated widgets (e.g., multiple button fields)
     getAvailableWidgetsForPlaceholder: function getAvailableWidgetsForPlaceholder() {
       var _this2 = this;
       return function (placeholder) {
         if (!placeholder || !placeholder.acceptedWidgets) {
           return [];
         }
+        var accepted = new Set(placeholder.acceptedWidgets);
 
-        // Use cached result if available
-        var cacheKey = "widgets_".concat(placeholder.placeholderKey);
-        if (_this2._placeholderWidgetsCache && _this2._placeholderWidgetsCache[cacheKey]) {
-          return _this2._placeholderWidgetsCache[cacheKey];
-        }
-        var availableWidgets = placeholder.acceptedWidgets.filter(function (widgetKey) {
-          return _this2.isWidgetAvailable(widgetKey);
+        // Include widgets whose key OR widget_name matches an accepted widget.
+        // This allows dynamically generated widgets (from show_if matched_data)
+        // to appear when their base widget_name is accepted.
+        var availableWidgets = Object.keys(_this2.theAvailableWidgets).filter(function (widgetKey) {
+          var widget = _this2.theAvailableWidgets[widgetKey];
+          return accepted.has(widgetKey) || widget && widget.widget_name && accepted.has(widget.widget_name);
         });
-
-        // Cache the result
-        if (!_this2._placeholderWidgetsCache) {
-          _this2._placeholderWidgetsCache = {};
-        }
-        _this2._placeholderWidgetsCache[cacheKey] = availableWidgets;
         return availableWidgets;
       };
     }
@@ -17166,6 +17238,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // ===========================================
     // HELPER METHODS
     // ===========================================
+    // Resolve a widget from theAvailableWidgets, with fallback to available_widgets
+    getResolvedWidget: function getResolvedWidget(widgetKey) {
+      return this.theAvailableWidgets[widgetKey] || this.available_widgets[widgetKey] || {};
+    },
     // Get filtered acceptedWidgets (only available widgets) for a placeholder
     getFilteredAcceptedWidgets: function getFilteredAcceptedWidgets(placeholder) {
       var _this3 = this;
@@ -17393,20 +17469,25 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      */
     checkWidgetAvailability: function checkWidgetAvailability(widgetKey) {
       try {
-        // Basic check if widget exists
-        if (!this.available_widgets[widgetKey]) {
-          return false;
-        }
-        var widget = this.available_widgets[widgetKey];
+        // Check static available_widgets first
+        if (this.available_widgets[widgetKey]) {
+          var widget = this.available_widgets[widgetKey];
 
-        // Check show_if condition if present
-        if (widget.show_if && this.isValidObject(widget.show_if)) {
-          var showIfResult = this.checkShowIfCondition({
-            condition: widget.show_if
-          });
-          return showIfResult && showIfResult.status === true;
+          // Check show_if condition if present
+          if (widget.show_if && this.isValidObject(widget.show_if)) {
+            var showIfResult = this.checkShowIfCondition({
+              condition: widget.show_if
+            });
+            return showIfResult && showIfResult.status === true;
+          }
+          return true;
         }
-        return true;
+
+        // Fallback: check theAvailableWidgets for dynamically generated widgets
+        if (this.theAvailableWidgets && this.theAvailableWidgets[widgetKey]) {
+          return true;
+        }
+        return false;
       } catch (error) {
         this.handleError("Error checking widget availability for ".concat(widgetKey), error);
         return false;
@@ -18231,12 +18312,26 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
        * @param {Object} widget - Widget object with saved data (may have custom label/icon)
        */
       var addActiveWidget = function addActiveWidget(widget) {
-        // Ensure that the widget exists in the available widgets
-        if (!_this9.theAvailableWidgets[widget.widget_name]) {
-          console.error("Widget ".concat(widget.widget_name, " not found in available widgets."));
-          return; // Exit if widget is not available
+        // Resolve the widget template from theAvailableWidgets.
+        // Try widget_key first (for dynamic widgets like button fields),
+        // then widget_name, then search by widget_name property.
+        var templateKey = widget.widget_key || widget.widget_name;
+        var widgetTemplate = _this9.theAvailableWidgets[templateKey];
+        if (!widgetTemplate && widget.widget_name) {
+          widgetTemplate = _this9.theAvailableWidgets[widget.widget_name];
         }
-        var widgets_template = _objectSpread({}, _this9.theAvailableWidgets[widget.widget_name]);
+        if (!widgetTemplate) {
+          for (var key in _this9.theAvailableWidgets) {
+            if (_this9.theAvailableWidgets[key].widget_name === widget.widget_name) {
+              widgetTemplate = _this9.theAvailableWidgets[key];
+              break;
+            }
+          }
+        }
+        if (!widgetTemplate) {
+          return;
+        }
+        var widgets_template = _objectSpread({}, widgetTemplate);
         var has_widget_options = false;
         if (widgets_template.options && widgets_template.options.fields) {
           has_widget_options = true;
@@ -18292,9 +18387,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         var shouldPromote = _this9.shouldPromoteFieldsToRoot(widget.widget_name, widgets_template);
         var processedWidget = shouldPromote ? _this9.promoteFieldsToRoot(widgets_template) : widgets_template;
 
-        // Set the widget data in the active_widgets object
-        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.active_widgets, widget.widget_name, processedWidget);
-        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.available_widgets, widget.widget_name, processedWidget);
+        // Use widget_key for active_widgets so dynamic widgets (e.g. phone_2,
+        // button_2) don't overwrite each other. Only update the base entry in
+        // available_widgets when the widget is not a dynamic variant.
+        var activeKey = widget.widget_key || widget.widget_name;
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.active_widgets, activeKey, processedWidget);
+        if (activeKey === widget.widget_name) {
+          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.available_widgets, widget.widget_name, processedWidget);
+        }
       };
 
       /**
@@ -18384,12 +18484,13 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             if (_this9.active_widgets[widgetKey]) {
               return;
             }
-
-            // Get widget from available_widgets and add to active_widgets
-            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this9.available_widgets[widgetKey] !== "undefined") {
-              var widget = _this9.available_widgets[widgetKey];
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+              // Try available_widgets first, then theAvailableWidgets for dynamic keys
+              var widget = _this9.available_widgets[widgetKey] || _this9.theAvailableWidgets[widgetKey];
               if (widget) {
-                addActiveWidget(widget);
+                addActiveWidget(_objectSpread(_objectSpread({}, widget), {}, {
+                  widget_key: widgetKey
+                }));
               }
             }
           });
@@ -18476,12 +18577,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
                 if (_this9.active_widgets[widgetKey]) {
                   return;
                 }
-
-                // Get widget from available_widgets and add to active_widgets
-                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this9.available_widgets[widgetKey] !== "undefined") {
-                  var widget = _this9.available_widgets[widgetKey];
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+                  var widget = _this9.available_widgets[widgetKey] || _this9.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    _this9.$set(_this9.active_widgets, widgetKey, widget);
+                    _this9.$set(_this9.active_widgets, widgetKey, _objectSpread(_objectSpread({}, widget), {}, {
+                      widget_key: widgetKey
+                    }));
                   }
                 }
               });
@@ -18693,12 +18794,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
                 if (_this0.active_widgets[widgetKey]) {
                   return;
                 }
-
-                // Get widget from available_widgets and add to active_widgets
-                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this0.available_widgets[widgetKey] !== "undefined") {
-                  var widget = _this0.available_widgets[widgetKey];
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+                  var widget = _this0.available_widgets[widgetKey] || _this0.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    _this0.$set(_this0.active_widgets, widgetKey, widget);
+                    _this0.$set(_this0.active_widgets, widgetKey, _objectSpread(_objectSpread({}, widget), {}, {
+                      widget_key: widgetKey
+                    }));
                   }
                 }
               });
@@ -18743,6 +18844,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Add/remove widget from selectedWidgets & active_widgets
     toggleWidgetInSelectedWidgets: function toggleWidgetInSelectedWidgets(widget_key, placeholder_index, isChecked) {
+      var _this1 = this;
       var placeholder = this.allPlaceholderItems[placeholder_index];
       var acceptedWidgets = placeholder.acceptedWidgets || [];
       var selectedWidgets = placeholder.selectedWidgets || [];
@@ -18762,10 +18864,13 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         if (!selectedWidgets.some(function (widget) {
           return widget.widget_key === widget_key;
         })) {
-          var widgetIndex = acceptedWidgets.indexOf(widget_key);
-          if (widgetIndex !== -1) {
+          // Accept both static keys and dynamic keys whose widget_name
+          // matches an accepted widget (e.g., button fields)
+          var widget = this.theAvailableWidgets[widget_key];
+          var isAccepted = acceptedWidgets.includes(widget_key) || widget && widget.widget_name && acceptedWidgets.includes(widget.widget_name);
+          if (isAccepted && widget) {
             selectedWidgetList.push(widget_key);
-            selectedWidgets.push(this.theAvailableWidgets[widget_key]);
+            selectedWidgets.push(widget);
           }
         }
       } else {
@@ -18778,12 +18883,24 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         });
       }
 
-      // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order
+      // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order.
+      // For dynamic widgets (not directly in acceptedWidgets), sort by their
+      // widget_name's position in acceptedWidgets.
+      var getAcceptedIndex = function getAcceptedIndex(key) {
+        var idx = acceptedWidgets.indexOf(key);
+        if (idx === -1) {
+          var w = _this1.theAvailableWidgets[key];
+          if (w && w.widget_name) {
+            idx = acceptedWidgets.indexOf(w.widget_name);
+          }
+        }
+        return idx === -1 ? acceptedWidgets.length : idx;
+      };
       selectedWidgetList.sort(function (a, b) {
-        return acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b);
+        return getAcceptedIndex(a) - getAcceptedIndex(b);
       });
       selectedWidgets.sort(function (a, b) {
-        return acceptedWidgets.indexOf(a.widget_key) - acceptedWidgets.indexOf(b.widget_key);
+        return getAcceptedIndex(a.widget_key) - getAcceptedIndex(b.widget_key);
       });
 
       // Filter out null items from selectedWidgetList one more time after sorting
@@ -18845,7 +18962,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Filter active_widgets to only include widgets from selectedWidgetList of placeholder_item types
     filterActiveWidgetsBySelectedWidgetList: function filterActiveWidgetsBySelectedWidgetList() {
-      var _this1 = this;
+      var _this10 = this;
       // Collect all widget keys from selectedWidgetList of placeholder_item types
       var allowedWidgetKeys = new Set();
       var _collectWidgetKeys = function collectWidgetKeys(items) {
@@ -18880,28 +18997,28 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       // Remove widgets from active_widgets that are not in allowedWidgetKeys
       Object.keys(this.active_widgets).forEach(function (widgetKey) {
         if (!allowedWidgetKeys.has(widgetKey)) {
-          _this1.$delete(_this1.active_widgets, widgetKey);
+          _this10.$delete(_this10.active_widgets, widgetKey);
         }
       });
 
       // Add widgets to active_widgets that are in allowedWidgetKeys but not yet in active_widgets
       allowedWidgetKeys.forEach(function (widgetKey) {
-        if (!_this1.active_widgets[widgetKey] && typeof _this1.available_widgets[widgetKey] !== "undefined") {
-          var widget = _this1.available_widgets[widgetKey];
+        if (!_this10.active_widgets[widgetKey] && typeof _this10.available_widgets[widgetKey] !== "undefined") {
+          var widget = _this10.available_widgets[widgetKey];
           if (widget) {
-            _this1.$set(_this1.active_widgets, widgetKey, widget);
+            _this10.$set(_this10.active_widgets, widgetKey, widget);
           }
         }
       });
     },
     // Sync placeholders with allPlaceholderItems
     syncPlaceholdersWithAllPlaceholderItems: function syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
-      var _this10 = this;
+      var _this11 = this;
       var updatePlaceholderItem = function updatePlaceholderItem(placeholder, allPlaceholderItem) {
         if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
           // Filter acceptedWidgets to only include available widgets
           var filteredAcceptedWidgets = (allPlaceholderItem.acceptedWidgets || []).filter(function (widgetKey) {
-            return _this10.isWidgetAvailable(widgetKey);
+            return _this11.isWidgetAvailable(widgetKey);
           });
           placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredAcceptedWidgets);
 
@@ -18911,14 +19028,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
           // Filter selectedWidgets based on available widgets
           var filteredSelectedWidgets = selectedWidgets.filter(function (widget) {
-            return widget && widget.widget_key && _this10.isWidgetAvailable(widget.widget_key);
+            return widget && widget.widget_key && _this11.isWidgetAvailable(widget.widget_key);
           });
 
           // Filter selectedWidgetList based on available widgets and remove null items
           var filteredSelectedWidgetList = selectedWidgetList.filter(function (widgetKey) {
             return widgetKey != null && widgetKey !== "";
           }).filter(function (widgetKey) {
-            return _this10.isWidgetAvailable(widgetKey);
+            return _this11.isWidgetAvailable(widgetKey);
           });
           placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredSelectedWidgets);
           placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredSelectedWidgetList);
@@ -23138,6 +23255,7 @@ var render = function render() {
         "fields": _vm.getWidgetFields(widget),
         "disabled": _vm.readOnly && !_vm.isWidgetSelected(widget),
         "readOnly": _vm.readOnly,
+        "disableEdit": _vm.disableWidgetEdit,
         "activeWidgets": _vm.activeWidgets,
         "selectedWidgets": _vm.selectedWidgets,
         "availableWidgets": _vm.availableWidgets
@@ -23190,6 +23308,7 @@ var render = function render() {
         "fields": _vm.getWidgetFields(widget),
         "disabled": _vm.readOnly && !_vm.isWidgetSelected(widget),
         "readOnly": _vm.readOnly,
+        "disableEdit": _vm.disableWidgetEdit,
         "activeWidgets": _vm.activeWidgets,
         "selectedWidgets": _vm.selectedWidgets,
         "availableWidgets": _vm.availableWidgets
@@ -27274,7 +27393,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-align-left",
       "label": _vm.local_layout.body.top.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -27322,7 +27441,7 @@ var render = function render() {
       "id": "thumbnail_body_bottom",
       "containerClass": {
         'cptm-listing-card-preview-body-placeholder': true,
-        'cptm-mb-12': _vm.hasExcerptWidget
+        '': _vm.hasExcerptWidget
       },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -27408,6 +27527,56 @@ var render = function render() {
       },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.hasActionWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "thumbnail_body_action",
+      "containerClass": {
+        'cptm-listing-card-preview-action-placeholder': true,
+        '': _vm.hasActionWidget
+      },
+      "label": _vm.local_layout.body.action.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.actionAcceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.action.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.action.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_action'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_action'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": false,
+      "disableWidgetEdit": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.action);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.action);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('thumbnail_body_action');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('thumbnail_body_action');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.action');
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
@@ -27810,6 +27979,56 @@ var render = function render() {
       },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.hasActionWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "no_thumbnail_body_action",
+      "containerClass": {
+        'cptm-listing-card-preview-action-placeholder': true,
+        '': _vm.hasActionWidget
+      },
+      "label": _vm.local_layout.body.action.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.actionAcceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.action.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.action.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_action'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_action'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": false,
+      "disableWidgetEdit": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.action);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.action);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('no_thumbnail_body_action');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('no_thumbnail_body_action');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.action');
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
@@ -28386,7 +28605,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-mb-20",
+      "containerClass": "cptm-listing-card-quick-actions-placeholder",
       "label": _vm.local_layout.body.top.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -28434,7 +28653,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_right",
-      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right",
+      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-text-right",
       "label": _vm.local_layout.body.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -28485,7 +28704,7 @@ var render = function render() {
       "id": "thumbnail_body_bottom",
       "containerClass": {
         'cptm-listing-card-preview-body-placeholder': true,
-        'cptm-mb-12': _vm.hasExcerptWidget
+        '': _vm.hasExcerptWidget
       },
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -28571,6 +28790,56 @@ var render = function render() {
       },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.excerpt');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.hasActionWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "thumbnail_body_action",
+      "containerClass": {
+        'cptm-listing-card-preview-action-placeholder': true,
+        '': _vm.hasActionWidget
+      },
+      "label": _vm.local_layout.body.action.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.actionAcceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.action.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.action.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_action'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_action'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": false,
+      "disableWidgetEdit": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.action);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.action);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('thumbnail_body_action');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('thumbnail_body_action');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.action');
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
@@ -28899,6 +29168,56 @@ var render = function render() {
       "update-active-widget": _vm.handleActiveWidgetUpdate,
       "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
+  }) : _vm._e(), _vm._v(" "), _vm.hasActionWidget ? _c('card-widget-placeholder', {
+    attrs: {
+      "id": "no_thumbnail_body_action",
+      "containerClass": {
+        'cptm-listing-card-preview-action-placeholder': true,
+        '': _vm.hasActionWidget
+      },
+      "label": _vm.local_layout.body.action.label,
+      "availableWidgets": _vm.theAvailableWidgets,
+      "activeWidgets": _vm.active_widgets,
+      "acceptedWidgets": _vm.actionAcceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.action.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.action.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_action'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_action'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": false,
+      "disableWidgetEdit": true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.action);
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.action);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.toggleInsertWindow('no_thumbnail_body_action');
+      },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('no_thumbnail_body_action');
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
+      "update": function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.action');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
+    }
   }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
@@ -29098,14 +29417,14 @@ var render = function render() {
         staticClass: "drag-handle drag-icon uil uil-draggabledots"
       }) : _vm._e(), _vm._v(" "), _c('span', {
         staticClass: "cptm-elements-settings__group__single__label"
-      }, [_vm.available_widgets[widget_key].icon ? _c('span', {
+      }, [_vm.getResolvedWidget(widget_key).icon ? _c('span', {
         staticClass: "cptm-elements-settings__group__single__label__icon",
-        class: _vm.available_widgets[widget_key].icon
-      }) : _vm._e(), _vm._v(" "), _vm.available_widgets[widget_key] ? _c('span', {
+        class: _vm.getResolvedWidget(widget_key).icon
+      }) : _vm._e(), _vm._v(" "), _vm.getResolvedWidget(widget_key) ? _c('span', {
         staticClass: "cptm-elements-settings__group__single__label__text"
-      }, [_vm._v(_vm._s(_vm.available_widgets[widget_key].label))]) : _c('span', [_vm._v("Unknown Widget")])]), _vm._v(" "), _c('div', {
+      }, [_vm._v(_vm._s(_vm.getResolvedWidget(widget_key).label))]) : _c('span', [_vm._v("Unknown Widget")])]), _vm._v(" "), _c('div', {
         staticClass: "cptm-elements-settings__group__single__action"
-      }, [_vm.available_widgets[widget_key].options ? _c('span', {
+      }, [_vm.getResolvedWidget(widget_key).options ? _c('span', {
         staticClass: "cptm-elements-settings__group__single__edit",
         class: {
           'cptm-elements-settings__group__single__edit--disabled': !_vm.active_widgets[widget_key]
@@ -29174,7 +29493,7 @@ var render = function render() {
           "label": placeholderSubItem.label,
           "availableWidgets": _vm.theAvailableWidgets,
           "activeWidgets": _vm.active_widgets,
-          "acceptedWidgets": placeholderSubItem.acceptedWidgets,
+          "acceptedWidgets": _vm.getAvailableWidgetsForPlaceholder(placeholderSubItem),
           "rejectedWidgets": placeholderSubItem.rejectedWidgets,
           "selectedWidgets": placeholderSubItem.selectedWidgetList,
           "maxWidget": placeholderSubItem.maxWidget,
@@ -29215,7 +29534,7 @@ var render = function render() {
         "label": placeholderItem.label,
         "availableWidgets": _vm.theAvailableWidgets,
         "activeWidgets": _vm.active_widgets,
-        "acceptedWidgets": placeholderItem.acceptedWidgets,
+        "acceptedWidgets": _vm.getAvailableWidgetsForPlaceholder(placeholderItem),
         "rejectedWidgets": placeholderItem.rejectedWidgets,
         "selectedWidgets": placeholderItem.selectedWidgetList,
         "maxWidget": placeholderItem.maxWidget,

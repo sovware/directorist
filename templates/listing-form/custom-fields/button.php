@@ -2,13 +2,16 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.5.6
+ * @version 8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-form-button-field">
+<div class="directorist-form-group directorist-form-button-field" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <?php
     $button_value = is_array( $data['value'] ) ? $data['value'] : [];

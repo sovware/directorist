@@ -79,14 +79,15 @@ if ( empty( $action_data ) ) {
             // ── Phone / WhatsApp ─────────────────────
             case 'phone':
                 $phone      = $data['value'];
+                $is_whatsapp = $listing->has_whatsapp( $action );
                 $phone_args = [
                     'number'   => $phone,
-                    'whatsapp' => $listing->has_whatsapp( $action ),
+                    'whatsapp' => $is_whatsapp,
                 ];
                 $phone_link = Helper::phone_link( $phone_args );
-                $phone_icon = ! empty( $action['icon'] ) ? $action['icon'] : 'las la-phone';
+                $phone_icon = $is_whatsapp ? 'lab la-whatsapp' : ( ! empty( $action['icon'] ) ? $action['icon'] : 'las la-phone' );
 
-                if ( ! empty( $action['form_data']['whatsapp'] ) ) :
+                if ( $is_whatsapp ) :
                     $phone_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : __( 'WhatsApp', 'directorist' );
                     ?>
                     <a class="directorist-btn directorist-btn-sm directorist-btn-outline-secondary"

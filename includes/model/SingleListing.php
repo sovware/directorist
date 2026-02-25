@@ -293,13 +293,6 @@ class Directorist_Single_Listing {
             $value = $this->get_field_value( $data );
         }
 
-        if ( 'button' === $data['widget_name'] ) {
-            $btn_parsed = is_array( $value ) ? $value : maybe_unserialize( $value );
-            if ( empty( $btn_parsed['button_text'] ) || empty( $btn_parsed['button_url_label'] ) ) {
-                $value = '';
-            }
-        }
-
         $group = ! empty( $data['widget_group'] ) ? $data['widget_group'] : '';
 
         if ( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && ! $value ) {

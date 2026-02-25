@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.4.6
+ * @version 8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -82,10 +82,12 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_t
             ?>
 
             <?php if ( ! empty( $loop_fields['body']['action'] ) ) : ?>
-                <?php ob_start(); ?>
-                <?php $listings->render_loop_fields( $loop_fields['body']['action'], 'div', 'div' ); ?>
-                <?php $action_html = ob_get_clean(); ?>
-                <?php if ( trim( $action_html ) ) : ?>
+                <?php
+                ob_start();
+                $listings->render_loop_fields( $loop_fields['body']['action'], 'div', 'div' );
+                $action_html = trim( ob_get_clean() );
+                if ( $action_html ) :
+                    ?>
                     <div class="directorist-listing-single__action-list">
                         <?php echo $action_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </div>

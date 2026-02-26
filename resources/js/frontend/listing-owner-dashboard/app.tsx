@@ -29,11 +29,7 @@ const columns: Column[] = [
 		label: __('Order Id', 'directorist'),
 		render: ({ item }) => {
 			return (
-				<a
-					href={`/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${item.id}`}
-				>
-					#{item.id}
-				</a>
+				`#${item.id}`
 			);
 		},
 	},
@@ -63,12 +59,15 @@ const columns: Column[] = [
 		id: 'order_type',
 		label: __('Order Type', 'directorist'),
 		render: ({ item }) => {
-			return <Badge variant={'info'} className='directorist-badge'>{item?.order_type}</Badge>;
+			return <Badge variant={'info'} className='directorist-badge'>{item?.order_type || __('Unknown', 'directorist')}</Badge>;
 		},
 	},
 	{
 		id: 'payment_method',
 		label: __('Payment Method', 'directorist'),
+		render: ({ item }) => {
+			return <span className='directorist-table-text-light'>{item?.payment_method || __('System', 'directorist')}</span>;
+		},
 	},
 	{
 		id: 'date',

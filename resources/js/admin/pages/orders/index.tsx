@@ -64,7 +64,7 @@ const columns: Column[] = [
 		render: ({ item }) => {
 			return (
 				<Badge variant={'info'} className="directorist-badge">
-					{item?.order_type}
+					{item?.order_type || __('Unknown', 'directorist')}
 				</Badge>
 			);
 		},

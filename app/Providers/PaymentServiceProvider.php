@@ -5,6 +5,7 @@ namespace Directorist\App\Providers;
 defined( "ABSPATH" ) || exit;
 
 use Directorist\App\DTO\Order\DTO as OrderDTO;
+use Directorist\App\DTO\Payment\DTO as PaymentDTO;
 use Directorist\App\PaymentProcessors\BankTransfer;
 use Directorist\App\Enums\Order\Status as OrderStatus;
 use Directorist\App\Enums\Payment\Status as PaymentStatus;
@@ -17,7 +18,7 @@ class PaymentServiceProvider implements Provider {
         add_action( 'directorist_repository_after_order_update', [$this, 'update_payment_status'], 10, 1 );
     }
 
-    public function ignore_retry_payment( bool $is_retry, ?DTO $payment ) {
+    public function ignore_retry_payment( bool $is_retry, ?PaymentDTO $payment ) {
         if ( $payment && $payment->get_method() === BankTransfer::get_key() ) {
             return false;
         }

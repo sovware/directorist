@@ -28,7 +28,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
         add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
-        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
+        add_action( 'directorist_after_order_updated_by_admin', [$this, 'handle_after_order_update'] );
         add_filter( 'directorist_payment_receipt_order_items', [$this, 'handle_payment_receipt_order_items'], 10, 2 );
         add_filter( 'directorist_checkout_product_name', [$this, 'handle_checkout_product_name'], 10, 2 );
     }

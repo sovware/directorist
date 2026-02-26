@@ -88,7 +88,9 @@ if ( empty( $action_data ) ) {
                 $phone_icon = ! empty( $action['icon'] ) ? $action['icon'] : 'las la-phone';
 
                 if ( $is_whatsapp ) :
-                    $phone_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : __( 'WhatsApp', 'directorist' );
+                    $phone_label = ! empty( $action['form_data']['label'] )
+                        ? $action['form_data']['label']
+                        : ( ! empty( $action['label'] ) ? $action['label'] : '' );
                     ?>
                     <a class="directorist-btn directorist-btn-sm directorist-btn-primary"
                        href="<?php echo esc_url( $phone_link ); ?>">
@@ -96,7 +98,9 @@ if ( empty( $action_data ) ) {
                         <?php echo esc_html( $phone_label ); ?>
                     </a>
                 <?php else :
-                    $phone_label = ! empty( $action['form_data']['label'] ) ? $action['form_data']['label'] : __( 'Call Now', 'directorist' );
+                    $phone_label = ! empty( $action['form_data']['label'] )
+                        ? $action['form_data']['label']
+                        : ( ! empty( $action['label'] ) ? $action['label'] : '' );
                     ?>
                     <a class="directorist-btn directorist-btn-sm directorist-btn-primary"
                        href="<?php echo esc_url( $phone_link ); ?>">

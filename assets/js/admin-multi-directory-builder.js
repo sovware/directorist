@@ -1406,7 +1406,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         // Only include fields that can be used in conditions
         // Exclude fields like conditional-logic itself and non-comparable types
         // Note: date, time, and file fields are now included (they use specialized inputs)
-        var excludeTypes = ['conditional-logic', 'button', 'submit', 'section'];
+        var excludeTypes = ['conditional-logic', 'submit', 'section'];
         if (excludeTypes.includes(type)) {
           continue;
         }

@@ -383,8 +383,7 @@ class ATBDP_Upgrade
             return $field['conditional_logic'];
         }
 
-        if (
-            ! empty( $field['options'] )
+        if ( ! empty( $field['options'] )
             && is_array( $field['options'] )
             && ! empty( $field['options']['conditional_logic']['value'] )
             && is_array( $field['options']['conditional_logic']['value'] )

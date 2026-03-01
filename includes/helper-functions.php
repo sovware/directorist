@@ -1090,7 +1090,7 @@ if ( ! function_exists( 'currency_has_decimal' ) ) {
  * @param bool $echo Whether to Print value or to Return value. Default is printing value.
  * @return mixed
  */
-function atbdp_display_price( $price = '', $disable_price = false, $currency = '', $symbol = '', $c_position = '', $echo = true ) {
+function atbdp_display_price( $price = '', $disable_price = false, $currency = '', $symbol = '', $c_position = '', $echo = true, $html = true ) {
     if ( $disable_price ) return null; // vail if the price is empty or price display is disabled.
 
     $allow_decimal = get_directorist_option( 'allow_decimal', 1 );
@@ -1107,8 +1107,10 @@ function atbdp_display_price( $price = '', $disable_price = false, $currency = '
     }
 
     ( 'after' == $c_position ) ? $after = $symbol : $before = $symbol;
+    
     $price = $before . atbdp_format_amount( $price, $allow_decimal ) . $after;
-    $p = sprintf( "<span class='directorist-listing-price'>%s</span>", $price );
+    $p     = $html ? sprintf( "<span class='directorist-listing-price'>%s</span>", $price ) : $price;
+
     if ( $echo ) {
         echo wp_kses_post( $p );
     } else {

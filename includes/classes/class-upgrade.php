@@ -89,6 +89,9 @@ class ATBDP_Upgrade
         // Optimization: Fetch both meta values in one go (reduces DB queries)
         $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
         $search_form_fields = get_term_meta( $directory_id, 'search_form_fields', true );
+        
+        error_log( print_r( 'submission_form_fields', $submission_form_fields, true ) );
+        error_log( print_r( 'search_form_fields', $search_form_fields, true ) );
 
         // Security: Validate data structure
         if ( ! is_array( $submission_form_fields ) ) {

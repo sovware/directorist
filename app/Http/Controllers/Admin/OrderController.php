@@ -123,8 +123,6 @@ class OrderController {
 
         $this->repository->update( $dto );
 
-        do_action( 'directorist_after_order_updated_by_admin', $dto, $request );
-
         return Response::send(
             [
                 "message" => esc_html__( "Order was updated successfully" )
@@ -149,8 +147,6 @@ class OrderController {
         $dto->set_status($request->get_param("status"));
 
         $this->repository->update( $dto );
-        
-        do_action( 'directorist_after_order_updated_by_admin', $dto, $request );
 
         return Response::send([
             'message' => esc_html__("Status updated successfully")

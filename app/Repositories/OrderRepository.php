@@ -137,13 +137,30 @@ class OrderRepository extends Repository {
      * @throws Exception If the update operation fails.
      */
     public function update( \Directorist\WpMVC\DTO\DTO $dto ) {
-        do_action( 'directorist_repository_before_order_update', $dto );
+        $old_order = $this->get_by_id( $dto->get_id() );
+        
+        if ( ! $old_order ) {
+            throw new Exception( 'Order not found' );
+        }
 
+        do_action( 'directorist_before_order_update', $dto, $old_order );
+        
         $update = parent::update( $dto );
 
-        do_action( 'directorist_repository_after_order_update', $dto );
+        do_action( 'directorist_after_order_update', $dto, $old_order );
 
         return $update;
+    }
+
+    /**
+     * Update an existing order silently.
+     *
+     * @param \Directorist\App\DTO\Order\DTO $dto The DTO containing updated order data.
+     * @return int The number of affected rows.
+     * @throws Exception If the update operation fails.
+     */
+    public function silent_update( \Directorist\WpMVC\DTO\DTO $dto ) {
+        return parent::update( $dto );
     }
 
     public function update_status( int $order_id, string $status ) {

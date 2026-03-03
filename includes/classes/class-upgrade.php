@@ -330,45 +330,6 @@ class ATBDP_Upgrade
     }
 
     /**
-     * Normalize field options to array without losing legacy data.
-     *
-     * Supports array, object, serialized string, and JSON string formats.
-     *
-     * @param mixed $options Raw field options.
-     * @return array
-     */
-    private function normalize_field_options( $options ) {
-        if ( is_array( $options ) ) {
-            return $options;
-        }
-
-        if ( is_object( $options ) ) {
-            $normalized = json_decode( wp_json_encode( $options ), true );
-            return is_array( $normalized ) ? $normalized : array();
-        }
-
-        if ( is_string( $options ) && '' !== $options ) {
-            $unserialized = maybe_unserialize( $options );
-
-            if ( is_array( $unserialized ) ) {
-                return $unserialized;
-            }
-
-            if ( is_object( $unserialized ) ) {
-                $normalized = json_decode( wp_json_encode( $unserialized ), true );
-                return is_array( $normalized ) ? $normalized : array();
-            }
-
-            $decoded = json_decode( $options, true );
-            if ( JSON_ERROR_NONE === json_last_error() && is_array( $decoded ) ) {
-                return $decoded;
-            }
-        }
-
-        return array();
-    }
-
-    /**
      * Get conditional logic from field safely.
      *
      * @param array $field Field data.

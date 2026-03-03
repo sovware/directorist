@@ -306,7 +306,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.6 - Feb 25, 2026 =
+= 8.6 - Mar 3, 2026 =
 
 **Added**
  - Conditional Logic support across all form fields in both Listing Form and Search Form. Fields can now dynamically show or hide based on other field values, allowing more advanced and flexible form configurations. (#2711)

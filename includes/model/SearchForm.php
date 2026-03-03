@@ -337,18 +337,25 @@ class Directorist_Listing_Search_Form {
                 unset( $search_form_fields['fields'][$key]['original_widget_key'] );
 
                 if ( $form_key ) {
-                    // Check if the submission field still exists (safety check)
-                    if ( empty( $submission_form_fields['fields'][$form_key] ) ) {
-                        // Skip this field if the submission field was deleted
-                        continue;
-                    }
-                    
-                    if ( ! empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
-                        $search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
-                    }
+                    // Search form and submission form are independent - no inheritance.
+                    // Use only search form's own stored configuration.
+                    $search_options = isset( $value['options'] ) && is_array( $value['options'] ) ? $value['options'] : [];
 
-                    if ( ! empty( $submission_form_fields['fields'][$form_key] ) ) {
-                        $search_form_fields['fields'][$key]['options'] = $submission_form_fields['fields'][$form_key];
+                    $search_form_fields['fields'][$key]['options'] = $search_options;
+
+                    // For custom fields only: need field_key and option choices from submission form
+                    // (technical link for custom_field[name] and select options - not configuration inheritance)
+                    $submission_field = isset( $submission_form_fields['fields'][$form_key] ) ? $submission_form_fields['fields'][$form_key] : null;
+                    if ( $submission_field && $this->is_custom_field( $submission_field ) ) {
+                        if ( ! empty( $submission_field['field_key'] ) ) {
+                            $search_form_fields['fields'][$key]['field_key'] = $submission_field['field_key'];
+                        }
+                        // Add option choices from submission - required for select/radio/checkbox to work.
+                        // Builder stores options at options.options.value (nested) or options.options (array).
+                        $option_choices = $this->get_custom_field_options_from_submission( $submission_field );
+                        if ( ! empty( $option_choices ) ) {
+                            $search_form_fields['fields'][$key]['options']['options'] = $option_choices;
+                        }
                     }
                 }
 
@@ -384,6 +391,60 @@ class Directorist_Listing_Search_Form {
         return true;
     }
 
+    /**
+     * Get options array for custom select/radio/checkbox from submission form field.
+     * Handles different saved data structures from the form builder.
+     *
+     * @param array $submission_field Submission form field config.
+     * @return array Options with option_value and option_label keys, or empty array.
+     */
+    protected function get_custom_field_options_from_submission( $submission_field ) {
+        if ( empty( $submission_field['options'] ) || ! is_array( $submission_field['options'] ) ) {
+            return [];
+        }
+        $opts = $submission_field['options'];
+
+        // Builder stores options at options.options.value (nested structure)
+        if ( ! empty( $opts['options']['value'] ) && is_array( $opts['options']['value'] ) ) {
+            return $this->normalize_option_items( $opts['options']['value'] );
+        }
+        // Fallback: options.options as direct array
+        if ( ! empty( $opts['options'] ) && is_array( $opts['options'] ) && isset( $opts['options'][0] ) ) {
+            return $this->normalize_option_items( $opts['options'] );
+        }
+        // Fallback: options as flat array (listing form style)
+        if ( isset( $opts[0] ) && is_array( $opts[0] ) ) {
+            return $this->normalize_option_items( $opts );
+        }
+
+        return [];
+    }
+
+    /**
+     * Normalize option items to have option_value and option_label keys.
+     *
+     * @param array $items Raw option items (may use value/label or option_value/option_label).
+     * @return array Normalized options.
+     */
+    protected function normalize_option_items( $items ) {
+        if ( ! is_array( $items ) ) {
+            return [];
+        }
+        $normalized = [];
+        foreach ( $items as $item ) {
+            if ( ! is_array( $item ) ) {
+                continue;
+            }
+            $val = isset( $item['option_value'] ) ? $item['option_value'] : ( isset( $item['value'] ) ? $item['value'] : '' );
+            $lbl = isset( $item['option_label'] ) ? $item['option_label'] : ( isset( $item['label'] ) ? $item['label'] : $val );
+            $normalized[] = [
+                'option_value' => $val,
+                'option_label' => $lbl,
+            ];
+        }
+        return $normalized;
+    }
+
     public function buttons_template() {
         if ( $this->has_reset_filters_button || $this->has_apply_filters_button ) {
             Helper::get_template( 'search-form/buttons', ['searchform' => $this] );
@@ -415,27 +476,247 @@ class Directorist_Listing_Search_Form {
         return $ptype;
     }
 
-    // custom field assign to category
+    /**
+     * @deprecated Use conditional_logic instead of assign_to for field visibility.
+     * This method returns empty arrays to maintain backward compatibility.
+     */
     public function assign_to_category() {
-        $submission_form_fields = get_term_meta( $this->listing_type , 'submission_form_fields', true );
-        $category_id = isset( $_REQUEST['cat_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cat_id'] ) ) : '';
-        $custom_field_key = [];
-        $assign_to_cat = [];
+        // Deprecated: assign_to feature has been removed in favor of conditional_logic
+        return [
+            'custom_field_key' => [],
+            'assign_to_cat'    => [],
+        ];
+    }
 
-        if ( $submission_form_fields['fields'] ) {
-            foreach ( $submission_form_fields['fields'] as $field ) {
-                if ( ! empty( $field['assign_to'] ) && $category_id != $field['category'] ) {
-                    $custom_field_key[] = $field['field_key'];
-                    $assign_to_cat[]    = $field['category'];
+    /**
+     * Get conditional logic HTML attributes for a field wrapper.
+     * Same logic as ListingForm - outputs data-conditional-logic and data-field-key.
+     *
+     * @param array $data Field data array
+     * @return string HTML attributes string (empty if no conditional logic or not enabled)
+     */
+    public function get_conditional_logic_attributes( $data ) {
+        $conditional_logic = $this->extract_conditional_logic( $data );
+
+        if ( empty( $conditional_logic ) ) {
+            return '';
+        }
+
+        $normalized = $this->normalize_conditional_logic( $conditional_logic, $data );
+
+        if ( empty( $normalized ) ) {
+            return '';
+        }
+
+        $field_key = isset( $data['field_key'] ) ? $data['field_key'] : ( isset( $data['widget_name'] ) ? $data['widget_name'] : '' );
+        $json      = wp_json_encode( $normalized );
+
+        return ' data-conditional-logic="' . esc_attr( $json ) . '" data-field-key="' . esc_attr( $field_key ) . '"';
+    }
+
+    /**
+     * Extract conditional logic from options array (used when merging search form field options)
+     *
+     * @param array $options Options array (e.g. from search form builder)
+     * @return array|null Conditional logic array or null if not found
+     */
+    private function extract_conditional_logic_from_options( $options ) {
+        if ( empty( $options ) || ! is_array( $options ) ) {
+            return null;
+        }
+        if ( ! empty( $options['conditional_logic']['value'] ) && is_array( $options['conditional_logic']['value'] ) ) {
+            return $options['conditional_logic']['value'];
+        }
+        if ( ! empty( $options['conditional_logic'] ) && is_array( $options['conditional_logic'] ) && isset( $options['conditional_logic']['enabled'] ) ) {
+            return $options['conditional_logic'];
+        }
+        return null;
+    }
+
+    /**
+     * Extract conditional logic from field data
+     *
+     * @param array $data Field data array
+     * @return array|null Conditional logic array or null if not found
+     */
+    private function extract_conditional_logic( $data ) {
+        if ( ! empty( $data['conditional_logic_data'] ) ) {
+            if ( is_string( $data['conditional_logic_data'] ) ) {
+                $decoded = json_decode( $data['conditional_logic_data'], true );
+                if ( json_last_error() === JSON_ERROR_NONE && is_array( $decoded ) ) {
+                    return $decoded;
                 }
+            } elseif ( is_array( $data['conditional_logic_data'] ) ) {
+                return $data['conditional_logic_data'];
             }
         }
 
-        $category_custom_field = [
-            'custom_field_key'  => $custom_field_key,
-            'assign_to_cat'     => $assign_to_cat,
+        if ( ! empty( $data['options']['conditional_logic']['value'] ) && is_array( $data['options']['conditional_logic']['value'] ) ) {
+            return $data['options']['conditional_logic']['value'];
+        }
+
+        if ( ! empty( $data['options']['conditional_logic'] ) && is_array( $data['options']['conditional_logic'] ) ) {
+            if ( isset( $data['options']['conditional_logic']['value'] ) ) {
+                return null;
+            }
+            return $data['options']['conditional_logic'];
+        }
+
+        if ( ! empty( $data['conditional_logic'] ) && is_array( $data['conditional_logic'] ) ) {
+            return $data['conditional_logic'];
+        }
+
+        return null;
+    }
+
+    /**
+     * Normalize and validate conditional logic data
+     *
+     * @param array $conditional_logic Raw conditional logic array
+     * @return array|null Normalized conditional logic array or null if invalid
+     */
+    private function normalize_conditional_logic( $conditional_logic ) {
+        if ( ! is_array( $conditional_logic ) ) {
+            return null;
+        }
+
+        $enabled = isset( $conditional_logic['enabled'] )
+            ? filter_var( $conditional_logic['enabled'], FILTER_VALIDATE_BOOLEAN )
+            : false;
+
+        if ( ! $enabled ) {
+            return null;
+        }
+
+        if ( ! isset( $conditional_logic['groups'] ) || ! is_array( $conditional_logic['groups'] ) ) {
+            return null;
+        }
+
+        $global_operator = $this->normalize_operator(
+            $conditional_logic['globalOperator'] ?? 'OR'
+        );
+
+        $normalized_groups = $this->normalize_groups( $conditional_logic['groups'] );
+
+        if ( empty( $normalized_groups ) ) {
+            return null;
+        }
+
+        return [
+            'enabled'        => true,
+            'action'         => $conditional_logic['action'] ?? 'show',
+            'globalOperator' => $global_operator,
+            'groups'         => $normalized_groups,
         ];
-        return $category_custom_field;
+    }
+
+    /**
+     * Normalize operator value
+     *
+     * @param mixed $operator Operator value
+     * @return string Normalized operator (AND or OR)
+     */
+    private function normalize_operator( $operator ) {
+        if ( empty( $operator ) || ! is_string( $operator ) ) {
+            return 'OR';
+        }
+
+        $normalized = strtoupper( trim( $operator ) );
+
+        return in_array( $normalized, [ 'AND', 'OR' ], true ) ? $normalized : 'OR';
+    }
+
+    /**
+     * Normalize groups array
+     *
+     * @param array $groups Raw groups array
+     * @return array Normalized groups array
+     */
+    private function normalize_groups( $groups ) {
+        if ( ! is_array( $groups ) ) {
+            return [];
+        }
+
+        $normalized = [];
+        $field_key_map = $this->get_submission_widget_key_to_field_key_map();
+
+        foreach ( $groups as $group ) {
+            if ( ! is_array( $group ) || empty( $group['conditions'] ) || ! is_array( $group['conditions'] ) ) {
+                continue;
+            }
+
+            $operator = $this->normalize_operator( $group['operator'] ?? 'AND' );
+
+            $valid_conditions = [];
+            foreach ( $group['conditions'] as $condition ) {
+                if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
+                    $cond = $condition;
+                    $raw_field = $cond['field'];
+                    $mapped = $field_key_map[ $raw_field ] ?? null;
+                    if ( $mapped ) {
+                        $cond['field'] = $mapped;
+                    } else {
+                        $cond['field'] = $this->widget_name_to_custom_field_key( $raw_field );
+                    }
+                    $valid_conditions[] = $cond;
+                }
+            }
+
+            if ( ! empty( $valid_conditions ) ) {
+                $normalized[] = [
+                    'operator'   => $operator,
+                    'conditions' => $valid_conditions,
+                ];
+            }
+        }
+
+        return $normalized;
+    }
+
+    /**
+     * Map widget_name (select, select_2, radio, checkbox) to field_key for custom fields.
+     * Search form uses name="custom_field[custom-select]" so condition.field must be custom-select.
+     *
+     * @param string $raw Field value from condition (e.g. select, select_2, radio)
+     * @return string Mapped field_key (e.g. custom-select, custom-select-2)
+     */
+    private function widget_name_to_custom_field_key( $raw ) {
+        if ( empty( $raw ) || is_array( $raw ) ) {
+            return $raw;
+        }
+        $raw = (string) $raw;
+        if ( strpos( $raw, 'custom-' ) === 0 ) {
+            return $raw;
+        }
+        $custom_types = [ 'select', 'radio', 'checkbox', 'text', 'textarea', 'number', 'date', 'time', 'url', 'file', 'color_picker' ];
+        foreach ( $custom_types as $type ) {
+            if ( $raw === $type || preg_match( '/^' . preg_quote( $type, '/' ) . '_\d+$/', $raw ) ) {
+                return 'custom-' . preg_replace( '/^([a-z_]+)_(\d+)$/i', '$1-$2', $raw );
+            }
+        }
+        return $raw;
+    }
+
+    /**
+     * Get map of widget_key => field_key from submission form for custom fields.
+     *
+     * @return array<string, string>
+     */
+    private function get_submission_widget_key_to_field_key_map() {
+        $submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
+        $map = [];
+
+        if ( empty( $submission_form_fields['fields'] ) || ! is_array( $submission_form_fields['fields'] ) ) {
+            return $map;
+        }
+
+        foreach ( $submission_form_fields['fields'] as $widget_key => $field ) {
+            if ( ! empty( $field['field_key'] ) && $this->is_custom_field( $field ) ) {
+                $map[ $widget_key ] = $field['field_key'];
+            }
+        }
+
+        return $map;
     }
 
     public function field_template( $field_data ) {
@@ -622,7 +903,8 @@ class Directorist_Listing_Search_Form {
     }
 
     public function get_atts_data() {
-        $this->params['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->listing_type );
+        // Removed: category_custom_fields_relations is no longer used (assign_to feature removed)
+        // $this->params['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->listing_type );
 
         return json_encode( $this->params );
     }

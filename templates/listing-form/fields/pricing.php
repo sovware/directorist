@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.2
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -14,8 +14,10 @@ $price_type              = get_post_meta( $listing_id, '_atbd_listing_pricing', 
 $allow_decimal           = get_directorist_option( 'allow_decimal', 1 );
 $currency_symbol         = atbdp_currency_symbol( directorist_get_currency() );
 
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
-<div class="directorist-form-group directorist-form-pricing-field price-type-<?php echo esc_attr( $data['pricing_type'] ); ?>">
+<div class="directorist-form-group directorist-form-pricing-field price-type-<?php echo esc_attr( $data['pricing_type'] ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     <?php $listing_form->field_label_template( $data ); ?>
 
     <?php if ( $data['pricing_type'] === 'both' ) { ?>

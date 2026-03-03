@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.5.10
+Stable tag: 8.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -305,6 +305,26 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.6 - Mar 3, 2026 =
+
+**Added**
+ - Conditional Logic support across all form fields in both Listing Form and Search Form. Fields can now dynamically show or hide based on other field values, allowing more advanced and flexible form configurations. (#2711)
+ - Expiration date and “Never Expires” option added to listings bulk edit for improved listing lifecycle management. (#2705)
+
+**Changed**
+ - Listings deleted from the user dashboard are now moved to Trash instead of being permanently removed. (#2703)
+
+**Improved**
+ - Search Form layout and responsiveness enhanced for mobile devices. (#2574)
+
+**Fixed**
+ - Broken access issue affecting user permissions. (#2710)
+ - Unlimited expiration email trigger issue. (#2700)
+ - Missing Font Awesome Regular SVG icons not rendering on the frontend. (#2708)
+ - Builder issue where the Section Name input lost focus on every keystroke. (#2698)
+ - Text alignment inconsistencies on the Single Listing page. (#2683)
+ - Formgent incorrect enquiry submission date & time (#2701)
 
 = 8.5.10 - Feb 9, 2026 =
 

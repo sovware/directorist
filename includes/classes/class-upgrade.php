@@ -31,19 +31,23 @@ class ATBDP_Upgrade
 
         add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
 
-        // will be removed in future
-        add_action( 'admin_init', [ $this, 'review_migration' ] );
+        // Migrate assign_to to conditional logic (custom fields only)
+        add_action( 'admin_init', [ $this, 'migrate_assign_to_conditional_logic' ] );
     }
 
-    /**
-     * Run review consent migration for all directory types.
+     /**
+     * Migrate assign_to category fields to conditional logic
      *
-     * @since 8.0
      * @return void
      */
-    public function review_migration() {
-        // Skip if migration already done
-        if ( get_option( 'directorist_review_consent_migrated' ) ) {
+    public function migrate_assign_to_conditional_logic() {
+        // Security: Check capability
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        // Optimization: Check migration flag first (fastest check)
+        if ( get_option( 'directorist_assign_to_conditional_logic_migrated', false ) ) {
             return;
         }
 
@@ -55,102 +59,300 @@ class ATBDP_Upgrade
         );
 
         if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
-            update_option( 'directorist_review_consent_migrated', true );
+            update_option( 'directorist_assign_to_conditional_logic_migrated', true );
             return;
         }
 
         foreach ( $directory_types as $directory_type ) {
-            $this->add_review_consent_field( $directory_type->term_id );
+            if ( ! is_object( $directory_type ) || ! isset( $directory_type->term_id ) ) {
+                continue;
+            }
+            $this->migrate_directory_assign_to_fields( $directory_type->term_id );
         }
 
-        update_option( 'directorist_review_consent_migrated', true );
+        update_option( 'directorist_assign_to_conditional_logic_migrated', true );
     }
 
     /**
-     * Add review consent field to directory type.
+     * Migrate assign_to fields for a specific directory type
      *
-     * @since 8.0
-     * @param int $term_id Directory type term ID.
+     * @param int $directory_id Directory type term ID
      * @return void
      */
-    private function add_review_consent_field( $term_id ) {
-        // Validate term ID
-        $term_id = absint( $term_id );
-        if ( empty( $term_id ) ) {
+    private function migrate_directory_assign_to_fields( $directory_id ) {
+        $directory_id = absint( $directory_id );
+
+        if ( empty( $directory_id ) ) {
             return;
         }
 
-        $contents = get_term_meta( $term_id, 'single_listings_contents', true );
+        $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
+        $search_form_fields     = get_term_meta( $directory_id, 'search_form_fields', true );
 
-        // Must be array with groups
-        if ( empty( $contents ) || ! is_array( $contents ) ) {
-            return;
+        if ( ! is_array( $submission_form_fields ) ) {
+            $submission_form_fields = array();
         }
 
-        $fields = isset( $contents['fields'] ) && is_array( $contents['fields'] ) ? $contents['fields'] : array();
-        $groups = isset( $contents['groups'] ) && is_array( $contents['groups'] ) ? $contents['groups'] : array();
+        if ( ! is_array( $search_form_fields ) ) {
+            $search_form_fields = array();
+        }
 
-        // Already has consent → skip
-        if ( isset( $fields['review_consent'] ) ) {
-            return;
+        $migrated_fields   = array();
+        $submission_updated = false;
+        $search_updated     = false;
+
+        // Step 1: Migrate submission form custom fields.
+        if ( ! empty( $submission_form_fields['fields'] ) && is_array( $submission_form_fields['fields'] ) ) {
+            foreach ( $submission_form_fields['fields'] as $field_key => $field ) {
+                if ( ! is_array( $field ) || ! $this->is_custom_field_for_migration( $field ) ) {
+                    continue;
+                }
+
+                $existing_logic = $this->get_existing_conditional_logic( $field );
+                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                    continue;
+                }
+
+                if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+                    continue;
+                }
+
+                $category_id = is_numeric( $field['category'] ) ? absint( $field['category'] ) : 0;
+                if ( empty( $category_id ) ) {
+                    continue;
+                }
+
+                $conditional_logic = $this->convert_assign_to_to_conditional_logic( $category_id, 'submission' );
+                if ( empty( $conditional_logic ) || ! is_array( $conditional_logic ) ) {
+                    continue;
+                }
+
+                // Cleanup broken old migration shape for option-list fields.
+                if ( ! empty( $field['options'] ) && is_array( $field['options'] ) && isset( $field['options'][0] ) && isset( $field['options']['conditional_logic'] ) ) {
+                    unset( $field['options']['conditional_logic'] );
+                }
+
+                // Keep conditional logic at root level (safe for all field structures).
+                $field['conditional_logic'] = $conditional_logic;
+
+                $submission_form_fields['fields'][ $field_key ] = $field;
+                $migrated_fields[ $field_key ]                  = $category_id;
+                $submission_updated                              = true;
+            }
+
+            if ( $submission_updated ) {
+                update_term_meta( $directory_id, 'submission_form_fields', $submission_form_fields );
+            }
+        }
+
+        // Step 2: Sync migrated submission custom fields to search custom fields.
+        if ( ! empty( $migrated_fields ) && ! empty( $search_form_fields['fields'] ) && is_array( $search_form_fields['fields'] ) ) {
+            foreach ( $search_form_fields['fields'] as $search_field_key => $search_field ) {
+                if ( ! is_array( $search_field ) || ! $this->is_custom_field_for_migration( $search_field ) ) {
+                    continue;
+                }
+
+                $existing_logic = $this->get_existing_conditional_logic( $search_field );
+                if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                    continue;
+                }
+
+                $form_key = ( isset( $search_field['original_widget_key'] ) && is_string( $search_field['original_widget_key'] ) ) ? $search_field['original_widget_key'] : '';
+                if ( '' === $form_key || ! isset( $migrated_fields[ $form_key ] ) ) {
+                    continue;
+                }
+
+                $category_id = absint( $migrated_fields[ $form_key ] );
+                if ( empty( $category_id ) ) {
+                    continue;
+                }
+
+                $search_conditional_logic = $this->convert_assign_to_to_conditional_logic( $category_id, 'search' );
+                if ( empty( $search_conditional_logic ) || ! is_array( $search_conditional_logic ) ) {
+                    continue;
+                }
+
+                // Cleanup broken old migration shape for option-list fields.
+                if ( ! empty( $search_field['options'] ) && is_array( $search_field['options'] ) && isset( $search_field['options'][0] ) && isset( $search_field['options']['conditional_logic'] ) ) {
+                    unset( $search_field['options']['conditional_logic'] );
+                }
+
+                $search_field['conditional_logic'] = $search_conditional_logic;
+
+                $search_form_fields['fields'][ $search_field_key ] = $search_field;
+                $search_updated                                      = true;
+            }
+
+            if ( $search_updated ) {
+                update_term_meta( $directory_id, 'search_form_fields', $search_form_fields );
+            }
+        }
+
+        // Step 3: Backward compatibility - migrate search fields that still have own assign_to.
+        if ( ! empty( $search_form_fields['fields'] ) && is_array( $search_form_fields['fields'] ) ) {
+            $updated = $this->migrate_form_fields( $search_form_fields['fields'], 'search' );
+            if ( $updated ) {
+                update_term_meta( $directory_id, 'search_form_fields', $search_form_fields );
+            }
+        }
+    }
+
+    /**
+     * Migrate assign_to fields in a fields array
+     *
+     * @param array  $fields    Fields array (passed by reference)
+     * @param string $form_type Form type: 'submission' or 'search'
+     * @return bool True if any field was updated, false otherwise
+     */
+    private function migrate_form_fields( &$fields, $form_type = 'submission' ) {
+        if ( ! is_array( $fields ) ) {
+            return false;
         }
 
         $updated = false;
 
-        foreach ( $groups as $index => $group ) {
-            if ( ! is_array( $group ) || empty( $group['widget_name'] ) ) {
+        foreach ( $fields as $field_key => $field ) {
+            if ( ! is_array( $field ) || ! $this->is_custom_field_for_migration( $field ) ) {
                 continue;
             }
 
-            if ( 'review' === $group['widget_name'] ) {
-                // Add review_consent field
-                $fields['review_consent'] = array(
-                    'enable_cookie_consent' => false,
-                    'enable_gdpr_consent'   => false,
-                    'consent_label'         => sprintf(
-                        /* translators: %1$s: Privacy Policy URL, %2$s: Terms of Service URL */
-                        __( 'I have read and agree to the <a href="%1$s" target="_blank">Privacy Policy</a> and <a href="%2$s" target="_blank">Terms of Service</a>', 'directorist' ),
-                        esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ),
-                        esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() )
-                    ),
-                    'widget_group'      => 'other_widgets',
-                    'widget_name'       => 'review',
-                    'widget_child_name' => 'review_consent',
-                    'widget_key'        => 'review_consent',
-                );
-
-                // Ensure group fields is array
-                if ( ! isset( $group['fields'] ) || ! is_array( $group['fields'] ) ) {
-                    $group['fields'] = array();
-                }
-
-                if ( ! in_array( 'review_consent', $group['fields'], true ) ) {
-                    $group['fields'][] = 'review_consent';
-                }
-
-                // Update accepted_widgets if it exists
-                if ( isset( $group['accepted_widgets'] ) && is_array( $group['accepted_widgets'] ) ) {
-                    $group['accepted_widgets'][] = array(
-                        'widget_group'      => 'other_widgets',
-                        'widget_name'       => 'review',
-                        'widget_child_name' => 'review_consent',
-                    );
-                }
-
-                // Save back the modified group
-                $groups[ $index ] = $group;
-                $updated = true;
-                break;
+            $existing_logic = $this->get_existing_conditional_logic( $field );
+            if ( ! empty( $existing_logic['enabled'] ) && ! empty( $existing_logic['groups'] ) ) {
+                continue;
             }
+
+            if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+                continue;
+            }
+
+            $category_id = is_numeric( $field['category'] ) ? absint( $field['category'] ) : 0;
+            if ( empty( $category_id ) ) {
+                continue;
+            }
+
+            $conditional_logic = $this->convert_assign_to_to_conditional_logic( $category_id, $form_type );
+            if ( empty( $conditional_logic ) || ! is_array( $conditional_logic ) ) {
+                continue;
+            }
+
+            // Cleanup broken old migration shape for option-list fields.
+            if ( ! empty( $field['options'] ) && is_array( $field['options'] ) && isset( $field['options'][0] ) && isset( $field['options']['conditional_logic'] ) ) {
+                unset( $field['options']['conditional_logic'] );
+            }
+
+            $field['conditional_logic'] = $conditional_logic;
+
+            $fields[ $field_key ] = $field;
+            $updated = true;
         }
 
-        // Only update database if changes were made
-        if ( $updated ) {
-            $contents['fields'] = $fields;
-            $contents['groups'] = $groups;
-            
-            update_term_meta( $term_id, 'single_listings_contents', $contents );
+        return $updated;
+    }
+
+    /**
+     * Convert assign_to category value to conditional logic format
+     *
+     * Supports single category only. If multiple categories provided, uses the first one.
+     *
+     * @param int $category_id Category ID (must be validated integer)
+     * @param string $form_type Form type: 'submission' or 'search'
+     * @return array|null Conditional logic array or null if invalid
+     */
+    private function convert_assign_to_to_conditional_logic( $category_id, $form_type = 'submission' ) {
+        // Security: Validate input
+        $category_id = absint( $category_id );
+        if ( empty( $category_id ) ) {
+            return null;
         }
+
+        // Security: Verify category exists and belongs to correct taxonomy
+        $category = get_term( $category_id, ATBDP_CATEGORY );
+        if ( is_wp_error( $category ) || empty( $category ) || ! is_object( $category ) ) {
+            return null;
+        }
+
+        // Security: Validate form_type
+        $form_type = ( $form_type === 'search' ) ? 'search' : 'submission';
+
+        // Use correct field key based on form type
+        // Listing form: 'admin_category_select[]' (for builder compatibility)
+        // Search form: 'category' (as SearchForm normalizes it)
+        $field_key = ( $form_type === 'submission' ) ? 'admin_category_select[]' : 'category';
+
+        // Build conditional logic structure for single category
+        return array(
+            'enabled'        => true,
+            'action'         => 'show',
+            'globalOperator' => 'OR',
+            'groups'         => array(
+                array(
+                    'operator'   => 'AND',
+                    'conditions' => array(
+                        array(
+                            'field'    => $field_key,
+                            'operator' => 'contains',
+                            'value'    => (string) $category_id,
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    /**
+     * Check if field is a custom field for migration
+     *
+     * @param array $field Field data array
+     * @return bool True if custom field, false otherwise
+     */
+    private function is_custom_field_for_migration( $field ) {
+        if ( ! is_array( $field ) ) {
+            return false;
+        }
+
+        // Security: Validate widget_group
+        if ( ! empty( $field['widget_group'] ) && is_string( $field['widget_group'] ) && $field['widget_group'] === 'custom' ) {
+            return true;
+        }
+
+        // Optimization: Use strict comparison and validate widget_name
+        $custom_field_types = array( 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' );
+        if ( ! empty( $field['widget_name'] ) && is_string( $field['widget_name'] ) && in_array( $field['widget_name'], $custom_field_types, true ) ) {
+            return true;
+        }
+
+        // Optimization: Check if field_key starts with 'custom-' (prefix check)
+        if ( ! empty( $field['field_key'] ) && is_string( $field['field_key'] ) && strpos( $field['field_key'], 'custom-' ) === 0 ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get conditional logic from field safely.
+     *
+     * @param array $field Field data.
+     * @return array|null
+     */
+    private function get_existing_conditional_logic( $field ) {
+        if ( ! is_array( $field ) ) {
+            return null;
+        }
+
+        if ( ! empty( $field['conditional_logic'] ) && is_array( $field['conditional_logic'] ) ) {
+            return $field['conditional_logic'];
+        }
+
+        if ( ! empty( $field['options'] )
+            && is_array( $field['options'] )
+            && ! empty( $field['options']['conditional_logic']['value'] )
+            && is_array( $field['options']['conditional_logic']['value'] )
+        ) {
+            return $field['options']['conditional_logic']['value'];
+        }
+
+        return null;
     }
 
     public function v8_force_migration() {

@@ -614,8 +614,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ initSearchCategoryCustomFields; }
 /* harmony export */ });
-// Search Category Change
+/**
+ * @deprecated This file is deprecated. The assign_to feature has been removed.
+ * Use conditional_logic instead for field visibility.
+ *
+ * This file is kept as a no-op for backward compatibility.
+ * Since directorist_get_category_custom_field_relations() now returns empty array,
+ * this function will have no effect.
+ */
 function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
+  // Deprecated: assign_to feature removed - use conditional_logic instead
+  // Early return since relations will always be empty now
+  if (!relations || Object.keys(relations).length === 0) {
+    return;
+  }
   var fields = Object.keys(relations);
   var wrappers = ['.directorist-advanced-filter__advanced__element', '.directorist-search-modal__input', '.directorist-search-field'];
   if (!fields.length) {
@@ -664,7 +676,18 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
     }
   });
 }
+
+/**
+ * @deprecated This function is deprecated. The assign_to feature has been removed.
+ * Use conditional_logic instead for field visibility.
+ *
+ * This function is kept for backward compatibility but will have no effect
+ * since category_custom_fields_relations will always be empty.
+ */
 function initSearchCategoryCustomFields($) {
+  // Deprecated: assign_to feature removed - use conditional_logic instead
+  // This function is kept as a no-op for backward compatibility
+
   // Handle multiple search forms and containers
   var containers = ['.directorist-search-contents', '.directorist-archive-contents', '.directorist-search-form', '.directorist-add-listing-form'];
   containers.forEach(function (containerSelector) {
@@ -3389,12 +3412,6 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -3403,6 +3420,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -16,9 +16,11 @@ if ( is_array( $search_by_rating ) ) {
 } else {
     $search_by_rating = array_map( 'sanitize_text_field', explode( ',', wp_unslash( $search_by_rating ) ) );
 }
+
+$conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-search-field directorist-search-field-review directorist-search-form-dropdown directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
+<div class="directorist-search-field directorist-search-field-review directorist-search-form-dropdown directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     <div class="directorist-search-basic-dropdown directorist-search-field__input">
 
         <?php if ( ! empty( $data['label'] ) ) : ?>

@@ -18,8 +18,8 @@ function directorist_get_checkout_types(): array {
     return apply_filters( 'directorist_checkout_types', [] );
 }
 
-function directorist_price( $price ) {
-    return atbdp_display_price( $price, false, '', '', '', false );
+function directorist_price( $price, $html = true ) {
+    return atbdp_display_price( $price, false, '', '', '', false, $html );
 }
 
 function directorist_currency(): string {

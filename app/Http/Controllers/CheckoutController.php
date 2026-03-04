@@ -62,7 +62,7 @@ class CheckoutController {
                 throw new Exception( __( 'Invalid payment gateway.', 'directorist' ) );
             }
 
-            do_action( 'directorist_checkout_validate_payment_processor', $processor_instance, $dto, $request );
+            do_action( 'directorist_checkout_validate_payment_processor', $processor_instance, $dto, $checkout_type, $request );
         }
 
         $repository = directorist_order_repository();
@@ -72,6 +72,8 @@ class CheckoutController {
         }
 
         if ( $process_payment ) {
+            do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
+
             return Response::send(
                 [
                     "redirect_url" => $processor_instance->pay( $dto, $request->get_params() ) ?? $this->get_redirect_url( $dto )

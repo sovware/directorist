@@ -91,6 +91,7 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
         --directorist-color-open-badge: <?php echo $open_badge_color; ?>;
         --directorist-color-closed-badge: <?php echo $closed_badge_color; ?>;
         --directorist-color-featured-badge: <?php echo $featured_badge_color; ?>;
+        --directorist-color-featured-badge-rgb: <?php echo directorist_hex_to_rgb( $featured_badge_color ); ?>;
         --directorist-color-popular-badge: <?php echo $popular_badge_color; ?>;
         --directorist-color-new-badge: <?php echo $new_badge_color; ?>;
 
@@ -259,7 +260,7 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured i::after,
     .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured i::after,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after, .directorist-badge-featured {
         background: var(--directorist-color-featured-badge) !important;
     }
 

@@ -100,7 +100,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
     public function handle_after_order_update( DTO $dto ) {
         $order = directorist_get_order_by_id( $dto->get_id() );
 
-        if ( ! $order->is_featured_listing ) {
+        if ( (int) $order->is_featured_listing !== 1 ) {
             return;
         }
 

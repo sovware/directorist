@@ -22,18 +22,14 @@ import { getBadgeVariantByStatus } from '@/admin/helper/utils';
 import { OrderTableContainer } from './style';
 import { ActionsDropdownWrapper } from './style';
 
-const checkoutPageUrl = directorist_pricing_plans_data.checkout_page_url;
+const checkoutPageUrl = directorist_admin_order.checkout_page_url;
 const columns: Column[] = [
 	{
 		id: 'id',
 		label: __('Order Id', 'directorist'),
 		render: ({ item }) => {
 			return (
-				<a
-					href={`/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${item.id}`}
-				>
-					#{item.id}
-				</a>
+				`#${item.id}`
 			);
 		},
 	},
@@ -63,12 +59,15 @@ const columns: Column[] = [
 		id: 'order_type',
 		label: __('Order Type', 'directorist'),
 		render: ({ item }) => {
-			return <Badge variant={'info'} className='directorist-badge'>{item?.order_type}</Badge>;
+			return <Badge variant={'info'} className='directorist-badge'>{item?.order_type || __('Unknown', 'directorist')}</Badge>;
 		},
 	},
 	{
 		id: 'payment_method',
 		label: __('Payment Method', 'directorist'),
+		render: ({ item }) => {
+			return <span className='directorist-table-text-light'>{item?.payment_method || __('System', 'directorist')}</span>;
+		},
 	},
 	{
 		id: 'date',
@@ -115,7 +114,7 @@ export default function App() {
 			<Table
 				heading="Orders"
 				storeName="directorist/orders"
-				path="/directorist/admin/orders"
+				path="/directorist/orders"
 				columns={columns}
 				create={{ status: false }}
 				edit={{ status: false }}

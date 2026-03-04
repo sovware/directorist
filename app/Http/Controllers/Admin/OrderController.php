@@ -36,9 +36,9 @@ class OrderController {
             ]
         );
 
-        $page = (int) $request->get_param( "page" );
+        $page     = (int) $request->get_param( "page" );
         $per_page = (int) $request->get_param( "perPage" );
-        $search = (string) $request->get_param( "search" );
+        $search   = (string) $request->get_param( "search" );
 
         $dto = (new Read)->set_page( $page )->set_per_page( $per_page )->set_search( $search );
 
@@ -123,8 +123,6 @@ class OrderController {
 
         $this->repository->update( $dto );
 
-        do_action( 'directorist_after_order_updated_by_admin', $dto, $request );
-
         return Response::send(
             [
                 "message" => esc_html__( "Order was updated successfully" )
@@ -147,8 +145,6 @@ class OrderController {
         $dto = $this->repository->to_dto( $old_item );
 
         $dto->set_status($request->get_param("status"));
-
-        do_action( 'directorist_after_order_updated_by_admin', $dto, $request );
 
         $this->repository->update( $dto );
 

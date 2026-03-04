@@ -28,9 +28,10 @@ class OrderRepository extends Repository {
             $search_term = trim( $dto->get_search() );
             $query->where(
                 function( $query ) use ( $search_term ) {
-                    $query->where( 'd_order.status', 'like', '%' . $search_term . '%' )
-                        ->or_where( 'users.user_email', 'like', '%' . $search_term . '%' )
-                        ->or_where( 'users.display_name', 'like', '%' . $search_term . '%' );
+                    $query->where_like( 'd_order.id', $search_term )
+                        ->or_where_like( 'd_order.status', $search_term )
+                        ->or_where_like( 'users.user_email', $search_term )
+                        ->or_where_like( 'users.display_name', $search_term );
 
                     // Check if search term contains 'featured listing' (case-insensitive)
                     if ( is_int( stripos( 'featured listing', $search_term ) ) ) {
@@ -55,7 +56,8 @@ class OrderRepository extends Repository {
             $search_term = trim( $dto->get_search() );
             $query->where(
                 function( $query ) use ( $search_term ) {
-                    $query->where( 'd_order.status', 'like', '%' . $search_term . '%' );
+                    $query->where_like( 'd_order.id', $search_term )
+                        ->or_where_like( 'd_order.status', $search_term );
 
                     // Check if search term contains 'featured listing' (case-insensitive)
                     if ( is_int( stripos( 'featured listing', $search_term ) ) ) {
@@ -137,13 +139,30 @@ class OrderRepository extends Repository {
      * @throws Exception If the update operation fails.
      */
     public function update( \Directorist\WpMVC\DTO\DTO $dto ) {
-        do_action( 'directorist_repository_before_order_update', $dto );
+        $old_order = $this->get_by_id( $dto->get_id() );
+        
+        if ( ! $old_order ) {
+            throw new Exception( 'Order not found' );
+        }
 
+        do_action( 'directorist_before_order_update', $dto, $old_order );
+        
         $update = parent::update( $dto );
 
-        do_action( 'directorist_repository_after_order_update', $dto );
+        do_action( 'directorist_after_order_update', $dto, $old_order );
 
         return $update;
+    }
+
+    /**
+     * Update an existing order silently.
+     *
+     * @param \Directorist\App\DTO\Order\DTO $dto The DTO containing updated order data.
+     * @return int The number of affected rows.
+     * @throws Exception If the update operation fails.
+     */
+    public function silent_update( \Directorist\WpMVC\DTO\DTO $dto ) {
+        return parent::update( $dto );
     }
 
     public function update_status( int $order_id, string $status ) {

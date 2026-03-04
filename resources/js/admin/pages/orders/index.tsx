@@ -64,7 +64,7 @@ const columns: Column[] = [
 		render: ({ item }) => {
 			return (
 				<Badge variant={'info'} className="directorist-badge">
-					{item?.order_type}
+					{item?.order_type || __('Unknown', 'directorist')}
 				</Badge>
 			);
 		},
@@ -72,6 +72,9 @@ const columns: Column[] = [
 	{
 		id: 'payment_method',
 		label: __('Payment Method', 'directorist'),
+		render: ({ item }) => {
+			return <span className='directorist-table-text-light'>{item?.payment_method || __('System', 'directorist')}</span>;
+		},
 	},
 	{
 		id: 'user_id',

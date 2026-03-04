@@ -255,7 +255,7 @@ final class Directorist_Base {
             if ( class_exists( 'ATBDP_Gateway' ) ) {
                 self::$instance->gateway = new ATBDP_Gateway();
             }
-            self::$instance->order = new ATBDP_Order();
+            // self::$instance->order = new ATBDP_Order();
             self::$instance->shortcode = new \Directorist\ATBDP_Shortcode();
             self::$instance->email = new ATBDP_Email();
             self::$instance->seo = new ATBDP_SEO();

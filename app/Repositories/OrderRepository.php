@@ -28,9 +28,10 @@ class OrderRepository extends Repository {
             $search_term = trim( $dto->get_search() );
             $query->where(
                 function( $query ) use ( $search_term ) {
-                    $query->where( 'd_order.status', 'like', '%' . $search_term . '%' )
-                        ->or_where( 'users.user_email', 'like', '%' . $search_term . '%' )
-                        ->or_where( 'users.display_name', 'like', '%' . $search_term . '%' );
+                    $query->where_like( 'd_order.status', $search_term )
+                        ->or_where_like( 'd_order.id', $search_term )
+                        ->or_where_like( 'users.user_email', $search_term )
+                        ->or_where_like( 'users.display_name', $search_term );
 
                     // Check if search term contains 'featured listing' (case-insensitive)
                     if ( is_int( stripos( 'featured listing', $search_term ) ) ) {

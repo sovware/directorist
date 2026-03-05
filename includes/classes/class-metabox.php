@@ -87,6 +87,7 @@ class ATBDP_Metabox {
 
     public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id, $parent_id = 0 ) {
         $args = [
+            'taxonomy'     => $taxonomy_id,
             'hide_empty'   => 0,
             'hierarchical' => true,
             'parent'       => $parent_id
@@ -98,7 +99,7 @@ class ATBDP_Metabox {
                 $saving_values[] = $saving_term->term_id;
             }
         }
-        $terms = get_terms( $taxonomy_id, $args );
+        $terms = get_terms( $args );
 
         if ( $terms ) {
             foreach ( $terms as $term ) {
@@ -139,7 +140,8 @@ class ATBDP_Metabox {
                 $saving_values[] = $saving_term->term_id;
             }
         }
-        $terms = get_terms( $taxonomy_id, $args );
+        $args['taxonomy'] = $taxonomy_id;
+        $terms = get_terms( $args );
 
         if ( $terms ) {
             foreach ( $terms as $term ) {

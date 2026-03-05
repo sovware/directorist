@@ -1210,6 +1210,7 @@ function atbdp_list_categories( $settings ) {
     }
 
     $args = [
+        'taxonomy' => ATBDP_CATEGORY,
         'orderby' => $settings['orderby'],
         'order' => $settings['order'],
         'hide_empty' => ! empty( $settings['hide_empty'] ) ? 1 : 0,
@@ -1217,7 +1218,7 @@ function atbdp_list_categories( $settings ) {
         'hierarchical' => false
     ];
 
-    $terms = get_terms( ATBDP_CATEGORY, $args );
+    $terms = get_terms( $args );
     $html = '';
 
     if ( count( $terms ) > 0 ) {
@@ -1317,6 +1318,7 @@ function atbdp_list_locations( $settings ) {
     }
 
     $args = [
+        'taxonomy' => ATBDP_LOCATION,
         'orderby' => $settings['orderby'],
         'order' => $settings['order'],
         'hide_empty' => ! empty( $settings['hide_empty'] ) ? 1 : 0,
@@ -1324,7 +1326,7 @@ function atbdp_list_locations( $settings ) {
         'hierarchical' => false
     ];
 
-    $terms = get_terms( ATBDP_LOCATION, $args );
+    $terms = get_terms( $args );
 
     $html = '';
 
@@ -1422,14 +1424,15 @@ function atbdp_list_tags( $settings ) {
     }
 
     $args = [
-        'orderby' => $settings['orderby'],
-        'order' => $settings['order'],
-        'hide_empty' => ! empty( $settings['hide_empty'] ) ? 1 : 0,
-        'parent' => $settings['term_id'],
+        'taxonomy'     => ATBDP_TAGS,
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => ! empty( $settings['hide_empty'] ) ? 1 : 0,
+        'parent'       => $settings['term_id'],
         'hierarchical' => false
     ];
 
-    $terms = get_terms( ATBDP_TAGS, $args );
+    $terms = get_terms( $args );
 
     $html = '';
 
@@ -2252,7 +2255,8 @@ function search_category_location_filter( $settings, $taxonomy_id, $prefix = '' 
         $arg = apply_filters( 'atbdp_search_listing_location_argument', $args );
     }
 
-    $terms = get_terms( $taxonomy_id, $arg );
+    $arg['taxonomy'] = $taxonomy_id;
+    $terms           = get_terms( $arg );
 
     $html = '';
 
@@ -2306,15 +2310,16 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
     }
 
     $args = [
-        'orderby' => $settings['orderby'],
-        'order' => $settings['order'],
-        'hide_empty' => $settings['hide_empty'],
-        'parent' => $settings['term_id'],
-        'exclude' => $plan_cat,
+        'taxonomy'     => $taxonomy_id,
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => $settings['hide_empty'],
+        'parent'       => $settings['term_id'],
+        'exclude'      => $plan_cat,
         'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
     ];
 
-    $terms = get_terms( $taxonomy_id, $args );
+    $terms = get_terms( $args );
     $html  = '';
 
     if ( count( $terms ) > 0 ) {

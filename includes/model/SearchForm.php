@@ -1003,7 +1003,7 @@ class Directorist_Listing_Search_Form {
         $category_select = ! empty( $_REQUEST['in_cat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['in_cat'] ) ) : $category_id;
 
         if ( 'all_tags' == $tag_source || empty( $category_select ) ) {
-            $terms = get_terms( ATBDP_TAGS );
+            $terms = get_terms( [ 'taxonomy' => ATBDP_TAGS ] );
         } else {
             $tag_args = [
                 'post_type' => ATBDP_POST_TYPE,

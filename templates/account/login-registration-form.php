@@ -199,7 +199,8 @@ if ( ! empty( $_GET['registration_status'] ) ) {
                                     <strong>Site name:</strong> %1$s
                                     <strong>User name:</strong> %2$s
                                     To reset your password, please click on the <a href="%3$s">Reset Password</a>.<br>
-                                    If this was a mistake, just ignore this email and nothing will happen.'
+                                    If this was a mistake, just ignore this email and nothing will happen.',
+                                        'directorist'
                                     ),
                                     $site_name,
                                     $user->user_login,

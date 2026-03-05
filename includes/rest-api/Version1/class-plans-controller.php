@@ -137,7 +137,11 @@ class Plans_Controller extends Posts_Controller {
         // Verify post type is registered
         $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
         if ( ! post_type_exists( $post_type ) ) {
-            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type "' . $post_type . '" is not registered.', 'directorist' ), array( 'status' => 500 ) );
+            return new WP_Error( 
+                'post_type_not_registered', 
+                sprintf( __( 'Pricing plans post type "%s" is not registered.', 'directorist' ), esc_html( $post_type ) ), 
+                array( 'status' => 500 ) 
+            );
         }
         
         return parent::get_items_permissions_check( $request );
@@ -156,7 +160,8 @@ class Plans_Controller extends Posts_Controller {
         // Verify post type is registered
         $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
         if ( ! post_type_exists( $post_type ) ) {
-            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type "' . $post_type . '" is not registered.', 'directorist' ), array( 'status' => 500 ) );
+            /* translators: %s: Post type name */
+            return new WP_Error( 'post_type_not_registered', sprintf( __( 'Pricing plans post type "%s" is not registered.', 'directorist' ), esc_html( $post_type ) ), array( 'status' => 500 ) );
         }
         
         return parent::get_item_permissions_check( $request );

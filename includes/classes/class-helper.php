@@ -553,7 +553,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
                     <div class="notice_wrapper">
                         <div class="directorist-alert directorist-alert-warning">
                             <?php directorist_icon( 'las la-info-circle' ); ?>
-                            <?php esc_html_e( 'Nothing to show!' ); ?>
+                            <?php esc_html_e( 'Nothing to show!', 'directorist' ); ?>
                         </div>
                     </div>
                 </section>

@@ -102,7 +102,8 @@
 
     <?php if ( ! empty( $args['extensions_available_in_subscriptions'] ) ) : ?>
         <div class="ext-available">
-            <h4><?php esc_html_e( 'Available in your subscription (' . count( array_keys( $args['extensions_available_in_subscriptions'] ) ) . ')', 'directorist' )  ?></h4>
+            <?php $extensions_count = count( array_keys( $args['extensions_available_in_subscriptions'] ) ); ?>
+            <h4><?php printf( esc_html__( 'Available in your subscription (%d)', 'directorist' ), $extensions_count ); ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-my-subscribed-extensions-form" class="atbdp-my-subscribed-extensions-form" method="post">
@@ -150,9 +151,9 @@
                                             <span class="ext-info">
                                                 <?php
                                                 if ( ! empty( $args['extension_list'][$extension_base] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base]['description'] );
                                                 } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base_alias]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base_alias]['description'] );
                                                 }
                                                 ?>
                                             </span>
@@ -176,7 +177,8 @@
 
     <?php if ( ! empty( $args['required_extensions_list'] ) ) : ?>
         <div class="ext-available">
-            <h4 class="req-ext-title"><?php esc_html_e( 'Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) . ')', 'directorist' )  ?></h4>
+            <?php $required_count = count( array_keys( $args['required_extensions_list'] ) ); ?>
+            <h4 class="req-ext-title"><?php printf( esc_html__( 'Required Extensions (%d)', 'directorist' ), $required_count ); ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">
@@ -244,9 +246,9 @@
                                             <span class="ext-info">
                                                 <?php
                                                 if ( ! empty( $args['extension_list'][$extension_base] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base]['description'] );
                                                 } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base_alias]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base_alias]['description'] );
                                                 }
                                                 ?>
                                             </span>

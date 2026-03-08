@@ -49,7 +49,7 @@ if ( ! function_exists( 'e_var_dump' ) ) {
 
 if ( ! function_exists( 'directorist_console_log' ) ) {
     function directorist_console_log( array $data = [] ) {
-        $data = json_encode( $data ); ?>
+        $data = wp_json_encode( $data ); ?>
         <script>
             var data = JSON.parse( '<?php echo esc_js( $data ); ?>' );
             console.log( data );
@@ -779,7 +779,7 @@ function directorist_icon( $icon, $echo = true, $class = '' ) {
     );
 
     if ( $echo ) {
-        echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped
+        echo wp_kses_post( $html );
     } else {
         return $html;
     }
@@ -879,7 +879,7 @@ if ( ! function_exists( 'valid_js_nonce' ) ) {
      * @return bool it returns true if the nonce is valid and false otherwise
      */
     function valid_js_nonce() {
-        if ( ! empty( $_POST['atbdp_nonce_js'] ) && ( wp_verify_nonce( $_POST['atbdp_nonce_js'], 'atbdp_nonce_action_js' ) ) ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        if ( ! empty( $_POST['atbdp_nonce_js'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['atbdp_nonce_js'] ) ), 'atbdp_nonce_action_js' ) )
             return true;
         return false;
     }
@@ -3296,7 +3296,7 @@ function directorist_get_nonce_key() {
  * @return boolen
  */
 function directorist_verify_nonce( $nonce_field = 'directorist_nonce', $action = '' ) {
-    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? directorist_clean( wp_unslash( $_REQUEST[ $nonce_field ] ) ) : '';
+    $nonce = ! empty( $_REQUEST[ $nonce_field ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_field ] ) ) : '';
     return wp_verify_nonce( $nonce, ( $action ? $action : directorist_get_nonce_key() ) );
 }
 

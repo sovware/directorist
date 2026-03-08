@@ -303,9 +303,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             <?php $email_verify_checkbox = ob_get_clean(); ?>
             <script>
                 jQuery(($) => {
-                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php 
-                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        echo $email_verify_checkbox; 
+                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php
+                        echo wp_kses_post( $email_verify_checkbox );
                     ?>`);
                 });
             </script>
@@ -313,8 +312,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
         }
 
         public function action_admin_edit_user_info( int $user_id ) {
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            if ( empty( $_POST['directorist_nonce'] ) || ! wp_verify_nonce( $_POST['directorist_nonce'], 'update_user_info' ) ) {
+            if ( empty( $_POST['directorist_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['directorist_nonce'] ) ), 'update_user_info' ) ) {
                 return;
             }
 
@@ -388,8 +386,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
         }
 
         public function action_email_verification_notice() {
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            if ( empty( $_GET['users'] ) || empty( $_GET['email-verification-type'] ) || empty( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'directorist_verify_user_email_notice' ) ) {
+            if ( empty( $_GET['users'] ) || empty( $_GET['email-verification-type'] ) || empty( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'directorist_verify_user_email_notice' ) ) {
                 return;
             }
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -698,7 +695,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             if ( $user_id ) {
                 // get user meta activation hash field
                 $code = get_user_meta( $user_id, 'has_to_be_activated', true );
-                $key = filter_input( INPUT_GET, 'key' );
+                $key = filter_input( INPUT_GET, 'key', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 if ( $code == $key ) {
                     delete_user_meta( $user_id, 'has_to_be_activated' );
                     wp_safe_redirect( ATBDP_Permalink::get_login_page_link() );

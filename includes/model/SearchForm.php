@@ -467,7 +467,7 @@ class Directorist_Listing_Search_Form {
             'minValue' => $this->range_slider_minValue( $data ),
         ];
 
-        return json_encode( $data );;
+        return wp_json_encode( $data );
     }
 
     public function get_pricing_type() {
@@ -906,7 +906,7 @@ class Directorist_Listing_Search_Form {
         // Removed: category_custom_fields_relations is no longer used (assign_to feature removed)
         // $this->params['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->listing_type );
 
-        return json_encode( $this->params );
+        return wp_json_encode( $this->params );
     }
 
     public function render_search_shortcode( $atts = [] ) {

@@ -757,8 +757,9 @@ class ATBDP_Upgrade
 		});
 		</script>
 SCRIPT;
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo wp_kses_post( $notice ) . $notice_script;
+        echo wp_kses_post( $notice );
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Admin-only inline JS for smooth scroll to extension updates. No user input.
+        echo $notice_script;
     }
 
     public function v8_theme_upgrade_notice( $theme ) {
@@ -791,13 +792,17 @@ SCRIPT;
 
         $this->directorist_notices      = get_option( 'directorist_notices' );
 
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        if ( isset( $_GET['close-directorist-promo-version'], $_GET['directorist_promo_nonce'] ) && wp_verify_nonce( $_GET['directorist_promo_nonce'], 'directorist_promo_nonce' ) ) {
+        if ( isset( $_GET['close-directorist-promo-version'] ) ) {
+            if ( empty( $_GET['directorist_promo_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['directorist_promo_nonce'] ) ), 'directorist_promo_nonce' ) ) {
+                wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
+            }
             update_user_meta( get_current_user_id(), '_directorist_promo_closed', directorist_clean( wp_unslash( $_GET['close-directorist-promo-version'] ) ) );
         }
 
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        if ( isset( $_GET['directorist_promo2_closed_version'], $_GET['directorist_promo_nonce'] ) && wp_verify_nonce( $_GET['directorist_promo_nonce'], 'directorist_promo_nonce' ) ) {
+        if ( isset( $_GET['directorist_promo2_closed_version'] ) ) {
+            if ( empty( $_GET['directorist_promo_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['directorist_promo_nonce'] ) ), 'directorist_promo_nonce' ) ) {
+                wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
+            }
             update_user_meta( get_current_user_id(), 'directorist_promo2_closed_version', directorist_clean( wp_unslash( $_GET['directorist_promo2_closed_version'] ) ) );
         }
     }

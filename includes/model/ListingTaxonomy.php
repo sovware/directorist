@@ -283,9 +283,8 @@ class Directorist_Listing_Taxonomy {
 
         <div class="directorist-col-12">
             <nav class="directorist-pagination">
-                <?php 
-                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    echo implode( '', $links ); 
+                <?php
+                    echo wp_kses_post( implode( '', $links ) );
                 ?>
             </div>
         </nav>

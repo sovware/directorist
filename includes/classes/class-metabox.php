@@ -295,10 +295,20 @@ class ATBDP_Metabox {
      * @since 5.4.0
      */
     public function publish_atbdp_listings( $new_status, $old_status, $post ) {
-        $nonce = isset( $_REQUEST['_wpnonce'] ) ? directorist_clean( wp_unslash( $_REQUEST['_wpnonce'] ) ) : null;
-        if ( ( $post->post_type == 'at_biz_dir' ) && ( $old_status == 'pending'  &&  $new_status == 'publish' ) && ! wp_verify_nonce( $nonce, 'quick-publish-action' ) ) {
-            do_action( 'atbdp_listing_published', $post->ID );//for sending email notification
+        if ( $post->post_type !== 'at_biz_dir' ) {
+            return;
         }
+    
+        if ( $old_status !== 'pending' || $new_status !== 'publish' ) {
+            return;
+        }
+    
+        // Skip if fired by quick-publish (it fires the action itself)
+        if ( ! empty( $GLOBALS['directorist_quick_publishing'] ) ) {
+            return;
+        }
+    
+        do_action( 'atbdp_listing_published', $post->ID );
     }
 
     /**
@@ -340,7 +350,7 @@ class ATBDP_Metabox {
      * @param object    $post       Current post object being saved
      */
     public function save_post_meta( $post_id, $post ) {
-        $nonce = ! empty( $_POST['listing_info_nonce'] ) ? directorist_clean( wp_unslash( $_POST['listing_info_nonce'] ) ) : '';
+        $nonce = ! empty( $_POST['listing_info_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['listing_info_nonce'] ) ) : '';
 
         if ( ! is_admin() ) {
             return;

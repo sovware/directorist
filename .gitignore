@@ -18,4 +18,5 @@ languages/directorist-en_GB-backup-202002181356150.po~
 /pnpm-lock.yaml
 /.cursor
 /.husky
+/.claude
 /node-update-notes.md

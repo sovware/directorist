@@ -64,8 +64,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', [ $this, 'handle_close_subscriptions_sassion_request' ] );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
-
-            $this->setup_extension_updater();
         }
 
         // initial_setup
@@ -226,53 +224,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             // Set default values if extensions or themes are empty
             $this->extensions = empty( $this->extensions ) ? static::get_default_extensions() : $this->extensions;
             $this->themes = empty( $this->themes ) ? static::get_default_themes() : $this->themes;
-        }
-
-        // get_the_products_list
-        public function setup_extension_updater() {
-
-            // Include the plugin updater class if not already included
-            if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-                include_once ATBDP_INC_DIR . '/modules/updater/EDD_SL_Plugin_Updater.php';
-            }
-
-            $licenses     = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true ); // Get license key for the current user from user meta
-            $plugins_data = get_plugins();
-
-            // Loop through default extensions and process them
-            foreach ( static::get_default_extensions() as $key => $extension ) {
-                // Get the item ID of the extension (if available)
-                $item_id = $extension['item_id'] ?? 0;
-                if ( ! $item_id ) {
-                    continue;
-                }
-
-                // Get the base file path of the extension
-                $base        = $extension['base'] ?? $key . '/' . $key . '.php';
-                $base_file   = WP_PLUGIN_DIR . '/' . $base;
-                $plugin_data = $plugins_data[ $base ] ?? [];
-
-                if ( empty( $plugin_data ) ) {
-                    continue;
-                }
-
-                $extension_license_map = $licenses[ $key ] ?? [];
-                if ( empty( $extension_license_map ) || empty( $extension_license_map['license'] ) ) {
-                    continue;
-                }
-
-                // Initialize the plugin updater for the extension
-                new EDD_SL_Plugin_Updater(
-                    'https://directorist.com', $base_file, [
-                        'version' => $plugin_data['Version'],             // Current version number
-                        'license' => $extension_license_map['license'],   // License key from user meta
-                        'item_id' => $item_id,                            // Plugin ID
-                        'author'  => 'AazzTech',                          // Plugin author
-                        'url'     => home_url(),                          // Site URL
-                        'beta'    => false,                               // Beta release flag
-                    ] 
-                );
-            }
         }
 
         public static function get_default_extensions() {
@@ -700,89 +651,319 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         // update_plugins
-        public function update_plugins( array $args = [] ) {
-            $default = [ 'plugin_key' => '' ];
-            $args    = array_merge( $default, $args );
+        public function update_plugins( array $args = array() ) {
+            $default = array( 'plugin_key' => '' );
+            $args    = wp_parse_args( $args, $default );
 
-            $status     = [ 'success' => true ];
-            $plugin_key = $args['plugin_key'];
+            $status     = array( 'success' => true );
+            $plugin_key = isset( $args['plugin_key'] ) ? sanitize_text_field( $args['plugin_key'] ) : '';
 
-            $plugin_updates       = get_site_transient( 'update_plugins' );
-            $outdated_plugins     = $plugin_updates->response;
-            $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
+            // Get outdated plugins via API instead of transient.
+            $outdated_plugins     = $this->get_outdated_extensions_via_api();
+            $outdated_plugins_key = array_keys( $outdated_plugins );
 
             if ( empty( $outdated_plugins_key ) ) {
                 $status['message'] = __( 'All plugins are up to date', 'directorist' );
-
-                return [ 'status' => $status ];
+                return array( 'status' => $status );
             }
 
-            if ( ! empty( $plugin_key ) && ! in_array( $plugin_key, $outdated_plugins_key ) ) {
-                $status['message'] = __( 'The plugin is up to date', 'directorist' );
+            // If specific plugin key provided, validate it exists in outdated list.
+            if ( ! empty( $plugin_key ) ) {
+                // Convert plugin base to plugin key.
+                $filtered_key = self::filter_plugin_key_from_base_name( $plugin_key );
 
-                return [ 'status' => $status ];
+                // Check if this plugin is in outdated list.
+                $is_outdated = false;
+
+                foreach ( $outdated_plugins as $base => $version_info ) {
+                    $base_key = self::filter_plugin_key_from_base_name( $base );
+                    if ( $base_key === $filtered_key || $base === $plugin_key ) {
+                        $is_outdated = true;
+                        $plugin_key  = $base_key; // Use the correct key.
+                        $matched_base = $base;
+                        break;
+                    }
+                }
+
+                if ( ! $is_outdated ) {
+                    $status['message'] = __( 'The plugin is up to date', 'directorist' );
+                    return array( 'status' => $status );
+                }
             }
 
             $plugins_available_in_subscriptions = self::get_purchased_extension_list();
 
-            // Update single
-            if ( ! empty( $plugin_key ) ) {
-                $plugin_key  = self::filter_plugin_key_from_base_name( $plugin_key );
-                $plugin_item = self::extract_plugin_from_list( $plugin_key, $plugins_available_in_subscriptions );
-                $url         = self::get_file_download_link( $plugin_item, 'plugin' );
+            if ( ! is_array( $plugins_available_in_subscriptions ) ) {
+                $status['success'] = false;
+                $status['message'] = __( 'No purchased extensions found', 'directorist' );
+                return array( 'status' => $status );
+            }
 
-                $download_status = $this->download_plugin( [ 'url' => $url ] );
+            // Update single plugin.
+            if ( ! empty( $plugin_key ) ) {
+                $plugin_item = self::extract_plugin_from_list( $plugin_key, $plugins_available_in_subscriptions );
+
+                if ( empty( $plugin_item ) || ! is_array( $plugin_item ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'License not found for this extension', 'directorist' );
+                    return array( 'status' => $status );
+                }
+
+                $url = self::get_file_download_link( $plugin_item, 'plugin' );
+
+                if ( empty( $url ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'Download link could not be retrieved', 'directorist' );
+                    return array( 'status' => $status );
+                }
+
+                $download_status = $this->download_plugin( array( 'url' => $url ) );
 
                 if ( ! $download_status['success'] ) {
                     $status['success'] = false;
                     $status['message'] = __( 'The plugin could not update', 'directorist' );
-                    $status['log']     = $download_status['message'];
+                    $status['log']     = isset( $download_status['message'] ) ? $download_status['message'] : '';
                 } else {
+                    // Clear version cache after successful update.
+                    $cache_key = 'directorist_ext_version_' . md5( $plugin_key . $plugin_item['license'] . 'any' );
+                    delete_transient( $cache_key );
+
                     $status['success'] = true;
                     $status['message'] = __( 'The plugin has been updated successfully', 'directorist' );
-                    $status['log']     = $download_status['message'];
+                    $status['log']     = isset( $download_status['message'] ) ? $download_status['message'] : '';
                 }
 
-                return [ 'status' => $status ];
+                return array( 'status' => $status );
             }
 
-            // Update all
-            $updated_plugins       = [];
-            $update_failed_plugins = [];
+            // Update all outdated plugins.
+            $updated_plugins       = array();
+            $update_failed_plugins = array();
 
-            foreach ( $outdated_plugins as $plugin_base => $plugin ) {
-                $plugin_key  = self::filter_plugin_key_from_base_name( $plugin_key );
-                $plugin_item = self::extract_plugin_from_list( $plugin_key, $plugins_available_in_subscriptions );
-                $url         = self::get_file_download_link( $plugin_item, 'plugin' );
+            foreach ( $outdated_plugins as $plugin_base => $version_info ) {
+                $base_key   = self::filter_plugin_key_from_base_name( $plugin_base );
+                $plugin_item = self::extract_plugin_from_list( $base_key, $plugins_available_in_subscriptions );
 
-                $download_status = $this->download_plugin( [ 'url' => $url ] );
+                if ( empty( $plugin_item ) || ! is_array( $plugin_item ) ) {
+                    $update_failed_plugins[ $plugin_base ] = $version_info;
+                    continue;
+                }
+
+                $url = self::get_file_download_link( $plugin_item, 'plugin' );
+
+                if ( empty( $url ) ) {
+                    $update_failed_plugins[ $plugin_base ] = $version_info;
+                    continue;
+                }
+
+                $download_status = $this->download_plugin( array( 'url' => $url ) );
 
                 if ( ! $download_status['success'] ) {
-                    $update_failed_plugins[ $plugin_base ] = $plugin;
+                    $update_failed_plugins[ $plugin_base ] = $version_info;
                 } else {
-                    $updated_plugins[ $plugin_base ] = $plugin;
+                    // Clear version cache after successful update.
+                    $cache_key = 'directorist_ext_version_' . md5( $base_key . $plugin_item['license'] . 'any' );
+                    delete_transient( $cache_key );
+
+                    $updated_plugins[ $plugin_base ] = $version_info;
                 }
             }
 
             $status['updated_plugins']       = $updated_plugins;
             $status['update_failed_plugins'] = $update_failed_plugins;
 
+            // Set appropriate status message.
             if ( ! empty( $updated_plugins ) && ! empty( $update_failed_plugins ) ) {
                 $status['success'] = false;
-                $status['message'] = __( 'Some of the plugin could not update', 'directorist' );
-            }
-
-            if ( empty( $update_failed_plugins ) ) {
+                $status['message'] = __( 'Some of the plugins could not update', 'directorist' );
+            } elseif ( ! empty( $updated_plugins ) ) {
                 $status['success'] = true;
-                $status['message'] = __( 'All the plugins are updated successfully', 'directorist' );
+                $status['message'] = __( 'All plugins have been updated successfully', 'directorist' );
+            } elseif ( ! empty( $update_failed_plugins ) ) {
+                $status['success'] = false;
+                $status['message'] = __( 'No plugins could be updated', 'directorist' );
             }
 
-            if ( empty( $updated_plugins ) ) {
-                $status['success'] = true;
-                $status['message'] = __( 'No plugins could not update', 'directorist' );
+            return array( 'status' => $status );
+        }
+
+        /**
+         * Check extension version via API with caching.
+         *
+         * @since 8.6.1
+         *
+         * @param string $plugin_key      Extension key (e.g., 'directorist-gallery').
+         * @param array  $plugin_item     Extension item data from subscriptions.
+         * @param string $current_version Current installed version.
+         * @return array|false Version info array on success, false on failure.
+         */
+        private function check_extension_version_via_api( $plugin_key, $plugin_item, $current_version ) {
+            // Validate inputs.
+            if ( ! is_string( $plugin_key ) || empty( $plugin_key ) ) {
+                return false;
             }
 
-            return [ 'status' => $status ];
+            if ( ! is_array( $plugin_item ) || empty( $plugin_item['license'] ) || empty( $plugin_item['item_id'] ) ) {
+                return false;
+            }
+
+            if ( ! is_string( $current_version ) || empty( $current_version ) ) {
+                return false;
+            }
+
+            // Sanitize inputs.
+            $plugin_key      = sanitize_key( $plugin_key );
+            $current_version = sanitize_text_field( $current_version );
+            $license         = sanitize_text_field( $plugin_item['license'] );
+            $item_id         = absint( $plugin_item['item_id'] );
+
+            // Get extension definition.
+            $default_extensions = static::get_default_extensions();
+            $extension          = isset( $default_extensions[ $plugin_key ] ) ? $default_extensions[ $plugin_key ] : null;
+
+            if ( ! $extension || empty( $extension['item_id'] ) ) {
+                return false;
+            }
+
+            // Use extension item_id if available, fallback to plugin_item item_id.
+            $extension_item_id = absint( $extension['item_id'] );
+
+            // Cache key for version check (3 hour cache).
+            $cache_key = 'directorist_ext_version_' . md5( $plugin_key . $license . $current_version . $extension_item_id );
+            $cached    = get_transient( $cache_key );
+
+            if ( false !== $cached && is_array( $cached ) ) {
+                return $cached;
+            }
+
+            // Prepare API request.
+            $api_url    = 'https://directorist.com';
+            $api_params = array(
+                'edd_action' => 'get_version',
+                'license'    => $license,
+                'item_id'    => $extension_item_id,
+                'version'    => $current_version,
+                'slug'       => $plugin_key,
+                'author'     => 'AazzTech',
+                'url'        => esc_url_raw( home_url() ),
+                'beta'       => false,
+            );
+
+            // Allow SSL verification to be filtered.
+            $verify_ssl = apply_filters( 'edd_sl_api_request_verify_ssl', true, null );
+
+            // Make API request with timeout.
+            $response = wp_remote_post(
+                esc_url_raw( $api_url ),
+                array(
+                    'timeout'   => 15,
+                    'sslverify' => $verify_ssl,
+                    'body'      => $api_params,
+                )
+            );
+
+            // Handle request errors.
+            if ( is_wp_error( $response ) ) {
+                return false;
+            }
+
+            $response_code = wp_remote_retrieve_response_code( $response );
+            if ( 200 !== $response_code ) {
+                return false;
+            }
+
+            $body        = wp_remote_retrieve_body( $response );
+            $version_info = json_decode( $body, true );
+
+            // Validate response structure.
+            if ( ! is_array( $version_info ) || empty( $version_info['new_version'] ) ) {
+                return false;
+            }
+
+            // Sanitize version info.
+            $version_info['new_version'] = sanitize_text_field( $version_info['new_version'] );
+
+            // Cache for 3 hours.
+            set_transient( $cache_key, $version_info, 3 * HOUR_IN_SECONDS );
+
+            return $version_info;
+        }
+
+        /**
+         * Get outdated extensions list by checking API directly.
+         *
+         * @since 8.6.1
+         *
+         * @return array Array of outdated plugins. Structure: [plugin_base => version_info_object].
+         */
+        private function get_outdated_extensions_via_api() {
+            $outdated_plugins = array();
+            $plugins_data     = get_plugins();
+
+            if ( ! is_array( $plugins_data ) || empty( $plugins_data ) ) {
+                return $outdated_plugins;
+            }
+
+            $purchased_extensions = self::get_purchased_extension_list();
+            $default_extensions   = static::get_default_extensions();
+
+            if ( ! is_array( $purchased_extensions ) || ! is_array( $default_extensions ) ) {
+                return $outdated_plugins;
+            }
+
+            // Loop through default extensions and check for updates.
+            foreach ( $default_extensions as $plugin_key => $extension ) {
+                // Validate extension data.
+                if ( ! is_array( $extension ) || empty( $extension['item_id'] ) ) {
+                    continue;
+                }
+
+                // Get plugin base file path.
+                $base = isset( $extension['base'] ) ? $extension['base'] : $plugin_key . '/' . $plugin_key . '.php';
+
+                // Check if plugin is installed.
+                if ( ! isset( $plugins_data[ $base ] ) || ! is_array( $plugins_data[ $base ] ) ) {
+                    continue;
+                }
+
+                // Check if user has license for this extension.
+                $plugin_item = self::extract_plugin_from_list( $plugin_key, $purchased_extensions );
+                if ( empty( $plugin_item ) || ! is_array( $plugin_item ) || empty( $plugin_item['license'] ) ) {
+                    continue;
+                }
+
+                // Get current version.
+                $current_version = isset( $plugins_data[ $base ]['Version'] ) ? $plugins_data[ $base ]['Version'] : '0.0.0';
+                if ( empty( $current_version ) ) {
+                    continue;
+                }
+
+                // Check version via API.
+                $version_info = $this->check_extension_version_via_api( $plugin_key, $plugin_item, $current_version );
+
+                if ( $version_info && isset( $version_info['new_version'] ) ) {
+                    // Compare versions.
+                    if ( version_compare( $current_version, $version_info['new_version'], '<' ) ) {
+                        // Format to match WordPress update transient structure.
+                        $outdated_plugins[ $base ] = (object) array(
+                            'id'            => absint( $extension['item_id'] ),
+                            'slug'          => sanitize_key( $plugin_key ),
+                            'plugin'        => $base,
+                            'new_version'   => sanitize_text_field( $version_info['new_version'] ),
+                            'url'           => isset( $version_info['homepage'] ) ? esc_url_raw( $version_info['homepage'] ) : '',
+                            'package'       => '', // Will be fetched when downloading.
+                            'icons'         => isset( $version_info['icons'] ) && is_array( $version_info['icons'] ) ? $version_info['icons'] : array(),
+                            'banners'       => isset( $version_info['banners'] ) && is_array( $version_info['banners'] ) ? $version_info['banners'] : array(),
+                            'banners_rtl'   => array(),
+                            'tested'        => isset( $version_info['tested'] ) ? sanitize_text_field( $version_info['tested'] ) : '',
+                            'requires_php'  => isset( $version_info['requires_php'] ) ? sanitize_text_field( $version_info['requires_php'] ) : '',
+                            'compatibility' => new stdClass(),
+                        );
+                    }
+                }
+            }
+
+            return $outdated_plugins;
         }
 
         // extract_plugin_from_list
@@ -2017,7 +2198,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             // Download Themes
             if ( ! empty( $cart['purchased_themes'] ) ) {
                 foreach ( $cart['purchased_themes'] as $theme ) {
-                    $download_link = $extension['download_link'];
+                    $download_link = isset( $theme['download_link'] ) ? $theme['download_link'] : '';
                     if ( empty( $download_link ) ) {
                         continue;
                     }
@@ -2136,62 +2317,75 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // get_extensions_overview
         public function get_extensions_overview() {
-            // Get Extensions Details
-            $plugin_updates       = get_site_transient( 'update_plugins' );
-            $outdated_plugins     = $plugin_updates->response;
-            $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
-            $official_extensions  = is_array( $this->extensions ) ? array_keys( $this->extensions ) : [];
+            // Get outdated plugins via API instead of transient.
+            $outdated_plugins     = $this->get_outdated_extensions_via_api();
+            $outdated_plugins_key = array_keys( $outdated_plugins );
+
+            $official_extensions = is_array( $this->extensions ) ? array_keys( $this->extensions ) : array();
+
+            if ( ! is_array( $official_extensions ) ) {
+                $official_extensions = array();
+            }
 
             $all_installed_plugins_list = get_plugins();
-            $installed_extensions       = [];
+            $installed_extensions       = array();
             $total_active_extensions    = 0;
             $total_outdated_extensions  = 0;
 
+            if ( ! is_array( $all_installed_plugins_list ) ) {
+                $all_installed_plugins_list = array();
+            }
+
+            // Process installed plugins.
             foreach ( $all_installed_plugins_list as $plugin_base => $plugin_data ) {
+                if ( ! is_string( $plugin_base ) || ! is_array( $plugin_data ) ) {
+                    continue;
+                }
 
                 $folder_base = strtok( $plugin_base, '/' );
 
-                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions ) ) {
+                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions, true ) ) {
                     $installed_extensions[ $plugin_base ] = $plugin_data;
 
                     if ( is_plugin_active( $plugin_base ) ) {
                         $total_active_extensions++;
                     }
 
-                    if ( in_array( $plugin_base, $outdated_plugins_key ) ) {
+                    if ( in_array( $plugin_base, $outdated_plugins_key, true ) ) {
                         $total_outdated_extensions++;
                     }
                 }
             }
 
-            // ---
+            // Get extensions available in subscriptions.
             $extensions_available_in_subscriptions = $this->get_extensions_available_in_subscriptions(
-                [
+                array(
                     'installed_extensions' => $installed_extensions,
-                ]
+                )
             );
 
-            // ---
+            // Get promo extensions list.
             $extensions_promo_list = $this->get_extensions_promo_list(
-                [
+                array(
                     'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
                     'installed_extensions'                  => $installed_extensions,
-                ]
+                )
             );
 
+            // Get required extensions list.
             $required_extensions_list = $this->prepare_the_final_requred_extension_list(
-                [
+                array(
                     'installed_extension_list'              => $installed_extensions,
                     'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
-                ]
+                )
             );
 
             $total_installed_ext_list             = count( $installed_extensions );
             $total_ext_available_in_subscriptions = count( $extensions_available_in_subscriptions );
             $total_available_extensions           = $total_installed_ext_list + $total_ext_available_in_subscriptions;
 
-            $overview = [
-                'outdated_plugin_list'                  => is_array( $outdated_plugins ) ? $outdated_plugins : [],
+            $overview = array(
+                'outdated_plugin_list'                  => $outdated_plugins,
                 'outdated_plugins_key'                  => $outdated_plugins_key,
                 'all_installed_plugins_list'            => $all_installed_plugins_list,
                 'installed_extension_list'              => $installed_extensions,
@@ -2201,7 +2395,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
                 'total_available_extensions'            => $total_available_extensions,
                 'required_extensions'                   => $required_extensions_list,
-            ];
+            );
 
             return $overview;
         }

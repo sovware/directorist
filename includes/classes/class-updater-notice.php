@@ -27,7 +27,7 @@ class Updater_Notice {
         }
 
         if ( isset( $_GET['directorist-hide-notice'] ) && isset( $_GET['_directorist_notice_nonce'] ) ) { // WPCS: input var ok, CSRF ok.
-            if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_directorist_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) { // WPCS: input var ok, CSRF ok.
+            if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_directorist_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) {
                 wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'directorist' ) );
             }
 

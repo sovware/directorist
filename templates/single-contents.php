@@ -32,8 +32,7 @@ $listing = Directorist_Single_Listing::instance();
                         <div class="directorist-single-wrapper">
 
                             <?php
-                            // Output already filtered
-							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Single listing page content is rendered through WordPress content filters (do_shortcode, do_blocks). Contains shortcode output with <form>, <input> elements. Each shortcode escapes its own output.
                             echo $listing->single_page_content();
                             ?>
 

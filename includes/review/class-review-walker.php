@@ -138,7 +138,7 @@ class Walker extends Walker_Comment {
                                      * @param int        $avatar_size The avatar size in pixels.
                                      * @return string Filtered avatar HTML. Must be safe for output.
                                      */
-                                    echo apply_filters( 'directorist_review_avatar', wp_kses_post( get_avatar( $comment, $args['avatar_size'] ) ), $comment, $args['avatar_size'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                    echo wp_kses_post( apply_filters( 'directorist_review_avatar', get_avatar( $comment, $args['avatar_size'] ), $comment, $args['avatar_size'] ) );
                                 }
                                 ?>
                             </div>

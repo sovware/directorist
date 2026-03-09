@@ -44,7 +44,7 @@ class Multi_Directory_Migration {
                         'taxonomy'   => $term,
                         'hide_empty' => false,
                         'orderby'    => 'date',
-                        'order'      => 'DSCE',
+                        'order'      => 'DESC',
                     ]
                 );
                 if ( ! empty( $term_data ) && ! is_wp_error( $term_data ) ) {

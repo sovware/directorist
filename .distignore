@@ -2,6 +2,7 @@
 /.github/
 /.husky/
 /.cursor/
+/.claude
 /.vscode/
 /.idea/
 /.cache/
@@ -28,3 +29,6 @@
 
 # Exclude accidental archive artifacts
 /assets/images/*.zip
+
+# Dev notes
+/node-update-notes.md

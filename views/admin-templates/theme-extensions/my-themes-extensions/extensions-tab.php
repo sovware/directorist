@@ -42,7 +42,7 @@
 
                                                             $ext_key       = preg_replace( '/\/.+/', '', $extension_base );
                                                             $ext_key_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $ext_key );;
-                                                            $img           = 'https://via.placeholder.com/44' ;
+                                                            $img           = DIRECTORIST_ASSETS . 'images/no-image.png';
 
                                                         if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
                                                             $img = $args['extension_list'][$ext_key]['thumbnail'];
@@ -227,7 +227,7 @@
                                                             $ext_name = ( isset( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['name'] : '';
                                                         }
                                                             
-                                                            $img = 'https://via.placeholder.com/44';
+                                                            $img = DIRECTORIST_ASSETS . 'images/no-image.png';
                                                         if ( ! empty( $args['extension_list'][$extension_base] ) ) {
                                                             $img = $args['extension_list'][$extension_base]['thumbnail'];
                                                         } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {

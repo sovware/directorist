@@ -16,7 +16,7 @@
         <div class="directorist_builder-header">
             <div class="directorist_builder-header__left">
                 <div class="directorist_logo">
-                    <img src="https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png" alt="">
+                    <img src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/directorist_logo.png' ); ?>" alt="">
                 </div>
             </div>
             <div class="directorist_builder-header__right">

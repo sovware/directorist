@@ -1,6 +1,6 @@
 <div class="wrap">
     <?php
-        $builder_data = base64_encode( json_encode( $data['directory_builder_data'] ) );
+        $builder_data = base64_encode( wp_json_encode( $data['directory_builder_data'] ) );
 
         /**
          * Fires before single directory edited header

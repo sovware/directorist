@@ -43,7 +43,8 @@ $default_icon = 'las la-tags';
                 $featured_listings->the_post();
                 $review_rating = directorist_get_listing_rating( get_the_ID() );
                 $review_count  = directorist_get_listing_review_count( get_the_ID() );
-                $review_text   = sprintf( _n( '%s review', $review_count > 0 ?  '%s reviews' : '%s review', $review_count, 'directorist' ), number_format_i18n( $review_count ) );
+                /* translators: %s: Number of reviews */
+                $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), number_format_i18n( $review_count ) );
                 // get only one parent or high level term object
                 $listing_img = directorist_get_listing_gallery_images( get_the_ID() );
                 $listing_prv_img = directorist_get_listing_preview_image( get_the_ID() );

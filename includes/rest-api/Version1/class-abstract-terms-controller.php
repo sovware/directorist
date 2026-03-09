@@ -272,8 +272,9 @@ abstract class Terms_Controller extends Abstract_Controller {
                 unset( $_prepared_args['number'] );
                 unset( $_prepared_args['offset'] );
 
-                $terms               = get_terms( $taxonomy, $_prepared_args );
-                $queried_directories = ( is_array( $request['directory'] ) ) ? $request['directory'] : [ $request['directory'] ];
+                $_prepared_args['taxonomy'] = $taxonomy;
+                $terms                      = get_terms( $_prepared_args );
+                $queried_directories        = ( is_array( $request['directory'] ) ) ? $request['directory'] : [ $request['directory'] ];
 
                 $terms = array_filter(
                     $terms, function( $term ) use( $queried_directories ) {
@@ -296,12 +297,14 @@ abstract class Terms_Controller extends Abstract_Controller {
                     $query_result = array();
                 }
             } else {
-                $query_result = get_terms( $taxonomy, $prepared_args );
+                $prepared_args['taxonomy'] = $taxonomy;
+                $query_result = get_terms( $prepared_args );
 
                 $count_args = $prepared_args;
                 unset( $count_args['number'] );
                 unset( $count_args['offset'] );
-                $total_terms = wp_count_terms( $taxonomy, $count_args );
+                $count_args['taxonomy'] = $taxonomy;
+                $total_terms = wp_count_terms( $count_args );
 
                 // Ensure we don't return results when offset is out of bounds.
                 // See https://core.trac.wordpress.org/ticket/35935.

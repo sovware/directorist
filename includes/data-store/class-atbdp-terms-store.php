@@ -3,7 +3,8 @@ if ( ! class_exists( 'ATBDP_Terms_Data_Store' ) ) :
     class ATBDP_Terms_Data_Store {
         // get_categories_term
         public static function get_categories_term( array $args = [] ) {
-            return get_terms( ATBDP_CATEGORY, $args );
+            $args['taxonomy'] = ATBDP_CATEGORY;
+            return get_terms( $args );
 
             /* return ATBDP_Cache_Helper::get_the_transient([
                 'group' => 'atbdp_category_terms',
@@ -33,7 +34,8 @@ if ( ! class_exists( 'ATBDP_Terms_Data_Store' ) ) :
 
         // get_locations_term
         public static function get_locations_term( array $args = [] ) {
-            return get_terms( ATBDP_LOCATION, $args );
+            $args['taxonomy'] = ATBDP_LOCATION;
+            return get_terms( $args );
 
             /*   return ATBDP_Cache_Helper::get_the_transient([
                 'group' => 'atbdp_location_terms',
@@ -48,7 +50,8 @@ if ( ! class_exists( 'ATBDP_Terms_Data_Store' ) ) :
         
         // get_tags_term
         public static function get_tags_term( array $args = [] ) {
-            return get_terms( ATBDP_TAGS, $args );
+            $args['taxonomy'] = ATBDP_TAGS;
+            return get_terms( $args );
 
             /* return ATBDP_Cache_Helper::get_the_transient([
                 'group' => 'atbdp_tag_terms',

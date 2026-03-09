@@ -64,7 +64,7 @@
         <div class="directorist_builder-body">
             <div class="directorist_builder__content">
                 <?php
-                    $all_items =  wp_count_terms( 'atbdp_listing_types' );
+                    $all_items =  wp_count_terms( [ 'taxonomy' => 'atbdp_listing_types' ] );
                     $listing_types = get_terms(
                         apply_filters(
                             'directorist_directory_index_query', [

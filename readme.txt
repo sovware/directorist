@@ -306,6 +306,30 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.6.1 - Mar 9, 2026 =
+
+**Improved**
+ - Nonce verification restructured to fail early and prevent CSRF bypasses across multiple files.
+ - Added capability checks for admin AJAX handlers (user type approve, deny, become author).
+ - All nonce inputs sanitized with sanitize_text_field() and wp_unslash() per WordPress coding standards.
+ - All dynamic output properly escaped in templates and style files.
+ - Replaced json_encode() with wp_json_encode() across the plugin.
+ - Updated filter_input() calls with proper FILTER parameter.
+
+**Fixed**
+ - Deprecated get_terms() and wp_count_terms() calls updated to modern single-argument syntax.
+ - Text domain mismatches and typos corrected across all translation functions.
+ - Variables and expressions used in gettext functions replaced with string literals.
+ - Missing singular placeholders in _n() for pricing plan validity periods.
+ - Empty translation string in settings panel.
+ - Interpolated variable in review email translation string.
+ - Ternary operator in _n() plural parameter for review counts.
+ - Incorrect esc_html() replaced with esc_html__() where translation was intended.
+
+**Removed**
+ - EDD Software Licensing update checker removed per WordPress.org guidelines.
+ - Disallowed compressed files and development artifacts removed from distribution.
+
 = 8.6 - Mar 3, 2026 =
 
 **Added**

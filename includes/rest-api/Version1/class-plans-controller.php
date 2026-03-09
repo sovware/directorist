@@ -554,10 +554,14 @@ class Plans_Controller extends Posts_Controller {
         $validity_period = (int) $this->get_plan_meta( $plan, 'fm_length', 'fm_length', 0 );
 
         $translations = array(
-            'day'   => _n( 'Day', '%d days', $validity_period, 'directorist' ),
-            'week'  => _n( 'Week', '%d weeks', $validity_period, 'directorist' ),
-            'month' => _n( 'Month', '%d months', $validity_period, 'directorist' ),
-            'year'  => _n( 'Year', '%d years', $validity_period, 'directorist' ),
+            /* translators: %d: Number of days */
+            'day'   => _n( '%d day', '%d days', $validity_period, 'directorist' ),
+            /* translators: %d: Number of weeks */
+            'week'  => _n( '%d week', '%d weeks', $validity_period, 'directorist' ),
+            /* translators: %d: Number of months */
+            'month' => _n( '%d month', '%d months', $validity_period, 'directorist' ),
+            /* translators: %d: Number of years */
+            'year'  => _n( '%d year', '%d years', $validity_period, 'directorist' ),
         );
 
         return sprintf( $translations[ $this->get_validity_period_unit( $plan ) ], $validity_period );

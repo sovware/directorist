@@ -601,7 +601,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     $never_expire = get_post_meta( $post_id, '_never_expire', true );
                     $expiry_date  = '';
                     if ( ! empty( $never_expire ) ) {
-                        $expiry_date = esc_html( 'Never Expires', 'directorist' );
+                        $expiry_date = esc_html__( 'Never Expires', 'directorist' );
                     } else {
                         $get_expire = get_post_meta( $post_id, '_expiry_date', true );
 

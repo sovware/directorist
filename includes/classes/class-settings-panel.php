@@ -4099,7 +4099,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 ],
                                             ],
                                             'redirection' => [
-                                                'title'       => __( '', 'directorist' ),
+                                                'title'       => '',
                                                 'description' => '',
                                                 'fields'      => [
                                                     'auto_login', 'redirection_after_reg'

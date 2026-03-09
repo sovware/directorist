@@ -147,7 +147,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 </div>
 
                 <div class="directorist-pagination directorist-authors__pagination directorist-authors-pagination">
-                    <?php echo wp_kses_post( $authors->author_pagination() ); ?>
+                    <?php echo wp_kses_post( $authors->author_pagination() ?? '' ); ?>
                 </div>
 
             </div>

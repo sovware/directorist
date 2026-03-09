@@ -1,6 +1,187 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./assets/src/js/admin/components/delete-directory-modal.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/js/admin/components/delete-directory-modal.js ***!
+  \******************************************************************/
+/***/ (function() {
+
+window.addEventListener('load', function () {
+  var $ = jQuery;
+
+  // Open Delete Modal
+  $('.atbdp-directory-delete-link-action').on('click', function (e) {
+    e.preventDefault();
+    var delete_link = $(this).data('delete-link');
+    $('.atbdp-directory-delete-link').prop('href', delete_link);
+  });
+
+  // Delete Action
+  $('.atbdp-directory-delete-link').on('click', function (e) {
+    // e.preventDefault();
+    $(this).prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
+    $('.atbdp-directory-delete-cancel-link').removeClass('cptm-modal-toggle');
+    $('.atbdp-directory-delete-cancel-link').addClass('atbdp-disabled');
+  });
+});
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/components/directory-migration-modal.js":
+/*!*********************************************************************!*\
+  !*** ./assets/src/js/admin/components/directory-migration-modal.js ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+
+window.addEventListener('load', function () {
+  var $ = jQuery;
+  var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]);
+
+  // Migration Link
+  $('.atbdp-directory-migration-link').on('click', function (e) {
+    e.preventDefault();
+    var self = this;
+    $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html('Please wait...');
+    $('.atbdp-directory-migration-cencel-link').remove();
+    $(this).html('<i class="fas fa-circle-notch fa-spin"></i> Migrating');
+    $(this).addClass('atbdp-disabled');
+    var form_data = new FormData();
+    form_data.append('action', 'directorist_force_migrate');
+
+    // Response Success Callback
+    var responseSuccessCallback = function responseSuccessCallback(response) {
+      var _response$data;
+      // console.log( { response } );
+
+      if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
+        var _response$data$messag, _response$data2;
+        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
+        var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
+        $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
+        $(self).remove();
+        location.reload();
+        return;
+      }
+      responseFaildCallback(response);
+    };
+
+    // Response Error Callback
+    var responseFaildCallback = function responseFaildCallback(response) {
+      var _response$data$messag2, _response$data3;
+      // console.log( { response } );
+
+      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
+      $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
+      $(self).remove();
+    };
+
+    // Send Request
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+      responseSuccessCallback(response);
+    }).catch(function (response) {
+      responseFaildCallback(response);
+    });
+  });
+});
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/components/import-directory-modal.js":
+/*!******************************************************************!*\
+  !*** ./assets/src/js/admin/components/import-directory-modal.js ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+window.addEventListener('load', function () {
+  var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]);
+  var $ = jQuery;
+
+  // cptm-import-directory-form
+  var term_id = 0;
+  $('.cptm-import-directory-form').on('submit', function (e) {
+    e.preventDefault();
+    var form_feedback = $(this).find('.cptm-form-group-feedback');
+    var modal_content = $('.cptm-import-directory-modal').find('.cptm-modal-content');
+    var modal_alert = $('.cptm-import-directory-modal-alert');
+    var form_data = new FormData();
+    form_data.append('action', 'save_imported_post_type_data');
+    form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
+    if (Number.isInteger(term_id) && term_id > 0) {
+      form_data.append('term_id', term_id);
+    }
+    var form_fields = $(this).find('.cptm-form-field');
+    var general_fields = ['text', 'number'];
+    $(this).find('button[type=submit] .cptm-loading-icon').removeClass('cptm-d-none');
+    var _iterator = _createForOfIteratorHelper(form_fields),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var field = _step.value;
+        if (!field.name.length) {
+          continue;
+        }
+
+        // General fields
+        if (general_fields.includes(field.type)) {
+          form_data.append(field.name, $(field).val());
+        }
+
+        // Media fields
+        if ('file' === field.type) {
+          form_data.append(field.name, field.files[0]);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    var self = this;
+    form_feedback.html('');
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+      // console.log( { response } );
+      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
+
+      // Store term ID if exist
+      if (response.data.term_id && Number.isInteger(response.data.term_id) && response.data.term_id > 0) {
+        term_id = response.data.term_id;
+        // console.log( 'Term ID has been updated' );
+      }
+
+      // Show status log
+      if (response.data && response.data.status.status_log) {
+        var status_log = response.data.status.status_log;
+        for (var status in status_log) {
+          var alert = '<div class="cptm-form-alert cptm-' + status_log[status].type + '">' + status_log[status].message + '</div>';
+          form_feedback.append(alert);
+        }
+      }
+
+      // Reload the page if success
+      if (response.data && response.data.status && response.data.status.success) {
+        // console.log( 'reloading...' );
+
+        modal_content.addClass('cptm-d-none');
+        modal_alert.removeClass('cptm-d-none');
+        $(self).trigger('reset');
+        location.reload();
+      }
+    }).catch(function (error) {
+      console.log({
+        error: error
+      });
+      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2053,187 +2234,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./assets/src/js/admin/components/delete-directory-modal.js":
-/*!******************************************************************!*\
-  !*** ./assets/src/js/admin/components/delete-directory-modal.js ***!
-  \******************************************************************/
-/***/ (function() {
-
-window.addEventListener('load', function () {
-  var $ = jQuery;
-
-  // Open Delete Modal
-  $('.atbdp-directory-delete-link-action').on('click', function (e) {
-    e.preventDefault();
-    var delete_link = $(this).data('delete-link');
-    $('.atbdp-directory-delete-link').prop('href', delete_link);
-  });
-
-  // Delete Action
-  $('.atbdp-directory-delete-link').on('click', function (e) {
-    // e.preventDefault();
-    $(this).prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
-    $('.atbdp-directory-delete-cancel-link').removeClass('cptm-modal-toggle');
-    $('.atbdp-directory-delete-cancel-link').addClass('atbdp-disabled');
-  });
-});
-
-/***/ }),
-
-/***/ "./assets/src/js/admin/components/directory-migration-modal.js":
-/*!*********************************************************************!*\
-  !*** ./assets/src/js/admin/components/directory-migration-modal.js ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-window.addEventListener('load', function () {
-  var $ = jQuery;
-  var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]);
-
-  // Migration Link
-  $('.atbdp-directory-migration-link').on('click', function (e) {
-    e.preventDefault();
-    var self = this;
-    $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html('Please wait...');
-    $('.atbdp-directory-migration-cencel-link').remove();
-    $(this).html('<i class="fas fa-circle-notch fa-spin"></i> Migrating');
-    $(this).addClass('atbdp-disabled');
-    var form_data = new FormData();
-    form_data.append('action', 'directorist_force_migrate');
-
-    // Response Success Callback
-    var responseSuccessCallback = function responseSuccessCallback(response) {
-      var _response$data;
-      // console.log( { response } );
-
-      if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
-        var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
-        var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
-        $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
-        $(self).remove();
-        location.reload();
-        return;
-      }
-      responseFaildCallback(response);
-    };
-
-    // Response Error Callback
-    var responseFaildCallback = function responseFaildCallback(response) {
-      var _response$data$messag2, _response$data3;
-      // console.log( { response } );
-
-      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
-      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
-      $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
-      $(self).remove();
-    };
-
-    // Send Request
-    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-      responseSuccessCallback(response);
-    }).catch(function (response) {
-      responseFaildCallback(response);
-    });
-  });
-});
-
-/***/ }),
-
-/***/ "./assets/src/js/admin/components/import-directory-modal.js":
-/*!******************************************************************!*\
-  !*** ./assets/src/js/admin/components/import-directory-modal.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-window.addEventListener('load', function () {
-  var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"]);
-  var $ = jQuery;
-
-  // cptm-import-directory-form
-  var term_id = 0;
-  $('.cptm-import-directory-form').on('submit', function (e) {
-    e.preventDefault();
-    var form_feedback = $(this).find('.cptm-form-group-feedback');
-    var modal_content = $('.cptm-import-directory-modal').find('.cptm-modal-content');
-    var modal_alert = $('.cptm-import-directory-modal-alert');
-    var form_data = new FormData();
-    form_data.append('action', 'save_imported_post_type_data');
-    form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
-    if (Number.isInteger(term_id) && term_id > 0) {
-      form_data.append('term_id', term_id);
-    }
-    var form_fields = $(this).find('.cptm-form-field');
-    var general_fields = ['text', 'number'];
-    $(this).find('button[type=submit] .cptm-loading-icon').removeClass('cptm-d-none');
-    var _iterator = _createForOfIteratorHelper(form_fields),
-      _step;
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var field = _step.value;
-        if (!field.name.length) {
-          continue;
-        }
-
-        // General fields
-        if (general_fields.includes(field.type)) {
-          form_data.append(field.name, $(field).val());
-        }
-
-        // Media fields
-        if ('file' === field.type) {
-          form_data.append(field.name, field.files[0]);
-        }
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-    var self = this;
-    form_feedback.html('');
-    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-      // console.log( { response } );
-      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
-
-      // Store term ID if exist
-      if (response.data.term_id && Number.isInteger(response.data.term_id) && response.data.term_id > 0) {
-        term_id = response.data.term_id;
-        // console.log( 'Term ID has been updated' );
-      }
-
-      // Show status log
-      if (response.data && response.data.status.status_log) {
-        var status_log = response.data.status.status_log;
-        for (var status in status_log) {
-          var alert = '<div class="cptm-form-alert cptm-' + status_log[status].type + '">' + status_log[status].message + '</div>';
-          form_feedback.append(alert);
-        }
-      }
-
-      // Reload the page if success
-      if (response.data && response.data.status && response.data.status.success) {
-        // console.log( 'reloading...' );
-
-        modal_content.addClass('cptm-d-none');
-        modal_alert.removeClass('cptm-d-none');
-        $(self).trigger('reset');
-        location.reload();
-      }
-    }).catch(function (error) {
-      console.log({
-        error: error
-      });
-      $(self).find('button[type=submit] .cptm-loading-icon').addClass('cptm-d-none');
-    });
-  });
-});
-
-/***/ }),
-
 /***/ "./node_modules/axios/package.json":
 /*!*****************************************!*\
   !*** ./node_modules/axios/package.json ***!
@@ -2257,6 +2257,12 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"axios","version":"0.21.4","de
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -2265,12 +2271,6 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"axios","version":"0.21.4","de
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		if (!(moduleId in __webpack_modules__)) {
-/******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

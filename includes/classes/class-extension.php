@@ -30,6 +30,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
     class ATBDP_Extensions {
         public static $extensions_aliases = [];
 
+        public static $load_from_api = false;
+
         public $extensions          = [];
 
         public $themes              = [];
@@ -216,16 +218,21 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // get_the_products_list
         public function setup_products_list() {
-            // Fetch products from the API
-            $products = API::get_products();
+            if ( static::$load_from_api ) {
+                // Fetch products from the API
+                $products = API::get_products();
 
-            // Apply filters for extensions and themes
-            $this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] ?? [] );
-            $this->themes = apply_filters( 'atbdp_theme_list', $products['themes'] ?? [] );
+                // Apply filters for extensions and themes
+                $this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] ?? [] );
+                $this->themes     = apply_filters( 'atbdp_theme_list', $products['themes'] ?? [] );
 
-            // Set default values if extensions or themes are empty
-            $this->extensions = empty( $this->extensions ) ? static::get_default_extensions() : $this->extensions;
-            $this->themes = empty( $this->themes ) ? static::get_default_themes() : $this->themes;
+                // Fall back to local data if API returned nothing
+                $this->extensions = empty( $this->extensions ) ? static::get_default_extensions() : $this->extensions;
+                $this->themes     = empty( $this->themes ) ? static::get_default_themes() : $this->themes;
+            } else {
+                $this->extensions = apply_filters( 'atbdp_extension_list', static::get_default_extensions() );
+                $this->themes     = apply_filters( 'atbdp_theme_list', static::get_default_themes() );
+            }
         }
 
         // get_the_products_list
@@ -277,11 +284,65 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-analytics' => [
+                    'name'        => 'Directorist Analytics',
+                    'description' => __( 'Unlock powerful insights to grow your directory with confidence.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-analytics/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-analytics.jpg',
+                    'active'      => true,
+                    'item_id'     => 369611,
+                ],
+
+                'directorist-advanced-review' => [
+                    'name'        => 'Directorist Advance Review',
+                    'description' => __( 'Detailed, criteria-based review to make listings more trustworthy.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-advanced-review/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-advanced-review.jpg',
+                    'active'      => true,
+                    'item_id'     => 366908,
+                ],
+
+                'directorist-universal-search' => [
+                    'name'        => 'Directorist Universal Search',
+                    'description' => __( 'Unified Search Across All Your Directories – Instantly Find What You Need', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-universal-search/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-universal-search.jpg',
+                    'active'      => true,
+                    'item_id'     => 340478,
+                ],
+
+                'directorist-search-alert' => [
+                    'name'        => 'Directorist Search Alert',
+                    'description' => __( 'The Search Alert Plugin lets users create, manage, and receive alerts for matches.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-search-alert/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-search-alert.png',
+                    'active'      => true,
+                    'item_id'     => 323908,
+                ],
+
+                'directorist-announcement' => [
+                    'name'        => 'Directorist Announcement',
+                    'description' => __( 'Effortlessly share updates, news, or promotions with the Directorist Announcement Extension.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-announcement/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-announcement.svg',
+                    'active'      => true,
+                    'item_id'     => 308031,
+                ],
+
+                'addonskit-for-bricks' => [
+                    'name'        => 'AddonsKit for Bricks',
+                    'description' => __( 'Enhance directory sites with AddonsKit for Bricks Builder with drag-and-drop custom elements, interactive maps, and more.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/addonskit-for-bricks/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/addonskit-bricks.svg',
+                    'active'      => true,
+                    'item_id'     => 307581,
+                ],
+
                 'directorist-coupon' => [
                     'name'        => 'Coupon',
                     'description' => __( 'It lets you offer discounts to users when purchasing listing plans or paying for featured listings.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-coupon/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/11/19_Coupon.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/coupon.png',
                     'active'      => true,
                     'item_id'     => 32345,
                 ],
@@ -289,7 +350,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Compare Listings',
                     'description' => __( 'Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-compare-listing/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2020/07/Compare-Listings.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/compare-listings.png',
                     'active'      => true,
                     'item_id'     => 26378,
                 ],
@@ -297,7 +358,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Listings With Map',
                     'description' => __( 'Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-listings-with-map/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/06_Listings-With-Map-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/listings-with-map.png',
                     'base'        => 'directorist-listings-with-map/directorist-listings-map.php',
                     'active'      => true,
                     'item_id'     => 13794,
@@ -306,7 +367,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Pricing Plans',
                     'description' => __( 'Do you have a growing directory site? Do you want to make money with your site very easily? Start generating a handsome amount of revenue from your directory site with Directorist Pricing Plans today.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-pricing-plans/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/15_Pricing-Plans-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13776,
                 ],
@@ -314,7 +375,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'WooCommerce Pricing Plans',
                     'description' => __( 'Do you have a growing directory site? Do you want to make money with your site by integrating your favorite WooCommerce payment gateway? Start generating a handsome amount of revenue from your directory site with Directorist WooCommerce Pricing Plans today.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-woocommerce-pricing-plans/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/16_WooCommerce-Pricing-Plans-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/woo-pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13784,
                 ],
@@ -322,7 +383,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'PayPal Payment Gateway',
                     'description' => __( 'Do you want to boost your income on your business directory site? Are you looking for a robust payment gateway with worldwide acceptance? If you are, then Directorist PayPal Payment Gateway is the perfect fit for you.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-paypal/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/14_PayPal-Payment-Gateway-2.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/paypal-gateway.png',
                     'active'      => true,
                     'item_id'     => 13702,
                 ],
@@ -330,7 +391,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Stripe Payment Gateway',
                     'description' => __( 'Are you looking for a versatile Directorist payment gateway for your business directory that accepts a great number of currencies? If yes, then Directorist Stripe Payment Gateway is the smartest way to go', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-stripe/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/13_Stripe-Payment-Gateway-3.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/stripe-gateway.png',
                     'active'      => true,
                     'item_id'     => 13700,
                 ],
@@ -338,7 +399,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Claim Listing',
                     'description' => __( 'Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-claim-listing/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/12_Claim-Listing-2.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/claim-listing.png',
                     'active'      => true,
                     'item_id'     => 13786,
                 ],
@@ -346,7 +407,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Mark as Sold',
                     'description' => __( 'Mark as sold is a dynamic extension that provides listing authors the opportunity to show visitors if a particular item is sold or not.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-mark-as-sold/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/03_Mark-As-Sold-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/mark-as-sold.png',
                     'active'      => true,
                     'item_id'     => 20204,
                 ],
@@ -354,7 +415,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Social Login',
                     'description' => __( 'Use Directorist Social Login to accelerate the registration process by offering a single-click login option using Facebook or Google profile.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-social-login/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/04_Social-Login-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/social-login.png',
                     'active'      => true,
                     'item_id'     => 13795,
                 ],
@@ -362,7 +423,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Google reCAPTCHA',
                     'description' => __( 'Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-google-recaptcha/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/10_Google-ReCAPTCHA-2.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/recaptcha.png',
                     'active'      => true,
                     'item_id'     => 13768,
                 ],
@@ -370,7 +431,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Listing FAQs',
                     'description' => __( 'Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-faqs/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/08_Listing-FAQs-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/listing-faqs.png',
                     'active'      => true,
                     'item_id'     => 13780,
                 ],
@@ -378,7 +439,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Business Hours',
                     'description' => __( 'Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-business-hours/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/11_Business-Hours.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/business-hours.png',
                     'base'        => 'directorist-business-hours/bd-business-hour.php',
                     'active'      => true,
                     'item_id'     => 13714,
@@ -387,7 +448,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Listings Slider & Carousel',
                     'description' => __( 'Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-slider-carousel/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/09_Listings-Slider-Carousel-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/listings-slider.png',
                     'base'        => 'directorist-slider-carousel/bd-directorist-slider.php',
                     'active'      => true,
                     'item_id'     => 13774
@@ -396,7 +457,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Live Chat',
                     'description' => __( 'Live Chat is an extension that allows the visitors to contact business owners immediately and easily. It makes the business more credible as customer satisfaction increases notably.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-live-chat/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/02_Live-Chats-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/live-chats.png',
                     'active'      => true,
                     'item_id'     => 21274
                 ],
@@ -404,7 +465,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Booking (Reservation & Appointment)',
                     'description' => __( 'This extension comes with all the solutions you need to set up a dynamic booking and reservation system on your directory website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-booking/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/01_Booking-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/booking.png',
                     'active'      => true,
                     'item_id'     => 21718,
                 ],
@@ -412,7 +473,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Image Gallery',
                     'description' => __( 'Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-gallery/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/image-gallery.png',
                     'base'        => 'directorist-gallery/bd-directorist-gallery.php',
                     'active'      => true,
                     'item_id'     => 13778,
@@ -421,7 +482,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Directorist Ads Manager',
                     'description' => __( 'Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-adverts-manager/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/12/single-ad-manager.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/single-ad-manager.png',
                     'active'      => true,
                     'item_id'     => 32342,
                 ],
@@ -429,7 +490,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'BuddyBoss Integration',
                     'description' => __( 'Directorist - BuddyBoss Integration extension is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-buddyboss-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/07/BuddyBoss-Integration.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/buddyboss.png',
                     'active'      => true,
                     'item_id'     => 60945,
                 ],
@@ -437,7 +498,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Directorist Oxygen',
                     'description' => __( 'Directorist Oxygen is used to integrate the giant Directorist with the popular Oxygen Page Builder plugin. It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-oxygen-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/06/Oxygen-Builder.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/oxygen-builder.png',
                     'active'      => true,
                     'item_id'     => 56997,
                 ],
@@ -445,7 +506,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Authorize.net Payment Gateway',
                     'description' => __( 'Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-authorize-net/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/04/21_Authorize.net2_.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/authorize-net.png',
                     'active'      => true,
                     'item_id'     => 52499,
                 ],
@@ -453,7 +514,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'BuddyPress Integration',
                     'description' => __( 'Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-buddypress-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/08/BuddyPress.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/buddypress.svg',
                     'active'      => true,
                     'item_id'     => 62897,
                 ],
@@ -461,7 +522,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Multi Directory Linking',
                     'description' => __( 'If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories. This opens up a new window to earn money from your directory website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-directory-linking/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/10/25_Type-Linking.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/type-linking.svg',
                     'active'      => true,
                     'item_id'     => 70261,
                 ],
@@ -469,7 +530,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Job Manager',
                     'description' => __( 'If you\'re wondering how to place job listings with detailed specifications, then Directorist-Job Manager gets you rid out of this problem', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-job-manager/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2024/05/30_Jobs_Manager.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/jobs-manager.svg',
                     'active'      => true,
                     'item_id'     => 134332,
                 ],
@@ -477,7 +538,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Mailchimp Integration',
                     'description' => __( 'Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-mailchimp-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/27_Mailchimp.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/mailchimp.svg',
                     'active'      => true,
                     'item_id'     => 76269,
                 ],
@@ -485,15 +546,23 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'HelpGent Integration',
                     'description' => __( 'Directorist HelpGent Integration puts Directorist and HelpGent on the same avenue. The integration helps you to make your directory website more accessible to your audience which eventually creates more leads and conversions', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-helpgent-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2024/05/31_Directorist_-_HelpGent_Integration.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/helpgent.svg',
                     'active'      => true,
                     'item_id'     => 188735,
+                ],
+                'directorist-wpml-integration' => [
+                    'name'        => 'WPML Integration',
+                    'description' => __( 'Directorist WPML Integration connects Directorist and WPML in one place. It helps you to make your directory sites multilingual more conveniently & efficiently by switching your directory website from one language to another.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-wpml-integration/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/wpml.svg',
+                    'active'      => true,
+                    'item_id'     => 104564,
                 ],
                 'directorist-digital-marketplace' => [
                     'name'        => 'Digital Marketplace',
                     'description' => __( 'If you want to create a marketplace of fixed-price services or digital downloads, then the Digital Marketplace Extension will be a worth-investment to kickstart.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-digital-marketplace/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2022/10/30_Marketplace.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/marketplace.svg',
                     'active'      => true,
                     'item_id'     => 148417,
                 ],
@@ -501,7 +570,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Gamipress Integration',
                     'description' => __( 'Directorist GamiPress Integration Connects Directorist with GamiPress in one place. It helps you to aggrandize the engagement of your directory business with the utmost possible ease.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-gamipress-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2022/04/28_Gamipress.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/gamipress.svg',
                     'active'      => true,
                     'item_id'     => 102370,
                 ],
@@ -511,52 +580,44 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_themes() {
             return [
-                'dlist' => [
-                    'name'        => 'DList',
-                    'description' => __( 'DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/dlist/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/dlist/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dlist-featured.png',
+                'djobs' => [
+                    'name'        => 'dJobs',
+                    'description' => __( 'dJobs is a beautiful WordPress directory theme for jobs, employment, and other job-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/djobs/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/djobs/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/djobs.png',
                     'active'      => true,
                 ],
-                'dservice' => [
-                    'name'        => 'DService',
-                    'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/dservice/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/dservice/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dservice-featured.png',
+                'dhotels' => [
+                    'name'        => 'dHotels',
+                    'description' => __( 'dHotels is a beautiful WordPress directory theme for hotels, motels, resorts, and other hospitality-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dhotels/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dhotels/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dhotels.png',
                     'active'      => true,
                 ],
-                'directoria' => [
-                    'name'        => 'Directoria',
-                    'description' => __( 'Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directoria/',
-                    'demo_link'   => 'https://demo.directorist.com/plugin/demo-one/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/Directoria-1.png',
+                'dclassified' => [
+                    'name'        => 'dClassified',
+                    'description' => __( 'dClassified is a beautiful WordPress directory theme for classifieds, ads, and other classified-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dclassified/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dclassified/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dclassified.png',
                     'active'      => true,
                 ],
-                'dlawyers' => [
-                    'name'        => 'dLawyers',
-                    'description' => __( 'dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/dlawyers/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/dlawyers/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/09/dlawyers_theme.png',
-                    'active'      => true,
-                ],
-                'ddoctors' => [
-                    'name'        => 'dDoctors',
-                    'description' => __( 'dDoctors is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/ddoctors/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/ddoctors/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/09/ddoctors_theme.png',
+                'onelisting' => [
+                    'name'        => 'OneListing',
+                    'description' => __( 'Onelisting is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/onelisting/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/onelisting/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/onelisting-free.png',
                     'active'      => true,
                 ],
                 'onelisting-pro' => [
-                    'name'        => 'Onelisting Pro',
+                    'name'        => 'OneListing Pro',
                     'description' => __( 'Onelisting Pro is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/onelisting-pro/',
                     'demo_link'   => 'https://demo.directorist.com/theme/onelisting-pro/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/onelisting.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/onelisting.png',
                     'active'      => true,
                 ],
                 'dplace' => [
@@ -564,7 +625,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dplace/',
                     'demo_link'   => 'https://demo.directorist.com/theme/dplace/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/dPlace.jpg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dplace.jpg',
                     'active'      => true,
                 ],
                 'drestaurant' => [
@@ -572,11 +633,57 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/drestaurant/',
                     'demo_link'   => 'https://demo.directorist.com/theme/drestaurant/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/drestaurant.png',
                     'active'      => true,
                 ],
-
-
+                'drealestate' => [
+                    'name'        => 'dRealEstate',
+                    'description' => __( 'dRealEstate is a beautiful WordPress directory theme for real estate, property, and other real estate-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/drealestate/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/drealestate/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/drealestate.png',
+                    'active'      => true,
+                ],
+                'dcar' => [
+                    'name'        => 'dCar',
+                    'description' => __( 'dCar is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dcar/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dcar/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dcar.png',
+                    'active'      => true,
+                ],
+                'dlist' => [
+                    'name'        => 'dList',
+                    'description' => __( 'DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dlist/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dlist/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dlist.png',
+                    'active'      => true,
+                ],
+                'dservice' => [
+                    'name'        => 'dService',
+                    'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dservice/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dservice/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dservice.png',
+                    'active'      => true,
+                ],
+                'ddoctors' => [
+                    'name'        => 'dDoctors',
+                    'description' => __( 'dDoctors is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/ddoctors/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/ddoctors/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/ddoctors.png',
+                    'active'      => true,
+                ],
+                'dlawyers' => [
+                    'name'        => 'dLawyers',
+                    'description' => __( 'dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dlawyers/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dlawyers/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dlawyers.png',
+                    'active'      => true,
+                ],
             ];
         }
 

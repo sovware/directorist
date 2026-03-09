@@ -306,7 +306,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.6.1 - Mar 9, 2026 =
+= 8.6.1 - Mar 10, 2026 =
 
 **Improved**
  - Nonce verification restructured to fail early and prevent CSRF bypasses across multiple files.

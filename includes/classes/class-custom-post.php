@@ -329,20 +329,33 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
         }
 
         public function work_row_actions_for_quick_view() {
-			$nonce     = ! empty( $_REQUEST['_wpnonce'] ) ? wp_unslash( $_REQUEST['_wpnonce'] ) : ''; // @codingStandardsIgnoreLine
+            $nonce     = ! empty( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) : '';
             $update_id = ! empty( $_REQUEST['update_id'] ) ? absint( wp_unslash( $_REQUEST['update_id'] ) ) : 0;
-
-            if ( wp_verify_nonce( $nonce, 'quick-publish-action' ) && $update_id && is_admin() ) {
-                $my_post                = [];
-                $my_post['ID']          = $update_id;
-                $my_post['post_status'] = 'publish';
-                wp_update_post( $my_post );
-                /**
-                 * @since 5.4.0
-                 */
-                do_action( 'atbdp_listing_published', $my_post['ID'] ); // for sending email notification
-                echo '<script>window.location="' . esc_url( admin_url() . 'edit.php?post_type=at_biz_dir' ) . '"</script>';
+        
+            if ( ! $update_id || ! is_admin() ) {
+                return;
             }
+        
+            if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'quick-publish-action' ) ) {
+                wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
+            }
+        
+            if ( ! current_user_can( 'publish_at_biz_dirs' ) ) {
+                wp_die( esc_html__( 'Permission denied.', 'directorist' ), '', array( 'response' => 403 ) );
+            }
+
+            // Set flag to prevent double-firing in publish_atbdp_listings
+            $GLOBALS['directorist_quick_publishing'] = true;
+
+            $my_post                = [];
+            $my_post['ID']          = $update_id;
+            $my_post['post_status'] = 'publish';
+            wp_update_post( $my_post );
+        
+            do_action( 'atbdp_listing_published', $my_post['ID'] );
+        
+            wp_safe_redirect( admin_url( 'edit.php?post_type=at_biz_dir' ) );
+            exit;
         }
 
         /**
@@ -578,7 +591,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     break;
 
                 case 'directorist_listing_view_count':
-                    printf( '<span>%s</span>', directorist_get_listing_views_count( $post_id ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    printf( '<span>%s</span>', esc_html( directorist_get_listing_views_count( $post_id ) ) );
                     break;
 
                 case 'atbdp_date':
@@ -588,7 +601,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     $never_expire = get_post_meta( $post_id, '_never_expire', true );
                     $expiry_date  = '';
                     if ( ! empty( $never_expire ) ) {
-                        $expiry_date = esc_html( 'Never Expires', 'directorist' );
+                        $expiry_date = esc_html__( 'Never Expires', 'directorist' );
                     } else {
                         $get_expire = get_post_meta( $post_id, '_expiry_date', true );
 

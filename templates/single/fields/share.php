@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <?php directorist_icon( $icon ?? 'las la-share-square' );?>
 
-    <?php esc_html_e( $data['label'] ?? 'Share', 'directorist' ); ?>
+    <?php echo esc_html( $data['label'] ?? __( 'Share', 'directorist' ) ); ?>
 
     <ul class="directorist-social-share-links">
         <?php foreach ( $listing->social_share_data() as $social ) : ?>

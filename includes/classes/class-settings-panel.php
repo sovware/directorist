@@ -4099,7 +4099,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 ],
                                             ],
                                             'redirection' => [
-                                                'title'       => __( '', 'directorist' ),
+                                                'title'       => '',
                                                 'description' => '',
                                                 'fields'      => [
                                                     'auto_login', 'redirection_after_reg'
@@ -4627,7 +4627,7 @@ Please remember that your order may be canceled if you do not make your payment 
             $settings_builder_data['fields'] = $this->sanitize_fields_data( $settings_builder_data['fields'] );
 
             $data = [
-                'settings_builder_data' => base64_encode( json_encode( $settings_builder_data ) )
+                'settings_builder_data' => base64_encode( wp_json_encode( $settings_builder_data ) )
             ];
 
             atbdp_load_admin_template( 'settings-manager/settings', $data );

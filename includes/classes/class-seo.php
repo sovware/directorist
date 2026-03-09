@@ -201,7 +201,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             }
 
             $term_data = $this->get_taxonomy_term();
-            $term_data = ( $term_data ) ? json_decode( json_encode( $term_data ), true ) : [];
+            $term_data = ( $term_data ) ? json_decode( wp_json_encode( $term_data ), true ) : [];
 
             return $term_data;
         }
@@ -829,8 +829,8 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $location = get_term_by( 'id', $location, ATBDP_LOCATION );
 
             $in_s_string_text = ! empty( $query ) ? $query : '';
-            $in_cat_text      = ! empty( $category ) ? ( ! empty( $query ) ? __( 'from', 'directorist ' ) : '' ) . $category->name : '';
-            $in_loc_text      = ! empty( $location ) ? ( ! empty( $query ) ? __( 'from', 'directorist ' ) : '' ) . $location->name : '';
+            $in_cat_text      = ! empty( $category ) ? ( ! empty( $query ) ? __( 'from', 'directorist' ) : '' ) . $category->name : '';
+            $in_loc_text      = ! empty( $location ) ? ( ! empty( $query ) ? __( 'from', 'directorist' ) : '' ) . $location->name : '';
 
             $how_to = get_directorist_option( 'meta_title_for_search_result', 'searched_value' );
 

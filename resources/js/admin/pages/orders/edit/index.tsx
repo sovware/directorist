@@ -172,7 +172,7 @@ export default function OrderEdit({}: EditProps) {
 	const orderId = useGetId();
 
 	const singleOrderRoute = useMemo(
-		() => (orderId ? `/directorist/admin/orders/${orderId}` : ''),
+		() => (orderId ? `/directorist/v1/admin/orders/${orderId}` : ''),
 		[orderId]
 	);
 
@@ -213,7 +213,7 @@ export default function OrderEdit({}: EditProps) {
 
 		try {
 			await apiFetch({
-				path: `directorist/admin/orders/${orderId}/status`,
+				path: `directorist/v1/admin/orders/${orderId}/status`,
 				method: 'POST',
 				data: {
 					status: orderStatus,

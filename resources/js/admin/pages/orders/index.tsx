@@ -113,7 +113,7 @@ export default function Orders() {
 			<Table
 				heading="Orders"
 				storeName="directorist/orders"
-				path="/directorist/admin/orders"
+				path="/directorist/v1/admin/orders"
 				columns={columns}
 				create={{ status: false }}
 				edit={{ status: false }}

@@ -7,9 +7,9 @@
 
 namespace Directorist\Asset_Loader;
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+defined( 'ABSPATH' ) || exit;
+
+use Directorist\Utils\Enqueue\Enqueue;
 
 class Asset_Loader {
     /**
@@ -56,6 +56,23 @@ class Asset_Loader {
         wp_enqueue_style( 'directorist-ez-media-uploader-style' );
         wp_enqueue_style( 'directorist-swiper-style' );
         wp_enqueue_style( 'directorist-sweetalert-style' );
+
+        Enqueue::style( 'directorist/frontend', 'build/css/frontend', ['wp-components'] );
+        Enqueue::register_script( 'directorist-payment-receipt', 'build/js/frontend/payment-receipt.js', ['jquery', 'wp-api-fetch'] );
+        Enqueue::script( 'directorist-listing-owner-dashboard', 'build/js/frontend/listing-owner-dashboard' );
+
+        $c_position   = directorist_get_currency_position();
+        $currency = directorist_get_currency();
+        $symbol   = atbdp_currency_symbol( $currency );
+            
+        wp_localize_script(
+            'directorist-listing-owner-dashboard', 'directorist_admin_order', [
+                'checkout_page_url' => get_permalink( get_directorist_option( 'checkout_page', 0 ) ),
+                'symbol_position'   => $c_position,
+                'currency'          => $currency,
+                'symbol'            => $symbol,
+            ] 
+        );
     }
 
     /**
@@ -235,7 +252,7 @@ class Asset_Loader {
      *
      * @return void
      */
-    public static function admin_scripts() {
+    public static function admin_scripts( string $hook_suffix ) {
 
         if ( Helper::is_admin_page( 'builder-archive' ) ) {
             wp_enqueue_style( 'directorist-unicons' );
@@ -311,6 +328,25 @@ class Asset_Loader {
             if ( $load_inline_style ) {
                 wp_add_inline_style( 'directorist-admin-style', Helper::dynamic_style() );
             }
+        }
+
+        if ( 'at_biz_dir_page_directorist-orders' === $hook_suffix ) {
+            Enqueue::style( 'directorist/admin-order-dataview', 'build/css/style-admin-order', ['wp-components'] );
+            Enqueue::style( 'directorist/admin-order', 'build/css/admin-order' );
+            Enqueue::script( 'directorist/admin-order', 'build/js/admin/order' );
+        
+            $c_position = directorist_get_currency_position();
+            $currency   = directorist_get_currency();
+            $symbol     = atbdp_currency_symbol( $currency );
+        
+            wp_localize_script(
+                'directorist/admin-order', 'directorist_admin_order', [
+                    'symbol_position' => $c_position,
+                    'currency'        => $currency,
+                    'symbol'          => $symbol,
+                ] 
+            );
+            wp_enqueue_style( 'directorist-admin-style' );
         }
     }
 

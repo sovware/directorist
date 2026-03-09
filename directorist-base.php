@@ -13,11 +13,7 @@
 // prevent direct access to the file
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
-require_once __DIR__ . '/vendor/vendor-src/autoload.php'; // Load Composer autoloader
-require_once __DIR__ . '/app/Helpers/helpers.php';
-
-use Directorist\App\Setup\Activation;
-use Directorist\WpMVC\App;
+use Directorist\Setup\Activation;
 
 /**
  * Main Directorist_Base Class.
@@ -207,16 +203,6 @@ final class Directorist_Base {
             self::$instance = new Directorist_Base();
             self::$instance->setup_constants();
 
-            $application = App::instance();
-
-            $application->boot( __FILE__, __DIR__ );
-
-            add_action(
-                'plugins_loaded', function () use ( $application ): void {
-                    $application->load();
-                }
-            );
-
             add_action( 'plugins_loaded', [ self::$instance, 'redirect_to_setup_wizard' ] );
             add_action( 'init', [self::$instance, 'load_textdomain'] );
             add_action( 'widgets_init', [self::$instance, 'register_widgets'] );
@@ -227,6 +213,10 @@ final class Directorist_Base {
             add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
 
             self::$instance->includes();
+
+            new Directorist\AdminMenu();
+            new Directorist\FeaturedListingCheckout();
+            new Directorist\PaymentService();
 
             // Check if this is a beta version by looking for 'Beta' in version string
             self::$instance->beta = false !== stripos( ATBDP_VERSION, 'Beta' );
@@ -422,8 +412,26 @@ final class Directorist_Base {
         $this->autoload( ATBDP_INC_DIR . 'asset-loader/' );
         $this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
+        self::require_files( [ ATBDP_DIR . 'utils/index' ] );
+
+        $this->autoload( ATBDP_INC_DIR . 'contracts/' );
+        $this->autoload( ATBDP_INC_DIR . 'db-models/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/order/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/payment/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/refund/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/subscription/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/order/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/payment/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/refund/' );
+        $this->autoload( ATBDP_INC_DIR . 'repositories/' );
+        $this->autoload( ATBDP_INC_DIR . 'setup/' );
+        
         self::require_files(
             [
+                ATBDP_INC_DIR . 'payment-processors/payment',
+                ATBDP_INC_DIR . 'payment-processors/bank-transfer',
                 ATBDP_INC_DIR . 'directorist-core-functions',
                 ATBDP_INC_DIR . 'directorist-directory-functions',
                 ATBDP_INC_DIR . 'class-helper',
@@ -828,6 +836,24 @@ final class Directorist_Base {
     }
 } // ends Directorist_Base
 
+
+/**
+ * The main function for that returns Directorist_Base
+ *
+ * The main function responsible for returning the one true Directorist_Base
+ * Instance to functions everywhere.
+ *
+ * Use this function like you would a global variable, except without needing
+ * to declare the global.
+ *
+ *
+ * @since 8.0
+ * @return object|Directorist_Base The one true Directorist_Base Instance.
+ */
+function directorist():Directorist_Base {
+    return Directorist_Base::instance();
+}
+
 /**
  * The main function for that returns Directorist_Base
  *
@@ -840,10 +866,11 @@ final class Directorist_Base {
  *
  * @since 1.0
  * @return object|Directorist_Base The one true Directorist_Base Instance.
+ * @deprecated Use directorist() instead.
  */
 function ATBDP() {
-    return Directorist_Base::instance();
+    return directorist();
 }
 
-ATBDP();
+directorist();
 register_activation_hook( __FILE__, ['Directorist_Base', 'prepare_plugin'] );

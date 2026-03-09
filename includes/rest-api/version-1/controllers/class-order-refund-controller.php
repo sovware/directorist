@@ -8,7 +8,7 @@ use WP_REST_Request;
 use WP_REST_Server;
 use WP_Error;
 
-use Directorist\App\DTO\Order\DTO as OrderDTO;
+use Directorist\DTO\Order\DTO as OrderDTO;
 use Directorist\DTO\Refund\DTO as RefundDTO;
 use Directorist\DTO\Refund\Read as RefundRead;
 use Directorist\Enums\Refund\Status as RefundStatus;

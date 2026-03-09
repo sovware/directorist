@@ -9,7 +9,7 @@ use WP_REST_Server;
 use WP_Error;
 
 use Directorist\Enums\Order\Status as OrderStatus;
-use Directorist\App\DTO\Order\DTO as OrderDTO;
+use Directorist\DTO\Order\DTO as OrderDTO;
 use Directorist\DTO\Order\Read as OrderRead;
 
 class Order_Controller extends Abstract_Controller {

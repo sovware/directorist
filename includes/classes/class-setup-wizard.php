@@ -1033,7 +1033,7 @@ class Directorist_Setup_Wizard {
                         </ul>
                         <span class="step-count"><?php 
                         /* translators: %1$s: Step text, %2$d: Step number */
-                        printf( esc_html__( '%1$s %2$d of 4', 'directorist' ), esc_html__( 'Step', 'directorist' ), $active_number ); 
+                        printf( esc_html__( '%1$s %2$d of 4', 'directorist' ), esc_html__( 'Step', 'directorist' ), absint( $active_number ) ); 
                         ?></span>
                     </div>
                     <div class="directorist-setup-wizard__close">

@@ -1,5 +1,6 @@
 # Directories
 /.cache
+/.git
 /.github
 /.wordpress-org
 /.husky

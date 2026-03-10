@@ -1552,8 +1552,8 @@ class Directorist_Listings {
     }
 
     public function load_openstreet_map() {
-        $card = json_encode( $this->openstreet_map_card_data() );
-        $options = json_encode( $this->map_options() );
+        $card = wp_json_encode( $this->openstreet_map_card_data() );
+        $options = wp_json_encode( $this->map_options() );
         $style = 'height:' . $this->listings_map_height . 'px';
         ?>
         <div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>">
@@ -1742,7 +1742,7 @@ class Directorist_Listings {
                     $ls_data['listings']        = $this;
 
                     $cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
-                    $ls_data['cat_icon'] = json_encode( $cat_icon );
+                    $ls_data['cat_icon'] = wp_json_encode( $cat_icon );
 
                     $listing_type           = directorist_get_listing_directory( $listings_id );
                     $ls_data['default_img'] = Helper::default_preview_image_src( $listing_type );
@@ -2062,7 +2062,7 @@ class Directorist_Listings {
         // Removed: category_custom_fields_relations is no longer used (assign_to feature removed)
         // $this->atts['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->current_listing_type );
         // Separates class names with a single space, collates class names for wrapper tag element.
-        echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
+        echo 'data-atts="' . esc_attr( wp_json_encode( $this->atts ) ) . '"';
     }
 
     public function loop_link_attr() {

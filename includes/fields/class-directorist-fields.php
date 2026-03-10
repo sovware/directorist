@@ -30,8 +30,7 @@ class Fields {
 
             self::$fields[ $field->type ] = $field;
         } catch ( Exception $e ) {
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            wp_die( $e->getMessage() );
+            wp_die( esc_html( $e->getMessage() ) );
         }
     }
 

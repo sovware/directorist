@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -30,7 +30,7 @@ $img_upload_data = [
     'max_size_per_img'   => $max_file_size_kb,
 ];
 
-$img_upload_data = json_encode( $img_upload_data );
+$img_upload_data = wp_json_encode( $img_upload_data );
 
 // Get conditional logic attributes using centralized method
 $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );

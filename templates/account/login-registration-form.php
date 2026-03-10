@@ -64,7 +64,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 
                             if ( is_wp_error( $is_valid_password_reset_key ) ) {
                                 ?><p class="directorist-alert directorist-alert-danger">
-                                    <?php echo $is_valid_password_reset_key->get_error_message(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                    <?php echo wp_kses_post( $is_valid_password_reset_key->get_error_message() ); ?>
                                 </p><?php
                             } else {
                                 if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
@@ -199,7 +199,8 @@ if ( ! empty( $_GET['registration_status'] ) ) {
                                     <strong>Site name:</strong> %1$s
                                     <strong>User name:</strong> %2$s
                                     To reset your password, please click on the <a href="%3$s">Reset Password</a>.<br>
-                                    If this was a mistake, just ignore this email and nothing will happen.'
+                                    If this was a mistake, just ignore this email and nothing will happen.',
+                                        'directorist'
                                     ),
                                     $site_name,
                                     $user->user_login,

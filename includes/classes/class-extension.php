@@ -30,6 +30,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
     class ATBDP_Extensions {
         public static $extensions_aliases = [];
 
+        public static $load_from_api = false;
+
         public $extensions          = [];
 
         public $themes              = [];
@@ -64,8 +66,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', [ $this, 'handle_close_subscriptions_sassion_request' ] );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
-
-            $this->setup_extension_updater();
         }
 
         // initial_setup
@@ -216,72 +216,84 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // get_the_products_list
         public function setup_products_list() {
-            // Fetch products from the API
-            $products = API::get_products();
+            if ( static::$load_from_api ) {
+                // Fetch products from the API
+                $products = API::get_products();
 
-            // Apply filters for extensions and themes
-            $this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] ?? [] );
-            $this->themes = apply_filters( 'atbdp_theme_list', $products['themes'] ?? [] );
+                // Apply filters for extensions and themes
+                $this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] ?? [] );
+                $this->themes     = apply_filters( 'atbdp_theme_list', $products['themes'] ?? [] );
 
-            // Set default values if extensions or themes are empty
-            $this->extensions = empty( $this->extensions ) ? static::get_default_extensions() : $this->extensions;
-            $this->themes = empty( $this->themes ) ? static::get_default_themes() : $this->themes;
-        }
-
-        // get_the_products_list
-        public function setup_extension_updater() {
-
-            // Include the plugin updater class if not already included
-            if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-                include_once ATBDP_INC_DIR . '/modules/updater/EDD_SL_Plugin_Updater.php';
-            }
-
-            $licenses     = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true ); // Get license key for the current user from user meta
-            $plugins_data = get_plugins();
-
-            // Loop through default extensions and process them
-            foreach ( static::get_default_extensions() as $key => $extension ) {
-                // Get the item ID of the extension (if available)
-                $item_id = $extension['item_id'] ?? 0;
-                if ( ! $item_id ) {
-                    continue;
-                }
-
-                // Get the base file path of the extension
-                $base        = $extension['base'] ?? $key . '/' . $key . '.php';
-                $base_file   = WP_PLUGIN_DIR . '/' . $base;
-                $plugin_data = $plugins_data[ $base ] ?? [];
-
-                if ( empty( $plugin_data ) ) {
-                    continue;
-                }
-
-                $extension_license_map = $licenses[ $key ] ?? [];
-                if ( empty( $extension_license_map ) || empty( $extension_license_map['license'] ) ) {
-                    continue;
-                }
-
-                // Initialize the plugin updater for the extension
-                new EDD_SL_Plugin_Updater(
-                    'https://directorist.com', $base_file, [
-                        'version' => $plugin_data['Version'],             // Current version number
-                        'license' => $extension_license_map['license'],   // License key from user meta
-                        'item_id' => $item_id,                            // Plugin ID
-                        'author'  => 'AazzTech',                          // Plugin author
-                        'url'     => home_url(),                          // Site URL
-                        'beta'    => false,                               // Beta release flag
-                    ] 
-                );
+                // Fall back to local data if API returned nothing
+                $this->extensions = empty( $this->extensions ) ? static::get_default_extensions() : $this->extensions;
+                $this->themes     = empty( $this->themes ) ? static::get_default_themes() : $this->themes;
+            } else {
+                $this->extensions = apply_filters( 'atbdp_extension_list', static::get_default_extensions() );
+                $this->themes     = apply_filters( 'atbdp_theme_list', static::get_default_themes() );
             }
         }
 
         public static function get_default_extensions() {
             return [
+                'directorist-analytics' => [
+                    'name'        => 'Directorist Analytics',
+                    'description' => __( 'Unlock powerful insights to grow your directory with confidence.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-analytics/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-analytics.jpg',
+                    'active'      => true,
+                    'item_id'     => 369611,
+                ],
+
+                'directorist-advanced-review' => [
+                    'name'        => 'Directorist Advance Review',
+                    'description' => __( 'Detailed, criteria-based review to make listings more trustworthy.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-advanced-review/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-advanced-review.jpg',
+                    'active'      => true,
+                    'item_id'     => 366908,
+                ],
+
+                'directorist-universal-search' => [
+                    'name'        => 'Directorist Universal Search',
+                    'description' => __( 'Unified Search Across All Your Directories – Instantly Find What You Need', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-universal-search/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-universal-search.jpg',
+                    'active'      => true,
+                    'item_id'     => 340478,
+                ],
+
+                'directorist-search-alert' => [
+                    'name'        => 'Directorist Search Alert',
+                    'description' => __( 'The Search Alert Plugin lets users create, manage, and receive alerts for matches.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-search-alert/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-search-alert.png',
+                    'active'      => true,
+                    'item_id'     => 323908,
+                ],
+
+                'directorist-announcement' => [
+                    'name'        => 'Directorist Announcement',
+                    'description' => __( 'Effortlessly share updates, news, or promotions with the Directorist Announcement Extension.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-announcement/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-announcement.svg',
+                    'active'      => true,
+                    'item_id'     => 308031,
+                ],
+
+                'addonskit-for-bricks' => [
+                    'name'        => 'AddonsKit for Bricks',
+                    'description' => __( 'Enhance directory sites with AddonsKit for Bricks Builder with drag-and-drop custom elements, interactive maps, and more.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/addonskit-for-bricks/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/addonskit-bricks.svg',
+                    'active'      => true,
+                    'item_id'     => 307581,
+                ],
+
                 'directorist-coupon' => [
                     'name'        => 'Coupon',
                     'description' => __( 'It lets you offer discounts to users when purchasing listing plans or paying for featured listings.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-coupon/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/11/19_Coupon.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/coupon.png',
                     'active'      => true,
                     'item_id'     => 32345,
                 ],
@@ -289,7 +301,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Compare Listings',
                     'description' => __( 'Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-compare-listing/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2020/07/Compare-Listings.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/compare-listings.png',
                     'active'      => true,
                     'item_id'     => 26378,
                 ],
@@ -297,7 +309,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Listings With Map',
                     'description' => __( 'Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-listings-with-map/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/06_Listings-With-Map-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/listings-with-map.png',
                     'base'        => 'directorist-listings-with-map/directorist-listings-map.php',
                     'active'      => true,
                     'item_id'     => 13794,
@@ -306,7 +318,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Pricing Plans',
                     'description' => __( 'Do you have a growing directory site? Do you want to make money with your site very easily? Start generating a handsome amount of revenue from your directory site with Directorist Pricing Plans today.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-pricing-plans/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/15_Pricing-Plans-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13776,
                 ],
@@ -314,7 +326,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'WooCommerce Pricing Plans',
                     'description' => __( 'Do you have a growing directory site? Do you want to make money with your site by integrating your favorite WooCommerce payment gateway? Start generating a handsome amount of revenue from your directory site with Directorist WooCommerce Pricing Plans today.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-woocommerce-pricing-plans/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/16_WooCommerce-Pricing-Plans-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/woo-pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13784,
                 ],
@@ -322,7 +334,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'PayPal Payment Gateway',
                     'description' => __( 'Do you want to boost your income on your business directory site? Are you looking for a robust payment gateway with worldwide acceptance? If you are, then Directorist PayPal Payment Gateway is the perfect fit for you.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-paypal/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/14_PayPal-Payment-Gateway-2.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/paypal-gateway.png',
                     'active'      => true,
                     'item_id'     => 13702,
                 ],
@@ -330,7 +342,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Stripe Payment Gateway',
                     'description' => __( 'Are you looking for a versatile Directorist payment gateway for your business directory that accepts a great number of currencies? If yes, then Directorist Stripe Payment Gateway is the smartest way to go', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-stripe/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/13_Stripe-Payment-Gateway-3.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/stripe-gateway.png',
                     'active'      => true,
                     'item_id'     => 13700,
                 ],
@@ -338,7 +350,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Claim Listing',
                     'description' => __( 'Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-claim-listing/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/12_Claim-Listing-2.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/claim-listing.png',
                     'active'      => true,
                     'item_id'     => 13786,
                 ],
@@ -346,7 +358,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Mark as Sold',
                     'description' => __( 'Mark as sold is a dynamic extension that provides listing authors the opportunity to show visitors if a particular item is sold or not.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-mark-as-sold/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/03_Mark-As-Sold-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/mark-as-sold.png',
                     'active'      => true,
                     'item_id'     => 20204,
                 ],
@@ -354,7 +366,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Social Login',
                     'description' => __( 'Use Directorist Social Login to accelerate the registration process by offering a single-click login option using Facebook or Google profile.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-social-login/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/04_Social-Login-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/social-login.png',
                     'active'      => true,
                     'item_id'     => 13795,
                 ],
@@ -362,7 +374,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Google reCAPTCHA',
                     'description' => __( 'Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-google-recaptcha/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/10_Google-ReCAPTCHA-2.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/recaptcha.png',
                     'active'      => true,
                     'item_id'     => 13768,
                 ],
@@ -370,7 +382,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Listing FAQs',
                     'description' => __( 'Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-faqs/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/08_Listing-FAQs-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/listing-faqs.png',
                     'active'      => true,
                     'item_id'     => 13780,
                 ],
@@ -378,7 +390,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Business Hours',
                     'description' => __( 'Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-business-hours/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/11_Business-Hours.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/business-hours.png',
                     'base'        => 'directorist-business-hours/bd-business-hour.php',
                     'active'      => true,
                     'item_id'     => 13714,
@@ -387,7 +399,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Listings Slider & Carousel',
                     'description' => __( 'Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-slider-carousel/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/09_Listings-Slider-Carousel-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/listings-slider.png',
                     'base'        => 'directorist-slider-carousel/bd-directorist-slider.php',
                     'active'      => true,
                     'item_id'     => 13774
@@ -396,7 +408,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Live Chat',
                     'description' => __( 'Live Chat is an extension that allows the visitors to contact business owners immediately and easily. It makes the business more credible as customer satisfaction increases notably.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-live-chat/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/02_Live-Chats-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/live-chats.png',
                     'active'      => true,
                     'item_id'     => 21274
                 ],
@@ -404,7 +416,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Booking (Reservation & Appointment)',
                     'description' => __( 'This extension comes with all the solutions you need to set up a dynamic booking and reservation system on your directory website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-booking/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/01_Booking-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/booking.png',
                     'active'      => true,
                     'item_id'     => 21718,
                 ],
@@ -412,7 +424,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Image Gallery',
                     'description' => __( 'Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-gallery/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/image-gallery.png',
                     'base'        => 'directorist-gallery/bd-directorist-gallery.php',
                     'active'      => true,
                     'item_id'     => 13778,
@@ -421,7 +433,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Directorist Ads Manager',
                     'description' => __( 'Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-adverts-manager/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/12/single-ad-manager.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/single-ad-manager.png',
                     'active'      => true,
                     'item_id'     => 32342,
                 ],
@@ -429,7 +441,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'BuddyBoss Integration',
                     'description' => __( 'Directorist - BuddyBoss Integration extension is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-buddyboss-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/07/BuddyBoss-Integration.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/buddyboss.png',
                     'active'      => true,
                     'item_id'     => 60945,
                 ],
@@ -437,7 +449,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Directorist Oxygen',
                     'description' => __( 'Directorist Oxygen is used to integrate the giant Directorist with the popular Oxygen Page Builder plugin. It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-oxygen-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/06/Oxygen-Builder.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/oxygen-builder.png',
                     'active'      => true,
                     'item_id'     => 56997,
                 ],
@@ -445,7 +457,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Authorize.net Payment Gateway',
                     'description' => __( 'Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-authorize-net/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/04/21_Authorize.net2_.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/authorize-net.png',
                     'active'      => true,
                     'item_id'     => 52499,
                 ],
@@ -453,7 +465,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'BuddyPress Integration',
                     'description' => __( 'Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-buddypress-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/08/BuddyPress.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/buddypress.svg',
                     'active'      => true,
                     'item_id'     => 62897,
                 ],
@@ -461,7 +473,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Multi Directory Linking',
                     'description' => __( 'If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories. This opens up a new window to earn money from your directory website.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-directory-linking/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/10/25_Type-Linking.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/type-linking.svg',
                     'active'      => true,
                     'item_id'     => 70261,
                 ],
@@ -469,7 +481,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Job Manager',
                     'description' => __( 'If you\'re wondering how to place job listings with detailed specifications, then Directorist-Job Manager gets you rid out of this problem', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-job-manager/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2024/05/30_Jobs_Manager.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/jobs-manager.svg',
                     'active'      => true,
                     'item_id'     => 134332,
                 ],
@@ -477,7 +489,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Mailchimp Integration',
                     'description' => __( 'Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-mailchimp-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/27_Mailchimp.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/mailchimp.svg',
                     'active'      => true,
                     'item_id'     => 76269,
                 ],
@@ -485,15 +497,23 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'HelpGent Integration',
                     'description' => __( 'Directorist HelpGent Integration puts Directorist and HelpGent on the same avenue. The integration helps you to make your directory website more accessible to your audience which eventually creates more leads and conversions', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-helpgent-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2024/05/31_Directorist_-_HelpGent_Integration.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/helpgent.svg',
                     'active'      => true,
                     'item_id'     => 188735,
+                ],
+                'directorist-wpml-integration' => [
+                    'name'        => 'WPML Integration',
+                    'description' => __( 'Directorist WPML Integration connects Directorist and WPML in one place. It helps you to make your directory sites multilingual more conveniently & efficiently by switching your directory website from one language to another.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-wpml-integration/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/wpml.svg',
+                    'active'      => true,
+                    'item_id'     => 104564,
                 ],
                 'directorist-digital-marketplace' => [
                     'name'        => 'Digital Marketplace',
                     'description' => __( 'If you want to create a marketplace of fixed-price services or digital downloads, then the Digital Marketplace Extension will be a worth-investment to kickstart.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-digital-marketplace/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2022/10/30_Marketplace.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/marketplace.svg',
                     'active'      => true,
                     'item_id'     => 148417,
                 ],
@@ -501,7 +521,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'name'        => 'Gamipress Integration',
                     'description' => __( 'Directorist GamiPress Integration Connects Directorist with GamiPress in one place. It helps you to aggrandize the engagement of your directory business with the utmost possible ease.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-gamipress-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2022/04/28_Gamipress.svg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/gamipress.svg',
                     'active'      => true,
                     'item_id'     => 102370,
                 ],
@@ -511,52 +531,44 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_themes() {
             return [
-                'dlist' => [
-                    'name'        => 'DList',
-                    'description' => __( 'DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/dlist/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/dlist/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dlist-featured.png',
+                'djobs' => [
+                    'name'        => 'dJobs',
+                    'description' => __( 'dJobs is a beautiful WordPress directory theme for jobs, employment, and other job-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/djobs/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/djobs/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/djobs.png',
                     'active'      => true,
                 ],
-                'dservice' => [
-                    'name'        => 'DService',
-                    'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/dservice/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/dservice/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dservice-featured.png',
+                'dhotels' => [
+                    'name'        => 'dHotels',
+                    'description' => __( 'dHotels is a beautiful WordPress directory theme for hotels, motels, resorts, and other hospitality-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dhotels/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dhotels/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dhotels.png',
                     'active'      => true,
                 ],
-                'directoria' => [
-                    'name'        => 'Directoria',
-                    'description' => __( 'Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directoria/',
-                    'demo_link'   => 'https://demo.directorist.com/plugin/demo-one/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/Directoria-1.png',
+                'dclassified' => [
+                    'name'        => 'dClassified',
+                    'description' => __( 'dClassified is a beautiful WordPress directory theme for classifieds, ads, and other classified-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dclassified/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dclassified/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dclassified.png',
                     'active'      => true,
                 ],
-                'dlawyers' => [
-                    'name'        => 'dLawyers',
-                    'description' => __( 'dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/dlawyers/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/dlawyers/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/09/dlawyers_theme.png',
-                    'active'      => true,
-                ],
-                'ddoctors' => [
-                    'name'        => 'dDoctors',
-                    'description' => __( 'dDoctors is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/ddoctors/',
-                    'demo_link'   => 'https://demo.directorist.com/theme/ddoctors/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/09/ddoctors_theme.png',
+                'onelisting' => [
+                    'name'        => 'OneListing',
+                    'description' => __( 'Onelisting is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/onelisting/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/onelisting/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/onelisting-free.png',
                     'active'      => true,
                 ],
                 'onelisting-pro' => [
-                    'name'        => 'Onelisting Pro',
+                    'name'        => 'OneListing Pro',
                     'description' => __( 'Onelisting Pro is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/onelisting-pro/',
                     'demo_link'   => 'https://demo.directorist.com/theme/onelisting-pro/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/onelisting.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/onelisting.png',
                     'active'      => true,
                 ],
                 'dplace' => [
@@ -564,7 +576,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dplace/',
                     'demo_link'   => 'https://demo.directorist.com/theme/dplace/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/dPlace.jpg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dplace.jpg',
                     'active'      => true,
                 ],
                 'drestaurant' => [
@@ -572,11 +584,57 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'description' => __( 'Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/drestaurant/',
                     'demo_link'   => 'https://demo.directorist.com/theme/drestaurant/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/1.png',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/drestaurant.png',
                     'active'      => true,
                 ],
-
-
+                'drealestate' => [
+                    'name'        => 'dRealEstate',
+                    'description' => __( 'dRealEstate is a beautiful WordPress directory theme for real estate, property, and other real estate-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/drealestate/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/drealestate/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/drealestate.png',
+                    'active'      => true,
+                ],
+                'dcar' => [
+                    'name'        => 'dCar',
+                    'description' => __( 'dCar is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dcar/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dcar/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dcar.png',
+                    'active'      => true,
+                ],
+                'dlist' => [
+                    'name'        => 'dList',
+                    'description' => __( 'DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dlist/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dlist/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dlist.png',
+                    'active'      => true,
+                ],
+                'dservice' => [
+                    'name'        => 'dService',
+                    'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dservice/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dservice/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dservice.png',
+                    'active'      => true,
+                ],
+                'ddoctors' => [
+                    'name'        => 'dDoctors',
+                    'description' => __( 'dDoctors is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/ddoctors/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/ddoctors/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/ddoctors.png',
+                    'active'      => true,
+                ],
+                'dlawyers' => [
+                    'name'        => 'dLawyers',
+                    'description' => __( 'dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dlawyers/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dlawyers/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dlawyers.png',
+                    'active'      => true,
+                ],
             ];
         }
 
@@ -700,89 +758,319 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         // update_plugins
-        public function update_plugins( array $args = [] ) {
-            $default = [ 'plugin_key' => '' ];
-            $args    = array_merge( $default, $args );
+        public function update_plugins( array $args = array() ) {
+            $default = array( 'plugin_key' => '' );
+            $args    = wp_parse_args( $args, $default );
 
-            $status     = [ 'success' => true ];
-            $plugin_key = $args['plugin_key'];
+            $status     = array( 'success' => true );
+            $plugin_key = isset( $args['plugin_key'] ) ? sanitize_text_field( $args['plugin_key'] ) : '';
 
-            $plugin_updates       = get_site_transient( 'update_plugins' );
-            $outdated_plugins     = $plugin_updates->response;
-            $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
+            // Get outdated plugins via API instead of transient.
+            $outdated_plugins     = $this->get_outdated_extensions_via_api();
+            $outdated_plugins_key = array_keys( $outdated_plugins );
 
             if ( empty( $outdated_plugins_key ) ) {
                 $status['message'] = __( 'All plugins are up to date', 'directorist' );
-
-                return [ 'status' => $status ];
+                return array( 'status' => $status );
             }
 
-            if ( ! empty( $plugin_key ) && ! in_array( $plugin_key, $outdated_plugins_key ) ) {
-                $status['message'] = __( 'The plugin is up to date', 'directorist' );
+            // If specific plugin key provided, validate it exists in outdated list.
+            if ( ! empty( $plugin_key ) ) {
+                // Convert plugin base to plugin key.
+                $filtered_key = self::filter_plugin_key_from_base_name( $plugin_key );
 
-                return [ 'status' => $status ];
+                // Check if this plugin is in outdated list.
+                $is_outdated = false;
+
+                foreach ( $outdated_plugins as $base => $version_info ) {
+                    $base_key = self::filter_plugin_key_from_base_name( $base );
+                    if ( $base_key === $filtered_key || $base === $plugin_key ) {
+                        $is_outdated = true;
+                        $plugin_key  = $base_key; // Use the correct key.
+                        $matched_base = $base;
+                        break;
+                    }
+                }
+
+                if ( ! $is_outdated ) {
+                    $status['message'] = __( 'The plugin is up to date', 'directorist' );
+                    return array( 'status' => $status );
+                }
             }
 
             $plugins_available_in_subscriptions = self::get_purchased_extension_list();
 
-            // Update single
-            if ( ! empty( $plugin_key ) ) {
-                $plugin_key  = self::filter_plugin_key_from_base_name( $plugin_key );
-                $plugin_item = self::extract_plugin_from_list( $plugin_key, $plugins_available_in_subscriptions );
-                $url         = self::get_file_download_link( $plugin_item, 'plugin' );
+            if ( ! is_array( $plugins_available_in_subscriptions ) ) {
+                $status['success'] = false;
+                $status['message'] = __( 'No purchased extensions found', 'directorist' );
+                return array( 'status' => $status );
+            }
 
-                $download_status = $this->download_plugin( [ 'url' => $url ] );
+            // Update single plugin.
+            if ( ! empty( $plugin_key ) ) {
+                $plugin_item = self::extract_plugin_from_list( $plugin_key, $plugins_available_in_subscriptions );
+
+                if ( empty( $plugin_item ) || ! is_array( $plugin_item ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'License not found for this extension', 'directorist' );
+                    return array( 'status' => $status );
+                }
+
+                $url = self::get_file_download_link( $plugin_item, 'plugin' );
+
+                if ( empty( $url ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'Download link could not be retrieved', 'directorist' );
+                    return array( 'status' => $status );
+                }
+
+                $download_status = $this->download_plugin( array( 'url' => $url ) );
 
                 if ( ! $download_status['success'] ) {
                     $status['success'] = false;
                     $status['message'] = __( 'The plugin could not update', 'directorist' );
-                    $status['log']     = $download_status['message'];
+                    $status['log']     = isset( $download_status['message'] ) ? $download_status['message'] : '';
                 } else {
+                    // Clear version cache after successful update.
+                    $cache_key = 'directorist_ext_version_' . md5( $plugin_key . $plugin_item['license'] . 'any' );
+                    delete_transient( $cache_key );
+
                     $status['success'] = true;
                     $status['message'] = __( 'The plugin has been updated successfully', 'directorist' );
-                    $status['log']     = $download_status['message'];
+                    $status['log']     = isset( $download_status['message'] ) ? $download_status['message'] : '';
                 }
 
-                return [ 'status' => $status ];
+                return array( 'status' => $status );
             }
 
-            // Update all
-            $updated_plugins       = [];
-            $update_failed_plugins = [];
+            // Update all outdated plugins.
+            $updated_plugins       = array();
+            $update_failed_plugins = array();
 
-            foreach ( $outdated_plugins as $plugin_base => $plugin ) {
-                $plugin_key  = self::filter_plugin_key_from_base_name( $plugin_key );
-                $plugin_item = self::extract_plugin_from_list( $plugin_key, $plugins_available_in_subscriptions );
-                $url         = self::get_file_download_link( $plugin_item, 'plugin' );
+            foreach ( $outdated_plugins as $plugin_base => $version_info ) {
+                $base_key   = self::filter_plugin_key_from_base_name( $plugin_base );
+                $plugin_item = self::extract_plugin_from_list( $base_key, $plugins_available_in_subscriptions );
 
-                $download_status = $this->download_plugin( [ 'url' => $url ] );
+                if ( empty( $plugin_item ) || ! is_array( $plugin_item ) ) {
+                    $update_failed_plugins[ $plugin_base ] = $version_info;
+                    continue;
+                }
+
+                $url = self::get_file_download_link( $plugin_item, 'plugin' );
+
+                if ( empty( $url ) ) {
+                    $update_failed_plugins[ $plugin_base ] = $version_info;
+                    continue;
+                }
+
+                $download_status = $this->download_plugin( array( 'url' => $url ) );
 
                 if ( ! $download_status['success'] ) {
-                    $update_failed_plugins[ $plugin_base ] = $plugin;
+                    $update_failed_plugins[ $plugin_base ] = $version_info;
                 } else {
-                    $updated_plugins[ $plugin_base ] = $plugin;
+                    // Clear version cache after successful update.
+                    $cache_key = 'directorist_ext_version_' . md5( $base_key . $plugin_item['license'] . 'any' );
+                    delete_transient( $cache_key );
+
+                    $updated_plugins[ $plugin_base ] = $version_info;
                 }
             }
 
             $status['updated_plugins']       = $updated_plugins;
             $status['update_failed_plugins'] = $update_failed_plugins;
 
+            // Set appropriate status message.
             if ( ! empty( $updated_plugins ) && ! empty( $update_failed_plugins ) ) {
                 $status['success'] = false;
-                $status['message'] = __( 'Some of the plugin could not update', 'directorist' );
-            }
-
-            if ( empty( $update_failed_plugins ) ) {
+                $status['message'] = __( 'Some of the plugins could not update', 'directorist' );
+            } elseif ( ! empty( $updated_plugins ) ) {
                 $status['success'] = true;
-                $status['message'] = __( 'All the plugins are updated successfully', 'directorist' );
+                $status['message'] = __( 'All plugins have been updated successfully', 'directorist' );
+            } elseif ( ! empty( $update_failed_plugins ) ) {
+                $status['success'] = false;
+                $status['message'] = __( 'No plugins could be updated', 'directorist' );
             }
 
-            if ( empty( $updated_plugins ) ) {
-                $status['success'] = true;
-                $status['message'] = __( 'No plugins could not update', 'directorist' );
+            return array( 'status' => $status );
+        }
+
+        /**
+         * Check extension version via API with caching.
+         *
+         * @since 8.6.1
+         *
+         * @param string $plugin_key      Extension key (e.g., 'directorist-gallery').
+         * @param array  $plugin_item     Extension item data from subscriptions.
+         * @param string $current_version Current installed version.
+         * @return array|false Version info array on success, false on failure.
+         */
+        private function check_extension_version_via_api( $plugin_key, $plugin_item, $current_version ) {
+            // Validate inputs.
+            if ( ! is_string( $plugin_key ) || empty( $plugin_key ) ) {
+                return false;
             }
 
-            return [ 'status' => $status ];
+            if ( ! is_array( $plugin_item ) || empty( $plugin_item['license'] ) || empty( $plugin_item['item_id'] ) ) {
+                return false;
+            }
+
+            if ( ! is_string( $current_version ) || empty( $current_version ) ) {
+                return false;
+            }
+
+            // Sanitize inputs.
+            $plugin_key      = sanitize_key( $plugin_key );
+            $current_version = sanitize_text_field( $current_version );
+            $license         = sanitize_text_field( $plugin_item['license'] );
+            $item_id         = absint( $plugin_item['item_id'] );
+
+            // Get extension definition.
+            $default_extensions = static::get_default_extensions();
+            $extension          = isset( $default_extensions[ $plugin_key ] ) ? $default_extensions[ $plugin_key ] : null;
+
+            if ( ! $extension || empty( $extension['item_id'] ) ) {
+                return false;
+            }
+
+            // Use extension item_id if available, fallback to plugin_item item_id.
+            $extension_item_id = absint( $extension['item_id'] );
+
+            // Cache key for version check (3 hour cache).
+            $cache_key = 'directorist_ext_version_' . md5( $plugin_key . $license . $current_version . $extension_item_id );
+            $cached    = get_transient( $cache_key );
+
+            if ( false !== $cached && is_array( $cached ) ) {
+                return $cached;
+            }
+
+            // Prepare API request.
+            $api_url    = 'https://directorist.com';
+            $api_params = array(
+                'edd_action' => 'get_version',
+                'license'    => $license,
+                'item_id'    => $extension_item_id,
+                'version'    => $current_version,
+                'slug'       => $plugin_key,
+                'author'     => 'AazzTech',
+                'url'        => esc_url_raw( home_url() ),
+                'beta'       => false,
+            );
+
+            // Allow SSL verification to be filtered.
+            $verify_ssl = apply_filters( 'edd_sl_api_request_verify_ssl', true, null );
+
+            // Make API request with timeout.
+            $response = wp_remote_post(
+                esc_url_raw( $api_url ),
+                array(
+                    'timeout'   => 15,
+                    'sslverify' => $verify_ssl,
+                    'body'      => $api_params,
+                )
+            );
+
+            // Handle request errors.
+            if ( is_wp_error( $response ) ) {
+                return false;
+            }
+
+            $response_code = wp_remote_retrieve_response_code( $response );
+            if ( 200 !== $response_code ) {
+                return false;
+            }
+
+            $body        = wp_remote_retrieve_body( $response );
+            $version_info = json_decode( $body, true );
+
+            // Validate response structure.
+            if ( ! is_array( $version_info ) || empty( $version_info['new_version'] ) ) {
+                return false;
+            }
+
+            // Sanitize version info.
+            $version_info['new_version'] = sanitize_text_field( $version_info['new_version'] );
+
+            // Cache for 3 hours.
+            set_transient( $cache_key, $version_info, 3 * HOUR_IN_SECONDS );
+
+            return $version_info;
+        }
+
+        /**
+         * Get outdated extensions list by checking API directly.
+         *
+         * @since 8.6.1
+         *
+         * @return array Array of outdated plugins. Structure: [plugin_base => version_info_object].
+         */
+        private function get_outdated_extensions_via_api() {
+            $outdated_plugins = array();
+            $plugins_data     = get_plugins();
+
+            if ( ! is_array( $plugins_data ) || empty( $plugins_data ) ) {
+                return $outdated_plugins;
+            }
+
+            $purchased_extensions = self::get_purchased_extension_list();
+            $default_extensions   = static::get_default_extensions();
+
+            if ( ! is_array( $purchased_extensions ) || ! is_array( $default_extensions ) ) {
+                return $outdated_plugins;
+            }
+
+            // Loop through default extensions and check for updates.
+            foreach ( $default_extensions as $plugin_key => $extension ) {
+                // Validate extension data.
+                if ( ! is_array( $extension ) || empty( $extension['item_id'] ) ) {
+                    continue;
+                }
+
+                // Get plugin base file path.
+                $base = isset( $extension['base'] ) ? $extension['base'] : $plugin_key . '/' . $plugin_key . '.php';
+
+                // Check if plugin is installed.
+                if ( ! isset( $plugins_data[ $base ] ) || ! is_array( $plugins_data[ $base ] ) ) {
+                    continue;
+                }
+
+                // Check if user has license for this extension.
+                $plugin_item = self::extract_plugin_from_list( $plugin_key, $purchased_extensions );
+                if ( empty( $plugin_item ) || ! is_array( $plugin_item ) || empty( $plugin_item['license'] ) ) {
+                    continue;
+                }
+
+                // Get current version.
+                $current_version = isset( $plugins_data[ $base ]['Version'] ) ? $plugins_data[ $base ]['Version'] : '0.0.0';
+                if ( empty( $current_version ) ) {
+                    continue;
+                }
+
+                // Check version via API.
+                $version_info = $this->check_extension_version_via_api( $plugin_key, $plugin_item, $current_version );
+
+                if ( $version_info && isset( $version_info['new_version'] ) ) {
+                    // Compare versions.
+                    if ( version_compare( $current_version, $version_info['new_version'], '<' ) ) {
+                        // Format to match WordPress update transient structure.
+                        $outdated_plugins[ $base ] = (object) array(
+                            'id'            => absint( $extension['item_id'] ),
+                            'slug'          => sanitize_key( $plugin_key ),
+                            'plugin'        => $base,
+                            'new_version'   => sanitize_text_field( $version_info['new_version'] ),
+                            'url'           => isset( $version_info['homepage'] ) ? esc_url_raw( $version_info['homepage'] ) : '',
+                            'package'       => '', // Will be fetched when downloading.
+                            'icons'         => isset( $version_info['icons'] ) && is_array( $version_info['icons'] ) ? $version_info['icons'] : array(),
+                            'banners'       => isset( $version_info['banners'] ) && is_array( $version_info['banners'] ) ? $version_info['banners'] : array(),
+                            'banners_rtl'   => array(),
+                            'tested'        => isset( $version_info['tested'] ) ? sanitize_text_field( $version_info['tested'] ) : '',
+                            'requires_php'  => isset( $version_info['requires_php'] ) ? sanitize_text_field( $version_info['requires_php'] ) : '',
+                            'compatibility' => new stdClass(),
+                        );
+                    }
+                }
+            }
+
+            return $outdated_plugins;
         }
 
         // extract_plugin_from_list
@@ -2017,7 +2305,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             // Download Themes
             if ( ! empty( $cart['purchased_themes'] ) ) {
                 foreach ( $cart['purchased_themes'] as $theme ) {
-                    $download_link = $extension['download_link'];
+                    $download_link = isset( $theme['download_link'] ) ? $theme['download_link'] : '';
                     if ( empty( $download_link ) ) {
                         continue;
                     }
@@ -2136,62 +2424,75 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // get_extensions_overview
         public function get_extensions_overview() {
-            // Get Extensions Details
-            $plugin_updates       = get_site_transient( 'update_plugins' );
-            $outdated_plugins     = $plugin_updates->response;
-            $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
-            $official_extensions  = is_array( $this->extensions ) ? array_keys( $this->extensions ) : [];
+            // Get outdated plugins via API instead of transient.
+            $outdated_plugins     = $this->get_outdated_extensions_via_api();
+            $outdated_plugins_key = array_keys( $outdated_plugins );
+
+            $official_extensions = is_array( $this->extensions ) ? array_keys( $this->extensions ) : array();
+
+            if ( ! is_array( $official_extensions ) ) {
+                $official_extensions = array();
+            }
 
             $all_installed_plugins_list = get_plugins();
-            $installed_extensions       = [];
+            $installed_extensions       = array();
             $total_active_extensions    = 0;
             $total_outdated_extensions  = 0;
 
+            if ( ! is_array( $all_installed_plugins_list ) ) {
+                $all_installed_plugins_list = array();
+            }
+
+            // Process installed plugins.
             foreach ( $all_installed_plugins_list as $plugin_base => $plugin_data ) {
+                if ( ! is_string( $plugin_base ) || ! is_array( $plugin_data ) ) {
+                    continue;
+                }
 
                 $folder_base = strtok( $plugin_base, '/' );
 
-                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions ) ) {
+                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions, true ) ) {
                     $installed_extensions[ $plugin_base ] = $plugin_data;
 
                     if ( is_plugin_active( $plugin_base ) ) {
                         $total_active_extensions++;
                     }
 
-                    if ( in_array( $plugin_base, $outdated_plugins_key ) ) {
+                    if ( in_array( $plugin_base, $outdated_plugins_key, true ) ) {
                         $total_outdated_extensions++;
                     }
                 }
             }
 
-            // ---
+            // Get extensions available in subscriptions.
             $extensions_available_in_subscriptions = $this->get_extensions_available_in_subscriptions(
-                [
+                array(
                     'installed_extensions' => $installed_extensions,
-                ]
+                )
             );
 
-            // ---
+            // Get promo extensions list.
             $extensions_promo_list = $this->get_extensions_promo_list(
-                [
+                array(
                     'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
                     'installed_extensions'                  => $installed_extensions,
-                ]
+                )
             );
 
+            // Get required extensions list.
             $required_extensions_list = $this->prepare_the_final_requred_extension_list(
-                [
+                array(
                     'installed_extension_list'              => $installed_extensions,
                     'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
-                ]
+                )
             );
 
             $total_installed_ext_list             = count( $installed_extensions );
             $total_ext_available_in_subscriptions = count( $extensions_available_in_subscriptions );
             $total_available_extensions           = $total_installed_ext_list + $total_ext_available_in_subscriptions;
 
-            $overview = [
-                'outdated_plugin_list'                  => is_array( $outdated_plugins ) ? $outdated_plugins : [],
+            $overview = array(
+                'outdated_plugin_list'                  => $outdated_plugins,
                 'outdated_plugins_key'                  => $outdated_plugins_key,
                 'all_installed_plugins_list'            => $all_installed_plugins_list,
                 'installed_extension_list'              => $installed_extensions,
@@ -2201,7 +2502,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
                 'total_available_extensions'            => $total_available_extensions,
                 'required_extensions'                   => $required_extensions_list,
-            ];
+            );
 
             return $overview;
         }

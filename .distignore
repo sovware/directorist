@@ -1,46 +1,57 @@
-/.git/
-/.github/
-/.husky/
-/.cursor/
+# Directories
+/.cache
+/.github
+/.wordpress-org
+/.cursor
 /.claude
-/.vscode/
-/.idea/
-/.cache/
-/.yarn/
-/node_modules/
-/tests/
-/bin/
-/_build/
+/.husky
+/.vscode
+/.idea
+/.yarn
 
-# Local/dev-only config and lock files
+/assets/src
+/node_modules
+/tests
+/bin
+/_build
+
+# Git & config files
 /.editorconfig
 /.gitattributes
 /.gitignore
 /.yarnrc.yml
+
+# Dependency / package files
 /package.json
 /package-lock.json
 /yarn.lock
 /pnpm-lock.yaml
 
-# Dev tooling configs not needed at runtime
+# Composer
 /composer.json
 /composer.lock
-/phpunit.xml*
-/phpcs.xml*
-/webpack.*.js
-/webpack-entry-list.js
-/pot.js
+
+# Testing & coding standards
+/phpunit.xml
+/phpunit.xml.dist
+/phpcs.xml
+/phpcs.xml.dist
+
+# Build & tooling configs
 /postcss.config.js
+/pot.js
 
-# Exclude accidental archive artifacts
-/assets/images/*.zip
+/webpack-entry-list.js
+/webpack.common.js
+/webpack.dev.js
+/webpack.dev.vue.js
+/webpack.prod.js
 
-# Dev notes
+# Documentation & notes
+/README.md
 /node-update-notes.md
-/.wordpress-org
-
-# Synced with .gitignore
-__*/
-.DS_Store
 todo.txt
+
+# Misc
 *.map
+.DS_Store

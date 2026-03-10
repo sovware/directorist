@@ -8,6 +8,7 @@ use WP_Error;
 use WP_REST_Request;
 use WP_REST_Server;
 
+use Exception;
 use Directorist\Contracts\PaymentInterface;
 use Directorist\DTO\Order\DTO as OrderDTO;
 use Directorist\Enums\Order\Status as OrderStatus;
@@ -65,72 +66,76 @@ class Checkout_Controller extends Abstract_Controller {
     }
 
     public function checkout( WP_REST_Request $request ) {
-        $checkout_type = $request->get_param( 'checkout_type' );
+        try {
+            $checkout_type = $request->get_param( 'checkout_type' );
 
-        do_action( 'directorist_checkout_validation', $checkout_type, $request );
+            do_action( 'directorist_checkout_validation', $checkout_type, $request );
 
-        $dto = ( new OrderDTO )
-            ->set_user_id( get_current_user_id() )
-            ->set_currency( atbdp_get_payment_currency() )
-            ->set_status( OrderStatus::PENDING );
+            $dto = ( new OrderDTO )
+                ->set_user_id( get_current_user_id() )
+                ->set_currency( atbdp_get_payment_currency() )
+                ->set_status( OrderStatus::PENDING );
 
-        do_action( 'directorist_checkout_create_order', $dto, $checkout_type, $request );
+            do_action( 'directorist_checkout_create_order', $dto, $checkout_type, $request );
 
-        $processor_instance = null;
-        $process_payment    = apply_filters( 'directorist_checkout_process_payment', $dto->get_amount() > 0, $dto, $request );
+            $processor_instance = null;
+            $process_payment    = apply_filters( 'directorist_checkout_process_payment', $dto->get_amount() > 0, $dto, $request );
 
-        if ( $process_payment ) {
-            $payment_gateway = $request->get_param( 'payment_gateway' );
+            if ( $process_payment ) {
+                $payment_gateway = $request->get_param( 'payment_gateway' );
 
-            if ( ! $payment_gateway ) {
-                return new WP_Error( 'rest_empty_value', __( 'Payment gateway is required.' ) );
+                if ( ! $payment_gateway ) {
+                    return new WP_Error( 'rest_empty_value', __( 'Payment gateway is required.' ) );
+                }
+
+                $payment_processors = directorist_get_payment_processors();
+
+                if ( ! isset( $payment_processors[ $payment_gateway ] ) ) {
+                    return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
+                }
+
+                /**
+                 * @var PaymentInterface
+                 */
+                $processor_instance = directorist_make( $payment_processors[ $payment_gateway ], __( 'Invalid payment gateway.', 'directorist' ) );
+
+                if ( ! $processor_instance instanceof PaymentInterface ) {
+                    return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
+                }
+
+                do_action( 'directorist_checkout_validate_payment_processor', $processor_instance, $dto, $checkout_type, $request );
             }
 
-            $payment_processors = directorist_get_payment_processors();
+            $repository = directorist_order_repository();
 
-            if ( ! isset( $payment_processors[ $payment_gateway ] ) ) {
-                return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
+            if ( ! $dto->is_initialized( 'id' ) ) {
+                $repository->create( $dto );
             }
 
-            /**
-             * @var PaymentInterface
-             */
-            $processor_instance = directorist_make( $payment_processors[ $payment_gateway ], __( 'Invalid payment gateway.', 'directorist' ) );
+            if ( $process_payment ) {
+                do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
 
-            if ( ! $processor_instance instanceof PaymentInterface ) {
-                return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
+                return rest_ensure_response(
+                    [
+                        "redirect_url" => $processor_instance->pay( $dto, $request->get_params() ) ?? $this->get_redirect_url( $dto )
+                    ]
+                );
             }
 
-            do_action( 'directorist_checkout_validate_payment_processor', $processor_instance, $dto, $checkout_type, $request );
-        }
-
-        $repository = directorist_order_repository();
-
-        if ( ! $dto->is_initialized( 'id' ) ) {
-            $repository->create( $dto );
-        }
-
-        if ( $process_payment ) {
+            // Update the order status to paid
+            $dto->set_id( $dto->get_id() )->set_status( OrderStatus::PAID );
+            $repository->update( $dto );
+            
             do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
 
             return rest_ensure_response(
                 [
-                    "redirect_url" => $processor_instance->pay( $dto, $request->get_params() ) ?? $this->get_redirect_url( $dto )
+                    "redirect_url" => $this->get_redirect_url( $dto )
                 ]
             );
+        } catch ( Exception $e ) {
+            return new WP_Error( 'rest_error', $e->getMessage() );
         }
-
-        // Update the order status to paid
-        $dto->set_id( $dto->get_id() )->set_status( OrderStatus::PAID );
-        $repository->update( $dto );
-        
-        do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
-
-        return rest_ensure_response(
-            [
-                "redirect_url" => $this->get_redirect_url( $dto )
-            ]
-        );
     }
 
     protected function get_redirect_url( OrderDTO $dto ): string {

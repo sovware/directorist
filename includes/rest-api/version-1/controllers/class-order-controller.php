@@ -84,7 +84,7 @@ class Order_Controller extends Abstract_Controller {
 
         register_rest_route(
             $this->namespace,
-            "admin/{$this->rest_base}/(?P<id>[\d]+)/update_status",
+            "admin/{$this->rest_base}/(?P<id>[\d]+)/status",
             [
                 [
                     'methods'             => WP_REST_Server::CREATABLE,

@@ -11,11 +11,11 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
+use Exception;
 use Directorist\Utils\Template;
 use Directorist\Utils\Helpers;
 use Directorist\Utils\RequestValidator as Validator;
 use Directorist\Utils\Mime;
-use Directorist\Utils\Exception;
 
 /**
  * ATBDP_Checkout Class
@@ -108,7 +108,7 @@ class ATBDP_Checkout {
             $enable_monetization = apply_filters( 'atbdp_enable_monetization_checkout', directorist_is_monetization_enabled() );
 
             if ( ! $enable_monetization ) {
-                throw new \Exception( __( 'Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist' ) );
+                throw new Exception( __( 'Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist' ) );
             }
 
             $validator->validate(
@@ -118,10 +118,10 @@ class ATBDP_Checkout {
             );
 
             if ( $validator->is_fail() ) {
-                throw new \Exception( __( 'Invalid checkout type.', 'directorist' ) );
+                throw new Exception( __( 'Invalid checkout type.', 'directorist' ) );
             }
 
-            do_action( 'directorist_checkout_validation', $request->get_param( 'checkout_type' ), $request, $validator );
+            do_action( 'directorist_checkout_validation', $request->get_param( 'checkout_type' ), $request );
 
         } catch ( \Throwable $th ) {
             return "<div class='notice_wrapper'><div class='directorist-alert directorist-alert-warning'>{$th->getMessage()}</div></div>";

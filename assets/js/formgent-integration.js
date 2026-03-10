@@ -12702,7 +12702,7 @@ function UnforwardedModal(props, forwardedRef) {
   const ref = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)();
   const instanceId = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__["default"])(Modal);
   const headingId = title ? `components-modal-header-${instanceId}` : aria.labelledby;
-  const focusOnMountRef = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__["default"])(focusOnMount === "firstContentElement" ? "firstElement" : focusOnMount);
+  const focusOnMountRef = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__.useFocusOnMount)(focusOnMount === "firstContentElement" ? "firstElement" : focusOnMount);
   const constrainedTabbingRef = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__["default"])();
   const focusReturnRef = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__["default"])();
   const contentRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
@@ -104246,7 +104246,7 @@ var TagName = "div";
 function getValue(prevValue, value, checked) {
   if (checked === void 0) return prevValue;
   if (checked) return value;
-  return prevValue;
+  return prevValue === value ? false : prevValue;
 }
 var useMenuItemRadio = (0,_chunks_GWSL6KNJ_js__WEBPACK_IMPORTED_MODULE_3__.createHook)(
   function useMenuItemRadio2({
@@ -110453,7 +110453,7 @@ function useDialog(options) {
     currentOptions.current = options;
   }, Object.values(options));
   const constrainedTabbingRef = (0,_use_constrained_tabbing_index_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])();
-  const focusOnMountRef = (0,_use_focus_on_mount_index_mjs__WEBPACK_IMPORTED_MODULE_3__["default"])(options.focusOnMount);
+  const focusOnMountRef = (0,_use_focus_on_mount_index_mjs__WEBPACK_IMPORTED_MODULE_3__.useFocusOnMount)(options.focusOnMount);
   const focusReturnRef = (0,_use_focus_return_index_mjs__WEBPACK_IMPORTED_MODULE_4__["default"])();
   const focusOutsideProps = (0,_use_focus_outside_index_mjs__WEBPACK_IMPORTED_MODULE_5__["default"])((event) => {
     if (currentOptions.current?.__unstableOnClose) {
@@ -110536,17 +110536,17 @@ function useEvent(callback) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ useFocusOnMount; }
+/* harmony export */   useFocusOnMount: function() { return /* binding */ useFocusOnMount; }
 /* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
-/* harmony import */ var _wordpress_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/dom */ "./node_modules/@wordpress/dom/build-module/index.mjs");
+/* harmony import */ var _wordpress_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/dom */ "./node_modules/@wordpress/dom/build-module/index.mjs");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _use_ref_effect_index_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../use-ref-effect/index.mjs */ "./node_modules/@wordpress/compose/build-module/hooks/use-ref-effect/index.mjs");
-// packages/compose/src/hooks/use-focus-on-mount/index.js
+// packages/compose/src/hooks/use-focus-on-mount/index.ts
 
 
 
 function useFocusOnMount(focusOnMount = "firstElement") {
-  const focusOnMountRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(focusOnMount);
+  const focusOnMountRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)(focusOnMount);
   const setFocus = (target) => {
     target.focus({
       // When focusing newly mounted dialogs,
@@ -110555,12 +110555,11 @@ function useFocusOnMount(focusOnMount = "firstElement") {
       preventScroll: true
     });
   };
-  const timerIdRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(void 0);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     focusOnMountRef.current = focusOnMount;
   }, [focusOnMount]);
   return (0,_use_ref_effect_index_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])((node) => {
-    if (!node || focusOnMountRef.current === false) {
+    if (focusOnMountRef.current === false) {
       return;
     }
     if (node.contains(node.ownerDocument?.activeElement ?? null)) {
@@ -110570,28 +110569,23 @@ function useFocusOnMount(focusOnMount = "firstElement") {
       setFocus(node);
       return;
     }
-    timerIdRef.current = setTimeout(() => {
+    const timerId = setTimeout(() => {
       if (focusOnMountRef.current === "firstInputElement") {
-        let formInput = null;
-        if (typeof window !== "undefined" && node instanceof window.Element) {
-          formInput = node.querySelector(
-            'input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled])'
-          );
-        }
+        const formInput = node.querySelector(
+          'input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled])'
+        );
         if (formInput) {
           setFocus(formInput);
           return;
         }
       }
-      const firstTabbable = _wordpress_dom__WEBPACK_IMPORTED_MODULE_1__.focus.tabbable.find(node)[0];
+      const firstTabbable = _wordpress_dom__WEBPACK_IMPORTED_MODULE_0__.focus.tabbable.find(node)[0];
       if (firstTabbable) {
         setFocus(firstTabbable);
       }
     }, 0);
     return () => {
-      if (timerIdRef.current) {
-        clearTimeout(timerIdRef.current);
-      }
+      clearTimeout(timerId);
     };
   }, []);
 }
@@ -118164,14 +118158,17 @@ __webpack_require__.r(__webpack_exports__);
 function hiddenCaretRangeFromPoint(doc, x, y, container) {
   const originalZIndex = container.style.zIndex;
   const originalPosition = container.style.position;
+  const originalBorderRadius = container.style.borderRadius;
   const { position = "static" } = (0,_get_computed_style_mjs__WEBPACK_IMPORTED_MODULE_1__["default"])(container);
   if (position === "static") {
     container.style.position = "relative";
   }
   container.style.zIndex = "10000";
+  container.style.borderRadius = "0";
   const range = (0,_caret_range_from_point_mjs__WEBPACK_IMPORTED_MODULE_0__["default"])(doc, x, y);
   container.style.zIndex = originalZIndex;
   container.style.position = originalPosition;
+  container.style.borderRadius = originalBorderRadius;
   return range;
 }
 
@@ -121426,6 +121423,7 @@ var CORE_MODULES_USING_PRIVATE_APIS = [
   "@wordpress/blocks",
   "@wordpress/boot",
   "@wordpress/commands",
+  "@wordpress/connectors",
   "@wordpress/workflows",
   "@wordpress/components",
   "@wordpress/core-commands",

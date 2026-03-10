@@ -99,17 +99,22 @@
 			padding: 20px;
 		}
 		.directorist-form-description-field {
+			.directorist-form-label{
+				margin-bottom: 15px;
+			}
 			.wp-editor-wrap {
-				margin-top: -30px;
+				margin-top: 0;
+				.wp-media-buttons .insert-media{
+					margin: 0;
+				}
 			}
 			.wp-editor-tabs {
 				position: relative;
-				bottom: -7px;
 				.wp-switch-editor {
 					margin: 0;
 					border: none;
-					border-radius: 5px;
-					padding: 5px 10px 12px;
+					border-radius: 5px 5px 0 0;
+					padding: 5px 10px 5px;
 					background: transparent;
 					color: var(--directorist-color-body);
 				}
@@ -727,4 +732,8 @@ body.logged-in.directorist-content-active
 .directorist-table {
 	display: table;
 	width: 100%;
+}
+
+.post-php .directorist-content-module__contents .directorist-form-description-field .wp-editor-wrap *{
+	box-sizing: content-box !important;
 }

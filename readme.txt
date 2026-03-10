@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.6.1
+Stable tag: 8.6.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -305,6 +305,11 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.6.2 - Mar 10, 2026 =
+
+**Improved**
+ - Excluded `.wordpress-org` folder from distribution package to prevent WordPress.org repository assets from appearing in user installations.
 
 = 8.6.1 - Mar 10, 2026 =
 

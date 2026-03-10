@@ -369,18 +369,23 @@
     padding: 20px;
   }
 }
+.directorist-content-module__contents .directorist-form-description-field .directorist-form-label {
+  margin-bottom: 15px;
+}
 .directorist-content-module__contents .directorist-form-description-field .wp-editor-wrap {
-  margin-top: -30px;
+  margin-top: 0;
+}
+.directorist-content-module__contents .directorist-form-description-field .wp-editor-wrap .wp-media-buttons .insert-media {
+  margin: 0;
 }
 .directorist-content-module__contents .directorist-form-description-field .wp-editor-tabs {
   position: relative;
-  bottom: -7px;
 }
 .directorist-content-module__contents .directorist-form-description-field .wp-editor-tabs .wp-switch-editor {
   margin: 0;
   border: none;
-  border-radius: 5px;
-  padding: 5px 10px 12px;
+  border-radius: 5px 5px 0 0;
+  padding: 5px 10px 5px;
   background: transparent;
   color: var(--directorist-color-body);
 }
@@ -427,16 +432,6 @@
 }
 .directorist-content-module__contents .directorist-form-description-field .mce-statusbar {
   display: none;
-}
-.directorist-content-module__contents .directorist-form-description-field #wp-listing_content-editor-tools {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 .directorist-content-module__contents .directorist-form-description-field iframe {
   max-width: 100%;
@@ -991,6 +986,11 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
 .directorist-table {
   display: table;
   width: 100%;
+}
+
+.post-php .directorist-content-module__contents .directorist-form-description-field .wp-editor-wrap * {
+  -webkit-box-sizing: content-box !important;
+          box-sizing: content-box !important;
 }
 
 /* Directorist custom grid */
@@ -3280,6 +3280,10 @@ body.stop-scrolling {
       -ms-flex-pack: start;
           justify-content: flex-start;
 }
+.post-php .directorist-add-listing-form .directorist-content-module__title,
+.post-php #directiost-listing-fields_wrapper .directorist-content-module__title {
+  gap: 0;
+}
 .directorist-add-listing-form .directorist-content-module__title i,
 #directiost-listing-fields_wrapper .directorist-content-module__title i {
   display: -webkit-box;
@@ -3453,6 +3457,9 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module__title {
   padding: 20px 30px;
   border-bottom: 1px solid #e3e6ef;
+}
+.post-php #directiost-listing-fields_wrapper .directorist-content-module__title {
+  border-bottom: none;
 }
 #directiost-listing-fields_wrapper .directorist-content-module__title i {
   background-color: var(--directorist-color-primary);

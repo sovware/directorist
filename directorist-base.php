@@ -1,11 +1,13 @@
 <?php
 /**
- * Plugin Name: Directorist - Business Directory Plugin
+ * Plugin Name: Directorist - Business Directory Solution
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 8.6
+ * Version: 8.6.1
  * Author: wpWax
  * Author URI: https://wpwax.com
+ * License: GPLv3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: directorist
  * Domain Path: /languages
  */

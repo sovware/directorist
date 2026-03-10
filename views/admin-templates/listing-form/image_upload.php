@@ -41,8 +41,9 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             <!--  add & remove image links -->
             <p class="hide-if-no-js">
                 <a href="#"
-                class="upload-header btn btn-primary"><?php $preview_label = get_directorist_option( 'preview_label', __( 'Upload Preview Image', 'directorist' ) );
-                    esc_html_e( $preview_label, 'directorist' ); ?></a>
+                class="upload-header btn btn-primary"><?php 
+                    $preview_label = get_directorist_option( 'preview_label', __( 'Upload Preview Image', 'directorist' ) );
+                    echo esc_html( $preview_label ); ?></a>
             </p>
         </div>
     <?php } ?>
@@ -76,8 +77,9 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             <p class="hide-if-no-js">
                 <a href="#" id="listing_image_btn" class="btn btn-primary">
                     <span class="dashicons dashicons-format-image"></span>
-                    <?php $gallery_label = get_directorist_option( 'gallery_label', __( 'Upload Slider Images', 'directorist' ) );
-                    esc_html_e( $gallery_label, 'directorist' ); ?>
+                    <?php 
+                        $gallery_label = get_directorist_option( 'gallery_label', __( 'Upload Slider Images', 'directorist' ) );
+                        echo esc_html( $gallery_label ); ?>
                 </a>
                 <a id="delete-custom-img" class="btn btn-danger <?php echo ( ! empty( $image_links ) ) ? '' : 'hidden' ?>"
                 href="#"> <?php echo esc_html( ( 1 == $active_mi_ext ) ? esc_html__( 'Remove Images', 'directorist' ) : esc_html__( 'Remove Image', 'directorist' ) ); ?></a>

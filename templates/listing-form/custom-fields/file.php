@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.3
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -111,7 +111,7 @@ $image_limit = '';
 if ( ! empty( $thumb_img_arr ) ) {
     $totImg = count( $thumb_img_arr );
 }
-$base_plupload_config = json_encode( $plupload_init );
+$base_plupload_config = wp_json_encode( $plupload_init );
 $gd_plupload_init     = [
     'base_plupload_config' => $base_plupload_config,
     'totalImg'             => 0,

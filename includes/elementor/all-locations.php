@@ -19,7 +19,7 @@ class Directorist_All_Locations extends Custom_Widget_Base {
 
     private function az_listing_locations() {
         $result = [];
-        $locations = get_terms( ATBDP_LOCATION );
+        $locations = get_terms( [ 'taxonomy' => ATBDP_LOCATION ] );
         foreach ( $locations as $location ) {
             $result[$location->slug] = $location->name;
         }

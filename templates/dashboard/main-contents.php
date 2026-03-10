@@ -14,10 +14,9 @@ $counter = 1;
 
     <?php foreach ( $dashboard->dashboard_tabs() as $key => $value ) : ?>
 
-        <div class="directorist-tab__pane <?php echo ( $counter == 1 ) ? 'directorist-tab__pane--active' : ''; ?>" id="<?php echo esc_attr( $key ); ?>">
+        <div class="directorist-tab__pane <?php echo esc_attr( ( $counter == 1 ) ? 'directorist-tab__pane--active' : '' ); ?>" id="<?php echo esc_attr( $key ); ?>">
             <?php
-            // Contents are coming from dashboard template files which are escaped already
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Dashboard tab content is rendered from plugin template files (e.g. tab-my-listings.php, tab-profile.php). Each template escapes its own output. Cannot use wp_kses_post() here because dashboard tabs contain <form>, <input>, <select>, and <button> elements which wp_kses_post() would strip.
             echo $value['content'];
             ?>
         </div>

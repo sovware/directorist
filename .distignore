@@ -6,6 +6,7 @@
 /.vscode/
 /.idea/
 /.cache/
+/.yarn/
 /node_modules/
 /tests/
 /bin/
@@ -16,19 +17,30 @@
 /.gitattributes
 /.gitignore
 /.yarnrc.yml
+/package.json
 /package-lock.json
 /yarn.lock
 /pnpm-lock.yaml
 
 # Dev tooling configs not needed at runtime
+/composer.json
 /composer.lock
 /phpunit.xml*
 /phpcs.xml*
 /webpack.*.js
 /webpack-entry-list.js
+/pot.js
+/postcss.config.js
 
 # Exclude accidental archive artifacts
 /assets/images/*.zip
 
 # Dev notes
 /node-update-notes.md
+/.wordpress-org
+
+# Synced with .gitignore
+__*/
+.DS_Store
+todo.txt
+*.map

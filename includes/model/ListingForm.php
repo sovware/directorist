@@ -873,6 +873,8 @@ class Directorist_Listing_Form {
         $listing_types      = $this->get_listing_types();
         $listing_type_count = count( $listing_types );
 
+        $args['listing_types'] = array_values( $listing_types );
+
         // Edit Mode
         if ( $p_id ) {
             $terms                  = get_the_terms( $p_id, ATBDP_TYPE );

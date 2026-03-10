@@ -11,7 +11,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-use Exception;
 use Directorist\Utils\Template;
 use Directorist\Utils\Helpers;
 use Directorist\Utils\RequestValidator as Validator;

@@ -89,7 +89,7 @@
           getLocation();
         });
         if (directorist.i18n_text.select_listing_map === 'google') {
-          var initialize = function initialize() {
+          function initialize() {
             var input = document.getElementById('address_widget');
             var options = directorist.countryRestriction ? {
               types: ['geocode'],
@@ -103,25 +103,11 @@
               document.getElementById('cityLat').value = place.geometry.location.lat();
               document.getElementById('cityLng').value = place.geometry.location.lng();
             });
-          };
+          }
           google.maps.event.addDomListener(window, 'load', initialize);
         }
       })();
     } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
-      var displayLocation = function displayLocation(position) {
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-        $.ajax({
-          url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
-          type: 'GET',
-          data: {},
-          success: function success(data) {
-            $('#address_widget').val(data.display_name);
-            $('#cityLat').val(lat);
-            $('#cityLng').val(lng);
-          }
-        });
-      };
       $('#address_widget').on('keyup', function (event) {
         event.preventDefault();
         var search = $('#address_widget').val();
@@ -157,6 +143,20 @@
         $('#address_widget').val(text);
         $('#address_widget_result').hide();
       });
+      function displayLocation(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        $.ajax({
+          url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(lng, "&lat=").concat(lat),
+          type: 'GET',
+          data: {},
+          success: function success(data) {
+            $('#address_widget').val(data.display_name);
+            $('#cityLat').val(lat);
+            $('#cityLng').val(lng);
+          }
+        });
+      }
       $('.atbd_get_loc_wid').on('click', function () {
         navigator.geolocation.getCurrentPosition(displayLocation);
       });

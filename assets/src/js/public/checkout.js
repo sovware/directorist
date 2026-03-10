@@ -111,7 +111,7 @@
 
 			try {
 				const response = await wp.apiFetch({
-					path: '/directorist/checkout',
+					path: '/directorist/v1/checkout',
 					method: 'POST',
 					data: data,
 				});

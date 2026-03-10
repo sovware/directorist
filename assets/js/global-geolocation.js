@@ -18,7 +18,7 @@ window.addEventListener('load', function () {
     setTimeout(function () {
       if (directorist.i18n_text.select_listing_map === 'google') {
         // Helper function to format address by removing plus code and using address components
-        var formatAddress = function formatAddress(result) {
+        function formatAddress(result) {
           if (!result || !result.address_components) {
             return '';
           }
@@ -33,9 +33,10 @@ window.addEventListener('load', function () {
           return components.map(function (c) {
             return c.long_name;
           }).join(', ');
-        };
+        }
+
         /* Event Delegation in Vanilla JS */
-        var eventDelegation = function eventDelegation(event, selector, program) {
+        function eventDelegation(event, selector, program) {
           document.body.addEventListener(event, function (e) {
             document.querySelectorAll(selector).forEach(function (elem) {
               if (e.target === elem) {
@@ -43,7 +44,7 @@ window.addEventListener('load', function () {
               }
             });
           });
-        };
+        }
         (function () {
           eventDelegation('click', '.directorist-filter-location-icon > i, .directorist-filter-location-icon > span', function (e) {
             var locationInput = e.target.closest('.directorist-search-field').querySelector('.location-name');
@@ -139,7 +140,7 @@ window.addEventListener('load', function () {
           });
         })();
       } else if (directorist.i18n_text.select_listing_map === 'openstreet') {
-        var displayLocation = function displayLocation(position, event) {
+        function displayLocation(position, event) {
           var lat = position.coords.latitude;
           var lng = position.coords.longitude;
           var locIcon = event.target;
@@ -159,7 +160,7 @@ window.addEventListener('load', function () {
               addFocusClass($('.directorist-location-js'));
             }
           });
-        };
+        }
         $('body').on('click', '.directorist-filter-location-icon', function (e) {
           navigator.geolocation.getCurrentPosition(function (position) {
             return displayLocation(position, e);

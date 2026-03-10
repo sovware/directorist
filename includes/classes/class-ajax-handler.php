@@ -235,7 +235,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function instant_search() {
-			if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'bdas_ajax_nonce' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'bdas_ajax_nonce' ) ) {
                 wp_send_json(
                     [
                         'search_result'  => esc_html__( 'Something went wrong, please try again.', 'directorist' ),
@@ -361,11 +361,13 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
         // directorist_author_alpha_sorting
         public function directorist_author_alpha_sorting() {
-            if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['_nonce'] ), 'directorist_author_sorting' ) ) {
-                $authors = new Directorist_All_Authors();
-                Helper::get_template( 'all-authors', [ 'authors' => $authors ] );
-                wp_die();
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'directorist_author_sorting' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
             }
+        
+            $authors = new Directorist_All_Authors();
+            Helper::get_template( 'all-authors', [ 'authors' => $authors ] );
+            wp_die();
         }
 
         // directorist_author_pagination
@@ -400,43 +402,61 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function atbdp_user_type_deny() {
-			if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'atbdp_user_type_deny' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
-
-                update_user_meta( $user_id, '_user_type', 'general' );
-
-                wp_send_json(
-                    [
-                        'user_type' => __( 'User', 'directorist' ),
-                    ]
-                );
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'atbdp_user_type_deny' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
             }
+        
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'directorist' ) ), 403 );
+            }
+        
+            $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
+            update_user_meta( $user_id, '_user_type', 'general' );
+        
+            wp_send_json(
+                [
+                    'user_type' => __( 'User', 'directorist' ),
+                ]
+            );
         }
 
         public function atbdp_user_type_approved() {
-			if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'atbdp_user_type_approve' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
-                update_user_meta( $user_id, '_user_type', 'author' );
-                wp_send_json(
-                    [
-                        'user_type' => __( 'Author', 'directorist' ),
-                    ]
-                );
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'atbdp_user_type_approve' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
             }
+        
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'directorist' ) ), 403 );
+            }
+        
+            $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
+            update_user_meta( $user_id, '_user_type', 'author' );
+        
+            wp_send_json(
+                [
+                    'user_type' => __( 'Author', 'directorist' ),
+                ]
+            );
         }
 
         public function atbdp_become_author() {
-			if ( ! empty( $_POST['nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'atbdp_become_author' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : '';
-                do_action( 'atbdp_become_author', $user_id );
-                update_user_meta( $user_id, '_user_type', 'become_author' );
-                wp_send_json( __( 'Sent successfully', 'directorist' ) );
+            if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'atbdp_become_author' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
             }
+        
+            if ( ! is_user_logged_in() ) {
+                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'directorist' ) ), 403 );
+            }
+        
+            $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : '';
+            do_action( 'atbdp_become_author', $user_id );
+            update_user_meta( $user_id, '_user_type', 'become_author' );
+            wp_send_json( __( 'Sent successfully', 'directorist' ) );
         }
 
         // atbdp_quick_ajax_login
         public function atbdp_quick_ajax_login() {
-			if ( empty( $_POST['directorist-quick-login-security'] ) || ! wp_verify_nonce( wp_unslash( $_POST['directorist-quick-login-security'] ), 'directorist-quick-login-nonce' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            if ( empty( $_POST['directorist-quick-login-security'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['directorist-quick-login-security'] ) ), 'directorist-quick-login-nonce' ) ) {
                 wp_send_json(
                     [
                         'loggedin' => false,
@@ -833,7 +853,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         public function atbdp_ajax_login() {
 
             if ( ! directorist_verify_nonce( 'security', 'ajax-login-nonce' ) ) {
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin'    => false,
                         'message'     => __( 'Something went wrong, please reload the page', 'directorist' ),
@@ -845,7 +865,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             if ( is_user_logged_in() ) {
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin' => true,
                         'message'  => __( 'Login successful, redirecting...', 'directorist' ),
@@ -865,7 +885,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             $user_signon = wp_signon( $info, $keep_signed_in );
             if ( is_wp_error( $user_signon ) ) {
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin' => false,
                         'message'  => $user_signon->get_error_message()
@@ -874,7 +894,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             } else {
                 wp_set_current_user( $user_signon->ID );
 
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin' => true,
                         'message'  => __( 'Login successful, redirecting...', 'directorist' ),

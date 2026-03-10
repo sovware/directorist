@@ -675,7 +675,7 @@ class Helper {
         if ( empty( $data ) ) {
             return; }
 
-        $data_value = base64_encode( json_encode( $data ) );
+        $data_value = base64_encode( wp_json_encode( $data ) );
         ?>
         <span
             style="display: none;"

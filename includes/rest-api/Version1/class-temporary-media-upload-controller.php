@@ -45,23 +45,23 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
 
     public function create_item_permissions_check( $request ) {
         $nonce = $request->get_header( 'X-WP-Nonce' );
-
-        if ( is_null( $nonce ) && ! current_user_can( 'upload_files' ) ) {
+    
+        if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+            return new WP_Error(
+                'directorist_rest_cannot_create',
+                __( 'Invalid security token.', 'directorist' ),
+                array( 'status' => 403 )
+            );
+        }
+    
+        if ( ! current_user_can( 'upload_files' ) ) {
             return new WP_Error(
                 'directorist_rest_cannot_create',
                 __( 'Sorry, you are not allowed to upload any file.', 'directorist' ),
-                array( 'status' => 400 )
+                array( 'status' => 403 )
             );
         }
-
-        if ( ! is_null( $nonce ) && ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-            return new WP_Error(
-                'directorist_rest_cannot_create',
-                __( 'Sorry, you are not allowed to upload any file.', 'directorist' ),
-                array( 'status' => 400 )
-            );
-        }
-
+    
         return true;
     }
 

@@ -1,0 +1,34 @@
+/.git/
+/.github/
+/.husky/
+/.cursor/
+/.claude
+/.vscode/
+/.idea/
+/.cache/
+/node_modules/
+/tests/
+/bin/
+/_build/
+
+# Local/dev-only config and lock files
+/.editorconfig
+/.gitattributes
+/.gitignore
+/.yarnrc.yml
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
+
+# Dev tooling configs not needed at runtime
+/composer.lock
+/phpunit.xml*
+/phpcs.xml*
+/webpack.*.js
+/webpack-entry-list.js
+
+# Exclude accidental archive artifacts
+/assets/images/*.zip
+
+# Dev notes
+/node-update-notes.md

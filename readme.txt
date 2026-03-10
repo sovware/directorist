@@ -1,11 +1,11 @@
-﻿=== Directorist: AI-Powered Business Directory Plugin with Classified Ads Listings ===
+﻿=== Directorist: AI-Powered Business Directory, Listings & Classified Ads ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.6
+Stable tag: 8.6.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Build any type of directory website such as a business directory, job directory,
 
 == Description ==
 
->👉 __[Directorist is the Best Directory Plugin out there](https://wordpress.org/support/topic/directorist-is-the-best-directory-plugin-out-there/)__
+>👉 __[See what users are saying about Directorist](https://wordpress.org/support/topic/directorist-is-the-best-directory-plugin-out-there/)__
 >⭐⭐⭐⭐⭐
 >*I’ve been using Directorist for my directory website for over a year now, and I can honestly say it’s one of the most reliable and feature-rich directory plugins I’ve worked with.*
 
@@ -43,7 +43,7 @@ Discover how Directorist has evolved in 2025, bringing smarter AI, faster workfl
 Powered by AI, Directorist is the ultimate directory plugin that helps you create, manage, and monetize listings with ease. Built-in SEO optimization ensures your directories rank higher and attract organic traffic, while seamless payment integrations let you monetize effortlessly through paid listings, subscriptions, and premium features.
 
 
-With over 580+ five-star reviews and 20,000+ active directory owners, Directorist stands as the leading directory plugin. Plus, our outstanding support team and extensive documentation are always ready to guide you through every step.
+With over 590+ five-star reviews and 20,000+ active directory owners. Plus, our outstanding support team and extensive documentation are always ready to guide you through every step.
 
 You're not just building a directory—you're creating a thriving community, connecting businesses with customers, and unlocking a sustainable income stream. Choose your niche, and let Directorist help your directory succeed!
 
@@ -61,8 +61,8 @@ I had previously tried Directorist with the Director theme and was extremely ple
 – malborarg
 
 ⭐⭐⭐⭐⭐
-[Best plugin & Great support](https://wordpress.org/support/topic/best-plugin-great-support-7/)
-I already knew in advance (after testing a few plugins) that this would be the best for listing. But there were country specific and beginner specific problems, so I asked them for help. I never dreamed that such a helpful team could exist. They were patient, always responded quickly and managed to find a solution to everything, resulting in a perfect website. In the end, I learned a lot from them. Thank you very much and I wish the Directorist team all the best.
+[Great support](https://wordpress.org/support/topic/best-plugin-great-support-7/)
+I already knew in advance (after testing a few plugins) that this would be the **** for listing. But there were country specific and beginner specific problems, so I asked them for help. I never dreamed that such a helpful team could exist. They were patient, always responded quickly and managed to find a solution to everything. In the end, I learned a lot from them. Thank you very much and I wish the Directorist team all the ****.
 – pecaadokveszek
 
 == What Makes Directorist the Go-To Choice for Thousands? ==
@@ -148,7 +148,7 @@ Easily translate your directory into any language with tools like Loco Translate
 
 👉 **Multilingual Support:** Translate your directory into multiple languages.
 👉 **Built-in SEO:** Optimize every page for search engines.
-👉 **RTL Ready:** Perfect for right-to-left languages.
+👉 **RTL Ready:** Great for right-to-left languages.
 
 **Powerful Search & Filters**
 
@@ -196,7 +196,7 @@ Help users find businesses with Google Maps or OpenStreetMap integration.
 Get paid effortlessly with built-in offline payments or expand with online gateways like [PayPal](https://directorist.com/product/directorist-paypal/) , [Stripe](https://directorist.com/product/directorist-stripe/) or [Authorize.Net](https://directorist.com/product/directorist-authorize-net/). Taxes and recurring payments are supported.
 
 **Developer-Friendly for Unlimited Customization**
-Directorist is perfect for developers who want to customize or extend functionality.
+Directorist is a great choice for developers who want to customize or extend functionality.
 
 * Override templates without touching plugin code.
 * Use hooks and filters for endless possibilities.
@@ -281,7 +281,7 @@ Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without
 Yes! Directorist works seamlessly with **Elementor**, **Gutenberg** and other major page builders. You can easily design custom layouts for listing pages, and even use Directorist widgets inside your favorite builder.
 
 = Is Directorist compatible with any WordPress theme? =
-Directorist is compatible with any WordPress theme. It also provides layout flexibility and design settings to help you blend the directory perfectly with your theme style. You can also use Directorist themes to build your niche-based directory without any coding.
+Directorist is compatible with any WordPress theme. It also provides layout flexibility and design settings to help you blend the directory with your theme style. You can also use Directorist themes to build your niche-based directory without any coding.
 
 = Can I use Directorist to build any type of directory? =
 Yes! Directorist is a highly flexible directory plugin. Whether you're building a business directory, classified ads site, real estate portal, service directory, or even a job board, Directorist provides all the features you need.
@@ -305,6 +305,30 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.6.1 - Mar 10, 2026 =
+
+**Improved**
+ - Nonce verification restructured to fail early and prevent CSRF bypasses across multiple files.
+ - Added capability checks for admin AJAX handlers (user type approve, deny, become author).
+ - All nonce inputs sanitized with sanitize_text_field() and wp_unslash() per WordPress coding standards.
+ - All dynamic output properly escaped in templates and style files.
+ - Replaced json_encode() with wp_json_encode() across the plugin.
+ - Updated filter_input() calls with proper FILTER parameter.
+
+**Fixed**
+ - Deprecated get_terms() and wp_count_terms() calls updated to modern single-argument syntax.
+ - Text domain mismatches and typos corrected across all translation functions.
+ - Variables and expressions used in gettext functions replaced with string literals.
+ - Missing singular placeholders in _n() for pricing plan validity periods.
+ - Empty translation string in settings panel.
+ - Interpolated variable in review email translation string.
+ - Ternary operator in _n() plural parameter for review counts.
+ - Incorrect esc_html() replaced with esc_html__() where translation was intended.
+
+**Removed**
+ - EDD Software Licensing update checker removed per WordPress.org guidelines.
+ - Disallowed compressed files and development artifacts removed from distribution.
 
 = 8.6 - Mar 3, 2026 =
 

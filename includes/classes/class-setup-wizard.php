@@ -162,7 +162,7 @@ class Directorist_Setup_Wizard {
 
     public function hide_notices() {
         if ( isset( $_GET['directorist-hide-notice'] ) && isset( $_GET['_atbdp_notice_nonce'] ) ) { // WPCS: input var ok, CSRF ok.
-            if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_atbdp_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) { // WPCS: input var ok, CSRF ok.
+            if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_atbdp_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) {
                 wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'directorist' ) );
             }
 
@@ -1031,7 +1031,10 @@ class Directorist_Setup_Wizard {
                                 <li class="<?php echo esc_attr( $step_two ); ?>"></li>
                                 <li class="<?php echo esc_attr( $step_three ); ?>"></li>
                         </ul>
-                        <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4',  'Step', $active_number ), 'directorist' ); ?></span>
+                        <span class="step-count"><?php 
+                        /* translators: %1$s: Step text, %2$d: Step number */
+                        printf( esc_html__( '%1$s %2$d of 4', 'directorist' ), esc_html__( 'Step', 'directorist' ), absint( $active_number ) ); 
+                        ?></span>
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__close__btn">

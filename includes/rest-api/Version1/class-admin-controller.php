@@ -43,14 +43,14 @@ class Admin_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'install_plugins_permissions_check' ],
                     'args'                => [
                         'slug'     => [
-                            'description'       => __( 'The slug of the plugin to be installed.' ),
+                            'description'       => __( 'The slug of the plugin to be installed.', 'directorist' ),
                             'type'              => 'string',
                             'sanitize_callback' => 'sanitize_text_field',
                             'validate_callback' => [ $this, 'validate_not_empty' ],
                             'required'          => true,
                         ],
                         'activate'     => [
-                            'description'       => __( 'The slug of the plugin to be installed.' ),
+                            'description'       => __( 'The slug of the plugin to be installed.', 'directorist' ),
                             'type'              => 'string',
                             'sanitize_callback' => 'sanitize_text_field',
                             'required'          => false,
@@ -79,7 +79,7 @@ class Admin_Controller extends Abstract_Controller {
                     if ( Helper::is_the_plugin_active( $slug ) ) {
                         return rest_ensure_response(
                             [
-                                'message' => __( 'The plugin was already activated.' ),
+                                'message' => __( 'The plugin was already activated.', 'directorist' ),
                             ] 
                         );
                     }
@@ -88,14 +88,14 @@ class Admin_Controller extends Abstract_Controller {
     
                     return rest_ensure_response(
                         [
-                            'message' => __( 'The plugin was successfully activated.' ),
+                            'message' => __( 'The plugin was successfully activated.', 'directorist' ),
                         ] 
                     );
                 }
     
                 return rest_ensure_response(
                     [
-                        'message' => __( 'The plugin was already installed.' ),
+                        'message' => __( 'The plugin was already installed.', 'directorist' ),
                     ] 
                 );
             }
@@ -107,14 +107,14 @@ class Admin_Controller extends Abstract_Controller {
 
                 return rest_ensure_response(
                     [
-                        'message' => __( 'The plugin was installed and activated successfully.' ),
+                        'message' => __( 'The plugin was installed and activated successfully.', 'directorist' ),
                     ] 
                 );
             }
 
             return rest_ensure_response(
                 [
-                    'message' => __( 'The plugin was installed successfully.' ),
+                    'message' => __( 'The plugin was installed successfully.', 'directorist' ),
                 ] 
             );
         } catch ( Exception $e ) {
@@ -124,7 +124,7 @@ class Admin_Controller extends Abstract_Controller {
 
     public function validate_not_empty( $value ) {
         if ( empty( $value ) ) {
-            return new WP_Error( 'rest_empty_value', __( 'The value must not be empty.' ) );
+            return new WP_Error( 'rest_empty_value', __( 'The value must not be empty.', 'directorist' ) );
         }
 
         return true;

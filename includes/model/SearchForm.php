@@ -467,7 +467,7 @@ class Directorist_Listing_Search_Form {
             'minValue' => $this->range_slider_minValue( $data ),
         ];
 
-        return json_encode( $data );;
+        return wp_json_encode( $data );
     }
 
     public function get_pricing_type() {
@@ -906,7 +906,7 @@ class Directorist_Listing_Search_Form {
         // Removed: category_custom_fields_relations is no longer used (assign_to feature removed)
         // $this->params['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->listing_type );
 
-        return json_encode( $this->params );
+        return wp_json_encode( $this->params );
     }
 
     public function render_search_shortcode( $atts = [] ) {
@@ -1003,7 +1003,7 @@ class Directorist_Listing_Search_Form {
         $category_select = ! empty( $_REQUEST['in_cat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['in_cat'] ) ) : $category_id;
 
         if ( 'all_tags' == $tag_source || empty( $category_select ) ) {
-            $terms = get_terms( ATBDP_TAGS );
+            $terms = get_terms( [ 'taxonomy' => ATBDP_TAGS ] );
         } else {
             $tag_args = [
                 'post_type' => ATBDP_POST_TYPE,

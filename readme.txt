@@ -306,7 +306,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.6.2 - Mar 10, 2026 =
+= 8.6.3 - Mar 10, 2026 =
 
 **Improved**
  - Excluded `.wordpress-org` folder from distribution package to prevent WordPress.org repository assets from appearing in user installations.

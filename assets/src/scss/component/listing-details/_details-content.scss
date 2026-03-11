@@ -112,25 +112,28 @@
 	}
 
 	.directorist-details-info-wrap {
-		a {
-			font-size: 15px;
-			text-decoration: none;
-			box-shadow: none;
-			color: var(--directorist-color-body);
-			&:hover {
-				color: var(--directorist-color-primary);
+		.directorist-single-info:not(.directorist-single-info-html){
+			a {
+				font-size: 15px;
+				text-decoration: none;
+				box-shadow: none;
+				color: var(--directorist-color-body);
+				&:hover {
+					color: var(--directorist-color-primary);
+				}
 			}
-		}
-		ul {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0 10px;
-			margin: 0;
-			list-style-type: none;
-			padding: 0;
-		}
-		li {
-			flex: 0 0 49%;
+			
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0 10px;
+				margin: 0;
+				list-style-type: none;
+				padding: 0;
+			}
+			li {
+				flex: 0 0 49%;
+			}
 		}
 		.directorist-social-links a:hover {
 			background-color: var(--directorist-color-primary);

@@ -235,7 +235,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function instant_search() {
-			if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'bdas_ajax_nonce' ) ) {
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'bdas_ajax_nonce' ) ) {
                 wp_send_json(
                     [
                         'search_result'  => esc_html__( 'Something went wrong, please try again.', 'directorist' ),
@@ -456,7 +456,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
         // atbdp_quick_ajax_login
         public function atbdp_quick_ajax_login() {
-			if ( empty( $_POST['directorist-quick-login-security'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['directorist-quick-login-security'] ) ), 'directorist-quick-login-nonce' ) ) {
+            if ( empty( $_POST['directorist-quick-login-security'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['directorist-quick-login-security'] ) ), 'directorist-quick-login-nonce' ) ) {
                 wp_send_json(
                     [
                         'loggedin' => false,

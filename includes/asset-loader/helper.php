@@ -97,10 +97,9 @@ class Helper {
             return $script['ext'];
         }
 
-        $min  = self::debug_enabled() ? '' : '.min';
-        $rtl  = ( ! empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
-        $ext  = $script['type'] == 'css' ? '.css' : '.js';
-        $url = $script['path'] . $rtl . $min . $ext;
+        $rtl = ( ! empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
+        $ext = $script['type'] == 'css' ? '.css' : '.js';
+        $url = $script['path'] . $rtl . $ext;
         return $url;
     }
 

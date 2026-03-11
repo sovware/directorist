@@ -1,17 +1,17 @@
 const path = require('path');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+
 const devHost = 'directorist.local';
 
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'css/admin-order': './resources/sass/app.scss',
-		'js/admin/order': './resources/js/admin/pages/index.tsx',
-		'css/frontend': './resources/sass/frontend.scss',
-		'js/frontend/payment-receipt':
-			'./resources/js/frontend/payment-receipt.js',
-		'js/frontend/listing-owner-dashboard':
-			'./resources/js/frontend/listing-owner-dashboard/index.tsx',
+		'js/react/admin/order': './assets/src/js/react/admin/pages/index.tsx',
+		'js/react/frontend/payment-receipt': './assets/src/js/react/frontend/payment-receipt.js',
+		'js/react/frontend/listing-owner-dashboard': './assets/src/js/react/frontend/listing-owner-dashboard/index.tsx',
+		
+		'css/admin/app': './assets/src/scss/admin-app.scss',
+		'css/public/app': './assets/src/scss/public-app.scss',
 	},
 	output: {
 		...defaultConfig.output,
@@ -23,10 +23,7 @@ module.exports = {
 			...(defaultConfig.resolve && defaultConfig.resolve.alias
 				? defaultConfig.resolve.alias
 				: {}),
-			'@babel/runtime': path.dirname(
-				require.resolve('@babel/runtime/package.json')
-			),
-			'@': path.resolve(__dirname, 'resources/js/'),
+			'@': path.resolve(__dirname, 'assets/src/js/react/'),
 		},
 	},
 	devServer: {

@@ -57,9 +57,9 @@ class Asset_Loader {
         wp_enqueue_style( 'directorist-swiper-style' );
         wp_enqueue_style( 'directorist-sweetalert-style' );
 
-        Enqueue::style( 'directorist/frontend', 'build/css/frontend', ['wp-components'] );
-        Enqueue::register_script( 'directorist-payment-receipt', 'build/js/frontend/payment-receipt.js', ['jquery', 'wp-api-fetch'] );
-        Enqueue::script( 'directorist-listing-owner-dashboard', 'build/js/frontend/listing-owner-dashboard' );
+        Enqueue::style( 'directorist/frontend', 'build/css/public/app', ['wp-components'] );
+        Enqueue::register_script( 'directorist-payment-receipt', 'build/js/react/frontend/payment-receipt.js', ['jquery', 'wp-api-fetch'] );
+        Enqueue::script( 'directorist-listing-owner-dashboard', 'build/js/react/frontend/listing-owner-dashboard' );
 
         $c_position   = directorist_get_currency_position();
         $currency = directorist_get_currency();
@@ -331,9 +331,9 @@ class Asset_Loader {
         }
 
         if ( 'at_biz_dir_page_directorist-orders' === $hook_suffix ) {
-            Enqueue::style( 'directorist/admin-order-dataview', 'build/css/style-admin-order', ['wp-components'] );
-            Enqueue::style( 'directorist/admin-order', 'build/css/admin-order' );
-            Enqueue::script( 'directorist/admin-order', 'build/js/admin/order' );
+            Enqueue::style( 'directorist/admin-order-dataview', 'build/css/admin/style-app', ['wp-components'] );
+            Enqueue::style( 'directorist/admin-app', 'build/css/admin/app' );
+            Enqueue::script( 'directorist/admin-order', 'build/js/react/admin/order' );
         
             $c_position = directorist_get_currency_position();
             $currency   = directorist_get_currency();

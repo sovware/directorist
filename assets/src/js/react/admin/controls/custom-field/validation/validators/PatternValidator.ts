@@ -1,16 +1,14 @@
-import { Validator } from "../Validator";
+import { Validator } from '../Validator';
 
 export class PatternValidator extends Validator {
-  constructor(private pattern: string) {
-    super();
-  }
+	constructor(private pattern: string) {
+		super();
+	}
 
-  validate(value: any): string | null {
-    if (value && !new RegExp(this.pattern).test(value)) {
-      return "Value does not match required pattern";
-    }
-    return null;
-  }
+	validate(value: any): string | null {
+		if (value && !new RegExp(this.pattern).test(value)) {
+			return 'Value does not match required pattern';
+		}
+		return null;
+	}
 }
-
-

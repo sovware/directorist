@@ -10,7 +10,11 @@ import { __ } from '@wordpress/i18n';
  * External dependencies
  */
 import { Button, Select } from '@shamim-ahmed/components';
-import { registerValuesStore, useValuesStore, useValuesStoreData } from '@shamim-ahmed/data';
+import {
+	registerValuesStore,
+	useValuesStore,
+	useValuesStoreData,
+} from '@shamim-ahmed/data';
 import styled from 'styled-components';
 
 /**
@@ -51,7 +55,7 @@ const SingleOrderHeader = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	.directorist-single-plan-logo{
+	.directorist-single-plan-logo {
 		line-height: 0;
 	}
 `;
@@ -60,7 +64,7 @@ const HeaderBreadcrumb = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	.directorist-single-plan-logo{
+	.directorist-single-plan-logo {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -69,7 +73,7 @@ const HeaderBreadcrumb = styled.div`
 		height: 32px;
 		border-radius: 50%;
 		margin-right: 10px;
-		border: 1px solid rgba(75, 85, 99, 0.10);
+		border: 1px solid rgba(75, 85, 99, 0.1);
 		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 	}
 	ul {
@@ -79,11 +83,11 @@ const HeaderBreadcrumb = styled.div`
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		li{
+		li {
 			display: flex;
 			align-items: center;
 			margin-bottom: 0;
-			svg{
+			svg {
 				position: relative;
 				top: 2px;
 			}
@@ -115,15 +119,15 @@ const StatusSelection = styled.div`
 	.components-input-control__backdrop {
 		display: none;
 	}
-	.wpmvc__control{
+	.wpmvc__control {
 		border: 0 none;
 		min-height: 24px;
 		background-color: transparent;
 		border-radius: 0px;
-		&.wpmvc__control--is-focused{
+		&.wpmvc__control--is-focused {
 			box-shadow: 0 0;
 		}
-		.wpmvc__value-container{
+		.wpmvc__value-container {
 			padding-right: 0;
 			min-width: 80px;
 		}
@@ -163,7 +167,7 @@ const orderStatusOptions = [
 		label: __('Paid', 'directorist'),
 		value: 'paid',
 	},
-]
+];
 
 export default function OrderEdit({}: EditProps) {
 	const [loading, setLoading] = useState(true);
@@ -181,12 +185,10 @@ export default function OrderEdit({}: EditProps) {
 		path: singleOrderRoute,
 	});
 
-	const { refresh } = useValuesStore(
-		{
-			name: 'directorist/single-order',
-			path: singleOrderRoute,
-		}
-	);
+	const { refresh } = useValuesStore({
+		name: 'directorist/single-order',
+		path: singleOrderRoute,
+	});
 
 	const { data, isResolved } = useValuesStoreData({
 		name: 'directorist/single-order',
@@ -219,22 +221,27 @@ export default function OrderEdit({}: EditProps) {
 					status: orderStatus,
 				},
 			});
-			doAction( 'wpmvc-toast', {
-				message: __( 'Order status updated successfully', 'directorist-pricing-plans' ),
-			} );
+			doAction('wpmvc-toast', {
+				message: __(
+					'Order status updated successfully',
+					'directorist-pricing-plans'
+				),
+			});
 			refresh();
-
 		} catch (error) {
 			console.error('Failed to update order status:', error);
-			doAction( 'wpmvc-toast', {
+			doAction('wpmvc-toast', {
 				type: 'error',
-				message: __( 'Oppps! Something went wrong', 'directorist-pricing-plans' ),
-			} );
+				message: __(
+					'Oppps! Something went wrong',
+					'directorist-pricing-plans'
+				),
+			});
 		} finally {
 			setIsSaving(false);
 			refresh();
 		}
-	}
+	};
 
 	return (
 		<>
@@ -258,7 +265,7 @@ export default function OrderEdit({}: EditProps) {
 						<StatusSelection>
 							<span>{__('Order Status:', 'directorist')}</span>
 							<Select
-								options={ orderStatusOptions }
+								options={orderStatusOptions}
 								onChange={(option: any) => {
 									setOrderStatus(option);
 								}}
@@ -267,13 +274,15 @@ export default function OrderEdit({}: EditProps) {
 								isDisabled={isSaving}
 							/>
 						</StatusSelection>
-						<Button 
-							variant="primary" 
+						<Button
+							variant="primary"
 							onClick={saveOrderStatus}
 							isBusy={isSaving}
 							disabled={isSaving}
 						>
-							{isSaving ? __('Saving...', 'directorist') : __('Save Order', 'directorist')}
+							{isSaving
+								? __('Saving...', 'directorist')
+								: __('Save Order', 'directorist')}
 						</Button>
 					</HeaderAction>
 				</SingleOrderHeader>
@@ -283,13 +292,11 @@ export default function OrderEdit({}: EditProps) {
 					<OrderDetails order={order} />
 					{order && <Refund order={order} />}
 					<Slot name="directorist-order-refund-after">
-						{
-							( fills: any)=>{
-								if(fills.length){
-									return fills;
-								}
+						{(fills: any) => {
+							if (fills.length) {
+								return fills;
 							}
-						}
+						}}
 					</Slot>
 				</ContainerLeft>
 				<ContainerRight>

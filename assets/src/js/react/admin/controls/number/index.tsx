@@ -59,7 +59,6 @@ export default function Number(props: NumberFieldType) {
 
 	useEffect(() => {
 		if (attributes?.should_validate) {
-
 			performValidation(attributes[attrKey]);
 		}
 	}, [attributes?.should_validate]);

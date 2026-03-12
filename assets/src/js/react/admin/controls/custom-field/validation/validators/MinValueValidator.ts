@@ -1,16 +1,14 @@
-import { Validator } from "../Validator";
+import { Validator } from '../Validator';
 
 export class MinValueValidator extends Validator {
-  constructor(private min: number) {
-    super();
-  }
+	constructor(private min: number) {
+		super();
+	}
 
-  validate(value: any): string | null {
-    if (value && Number(value) < this.min) {
-      return `Value must be at least ${this.min}`;
-    }
-    return null;
-  }
+	validate(value: any): string | null {
+		if (value && Number(value) < this.min) {
+			return `Value must be at least ${this.min}`;
+		}
+		return null;
+	}
 }
-
-

@@ -73,7 +73,11 @@ const columns: Column[] = [
 		id: 'payment_method',
 		label: __('Payment Method', 'directorist'),
 		render: ({ item }) => {
-			return <span className='directorist-table-text-light'>{item?.payment_method || __('System', 'directorist')}</span>;
+			return (
+				<span className="directorist-table-text-light">
+					{item?.payment_method || __('System', 'directorist')}
+				</span>
+			);
 		},
 	},
 	{

@@ -1,4 +1,3 @@
-
 /**
  * WordPress dependencies
  */
@@ -11,7 +10,9 @@ import { createRoot } from '@wordpress/element';
 import App from './app';
 
 domReady(function () {
-	const container = document.querySelector('.directorist-user-dashboard-orders');
+	const container = document.querySelector(
+		'.directorist-user-dashboard-orders'
+	);
 
 	if (!container) {
 		return;

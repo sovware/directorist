@@ -2,18 +2,19 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.3.1
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$location_source = ! empty( $data['location_source'] ) && $data['location_source'] == 'from_map_api' ? 'map' : 'listing';
+$conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
+$location_source        = ! empty( $data['location_source'] ) && $data['location_source'] == 'from_map_api' ? 'map' : 'listing';
 
 if ( $location_source == 'listing' ) {
     $selected_item = $searchform::get_selected_location_option_data();
     ?>
 
-    <div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
+    <div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
         <div class="directorist-select directorist-search-location directorist-search-field__input">
 
             <?php if ( ! empty( $data['label'] ) ) : ?>
@@ -43,7 +44,7 @@ if ( $location_source == 'listing' ) {
     $value   = isset( $_GET['address'] ) ? sanitize_text_field( wp_unslash( $_GET['address'] ) ) : '';
     ?>
 
-    <div class="directorist-search-field directorist-form-group directorist-search-location directorist-icon-right <?php echo esc_attr( $empty_label ); ?>">
+    <div class="directorist-search-field directorist-form-group directorist-search-location directorist-icon-right <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
         <?php if ( ! empty( $data['label'] ) ) : ?>
             <label class="directorist-search-field__label" for="addressId"><?php echo esc_attr( $data['label'] ); ?></label>
         <?php endif; ?>

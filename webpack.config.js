@@ -1,4 +1,5 @@
-const path = require('path');
+const path          = require('path');
+const WebpackBar    = require('webpackbar');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 
 const devHost = 'directorist.local';
@@ -17,6 +18,15 @@ module.exports = {
 		...defaultConfig.output,
 		path: path.resolve(__dirname, './assets/build/'),
 	},
+	plugins: [
+		...defaultConfig.plugins,
+		new WebpackBar({
+			name: 'Default Build',
+			color: '#4CAF50',
+			profile: true,
+			basic: false,
+		}),
+	],
 	resolve: {
 		...defaultConfig.resolve,
 		alias: {

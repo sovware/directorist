@@ -37,7 +37,6 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
-        add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
     }
 
     public static function builder_data_backup( $term_id ) {
@@ -69,25 +68,14 @@ class Multi_Directory_Manager {
     public static function migrate_custom_field( $term_id ) {
 
         $submission_form_fields = get_term_meta( $term_id , 'submission_form_fields', true );
-        // custom field assign to category migration
+        // Deprecated: assign_to feature has been removed in favor of conditional_logic
+        // This migration function is now a no-op
         if ( empty( $submission_form_fields['fields'] ) ) {
             return;
         }
 
-        // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
-        foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
-            if ( empty( $options['assign_to'] ) ) {
-                continue;
-            }
-
-            if ( $options['assign_to'] === 'category' ) {
-                $submission_form_fields['fields'][ $field_type ]['assign_to'] = 1;
-            } else {
-                $submission_form_fields['fields'][ $field_type ]['assign_to'] = false;
-            }
-        }
-
-        update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
+        // Removed assign_to migration - use conditional_logic instead
+        // Fields using assign_to should be migrated to use conditional_logic manually
     }
 
     public static function migrate_review_settings( $term_id ) {
@@ -445,41 +433,6 @@ class Multi_Directory_Manager {
         }
 
         wp_send_json( $this->run_force_migration() );
-    }
-
-    public function directorist_directory_type_library() {
-
-        if ( ! directorist_verify_nonce() ) {
-            wp_send_json(
-                [
-                    'status' => [
-                        'success' => false,
-                        'message' => __( 'Something is wrong! Please refresh and retryyy.', 'directorist' ),
-                    ],
-                ], 200
-            );
-        }
-
-        if ( ! current_user_can( 'install_plugins' ) || ! current_user_can( 'activate_plugins' ) ) {
-            wp_send_json(
-                [
-                    'status' => [
-                        'success' => false,
-                        'message' => __( 'You are not allowed to add/activate new plugin', 'directorist' ),
-                    ],
-                ], 200
-            );
-        }
-
-        $installed = directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/templatiq.zip' ] );
-        $path = WP_PLUGIN_DIR . '/templatiq/templatiq.php';
-
-        if ( ! is_plugin_active( $path ) ) {
-            activate_plugin( $path );
-        }
-
-        $installed['redirect'] = admin_url( 'admin.php?page=templatiq' );
-        wp_send_json( $installed );
     }
 
     // run_force_migration

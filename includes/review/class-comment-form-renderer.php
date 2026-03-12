@@ -38,7 +38,7 @@ class Comment_Form_Renderer {
 
     public static function render() {
         try {
-            $nonce      = ! empty( $_REQUEST['nonce'] ) ? sanitize_key( $_REQUEST['nonce'] ) : '';
+            $nonce      = ! empty( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : '';
             $post_id    = ! empty( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : 0;
             $comment_id = ! empty( $_REQUEST['comment_id'] ) ? absint( $_REQUEST['comment_id'] ) : 0;
 

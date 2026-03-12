@@ -14,6 +14,9 @@ class Localized_Data {
         // Load in frontend and backend
         wp_localize_script( 'jquery', 'directorist', self::public_data() );
 
+        // Load formgent integration data for frontend
+        wp_localize_script( 'directorist-formgent-integration', 'directoristFormgentData', self::formgent_data() );
+
         // Load in backend only
         if ( is_admin() ) {
             wp_localize_script( 'jquery', 'directorist_admin', self::admin_data() );
@@ -38,7 +41,7 @@ class Localized_Data {
                 'Referer-Page-ID' => get_the_ID(),
             ]
         ];
-        
+
         return $data;
     }
 
@@ -94,6 +97,7 @@ class Localized_Data {
             'assets_url'                      => DIRECTORIST_ASSETS,
             'home_url'                        => home_url(),
             'rest_url'                        => rest_url(),
+            'rest_nonce'                      => wp_create_nonce( 'wp_rest' ),
             'nonceName'                       => 'atbdp_nonce_js',
             'login_alert_message'             => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                             => is_rtl() ? 'true' : 'false',
@@ -127,7 +131,7 @@ class Localized_Data {
             'currentDate'                     => get_the_date(),
             'enable_reviewer_content'         => $enable_reviewer_content,
             'add_listing_data'                => self::get_add_listings_data(),
-            'lazy_load_taxonomy_fields'       => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
+            'lazy_load_taxonomy_fields'       => false,
             'current_page_id'                 => get_the_ID(),
             'icon_markup'                     => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
             'search_form_default_label'       => __( 'Label', 'directorist' ),
@@ -157,6 +161,12 @@ class Localized_Data {
             $arr = explode( '/edit/', $current_url );
             $important = $arr[1];
             $listing_id = (int) $important;
+        }
+
+        // For admin post edit (post.php?post=123&action=edit)
+        if ( is_admin() && empty( $listing_id ) && ! empty( $_GET['post'] ) && get_post_type( (int) $_GET['post'] ) === 'at_biz_dir' ) {
+            $listing_id = (int) $_GET['post'];
+            $current_listing_type = directorist_get_listing_directory( $listing_id );
         }
 
         $submission_form  = get_term_meta( $current_listing_type, 'submission_form_fields', true );
@@ -202,9 +212,55 @@ class Localized_Data {
             'create_new_cat'                  => $new_cat,
             'image_notice'                    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
             'category_custom_field_relations' => static::get_fields_category_relation(),
+            'admin_conditional_logic_targets' => static::get_admin_conditional_logic_targets( $submission_form ),
         ];
 
         return $data;
+    }
+
+    /**
+     * Get conditional logic targets for admin title/description (WordPress core elements).
+     * Used when conditional logic should show/hide title or description based on category etc.
+     *
+     * @param array $submission_form Submission form fields from directory type.
+     * @return array Array of { selector, fieldKey, conditionalLogic } for #titlediv, #postdivrich.
+     */
+    public static function get_admin_conditional_logic_targets( $submission_form ) {
+        if ( ! is_admin() || empty( $submission_form['fields'] ) ) {
+            return [];
+        }
+
+        $targets = [];
+        $admin_selectors = [
+            'title'       => [ 'selector' => '#titlediv', 'field_key' => 'listing_title' ],
+            'description' => [ 'selector' => '#postdivrich', 'field_key' => 'listing_content' ],
+        ];
+
+        foreach ( $admin_selectors as $widget_key => $config ) {
+            $field = $submission_form['fields'][ $widget_key ] ?? null;
+            if ( ! $field ) {
+                continue;
+            }
+
+            $conditional_logic = null;
+            if ( ! empty( $field['options']['conditional_logic']['value'] ) && is_array( $field['options']['conditional_logic']['value'] ) ) {
+                $conditional_logic = $field['options']['conditional_logic']['value'];
+            } elseif ( ! empty( $field['options']['conditional_logic'] ) && is_array( $field['options']['conditional_logic'] ) ) {
+                $conditional_logic = $field['options']['conditional_logic'];
+            } elseif ( ! empty( $field['conditional_logic'] ) && is_array( $field['conditional_logic'] ) ) {
+                $conditional_logic = $field['conditional_logic'];
+            }
+
+            if ( ! empty( $conditional_logic['enabled'] ) && ! empty( $conditional_logic['groups'] ) ) {
+                $targets[] = [
+                    'selector'          => $config['selector'],
+                    'fieldKey'          => $config['field_key'],
+                    'conditionalLogic'  => $conditional_logic,
+                ];
+            }
+        }
+
+        return $targets;
     }
 
     public static function get_admin_script_data() {
@@ -231,8 +287,8 @@ class Localized_Data {
             'filterByGroupInputLabel'      => __( 'Filter By Icon Pack', 'directorist' ),
             'doneButtonLabel'              => __( 'Done', 'directorist' ),
             'iconGroupLabels'              => [
-                'fontAwesome' => __( 'Font Awesome', 'directorist' ),
                 'lineAwesome' => __( 'Line Awesome', 'directorist' ),
+                'fontAwesome' => __( 'Font Awesome', 'directorist' ),
             ],
         ];
 
@@ -351,5 +407,15 @@ class Localized_Data {
         }
 
         return $relation;
+    }
+
+    public static function formgent_data() {
+        $data = [
+            'strings' => [
+                'enquiries' => __( 'Enquiries', 'directorist' ),
+            ]
+        ];
+
+        return apply_filters( 'directorist_formgent_data', $data );
     }
 }

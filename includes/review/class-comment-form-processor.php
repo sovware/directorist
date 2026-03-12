@@ -24,7 +24,7 @@ class Comment_Form_Processor {
 
     public static function process() {
         try {
-            $nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_key( $_POST['directorist_comment_nonce'] ) : '';
+            $nonce      = ! empty( $_POST['directorist_comment_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['directorist_comment_nonce'] ) ) : '';
             $post_id    = ! empty( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
             $comment_id = ! empty( $_POST['comment_id'] ) ? absint( $_POST['comment_id'] ) : 0;
 

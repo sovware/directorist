@@ -1,7 +1,35 @@
-const path = require('path');
-const { VueLoaderPlugin } = require('vue-loader');
+const path                 = require('path');
+const WebpackBar           = require('webpackbar');
+const { VueLoaderPlugin }  = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackRTLPlugin = require('@automattic/webpack-rtl-plugin');
+const WebpackRTLPlugin     = require('@automattic/webpack-rtl-plugin');
+
+// Plugin to suppress specific warnings
+class SuppressWarningsPlugin {
+	constructor(warningsToSuppress) {
+		this.warningsToSuppress = warningsToSuppress;
+	}
+
+	apply(compiler) {
+		compiler.hooks.afterCompile.tap(
+			'SuppressWarningsPlugin',
+			(compilation) => {
+				compilation.warnings = compilation.warnings.filter(
+					(warning) => {
+						return !this.warningsToSuppress.some(
+							(suppressPattern) => {
+								return (
+									warning.message &&
+									warning.message.includes(suppressPattern)
+								);
+							}
+						);
+					}
+				);
+			}
+		);
+	}
+}
 
 module.exports = {
 	mode: 'development',
@@ -21,6 +49,7 @@ module.exports = {
 		'js/public/account': './assets/src/js/public/modules/account.js',
 		'js/public/single-listing': './assets/src/js/public/modules/single-listing.js',
 		'js/public/widgets': './assets/src/js/public/modules/widgets.js',
+		'js/public/formgent-integration': './assets/src/js/formgent-integration/index.js',
 
 		// Admin JS
 		'js/admin/main': './assets/src/js/admin/admin.js',
@@ -42,6 +71,7 @@ module.exports = {
 		// CSS
 		'css/admin/main': './assets/src/scss/layout/admin/admin-style.scss',
 		'css/public/main': './assets/src/scss/layout/public/main-style.scss',
+		'css/public/formgent-integration': './assets/src/js/formgent-integration/index.scss',
 	},
 	output: {
 		path: path.resolve(__dirname, './assets/build/'),
@@ -53,9 +83,16 @@ module.exports = {
 		},
 	},
 	plugins: [
+		new WebpackBar({
+			name: 'Legacy Build',
+			color: '#2196F3',
+			profile: true,
+			basic: false,
+		}),
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin(),
 		new WebpackRTLPlugin(),
+		new SuppressWarningsPlugin( ['mixed-decls deprecation is obsolete'] ),
 	],
 	module: {
 		rules: [

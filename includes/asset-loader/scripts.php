@@ -67,6 +67,12 @@ class Scripts {
                 'path' => DIRECTORIST_BUILD_ASSETS . 'css/public/main',
                 'rtl' => true,
             ],
+            'directorist-formgent-integration-style' => [
+                'type' => 'css',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'css/public/formgent-integration',
+                'rtl' => true,
+                'dep' => ['wp-components'],
+            ],
 
             // Admin CSS
             'directorist-admin-style' => [
@@ -302,6 +308,11 @@ class Scripts {
                 'type' => 'js',
                 'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/import-export',
             ],
+            'directorist-formgent-integration' => [
+                'type' => 'js',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/formgent-integration',
+                'dep' => ['wp-element', 'wp-api-fetch'],
+            ],
         ];
 
         return apply_filters( 'directorist_scripts', $scripts );
@@ -314,7 +325,7 @@ class Scripts {
             sprintf(
                 '//maps.googleapis.com/maps/api/js?loading=async&libraries=places,marker&callback=directoristLoadGoogleMap&key=%s',
                 $google_map_api_key
-            ) 
+            )
         );
     }
 }

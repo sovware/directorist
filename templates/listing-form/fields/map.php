@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -20,9 +20,12 @@ $hide_map           = ! empty( get_post_meta( $p_id, '_hide_map', true ) ) ? tru
 
 $map_data = $listing_form->get_map_data();
 Directorist\Helper::add_hidden_data_to_dom( 'map_data', $map_data );
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-form-group directorist-form-map-field">
+<div class="directorist-form-group directorist-form-map-field"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <div class="directorist-form-map-field__wrapper">
 

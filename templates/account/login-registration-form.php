@@ -64,7 +64,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 
                             if ( is_wp_error( $is_valid_password_reset_key ) ) {
                                 ?><p class="directorist-alert directorist-alert-danger">
-                                    <?php echo $is_valid_password_reset_key->get_error_message(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                    <?php echo wp_kses_post( $is_valid_password_reset_key->get_error_message() ); ?>
                                 </p><?php
                             } else {
                                 if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :
@@ -199,7 +199,8 @@ if ( ! empty( $_GET['registration_status'] ) ) {
                                     <strong>Site name:</strong> %1$s
                                     <strong>User name:</strong> %2$s
                                     To reset your password, please click on the <a href="%3$s">Reset Password</a>.<br>
-                                    If this was a mistake, just ignore this email and nothing will happen.'
+                                    If this was a mistake, just ignore this email and nothing will happen.',
+                                        'directorist'
                                     ),
                                     $site_name,
                                     $user->user_login,
@@ -338,7 +339,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
                                 echo esc_html( $bio );
                                 echo ( ! empty( $require_bio ) && 'yes' == $require_bio ? '<strong class="directorist-form-required">*</strong>' : '' );
                             ?></label>
-                            <textarea id="directorist__authentication__signup__bio" class="directorist-form-element" name="bio" rows="10" placeholder="<?php echo esc_html( $bio ); ?>" <?php echo ( ! empty( $require_bio ) ? 'required' : '' ); ?>><?php echo isset( $_REQUEST['bio'] ) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
+                            <textarea id="directorist__authentication__signup__bio" class="directorist-form-element" name="bio" rows="10" placeholder="<?php echo esc_html( $bio ); ?>" <?php echo ( ! empty( $require_bio ) && 'yes' == $require_bio ? 'required' : '' ); ?>><?php echo isset( $_REQUEST['bio'] ) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
                         </div>
                         <?php } ?>
 

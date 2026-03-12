@@ -489,7 +489,6 @@ class Directorist_Single_Listing {
         global $wp_embed;
         $content = $wp_embed->run_shortcode( $content );
         $content = $wp_embed->autoembed( $content );
-        // do_blocks available from WP 5.0
         $content = function_exists( 'do_blocks' ) ? do_blocks( $content ) : $content;
         $content = wptexturize( $content );
         $content = convert_smilies( $content );
@@ -511,9 +510,9 @@ class Directorist_Single_Listing {
                 'link'  => "https://www.facebook.com/share.php?u={$link}&title={$title}",
             ],
             'twitter' => [
-                'title' => __( 'Twitter', 'directorist' ),
+                'title' => __( 'X', 'directorist' ),
                 'icon'  => 'lab la-twitter',
-                'link'  => 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
+                'link'  => 'https://x.com/intent/tweet?text=' . $title . '&amp;url=' . $link,
             ],
             'linkedin' => [
                 'title' => __( 'LinkedIn', 'directorist' ),
@@ -653,7 +652,18 @@ class Directorist_Single_Listing {
             'data'       => $this->get_slider_data( $slider ),
         ];
 
-        Helper::get_template( 'single/slider', $args );
+        /**
+         * Filters the path for the single listing slider template.
+         *
+         * This hook allows developers to override or change the template path
+         * used for rendering the single listing slider.
+         *
+         * @since 8.5.7
+         *
+         * @param array  $args Arguments passed to the template, including the listing object and slider data.
+         */
+        $template = apply_filters( 'directorist_single_slider_template', 'single/slider', $args );
+        Helper::get_template( $template, $args );
     }
 
     public function has_badge( $data ) {
@@ -888,8 +898,14 @@ class Directorist_Single_Listing {
 
     public function old_submit_link() {
         $payment    = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $redirect   = isset( $_GET['redirect'] ) ? sanitize_url( wp_unslash( $_GET['redirect'] ) ) : '';
+        
+        $redirect = '';
+        if ( isset( $_GET['redirect'] ) ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $redirect = wp_validate_redirect( wp_unslash( $_GET['redirect'] ), '' );
+        }
+        
+        
         $listing_id = isset( $_GET['post_id'] ) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : get_the_ID();
         $listing_id = isset( $_GET['p'] ) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : $listing_id;
         $link       = '';
@@ -900,7 +916,7 @@ class Directorist_Single_Listing {
 
         $directory_id = directorist_get_listing_directory( $listing_id );
 
-        if ( directorist_is_preview_enabled( $directory_id ) && $redirect ) {
+        if ( directorist_is_preview_enabled( $directory_id ) && ! empty( $redirect ) ) {
             $edited = isset( $_GET['edited'] ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';
 
             if ( empty( $payment ) ) {
@@ -929,8 +945,15 @@ class Directorist_Single_Listing {
 
     public function edit_link() {
         $id = $this->id;
-        $redirect  = isset( $_GET['redirect'] ) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
+        $redirect = '';
+        if ( isset( $_GET['redirect'] ) ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $redirect = wp_validate_redirect( wp_unslash( $_GET['redirect'] ), '' );
+        }
+        
+        $payment = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
         $edit_link = ! empty( $payment ) ? add_query_arg( 'redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link( $id ) ) : ATBDP_Permalink::get_edit_listing_page_link( $id );
+        
         return $edit_link;
     }
 
@@ -1142,10 +1165,46 @@ class Directorist_Single_Listing {
     public function get_contents() {
         $content = $this->post->post_content;
         $content = wpautop( $content );
-        $content = do_shortcode( $content );
-
-        // TODO: Make it compatible with wp core `the_content` hook.
+        $content = $this->filter_single_listing_content( $content );
+        $content = $this->fix_media_src_attributes( $content );
+        
         return apply_filters( 'directorist_the_content', $content );
+    }
+
+    private function fix_media_src_attributes( $content ) {
+        return preg_replace_callback(
+            '/<(video|audio)([^>]*?)>(.*?)<\/\1>/is',
+            function( $matches ) {
+                if ( preg_match( '/\ssrc\s*=/i', $matches[2] ) ) {
+                    return $matches[0];
+                }
+                
+                if ( preg_match( '/<a\s+[^>]*href=["\']([^"\']+)["\'][^>]*>/i', $matches[3], $link_match ) ) {
+                    $url = trim( $link_match[1] );
+                    
+                    if ( ! filter_var( $url, FILTER_VALIDATE_URL ) || ! preg_match( '/^https?:\/\//i', $url ) ) {
+                        return $matches[0];
+                    }
+                    
+                    $existing_attrs = trim( $matches[2] );
+                    if ( ! empty( $existing_attrs ) ) {
+                        $existing_attrs = preg_replace( '/\ssrc\s*=\s*["\'][^"\']*["\']/i', '', $existing_attrs );
+                        $existing_attrs = trim( $existing_attrs );
+                    }
+                    
+                    $attributes = ! empty( $existing_attrs ) ? $existing_attrs . ' ' : '';
+                    $attributes .= 'src="' . esc_url( $url ) . '"';
+                    
+                    $inner_content = preg_replace( '/<a[^>]*>.*?<\/a>/is', '', $matches[3] );
+                    $inner_content = wp_kses_post( $inner_content );
+                    
+                    return '<' . $matches[1] . ' ' . $attributes . '>' . $inner_content . '</' . $matches[1] . '>';
+                }
+                
+                return $matches[0];
+            },
+            $content
+        );
     }
 
     public function get_custom_field_type_value( $field_id, $field_type, $field_details ) {
@@ -1326,7 +1385,7 @@ class Directorist_Single_Listing {
             'cat_icon'              => $cat_icon,
         ];
 
-        return json_encode( $args, JSON_HEX_QUOT | JSON_HEX_APOS | JSON_HEX_AMP );
+        return wp_json_encode( $args, JSON_HEX_QUOT | JSON_HEX_APOS | JSON_HEX_AMP );
     }
 
     public function get_review_template() {
@@ -1495,7 +1554,7 @@ class Directorist_Single_Listing {
             'prevArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--left">%s</a>', directorist_icon( 'las la-angle-left', false ) ),
             'nextArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--right">%s</a>', directorist_icon( 'las la-angle-right', false ) ),
         ];
-        return json_encode( $atts );
+        return wp_json_encode( $atts );
     }
 
     public function get_related_columns() {

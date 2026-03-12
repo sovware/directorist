@@ -33,7 +33,7 @@ $taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty(
                         $category_count = $category['term']->count ?? 0;
 
                         if ( $category_count === 0 ) {
-                            $listing_count_text = esc_html( 'listing', 'directorist' );
+                            $listing_count_text = esc_html__( 'listing', 'directorist' );
                         } else {
                             $listing_count_text = sprintf(
                                 _nx(

@@ -1,1 +1,512 @@
-!function(){"use strict";function a(a,e){a=".directorist-dom-data-"+a,e||(e=document);var t=e.querySelector(a);if(!t||!t.dataset.value)return{};var l=directorist&&directorist.script_debugging&&"1"==directorist.script_debugging;try{var i=atob(t.dataset.value);return JSON.parse(i)}catch(a){return l&&console.log(t,a),{}}}jQuery.fn.exists=function(){return jQuery(this).length>0};var e=a("atbdp_plupload_params"),t=a("atbdp_params"),l=jQuery;function i(){var i,r,d;e=a("atbdp_plupload_params"),t=a("atbdp_params"),l(".plupload-upload-uic").exists()&&(d=jQuery("#atbdpectory-add-post input[name='ID']").length?jQuery("#atbdpectory-add-post input[name='ID']").val():jQuery("#post input[name='post_ID']").val(),l(".plupload-upload-uic").each(function(a,p){var s=l(this),n=s.attr("id").replace("plupload-upload-ui",""),u=jQuery("#"+n+"upload-error");o(n),(i=JSON.parse(e.base_plupload_config)).browse_button=n+i.browse_button,i.container=n+i.container,jQuery("#"+n+"dropbox").length&&(i.drop_element=n+"dropbox"),i.file_data_name=n+i.file_data_name,i.multipart_params.imgid=n,i.multipart_params.post_id=d,i.max_file_size=l("#"+n+"_file_size").val(),s.hasClass("plupload-upload-uic-multiple")&&(i.multi_selection=!0);var f=jQuery("#"+n+"_allowed_types").val();if(f=f&&""!=f?f:"","post_images"==n&&void 0!==t.atbdp_allowed_img_types&&""!=t.atbdp_allowed_img_types&&(f=t.atbdp_allowed_img_types),f&&""!=f){var c=void 0!==t.txt_all_files&&""!=t.txt_all_files?t.txt_all_files:"Allowed files";i.filters=[{title:c,extensions:f}]}var v=new plupload.Uploader(i);v.bind("Init",function(a,e){if(v.features.dragdrop){var t=jQuery("#"+n+"dropbox");t.on("dragenter",function(a){t.addClass("dragover")}),t.on("dragleave",function(a){t.removeClass("dragover")}),t.on("drop",function(){t.removeClass("dragover")})}}),v.init(),v.bind("Error",function(a,e){var i;if(u.addClass("upload-error"),-600==e.code)i=(i=void 0!==t.err_max_file_size&&""!=t.err_max_file_size?t.err_max_file_size:"File size error : You tried to upload a file over %s").replace("%s",l("#"+n+"_file_size").val());else if(-601==e.code)if(i=void 0!==t.err_file_type&&""!=t.err_file_type?t.err_file_type:"File type error. Allowed file types: %s","post_images"==n){var r=""!=f?"."+f.replace(/,/g,", ."):"*";i=i.replace("%s",r)}else i=i.replace("%s",jQuery("#"+n+"_allowed_types").attr("data-exts"));else i=e.message;u.html(i)}),v.bind("FilesAdded",function(a,e){var i=parseInt(jQuery("#"+n+"totImg").val()),o=parseInt(jQuery("#"+n+"image_limit").val());if(u.html("").removeClass("upload-error"),o&&s.hasClass("plupload-upload-uic-multiple")&&o>0){if(i>=o&&o>0){for(;a.files.length>0;)a.removeFile(a.files[0]);return r=(r=void 0!==t.err_file_upload_limit&&""!=t.err_file_upload_limit?t.err_file_upload_limit:"You have reached your upload limit of %s files.").replace("%s",o),u.addClass("upload-error").html(r),!1}if(a.files.length>o&&o>0){for(;a.files.length>0;)a.removeFile(a.files[0]);return r=(r=void 0!==t.err_pkg_upload_limit&&""!=t.err_pkg_upload_limit?t.err_pkg_upload_limit:"You may only upload %s files with this package, please try again.").replace("%s",o),u.addClass("upload-error").html(r),!1}}l.each(e,function(a,e){s.find(".filelist").append('<div class="file" id="'+e.id+'"><b>'+e.name+"</b> (<span>"+plupload.formatSize(0)+"</span>/"+plupload.formatSize(e.size)+') <div class="fileprogress"></div></div>')}),a.refresh(),a.start()}),v.bind("UploadProgress",function(a,e){l("#"+e.id+" .fileprogress").width(e.percent+"%"),l("#"+e.id+" span").html(plupload.formatSize(parseInt(e.size*e.percent/100)))});var m=0,_=new Array;v.bind("FileUploaded",function(a,e,t){if((t=JSON.parse(t.response)).success){var i=parseInt(jQuery("#"+n+"totImg").val());if(_[m]=a,m++,l("#"+e.id).fadeOut(),s.hasClass("plupload-upload-uic-multiple")){i++,jQuery("#"+n+"totImg").val(i);var r=l.trim(l("#"+n,l("#"+n+"plupload-upload-ui").parent()).val());r=r?r+"::"+t.data:t.data,l("#"+n,l("#"+n+"plupload-upload-ui").parent()).val(r)}else l("#"+n,l("#"+n+"plupload-upload-ui").parent()).val(t.data+"");o(n)}else u.addClass("upload-error").html(t.data)}),Error}))}function r(a){var e={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","/":"&#x2F;","`":"&#x60;","=":"&#x3D;"};return String(a).replace(/[&<>"'`=\/]/g,function(a){return e[a]})}function o(a){var e=parseInt(jQuery("#"+a+"totImg").val()),l=(parseInt(jQuery("#"+a+"image_limit").val()),jQuery),i=l("#"+a+"plupload-thumbs");i.html("");var d=l("#"+a,l("#"+a+"plupload-upload-ui").parent()).val();if(void 0!==t.action_remove&&""!=t.action_remove&&t.action_remove,d){for(var p=d.split("::"),s=0;s<p.length;s++)if(p[s]&&"null"!=p[s]){var n=p[s].split("|"),u=n[0],f=n[1],c=n[2],v=n[3],m="",_="";void 0===f&&(f=""),void 0===c&&(c=""),void 0===v&&(v=""),c=r(c),v=r(v);var g=u.substring(u.lastIndexOf(".")+1);(g=g.split("?").shift())&&(g=g.toLowerCase());var h=u.lastIndexOf("/")+1,b=u.lastIndexOf(".");if(b<h)continue;var y=u.substr(h,b<h?loc.length:b),j="",x="";if("jpg"==g||"jpe"==g||"jpeg"==g||"png"==g||"gif"==g||"bmp"==g||"ico"==g)j='<img class="atbdp-file-info" data-id="'+f+'" data-title="'+c+'" data-caption="'+v+'" data-src="'+u+'" src="'+u+'" alt=""  />',c.trim()&&(m='<span class="atbdp-title-preview">'+c+"</span>"),v.trim()&&(_='<span class="atbdp-caption-preview">'+v+"</span>");else{var Q="la-file";"pdf"==g?Q="la-file-pdf-o":"zip"==g||"tar"==g?Q="la-file-zip-o":"doc"==g||"odt"==g?Q="la-file-word-0":"txt"==g||"text"==g?Q="la-file-text-0":"csv"==g||"ods"==g||"ots"==g?Q="la-file-excel-0":"avi"!=g&&"mp4"!=g&&"mov"!=g||(Q="la-file-video-0"),x="file-thumb",j='<i title="'+y+'" class="la '+Q+' atbdp-file-info" data-id="'+f+'" data-title="'+c+'" data-caption="'+v+'" data-src="'+u+'" aria-hidden="true"></i>'}var w=directorist.assets_url+"icons/font-awesome/svgs/solid/trash-alt.svg",I=directorist.icon_markup.replace("##URL##",w).replace("##CLASS##",""),C=l('<div class="thumb '+x+'" id="thumb'+a+s+'">'+m+j+_+'<div class="atbdp-thumb-actions"><span class="thumbremovelink" id="thumbremovelink'+a+s+'">'+I+"</span></div></div>");i.append(C),C.find(".thumbremovelink").click(function(){jQuery("#"+a+"plupload-upload-ui").hasClass("plupload-upload-uic-multiple")&&(e--,jQuery("#"+a+"totImg").val(e)),jQuery("#"+a+"upload-error").html(""),jQuery("#"+a+"upload-error").removeClass("upload-error");var t=l(this).attr("id").replace("thumbremovelink"+a,"");t=parseInt(t);var i=[];d=l("#"+a,l("#"+a+"plupload-upload-ui").parent()).val(),p=d.split("::");for(var r=0;r<p.length;r++)r!=t&&(i[i.length]=p[r]);return l("#"+a,l("#"+a+"plupload-upload-ui").parent()).val(i.join("::")),o(a),!1})}p.length>1&&(i.sortable({update:function(e,t){var r=[];i.find(".atbdp-file-info").each(function(){r[r.length]=l(this).data("src")+"|"+l(this).data("id")+"|"+l(this).data("title")+"|"+l(this).data("caption"),l("#"+a,l("#"+a+"plupload-upload-ui").parent()).val(r.join("::")),o(a)})}}),i.disableSelection());var z=[];i.find(".atbdp-file-info").each(function(){z[z.length]=l(this).data("src")+"|"+l(this).data("id")+"|"+l(this).data("title")+"|"+l(this).data("caption"),l("#"+a,l("#"+a+"plupload-upload-ui").parent()).val(z.join("::"))})}}e&&(jQuery(document).ready(i),window.addEventListener("directorist-reload-plupload",i))}();
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./assets/src/js/lib/helper.js":
+/*!*************************************!*\
+  !*** ./assets/src/js/lib/helper.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   convertToSelect2: function() { return /* binding */ convertToSelect2; },
+/* harmony export */   get_dom_data: function() { return /* binding */ get_dom_data; }
+/* harmony export */ });
+var $ = jQuery;
+function get_dom_data(selector, parent) {
+  selector = '.directorist-dom-data-' + selector;
+  if (!parent) {
+    parent = document;
+  }
+  var el = parent.querySelector(selector);
+  if (!el || !el.dataset.value) {
+    return {};
+  }
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
+  try {
+    var value = atob(el.dataset.value);
+    return JSON.parse(value);
+  } catch (error) {
+    if (IS_SCRIPT_DEBUGGING) {
+      console.log(el, error);
+    }
+    return {};
+  }
+}
+function convertToSelect2(selector) {
+  var $selector = $(selector);
+  var args = {
+    allowClear: true,
+    width: '100%',
+    templateResult: function templateResult(data) {
+      if (!data.id) {
+        return data.text;
+      }
+      var iconURI = $(data.element).data('icon');
+      var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+      var originalText = data.text;
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
+      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+      return $state;
+    }
+  };
+  var options = $selector.find('option');
+  if (options.length && options[0].textContent.length) {
+    args.placeholder = options[0].textContent;
+  }
+  $selector.length && $selector.select2(args);
+}
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+!function() {
+/*!******************************************************!*\
+  !*** ./assets/src/js/global/directorist-plupload.js ***!
+  \******************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../lib/helper */ "./assets/src/js/lib/helper.js");
+
+jQuery.fn.exists = function () {
+  return jQuery(this).length > 0;
+};
+var atbdp_plupload_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_plupload_params');
+var atbdp_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_params');
+var $ = jQuery;
+
+// Init
+if (atbdp_plupload_params) {
+  jQuery(document).ready(init);
+  window.addEventListener('directorist-reload-plupload', init);
+}
+function init() {
+  atbdp_plupload_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_plupload_params');
+  atbdp_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_params');
+  if ($('.plupload-upload-uic').exists()) {
+    var pluploadConfig, msgErr, post_id;
+
+    // set the post id
+    if (jQuery("#atbdpectory-add-post input[name='ID']").length) {
+      post_id = jQuery("#atbdpectory-add-post input[name='ID']").val(); // frontend
+    } else {
+      post_id = jQuery("#post input[name='post_ID']").val(); // backend
+    }
+    $('.plupload-upload-uic').each(function (ind, el) {
+      var $this = $(this);
+      var imgId = $this.attr('id').replace('plupload-upload-ui', '');
+      var $errorHolder = jQuery('#' + imgId + 'upload-error');
+      plu_show_thumbs(imgId);
+      pluploadConfig = JSON.parse(atbdp_plupload_params.base_plupload_config);
+      pluploadConfig['browse_button'] = imgId + pluploadConfig['browse_button'];
+      pluploadConfig['container'] = imgId + pluploadConfig['container'];
+      if (jQuery('#' + imgId + 'dropbox').length) {
+        pluploadConfig['drop_element'] = imgId + 'dropbox';
+      } // only add drop area if there is one
+
+      pluploadConfig['file_data_name'] = imgId + pluploadConfig['file_data_name'];
+      pluploadConfig['multipart_params']['imgid'] = imgId;
+      pluploadConfig['multipart_params']['post_id'] = post_id;
+      pluploadConfig['max_file_size'] = $('#' + imgId + '_file_size').val();
+      if ($this.hasClass('plupload-upload-uic-multiple')) {
+        pluploadConfig['multi_selection'] = true;
+      }
+      var allowed_exts = jQuery('#' + imgId + '_allowed_types').val();
+      allowed_exts = allowed_exts && allowed_exts != '' ? allowed_exts : '';
+      if (imgId == 'post_images' && typeof atbdp_params.atbdp_allowed_img_types != 'undefined' && atbdp_params.atbdp_allowed_img_types != '') {
+        allowed_exts = atbdp_params.atbdp_allowed_img_types;
+      }
+      if (allowed_exts && allowed_exts != '') {
+        var txt_all_files = typeof atbdp_params.txt_all_files != 'undefined' && atbdp_params.txt_all_files != '' ? atbdp_params.txt_all_files : 'Allowed files';
+        pluploadConfig['filters'] = [{
+          title: txt_all_files,
+          extensions: allowed_exts
+        }];
+      }
+      var uploader = new plupload.Uploader(pluploadConfig);
+      uploader.bind('Init', function (up, params) {
+        if (uploader.features.dragdrop) {
+          var drop_id = imgId + 'dropbox';
+          var target = jQuery('#' + drop_id);
+          target.on('dragenter', function (event) {
+            target.addClass('dragover');
+          });
+          target.on('dragleave', function (event) {
+            target.removeClass('dragover');
+          });
+          target.on('drop', function () {
+            target.removeClass('dragover');
+          });
+        }
+      });
+      uploader.init();
+      uploader.bind('Error', function (up, files) {
+        var errorMessage;
+        $errorHolder.addClass('upload-error');
+        if (files.code == -600) {
+          if (typeof atbdp_params.err_max_file_size != 'undefined' && atbdp_params.err_max_file_size != '') {
+            errorMessage = atbdp_params.err_max_file_size;
+          } else {
+            errorMessage = 'File size error : You tried to upload a file over %s';
+          }
+          errorMessage = errorMessage.replace('%s', $('#' + imgId + '_file_size').val());
+        } else if (files.code == -601) {
+          if (typeof atbdp_params.err_file_type != 'undefined' && atbdp_params.err_file_type != '') {
+            errorMessage = atbdp_params.err_file_type;
+          } else {
+            errorMessage = 'File type error. Allowed file types: %s';
+          }
+          if (imgId == 'post_images') {
+            var txtReplace = allowed_exts != '' ? '.' + allowed_exts.replace(/,/g, ', .') : '*';
+            errorMessage = errorMessage.replace('%s', txtReplace);
+          } else {
+            errorMessage = errorMessage.replace('%s', jQuery('#' + imgId + '_allowed_types').attr('data-exts'));
+          }
+        } else {
+          errorMessage = files.message;
+        }
+        $errorHolder.html(errorMessage);
+      });
+
+      //a file was added in the queue
+      //totalImg = atbdp_plupload_params.totalImg;
+      //limitImg = atbdp_plupload_params.image_limit;
+      uploader.bind('FilesAdded', function (up, files) {
+        var totalImg = parseInt(jQuery('#' + imgId + 'totImg').val());
+        var limitImg = parseInt(jQuery('#' + imgId + 'image_limit').val());
+        $errorHolder.html('').removeClass('upload-error');
+        if (limitImg && $this.hasClass('plupload-upload-uic-multiple') && limitImg > 0) {
+          if (totalImg >= limitImg && limitImg > 0) {
+            while (up.files.length > 0) {
+              up.removeFile(up.files[0]);
+            } // remove images
+
+            if (typeof atbdp_params.err_file_upload_limit != 'undefined' && atbdp_params.err_file_upload_limit != '') {
+              msgErr = atbdp_params.err_file_upload_limit;
+            } else {
+              msgErr = 'You have reached your upload limit of %s files.';
+            }
+            msgErr = msgErr.replace('%s', limitImg);
+            $errorHolder.addClass('upload-error').html(msgErr);
+            return false;
+          }
+          if (up.files.length > limitImg && limitImg > 0) {
+            while (up.files.length > 0) {
+              up.removeFile(up.files[0]);
+            } // remove images
+
+            if (typeof atbdp_params.err_pkg_upload_limit != 'undefined' && atbdp_params.err_pkg_upload_limit != '') {
+              msgErr = atbdp_params.err_pkg_upload_limit;
+            } else {
+              msgErr = 'You may only upload %s files with this package, please try again.';
+            }
+            msgErr = msgErr.replace('%s', limitImg);
+            $errorHolder.addClass('upload-error').html(msgErr);
+            return false;
+          }
+        }
+        $.each(files, function (i, file) {
+          $this.find('.filelist').append('<div class="file" id="' + file.id + '"><b>' + file.name + '</b> (<span>' + plupload.formatSize(0) + '</span>/' + plupload.formatSize(file.size) + ') ' + '<div class="fileprogress"></div></div>');
+        });
+        up.refresh();
+        up.start();
+      });
+      uploader.bind('UploadProgress', function (up, file) {
+        $('#' + file.id + ' .fileprogress').width(file.percent + '%');
+        $('#' + file.id + ' span').html(plupload.formatSize(parseInt(file.size * file.percent / 100)));
+      });
+      var timer;
+      var i = 0;
+      var indexes = new Array();
+      uploader.bind('FileUploaded', function (up, file, response) {
+        response = JSON.parse(response['response']);
+        if (!response.success) {
+          $errorHolder.addClass('upload-error').html(response.data);
+          return;
+        }
+
+        //up.removeFile(up.files[0]); // remove images
+        var totalImg = parseInt(jQuery('#' + imgId + 'totImg').val());
+        indexes[i] = up;
+        i++;
+        $('#' + file.id).fadeOut();
+
+        // add url to the hidden field
+        if ($this.hasClass('plupload-upload-uic-multiple')) {
+          totalImg++;
+          jQuery('#' + imgId + 'totImg').val(totalImg);
+          // multiple
+          var v1 = $.trim($('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val());
+          if (v1) {
+            v1 = v1 + '::' + response.data;
+          } else {
+            v1 = response.data;
+          }
+          $('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(v1);
+          //console.log(v1);
+        } else {
+          // single
+          $('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(response.data + '');
+          //console.log(response);
+        }
+        // show thumbs
+        plu_show_thumbs(imgId);
+      });
+      Error;
+    });
+  }
+}
+function atbdp_esc_entities(str) {
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+  return String(str).replace(/[&<>"'`=\/]/g, function (s) {
+    return entityMap[s];
+  });
+}
+function atbdp_remove_file_index(indexes) {
+  for (var i = 0; i < indexes.length; i++) {
+    if (indexes[i].files.length > 0) {
+      indexes[i].removeFile(indexes[i].files[0]);
+    }
+  }
+}
+function plu_show_thumbs(imgId) {
+  //console.log("plu_show_thumbs");
+  var totalImg = parseInt(jQuery('#' + imgId + 'totImg').val());
+  var limitImg = parseInt(jQuery('#' + imgId + 'image_limit').val());
+  var $ = jQuery;
+  var thumbsC = $('#' + imgId + 'plupload-thumbs');
+  thumbsC.html('');
+  // get urls
+  var imagesS = $('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val();
+  var txtRemove = 'Remove';
+  if (typeof atbdp_params.action_remove != 'undefined' && atbdp_params.action_remove != '') {
+    txtRemove = atbdp_params.action_remove;
+  }
+  if (!imagesS) {
+    return;
+  }
+  var images = imagesS.split('::');
+  for (var i = 0; i < images.length; i++) {
+    if (images[i] && images[i] != 'null') {
+      var img_arr = images[i].split('|');
+      var image_url = img_arr[0];
+      var image_id = img_arr[1];
+      var image_title = img_arr[2];
+      var image_caption = img_arr[3];
+      var image_title_html = '';
+      var image_caption_html = '';
+
+      // fix undefined id
+      if (typeof image_id === 'undefined') {
+        image_id = '';
+      }
+      // fix undefined title
+      if (typeof image_title === 'undefined') {
+        image_title = '';
+      }
+      // fix undefined title
+      if (typeof image_caption === 'undefined') {
+        image_caption = '';
+      }
+
+      //Esc title and caption
+      image_title = atbdp_esc_entities(image_title);
+      image_caption = atbdp_esc_entities(image_caption);
+      var file_ext = image_url.substring(image_url.lastIndexOf('.') + 1);
+      file_ext = file_ext.split('?').shift(); // in case the image url has params
+      if (file_ext) {
+        file_ext = file_ext.toLowerCase();
+      }
+      var fileNameIndex = image_url.lastIndexOf('/') + 1;
+      var dotIndex = image_url.lastIndexOf('.');
+      if (dotIndex < fileNameIndex) {
+        continue;
+      }
+      var file_name = image_url.substr(fileNameIndex, dotIndex < fileNameIndex ? loc.length : dotIndex);
+      var file_display = '';
+      var file_display_class = '';
+      if (file_ext == 'jpg' || file_ext == 'jpe' || file_ext == 'jpeg' || file_ext == 'png' || file_ext == 'gif' || file_ext == 'bmp' || file_ext == 'ico') {
+        file_display = '<img class="atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" src="' + image_url + '" alt=""  />';
+        if (!!image_title.trim()) {
+          image_title_html = '<span class="atbdp-title-preview">' + image_title + '</span>';
+        }
+        if (!!image_caption.trim()) {
+          image_caption_html = '<span class="atbdp-caption-preview">' + image_caption + '</span>';
+        }
+      } else {
+        var file_type_class = 'la-file';
+        if (file_ext == 'pdf') {
+          file_type_class = 'la-file-pdf-o';
+        } else if (file_ext == 'zip' || file_ext == 'tar') {
+          file_type_class = 'la-file-zip-o';
+        } else if (file_ext == 'doc' || file_ext == 'odt') {
+          file_type_class = 'la-file-word-0';
+        } else if (file_ext == 'txt' || file_ext == 'text') {
+          file_type_class = 'la-file-text-0';
+        } else if (file_ext == 'csv' || file_ext == 'ods' || file_ext == 'ots') {
+          file_type_class = 'la-file-excel-0';
+        } else if (file_ext == 'avi' || file_ext == 'mp4' || file_ext == 'mov') {
+          file_type_class = 'la-file-video-0';
+        }
+        file_display_class = 'file-thumb';
+        file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
+      }
+      var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/trash-alt.svg';
+      var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
+      var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' + image_title_html + file_display + image_caption_html + '<div class="atbdp-thumb-actions">' + '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '">' + iconHTML + '</span>' + '</div>' + '</div>');
+      thumbsC.append(thumb);
+      thumb.find('.thumbremovelink').click(function () {
+        //console.log("plu_show_thumbs-thumbremovelink");
+        if (jQuery('#' + imgId + 'plupload-upload-ui').hasClass('plupload-upload-uic-multiple')) {
+          totalImg--; // remove image from total
+          jQuery('#' + imgId + 'totImg').val(totalImg);
+        }
+        jQuery('#' + imgId + 'upload-error').html('');
+        jQuery('#' + imgId + 'upload-error').removeClass('upload-error');
+        var ki = $(this).attr('id').replace('thumbremovelink' + imgId, '');
+        ki = parseInt(ki);
+        var kimages = [];
+        imagesS = $('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val();
+        images = imagesS.split('::');
+        for (var j = 0; j < images.length; j++) {
+          if (j != ki) {
+            kimages[kimages.length] = images[j];
+          }
+        }
+        $('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(kimages.join('::'));
+        //console.log("plu_show_thumbs-thumbremovelink-run");
+        plu_show_thumbs(imgId);
+        return false;
+      });
+    }
+  }
+  if (images.length > 1) {
+    //console.log("plu_show_thumbs-sortable");
+    thumbsC.sortable({
+      update: function update(event, ui) {
+        var kimages = [];
+        thumbsC.find('.atbdp-file-info').each(function () {
+          kimages[kimages.length] = $(this).data('src') + '|' + $(this).data('id') + '|' + $(this).data('title') + '|' + $(this).data('caption');
+          $('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(kimages.join('::'));
+          plu_show_thumbs(imgId);
+          //console.log("plu_show_thumbs-sortable-run");
+        });
+      }
+    });
+    thumbsC.disableSelection();
+  }
+
+  // we need to run the basics here.
+  //console.log("run basics");
+
+  var kimages = [];
+  thumbsC.find('.atbdp-file-info').each(function () {
+    kimages[kimages.length] = $(this).data('src') + '|' + $(this).data('id') + '|' + $(this).data('title') + '|' + $(this).data('caption');
+    $('#' + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(kimages.join('::'));
+  });
+}
+function gd_edit_image_meta(input, order_id) {
+  var imagesS = jQuery('#' + input.id, jQuery('#' + input.id + 'plupload-upload-ui').parent()).val();
+  var images = imagesS.split('::');
+  var img_arr = images[order_id].split('|');
+  var image_title = img_arr[2];
+  var image_caption = img_arr[3];
+  var html = '';
+  html = html + "<div class='atbdp-modal-text'><label for='atbdp-image-meta-title'>" + atbdp_params.label_title + "</label><input id='atbdp-image-meta-title' value='" + image_title + "'></div>"; // title value
+  html = html + "<div class='atbdp-modal-text'><label for='atbdp-image-meta-caption'>" + atbdp_params.label_caption + "</label><input id='atbdp-image-meta-caption' value='" + image_caption + "'></div>"; // caption value
+  html = html + "<div class='atbdp-modal-button'><button class='button button-primary button-large' onclick='gd_set_image_meta(\"" + input.id + '",' + order_id + ")'>" + atbdp_params.button_set + '</button></div>'; // caption value
+  jQuery('#atbdp-image-meta-input').html(html);
+  lity('#atbdp-image-meta-input');
+}
+function gd_set_image_meta(input_id, order_id) {
+  //alert(order_id);
+  var imagesS = jQuery('#' + input_id, jQuery('#' + input_id + 'plupload-upload-ui').parent()).val();
+  var images = imagesS.split('::');
+  var img_arr = images[order_id].split('|');
+  var image_url = img_arr[0];
+  var image_id = img_arr[1];
+  var image_title = atbdp_esc_entities(jQuery('#atbdp-image-meta-title').val());
+  var image_caption = atbdp_esc_entities(jQuery('#atbdp-image-meta-caption').val());
+  images[order_id] = image_url + '|' + image_id + '|' + image_title + '|' + image_caption;
+  imagesS = images.join('::');
+  jQuery('#' + input_id, jQuery('#' + input_id + 'plupload-upload-ui').parent()).val(imagesS);
+  plu_show_thumbs(input_id);
+  jQuery('[data-lity-close]', window.parent.document).trigger('click');
+}
+}();
+/******/ })()
+;
+//# sourceMappingURL=directorist-plupload.js.map

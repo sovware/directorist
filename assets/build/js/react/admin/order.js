@@ -33273,7 +33273,7 @@ var EmailValidator = /*#__PURE__*/function (_Validator) {
     key: "validate",
     value: function validate(value) {
       if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        return "Please enter a valid email address";
+        return 'Please enter a valid email address';
       }
       return null;
     }
@@ -33411,7 +33411,7 @@ var NumberValidator = /*#__PURE__*/function (_Validator) {
     key: "validate",
     value: function validate(value) {
       if (value && isNaN(Number(value))) {
-        return "Please enter a valid number";
+        return 'Please enter a valid number';
       }
       return null;
     }
@@ -33456,8 +33456,8 @@ var RequiredValidator = /*#__PURE__*/function (_Validator) {
   return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(RequiredValidator, [{
     key: "validate",
     value: function validate(value) {
-      if (value === null || value === undefined || typeof value === "string" && value.trim() === "" || Array.isArray(value) && value.length === 0 || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === "object" && !Array.isArray(value) && !(value instanceof Date) && Object.keys(value).length === 0) {
-        return "This field is required";
+      if (value === null || value === undefined || typeof value === 'string' && value.trim() === '' || Array.isArray(value) && value.length === 0 || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === 'object' && !Array.isArray(value) && !(value instanceof Date) && Object.keys(value).length === 0) {
+        return 'This field is required';
       }
       return null;
     }
@@ -34081,19 +34081,19 @@ function App() {
           rule = _ref3[0],
           ruleValue = _ref3[1];
         switch (rule) {
-          case "required":
+          case 'required':
             validatorContext.addValidator(new _controls_custom_field_validation_validators_RequiredValidator__WEBPACK_IMPORTED_MODULE_11__.RequiredValidator());
             break;
-          case "email":
+          case 'email':
             validatorContext.addValidator(new _controls_custom_field_validation_validators_EmailValidator__WEBPACK_IMPORTED_MODULE_7__.EmailValidator());
             break;
-          case "min_length":
+          case 'min_length':
             validatorContext.addValidator(new _controls_custom_field_validation_validators_MinLengthValidator__WEBPACK_IMPORTED_MODULE_9__.MinLengthValidator(ruleValue));
             break;
-          case "max_length":
+          case 'max_length':
             validatorContext.addValidator(new _controls_custom_field_validation_validators_MaxLengthValidator__WEBPACK_IMPORTED_MODULE_8__.MaxLengthValidator(ruleValue));
             break;
-          case "number":
+          case 'number':
             validatorContext.addValidator(new _controls_custom_field_validation_validators_NumberValidator__WEBPACK_IMPORTED_MODULE_10__.NumberValidator());
             break;
         }
@@ -34270,10 +34270,10 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 var SingleOrderContainer = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\tpadding: 30px 48px;\n\tdisplay: grid;\n\tgrid-template-columns: 2fr 1fr;\n\tgrid-gap: 30px;\n\t.components-card {\n\t\tborder-radius: 8px;\n\t\tborder: 1px solid var(--color-light);\n\t\tbox-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);\n\t}\n\t.components-card__header {\n\t\tborder-bottom: 1px solid rgba(0, 0, 0, 0.1);\n\t}\n\t.components-card__footer {\n\t\tborder-top: 1px solid rgba(0, 0, 0, 0.1);\n\t}\n"])));
 var ContainerLeft = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])([""])));
 var ContainerRight = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])([""])));
-var SingleOrderHeader = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: space-between;\n\t.directorist-single-plan-logo{\n\t\tline-height: 0;\n\t}\n"])));
-var HeaderBreadcrumb = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\tdisplay: flex;\n\talign-items: center;\n\tgap: 8px;\n\t.directorist-single-plan-logo{\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tline-height: 0;\n\t\twidth: 32px;\n\t\theight: 32px;\n\t\tborder-radius: 50%;\n\t\tmargin-right: 10px;\n\t\tborder: 1px solid rgba(75, 85, 99, 0.10);\n\t\tbox-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);\n\t}\n\tul {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 8px;\n\t\tlist-style: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\tli{\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tmargin-bottom: 0;\n\t\t\tsvg{\n\t\t\t\tposition: relative;\n\t\t\t\ttop: 2px;\n\t\t\t}\n\t\t}\n\t}\n"])));
+var SingleOrderHeader = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: space-between;\n\t.directorist-single-plan-logo {\n\t\tline-height: 0;\n\t}\n"])));
+var HeaderBreadcrumb = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\tdisplay: flex;\n\talign-items: center;\n\tgap: 8px;\n\t.directorist-single-plan-logo {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t\tline-height: 0;\n\t\twidth: 32px;\n\t\theight: 32px;\n\t\tborder-radius: 50%;\n\t\tmargin-right: 10px;\n\t\tborder: 1px solid rgba(75, 85, 99, 0.1);\n\t\tbox-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);\n\t}\n\tul {\n\t\tdisplay: flex;\n\t\talign-items: center;\n\t\tgap: 8px;\n\t\tlist-style: none;\n\t\tpadding: 0;\n\t\tmargin: 0;\n\t\tli {\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;\n\t\t\tmargin-bottom: 0;\n\t\t\tsvg {\n\t\t\t\tposition: relative;\n\t\t\t\ttop: 2px;\n\t\t\t}\n\t\t}\n\t}\n"])));
 var HeaderAction = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\tdisplay: flex;\n\talign-items: center;\n\tgap: 12px;\n"])));
-var StatusSelection = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\tdisplay: flex;\n\talign-items: center;\n\tborder-radius: 4px;\n\tpadding: 0 8px 0 12px;\n\theight: 34px;\n\tborder: 1px solid rgba(20, 25, 33, 0.1);\n\tspan {\n\t\tfont-size: 13px;\n\t\tfont-weight: 500;\n\t\tcolor: var(--color-gray-900);\n\t}\n\t.components-base-control__field {\n\t\tmargin-bottom: 0;\n\t}\n\t.components-input-control__backdrop {\n\t\tdisplay: none;\n\t}\n\t.wpmvc__control{\n\t\tborder: 0 none;\n\t\tmin-height: 24px;\n\t\tbackground-color: transparent;\n\t\tborder-radius: 0px;\n\t\t&.wpmvc__control--is-focused{\n\t\t\tbox-shadow: 0 0;\n\t\t}\n\t\t.wpmvc__value-container{\n\t\t\tpadding-right: 0;\n\t\t\tmin-width: 80px;\n\t\t}\n\t}\n"])));
+var StatusSelection = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n\tdisplay: flex;\n\talign-items: center;\n\tborder-radius: 4px;\n\tpadding: 0 8px 0 12px;\n\theight: 34px;\n\tborder: 1px solid rgba(20, 25, 33, 0.1);\n\tspan {\n\t\tfont-size: 13px;\n\t\tfont-weight: 500;\n\t\tcolor: var(--color-gray-900);\n\t}\n\t.components-base-control__field {\n\t\tmargin-bottom: 0;\n\t}\n\t.components-input-control__backdrop {\n\t\tdisplay: none;\n\t}\n\t.wpmvc__control {\n\t\tborder: 0 none;\n\t\tmin-height: 24px;\n\t\tbackground-color: transparent;\n\t\tborder-radius: 0px;\n\t\t&.wpmvc__control--is-focused {\n\t\t\tbox-shadow: 0 0;\n\t\t}\n\t\t.wpmvc__value-container {\n\t\t\tpadding-right: 0;\n\t\t\tmin-width: 80px;\n\t\t}\n\t}\n"])));
 var orderStatusOptions = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Pending', 'directorist'),
   value: 'pending'

@@ -5239,10 +5239,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": function() { return /* binding */ badge_default; }
 /* harmony export */ });
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/caution.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/error.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/info.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/published.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/caution.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/error.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/info.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/published.mjs");
 /* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icon */ "./node_modules/@wordpress/components/build-module/icon/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 // packages/components/src/badge/index.tsx
@@ -5852,7 +5852,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   DateRangeCalendar: function() { return /* binding */ DateRangeCalendar; },
 /* harmony export */   usePreviewRange: function() { return /* binding */ usePreviewRange; }
 /* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInCalendarDays.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/components/node_modules/date-fns/differenceInCalendarDays.mjs");
 /* harmony import */ var react_day_picker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-day-picker */ "./node_modules/react-day-picker/dist/esm/utils/rangeContainsModifiers.js");
 /* harmony import */ var react_day_picker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-day-picker */ "./node_modules/react-day-picker/dist/esm/DayPicker.js");
 /* harmony import */ var react_day_picker_locale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-day-picker/locale */ "./node_modules/react-day-picker/dist/esm/locale/en-US.js");
@@ -6374,9 +6374,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-instance-id/index.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-ref-effect/index.mjs");
 /* harmony import */ var _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/deprecated */ "./node_modules/@wordpress/deprecated/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/check.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/reset.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/icon/index.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/check.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/reset.mjs");
 /* harmony import */ var _base_control__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../base-control */ "./node_modules/@wordpress/components/build-module/base-control/index.js");
 /* harmony import */ var _h_stack__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../h-stack */ "./node_modules/@wordpress/components/build-module/h-stack/component.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -7041,7 +7041,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@wordpress/components/build-module/context/constants.js");
 /* harmony import */ var _get_styled_class_name_from_key__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./get-styled-class-name-from-key */ "./node_modules/@wordpress/components/build-module/context/get-styled-class-name-from-key.js");
 // packages/components/src/context/context-connect.ts
@@ -7126,7 +7126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var is_plain_object__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! is-plain-object */ "./node_modules/is-plain-object/dist/is-plain-object.mjs");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils */ "./node_modules/@wordpress/components/build-module/utils/hooks/use-update-effect.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 // packages/components/src/context/context-system-provider.js
@@ -7221,7 +7221,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   useContextSystem: function() { return /* binding */ useContextSystem; }
 /* harmony export */ });
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _context_system_provider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./context-system-provider */ "./node_modules/@wordpress/components/build-module/context/context-system-provider.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./node_modules/@wordpress/components/build-module/context/utils.js");
 /* harmony import */ var _get_styled_class_name_from_key__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./get-styled-class-name-from-key */ "./node_modules/@wordpress/components/build-module/context/get-styled-class-name-from-key.js");
@@ -7378,10 +7378,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   TimePicker: function() { return /* binding */ TimePicker; },
 /* harmony export */   "default": function() { return /* binding */ time_default; }
 /* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/format.mjs");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/set.mjs");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/setMonth.mjs");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfMinute.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/components/node_modules/date-fns/format.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/components/node_modules/date-fns/set.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/components/node_modules/date-fns/setMonth.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfMinute.mjs");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
@@ -7946,7 +7946,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   inputToDate: function() { return /* binding */ inputToDate; },
 /* harmony export */   validateInputElementTarget: function() { return /* binding */ validateInputElementTarget; }
 /* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
 /* harmony import */ var _date_fns_utc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @date-fns/utc */ "./node_modules/@date-fns/utc/index.js");
 /* harmony import */ var _input_control_reducer_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../input-control/reducer/actions */ "./node_modules/@wordpress/components/build-module/input-control/reducer/actions.js");
 // packages/components/src/date-time/utils.ts
@@ -9449,7 +9449,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-instance-id/index.mjs");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close-small.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close-small.mjs");
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../button */ "./node_modules/@wordpress/components/build-module/button/index.js");
 /* harmony import */ var _visually_hidden__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../visually-hidden */ "./node_modules/@wordpress/components/build-module/visually-hidden/component.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -11620,8 +11620,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ariakit_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ariakit/react */ "./node_modules/@ariakit/react-core/esm/menu/menu-item-check.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/check.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/icon/index.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/check.mjs");
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./context */ "./node_modules/@wordpress/components/build-module/menu/context.js");
 /* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles */ "./node_modules/@wordpress/components/build-module/menu/styles.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -12212,7 +12212,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ariakit_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ariakit/react */ "./node_modules/@ariakit/react-core/esm/menu/menu-item-check.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/icon/index.mjs");
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./context */ "./node_modules/@wordpress/components/build-module/menu/context.js");
 /* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles */ "./node_modules/@wordpress/components/build-module/menu/styles.js");
 /* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
@@ -12478,7 +12478,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ariakit_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ariakit/react */ "./node_modules/@ariakit/react-core/esm/menu/menu-button.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-right-small.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-right-small.mjs");
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./context */ "./node_modules/@wordpress/components/build-module/menu/context.js");
 /* harmony import */ var _item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./item */ "./node_modules/@wordpress/components/build-module/menu/item.js");
 /* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles */ "./node_modules/@wordpress/components/build-module/menu/styles.js");
@@ -12645,7 +12645,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-instance-id/index.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-merge-refs/index.mjs");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close.mjs");
 /* harmony import */ var _wordpress_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/dom */ "./node_modules/@wordpress/dom/build-module/dom/get-scroll-container.mjs");
 /* harmony import */ var _aria_helper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./aria-helper */ "./node_modules/@wordpress/components/build-module/modal/aria-helper.js");
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../button */ "./node_modules/@wordpress/components/build-module/button/index.js");
@@ -12918,7 +12918,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils */ "./node_modules/@wordpress/components/build-module/utils/config-values.js");
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 // packages/components/src/modal/use-modal-exit-animation.ts
 
 
@@ -13000,8 +13000,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/plus.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/reset.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/plus.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/reset.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-merge-refs/index.mjs");
 /* harmony import */ var _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/deprecated */ "./node_modules/@wordpress/deprecated/build-module/index.mjs");
 /* harmony import */ var _styles_number_control_styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styles/number-control-styles */ "./node_modules/@wordpress/components/build-module/number-control/styles/number-control-styles.js");
@@ -13304,7 +13304,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-reduced-motion/index.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-viewport-match/index.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-merge-refs/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close.mjs");
 /* harmony import */ var _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/deprecated */ "./node_modules/@wordpress/deprecated/build-module/index.mjs");
 /* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
@@ -15052,8 +15052,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-instance-id/index.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-merge-refs/index.mjs");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close-small.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/search.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close-small.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/search.mjs");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/deprecated */ "./node_modules/@wordpress/deprecated/build-module/index.mjs");
@@ -15230,8 +15230,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ chevron_down_default; }
 /* harmony export */ });
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-down.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/icon/index.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-down.mjs");
 /* harmony import */ var _styles_select_control_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/select-control-styles */ "./node_modules/@wordpress/components/build-module/select-control/styles/select-control-styles.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 // packages/components/src/select-control/chevron-down.tsx
@@ -15684,7 +15684,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/utils/observable-map/index.mjs");
 // packages/components/src/slot-fill/bubbles-virtually/slot-fill-context.ts
 
@@ -16793,10 +16793,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context */ "./node_modules/@wordpress/components/build-module/tabs/context.js");
 /* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles */ "./node_modules/@wordpress/components/build-module/tabs/styles.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-right.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-right.mjs");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 // packages/components/src/tabs/tab.tsx
 
@@ -16855,7 +16855,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ariakit_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ariakit/react */ "./node_modules/@ariakit/react-core/esm/__chunks/Q5W46E73.js");
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-merge-refs/index.mjs");
@@ -16991,7 +16991,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles */ "./node_modules/@wordpress/components/build-module/tabs/styles.js");
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./context */ "./node_modules/@wordpress/components/build-module/tabs/context.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 // packages/components/src/tabs/tabpanel.tsx
@@ -17693,7 +17693,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var colord__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! colord */ "./node_modules/colord/index.mjs");
 /* harmony import */ var colord_plugins_a11y__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! colord/plugins/a11y */ "./node_modules/colord/plugins/a11y.mjs");
 /* harmony import */ var colord_plugins_names__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! colord/plugins/names */ "./node_modules/colord/plugins/names.mjs");
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./node_modules/@wordpress/components/build-module/utils/colors-values.js");
 // packages/components/src/theme/color-algorithms.ts
 
@@ -21202,8 +21202,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ValidityIndicator: function() { return /* binding */ ValidityIndicator; }
 /* harmony export */ });
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/error.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/published.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/error.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/published.mjs");
 /* harmony import */ var _icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../icon */ "./node_modules/@wordpress/components/build-module/icon/index.js");
 /* harmony import */ var _spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../spinner */ "./node_modules/@wordpress/components/build-module/spinner/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -21379,7 +21379,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "./node_modules/@wordpress/data/build-module/components/registry-provider/use-registry.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/close-small.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close-small.js");
 /* harmony import */ var _dataviews_context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../dataviews-context */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-context/index.js");
 /* harmony import */ var _dataviews_item_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../dataviews-item-actions */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-item-actions/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -21809,7 +21809,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/@wordpress/element/build-module/create-interpolate-element.mjs");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/close-small.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close-small.js");
 /* harmony import */ var _search_widget__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./search-widget */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-filters/search-widget.js");
 /* harmony import */ var _input_widget__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./input-widget */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-filters/input-widget.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../constants */ "./node_modules/@wordpress/dataviews/build-module/constants.js");
@@ -22149,7 +22149,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/h-stack/component.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/button/index.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/funnel.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/funnel.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
 /* harmony import */ var _filter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./filter */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-filters/filter.js");
 /* harmony import */ var _add_filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./add-filter */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-filters/add-filter.js");
@@ -22523,8 +22523,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/visually-hidden/component.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/composite/index.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/icon/index.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/check.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/search.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/check.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/search.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./utils */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-filters/utils.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /**
@@ -22866,7 +22866,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/more-vertical.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more-vertical.js");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/data */ "./node_modules/@wordpress/data/build-module/components/registry-provider/use-registry.mjs");
 /* harmony import */ var _lock_unlock__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../lock-unlock */ "./node_modules/@wordpress/dataviews/build-module/lock-unlock.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -23172,8 +23172,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/@wordpress/element/build-module/create-interpolate-element.mjs");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/previous.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/next.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/previous.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/next.js");
 /* harmony import */ var _dataviews_context__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../dataviews-context */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-context/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /**
@@ -23441,14 +23441,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/chevron-down.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/chevron-up.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/cog.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/lock.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/more-vertical.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/seen.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/unseen.js");
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/warning/build-module/index.mjs");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-down.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/chevron-up.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/cog.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/lock.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more-vertical.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/seen.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/unseen.js");
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @wordpress/warning */ "./node_modules/@wordpress/warning/build-module/index.mjs");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-instance-id/index.mjs");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../constants */ "./node_modules/@wordpress/dataviews/build-module/constants.js");
 /* harmony import */ var _dataviews_layouts__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../dataviews-layouts */ "./node_modules/@wordpress/dataviews/build-module/dataviews-layouts/index.js");
@@ -24405,8 +24405,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   sortValues: function() { return /* binding */ sortValues; }
 /* harmony export */ });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-down.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-up.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-down.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-up.js");
 /**
  * WordPress dependencies
  */
@@ -24790,13 +24790,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
 /* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/date */ "./node_modules/@wordpress/date/build-module/index.mjs");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/format.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/isValid.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfMonth.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfYear.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/subDays.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/subMonths.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! date-fns */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/subYears.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/format.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/isValid.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfMonth.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfYear.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/subDays.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/subMonths.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/subYears.js");
 /* harmony import */ var _relative_date_control__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./relative-date-control */ "./node_modules/@wordpress/dataviews/build-module/dataform-controls/relative-date-control.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../constants */ "./node_modules/@wordpress/dataviews/build-module/constants.js");
 /* harmony import */ var _lock_unlock__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../lock-unlock */ "./node_modules/@wordpress/dataviews/build-module/lock-unlock.js");
@@ -26443,10 +26443,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   VIEW_LAYOUTS: function() { return /* binding */ VIEW_LAYOUTS; }
 /* harmony export */ });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/block-table.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/category.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/format-list-bullets.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/format-list-bullets-rtl.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/block-table.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/category.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/format-list-bullets.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/format-list-bullets-rtl.js");
 /* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table */ "./node_modules/@wordpress/dataviews/build-module/dataviews-layouts/table/index.js");
 /* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./grid */ "./node_modules/@wordpress/dataviews/build-module/dataviews-layouts/grid/index.js");
 /* harmony import */ var _list__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./list */ "./node_modules/@wordpress/dataviews/build-module/dataviews-layouts/list/index.js");
@@ -26514,7 +26514,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/more-vertical.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more-vertical.js");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @wordpress/data */ "./node_modules/@wordpress/data/build-module/components/registry-provider/use-registry.mjs");
 /* harmony import */ var _lock_unlock__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../lock-unlock */ "./node_modules/@wordpress/dataviews/build-module/lock-unlock.js");
 /* harmony import */ var _components_dataviews_item_actions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../components/dataviews-item-actions */ "./node_modules/@wordpress/dataviews/build-module/components/dataviews-item-actions/index.js");
@@ -26922,10 +26922,10 @@ function ViewList(props) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-left.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-right.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/funnel.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/unseen.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-left.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-right.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/funnel.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/unseen.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/button/index.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/icon/index.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/private-apis.js");
@@ -28761,10 +28761,10 @@ function renderFromElements({
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-down.js":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-down.js ***!
-  \************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/arrow-down.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/arrow-down.js ***!
+  \**************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28788,10 +28788,10 @@ const arrowDown = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-left.js":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-left.js ***!
-  \************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/arrow-left.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/arrow-left.js ***!
+  \**************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28815,10 +28815,10 @@ const arrowLeft = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-right.js":
-/*!*************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-right.js ***!
-  \*************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/arrow-right.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/arrow-right.js ***!
+  \***************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28842,10 +28842,10 @@ const arrowRight = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1_
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-up.js":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/arrow-up.js ***!
-  \**********************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/arrow-up.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/arrow-up.js ***!
+  \************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28869,10 +28869,10 @@ const arrowUp = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.j
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/block-table.js":
-/*!*************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/block-table.js ***!
-  \*************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/block-table.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/block-table.js ***!
+  \***************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28896,10 +28896,10 @@ const blockTable = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1_
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/category.js":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/category.js ***!
-  \**********************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/category.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/category.js ***!
+  \************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28925,10 +28925,10 @@ const category = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/check.js":
-/*!*******************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/check.js ***!
-  \*******************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/check.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/check.js ***!
+  \*********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28952,10 +28952,10 @@ const check = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/chevron-down.js":
-/*!**************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/chevron-down.js ***!
-  \**************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/chevron-down.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/chevron-down.js ***!
+  \****************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28979,10 +28979,10 @@ const chevronDown = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/chevron-up.js":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/chevron-up.js ***!
-  \************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/chevron-up.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/chevron-up.js ***!
+  \**************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29006,10 +29006,10 @@ const chevronUp = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/close-small.js":
-/*!*************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/close-small.js ***!
-  \*************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/close-small.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/close-small.js ***!
+  \***************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29033,10 +29033,10 @@ const closeSmall = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1_
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/cog.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/cog.js ***!
-  \*****************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/cog.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/cog.js ***!
+  \*******************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29062,10 +29062,10 @@ const cog = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/format-list-bullets-rtl.js":
-/*!*************************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/format-list-bullets-rtl.js ***!
-  \*************************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/format-list-bullets-rtl.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/format-list-bullets-rtl.js ***!
+  \***************************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29089,10 +29089,10 @@ const formatListBulletsRTL = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/format-list-bullets.js":
-/*!*********************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/format-list-bullets.js ***!
-  \*********************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/format-list-bullets.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/format-list-bullets.js ***!
+  \***********************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29116,10 +29116,10 @@ const formatListBullets = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/funnel.js":
-/*!********************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/funnel.js ***!
-  \********************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/funnel.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/funnel.js ***!
+  \**********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29143,10 +29143,10 @@ const funnel = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.js
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/lock.js":
-/*!******************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/lock.js ***!
-  \******************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/lock.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/lock.js ***!
+  \********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29170,10 +29170,10 @@ const lock = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/more-vertical.js":
-/*!***************************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/more-vertical.js ***!
-  \***************************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/more-vertical.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/more-vertical.js ***!
+  \*****************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29197,10 +29197,10 @@ const moreVertical = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/next.js":
-/*!******************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/next.js ***!
-  \******************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/next.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/next.js ***!
+  \********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29224,10 +29224,10 @@ const next = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/previous.js":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/previous.js ***!
-  \**********************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/previous.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/previous.js ***!
+  \************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29251,10 +29251,10 @@ const previous = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/search.js":
-/*!********************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/search.js ***!
-  \********************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/search.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/search.js ***!
+  \**********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29278,10 +29278,10 @@ const search = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.js
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/seen.js":
-/*!******************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/seen.js ***!
-  \******************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/seen.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/seen.js ***!
+  \********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29305,10 +29305,10 @@ const seen = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/unseen.js":
-/*!********************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/icons/build-module/library/unseen.js ***!
-  \********************************************************************************************************/
+/***/ "./node_modules/@wordpress/icons/build-module/library/unseen.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/unseen.js ***!
+  \**********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -110188,58 +110188,4221 @@ async function parseAndThrowError(response, shouldParseResponse = true) {
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/index.mjs ***!
-  \***************************************************************************************************/
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/icon/index.mjs":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/icon/index.mjs ***!
+  \******************************************************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ warning; }
+/* harmony export */   "default": function() { return /* binding */ icon_default; }
 /* harmony export */ });
-/* harmony import */ var _utils_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.mjs */ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/utils.mjs");
-// packages/warning/src/index.ts
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
+// packages/icons/src/icon/index.ts
 
-function isDev() {
-  return globalThis.SCRIPT_DEBUG === true;
-}
-function warning(message) {
-  if (!isDev()) {
-    return;
+var icon_default = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
+  ({ icon, size = 24, ...props }, ref) => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(icon, {
+      width: size,
+      height: size,
+      ...props,
+      ref
+    });
   }
-  if (_utils_mjs__WEBPACK_IMPORTED_MODULE_0__.logged.has(message)) {
-    return;
-  }
-  console.warn(message);
-  try {
-    throw Error(message);
-  } catch (x) {
-  }
-  _utils_mjs__WEBPACK_IMPORTED_MODULE_0__.logged.add(message);
-}
+);
 
 //# sourceMappingURL=index.mjs.map
 
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/utils.mjs":
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/caution.mjs":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/caution.mjs ***!
+  \***********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ caution_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/caution.tsx
+
+
+var caution_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M5.5 12a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0ZM12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-.75 12v-1.5h1.5V16h-1.5Zm0-8v5h1.5V8h-1.5Z" }) });
+
+//# sourceMappingURL=caution.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/check.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/check.mjs ***!
+  \*********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ check_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/check.tsx
+
+
+var check_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M16.5 7.5 10 13.9l-2.5-2.4-1 1 3.5 3.6 7.5-7.6z" }) });
+
+//# sourceMappingURL=check.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-down.mjs":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-down.mjs ***!
+  \****************************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ chevron_down_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/chevron-down.tsx
+
+
+var chevron_down_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z" }) });
+
+//# sourceMappingURL=chevron-down.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-right-small.mjs":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-right-small.mjs ***!
+  \***********************************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ chevron_right_small_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/chevron-right-small.tsx
+
+
+var chevron_right_small_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M10.8622 8.04053L14.2805 12.0286L10.8622 16.0167L9.72327 15.0405L12.3049 12.0286L9.72327 9.01672L10.8622 8.04053Z" }) });
+
+//# sourceMappingURL=chevron-right-small.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-right.mjs":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/chevron-right.mjs ***!
+  \*****************************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ chevron_right_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/chevron-right.tsx
+
+
+var chevron_right_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z" }) });
+
+//# sourceMappingURL=chevron-right.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close-small.mjs":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close-small.mjs ***!
+  \***************************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ close_small_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/close-small.tsx
+
+
+var close_small_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z" }) });
+
+//# sourceMappingURL=close-small.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/close.mjs ***!
+  \*********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ close_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/close.tsx
+
+
+var close_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z" }) });
+
+//# sourceMappingURL=close.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/error.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/error.mjs ***!
+  \*********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ error_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/error.tsx
+
+
+var error_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M12.218 5.377a.25.25 0 0 0-.436 0l-7.29 12.96a.25.25 0 0 0 .218.373h14.58a.25.25 0 0 0 .218-.372l-7.29-12.96Zm-1.743-.735c.669-1.19 2.381-1.19 3.05 0l7.29 12.96a1.75 1.75 0 0 1-1.525 2.608H4.71a1.75 1.75 0 0 1-1.525-2.608l7.29-12.96ZM12.75 17.46h-1.5v-1.5h1.5v1.5Zm-1.5-3h1.5v-5h-1.5v5Z" }) });
+
+//# sourceMappingURL=error.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/info.mjs":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/info.mjs ***!
+  \********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ info_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/info.tsx
+
+
+var info_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M5.5 12a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0ZM12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm.75 4v1.5h-1.5V8h1.5Zm0 8v-5h-1.5v5h1.5Z" }) });
+
+//# sourceMappingURL=info.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/plus.mjs":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/plus.mjs ***!
+  \********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ plus_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/plus.tsx
+
+
+var plus_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M11 12.5V17.5H12.5V12.5H17.5V11H12.5V6H11V11H6V12.5H11Z" }) });
+
+//# sourceMappingURL=plus.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/published.mjs":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/published.mjs ***!
+  \*************************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ published_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/published.tsx
+
+
+var published_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M12 18.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13ZM4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm11.53-1.47-1.06-1.06L11 12.94l-1.47-1.47-1.06 1.06L11 15.06l4.53-4.53Z" }) });
+
+//# sourceMappingURL=published.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/reset.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/reset.mjs ***!
+  \*********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ reset_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/reset.tsx
+
+
+var reset_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M7 11.5h10V13H7z" }) });
+
+//# sourceMappingURL=reset.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/search.mjs":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/icons/build-module/library/search.mjs ***!
+  \**********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ search_default; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+// packages/icons/src/library/search.tsx
+
+
+var search_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M13 5c-3.3 0-6 2.7-6 6 0 1.4.5 2.7 1.3 3.7l-3.8 3.8 1.1 1.1 3.8-3.8c1 .8 2.3 1.3 3.7 1.3 3.3 0 6-2.7 6-6S16.3 5 13 5zm0 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" }) });
+
+//# sourceMappingURL=search.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/addLeadingZeros.mjs":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/_lib/addLeadingZeros.mjs ***!
+  \*******************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addLeadingZeros: function() { return /* binding */ addLeadingZeros; }
+/* harmony export */ });
+function addLeadingZeros(number, targetLength) {
+  const sign = number < 0 ? "-" : "";
+  const output = Math.abs(number).toString().padStart(targetLength, "0");
+  return sign + output;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/defaultOptions.mjs":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/_lib/defaultOptions.mjs ***!
+  \******************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDefaultOptions: function() { return /* binding */ getDefaultOptions; },
+/* harmony export */   setDefaultOptions: function() { return /* binding */ setDefaultOptions; }
+/* harmony export */ });
+let defaultOptions = {};
+
+function getDefaultOptions() {
+  return defaultOptions;
+}
+
+function setDefaultOptions(newOptions) {
+  defaultOptions = newOptions;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/formatters.mjs":
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/formatters.mjs ***!
+  \*********************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatters: function() { return /* binding */ formatters; }
+/* harmony export */ });
+/* harmony import */ var _getDayOfYear_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../getDayOfYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getDayOfYear.mjs");
+/* harmony import */ var _getISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../getISOWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getISOWeek.mjs");
+/* harmony import */ var _getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../getISOWeekYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getISOWeekYear.mjs");
+/* harmony import */ var _getWeek_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../getWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getWeek.mjs");
+/* harmony import */ var _getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../getWeekYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getWeekYear.mjs");
+/* harmony import */ var _addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../addLeadingZeros.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/addLeadingZeros.mjs");
+/* harmony import */ var _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lightFormatters.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/lightFormatters.mjs");
+
+
+
+
+
+
+
+
+const dayPeriodEnum = {
+  am: "am",
+  pm: "pm",
+  midnight: "midnight",
+  noon: "noon",
+  morning: "morning",
+  afternoon: "afternoon",
+  evening: "evening",
+  night: "night",
+};
+
+/*
+ * |     | Unit                           |     | Unit                           |
+ * |-----|--------------------------------|-----|--------------------------------|
+ * |  a  | AM, PM                         |  A* | Milliseconds in day            |
+ * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
+ * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
+ * |  d  | Day of month                   |  D  | Day of year                    |
+ * |  e  | Local day of week              |  E  | Day of week                    |
+ * |  f  |                                |  F* | Day of week in month           |
+ * |  g* | Modified Julian day            |  G  | Era                            |
+ * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+ * |  i! | ISO day of week                |  I! | ISO week of year               |
+ * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
+ * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
+ * |  l* | (deprecated)                   |  L  | Stand-alone month              |
+ * |  m  | Minute                         |  M  | Month                          |
+ * |  n  |                                |  N  |                                |
+ * |  o! | Ordinal number modifier        |  O  | Timezone (GMT)                 |
+ * |  p! | Long localized time            |  P! | Long localized date            |
+ * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
+ * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
+ * |  s  | Second                         |  S  | Fraction of second             |
+ * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
+ * |  u  | Extended year                  |  U* | Cyclic year                    |
+ * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
+ * |  w  | Local week of year             |  W* | Week of month                  |
+ * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
+ * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
+ * |  z  | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
+ *
+ * Letters marked by * are not implemented but reserved by Unicode standard.
+ *
+ * Letters marked by ! are non-standard, but implemented by date-fns:
+ * - `o` modifies the previous token to turn it into an ordinal (see `format` docs)
+ * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
+ *   i.e. 7 for Sunday, 1 for Monday, etc.
+ * - `I` is ISO week of year, as opposed to `w` which is local week of year.
+ * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
+ *   `R` is supposed to be used in conjunction with `I` and `i`
+ *   for universal ISO week-numbering date, whereas
+ *   `Y` is supposed to be used in conjunction with `w` and `e`
+ *   for week-numbering date specific to the locale.
+ * - `P` is long localized date format
+ * - `p` is long localized time format
+ */
+
+const formatters = {
+  // Era
+  G: function (date, token, localize) {
+    const era = date.getFullYear() > 0 ? 1 : 0;
+    switch (token) {
+      // AD, BC
+      case "G":
+      case "GG":
+      case "GGG":
+        return localize.era(era, { width: "abbreviated" });
+      // A, B
+      case "GGGGG":
+        return localize.era(era, { width: "narrow" });
+      // Anno Domini, Before Christ
+      case "GGGG":
+      default:
+        return localize.era(era, { width: "wide" });
+    }
+  },
+
+  // Year
+  y: function (date, token, localize) {
+    // Ordinal number
+    if (token === "yo") {
+      const signedYear = date.getFullYear();
+      // Returns 1 for 1 BC (which is year 0 in JavaScript)
+      const year = signedYear > 0 ? signedYear : 1 - signedYear;
+      return localize.ordinalNumber(year, { unit: "year" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.y(date, token);
+  },
+
+  // Local week-numbering year
+  Y: function (date, token, localize, options) {
+    const signedWeekYear = (0,_getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_4__.getWeekYear)(date, options);
+    // Returns 1 for 1 BC (which is year 0 in JavaScript)
+    const weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear;
+
+    // Two digit year
+    if (token === "YY") {
+      const twoDigitYear = weekYear % 100;
+      return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(twoDigitYear, 2);
+    }
+
+    // Ordinal number
+    if (token === "Yo") {
+      return localize.ordinalNumber(weekYear, { unit: "year" });
+    }
+
+    // Padding
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(weekYear, token.length);
+  },
+
+  // ISO week-numbering year
+  R: function (date, token) {
+    const isoWeekYear = (0,_getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.getISOWeekYear)(date);
+
+    // Padding
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeekYear, token.length);
+  },
+
+  // Extended year. This is a single number designating the year of this calendar system.
+  // The main difference between `y` and `u` localizers are B.C. years:
+  // | Year | `y` | `u` |
+  // |------|-----|-----|
+  // | AC 1 |   1 |   1 |
+  // | BC 1 |   1 |   0 |
+  // | BC 2 |   2 |  -1 |
+  // Also `yy` always returns the last two digits of a year,
+  // while `uu` pads single digit years to 2 characters and returns other years unchanged.
+  u: function (date, token) {
+    const year = date.getFullYear();
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(year, token.length);
+  },
+
+  // Quarter
+  Q: function (date, token, localize) {
+    const quarter = Math.ceil((date.getMonth() + 1) / 3);
+    switch (token) {
+      // 1, 2, 3, 4
+      case "Q":
+        return String(quarter);
+      // 01, 02, 03, 04
+      case "QQ":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
+      // 1st, 2nd, 3rd, 4th
+      case "Qo":
+        return localize.ordinalNumber(quarter, { unit: "quarter" });
+      // Q1, Q2, Q3, Q4
+      case "QQQ":
+        return localize.quarter(quarter, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+      case "QQQQQ":
+        return localize.quarter(quarter, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // 1st quarter, 2nd quarter, ...
+      case "QQQQ":
+      default:
+        return localize.quarter(quarter, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Stand-alone quarter
+  q: function (date, token, localize) {
+    const quarter = Math.ceil((date.getMonth() + 1) / 3);
+    switch (token) {
+      // 1, 2, 3, 4
+      case "q":
+        return String(quarter);
+      // 01, 02, 03, 04
+      case "qq":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
+      // 1st, 2nd, 3rd, 4th
+      case "qo":
+        return localize.ordinalNumber(quarter, { unit: "quarter" });
+      // Q1, Q2, Q3, Q4
+      case "qqq":
+        return localize.quarter(quarter, {
+          width: "abbreviated",
+          context: "standalone",
+        });
+      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+      case "qqqqq":
+        return localize.quarter(quarter, {
+          width: "narrow",
+          context: "standalone",
+        });
+      // 1st quarter, 2nd quarter, ...
+      case "qqqq":
+      default:
+        return localize.quarter(quarter, {
+          width: "wide",
+          context: "standalone",
+        });
+    }
+  },
+
+  // Month
+  M: function (date, token, localize) {
+    const month = date.getMonth();
+    switch (token) {
+      case "M":
+      case "MM":
+        return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.M(date, token);
+      // 1st, 2nd, ..., 12th
+      case "Mo":
+        return localize.ordinalNumber(month + 1, { unit: "month" });
+      // Jan, Feb, ..., Dec
+      case "MMM":
+        return localize.month(month, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // J, F, ..., D
+      case "MMMMM":
+        return localize.month(month, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // January, February, ..., December
+      case "MMMM":
+      default:
+        return localize.month(month, { width: "wide", context: "formatting" });
+    }
+  },
+
+  // Stand-alone month
+  L: function (date, token, localize) {
+    const month = date.getMonth();
+    switch (token) {
+      // 1, 2, ..., 12
+      case "L":
+        return String(month + 1);
+      // 01, 02, ..., 12
+      case "LL":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(month + 1, 2);
+      // 1st, 2nd, ..., 12th
+      case "Lo":
+        return localize.ordinalNumber(month + 1, { unit: "month" });
+      // Jan, Feb, ..., Dec
+      case "LLL":
+        return localize.month(month, {
+          width: "abbreviated",
+          context: "standalone",
+        });
+      // J, F, ..., D
+      case "LLLLL":
+        return localize.month(month, {
+          width: "narrow",
+          context: "standalone",
+        });
+      // January, February, ..., December
+      case "LLLL":
+      default:
+        return localize.month(month, { width: "wide", context: "standalone" });
+    }
+  },
+
+  // Local week of year
+  w: function (date, token, localize, options) {
+    const week = (0,_getWeek_mjs__WEBPACK_IMPORTED_MODULE_3__.getWeek)(date, options);
+
+    if (token === "wo") {
+      return localize.ordinalNumber(week, { unit: "week" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(week, token.length);
+  },
+
+  // ISO week of year
+  I: function (date, token, localize) {
+    const isoWeek = (0,_getISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.getISOWeek)(date);
+
+    if (token === "Io") {
+      return localize.ordinalNumber(isoWeek, { unit: "week" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeek, token.length);
+  },
+
+  // Day of the month
+  d: function (date, token, localize) {
+    if (token === "do") {
+      return localize.ordinalNumber(date.getDate(), { unit: "date" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.d(date, token);
+  },
+
+  // Day of year
+  D: function (date, token, localize) {
+    const dayOfYear = (0,_getDayOfYear_mjs__WEBPACK_IMPORTED_MODULE_0__.getDayOfYear)(date);
+
+    if (token === "Do") {
+      return localize.ordinalNumber(dayOfYear, { unit: "dayOfYear" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(dayOfYear, token.length);
+  },
+
+  // Day of week
+  E: function (date, token, localize) {
+    const dayOfWeek = date.getDay();
+    switch (token) {
+      // Tue
+      case "E":
+      case "EE":
+      case "EEE":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // T
+      case "EEEEE":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // Tu
+      case "EEEEEE":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "formatting",
+        });
+      // Tuesday
+      case "EEEE":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Local day of week
+  e: function (date, token, localize, options) {
+    const dayOfWeek = date.getDay();
+    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+    switch (token) {
+      // Numerical value (Nth day of week with current locale or weekStartsOn)
+      case "e":
+        return String(localDayOfWeek);
+      // Padded numerical value
+      case "ee":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, 2);
+      // 1st, 2nd, ..., 7th
+      case "eo":
+        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
+      case "eee":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // T
+      case "eeeee":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // Tu
+      case "eeeeee":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "formatting",
+        });
+      // Tuesday
+      case "eeee":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Stand-alone local day of week
+  c: function (date, token, localize, options) {
+    const dayOfWeek = date.getDay();
+    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+    switch (token) {
+      // Numerical value (same as in `e`)
+      case "c":
+        return String(localDayOfWeek);
+      // Padded numerical value
+      case "cc":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, token.length);
+      // 1st, 2nd, ..., 7th
+      case "co":
+        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
+      case "ccc":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "standalone",
+        });
+      // T
+      case "ccccc":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "standalone",
+        });
+      // Tu
+      case "cccccc":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "standalone",
+        });
+      // Tuesday
+      case "cccc":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "standalone",
+        });
+    }
+  },
+
+  // ISO day of week
+  i: function (date, token, localize) {
+    const dayOfWeek = date.getDay();
+    const isoDayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
+    switch (token) {
+      // 2
+      case "i":
+        return String(isoDayOfWeek);
+      // 02
+      case "ii":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoDayOfWeek, token.length);
+      // 2nd
+      case "io":
+        return localize.ordinalNumber(isoDayOfWeek, { unit: "day" });
+      // Tue
+      case "iii":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // T
+      case "iiiii":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // Tu
+      case "iiiiii":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "formatting",
+        });
+      // Tuesday
+      case "iiii":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // AM or PM
+  a: function (date, token, localize) {
+    const hours = date.getHours();
+    const dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
+
+    switch (token) {
+      case "a":
+      case "aa":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      case "aaa":
+        return localize
+          .dayPeriod(dayPeriodEnumValue, {
+            width: "abbreviated",
+            context: "formatting",
+          })
+          .toLowerCase();
+      case "aaaaa":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "narrow",
+          context: "formatting",
+        });
+      case "aaaa":
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // AM, PM, midnight, noon
+  b: function (date, token, localize) {
+    const hours = date.getHours();
+    let dayPeriodEnumValue;
+    if (hours === 12) {
+      dayPeriodEnumValue = dayPeriodEnum.noon;
+    } else if (hours === 0) {
+      dayPeriodEnumValue = dayPeriodEnum.midnight;
+    } else {
+      dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
+    }
+
+    switch (token) {
+      case "b":
+      case "bb":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      case "bbb":
+        return localize
+          .dayPeriod(dayPeriodEnumValue, {
+            width: "abbreviated",
+            context: "formatting",
+          })
+          .toLowerCase();
+      case "bbbbb":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "narrow",
+          context: "formatting",
+        });
+      case "bbbb":
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // in the morning, in the afternoon, in the evening, at night
+  B: function (date, token, localize) {
+    const hours = date.getHours();
+    let dayPeriodEnumValue;
+    if (hours >= 17) {
+      dayPeriodEnumValue = dayPeriodEnum.evening;
+    } else if (hours >= 12) {
+      dayPeriodEnumValue = dayPeriodEnum.afternoon;
+    } else if (hours >= 4) {
+      dayPeriodEnumValue = dayPeriodEnum.morning;
+    } else {
+      dayPeriodEnumValue = dayPeriodEnum.night;
+    }
+
+    switch (token) {
+      case "B":
+      case "BB":
+      case "BBB":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      case "BBBBB":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "narrow",
+          context: "formatting",
+        });
+      case "BBBB":
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Hour [1-12]
+  h: function (date, token, localize) {
+    if (token === "ho") {
+      let hours = date.getHours() % 12;
+      if (hours === 0) hours = 12;
+      return localize.ordinalNumber(hours, { unit: "hour" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.h(date, token);
+  },
+
+  // Hour [0-23]
+  H: function (date, token, localize) {
+    if (token === "Ho") {
+      return localize.ordinalNumber(date.getHours(), { unit: "hour" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.H(date, token);
+  },
+
+  // Hour [0-11]
+  K: function (date, token, localize) {
+    const hours = date.getHours() % 12;
+
+    if (token === "Ko") {
+      return localize.ordinalNumber(hours, { unit: "hour" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
+  },
+
+  // Hour [1-24]
+  k: function (date, token, localize) {
+    let hours = date.getHours();
+    if (hours === 0) hours = 24;
+
+    if (token === "ko") {
+      return localize.ordinalNumber(hours, { unit: "hour" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
+  },
+
+  // Minute
+  m: function (date, token, localize) {
+    if (token === "mo") {
+      return localize.ordinalNumber(date.getMinutes(), { unit: "minute" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.m(date, token);
+  },
+
+  // Second
+  s: function (date, token, localize) {
+    if (token === "so") {
+      return localize.ordinalNumber(date.getSeconds(), { unit: "second" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.s(date, token);
+  },
+
+  // Fraction of second
+  S: function (date, token) {
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.S(date, token);
+  },
+
+  // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
+  X: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    if (timezoneOffset === 0) {
+      return "Z";
+    }
+
+    switch (token) {
+      // Hours and optional minutes
+      case "X":
+        return formatTimezoneWithOptionalMinutes(timezoneOffset);
+
+      // Hours, minutes and optional seconds without `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `XX`
+      case "XXXX":
+      case "XX": // Hours and minutes without `:` delimiter
+        return formatTimezone(timezoneOffset);
+
+      // Hours, minutes and optional seconds with `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `XXX`
+      case "XXXXX":
+      case "XXX": // Hours and minutes with `:` delimiter
+      default:
+        return formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Timezone (ISO-8601. If offset is 0, output is `'+00:00'` or equivalent)
+  x: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    switch (token) {
+      // Hours and optional minutes
+      case "x":
+        return formatTimezoneWithOptionalMinutes(timezoneOffset);
+
+      // Hours, minutes and optional seconds without `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `xx`
+      case "xxxx":
+      case "xx": // Hours and minutes without `:` delimiter
+        return formatTimezone(timezoneOffset);
+
+      // Hours, minutes and optional seconds with `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `xxx`
+      case "xxxxx":
+      case "xxx": // Hours and minutes with `:` delimiter
+      default:
+        return formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Timezone (GMT)
+  O: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    switch (token) {
+      // Short
+      case "O":
+      case "OO":
+      case "OOO":
+        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
+      // Long
+      case "OOOO":
+      default:
+        return "GMT" + formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Timezone (specific non-location)
+  z: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    switch (token) {
+      // Short
+      case "z":
+      case "zz":
+      case "zzz":
+        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
+      // Long
+      case "zzzz":
+      default:
+        return "GMT" + formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Seconds timestamp
+  t: function (date, token, _localize) {
+    const timestamp = Math.trunc(date.getTime() / 1000);
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(timestamp, token.length);
+  },
+
+  // Milliseconds timestamp
+  T: function (date, token, _localize) {
+    const timestamp = date.getTime();
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(timestamp, token.length);
+  },
+};
+
+function formatTimezoneShort(offset, delimiter = "") {
+  const sign = offset > 0 ? "-" : "+";
+  const absOffset = Math.abs(offset);
+  const hours = Math.trunc(absOffset / 60);
+  const minutes = absOffset % 60;
+  if (minutes === 0) {
+    return sign + String(hours);
+  }
+  return sign + String(hours) + delimiter + (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(minutes, 2);
+}
+
+function formatTimezoneWithOptionalMinutes(offset, delimiter) {
+  if (offset % 60 === 0) {
+    const sign = offset > 0 ? "-" : "+";
+    return sign + (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.abs(offset) / 60, 2);
+  }
+  return formatTimezone(offset, delimiter);
+}
+
+function formatTimezone(offset, delimiter = "") {
+  const sign = offset > 0 ? "-" : "+";
+  const absOffset = Math.abs(offset);
+  const hours = (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.trunc(absOffset / 60), 2);
+  const minutes = (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(absOffset % 60, 2);
+  return sign + hours + delimiter + minutes;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/lightFormatters.mjs":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/lightFormatters.mjs ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   lightFormatters: function() { return /* binding */ lightFormatters; }
+/* harmony export */ });
+/* harmony import */ var _addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../addLeadingZeros.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/addLeadingZeros.mjs");
+
+
+/*
+ * |     | Unit                           |     | Unit                           |
+ * |-----|--------------------------------|-----|--------------------------------|
+ * |  a  | AM, PM                         |  A* |                                |
+ * |  d  | Day of month                   |  D  |                                |
+ * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+ * |  m  | Minute                         |  M  | Month                          |
+ * |  s  | Second                         |  S  | Fraction of second             |
+ * |  y  | Year (abs)                     |  Y  |                                |
+ *
+ * Letters marked by * are not implemented but reserved by Unicode standard.
+ */
+
+const lightFormatters = {
+  // Year
+  y(date, token) {
+    // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_tokens
+    // | Year     |     y | yy |   yyy |  yyyy | yyyyy |
+    // |----------|-------|----|-------|-------|-------|
+    // | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
+    // | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
+    // | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
+    // | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
+    // | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
+
+    const signedYear = date.getFullYear();
+    // Returns 1 for 1 BC (which is year 0 in JavaScript)
+    const year = signedYear > 0 ? signedYear : 1 - signedYear;
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(token === "yy" ? year % 100 : year, token.length);
+  },
+
+  // Month
+  M(date, token) {
+    const month = date.getMonth();
+    return token === "M" ? String(month + 1) : (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(month + 1, 2);
+  },
+
+  // Day of the month
+  d(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getDate(), token.length);
+  },
+
+  // AM or PM
+  a(date, token) {
+    const dayPeriodEnumValue = date.getHours() / 12 >= 1 ? "pm" : "am";
+
+    switch (token) {
+      case "a":
+      case "aa":
+        return dayPeriodEnumValue.toUpperCase();
+      case "aaa":
+        return dayPeriodEnumValue;
+      case "aaaaa":
+        return dayPeriodEnumValue[0];
+      case "aaaa":
+      default:
+        return dayPeriodEnumValue === "am" ? "a.m." : "p.m.";
+    }
+  },
+
+  // Hour [1-12]
+  h(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours() % 12 || 12, token.length);
+  },
+
+  // Hour [0-23]
+  H(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours(), token.length);
+  },
+
+  // Minute
+  m(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getMinutes(), token.length);
+  },
+
+  // Second
+  s(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getSeconds(), token.length);
+  },
+
+  // Fraction of second
+  S(date, token) {
+    const numberOfDigits = token.length;
+    const milliseconds = date.getMilliseconds();
+    const fractionalSeconds = Math.trunc(
+      milliseconds * Math.pow(10, numberOfDigits - 3),
+    );
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(fractionalSeconds, token.length);
+  },
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/longFormatters.mjs":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/longFormatters.mjs ***!
+  \*************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   longFormatters: function() { return /* binding */ longFormatters; }
+/* harmony export */ });
+const dateLongFormatter = (pattern, formatLong) => {
+  switch (pattern) {
+    case "P":
+      return formatLong.date({ width: "short" });
+    case "PP":
+      return formatLong.date({ width: "medium" });
+    case "PPP":
+      return formatLong.date({ width: "long" });
+    case "PPPP":
+    default:
+      return formatLong.date({ width: "full" });
+  }
+};
+
+const timeLongFormatter = (pattern, formatLong) => {
+  switch (pattern) {
+    case "p":
+      return formatLong.time({ width: "short" });
+    case "pp":
+      return formatLong.time({ width: "medium" });
+    case "ppp":
+      return formatLong.time({ width: "long" });
+    case "pppp":
+    default:
+      return formatLong.time({ width: "full" });
+  }
+};
+
+const dateTimeLongFormatter = (pattern, formatLong) => {
+  const matchResult = pattern.match(/(P+)(p+)?/) || [];
+  const datePattern = matchResult[1];
+  const timePattern = matchResult[2];
+
+  if (!timePattern) {
+    return dateLongFormatter(pattern, formatLong);
+  }
+
+  let dateTimeFormat;
+
+  switch (datePattern) {
+    case "P":
+      dateTimeFormat = formatLong.dateTime({ width: "short" });
+      break;
+    case "PP":
+      dateTimeFormat = formatLong.dateTime({ width: "medium" });
+      break;
+    case "PPP":
+      dateTimeFormat = formatLong.dateTime({ width: "long" });
+      break;
+    case "PPPP":
+    default:
+      dateTimeFormat = formatLong.dateTime({ width: "full" });
+      break;
+  }
+
+  return dateTimeFormat
+    .replace("{{date}}", dateLongFormatter(datePattern, formatLong))
+    .replace("{{time}}", timeLongFormatter(timePattern, formatLong));
+};
+
+const longFormatters = {
+  p: timeLongFormatter,
+  P: dateTimeLongFormatter,
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs ***!
+  \***********************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getTimezoneOffsetInMilliseconds: function() { return /* binding */ getTimezoneOffsetInMilliseconds; }
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+/**
+ * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
+ * They usually appear for dates that denote time before the timezones were introduced
+ * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
+ * and GMT+01:00:00 after that date)
+ *
+ * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
+ * which would lead to incorrect calculations.
+ *
+ * This function returns the timezone offset in milliseconds that takes seconds in account.
+ */
+function getTimezoneOffsetInMilliseconds(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const utcDate = new Date(
+    Date.UTC(
+      _date.getFullYear(),
+      _date.getMonth(),
+      _date.getDate(),
+      _date.getHours(),
+      _date.getMinutes(),
+      _date.getSeconds(),
+      _date.getMilliseconds(),
+    ),
+  );
+  utcDate.setUTCFullYear(_date.getFullYear());
+  return +date - +utcDate;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/protectedTokens.mjs":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/_lib/protectedTokens.mjs ***!
+  \*******************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isProtectedDayOfYearToken: function() { return /* binding */ isProtectedDayOfYearToken; },
+/* harmony export */   isProtectedWeekYearToken: function() { return /* binding */ isProtectedWeekYearToken; },
+/* harmony export */   warnOrThrowProtectedError: function() { return /* binding */ warnOrThrowProtectedError; }
+/* harmony export */ });
+const dayOfYearTokenRE = /^D+$/;
+const weekYearTokenRE = /^Y+$/;
+
+const throwTokens = ["D", "DD", "YY", "YYYY"];
+
+function isProtectedDayOfYearToken(token) {
+  return dayOfYearTokenRE.test(token);
+}
+
+function isProtectedWeekYearToken(token) {
+  return weekYearTokenRE.test(token);
+}
+
+function warnOrThrowProtectedError(token, format, input) {
+  const _message = message(token, format, input);
+  console.warn(_message);
+  if (throwTokens.includes(token)) throw new RangeError(_message);
+}
+
+function message(token, format, input) {
+  const subject = token[0] === "Y" ? "years" : "days of the month";
+  return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/constants.mjs":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/constants.mjs ***!
+  \********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   daysInWeek: function() { return /* binding */ daysInWeek; },
+/* harmony export */   daysInYear: function() { return /* binding */ daysInYear; },
+/* harmony export */   maxTime: function() { return /* binding */ maxTime; },
+/* harmony export */   millisecondsInDay: function() { return /* binding */ millisecondsInDay; },
+/* harmony export */   millisecondsInHour: function() { return /* binding */ millisecondsInHour; },
+/* harmony export */   millisecondsInMinute: function() { return /* binding */ millisecondsInMinute; },
+/* harmony export */   millisecondsInSecond: function() { return /* binding */ millisecondsInSecond; },
+/* harmony export */   millisecondsInWeek: function() { return /* binding */ millisecondsInWeek; },
+/* harmony export */   minTime: function() { return /* binding */ minTime; },
+/* harmony export */   minutesInDay: function() { return /* binding */ minutesInDay; },
+/* harmony export */   minutesInHour: function() { return /* binding */ minutesInHour; },
+/* harmony export */   minutesInMonth: function() { return /* binding */ minutesInMonth; },
+/* harmony export */   minutesInYear: function() { return /* binding */ minutesInYear; },
+/* harmony export */   monthsInQuarter: function() { return /* binding */ monthsInQuarter; },
+/* harmony export */   monthsInYear: function() { return /* binding */ monthsInYear; },
+/* harmony export */   quartersInYear: function() { return /* binding */ quartersInYear; },
+/* harmony export */   secondsInDay: function() { return /* binding */ secondsInDay; },
+/* harmony export */   secondsInHour: function() { return /* binding */ secondsInHour; },
+/* harmony export */   secondsInMinute: function() { return /* binding */ secondsInMinute; },
+/* harmony export */   secondsInMonth: function() { return /* binding */ secondsInMonth; },
+/* harmony export */   secondsInQuarter: function() { return /* binding */ secondsInQuarter; },
+/* harmony export */   secondsInWeek: function() { return /* binding */ secondsInWeek; },
+/* harmony export */   secondsInYear: function() { return /* binding */ secondsInYear; }
+/* harmony export */ });
+/**
+ * @module constants
+ * @summary Useful constants
+ * @description
+ * Collection of useful date constants.
+ *
+ * The constants could be imported from `date-fns/constants`:
+ *
+ * ```ts
+ * import { maxTime, minTime } from "./constants/date-fns/constants";
+ *
+ * function isAllowedTime(time) {
+ *   return time <= maxTime && time >= minTime;
+ * }
+ * ```
+ */
+
+/**
+ * @constant
+ * @name daysInWeek
+ * @summary Days in 1 week.
+ */
+const daysInWeek = 7;
+
+/**
+ * @constant
+ * @name daysInYear
+ * @summary Days in 1 year.
+ *
+ * @description
+ * How many days in a year.
+ *
+ * One years equals 365.2425 days according to the formula:
+ *
+ * > Leap year occures every 4 years, except for years that are divisable by 100 and not divisable by 400.
+ * > 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days
+ */
+const daysInYear = 365.2425;
+
+/**
+ * @constant
+ * @name maxTime
+ * @summary Maximum allowed time.
+ *
+ * @example
+ * import { maxTime } from "./constants/date-fns/constants";
+ *
+ * const isValid = 8640000000000001 <= maxTime;
+ * //=> false
+ *
+ * new Date(8640000000000001);
+ * //=> Invalid Date
+ */
+const maxTime = Math.pow(10, 8) * 24 * 60 * 60 * 1000;
+
+/**
+ * @constant
+ * @name minTime
+ * @summary Minimum allowed time.
+ *
+ * @example
+ * import { minTime } from "./constants/date-fns/constants";
+ *
+ * const isValid = -8640000000000001 >= minTime;
+ * //=> false
+ *
+ * new Date(-8640000000000001)
+ * //=> Invalid Date
+ */
+const minTime = -maxTime;
+
+/**
+ * @constant
+ * @name millisecondsInWeek
+ * @summary Milliseconds in 1 week.
+ */
+const millisecondsInWeek = 604800000;
+
+/**
+ * @constant
+ * @name millisecondsInDay
+ * @summary Milliseconds in 1 day.
+ */
+const millisecondsInDay = 86400000;
+
+/**
+ * @constant
+ * @name millisecondsInMinute
+ * @summary Milliseconds in 1 minute
+ */
+const millisecondsInMinute = 60000;
+
+/**
+ * @constant
+ * @name millisecondsInHour
+ * @summary Milliseconds in 1 hour
+ */
+const millisecondsInHour = 3600000;
+
+/**
+ * @constant
+ * @name millisecondsInSecond
+ * @summary Milliseconds in 1 second
+ */
+const millisecondsInSecond = 1000;
+
+/**
+ * @constant
+ * @name minutesInYear
+ * @summary Minutes in 1 year.
+ */
+const minutesInYear = 525600;
+
+/**
+ * @constant
+ * @name minutesInMonth
+ * @summary Minutes in 1 month.
+ */
+const minutesInMonth = 43200;
+
+/**
+ * @constant
+ * @name minutesInDay
+ * @summary Minutes in 1 day.
+ */
+const minutesInDay = 1440;
+
+/**
+ * @constant
+ * @name minutesInHour
+ * @summary Minutes in 1 hour.
+ */
+const minutesInHour = 60;
+
+/**
+ * @constant
+ * @name monthsInQuarter
+ * @summary Months in 1 quarter.
+ */
+const monthsInQuarter = 3;
+
+/**
+ * @constant
+ * @name monthsInYear
+ * @summary Months in 1 year.
+ */
+const monthsInYear = 12;
+
+/**
+ * @constant
+ * @name quartersInYear
+ * @summary Quarters in 1 year
+ */
+const quartersInYear = 4;
+
+/**
+ * @constant
+ * @name secondsInHour
+ * @summary Seconds in 1 hour.
+ */
+const secondsInHour = 3600;
+
+/**
+ * @constant
+ * @name secondsInMinute
+ * @summary Seconds in 1 minute.
+ */
+const secondsInMinute = 60;
+
+/**
+ * @constant
+ * @name secondsInDay
+ * @summary Seconds in 1 day.
+ */
+const secondsInDay = secondsInHour * 24;
+
+/**
+ * @constant
+ * @name secondsInWeek
+ * @summary Seconds in 1 week.
+ */
+const secondsInWeek = secondsInDay * 7;
+
+/**
+ * @constant
+ * @name secondsInYear
+ * @summary Seconds in 1 year.
+ */
+const secondsInYear = secondsInDay * daysInYear;
+
+/**
+ * @constant
+ * @name secondsInMonth
+ * @summary Seconds in 1 month
+ */
+const secondsInMonth = secondsInYear / 12;
+
+/**
+ * @constant
+ * @name secondsInQuarter
+ * @summary Seconds in 1 quarter.
+ */
+const secondsInQuarter = secondsInMonth * 3;
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs ***!
+  \************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   constructFrom: function() { return /* binding */ constructFrom; }
+/* harmony export */ });
+/**
+ * @name constructFrom
+ * @category Generic Helpers
+ * @summary Constructs a date using the reference date and the value
+ *
+ * @description
+ * The function constructs a new date using the constructor from the reference
+ * date and the given value. It helps to build generic functions that accept
+ * date extensions.
+ *
+ * It defaults to `Date` if the passed reference date is a number or a string.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The reference date to take constructor from
+ * @param value - The value to create the date
+ *
+ * @returns Date initialized using the given date and value
+ *
+ * @example
+ * import { constructFrom } from 'date-fns'
+ *
+ * // A function that clones a date preserving the original type
+ * function cloneDate<DateType extends Date(date: DateType): DateType {
+ *   return constructFrom(
+ *     date, // Use contrustor from the given date
+ *     date.getTime() // Use the date value to create a new date
+ *   )
+ * }
+ */
+function constructFrom(date, value) {
+  if (date instanceof Date) {
+    return new date.constructor(value);
+  } else {
+    return new Date(value);
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (constructFrom);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/differenceInCalendarDays.mjs":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/differenceInCalendarDays.mjs ***!
+  \***********************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   differenceInCalendarDays: function() { return /* binding */ differenceInCalendarDays; }
+/* harmony export */ });
+/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constants.mjs");
+/* harmony import */ var _startOfDay_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfDay.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfDay.mjs");
+/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/getTimezoneOffsetInMilliseconds.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs");
+
+
+
+
+/**
+ * @name differenceInCalendarDays
+ * @category Day Helpers
+ * @summary Get the number of calendar days between the given dates.
+ *
+ * @description
+ * Get the number of calendar days between the given dates. This means that the times are removed
+ * from the dates and then the difference in days is calculated.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of calendar days
+ *
+ * @example
+ * // How many calendar days are between
+ * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
+ * const result = differenceInCalendarDays(
+ *   new Date(2012, 6, 2, 0, 0),
+ *   new Date(2011, 6, 2, 23, 0)
+ * )
+ * //=> 366
+ * // How many calendar days are between
+ * // 2 July 2011 23:59:00 and 3 July 2011 00:01:00?
+ * const result = differenceInCalendarDays(
+ *   new Date(2011, 6, 3, 0, 1),
+ *   new Date(2011, 6, 2, 23, 59)
+ * )
+ * //=> 1
+ */
+function differenceInCalendarDays(dateLeft, dateRight) {
+  const startOfDayLeft = (0,_startOfDay_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateLeft);
+  const startOfDayRight = (0,_startOfDay_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateRight);
+
+  const timestampLeft =
+    +startOfDayLeft - (0,_lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_2__.getTimezoneOffsetInMilliseconds)(startOfDayLeft);
+  const timestampRight =
+    +startOfDayRight - (0,_lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_2__.getTimezoneOffsetInMilliseconds)(startOfDayRight);
+
+  // Round the number of days to the nearest integer because the number of
+  // milliseconds in a day is not constant (e.g. it's different in the week of
+  // the daylight saving time clock shift).
+  return Math.round((timestampLeft - timestampRight) / _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInDay);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (differenceInCalendarDays);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/format.mjs":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/format.mjs ***!
+  \*****************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   format: function() { return /* binding */ format; },
+/* harmony export */   formatDate: function() { return /* binding */ format; },
+/* harmony export */   formatters: function() { return /* reexport safe */ _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__.formatters; },
+/* harmony export */   longFormatters: function() { return /* reexport safe */ _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_3__.longFormatters; }
+/* harmony export */ });
+/* harmony import */ var _lib_defaultLocale_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultLocale.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/defaultOptions.mjs");
+/* harmony import */ var _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/format/formatters.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/formatters.mjs");
+/* harmony import */ var _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/format/longFormatters.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/format/longFormatters.mjs");
+/* harmony import */ var _lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_lib/protectedTokens.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/protectedTokens.mjs");
+/* harmony import */ var _isValid_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isValid.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/isValid.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+
+
+
+
+
+// Rexports of internal for libraries to use.
+// See: https://github.com/date-fns/date-fns/issues/3638#issuecomment-1877082874
+
+
+// This RegExp consists of three parts separated by `|`:
+// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
+//   (one of the certain letters followed by `o`)
+// - (\w)\1* matches any sequences of the same letter
+// - '' matches two quote characters in a row
+// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
+//   except a single quote symbol, which ends the sequence.
+//   Two quote characters do not end the sequence.
+//   If there is no matching single quote
+//   then the sequence will continue until the end of the string.
+// - . matches any single character unmatched by previous parts of the RegExps
+const formattingTokensRegExp =
+  /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g;
+
+// This RegExp catches symbols escaped by quotes, and also
+// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
+const longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
+
+const escapedStringRegExp = /^'([^]*?)'?$/;
+const doubleQuoteRegExp = /''/g;
+const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+
+
+
+/**
+ * The {@link format} function options.
+ */
+
+/**
+ * @name format
+ * @alias formatDate
+ * @category Common Helpers
+ * @summary Format the date.
+ *
+ * @description
+ * Return the formatted date string in the given format. The result may vary by locale.
+ *
+ * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
+ * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * The characters wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ * (see the last example)
+ *
+ * Format of the string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * with a few additions (see note 7 below the table).
+ *
+ * Accepted patterns:
+ * | Unit                            | Pattern | Result examples                   | Notes |
+ * |---------------------------------|---------|-----------------------------------|-------|
+ * | Era                             | G..GGG  | AD, BC                            |       |
+ * |                                 | GGGG    | Anno Domini, Before Christ        | 2     |
+ * |                                 | GGGGG   | A, B                              |       |
+ * | Calendar year                   | y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | yo      | 44th, 1st, 0th, 17th              | 5,7   |
+ * |                                 | yy      | 44, 01, 00, 17                    | 5     |
+ * |                                 | yyy     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | yyyy    | 0044, 0001, 1900, 2017            | 5     |
+ * |                                 | yyyyy   | ...                               | 3,5   |
+ * | Local week-numbering year       | Y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | Yo      | 44th, 1st, 1900th, 2017th         | 5,7   |
+ * |                                 | YY      | 44, 01, 00, 17                    | 5,8   |
+ * |                                 | YYY     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | YYYY    | 0044, 0001, 1900, 2017            | 5,8   |
+ * |                                 | YYYYY   | ...                               | 3,5   |
+ * | ISO week-numbering year         | R       | -43, 0, 1, 1900, 2017             | 5,7   |
+ * |                                 | RR      | -43, 00, 01, 1900, 2017           | 5,7   |
+ * |                                 | RRR     | -043, 000, 001, 1900, 2017        | 5,7   |
+ * |                                 | RRRR    | -0043, 0000, 0001, 1900, 2017     | 5,7   |
+ * |                                 | RRRRR   | ...                               | 3,5,7 |
+ * | Extended year                   | u       | -43, 0, 1, 1900, 2017             | 5     |
+ * |                                 | uu      | -43, 01, 1900, 2017               | 5     |
+ * |                                 | uuu     | -043, 001, 1900, 2017             | 5     |
+ * |                                 | uuuu    | -0043, 0001, 1900, 2017           | 5     |
+ * |                                 | uuuuu   | ...                               | 3,5   |
+ * | Quarter (formatting)            | Q       | 1, 2, 3, 4                        |       |
+ * |                                 | Qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | QQ      | 01, 02, 03, 04                    |       |
+ * |                                 | QQQ     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | QQQQQ   | 1, 2, 3, 4                        | 4     |
+ * | Quarter (stand-alone)           | q       | 1, 2, 3, 4                        |       |
+ * |                                 | qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | qq      | 01, 02, 03, 04                    |       |
+ * |                                 | qqq     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | qqqqq   | 1, 2, 3, 4                        | 4     |
+ * | Month (formatting)              | M       | 1, 2, ..., 12                     |       |
+ * |                                 | Mo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | MM      | 01, 02, ..., 12                   |       |
+ * |                                 | MMM     | Jan, Feb, ..., Dec                |       |
+ * |                                 | MMMM    | January, February, ..., December  | 2     |
+ * |                                 | MMMMM   | J, F, ..., D                      |       |
+ * | Month (stand-alone)             | L       | 1, 2, ..., 12                     |       |
+ * |                                 | Lo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | LL      | 01, 02, ..., 12                   |       |
+ * |                                 | LLL     | Jan, Feb, ..., Dec                |       |
+ * |                                 | LLLL    | January, February, ..., December  | 2     |
+ * |                                 | LLLLL   | J, F, ..., D                      |       |
+ * | Local week of year              | w       | 1, 2, ..., 53                     |       |
+ * |                                 | wo      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | ww      | 01, 02, ..., 53                   |       |
+ * | ISO week of year                | I       | 1, 2, ..., 53                     | 7     |
+ * |                                 | Io      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | II      | 01, 02, ..., 53                   | 7     |
+ * | Day of month                    | d       | 1, 2, ..., 31                     |       |
+ * |                                 | do      | 1st, 2nd, ..., 31st               | 7     |
+ * |                                 | dd      | 01, 02, ..., 31                   |       |
+ * | Day of year                     | D       | 1, 2, ..., 365, 366               | 9     |
+ * |                                 | Do      | 1st, 2nd, ..., 365th, 366th       | 7     |
+ * |                                 | DD      | 01, 02, ..., 365, 366             | 9     |
+ * |                                 | DDD     | 001, 002, ..., 365, 366           |       |
+ * |                                 | DDDD    | ...                               | 3     |
+ * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
+ * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
+ * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
+ * |                                 | ii      | 01, 02, ..., 07                   | 7     |
+ * |                                 | iii     | Mon, Tue, Wed, ..., Sun           | 7     |
+ * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
+ * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
+ * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 7     |
+ * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | ee      | 02, 03, ..., 01                   |       |
+ * |                                 | eee     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
+ * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | cc      | 02, 03, ..., 01                   |       |
+ * |                                 | ccc     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
+ * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | AM, PM                          | a..aa   | AM, PM                            |       |
+ * |                                 | aaa     | am, pm                            |       |
+ * |                                 | aaaa    | a.m., p.m.                        | 2     |
+ * |                                 | aaaaa   | a, p                              |       |
+ * | AM, PM, noon, midnight          | b..bb   | AM, PM, noon, midnight            |       |
+ * |                                 | bbb     | am, pm, noon, midnight            |       |
+ * |                                 | bbbb    | a.m., p.m., noon, midnight        | 2     |
+ * |                                 | bbbbb   | a, p, n, mi                       |       |
+ * | Flexible day period             | B..BBB  | at night, in the morning, ...     |       |
+ * |                                 | BBBB    | at night, in the morning, ...     | 2     |
+ * |                                 | BBBBB   | at night, in the morning, ...     |       |
+ * | Hour [1-12]                     | h       | 1, 2, ..., 11, 12                 |       |
+ * |                                 | ho      | 1st, 2nd, ..., 11th, 12th         | 7     |
+ * |                                 | hh      | 01, 02, ..., 11, 12               |       |
+ * | Hour [0-23]                     | H       | 0, 1, 2, ..., 23                  |       |
+ * |                                 | Ho      | 0th, 1st, 2nd, ..., 23rd          | 7     |
+ * |                                 | HH      | 00, 01, 02, ..., 23               |       |
+ * | Hour [0-11]                     | K       | 1, 2, ..., 11, 0                  |       |
+ * |                                 | Ko      | 1st, 2nd, ..., 11th, 0th          | 7     |
+ * |                                 | KK      | 01, 02, ..., 11, 00               |       |
+ * | Hour [1-24]                     | k       | 24, 1, 2, ..., 23                 |       |
+ * |                                 | ko      | 24th, 1st, 2nd, ..., 23rd         | 7     |
+ * |                                 | kk      | 24, 01, 02, ..., 23               |       |
+ * | Minute                          | m       | 0, 1, ..., 59                     |       |
+ * |                                 | mo      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | mm      | 00, 01, ..., 59                   |       |
+ * | Second                          | s       | 0, 1, ..., 59                     |       |
+ * |                                 | so      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | ss      | 00, 01, ..., 59                   |       |
+ * | Fraction of second              | S       | 0, 1, ..., 9                      |       |
+ * |                                 | SS      | 00, 01, ..., 99                   |       |
+ * |                                 | SSS     | 000, 001, ..., 999                |       |
+ * |                                 | SSSS    | ...                               | 3     |
+ * | Timezone (ISO-8601 w/ Z)        | X       | -08, +0530, Z                     |       |
+ * |                                 | XX      | -0800, +0530, Z                   |       |
+ * |                                 | XXX     | -08:00, +05:30, Z                 |       |
+ * |                                 | XXXX    | -0800, +0530, Z, +123456          | 2     |
+ * |                                 | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
+ * | Timezone (ISO-8601 w/o Z)       | x       | -08, +0530, +00                   |       |
+ * |                                 | xx      | -0800, +0530, +0000               |       |
+ * |                                 | xxx     | -08:00, +05:30, +00:00            | 2     |
+ * |                                 | xxxx    | -0800, +0530, +0000, +123456      |       |
+ * |                                 | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
+ * | Timezone (GMT)                  | O...OOO | GMT-8, GMT+5:30, GMT+0            |       |
+ * |                                 | OOOO    | GMT-08:00, GMT+05:30, GMT+00:00   | 2     |
+ * | Timezone (specific non-locat.)  | z...zzz | GMT-8, GMT+5:30, GMT+0            | 6     |
+ * |                                 | zzzz    | GMT-08:00, GMT+05:30, GMT+00:00   | 2,6   |
+ * | Seconds timestamp               | t       | 512969520                         | 7     |
+ * |                                 | tt      | ...                               | 3,7   |
+ * | Milliseconds timestamp          | T       | 512969520900                      | 7     |
+ * |                                 | TT      | ...                               | 3,7   |
+ * | Long localized date             | P       | 04/29/1453                        | 7     |
+ * |                                 | PP      | Apr 29, 1453                      | 7     |
+ * |                                 | PPP     | April 29th, 1453                  | 7     |
+ * |                                 | PPPP    | Friday, April 29th, 1453          | 2,7   |
+ * | Long localized time             | p       | 12:00 AM                          | 7     |
+ * |                                 | pp      | 12:00:00 AM                       | 7     |
+ * |                                 | ppp     | 12:00:00 AM GMT+2                 | 7     |
+ * |                                 | pppp    | 12:00:00 AM GMT+02:00             | 2,7   |
+ * | Combination of date and time    | Pp      | 04/29/1453, 12:00 AM              | 7     |
+ * |                                 | PPpp    | Apr 29, 1453, 12:00:00 AM         | 7     |
+ * |                                 | PPPppp  | April 29th, 1453 at ...           | 7     |
+ * |                                 | PPPPpppp| Friday, April 29th, 1453 at ...   | 2,7   |
+ * Notes:
+ * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
+ *    are the same as "stand-alone" units, but are different in some languages.
+ *    "Formatting" units are declined according to the rules of the language
+ *    in the context of a date. "Stand-alone" units are always nominative singular:
+ *
+ *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
+ *
+ *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
+ *
+ * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
+ *    the single quote characters (see below).
+ *    If the sequence is longer than listed in table (e.g. `EEEEEEEEEEE`)
+ *    the output will be the same as default pattern for this unit, usually
+ *    the longest one (in case of ISO weekdays, `EEEE`). Default patterns for units
+ *    are marked with "2" in the last column of the table.
+ *
+ *    `format(new Date(2017, 10, 6), 'MMM') //=> 'Nov'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMM') //=> 'N'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMMM') //=> 'November'`
+ *
+ * 3. Some patterns could be unlimited length (such as `yyyyyyyy`).
+ *    The output will be padded with zeros to match the length of the pattern.
+ *
+ *    `format(new Date(2017, 10, 6), 'yyyyyyyy') //=> '00002017'`
+ *
+ * 4. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
+ *    These tokens represent the shortest form of the quarter.
+ *
+ * 5. The main difference between `y` and `u` patterns are B.C. years:
+ *
+ *    | Year | `y` | `u` |
+ *    |------|-----|-----|
+ *    | AC 1 |   1 |   1 |
+ *    | BC 1 |   1 |   0 |
+ *    | BC 2 |   2 |  -1 |
+ *
+ *    Also `yy` always returns the last two digits of a year,
+ *    while `uu` pads single digit years to 2 characters and returns other years unchanged:
+ *
+ *    | Year | `yy` | `uu` |
+ *    |------|------|------|
+ *    | 1    |   01 |   01 |
+ *    | 14   |   14 |   14 |
+ *    | 376  |   76 |  376 |
+ *    | 1453 |   53 | 1453 |
+ *
+ *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
+ *    except local week-numbering years are dependent on `options.weekStartsOn`
+ *    and `options.firstWeekContainsDate` (compare [getISOWeekYear](https://date-fns.org/docs/getISOWeekYear)
+ *    and [getWeekYear](https://date-fns.org/docs/getWeekYear)).
+ *
+ * 6. Specific non-location timezones are currently unavailable in `date-fns`,
+ *    so right now these tokens fall back to GMT timezones.
+ *
+ * 7. These patterns are not in the Unicode Technical Standard #35:
+ *    - `i`: ISO day of week
+ *    - `I`: ISO week of year
+ *    - `R`: ISO week-numbering year
+ *    - `t`: seconds timestamp
+ *    - `T`: milliseconds timestamp
+ *    - `o`: ordinal number modifier
+ *    - `P`: long localized date
+ *    - `p`: long localized time
+ *
+ * 8. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
+ *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * 9. `D` and `DD` tokens represent days of the year but they are often confused with days of the month.
+ *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param format - The string of tokens
+ * @param options - An object with options
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `options.locale` must contain `localize` property
+ * @throws `options.locale` must contain `formatLong` property
+ * @throws use `yyyy` instead of `YYYY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `yy` instead of `YY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `d` instead of `D` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `dd` instead of `DD` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * // Represent 11 February 2014 in middle-endian format:
+ * const result = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
+ * //=> '02/11/2014'
+ *
+ * @example
+ * // Represent 2 July 2014 in Esperanto:
+ * import { eoLocale } from 'date-fns/locale/eo'
+ * const result = format(new Date(2014, 6, 2), "do 'de' MMMM yyyy", {
+ *   locale: eoLocale
+ * })
+ * //=> '2-a de julio 2014'
+ *
+ * @example
+ * // Escape string by single quote characters:
+ * const result = format(new Date(2014, 6, 2, 15), "h 'o''clock'")
+ * //=> "3 o'clock"
+ */
+function format(date, formatStr, options) {
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
+  const locale = options?.locale ?? defaultOptions.locale ?? _lib_defaultLocale_mjs__WEBPACK_IMPORTED_MODULE_0__.enUS;
+
+  const firstWeekContainsDate =
+    options?.firstWeekContainsDate ??
+    options?.locale?.options?.firstWeekContainsDate ??
+    defaultOptions.firstWeekContainsDate ??
+    defaultOptions.locale?.options?.firstWeekContainsDate ??
+    1;
+
+  const weekStartsOn =
+    options?.weekStartsOn ??
+    options?.locale?.options?.weekStartsOn ??
+    defaultOptions.weekStartsOn ??
+    defaultOptions.locale?.options?.weekStartsOn ??
+    0;
+
+  const originalDate = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_6__.toDate)(date);
+
+  if (!(0,_isValid_mjs__WEBPACK_IMPORTED_MODULE_5__.isValid)(originalDate)) {
+    throw new RangeError("Invalid time value");
+  }
+
+  let parts = formatStr
+    .match(longFormattingTokensRegExp)
+    .map((substring) => {
+      const firstCharacter = substring[0];
+      if (firstCharacter === "p" || firstCharacter === "P") {
+        const longFormatter = _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_3__.longFormatters[firstCharacter];
+        return longFormatter(substring, locale.formatLong);
+      }
+      return substring;
+    })
+    .join("")
+    .match(formattingTokensRegExp)
+    .map((substring) => {
+      // Replace two single quote characters with one single quote character
+      if (substring === "''") {
+        return { isToken: false, value: "'" };
+      }
+
+      const firstCharacter = substring[0];
+      if (firstCharacter === "'") {
+        return { isToken: false, value: cleanEscapedString(substring) };
+      }
+
+      if (_lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__.formatters[firstCharacter]) {
+        return { isToken: true, value: substring };
+      }
+
+      if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
+        throw new RangeError(
+          "Format string contains an unescaped latin alphabet character `" +
+            firstCharacter +
+            "`",
+        );
+      }
+
+      return { isToken: false, value: substring };
+    });
+
+  // invoke localize preprocessor (only for french locales at the moment)
+  if (locale.localize.preprocessor) {
+    parts = locale.localize.preprocessor(originalDate, parts);
+  }
+
+  const formatterOptions = {
+    firstWeekContainsDate,
+    weekStartsOn,
+    locale,
+  };
+
+  return parts
+    .map((part) => {
+      if (!part.isToken) return part.value;
+
+      const token = part.value;
+
+      if (
+        (!options?.useAdditionalWeekYearTokens &&
+          (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__.isProtectedWeekYearToken)(token)) ||
+        (!options?.useAdditionalDayOfYearTokens &&
+          (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__.isProtectedDayOfYearToken)(token))
+      ) {
+        (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__.warnOrThrowProtectedError)(token, formatStr, String(date));
+      }
+
+      const formatter = _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__.formatters[token[0]];
+      return formatter(originalDate, token, locale.localize, formatterOptions);
+    })
+    .join("");
+}
+
+function cleanEscapedString(input) {
+  const matched = input.match(escapedStringRegExp);
+
+  if (!matched) {
+    return input;
+  }
+
+  return matched[1].replace(doubleQuoteRegExp, "'");
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (format);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/getDayOfYear.mjs":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/getDayOfYear.mjs ***!
+  \***********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDayOfYear: function() { return /* binding */ getDayOfYear; }
+/* harmony export */ });
+/* harmony import */ var _differenceInCalendarDays_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./differenceInCalendarDays.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/differenceInCalendarDays.mjs");
+/* harmony import */ var _startOfYear_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfYear.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+
+/**
+ * @name getDayOfYear
+ * @category Day Helpers
+ * @summary Get the day of the year of the given date.
+ *
+ * @description
+ * Get the day of the year of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The day of year
+ *
+ * @example
+ * // Which day of the year is 2 July 2014?
+ * const result = getDayOfYear(new Date(2014, 6, 2))
+ * //=> 183
+ */
+function getDayOfYear(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+  const diff = (0,_differenceInCalendarDays_mjs__WEBPACK_IMPORTED_MODULE_0__.differenceInCalendarDays)(_date, (0,_startOfYear_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfYear)(_date));
+  const dayOfYear = diff + 1;
+  return dayOfYear;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getDayOfYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/getDaysInMonth.mjs":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/getDaysInMonth.mjs ***!
+  \*************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDaysInMonth: function() { return /* binding */ getDaysInMonth; }
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+
+
+
+/**
+ * @name getDaysInMonth
+ * @category Month Helpers
+ * @summary Get the number of days in a month of the given date.
+ *
+ * @description
+ * Get the number of days in a month of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The number of days in a month
+ *
+ * @example
+ * // How many days are in February 2000?
+ * const result = getDaysInMonth(new Date(2000, 1))
+ * //=> 29
+ */
+function getDaysInMonth(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const year = _date.getFullYear();
+  const monthIndex = _date.getMonth();
+  const lastDayOfMonth = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
+  lastDayOfMonth.setFullYear(year, monthIndex + 1, 0);
+  lastDayOfMonth.setHours(0, 0, 0, 0);
+  return lastDayOfMonth.getDate();
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getDaysInMonth);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/getISOWeek.mjs":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/getISOWeek.mjs ***!
+  \*********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getISOWeek: function() { return /* binding */ getISOWeek; }
+/* harmony export */ });
+/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constants.mjs");
+/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeek.mjs");
+/* harmony import */ var _startOfISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeekYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeekYear.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+
+
+/**
+ * @name getISOWeek
+ * @category ISO Week Helpers
+ * @summary Get the ISO week of the given date.
+ *
+ * @description
+ * Get the ISO week of the given date.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The ISO week
+ *
+ * @example
+ * // Which week of the ISO-week numbering year is 2 January 2005?
+ * const result = getISOWeek(new Date(2005, 0, 2))
+ * //=> 53
+ */
+function getISOWeek(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_3__.toDate)(date);
+  const diff = +(0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(_date) - +(0,_startOfISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeekYear)(_date);
+
+  // Round the number of weeks to the nearest integer because the number of
+  // milliseconds in a week is not constant (e.g. it's different in the week of
+  // the daylight saving time clock shift).
+  return Math.round(diff / _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getISOWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/getISOWeekYear.mjs":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/getISOWeekYear.mjs ***!
+  \*************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getISOWeekYear: function() { return /* binding */ getISOWeekYear; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeek.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+
+/**
+ * @name getISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Get the ISO week-numbering year of the given date.
+ *
+ * @description
+ * Get the ISO week-numbering year of the given date,
+ * which always starts 3 days before the year's first Thursday.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The ISO week-numbering year
+ *
+ * @example
+ * // Which ISO-week numbering year is 2 January 2005?
+ * const result = getISOWeekYear(new Date(2005, 0, 2))
+ * //=> 2004
+ */
+function getISOWeekYear(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+  const year = _date.getFullYear();
+
+  const fourthOfJanuaryOfNextYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
+  fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
+  const startOfNextYear = (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfNextYear);
+
+  const fourthOfJanuaryOfThisYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4);
+  fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0);
+  const startOfThisYear = (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfThisYear);
+
+  if (_date.getTime() >= startOfNextYear.getTime()) {
+    return year + 1;
+  } else if (_date.getTime() >= startOfThisYear.getTime()) {
+    return year;
+  } else {
+    return year - 1;
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getISOWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/getWeek.mjs":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/getWeek.mjs ***!
+  \******************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getWeek: function() { return /* binding */ getWeek; }
+/* harmony export */ });
+/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constants.mjs");
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfWeek.mjs");
+/* harmony import */ var _startOfWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeekYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfWeekYear.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+
+
+/**
+ * The {@link getWeek} function options.
+ */
+
+/**
+ * @name getWeek
+ * @category Week Helpers
+ * @summary Get the local week index of the given date.
+ *
+ * @description
+ * Get the local week index of the given date.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options
+ *
+ * @returns The week
+ *
+ * @example
+ * // Which week of the local week numbering year is 2 January 2005 with default options?
+ * const result = getWeek(new Date(2005, 0, 2))
+ * //=> 2
+ *
+ * @example
+ * // Which week of the local week numbering year is 2 January 2005,
+ * // if Monday is the first day of the week,
+ * // and the first week of the year always contains 4 January?
+ * const result = getWeek(new Date(2005, 0, 2), {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> 53
+ */
+
+function getWeek(date, options) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_3__.toDate)(date);
+  const diff = +(0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(_date, options) - +(0,_startOfWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfWeekYear)(_date, options);
+
+  // Round the number of weeks to the nearest integer because the number of
+  // milliseconds in a week is not constant (e.g. it's different in the week of
+  // the daylight saving time clock shift).
+  return Math.round(diff / _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/getWeekYear.mjs":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/getWeekYear.mjs ***!
+  \**********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getWeekYear: function() { return /* binding */ getWeekYear; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfWeek.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/defaultOptions.mjs");
+
+
+
+
+
+/**
+ * The {@link getWeekYear} function options.
+ */
+
+/**
+ * @name getWeekYear
+ * @category Week-Numbering Year Helpers
+ * @summary Get the local week-numbering year of the given date.
+ *
+ * @description
+ * Get the local week-numbering year of the given date.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options.
+ *
+ * @returns The local week-numbering year
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 with the default settings?
+ * const result = getWeekYear(new Date(2004, 11, 26))
+ * //=> 2005
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 if week starts on Saturday?
+ * const result = getWeekYear(new Date(2004, 11, 26), { weekStartsOn: 6 })
+ * //=> 2004
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 if the first week contains 4 January?
+ * const result = getWeekYear(new Date(2004, 11, 26), { firstWeekContainsDate: 4 })
+ * //=> 2004
+ */
+function getWeekYear(date, options) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+  const year = _date.getFullYear();
+
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__.getDefaultOptions)();
+  const firstWeekContainsDate =
+    options?.firstWeekContainsDate ??
+    options?.locale?.options?.firstWeekContainsDate ??
+    defaultOptions.firstWeekContainsDate ??
+    defaultOptions.locale?.options?.firstWeekContainsDate ??
+    1;
+
+  const firstWeekOfNextYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
+  firstWeekOfNextYear.setHours(0, 0, 0, 0);
+  const startOfNextYear = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(firstWeekOfNextYear, options);
+
+  const firstWeekOfThisYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  firstWeekOfThisYear.setFullYear(year, 0, firstWeekContainsDate);
+  firstWeekOfThisYear.setHours(0, 0, 0, 0);
+  const startOfThisYear = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(firstWeekOfThisYear, options);
+
+  if (_date.getTime() >= startOfNextYear.getTime()) {
+    return year + 1;
+  } else if (_date.getTime() >= startOfThisYear.getTime()) {
+    return year;
+  } else {
+    return year - 1;
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/isDate.mjs":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/isDate.mjs ***!
+  \*****************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isDate: function() { return /* binding */ isDate; }
+/* harmony export */ });
+/**
+ * @name isDate
+ * @category Common Helpers
+ * @summary Is the given value a date?
+ *
+ * @description
+ * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
+ *
+ * @param value - The value to check
+ *
+ * @returns True if the given value is a date
+ *
+ * @example
+ * // For a valid date:
+ * const result = isDate(new Date())
+ * //=> true
+ *
+ * @example
+ * // For an invalid date:
+ * const result = isDate(new Date(NaN))
+ * //=> true
+ *
+ * @example
+ * // For some value:
+ * const result = isDate('2014-02-31')
+ * //=> false
+ *
+ * @example
+ * // For an object:
+ * const result = isDate({})
+ * //=> false
+ */
+function isDate(value) {
+  return (
+    value instanceof Date ||
+    (typeof value === "object" &&
+      Object.prototype.toString.call(value) === "[object Date]")
+  );
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (isDate);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/isValid.mjs":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/isValid.mjs ***!
+  \******************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isValid: function() { return /* binding */ isValid; }
+/* harmony export */ });
+/* harmony import */ var _isDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/isDate.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+/**
+ * @name isValid
+ * @category Common Helpers
+ * @summary Is the given date valid?
+ *
+ * @description
+ * Returns false if argument is Invalid Date and true otherwise.
+ * Argument is converted to Date using `toDate`. See [toDate](https://date-fns.org/docs/toDate)
+ * Invalid Date is a Date, whose time value is NaN.
+ *
+ * Time value of Date: http://es5.github.io/#x15.9.1.1
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is valid
+ *
+ * @example
+ * // For the valid date:
+ * const result = isValid(new Date(2014, 1, 31))
+ * //=> true
+ *
+ * @example
+ * // For the value, convertable into a date:
+ * const result = isValid(1393804800000)
+ * //=> true
+ *
+ * @example
+ * // For the invalid date:
+ * const result = isValid(new Date(''))
+ * //=> false
+ */
+function isValid(date) {
+  if (!(0,_isDate_mjs__WEBPACK_IMPORTED_MODULE_0__.isDate)(date) && typeof date !== "number") {
+    return false;
+  }
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_1__.toDate)(date);
+  return !isNaN(Number(_date));
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (isValid);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs":
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs ***!
+  \****************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildFormatLongFn: function() { return /* binding */ buildFormatLongFn; }
+/* harmony export */ });
+function buildFormatLongFn(args) {
+  return (options = {}) => {
+    // TODO: Remove String()
+    const width = options.width ? String(options.width) : args.defaultWidth;
+    const format = args.formats[width] || args.formats[args.defaultWidth];
+    return format;
+  };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildLocalizeFn: function() { return /* binding */ buildLocalizeFn; }
+/* harmony export */ });
+/* eslint-disable no-unused-vars */
+
+/**
+ * The localize function argument callback which allows to convert raw value to
+ * the actual type.
+ *
+ * @param value - The value to convert
+ *
+ * @returns The converted value
+ */
+
+/**
+ * The map of localized values for each width.
+ */
+
+/**
+ * The index type of the locale unit value. It types conversion of units of
+ * values that don't start at 0 (i.e. quarters).
+ */
+
+/**
+ * Converts the unit value to the tuple of values.
+ */
+
+/**
+ * The tuple of localized era values. The first element represents BC,
+ * the second element represents AD.
+ */
+
+/**
+ * The tuple of localized quarter values. The first element represents Q1.
+ */
+
+/**
+ * The tuple of localized day values. The first element represents Sunday.
+ */
+
+/**
+ * The tuple of localized month values. The first element represents January.
+ */
+
+function buildLocalizeFn(args) {
+  return (value, options) => {
+    const context = options?.context ? String(options.context) : "standalone";
+
+    let valuesArray;
+    if (context === "formatting" && args.formattingValues) {
+      const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+      const width = options?.width ? String(options.width) : defaultWidth;
+
+      valuesArray =
+        args.formattingValues[width] || args.formattingValues[defaultWidth];
+    } else {
+      const defaultWidth = args.defaultWidth;
+      const width = options?.width ? String(options.width) : args.defaultWidth;
+
+      valuesArray = args.values[width] || args.values[defaultWidth];
+    }
+    const index = args.argumentCallback ? args.argumentCallback(value) : value;
+
+    // @ts-expect-error - For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
+    return valuesArray[index];
+  };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildMatchFn.mjs":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildMatchFn.mjs ***!
+  \***********************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildMatchFn: function() { return /* binding */ buildMatchFn; }
+/* harmony export */ });
+function buildMatchFn(args) {
+  return (string, options = {}) => {
+    const width = options.width;
+
+    const matchPattern =
+      (width && args.matchPatterns[width]) ||
+      args.matchPatterns[args.defaultMatchWidth];
+    const matchResult = string.match(matchPattern);
+
+    if (!matchResult) {
+      return null;
+    }
+    const matchedString = matchResult[0];
+
+    const parsePatterns =
+      (width && args.parsePatterns[width]) ||
+      args.parsePatterns[args.defaultParseWidth];
+
+    const key = Array.isArray(parsePatterns)
+      ? findIndex(parsePatterns, (pattern) => pattern.test(matchedString))
+      : // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+        findKey(parsePatterns, (pattern) => pattern.test(matchedString));
+
+    let value;
+
+    value = args.valueCallback ? args.valueCallback(key) : key;
+    value = options.valueCallback
+      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+        options.valueCallback(value)
+      : value;
+
+    const rest = string.slice(matchedString.length);
+
+    return { value, rest };
+  };
+}
+
+function findKey(object, predicate) {
+  for (const key in object) {
+    if (
+      Object.prototype.hasOwnProperty.call(object, key) &&
+      predicate(object[key])
+    ) {
+      return key;
+    }
+  }
+  return undefined;
+}
+
+function findIndex(array, predicate) {
+  for (let key = 0; key < array.length; key++) {
+    if (predicate(array[key])) {
+      return key;
+    }
+  }
+  return undefined;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs ***!
+  \******************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildMatchPatternFn: function() { return /* binding */ buildMatchPatternFn; }
+/* harmony export */ });
+function buildMatchPatternFn(args) {
+  return (string, options = {}) => {
+    const matchResult = string.match(args.matchPattern);
+    if (!matchResult) return null;
+    const matchedString = matchResult[0];
+
+    const parseResult = string.match(args.parsePattern);
+    if (!parseResult) return null;
+    let value = args.valueCallback
+      ? args.valueCallback(parseResult[0])
+      : parseResult[0];
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+    value = options.valueCallback ? options.valueCallback(value) : value;
+
+    const rest = string.slice(matchedString.length);
+
+    return { value, rest };
+  };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US.mjs":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US.mjs ***!
+  \***********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   enUS: function() { return /* binding */ enUS; }
+/* harmony export */ });
+/* harmony import */ var _en_US_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./en-US/_lib/formatDistance.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs");
+/* harmony import */ var _en_US_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./en-US/_lib/formatLong.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatLong.mjs");
+/* harmony import */ var _en_US_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./en-US/_lib/formatRelative.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs");
+/* harmony import */ var _en_US_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./en-US/_lib/localize.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/localize.mjs");
+/* harmony import */ var _en_US_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./en-US/_lib/match.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/match.mjs");
+
+
+
+
+
+
+/**
+ * @category Locales
+ * @summary English locale (United States).
+ * @language English
+ * @iso-639-2 eng
+ * @author Sasha Koss [@kossnocorp](https://github.com/kossnocorp)
+ * @author Lesha Koss [@leshakoss](https://github.com/leshakoss)
+ */
+const enUS = {
+  code: "en-US",
+  formatDistance: _en_US_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__.formatDistance,
+  formatLong: _en_US_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__.formatLong,
+  formatRelative: _en_US_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__.formatRelative,
+  localize: _en_US_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__.localize,
+  match: _en_US_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__.match,
+  options: {
+    weekStartsOn: 0 /* Sunday */,
+    firstWeekContainsDate: 1,
+  },
+};
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (enUS);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs ***!
+  \*******************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatDistance: function() { return /* binding */ formatDistance; }
+/* harmony export */ });
+const formatDistanceLocale = {
+  lessThanXSeconds: {
+    one: "less than a second",
+    other: "less than {{count}} seconds",
+  },
+
+  xSeconds: {
+    one: "1 second",
+    other: "{{count}} seconds",
+  },
+
+  halfAMinute: "half a minute",
+
+  lessThanXMinutes: {
+    one: "less than a minute",
+    other: "less than {{count}} minutes",
+  },
+
+  xMinutes: {
+    one: "1 minute",
+    other: "{{count}} minutes",
+  },
+
+  aboutXHours: {
+    one: "about 1 hour",
+    other: "about {{count}} hours",
+  },
+
+  xHours: {
+    one: "1 hour",
+    other: "{{count}} hours",
+  },
+
+  xDays: {
+    one: "1 day",
+    other: "{{count}} days",
+  },
+
+  aboutXWeeks: {
+    one: "about 1 week",
+    other: "about {{count}} weeks",
+  },
+
+  xWeeks: {
+    one: "1 week",
+    other: "{{count}} weeks",
+  },
+
+  aboutXMonths: {
+    one: "about 1 month",
+    other: "about {{count}} months",
+  },
+
+  xMonths: {
+    one: "1 month",
+    other: "{{count}} months",
+  },
+
+  aboutXYears: {
+    one: "about 1 year",
+    other: "about {{count}} years",
+  },
+
+  xYears: {
+    one: "1 year",
+    other: "{{count}} years",
+  },
+
+  overXYears: {
+    one: "over 1 year",
+    other: "over {{count}} years",
+  },
+
+  almostXYears: {
+    one: "almost 1 year",
+    other: "almost {{count}} years",
+  },
+};
+
+const formatDistance = (token, count, options) => {
+  let result;
+
+  const tokenValue = formatDistanceLocale[token];
+  if (typeof tokenValue === "string") {
+    result = tokenValue;
+  } else if (count === 1) {
+    result = tokenValue.one;
+  } else {
+    result = tokenValue.other.replace("{{count}}", count.toString());
+  }
+
+  if (options?.addSuffix) {
+    if (options.comparison && options.comparison > 0) {
+      return "in " + result;
+    } else {
+      return result + " ago";
+    }
+  }
+
+  return result;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatLong.mjs":
 /*!***************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/components/node_modules/@wordpress/warning/build-module/utils.mjs ***!
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatLong.mjs ***!
   \***************************************************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   logged: function() { return /* binding */ logged; }
+/* harmony export */   formatLong: function() { return /* binding */ formatLong; }
 /* harmony export */ });
-// packages/warning/src/utils.ts
-var logged = /* @__PURE__ */ new Set();
+/* harmony import */ var _lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildFormatLongFn.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs");
 
-//# sourceMappingURL=utils.mjs.map
+
+const dateFormats = {
+  full: "EEEE, MMMM do, y",
+  long: "MMMM do, y",
+  medium: "MMM d, y",
+  short: "MM/dd/yyyy",
+};
+
+const timeFormats = {
+  full: "h:mm:ss a zzzz",
+  long: "h:mm:ss a z",
+  medium: "h:mm:ss a",
+  short: "h:mm a",
+};
+
+const dateTimeFormats = {
+  full: "{{date}} 'at' {{time}}",
+  long: "{{date}} 'at' {{time}}",
+  medium: "{{date}}, {{time}}",
+  short: "{{date}}, {{time}}",
+};
+
+const formatLong = {
+  date: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: dateFormats,
+    defaultWidth: "full",
+  }),
+
+  time: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: timeFormats,
+    defaultWidth: "full",
+  }),
+
+  dateTime: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: dateTimeFormats,
+    defaultWidth: "full",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs ***!
+  \*******************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatRelative: function() { return /* binding */ formatRelative; }
+/* harmony export */ });
+const formatRelativeLocale = {
+  lastWeek: "'last' eeee 'at' p",
+  yesterday: "'yesterday at' p",
+  today: "'today at' p",
+  tomorrow: "'tomorrow at' p",
+  nextWeek: "eeee 'at' p",
+  other: "P",
+};
+
+const formatRelative = (token, _date, _baseDate, _options) =>
+  formatRelativeLocale[token];
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/localize.mjs":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/localize.mjs ***!
+  \*************************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   localize: function() { return /* binding */ localize; }
+/* harmony export */ });
+/* harmony import */ var _lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildLocalizeFn.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs");
+
+
+const eraValues = {
+  narrow: ["B", "A"],
+  abbreviated: ["BC", "AD"],
+  wide: ["Before Christ", "Anno Domini"],
+};
+
+const quarterValues = {
+  narrow: ["1", "2", "3", "4"],
+  abbreviated: ["Q1", "Q2", "Q3", "Q4"],
+  wide: ["1st quarter", "2nd quarter", "3rd quarter", "4th quarter"],
+};
+
+// Note: in English, the names of days of the week and months are capitalized.
+// If you are making a new locale based on this one, check if the same is true for the language you're working on.
+// Generally, formatted dates should look like they are in the middle of a sentence,
+// e.g. in Spanish language the weekdays and months should be in the lowercase.
+const monthValues = {
+  narrow: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+  abbreviated: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
+
+  wide: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
+};
+
+const dayValues = {
+  narrow: ["S", "M", "T", "W", "T", "F", "S"],
+  short: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+  abbreviated: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  wide: [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ],
+};
+
+const dayPeriodValues = {
+  narrow: {
+    am: "a",
+    pm: "p",
+    midnight: "mi",
+    noon: "n",
+    morning: "morning",
+    afternoon: "afternoon",
+    evening: "evening",
+    night: "night",
+  },
+  abbreviated: {
+    am: "AM",
+    pm: "PM",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "morning",
+    afternoon: "afternoon",
+    evening: "evening",
+    night: "night",
+  },
+  wide: {
+    am: "a.m.",
+    pm: "p.m.",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "morning",
+    afternoon: "afternoon",
+    evening: "evening",
+    night: "night",
+  },
+};
+
+const formattingDayPeriodValues = {
+  narrow: {
+    am: "a",
+    pm: "p",
+    midnight: "mi",
+    noon: "n",
+    morning: "in the morning",
+    afternoon: "in the afternoon",
+    evening: "in the evening",
+    night: "at night",
+  },
+  abbreviated: {
+    am: "AM",
+    pm: "PM",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "in the morning",
+    afternoon: "in the afternoon",
+    evening: "in the evening",
+    night: "at night",
+  },
+  wide: {
+    am: "a.m.",
+    pm: "p.m.",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "in the morning",
+    afternoon: "in the afternoon",
+    evening: "in the evening",
+    night: "at night",
+  },
+};
+
+const ordinalNumber = (dirtyNumber, _options) => {
+  const number = Number(dirtyNumber);
+
+  // If ordinal numbers depend on context, for example,
+  // if they are different for different grammatical genders,
+  // use `options.unit`.
+  //
+  // `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
+  // 'day', 'hour', 'minute', 'second'.
+
+  const rem100 = number % 100;
+  if (rem100 > 20 || rem100 < 10) {
+    switch (rem100 % 10) {
+      case 1:
+        return number + "st";
+      case 2:
+        return number + "nd";
+      case 3:
+        return number + "rd";
+    }
+  }
+  return number + "th";
+};
+
+const localize = {
+  ordinalNumber,
+
+  era: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: eraValues,
+    defaultWidth: "wide",
+  }),
+
+  quarter: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: quarterValues,
+    defaultWidth: "wide",
+    argumentCallback: (quarter) => quarter - 1,
+  }),
+
+  month: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: monthValues,
+    defaultWidth: "wide",
+  }),
+
+  day: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: dayValues,
+    defaultWidth: "wide",
+  }),
+
+  dayPeriod: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: dayPeriodValues,
+    defaultWidth: "wide",
+    formattingValues: formattingDayPeriodValues,
+    defaultFormattingWidth: "wide",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/match.mjs":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/locale/en-US/_lib/match.mjs ***!
+  \**********************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   match: function() { return /* binding */ match; }
+/* harmony export */ });
+/* harmony import */ var _lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildMatchFn.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildMatchFn.mjs");
+/* harmony import */ var _lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_lib/buildMatchPatternFn.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs");
+
+
+
+const matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
+const parseOrdinalNumberPattern = /\d+/i;
+
+const matchEraPatterns = {
+  narrow: /^(b|a)/i,
+  abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+  wide: /^(before christ|before common era|anno domini|common era)/i,
+};
+const parseEraPatterns = {
+  any: [/^b/i, /^(a|c)/i],
+};
+
+const matchQuarterPatterns = {
+  narrow: /^[1234]/i,
+  abbreviated: /^q[1234]/i,
+  wide: /^[1234](th|st|nd|rd)? quarter/i,
+};
+const parseQuarterPatterns = {
+  any: [/1/i, /2/i, /3/i, /4/i],
+};
+
+const matchMonthPatterns = {
+  narrow: /^[jfmasond]/i,
+  abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
+  wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i,
+};
+const parseMonthPatterns = {
+  narrow: [
+    /^j/i,
+    /^f/i,
+    /^m/i,
+    /^a/i,
+    /^m/i,
+    /^j/i,
+    /^j/i,
+    /^a/i,
+    /^s/i,
+    /^o/i,
+    /^n/i,
+    /^d/i,
+  ],
+
+  any: [
+    /^ja/i,
+    /^f/i,
+    /^mar/i,
+    /^ap/i,
+    /^may/i,
+    /^jun/i,
+    /^jul/i,
+    /^au/i,
+    /^s/i,
+    /^o/i,
+    /^n/i,
+    /^d/i,
+  ],
+};
+
+const matchDayPatterns = {
+  narrow: /^[smtwf]/i,
+  short: /^(su|mo|tu|we|th|fr|sa)/i,
+  abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
+  wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i,
+};
+const parseDayPatterns = {
+  narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
+  any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i],
+};
+
+const matchDayPeriodPatterns = {
+  narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
+  any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i,
+};
+const parseDayPeriodPatterns = {
+  any: {
+    am: /^a/i,
+    pm: /^p/i,
+    midnight: /^mi/i,
+    noon: /^no/i,
+    morning: /morning/i,
+    afternoon: /afternoon/i,
+    evening: /evening/i,
+    night: /night/i,
+  },
+};
+
+const match = {
+  ordinalNumber: (0,_lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchPatternFn)({
+    matchPattern: matchOrdinalNumberPattern,
+    parsePattern: parseOrdinalNumberPattern,
+    valueCallback: (value) => parseInt(value, 10),
+  }),
+
+  era: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+    matchPatterns: matchEraPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseEraPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  quarter: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+    matchPatterns: matchQuarterPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseQuarterPatterns,
+    defaultParseWidth: "any",
+    valueCallback: (index) => index + 1,
+  }),
+
+  month: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+    matchPatterns: matchMonthPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseMonthPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  day: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+    matchPatterns: matchDayPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseDayPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  dayPeriod: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+    matchPatterns: matchDayPeriodPatterns,
+    defaultMatchWidth: "any",
+    parsePatterns: parseDayPeriodPatterns,
+    defaultParseWidth: "any",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/set.mjs":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/set.mjs ***!
+  \**************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   set: function() { return /* binding */ set; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _setMonth_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setMonth.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/setMonth.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+
+/**
+ * @name set
+ * @category Common Helpers
+ * @summary Set date values to a given date.
+ *
+ * @description
+ * Set date values to a given date.
+ *
+ * Sets time values to date from object `values`.
+ * A value is not set if it is undefined or null or doesn't exist in `values`.
+ *
+ * Note about bundle size: `set` does not internally use `setX` functions from date-fns but instead opts
+ * to use native `Date#setX` methods. If you use this function, you may not want to include the
+ * other `setX` functions that date-fns provides if you are concerned about the bundle size.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param values - The date values to be set
+ *
+ * @returns The new date with options set
+ *
+ * @example
+ * // Transform 1 September 2014 into 20 October 2015 in a single line:
+ * const result = set(new Date(2014, 8, 20), { year: 2015, month: 9, date: 20 })
+ * //=> Tue Oct 20 2015 00:00:00
+ *
+ * @example
+ * // Set 12 PM to 1 September 2014 01:23:45 to 1 September 2014 12:00:00:
+ * const result = set(new Date(2014, 8, 1, 1, 23, 45), { hours: 12 })
+ * //=> Mon Sep 01 2014 12:23:45
+ */
+
+function set(date, values) {
+  let _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+
+  // Check if date is Invalid Date because Date.prototype.setFullYear ignores the value of Invalid Date
+  if (isNaN(+_date)) {
+    return (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, NaN);
+  }
+
+  if (values.year != null) {
+    _date.setFullYear(values.year);
+  }
+
+  if (values.month != null) {
+    _date = (0,_setMonth_mjs__WEBPACK_IMPORTED_MODULE_1__.setMonth)(_date, values.month);
+  }
+
+  if (values.date != null) {
+    _date.setDate(values.date);
+  }
+
+  if (values.hours != null) {
+    _date.setHours(values.hours);
+  }
+
+  if (values.minutes != null) {
+    _date.setMinutes(values.minutes);
+  }
+
+  if (values.seconds != null) {
+    _date.setSeconds(values.seconds);
+  }
+
+  if (values.milliseconds != null) {
+    _date.setMilliseconds(values.milliseconds);
+  }
+
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (set);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/setMonth.mjs":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/setMonth.mjs ***!
+  \*******************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setMonth: function() { return /* binding */ setMonth; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _getDaysInMonth_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDaysInMonth.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getDaysInMonth.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+
+
+/**
+ * @name setMonth
+ * @category Month Helpers
+ * @summary Set the month to the given date.
+ *
+ * @description
+ * Set the month to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param month - The month index to set (0-11)
+ *
+ * @returns The new date with the month set
+ *
+ * @example
+ * // Set February to 1 September 2014:
+ * const result = setMonth(new Date(2014, 8, 1), 1)
+ * //=> Sat Feb 01 2014 00:00:00
+ */
+function setMonth(date, month) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+  const year = _date.getFullYear();
+  const day = _date.getDate();
+
+  const dateWithDesiredMonth = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  dateWithDesiredMonth.setFullYear(year, month, 15);
+  dateWithDesiredMonth.setHours(0, 0, 0, 0);
+  const daysInMonth = (0,_getDaysInMonth_mjs__WEBPACK_IMPORTED_MODULE_1__.getDaysInMonth)(dateWithDesiredMonth);
+  // Set the last day of the new month
+  // if the original date was the last day of the longer month
+  _date.setMonth(month, Math.min(day, daysInMonth));
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (setMonth);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/startOfDay.mjs":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/startOfDay.mjs ***!
+  \*********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   startOfDay: function() { return /* binding */ startOfDay; }
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+/**
+ * @name startOfDay
+ * @category Day Helpers
+ * @summary Return the start of a day for the given date.
+ *
+ * @description
+ * Return the start of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a day
+ *
+ * @example
+ * // The start of a day for 2 September 2014 11:55:00:
+ * const result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 00:00:00
+ */
+function startOfDay(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  _date.setHours(0, 0, 0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (startOfDay);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeek.mjs":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeek.mjs ***!
+  \*************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   startOfISOWeek: function() { return /* binding */ startOfISOWeek; }
+/* harmony export */ });
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfWeek.mjs");
+
+
+/**
+ * @name startOfISOWeek
+ * @category ISO Week Helpers
+ * @summary Return the start of an ISO week for the given date.
+ *
+ * @description
+ * Return the start of an ISO week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of an ISO week
+ *
+ * @example
+ * // The start of an ISO week for 2 September 2014 11:55:00:
+ * const result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfISOWeek(date) {
+  return (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_0__.startOfWeek)(date, { weekStartsOn: 1 });
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (startOfISOWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeekYear.mjs":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeekYear.mjs ***!
+  \*****************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   startOfISOWeekYear: function() { return /* binding */ startOfISOWeekYear; }
+/* harmony export */ });
+/* harmony import */ var _getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getISOWeekYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getISOWeekYear.mjs");
+/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfISOWeek.mjs");
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+
+
+
+
+/**
+ * @name startOfISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Return the start of an ISO week-numbering year for the given date.
+ *
+ * @description
+ * Return the start of an ISO week-numbering year,
+ * which always starts 3 days before the year's first Thursday.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of an ISO week-numbering year
+ *
+ * @example
+ * // The start of an ISO week-numbering year for 2 July 2005:
+ * const result = startOfISOWeekYear(new Date(2005, 6, 2))
+ * //=> Mon Jan 03 2005 00:00:00
+ */
+function startOfISOWeekYear(date) {
+  const year = (0,_getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_0__.getISOWeekYear)(date);
+  const fourthOfJanuary = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__.constructFrom)(date, 0);
+  fourthOfJanuary.setFullYear(year, 0, 4);
+  fourthOfJanuary.setHours(0, 0, 0, 0);
+  return (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuary);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (startOfISOWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/startOfMinute.mjs":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/startOfMinute.mjs ***!
+  \************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   startOfMinute: function() { return /* binding */ startOfMinute; }
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+
+
+/**
+ * @name startOfMinute
+ * @category Minute Helpers
+ * @summary Return the start of a minute for the given date.
+ *
+ * @description
+ * Return the start of a minute for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a minute
+ *
+ * @example
+ * // The start of a minute for 1 December 2014 22:15:45.400:
+ * const result = startOfMinute(new Date(2014, 11, 1, 22, 15, 45, 400))
+ * //=> Mon Dec 01 2014 22:15:00
+ */
+function startOfMinute(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  _date.setSeconds(0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (startOfMinute);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/startOfWeek.mjs":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/startOfWeek.mjs ***!
+  \**********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   startOfWeek: function() { return /* binding */ startOfWeek; }
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/defaultOptions.mjs");
+
+
+
+/**
+ * The {@link startOfWeek} function options.
+ */
+
+/**
+ * @name startOfWeek
+ * @category Week Helpers
+ * @summary Return the start of a week for the given date.
+ *
+ * @description
+ * Return the start of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The start of a week
+ *
+ * @example
+ * // The start of a week for 2 September 2014 11:55:00:
+ * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
+ * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfWeek(date, options) {
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
+  const weekStartsOn =
+    options?.weekStartsOn ??
+    options?.locale?.options?.weekStartsOn ??
+    defaultOptions.weekStartsOn ??
+    defaultOptions.locale?.options?.weekStartsOn ??
+    0;
+
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const day = _date.getDay();
+  const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+
+  _date.setDate(_date.getDate() - diff);
+  _date.setHours(0, 0, 0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (startOfWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/startOfWeekYear.mjs":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/startOfWeekYear.mjs ***!
+  \**************************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   startOfWeekYear: function() { return /* binding */ startOfWeekYear; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getWeekYear.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/getWeekYear.mjs");
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/startOfWeek.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/_lib/defaultOptions.mjs");
+
+
+
+
+
+/**
+ * The {@link startOfWeekYear} function options.
+ */
+
+/**
+ * @name startOfWeekYear
+ * @category Week-Numbering Year Helpers
+ * @summary Return the start of a local week-numbering year for the given date.
+ *
+ * @description
+ * Return the start of a local week-numbering year.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The start of a week-numbering year
+ *
+ * @example
+ * // The start of an a week-numbering year for 2 July 2005 with default settings:
+ * const result = startOfWeekYear(new Date(2005, 6, 2))
+ * //=> Sun Dec 26 2004 00:00:00
+ *
+ * @example
+ * // The start of a week-numbering year for 2 July 2005
+ * // if Monday is the first day of week
+ * // and 4 January is always in the first week of the year:
+ * const result = startOfWeekYear(new Date(2005, 6, 2), {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> Mon Jan 03 2005 00:00:00
+ */
+function startOfWeekYear(date, options) {
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__.getDefaultOptions)();
+  const firstWeekContainsDate =
+    options?.firstWeekContainsDate ??
+    options?.locale?.options?.firstWeekContainsDate ??
+    defaultOptions.firstWeekContainsDate ??
+    defaultOptions.locale?.options?.firstWeekContainsDate ??
+    1;
+
+  const year = (0,_getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__.getWeekYear)(date, options);
+  const firstWeek = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  firstWeek.setFullYear(year, 0, firstWeekContainsDate);
+  firstWeek.setHours(0, 0, 0, 0);
+  const _date = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeek, options);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (startOfWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/startOfYear.mjs":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/startOfYear.mjs ***!
+  \**********************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   startOfYear: function() { return /* binding */ startOfYear; }
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/@wordpress/components/node_modules/date-fns/constructFrom.mjs");
+
+
+
+/**
+ * @name startOfYear
+ * @category Year Helpers
+ * @summary Return the start of a year for the given date.
+ *
+ * @description
+ * Return the start of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a year
+ *
+ * @example
+ * // The start of a year for 2 September 2014 11:55:00:
+ * const result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Jan 01 2014 00:00:00
+ */
+function startOfYear(date) {
+  const cleanDate = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const _date = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
+  _date.setFullYear(cleanDate.getFullYear(), 0, 1);
+  _date.setHours(0, 0, 0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (startOfYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/node_modules/date-fns/toDate.mjs ***!
+  \*****************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toDate: function() { return /* binding */ toDate; }
+/* harmony export */ });
+/**
+ * @name toDate
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If the argument is none of the above, the function returns Invalid Date.
+ *
+ * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param argument - The value to convert
+ *
+ * @returns The parsed date in the local time zone
+ *
+ * @example
+ * // Clone the date:
+ * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert the timestamp to date:
+ * const result = toDate(1392098430000)
+ * //=> Tue Feb 11 2014 11:30:30
+ */
+function toDate(argument) {
+  const argStr = Object.prototype.toString.call(argument);
+
+  // Clone the date
+  if (
+    argument instanceof Date ||
+    (typeof argument === "object" && argStr === "[object Date]")
+  ) {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new argument.constructor(+argument);
+  } else if (
+    typeof argument === "number" ||
+    argStr === "[object Number]" ||
+    typeof argument === "string" ||
+    argStr === "[object String]"
+  ) {
+    // TODO: Can we get rid of as?
+    return new Date(argument);
+  } else {
+    // TODO: Can we get rid of as?
+    return new Date(NaN);
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (toDate);
 
 
 /***/ }),
@@ -112974,4170 +117137,6 @@ function createEmitter() {
 }
 
 //# sourceMappingURL=emitter.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/warning/build-module/index.mjs":
-/*!**************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/warning/build-module/index.mjs ***!
-  \**************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ warning; }
-/* harmony export */ });
-/* harmony import */ var _utils_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.mjs */ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/warning/build-module/utils.mjs");
-// packages/warning/src/index.ts
-
-function isDev() {
-  return globalThis.SCRIPT_DEBUG === true;
-}
-function warning(message) {
-  if (!isDev()) {
-    return;
-  }
-  if (_utils_mjs__WEBPACK_IMPORTED_MODULE_0__.logged.has(message)) {
-    return;
-  }
-  console.warn(message);
-  try {
-    throw Error(message);
-  } catch (x) {
-  }
-  _utils_mjs__WEBPACK_IMPORTED_MODULE_0__.logged.add(message);
-}
-
-//# sourceMappingURL=index.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/@wordpress/warning/build-module/utils.mjs":
-/*!**************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/@wordpress/warning/build-module/utils.mjs ***!
-  \**************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   logged: function() { return /* binding */ logged; }
-/* harmony export */ });
-// packages/warning/src/utils.ts
-var logged = /* @__PURE__ */ new Set();
-
-//# sourceMappingURL=utils.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/addLeadingZeros.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/addLeadingZeros.js ***!
-  \*****************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addLeadingZeros: function() { return /* binding */ addLeadingZeros; }
-/* harmony export */ });
-function addLeadingZeros(number, targetLength) {
-  const sign = number < 0 ? "-" : "";
-  const output = Math.abs(number).toString().padStart(targetLength, "0");
-  return sign + output;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/defaultOptions.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/defaultOptions.js ***!
-  \****************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getDefaultOptions: function() { return /* binding */ getDefaultOptions; },
-/* harmony export */   setDefaultOptions: function() { return /* binding */ setDefaultOptions; }
-/* harmony export */ });
-let defaultOptions = {};
-
-function getDefaultOptions() {
-  return defaultOptions;
-}
-
-function setDefaultOptions(newOptions) {
-  defaultOptions = newOptions;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/formatters.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/formatters.js ***!
-  \*******************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatters: function() { return /* binding */ formatters; }
-/* harmony export */ });
-/* harmony import */ var _getDayOfYear_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../getDayOfYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getDayOfYear.js");
-/* harmony import */ var _getISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../getISOWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getISOWeek.js");
-/* harmony import */ var _getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../getISOWeekYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getISOWeekYear.js");
-/* harmony import */ var _getWeek_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../getWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getWeek.js");
-/* harmony import */ var _getWeekYear_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../getWeekYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getWeekYear.js");
-/* harmony import */ var _addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../addLeadingZeros.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/addLeadingZeros.js");
-/* harmony import */ var _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lightFormatters.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/lightFormatters.js");
-
-
-
-
-
-
-
-
-
-const dayPeriodEnum = {
-  am: "am",
-  pm: "pm",
-  midnight: "midnight",
-  noon: "noon",
-  morning: "morning",
-  afternoon: "afternoon",
-  evening: "evening",
-  night: "night",
-};
-
-/*
- * |     | Unit                           |     | Unit                           |
- * |-----|--------------------------------|-----|--------------------------------|
- * |  a  | AM, PM                         |  A* | Milliseconds in day            |
- * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
- * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
- * |  d  | Day of month                   |  D  | Day of year                    |
- * |  e  | Local day of week              |  E  | Day of week                    |
- * |  f  |                                |  F* | Day of week in month           |
- * |  g* | Modified Julian day            |  G  | Era                            |
- * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
- * |  i! | ISO day of week                |  I! | ISO week of year               |
- * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
- * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
- * |  l* | (deprecated)                   |  L  | Stand-alone month              |
- * |  m  | Minute                         |  M  | Month                          |
- * |  n  |                                |  N  |                                |
- * |  o! | Ordinal number modifier        |  O  | Timezone (GMT)                 |
- * |  p! | Long localized time            |  P! | Long localized date            |
- * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
- * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
- * |  s  | Second                         |  S  | Fraction of second             |
- * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
- * |  u  | Extended year                  |  U* | Cyclic year                    |
- * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
- * |  w  | Local week of year             |  W* | Week of month                  |
- * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
- * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
- * |  z  | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
- *
- * Letters marked by * are not implemented but reserved by Unicode standard.
- *
- * Letters marked by ! are non-standard, but implemented by date-fns:
- * - `o` modifies the previous token to turn it into an ordinal (see `format` docs)
- * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
- *   i.e. 7 for Sunday, 1 for Monday, etc.
- * - `I` is ISO week of year, as opposed to `w` which is local week of year.
- * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
- *   `R` is supposed to be used in conjunction with `I` and `i`
- *   for universal ISO week-numbering date, whereas
- *   `Y` is supposed to be used in conjunction with `w` and `e`
- *   for week-numbering date specific to the locale.
- * - `P` is long localized date format
- * - `p` is long localized time format
- */
-
-const formatters = {
-  // Era
-  G: function (date, token, localize) {
-    const era = date.getFullYear() > 0 ? 1 : 0;
-    switch (token) {
-      // AD, BC
-      case "G":
-      case "GG":
-      case "GGG":
-        return localize.era(era, { width: "abbreviated" });
-      // A, B
-      case "GGGGG":
-        return localize.era(era, { width: "narrow" });
-      // Anno Domini, Before Christ
-      case "GGGG":
-      default:
-        return localize.era(era, { width: "wide" });
-    }
-  },
-
-  // Year
-  y: function (date, token, localize) {
-    // Ordinal number
-    if (token === "yo") {
-      const signedYear = date.getFullYear();
-      // Returns 1 for 1 BC (which is year 0 in JavaScript)
-      const year = signedYear > 0 ? signedYear : 1 - signedYear;
-      return localize.ordinalNumber(year, { unit: "year" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.y(date, token);
-  },
-
-  // Local week-numbering year
-  Y: function (date, token, localize, options) {
-    const signedWeekYear = (0,_getWeekYear_js__WEBPACK_IMPORTED_MODULE_4__.getWeekYear)(date, options);
-    // Returns 1 for 1 BC (which is year 0 in JavaScript)
-    const weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear;
-
-    // Two digit year
-    if (token === "YY") {
-      const twoDigitYear = weekYear % 100;
-      return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(twoDigitYear, 2);
-    }
-
-    // Ordinal number
-    if (token === "Yo") {
-      return localize.ordinalNumber(weekYear, { unit: "year" });
-    }
-
-    // Padding
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(weekYear, token.length);
-  },
-
-  // ISO week-numbering year
-  R: function (date, token) {
-    const isoWeekYear = (0,_getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.getISOWeekYear)(date);
-
-    // Padding
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeekYear, token.length);
-  },
-
-  // Extended year. This is a single number designating the year of this calendar system.
-  // The main difference between `y` and `u` localizers are B.C. years:
-  // | Year | `y` | `u` |
-  // |------|-----|-----|
-  // | AC 1 |   1 |   1 |
-  // | BC 1 |   1 |   0 |
-  // | BC 2 |   2 |  -1 |
-  // Also `yy` always returns the last two digits of a year,
-  // while `uu` pads single digit years to 2 characters and returns other years unchanged.
-  u: function (date, token) {
-    const year = date.getFullYear();
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(year, token.length);
-  },
-
-  // Quarter
-  Q: function (date, token, localize) {
-    const quarter = Math.ceil((date.getMonth() + 1) / 3);
-    switch (token) {
-      // 1, 2, 3, 4
-      case "Q":
-        return String(quarter);
-      // 01, 02, 03, 04
-      case "QQ":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
-      // 1st, 2nd, 3rd, 4th
-      case "Qo":
-        return localize.ordinalNumber(quarter, { unit: "quarter" });
-      // Q1, Q2, Q3, Q4
-      case "QQQ":
-        return localize.quarter(quarter, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
-      case "QQQQQ":
-        return localize.quarter(quarter, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // 1st quarter, 2nd quarter, ...
-      case "QQQQ":
-      default:
-        return localize.quarter(quarter, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Stand-alone quarter
-  q: function (date, token, localize) {
-    const quarter = Math.ceil((date.getMonth() + 1) / 3);
-    switch (token) {
-      // 1, 2, 3, 4
-      case "q":
-        return String(quarter);
-      // 01, 02, 03, 04
-      case "qq":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
-      // 1st, 2nd, 3rd, 4th
-      case "qo":
-        return localize.ordinalNumber(quarter, { unit: "quarter" });
-      // Q1, Q2, Q3, Q4
-      case "qqq":
-        return localize.quarter(quarter, {
-          width: "abbreviated",
-          context: "standalone",
-        });
-      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
-      case "qqqqq":
-        return localize.quarter(quarter, {
-          width: "narrow",
-          context: "standalone",
-        });
-      // 1st quarter, 2nd quarter, ...
-      case "qqqq":
-      default:
-        return localize.quarter(quarter, {
-          width: "wide",
-          context: "standalone",
-        });
-    }
-  },
-
-  // Month
-  M: function (date, token, localize) {
-    const month = date.getMonth();
-    switch (token) {
-      case "M":
-      case "MM":
-        return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.M(date, token);
-      // 1st, 2nd, ..., 12th
-      case "Mo":
-        return localize.ordinalNumber(month + 1, { unit: "month" });
-      // Jan, Feb, ..., Dec
-      case "MMM":
-        return localize.month(month, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // J, F, ..., D
-      case "MMMMM":
-        return localize.month(month, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // January, February, ..., December
-      case "MMMM":
-      default:
-        return localize.month(month, { width: "wide", context: "formatting" });
-    }
-  },
-
-  // Stand-alone month
-  L: function (date, token, localize) {
-    const month = date.getMonth();
-    switch (token) {
-      // 1, 2, ..., 12
-      case "L":
-        return String(month + 1);
-      // 01, 02, ..., 12
-      case "LL":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(month + 1, 2);
-      // 1st, 2nd, ..., 12th
-      case "Lo":
-        return localize.ordinalNumber(month + 1, { unit: "month" });
-      // Jan, Feb, ..., Dec
-      case "LLL":
-        return localize.month(month, {
-          width: "abbreviated",
-          context: "standalone",
-        });
-      // J, F, ..., D
-      case "LLLLL":
-        return localize.month(month, {
-          width: "narrow",
-          context: "standalone",
-        });
-      // January, February, ..., December
-      case "LLLL":
-      default:
-        return localize.month(month, { width: "wide", context: "standalone" });
-    }
-  },
-
-  // Local week of year
-  w: function (date, token, localize, options) {
-    const week = (0,_getWeek_js__WEBPACK_IMPORTED_MODULE_3__.getWeek)(date, options);
-
-    if (token === "wo") {
-      return localize.ordinalNumber(week, { unit: "week" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(week, token.length);
-  },
-
-  // ISO week of year
-  I: function (date, token, localize) {
-    const isoWeek = (0,_getISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.getISOWeek)(date);
-
-    if (token === "Io") {
-      return localize.ordinalNumber(isoWeek, { unit: "week" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeek, token.length);
-  },
-
-  // Day of the month
-  d: function (date, token, localize) {
-    if (token === "do") {
-      return localize.ordinalNumber(date.getDate(), { unit: "date" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.d(date, token);
-  },
-
-  // Day of year
-  D: function (date, token, localize) {
-    const dayOfYear = (0,_getDayOfYear_js__WEBPACK_IMPORTED_MODULE_0__.getDayOfYear)(date);
-
-    if (token === "Do") {
-      return localize.ordinalNumber(dayOfYear, { unit: "dayOfYear" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(dayOfYear, token.length);
-  },
-
-  // Day of week
-  E: function (date, token, localize) {
-    const dayOfWeek = date.getDay();
-    switch (token) {
-      // Tue
-      case "E":
-      case "EE":
-      case "EEE":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // T
-      case "EEEEE":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // Tu
-      case "EEEEEE":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "formatting",
-        });
-      // Tuesday
-      case "EEEE":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Local day of week
-  e: function (date, token, localize, options) {
-    const dayOfWeek = date.getDay();
-    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
-    switch (token) {
-      // Numerical value (Nth day of week with current locale or weekStartsOn)
-      case "e":
-        return String(localDayOfWeek);
-      // Padded numerical value
-      case "ee":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, 2);
-      // 1st, 2nd, ..., 7th
-      case "eo":
-        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
-      case "eee":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // T
-      case "eeeee":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // Tu
-      case "eeeeee":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "formatting",
-        });
-      // Tuesday
-      case "eeee":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Stand-alone local day of week
-  c: function (date, token, localize, options) {
-    const dayOfWeek = date.getDay();
-    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
-    switch (token) {
-      // Numerical value (same as in `e`)
-      case "c":
-        return String(localDayOfWeek);
-      // Padded numerical value
-      case "cc":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, token.length);
-      // 1st, 2nd, ..., 7th
-      case "co":
-        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
-      case "ccc":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "standalone",
-        });
-      // T
-      case "ccccc":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "standalone",
-        });
-      // Tu
-      case "cccccc":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "standalone",
-        });
-      // Tuesday
-      case "cccc":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "standalone",
-        });
-    }
-  },
-
-  // ISO day of week
-  i: function (date, token, localize) {
-    const dayOfWeek = date.getDay();
-    const isoDayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
-    switch (token) {
-      // 2
-      case "i":
-        return String(isoDayOfWeek);
-      // 02
-      case "ii":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoDayOfWeek, token.length);
-      // 2nd
-      case "io":
-        return localize.ordinalNumber(isoDayOfWeek, { unit: "day" });
-      // Tue
-      case "iii":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // T
-      case "iiiii":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // Tu
-      case "iiiiii":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "formatting",
-        });
-      // Tuesday
-      case "iiii":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // AM or PM
-  a: function (date, token, localize) {
-    const hours = date.getHours();
-    const dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
-
-    switch (token) {
-      case "a":
-      case "aa":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      case "aaa":
-        return localize
-          .dayPeriod(dayPeriodEnumValue, {
-            width: "abbreviated",
-            context: "formatting",
-          })
-          .toLowerCase();
-      case "aaaaa":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "narrow",
-          context: "formatting",
-        });
-      case "aaaa":
-      default:
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // AM, PM, midnight, noon
-  b: function (date, token, localize) {
-    const hours = date.getHours();
-    let dayPeriodEnumValue;
-    if (hours === 12) {
-      dayPeriodEnumValue = dayPeriodEnum.noon;
-    } else if (hours === 0) {
-      dayPeriodEnumValue = dayPeriodEnum.midnight;
-    } else {
-      dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
-    }
-
-    switch (token) {
-      case "b":
-      case "bb":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      case "bbb":
-        return localize
-          .dayPeriod(dayPeriodEnumValue, {
-            width: "abbreviated",
-            context: "formatting",
-          })
-          .toLowerCase();
-      case "bbbbb":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "narrow",
-          context: "formatting",
-        });
-      case "bbbb":
-      default:
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // in the morning, in the afternoon, in the evening, at night
-  B: function (date, token, localize) {
-    const hours = date.getHours();
-    let dayPeriodEnumValue;
-    if (hours >= 17) {
-      dayPeriodEnumValue = dayPeriodEnum.evening;
-    } else if (hours >= 12) {
-      dayPeriodEnumValue = dayPeriodEnum.afternoon;
-    } else if (hours >= 4) {
-      dayPeriodEnumValue = dayPeriodEnum.morning;
-    } else {
-      dayPeriodEnumValue = dayPeriodEnum.night;
-    }
-
-    switch (token) {
-      case "B":
-      case "BB":
-      case "BBB":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      case "BBBBB":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "narrow",
-          context: "formatting",
-        });
-      case "BBBB":
-      default:
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Hour [1-12]
-  h: function (date, token, localize) {
-    if (token === "ho") {
-      let hours = date.getHours() % 12;
-      if (hours === 0) hours = 12;
-      return localize.ordinalNumber(hours, { unit: "hour" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.h(date, token);
-  },
-
-  // Hour [0-23]
-  H: function (date, token, localize) {
-    if (token === "Ho") {
-      return localize.ordinalNumber(date.getHours(), { unit: "hour" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.H(date, token);
-  },
-
-  // Hour [0-11]
-  K: function (date, token, localize) {
-    const hours = date.getHours() % 12;
-
-    if (token === "Ko") {
-      return localize.ordinalNumber(hours, { unit: "hour" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
-  },
-
-  // Hour [1-24]
-  k: function (date, token, localize) {
-    let hours = date.getHours();
-    if (hours === 0) hours = 24;
-
-    if (token === "ko") {
-      return localize.ordinalNumber(hours, { unit: "hour" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
-  },
-
-  // Minute
-  m: function (date, token, localize) {
-    if (token === "mo") {
-      return localize.ordinalNumber(date.getMinutes(), { unit: "minute" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.m(date, token);
-  },
-
-  // Second
-  s: function (date, token, localize) {
-    if (token === "so") {
-      return localize.ordinalNumber(date.getSeconds(), { unit: "second" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.s(date, token);
-  },
-
-  // Fraction of second
-  S: function (date, token) {
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.S(date, token);
-  },
-
-  // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
-  X: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    if (timezoneOffset === 0) {
-      return "Z";
-    }
-
-    switch (token) {
-      // Hours and optional minutes
-      case "X":
-        return formatTimezoneWithOptionalMinutes(timezoneOffset);
-
-      // Hours, minutes and optional seconds without `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `XX`
-      case "XXXX":
-      case "XX": // Hours and minutes without `:` delimiter
-        return formatTimezone(timezoneOffset);
-
-      // Hours, minutes and optional seconds with `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `XXX`
-      case "XXXXX":
-      case "XXX": // Hours and minutes with `:` delimiter
-      default:
-        return formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Timezone (ISO-8601. If offset is 0, output is `'+00:00'` or equivalent)
-  x: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    switch (token) {
-      // Hours and optional minutes
-      case "x":
-        return formatTimezoneWithOptionalMinutes(timezoneOffset);
-
-      // Hours, minutes and optional seconds without `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `xx`
-      case "xxxx":
-      case "xx": // Hours and minutes without `:` delimiter
-        return formatTimezone(timezoneOffset);
-
-      // Hours, minutes and optional seconds with `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `xxx`
-      case "xxxxx":
-      case "xxx": // Hours and minutes with `:` delimiter
-      default:
-        return formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Timezone (GMT)
-  O: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    switch (token) {
-      // Short
-      case "O":
-      case "OO":
-      case "OOO":
-        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
-      // Long
-      case "OOOO":
-      default:
-        return "GMT" + formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Timezone (specific non-location)
-  z: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    switch (token) {
-      // Short
-      case "z":
-      case "zz":
-      case "zzz":
-        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
-      // Long
-      case "zzzz":
-      default:
-        return "GMT" + formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Seconds timestamp
-  t: function (date, token, _localize) {
-    const timestamp = Math.trunc(+date / 1000);
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(timestamp, token.length);
-  },
-
-  // Milliseconds timestamp
-  T: function (date, token, _localize) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(+date, token.length);
-  },
-};
-
-function formatTimezoneShort(offset, delimiter = "") {
-  const sign = offset > 0 ? "-" : "+";
-  const absOffset = Math.abs(offset);
-  const hours = Math.trunc(absOffset / 60);
-  const minutes = absOffset % 60;
-  if (minutes === 0) {
-    return sign + String(hours);
-  }
-  return sign + String(hours) + delimiter + (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(minutes, 2);
-}
-
-function formatTimezoneWithOptionalMinutes(offset, delimiter) {
-  if (offset % 60 === 0) {
-    const sign = offset > 0 ? "-" : "+";
-    return sign + (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.abs(offset) / 60, 2);
-  }
-  return formatTimezone(offset, delimiter);
-}
-
-function formatTimezone(offset, delimiter = "") {
-  const sign = offset > 0 ? "-" : "+";
-  const absOffset = Math.abs(offset);
-  const hours = (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.trunc(absOffset / 60), 2);
-  const minutes = (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(absOffset % 60, 2);
-  return sign + hours + delimiter + minutes;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/lightFormatters.js":
-/*!************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/lightFormatters.js ***!
-  \************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   lightFormatters: function() { return /* binding */ lightFormatters; }
-/* harmony export */ });
-/* harmony import */ var _addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../addLeadingZeros.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/addLeadingZeros.js");
-
-
-/*
- * |     | Unit                           |     | Unit                           |
- * |-----|--------------------------------|-----|--------------------------------|
- * |  a  | AM, PM                         |  A* |                                |
- * |  d  | Day of month                   |  D  |                                |
- * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
- * |  m  | Minute                         |  M  | Month                          |
- * |  s  | Second                         |  S  | Fraction of second             |
- * |  y  | Year (abs)                     |  Y  |                                |
- *
- * Letters marked by * are not implemented but reserved by Unicode standard.
- */
-
-const lightFormatters = {
-  // Year
-  y(date, token) {
-    // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_tokens
-    // | Year     |     y | yy |   yyy |  yyyy | yyyyy |
-    // |----------|-------|----|-------|-------|-------|
-    // | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
-    // | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
-    // | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
-    // | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
-    // | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
-
-    const signedYear = date.getFullYear();
-    // Returns 1 for 1 BC (which is year 0 in JavaScript)
-    const year = signedYear > 0 ? signedYear : 1 - signedYear;
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(token === "yy" ? year % 100 : year, token.length);
-  },
-
-  // Month
-  M(date, token) {
-    const month = date.getMonth();
-    return token === "M" ? String(month + 1) : (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(month + 1, 2);
-  },
-
-  // Day of the month
-  d(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getDate(), token.length);
-  },
-
-  // AM or PM
-  a(date, token) {
-    const dayPeriodEnumValue = date.getHours() / 12 >= 1 ? "pm" : "am";
-
-    switch (token) {
-      case "a":
-      case "aa":
-        return dayPeriodEnumValue.toUpperCase();
-      case "aaa":
-        return dayPeriodEnumValue;
-      case "aaaaa":
-        return dayPeriodEnumValue[0];
-      case "aaaa":
-      default:
-        return dayPeriodEnumValue === "am" ? "a.m." : "p.m.";
-    }
-  },
-
-  // Hour [1-12]
-  h(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours() % 12 || 12, token.length);
-  },
-
-  // Hour [0-23]
-  H(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours(), token.length);
-  },
-
-  // Minute
-  m(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getMinutes(), token.length);
-  },
-
-  // Second
-  s(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getSeconds(), token.length);
-  },
-
-  // Fraction of second
-  S(date, token) {
-    const numberOfDigits = token.length;
-    const milliseconds = date.getMilliseconds();
-    const fractionalSeconds = Math.trunc(
-      milliseconds * Math.pow(10, numberOfDigits - 3),
-    );
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(fractionalSeconds, token.length);
-  },
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/longFormatters.js":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/longFormatters.js ***!
-  \***********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   longFormatters: function() { return /* binding */ longFormatters; }
-/* harmony export */ });
-const dateLongFormatter = (pattern, formatLong) => {
-  switch (pattern) {
-    case "P":
-      return formatLong.date({ width: "short" });
-    case "PP":
-      return formatLong.date({ width: "medium" });
-    case "PPP":
-      return formatLong.date({ width: "long" });
-    case "PPPP":
-    default:
-      return formatLong.date({ width: "full" });
-  }
-};
-
-const timeLongFormatter = (pattern, formatLong) => {
-  switch (pattern) {
-    case "p":
-      return formatLong.time({ width: "short" });
-    case "pp":
-      return formatLong.time({ width: "medium" });
-    case "ppp":
-      return formatLong.time({ width: "long" });
-    case "pppp":
-    default:
-      return formatLong.time({ width: "full" });
-  }
-};
-
-const dateTimeLongFormatter = (pattern, formatLong) => {
-  const matchResult = pattern.match(/(P+)(p+)?/) || [];
-  const datePattern = matchResult[1];
-  const timePattern = matchResult[2];
-
-  if (!timePattern) {
-    return dateLongFormatter(pattern, formatLong);
-  }
-
-  let dateTimeFormat;
-
-  switch (datePattern) {
-    case "P":
-      dateTimeFormat = formatLong.dateTime({ width: "short" });
-      break;
-    case "PP":
-      dateTimeFormat = formatLong.dateTime({ width: "medium" });
-      break;
-    case "PPP":
-      dateTimeFormat = formatLong.dateTime({ width: "long" });
-      break;
-    case "PPPP":
-    default:
-      dateTimeFormat = formatLong.dateTime({ width: "full" });
-      break;
-  }
-
-  return dateTimeFormat
-    .replace("{{date}}", dateLongFormatter(datePattern, formatLong))
-    .replace("{{time}}", timeLongFormatter(timePattern, formatLong));
-};
-
-const longFormatters = {
-  p: timeLongFormatter,
-  P: dateTimeLongFormatter,
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js ***!
-  \*********************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getTimezoneOffsetInMilliseconds: function() { return /* binding */ getTimezoneOffsetInMilliseconds; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-/**
- * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
- * They usually appear for dates that denote time before the timezones were introduced
- * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
- * and GMT+01:00:00 after that date)
- *
- * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
- * which would lead to incorrect calculations.
- *
- * This function returns the timezone offset in milliseconds that takes seconds in account.
- */
-function getTimezoneOffsetInMilliseconds(date) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
-  const utcDate = new Date(
-    Date.UTC(
-      _date.getFullYear(),
-      _date.getMonth(),
-      _date.getDate(),
-      _date.getHours(),
-      _date.getMinutes(),
-      _date.getSeconds(),
-      _date.getMilliseconds(),
-    ),
-  );
-  utcDate.setUTCFullYear(_date.getFullYear());
-  return +date - +utcDate;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/normalizeDates.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/normalizeDates.js ***!
-  \****************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   normalizeDates: function() { return /* binding */ normalizeDates; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-
-
-function normalizeDates(context, ...dates) {
-  const normalize = _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom.bind(
-    null,
-    context || dates.find((date) => typeof date === "object"),
-  );
-  return dates.map(normalize);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/protectedTokens.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/protectedTokens.js ***!
-  \*****************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isProtectedDayOfYearToken: function() { return /* binding */ isProtectedDayOfYearToken; },
-/* harmony export */   isProtectedWeekYearToken: function() { return /* binding */ isProtectedWeekYearToken; },
-/* harmony export */   warnOrThrowProtectedError: function() { return /* binding */ warnOrThrowProtectedError; }
-/* harmony export */ });
-const dayOfYearTokenRE = /^D+$/;
-const weekYearTokenRE = /^Y+$/;
-
-const throwTokens = ["D", "DD", "YY", "YYYY"];
-
-function isProtectedDayOfYearToken(token) {
-  return dayOfYearTokenRE.test(token);
-}
-
-function isProtectedWeekYearToken(token) {
-  return weekYearTokenRE.test(token);
-}
-
-function warnOrThrowProtectedError(token, format, input) {
-  const _message = message(token, format, input);
-  console.warn(_message);
-  if (throwTokens.includes(token)) throw new RangeError(_message);
-}
-
-function message(token, format, input) {
-  const subject = token[0] === "Y" ? "years" : "days of the month";
-  return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/addDays.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/addDays.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addDays: function() { return /* binding */ addDays; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link addDays} function options.
- */
-
-/**
- * @name addDays
- * @category Day Helpers
- * @summary Add the specified number of days to the given date.
- *
- * @description
- * Add the specified number of days to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of days to be added.
- * @param options - An object with options
- *
- * @returns The new date with the days added
- *
- * @example
- * // Add 10 days to 1 September 2014:
- * const result = addDays(new Date(2014, 8, 1), 10)
- * //=> Thu Sep 11 2014 00:00:00
- */
-function addDays(date, amount, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  if (isNaN(amount)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
-
-  // If 0 days, no-op to avoid changing times in the hour before end of DST
-  if (!amount) return _date;
-
-  _date.setDate(_date.getDate() + amount);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (addDays);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/addMonths.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/addMonths.js ***!
-  \******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addMonths: function() { return /* binding */ addMonths; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link addMonths} function options.
- */
-
-/**
- * @name addMonths
- * @category Month Helpers
- * @summary Add the specified number of months to the given date.
- *
- * @description
- * Add the specified number of months to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of months to be added.
- * @param options - The options object
- *
- * @returns The new date with the months added
- *
- * @example
- * // Add 5 months to 1 September 2014:
- * const result = addMonths(new Date(2014, 8, 1), 5)
- * //=> Sun Feb 01 2015 00:00:00
- *
- * // Add one month to 30 January 2023:
- * const result = addMonths(new Date(2023, 0, 30), 1)
- * //=> Tue Feb 28 2023 00:00:00
- */
-function addMonths(date, amount, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  if (isNaN(amount)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
-  if (!amount) {
-    // If 0 months, no-op to avoid changing times in the hour before end of DST
-    return _date;
-  }
-  const dayOfMonth = _date.getDate();
-
-  // The JS Date object supports date math by accepting out-of-bounds values for
-  // month, day, etc. For example, new Date(2020, 0, 0) returns 31 Dec 2019 and
-  // new Date(2020, 13, 1) returns 1 Feb 2021.  This is *almost* the behavior we
-  // want except that dates will wrap around the end of a month, meaning that
-  // new Date(2020, 13, 31) will return 3 Mar 2021 not 28 Feb 2021 as desired. So
-  // we'll default to the end of the desired month by adding 1 to the desired
-  // month and using a date of 0 to back up one day to the end of the desired
-  // month.
-  const endOfDesiredMonth = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, _date.getTime());
-  endOfDesiredMonth.setMonth(_date.getMonth() + amount + 1, 0);
-  const daysInMonth = endOfDesiredMonth.getDate();
-  if (dayOfMonth >= daysInMonth) {
-    // If we're already at the end of the month, then this is the correct date
-    // and we're done.
-    return endOfDesiredMonth;
-  } else {
-    // Otherwise, we now know that setting the original day-of-month value won't
-    // cause an overflow, so set the desired day-of-month. Note that we can't
-    // just set the date of `endOfDesiredMonth` because that object may have had
-    // its time changed in the unusual case where where a DST transition was on
-    // the last day of the month and its local time was in the hour skipped or
-    // repeated next to a DST transition.  So we use `date` instead which is
-    // guaranteed to still have the original time.
-    _date.setFullYear(
-      endOfDesiredMonth.getFullYear(),
-      endOfDesiredMonth.getMonth(),
-      dayOfMonth,
-    );
-    return _date;
-  }
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (addMonths);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/addYears.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/addYears.js ***!
-  \*****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addYears: function() { return /* binding */ addYears; }
-/* harmony export */ });
-/* harmony import */ var _addMonths_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addMonths.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/addMonths.js");
-
-
-/**
- * The {@link addYears} function options.
- */
-
-/**
- * @name addYears
- * @category Year Helpers
- * @summary Add the specified number of years to the given date.
- *
- * @description
- * Add the specified number of years to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type.
- *
- * @param date - The date to be changed
- * @param amount - The amount of years to be added.
- * @param options - The options
- *
- * @returns The new date with the years added
- *
- * @example
- * // Add 5 years to 1 September 2014:
- * const result = addYears(new Date(2014, 8, 1), 5)
- * //=> Sun Sep 01 2019 00:00:00
- */
-function addYears(date, amount, options) {
-  return (0,_addMonths_js__WEBPACK_IMPORTED_MODULE_0__.addMonths)(date, amount * 12, options);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (addYears);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constants.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/constants.js ***!
-  \******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   constructFromSymbol: function() { return /* binding */ constructFromSymbol; },
-/* harmony export */   daysInWeek: function() { return /* binding */ daysInWeek; },
-/* harmony export */   daysInYear: function() { return /* binding */ daysInYear; },
-/* harmony export */   maxTime: function() { return /* binding */ maxTime; },
-/* harmony export */   millisecondsInDay: function() { return /* binding */ millisecondsInDay; },
-/* harmony export */   millisecondsInHour: function() { return /* binding */ millisecondsInHour; },
-/* harmony export */   millisecondsInMinute: function() { return /* binding */ millisecondsInMinute; },
-/* harmony export */   millisecondsInSecond: function() { return /* binding */ millisecondsInSecond; },
-/* harmony export */   millisecondsInWeek: function() { return /* binding */ millisecondsInWeek; },
-/* harmony export */   minTime: function() { return /* binding */ minTime; },
-/* harmony export */   minutesInDay: function() { return /* binding */ minutesInDay; },
-/* harmony export */   minutesInHour: function() { return /* binding */ minutesInHour; },
-/* harmony export */   minutesInMonth: function() { return /* binding */ minutesInMonth; },
-/* harmony export */   minutesInYear: function() { return /* binding */ minutesInYear; },
-/* harmony export */   monthsInQuarter: function() { return /* binding */ monthsInQuarter; },
-/* harmony export */   monthsInYear: function() { return /* binding */ monthsInYear; },
-/* harmony export */   quartersInYear: function() { return /* binding */ quartersInYear; },
-/* harmony export */   secondsInDay: function() { return /* binding */ secondsInDay; },
-/* harmony export */   secondsInHour: function() { return /* binding */ secondsInHour; },
-/* harmony export */   secondsInMinute: function() { return /* binding */ secondsInMinute; },
-/* harmony export */   secondsInMonth: function() { return /* binding */ secondsInMonth; },
-/* harmony export */   secondsInQuarter: function() { return /* binding */ secondsInQuarter; },
-/* harmony export */   secondsInWeek: function() { return /* binding */ secondsInWeek; },
-/* harmony export */   secondsInYear: function() { return /* binding */ secondsInYear; }
-/* harmony export */ });
-/**
- * @module constants
- * @summary Useful constants
- * @description
- * Collection of useful date constants.
- *
- * The constants could be imported from `date-fns/constants`:
- *
- * ```ts
- * import { maxTime, minTime } from "./constants/date-fns/constants";
- *
- * function isAllowedTime(time) {
- *   return time <= maxTime && time >= minTime;
- * }
- * ```
- */
-
-/**
- * @constant
- * @name daysInWeek
- * @summary Days in 1 week.
- */
-const daysInWeek = 7;
-
-/**
- * @constant
- * @name daysInYear
- * @summary Days in 1 year.
- *
- * @description
- * How many days in a year.
- *
- * One years equals 365.2425 days according to the formula:
- *
- * > Leap year occurs every 4 years, except for years that are divisible by 100 and not divisible by 400.
- * > 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days
- */
-const daysInYear = 365.2425;
-
-/**
- * @constant
- * @name maxTime
- * @summary Maximum allowed time.
- *
- * @example
- * import { maxTime } from "./constants/date-fns/constants";
- *
- * const isValid = 8640000000000001 <= maxTime;
- * //=> false
- *
- * new Date(8640000000000001);
- * //=> Invalid Date
- */
-const maxTime = Math.pow(10, 8) * 24 * 60 * 60 * 1000;
-
-/**
- * @constant
- * @name minTime
- * @summary Minimum allowed time.
- *
- * @example
- * import { minTime } from "./constants/date-fns/constants";
- *
- * const isValid = -8640000000000001 >= minTime;
- * //=> false
- *
- * new Date(-8640000000000001)
- * //=> Invalid Date
- */
-const minTime = -maxTime;
-
-/**
- * @constant
- * @name millisecondsInWeek
- * @summary Milliseconds in 1 week.
- */
-const millisecondsInWeek = 604800000;
-
-/**
- * @constant
- * @name millisecondsInDay
- * @summary Milliseconds in 1 day.
- */
-const millisecondsInDay = 86400000;
-
-/**
- * @constant
- * @name millisecondsInMinute
- * @summary Milliseconds in 1 minute
- */
-const millisecondsInMinute = 60000;
-
-/**
- * @constant
- * @name millisecondsInHour
- * @summary Milliseconds in 1 hour
- */
-const millisecondsInHour = 3600000;
-
-/**
- * @constant
- * @name millisecondsInSecond
- * @summary Milliseconds in 1 second
- */
-const millisecondsInSecond = 1000;
-
-/**
- * @constant
- * @name minutesInYear
- * @summary Minutes in 1 year.
- */
-const minutesInYear = 525600;
-
-/**
- * @constant
- * @name minutesInMonth
- * @summary Minutes in 1 month.
- */
-const minutesInMonth = 43200;
-
-/**
- * @constant
- * @name minutesInDay
- * @summary Minutes in 1 day.
- */
-const minutesInDay = 1440;
-
-/**
- * @constant
- * @name minutesInHour
- * @summary Minutes in 1 hour.
- */
-const minutesInHour = 60;
-
-/**
- * @constant
- * @name monthsInQuarter
- * @summary Months in 1 quarter.
- */
-const monthsInQuarter = 3;
-
-/**
- * @constant
- * @name monthsInYear
- * @summary Months in 1 year.
- */
-const monthsInYear = 12;
-
-/**
- * @constant
- * @name quartersInYear
- * @summary Quarters in 1 year
- */
-const quartersInYear = 4;
-
-/**
- * @constant
- * @name secondsInHour
- * @summary Seconds in 1 hour.
- */
-const secondsInHour = 3600;
-
-/**
- * @constant
- * @name secondsInMinute
- * @summary Seconds in 1 minute.
- */
-const secondsInMinute = 60;
-
-/**
- * @constant
- * @name secondsInDay
- * @summary Seconds in 1 day.
- */
-const secondsInDay = secondsInHour * 24;
-
-/**
- * @constant
- * @name secondsInWeek
- * @summary Seconds in 1 week.
- */
-const secondsInWeek = secondsInDay * 7;
-
-/**
- * @constant
- * @name secondsInYear
- * @summary Seconds in 1 year.
- */
-const secondsInYear = secondsInDay * daysInYear;
-
-/**
- * @constant
- * @name secondsInMonth
- * @summary Seconds in 1 month
- */
-const secondsInMonth = secondsInYear / 12;
-
-/**
- * @constant
- * @name secondsInQuarter
- * @summary Seconds in 1 quarter.
- */
-const secondsInQuarter = secondsInMonth * 3;
-
-/**
- * @constant
- * @name constructFromSymbol
- * @summary Symbol enabling Date extensions to inherit properties from the reference date.
- *
- * The symbol is used to enable the `constructFrom` function to construct a date
- * using a reference date and a value. It allows to transfer extra properties
- * from the reference date to the new date. It's useful for extensions like
- * [`TZDate`](https://github.com/date-fns/tz) that accept a time zone as
- * a constructor argument.
- */
-const constructFromSymbol = Symbol.for("constructDateFrom");
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js ***!
-  \**********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   constructFrom: function() { return /* binding */ constructFrom; }
-/* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constants.js");
-
-
-/**
- * @name constructFrom
- * @category Generic Helpers
- * @summary Constructs a date using the reference date and the value
- *
- * @description
- * The function constructs a new date using the constructor from the reference
- * date and the given value. It helps to build generic functions that accept
- * date extensions.
- *
- * It defaults to `Date` if the passed reference date is a number or a string.
- *
- * Starting from v3.7.0, it allows to construct a date using `[Symbol.for("constructDateFrom")]`
- * enabling to transfer extra properties from the reference date to the new date.
- * It's useful for extensions like [`TZDate`](https://github.com/date-fns/tz)
- * that accept a time zone as a constructor argument.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
- * @param date - The reference date to take constructor from
- * @param value - The value to create the date
- *
- * @returns Date initialized using the given date and value
- *
- * @example
- * import { constructFrom } from "./constructFrom/date-fns";
- *
- * // A function that clones a date preserving the original type
- * function cloneDate<DateType extends Date>(date: DateType): DateType {
- *   return constructFrom(
- *     date, // Use constructor from the given date
- *     date.getTime() // Use the date value to create a new date
- *   );
- * }
- */
-function constructFrom(date, value) {
-  if (typeof date === "function") return date(value);
-
-  if (date && typeof date === "object" && _constants_js__WEBPACK_IMPORTED_MODULE_0__.constructFromSymbol in date)
-    return date[_constants_js__WEBPACK_IMPORTED_MODULE_0__.constructFromSymbol](value);
-
-  if (date instanceof Date) return new date.constructor(value);
-
-  return new Date(value);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (constructFrom);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/differenceInCalendarDays.js":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/differenceInCalendarDays.js ***!
-  \*********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   differenceInCalendarDays: function() { return /* binding */ differenceInCalendarDays; }
-/* harmony export */ });
-/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/getTimezoneOffsetInMilliseconds.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js");
-/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/normalizeDates.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constants.js");
-/* harmony import */ var _startOfDay_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfDay.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfDay.js");
-
-
-
-
-
-/**
- * The {@link differenceInCalendarDays} function options.
- */
-
-/**
- * @name differenceInCalendarDays
- * @category Day Helpers
- * @summary Get the number of calendar days between the given dates.
- *
- * @description
- * Get the number of calendar days between the given dates. This means that the times are removed
- * from the dates and then the difference in days is calculated.
- *
- * @param laterDate - The later date
- * @param earlierDate - The earlier date
- * @param options - The options object
- *
- * @returns The number of calendar days
- *
- * @example
- * // How many calendar days are between
- * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
- * const result = differenceInCalendarDays(
- *   new Date(2012, 6, 2, 0, 0),
- *   new Date(2011, 6, 2, 23, 0)
- * )
- * //=> 366
- * // How many calendar days are between
- * // 2 July 2011 23:59:00 and 3 July 2011 00:01:00?
- * const result = differenceInCalendarDays(
- *   new Date(2011, 6, 3, 0, 1),
- *   new Date(2011, 6, 2, 23, 59)
- * )
- * //=> 1
- */
-function differenceInCalendarDays(laterDate, earlierDate, options) {
-  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_1__.normalizeDates)(
-    options?.in,
-    laterDate,
-    earlierDate,
-  );
-
-  const laterStartOfDay = (0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_3__.startOfDay)(laterDate_);
-  const earlierStartOfDay = (0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_3__.startOfDay)(earlierDate_);
-
-  const laterTimestamp =
-    +laterStartOfDay - (0,_lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__.getTimezoneOffsetInMilliseconds)(laterStartOfDay);
-  const earlierTimestamp =
-    +earlierStartOfDay - (0,_lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__.getTimezoneOffsetInMilliseconds)(earlierStartOfDay);
-
-  // Round the number of days to the nearest integer because the number of
-  // milliseconds in a day is not constant (e.g. it's different in the week of
-  // the daylight saving time clock shift).
-  return Math.round((laterTimestamp - earlierTimestamp) / _constants_js__WEBPACK_IMPORTED_MODULE_2__.millisecondsInDay);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (differenceInCalendarDays);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/format.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/format.js ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   format: function() { return /* binding */ format; },
-/* harmony export */   formatDate: function() { return /* binding */ format; },
-/* harmony export */   formatters: function() { return /* reexport safe */ _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters; },
-/* harmony export */   longFormatters: function() { return /* reexport safe */ _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__.longFormatters; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultLocale.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US.js");
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/format/formatters.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/formatters.js");
-/* harmony import */ var _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/format/longFormatters.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/format/longFormatters.js");
-/* harmony import */ var _lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_lib/protectedTokens.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/protectedTokens.js");
-/* harmony import */ var _isValid_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isValid.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/isValid.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-
-
-
-
-
-// Rexports of internal for libraries to use.
-// See: https://github.com/date-fns/date-fns/issues/3638#issuecomment-1877082874
-
-
-// This RegExp consists of three parts separated by `|`:
-// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
-//   (one of the certain letters followed by `o`)
-// - (\w)\1* matches any sequences of the same letter
-// - '' matches two quote characters in a row
-// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
-//   except a single quote symbol, which ends the sequence.
-//   Two quote characters do not end the sequence.
-//   If there is no matching single quote
-//   then the sequence will continue until the end of the string.
-// - . matches any single character unmatched by previous parts of the RegExps
-const formattingTokensRegExp =
-  /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g;
-
-// This RegExp catches symbols escaped by quotes, and also
-// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
-const longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
-
-const escapedStringRegExp = /^'([^]*?)'?$/;
-const doubleQuoteRegExp = /''/g;
-const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
-
-
-
-/**
- * The {@link format} function options.
- */
-
-/**
- * @name format
- * @alias formatDate
- * @category Common Helpers
- * @summary Format the date.
- *
- * @description
- * Return the formatted date string in the given format. The result may vary by locale.
- *
- * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
- * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- *
- * The characters wrapped between two single quotes characters (') are escaped.
- * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
- * (see the last example)
- *
- * Format of the string is based on Unicode Technical Standard #35:
- * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
- * with a few additions (see note 7 below the table).
- *
- * Accepted patterns:
- * | Unit                            | Pattern | Result examples                   | Notes |
- * |---------------------------------|---------|-----------------------------------|-------|
- * | Era                             | G..GGG  | AD, BC                            |       |
- * |                                 | GGGG    | Anno Domini, Before Christ        | 2     |
- * |                                 | GGGGG   | A, B                              |       |
- * | Calendar year                   | y       | 44, 1, 1900, 2017                 | 5     |
- * |                                 | yo      | 44th, 1st, 0th, 17th              | 5,7   |
- * |                                 | yy      | 44, 01, 00, 17                    | 5     |
- * |                                 | yyy     | 044, 001, 1900, 2017              | 5     |
- * |                                 | yyyy    | 0044, 0001, 1900, 2017            | 5     |
- * |                                 | yyyyy   | ...                               | 3,5   |
- * | Local week-numbering year       | Y       | 44, 1, 1900, 2017                 | 5     |
- * |                                 | Yo      | 44th, 1st, 1900th, 2017th         | 5,7   |
- * |                                 | YY      | 44, 01, 00, 17                    | 5,8   |
- * |                                 | YYY     | 044, 001, 1900, 2017              | 5     |
- * |                                 | YYYY    | 0044, 0001, 1900, 2017            | 5,8   |
- * |                                 | YYYYY   | ...                               | 3,5   |
- * | ISO week-numbering year         | R       | -43, 0, 1, 1900, 2017             | 5,7   |
- * |                                 | RR      | -43, 00, 01, 1900, 2017           | 5,7   |
- * |                                 | RRR     | -043, 000, 001, 1900, 2017        | 5,7   |
- * |                                 | RRRR    | -0043, 0000, 0001, 1900, 2017     | 5,7   |
- * |                                 | RRRRR   | ...                               | 3,5,7 |
- * | Extended year                   | u       | -43, 0, 1, 1900, 2017             | 5     |
- * |                                 | uu      | -43, 01, 1900, 2017               | 5     |
- * |                                 | uuu     | -043, 001, 1900, 2017             | 5     |
- * |                                 | uuuu    | -0043, 0001, 1900, 2017           | 5     |
- * |                                 | uuuuu   | ...                               | 3,5   |
- * | Quarter (formatting)            | Q       | 1, 2, 3, 4                        |       |
- * |                                 | Qo      | 1st, 2nd, 3rd, 4th                | 7     |
- * |                                 | QQ      | 01, 02, 03, 04                    |       |
- * |                                 | QQQ     | Q1, Q2, Q3, Q4                    |       |
- * |                                 | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
- * |                                 | QQQQQ   | 1, 2, 3, 4                        | 4     |
- * | Quarter (stand-alone)           | q       | 1, 2, 3, 4                        |       |
- * |                                 | qo      | 1st, 2nd, 3rd, 4th                | 7     |
- * |                                 | qq      | 01, 02, 03, 04                    |       |
- * |                                 | qqq     | Q1, Q2, Q3, Q4                    |       |
- * |                                 | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
- * |                                 | qqqqq   | 1, 2, 3, 4                        | 4     |
- * | Month (formatting)              | M       | 1, 2, ..., 12                     |       |
- * |                                 | Mo      | 1st, 2nd, ..., 12th               | 7     |
- * |                                 | MM      | 01, 02, ..., 12                   |       |
- * |                                 | MMM     | Jan, Feb, ..., Dec                |       |
- * |                                 | MMMM    | January, February, ..., December  | 2     |
- * |                                 | MMMMM   | J, F, ..., D                      |       |
- * | Month (stand-alone)             | L       | 1, 2, ..., 12                     |       |
- * |                                 | Lo      | 1st, 2nd, ..., 12th               | 7     |
- * |                                 | LL      | 01, 02, ..., 12                   |       |
- * |                                 | LLL     | Jan, Feb, ..., Dec                |       |
- * |                                 | LLLL    | January, February, ..., December  | 2     |
- * |                                 | LLLLL   | J, F, ..., D                      |       |
- * | Local week of year              | w       | 1, 2, ..., 53                     |       |
- * |                                 | wo      | 1st, 2nd, ..., 53th               | 7     |
- * |                                 | ww      | 01, 02, ..., 53                   |       |
- * | ISO week of year                | I       | 1, 2, ..., 53                     | 7     |
- * |                                 | Io      | 1st, 2nd, ..., 53th               | 7     |
- * |                                 | II      | 01, 02, ..., 53                   | 7     |
- * | Day of month                    | d       | 1, 2, ..., 31                     |       |
- * |                                 | do      | 1st, 2nd, ..., 31st               | 7     |
- * |                                 | dd      | 01, 02, ..., 31                   |       |
- * | Day of year                     | D       | 1, 2, ..., 365, 366               | 9     |
- * |                                 | Do      | 1st, 2nd, ..., 365th, 366th       | 7     |
- * |                                 | DD      | 01, 02, ..., 365, 366             | 9     |
- * |                                 | DDD     | 001, 002, ..., 365, 366           |       |
- * |                                 | DDDD    | ...                               | 3     |
- * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
- * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
- * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
- * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
- * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
- * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
- * |                                 | ii      | 01, 02, ..., 07                   | 7     |
- * |                                 | iii     | Mon, Tue, Wed, ..., Sun           | 7     |
- * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
- * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
- * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 7     |
- * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
- * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
- * |                                 | ee      | 02, 03, ..., 01                   |       |
- * |                                 | eee     | Mon, Tue, Wed, ..., Sun           |       |
- * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
- * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
- * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
- * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
- * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
- * |                                 | cc      | 02, 03, ..., 01                   |       |
- * |                                 | ccc     | Mon, Tue, Wed, ..., Sun           |       |
- * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
- * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
- * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
- * | AM, PM                          | a..aa   | AM, PM                            |       |
- * |                                 | aaa     | am, pm                            |       |
- * |                                 | aaaa    | a.m., p.m.                        | 2     |
- * |                                 | aaaaa   | a, p                              |       |
- * | AM, PM, noon, midnight          | b..bb   | AM, PM, noon, midnight            |       |
- * |                                 | bbb     | am, pm, noon, midnight            |       |
- * |                                 | bbbb    | a.m., p.m., noon, midnight        | 2     |
- * |                                 | bbbbb   | a, p, n, mi                       |       |
- * | Flexible day period             | B..BBB  | at night, in the morning, ...     |       |
- * |                                 | BBBB    | at night, in the morning, ...     | 2     |
- * |                                 | BBBBB   | at night, in the morning, ...     |       |
- * | Hour [1-12]                     | h       | 1, 2, ..., 11, 12                 |       |
- * |                                 | ho      | 1st, 2nd, ..., 11th, 12th         | 7     |
- * |                                 | hh      | 01, 02, ..., 11, 12               |       |
- * | Hour [0-23]                     | H       | 0, 1, 2, ..., 23                  |       |
- * |                                 | Ho      | 0th, 1st, 2nd, ..., 23rd          | 7     |
- * |                                 | HH      | 00, 01, 02, ..., 23               |       |
- * | Hour [0-11]                     | K       | 1, 2, ..., 11, 0                  |       |
- * |                                 | Ko      | 1st, 2nd, ..., 11th, 0th          | 7     |
- * |                                 | KK      | 01, 02, ..., 11, 00               |       |
- * | Hour [1-24]                     | k       | 24, 1, 2, ..., 23                 |       |
- * |                                 | ko      | 24th, 1st, 2nd, ..., 23rd         | 7     |
- * |                                 | kk      | 24, 01, 02, ..., 23               |       |
- * | Minute                          | m       | 0, 1, ..., 59                     |       |
- * |                                 | mo      | 0th, 1st, ..., 59th               | 7     |
- * |                                 | mm      | 00, 01, ..., 59                   |       |
- * | Second                          | s       | 0, 1, ..., 59                     |       |
- * |                                 | so      | 0th, 1st, ..., 59th               | 7     |
- * |                                 | ss      | 00, 01, ..., 59                   |       |
- * | Fraction of second              | S       | 0, 1, ..., 9                      |       |
- * |                                 | SS      | 00, 01, ..., 99                   |       |
- * |                                 | SSS     | 000, 001, ..., 999                |       |
- * |                                 | SSSS    | ...                               | 3     |
- * | Timezone (ISO-8601 w/ Z)        | X       | -08, +0530, Z                     |       |
- * |                                 | XX      | -0800, +0530, Z                   |       |
- * |                                 | XXX     | -08:00, +05:30, Z                 |       |
- * |                                 | XXXX    | -0800, +0530, Z, +123456          | 2     |
- * |                                 | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
- * | Timezone (ISO-8601 w/o Z)       | x       | -08, +0530, +00                   |       |
- * |                                 | xx      | -0800, +0530, +0000               |       |
- * |                                 | xxx     | -08:00, +05:30, +00:00            | 2     |
- * |                                 | xxxx    | -0800, +0530, +0000, +123456      |       |
- * |                                 | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
- * | Timezone (GMT)                  | O...OOO | GMT-8, GMT+5:30, GMT+0            |       |
- * |                                 | OOOO    | GMT-08:00, GMT+05:30, GMT+00:00   | 2     |
- * | Timezone (specific non-locat.)  | z...zzz | GMT-8, GMT+5:30, GMT+0            | 6     |
- * |                                 | zzzz    | GMT-08:00, GMT+05:30, GMT+00:00   | 2,6   |
- * | Seconds timestamp               | t       | 512969520                         | 7     |
- * |                                 | tt      | ...                               | 3,7   |
- * | Milliseconds timestamp          | T       | 512969520900                      | 7     |
- * |                                 | TT      | ...                               | 3,7   |
- * | Long localized date             | P       | 04/29/1453                        | 7     |
- * |                                 | PP      | Apr 29, 1453                      | 7     |
- * |                                 | PPP     | April 29th, 1453                  | 7     |
- * |                                 | PPPP    | Friday, April 29th, 1453          | 2,7   |
- * | Long localized time             | p       | 12:00 AM                          | 7     |
- * |                                 | pp      | 12:00:00 AM                       | 7     |
- * |                                 | ppp     | 12:00:00 AM GMT+2                 | 7     |
- * |                                 | pppp    | 12:00:00 AM GMT+02:00             | 2,7   |
- * | Combination of date and time    | Pp      | 04/29/1453, 12:00 AM              | 7     |
- * |                                 | PPpp    | Apr 29, 1453, 12:00:00 AM         | 7     |
- * |                                 | PPPppp  | April 29th, 1453 at ...           | 7     |
- * |                                 | PPPPpppp| Friday, April 29th, 1453 at ...   | 2,7   |
- * Notes:
- * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
- *    are the same as "stand-alone" units, but are different in some languages.
- *    "Formatting" units are declined according to the rules of the language
- *    in the context of a date. "Stand-alone" units are always nominative singular:
- *
- *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
- *
- *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
- *
- * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
- *    the single quote characters (see below).
- *    If the sequence is longer than listed in table (e.g. `EEEEEEEEEEE`)
- *    the output will be the same as default pattern for this unit, usually
- *    the longest one (in case of ISO weekdays, `EEEE`). Default patterns for units
- *    are marked with "2" in the last column of the table.
- *
- *    `format(new Date(2017, 10, 6), 'MMM') //=> 'Nov'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMM') //=> 'November'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMMM') //=> 'N'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMMMM') //=> 'November'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMMMMM') //=> 'November'`
- *
- * 3. Some patterns could be unlimited length (such as `yyyyyyyy`).
- *    The output will be padded with zeros to match the length of the pattern.
- *
- *    `format(new Date(2017, 10, 6), 'yyyyyyyy') //=> '00002017'`
- *
- * 4. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
- *    These tokens represent the shortest form of the quarter.
- *
- * 5. The main difference between `y` and `u` patterns are B.C. years:
- *
- *    | Year | `y` | `u` |
- *    |------|-----|-----|
- *    | AC 1 |   1 |   1 |
- *    | BC 1 |   1 |   0 |
- *    | BC 2 |   2 |  -1 |
- *
- *    Also `yy` always returns the last two digits of a year,
- *    while `uu` pads single digit years to 2 characters and returns other years unchanged:
- *
- *    | Year | `yy` | `uu` |
- *    |------|------|------|
- *    | 1    |   01 |   01 |
- *    | 14   |   14 |   14 |
- *    | 376  |   76 |  376 |
- *    | 1453 |   53 | 1453 |
- *
- *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
- *    except local week-numbering years are dependent on `options.weekStartsOn`
- *    and `options.firstWeekContainsDate` (compare [getISOWeekYear](https://date-fns.org/docs/getISOWeekYear)
- *    and [getWeekYear](https://date-fns.org/docs/getWeekYear)).
- *
- * 6. Specific non-location timezones are currently unavailable in `date-fns`,
- *    so right now these tokens fall back to GMT timezones.
- *
- * 7. These patterns are not in the Unicode Technical Standard #35:
- *    - `i`: ISO day of week
- *    - `I`: ISO week of year
- *    - `R`: ISO week-numbering year
- *    - `t`: seconds timestamp
- *    - `T`: milliseconds timestamp
- *    - `o`: ordinal number modifier
- *    - `P`: long localized date
- *    - `p`: long localized time
- *
- * 8. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
- *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- *
- * 9. `D` and `DD` tokens represent days of the year but they are often confused with days of the month.
- *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- *
- * @param date - The original date
- * @param format - The string of tokens
- * @param options - An object with options
- *
- * @returns The formatted date string
- *
- * @throws `date` must not be Invalid Date
- * @throws `options.locale` must contain `localize` property
- * @throws `options.locale` must contain `formatLong` property
- * @throws use `yyyy` instead of `YYYY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws use `yy` instead of `YY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws use `d` instead of `D` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws use `dd` instead of `DD` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws format string contains an unescaped latin alphabet character
- *
- * @example
- * // Represent 11 February 2014 in middle-endian format:
- * const result = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
- * //=> '02/11/2014'
- *
- * @example
- * // Represent 2 July 2014 in Esperanto:
- * import { eoLocale } from 'date-fns/locale/eo'
- * const result = format(new Date(2014, 6, 2), "do 'de' MMMM yyyy", {
- *   locale: eoLocale
- * })
- * //=> '2-a de julio 2014'
- *
- * @example
- * // Escape string by single quote characters:
- * const result = format(new Date(2014, 6, 2, 15), "h 'o''clock'")
- * //=> "3 o'clock"
- */
-function format(date, formatStr, options) {
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
-  const locale = options?.locale ?? defaultOptions.locale ?? _lib_defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__.enUS;
-
-  const firstWeekContainsDate =
-    options?.firstWeekContainsDate ??
-    options?.locale?.options?.firstWeekContainsDate ??
-    defaultOptions.firstWeekContainsDate ??
-    defaultOptions.locale?.options?.firstWeekContainsDate ??
-    1;
-
-  const weekStartsOn =
-    options?.weekStartsOn ??
-    options?.locale?.options?.weekStartsOn ??
-    defaultOptions.weekStartsOn ??
-    defaultOptions.locale?.options?.weekStartsOn ??
-    0;
-
-  const originalDate = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_6__.toDate)(date, options?.in);
-
-  if (!(0,_isValid_js__WEBPACK_IMPORTED_MODULE_5__.isValid)(originalDate)) {
-    throw new RangeError("Invalid time value");
-  }
-
-  let parts = formatStr
-    .match(longFormattingTokensRegExp)
-    .map((substring) => {
-      const firstCharacter = substring[0];
-      if (firstCharacter === "p" || firstCharacter === "P") {
-        const longFormatter = _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__.longFormatters[firstCharacter];
-        return longFormatter(substring, locale.formatLong);
-      }
-      return substring;
-    })
-    .join("")
-    .match(formattingTokensRegExp)
-    .map((substring) => {
-      // Replace two single quote characters with one single quote character
-      if (substring === "''") {
-        return { isToken: false, value: "'" };
-      }
-
-      const firstCharacter = substring[0];
-      if (firstCharacter === "'") {
-        return { isToken: false, value: cleanEscapedString(substring) };
-      }
-
-      if (_lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters[firstCharacter]) {
-        return { isToken: true, value: substring };
-      }
-
-      if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
-        throw new RangeError(
-          "Format string contains an unescaped latin alphabet character `" +
-            firstCharacter +
-            "`",
-        );
-      }
-
-      return { isToken: false, value: substring };
-    });
-
-  // invoke localize preprocessor (only for french locales at the moment)
-  if (locale.localize.preprocessor) {
-    parts = locale.localize.preprocessor(originalDate, parts);
-  }
-
-  const formatterOptions = {
-    firstWeekContainsDate,
-    weekStartsOn,
-    locale,
-  };
-
-  return parts
-    .map((part) => {
-      if (!part.isToken) return part.value;
-
-      const token = part.value;
-
-      if (
-        (!options?.useAdditionalWeekYearTokens &&
-          (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.isProtectedWeekYearToken)(token)) ||
-        (!options?.useAdditionalDayOfYearTokens &&
-          (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.isProtectedDayOfYearToken)(token))
-      ) {
-        (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.warnOrThrowProtectedError)(token, formatStr, String(date));
-      }
-
-      const formatter = _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters[token[0]];
-      return formatter(originalDate, token, locale.localize, formatterOptions);
-    })
-    .join("");
-}
-
-function cleanEscapedString(input) {
-  const matched = input.match(escapedStringRegExp);
-
-  if (!matched) {
-    return input;
-  }
-
-  return matched[1].replace(doubleQuoteRegExp, "'");
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (format);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getDayOfYear.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/getDayOfYear.js ***!
-  \*********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getDayOfYear: function() { return /* binding */ getDayOfYear; }
-/* harmony export */ });
-/* harmony import */ var _differenceInCalendarDays_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./differenceInCalendarDays.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/differenceInCalendarDays.js");
-/* harmony import */ var _startOfYear_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfYear.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-
-/**
- * The {@link getDayOfYear} function options.
- */
-
-/**
- * @name getDayOfYear
- * @category Day Helpers
- * @summary Get the day of the year of the given date.
- *
- * @description
- * Get the day of the year of the given date.
- *
- * @param date - The given date
- * @param options - The options
- *
- * @returns The day of year
- *
- * @example
- * // Which day of the year is 2 July 2014?
- * const result = getDayOfYear(new Date(2014, 6, 2))
- * //=> 183
- */
-function getDayOfYear(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
-  const diff = (0,_differenceInCalendarDays_js__WEBPACK_IMPORTED_MODULE_0__.differenceInCalendarDays)(_date, (0,_startOfYear_js__WEBPACK_IMPORTED_MODULE_1__.startOfYear)(_date));
-  const dayOfYear = diff + 1;
-  return dayOfYear;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getDayOfYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getISOWeek.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/getISOWeek.js ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getISOWeek: function() { return /* binding */ getISOWeek; }
-/* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constants.js");
-/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeek.js");
-/* harmony import */ var _startOfISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeekYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeekYear.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-
-
-/**
- * The {@link getISOWeek} function options.
- */
-
-/**
- * @name getISOWeek
- * @category ISO Week Helpers
- * @summary Get the ISO week of the given date.
- *
- * @description
- * Get the ISO week of the given date.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param date - The given date
- * @param options - The options
- *
- * @returns The ISO week
- *
- * @example
- * // Which week of the ISO-week numbering year is 2 January 2005?
- * const result = getISOWeek(new Date(2005, 0, 2))
- * //=> 53
- */
-function getISOWeek(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
-  const diff = +(0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(_date) - +(0,_startOfISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeekYear)(_date);
-
-  // Round the number of weeks to the nearest integer because the number of
-  // milliseconds in a week is not constant (e.g. it's different in the week of
-  // the daylight saving time clock shift).
-  return Math.round(diff / _constants_js__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getISOWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getISOWeekYear.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/getISOWeekYear.js ***!
-  \***********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getISOWeekYear: function() { return /* binding */ getISOWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeek.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-
-/**
- * The {@link getISOWeekYear} function options.
- */
-
-/**
- * @name getISOWeekYear
- * @category ISO Week-Numbering Year Helpers
- * @summary Get the ISO week-numbering year of the given date.
- *
- * @description
- * Get the ISO week-numbering year of the given date,
- * which always starts 3 days before the year's first Thursday.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param date - The given date
- *
- * @returns The ISO week-numbering year
- *
- * @example
- * // Which ISO-week numbering year is 2 January 2005?
- * const result = getISOWeekYear(new Date(2005, 0, 2))
- * //=> 2004
- */
-function getISOWeekYear(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
-  const year = _date.getFullYear();
-
-  const fourthOfJanuaryOfNextYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
-  fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
-  fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
-  const startOfNextYear = (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfNextYear);
-
-  const fourthOfJanuaryOfThisYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
-  fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4);
-  fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0);
-  const startOfThisYear = (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfThisYear);
-
-  if (_date.getTime() >= startOfNextYear.getTime()) {
-    return year + 1;
-  } else if (_date.getTime() >= startOfThisYear.getTime()) {
-    return year;
-  } else {
-    return year - 1;
-  }
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getISOWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getWeek.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/getWeek.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getWeek: function() { return /* binding */ getWeek; }
-/* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constants.js");
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeek.js");
-/* harmony import */ var _startOfWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeekYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeekYear.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-
-
-/**
- * The {@link getWeek} function options.
- */
-
-/**
- * @name getWeek
- * @category Week Helpers
- * @summary Get the local week index of the given date.
- *
- * @description
- * Get the local week index of the given date.
- * The exact calculation depends on the values of
- * `options.weekStartsOn` (which is the index of the first day of the week)
- * and `options.firstWeekContainsDate` (which is the day of January, which is always in
- * the first week of the week-numbering year)
- *
- * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
- *
- * @param date - The given date
- * @param options - An object with options
- *
- * @returns The week
- *
- * @example
- * // Which week of the local week numbering year is 2 January 2005 with default options?
- * const result = getWeek(new Date(2005, 0, 2))
- * //=> 2
- *
- * @example
- * // Which week of the local week numbering year is 2 January 2005,
- * // if Monday is the first day of the week,
- * // and the first week of the year always contains 4 January?
- * const result = getWeek(new Date(2005, 0, 2), {
- *   weekStartsOn: 1,
- *   firstWeekContainsDate: 4
- * })
- * //=> 53
- */
-function getWeek(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
-  const diff = +(0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(_date, options) - +(0,_startOfWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeekYear)(_date, options);
-
-  // Round the number of weeks to the nearest integer because the number of
-  // milliseconds in a week is not constant (e.g. it's different in the week of
-  // the daylight saving time clock shift).
-  return Math.round(diff / _constants_js__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getWeekYear.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/getWeekYear.js ***!
-  \********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getWeekYear: function() { return /* binding */ getWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeek.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-
-
-/**
- * The {@link getWeekYear} function options.
- */
-
-/**
- * @name getWeekYear
- * @category Week-Numbering Year Helpers
- * @summary Get the local week-numbering year of the given date.
- *
- * @description
- * Get the local week-numbering year of the given date.
- * The exact calculation depends on the values of
- * `options.weekStartsOn` (which is the index of the first day of the week)
- * and `options.firstWeekContainsDate` (which is the day of January, which is always in
- * the first week of the week-numbering year)
- *
- * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
- *
- * @param date - The given date
- * @param options - An object with options.
- *
- * @returns The local week-numbering year
- *
- * @example
- * // Which week numbering year is 26 December 2004 with the default settings?
- * const result = getWeekYear(new Date(2004, 11, 26))
- * //=> 2005
- *
- * @example
- * // Which week numbering year is 26 December 2004 if week starts on Saturday?
- * const result = getWeekYear(new Date(2004, 11, 26), { weekStartsOn: 6 })
- * //=> 2004
- *
- * @example
- * // Which week numbering year is 26 December 2004 if the first week contains 4 January?
- * const result = getWeekYear(new Date(2004, 11, 26), { firstWeekContainsDate: 4 })
- * //=> 2004
- */
-function getWeekYear(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
-  const year = _date.getFullYear();
-
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
-  const firstWeekContainsDate =
-    options?.firstWeekContainsDate ??
-    options?.locale?.options?.firstWeekContainsDate ??
-    defaultOptions.firstWeekContainsDate ??
-    defaultOptions.locale?.options?.firstWeekContainsDate ??
-    1;
-
-  const firstWeekOfNextYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
-  firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
-  firstWeekOfNextYear.setHours(0, 0, 0, 0);
-  const startOfNextYear = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeekOfNextYear, options);
-
-  const firstWeekOfThisYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
-  firstWeekOfThisYear.setFullYear(year, 0, firstWeekContainsDate);
-  firstWeekOfThisYear.setHours(0, 0, 0, 0);
-  const startOfThisYear = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeekOfThisYear, options);
-
-  if (+_date >= +startOfNextYear) {
-    return year + 1;
-  } else if (+_date >= +startOfThisYear) {
-    return year;
-  } else {
-    return year - 1;
-  }
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/isDate.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/isDate.js ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isDate: function() { return /* binding */ isDate; }
-/* harmony export */ });
-/**
- * @name isDate
- * @category Common Helpers
- * @summary Is the given value a date?
- *
- * @description
- * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
- *
- * @param value - The value to check
- *
- * @returns True if the given value is a date
- *
- * @example
- * // For a valid date:
- * const result = isDate(new Date())
- * //=> true
- *
- * @example
- * // For an invalid date:
- * const result = isDate(new Date(NaN))
- * //=> true
- *
- * @example
- * // For some value:
- * const result = isDate('2014-02-31')
- * //=> false
- *
- * @example
- * // For an object:
- * const result = isDate({})
- * //=> false
- */
-function isDate(value) {
-  return (
-    value instanceof Date ||
-    (typeof value === "object" &&
-      Object.prototype.toString.call(value) === "[object Date]")
-  );
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isDate);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/isValid.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/isValid.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isValid: function() { return /* binding */ isValid; }
-/* harmony export */ });
-/* harmony import */ var _isDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/isDate.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * @name isValid
- * @category Common Helpers
- * @summary Is the given date valid?
- *
- * @description
- * Returns false if argument is Invalid Date and true otherwise.
- * Argument is converted to Date using `toDate`. See [toDate](https://date-fns.org/docs/toDate)
- * Invalid Date is a Date, whose time value is NaN.
- *
- * Time value of Date: http://es5.github.io/#x15.9.1.1
- *
- * @param date - The date to check
- *
- * @returns The date is valid
- *
- * @example
- * // For the valid date:
- * const result = isValid(new Date(2014, 1, 31))
- * //=> true
- *
- * @example
- * // For the value, convertible into a date:
- * const result = isValid(1393804800000)
- * //=> true
- *
- * @example
- * // For the invalid date:
- * const result = isValid(new Date(''))
- * //=> false
- */
-function isValid(date) {
-  return !((!(0,_isDate_js__WEBPACK_IMPORTED_MODULE_0__.isDate)(date) && typeof date !== "number") || isNaN(+(0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date)));
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isValid);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildFormatLongFn.js":
-/*!**************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildFormatLongFn.js ***!
-  \**************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildFormatLongFn: function() { return /* binding */ buildFormatLongFn; }
-/* harmony export */ });
-function buildFormatLongFn(args) {
-  return (options = {}) => {
-    // TODO: Remove String()
-    const width = options.width ? String(options.width) : args.defaultWidth;
-    const format = args.formats[width] || args.formats[args.defaultWidth];
-    return format;
-  };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildLocalizeFn.js":
-/*!************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildLocalizeFn.js ***!
-  \************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildLocalizeFn: function() { return /* binding */ buildLocalizeFn; }
-/* harmony export */ });
-/**
- * The localize function argument callback which allows to convert raw value to
- * the actual type.
- *
- * @param value - The value to convert
- *
- * @returns The converted value
- */
-
-/**
- * The map of localized values for each width.
- */
-
-/**
- * The index type of the locale unit value. It types conversion of units of
- * values that don't start at 0 (i.e. quarters).
- */
-
-/**
- * Converts the unit value to the tuple of values.
- */
-
-/**
- * The tuple of localized era values. The first element represents BC,
- * the second element represents AD.
- */
-
-/**
- * The tuple of localized quarter values. The first element represents Q1.
- */
-
-/**
- * The tuple of localized day values. The first element represents Sunday.
- */
-
-/**
- * The tuple of localized month values. The first element represents January.
- */
-
-function buildLocalizeFn(args) {
-  return (value, options) => {
-    const context = options?.context ? String(options.context) : "standalone";
-
-    let valuesArray;
-    if (context === "formatting" && args.formattingValues) {
-      const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
-      const width = options?.width ? String(options.width) : defaultWidth;
-
-      valuesArray =
-        args.formattingValues[width] || args.formattingValues[defaultWidth];
-    } else {
-      const defaultWidth = args.defaultWidth;
-      const width = options?.width ? String(options.width) : args.defaultWidth;
-
-      valuesArray = args.values[width] || args.values[defaultWidth];
-    }
-    const index = args.argumentCallback ? args.argumentCallback(value) : value;
-
-    // @ts-expect-error - For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
-    return valuesArray[index];
-  };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildMatchFn.js":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildMatchFn.js ***!
-  \*********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildMatchFn: function() { return /* binding */ buildMatchFn; }
-/* harmony export */ });
-function buildMatchFn(args) {
-  return (string, options = {}) => {
-    const width = options.width;
-
-    const matchPattern =
-      (width && args.matchPatterns[width]) ||
-      args.matchPatterns[args.defaultMatchWidth];
-    const matchResult = string.match(matchPattern);
-
-    if (!matchResult) {
-      return null;
-    }
-    const matchedString = matchResult[0];
-
-    const parsePatterns =
-      (width && args.parsePatterns[width]) ||
-      args.parsePatterns[args.defaultParseWidth];
-
-    const key = Array.isArray(parsePatterns)
-      ? findIndex(parsePatterns, (pattern) => pattern.test(matchedString))
-      : // [TODO] -- I challenge you to fix the type
-        findKey(parsePatterns, (pattern) => pattern.test(matchedString));
-
-    let value;
-
-    value = args.valueCallback ? args.valueCallback(key) : key;
-    value = options.valueCallback
-      ? // [TODO] -- I challenge you to fix the type
-        options.valueCallback(value)
-      : value;
-
-    const rest = string.slice(matchedString.length);
-
-    return { value, rest };
-  };
-}
-
-function findKey(object, predicate) {
-  for (const key in object) {
-    if (
-      Object.prototype.hasOwnProperty.call(object, key) &&
-      predicate(object[key])
-    ) {
-      return key;
-    }
-  }
-  return undefined;
-}
-
-function findIndex(array, predicate) {
-  for (let key = 0; key < array.length; key++) {
-    if (predicate(array[key])) {
-      return key;
-    }
-  }
-  return undefined;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildMatchPatternFn.js":
-/*!****************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildMatchPatternFn.js ***!
-  \****************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildMatchPatternFn: function() { return /* binding */ buildMatchPatternFn; }
-/* harmony export */ });
-function buildMatchPatternFn(args) {
-  return (string, options = {}) => {
-    const matchResult = string.match(args.matchPattern);
-    if (!matchResult) return null;
-    const matchedString = matchResult[0];
-
-    const parseResult = string.match(args.parsePattern);
-    if (!parseResult) return null;
-    let value = args.valueCallback
-      ? args.valueCallback(parseResult[0])
-      : parseResult[0];
-
-    // [TODO] I challenge you to fix the type
-    value = options.valueCallback ? options.valueCallback(value) : value;
-
-    const rest = string.slice(matchedString.length);
-
-    return { value, rest };
-  };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US.js ***!
-  \*********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   enUS: function() { return /* binding */ enUS; }
-/* harmony export */ });
-/* harmony import */ var _en_US_lib_formatDistance_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./en-US/_lib/formatDistance.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatDistance.js");
-/* harmony import */ var _en_US_lib_formatLong_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./en-US/_lib/formatLong.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatLong.js");
-/* harmony import */ var _en_US_lib_formatRelative_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./en-US/_lib/formatRelative.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatRelative.js");
-/* harmony import */ var _en_US_lib_localize_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./en-US/_lib/localize.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/localize.js");
-/* harmony import */ var _en_US_lib_match_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./en-US/_lib/match.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/match.js");
-
-
-
-
-
-
-/**
- * @category Locales
- * @summary English locale (United States).
- * @language English
- * @iso-639-2 eng
- * @author Sasha Koss [@kossnocorp](https://github.com/kossnocorp)
- * @author Lesha Koss [@leshakoss](https://github.com/leshakoss)
- */
-const enUS = {
-  code: "en-US",
-  formatDistance: _en_US_lib_formatDistance_js__WEBPACK_IMPORTED_MODULE_0__.formatDistance,
-  formatLong: _en_US_lib_formatLong_js__WEBPACK_IMPORTED_MODULE_1__.formatLong,
-  formatRelative: _en_US_lib_formatRelative_js__WEBPACK_IMPORTED_MODULE_2__.formatRelative,
-  localize: _en_US_lib_localize_js__WEBPACK_IMPORTED_MODULE_3__.localize,
-  match: _en_US_lib_match_js__WEBPACK_IMPORTED_MODULE_4__.match,
-  options: {
-    weekStartsOn: 0 /* Sunday */,
-    firstWeekContainsDate: 1,
-  },
-};
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (enUS);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatDistance.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatDistance.js ***!
-  \*****************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatDistance: function() { return /* binding */ formatDistance; }
-/* harmony export */ });
-const formatDistanceLocale = {
-  lessThanXSeconds: {
-    one: "less than a second",
-    other: "less than {{count}} seconds",
-  },
-
-  xSeconds: {
-    one: "1 second",
-    other: "{{count}} seconds",
-  },
-
-  halfAMinute: "half a minute",
-
-  lessThanXMinutes: {
-    one: "less than a minute",
-    other: "less than {{count}} minutes",
-  },
-
-  xMinutes: {
-    one: "1 minute",
-    other: "{{count}} minutes",
-  },
-
-  aboutXHours: {
-    one: "about 1 hour",
-    other: "about {{count}} hours",
-  },
-
-  xHours: {
-    one: "1 hour",
-    other: "{{count}} hours",
-  },
-
-  xDays: {
-    one: "1 day",
-    other: "{{count}} days",
-  },
-
-  aboutXWeeks: {
-    one: "about 1 week",
-    other: "about {{count}} weeks",
-  },
-
-  xWeeks: {
-    one: "1 week",
-    other: "{{count}} weeks",
-  },
-
-  aboutXMonths: {
-    one: "about 1 month",
-    other: "about {{count}} months",
-  },
-
-  xMonths: {
-    one: "1 month",
-    other: "{{count}} months",
-  },
-
-  aboutXYears: {
-    one: "about 1 year",
-    other: "about {{count}} years",
-  },
-
-  xYears: {
-    one: "1 year",
-    other: "{{count}} years",
-  },
-
-  overXYears: {
-    one: "over 1 year",
-    other: "over {{count}} years",
-  },
-
-  almostXYears: {
-    one: "almost 1 year",
-    other: "almost {{count}} years",
-  },
-};
-
-const formatDistance = (token, count, options) => {
-  let result;
-
-  const tokenValue = formatDistanceLocale[token];
-  if (typeof tokenValue === "string") {
-    result = tokenValue;
-  } else if (count === 1) {
-    result = tokenValue.one;
-  } else {
-    result = tokenValue.other.replace("{{count}}", count.toString());
-  }
-
-  if (options?.addSuffix) {
-    if (options.comparison && options.comparison > 0) {
-      return "in " + result;
-    } else {
-      return result + " ago";
-    }
-  }
-
-  return result;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatLong.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatLong.js ***!
-  \*************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatLong: function() { return /* binding */ formatLong; }
-/* harmony export */ });
-/* harmony import */ var _lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildFormatLongFn.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildFormatLongFn.js");
-
-
-const dateFormats = {
-  full: "EEEE, MMMM do, y",
-  long: "MMMM do, y",
-  medium: "MMM d, y",
-  short: "MM/dd/yyyy",
-};
-
-const timeFormats = {
-  full: "h:mm:ss a zzzz",
-  long: "h:mm:ss a z",
-  medium: "h:mm:ss a",
-  short: "h:mm a",
-};
-
-const dateTimeFormats = {
-  full: "{{date}} 'at' {{time}}",
-  long: "{{date}} 'at' {{time}}",
-  medium: "{{date}}, {{time}}",
-  short: "{{date}}, {{time}}",
-};
-
-const formatLong = {
-  date: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
-    formats: dateFormats,
-    defaultWidth: "full",
-  }),
-
-  time: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
-    formats: timeFormats,
-    defaultWidth: "full",
-  }),
-
-  dateTime: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
-    formats: dateTimeFormats,
-    defaultWidth: "full",
-  }),
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatRelative.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/formatRelative.js ***!
-  \*****************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatRelative: function() { return /* binding */ formatRelative; }
-/* harmony export */ });
-const formatRelativeLocale = {
-  lastWeek: "'last' eeee 'at' p",
-  yesterday: "'yesterday at' p",
-  today: "'today at' p",
-  tomorrow: "'tomorrow at' p",
-  nextWeek: "eeee 'at' p",
-  other: "P",
-};
-
-const formatRelative = (token, _date, _baseDate, _options) =>
-  formatRelativeLocale[token];
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/localize.js":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/localize.js ***!
-  \***********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   localize: function() { return /* binding */ localize; }
-/* harmony export */ });
-/* harmony import */ var _lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildLocalizeFn.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildLocalizeFn.js");
-
-
-const eraValues = {
-  narrow: ["B", "A"],
-  abbreviated: ["BC", "AD"],
-  wide: ["Before Christ", "Anno Domini"],
-};
-
-const quarterValues = {
-  narrow: ["1", "2", "3", "4"],
-  abbreviated: ["Q1", "Q2", "Q3", "Q4"],
-  wide: ["1st quarter", "2nd quarter", "3rd quarter", "4th quarter"],
-};
-
-// Note: in English, the names of days of the week and months are capitalized.
-// If you are making a new locale based on this one, check if the same is true for the language you're working on.
-// Generally, formatted dates should look like they are in the middle of a sentence,
-// e.g. in Spanish language the weekdays and months should be in the lowercase.
-const monthValues = {
-  narrow: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-  abbreviated: [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ],
-
-  wide: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-};
-
-const dayValues = {
-  narrow: ["S", "M", "T", "W", "T", "F", "S"],
-  short: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-  abbreviated: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  wide: [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ],
-};
-
-const dayPeriodValues = {
-  narrow: {
-    am: "a",
-    pm: "p",
-    midnight: "mi",
-    noon: "n",
-    morning: "morning",
-    afternoon: "afternoon",
-    evening: "evening",
-    night: "night",
-  },
-  abbreviated: {
-    am: "AM",
-    pm: "PM",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "morning",
-    afternoon: "afternoon",
-    evening: "evening",
-    night: "night",
-  },
-  wide: {
-    am: "a.m.",
-    pm: "p.m.",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "morning",
-    afternoon: "afternoon",
-    evening: "evening",
-    night: "night",
-  },
-};
-
-const formattingDayPeriodValues = {
-  narrow: {
-    am: "a",
-    pm: "p",
-    midnight: "mi",
-    noon: "n",
-    morning: "in the morning",
-    afternoon: "in the afternoon",
-    evening: "in the evening",
-    night: "at night",
-  },
-  abbreviated: {
-    am: "AM",
-    pm: "PM",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "in the morning",
-    afternoon: "in the afternoon",
-    evening: "in the evening",
-    night: "at night",
-  },
-  wide: {
-    am: "a.m.",
-    pm: "p.m.",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "in the morning",
-    afternoon: "in the afternoon",
-    evening: "in the evening",
-    night: "at night",
-  },
-};
-
-const ordinalNumber = (dirtyNumber, _options) => {
-  const number = Number(dirtyNumber);
-
-  // If ordinal numbers depend on context, for example,
-  // if they are different for different grammatical genders,
-  // use `options.unit`.
-  //
-  // `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
-  // 'day', 'hour', 'minute', 'second'.
-
-  const rem100 = number % 100;
-  if (rem100 > 20 || rem100 < 10) {
-    switch (rem100 % 10) {
-      case 1:
-        return number + "st";
-      case 2:
-        return number + "nd";
-      case 3:
-        return number + "rd";
-    }
-  }
-  return number + "th";
-};
-
-const localize = {
-  ordinalNumber,
-
-  era: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: eraValues,
-    defaultWidth: "wide",
-  }),
-
-  quarter: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: quarterValues,
-    defaultWidth: "wide",
-    argumentCallback: (quarter) => quarter - 1,
-  }),
-
-  month: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: monthValues,
-    defaultWidth: "wide",
-  }),
-
-  day: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: dayValues,
-    defaultWidth: "wide",
-  }),
-
-  dayPeriod: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: dayPeriodValues,
-    defaultWidth: "wide",
-    formattingValues: formattingDayPeriodValues,
-    defaultFormattingWidth: "wide",
-  }),
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/match.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/en-US/_lib/match.js ***!
-  \********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   match: function() { return /* binding */ match; }
-/* harmony export */ });
-/* harmony import */ var _lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildMatchFn.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildMatchFn.js");
-/* harmony import */ var _lib_buildMatchPatternFn_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_lib/buildMatchPatternFn.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/locale/_lib/buildMatchPatternFn.js");
-
-
-
-const matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
-const parseOrdinalNumberPattern = /\d+/i;
-
-const matchEraPatterns = {
-  narrow: /^(b|a)/i,
-  abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
-  wide: /^(before christ|before common era|anno domini|common era)/i,
-};
-const parseEraPatterns = {
-  any: [/^b/i, /^(a|c)/i],
-};
-
-const matchQuarterPatterns = {
-  narrow: /^[1234]/i,
-  abbreviated: /^q[1234]/i,
-  wide: /^[1234](th|st|nd|rd)? quarter/i,
-};
-const parseQuarterPatterns = {
-  any: [/1/i, /2/i, /3/i, /4/i],
-};
-
-const matchMonthPatterns = {
-  narrow: /^[jfmasond]/i,
-  abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
-  wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i,
-};
-const parseMonthPatterns = {
-  narrow: [
-    /^j/i,
-    /^f/i,
-    /^m/i,
-    /^a/i,
-    /^m/i,
-    /^j/i,
-    /^j/i,
-    /^a/i,
-    /^s/i,
-    /^o/i,
-    /^n/i,
-    /^d/i,
-  ],
-
-  any: [
-    /^ja/i,
-    /^f/i,
-    /^mar/i,
-    /^ap/i,
-    /^may/i,
-    /^jun/i,
-    /^jul/i,
-    /^au/i,
-    /^s/i,
-    /^o/i,
-    /^n/i,
-    /^d/i,
-  ],
-};
-
-const matchDayPatterns = {
-  narrow: /^[smtwf]/i,
-  short: /^(su|mo|tu|we|th|fr|sa)/i,
-  abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
-  wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i,
-};
-const parseDayPatterns = {
-  narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
-  any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i],
-};
-
-const matchDayPeriodPatterns = {
-  narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
-  any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i,
-};
-const parseDayPeriodPatterns = {
-  any: {
-    am: /^a/i,
-    pm: /^p/i,
-    midnight: /^mi/i,
-    noon: /^no/i,
-    morning: /morning/i,
-    afternoon: /afternoon/i,
-    evening: /evening/i,
-    night: /night/i,
-  },
-};
-
-const match = {
-  ordinalNumber: (0,_lib_buildMatchPatternFn_js__WEBPACK_IMPORTED_MODULE_1__.buildMatchPatternFn)({
-    matchPattern: matchOrdinalNumberPattern,
-    parsePattern: parseOrdinalNumberPattern,
-    valueCallback: (value) => parseInt(value, 10),
-  }),
-
-  era: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchEraPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseEraPatterns,
-    defaultParseWidth: "any",
-  }),
-
-  quarter: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchQuarterPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseQuarterPatterns,
-    defaultParseWidth: "any",
-    valueCallback: (index) => index + 1,
-  }),
-
-  month: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchMonthPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseMonthPatterns,
-    defaultParseWidth: "any",
-  }),
-
-  day: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchDayPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseDayPatterns,
-    defaultParseWidth: "any",
-  }),
-
-  dayPeriod: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchDayPeriodPatterns,
-    defaultMatchWidth: "any",
-    parsePatterns: parseDayPeriodPatterns,
-    defaultParseWidth: "any",
-  }),
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfDay.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfDay.js ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfDay: function() { return /* binding */ startOfDay; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link startOfDay} function options.
- */
-
-/**
- * @name startOfDay
- * @category Day Helpers
- * @summary Return the start of a day for the given date.
- *
- * @description
- * Return the start of a day for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - The options
- *
- * @returns The start of a day
- *
- * @example
- * // The start of a day for 2 September 2014 11:55:00:
- * const result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Tue Sep 02 2014 00:00:00
- */
-function startOfDay(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  _date.setHours(0, 0, 0, 0);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfDay);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeek.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeek.js ***!
-  \***********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfISOWeek: function() { return /* binding */ startOfISOWeek; }
-/* harmony export */ });
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeek.js");
-
-
-/**
- * The {@link startOfISOWeek} function options.
- */
-
-/**
- * @name startOfISOWeek
- * @category ISO Week Helpers
- * @summary Return the start of an ISO week for the given date.
- *
- * @description
- * Return the start of an ISO week for the given date.
- * The result will be in the local timezone.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of an ISO week
- *
- * @example
- * // The start of an ISO week for 2 September 2014 11:55:00:
- * const result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfISOWeek(date, options) {
-  return (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_0__.startOfWeek)(date, { ...options, weekStartsOn: 1 });
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfISOWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeekYear.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeekYear.js ***!
-  \***************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfISOWeekYear: function() { return /* binding */ startOfISOWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getISOWeekYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getISOWeekYear.js");
-/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfISOWeek.js");
-
-
-
-
-/**
- * The {@link startOfISOWeekYear} function options.
- */
-
-/**
- * @name startOfISOWeekYear
- * @category ISO Week-Numbering Year Helpers
- * @summary Return the start of an ISO week-numbering year for the given date.
- *
- * @description
- * Return the start of an ISO week-numbering year,
- * which always starts 3 days before the year's first Thursday.
- * The result will be in the local timezone.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of an ISO week-numbering year
- *
- * @example
- * // The start of an ISO week-numbering year for 2 July 2005:
- * const result = startOfISOWeekYear(new Date(2005, 6, 2))
- * //=> Mon Jan 03 2005 00:00:00
- */
-function startOfISOWeekYear(date, options) {
-  const year = (0,_getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_1__.getISOWeekYear)(date, options);
-  const fourthOfJanuary = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, 0);
-  fourthOfJanuary.setFullYear(year, 0, 4);
-  fourthOfJanuary.setHours(0, 0, 0, 0);
-  return (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeek)(fourthOfJanuary);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfISOWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfMonth.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfMonth.js ***!
-  \*********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfMonth: function() { return /* binding */ startOfMonth; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link startOfMonth} function options.
- */
-
-/**
- * @name startOfMonth
- * @category Month Helpers
- * @summary Return the start of a month for the given date.
- *
- * @description
- * Return the start of a month for the given date. The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments.
- * Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed,
- * or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of a month
- *
- * @example
- * // The start of a month for 2 September 2014 11:55:00:
- * const result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfMonth(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  _date.setDate(1);
-  _date.setHours(0, 0, 0, 0);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfMonth);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeek.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeek.js ***!
-  \********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfWeek: function() { return /* binding */ startOfWeek; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link startOfWeek} function options.
- */
-
-/**
- * @name startOfWeek
- * @category Week Helpers
- * @summary Return the start of a week for the given date.
- *
- * @description
- * Return the start of a week for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of a week
- *
- * @example
- * // The start of a week for 2 September 2014 11:55:00:
- * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Sun Aug 31 2014 00:00:00
- *
- * @example
- * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
- * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfWeek(date, options) {
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
-  const weekStartsOn =
-    options?.weekStartsOn ??
-    options?.locale?.options?.weekStartsOn ??
-    defaultOptions.weekStartsOn ??
-    defaultOptions.locale?.options?.weekStartsOn ??
-    0;
-
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  const day = _date.getDay();
-  const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
-
-  _date.setDate(_date.getDate() - diff);
-  _date.setHours(0, 0, 0, 0);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeekYear.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeekYear.js ***!
-  \************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfWeekYear: function() { return /* binding */ startOfWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _getWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getWeekYear.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/getWeekYear.js");
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfWeek.js");
-
-
-
-
-
-/**
- * The {@link startOfWeekYear} function options.
- */
-
-/**
- * @name startOfWeekYear
- * @category Week-Numbering Year Helpers
- * @summary Return the start of a local week-numbering year for the given date.
- *
- * @description
- * Return the start of a local week-numbering year.
- * The exact calculation depends on the values of
- * `options.weekStartsOn` (which is the index of the first day of the week)
- * and `options.firstWeekContainsDate` (which is the day of January, which is always in
- * the first week of the week-numbering year)
- *
- * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of a week-numbering year
- *
- * @example
- * // The start of an a week-numbering year for 2 July 2005 with default settings:
- * const result = startOfWeekYear(new Date(2005, 6, 2))
- * //=> Sun Dec 26 2004 00:00:00
- *
- * @example
- * // The start of a week-numbering year for 2 July 2005
- * // if Monday is the first day of week
- * // and 4 January is always in the first week of the year:
- * const result = startOfWeekYear(new Date(2005, 6, 2), {
- *   weekStartsOn: 1,
- *   firstWeekContainsDate: 4
- * })
- * //=> Mon Jan 03 2005 00:00:00
- */
-function startOfWeekYear(date, options) {
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
-  const firstWeekContainsDate =
-    options?.firstWeekContainsDate ??
-    options?.locale?.options?.firstWeekContainsDate ??
-    defaultOptions.firstWeekContainsDate ??
-    defaultOptions.locale?.options?.firstWeekContainsDate ??
-    1;
-
-  const year = (0,_getWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.getWeekYear)(date, options);
-  const firstWeek = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
-  firstWeek.setFullYear(year, 0, firstWeekContainsDate);
-  firstWeek.setHours(0, 0, 0, 0);
-  const _date = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_3__.startOfWeek)(firstWeek, options);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfYear.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/startOfYear.js ***!
-  \********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfYear: function() { return /* binding */ startOfYear; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link startOfYear} function options.
- */
-
-/**
- * @name startOfYear
- * @category Year Helpers
- * @summary Return the start of a year for the given date.
- *
- * @description
- * Return the start of a year for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - The options
- *
- * @returns The start of a year
- *
- * @example
- * // The start of a year for 2 September 2014 11:55:00:
- * const result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
- * //=> Wed Jan 01 2014 00:00:00
- */
-function startOfYear(date, options) {
-  const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  date_.setFullYear(date_.getFullYear(), 0, 1);
-  date_.setHours(0, 0, 0, 0);
-  return date_;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/subDays.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/subDays.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   subDays: function() { return /* binding */ subDays; }
-/* harmony export */ });
-/* harmony import */ var _addDays_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addDays.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/addDays.js");
-
-
-/**
- * The {@link subDays} function options.
- */
-
-/**
- * @name subDays
- * @category Day Helpers
- * @summary Subtract the specified number of days from the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of days to be subtracted.
- * @param options - An object with options
- *
- * @returns The new date with the days subtracted
- *
- * @example
- * // Subtract 10 days from 1 September 2014:
- * const result = subDays(new Date(2014, 8, 1), 10)
- * //=> Fri Aug 22 2014 00:00:00
- */
-function subDays(date, amount, options) {
-  return (0,_addDays_js__WEBPACK_IMPORTED_MODULE_0__.addDays)(date, -amount, options);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (subDays);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/subMonths.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/subMonths.js ***!
-  \******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   subMonths: function() { return /* binding */ subMonths; }
-/* harmony export */ });
-/* harmony import */ var _addMonths_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addMonths.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/addMonths.js");
-
-
-/**
- * The subMonths function options.
- */
-
-/**
- * @name subMonths
- * @category Month Helpers
- * @summary Subtract the specified number of months from the given date.
- *
- * @description
- * Subtract the specified number of months from the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of months to be subtracted.
- * @param options - An object with options
- *
- * @returns The new date with the months subtracted
- *
- * @example
- * // Subtract 5 months from 1 February 2015:
- * const result = subMonths(new Date(2015, 1, 1), 5)
- * //=> Mon Sep 01 2014 00:00:00
- */
-function subMonths(date, amount, options) {
-  return (0,_addMonths_js__WEBPACK_IMPORTED_MODULE_0__.addMonths)(date, -amount, options);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (subMonths);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/subYears.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/subYears.js ***!
-  \*****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   subYears: function() { return /* binding */ subYears; }
-/* harmony export */ });
-/* harmony import */ var _addYears_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addYears.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/addYears.js");
-
-
-/**
- * The {@link subYears} function options.
- */
-
-/**
- * @name subYears
- * @category Year Helpers
- * @summary Subtract the specified number of years from the given date.
- *
- * @description
- * Subtract the specified number of years from the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of years to be subtracted.
- * @param options - An object with options
- *
- * @returns The new date with the years subtracted
- *
- * @example
- * // Subtract 5 years from 1 September 2014:
- * const result = subYears(new Date(2014, 8, 1), 5)
- * //=> Tue Sep 01 2009 00:00:00
- */
-function subYears(date, amount, options) {
-  return (0,_addYears_js__WEBPACK_IMPORTED_MODULE_0__.addYears)(date, -amount, options);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (subYears);
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@wordpress/dataviews/node_modules/date-fns/toDate.js ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   toDate: function() { return /* binding */ toDate; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/@wordpress/dataviews/node_modules/date-fns/constructFrom.js");
-
-
-/**
- * @name toDate
- * @category Common Helpers
- * @summary Convert the given argument to an instance of Date.
- *
- * @description
- * Convert the given argument to an instance of Date.
- *
- * If the argument is an instance of Date, the function returns its clone.
- *
- * If the argument is a number, it is treated as a timestamp.
- *
- * If the argument is none of the above, the function returns Invalid Date.
- *
- * Starting from v3.7.0, it clones a date using `[Symbol.for("constructDateFrom")]`
- * enabling to transfer extra properties from the reference date to the new date.
- * It's useful for extensions like [`TZDate`](https://github.com/date-fns/tz)
- * that accept a time zone as a constructor argument.
- *
- * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param argument - The value to convert
- *
- * @returns The parsed date in the local time zone
- *
- * @example
- * // Clone the date:
- * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
- * //=> Tue Feb 11 2014 11:30:30
- *
- * @example
- * // Convert the timestamp to date:
- * const result = toDate(1392098430000)
- * //=> Tue Feb 11 2014 11:30:30
- */
-function toDate(argument, context) {
-  // [TODO] Get rid of `toDate` or `constructFrom`?
-  return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(context || argument, argument);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (toDate);
 
 
 /***/ }),
@@ -120664,335 +120663,6 @@ function sprintf(format, ...args) {
 
 /***/ }),
 
-/***/ "./node_modules/@wordpress/icons/build-module/icon/index.mjs":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/icon/index.mjs ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ icon_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
-// packages/icons/src/icon/index.ts
-
-var icon_default = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(
-  ({ icon, size = 24, ...props }, ref) => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(icon, {
-      width: size,
-      height: size,
-      ...props,
-      ref
-    });
-  }
-);
-
-//# sourceMappingURL=index.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/caution.mjs":
-/*!************************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/caution.mjs ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ caution_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/caution.tsx
-
-
-var caution_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M5.5 12a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0ZM12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-.75 12v-1.5h1.5V16h-1.5Zm0-8v5h1.5V8h-1.5Z" }) });
-
-//# sourceMappingURL=caution.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/check.mjs":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/check.mjs ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ check_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/check.tsx
-
-
-var check_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M16.5 7.5 10 13.9l-2.5-2.4-1 1 3.5 3.6 7.5-7.6z" }) });
-
-//# sourceMappingURL=check.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/chevron-down.mjs":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/chevron-down.mjs ***!
-  \*****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ chevron_down_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/chevron-down.tsx
-
-
-var chevron_down_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z" }) });
-
-//# sourceMappingURL=chevron-down.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/chevron-right-small.mjs":
-/*!************************************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/chevron-right-small.mjs ***!
-  \************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ chevron_right_small_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/chevron-right-small.tsx
-
-
-var chevron_right_small_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M10.8622 8.04053L14.2805 12.0286L10.8622 16.0167L9.72327 15.0405L12.3049 12.0286L9.72327 9.01672L10.8622 8.04053Z" }) });
-
-//# sourceMappingURL=chevron-right-small.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/chevron-right.mjs":
-/*!******************************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/chevron-right.mjs ***!
-  \******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ chevron_right_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/chevron-right.tsx
-
-
-var chevron_right_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z" }) });
-
-//# sourceMappingURL=chevron-right.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/close-small.mjs":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/close-small.mjs ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ close_small_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/close-small.tsx
-
-
-var close_small_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z" }) });
-
-//# sourceMappingURL=close-small.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/close.mjs":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/close.mjs ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ close_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/close.tsx
-
-
-var close_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z" }) });
-
-//# sourceMappingURL=close.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/error.mjs":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/error.mjs ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ error_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/error.tsx
-
-
-var error_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M12.218 5.377a.25.25 0 0 0-.436 0l-7.29 12.96a.25.25 0 0 0 .218.373h14.58a.25.25 0 0 0 .218-.372l-7.29-12.96Zm-1.743-.735c.669-1.19 2.381-1.19 3.05 0l7.29 12.96a1.75 1.75 0 0 1-1.525 2.608H4.71a1.75 1.75 0 0 1-1.525-2.608l7.29-12.96ZM12.75 17.46h-1.5v-1.5h1.5v1.5Zm-1.5-3h1.5v-5h-1.5v5Z" }) });
-
-//# sourceMappingURL=error.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/info.mjs":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/info.mjs ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ info_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/info.tsx
-
-
-var info_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M5.5 12a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0ZM12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm.75 4v1.5h-1.5V8h1.5Zm0 8v-5h-1.5v5h1.5Z" }) });
-
-//# sourceMappingURL=info.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/plus.mjs":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/plus.mjs ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ plus_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/plus.tsx
-
-
-var plus_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M11 12.5V17.5H12.5V12.5H17.5V11H12.5V6H11V11H6V12.5H11Z" }) });
-
-//# sourceMappingURL=plus.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/published.mjs":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/published.mjs ***!
-  \**************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ published_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/published.tsx
-
-
-var published_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { fillRule: "evenodd", clipRule: "evenodd", d: "M12 18.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13ZM4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm11.53-1.47-1.06-1.06L11 12.94l-1.47-1.47-1.06 1.06L11 15.06l4.53-4.53Z" }) });
-
-//# sourceMappingURL=published.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/reset.mjs":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/reset.mjs ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ reset_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/reset.tsx
-
-
-var reset_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M7 11.5h10V13H7z" }) });
-
-//# sourceMappingURL=reset.mjs.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/search.mjs":
-/*!***********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/search.mjs ***!
-  \***********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ search_default; }
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "./node_modules/@wordpress/primitives/build-module/svg/index.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-// packages/icons/src/library/search.tsx
-
-
-var search_default = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, { d: "M13 5c-3.3 0-6 2.7-6 6 0 1.4.5 2.7 1.3 3.7l-3.8 3.8 1.1 1.1 3.8-3.8c1 .8 2.3 1.3 3.7 1.3 3.3 0 6-2.7 6-6S16.3 5 13 5zm0 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" }) });
-
-//# sourceMappingURL=search.mjs.map
-
-
-/***/ }),
-
 /***/ "./node_modules/@wordpress/is-shallow-equal/build-module/arrays.mjs":
 /*!**************************************************************************!*\
   !*** ./node_modules/@wordpress/is-shallow-equal/build-module/arrays.mjs ***!
@@ -121969,6 +121639,62 @@ function safeDecodeURIComponent(uriComponent) {
 
 /***/ }),
 
+/***/ "./node_modules/@wordpress/warning/build-module/index.mjs":
+/*!****************************************************************!*\
+  !*** ./node_modules/@wordpress/warning/build-module/index.mjs ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ warning; }
+/* harmony export */ });
+/* harmony import */ var _utils_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.mjs */ "./node_modules/@wordpress/warning/build-module/utils.mjs");
+// packages/warning/src/index.ts
+
+function isDev() {
+  return globalThis.SCRIPT_DEBUG === true;
+}
+function warning(message) {
+  if (!isDev()) {
+    return;
+  }
+  if (_utils_mjs__WEBPACK_IMPORTED_MODULE_0__.logged.has(message)) {
+    return;
+  }
+  console.warn(message);
+  try {
+    throw Error(message);
+  } catch (x) {
+  }
+  _utils_mjs__WEBPACK_IMPORTED_MODULE_0__.logged.add(message);
+}
+
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/warning/build-module/utils.mjs":
+/*!****************************************************************!*\
+  !*** ./node_modules/@wordpress/warning/build-module/utils.mjs ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   logged: function() { return /* binding */ logged; }
+/* harmony export */ });
+// packages/warning/src/utils.ts
+var logged = /* @__PURE__ */ new Set();
+
+//# sourceMappingURL=utils.mjs.map
+
+
+/***/ }),
+
 /***/ "./node_modules/clsx/dist/clsx.mjs":
 /*!*****************************************!*\
   !*** ./node_modules/clsx/dist/clsx.mjs ***!
@@ -122046,10 +121772,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/_lib/addLeadingZeros.mjs":
-/*!********************************************************!*\
-  !*** ./node_modules/date-fns/_lib/addLeadingZeros.mjs ***!
-  \********************************************************/
+/***/ "./node_modules/date-fns/_lib/addLeadingZeros.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/date-fns/_lib/addLeadingZeros.js ***!
+  \*******************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -122066,10 +121792,10 @@ function addLeadingZeros(number, targetLength) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/_lib/defaultOptions.mjs":
-/*!*******************************************************!*\
-  !*** ./node_modules/date-fns/_lib/defaultOptions.mjs ***!
-  \*******************************************************/
+/***/ "./node_modules/date-fns/_lib/defaultOptions.js":
+/*!******************************************************!*\
+  !*** ./node_modules/date-fns/_lib/defaultOptions.js ***!
+  \******************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -122091,10 +121817,10 @@ function setDefaultOptions(newOptions) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/_lib/format/formatters.mjs":
-/*!**********************************************************!*\
-  !*** ./node_modules/date-fns/_lib/format/formatters.mjs ***!
-  \**********************************************************/
+/***/ "./node_modules/date-fns/_lib/format/formatters.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/date-fns/_lib/format/formatters.js ***!
+  \*********************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -122102,13 +121828,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   formatters: function() { return /* binding */ formatters; }
 /* harmony export */ });
-/* harmony import */ var _getDayOfYear_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../getDayOfYear.mjs */ "./node_modules/date-fns/getDayOfYear.mjs");
-/* harmony import */ var _getISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../getISOWeek.mjs */ "./node_modules/date-fns/getISOWeek.mjs");
-/* harmony import */ var _getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../getISOWeekYear.mjs */ "./node_modules/date-fns/getISOWeekYear.mjs");
-/* harmony import */ var _getWeek_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../getWeek.mjs */ "./node_modules/date-fns/getWeek.mjs");
-/* harmony import */ var _getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../getWeekYear.mjs */ "./node_modules/date-fns/getWeekYear.mjs");
-/* harmony import */ var _addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../addLeadingZeros.mjs */ "./node_modules/date-fns/_lib/addLeadingZeros.mjs");
-/* harmony import */ var _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lightFormatters.mjs */ "./node_modules/date-fns/_lib/format/lightFormatters.mjs");
+/* harmony import */ var _getDayOfYear_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../getDayOfYear.js */ "./node_modules/date-fns/getDayOfYear.js");
+/* harmony import */ var _getISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../getISOWeek.js */ "./node_modules/date-fns/getISOWeek.js");
+/* harmony import */ var _getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../getISOWeekYear.js */ "./node_modules/date-fns/getISOWeekYear.js");
+/* harmony import */ var _getWeek_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../getWeek.js */ "./node_modules/date-fns/getWeek.js");
+/* harmony import */ var _getWeekYear_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../getWeekYear.js */ "./node_modules/date-fns/getWeekYear.js");
+/* harmony import */ var _addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../addLeadingZeros.js */ "./node_modules/date-fns/_lib/addLeadingZeros.js");
+/* harmony import */ var _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lightFormatters.js */ "./node_modules/date-fns/_lib/format/lightFormatters.js");
+
 
 
 
@@ -122204,19 +121931,19 @@ const formatters = {
       return localize.ordinalNumber(year, { unit: "year" });
     }
 
-    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.y(date, token);
+    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.y(date, token);
   },
 
   // Local week-numbering year
   Y: function (date, token, localize, options) {
-    const signedWeekYear = (0,_getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_4__.getWeekYear)(date, options);
+    const signedWeekYear = (0,_getWeekYear_js__WEBPACK_IMPORTED_MODULE_4__.getWeekYear)(date, options);
     // Returns 1 for 1 BC (which is year 0 in JavaScript)
     const weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear;
 
     // Two digit year
     if (token === "YY") {
       const twoDigitYear = weekYear % 100;
-      return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(twoDigitYear, 2);
+      return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(twoDigitYear, 2);
     }
 
     // Ordinal number
@@ -122225,15 +121952,15 @@ const formatters = {
     }
 
     // Padding
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(weekYear, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(weekYear, token.length);
   },
 
   // ISO week-numbering year
   R: function (date, token) {
-    const isoWeekYear = (0,_getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.getISOWeekYear)(date);
+    const isoWeekYear = (0,_getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.getISOWeekYear)(date);
 
     // Padding
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeekYear, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeekYear, token.length);
   },
 
   // Extended year. This is a single number designating the year of this calendar system.
@@ -122247,7 +121974,7 @@ const formatters = {
   // while `uu` pads single digit years to 2 characters and returns other years unchanged.
   u: function (date, token) {
     const year = date.getFullYear();
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(year, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(year, token.length);
   },
 
   // Quarter
@@ -122259,7 +121986,7 @@ const formatters = {
         return String(quarter);
       // 01, 02, 03, 04
       case "QQ":
-        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
+        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
       // 1st, 2nd, 3rd, 4th
       case "Qo":
         return localize.ordinalNumber(quarter, { unit: "quarter" });
@@ -122294,7 +122021,7 @@ const formatters = {
         return String(quarter);
       // 01, 02, 03, 04
       case "qq":
-        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
+        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
       // 1st, 2nd, 3rd, 4th
       case "qo":
         return localize.ordinalNumber(quarter, { unit: "quarter" });
@@ -122326,7 +122053,7 @@ const formatters = {
     switch (token) {
       case "M":
       case "MM":
-        return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.M(date, token);
+        return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.M(date, token);
       // 1st, 2nd, ..., 12th
       case "Mo":
         return localize.ordinalNumber(month + 1, { unit: "month" });
@@ -122358,7 +122085,7 @@ const formatters = {
         return String(month + 1);
       // 01, 02, ..., 12
       case "LL":
-        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(month + 1, 2);
+        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(month + 1, 2);
       // 1st, 2nd, ..., 12th
       case "Lo":
         return localize.ordinalNumber(month + 1, { unit: "month" });
@@ -122383,24 +122110,24 @@ const formatters = {
 
   // Local week of year
   w: function (date, token, localize, options) {
-    const week = (0,_getWeek_mjs__WEBPACK_IMPORTED_MODULE_3__.getWeek)(date, options);
+    const week = (0,_getWeek_js__WEBPACK_IMPORTED_MODULE_3__.getWeek)(date, options);
 
     if (token === "wo") {
       return localize.ordinalNumber(week, { unit: "week" });
     }
 
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(week, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(week, token.length);
   },
 
   // ISO week of year
   I: function (date, token, localize) {
-    const isoWeek = (0,_getISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.getISOWeek)(date);
+    const isoWeek = (0,_getISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.getISOWeek)(date);
 
     if (token === "Io") {
       return localize.ordinalNumber(isoWeek, { unit: "week" });
     }
 
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeek, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeek, token.length);
   },
 
   // Day of the month
@@ -122409,18 +122136,18 @@ const formatters = {
       return localize.ordinalNumber(date.getDate(), { unit: "date" });
     }
 
-    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.d(date, token);
+    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.d(date, token);
   },
 
   // Day of year
   D: function (date, token, localize) {
-    const dayOfYear = (0,_getDayOfYear_mjs__WEBPACK_IMPORTED_MODULE_0__.getDayOfYear)(date);
+    const dayOfYear = (0,_getDayOfYear_js__WEBPACK_IMPORTED_MODULE_0__.getDayOfYear)(date);
 
     if (token === "Do") {
       return localize.ordinalNumber(dayOfYear, { unit: "dayOfYear" });
     }
 
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(dayOfYear, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(dayOfYear, token.length);
   },
 
   // Day of week
@@ -122467,7 +122194,7 @@ const formatters = {
         return String(localDayOfWeek);
       // Padded numerical value
       case "ee":
-        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, 2);
+        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, 2);
       // 1st, 2nd, ..., 7th
       case "eo":
         return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
@@ -122508,7 +122235,7 @@ const formatters = {
         return String(localDayOfWeek);
       // Padded numerical value
       case "cc":
-        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, token.length);
+        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, token.length);
       // 1st, 2nd, ..., 7th
       case "co":
         return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
@@ -122549,7 +122276,7 @@ const formatters = {
         return String(isoDayOfWeek);
       // 02
       case "ii":
-        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoDayOfWeek, token.length);
+        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoDayOfWeek, token.length);
       // 2nd
       case "io":
         return localize.ordinalNumber(isoDayOfWeek, { unit: "day" });
@@ -122698,7 +122425,7 @@ const formatters = {
       return localize.ordinalNumber(hours, { unit: "hour" });
     }
 
-    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.h(date, token);
+    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.h(date, token);
   },
 
   // Hour [0-23]
@@ -122707,7 +122434,7 @@ const formatters = {
       return localize.ordinalNumber(date.getHours(), { unit: "hour" });
     }
 
-    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.H(date, token);
+    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.H(date, token);
   },
 
   // Hour [0-11]
@@ -122718,7 +122445,7 @@ const formatters = {
       return localize.ordinalNumber(hours, { unit: "hour" });
     }
 
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
   },
 
   // Hour [1-24]
@@ -122730,7 +122457,7 @@ const formatters = {
       return localize.ordinalNumber(hours, { unit: "hour" });
     }
 
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
   },
 
   // Minute
@@ -122739,7 +122466,7 @@ const formatters = {
       return localize.ordinalNumber(date.getMinutes(), { unit: "minute" });
     }
 
-    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.m(date, token);
+    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.m(date, token);
   },
 
   // Second
@@ -122748,12 +122475,12 @@ const formatters = {
       return localize.ordinalNumber(date.getSeconds(), { unit: "second" });
     }
 
-    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.s(date, token);
+    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.s(date, token);
   },
 
   // Fraction of second
   S: function (date, token) {
-    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.S(date, token);
+    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.S(date, token);
   },
 
   // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
@@ -122848,14 +122575,13 @@ const formatters = {
 
   // Seconds timestamp
   t: function (date, token, _localize) {
-    const timestamp = Math.trunc(date.getTime() / 1000);
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(timestamp, token.length);
+    const timestamp = Math.trunc(+date / 1000);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(timestamp, token.length);
   },
 
   // Milliseconds timestamp
   T: function (date, token, _localize) {
-    const timestamp = date.getTime();
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(timestamp, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(+date, token.length);
   },
 };
 
@@ -122867,13 +122593,13 @@ function formatTimezoneShort(offset, delimiter = "") {
   if (minutes === 0) {
     return sign + String(hours);
   }
-  return sign + String(hours) + delimiter + (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(minutes, 2);
+  return sign + String(hours) + delimiter + (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(minutes, 2);
 }
 
 function formatTimezoneWithOptionalMinutes(offset, delimiter) {
   if (offset % 60 === 0) {
     const sign = offset > 0 ? "-" : "+";
-    return sign + (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.abs(offset) / 60, 2);
+    return sign + (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.abs(offset) / 60, 2);
   }
   return formatTimezone(offset, delimiter);
 }
@@ -122881,18 +122607,18 @@ function formatTimezoneWithOptionalMinutes(offset, delimiter) {
 function formatTimezone(offset, delimiter = "") {
   const sign = offset > 0 ? "-" : "+";
   const absOffset = Math.abs(offset);
-  const hours = (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.trunc(absOffset / 60), 2);
-  const minutes = (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(absOffset % 60, 2);
+  const hours = (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.trunc(absOffset / 60), 2);
+  const minutes = (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(absOffset % 60, 2);
   return sign + hours + delimiter + minutes;
 }
 
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/_lib/format/lightFormatters.mjs":
-/*!***************************************************************!*\
-  !*** ./node_modules/date-fns/_lib/format/lightFormatters.mjs ***!
-  \***************************************************************/
+/***/ "./node_modules/date-fns/_lib/format/lightFormatters.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/date-fns/_lib/format/lightFormatters.js ***!
+  \**************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -122900,7 +122626,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   lightFormatters: function() { return /* binding */ lightFormatters; }
 /* harmony export */ });
-/* harmony import */ var _addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../addLeadingZeros.mjs */ "./node_modules/date-fns/_lib/addLeadingZeros.mjs");
+/* harmony import */ var _addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../addLeadingZeros.js */ "./node_modules/date-fns/_lib/addLeadingZeros.js");
 
 
 /*
@@ -122931,18 +122657,18 @@ const lightFormatters = {
     const signedYear = date.getFullYear();
     // Returns 1 for 1 BC (which is year 0 in JavaScript)
     const year = signedYear > 0 ? signedYear : 1 - signedYear;
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(token === "yy" ? year % 100 : year, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(token === "yy" ? year % 100 : year, token.length);
   },
 
   // Month
   M(date, token) {
     const month = date.getMonth();
-    return token === "M" ? String(month + 1) : (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(month + 1, 2);
+    return token === "M" ? String(month + 1) : (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(month + 1, 2);
   },
 
   // Day of the month
   d(date, token) {
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getDate(), token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getDate(), token.length);
   },
 
   // AM or PM
@@ -122965,22 +122691,22 @@ const lightFormatters = {
 
   // Hour [1-12]
   h(date, token) {
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours() % 12 || 12, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours() % 12 || 12, token.length);
   },
 
   // Hour [0-23]
   H(date, token) {
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours(), token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours(), token.length);
   },
 
   // Minute
   m(date, token) {
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getMinutes(), token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getMinutes(), token.length);
   },
 
   // Second
   s(date, token) {
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getSeconds(), token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getSeconds(), token.length);
   },
 
   // Fraction of second
@@ -122990,17 +122716,17 @@ const lightFormatters = {
     const fractionalSeconds = Math.trunc(
       milliseconds * Math.pow(10, numberOfDigits - 3),
     );
-    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(fractionalSeconds, token.length);
+    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(fractionalSeconds, token.length);
   },
 };
 
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/_lib/format/longFormatters.mjs":
-/*!**************************************************************!*\
-  !*** ./node_modules/date-fns/_lib/format/longFormatters.mjs ***!
-  \**************************************************************/
+/***/ "./node_modules/date-fns/_lib/format/longFormatters.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/date-fns/_lib/format/longFormatters.js ***!
+  \*************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123076,10 +122802,10 @@ const longFormatters = {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs":
-/*!************************************************************************!*\
-  !*** ./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs ***!
-  \************************************************************************/
+/***/ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js ***!
+  \***********************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123087,7 +122813,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getTimezoneOffsetInMilliseconds: function() { return /* binding */ getTimezoneOffsetInMilliseconds; }
 /* harmony export */ });
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 /**
@@ -123102,7 +122828,7 @@ __webpack_require__.r(__webpack_exports__);
  * This function returns the timezone offset in milliseconds that takes seconds in account.
  */
 function getTimezoneOffsetInMilliseconds(date) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
   const utcDate = new Date(
     Date.UTC(
       _date.getFullYear(),
@@ -123121,10 +122847,57 @@ function getTimezoneOffsetInMilliseconds(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/_lib/protectedTokens.mjs":
-/*!********************************************************!*\
-  !*** ./node_modules/date-fns/_lib/protectedTokens.mjs ***!
-  \********************************************************/
+/***/ "./node_modules/date-fns/_lib/normalizeDates.js":
+/*!******************************************************!*\
+  !*** ./node_modules/date-fns/_lib/normalizeDates.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   normalizeDates: function() { return /* binding */ normalizeDates; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+
+
+function normalizeDates(context, ...dates) {
+  const normalize = _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom.bind(
+    null,
+    context || dates.find((date) => typeof date === "object"),
+  );
+  return dates.map(normalize);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/normalizeInterval.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/date-fns/_lib/normalizeInterval.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   normalizeInterval: function() { return /* binding */ normalizeInterval; }
+/* harmony export */ });
+/* harmony import */ var _normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalizeDates.js */ "./node_modules/date-fns/_lib/normalizeDates.js");
+
+
+function normalizeInterval(context, interval) {
+  const [start, end] = (0,_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(context, interval.start, interval.end);
+  return { start, end };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/protectedTokens.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/date-fns/_lib/protectedTokens.js ***!
+  \*******************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123161,15 +122934,268 @@ function message(token, format, input) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/constants.mjs":
-/*!*********************************************!*\
-  !*** ./node_modules/date-fns/constants.mjs ***!
-  \*********************************************/
+/***/ "./node_modules/date-fns/addDays.js":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/addDays.js ***!
+  \******************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addDays: function() { return /* binding */ addDays; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+
+/**
+ * The {@link addDays} function options.
+ */
+
+/**
+ * @name addDays
+ * @category Day Helpers
+ * @summary Add the specified number of days to the given date.
+ *
+ * @description
+ * Add the specified number of days to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of days to be added.
+ * @param options - An object with options
+ *
+ * @returns The new date with the days added
+ *
+ * @example
+ * // Add 10 days to 1 September 2014:
+ * const result = addDays(new Date(2014, 8, 1), 10)
+ * //=> Thu Sep 11 2014 00:00:00
+ */
+function addDays(date, amount, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
+  if (isNaN(amount)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
+
+  // If 0 days, no-op to avoid changing times in the hour before end of DST
+  if (!amount) return _date;
+
+  _date.setDate(_date.getDate() + amount);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (addDays);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/addMonths.js":
+/*!********************************************!*\
+  !*** ./node_modules/date-fns/addMonths.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addMonths: function() { return /* binding */ addMonths; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+
+/**
+ * The {@link addMonths} function options.
+ */
+
+/**
+ * @name addMonths
+ * @category Month Helpers
+ * @summary Add the specified number of months to the given date.
+ *
+ * @description
+ * Add the specified number of months to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of months to be added.
+ * @param options - The options object
+ *
+ * @returns The new date with the months added
+ *
+ * @example
+ * // Add 5 months to 1 September 2014:
+ * const result = addMonths(new Date(2014, 8, 1), 5)
+ * //=> Sun Feb 01 2015 00:00:00
+ *
+ * // Add one month to 30 January 2023:
+ * const result = addMonths(new Date(2023, 0, 30), 1)
+ * //=> Tue Feb 28 2023 00:00:00
+ */
+function addMonths(date, amount, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
+  if (isNaN(amount)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
+  if (!amount) {
+    // If 0 months, no-op to avoid changing times in the hour before end of DST
+    return _date;
+  }
+  const dayOfMonth = _date.getDate();
+
+  // The JS Date object supports date math by accepting out-of-bounds values for
+  // month, day, etc. For example, new Date(2020, 0, 0) returns 31 Dec 2019 and
+  // new Date(2020, 13, 1) returns 1 Feb 2021.  This is *almost* the behavior we
+  // want except that dates will wrap around the end of a month, meaning that
+  // new Date(2020, 13, 31) will return 3 Mar 2021 not 28 Feb 2021 as desired. So
+  // we'll default to the end of the desired month by adding 1 to the desired
+  // month and using a date of 0 to back up one day to the end of the desired
+  // month.
+  const endOfDesiredMonth = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, _date.getTime());
+  endOfDesiredMonth.setMonth(_date.getMonth() + amount + 1, 0);
+  const daysInMonth = endOfDesiredMonth.getDate();
+  if (dayOfMonth >= daysInMonth) {
+    // If we're already at the end of the month, then this is the correct date
+    // and we're done.
+    return endOfDesiredMonth;
+  } else {
+    // Otherwise, we now know that setting the original day-of-month value won't
+    // cause an overflow, so set the desired day-of-month. Note that we can't
+    // just set the date of `endOfDesiredMonth` because that object may have had
+    // its time changed in the unusual case where where a DST transition was on
+    // the last day of the month and its local time was in the hour skipped or
+    // repeated next to a DST transition.  So we use `date` instead which is
+    // guaranteed to still have the original time.
+    _date.setFullYear(
+      endOfDesiredMonth.getFullYear(),
+      endOfDesiredMonth.getMonth(),
+      dayOfMonth,
+    );
+    return _date;
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (addMonths);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/addWeeks.js":
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/addWeeks.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addWeeks: function() { return /* binding */ addWeeks; }
+/* harmony export */ });
+/* harmony import */ var _addDays_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addDays.js */ "./node_modules/date-fns/addDays.js");
+
+
+/**
+ * The {@link addWeeks} function options.
+ */
+
+/**
+ * @name addWeeks
+ * @category Week Helpers
+ * @summary Add the specified number of weeks to the given date.
+ *
+ * @description
+ * Add the specified number of weeks to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of weeks to be added.
+ * @param options - An object with options
+ *
+ * @returns The new date with the weeks added
+ *
+ * @example
+ * // Add 4 weeks to 1 September 2014:
+ * const result = addWeeks(new Date(2014, 8, 1), 4)
+ * //=> Mon Sep 29 2014 00:00:00
+ */
+function addWeeks(date, amount, options) {
+  return (0,_addDays_js__WEBPACK_IMPORTED_MODULE_0__.addDays)(date, amount * 7, options);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (addWeeks);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/addYears.js":
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/addYears.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addYears: function() { return /* binding */ addYears; }
+/* harmony export */ });
+/* harmony import */ var _addMonths_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addMonths.js */ "./node_modules/date-fns/addMonths.js");
+
+
+/**
+ * The {@link addYears} function options.
+ */
+
+/**
+ * @name addYears
+ * @category Year Helpers
+ * @summary Add the specified number of years to the given date.
+ *
+ * @description
+ * Add the specified number of years to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type.
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of years to be added.
+ * @param options - The options
+ *
+ * @returns The new date with the years added
+ *
+ * @example
+ * // Add 5 years to 1 September 2014:
+ * const result = addYears(new Date(2014, 8, 1), 5)
+ * //=> Sun Sep 01 2019 00:00:00
+ */
+function addYears(date, amount, options) {
+  return (0,_addMonths_js__WEBPACK_IMPORTED_MODULE_0__.addMonths)(date, amount * 12, options);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (addYears);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/constants.js":
+/*!********************************************!*\
+  !*** ./node_modules/date-fns/constants.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   constructFromSymbol: function() { return /* binding */ constructFromSymbol; },
 /* harmony export */   daysInWeek: function() { return /* binding */ daysInWeek; },
 /* harmony export */   daysInYear: function() { return /* binding */ daysInYear; },
 /* harmony export */   maxTime: function() { return /* binding */ maxTime; },
@@ -123228,7 +123254,7 @@ const daysInWeek = 7;
  *
  * One years equals 365.2425 days according to the formula:
  *
- * > Leap year occures every 4 years, except for years that are divisable by 100 and not divisable by 400.
+ * > Leap year occurs every 4 years, except for years that are divisible by 100 and not divisible by 400.
  * > 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days
  */
 const daysInYear = 365.2425;
@@ -123398,13 +123424,26 @@ const secondsInMonth = secondsInYear / 12;
  */
 const secondsInQuarter = secondsInMonth * 3;
 
+/**
+ * @constant
+ * @name constructFromSymbol
+ * @summary Symbol enabling Date extensions to inherit properties from the reference date.
+ *
+ * The symbol is used to enable the `constructFrom` function to construct a date
+ * using a reference date and a value. It allows to transfer extra properties
+ * from the reference date to the new date. It's useful for extensions like
+ * [`TZDate`](https://github.com/date-fns/tz) that accept a time zone as
+ * a constructor argument.
+ */
+const constructFromSymbol = Symbol.for("constructDateFrom");
+
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/constructFrom.mjs":
-/*!*************************************************!*\
-  !*** ./node_modules/date-fns/constructFrom.mjs ***!
-  \*************************************************/
+/***/ "./node_modules/date-fns/constructFrom.js":
+/*!************************************************!*\
+  !*** ./node_modules/date-fns/constructFrom.js ***!
+  \************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123412,6 +123451,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   constructFrom: function() { return /* binding */ constructFrom; }
 /* harmony export */ });
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/date-fns/constants.js");
+
+
 /**
  * @name constructFrom
  * @category Generic Helpers
@@ -123424,6 +123466,11 @@ __webpack_require__.r(__webpack_exports__);
  *
  * It defaults to `Date` if the passed reference date is a number or a string.
  *
+ * Starting from v3.7.0, it allows to construct a date using `[Symbol.for("constructDateFrom")]`
+ * enabling to transfer extra properties from the reference date to the new date.
+ * It's useful for extensions like [`TZDate`](https://github.com/date-fns/tz)
+ * that accept a time zone as a constructor argument.
+ *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
  *
  * @param date - The reference date to take constructor from
@@ -123432,22 +123479,25 @@ __webpack_require__.r(__webpack_exports__);
  * @returns Date initialized using the given date and value
  *
  * @example
- * import { constructFrom } from 'date-fns'
+ * import { constructFrom } from "./constructFrom/date-fns";
  *
  * // A function that clones a date preserving the original type
- * function cloneDate<DateType extends Date(date: DateType): DateType {
+ * function cloneDate<DateType extends Date>(date: DateType): DateType {
  *   return constructFrom(
- *     date, // Use contrustor from the given date
+ *     date, // Use constructor from the given date
  *     date.getTime() // Use the date value to create a new date
- *   )
+ *   );
  * }
  */
 function constructFrom(date, value) {
-  if (date instanceof Date) {
-    return new date.constructor(value);
-  } else {
-    return new Date(value);
-  }
+  if (typeof date === "function") return date(value);
+
+  if (date && typeof date === "object" && _constants_js__WEBPACK_IMPORTED_MODULE_0__.constructFromSymbol in date)
+    return date[_constants_js__WEBPACK_IMPORTED_MODULE_0__.constructFromSymbol](value);
+
+  if (date instanceof Date) return new date.constructor(value);
+
+  return new Date(value);
 }
 
 // Fallback for modularized imports:
@@ -123456,10 +123506,10 @@ function constructFrom(date, value) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/differenceInCalendarDays.mjs":
-/*!************************************************************!*\
-  !*** ./node_modules/date-fns/differenceInCalendarDays.mjs ***!
-  \************************************************************/
+/***/ "./node_modules/date-fns/differenceInCalendarDays.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/date-fns/differenceInCalendarDays.js ***!
+  \***********************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123467,12 +123517,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   differenceInCalendarDays: function() { return /* binding */ differenceInCalendarDays; }
 /* harmony export */ });
-/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/date-fns/constants.mjs");
-/* harmony import */ var _startOfDay_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfDay.mjs */ "./node_modules/date-fns/startOfDay.mjs");
-/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/getTimezoneOffsetInMilliseconds.mjs */ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs");
+/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/getTimezoneOffsetInMilliseconds.js */ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js");
+/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/date-fns/_lib/normalizeDates.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants.js */ "./node_modules/date-fns/constants.js");
+/* harmony import */ var _startOfDay_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfDay.js */ "./node_modules/date-fns/startOfDay.js");
 
 
 
+
+
+/**
+ * The {@link differenceInCalendarDays} function options.
+ */
 
 /**
  * @name differenceInCalendarDays
@@ -123483,10 +123539,9 @@ __webpack_require__.r(__webpack_exports__);
  * Get the number of calendar days between the given dates. This means that the times are removed
  * from the dates and then the difference in days is calculated.
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
- * @param dateLeft - The later date
- * @param dateRight - The earlier date
+ * @param laterDate - The later date
+ * @param earlierDate - The earlier date
+ * @param options - The options object
  *
  * @returns The number of calendar days
  *
@@ -123506,19 +123561,25 @@ __webpack_require__.r(__webpack_exports__);
  * )
  * //=> 1
  */
-function differenceInCalendarDays(dateLeft, dateRight) {
-  const startOfDayLeft = (0,_startOfDay_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateLeft);
-  const startOfDayRight = (0,_startOfDay_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateRight);
+function differenceInCalendarDays(laterDate, earlierDate, options) {
+  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_1__.normalizeDates)(
+    options?.in,
+    laterDate,
+    earlierDate,
+  );
 
-  const timestampLeft =
-    +startOfDayLeft - (0,_lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_2__.getTimezoneOffsetInMilliseconds)(startOfDayLeft);
-  const timestampRight =
-    +startOfDayRight - (0,_lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_2__.getTimezoneOffsetInMilliseconds)(startOfDayRight);
+  const laterStartOfDay = (0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_3__.startOfDay)(laterDate_);
+  const earlierStartOfDay = (0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_3__.startOfDay)(earlierDate_);
+
+  const laterTimestamp =
+    +laterStartOfDay - (0,_lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__.getTimezoneOffsetInMilliseconds)(laterStartOfDay);
+  const earlierTimestamp =
+    +earlierStartOfDay - (0,_lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__.getTimezoneOffsetInMilliseconds)(earlierStartOfDay);
 
   // Round the number of days to the nearest integer because the number of
   // milliseconds in a day is not constant (e.g. it's different in the week of
   // the daylight saving time clock shift).
-  return Math.round((timestampLeft - timestampRight) / _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInDay);
+  return Math.round((laterTimestamp - earlierTimestamp) / _constants_js__WEBPACK_IMPORTED_MODULE_2__.millisecondsInDay);
 }
 
 // Fallback for modularized imports:
@@ -123527,10 +123588,476 @@ function differenceInCalendarDays(dateLeft, dateRight) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/format.mjs":
-/*!******************************************!*\
-  !*** ./node_modules/date-fns/format.mjs ***!
-  \******************************************/
+/***/ "./node_modules/date-fns/differenceInCalendarMonths.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/date-fns/differenceInCalendarMonths.js ***!
+  \*************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   differenceInCalendarMonths: function() { return /* binding */ differenceInCalendarMonths; }
+/* harmony export */ });
+/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/date-fns/_lib/normalizeDates.js");
+
+
+/**
+ * The {@link differenceInCalendarMonths} function options.
+ */
+
+/**
+ * @name differenceInCalendarMonths
+ * @category Month Helpers
+ * @summary Get the number of calendar months between the given dates.
+ *
+ * @description
+ * Get the number of calendar months between the given dates.
+ *
+ * @param laterDate - The later date
+ * @param earlierDate - The earlier date
+ * @param options - An object with options
+ *
+ * @returns The number of calendar months
+ *
+ * @example
+ * // How many calendar months are between 31 January 2014 and 1 September 2014?
+ * const result = differenceInCalendarMonths(
+ *   new Date(2014, 8, 1),
+ *   new Date(2014, 0, 31)
+ * )
+ * //=> 8
+ */
+function differenceInCalendarMonths(laterDate, earlierDate, options) {
+  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
+    options?.in,
+    laterDate,
+    earlierDate,
+  );
+
+  const yearsDiff = laterDate_.getFullYear() - earlierDate_.getFullYear();
+  const monthsDiff = laterDate_.getMonth() - earlierDate_.getMonth();
+
+  return yearsDiff * 12 + monthsDiff;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (differenceInCalendarMonths);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/eachMonthOfInterval.js":
+/*!******************************************************!*\
+  !*** ./node_modules/date-fns/eachMonthOfInterval.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   eachMonthOfInterval: function() { return /* binding */ eachMonthOfInterval; }
+/* harmony export */ });
+/* harmony import */ var _lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeInterval.js */ "./node_modules/date-fns/_lib/normalizeInterval.js");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+
+
+
+/**
+ * The {@link eachMonthOfInterval} function options.
+ */
+
+/**
+ * The {@link eachMonthOfInterval} function result type. It resolves the proper data type.
+ */
+
+/**
+ * @name eachMonthOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of months within the specified time interval.
+ *
+ * @description
+ * Return the array of months within the specified time interval.
+ *
+ * @typeParam IntervalType - Interval type.
+ * @typeParam Options - Options type.
+ *
+ * @param interval - The interval.
+ * @param options - An object with options.
+ *
+ * @returns The array with starts of months from the month of the interval start to the month of the interval end
+ *
+ * @example
+ * // Each month between 6 February 2014 and 10 August 2014:
+ * const result = eachMonthOfInterval({
+ *   start: new Date(2014, 1, 6),
+ *   end: new Date(2014, 7, 10)
+ * })
+ * //=> [
+ * //   Sat Feb 01 2014 00:00:00,
+ * //   Sat Mar 01 2014 00:00:00,
+ * //   Tue Apr 01 2014 00:00:00,
+ * //   Thu May 01 2014 00:00:00,
+ * //   Sun Jun 01 2014 00:00:00,
+ * //   Tue Jul 01 2014 00:00:00,
+ * //   Fri Aug 01 2014 00:00:00
+ * // ]
+ */
+function eachMonthOfInterval(interval, options) {
+  const { start, end } = (0,_lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__.normalizeInterval)(options?.in, interval);
+
+  let reversed = +start > +end;
+  const endTime = reversed ? +start : +end;
+  const date = reversed ? end : start;
+  date.setHours(0, 0, 0, 0);
+  date.setDate(1);
+
+  let step = options?.step ?? 1;
+  if (!step) return [];
+  if (step < 0) {
+    step = -step;
+    reversed = !reversed;
+  }
+
+  const dates = [];
+
+  while (+date <= endTime) {
+    dates.push((0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(start, date));
+    date.setMonth(date.getMonth() + step);
+  }
+
+  return reversed ? dates.reverse() : dates;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (eachMonthOfInterval);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/eachYearOfInterval.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/date-fns/eachYearOfInterval.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   eachYearOfInterval: function() { return /* binding */ eachYearOfInterval; }
+/* harmony export */ });
+/* harmony import */ var _lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeInterval.js */ "./node_modules/date-fns/_lib/normalizeInterval.js");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+
+
+
+/**
+ * The {@link eachYearOfInterval} function options.
+ */
+
+/**
+ * The {@link eachYearOfInterval} function result type. It resolves the proper data type.
+ * It uses the first argument date object type, starting from the date argument,
+ * then the start interval date, and finally the end interval date. If
+ * a context function is passed, it uses the context function return type.
+ */
+
+/**
+ * @name eachYearOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of yearly timestamps within the specified time interval.
+ *
+ * @description
+ * Return the array of yearly timestamps within the specified time interval.
+ *
+ * @typeParam IntervalType - Interval type.
+ * @typeParam Options - Options type.
+ *
+ * @param interval - The interval.
+ * @param options - An object with options.
+ *
+ * @returns The array with starts of yearly timestamps from the month of the interval start to the month of the interval end
+ *
+ * @example
+ * // Each year between 6 February 2014 and 10 August 2017:
+ * const result = eachYearOfInterval({
+ *   start: new Date(2014, 1, 6),
+ *   end: new Date(2017, 7, 10)
+ * })
+ * //=> [
+ * //   Wed Jan 01 2014 00:00:00,
+ * //   Thu Jan 01 2015 00:00:00,
+ * //   Fri Jan 01 2016 00:00:00,
+ * //   Sun Jan 01 2017 00:00:00
+ * // ]
+ */
+function eachYearOfInterval(interval, options) {
+  const { start, end } = (0,_lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__.normalizeInterval)(options?.in, interval);
+
+  let reversed = +start > +end;
+  const endTime = reversed ? +start : +end;
+  const date = reversed ? end : start;
+  date.setHours(0, 0, 0, 0);
+  date.setMonth(0, 1);
+
+  let step = options?.step ?? 1;
+  if (!step) return [];
+  if (step < 0) {
+    step = -step;
+    reversed = !reversed;
+  }
+
+  const dates = [];
+
+  while (+date <= endTime) {
+    dates.push((0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(start, date));
+    date.setFullYear(date.getFullYear() + step);
+  }
+
+  return reversed ? dates.reverse() : dates;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (eachYearOfInterval);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/endOfISOWeek.js":
+/*!***********************************************!*\
+  !*** ./node_modules/date-fns/endOfISOWeek.js ***!
+  \***********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   endOfISOWeek: function() { return /* binding */ endOfISOWeek; }
+/* harmony export */ });
+/* harmony import */ var _endOfWeek_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./endOfWeek.js */ "./node_modules/date-fns/endOfWeek.js");
+
+
+/**
+ * The {@link endOfISOWeek} function options.
+ */
+
+/**
+ * @name endOfISOWeek
+ * @category ISO Week Helpers
+ * @summary Return the end of an ISO week for the given date.
+ *
+ * @description
+ * Return the end of an ISO week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The end of an ISO week
+ *
+ * @example
+ * // The end of an ISO week for 2 September 2014 11:55:00:
+ * const result = endOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Sep 07 2014 23:59:59.999
+ */
+function endOfISOWeek(date, options) {
+  return (0,_endOfWeek_js__WEBPACK_IMPORTED_MODULE_0__.endOfWeek)(date, { ...options, weekStartsOn: 1 });
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (endOfISOWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/endOfMonth.js":
+/*!*********************************************!*\
+  !*** ./node_modules/date-fns/endOfMonth.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   endOfMonth: function() { return /* binding */ endOfMonth; }
+/* harmony export */ });
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+/**
+ * The {@link endOfMonth} function options.
+ */
+
+/**
+ * @name endOfMonth
+ * @category Month Helpers
+ * @summary Return the end of a month for the given date.
+ *
+ * @description
+ * Return the end of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The end of a month
+ *
+ * @example
+ * // The end of a month for 2 September 2014 11:55:00:
+ * const result = endOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 30 2014 23:59:59.999
+ */
+function endOfMonth(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
+  const month = _date.getMonth();
+  _date.setFullYear(_date.getFullYear(), month + 1, 0);
+  _date.setHours(23, 59, 59, 999);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (endOfMonth);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/endOfWeek.js":
+/*!********************************************!*\
+  !*** ./node_modules/date-fns/endOfWeek.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   endOfWeek: function() { return /* binding */ endOfWeek; }
+/* harmony export */ });
+/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/date-fns/_lib/defaultOptions.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+
+/**
+ * The {@link endOfWeek} function options.
+ */
+
+/**
+ * @name endOfWeek
+ * @category Week Helpers
+ * @summary Return the end of a week for the given date.
+ *
+ * @description
+ * Return the end of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The end of a week
+ *
+ * @example
+ * // The end of a week for 2 September 2014 11:55:00:
+ * const result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sat Sep 06 2014 23:59:59.999
+ *
+ * @example
+ * // If the week starts on Monday, the end of the week for 2 September 2014 11:55:00:
+ * const result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Sun Sep 07 2014 23:59:59.999
+ */
+function endOfWeek(date, options) {
+  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
+  const weekStartsOn =
+    options?.weekStartsOn ??
+    options?.locale?.options?.weekStartsOn ??
+    defaultOptions.weekStartsOn ??
+    defaultOptions.locale?.options?.weekStartsOn ??
+    0;
+
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
+  const day = _date.getDay();
+  const diff = (day < weekStartsOn ? -7 : 0) + 6 - (day - weekStartsOn);
+
+  _date.setDate(_date.getDate() + diff);
+  _date.setHours(23, 59, 59, 999);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (endOfWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/endOfYear.js":
+/*!********************************************!*\
+  !*** ./node_modules/date-fns/endOfYear.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   endOfYear: function() { return /* binding */ endOfYear; }
+/* harmony export */ });
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+/**
+ * The {@link endOfYear} function options.
+ */
+
+/**
+ * @name endOfYear
+ * @category Year Helpers
+ * @summary Return the end of a year for the given date.
+ *
+ * @description
+ * Return the end of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The original date
+ * @param options - The options
+ *
+ * @returns The end of a year
+ *
+ * @example
+ * // The end of a year for 2 September 2014 11:55:00:
+ * const result = endOfYear(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Wed Dec 31 2014 23:59:59.999
+ */
+function endOfYear(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
+  const year = _date.getFullYear();
+  _date.setFullYear(year + 1, 0, 0);
+  _date.setHours(23, 59, 59, 999);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (endOfYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/format.js":
+/*!*****************************************!*\
+  !*** ./node_modules/date-fns/format.js ***!
+  \*****************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123538,16 +124065,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   format: function() { return /* binding */ format; },
 /* harmony export */   formatDate: function() { return /* binding */ format; },
-/* harmony export */   formatters: function() { return /* reexport safe */ _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__.formatters; },
-/* harmony export */   longFormatters: function() { return /* reexport safe */ _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_3__.longFormatters; }
+/* harmony export */   formatters: function() { return /* reexport safe */ _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters; },
+/* harmony export */   longFormatters: function() { return /* reexport safe */ _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__.longFormatters; }
 /* harmony export */ });
-/* harmony import */ var _lib_defaultLocale_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultLocale.mjs */ "./node_modules/date-fns/locale/en-US.mjs");
-/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
-/* harmony import */ var _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/format/formatters.mjs */ "./node_modules/date-fns/_lib/format/formatters.mjs");
-/* harmony import */ var _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/format/longFormatters.mjs */ "./node_modules/date-fns/_lib/format/longFormatters.mjs");
-/* harmony import */ var _lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_lib/protectedTokens.mjs */ "./node_modules/date-fns/_lib/protectedTokens.mjs");
-/* harmony import */ var _isValid_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isValid.mjs */ "./node_modules/date-fns/isValid.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _lib_defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultLocale.js */ "./node_modules/date-fns/locale/en-US.js");
+/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/date-fns/_lib/defaultOptions.js");
+/* harmony import */ var _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/format/formatters.js */ "./node_modules/date-fns/_lib/format/formatters.js");
+/* harmony import */ var _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/format/longFormatters.js */ "./node_modules/date-fns/_lib/format/longFormatters.js");
+/* harmony import */ var _lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_lib/protectedTokens.js */ "./node_modules/date-fns/_lib/protectedTokens.js");
+/* harmony import */ var _isValid_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isValid.js */ "./node_modules/date-fns/isValid.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
@@ -123839,8 +124366,6 @@ const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * 9. `D` and `DD` tokens represent days of the year but they are often confused with days of the month.
  *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
  * @param date - The original date
  * @param format - The string of tokens
  * @param options - An object with options
@@ -123875,8 +124400,8 @@ const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * //=> "3 o'clock"
  */
 function format(date, formatStr, options) {
-  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
-  const locale = options?.locale ?? defaultOptions.locale ?? _lib_defaultLocale_mjs__WEBPACK_IMPORTED_MODULE_0__.enUS;
+  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
+  const locale = options?.locale ?? defaultOptions.locale ?? _lib_defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__.enUS;
 
   const firstWeekContainsDate =
     options?.firstWeekContainsDate ??
@@ -123892,9 +124417,9 @@ function format(date, formatStr, options) {
     defaultOptions.locale?.options?.weekStartsOn ??
     0;
 
-  const originalDate = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_6__.toDate)(date);
+  const originalDate = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_6__.toDate)(date, options?.in);
 
-  if (!(0,_isValid_mjs__WEBPACK_IMPORTED_MODULE_5__.isValid)(originalDate)) {
+  if (!(0,_isValid_js__WEBPACK_IMPORTED_MODULE_5__.isValid)(originalDate)) {
     throw new RangeError("Invalid time value");
   }
 
@@ -123903,7 +124428,7 @@ function format(date, formatStr, options) {
     .map((substring) => {
       const firstCharacter = substring[0];
       if (firstCharacter === "p" || firstCharacter === "P") {
-        const longFormatter = _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_3__.longFormatters[firstCharacter];
+        const longFormatter = _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__.longFormatters[firstCharacter];
         return longFormatter(substring, locale.formatLong);
       }
       return substring;
@@ -123921,7 +124446,7 @@ function format(date, formatStr, options) {
         return { isToken: false, value: cleanEscapedString(substring) };
       }
 
-      if (_lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__.formatters[firstCharacter]) {
+      if (_lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters[firstCharacter]) {
         return { isToken: true, value: substring };
       }
 
@@ -123955,14 +124480,14 @@ function format(date, formatStr, options) {
 
       if (
         (!options?.useAdditionalWeekYearTokens &&
-          (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__.isProtectedWeekYearToken)(token)) ||
+          (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.isProtectedWeekYearToken)(token)) ||
         (!options?.useAdditionalDayOfYearTokens &&
-          (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__.isProtectedDayOfYearToken)(token))
+          (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.isProtectedDayOfYearToken)(token))
       ) {
-        (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_4__.warnOrThrowProtectedError)(token, formatStr, String(date));
+        (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.warnOrThrowProtectedError)(token, formatStr, String(date));
       }
 
-      const formatter = _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_2__.formatters[token[0]];
+      const formatter = _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters[token[0]];
       return formatter(originalDate, token, locale.localize, formatterOptions);
     })
     .join("");
@@ -123984,10 +124509,10 @@ function cleanEscapedString(input) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/getDayOfYear.mjs":
-/*!************************************************!*\
-  !*** ./node_modules/date-fns/getDayOfYear.mjs ***!
-  \************************************************/
+/***/ "./node_modules/date-fns/getDayOfYear.js":
+/*!***********************************************!*\
+  !*** ./node_modules/date-fns/getDayOfYear.js ***!
+  \***********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123995,12 +124520,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getDayOfYear: function() { return /* binding */ getDayOfYear; }
 /* harmony export */ });
-/* harmony import */ var _differenceInCalendarDays_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./differenceInCalendarDays.mjs */ "./node_modules/date-fns/differenceInCalendarDays.mjs");
-/* harmony import */ var _startOfYear_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfYear.mjs */ "./node_modules/date-fns/startOfYear.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _differenceInCalendarDays_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./differenceInCalendarDays.js */ "./node_modules/date-fns/differenceInCalendarDays.js");
+/* harmony import */ var _startOfYear_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfYear.js */ "./node_modules/date-fns/startOfYear.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
+
+/**
+ * The {@link getDayOfYear} function options.
+ */
 
 /**
  * @name getDayOfYear
@@ -124010,9 +124539,8 @@ __webpack_require__.r(__webpack_exports__);
  * @description
  * Get the day of the year of the given date.
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
  * @param date - The given date
+ * @param options - The options
  *
  * @returns The day of year
  *
@@ -124021,9 +124549,9 @@ __webpack_require__.r(__webpack_exports__);
  * const result = getDayOfYear(new Date(2014, 6, 2))
  * //=> 183
  */
-function getDayOfYear(date) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
-  const diff = (0,_differenceInCalendarDays_mjs__WEBPACK_IMPORTED_MODULE_0__.differenceInCalendarDays)(_date, (0,_startOfYear_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfYear)(_date));
+function getDayOfYear(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
+  const diff = (0,_differenceInCalendarDays_js__WEBPACK_IMPORTED_MODULE_0__.differenceInCalendarDays)(_date, (0,_startOfYear_js__WEBPACK_IMPORTED_MODULE_1__.startOfYear)(_date));
   const dayOfYear = diff + 1;
   return dayOfYear;
 }
@@ -124034,10 +124562,10 @@ function getDayOfYear(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/getDaysInMonth.mjs":
-/*!**************************************************!*\
-  !*** ./node_modules/date-fns/getDaysInMonth.mjs ***!
-  \**************************************************/
+/***/ "./node_modules/date-fns/getDaysInMonth.js":
+/*!*************************************************!*\
+  !*** ./node_modules/date-fns/getDaysInMonth.js ***!
+  \*************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124045,10 +124573,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getDaysInMonth: function() { return /* binding */ getDaysInMonth; }
 /* harmony export */ });
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
+
+/**
+ * The {@link getDaysInMonth} function options.
+ */
 
 /**
  * @name getDaysInMonth
@@ -124056,11 +124588,10 @@ __webpack_require__.r(__webpack_exports__);
  * @summary Get the number of days in a month of the given date.
  *
  * @description
- * Get the number of days in a month of the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * Get the number of days in a month of the given date, considering the context if provided.
  *
  * @param date - The given date
+ * @param options - An object with options
  *
  * @returns The number of days in a month
  *
@@ -124069,11 +124600,11 @@ __webpack_require__.r(__webpack_exports__);
  * const result = getDaysInMonth(new Date(2000, 1))
  * //=> 29
  */
-function getDaysInMonth(date) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+function getDaysInMonth(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
   const year = _date.getFullYear();
   const monthIndex = _date.getMonth();
-  const lastDayOfMonth = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
+  const lastDayOfMonth = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
   lastDayOfMonth.setFullYear(year, monthIndex + 1, 0);
   lastDayOfMonth.setHours(0, 0, 0, 0);
   return lastDayOfMonth.getDate();
@@ -124085,10 +124616,10 @@ function getDaysInMonth(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/getISOWeek.mjs":
-/*!**********************************************!*\
-  !*** ./node_modules/date-fns/getISOWeek.mjs ***!
-  \**********************************************/
+/***/ "./node_modules/date-fns/getISOWeek.js":
+/*!*********************************************!*\
+  !*** ./node_modules/date-fns/getISOWeek.js ***!
+  \*********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124096,14 +124627,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getISOWeek: function() { return /* binding */ getISOWeek; }
 /* harmony export */ });
-/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/date-fns/constants.mjs");
-/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/date-fns/startOfISOWeek.mjs");
-/* harmony import */ var _startOfISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeekYear.mjs */ "./node_modules/date-fns/startOfISOWeekYear.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/date-fns/constants.js");
+/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/date-fns/startOfISOWeek.js");
+/* harmony import */ var _startOfISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeekYear.js */ "./node_modules/date-fns/startOfISOWeekYear.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
 
+
+/**
+ * The {@link getISOWeek} function options.
+ */
 
 /**
  * @name getISOWeek
@@ -124115,9 +124650,8 @@ __webpack_require__.r(__webpack_exports__);
  *
  * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
  * @param date - The given date
+ * @param options - The options
  *
  * @returns The ISO week
  *
@@ -124126,14 +124660,14 @@ __webpack_require__.r(__webpack_exports__);
  * const result = getISOWeek(new Date(2005, 0, 2))
  * //=> 53
  */
-function getISOWeek(date) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_3__.toDate)(date);
-  const diff = +(0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(_date) - +(0,_startOfISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeekYear)(_date);
+function getISOWeek(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
+  const diff = +(0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(_date) - +(0,_startOfISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeekYear)(_date);
 
   // Round the number of weeks to the nearest integer because the number of
   // milliseconds in a week is not constant (e.g. it's different in the week of
   // the daylight saving time clock shift).
-  return Math.round(diff / _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
+  return Math.round(diff / _constants_js__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
 }
 
 // Fallback for modularized imports:
@@ -124142,10 +124676,10 @@ function getISOWeek(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/getISOWeekYear.mjs":
-/*!**************************************************!*\
-  !*** ./node_modules/date-fns/getISOWeekYear.mjs ***!
-  \**************************************************/
+/***/ "./node_modules/date-fns/getISOWeekYear.js":
+/*!*************************************************!*\
+  !*** ./node_modules/date-fns/getISOWeekYear.js ***!
+  \*************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124153,12 +124687,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getISOWeekYear: function() { return /* binding */ getISOWeekYear; }
 /* harmony export */ });
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
-/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/date-fns/startOfISOWeek.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/date-fns/startOfISOWeek.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
+
+/**
+ * The {@link getISOWeekYear} function options.
+ */
 
 /**
  * @name getISOWeekYear
@@ -124171,8 +124709,6 @@ __webpack_require__.r(__webpack_exports__);
  *
  * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
  * @param date - The given date
  *
  * @returns The ISO week-numbering year
@@ -124182,19 +124718,19 @@ __webpack_require__.r(__webpack_exports__);
  * const result = getISOWeekYear(new Date(2005, 0, 2))
  * //=> 2004
  */
-function getISOWeekYear(date) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+function getISOWeekYear(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
   const year = _date.getFullYear();
 
-  const fourthOfJanuaryOfNextYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  const fourthOfJanuaryOfNextYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
   fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
   fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
-  const startOfNextYear = (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfNextYear);
+  const startOfNextYear = (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfNextYear);
 
-  const fourthOfJanuaryOfThisYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  const fourthOfJanuaryOfThisYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
   fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4);
   fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0);
-  const startOfThisYear = (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfThisYear);
+  const startOfThisYear = (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfThisYear);
 
   if (_date.getTime() >= startOfNextYear.getTime()) {
     return year + 1;
@@ -124211,10 +124747,56 @@ function getISOWeekYear(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/getWeek.mjs":
+/***/ "./node_modules/date-fns/getMonth.js":
 /*!*******************************************!*\
-  !*** ./node_modules/date-fns/getWeek.mjs ***!
+  !*** ./node_modules/date-fns/getMonth.js ***!
   \*******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getMonth: function() { return /* binding */ getMonth; }
+/* harmony export */ });
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+/**
+ * The {@link getMonth} function options.
+ */
+
+/**
+ * @name getMonth
+ * @category Month Helpers
+ * @summary Get the month of the given date.
+ *
+ * @description
+ * Get the month of the given date.
+ *
+ * @param date - The given date
+ * @param options - An object with options
+ *
+ * @returns The month index (0-11)
+ *
+ * @example
+ * // Which month is 29 February 2012?
+ * const result = getMonth(new Date(2012, 1, 29))
+ * //=> 1
+ */
+function getMonth(date, options) {
+  return (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in).getMonth();
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getMonth);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/getWeek.js":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/getWeek.js ***!
+  \******************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124222,10 +124804,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getWeek: function() { return /* binding */ getWeek; }
 /* harmony export */ });
-/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/date-fns/constants.mjs");
-/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
-/* harmony import */ var _startOfWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeekYear.mjs */ "./node_modules/date-fns/startOfWeekYear.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/date-fns/constants.js");
+/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/date-fns/startOfWeek.js");
+/* harmony import */ var _startOfWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeekYear.js */ "./node_modules/date-fns/startOfWeekYear.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
@@ -124249,8 +124831,6 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
  * @param date - The given date
  * @param options - An object with options
  *
@@ -124271,15 +124851,14 @@ __webpack_require__.r(__webpack_exports__);
  * })
  * //=> 53
  */
-
 function getWeek(date, options) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_3__.toDate)(date);
-  const diff = +(0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(_date, options) - +(0,_startOfWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfWeekYear)(_date, options);
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
+  const diff = +(0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(_date, options) - +(0,_startOfWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeekYear)(_date, options);
 
   // Round the number of weeks to the nearest integer because the number of
   // milliseconds in a week is not constant (e.g. it's different in the week of
   // the daylight saving time clock shift).
-  return Math.round(diff / _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
+  return Math.round(diff / _constants_js__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
 }
 
 // Fallback for modularized imports:
@@ -124288,10 +124867,10 @@ function getWeek(date, options) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/getWeekYear.mjs":
-/*!***********************************************!*\
-  !*** ./node_modules/date-fns/getWeekYear.mjs ***!
-  \***********************************************/
+/***/ "./node_modules/date-fns/getWeekYear.js":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/getWeekYear.js ***!
+  \**********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124299,10 +124878,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getWeekYear: function() { return /* binding */ getWeekYear; }
 /* harmony export */ });
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
-/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
-/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
+/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/date-fns/_lib/defaultOptions.js");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/date-fns/startOfWeek.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
@@ -124326,8 +124905,6 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
  * @param date - The given date
  * @param options - An object with options.
  *
@@ -124349,10 +124926,10 @@ __webpack_require__.r(__webpack_exports__);
  * //=> 2004
  */
 function getWeekYear(date, options) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
   const year = _date.getFullYear();
 
-  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__.getDefaultOptions)();
+  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
   const firstWeekContainsDate =
     options?.firstWeekContainsDate ??
     options?.locale?.options?.firstWeekContainsDate ??
@@ -124360,19 +124937,19 @@ function getWeekYear(date, options) {
     defaultOptions.locale?.options?.firstWeekContainsDate ??
     1;
 
-  const firstWeekOfNextYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  const firstWeekOfNextYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
   firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
   firstWeekOfNextYear.setHours(0, 0, 0, 0);
-  const startOfNextYear = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(firstWeekOfNextYear, options);
+  const startOfNextYear = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeekOfNextYear, options);
 
-  const firstWeekOfThisYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  const firstWeekOfThisYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
   firstWeekOfThisYear.setFullYear(year, 0, firstWeekContainsDate);
   firstWeekOfThisYear.setHours(0, 0, 0, 0);
-  const startOfThisYear = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(firstWeekOfThisYear, options);
+  const startOfThisYear = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeekOfThisYear, options);
 
-  if (_date.getTime() >= startOfNextYear.getTime()) {
+  if (+_date >= +startOfNextYear) {
     return year + 1;
-  } else if (_date.getTime() >= startOfThisYear.getTime()) {
+  } else if (+_date >= +startOfThisYear) {
     return year;
   } else {
     return year - 1;
@@ -124385,10 +124962,140 @@ function getWeekYear(date, options) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/isDate.mjs":
+/***/ "./node_modules/date-fns/getYear.js":
 /*!******************************************!*\
-  !*** ./node_modules/date-fns/isDate.mjs ***!
+  !*** ./node_modules/date-fns/getYear.js ***!
   \******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getYear: function() { return /* binding */ getYear; }
+/* harmony export */ });
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+/**
+ * The {@link getYear} function options.
+ */
+
+/**
+ * @name getYear
+ * @category Year Helpers
+ * @summary Get the year of the given date.
+ *
+ * @description
+ * Get the year of the given date.
+ *
+ * @param date - The given date
+ * @param options - An object with options
+ *
+ * @returns The year
+ *
+ * @example
+ * // Which year is 2 July 2014?
+ * const result = getYear(new Date(2014, 6, 2))
+ * //=> 2014
+ */
+function getYear(date, options) {
+  return (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in).getFullYear();
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (getYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isAfter.js":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/isAfter.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isAfter: function() { return /* binding */ isAfter; }
+/* harmony export */ });
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+/**
+ * @name isAfter
+ * @category Common Helpers
+ * @summary Is the first date after the second one?
+ *
+ * @description
+ * Is the first date after the second one?
+ *
+ * @param date - The date that should be after the other one to return true
+ * @param dateToCompare - The date to compare with
+ *
+ * @returns The first date is after the second date
+ *
+ * @example
+ * // Is 10 July 1989 after 11 February 1987?
+ * const result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> true
+ */
+function isAfter(date, dateToCompare) {
+  return +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date) > +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(dateToCompare);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (isAfter);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isBefore.js":
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/isBefore.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isBefore: function() { return /* binding */ isBefore; }
+/* harmony export */ });
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+/**
+ * @name isBefore
+ * @category Common Helpers
+ * @summary Is the first date before the second one?
+ *
+ * @description
+ * Is the first date before the second one?
+ *
+ * @param date - The date that should be before the other one to return true
+ * @param dateToCompare - The date to compare with
+ *
+ * @returns The first date is before the second date
+ *
+ * @example
+ * // Is 10 July 1989 before 11 February 1987?
+ * const result = isBefore(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> false
+ */
+function isBefore(date, dateToCompare) {
+  return +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date) < +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(dateToCompare);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (isBefore);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isDate.js":
+/*!*****************************************!*\
+  !*** ./node_modules/date-fns/isDate.js ***!
+  \*****************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124442,10 +125149,186 @@ function isDate(value) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/isValid.mjs":
-/*!*******************************************!*\
-  !*** ./node_modules/date-fns/isValid.mjs ***!
-  \*******************************************/
+/***/ "./node_modules/date-fns/isSameDay.js":
+/*!********************************************!*\
+  !*** ./node_modules/date-fns/isSameDay.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isSameDay: function() { return /* binding */ isSameDay; }
+/* harmony export */ });
+/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/date-fns/_lib/normalizeDates.js");
+/* harmony import */ var _startOfDay_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfDay.js */ "./node_modules/date-fns/startOfDay.js");
+
+
+
+/**
+ * The {@link isSameDay} function options.
+ */
+
+/**
+ * @name isSameDay
+ * @category Day Helpers
+ * @summary Are the given dates in the same day (and year and month)?
+ *
+ * @description
+ * Are the given dates in the same day (and year and month)?
+ *
+ * @param laterDate - The first date to check
+ * @param earlierDate - The second date to check
+ * @param options - An object with options
+ *
+ * @returns The dates are in the same day (and year and month)
+ *
+ * @example
+ * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
+ * const result = isSameDay(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 18, 0))
+ * //=> true
+ *
+ * @example
+ * // Are 4 September and 4 October in the same day?
+ * const result = isSameDay(new Date(2014, 8, 4), new Date(2014, 9, 4))
+ * //=> false
+ *
+ * @example
+ * // Are 4 September, 2014 and 4 September, 2015 in the same day?
+ * const result = isSameDay(new Date(2014, 8, 4), new Date(2015, 8, 4))
+ * //=> false
+ */
+function isSameDay(laterDate, earlierDate, options) {
+  const [dateLeft_, dateRight_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
+    options?.in,
+    laterDate,
+    earlierDate,
+  );
+  return +(0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateLeft_) === +(0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateRight_);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (isSameDay);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isSameMonth.js":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/isSameMonth.js ***!
+  \**********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isSameMonth: function() { return /* binding */ isSameMonth; }
+/* harmony export */ });
+/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/date-fns/_lib/normalizeDates.js");
+
+
+/**
+ * The {@link isSameMonth} function options.
+ */
+
+/**
+ * @name isSameMonth
+ * @category Month Helpers
+ * @summary Are the given dates in the same month (and year)?
+ *
+ * @description
+ * Are the given dates in the same month (and year)?
+ *
+ * @param laterDate - The first date to check
+ * @param earlierDate - The second date to check
+ * @param options - An object with options
+ *
+ * @returns The dates are in the same month (and year)
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2014 in the same month?
+ * const result = isSameMonth(new Date(2014, 8, 2), new Date(2014, 8, 25))
+ * //=> true
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2015 in the same month?
+ * const result = isSameMonth(new Date(2014, 8, 2), new Date(2015, 8, 25))
+ * //=> false
+ */
+function isSameMonth(laterDate, earlierDate, options) {
+  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
+    options?.in,
+    laterDate,
+    earlierDate,
+  );
+  return (
+    laterDate_.getFullYear() === earlierDate_.getFullYear() &&
+    laterDate_.getMonth() === earlierDate_.getMonth()
+  );
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (isSameMonth);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isSameYear.js":
+/*!*********************************************!*\
+  !*** ./node_modules/date-fns/isSameYear.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isSameYear: function() { return /* binding */ isSameYear; }
+/* harmony export */ });
+/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/date-fns/_lib/normalizeDates.js");
+
+
+/**
+ * The {@link isSameYear} function options.
+ */
+
+/**
+ * @name isSameYear
+ * @category Year Helpers
+ * @summary Are the given dates in the same year?
+ *
+ * @description
+ * Are the given dates in the same year?
+ *
+ * @param laterDate - The first date to check
+ * @param earlierDate - The second date to check
+ * @param options - An object with options
+ *
+ * @returns The dates are in the same year
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2014 in the same year?
+ * const result = isSameYear(new Date(2014, 8, 2), new Date(2014, 8, 25))
+ * //=> true
+ */
+function isSameYear(laterDate, earlierDate, options) {
+  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
+    options?.in,
+    laterDate,
+    earlierDate,
+  );
+  return laterDate_.getFullYear() === earlierDate_.getFullYear();
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (isSameYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isValid.js":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/isValid.js ***!
+  \******************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124453,8 +125336,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   isValid: function() { return /* binding */ isValid; }
 /* harmony export */ });
-/* harmony import */ var _isDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isDate.mjs */ "./node_modules/date-fns/isDate.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _isDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isDate.js */ "./node_modules/date-fns/isDate.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
@@ -124470,8 +125353,6 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Time value of Date: http://es5.github.io/#x15.9.1.1
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
  * @param date - The date to check
  *
  * @returns The date is valid
@@ -124482,7 +125363,7 @@ __webpack_require__.r(__webpack_exports__);
  * //=> true
  *
  * @example
- * // For the value, convertable into a date:
+ * // For the value, convertible into a date:
  * const result = isValid(1393804800000)
  * //=> true
  *
@@ -124492,11 +125373,7 @@ __webpack_require__.r(__webpack_exports__);
  * //=> false
  */
 function isValid(date) {
-  if (!(0,_isDate_mjs__WEBPACK_IMPORTED_MODULE_0__.isDate)(date) && typeof date !== "number") {
-    return false;
-  }
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_1__.toDate)(date);
-  return !isNaN(Number(_date));
+  return !((!(0,_isDate_js__WEBPACK_IMPORTED_MODULE_0__.isDate)(date) && typeof date !== "number") || isNaN(+(0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date)));
 }
 
 // Fallback for modularized imports:
@@ -124505,10 +125382,10 @@ function isValid(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs":
-/*!*****************************************************************!*\
-  !*** ./node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs ***!
-  \*****************************************************************/
+/***/ "./node_modules/date-fns/locale/_lib/buildFormatLongFn.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildFormatLongFn.js ***!
+  \****************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124528,10 +125405,10 @@ function buildFormatLongFn(args) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs":
-/*!***************************************************************!*\
-  !*** ./node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs ***!
-  \***************************************************************/
+/***/ "./node_modules/date-fns/locale/_lib/buildLocalizeFn.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildLocalizeFn.js ***!
+  \**************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124539,8 +125416,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   buildLocalizeFn: function() { return /* binding */ buildLocalizeFn; }
 /* harmony export */ });
-/* eslint-disable no-unused-vars */
-
 /**
  * The localize function argument callback which allows to convert raw value to
  * the actual type.
@@ -124607,10 +125482,10 @@ function buildLocalizeFn(args) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/_lib/buildMatchFn.mjs":
-/*!************************************************************!*\
-  !*** ./node_modules/date-fns/locale/_lib/buildMatchFn.mjs ***!
-  \************************************************************/
+/***/ "./node_modules/date-fns/locale/_lib/buildMatchFn.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildMatchFn.js ***!
+  \***********************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124638,14 +125513,14 @@ function buildMatchFn(args) {
 
     const key = Array.isArray(parsePatterns)
       ? findIndex(parsePatterns, (pattern) => pattern.test(matchedString))
-      : // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+      : // [TODO] -- I challenge you to fix the type
         findKey(parsePatterns, (pattern) => pattern.test(matchedString));
 
     let value;
 
     value = args.valueCallback ? args.valueCallback(key) : key;
     value = options.valueCallback
-      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+      ? // [TODO] -- I challenge you to fix the type
         options.valueCallback(value)
       : value;
 
@@ -124679,10 +125554,10 @@ function findIndex(array, predicate) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs":
-/*!*******************************************************************!*\
-  !*** ./node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs ***!
-  \*******************************************************************/
+/***/ "./node_modules/date-fns/locale/_lib/buildMatchPatternFn.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildMatchPatternFn.js ***!
+  \******************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124702,7 +125577,7 @@ function buildMatchPatternFn(args) {
       ? args.valueCallback(parseResult[0])
       : parseResult[0];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+    // [TODO] I challenge you to fix the type
     value = options.valueCallback ? options.valueCallback(value) : value;
 
     const rest = string.slice(matchedString.length);
@@ -124714,10 +125589,10 @@ function buildMatchPatternFn(args) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/en-US.mjs":
-/*!************************************************!*\
-  !*** ./node_modules/date-fns/locale/en-US.mjs ***!
-  \************************************************/
+/***/ "./node_modules/date-fns/locale/en-US.js":
+/*!***********************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US.js ***!
+  \***********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124725,11 +125600,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   enUS: function() { return /* binding */ enUS; }
 /* harmony export */ });
-/* harmony import */ var _en_US_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./en-US/_lib/formatDistance.mjs */ "./node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs");
-/* harmony import */ var _en_US_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./en-US/_lib/formatLong.mjs */ "./node_modules/date-fns/locale/en-US/_lib/formatLong.mjs");
-/* harmony import */ var _en_US_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./en-US/_lib/formatRelative.mjs */ "./node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs");
-/* harmony import */ var _en_US_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./en-US/_lib/localize.mjs */ "./node_modules/date-fns/locale/en-US/_lib/localize.mjs");
-/* harmony import */ var _en_US_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./en-US/_lib/match.mjs */ "./node_modules/date-fns/locale/en-US/_lib/match.mjs");
+/* harmony import */ var _en_US_lib_formatDistance_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./en-US/_lib/formatDistance.js */ "./node_modules/date-fns/locale/en-US/_lib/formatDistance.js");
+/* harmony import */ var _en_US_lib_formatLong_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./en-US/_lib/formatLong.js */ "./node_modules/date-fns/locale/en-US/_lib/formatLong.js");
+/* harmony import */ var _en_US_lib_formatRelative_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./en-US/_lib/formatRelative.js */ "./node_modules/date-fns/locale/en-US/_lib/formatRelative.js");
+/* harmony import */ var _en_US_lib_localize_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./en-US/_lib/localize.js */ "./node_modules/date-fns/locale/en-US/_lib/localize.js");
+/* harmony import */ var _en_US_lib_match_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./en-US/_lib/match.js */ "./node_modules/date-fns/locale/en-US/_lib/match.js");
 
 
 
@@ -124746,11 +125621,11 @@ __webpack_require__.r(__webpack_exports__);
  */
 const enUS = {
   code: "en-US",
-  formatDistance: _en_US_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__.formatDistance,
-  formatLong: _en_US_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__.formatLong,
-  formatRelative: _en_US_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__.formatRelative,
-  localize: _en_US_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__.localize,
-  match: _en_US_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__.match,
+  formatDistance: _en_US_lib_formatDistance_js__WEBPACK_IMPORTED_MODULE_0__.formatDistance,
+  formatLong: _en_US_lib_formatLong_js__WEBPACK_IMPORTED_MODULE_1__.formatLong,
+  formatRelative: _en_US_lib_formatRelative_js__WEBPACK_IMPORTED_MODULE_2__.formatRelative,
+  localize: _en_US_lib_localize_js__WEBPACK_IMPORTED_MODULE_3__.localize,
+  match: _en_US_lib_match_js__WEBPACK_IMPORTED_MODULE_4__.match,
   options: {
     weekStartsOn: 0 /* Sunday */,
     firstWeekContainsDate: 1,
@@ -124763,10 +125638,10 @@ const enUS = {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs":
-/*!********************************************************************!*\
-  !*** ./node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs ***!
-  \********************************************************************/
+/***/ "./node_modules/date-fns/locale/en-US/_lib/formatDistance.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/formatDistance.js ***!
+  \*******************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124879,10 +125754,10 @@ const formatDistance = (token, count, options) => {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/en-US/_lib/formatLong.mjs":
-/*!****************************************************************!*\
-  !*** ./node_modules/date-fns/locale/en-US/_lib/formatLong.mjs ***!
-  \****************************************************************/
+/***/ "./node_modules/date-fns/locale/en-US/_lib/formatLong.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/formatLong.js ***!
+  \***************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124890,7 +125765,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   formatLong: function() { return /* binding */ formatLong; }
 /* harmony export */ });
-/* harmony import */ var _lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildFormatLongFn.mjs */ "./node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs");
+/* harmony import */ var _lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildFormatLongFn.js */ "./node_modules/date-fns/locale/_lib/buildFormatLongFn.js");
 
 
 const dateFormats = {
@@ -124915,17 +125790,17 @@ const dateTimeFormats = {
 };
 
 const formatLong = {
-  date: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+  date: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
     formats: dateFormats,
     defaultWidth: "full",
   }),
 
-  time: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+  time: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
     formats: timeFormats,
     defaultWidth: "full",
   }),
 
-  dateTime: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+  dateTime: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
     formats: dateTimeFormats,
     defaultWidth: "full",
   }),
@@ -124934,10 +125809,10 @@ const formatLong = {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs":
-/*!********************************************************************!*\
-  !*** ./node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs ***!
-  \********************************************************************/
+/***/ "./node_modules/date-fns/locale/en-US/_lib/formatRelative.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/formatRelative.js ***!
+  \*******************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124960,10 +125835,10 @@ const formatRelative = (token, _date, _baseDate, _options) =>
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/en-US/_lib/localize.mjs":
-/*!**************************************************************!*\
-  !*** ./node_modules/date-fns/locale/en-US/_lib/localize.mjs ***!
-  \**************************************************************/
+/***/ "./node_modules/date-fns/locale/en-US/_lib/localize.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/localize.js ***!
+  \*************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124971,7 +125846,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   localize: function() { return /* binding */ localize; }
 /* harmony export */ });
-/* harmony import */ var _lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildLocalizeFn.mjs */ "./node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs");
+/* harmony import */ var _lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildLocalizeFn.js */ "./node_modules/date-fns/locale/_lib/buildLocalizeFn.js");
 
 
 const eraValues = {
@@ -125131,28 +126006,28 @@ const ordinalNumber = (dirtyNumber, _options) => {
 const localize = {
   ordinalNumber,
 
-  era: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+  era: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
     values: eraValues,
     defaultWidth: "wide",
   }),
 
-  quarter: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+  quarter: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
     values: quarterValues,
     defaultWidth: "wide",
     argumentCallback: (quarter) => quarter - 1,
   }),
 
-  month: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+  month: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
     values: monthValues,
     defaultWidth: "wide",
   }),
 
-  day: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+  day: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
     values: dayValues,
     defaultWidth: "wide",
   }),
 
-  dayPeriod: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+  dayPeriod: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
     values: dayPeriodValues,
     defaultWidth: "wide",
     formattingValues: formattingDayPeriodValues,
@@ -125163,10 +126038,10 @@ const localize = {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/locale/en-US/_lib/match.mjs":
-/*!***********************************************************!*\
-  !*** ./node_modules/date-fns/locale/en-US/_lib/match.mjs ***!
-  \***********************************************************/
+/***/ "./node_modules/date-fns/locale/en-US/_lib/match.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/match.js ***!
+  \**********************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125174,8 +126049,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   match: function() { return /* binding */ match; }
 /* harmony export */ });
-/* harmony import */ var _lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildMatchFn.mjs */ "./node_modules/date-fns/locale/_lib/buildMatchFn.mjs");
-/* harmony import */ var _lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_lib/buildMatchPatternFn.mjs */ "./node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs");
+/* harmony import */ var _lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildMatchFn.js */ "./node_modules/date-fns/locale/_lib/buildMatchFn.js");
+/* harmony import */ var _lib_buildMatchPatternFn_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_lib/buildMatchPatternFn.js */ "./node_modules/date-fns/locale/_lib/buildMatchPatternFn.js");
 
 
 
@@ -125266,20 +126141,20 @@ const parseDayPeriodPatterns = {
 };
 
 const match = {
-  ordinalNumber: (0,_lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchPatternFn)({
+  ordinalNumber: (0,_lib_buildMatchPatternFn_js__WEBPACK_IMPORTED_MODULE_1__.buildMatchPatternFn)({
     matchPattern: matchOrdinalNumberPattern,
     parsePattern: parseOrdinalNumberPattern,
     valueCallback: (value) => parseInt(value, 10),
   }),
 
-  era: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+  era: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
     matchPatterns: matchEraPatterns,
     defaultMatchWidth: "wide",
     parsePatterns: parseEraPatterns,
     defaultParseWidth: "any",
   }),
 
-  quarter: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+  quarter: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
     matchPatterns: matchQuarterPatterns,
     defaultMatchWidth: "wide",
     parsePatterns: parseQuarterPatterns,
@@ -125287,21 +126162,21 @@ const match = {
     valueCallback: (index) => index + 1,
   }),
 
-  month: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+  month: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
     matchPatterns: matchMonthPatterns,
     defaultMatchWidth: "wide",
     parsePatterns: parseMonthPatterns,
     defaultParseWidth: "any",
   }),
 
-  day: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+  day: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
     matchPatterns: matchDayPatterns,
     defaultMatchWidth: "wide",
     parsePatterns: parseDayPatterns,
     defaultParseWidth: "any",
   }),
 
-  dayPeriod: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
+  dayPeriod: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
     matchPatterns: matchDayPeriodPatterns,
     defaultMatchWidth: "any",
     parsePatterns: parseDayPeriodPatterns,
@@ -125312,106 +126187,144 @@ const match = {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/set.mjs":
-/*!***************************************!*\
-  !*** ./node_modules/date-fns/set.mjs ***!
-  \***************************************/
+/***/ "./node_modules/date-fns/max.js":
+/*!**************************************!*\
+  !*** ./node_modules/date-fns/max.js ***!
+  \**************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   set: function() { return /* binding */ set; }
+/* harmony export */   max: function() { return /* binding */ max; }
 /* harmony export */ });
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
-/* harmony import */ var _setMonth_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setMonth.mjs */ "./node_modules/date-fns/setMonth.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
-
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
 /**
- * @name set
- * @category Common Helpers
- * @summary Set date values to a given date.
- *
- * @description
- * Set date values to a given date.
- *
- * Sets time values to date from object `values`.
- * A value is not set if it is undefined or null or doesn't exist in `values`.
- *
- * Note about bundle size: `set` does not internally use `setX` functions from date-fns but instead opts
- * to use native `Date#setX` methods. If you use this function, you may not want to include the
- * other `setX` functions that date-fns provides if you are concerned about the bundle size.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
- * @param date - The date to be changed
- * @param values - The date values to be set
- *
- * @returns The new date with options set
- *
- * @example
- * // Transform 1 September 2014 into 20 October 2015 in a single line:
- * const result = set(new Date(2014, 8, 20), { year: 2015, month: 9, date: 20 })
- * //=> Tue Oct 20 2015 00:00:00
- *
- * @example
- * // Set 12 PM to 1 September 2014 01:23:45 to 1 September 2014 12:00:00:
- * const result = set(new Date(2014, 8, 1, 1, 23, 45), { hours: 12 })
- * //=> Mon Sep 01 2014 12:23:45
+ * The {@link max} function options.
  */
 
-function set(date, values) {
-  let _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+/**
+ * @name max
+ * @category Common Helpers
+ * @summary Return the latest of the given dates.
+ *
+ * @description
+ * Return the latest of the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param dates - The dates to compare
+ *
+ * @returns The latest of the dates
+ *
+ * @example
+ * // Which of these dates is the latest?
+ * const result = max([
+ *   new Date(1989, 6, 10),
+ *   new Date(1987, 1, 11),
+ *   new Date(1995, 6, 2),
+ *   new Date(1990, 0, 1)
+ * ])
+ * //=> Sun Jul 02 1995 00:00:00
+ */
+function max(dates, options) {
+  let result;
+  let context = options?.in;
 
-  // Check if date is Invalid Date because Date.prototype.setFullYear ignores the value of Invalid Date
-  if (isNaN(+_date)) {
-    return (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, NaN);
-  }
+  dates.forEach((date) => {
+    // Use the first date object as the context function
+    if (!context && typeof date === "object")
+      context = _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom.bind(null, date);
 
-  if (values.year != null) {
-    _date.setFullYear(values.year);
-  }
+    const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, context);
+    if (!result || result < date_ || isNaN(+date_)) result = date_;
+  });
 
-  if (values.month != null) {
-    _date = (0,_setMonth_mjs__WEBPACK_IMPORTED_MODULE_1__.setMonth)(_date, values.month);
-  }
-
-  if (values.date != null) {
-    _date.setDate(values.date);
-  }
-
-  if (values.hours != null) {
-    _date.setHours(values.hours);
-  }
-
-  if (values.minutes != null) {
-    _date.setMinutes(values.minutes);
-  }
-
-  if (values.seconds != null) {
-    _date.setSeconds(values.seconds);
-  }
-
-  if (values.milliseconds != null) {
-    _date.setMilliseconds(values.milliseconds);
-  }
-
-  return _date;
+  return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(context, result || NaN);
 }
 
 // Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (set);
+/* harmony default export */ __webpack_exports__["default"] = (max);
 
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/setMonth.mjs":
-/*!********************************************!*\
-  !*** ./node_modules/date-fns/setMonth.mjs ***!
-  \********************************************/
+/***/ "./node_modules/date-fns/min.js":
+/*!**************************************!*\
+  !*** ./node_modules/date-fns/min.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   min: function() { return /* binding */ min; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+
+/**
+ * The {@link min} function options.
+ */
+
+/**
+ * @name min
+ * @category Common Helpers
+ * @summary Returns the earliest of the given dates.
+ *
+ * @description
+ * Returns the earliest of the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param dates - The dates to compare
+ *
+ * @returns The earliest of the dates
+ *
+ * @example
+ * // Which of these dates is the earliest?
+ * const result = min([
+ *   new Date(1989, 6, 10),
+ *   new Date(1987, 1, 11),
+ *   new Date(1995, 6, 2),
+ *   new Date(1990, 0, 1)
+ * ])
+ * //=> Wed Feb 11 1987 00:00:00
+ */
+function min(dates, options) {
+  let result;
+  let context = options?.in;
+
+  dates.forEach((date) => {
+    // Use the first date object as the context function
+    if (!context && typeof date === "object")
+      context = _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom.bind(null, date);
+
+    const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, context);
+    if (!result || result > date_ || isNaN(+date_)) result = date_;
+  });
+
+  return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(context, result || NaN);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (min);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/setMonth.js":
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/setMonth.js ***!
+  \*******************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125419,12 +126332,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   setMonth: function() { return /* binding */ setMonth; }
 /* harmony export */ });
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
-/* harmony import */ var _getDaysInMonth_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDaysInMonth.mjs */ "./node_modules/date-fns/getDaysInMonth.mjs");
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _getDaysInMonth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDaysInMonth.js */ "./node_modules/date-fns/getDaysInMonth.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
+
+/**
+ * The {@link setMonth} function options.
+ */
 
 /**
  * @name setMonth
@@ -125435,9 +126352,11 @@ __webpack_require__.r(__webpack_exports__);
  * Set the month to the given date.
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
  *
  * @param date - The date to be changed
  * @param month - The month index to set (0-11)
+ * @param options - The options
  *
  * @returns The new date with the month set
  *
@@ -125446,17 +126365,17 @@ __webpack_require__.r(__webpack_exports__);
  * const result = setMonth(new Date(2014, 8, 1), 1)
  * //=> Sat Feb 01 2014 00:00:00
  */
-function setMonth(date, month) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_2__.toDate)(date);
+function setMonth(date, month, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
   const year = _date.getFullYear();
   const day = _date.getDate();
 
-  const dateWithDesiredMonth = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
-  dateWithDesiredMonth.setFullYear(year, month, 15);
-  dateWithDesiredMonth.setHours(0, 0, 0, 0);
-  const daysInMonth = (0,_getDaysInMonth_mjs__WEBPACK_IMPORTED_MODULE_1__.getDaysInMonth)(dateWithDesiredMonth);
-  // Set the last day of the new month
-  // if the original date was the last day of the longer month
+  const midMonth = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, 0);
+  midMonth.setFullYear(year, month, 15);
+  midMonth.setHours(0, 0, 0, 0);
+  const daysInMonth = (0,_getDaysInMonth_js__WEBPACK_IMPORTED_MODULE_1__.getDaysInMonth)(midMonth);
+
+  // Set the earlier date, allows to wrap Jan 31 to Feb 28
   _date.setMonth(month, Math.min(day, daysInMonth));
   return _date;
 }
@@ -125467,10 +126386,68 @@ function setMonth(date, month) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/startOfDay.mjs":
-/*!**********************************************!*\
-  !*** ./node_modules/date-fns/startOfDay.mjs ***!
-  \**********************************************/
+/***/ "./node_modules/date-fns/setYear.js":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/setYear.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setYear: function() { return /* binding */ setYear; }
+/* harmony export */ });
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
+
+
+
+/**
+ * The {@link setYear} function options.
+ */
+
+/**
+ * @name setYear
+ * @category Year Helpers
+ * @summary Set the year to the given date.
+ *
+ * @description
+ * Set the year to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The date to be changed
+ * @param year - The year of the new date
+ * @param options - An object with options.
+ *
+ * @returns The new date with the year set
+ *
+ * @example
+ * // Set year 2013 to 1 September 2014:
+ * const result = setYear(new Date(2014, 8, 1), 2013)
+ * //=> Sun Sep 01 2013 00:00:00
+ */
+function setYear(date, year, options) {
+  const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
+
+  // Check if date is Invalid Date because Date.prototype.setFullYear ignores the value of Invalid Date
+  if (isNaN(+date_)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
+
+  date_.setFullYear(year);
+  return date_;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (setYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/startOfDay.js":
+/*!*********************************************!*\
+  !*** ./node_modules/date-fns/startOfDay.js ***!
+  \*********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125478,8 +126455,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   startOfDay: function() { return /* binding */ startOfDay; }
 /* harmony export */ });
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
+
+/**
+ * The {@link startOfDay} function options.
+ */
 
 /**
  * @name startOfDay
@@ -125491,8 +126472,10 @@ __webpack_require__.r(__webpack_exports__);
  * The result will be in the local timezone.
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
  *
  * @param date - The original date
+ * @param options - The options
  *
  * @returns The start of a day
  *
@@ -125501,8 +126484,8 @@ __webpack_require__.r(__webpack_exports__);
  * const result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
  * //=> Tue Sep 02 2014 00:00:00
  */
-function startOfDay(date) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+function startOfDay(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
   _date.setHours(0, 0, 0, 0);
   return _date;
 }
@@ -125513,10 +126496,10 @@ function startOfDay(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/startOfISOWeek.mjs":
-/*!**************************************************!*\
-  !*** ./node_modules/date-fns/startOfISOWeek.mjs ***!
-  \**************************************************/
+/***/ "./node_modules/date-fns/startOfISOWeek.js":
+/*!*************************************************!*\
+  !*** ./node_modules/date-fns/startOfISOWeek.js ***!
+  \*************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125524,8 +126507,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   startOfISOWeek: function() { return /* binding */ startOfISOWeek; }
 /* harmony export */ });
-/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
+/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/date-fns/startOfWeek.js");
 
+
+/**
+ * The {@link startOfISOWeek} function options.
+ */
 
 /**
  * @name startOfISOWeek
@@ -125539,8 +126526,10 @@ __webpack_require__.r(__webpack_exports__);
  * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
  *
  * @param date - The original date
+ * @param options - An object with options
  *
  * @returns The start of an ISO week
  *
@@ -125549,8 +126538,8 @@ __webpack_require__.r(__webpack_exports__);
  * const result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
  * //=> Mon Sep 01 2014 00:00:00
  */
-function startOfISOWeek(date) {
-  return (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_0__.startOfWeek)(date, { weekStartsOn: 1 });
+function startOfISOWeek(date, options) {
+  return (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_0__.startOfWeek)(date, { ...options, weekStartsOn: 1 });
 }
 
 // Fallback for modularized imports:
@@ -125559,10 +126548,10 @@ function startOfISOWeek(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/startOfISOWeekYear.mjs":
-/*!******************************************************!*\
-  !*** ./node_modules/date-fns/startOfISOWeekYear.mjs ***!
-  \******************************************************/
+/***/ "./node_modules/date-fns/startOfISOWeekYear.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/date-fns/startOfISOWeekYear.js ***!
+  \*****************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125570,12 +126559,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   startOfISOWeekYear: function() { return /* binding */ startOfISOWeekYear; }
 /* harmony export */ });
-/* harmony import */ var _getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getISOWeekYear.mjs */ "./node_modules/date-fns/getISOWeekYear.mjs");
-/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/date-fns/startOfISOWeek.mjs");
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getISOWeekYear.js */ "./node_modules/date-fns/getISOWeekYear.js");
+/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/date-fns/startOfISOWeek.js");
 
 
 
+
+/**
+ * The {@link startOfISOWeekYear} function options.
+ */
 
 /**
  * @name startOfISOWeekYear
@@ -125590,8 +126583,10 @@ __webpack_require__.r(__webpack_exports__);
  * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
  *
  * @param date - The original date
+ * @param options - An object with options
  *
  * @returns The start of an ISO week-numbering year
  *
@@ -125600,12 +126595,12 @@ __webpack_require__.r(__webpack_exports__);
  * const result = startOfISOWeekYear(new Date(2005, 6, 2))
  * //=> Mon Jan 03 2005 00:00:00
  */
-function startOfISOWeekYear(date) {
-  const year = (0,_getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_0__.getISOWeekYear)(date);
-  const fourthOfJanuary = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__.constructFrom)(date, 0);
+function startOfISOWeekYear(date, options) {
+  const year = (0,_getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_1__.getISOWeekYear)(date, options);
+  const fourthOfJanuary = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, 0);
   fourthOfJanuary.setFullYear(year, 0, 4);
   fourthOfJanuary.setHours(0, 0, 0, 0);
-  return (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuary);
+  return (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeek)(fourthOfJanuary);
 }
 
 // Fallback for modularized imports:
@@ -125614,56 +126609,64 @@ function startOfISOWeekYear(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/startOfMinute.mjs":
-/*!*************************************************!*\
-  !*** ./node_modules/date-fns/startOfMinute.mjs ***!
-  \*************************************************/
+/***/ "./node_modules/date-fns/startOfMonth.js":
+/*!***********************************************!*\
+  !*** ./node_modules/date-fns/startOfMonth.js ***!
+  \***********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfMinute: function() { return /* binding */ startOfMinute; }
+/* harmony export */   startOfMonth: function() { return /* binding */ startOfMonth; }
 /* harmony export */ });
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 /**
- * @name startOfMinute
- * @category Minute Helpers
- * @summary Return the start of a minute for the given date.
+ * The {@link startOfMonth} function options.
+ */
+
+/**
+ * @name startOfMonth
+ * @category Month Helpers
+ * @summary Return the start of a month for the given date.
  *
  * @description
- * Return the start of a minute for the given date.
- * The result will be in the local timezone.
+ * Return the start of a month for the given date. The result will be in the local timezone.
  *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments.
+ * Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed,
+ * or inferred from the arguments.
  *
  * @param date - The original date
+ * @param options - An object with options
  *
- * @returns The start of a minute
+ * @returns The start of a month
  *
  * @example
- * // The start of a minute for 1 December 2014 22:15:45.400:
- * const result = startOfMinute(new Date(2014, 11, 1, 22, 15, 45, 400))
- * //=> Mon Dec 01 2014 22:15:00
+ * // The start of a month for 2 September 2014 11:55:00:
+ * const result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
  */
-function startOfMinute(date) {
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
-  _date.setSeconds(0, 0);
+function startOfMonth(date, options) {
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
+  _date.setDate(1);
+  _date.setHours(0, 0, 0, 0);
   return _date;
 }
 
 // Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfMinute);
+/* harmony default export */ __webpack_exports__["default"] = (startOfMonth);
 
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/startOfWeek.mjs":
-/*!***********************************************!*\
-  !*** ./node_modules/date-fns/startOfWeek.mjs ***!
-  \***********************************************/
+/***/ "./node_modules/date-fns/startOfWeek.js":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/startOfWeek.js ***!
+  \**********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125671,8 +126674,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   startOfWeek: function() { return /* binding */ startOfWeek; }
 /* harmony export */ });
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
-/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
+/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/date-fns/_lib/defaultOptions.js");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
 
@@ -125690,6 +126693,7 @@ __webpack_require__.r(__webpack_exports__);
  * The result will be in the local timezone.
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
  *
  * @param date - The original date
  * @param options - An object with options
@@ -125707,7 +126711,7 @@ __webpack_require__.r(__webpack_exports__);
  * //=> Mon Sep 01 2014 00:00:00
  */
 function startOfWeek(date, options) {
-  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
+  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
   const weekStartsOn =
     options?.weekStartsOn ??
     options?.locale?.options?.weekStartsOn ??
@@ -125715,7 +126719,7 @@ function startOfWeek(date, options) {
     defaultOptions.locale?.options?.weekStartsOn ??
     0;
 
-  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
   const day = _date.getDay();
   const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
 
@@ -125730,10 +126734,10 @@ function startOfWeek(date, options) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/startOfWeekYear.mjs":
-/*!***************************************************!*\
-  !*** ./node_modules/date-fns/startOfWeekYear.mjs ***!
-  \***************************************************/
+/***/ "./node_modules/date-fns/startOfWeekYear.js":
+/*!**************************************************!*\
+  !*** ./node_modules/date-fns/startOfWeekYear.js ***!
+  \**************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125741,10 +126745,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   startOfWeekYear: function() { return /* binding */ startOfWeekYear; }
 /* harmony export */ });
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
-/* harmony import */ var _getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getWeekYear.mjs */ "./node_modules/date-fns/getWeekYear.mjs");
-/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
-/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
+/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/date-fns/_lib/defaultOptions.js");
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+/* harmony import */ var _getWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getWeekYear.js */ "./node_modules/date-fns/getWeekYear.js");
+/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/date-fns/startOfWeek.js");
 
 
 
@@ -125769,6 +126773,7 @@ __webpack_require__.r(__webpack_exports__);
  * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type.
  *
  * @param date - The original date
  * @param options - An object with options
@@ -125791,7 +126796,7 @@ __webpack_require__.r(__webpack_exports__);
  * //=> Mon Jan 03 2005 00:00:00
  */
 function startOfWeekYear(date, options) {
-  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_3__.getDefaultOptions)();
+  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
   const firstWeekContainsDate =
     options?.firstWeekContainsDate ??
     options?.locale?.options?.firstWeekContainsDate ??
@@ -125799,11 +126804,11 @@ function startOfWeekYear(date, options) {
     defaultOptions.locale?.options?.firstWeekContainsDate ??
     1;
 
-  const year = (0,_getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__.getWeekYear)(date, options);
-  const firstWeek = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(date, 0);
+  const year = (0,_getWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.getWeekYear)(date, options);
+  const firstWeek = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
   firstWeek.setFullYear(year, 0, firstWeekContainsDate);
   firstWeek.setHours(0, 0, 0, 0);
-  const _date = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeek, options);
+  const _date = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_3__.startOfWeek)(firstWeek, options);
   return _date;
 }
 
@@ -125813,10 +126818,10 @@ function startOfWeekYear(date, options) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/startOfYear.mjs":
-/*!***********************************************!*\
-  !*** ./node_modules/date-fns/startOfYear.mjs ***!
-  \***********************************************/
+/***/ "./node_modules/date-fns/startOfYear.js":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/startOfYear.js ***!
+  \**********************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125824,10 +126829,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   startOfYear: function() { return /* binding */ startOfYear; }
 /* harmony export */ });
-/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
-/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/date-fns/toDate.js");
 
 
+/**
+ * The {@link startOfYear} function options.
+ */
 
 /**
  * @name startOfYear
@@ -125839,8 +126846,10 @@ __webpack_require__.r(__webpack_exports__);
  * The result will be in the local timezone.
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
  *
  * @param date - The original date
+ * @param options - The options
  *
  * @returns The start of a year
  *
@@ -125849,12 +126858,11 @@ __webpack_require__.r(__webpack_exports__);
  * const result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
  * //=> Wed Jan 01 2014 00:00:00
  */
-function startOfYear(date) {
-  const cleanDate = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
-  const _date = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
-  _date.setFullYear(cleanDate.getFullYear(), 0, 1);
-  _date.setHours(0, 0, 0, 0);
-  return _date;
+function startOfYear(date, options) {
+  const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
+  date_.setFullYear(date_.getFullYear(), 0, 1);
+  date_.setHours(0, 0, 0, 0);
+  return date_;
 }
 
 // Fallback for modularized imports:
@@ -125863,10 +126871,157 @@ function startOfYear(date) {
 
 /***/ }),
 
-/***/ "./node_modules/date-fns/toDate.mjs":
+/***/ "./node_modules/date-fns/subDays.js":
 /*!******************************************!*\
-  !*** ./node_modules/date-fns/toDate.mjs ***!
+  !*** ./node_modules/date-fns/subDays.js ***!
   \******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   subDays: function() { return /* binding */ subDays; }
+/* harmony export */ });
+/* harmony import */ var _addDays_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addDays.js */ "./node_modules/date-fns/addDays.js");
+
+
+/**
+ * The {@link subDays} function options.
+ */
+
+/**
+ * @name subDays
+ * @category Day Helpers
+ * @summary Subtract the specified number of days from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of days to be subtracted.
+ * @param options - An object with options
+ *
+ * @returns The new date with the days subtracted
+ *
+ * @example
+ * // Subtract 10 days from 1 September 2014:
+ * const result = subDays(new Date(2014, 8, 1), 10)
+ * //=> Fri Aug 22 2014 00:00:00
+ */
+function subDays(date, amount, options) {
+  return (0,_addDays_js__WEBPACK_IMPORTED_MODULE_0__.addDays)(date, -amount, options);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (subDays);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/subMonths.js":
+/*!********************************************!*\
+  !*** ./node_modules/date-fns/subMonths.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   subMonths: function() { return /* binding */ subMonths; }
+/* harmony export */ });
+/* harmony import */ var _addMonths_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addMonths.js */ "./node_modules/date-fns/addMonths.js");
+
+
+/**
+ * The subMonths function options.
+ */
+
+/**
+ * @name subMonths
+ * @category Month Helpers
+ * @summary Subtract the specified number of months from the given date.
+ *
+ * @description
+ * Subtract the specified number of months from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of months to be subtracted.
+ * @param options - An object with options
+ *
+ * @returns The new date with the months subtracted
+ *
+ * @example
+ * // Subtract 5 months from 1 February 2015:
+ * const result = subMonths(new Date(2015, 1, 1), 5)
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function subMonths(date, amount, options) {
+  return (0,_addMonths_js__WEBPACK_IMPORTED_MODULE_0__.addMonths)(date, -amount, options);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (subMonths);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/subYears.js":
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/subYears.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   subYears: function() { return /* binding */ subYears; }
+/* harmony export */ });
+/* harmony import */ var _addYears_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addYears.js */ "./node_modules/date-fns/addYears.js");
+
+
+/**
+ * The {@link subYears} function options.
+ */
+
+/**
+ * @name subYears
+ * @category Year Helpers
+ * @summary Subtract the specified number of years from the given date.
+ *
+ * @description
+ * Subtract the specified number of years from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of years to be subtracted.
+ * @param options - An object with options
+ *
+ * @returns The new date with the years subtracted
+ *
+ * @example
+ * // Subtract 5 years from 1 September 2014:
+ * const result = subYears(new Date(2014, 8, 1), 5)
+ * //=> Tue Sep 01 2009 00:00:00
+ */
+function subYears(date, amount, options) {
+  return (0,_addYears_js__WEBPACK_IMPORTED_MODULE_0__.addYears)(date, -amount, options);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ __webpack_exports__["default"] = (subYears);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/toDate.js":
+/*!*****************************************!*\
+  !*** ./node_modules/date-fns/toDate.js ***!
+  \*****************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125874,6 +127029,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   toDate: function() { return /* binding */ toDate; }
 /* harmony export */ });
+/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/date-fns/constructFrom.js");
+
+
 /**
  * @name toDate
  * @category Common Helpers
@@ -125888,9 +127046,15 @@ __webpack_require__.r(__webpack_exports__);
  *
  * If the argument is none of the above, the function returns Invalid Date.
  *
+ * Starting from v3.7.0, it clones a date using `[Symbol.for("constructDateFrom")]`
+ * enabling to transfer extra properties from the reference date to the new date.
+ * It's useful for extensions like [`TZDate`](https://github.com/date-fns/tz)
+ * that accept a time zone as a constructor argument.
+ *
  * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
  *
  * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
  *
  * @param argument - The value to convert
  *
@@ -125906,28 +127070,9 @@ __webpack_require__.r(__webpack_exports__);
  * const result = toDate(1392098430000)
  * //=> Tue Feb 11 2014 11:30:30
  */
-function toDate(argument) {
-  const argStr = Object.prototype.toString.call(argument);
-
-  // Clone the date
-  if (
-    argument instanceof Date ||
-    (typeof argument === "object" && argStr === "[object Date]")
-  ) {
-    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
-    return new argument.constructor(+argument);
-  } else if (
-    typeof argument === "number" ||
-    argStr === "[object Number]" ||
-    typeof argument === "string" ||
-    argStr === "[object String]"
-  ) {
-    // TODO: Can we get rid of as?
-    return new Date(argument);
-  } else {
-    // TODO: Can we get rid of as?
-    return new Date(NaN);
-  }
+function toDate(argument, context) {
+  // [TODO] Get rid of `toDate` or `constructFrom`?
+  return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(context || argument, argument);
 }
 
 // Fallback for modularized imports:
@@ -142850,38 +143995,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   defaultLocale: function() { return /* reexport safe */ _locale_en_US_js__WEBPACK_IMPORTED_MODULE_35__.enUS; }
 /* harmony export */ });
 /* harmony import */ var _date_fns_tz__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @date-fns/tz */ "./node_modules/@date-fns/tz/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/addDays.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/addMonths.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/addWeeks.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/addYears.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarDays.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarMonths.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/eachMonthOfInterval.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/eachYearOfInterval.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/endOfISOWeek.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/endOfMonth.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/endOfWeek.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/endOfYear.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/format.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/getISOWeek.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/getMonth.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/getWeek.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/getYear.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/isAfter.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/isBefore.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/isDate.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/isSameDay.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/isSameMonth.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/isSameYear.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/max.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/min.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/setMonth.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/setYear.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/startOfDay.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeek.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/startOfMonth.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeek.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/startOfYear.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/addDays.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/addMonths.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/addWeeks.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/addYears.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInCalendarDays.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInCalendarMonths.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/eachMonthOfInterval.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/eachYearOfInterval.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/endOfISOWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/endOfMonth.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/endOfWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/endOfYear.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/format.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/getISOWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/getMonth.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/getWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/getYear.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/isAfter.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/isBefore.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/isDate.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/isSameDay.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/isSameMonth.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/isSameYear.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/max.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/min.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/setMonth.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/setYear.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfDay.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfISOWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfMonth.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfYear.js");
 /* harmony import */ var _helpers_endOfBroadcastWeek_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../helpers/endOfBroadcastWeek.js */ "./node_modules/react-day-picker/dist/esm/helpers/endOfBroadcastWeek.js");
 /* harmony import */ var _helpers_startOfBroadcastWeek_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../helpers/startOfBroadcastWeek.js */ "./node_modules/react-day-picker/dist/esm/helpers/startOfBroadcastWeek.js");
 /* harmony import */ var _locale_en_US_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ../locale/en-US.js */ "./node_modules/react-day-picker/dist/esm/locale/en-US.js");
@@ -146337,8 +147482,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   enUS: function() { return /* binding */ enUS; }
 /* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/format.js");
-/* harmony import */ var date_fns_locale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns/locale */ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/format.js");
+/* harmony import */ var date_fns_locale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns/locale */ "./node_modules/date-fns/locale/en-US.js");
 
 
 /** English (United States) locale extended with DayPicker-specific translations. */
@@ -146419,10 +147564,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createNoonOverrides: function() { return /* binding */ createNoonOverrides; }
 /* harmony export */ });
 /* harmony import */ var _date_fns_tz__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @date-fns/tz */ "./node_modules/@date-fns/tz/index.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarDays.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarMonths.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/getISOWeek.js");
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/react-day-picker/node_modules/date-fns/getWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInCalendarDays.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/differenceInCalendarMonths.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/getISOWeek.js");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/getWeek.js");
 
 
 /**
@@ -147873,5168 +149018,6 @@ function isDayOfWeekType(value) {
 function isDatesArray(value, dateLib) {
     return Array.isArray(value) && value.every(dateLib.isDate);
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/addLeadingZeros.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/addLeadingZeros.js ***!
-  \*************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addLeadingZeros: function() { return /* binding */ addLeadingZeros; }
-/* harmony export */ });
-function addLeadingZeros(number, targetLength) {
-  const sign = number < 0 ? "-" : "";
-  const output = Math.abs(number).toString().padStart(targetLength, "0");
-  return sign + output;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/defaultOptions.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/defaultOptions.js ***!
-  \************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getDefaultOptions: function() { return /* binding */ getDefaultOptions; },
-/* harmony export */   setDefaultOptions: function() { return /* binding */ setDefaultOptions; }
-/* harmony export */ });
-let defaultOptions = {};
-
-function getDefaultOptions() {
-  return defaultOptions;
-}
-
-function setDefaultOptions(newOptions) {
-  defaultOptions = newOptions;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/format/formatters.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/format/formatters.js ***!
-  \***************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatters: function() { return /* binding */ formatters; }
-/* harmony export */ });
-/* harmony import */ var _getDayOfYear_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../getDayOfYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/getDayOfYear.js");
-/* harmony import */ var _getISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../getISOWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/getISOWeek.js");
-/* harmony import */ var _getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../getISOWeekYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/getISOWeekYear.js");
-/* harmony import */ var _getWeek_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../getWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/getWeek.js");
-/* harmony import */ var _getWeekYear_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../getWeekYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/getWeekYear.js");
-/* harmony import */ var _addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../addLeadingZeros.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/addLeadingZeros.js");
-/* harmony import */ var _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lightFormatters.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/format/lightFormatters.js");
-
-
-
-
-
-
-
-
-
-const dayPeriodEnum = {
-  am: "am",
-  pm: "pm",
-  midnight: "midnight",
-  noon: "noon",
-  morning: "morning",
-  afternoon: "afternoon",
-  evening: "evening",
-  night: "night",
-};
-
-/*
- * |     | Unit                           |     | Unit                           |
- * |-----|--------------------------------|-----|--------------------------------|
- * |  a  | AM, PM                         |  A* | Milliseconds in day            |
- * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
- * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
- * |  d  | Day of month                   |  D  | Day of year                    |
- * |  e  | Local day of week              |  E  | Day of week                    |
- * |  f  |                                |  F* | Day of week in month           |
- * |  g* | Modified Julian day            |  G  | Era                            |
- * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
- * |  i! | ISO day of week                |  I! | ISO week of year               |
- * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
- * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
- * |  l* | (deprecated)                   |  L  | Stand-alone month              |
- * |  m  | Minute                         |  M  | Month                          |
- * |  n  |                                |  N  |                                |
- * |  o! | Ordinal number modifier        |  O  | Timezone (GMT)                 |
- * |  p! | Long localized time            |  P! | Long localized date            |
- * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
- * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
- * |  s  | Second                         |  S  | Fraction of second             |
- * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
- * |  u  | Extended year                  |  U* | Cyclic year                    |
- * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
- * |  w  | Local week of year             |  W* | Week of month                  |
- * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
- * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
- * |  z  | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
- *
- * Letters marked by * are not implemented but reserved by Unicode standard.
- *
- * Letters marked by ! are non-standard, but implemented by date-fns:
- * - `o` modifies the previous token to turn it into an ordinal (see `format` docs)
- * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
- *   i.e. 7 for Sunday, 1 for Monday, etc.
- * - `I` is ISO week of year, as opposed to `w` which is local week of year.
- * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
- *   `R` is supposed to be used in conjunction with `I` and `i`
- *   for universal ISO week-numbering date, whereas
- *   `Y` is supposed to be used in conjunction with `w` and `e`
- *   for week-numbering date specific to the locale.
- * - `P` is long localized date format
- * - `p` is long localized time format
- */
-
-const formatters = {
-  // Era
-  G: function (date, token, localize) {
-    const era = date.getFullYear() > 0 ? 1 : 0;
-    switch (token) {
-      // AD, BC
-      case "G":
-      case "GG":
-      case "GGG":
-        return localize.era(era, { width: "abbreviated" });
-      // A, B
-      case "GGGGG":
-        return localize.era(era, { width: "narrow" });
-      // Anno Domini, Before Christ
-      case "GGGG":
-      default:
-        return localize.era(era, { width: "wide" });
-    }
-  },
-
-  // Year
-  y: function (date, token, localize) {
-    // Ordinal number
-    if (token === "yo") {
-      const signedYear = date.getFullYear();
-      // Returns 1 for 1 BC (which is year 0 in JavaScript)
-      const year = signedYear > 0 ? signedYear : 1 - signedYear;
-      return localize.ordinalNumber(year, { unit: "year" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.y(date, token);
-  },
-
-  // Local week-numbering year
-  Y: function (date, token, localize, options) {
-    const signedWeekYear = (0,_getWeekYear_js__WEBPACK_IMPORTED_MODULE_4__.getWeekYear)(date, options);
-    // Returns 1 for 1 BC (which is year 0 in JavaScript)
-    const weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear;
-
-    // Two digit year
-    if (token === "YY") {
-      const twoDigitYear = weekYear % 100;
-      return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(twoDigitYear, 2);
-    }
-
-    // Ordinal number
-    if (token === "Yo") {
-      return localize.ordinalNumber(weekYear, { unit: "year" });
-    }
-
-    // Padding
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(weekYear, token.length);
-  },
-
-  // ISO week-numbering year
-  R: function (date, token) {
-    const isoWeekYear = (0,_getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.getISOWeekYear)(date);
-
-    // Padding
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeekYear, token.length);
-  },
-
-  // Extended year. This is a single number designating the year of this calendar system.
-  // The main difference between `y` and `u` localizers are B.C. years:
-  // | Year | `y` | `u` |
-  // |------|-----|-----|
-  // | AC 1 |   1 |   1 |
-  // | BC 1 |   1 |   0 |
-  // | BC 2 |   2 |  -1 |
-  // Also `yy` always returns the last two digits of a year,
-  // while `uu` pads single digit years to 2 characters and returns other years unchanged.
-  u: function (date, token) {
-    const year = date.getFullYear();
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(year, token.length);
-  },
-
-  // Quarter
-  Q: function (date, token, localize) {
-    const quarter = Math.ceil((date.getMonth() + 1) / 3);
-    switch (token) {
-      // 1, 2, 3, 4
-      case "Q":
-        return String(quarter);
-      // 01, 02, 03, 04
-      case "QQ":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
-      // 1st, 2nd, 3rd, 4th
-      case "Qo":
-        return localize.ordinalNumber(quarter, { unit: "quarter" });
-      // Q1, Q2, Q3, Q4
-      case "QQQ":
-        return localize.quarter(quarter, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
-      case "QQQQQ":
-        return localize.quarter(quarter, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // 1st quarter, 2nd quarter, ...
-      case "QQQQ":
-      default:
-        return localize.quarter(quarter, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Stand-alone quarter
-  q: function (date, token, localize) {
-    const quarter = Math.ceil((date.getMonth() + 1) / 3);
-    switch (token) {
-      // 1, 2, 3, 4
-      case "q":
-        return String(quarter);
-      // 01, 02, 03, 04
-      case "qq":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(quarter, 2);
-      // 1st, 2nd, 3rd, 4th
-      case "qo":
-        return localize.ordinalNumber(quarter, { unit: "quarter" });
-      // Q1, Q2, Q3, Q4
-      case "qqq":
-        return localize.quarter(quarter, {
-          width: "abbreviated",
-          context: "standalone",
-        });
-      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
-      case "qqqqq":
-        return localize.quarter(quarter, {
-          width: "narrow",
-          context: "standalone",
-        });
-      // 1st quarter, 2nd quarter, ...
-      case "qqqq":
-      default:
-        return localize.quarter(quarter, {
-          width: "wide",
-          context: "standalone",
-        });
-    }
-  },
-
-  // Month
-  M: function (date, token, localize) {
-    const month = date.getMonth();
-    switch (token) {
-      case "M":
-      case "MM":
-        return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.M(date, token);
-      // 1st, 2nd, ..., 12th
-      case "Mo":
-        return localize.ordinalNumber(month + 1, { unit: "month" });
-      // Jan, Feb, ..., Dec
-      case "MMM":
-        return localize.month(month, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // J, F, ..., D
-      case "MMMMM":
-        return localize.month(month, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // January, February, ..., December
-      case "MMMM":
-      default:
-        return localize.month(month, { width: "wide", context: "formatting" });
-    }
-  },
-
-  // Stand-alone month
-  L: function (date, token, localize) {
-    const month = date.getMonth();
-    switch (token) {
-      // 1, 2, ..., 12
-      case "L":
-        return String(month + 1);
-      // 01, 02, ..., 12
-      case "LL":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(month + 1, 2);
-      // 1st, 2nd, ..., 12th
-      case "Lo":
-        return localize.ordinalNumber(month + 1, { unit: "month" });
-      // Jan, Feb, ..., Dec
-      case "LLL":
-        return localize.month(month, {
-          width: "abbreviated",
-          context: "standalone",
-        });
-      // J, F, ..., D
-      case "LLLLL":
-        return localize.month(month, {
-          width: "narrow",
-          context: "standalone",
-        });
-      // January, February, ..., December
-      case "LLLL":
-      default:
-        return localize.month(month, { width: "wide", context: "standalone" });
-    }
-  },
-
-  // Local week of year
-  w: function (date, token, localize, options) {
-    const week = (0,_getWeek_js__WEBPACK_IMPORTED_MODULE_3__.getWeek)(date, options);
-
-    if (token === "wo") {
-      return localize.ordinalNumber(week, { unit: "week" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(week, token.length);
-  },
-
-  // ISO week of year
-  I: function (date, token, localize) {
-    const isoWeek = (0,_getISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.getISOWeek)(date);
-
-    if (token === "Io") {
-      return localize.ordinalNumber(isoWeek, { unit: "week" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoWeek, token.length);
-  },
-
-  // Day of the month
-  d: function (date, token, localize) {
-    if (token === "do") {
-      return localize.ordinalNumber(date.getDate(), { unit: "date" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.d(date, token);
-  },
-
-  // Day of year
-  D: function (date, token, localize) {
-    const dayOfYear = (0,_getDayOfYear_js__WEBPACK_IMPORTED_MODULE_0__.getDayOfYear)(date);
-
-    if (token === "Do") {
-      return localize.ordinalNumber(dayOfYear, { unit: "dayOfYear" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(dayOfYear, token.length);
-  },
-
-  // Day of week
-  E: function (date, token, localize) {
-    const dayOfWeek = date.getDay();
-    switch (token) {
-      // Tue
-      case "E":
-      case "EE":
-      case "EEE":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // T
-      case "EEEEE":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // Tu
-      case "EEEEEE":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "formatting",
-        });
-      // Tuesday
-      case "EEEE":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Local day of week
-  e: function (date, token, localize, options) {
-    const dayOfWeek = date.getDay();
-    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
-    switch (token) {
-      // Numerical value (Nth day of week with current locale or weekStartsOn)
-      case "e":
-        return String(localDayOfWeek);
-      // Padded numerical value
-      case "ee":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, 2);
-      // 1st, 2nd, ..., 7th
-      case "eo":
-        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
-      case "eee":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // T
-      case "eeeee":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // Tu
-      case "eeeeee":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "formatting",
-        });
-      // Tuesday
-      case "eeee":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Stand-alone local day of week
-  c: function (date, token, localize, options) {
-    const dayOfWeek = date.getDay();
-    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
-    switch (token) {
-      // Numerical value (same as in `e`)
-      case "c":
-        return String(localDayOfWeek);
-      // Padded numerical value
-      case "cc":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(localDayOfWeek, token.length);
-      // 1st, 2nd, ..., 7th
-      case "co":
-        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
-      case "ccc":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "standalone",
-        });
-      // T
-      case "ccccc":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "standalone",
-        });
-      // Tu
-      case "cccccc":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "standalone",
-        });
-      // Tuesday
-      case "cccc":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "standalone",
-        });
-    }
-  },
-
-  // ISO day of week
-  i: function (date, token, localize) {
-    const dayOfWeek = date.getDay();
-    const isoDayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
-    switch (token) {
-      // 2
-      case "i":
-        return String(isoDayOfWeek);
-      // 02
-      case "ii":
-        return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(isoDayOfWeek, token.length);
-      // 2nd
-      case "io":
-        return localize.ordinalNumber(isoDayOfWeek, { unit: "day" });
-      // Tue
-      case "iii":
-        return localize.day(dayOfWeek, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      // T
-      case "iiiii":
-        return localize.day(dayOfWeek, {
-          width: "narrow",
-          context: "formatting",
-        });
-      // Tu
-      case "iiiiii":
-        return localize.day(dayOfWeek, {
-          width: "short",
-          context: "formatting",
-        });
-      // Tuesday
-      case "iiii":
-      default:
-        return localize.day(dayOfWeek, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // AM or PM
-  a: function (date, token, localize) {
-    const hours = date.getHours();
-    const dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
-
-    switch (token) {
-      case "a":
-      case "aa":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      case "aaa":
-        return localize
-          .dayPeriod(dayPeriodEnumValue, {
-            width: "abbreviated",
-            context: "formatting",
-          })
-          .toLowerCase();
-      case "aaaaa":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "narrow",
-          context: "formatting",
-        });
-      case "aaaa":
-      default:
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // AM, PM, midnight, noon
-  b: function (date, token, localize) {
-    const hours = date.getHours();
-    let dayPeriodEnumValue;
-    if (hours === 12) {
-      dayPeriodEnumValue = dayPeriodEnum.noon;
-    } else if (hours === 0) {
-      dayPeriodEnumValue = dayPeriodEnum.midnight;
-    } else {
-      dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
-    }
-
-    switch (token) {
-      case "b":
-      case "bb":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      case "bbb":
-        return localize
-          .dayPeriod(dayPeriodEnumValue, {
-            width: "abbreviated",
-            context: "formatting",
-          })
-          .toLowerCase();
-      case "bbbbb":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "narrow",
-          context: "formatting",
-        });
-      case "bbbb":
-      default:
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // in the morning, in the afternoon, in the evening, at night
-  B: function (date, token, localize) {
-    const hours = date.getHours();
-    let dayPeriodEnumValue;
-    if (hours >= 17) {
-      dayPeriodEnumValue = dayPeriodEnum.evening;
-    } else if (hours >= 12) {
-      dayPeriodEnumValue = dayPeriodEnum.afternoon;
-    } else if (hours >= 4) {
-      dayPeriodEnumValue = dayPeriodEnum.morning;
-    } else {
-      dayPeriodEnumValue = dayPeriodEnum.night;
-    }
-
-    switch (token) {
-      case "B":
-      case "BB":
-      case "BBB":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "abbreviated",
-          context: "formatting",
-        });
-      case "BBBBB":
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "narrow",
-          context: "formatting",
-        });
-      case "BBBB":
-      default:
-        return localize.dayPeriod(dayPeriodEnumValue, {
-          width: "wide",
-          context: "formatting",
-        });
-    }
-  },
-
-  // Hour [1-12]
-  h: function (date, token, localize) {
-    if (token === "ho") {
-      let hours = date.getHours() % 12;
-      if (hours === 0) hours = 12;
-      return localize.ordinalNumber(hours, { unit: "hour" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.h(date, token);
-  },
-
-  // Hour [0-23]
-  H: function (date, token, localize) {
-    if (token === "Ho") {
-      return localize.ordinalNumber(date.getHours(), { unit: "hour" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.H(date, token);
-  },
-
-  // Hour [0-11]
-  K: function (date, token, localize) {
-    const hours = date.getHours() % 12;
-
-    if (token === "Ko") {
-      return localize.ordinalNumber(hours, { unit: "hour" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
-  },
-
-  // Hour [1-24]
-  k: function (date, token, localize) {
-    let hours = date.getHours();
-    if (hours === 0) hours = 24;
-
-    if (token === "ko") {
-      return localize.ordinalNumber(hours, { unit: "hour" });
-    }
-
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(hours, token.length);
-  },
-
-  // Minute
-  m: function (date, token, localize) {
-    if (token === "mo") {
-      return localize.ordinalNumber(date.getMinutes(), { unit: "minute" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.m(date, token);
-  },
-
-  // Second
-  s: function (date, token, localize) {
-    if (token === "so") {
-      return localize.ordinalNumber(date.getSeconds(), { unit: "second" });
-    }
-
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.s(date, token);
-  },
-
-  // Fraction of second
-  S: function (date, token) {
-    return _lightFormatters_js__WEBPACK_IMPORTED_MODULE_6__.lightFormatters.S(date, token);
-  },
-
-  // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
-  X: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    if (timezoneOffset === 0) {
-      return "Z";
-    }
-
-    switch (token) {
-      // Hours and optional minutes
-      case "X":
-        return formatTimezoneWithOptionalMinutes(timezoneOffset);
-
-      // Hours, minutes and optional seconds without `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `XX`
-      case "XXXX":
-      case "XX": // Hours and minutes without `:` delimiter
-        return formatTimezone(timezoneOffset);
-
-      // Hours, minutes and optional seconds with `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `XXX`
-      case "XXXXX":
-      case "XXX": // Hours and minutes with `:` delimiter
-      default:
-        return formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Timezone (ISO-8601. If offset is 0, output is `'+00:00'` or equivalent)
-  x: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    switch (token) {
-      // Hours and optional minutes
-      case "x":
-        return formatTimezoneWithOptionalMinutes(timezoneOffset);
-
-      // Hours, minutes and optional seconds without `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `xx`
-      case "xxxx":
-      case "xx": // Hours and minutes without `:` delimiter
-        return formatTimezone(timezoneOffset);
-
-      // Hours, minutes and optional seconds with `:` delimiter
-      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
-      // so this token always has the same output as `xxx`
-      case "xxxxx":
-      case "xxx": // Hours and minutes with `:` delimiter
-      default:
-        return formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Timezone (GMT)
-  O: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    switch (token) {
-      // Short
-      case "O":
-      case "OO":
-      case "OOO":
-        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
-      // Long
-      case "OOOO":
-      default:
-        return "GMT" + formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Timezone (specific non-location)
-  z: function (date, token, _localize) {
-    const timezoneOffset = date.getTimezoneOffset();
-
-    switch (token) {
-      // Short
-      case "z":
-      case "zz":
-      case "zzz":
-        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
-      // Long
-      case "zzzz":
-      default:
-        return "GMT" + formatTimezone(timezoneOffset, ":");
-    }
-  },
-
-  // Seconds timestamp
-  t: function (date, token, _localize) {
-    const timestamp = Math.trunc(+date / 1000);
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(timestamp, token.length);
-  },
-
-  // Milliseconds timestamp
-  T: function (date, token, _localize) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(+date, token.length);
-  },
-};
-
-function formatTimezoneShort(offset, delimiter = "") {
-  const sign = offset > 0 ? "-" : "+";
-  const absOffset = Math.abs(offset);
-  const hours = Math.trunc(absOffset / 60);
-  const minutes = absOffset % 60;
-  if (minutes === 0) {
-    return sign + String(hours);
-  }
-  return sign + String(hours) + delimiter + (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(minutes, 2);
-}
-
-function formatTimezoneWithOptionalMinutes(offset, delimiter) {
-  if (offset % 60 === 0) {
-    const sign = offset > 0 ? "-" : "+";
-    return sign + (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.abs(offset) / 60, 2);
-  }
-  return formatTimezone(offset, delimiter);
-}
-
-function formatTimezone(offset, delimiter = "") {
-  const sign = offset > 0 ? "-" : "+";
-  const absOffset = Math.abs(offset);
-  const hours = (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(Math.trunc(absOffset / 60), 2);
-  const minutes = (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_5__.addLeadingZeros)(absOffset % 60, 2);
-  return sign + hours + delimiter + minutes;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/format/lightFormatters.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/format/lightFormatters.js ***!
-  \********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   lightFormatters: function() { return /* binding */ lightFormatters; }
-/* harmony export */ });
-/* harmony import */ var _addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../addLeadingZeros.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/addLeadingZeros.js");
-
-
-/*
- * |     | Unit                           |     | Unit                           |
- * |-----|--------------------------------|-----|--------------------------------|
- * |  a  | AM, PM                         |  A* |                                |
- * |  d  | Day of month                   |  D  |                                |
- * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
- * |  m  | Minute                         |  M  | Month                          |
- * |  s  | Second                         |  S  | Fraction of second             |
- * |  y  | Year (abs)                     |  Y  |                                |
- *
- * Letters marked by * are not implemented but reserved by Unicode standard.
- */
-
-const lightFormatters = {
-  // Year
-  y(date, token) {
-    // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_tokens
-    // | Year     |     y | yy |   yyy |  yyyy | yyyyy |
-    // |----------|-------|----|-------|-------|-------|
-    // | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
-    // | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
-    // | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
-    // | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
-    // | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
-
-    const signedYear = date.getFullYear();
-    // Returns 1 for 1 BC (which is year 0 in JavaScript)
-    const year = signedYear > 0 ? signedYear : 1 - signedYear;
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(token === "yy" ? year % 100 : year, token.length);
-  },
-
-  // Month
-  M(date, token) {
-    const month = date.getMonth();
-    return token === "M" ? String(month + 1) : (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(month + 1, 2);
-  },
-
-  // Day of the month
-  d(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getDate(), token.length);
-  },
-
-  // AM or PM
-  a(date, token) {
-    const dayPeriodEnumValue = date.getHours() / 12 >= 1 ? "pm" : "am";
-
-    switch (token) {
-      case "a":
-      case "aa":
-        return dayPeriodEnumValue.toUpperCase();
-      case "aaa":
-        return dayPeriodEnumValue;
-      case "aaaaa":
-        return dayPeriodEnumValue[0];
-      case "aaaa":
-      default:
-        return dayPeriodEnumValue === "am" ? "a.m." : "p.m.";
-    }
-  },
-
-  // Hour [1-12]
-  h(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours() % 12 || 12, token.length);
-  },
-
-  // Hour [0-23]
-  H(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours(), token.length);
-  },
-
-  // Minute
-  m(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getMinutes(), token.length);
-  },
-
-  // Second
-  s(date, token) {
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getSeconds(), token.length);
-  },
-
-  // Fraction of second
-  S(date, token) {
-    const numberOfDigits = token.length;
-    const milliseconds = date.getMilliseconds();
-    const fractionalSeconds = Math.trunc(
-      milliseconds * Math.pow(10, numberOfDigits - 3),
-    );
-    return (0,_addLeadingZeros_js__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(fractionalSeconds, token.length);
-  },
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/format/longFormatters.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/format/longFormatters.js ***!
-  \*******************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   longFormatters: function() { return /* binding */ longFormatters; }
-/* harmony export */ });
-const dateLongFormatter = (pattern, formatLong) => {
-  switch (pattern) {
-    case "P":
-      return formatLong.date({ width: "short" });
-    case "PP":
-      return formatLong.date({ width: "medium" });
-    case "PPP":
-      return formatLong.date({ width: "long" });
-    case "PPPP":
-    default:
-      return formatLong.date({ width: "full" });
-  }
-};
-
-const timeLongFormatter = (pattern, formatLong) => {
-  switch (pattern) {
-    case "p":
-      return formatLong.time({ width: "short" });
-    case "pp":
-      return formatLong.time({ width: "medium" });
-    case "ppp":
-      return formatLong.time({ width: "long" });
-    case "pppp":
-    default:
-      return formatLong.time({ width: "full" });
-  }
-};
-
-const dateTimeLongFormatter = (pattern, formatLong) => {
-  const matchResult = pattern.match(/(P+)(p+)?/) || [];
-  const datePattern = matchResult[1];
-  const timePattern = matchResult[2];
-
-  if (!timePattern) {
-    return dateLongFormatter(pattern, formatLong);
-  }
-
-  let dateTimeFormat;
-
-  switch (datePattern) {
-    case "P":
-      dateTimeFormat = formatLong.dateTime({ width: "short" });
-      break;
-    case "PP":
-      dateTimeFormat = formatLong.dateTime({ width: "medium" });
-      break;
-    case "PPP":
-      dateTimeFormat = formatLong.dateTime({ width: "long" });
-      break;
-    case "PPPP":
-    default:
-      dateTimeFormat = formatLong.dateTime({ width: "full" });
-      break;
-  }
-
-  return dateTimeFormat
-    .replace("{{date}}", dateLongFormatter(datePattern, formatLong))
-    .replace("{{time}}", timeLongFormatter(timePattern, formatLong));
-};
-
-const longFormatters = {
-  p: timeLongFormatter,
-  P: dateTimeLongFormatter,
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js ***!
-  \*****************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getTimezoneOffsetInMilliseconds: function() { return /* binding */ getTimezoneOffsetInMilliseconds; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
- * They usually appear for dates that denote time before the timezones were introduced
- * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
- * and GMT+01:00:00 after that date)
- *
- * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
- * which would lead to incorrect calculations.
- *
- * This function returns the timezone offset in milliseconds that takes seconds in account.
- */
-function getTimezoneOffsetInMilliseconds(date) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
-  const utcDate = new Date(
-    Date.UTC(
-      _date.getFullYear(),
-      _date.getMonth(),
-      _date.getDate(),
-      _date.getHours(),
-      _date.getMinutes(),
-      _date.getSeconds(),
-      _date.getMilliseconds(),
-    ),
-  );
-  utcDate.setUTCFullYear(_date.getFullYear());
-  return +date - +utcDate;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js ***!
-  \************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   normalizeDates: function() { return /* binding */ normalizeDates; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-
-
-function normalizeDates(context, ...dates) {
-  const normalize = _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom.bind(
-    null,
-    context || dates.find((date) => typeof date === "object"),
-  );
-  return dates.map(normalize);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeInterval.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeInterval.js ***!
-  \***************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   normalizeInterval: function() { return /* binding */ normalizeInterval; }
-/* harmony export */ });
-/* harmony import */ var _normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalizeDates.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js");
-
-
-function normalizeInterval(context, interval) {
-  const [start, end] = (0,_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(context, interval.start, interval.end);
-  return { start, end };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/_lib/protectedTokens.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/_lib/protectedTokens.js ***!
-  \*************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isProtectedDayOfYearToken: function() { return /* binding */ isProtectedDayOfYearToken; },
-/* harmony export */   isProtectedWeekYearToken: function() { return /* binding */ isProtectedWeekYearToken; },
-/* harmony export */   warnOrThrowProtectedError: function() { return /* binding */ warnOrThrowProtectedError; }
-/* harmony export */ });
-const dayOfYearTokenRE = /^D+$/;
-const weekYearTokenRE = /^Y+$/;
-
-const throwTokens = ["D", "DD", "YY", "YYYY"];
-
-function isProtectedDayOfYearToken(token) {
-  return dayOfYearTokenRE.test(token);
-}
-
-function isProtectedWeekYearToken(token) {
-  return weekYearTokenRE.test(token);
-}
-
-function warnOrThrowProtectedError(token, format, input) {
-  const _message = message(token, format, input);
-  console.warn(_message);
-  if (throwTokens.includes(token)) throw new RangeError(_message);
-}
-
-function message(token, format, input) {
-  const subject = token[0] === "Y" ? "years" : "days of the month";
-  return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/addDays.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/addDays.js ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addDays: function() { return /* binding */ addDays; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link addDays} function options.
- */
-
-/**
- * @name addDays
- * @category Day Helpers
- * @summary Add the specified number of days to the given date.
- *
- * @description
- * Add the specified number of days to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of days to be added.
- * @param options - An object with options
- *
- * @returns The new date with the days added
- *
- * @example
- * // Add 10 days to 1 September 2014:
- * const result = addDays(new Date(2014, 8, 1), 10)
- * //=> Thu Sep 11 2014 00:00:00
- */
-function addDays(date, amount, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  if (isNaN(amount)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
-
-  // If 0 days, no-op to avoid changing times in the hour before end of DST
-  if (!amount) return _date;
-
-  _date.setDate(_date.getDate() + amount);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (addDays);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/addMonths.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/addMonths.js ***!
-  \**************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addMonths: function() { return /* binding */ addMonths; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link addMonths} function options.
- */
-
-/**
- * @name addMonths
- * @category Month Helpers
- * @summary Add the specified number of months to the given date.
- *
- * @description
- * Add the specified number of months to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of months to be added.
- * @param options - The options object
- *
- * @returns The new date with the months added
- *
- * @example
- * // Add 5 months to 1 September 2014:
- * const result = addMonths(new Date(2014, 8, 1), 5)
- * //=> Sun Feb 01 2015 00:00:00
- *
- * // Add one month to 30 January 2023:
- * const result = addMonths(new Date(2023, 0, 30), 1)
- * //=> Tue Feb 28 2023 00:00:00
- */
-function addMonths(date, amount, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  if (isNaN(amount)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
-  if (!amount) {
-    // If 0 months, no-op to avoid changing times in the hour before end of DST
-    return _date;
-  }
-  const dayOfMonth = _date.getDate();
-
-  // The JS Date object supports date math by accepting out-of-bounds values for
-  // month, day, etc. For example, new Date(2020, 0, 0) returns 31 Dec 2019 and
-  // new Date(2020, 13, 1) returns 1 Feb 2021.  This is *almost* the behavior we
-  // want except that dates will wrap around the end of a month, meaning that
-  // new Date(2020, 13, 31) will return 3 Mar 2021 not 28 Feb 2021 as desired. So
-  // we'll default to the end of the desired month by adding 1 to the desired
-  // month and using a date of 0 to back up one day to the end of the desired
-  // month.
-  const endOfDesiredMonth = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, _date.getTime());
-  endOfDesiredMonth.setMonth(_date.getMonth() + amount + 1, 0);
-  const daysInMonth = endOfDesiredMonth.getDate();
-  if (dayOfMonth >= daysInMonth) {
-    // If we're already at the end of the month, then this is the correct date
-    // and we're done.
-    return endOfDesiredMonth;
-  } else {
-    // Otherwise, we now know that setting the original day-of-month value won't
-    // cause an overflow, so set the desired day-of-month. Note that we can't
-    // just set the date of `endOfDesiredMonth` because that object may have had
-    // its time changed in the unusual case where where a DST transition was on
-    // the last day of the month and its local time was in the hour skipped or
-    // repeated next to a DST transition.  So we use `date` instead which is
-    // guaranteed to still have the original time.
-    _date.setFullYear(
-      endOfDesiredMonth.getFullYear(),
-      endOfDesiredMonth.getMonth(),
-      dayOfMonth,
-    );
-    return _date;
-  }
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (addMonths);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/addWeeks.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/addWeeks.js ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addWeeks: function() { return /* binding */ addWeeks; }
-/* harmony export */ });
-/* harmony import */ var _addDays_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addDays.js */ "./node_modules/react-day-picker/node_modules/date-fns/addDays.js");
-
-
-/**
- * The {@link addWeeks} function options.
- */
-
-/**
- * @name addWeeks
- * @category Week Helpers
- * @summary Add the specified number of weeks to the given date.
- *
- * @description
- * Add the specified number of weeks to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param amount - The amount of weeks to be added.
- * @param options - An object with options
- *
- * @returns The new date with the weeks added
- *
- * @example
- * // Add 4 weeks to 1 September 2014:
- * const result = addWeeks(new Date(2014, 8, 1), 4)
- * //=> Mon Sep 29 2014 00:00:00
- */
-function addWeeks(date, amount, options) {
-  return (0,_addDays_js__WEBPACK_IMPORTED_MODULE_0__.addDays)(date, amount * 7, options);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (addWeeks);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/addYears.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/addYears.js ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addYears: function() { return /* binding */ addYears; }
-/* harmony export */ });
-/* harmony import */ var _addMonths_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addMonths.js */ "./node_modules/react-day-picker/node_modules/date-fns/addMonths.js");
-
-
-/**
- * The {@link addYears} function options.
- */
-
-/**
- * @name addYears
- * @category Year Helpers
- * @summary Add the specified number of years to the given date.
- *
- * @description
- * Add the specified number of years to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type.
- *
- * @param date - The date to be changed
- * @param amount - The amount of years to be added.
- * @param options - The options
- *
- * @returns The new date with the years added
- *
- * @example
- * // Add 5 years to 1 September 2014:
- * const result = addYears(new Date(2014, 8, 1), 5)
- * //=> Sun Sep 01 2019 00:00:00
- */
-function addYears(date, amount, options) {
-  return (0,_addMonths_js__WEBPACK_IMPORTED_MODULE_0__.addMonths)(date, amount * 12, options);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (addYears);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/constants.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/constants.js ***!
-  \**************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   constructFromSymbol: function() { return /* binding */ constructFromSymbol; },
-/* harmony export */   daysInWeek: function() { return /* binding */ daysInWeek; },
-/* harmony export */   daysInYear: function() { return /* binding */ daysInYear; },
-/* harmony export */   maxTime: function() { return /* binding */ maxTime; },
-/* harmony export */   millisecondsInDay: function() { return /* binding */ millisecondsInDay; },
-/* harmony export */   millisecondsInHour: function() { return /* binding */ millisecondsInHour; },
-/* harmony export */   millisecondsInMinute: function() { return /* binding */ millisecondsInMinute; },
-/* harmony export */   millisecondsInSecond: function() { return /* binding */ millisecondsInSecond; },
-/* harmony export */   millisecondsInWeek: function() { return /* binding */ millisecondsInWeek; },
-/* harmony export */   minTime: function() { return /* binding */ minTime; },
-/* harmony export */   minutesInDay: function() { return /* binding */ minutesInDay; },
-/* harmony export */   minutesInHour: function() { return /* binding */ minutesInHour; },
-/* harmony export */   minutesInMonth: function() { return /* binding */ minutesInMonth; },
-/* harmony export */   minutesInYear: function() { return /* binding */ minutesInYear; },
-/* harmony export */   monthsInQuarter: function() { return /* binding */ monthsInQuarter; },
-/* harmony export */   monthsInYear: function() { return /* binding */ monthsInYear; },
-/* harmony export */   quartersInYear: function() { return /* binding */ quartersInYear; },
-/* harmony export */   secondsInDay: function() { return /* binding */ secondsInDay; },
-/* harmony export */   secondsInHour: function() { return /* binding */ secondsInHour; },
-/* harmony export */   secondsInMinute: function() { return /* binding */ secondsInMinute; },
-/* harmony export */   secondsInMonth: function() { return /* binding */ secondsInMonth; },
-/* harmony export */   secondsInQuarter: function() { return /* binding */ secondsInQuarter; },
-/* harmony export */   secondsInWeek: function() { return /* binding */ secondsInWeek; },
-/* harmony export */   secondsInYear: function() { return /* binding */ secondsInYear; }
-/* harmony export */ });
-/**
- * @module constants
- * @summary Useful constants
- * @description
- * Collection of useful date constants.
- *
- * The constants could be imported from `date-fns/constants`:
- *
- * ```ts
- * import { maxTime, minTime } from "./constants/date-fns/constants";
- *
- * function isAllowedTime(time) {
- *   return time <= maxTime && time >= minTime;
- * }
- * ```
- */
-
-/**
- * @constant
- * @name daysInWeek
- * @summary Days in 1 week.
- */
-const daysInWeek = 7;
-
-/**
- * @constant
- * @name daysInYear
- * @summary Days in 1 year.
- *
- * @description
- * How many days in a year.
- *
- * One years equals 365.2425 days according to the formula:
- *
- * > Leap year occurs every 4 years, except for years that are divisible by 100 and not divisible by 400.
- * > 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days
- */
-const daysInYear = 365.2425;
-
-/**
- * @constant
- * @name maxTime
- * @summary Maximum allowed time.
- *
- * @example
- * import { maxTime } from "./constants/date-fns/constants";
- *
- * const isValid = 8640000000000001 <= maxTime;
- * //=> false
- *
- * new Date(8640000000000001);
- * //=> Invalid Date
- */
-const maxTime = Math.pow(10, 8) * 24 * 60 * 60 * 1000;
-
-/**
- * @constant
- * @name minTime
- * @summary Minimum allowed time.
- *
- * @example
- * import { minTime } from "./constants/date-fns/constants";
- *
- * const isValid = -8640000000000001 >= minTime;
- * //=> false
- *
- * new Date(-8640000000000001)
- * //=> Invalid Date
- */
-const minTime = -maxTime;
-
-/**
- * @constant
- * @name millisecondsInWeek
- * @summary Milliseconds in 1 week.
- */
-const millisecondsInWeek = 604800000;
-
-/**
- * @constant
- * @name millisecondsInDay
- * @summary Milliseconds in 1 day.
- */
-const millisecondsInDay = 86400000;
-
-/**
- * @constant
- * @name millisecondsInMinute
- * @summary Milliseconds in 1 minute
- */
-const millisecondsInMinute = 60000;
-
-/**
- * @constant
- * @name millisecondsInHour
- * @summary Milliseconds in 1 hour
- */
-const millisecondsInHour = 3600000;
-
-/**
- * @constant
- * @name millisecondsInSecond
- * @summary Milliseconds in 1 second
- */
-const millisecondsInSecond = 1000;
-
-/**
- * @constant
- * @name minutesInYear
- * @summary Minutes in 1 year.
- */
-const minutesInYear = 525600;
-
-/**
- * @constant
- * @name minutesInMonth
- * @summary Minutes in 1 month.
- */
-const minutesInMonth = 43200;
-
-/**
- * @constant
- * @name minutesInDay
- * @summary Minutes in 1 day.
- */
-const minutesInDay = 1440;
-
-/**
- * @constant
- * @name minutesInHour
- * @summary Minutes in 1 hour.
- */
-const minutesInHour = 60;
-
-/**
- * @constant
- * @name monthsInQuarter
- * @summary Months in 1 quarter.
- */
-const monthsInQuarter = 3;
-
-/**
- * @constant
- * @name monthsInYear
- * @summary Months in 1 year.
- */
-const monthsInYear = 12;
-
-/**
- * @constant
- * @name quartersInYear
- * @summary Quarters in 1 year
- */
-const quartersInYear = 4;
-
-/**
- * @constant
- * @name secondsInHour
- * @summary Seconds in 1 hour.
- */
-const secondsInHour = 3600;
-
-/**
- * @constant
- * @name secondsInMinute
- * @summary Seconds in 1 minute.
- */
-const secondsInMinute = 60;
-
-/**
- * @constant
- * @name secondsInDay
- * @summary Seconds in 1 day.
- */
-const secondsInDay = secondsInHour * 24;
-
-/**
- * @constant
- * @name secondsInWeek
- * @summary Seconds in 1 week.
- */
-const secondsInWeek = secondsInDay * 7;
-
-/**
- * @constant
- * @name secondsInYear
- * @summary Seconds in 1 year.
- */
-const secondsInYear = secondsInDay * daysInYear;
-
-/**
- * @constant
- * @name secondsInMonth
- * @summary Seconds in 1 month
- */
-const secondsInMonth = secondsInYear / 12;
-
-/**
- * @constant
- * @name secondsInQuarter
- * @summary Seconds in 1 quarter.
- */
-const secondsInQuarter = secondsInMonth * 3;
-
-/**
- * @constant
- * @name constructFromSymbol
- * @summary Symbol enabling Date extensions to inherit properties from the reference date.
- *
- * The symbol is used to enable the `constructFrom` function to construct a date
- * using a reference date and a value. It allows to transfer extra properties
- * from the reference date to the new date. It's useful for extensions like
- * [`TZDate`](https://github.com/date-fns/tz) that accept a time zone as
- * a constructor argument.
- */
-const constructFromSymbol = Symbol.for("constructDateFrom");
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js ***!
-  \******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   constructFrom: function() { return /* binding */ constructFrom; }
-/* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/react-day-picker/node_modules/date-fns/constants.js");
-
-
-/**
- * @name constructFrom
- * @category Generic Helpers
- * @summary Constructs a date using the reference date and the value
- *
- * @description
- * The function constructs a new date using the constructor from the reference
- * date and the given value. It helps to build generic functions that accept
- * date extensions.
- *
- * It defaults to `Date` if the passed reference date is a number or a string.
- *
- * Starting from v3.7.0, it allows to construct a date using `[Symbol.for("constructDateFrom")]`
- * enabling to transfer extra properties from the reference date to the new date.
- * It's useful for extensions like [`TZDate`](https://github.com/date-fns/tz)
- * that accept a time zone as a constructor argument.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- *
- * @param date - The reference date to take constructor from
- * @param value - The value to create the date
- *
- * @returns Date initialized using the given date and value
- *
- * @example
- * import { constructFrom } from "./constructFrom/date-fns";
- *
- * // A function that clones a date preserving the original type
- * function cloneDate<DateType extends Date>(date: DateType): DateType {
- *   return constructFrom(
- *     date, // Use constructor from the given date
- *     date.getTime() // Use the date value to create a new date
- *   );
- * }
- */
-function constructFrom(date, value) {
-  if (typeof date === "function") return date(value);
-
-  if (date && typeof date === "object" && _constants_js__WEBPACK_IMPORTED_MODULE_0__.constructFromSymbol in date)
-    return date[_constants_js__WEBPACK_IMPORTED_MODULE_0__.constructFromSymbol](value);
-
-  if (date instanceof Date) return new date.constructor(value);
-
-  return new Date(value);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (constructFrom);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarDays.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarDays.js ***!
-  \*****************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   differenceInCalendarDays: function() { return /* binding */ differenceInCalendarDays; }
-/* harmony export */ });
-/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/getTimezoneOffsetInMilliseconds.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.js");
-/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants.js */ "./node_modules/react-day-picker/node_modules/date-fns/constants.js");
-/* harmony import */ var _startOfDay_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfDay.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfDay.js");
-
-
-
-
-
-/**
- * The {@link differenceInCalendarDays} function options.
- */
-
-/**
- * @name differenceInCalendarDays
- * @category Day Helpers
- * @summary Get the number of calendar days between the given dates.
- *
- * @description
- * Get the number of calendar days between the given dates. This means that the times are removed
- * from the dates and then the difference in days is calculated.
- *
- * @param laterDate - The later date
- * @param earlierDate - The earlier date
- * @param options - The options object
- *
- * @returns The number of calendar days
- *
- * @example
- * // How many calendar days are between
- * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
- * const result = differenceInCalendarDays(
- *   new Date(2012, 6, 2, 0, 0),
- *   new Date(2011, 6, 2, 23, 0)
- * )
- * //=> 366
- * // How many calendar days are between
- * // 2 July 2011 23:59:00 and 3 July 2011 00:01:00?
- * const result = differenceInCalendarDays(
- *   new Date(2011, 6, 3, 0, 1),
- *   new Date(2011, 6, 2, 23, 59)
- * )
- * //=> 1
- */
-function differenceInCalendarDays(laterDate, earlierDate, options) {
-  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_1__.normalizeDates)(
-    options?.in,
-    laterDate,
-    earlierDate,
-  );
-
-  const laterStartOfDay = (0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_3__.startOfDay)(laterDate_);
-  const earlierStartOfDay = (0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_3__.startOfDay)(earlierDate_);
-
-  const laterTimestamp =
-    +laterStartOfDay - (0,_lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__.getTimezoneOffsetInMilliseconds)(laterStartOfDay);
-  const earlierTimestamp =
-    +earlierStartOfDay - (0,_lib_getTimezoneOffsetInMilliseconds_js__WEBPACK_IMPORTED_MODULE_0__.getTimezoneOffsetInMilliseconds)(earlierStartOfDay);
-
-  // Round the number of days to the nearest integer because the number of
-  // milliseconds in a day is not constant (e.g. it's different in the week of
-  // the daylight saving time clock shift).
-  return Math.round((laterTimestamp - earlierTimestamp) / _constants_js__WEBPACK_IMPORTED_MODULE_2__.millisecondsInDay);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (differenceInCalendarDays);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarMonths.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarMonths.js ***!
-  \*******************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   differenceInCalendarMonths: function() { return /* binding */ differenceInCalendarMonths; }
-/* harmony export */ });
-/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js");
-
-
-/**
- * The {@link differenceInCalendarMonths} function options.
- */
-
-/**
- * @name differenceInCalendarMonths
- * @category Month Helpers
- * @summary Get the number of calendar months between the given dates.
- *
- * @description
- * Get the number of calendar months between the given dates.
- *
- * @param laterDate - The later date
- * @param earlierDate - The earlier date
- * @param options - An object with options
- *
- * @returns The number of calendar months
- *
- * @example
- * // How many calendar months are between 31 January 2014 and 1 September 2014?
- * const result = differenceInCalendarMonths(
- *   new Date(2014, 8, 1),
- *   new Date(2014, 0, 31)
- * )
- * //=> 8
- */
-function differenceInCalendarMonths(laterDate, earlierDate, options) {
-  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
-    options?.in,
-    laterDate,
-    earlierDate,
-  );
-
-  const yearsDiff = laterDate_.getFullYear() - earlierDate_.getFullYear();
-  const monthsDiff = laterDate_.getMonth() - earlierDate_.getMonth();
-
-  return yearsDiff * 12 + monthsDiff;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (differenceInCalendarMonths);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/eachMonthOfInterval.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/eachMonthOfInterval.js ***!
-  \************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   eachMonthOfInterval: function() { return /* binding */ eachMonthOfInterval; }
-/* harmony export */ });
-/* harmony import */ var _lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeInterval.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeInterval.js");
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-
-
-
-/**
- * The {@link eachMonthOfInterval} function options.
- */
-
-/**
- * The {@link eachMonthOfInterval} function result type. It resolves the proper data type.
- */
-
-/**
- * @name eachMonthOfInterval
- * @category Interval Helpers
- * @summary Return the array of months within the specified time interval.
- *
- * @description
- * Return the array of months within the specified time interval.
- *
- * @typeParam IntervalType - Interval type.
- * @typeParam Options - Options type.
- *
- * @param interval - The interval.
- * @param options - An object with options.
- *
- * @returns The array with starts of months from the month of the interval start to the month of the interval end
- *
- * @example
- * // Each month between 6 February 2014 and 10 August 2014:
- * const result = eachMonthOfInterval({
- *   start: new Date(2014, 1, 6),
- *   end: new Date(2014, 7, 10)
- * })
- * //=> [
- * //   Sat Feb 01 2014 00:00:00,
- * //   Sat Mar 01 2014 00:00:00,
- * //   Tue Apr 01 2014 00:00:00,
- * //   Thu May 01 2014 00:00:00,
- * //   Sun Jun 01 2014 00:00:00,
- * //   Tue Jul 01 2014 00:00:00,
- * //   Fri Aug 01 2014 00:00:00
- * // ]
- */
-function eachMonthOfInterval(interval, options) {
-  const { start, end } = (0,_lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__.normalizeInterval)(options?.in, interval);
-
-  let reversed = +start > +end;
-  const endTime = reversed ? +start : +end;
-  const date = reversed ? end : start;
-  date.setHours(0, 0, 0, 0);
-  date.setDate(1);
-
-  let step = options?.step ?? 1;
-  if (!step) return [];
-  if (step < 0) {
-    step = -step;
-    reversed = !reversed;
-  }
-
-  const dates = [];
-
-  while (+date <= endTime) {
-    dates.push((0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(start, date));
-    date.setMonth(date.getMonth() + step);
-  }
-
-  return reversed ? dates.reverse() : dates;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (eachMonthOfInterval);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/eachYearOfInterval.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/eachYearOfInterval.js ***!
-  \***********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   eachYearOfInterval: function() { return /* binding */ eachYearOfInterval; }
-/* harmony export */ });
-/* harmony import */ var _lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeInterval.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeInterval.js");
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-
-
-
-/**
- * The {@link eachYearOfInterval} function options.
- */
-
-/**
- * The {@link eachYearOfInterval} function result type. It resolves the proper data type.
- * It uses the first argument date object type, starting from the date argument,
- * then the start interval date, and finally the end interval date. If
- * a context function is passed, it uses the context function return type.
- */
-
-/**
- * @name eachYearOfInterval
- * @category Interval Helpers
- * @summary Return the array of yearly timestamps within the specified time interval.
- *
- * @description
- * Return the array of yearly timestamps within the specified time interval.
- *
- * @typeParam IntervalType - Interval type.
- * @typeParam Options - Options type.
- *
- * @param interval - The interval.
- * @param options - An object with options.
- *
- * @returns The array with starts of yearly timestamps from the month of the interval start to the month of the interval end
- *
- * @example
- * // Each year between 6 February 2014 and 10 August 2017:
- * const result = eachYearOfInterval({
- *   start: new Date(2014, 1, 6),
- *   end: new Date(2017, 7, 10)
- * })
- * //=> [
- * //   Wed Jan 01 2014 00:00:00,
- * //   Thu Jan 01 2015 00:00:00,
- * //   Fri Jan 01 2016 00:00:00,
- * //   Sun Jan 01 2017 00:00:00
- * // ]
- */
-function eachYearOfInterval(interval, options) {
-  const { start, end } = (0,_lib_normalizeInterval_js__WEBPACK_IMPORTED_MODULE_0__.normalizeInterval)(options?.in, interval);
-
-  let reversed = +start > +end;
-  const endTime = reversed ? +start : +end;
-  const date = reversed ? end : start;
-  date.setHours(0, 0, 0, 0);
-  date.setMonth(0, 1);
-
-  let step = options?.step ?? 1;
-  if (!step) return [];
-  if (step < 0) {
-    step = -step;
-    reversed = !reversed;
-  }
-
-  const dates = [];
-
-  while (+date <= endTime) {
-    dates.push((0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(start, date));
-    date.setFullYear(date.getFullYear() + step);
-  }
-
-  return reversed ? dates.reverse() : dates;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (eachYearOfInterval);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/endOfISOWeek.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/endOfISOWeek.js ***!
-  \*****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   endOfISOWeek: function() { return /* binding */ endOfISOWeek; }
-/* harmony export */ });
-/* harmony import */ var _endOfWeek_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./endOfWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/endOfWeek.js");
-
-
-/**
- * The {@link endOfISOWeek} function options.
- */
-
-/**
- * @name endOfISOWeek
- * @category ISO Week Helpers
- * @summary Return the end of an ISO week for the given date.
- *
- * @description
- * Return the end of an ISO week for the given date.
- * The result will be in the local timezone.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The end of an ISO week
- *
- * @example
- * // The end of an ISO week for 2 September 2014 11:55:00:
- * const result = endOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Sun Sep 07 2014 23:59:59.999
- */
-function endOfISOWeek(date, options) {
-  return (0,_endOfWeek_js__WEBPACK_IMPORTED_MODULE_0__.endOfWeek)(date, { ...options, weekStartsOn: 1 });
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (endOfISOWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/endOfMonth.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/endOfMonth.js ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   endOfMonth: function() { return /* binding */ endOfMonth; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link endOfMonth} function options.
- */
-
-/**
- * @name endOfMonth
- * @category Month Helpers
- * @summary Return the end of a month for the given date.
- *
- * @description
- * Return the end of a month for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The end of a month
- *
- * @example
- * // The end of a month for 2 September 2014 11:55:00:
- * const result = endOfMonth(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Tue Sep 30 2014 23:59:59.999
- */
-function endOfMonth(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  const month = _date.getMonth();
-  _date.setFullYear(_date.getFullYear(), month + 1, 0);
-  _date.setHours(23, 59, 59, 999);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (endOfMonth);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/endOfWeek.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/endOfWeek.js ***!
-  \**************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   endOfWeek: function() { return /* binding */ endOfWeek; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link endOfWeek} function options.
- */
-
-/**
- * @name endOfWeek
- * @category Week Helpers
- * @summary Return the end of a week for the given date.
- *
- * @description
- * Return the end of a week for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The end of a week
- *
- * @example
- * // The end of a week for 2 September 2014 11:55:00:
- * const result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Sat Sep 06 2014 23:59:59.999
- *
- * @example
- * // If the week starts on Monday, the end of the week for 2 September 2014 11:55:00:
- * const result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
- * //=> Sun Sep 07 2014 23:59:59.999
- */
-function endOfWeek(date, options) {
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
-  const weekStartsOn =
-    options?.weekStartsOn ??
-    options?.locale?.options?.weekStartsOn ??
-    defaultOptions.weekStartsOn ??
-    defaultOptions.locale?.options?.weekStartsOn ??
-    0;
-
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  const day = _date.getDay();
-  const diff = (day < weekStartsOn ? -7 : 0) + 6 - (day - weekStartsOn);
-
-  _date.setDate(_date.getDate() + diff);
-  _date.setHours(23, 59, 59, 999);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (endOfWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/endOfYear.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/endOfYear.js ***!
-  \**************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   endOfYear: function() { return /* binding */ endOfYear; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link endOfYear} function options.
- */
-
-/**
- * @name endOfYear
- * @category Year Helpers
- * @summary Return the end of a year for the given date.
- *
- * @description
- * Return the end of a year for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - The options
- *
- * @returns The end of a year
- *
- * @example
- * // The end of a year for 2 September 2014 11:55:00:
- * const result = endOfYear(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Wed Dec 31 2014 23:59:59.999
- */
-function endOfYear(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  const year = _date.getFullYear();
-  _date.setFullYear(year + 1, 0, 0);
-  _date.setHours(23, 59, 59, 999);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (endOfYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/format.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/format.js ***!
-  \***********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   format: function() { return /* binding */ format; },
-/* harmony export */   formatDate: function() { return /* binding */ format; },
-/* harmony export */   formatters: function() { return /* reexport safe */ _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters; },
-/* harmony export */   longFormatters: function() { return /* reexport safe */ _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__.longFormatters; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultLocale.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US.js");
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/format/formatters.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/format/formatters.js");
-/* harmony import */ var _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/format/longFormatters.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/format/longFormatters.js");
-/* harmony import */ var _lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_lib/protectedTokens.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/protectedTokens.js");
-/* harmony import */ var _isValid_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isValid.js */ "./node_modules/react-day-picker/node_modules/date-fns/isValid.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-
-
-
-
-
-// Rexports of internal for libraries to use.
-// See: https://github.com/date-fns/date-fns/issues/3638#issuecomment-1877082874
-
-
-// This RegExp consists of three parts separated by `|`:
-// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
-//   (one of the certain letters followed by `o`)
-// - (\w)\1* matches any sequences of the same letter
-// - '' matches two quote characters in a row
-// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
-//   except a single quote symbol, which ends the sequence.
-//   Two quote characters do not end the sequence.
-//   If there is no matching single quote
-//   then the sequence will continue until the end of the string.
-// - . matches any single character unmatched by previous parts of the RegExps
-const formattingTokensRegExp =
-  /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g;
-
-// This RegExp catches symbols escaped by quotes, and also
-// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
-const longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
-
-const escapedStringRegExp = /^'([^]*?)'?$/;
-const doubleQuoteRegExp = /''/g;
-const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
-
-
-
-/**
- * The {@link format} function options.
- */
-
-/**
- * @name format
- * @alias formatDate
- * @category Common Helpers
- * @summary Format the date.
- *
- * @description
- * Return the formatted date string in the given format. The result may vary by locale.
- *
- * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
- * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- *
- * The characters wrapped between two single quotes characters (') are escaped.
- * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
- * (see the last example)
- *
- * Format of the string is based on Unicode Technical Standard #35:
- * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
- * with a few additions (see note 7 below the table).
- *
- * Accepted patterns:
- * | Unit                            | Pattern | Result examples                   | Notes |
- * |---------------------------------|---------|-----------------------------------|-------|
- * | Era                             | G..GGG  | AD, BC                            |       |
- * |                                 | GGGG    | Anno Domini, Before Christ        | 2     |
- * |                                 | GGGGG   | A, B                              |       |
- * | Calendar year                   | y       | 44, 1, 1900, 2017                 | 5     |
- * |                                 | yo      | 44th, 1st, 0th, 17th              | 5,7   |
- * |                                 | yy      | 44, 01, 00, 17                    | 5     |
- * |                                 | yyy     | 044, 001, 1900, 2017              | 5     |
- * |                                 | yyyy    | 0044, 0001, 1900, 2017            | 5     |
- * |                                 | yyyyy   | ...                               | 3,5   |
- * | Local week-numbering year       | Y       | 44, 1, 1900, 2017                 | 5     |
- * |                                 | Yo      | 44th, 1st, 1900th, 2017th         | 5,7   |
- * |                                 | YY      | 44, 01, 00, 17                    | 5,8   |
- * |                                 | YYY     | 044, 001, 1900, 2017              | 5     |
- * |                                 | YYYY    | 0044, 0001, 1900, 2017            | 5,8   |
- * |                                 | YYYYY   | ...                               | 3,5   |
- * | ISO week-numbering year         | R       | -43, 0, 1, 1900, 2017             | 5,7   |
- * |                                 | RR      | -43, 00, 01, 1900, 2017           | 5,7   |
- * |                                 | RRR     | -043, 000, 001, 1900, 2017        | 5,7   |
- * |                                 | RRRR    | -0043, 0000, 0001, 1900, 2017     | 5,7   |
- * |                                 | RRRRR   | ...                               | 3,5,7 |
- * | Extended year                   | u       | -43, 0, 1, 1900, 2017             | 5     |
- * |                                 | uu      | -43, 01, 1900, 2017               | 5     |
- * |                                 | uuu     | -043, 001, 1900, 2017             | 5     |
- * |                                 | uuuu    | -0043, 0001, 1900, 2017           | 5     |
- * |                                 | uuuuu   | ...                               | 3,5   |
- * | Quarter (formatting)            | Q       | 1, 2, 3, 4                        |       |
- * |                                 | Qo      | 1st, 2nd, 3rd, 4th                | 7     |
- * |                                 | QQ      | 01, 02, 03, 04                    |       |
- * |                                 | QQQ     | Q1, Q2, Q3, Q4                    |       |
- * |                                 | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
- * |                                 | QQQQQ   | 1, 2, 3, 4                        | 4     |
- * | Quarter (stand-alone)           | q       | 1, 2, 3, 4                        |       |
- * |                                 | qo      | 1st, 2nd, 3rd, 4th                | 7     |
- * |                                 | qq      | 01, 02, 03, 04                    |       |
- * |                                 | qqq     | Q1, Q2, Q3, Q4                    |       |
- * |                                 | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
- * |                                 | qqqqq   | 1, 2, 3, 4                        | 4     |
- * | Month (formatting)              | M       | 1, 2, ..., 12                     |       |
- * |                                 | Mo      | 1st, 2nd, ..., 12th               | 7     |
- * |                                 | MM      | 01, 02, ..., 12                   |       |
- * |                                 | MMM     | Jan, Feb, ..., Dec                |       |
- * |                                 | MMMM    | January, February, ..., December  | 2     |
- * |                                 | MMMMM   | J, F, ..., D                      |       |
- * | Month (stand-alone)             | L       | 1, 2, ..., 12                     |       |
- * |                                 | Lo      | 1st, 2nd, ..., 12th               | 7     |
- * |                                 | LL      | 01, 02, ..., 12                   |       |
- * |                                 | LLL     | Jan, Feb, ..., Dec                |       |
- * |                                 | LLLL    | January, February, ..., December  | 2     |
- * |                                 | LLLLL   | J, F, ..., D                      |       |
- * | Local week of year              | w       | 1, 2, ..., 53                     |       |
- * |                                 | wo      | 1st, 2nd, ..., 53th               | 7     |
- * |                                 | ww      | 01, 02, ..., 53                   |       |
- * | ISO week of year                | I       | 1, 2, ..., 53                     | 7     |
- * |                                 | Io      | 1st, 2nd, ..., 53th               | 7     |
- * |                                 | II      | 01, 02, ..., 53                   | 7     |
- * | Day of month                    | d       | 1, 2, ..., 31                     |       |
- * |                                 | do      | 1st, 2nd, ..., 31st               | 7     |
- * |                                 | dd      | 01, 02, ..., 31                   |       |
- * | Day of year                     | D       | 1, 2, ..., 365, 366               | 9     |
- * |                                 | Do      | 1st, 2nd, ..., 365th, 366th       | 7     |
- * |                                 | DD      | 01, 02, ..., 365, 366             | 9     |
- * |                                 | DDD     | 001, 002, ..., 365, 366           |       |
- * |                                 | DDDD    | ...                               | 3     |
- * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
- * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
- * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
- * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
- * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
- * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
- * |                                 | ii      | 01, 02, ..., 07                   | 7     |
- * |                                 | iii     | Mon, Tue, Wed, ..., Sun           | 7     |
- * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
- * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
- * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 7     |
- * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
- * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
- * |                                 | ee      | 02, 03, ..., 01                   |       |
- * |                                 | eee     | Mon, Tue, Wed, ..., Sun           |       |
- * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
- * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
- * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
- * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
- * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
- * |                                 | cc      | 02, 03, ..., 01                   |       |
- * |                                 | ccc     | Mon, Tue, Wed, ..., Sun           |       |
- * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
- * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
- * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
- * | AM, PM                          | a..aa   | AM, PM                            |       |
- * |                                 | aaa     | am, pm                            |       |
- * |                                 | aaaa    | a.m., p.m.                        | 2     |
- * |                                 | aaaaa   | a, p                              |       |
- * | AM, PM, noon, midnight          | b..bb   | AM, PM, noon, midnight            |       |
- * |                                 | bbb     | am, pm, noon, midnight            |       |
- * |                                 | bbbb    | a.m., p.m., noon, midnight        | 2     |
- * |                                 | bbbbb   | a, p, n, mi                       |       |
- * | Flexible day period             | B..BBB  | at night, in the morning, ...     |       |
- * |                                 | BBBB    | at night, in the morning, ...     | 2     |
- * |                                 | BBBBB   | at night, in the morning, ...     |       |
- * | Hour [1-12]                     | h       | 1, 2, ..., 11, 12                 |       |
- * |                                 | ho      | 1st, 2nd, ..., 11th, 12th         | 7     |
- * |                                 | hh      | 01, 02, ..., 11, 12               |       |
- * | Hour [0-23]                     | H       | 0, 1, 2, ..., 23                  |       |
- * |                                 | Ho      | 0th, 1st, 2nd, ..., 23rd          | 7     |
- * |                                 | HH      | 00, 01, 02, ..., 23               |       |
- * | Hour [0-11]                     | K       | 1, 2, ..., 11, 0                  |       |
- * |                                 | Ko      | 1st, 2nd, ..., 11th, 0th          | 7     |
- * |                                 | KK      | 01, 02, ..., 11, 00               |       |
- * | Hour [1-24]                     | k       | 24, 1, 2, ..., 23                 |       |
- * |                                 | ko      | 24th, 1st, 2nd, ..., 23rd         | 7     |
- * |                                 | kk      | 24, 01, 02, ..., 23               |       |
- * | Minute                          | m       | 0, 1, ..., 59                     |       |
- * |                                 | mo      | 0th, 1st, ..., 59th               | 7     |
- * |                                 | mm      | 00, 01, ..., 59                   |       |
- * | Second                          | s       | 0, 1, ..., 59                     |       |
- * |                                 | so      | 0th, 1st, ..., 59th               | 7     |
- * |                                 | ss      | 00, 01, ..., 59                   |       |
- * | Fraction of second              | S       | 0, 1, ..., 9                      |       |
- * |                                 | SS      | 00, 01, ..., 99                   |       |
- * |                                 | SSS     | 000, 001, ..., 999                |       |
- * |                                 | SSSS    | ...                               | 3     |
- * | Timezone (ISO-8601 w/ Z)        | X       | -08, +0530, Z                     |       |
- * |                                 | XX      | -0800, +0530, Z                   |       |
- * |                                 | XXX     | -08:00, +05:30, Z                 |       |
- * |                                 | XXXX    | -0800, +0530, Z, +123456          | 2     |
- * |                                 | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
- * | Timezone (ISO-8601 w/o Z)       | x       | -08, +0530, +00                   |       |
- * |                                 | xx      | -0800, +0530, +0000               |       |
- * |                                 | xxx     | -08:00, +05:30, +00:00            | 2     |
- * |                                 | xxxx    | -0800, +0530, +0000, +123456      |       |
- * |                                 | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
- * | Timezone (GMT)                  | O...OOO | GMT-8, GMT+5:30, GMT+0            |       |
- * |                                 | OOOO    | GMT-08:00, GMT+05:30, GMT+00:00   | 2     |
- * | Timezone (specific non-locat.)  | z...zzz | GMT-8, GMT+5:30, GMT+0            | 6     |
- * |                                 | zzzz    | GMT-08:00, GMT+05:30, GMT+00:00   | 2,6   |
- * | Seconds timestamp               | t       | 512969520                         | 7     |
- * |                                 | tt      | ...                               | 3,7   |
- * | Milliseconds timestamp          | T       | 512969520900                      | 7     |
- * |                                 | TT      | ...                               | 3,7   |
- * | Long localized date             | P       | 04/29/1453                        | 7     |
- * |                                 | PP      | Apr 29, 1453                      | 7     |
- * |                                 | PPP     | April 29th, 1453                  | 7     |
- * |                                 | PPPP    | Friday, April 29th, 1453          | 2,7   |
- * | Long localized time             | p       | 12:00 AM                          | 7     |
- * |                                 | pp      | 12:00:00 AM                       | 7     |
- * |                                 | ppp     | 12:00:00 AM GMT+2                 | 7     |
- * |                                 | pppp    | 12:00:00 AM GMT+02:00             | 2,7   |
- * | Combination of date and time    | Pp      | 04/29/1453, 12:00 AM              | 7     |
- * |                                 | PPpp    | Apr 29, 1453, 12:00:00 AM         | 7     |
- * |                                 | PPPppp  | April 29th, 1453 at ...           | 7     |
- * |                                 | PPPPpppp| Friday, April 29th, 1453 at ...   | 2,7   |
- * Notes:
- * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
- *    are the same as "stand-alone" units, but are different in some languages.
- *    "Formatting" units are declined according to the rules of the language
- *    in the context of a date. "Stand-alone" units are always nominative singular:
- *
- *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
- *
- *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
- *
- * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
- *    the single quote characters (see below).
- *    If the sequence is longer than listed in table (e.g. `EEEEEEEEEEE`)
- *    the output will be the same as default pattern for this unit, usually
- *    the longest one (in case of ISO weekdays, `EEEE`). Default patterns for units
- *    are marked with "2" in the last column of the table.
- *
- *    `format(new Date(2017, 10, 6), 'MMM') //=> 'Nov'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMM') //=> 'November'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMMM') //=> 'N'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMMMM') //=> 'November'`
- *
- *    `format(new Date(2017, 10, 6), 'MMMMMMM') //=> 'November'`
- *
- * 3. Some patterns could be unlimited length (such as `yyyyyyyy`).
- *    The output will be padded with zeros to match the length of the pattern.
- *
- *    `format(new Date(2017, 10, 6), 'yyyyyyyy') //=> '00002017'`
- *
- * 4. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
- *    These tokens represent the shortest form of the quarter.
- *
- * 5. The main difference between `y` and `u` patterns are B.C. years:
- *
- *    | Year | `y` | `u` |
- *    |------|-----|-----|
- *    | AC 1 |   1 |   1 |
- *    | BC 1 |   1 |   0 |
- *    | BC 2 |   2 |  -1 |
- *
- *    Also `yy` always returns the last two digits of a year,
- *    while `uu` pads single digit years to 2 characters and returns other years unchanged:
- *
- *    | Year | `yy` | `uu` |
- *    |------|------|------|
- *    | 1    |   01 |   01 |
- *    | 14   |   14 |   14 |
- *    | 376  |   76 |  376 |
- *    | 1453 |   53 | 1453 |
- *
- *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
- *    except local week-numbering years are dependent on `options.weekStartsOn`
- *    and `options.firstWeekContainsDate` (compare [getISOWeekYear](https://date-fns.org/docs/getISOWeekYear)
- *    and [getWeekYear](https://date-fns.org/docs/getWeekYear)).
- *
- * 6. Specific non-location timezones are currently unavailable in `date-fns`,
- *    so right now these tokens fall back to GMT timezones.
- *
- * 7. These patterns are not in the Unicode Technical Standard #35:
- *    - `i`: ISO day of week
- *    - `I`: ISO week of year
- *    - `R`: ISO week-numbering year
- *    - `t`: seconds timestamp
- *    - `T`: milliseconds timestamp
- *    - `o`: ordinal number modifier
- *    - `P`: long localized date
- *    - `p`: long localized time
- *
- * 8. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
- *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- *
- * 9. `D` and `DD` tokens represent days of the year but they are often confused with days of the month.
- *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- *
- * @param date - The original date
- * @param format - The string of tokens
- * @param options - An object with options
- *
- * @returns The formatted date string
- *
- * @throws `date` must not be Invalid Date
- * @throws `options.locale` must contain `localize` property
- * @throws `options.locale` must contain `formatLong` property
- * @throws use `yyyy` instead of `YYYY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws use `yy` instead of `YY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws use `d` instead of `D` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws use `dd` instead of `DD` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
- * @throws format string contains an unescaped latin alphabet character
- *
- * @example
- * // Represent 11 February 2014 in middle-endian format:
- * const result = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
- * //=> '02/11/2014'
- *
- * @example
- * // Represent 2 July 2014 in Esperanto:
- * import { eoLocale } from 'date-fns/locale/eo'
- * const result = format(new Date(2014, 6, 2), "do 'de' MMMM yyyy", {
- *   locale: eoLocale
- * })
- * //=> '2-a de julio 2014'
- *
- * @example
- * // Escape string by single quote characters:
- * const result = format(new Date(2014, 6, 2, 15), "h 'o''clock'")
- * //=> "3 o'clock"
- */
-function format(date, formatStr, options) {
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
-  const locale = options?.locale ?? defaultOptions.locale ?? _lib_defaultLocale_js__WEBPACK_IMPORTED_MODULE_0__.enUS;
-
-  const firstWeekContainsDate =
-    options?.firstWeekContainsDate ??
-    options?.locale?.options?.firstWeekContainsDate ??
-    defaultOptions.firstWeekContainsDate ??
-    defaultOptions.locale?.options?.firstWeekContainsDate ??
-    1;
-
-  const weekStartsOn =
-    options?.weekStartsOn ??
-    options?.locale?.options?.weekStartsOn ??
-    defaultOptions.weekStartsOn ??
-    defaultOptions.locale?.options?.weekStartsOn ??
-    0;
-
-  const originalDate = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_6__.toDate)(date, options?.in);
-
-  if (!(0,_isValid_js__WEBPACK_IMPORTED_MODULE_5__.isValid)(originalDate)) {
-    throw new RangeError("Invalid time value");
-  }
-
-  let parts = formatStr
-    .match(longFormattingTokensRegExp)
-    .map((substring) => {
-      const firstCharacter = substring[0];
-      if (firstCharacter === "p" || firstCharacter === "P") {
-        const longFormatter = _lib_format_longFormatters_js__WEBPACK_IMPORTED_MODULE_3__.longFormatters[firstCharacter];
-        return longFormatter(substring, locale.formatLong);
-      }
-      return substring;
-    })
-    .join("")
-    .match(formattingTokensRegExp)
-    .map((substring) => {
-      // Replace two single quote characters with one single quote character
-      if (substring === "''") {
-        return { isToken: false, value: "'" };
-      }
-
-      const firstCharacter = substring[0];
-      if (firstCharacter === "'") {
-        return { isToken: false, value: cleanEscapedString(substring) };
-      }
-
-      if (_lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters[firstCharacter]) {
-        return { isToken: true, value: substring };
-      }
-
-      if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
-        throw new RangeError(
-          "Format string contains an unescaped latin alphabet character `" +
-            firstCharacter +
-            "`",
-        );
-      }
-
-      return { isToken: false, value: substring };
-    });
-
-  // invoke localize preprocessor (only for french locales at the moment)
-  if (locale.localize.preprocessor) {
-    parts = locale.localize.preprocessor(originalDate, parts);
-  }
-
-  const formatterOptions = {
-    firstWeekContainsDate,
-    weekStartsOn,
-    locale,
-  };
-
-  return parts
-    .map((part) => {
-      if (!part.isToken) return part.value;
-
-      const token = part.value;
-
-      if (
-        (!options?.useAdditionalWeekYearTokens &&
-          (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.isProtectedWeekYearToken)(token)) ||
-        (!options?.useAdditionalDayOfYearTokens &&
-          (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.isProtectedDayOfYearToken)(token))
-      ) {
-        (0,_lib_protectedTokens_js__WEBPACK_IMPORTED_MODULE_4__.warnOrThrowProtectedError)(token, formatStr, String(date));
-      }
-
-      const formatter = _lib_format_formatters_js__WEBPACK_IMPORTED_MODULE_2__.formatters[token[0]];
-      return formatter(originalDate, token, locale.localize, formatterOptions);
-    })
-    .join("");
-}
-
-function cleanEscapedString(input) {
-  const matched = input.match(escapedStringRegExp);
-
-  if (!matched) {
-    return input;
-  }
-
-  return matched[1].replace(doubleQuoteRegExp, "'");
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (format);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getDayOfYear.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getDayOfYear.js ***!
-  \*****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getDayOfYear: function() { return /* binding */ getDayOfYear; }
-/* harmony export */ });
-/* harmony import */ var _differenceInCalendarDays_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./differenceInCalendarDays.js */ "./node_modules/react-day-picker/node_modules/date-fns/differenceInCalendarDays.js");
-/* harmony import */ var _startOfYear_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfYear.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-
-/**
- * The {@link getDayOfYear} function options.
- */
-
-/**
- * @name getDayOfYear
- * @category Day Helpers
- * @summary Get the day of the year of the given date.
- *
- * @description
- * Get the day of the year of the given date.
- *
- * @param date - The given date
- * @param options - The options
- *
- * @returns The day of year
- *
- * @example
- * // Which day of the year is 2 July 2014?
- * const result = getDayOfYear(new Date(2014, 6, 2))
- * //=> 183
- */
-function getDayOfYear(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
-  const diff = (0,_differenceInCalendarDays_js__WEBPACK_IMPORTED_MODULE_0__.differenceInCalendarDays)(_date, (0,_startOfYear_js__WEBPACK_IMPORTED_MODULE_1__.startOfYear)(_date));
-  const dayOfYear = diff + 1;
-  return dayOfYear;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getDayOfYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getDaysInMonth.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getDaysInMonth.js ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getDaysInMonth: function() { return /* binding */ getDaysInMonth; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link getDaysInMonth} function options.
- */
-
-/**
- * @name getDaysInMonth
- * @category Month Helpers
- * @summary Get the number of days in a month of the given date.
- *
- * @description
- * Get the number of days in a month of the given date, considering the context if provided.
- *
- * @param date - The given date
- * @param options - An object with options
- *
- * @returns The number of days in a month
- *
- * @example
- * // How many days are in February 2000?
- * const result = getDaysInMonth(new Date(2000, 1))
- * //=> 29
- */
-function getDaysInMonth(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  const year = _date.getFullYear();
-  const monthIndex = _date.getMonth();
-  const lastDayOfMonth = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
-  lastDayOfMonth.setFullYear(year, monthIndex + 1, 0);
-  lastDayOfMonth.setHours(0, 0, 0, 0);
-  return lastDayOfMonth.getDate();
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getDaysInMonth);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getISOWeek.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getISOWeek.js ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getISOWeek: function() { return /* binding */ getISOWeek; }
-/* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/react-day-picker/node_modules/date-fns/constants.js");
-/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeek.js");
-/* harmony import */ var _startOfISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeekYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeekYear.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-
-
-/**
- * The {@link getISOWeek} function options.
- */
-
-/**
- * @name getISOWeek
- * @category ISO Week Helpers
- * @summary Get the ISO week of the given date.
- *
- * @description
- * Get the ISO week of the given date.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param date - The given date
- * @param options - The options
- *
- * @returns The ISO week
- *
- * @example
- * // Which week of the ISO-week numbering year is 2 January 2005?
- * const result = getISOWeek(new Date(2005, 0, 2))
- * //=> 53
- */
-function getISOWeek(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
-  const diff = +(0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(_date) - +(0,_startOfISOWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeekYear)(_date);
-
-  // Round the number of weeks to the nearest integer because the number of
-  // milliseconds in a week is not constant (e.g. it's different in the week of
-  // the daylight saving time clock shift).
-  return Math.round(diff / _constants_js__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getISOWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getISOWeekYear.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getISOWeekYear.js ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getISOWeekYear: function() { return /* binding */ getISOWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeek.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-
-/**
- * The {@link getISOWeekYear} function options.
- */
-
-/**
- * @name getISOWeekYear
- * @category ISO Week-Numbering Year Helpers
- * @summary Get the ISO week-numbering year of the given date.
- *
- * @description
- * Get the ISO week-numbering year of the given date,
- * which always starts 3 days before the year's first Thursday.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @param date - The given date
- *
- * @returns The ISO week-numbering year
- *
- * @example
- * // Which ISO-week numbering year is 2 January 2005?
- * const result = getISOWeekYear(new Date(2005, 0, 2))
- * //=> 2004
- */
-function getISOWeekYear(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
-  const year = _date.getFullYear();
-
-  const fourthOfJanuaryOfNextYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
-  fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
-  fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
-  const startOfNextYear = (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfNextYear);
-
-  const fourthOfJanuaryOfThisYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(_date, 0);
-  fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4);
-  fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0);
-  const startOfThisYear = (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(fourthOfJanuaryOfThisYear);
-
-  if (_date.getTime() >= startOfNextYear.getTime()) {
-    return year + 1;
-  } else if (_date.getTime() >= startOfThisYear.getTime()) {
-    return year;
-  } else {
-    return year - 1;
-  }
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getISOWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getMonth.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getMonth.js ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getMonth: function() { return /* binding */ getMonth; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link getMonth} function options.
- */
-
-/**
- * @name getMonth
- * @category Month Helpers
- * @summary Get the month of the given date.
- *
- * @description
- * Get the month of the given date.
- *
- * @param date - The given date
- * @param options - An object with options
- *
- * @returns The month index (0-11)
- *
- * @example
- * // Which month is 29 February 2012?
- * const result = getMonth(new Date(2012, 1, 29))
- * //=> 1
- */
-function getMonth(date, options) {
-  return (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in).getMonth();
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getMonth);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getWeek.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getWeek.js ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getWeek: function() { return /* binding */ getWeek; }
-/* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.js */ "./node_modules/react-day-picker/node_modules/date-fns/constants.js");
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeek.js");
-/* harmony import */ var _startOfWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeekYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeekYear.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-
-
-/**
- * The {@link getWeek} function options.
- */
-
-/**
- * @name getWeek
- * @category Week Helpers
- * @summary Get the local week index of the given date.
- *
- * @description
- * Get the local week index of the given date.
- * The exact calculation depends on the values of
- * `options.weekStartsOn` (which is the index of the first day of the week)
- * and `options.firstWeekContainsDate` (which is the day of January, which is always in
- * the first week of the week-numbering year)
- *
- * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
- *
- * @param date - The given date
- * @param options - An object with options
- *
- * @returns The week
- *
- * @example
- * // Which week of the local week numbering year is 2 January 2005 with default options?
- * const result = getWeek(new Date(2005, 0, 2))
- * //=> 2
- *
- * @example
- * // Which week of the local week numbering year is 2 January 2005,
- * // if Monday is the first day of the week,
- * // and the first week of the year always contains 4 January?
- * const result = getWeek(new Date(2005, 0, 2), {
- *   weekStartsOn: 1,
- *   firstWeekContainsDate: 4
- * })
- * //=> 53
- */
-function getWeek(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
-  const diff = +(0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(_date, options) - +(0,_startOfWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeekYear)(_date, options);
-
-  // Round the number of weeks to the nearest integer because the number of
-  // milliseconds in a week is not constant (e.g. it's different in the week of
-  // the daylight saving time clock shift).
-  return Math.round(diff / _constants_js__WEBPACK_IMPORTED_MODULE_0__.millisecondsInWeek) + 1;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getWeekYear.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getWeekYear.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getWeekYear: function() { return /* binding */ getWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeek.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-
-
-/**
- * The {@link getWeekYear} function options.
- */
-
-/**
- * @name getWeekYear
- * @category Week-Numbering Year Helpers
- * @summary Get the local week-numbering year of the given date.
- *
- * @description
- * Get the local week-numbering year of the given date.
- * The exact calculation depends on the values of
- * `options.weekStartsOn` (which is the index of the first day of the week)
- * and `options.firstWeekContainsDate` (which is the day of January, which is always in
- * the first week of the week-numbering year)
- *
- * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
- *
- * @param date - The given date
- * @param options - An object with options.
- *
- * @returns The local week-numbering year
- *
- * @example
- * // Which week numbering year is 26 December 2004 with the default settings?
- * const result = getWeekYear(new Date(2004, 11, 26))
- * //=> 2005
- *
- * @example
- * // Which week numbering year is 26 December 2004 if week starts on Saturday?
- * const result = getWeekYear(new Date(2004, 11, 26), { weekStartsOn: 6 })
- * //=> 2004
- *
- * @example
- * // Which week numbering year is 26 December 2004 if the first week contains 4 January?
- * const result = getWeekYear(new Date(2004, 11, 26), { firstWeekContainsDate: 4 })
- * //=> 2004
- */
-function getWeekYear(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_3__.toDate)(date, options?.in);
-  const year = _date.getFullYear();
-
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
-  const firstWeekContainsDate =
-    options?.firstWeekContainsDate ??
-    options?.locale?.options?.firstWeekContainsDate ??
-    defaultOptions.firstWeekContainsDate ??
-    defaultOptions.locale?.options?.firstWeekContainsDate ??
-    1;
-
-  const firstWeekOfNextYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
-  firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
-  firstWeekOfNextYear.setHours(0, 0, 0, 0);
-  const startOfNextYear = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeekOfNextYear, options);
-
-  const firstWeekOfThisYear = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
-  firstWeekOfThisYear.setFullYear(year, 0, firstWeekContainsDate);
-  firstWeekOfThisYear.setHours(0, 0, 0, 0);
-  const startOfThisYear = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfWeek)(firstWeekOfThisYear, options);
-
-  if (+_date >= +startOfNextYear) {
-    return year + 1;
-  } else if (+_date >= +startOfThisYear) {
-    return year;
-  } else {
-    return year - 1;
-  }
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/getYear.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/getYear.js ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getYear: function() { return /* binding */ getYear; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link getYear} function options.
- */
-
-/**
- * @name getYear
- * @category Year Helpers
- * @summary Get the year of the given date.
- *
- * @description
- * Get the year of the given date.
- *
- * @param date - The given date
- * @param options - An object with options
- *
- * @returns The year
- *
- * @example
- * // Which year is 2 July 2014?
- * const result = getYear(new Date(2014, 6, 2))
- * //=> 2014
- */
-function getYear(date, options) {
-  return (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in).getFullYear();
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (getYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/isAfter.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/isAfter.js ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isAfter: function() { return /* binding */ isAfter; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * @name isAfter
- * @category Common Helpers
- * @summary Is the first date after the second one?
- *
- * @description
- * Is the first date after the second one?
- *
- * @param date - The date that should be after the other one to return true
- * @param dateToCompare - The date to compare with
- *
- * @returns The first date is after the second date
- *
- * @example
- * // Is 10 July 1989 after 11 February 1987?
- * const result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
- * //=> true
- */
-function isAfter(date, dateToCompare) {
-  return +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date) > +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(dateToCompare);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isAfter);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/isBefore.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/isBefore.js ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isBefore: function() { return /* binding */ isBefore; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * @name isBefore
- * @category Common Helpers
- * @summary Is the first date before the second one?
- *
- * @description
- * Is the first date before the second one?
- *
- * @param date - The date that should be before the other one to return true
- * @param dateToCompare - The date to compare with
- *
- * @returns The first date is before the second date
- *
- * @example
- * // Is 10 July 1989 before 11 February 1987?
- * const result = isBefore(new Date(1989, 6, 10), new Date(1987, 1, 11))
- * //=> false
- */
-function isBefore(date, dateToCompare) {
-  return +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date) < +(0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(dateToCompare);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isBefore);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/isDate.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/isDate.js ***!
-  \***********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isDate: function() { return /* binding */ isDate; }
-/* harmony export */ });
-/**
- * @name isDate
- * @category Common Helpers
- * @summary Is the given value a date?
- *
- * @description
- * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
- *
- * @param value - The value to check
- *
- * @returns True if the given value is a date
- *
- * @example
- * // For a valid date:
- * const result = isDate(new Date())
- * //=> true
- *
- * @example
- * // For an invalid date:
- * const result = isDate(new Date(NaN))
- * //=> true
- *
- * @example
- * // For some value:
- * const result = isDate('2014-02-31')
- * //=> false
- *
- * @example
- * // For an object:
- * const result = isDate({})
- * //=> false
- */
-function isDate(value) {
-  return (
-    value instanceof Date ||
-    (typeof value === "object" &&
-      Object.prototype.toString.call(value) === "[object Date]")
-  );
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isDate);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/isSameDay.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/isSameDay.js ***!
-  \**************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isSameDay: function() { return /* binding */ isSameDay; }
-/* harmony export */ });
-/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js");
-/* harmony import */ var _startOfDay_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfDay.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfDay.js");
-
-
-
-/**
- * The {@link isSameDay} function options.
- */
-
-/**
- * @name isSameDay
- * @category Day Helpers
- * @summary Are the given dates in the same day (and year and month)?
- *
- * @description
- * Are the given dates in the same day (and year and month)?
- *
- * @param laterDate - The first date to check
- * @param earlierDate - The second date to check
- * @param options - An object with options
- *
- * @returns The dates are in the same day (and year and month)
- *
- * @example
- * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
- * const result = isSameDay(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 18, 0))
- * //=> true
- *
- * @example
- * // Are 4 September and 4 October in the same day?
- * const result = isSameDay(new Date(2014, 8, 4), new Date(2014, 9, 4))
- * //=> false
- *
- * @example
- * // Are 4 September, 2014 and 4 September, 2015 in the same day?
- * const result = isSameDay(new Date(2014, 8, 4), new Date(2015, 8, 4))
- * //=> false
- */
-function isSameDay(laterDate, earlierDate, options) {
-  const [dateLeft_, dateRight_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
-    options?.in,
-    laterDate,
-    earlierDate,
-  );
-  return +(0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateLeft_) === +(0,_startOfDay_js__WEBPACK_IMPORTED_MODULE_1__.startOfDay)(dateRight_);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isSameDay);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/isSameMonth.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/isSameMonth.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isSameMonth: function() { return /* binding */ isSameMonth; }
-/* harmony export */ });
-/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js");
-
-
-/**
- * The {@link isSameMonth} function options.
- */
-
-/**
- * @name isSameMonth
- * @category Month Helpers
- * @summary Are the given dates in the same month (and year)?
- *
- * @description
- * Are the given dates in the same month (and year)?
- *
- * @param laterDate - The first date to check
- * @param earlierDate - The second date to check
- * @param options - An object with options
- *
- * @returns The dates are in the same month (and year)
- *
- * @example
- * // Are 2 September 2014 and 25 September 2014 in the same month?
- * const result = isSameMonth(new Date(2014, 8, 2), new Date(2014, 8, 25))
- * //=> true
- *
- * @example
- * // Are 2 September 2014 and 25 September 2015 in the same month?
- * const result = isSameMonth(new Date(2014, 8, 2), new Date(2015, 8, 25))
- * //=> false
- */
-function isSameMonth(laterDate, earlierDate, options) {
-  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
-    options?.in,
-    laterDate,
-    earlierDate,
-  );
-  return (
-    laterDate_.getFullYear() === earlierDate_.getFullYear() &&
-    laterDate_.getMonth() === earlierDate_.getMonth()
-  );
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isSameMonth);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/isSameYear.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/isSameYear.js ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isSameYear: function() { return /* binding */ isSameYear; }
-/* harmony export */ });
-/* harmony import */ var _lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/normalizeDates.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/normalizeDates.js");
-
-
-/**
- * The {@link isSameYear} function options.
- */
-
-/**
- * @name isSameYear
- * @category Year Helpers
- * @summary Are the given dates in the same year?
- *
- * @description
- * Are the given dates in the same year?
- *
- * @param laterDate - The first date to check
- * @param earlierDate - The second date to check
- * @param options - An object with options
- *
- * @returns The dates are in the same year
- *
- * @example
- * // Are 2 September 2014 and 25 September 2014 in the same year?
- * const result = isSameYear(new Date(2014, 8, 2), new Date(2014, 8, 25))
- * //=> true
- */
-function isSameYear(laterDate, earlierDate, options) {
-  const [laterDate_, earlierDate_] = (0,_lib_normalizeDates_js__WEBPACK_IMPORTED_MODULE_0__.normalizeDates)(
-    options?.in,
-    laterDate,
-    earlierDate,
-  );
-  return laterDate_.getFullYear() === earlierDate_.getFullYear();
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isSameYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/isValid.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/isValid.js ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isValid: function() { return /* binding */ isValid; }
-/* harmony export */ });
-/* harmony import */ var _isDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/isDate.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * @name isValid
- * @category Common Helpers
- * @summary Is the given date valid?
- *
- * @description
- * Returns false if argument is Invalid Date and true otherwise.
- * Argument is converted to Date using `toDate`. See [toDate](https://date-fns.org/docs/toDate)
- * Invalid Date is a Date, whose time value is NaN.
- *
- * Time value of Date: http://es5.github.io/#x15.9.1.1
- *
- * @param date - The date to check
- *
- * @returns The date is valid
- *
- * @example
- * // For the valid date:
- * const result = isValid(new Date(2014, 1, 31))
- * //=> true
- *
- * @example
- * // For the value, convertible into a date:
- * const result = isValid(1393804800000)
- * //=> true
- *
- * @example
- * // For the invalid date:
- * const result = isValid(new Date(''))
- * //=> false
- */
-function isValid(date) {
-  return !((!(0,_isDate_js__WEBPACK_IMPORTED_MODULE_0__.isDate)(date) && typeof date !== "number") || isNaN(+(0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date)));
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (isValid);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildFormatLongFn.js":
-/*!**********************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildFormatLongFn.js ***!
-  \**********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildFormatLongFn: function() { return /* binding */ buildFormatLongFn; }
-/* harmony export */ });
-function buildFormatLongFn(args) {
-  return (options = {}) => {
-    // TODO: Remove String()
-    const width = options.width ? String(options.width) : args.defaultWidth;
-    const format = args.formats[width] || args.formats[args.defaultWidth];
-    return format;
-  };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildLocalizeFn.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildLocalizeFn.js ***!
-  \********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildLocalizeFn: function() { return /* binding */ buildLocalizeFn; }
-/* harmony export */ });
-/**
- * The localize function argument callback which allows to convert raw value to
- * the actual type.
- *
- * @param value - The value to convert
- *
- * @returns The converted value
- */
-
-/**
- * The map of localized values for each width.
- */
-
-/**
- * The index type of the locale unit value. It types conversion of units of
- * values that don't start at 0 (i.e. quarters).
- */
-
-/**
- * Converts the unit value to the tuple of values.
- */
-
-/**
- * The tuple of localized era values. The first element represents BC,
- * the second element represents AD.
- */
-
-/**
- * The tuple of localized quarter values. The first element represents Q1.
- */
-
-/**
- * The tuple of localized day values. The first element represents Sunday.
- */
-
-/**
- * The tuple of localized month values. The first element represents January.
- */
-
-function buildLocalizeFn(args) {
-  return (value, options) => {
-    const context = options?.context ? String(options.context) : "standalone";
-
-    let valuesArray;
-    if (context === "formatting" && args.formattingValues) {
-      const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
-      const width = options?.width ? String(options.width) : defaultWidth;
-
-      valuesArray =
-        args.formattingValues[width] || args.formattingValues[defaultWidth];
-    } else {
-      const defaultWidth = args.defaultWidth;
-      const width = options?.width ? String(options.width) : args.defaultWidth;
-
-      valuesArray = args.values[width] || args.values[defaultWidth];
-    }
-    const index = args.argumentCallback ? args.argumentCallback(value) : value;
-
-    // @ts-expect-error - For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
-    return valuesArray[index];
-  };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildMatchFn.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildMatchFn.js ***!
-  \*****************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildMatchFn: function() { return /* binding */ buildMatchFn; }
-/* harmony export */ });
-function buildMatchFn(args) {
-  return (string, options = {}) => {
-    const width = options.width;
-
-    const matchPattern =
-      (width && args.matchPatterns[width]) ||
-      args.matchPatterns[args.defaultMatchWidth];
-    const matchResult = string.match(matchPattern);
-
-    if (!matchResult) {
-      return null;
-    }
-    const matchedString = matchResult[0];
-
-    const parsePatterns =
-      (width && args.parsePatterns[width]) ||
-      args.parsePatterns[args.defaultParseWidth];
-
-    const key = Array.isArray(parsePatterns)
-      ? findIndex(parsePatterns, (pattern) => pattern.test(matchedString))
-      : // [TODO] -- I challenge you to fix the type
-        findKey(parsePatterns, (pattern) => pattern.test(matchedString));
-
-    let value;
-
-    value = args.valueCallback ? args.valueCallback(key) : key;
-    value = options.valueCallback
-      ? // [TODO] -- I challenge you to fix the type
-        options.valueCallback(value)
-      : value;
-
-    const rest = string.slice(matchedString.length);
-
-    return { value, rest };
-  };
-}
-
-function findKey(object, predicate) {
-  for (const key in object) {
-    if (
-      Object.prototype.hasOwnProperty.call(object, key) &&
-      predicate(object[key])
-    ) {
-      return key;
-    }
-  }
-  return undefined;
-}
-
-function findIndex(array, predicate) {
-  for (let key = 0; key < array.length; key++) {
-    if (predicate(array[key])) {
-      return key;
-    }
-  }
-  return undefined;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildMatchPatternFn.js":
-/*!************************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildMatchPatternFn.js ***!
-  \************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   buildMatchPatternFn: function() { return /* binding */ buildMatchPatternFn; }
-/* harmony export */ });
-function buildMatchPatternFn(args) {
-  return (string, options = {}) => {
-    const matchResult = string.match(args.matchPattern);
-    if (!matchResult) return null;
-    const matchedString = matchResult[0];
-
-    const parseResult = string.match(args.parsePattern);
-    if (!parseResult) return null;
-    let value = args.valueCallback
-      ? args.valueCallback(parseResult[0])
-      : parseResult[0];
-
-    // [TODO] I challenge you to fix the type
-    value = options.valueCallback ? options.valueCallback(value) : value;
-
-    const rest = string.slice(matchedString.length);
-
-    return { value, rest };
-  };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/en-US.js ***!
-  \*****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   enUS: function() { return /* binding */ enUS; }
-/* harmony export */ });
-/* harmony import */ var _en_US_lib_formatDistance_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./en-US/_lib/formatDistance.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatDistance.js");
-/* harmony import */ var _en_US_lib_formatLong_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./en-US/_lib/formatLong.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatLong.js");
-/* harmony import */ var _en_US_lib_formatRelative_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./en-US/_lib/formatRelative.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatRelative.js");
-/* harmony import */ var _en_US_lib_localize_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./en-US/_lib/localize.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/localize.js");
-/* harmony import */ var _en_US_lib_match_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./en-US/_lib/match.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/match.js");
-
-
-
-
-
-
-/**
- * @category Locales
- * @summary English locale (United States).
- * @language English
- * @iso-639-2 eng
- * @author Sasha Koss [@kossnocorp](https://github.com/kossnocorp)
- * @author Lesha Koss [@leshakoss](https://github.com/leshakoss)
- */
-const enUS = {
-  code: "en-US",
-  formatDistance: _en_US_lib_formatDistance_js__WEBPACK_IMPORTED_MODULE_0__.formatDistance,
-  formatLong: _en_US_lib_formatLong_js__WEBPACK_IMPORTED_MODULE_1__.formatLong,
-  formatRelative: _en_US_lib_formatRelative_js__WEBPACK_IMPORTED_MODULE_2__.formatRelative,
-  localize: _en_US_lib_localize_js__WEBPACK_IMPORTED_MODULE_3__.localize,
-  match: _en_US_lib_match_js__WEBPACK_IMPORTED_MODULE_4__.match,
-  options: {
-    weekStartsOn: 0 /* Sunday */,
-    firstWeekContainsDate: 1,
-  },
-};
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (enUS);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatDistance.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatDistance.js ***!
-  \*************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatDistance: function() { return /* binding */ formatDistance; }
-/* harmony export */ });
-const formatDistanceLocale = {
-  lessThanXSeconds: {
-    one: "less than a second",
-    other: "less than {{count}} seconds",
-  },
-
-  xSeconds: {
-    one: "1 second",
-    other: "{{count}} seconds",
-  },
-
-  halfAMinute: "half a minute",
-
-  lessThanXMinutes: {
-    one: "less than a minute",
-    other: "less than {{count}} minutes",
-  },
-
-  xMinutes: {
-    one: "1 minute",
-    other: "{{count}} minutes",
-  },
-
-  aboutXHours: {
-    one: "about 1 hour",
-    other: "about {{count}} hours",
-  },
-
-  xHours: {
-    one: "1 hour",
-    other: "{{count}} hours",
-  },
-
-  xDays: {
-    one: "1 day",
-    other: "{{count}} days",
-  },
-
-  aboutXWeeks: {
-    one: "about 1 week",
-    other: "about {{count}} weeks",
-  },
-
-  xWeeks: {
-    one: "1 week",
-    other: "{{count}} weeks",
-  },
-
-  aboutXMonths: {
-    one: "about 1 month",
-    other: "about {{count}} months",
-  },
-
-  xMonths: {
-    one: "1 month",
-    other: "{{count}} months",
-  },
-
-  aboutXYears: {
-    one: "about 1 year",
-    other: "about {{count}} years",
-  },
-
-  xYears: {
-    one: "1 year",
-    other: "{{count}} years",
-  },
-
-  overXYears: {
-    one: "over 1 year",
-    other: "over {{count}} years",
-  },
-
-  almostXYears: {
-    one: "almost 1 year",
-    other: "almost {{count}} years",
-  },
-};
-
-const formatDistance = (token, count, options) => {
-  let result;
-
-  const tokenValue = formatDistanceLocale[token];
-  if (typeof tokenValue === "string") {
-    result = tokenValue;
-  } else if (count === 1) {
-    result = tokenValue.one;
-  } else {
-    result = tokenValue.other.replace("{{count}}", count.toString());
-  }
-
-  if (options?.addSuffix) {
-    if (options.comparison && options.comparison > 0) {
-      return "in " + result;
-    } else {
-      return result + " ago";
-    }
-  }
-
-  return result;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatLong.js":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatLong.js ***!
-  \*********************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatLong: function() { return /* binding */ formatLong; }
-/* harmony export */ });
-/* harmony import */ var _lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildFormatLongFn.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildFormatLongFn.js");
-
-
-const dateFormats = {
-  full: "EEEE, MMMM do, y",
-  long: "MMMM do, y",
-  medium: "MMM d, y",
-  short: "MM/dd/yyyy",
-};
-
-const timeFormats = {
-  full: "h:mm:ss a zzzz",
-  long: "h:mm:ss a z",
-  medium: "h:mm:ss a",
-  short: "h:mm a",
-};
-
-const dateTimeFormats = {
-  full: "{{date}} 'at' {{time}}",
-  long: "{{date}} 'at' {{time}}",
-  medium: "{{date}}, {{time}}",
-  short: "{{date}}, {{time}}",
-};
-
-const formatLong = {
-  date: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
-    formats: dateFormats,
-    defaultWidth: "full",
-  }),
-
-  time: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
-    formats: timeFormats,
-    defaultWidth: "full",
-  }),
-
-  dateTime: (0,_lib_buildFormatLongFn_js__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
-    formats: dateTimeFormats,
-    defaultWidth: "full",
-  }),
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatRelative.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/formatRelative.js ***!
-  \*************************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatRelative: function() { return /* binding */ formatRelative; }
-/* harmony export */ });
-const formatRelativeLocale = {
-  lastWeek: "'last' eeee 'at' p",
-  yesterday: "'yesterday at' p",
-  today: "'today at' p",
-  tomorrow: "'tomorrow at' p",
-  nextWeek: "eeee 'at' p",
-  other: "P",
-};
-
-const formatRelative = (token, _date, _baseDate, _options) =>
-  formatRelativeLocale[token];
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/localize.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/localize.js ***!
-  \*******************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   localize: function() { return /* binding */ localize; }
-/* harmony export */ });
-/* harmony import */ var _lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildLocalizeFn.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildLocalizeFn.js");
-
-
-const eraValues = {
-  narrow: ["B", "A"],
-  abbreviated: ["BC", "AD"],
-  wide: ["Before Christ", "Anno Domini"],
-};
-
-const quarterValues = {
-  narrow: ["1", "2", "3", "4"],
-  abbreviated: ["Q1", "Q2", "Q3", "Q4"],
-  wide: ["1st quarter", "2nd quarter", "3rd quarter", "4th quarter"],
-};
-
-// Note: in English, the names of days of the week and months are capitalized.
-// If you are making a new locale based on this one, check if the same is true for the language you're working on.
-// Generally, formatted dates should look like they are in the middle of a sentence,
-// e.g. in Spanish language the weekdays and months should be in the lowercase.
-const monthValues = {
-  narrow: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-  abbreviated: [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ],
-
-  wide: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-};
-
-const dayValues = {
-  narrow: ["S", "M", "T", "W", "T", "F", "S"],
-  short: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-  abbreviated: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  wide: [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ],
-};
-
-const dayPeriodValues = {
-  narrow: {
-    am: "a",
-    pm: "p",
-    midnight: "mi",
-    noon: "n",
-    morning: "morning",
-    afternoon: "afternoon",
-    evening: "evening",
-    night: "night",
-  },
-  abbreviated: {
-    am: "AM",
-    pm: "PM",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "morning",
-    afternoon: "afternoon",
-    evening: "evening",
-    night: "night",
-  },
-  wide: {
-    am: "a.m.",
-    pm: "p.m.",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "morning",
-    afternoon: "afternoon",
-    evening: "evening",
-    night: "night",
-  },
-};
-
-const formattingDayPeriodValues = {
-  narrow: {
-    am: "a",
-    pm: "p",
-    midnight: "mi",
-    noon: "n",
-    morning: "in the morning",
-    afternoon: "in the afternoon",
-    evening: "in the evening",
-    night: "at night",
-  },
-  abbreviated: {
-    am: "AM",
-    pm: "PM",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "in the morning",
-    afternoon: "in the afternoon",
-    evening: "in the evening",
-    night: "at night",
-  },
-  wide: {
-    am: "a.m.",
-    pm: "p.m.",
-    midnight: "midnight",
-    noon: "noon",
-    morning: "in the morning",
-    afternoon: "in the afternoon",
-    evening: "in the evening",
-    night: "at night",
-  },
-};
-
-const ordinalNumber = (dirtyNumber, _options) => {
-  const number = Number(dirtyNumber);
-
-  // If ordinal numbers depend on context, for example,
-  // if they are different for different grammatical genders,
-  // use `options.unit`.
-  //
-  // `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
-  // 'day', 'hour', 'minute', 'second'.
-
-  const rem100 = number % 100;
-  if (rem100 > 20 || rem100 < 10) {
-    switch (rem100 % 10) {
-      case 1:
-        return number + "st";
-      case 2:
-        return number + "nd";
-      case 3:
-        return number + "rd";
-    }
-  }
-  return number + "th";
-};
-
-const localize = {
-  ordinalNumber,
-
-  era: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: eraValues,
-    defaultWidth: "wide",
-  }),
-
-  quarter: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: quarterValues,
-    defaultWidth: "wide",
-    argumentCallback: (quarter) => quarter - 1,
-  }),
-
-  month: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: monthValues,
-    defaultWidth: "wide",
-  }),
-
-  day: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: dayValues,
-    defaultWidth: "wide",
-  }),
-
-  dayPeriod: (0,_lib_buildLocalizeFn_js__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
-    values: dayPeriodValues,
-    defaultWidth: "wide",
-    formattingValues: formattingDayPeriodValues,
-    defaultFormattingWidth: "wide",
-  }),
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/match.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/locale/en-US/_lib/match.js ***!
-  \****************************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   match: function() { return /* binding */ match; }
-/* harmony export */ });
-/* harmony import */ var _lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildMatchFn.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildMatchFn.js");
-/* harmony import */ var _lib_buildMatchPatternFn_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_lib/buildMatchPatternFn.js */ "./node_modules/react-day-picker/node_modules/date-fns/locale/_lib/buildMatchPatternFn.js");
-
-
-
-const matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
-const parseOrdinalNumberPattern = /\d+/i;
-
-const matchEraPatterns = {
-  narrow: /^(b|a)/i,
-  abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
-  wide: /^(before christ|before common era|anno domini|common era)/i,
-};
-const parseEraPatterns = {
-  any: [/^b/i, /^(a|c)/i],
-};
-
-const matchQuarterPatterns = {
-  narrow: /^[1234]/i,
-  abbreviated: /^q[1234]/i,
-  wide: /^[1234](th|st|nd|rd)? quarter/i,
-};
-const parseQuarterPatterns = {
-  any: [/1/i, /2/i, /3/i, /4/i],
-};
-
-const matchMonthPatterns = {
-  narrow: /^[jfmasond]/i,
-  abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
-  wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i,
-};
-const parseMonthPatterns = {
-  narrow: [
-    /^j/i,
-    /^f/i,
-    /^m/i,
-    /^a/i,
-    /^m/i,
-    /^j/i,
-    /^j/i,
-    /^a/i,
-    /^s/i,
-    /^o/i,
-    /^n/i,
-    /^d/i,
-  ],
-
-  any: [
-    /^ja/i,
-    /^f/i,
-    /^mar/i,
-    /^ap/i,
-    /^may/i,
-    /^jun/i,
-    /^jul/i,
-    /^au/i,
-    /^s/i,
-    /^o/i,
-    /^n/i,
-    /^d/i,
-  ],
-};
-
-const matchDayPatterns = {
-  narrow: /^[smtwf]/i,
-  short: /^(su|mo|tu|we|th|fr|sa)/i,
-  abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
-  wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i,
-};
-const parseDayPatterns = {
-  narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
-  any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i],
-};
-
-const matchDayPeriodPatterns = {
-  narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
-  any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i,
-};
-const parseDayPeriodPatterns = {
-  any: {
-    am: /^a/i,
-    pm: /^p/i,
-    midnight: /^mi/i,
-    noon: /^no/i,
-    morning: /morning/i,
-    afternoon: /afternoon/i,
-    evening: /evening/i,
-    night: /night/i,
-  },
-};
-
-const match = {
-  ordinalNumber: (0,_lib_buildMatchPatternFn_js__WEBPACK_IMPORTED_MODULE_1__.buildMatchPatternFn)({
-    matchPattern: matchOrdinalNumberPattern,
-    parsePattern: parseOrdinalNumberPattern,
-    valueCallback: (value) => parseInt(value, 10),
-  }),
-
-  era: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchEraPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseEraPatterns,
-    defaultParseWidth: "any",
-  }),
-
-  quarter: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchQuarterPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseQuarterPatterns,
-    defaultParseWidth: "any",
-    valueCallback: (index) => index + 1,
-  }),
-
-  month: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchMonthPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseMonthPatterns,
-    defaultParseWidth: "any",
-  }),
-
-  day: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchDayPatterns,
-    defaultMatchWidth: "wide",
-    parsePatterns: parseDayPatterns,
-    defaultParseWidth: "any",
-  }),
-
-  dayPeriod: (0,_lib_buildMatchFn_js__WEBPACK_IMPORTED_MODULE_0__.buildMatchFn)({
-    matchPatterns: matchDayPeriodPatterns,
-    defaultMatchWidth: "any",
-    parsePatterns: parseDayPeriodPatterns,
-    defaultParseWidth: "any",
-  }),
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/max.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/max.js ***!
-  \********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   max: function() { return /* binding */ max; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link max} function options.
- */
-
-/**
- * @name max
- * @category Common Helpers
- * @summary Return the latest of the given dates.
- *
- * @description
- * Return the latest of the given dates.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param dates - The dates to compare
- *
- * @returns The latest of the dates
- *
- * @example
- * // Which of these dates is the latest?
- * const result = max([
- *   new Date(1989, 6, 10),
- *   new Date(1987, 1, 11),
- *   new Date(1995, 6, 2),
- *   new Date(1990, 0, 1)
- * ])
- * //=> Sun Jul 02 1995 00:00:00
- */
-function max(dates, options) {
-  let result;
-  let context = options?.in;
-
-  dates.forEach((date) => {
-    // Use the first date object as the context function
-    if (!context && typeof date === "object")
-      context = _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom.bind(null, date);
-
-    const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, context);
-    if (!result || result < date_ || isNaN(+date_)) result = date_;
-  });
-
-  return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(context, result || NaN);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (max);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/min.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/min.js ***!
-  \********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   min: function() { return /* binding */ min; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link min} function options.
- */
-
-/**
- * @name min
- * @category Common Helpers
- * @summary Returns the earliest of the given dates.
- *
- * @description
- * Returns the earliest of the given dates.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param dates - The dates to compare
- *
- * @returns The earliest of the dates
- *
- * @example
- * // Which of these dates is the earliest?
- * const result = min([
- *   new Date(1989, 6, 10),
- *   new Date(1987, 1, 11),
- *   new Date(1995, 6, 2),
- *   new Date(1990, 0, 1)
- * ])
- * //=> Wed Feb 11 1987 00:00:00
- */
-function min(dates, options) {
-  let result;
-  let context = options?.in;
-
-  dates.forEach((date) => {
-    // Use the first date object as the context function
-    if (!context && typeof date === "object")
-      context = _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom.bind(null, date);
-
-    const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, context);
-    if (!result || result > date_ || isNaN(+date_)) result = date_;
-  });
-
-  return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(context, result || NaN);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (min);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/setMonth.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/setMonth.js ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   setMonth: function() { return /* binding */ setMonth; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _getDaysInMonth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDaysInMonth.js */ "./node_modules/react-day-picker/node_modules/date-fns/getDaysInMonth.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-
-/**
- * The {@link setMonth} function options.
- */
-
-/**
- * @name setMonth
- * @category Month Helpers
- * @summary Set the month to the given date.
- *
- * @description
- * Set the month to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param month - The month index to set (0-11)
- * @param options - The options
- *
- * @returns The new date with the month set
- *
- * @example
- * // Set February to 1 September 2014:
- * const result = setMonth(new Date(2014, 8, 1), 1)
- * //=> Sat Feb 01 2014 00:00:00
- */
-function setMonth(date, month, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_2__.toDate)(date, options?.in);
-  const year = _date.getFullYear();
-  const day = _date.getDate();
-
-  const midMonth = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, 0);
-  midMonth.setFullYear(year, month, 15);
-  midMonth.setHours(0, 0, 0, 0);
-  const daysInMonth = (0,_getDaysInMonth_js__WEBPACK_IMPORTED_MODULE_1__.getDaysInMonth)(midMonth);
-
-  // Set the earlier date, allows to wrap Jan 31 to Feb 28
-  _date.setMonth(month, Math.min(day, daysInMonth));
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (setMonth);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/setYear.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/setYear.js ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   setYear: function() { return /* binding */ setYear; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link setYear} function options.
- */
-
-/**
- * @name setYear
- * @category Year Helpers
- * @summary Set the year to the given date.
- *
- * @description
- * Set the year to the given date.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The date to be changed
- * @param year - The year of the new date
- * @param options - An object with options.
- *
- * @returns The new date with the year set
- *
- * @example
- * // Set year 2013 to 1 September 2014:
- * const result = setYear(new Date(2014, 8, 1), 2013)
- * //=> Sun Sep 01 2013 00:00:00
- */
-function setYear(date, year, options) {
-  const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-
-  // Check if date is Invalid Date because Date.prototype.setFullYear ignores the value of Invalid Date
-  if (isNaN(+date_)) return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, NaN);
-
-  date_.setFullYear(year);
-  return date_;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (setYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/startOfDay.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/startOfDay.js ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfDay: function() { return /* binding */ startOfDay; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link startOfDay} function options.
- */
-
-/**
- * @name startOfDay
- * @category Day Helpers
- * @summary Return the start of a day for the given date.
- *
- * @description
- * Return the start of a day for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - The options
- *
- * @returns The start of a day
- *
- * @example
- * // The start of a day for 2 September 2014 11:55:00:
- * const result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Tue Sep 02 2014 00:00:00
- */
-function startOfDay(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  _date.setHours(0, 0, 0, 0);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfDay);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeek.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeek.js ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfISOWeek: function() { return /* binding */ startOfISOWeek; }
-/* harmony export */ });
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeek.js");
-
-
-/**
- * The {@link startOfISOWeek} function options.
- */
-
-/**
- * @name startOfISOWeek
- * @category ISO Week Helpers
- * @summary Return the start of an ISO week for the given date.
- *
- * @description
- * Return the start of an ISO week for the given date.
- * The result will be in the local timezone.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of an ISO week
- *
- * @example
- * // The start of an ISO week for 2 September 2014 11:55:00:
- * const result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfISOWeek(date, options) {
-  return (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_0__.startOfWeek)(date, { ...options, weekStartsOn: 1 });
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfISOWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeekYear.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeekYear.js ***!
-  \***********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfISOWeekYear: function() { return /* binding */ startOfISOWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getISOWeekYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/getISOWeekYear.js");
-/* harmony import */ var _startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfISOWeek.js");
-
-
-
-
-/**
- * The {@link startOfISOWeekYear} function options.
- */
-
-/**
- * @name startOfISOWeekYear
- * @category ISO Week-Numbering Year Helpers
- * @summary Return the start of an ISO week-numbering year for the given date.
- *
- * @description
- * Return the start of an ISO week-numbering year,
- * which always starts 3 days before the year's first Thursday.
- * The result will be in the local timezone.
- *
- * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of an ISO week-numbering year
- *
- * @example
- * // The start of an ISO week-numbering year for 2 July 2005:
- * const result = startOfISOWeekYear(new Date(2005, 6, 2))
- * //=> Mon Jan 03 2005 00:00:00
- */
-function startOfISOWeekYear(date, options) {
-  const year = (0,_getISOWeekYear_js__WEBPACK_IMPORTED_MODULE_1__.getISOWeekYear)(date, options);
-  const fourthOfJanuary = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(options?.in || date, 0);
-  fourthOfJanuary.setFullYear(year, 0, 4);
-  fourthOfJanuary.setHours(0, 0, 0, 0);
-  return (0,_startOfISOWeek_js__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeek)(fourthOfJanuary);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfISOWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/startOfMonth.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/startOfMonth.js ***!
-  \*****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfMonth: function() { return /* binding */ startOfMonth; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link startOfMonth} function options.
- */
-
-/**
- * @name startOfMonth
- * @category Month Helpers
- * @summary Return the start of a month for the given date.
- *
- * @description
- * Return the start of a month for the given date. The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments.
- * Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed,
- * or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of a month
- *
- * @example
- * // The start of a month for 2 September 2014 11:55:00:
- * const result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfMonth(date, options) {
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  _date.setDate(1);
-  _date.setHours(0, 0, 0, 0);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfMonth);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeek.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/startOfWeek.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfWeek: function() { return /* binding */ startOfWeek; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-
-/**
- * The {@link startOfWeek} function options.
- */
-
-/**
- * @name startOfWeek
- * @category Week Helpers
- * @summary Return the start of a week for the given date.
- *
- * @description
- * Return the start of a week for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of a week
- *
- * @example
- * // The start of a week for 2 September 2014 11:55:00:
- * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Sun Aug 31 2014 00:00:00
- *
- * @example
- * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
- * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
- * //=> Mon Sep 01 2014 00:00:00
- */
-function startOfWeek(date, options) {
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
-  const weekStartsOn =
-    options?.weekStartsOn ??
-    options?.locale?.options?.weekStartsOn ??
-    defaultOptions.weekStartsOn ??
-    defaultOptions.locale?.options?.weekStartsOn ??
-    0;
-
-  const _date = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_1__.toDate)(date, options?.in);
-  const day = _date.getDay();
-  const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
-
-  _date.setDate(_date.getDate() - diff);
-  _date.setHours(0, 0, 0, 0);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfWeek);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeekYear.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/startOfWeekYear.js ***!
-  \********************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfWeekYear: function() { return /* binding */ startOfWeekYear; }
-/* harmony export */ });
-/* harmony import */ var _lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.js */ "./node_modules/react-day-picker/node_modules/date-fns/_lib/defaultOptions.js");
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-/* harmony import */ var _getWeekYear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getWeekYear.js */ "./node_modules/react-day-picker/node_modules/date-fns/getWeekYear.js");
-/* harmony import */ var _startOfWeek_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfWeek.js */ "./node_modules/react-day-picker/node_modules/date-fns/startOfWeek.js");
-
-
-
-
-
-/**
- * The {@link startOfWeekYear} function options.
- */
-
-/**
- * @name startOfWeekYear
- * @category Week-Numbering Year Helpers
- * @summary Return the start of a local week-numbering year for the given date.
- *
- * @description
- * Return the start of a local week-numbering year.
- * The exact calculation depends on the values of
- * `options.weekStartsOn` (which is the index of the first day of the week)
- * and `options.firstWeekContainsDate` (which is the day of January, which is always in
- * the first week of the week-numbering year)
- *
- * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type.
- *
- * @param date - The original date
- * @param options - An object with options
- *
- * @returns The start of a week-numbering year
- *
- * @example
- * // The start of an a week-numbering year for 2 July 2005 with default settings:
- * const result = startOfWeekYear(new Date(2005, 6, 2))
- * //=> Sun Dec 26 2004 00:00:00
- *
- * @example
- * // The start of a week-numbering year for 2 July 2005
- * // if Monday is the first day of week
- * // and 4 January is always in the first week of the year:
- * const result = startOfWeekYear(new Date(2005, 6, 2), {
- *   weekStartsOn: 1,
- *   firstWeekContainsDate: 4
- * })
- * //=> Mon Jan 03 2005 00:00:00
- */
-function startOfWeekYear(date, options) {
-  const defaultOptions = (0,_lib_defaultOptions_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
-  const firstWeekContainsDate =
-    options?.firstWeekContainsDate ??
-    options?.locale?.options?.firstWeekContainsDate ??
-    defaultOptions.firstWeekContainsDate ??
-    defaultOptions.locale?.options?.firstWeekContainsDate ??
-    1;
-
-  const year = (0,_getWeekYear_js__WEBPACK_IMPORTED_MODULE_2__.getWeekYear)(date, options);
-  const firstWeek = (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(options?.in || date, 0);
-  firstWeek.setFullYear(year, 0, firstWeekContainsDate);
-  firstWeek.setHours(0, 0, 0, 0);
-  const _date = (0,_startOfWeek_js__WEBPACK_IMPORTED_MODULE_3__.startOfWeek)(firstWeek, options);
-  return _date;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfWeekYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/startOfYear.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/startOfYear.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   startOfYear: function() { return /* binding */ startOfYear; }
-/* harmony export */ });
-/* harmony import */ var _toDate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.js */ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js");
-
-
-/**
- * The {@link startOfYear} function options.
- */
-
-/**
- * @name startOfYear
- * @category Year Helpers
- * @summary Return the start of a year for the given date.
- *
- * @description
- * Return the start of a year for the given date.
- * The result will be in the local timezone.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param date - The original date
- * @param options - The options
- *
- * @returns The start of a year
- *
- * @example
- * // The start of a year for 2 September 2014 11:55:00:
- * const result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
- * //=> Wed Jan 01 2014 00:00:00
- */
-function startOfYear(date, options) {
-  const date_ = (0,_toDate_js__WEBPACK_IMPORTED_MODULE_0__.toDate)(date, options?.in);
-  date_.setFullYear(date_.getFullYear(), 0, 1);
-  date_.setHours(0, 0, 0, 0);
-  return date_;
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (startOfYear);
-
-
-/***/ }),
-
-/***/ "./node_modules/react-day-picker/node_modules/date-fns/toDate.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-day-picker/node_modules/date-fns/toDate.js ***!
-  \***********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   toDate: function() { return /* binding */ toDate; }
-/* harmony export */ });
-/* harmony import */ var _constructFrom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constructFrom.js */ "./node_modules/react-day-picker/node_modules/date-fns/constructFrom.js");
-
-
-/**
- * @name toDate
- * @category Common Helpers
- * @summary Convert the given argument to an instance of Date.
- *
- * @description
- * Convert the given argument to an instance of Date.
- *
- * If the argument is an instance of Date, the function returns its clone.
- *
- * If the argument is a number, it is treated as a timestamp.
- *
- * If the argument is none of the above, the function returns Invalid Date.
- *
- * Starting from v3.7.0, it clones a date using `[Symbol.for("constructDateFrom")]`
- * enabling to transfer extra properties from the reference date to the new date.
- * It's useful for extensions like [`TZDate`](https://github.com/date-fns/tz)
- * that accept a time zone as a constructor argument.
- *
- * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
- *
- * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
- * @typeParam ResultDate - The result `Date` type, it is the type returned from the context function if it is passed, or inferred from the arguments.
- *
- * @param argument - The value to convert
- *
- * @returns The parsed date in the local time zone
- *
- * @example
- * // Clone the date:
- * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
- * //=> Tue Feb 11 2014 11:30:30
- *
- * @example
- * // Convert the timestamp to date:
- * const result = toDate(1392098430000)
- * //=> Tue Feb 11 2014 11:30:30
- */
-function toDate(argument, context) {
-  // [TODO] Get rid of `toDate` or `constructFrom`?
-  return (0,_constructFrom_js__WEBPACK_IMPORTED_MODULE_0__.constructFrom)(context || argument, argument);
-}
-
-// Fallback for modularized imports:
-/* harmony default export */ __webpack_exports__["default"] = (toDate);
 
 
 /***/ }),

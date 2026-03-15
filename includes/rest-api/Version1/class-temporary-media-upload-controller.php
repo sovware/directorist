@@ -54,13 +54,6 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
             );
         }
     
-        if ( ! current_user_can( 'upload_files' ) ) {
-            return new WP_Error(
-                'directorist_rest_cannot_create',
-                __( 'Sorry, you are not allowed to upload any file.', 'directorist' ),
-                array( 'status' => 403 )
-            );
-        }
     
         return true;
     }

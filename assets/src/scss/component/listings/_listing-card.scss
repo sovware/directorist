@@ -15,12 +15,17 @@
 		// Single Listing Content
 		@include e(content) {
 			border-radius: 4px;
+			@include e(badges) {
+				display: flex;
+				gap: 10px;
+			}
 		}
 
 		@include e(info) {
 			display: flex;
-			flex-wrap: wrap;
 			gap: 8px;
+			flex-wrap: wrap;
+			flex-direction: column;
 			position: relative;
 			padding: 33px 20px 24px;
 
@@ -34,7 +39,22 @@
 				flex-wrap: wrap;
 				flex: 1;
 				gap: 6px;
-
+				width: 100%;
+				@include e(left) {
+					display: flex;
+					flex: 1;
+					gap: 10px;
+					align-items: center;
+					flex-wrap: wrap;
+				}
+				@include e(right) {
+					display: flex;
+					flex: auto;
+					gap: 10px;
+					align-items: center;
+					flex-wrap: wrap;
+					justify-content: flex-end;
+				}
 				.directorist-badge.directorist-badge-close {
 					background-color: transparent;
 					color: var(--directorist-color-danger);
@@ -68,6 +88,11 @@
 						display: none;
 					}
 				}
+			}
+
+			@include e(badges) {
+				display: flex;
+				gap: 10px;
 			}
 
 			@include e(list) {
@@ -588,6 +613,30 @@
 			}
 		}
 
+		@include e(top) {
+			display: flex;
+			gap: 16px;
+			align-items: center;
+			justify-content: space-between;
+			padding: 20px 22px 0 22px;
+			@include e(left) {
+				display: flex;
+				flex: 1;
+				gap: 8px;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+			@include e(right) {
+				display: flex;
+				gap: 8px;
+				align-items: center;
+				align-items: center;
+				flex-wrap: wrap;
+				flex: auto;
+				justify-content: flex-end;
+			}
+		}
+
 		figure {
 			margin: 0;
 		}
@@ -606,7 +655,7 @@
 			margin: 3px;
 
 			&.directorist-badge-popular {
-				background-color: #f51957;
+				background-color: var(--directorist-color-popular-badge);
 			}
 
 			&.directorist-badge-open {
@@ -622,7 +671,7 @@
 			}
 
 			&.directorist-badge-featured {
-				background-color: #fa8b0c;
+				background-color: var(--directorist-color-featured-badge);
 			}
 
 			&.directorist-badge-negotiation {
@@ -636,6 +685,11 @@
 
 		.directorist_open_status_badge {
 			display: flex;
+		}
+
+		.directorist-rating-meta {
+			display: inline-flex;
+			align-items: center;
 		}
 
 		.directorist-mark-as-favorite__btn .directorist-favorite-tooltip span {
@@ -679,20 +733,19 @@
 
 			.directorist-thumb-listing-author {
 				position: absolute;
+				left: 20px;
 				bottom: 0;
 				top: unset;
 				transform: translateY(50%);
 				display: flex;
 				z-index: 1;
-
 				&.directorist-alignment-left {
 					left: 20px;
 				}
-
 				&.directorist-alignment-right {
+					left: unset;
 					right: 20px;
 				}
-
 				&.directorist-alignment-center {
 					left: 50%;
 					transform: translate(-50%, 50%);
@@ -995,6 +1048,9 @@
 				&.directorist-badge-open,
 				&.directorist-badge-close {
 					display: inline-flex;
+					gap: 6px;
+					align-items: center;
+					justify-content: center;
 					height: 21px;
 					line-height: 21px;
 					width: auto;
@@ -1010,14 +1066,27 @@
 
 				&.directorist-badge-popular {
 					background-color: var(--directorist-color-white);
+					.directorist-icon-mask:after {
+						background-color: var(
+							--directorist-color-popular-badge
+						);
+					}
 				}
 
 				&.directorist-badge-new {
 					background-color: var(--directorist-color-white);
+					.directorist-icon-mask:after {
+						background-color: var(--directorist-color-new-badge);
+					}
 				}
 
 				&.directorist-badge-featured {
 					background-color: var(--directorist-color-white);
+					.directorist-icon-mask:after {
+						background-color: var(
+							--directorist-color-featured-badge
+						);
+					}
 				}
 
 				&.directorist-badge--only-text {
@@ -1026,6 +1095,9 @@
 							--directorist-color-featured-badge
 						);
 						color: var(--directorist-color-white);
+						.directorist-icon-mask:after {
+							background-color: var(--directorist-color-white);
+						}
 					}
 
 					&.directorist-badge-popular {
@@ -1033,11 +1105,17 @@
 							--directorist-color-popular-badge
 						);
 						color: var(--directorist-color-white);
+						.directorist-icon-mask:after {
+							background-color: var(--directorist-color-white);
+						}
 					}
 
 					&.directorist-badge-new {
 						background-color: var(--directorist-color-new-badge);
 						color: var(--directorist-color-white);
+						.directorist-icon-mask:after {
+							background-color: var(--directorist-color-white);
+						}
 					}
 				}
 			}
@@ -1305,7 +1383,7 @@
 		}
 
 		.directorist-listing-tagline {
-			margin-bottom: 0;
+			margin: 0;
 		}
 	}
 
@@ -1445,9 +1523,6 @@
 
 	&.directorist-listing-no-thumb {
 		.directorist-info-item.directorist-badge {
-			padding: 0;
-			margin: 0;
-
 			&:after {
 				display: none;
 			}
@@ -1461,6 +1536,17 @@
 		.directorist-mark-as-favorite__btn {
 			width: auto;
 			height: auto;
+		}
+	}
+}
+
+// Directorist Archive Grid Fix
+.directorist-archive-grid-view {
+	&.directorist-archive-grid--fix .directorist-all-listing-col {
+		width: 50%;
+
+		@media only screen and (max-width: 575px) {
+			width: 100%;
 		}
 	}
 }

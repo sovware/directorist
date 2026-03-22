@@ -1,108 +1,96 @@
 <template>
-    <div class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap">
-        <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap">
-            {{ label }}
-            
-            <widget-action-tools
-                :canEdit="canEdit"
-                :canMove="canMove"
-                :canTrash="canTrash"
-                @drag="dragStart()" 
-                @dragend="dragEnd()" 
-                @edit="$emit( 'edit' )" 
-                @trash="$emit( 'trash' )"
-            />
-        </div>
-
-        <span class="cptm-widget-card-drop-append"
-            :class="dropAppendClass"
-            @dragover.prevent=""
-            @dragenter="handleDragEnter()"
-            @dragleave="handleDragLeave()" 
-            @drop="handleDrop()"
+  <div
+    class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+  >
+    <div
+      class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
+      :class="{ 'cptm-widget-badge--icon': isIconType && icon }"
+      :style="{
+        background:
+          isIconType && icon
+            ? fields?.icon?.icon_background?.value
+            : fields?.text?.text_background?.value || '',
+      }"
+    >
+      <span
+        class="cptm-widget-badge-icon"
+        :class="icon"
+        :style="{
+          color: fields?.icon?.icon_color?.value,
+        }"
+        v-if="isIconType && icon"
+      ></span>
+      <span class="cptm-widget-badge-wrapper" v-else>
+        <span
+          class="cptm-widget-badge-icon"
+          :class="icon"
+          :style="{
+            color: fields?.text?.text_color?.value || '',
+          }"
+          v-if="icon"
+        ></span>
+        <span
+          class="cptm-widget-badge-label"
+          :style="{
+            color: fields?.text?.text_color?.value || '',
+          }"
+          v-if="label"
+          >{{ label }}</span
         >
+        <span
+          class="cptm-widget-badge-trash"
+          @click.stop="$emit('trash')"
+          v-if="!readOnly"
+        >
+          <span class="las la-times"></span>
         </span>
+      </span>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'badge-card-widget',
-    props: {
-        label: {
-            type: String,
-        },
-
-        options: {
-            type: Object,
-        },
-
-        widgetDropable: {
-            type: Boolean,
-            default: false,
-        },
-
-        canMove: {
-            type: Boolean,
-            default: true,
-        },
-
-        canEdit: {
-            type: Boolean,
-            default: true,
-        },
-
-        canTrash: {
-            type: Boolean,
-            default: true,
-        },
+  name: "badge-card-widget",
+  props: {
+    widgetKey: {
+      type: String,
     },
 
-    computed: {
-        dropAppendClass() {
-            return {
-                'dropable': ( ! this.dragging && (this.drop_append_dropable || this.widgetDropable) ),
-                'drag-enter': this.drop_append_drag_enter,
-            }
-        }
+    icon: {
+      type: String,
+      default: "",
     },
 
-    data() {
-        return {
-            drop_append_dropable: false,
-            drop_append_drag_enter: false,
-            dragging: false,
-        }
+    label: {
+      type: String,
+      default: "",
     },
 
-    methods: {
-        dragStart() {
-            this.dragging = true;
-            this.$emit( 'drag' );
-        },
-
-        dragEnd() {
-            this.dragging = false;
-            this.$emit( 'dragend' )
-        },
-
-        handleDragEnter() {
-            this.$emit( 'dragenter' );
-            this.drop_append_drag_enter = true;
-        },
-
-        handleDragLeave() {
-            this.$emit( 'dragleave' );
-            this.drop_append_drag_enter = false;
-        },
-
-        handleDrop() {
-            this.$emit( 'drop' );
-            
-            this.dragging = false;
-            this.drop_append_dropable = false;
-            this.drop_append_drag_enter = false;
-        },
+    options: {
+      type: [Object, Array],
+      default: () => ({}),
     },
-}
+
+    fields: {
+      type: Object,
+      default: () => ({}),
+    },
+
+    readOnly: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  computed: {
+    isIconType() {
+      // Handle cases where options might be an array or undefined
+      if (!this.options || Array.isArray(this.options)) {
+        return false;
+      }
+      return this.options?.type?.value === "icon";
+    },
+  },
+};
 </script>

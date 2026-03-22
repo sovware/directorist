@@ -321,12 +321,29 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			typeof form_data.custom_field === 'object'
 		) {
 			Object.entries(form_data.custom_field).forEach(([key, val]) => {
-				// Skip if key starts with "custom-number" and value is "0-0"
-				if (key.startsWith('custom-number') && val === '0-0') {
+				// Skip if value is "0-0" (empty range slider)
+				if (val === '0-0') {
 					return;
 				}
 
-				appendQuery(key, val);
+				// Skip empty values
+				if (!val || (typeof val === 'string' && val.trim() === '')) {
+					return;
+				}
+
+				// Handle multiple values (arrays or comma-separated strings)
+				const values = Array.isArray(val)
+					? val
+					: typeof val === 'string' && val.includes(',')
+						? val.split(',')
+						: [val];
+
+				values.forEach((singleVal) => {
+					const formattedKey = key.startsWith('custom-checkbox')
+						? `custom_field%5B${key}%5D%5B%5D`
+						: `custom_field%5B${key}%5D`;
+					appendQuery(formattedKey, singleVal);
+				});
 			});
 		}
 
@@ -338,7 +355,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	function checkRequiredFields(searchElm) {
 		// Select all required inputs and selects inside searchElm
 		const requiredInputs = searchElm.find(
-			'input[required], select[required], textarea[required]'
+			'.directorist-search-field input[required], .directorist-search-field select[required], .directorist-search-field textarea[required]'
 		);
 
 		let requiredFieldsAreValid = true;
@@ -379,7 +396,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	}
 
 	//  Build form_data from searchElm inputs.
-	function buildFormData(searchElm) {
+	function buildFormData(searchElm, preservePaged = false) {
 		let tag = [];
 		let price = [];
 		let custom_field = {};
@@ -439,6 +456,42 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			}
 		});
 
+		// Collect custom range slider min/max values
+		let range_slider_values = {};
+		searchElm
+			.find('.directorist-custom-range-slider__wrap')
+			.each(function () {
+				const $wrap = $(this);
+				const rangeField = $wrap.find(
+					'.directorist-custom-range-slider__range'
+				);
+				const rangeName = rangeField.attr('name');
+
+				if (!rangeName) {
+					return;
+				}
+
+				const minInput = $wrap.find(
+					'.directorist-custom-range-slider__value__min'
+				);
+				const maxInput = $wrap.find(
+					'.directorist-custom-range-slider__value__max'
+				);
+				const minVal = minInput.val();
+				const maxVal = maxInput.val();
+
+				const minName = minInput.attr('name');
+				const maxName = maxInput.attr('name');
+
+				if (minName && minVal && minVal !== '0') {
+					range_slider_values[minName] = minVal;
+				}
+
+				if (maxName && maxVal && maxVal !== '0') {
+					range_slider_values[maxName] = maxVal;
+				}
+			});
+
 		// Collect basic form values
 		const q = searchElm.find('input[name="q"]').val();
 		const in_cat = searchElm.find('.directorist-category-select').val();
@@ -454,12 +507,14 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		const phone = searchElm.find('input[name="phone"]').val();
 		const phone2 = searchElm.find('input[name="phone2"]').val();
 		const view = form_data.view;
-		const paged = form_data.paged;
 
-		// Get directory type
-		const directory_type = searchElm
-			.find('input[name="directory_type"]')
-			.val();
+		// Get directory type - look in the parent container to ensure it's found regardless of form
+		const directory_type =
+			searchElm.find('input[name="directory_type"]').val() ||
+			searchElm
+				.closest('.directorist-instant-search')
+				.find('input[name="directory_type"]')
+				.val();
 
 		// Update form_data
 		updateFormData({
@@ -479,8 +534,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			phone2,
 			custom_field,
 			view,
-			paged,
 			directory_type,
+			...range_slider_values,
 		});
 
 		// open_now checkbox
@@ -518,11 +573,12 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			});
 		}
 
-		// Paging: get current page number, default 1 if not found
-		let page = parseInt(form_data.paged, 10) || 1;
-		updateFormData({
-			paged: page > 1 ? page : undefined,
-		});
+		// Reset paged to undefined for any non-pagination search
+		if (!preservePaged) {
+			updateFormData({
+				paged: undefined,
+			});
+		}
 
 		// Update URL with form data
 		update_instant_search_url(form_data);
@@ -557,14 +613,17 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	}
 
 	// Perform Instant Search without required value
-	function performInstantSearchWithoutRequiredValue(searchElm) {
+	function performInstantSearchWithoutRequiredValue(
+		searchElm,
+		preservePaged = false
+	) {
 		// Check required fields
 		const allRequiredFieldsAreValid = checkRequiredFields(searchElm);
 
 		// If required fields are valid, proceed with filtering
 		if (allRequiredFieldsAreValid) {
 			// Build form data
-			buildFormData(searchElm);
+			buildFormData(searchElm, preservePaged);
 
 			performInstantSearch(searchElm);
 		} else {
@@ -639,22 +698,47 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		});
 	}
 
-	// Determine the active form
+	// Determine the active form with intelligent fallback strategy
 	function getActiveForm(instantSearchElement) {
-		const sidebarListing = instantSearchElement.find(
-			'.listing-with-sidebar'
+		const forms = {
+			sidebar: instantSearchElement.find('.listing-with-sidebar'),
+			advanced: instantSearchElement.find(
+				'.directorist-advanced-filter__form'
+			),
+			search: instantSearchElement.find('.directorist-search-form'),
+		};
+
+		// Early return for sidebar listings
+		if (forms.sidebar.length) {
+			return instantSearchElement;
+		}
+
+		// Create form candidates with metadata
+		const candidates = [
+			{
+				form: forms.advanced,
+				hasDirectoryType:
+					forms.advanced.find('input[name="directory_type"]').length >
+					0,
+			},
+			{
+				form: forms.search,
+				hasDirectoryType:
+					forms.search.find('input[name="directory_type"]').length >
+					0,
+			},
+		].filter((candidate) => candidate.form.length > 0);
+
+		// Smart selection: prioritize forms with directory_type, fallback to responsive behavior
+		const formWithDirectoryType = candidates.find(
+			(c) => c.hasDirectoryType
 		);
-		const advancedForm = instantSearchElement.find(
-			'.directorist-advanced-filter__form'
-		);
-		const searchForm = instantSearchElement.find(
-			'.directorist-search-form'
-		);
-		return sidebarListing.length
-			? instantSearchElement
-			: screen.width > 575
-				? advancedForm
-				: searchForm;
+		if (formWithDirectoryType) {
+			return formWithDirectoryType.form;
+		}
+
+		// Fallback: use responsive selection if no directory_type found
+		return screen.width > 575 ? forms.advanced : forms.search;
 	}
 
 	// Get directory type
@@ -736,25 +820,39 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		);
 
 		if (shortcode === 'directorist_category' && category.trim() !== '') {
-			const categorySelect = document.querySelector(
+			const categorySelects = document.querySelectorAll(
 				'.directorist-search-form .directorist-category-select'
 			);
-			if (categorySelect) {
-				categorySelect
-					.closest('.directorist-search-category')
-					.classList.add('directorist-search-form__single-category');
-			}
+			categorySelects.forEach((categorySelect) => {
+				if (categorySelect) {
+					const categoryContainer = categorySelect.closest(
+						'.directorist-search-category'
+					);
+					if (categoryContainer) {
+						categoryContainer.classList.add(
+							'directorist-search-form__single-category'
+						);
+					}
+				}
+			});
 		}
 
 		if (shortcode === 'directorist_location' && location.trim() !== '') {
-			const locationSelect = document.querySelector(
+			const locationSelects = document.querySelectorAll(
 				'.directorist-search-form .directorist-location-select'
 			);
-			if (locationSelect) {
-				locationSelect
-					.closest('.directorist-search-location')
-					.classList.add('directorist-search-form__single-location');
-			}
+			locationSelects.forEach((locationSelect) => {
+				if (locationSelect) {
+					const locationContainer = locationSelect.closest(
+						'.directorist-search-location'
+					);
+					if (locationContainer) {
+						locationContainer.classList.add(
+							'directorist-search-form__single-location'
+						);
+					}
+				}
+			});
 		}
 	}
 
@@ -823,11 +921,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		'.directorist-instant-search .listing-with-sidebar select',
 		debounce(function (e) {
 			e.preventDefault();
-			if (!$(this).val()) {
-				return; // Skip search if the value is empty
-			}
+			const isSingleCategory = $(this)
+				.closest('.directorist-search-category')
+				.hasClass('directorist-search-form__single-category');
 
-			e.preventDefault();
+			if (!$(this).val() || isSingleCategory) {
+				return; // Skip search if the value is empty or it's a single category page
+			}
 			var searchElm =
 				$(this).val() && $(this).closest('.listing-with-sidebar');
 
@@ -1068,7 +1168,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			} else if ($(this).hasClass('prev')) {
 				page = parseInt(page) - 1;
 			}
-			// ✅ only update `sort`, preserve others
+			// ✅ only update `paged`, preserve others
 			updateFormData({ paged: page });
 
 			// get parent element
@@ -1077,8 +1177,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			// get active form
 			const activeForm = getActiveForm(searchElm);
 
-			// Instant search without required value
-			performInstantSearchWithoutRequiredValue(activeForm);
+			// Instant search without required value - preserve paged in form_data
+			performInstantSearchWithoutRequiredValue(activeForm, true);
 		}
 	);
 

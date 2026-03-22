@@ -142,8 +142,12 @@ class Directorist_Listing_Taxonomy {
             $args = apply_filters( 'atbdp_all_locations_argument', $args );
         }
 
-        $all_terms      = get_terms( $this->tax, $args );
-        $total_terms    = wp_count_terms( $this->tax, array_merge( $args, ['number' => 0, 'offset' => 0] ) );
+        $args['taxonomy'] = $this->tax;
+        $all_terms        = get_terms( $args );
+
+        $count_args  = array_merge( $args, [ 'number' => 0, 'offset' => 0 ] );
+        $total_terms = wp_count_terms( $count_args );
+
         
         $this->terms            = array_slice( $all_terms, $offset, $this->per_page );
         $this->total_pages      = ( $this->per_page > 0 ) ? ceil( $total_terms / $this->per_page ) : 1;
@@ -187,6 +191,7 @@ class Directorist_Listing_Taxonomy {
         }
 
         $args = [
+            'taxonomy'     => $this->tax,
             'orderby'      => $this->orderby,
             'order'        => $this->order,
             'hide_empty'   => $this->hide_empty,
@@ -194,7 +199,7 @@ class Directorist_Listing_Taxonomy {
             'hierarchical' => false
         ];
 
-        $terms = get_terms( $this->tax, $args );
+        $terms = get_terms( $args );
         $html = '';
 
         if ( count( $terms ) > 0 ) {
@@ -278,9 +283,8 @@ class Directorist_Listing_Taxonomy {
 
         <div class="directorist-col-12">
             <nav class="directorist-pagination">
-                <?php 
-                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    echo implode( '', $links ); 
+                <?php
+                    echo wp_kses_post( implode( '', $links ) );
                 ?>
             </div>
         </nav>
@@ -366,15 +370,16 @@ class Directorist_Listing_Taxonomy {
 
     public function render_shortcode( $atts = [] ) {
 
-        // e_var_dump($atts);
-
         if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
             return ATBDP()->helper->guard( ['type' => 'auth'] );
         }
 
-        if ( $this->redirect_page_url ) {
-            $redirect = '<script>window.location="' . esc_url( $this->redirect_page_url ) . '"</script>';
-            return $redirect;
+        if ( ! empty( $this->redirect_page_url ) ) {
+            $validated_url = wp_validate_redirect( $this->redirect_page_url, '' );
+            if ( ! empty( $validated_url ) ) {
+                $redirect = '<script>window.location="' . esc_js( $validated_url ) . '"</script>';
+                return $redirect;
+            }
         }
 
         if ( $this->type == 'category' ) {

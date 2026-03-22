@@ -285,7 +285,7 @@ class Directorist_Listings {
         $this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
         $this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
         $this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
-        $this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
+        $this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'openstreet' );
         $this->options['listings_display_filter']         = get_directorist_option( 'home_display_filter', 'sliding' );
         $this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', [ 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ] );
         $this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
@@ -314,7 +314,7 @@ class Directorist_Listings {
         $this->options['address_location']                = get_directorist_option( 'address_location', 'contact' );
         $this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20 );
         $this->options['g_currency']                      = directorist_get_currency();
-        $this->options['use_def_lat_long']                = get_directorist_option( 'use_def_lat_long', 1 ) ? true : false;
+        $this->options['use_def_lat_long'] = get_directorist_option( 'use_def_lat_long', false ) ? true : false;
         $this->options['display_map_info']                = get_directorist_option( 'display_map_info', 1 ) ? true : false;
         $this->options['display_image_map']               = get_directorist_option( 'display_image_map', 1 ) ? true : false;
         $this->options['display_title_map']               = get_directorist_option( 'display_title_map', 1 ) ? true : false;
@@ -327,7 +327,7 @@ class Directorist_Listings {
         $this->options['display_phone_map']               = get_directorist_option( 'display_phone_map', 1 ) ? true : false;
         $this->options['crop_width']                      = get_directorist_option( 'crop_width', 360 );
         $this->options['crop_height']                     = get_directorist_option( 'crop_height', 360 );
-        $this->options['map_view_zoom_level']             = get_directorist_option( 'map_view_zoom_level', 16 );
+        $this->options['map_view_zoom_level']             = get_directorist_option( 'map_view_zoom_level', 1 );
         $this->options['default_preview_image']           = get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
         $this->options['font_type']                       = 'line';
         $this->options['display_publish_date']            = get_directorist_option( 'display_publish_date', 1 ) ? true : false;
@@ -1221,8 +1221,11 @@ class Directorist_Listings {
         ob_start();
 
         if ( ! empty( $this->redirect_page_url ) ) {
-            $redirect = '<script>window.location="' . esc_url( $this->redirect_page_url ) . '"</script>';
-            return $redirect;
+            $validated_url = wp_validate_redirect( $this->redirect_page_url, '' );
+            if ( ! empty( $validated_url ) ) {
+                $redirect = '<script>window.location="' . esc_js( $validated_url ) . '"</script>';
+                return $redirect;
+            }
         }
 
         if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
@@ -1540,7 +1543,7 @@ class Directorist_Listings {
             'base_longitude'          => $this->map_base_lat_long()['longitude'],
             'default_latitude'        => get_directorist_option( 'default_latitude', 40.7127753 ),
             'default_longitude'       => get_directorist_option( 'default_longitude', -74.0059728 ),
-            'force_default_location'  => get_directorist_option( 'use_def_lat_long', true ),
+            'force_default_location'  => get_directorist_option( 'use_def_lat_long', false ),
             'disable_single_listing'  => $this->disable_single_listing,
             'openstreet_script'       => DIRECTORIST_VENDOR_JS . 'openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js?ver=' . DIRECTORIST_SCRIPT_VERSION,
         ];
@@ -1549,8 +1552,8 @@ class Directorist_Listings {
     }
 
     public function load_openstreet_map() {
-        $card = json_encode( $this->openstreet_map_card_data() );
-        $options = json_encode( $this->map_options() );
+        $card = wp_json_encode( $this->openstreet_map_card_data() );
+        $options = wp_json_encode( $this->map_options() );
         $style = 'height:' . $this->listings_map_height . 'px';
         ?>
         <div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>">
@@ -1739,7 +1742,7 @@ class Directorist_Listings {
                     $ls_data['listings']        = $this;
 
                     $cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
-                    $ls_data['cat_icon'] = json_encode( $cat_icon );
+                    $ls_data['cat_icon'] = wp_json_encode( $cat_icon );
 
                     $listing_type           = directorist_get_listing_directory( $listings_id );
                     $ls_data['default_img'] = Helper::default_preview_image_src( $listing_type );
@@ -2056,9 +2059,10 @@ class Directorist_Listings {
 
     public function data_atts() {
         $this->atts['_current_page'] = $this->type; // search_result or listing
-        $this->atts['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->current_listing_type );
+        // Removed: category_custom_fields_relations is no longer used (assign_to feature removed)
+        // $this->atts['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->current_listing_type );
         // Separates class names with a single space, collates class names for wrapper tag element.
-        echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
+        echo 'data-atts="' . esc_attr( wp_json_encode( $this->atts ) ) . '"';
     }
 
     public function loop_link_attr() {
@@ -2246,7 +2250,7 @@ class Directorist_Listings {
             case 'popular_badge':
 
                 $field['class']         = 'popular';
-                $field['icon']          = 'fas fa-fire';
+                $field['icon']          = 'la la-fire';
                 $field['tooltip_class'] = 'directorist-badge-tooltip__popular';
                 $field['label']         = Helper::popular_badge_text();
 
@@ -2259,7 +2263,7 @@ class Directorist_Listings {
             case 'featured_badge':
 
                 $field['class']               = 'featured';
-                $field['icon']                = 'fas fa-star';
+                $field['icon']                = 'la la-star-o';
                 $field['tooltip_class']       = 'directorist-badge-tooltip__featured';
                 $field['label']               = Helper::featured_badge_text();
                 $field['featured_badge_type'] = get_directorist_option( 'feature_badge_type', 'icon_badge' );
@@ -2273,7 +2277,7 @@ class Directorist_Listings {
             case 'new_badge':
 
                 $field['class']           = 'new';
-                $field['icon']            = 'fas fa-bolt';
+                $field['icon']            = 'la la-bolt';
                 $field['tooltip_class']   = 'directorist-badge-tooltip__new';
                 $field['new_badge_type']  = get_directorist_option( 'new_badge_type', 'icon_badge' );
                 $field['new_badge_class'] = ( 'text_badge' === $field['new_badge_type'] ) ? 'directorist-badge--only-text' : '';

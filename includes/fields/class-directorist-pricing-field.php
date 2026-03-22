@@ -32,7 +32,8 @@ class Pricing_Field extends Base_Field {
         $value = $this->get_value( $posted_data );
 
         if ( ! empty( $value['price_type'] ) && ! in_array( $value['price_type'], $this->get_price_types(), true ) ) {
-            $this->add_error( __( 'Invalid price type.' . $value['price_type'], 'directorist' ) );
+            /* translators: %s: Price type value */
+            $this->add_error( sprintf( __( 'Invalid price type: %s', 'directorist' ), esc_html( $value['price_type'] ) ) );
         }
 
         if ( $value['price_type'] === 'range' && ! empty( $value['price_range'] ) && ! in_array( $value['price_range'], $this->get_price_ranges(), true ) ) {

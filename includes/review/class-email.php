@@ -110,7 +110,14 @@ class Email {
         }
 
         $subject = "[$site_name] New review at $listing_title";
-        $message = __( "Dear Admin,<br /><br />A new review at $listing_url.<br /><br />Name: $comment_author<br />Email: $review->comment_author_email<br />Review: $review->comment_content", 'directorist' );
+        /* translators: %1$s: Listing URL, %2$s: Comment author name, %3$s: Comment author email, %4$s: Review content */
+        $message = sprintf(
+            __( 'Dear Admin,<br /><br />A new review at %1$s.<br /><br />Name: %2$s<br />Email: %3$s<br />Review: %4$s', 'directorist' ),
+            $listing_url,
+            esc_html( $comment_author ),
+            esc_html( $review->comment_author_email ),
+            esc_html( $review->comment_content )
+        );
         $message = atbdp_email_html( $subject, $message );
         $headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
         $headers .= "Reply-To: {$review->comment_author_email}\r\n";

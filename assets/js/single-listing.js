@@ -25,19 +25,69 @@ function modalToggle() {
 
   // Template Restructured
   // Modal
-  var directoristModal = document.querySelector('.directorist-modal-js');
+  // Store original parent references for modals
+  var modalOriginalParents = new Map();
+
+  // Function to restore modal to its original position
+  function restoreModalToOriginalPosition(modalElement) {
+    if (!modalElement || !modalOriginalParents.has(modalElement)) {
+      return;
+    }
+    var originalData = modalOriginalParents.get(modalElement);
+    var originalParent = originalData.parent;
+
+    // Only restore if original parent still exists in the DOM
+    if (originalParent && document.body.contains(originalParent)) {
+      // Restore to original position using nextSibling if available
+      if (originalData.nextSibling && originalParent.contains(originalData.nextSibling)) {
+        originalParent.insertBefore(modalElement, originalData.nextSibling);
+      } else {
+        originalParent.appendChild(modalElement);
+      }
+    }
+  }
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
     var data_target = $(this).attr('data-directorist_target');
-    document.querySelector(".".concat(data_target)).classList.add('directorist-show');
+    var modalElement = document.querySelector(".".concat(data_target));
+    if (!modalElement) {
+      return;
+    }
+
+    // Move modal to body if not already a direct child of body
+    if (modalElement.parentElement !== document.body) {
+      // Store original parent if not already stored
+      if (!modalOriginalParents.has(modalElement)) {
+        modalOriginalParents.set(modalElement, {
+          parent: modalElement.parentElement,
+          nextSibling: modalElement.nextSibling
+        });
+      }
+
+      // Move to body
+      document.body.appendChild(modalElement);
+    }
+
+    // Show modal
+    modalElement.classList.add('directorist-show');
   });
   $('body').on('click', '.directorist-modal-close-js', function (e) {
     e.preventDefault();
-    $(this).closest('.directorist-modal-js').removeClass('directorist-show');
+    var modalElement = $(this).closest('.directorist-modal-js');
+
+    // Hide modal
+    modalElement.removeClass('directorist-show');
+
+    // Restore to original position
+    restoreModalToOriginalPosition(modalElement[0]);
   });
-  $(document).bind('click', function (e) {
-    if (e.target == directoristModal) {
-      directoristModal.classList.remove('directorist-show');
+
+  // Close modal when clicking backdrop (not content inside)
+  $('body').on('click', '.directorist-modal-js', function (e) {
+    // Only close if clicking the backdrop itself, not children
+    if (e.target === this && $(this).hasClass('directorist-show')) {
+      $(this).removeClass('directorist-show');
+      restoreModalToOriginalPosition(this);
     }
   });
 }
@@ -217,7 +267,8 @@ function modalToggle() {
       var data = {
         action: 'atbdp_public_add_remove_favorites',
         directorist_nonce: directorist.directorist_nonce,
-        post_id: $(this).data('listing_id')
+        post_id: $(this).data('listing_id'),
+        label: $(this).data('label')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -364,7 +415,7 @@ window.addEventListener('load', function () {
     // Validate contact form
     $('.directorist-contact-owner-form').on('submit', function (e) {
       e.preventDefault();
-      var form = $(this);
+      var $form = $(this);
       var submit_button = $(this).find('button[type="submit"]');
       var status_area = $(this).find('.directorist-contact-message-display');
 
@@ -373,7 +424,7 @@ window.addEventListener('load', function () {
       status_area.html(msg);
 
       // Serialize form data
-      var form_data = form.serializeArray();
+      var form_data = $form.serializeArray();
       var data = {
         action: 'atbdp_public_send_contact_email',
         directorist_nonce: directorist.directorist_nonce
@@ -383,28 +434,27 @@ window.addEventListener('load', function () {
       $.each(form_data, function (index, elem) {
         data[elem.name] = elem.value;
       });
-      submit_button.prop('disabled', true);
       $.post(directorist.ajaxurl, data, function (response) {
         submit_button.prop('disabled', false);
         if (1 == response.error) {
           atbdp_contact_submitted = false;
 
           // Show error message
-          var msg = '<div class="atbdp-alert alert-danger-light"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
+          var msg = '<div class="directorist-alert directorist-alert-danger"><i class="fas fa-exclamation-triangle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         } else {
-          name.val('');
-          message.val('');
-          contact_email.val('');
+          $form.trigger('reset');
 
           // Show success message
-          var msg = '<div class="atbdp-alert alert-success-light"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
+          var msg = '<div class="directorist-alert directorist-alert-success"><i class="fas fa-check-circle"></i> ' + response.message + '</div>';
           status_area.html(msg);
         }
         setTimeout(function () {
           status_area.html('');
         }, 5000);
-      }, 'json');
+      }, 'json').always(function () {
+        submit_button.prop('disabled', false);
+      });
     });
     $('#atbdp-contact-form,#directorist-contact-owner-form').removeAttr('novalidate');
   });
@@ -1238,6 +1288,12 @@ function _typeof(o) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

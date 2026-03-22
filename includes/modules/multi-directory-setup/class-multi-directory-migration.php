@@ -44,12 +44,12 @@ class Multi_Directory_Migration {
                         'taxonomy'   => $term,
                         'hide_empty' => false,
                         'orderby'    => 'date',
-                        'order'      => 'DSCE',
+                        'order'      => 'DESC',
                     ]
                 );
-                if ( ! empty( $term_data ) ) {
+                if ( ! empty( $term_data ) && ! is_wp_error( $term_data ) ) {
                     foreach ( $term_data as $data ) {
-                        update_term_meta( $data->term_id, '_directory_type', [ $add_directory['term_id']] );
+                        update_term_meta( $data->term_id, '_directory_type', [ $add_directory['term_id'] ] );
                     }
                 }
             }
@@ -1651,6 +1651,16 @@ class Multi_Directory_Migration {
                 "widget_name"  => "pricing",
                 "widget_key"   => "pricing",
             ],
+            'tagline' => [
+                "type"               => "tagline",
+                "label"              => "Tagline",
+                "hook"               => "atbdp_listing_tagline",
+                "words_limit"        => get_directorist_option( 'tagline_limit', 30 ),
+                "show_readmore"      => get_directorist_option( 'display_readmore', false ),
+                "show_readmore_text" => get_directorist_option( 'readmore_text', 'Read More' ),
+                "widget_key"         => "tagline",
+                "widget_name"        => "tagline",
+            ],
             'excerpt' => [
                 "type"               => "excerpt",
                 "label"              => "Excerpt",
@@ -1796,10 +1806,12 @@ class Multi_Directory_Migration {
 
             $field_data['only_for_admin'] = ( $admin_use == 1 ) ? true : false;
 
-            $assign_to = get_post_meta( $old_field_id, 'associate', true );
-            $assign_to = ( 'categories' === $assign_to ) ? 'category' : $assign_to;
-            $field_data['assign_to']   = $assign_to;
-            $field_data['category']    = ( is_numeric( $category_pass ) ) ? ( int ) $category_pass : '';
+            // Deprecated: assign_to feature removed - migrate to conditional_logic instead
+            // Note: Old fields with assign_to should be manually migrated to use conditional_logic
+            // Example: If field was assigned to category ID 5, create conditional_logic:
+            // enabled: true, action: 'show', groups: [{
+            //   operator: 'AND', conditions: [{ field: 'category', operator: 'is', value: '5' }]
+            // }]
             $field_data['searchable']  = ( $searchable == 1 ) ? true : false;
 
             $field_data['widget_group'] = 'custom';

@@ -90,7 +90,7 @@ class Block_Templates_Controller {
         // Check if the theme has a saved version of this template before falling back to the directorist one. Please note how
         // the slug has not been modified at this point, we're still using the default one passed to this hook.
         $maybe_template = function_exists( 'gutenberg_get_block_template' ) ?
-            gutenberg_get_block_template( $id, $template_type ) :
+            gutenberg_get_block_template( null, $id, $template_type ) :
             get_block_template( $id, $template_type );
 
         if ( null !== $maybe_template ) {
@@ -102,7 +102,7 @@ class Block_Templates_Controller {
         // been unhooked so won't run again.
         add_filter( 'get_block_file_template', [ $this, 'get_single_block_template' ], 10, 3 );
         $maybe_template = function_exists( 'gutenberg_get_block_template' ) ?
-            gutenberg_get_block_template( Block_Template_Utils::PLUGIN_SLUG . '//' . $slug, $template_type ) :
+            gutenberg_get_block_template( null, Block_Template_Utils::PLUGIN_SLUG . '//' . $slug, $template_type ) :
             get_block_template( Block_Template_Utils::PLUGIN_SLUG . '//' . $slug, $template_type );
 
         // Re-hook this function, it was only unhooked to stop recursion.
@@ -266,7 +266,7 @@ class Block_Templates_Controller {
      * Gets the templates saved in the database.
      *
      * @param array $slugs An array of slugs to retrieve templates for.
-     * @param array $template_type wp_template or wp_template_part.
+     * @param string $template_type wp_template or wp_template_part.
      *
      * @return int[]|\WP_Post[] An array of found templates.
      */
@@ -356,7 +356,7 @@ class Block_Templates_Controller {
      * Get and build the block template objects from the block template files.
      *
      * @param array $slugs An array of slugs to retrieve templates for.
-     * @param array $template_type wp_template or wp_template_part.
+     * @param string $template_type wp_template or wp_template_part.
      *
      * @return array
      */
@@ -370,7 +370,7 @@ class Block_Templates_Controller {
     /**
      * Gets the directory where templates of a specific template type can be found.
      *
-     * @param array $template_type wp_template or wp_template_part.
+     * @param string $template_type wp_template or wp_template_part.
      *
      * @return string
      */
@@ -409,8 +409,16 @@ class Block_Templates_Controller {
         }
 
         if ( is_singular( ATBDP_POST_TYPE ) &&
-            ! Block_Template_Utils::theme_has_template( 'single-listing' ) &&
-            $this->block_template_is_available( 'single-listing' )
+            ! Block_Template_Utils::theme_has_template( 'single-' . ATBDP_POST_TYPE ) &&
+            $this->block_template_is_available( 'single-' . ATBDP_POST_TYPE )
+        ) {
+            add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
+        }
+
+        if ( directorist_is_archive_template_enabled() &&
+            is_tax( [ ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS ] ) &&
+            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . get_queried_object()->taxonomy ) &&
+            $this->block_template_is_available( 'taxonomy-' . get_queried_object()->taxonomy )
         ) {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }

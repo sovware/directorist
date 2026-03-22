@@ -47,25 +47,25 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
     /* Css Variable */
     :root {
         /* theme color */
-        --directorist-color-primary: <?php echo $primary_color; ?>;
-        --directorist-color-primary-rgb: <?php echo $primary_color_rgb; ?>;
-        --directorist-color-secondary: <?php echo $secondary_color; ?>;
-        --directorist-color-secondary-rgb: <?php echo $secondary_color_rgb ?? '242,243,245'; ?>;
-        --directorist-color-dark: <?php echo $dark_color; ?>;
-        --directorist-color-dark-rgb: <?php echo $dark_color_rgb ?? '0,0,0'; ?>;
-        --directorist-color-success: <?php echo $success_color; ?>;
-        --directorist-color-success-rgb: <?php echo $success_color_rgb ?? '40,168,0'; ?>;
-        --directorist-color-info: <?php echo $info_color; ?>;
-        --directorist-color-info-rgb: <?php echo $info_color_rgb ?? '44,153,255'; ?>;
-        --directorist-color-warning: <?php echo $warning_color; ?>;
-        --directorist-color-warning-rgb: <?php echo $warning_color_rgb ?? '242,129,0'; ?>;
-        --directorist-color-danger: <?php echo $danger_color; ?>;
-        --directorist-color-danger-rgb: <?php echo $danger_color_rgb ?? '248,7,24'; ?>;
-        --directorist-color-white: <?php echo $white_color; ?>;
+        --directorist-color-primary: <?php echo esc_attr( $primary_color ); ?>;
+        --directorist-color-primary-rgb: <?php echo esc_attr( $primary_color_rgb ); ?>;
+        --directorist-color-secondary: <?php echo esc_attr( $secondary_color ); ?>;
+        --directorist-color-secondary-rgb: <?php echo esc_attr( $secondary_color_rgb ?? '242,243,245' ); ?>;
+        --directorist-color-dark: <?php echo esc_attr( $dark_color ); ?>;
+        --directorist-color-dark-rgb: <?php echo esc_attr( $dark_color_rgb ?? '0,0,0' ); ?>;
+        --directorist-color-success: <?php echo esc_attr( $success_color ); ?>;
+        --directorist-color-success-rgb: <?php echo esc_attr( $success_color_rgb ?? '40,168,0' ); ?>;
+        --directorist-color-info: <?php echo esc_attr( $info_color ); ?>;
+        --directorist-color-info-rgb: <?php echo esc_attr( $info_color_rgb ?? '44,153,255' ); ?>;
+        --directorist-color-warning: <?php echo esc_attr( $warning_color ); ?>;
+        --directorist-color-warning-rgb: <?php echo esc_attr( $warning_color_rgb ?? '242,129,0' ); ?>;
+        --directorist-color-danger: <?php echo esc_attr( $danger_color ); ?>;
+        --directorist-color-danger-rgb: <?php echo esc_attr( $danger_color_rgb ?? '248,7,24' ); ?>;
+        --directorist-color-white: <?php echo esc_attr( $white_color ); ?>;
         --directorist-color-white-rgb: 255,255,255;
         --directorist-color-body: #404040;
-        --directorist-color-gray: <?php echo $gray_color; ?>;
-        --directorist-color-gray-rgb: <?php echo $gray_color_rgb ?? '188,188,188'; ?>;
+        --directorist-color-gray: <?php echo esc_attr( $gray_color ); ?>;
+        --directorist-color-gray-rgb: <?php echo esc_attr( $gray_color_rgb ?? '188,188,188' ); ?>;
         --directorist-color-gray-hover: #BCBCBC;
         --directorist-color-light: #ededed;
         --directorist-color-light-hover: #ffffff;
@@ -88,16 +88,16 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
         --directorist-box-shadow-sm: 0 2px 5px rgba(0,0,0,0.05);
 
         /* Badge Color */
-        --directorist-color-open-badge: <?php echo $open_badge_color; ?>;
-        --directorist-color-closed-badge: <?php echo $closed_badge_color; ?>;
-        --directorist-color-featured-badge: <?php echo $featured_badge_color; ?>;
-        --directorist-color-popular-badge: <?php echo $popular_badge_color; ?>;
-        --directorist-color-new-badge: <?php echo $new_badge_color; ?>;
+        --directorist-color-open-badge: <?php echo esc_attr( $open_badge_color ); ?>;
+        --directorist-color-closed-badge: <?php echo esc_attr( $closed_badge_color ); ?>;
+        --directorist-color-featured-badge: <?php echo esc_attr( $featured_badge_color ); ?>;
+        --directorist-color-popular-badge: <?php echo esc_attr( $popular_badge_color ); ?>;
+        --directorist-color-new-badge: <?php echo esc_attr( $new_badge_color ); ?>;
 
         /* Map marker Color */
-        --directorist-color-marker-shape: <?php echo $marker_shape_color; ?>;
-        --directorist-color-marker-icon: <?php echo $marker_icon_color; ?>;
-        --directorist-color-marker-shape-rgb: <?php echo $marker_shape_color_rgb ?? '0,0,0'; ?>;
+        --directorist-color-marker-shape: <?php echo esc_attr( $marker_shape_color ); ?>;
+        --directorist-color-marker-icon: <?php echo esc_attr( $marker_icon_color ); ?>;
+        --directorist-color-marker-shape-rgb: <?php echo esc_attr( $marker_shape_color_rgb ?? '0,0,0' ); ?>;
 
         /* Font config */
         --directorist-fw-regular: 400;
@@ -116,21 +116,21 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
         --directorist-color-btn-hover:rgba(var(--directorist-color-primary-rgb),.80);
         --directorist-color-btn-border:var(--directorist-color-primary);
 
-        --directorist-color-btn-primary:<?php echo $button_primary_color; ?>;
-        --directorist-color-btn-primary-rgb: <?php echo $button_primary_color_rgb ?? '0,0,0'; ?>;
-        --directorist-color-btn-primary-bg:<?php echo $button_primary_bg_color; ?>;
-        --directorist-color-btn-primary-border:<?php echo $button_primary_bg_color; ?>;
-        --directorist-color-btn-secondary:<?php echo $button_secondary_color; ?>;
-        --directorist-color-btn-secondary-rgb:<?php echo $button_secondary_color_rgb ?? '0,0,0'; ?>;
-        --directorist-color-btn-secondary-bg:<?php echo $button_secondary_bg_color; ?>;
-        --directorist-color-btn-secondary-border:<?php echo $button_secondary_bg_color; ?>;
+        --directorist-color-btn-primary:<?php echo esc_attr( $button_primary_color ); ?>;
+        --directorist-color-btn-primary-rgb: <?php echo esc_attr( $button_primary_color_rgb ?? '0,0,0' ); ?>;
+        --directorist-color-btn-primary-bg:<?php echo esc_attr( $button_primary_bg_color ); ?>;
+        --directorist-color-btn-primary-border:<?php echo esc_attr( $button_primary_bg_color ); ?>;
+        --directorist-color-btn-secondary:<?php echo esc_attr( $button_secondary_color ); ?>;
+        --directorist-color-btn-secondary-rgb:<?php echo esc_attr( $button_secondary_color_rgb ?? '0,0,0' ); ?>;
+        --directorist-color-btn-secondary-bg:<?php echo esc_attr( $button_secondary_bg_color ); ?>;
+        --directorist-color-btn-secondary-border:<?php echo esc_attr( $button_secondary_bg_color ); ?>;
 
         /* Star Color */
         --directorist-color-star:var(--directorist-color-warning);
 
         /* Single Listing Slider Width Height Control */
-        --gallery-crop-width:<?php echo $gallery_crop_width; ?>;
-        --gallery-crop-height:<?php echo $gallery_crop_height; ?>;
+        --gallery-crop-width:<?php echo esc_attr( $gallery_crop_width ); ?>;
+        --gallery-crop-height:<?php echo esc_attr( $gallery_crop_height ); ?>;
     }
 
     /* Settings Panel Structure
@@ -225,56 +225,6 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
     .default-ad-search .submit_btn .btn-default:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
         border-color: var(--directorist-color-primary);
-    }
-
-    /*
-        Badge Colors
-          - Badge Open
-          - Badge Closed
-          - Badge Featured
-          - Badge Popular
-          - Badge New
-    */
-    /* Badge Open */
-    .atbd_bg-success i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open i::after, .directorist-badge-open {
-        background: var(--directorist-color-open-badge) !important;
-    }
-
-    /* Badge Closed */
-    .atbd_bg-danger i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close i::after, .directorist-badge-close, .directorist-badge.directorist-badge-danger   {
-        background: var(--directorist-color-closed-badge) !important;
-    }
-
-    /* Badge Featured */
-    .atbd_bg-badge-feature i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured i::after, .directorist-listing-single .directorist-badge.directorist-badge-featured i::after {
-        background: var(--directorist-color-featured-badge) !important;
-    }
-
-    /* Badge Popular */
-    .atbd_bg-badge-popular i::after,
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular i::after,
-    .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular i::after,
-    .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular i::after,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular i::after, .directorist-listing-single .directorist-badge.directorist-badge-popular i::after {
-        background: var(--directorist-color-popular-badge) !important;
-    }
-
-    /* Badge New */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new, .directorist-listing-single .directorist-badge.directorist-badge-new i::after {
-        background: var(--directorist-color-new-badge) !important;
     }
 
     /*

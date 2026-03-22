@@ -27,7 +27,8 @@ $default_icon = 'las la-tags';
         $listing_prv_img = directorist_get_listing_preview_image( $related_listing->ID );
         $review_rating = directorist_get_listing_rating( $related_listing->ID );
         $review_count  = directorist_get_listing_review_count( $related_listing->ID );
-        $review_text   = sprintf( _n( '%s review', $review_count > 0 ?  '%s reviews' : '%s review', $review_count, 'directorist' ), number_format_i18n( $review_count ) );
+        /* translators: %s: Number of reviews */
+        $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), number_format_i18n( $review_count ) );
         $price = get_post_meta( $related_listing->ID, '_price', true );
         $price_range = get_post_meta( $related_listing->ID, '_price_range', true );
         $listing_pricing = get_post_meta( $related_listing->ID, '_atbd_listing_pricing', true );

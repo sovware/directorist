@@ -21,7 +21,7 @@ class ATBDP_Upgrade
 
         add_action( 'directorist_search_setting_sections', [$this, 'support_themes_hook'] );
 
-        add_action( 'admin_notices', [$this, 'upgrade_notice'], 100 );
+        //add_action( 'admin_notices', [$this, 'upgrade_notice'], 100 );
 
         add_action( 'directorist_before_settings_panel_header', [$this, 'promo_banner'] );
 

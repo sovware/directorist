@@ -826,10 +826,17 @@ function setupTinyMCEHandlers($, triggerFn) {
     if (!$formGroup.length && !isWordPressContentEditor) return;
     var fieldName = $editorTextarea.attr('name') || editorId;
     var fieldKey = _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.WIDGET_KEY_TO_FIELD_KEY[fieldName] || fieldName;
-    editor.off('input keyup change NodeChange');
-    editor.on('input keyup change NodeChange', function () {
+
+    // Do not remove all TinyMCE listeners; that can break core UI
+    // behaviors like link popover visibility/positioning.
+    if (editor.directoristConditionalLogicBound) {
+      return;
+    }
+    var conditionalLogicHandler = function conditionalLogicHandler() {
       triggerFn(fieldName, fieldKey, $editorTextarea);
-    });
+    };
+    editor.on('input keyup change NodeChange', conditionalLogicHandler);
+    editor.directoristConditionalLogicBound = true;
   }
   $(document).ready(function () {
     try {
@@ -3338,6 +3345,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -3346,12 +3359,6 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		if (!(moduleId in __webpack_modules__)) {
-/******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

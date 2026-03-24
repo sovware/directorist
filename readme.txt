@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.6.1
+Stable tag: 8.6.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -305,6 +305,23 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.6.5 - Mar 15, 2026 =
+
+**Fixed**
+ - Subscriber image upload issue in add listing form.
+ - "Remember Me" label not showing for new users. Added default value.
+
+= 8.6.4 - Mar 11, 2026 =
+
+**Fixed**
+ - Formgent enquiry modal in the user dashboard was not loading content properly when opened.
+ - Extension notice display
+
+= 8.6.3 - Mar 10, 2026 =
+
+**Improved**
+ - Excluded `.wordpress-org` folder from distribution package to prevent WordPress.org repository assets from appearing in user installations.
 
 = 8.6.1 - Mar 10, 2026 =
 

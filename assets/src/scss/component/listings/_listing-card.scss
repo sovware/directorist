@@ -1551,7 +1551,10 @@
 
 	> li,
 	> div {
-		display: inline-flex;
+		display: flex;
+		flex: 1 1 136px;
+min-width: 136px;
+max-width: 284px;
 		margin: 0;
 
 		a:not(.directorist-btn) {
@@ -1603,7 +1606,12 @@
 
 
 	.directorist-btn{
+		width:100%;
 		&.directorist-btn-default{
+			min-height: 40px;
+			border-radius: 8px;
+			font-size: 14px;
+			font-weight: 500;
 			background-color: var(--directorist-color-white) !important;
 			background: transparent;
 			border: 1px solid var(--directorist-color-bg-light) !important;
@@ -1618,16 +1626,14 @@
 
 	// Button custom field already has .directorist-btn – override to match
 	.directorist-listing-card-button {
-		> .directorist-icon-mask,
-		> i {
-			display: none;
-		}
 
 		.directorist-btn {
-			min-height: 36px;
+			width:100%;
+			min-height: 40px;
 			border-radius: 8px;
-			font-size: 13px;
+			font-size: 14px;
 			font-weight: 500;
+			letter-spacing: -0.076px;
 
 			.directorist-icon-arrow-right {
 				display: inline-flex;

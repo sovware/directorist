@@ -31,7 +31,6 @@ if ( 'primary' === $btn_style ) {
 ?>
 
 <<?php echo tag_escape( $before ? $before : 'div' ); ?> class="directorist-listing-card-button">
-    <?php directorist_icon( $icon ); ?>
     <?php $listings->print_label( $label ); ?>
     <a class="<?php echo esc_attr( $btn_class ); ?>"
        href="<?php echo esc_url( $button_url_label ); ?>"<?php echo $target; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>

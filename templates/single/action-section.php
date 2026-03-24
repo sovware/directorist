@@ -92,7 +92,7 @@ if ( empty( $action_data ) ) {
                         ? $action['form_data']['label']
                         : ( ! empty( $action['label'] ) ? $action['label'] : '' );
                     ?>
-                    <a class="directorist-btn directorist-btn-sm directorist-btn-primary"
+                    <a class="directorist-btn directorist-btn-sm directorist-btn-default"
                        href="<?php echo esc_url( $phone_link ); ?>">
                         <?php directorist_icon( $phone_icon ); ?>
                         <?php echo esc_html( $phone_label ); ?>
@@ -102,7 +102,7 @@ if ( empty( $action_data ) ) {
                         ? $action['form_data']['label']
                         : ( ! empty( $action['label'] ) ? $action['label'] : '' );
                     ?>
-                    <a class="directorist-btn directorist-btn-sm directorist-btn-primary"
+                    <a class="directorist-btn directorist-btn-sm directorist-btn-default"
                        href="<?php echo esc_url( $phone_link ); ?>">
                         <?php directorist_icon( $phone_icon ); ?>
                         <?php echo esc_html( $phone_label ); ?>

@@ -440,15 +440,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function atbdp_become_author() {
-            if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'atbdp_become_author' ) ) {
-                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
-            }
-        
             if ( ! is_user_logged_in() ) {
                 wp_send_json_error( array( 'message' => __( 'Permission denied.', 'directorist' ) ), 403 );
             }
-        
-            $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : '';
+
+            if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'atbdp_become_author' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
+            }
+
+            // Never trust userId from POST — always use current logged-in user.
+            $user_id = get_current_user_id();
             do_action( 'atbdp_become_author', $user_id );
             update_user_meta( $user_id, '_user_type', 'become_author' );
             wp_send_json( __( 'Sent successfully', 'directorist' ) );
@@ -604,6 +605,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function atbdp_listing_default_type() {
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
+
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 wp_send_json( 'Invalid request.' );
             }
@@ -846,6 +851,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
          * It upgrades old pages and make them compatible with new shortcodes
          */
         public function upgrade_old_pages() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
+
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json_error( array( 'message' => __( 'Security check failed.', 'directorist' ) ), 403 );
+            }
+
             update_option( 'atbdp_pages_version', 0 );
             wp_send_json_success( __( 'Congratulations! All old pages have been updated successfully', 'directorist' ) );
         }

@@ -55,6 +55,10 @@ if ( ! class_exists( 'ATBDP_Installation' ) ) :
                 'directorist_850_migrate_archive_base',
                 'directorist_850_update_db_version',
             ],
+            '8.7.0' => [
+                'directorist_870_migrate_legacy_orders',
+                'directorist_870_update_db_version',
+            ],
         ];
 
         /**

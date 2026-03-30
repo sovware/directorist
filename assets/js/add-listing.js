@@ -1,6 +1,2011 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./assets/src/js/global/components/conditional-logic.js":
+/*!**************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic.js ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   applyConditionalLogic: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.applyConditionalLogic; },
+/* harmony export */   evaluateConditionalLogic: function() { return /* reexport safe */ _conditional_logic_evaluate_js__WEBPACK_IMPORTED_MODULE_1__.evaluateConditionalLogic; },
+/* harmony export */   getFieldValue: function() { return /* reexport safe */ _conditional_logic_get_field_value_js__WEBPACK_IMPORTED_MODULE_0__.getFieldValue; },
+/* harmony export */   initConditionalLogic: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.initConditionalLogic; },
+/* harmony export */   updateCategoryFieldLabel: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.updateCategoryFieldLabel; },
+/* harmony export */   watchFieldChanges: function() { return /* reexport safe */ _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__.watchFieldChanges; }
+/* harmony export */ });
+/* harmony import */ var _conditional_logic_get_field_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./conditional-logic/get-field-value.js */ "./assets/src/js/global/components/conditional-logic/get-field-value.js");
+/* harmony import */ var _conditional_logic_evaluate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./conditional-logic/evaluate.js */ "./assets/src/js/global/components/conditional-logic/evaluate.js");
+/* harmony import */ var _conditional_logic_init_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./conditional-logic/init.js */ "./assets/src/js/global/components/conditional-logic/init.js");
+/**
+ * Conditional Logic Evaluation for Frontend Form
+ * Combines all submodules and re-exports for consumers
+ */
+
+
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/depends-on-field.js":
+/*!*******************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/depends-on-field.js ***!
+  \*******************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fieldDependsOnChange: function() { return /* binding */ fieldDependsOnChange; }
+/* harmony export */ });
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+/**
+ * Check if a field's conditional logic depends on a given changed field.
+ * Used to determine which fields need re-evaluation when a value changes.
+ *
+ * @param {Object} conditionalLogic - Parsed conditional logic config
+ * @param {string} fieldKey - Key of the changed field (e.g. 'custom-checkbox', 'category')
+ * @param {string} fieldName - Name attribute of the changed field (e.g. 'custom_field[custom-checkbox][]')
+ * @param {jQuery} $changedField - The DOM element that changed
+ * @param {Function} normalizeConditionFieldKey - Normalizer for field keys
+ * @returns {boolean} True if any condition in the config references the changed field
+ */
+
+function fieldDependsOnChange(conditionalLogic, fieldKey, fieldName, $changedField, normalizeConditionFieldKey) {
+  if (!conditionalLogic.groups || !Array.isArray(conditionalLogic.groups)) {
+    return false;
+  }
+  var hasChangedField = $changedField && typeof $changedField.length !== 'undefined' && $changedField.length > 0;
+  var isTaxonomyField = _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.TAXONOMY_FIELD_KEYS.includes(fieldKey) || _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.TAXONOMY_FIELD_KEYS.includes(fieldName) || hasChangedField && ($changedField.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.CATEGORY) || $changedField.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAGS) || $changedField.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.LOCATION) || $changedField.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_LOC) || $changedField.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_CAT) || $changedField.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_TAG) || $changedField.closest(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.CATEGORY_CHECKLIST).length || $changedField.closest(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.LOCATION_CHECKLIST).length || $changedField.closest(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAGS_CHECKLIST).length);
+  var _iterator = _createForOfIteratorHelper(conditionalLogic.groups),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _group = _step.value;
+      if (!_group.conditions || !Array.isArray(_group.conditions)) {
+        continue;
+      }
+      var _iterator4 = _createForOfIteratorHelper(_group.conditions),
+        _step4;
+      try {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var _condition = _step4.value;
+          var conditionFieldKey = (_condition.field || '').trim();
+          var conditionFieldKeyMapped = _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.WIDGET_KEY_TO_FIELD_KEY[conditionFieldKey] || conditionFieldKey;
+          var conditionFieldKeyNormalized = normalizeConditionFieldKey(conditionFieldKey);
+          var fieldKeyAsWidgetKey = null;
+          if (fieldKey && fieldKey.startsWith('custom-')) {
+            fieldKeyAsWidgetKey = fieldKey.replace(/^custom-/, '').replace(/-/g, '_');
+          }
+          if (fieldName && fieldName.startsWith('custom-')) {
+            var fieldNameAsWidgetKey = fieldName.replace(/^custom-/, '');
+            if (!fieldKeyAsWidgetKey) {
+              fieldKeyAsWidgetKey = fieldNameAsWidgetKey;
+            }
+          }
+          var changedId = hasChangedField ? $changedField.attr('id') : null;
+          var changedName = hasChangedField ? $changedField.attr('name') : null;
+
+          // review (builder field) = search_by_rating[] (DOM name)
+          var isReviewField = conditionFieldKey === 'review' && (fieldKey === 'search_by_rating' || fieldName === 'search_by_rating[]') || conditionFieldKey === 'search_by_rating' && fieldKey === 'review';
+          var matches = isReviewField || conditionFieldKey === fieldKey || conditionFieldKey === fieldName || conditionFieldKey === changedId || conditionFieldKey === changedName || conditionFieldKeyMapped === fieldKey || conditionFieldKeyMapped === fieldName || conditionFieldKeyMapped === changedId || conditionFieldKeyMapped === changedName || conditionFieldKeyNormalized && (conditionFieldKeyNormalized === fieldKey || conditionFieldKeyNormalized === fieldName || conditionFieldKeyNormalized === changedId || conditionFieldKeyNormalized === changedName || "custom_field[".concat(conditionFieldKeyNormalized, "]") === fieldName || "custom_field[".concat(conditionFieldKeyNormalized, "][]") === fieldName) || fieldKeyAsWidgetKey && (conditionFieldKey === fieldKeyAsWidgetKey || conditionFieldKeyMapped === fieldKeyAsWidgetKey);
+          if (matches) {
+            return true;
+          }
+        }
+      } catch (err) {
+        _iterator4.e(err);
+      } finally {
+        _iterator4.f();
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  if (isTaxonomyField) {
+    var _iterator2 = _createForOfIteratorHelper(conditionalLogic.groups),
+      _step2;
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var group = _step2.value;
+        if (!group.conditions || !Array.isArray(group.conditions)) {
+          continue;
+        }
+        var _iterator3 = _createForOfIteratorHelper(group.conditions),
+          _step3;
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var condition = _step3.value;
+            if (_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.TAXONOMY_FIELD_KEYS.includes(condition.field)) {
+              return true;
+            }
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  }
+  return false;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/evaluate.js":
+/*!***********************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/evaluate.js ***!
+  \***********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   evaluateArrayCondition: function() { return /* binding */ evaluateArrayCondition; },
+/* harmony export */   evaluateCondition: function() { return /* binding */ evaluateCondition; },
+/* harmony export */   evaluateConditionalLogic: function() { return /* binding */ evaluateConditionalLogic; },
+/* harmony export */   isEmpty: function() { return /* binding */ isEmpty; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
+
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+/**
+ * Condition evaluation logic
+ */
+
+
+
+/**
+ * Check if value is empty (null, undefined, '', or []).
+ * @param {*} value
+ * @returns {boolean}
+ */
+function isEmpty(value) {
+  if (value === null || value === undefined) {
+    return true;
+  }
+  if (typeof value === 'string' && value.trim() === '') {
+    return true;
+  }
+  if (Array.isArray(value) && value.length === 0) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Evaluate a single condition (operator + value).
+ * @param {Object} condition - { field, operator, value }
+ * @param {*} fieldValue - Current field value
+ * @returns {boolean}
+ */
+function evaluateCondition(condition, fieldValue) {
+  if (!condition.operator) {
+    return false;
+  }
+  var operator = condition.operator.toLowerCase();
+  var conditionValue = condition.value || '';
+
+  // Handle file fields with "uploaded" value
+  if (conditionValue.toLowerCase() === 'uploaded') {
+    if (operator === 'is' || operator === '==' || operator === '=') {
+      return fieldValue === 'uploaded' || fieldValue === true;
+    }
+    if (operator === 'is not' || operator === '!=' || operator === 'not') {
+      return fieldValue !== 'uploaded' && fieldValue !== true && isEmpty(fieldValue);
+    }
+    if (operator === 'empty') {
+      return isEmpty(fieldValue) || fieldValue !== 'uploaded';
+    }
+    if (operator === 'not empty') {
+      return !isEmpty(fieldValue) && fieldValue === 'uploaded';
+    }
+  }
+  if (operator === 'empty') {
+    return isEmpty(fieldValue);
+  }
+  if (operator === 'not empty') {
+    return !isEmpty(fieldValue);
+  }
+  if (Array.isArray(fieldValue)) {
+    return evaluateArrayCondition(fieldValue, conditionValue, operator);
+  }
+  var fieldVal = fieldValue;
+  var condVal = conditionValue;
+  if (typeof fieldVal === 'string') {
+    fieldVal = fieldVal.trim().toLowerCase();
+  }
+  if (typeof condVal === 'string') {
+    condVal = condVal.trim().toLowerCase();
+  }
+  switch (operator) {
+    case 'is':
+    case '==':
+    case '=':
+      return String(fieldVal) === String(condVal);
+    case 'is not':
+    case '!=':
+    case 'not':
+      return String(fieldVal) !== String(condVal);
+    case 'contains':
+      if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+        return fieldVal.toLowerCase().includes(condVal.toLowerCase());
+      }
+      return false;
+    case 'does not contain':
+      if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+        return !fieldVal.toLowerCase().includes(condVal.toLowerCase());
+      }
+      return true;
+    case 'greater than':
+    case '>':
+      return Number(fieldVal) > Number(condVal);
+    case 'less than':
+    case '<':
+      return Number(fieldVal) < Number(condVal);
+    case 'greater than or equal':
+    case '>=':
+      return Number(fieldVal) >= Number(condVal);
+    case 'less than or equal':
+    case '<=':
+      return Number(fieldVal) <= Number(condVal);
+    case 'starts with':
+      if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+        return fieldVal.startsWith(condVal);
+      }
+      return false;
+    case 'ends with':
+      if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+        return fieldVal.endsWith(condVal);
+      }
+      return false;
+    default:
+      return false;
+  }
+}
+
+/**
+ * Evaluate condition when field value is an array (e.g. multi-select).
+ * @param {Array} fieldArray
+ * @param {*} conditionValue
+ * @param {string} operator
+ * @returns {boolean}
+ */
+function evaluateArrayCondition(fieldArray, conditionValue, operator) {
+  if (!Array.isArray(fieldArray) || fieldArray.length === 0) {
+    if (operator === 'empty' || operator === 'is empty') {
+      return true;
+    }
+    if (operator === 'not empty' || operator === 'is not empty') {
+      return false;
+    }
+    if (operator === 'is' || operator === '==' || operator === '=') {
+      return false;
+    }
+    if (operator === 'is not' || operator === '!=' || operator === 'not') {
+      return true;
+    }
+    return false;
+  }
+  var condVal = typeof conditionValue === 'string' ? conditionValue.trim().toLowerCase() : conditionValue;
+  switch (operator) {
+    case 'is':
+    case '==':
+    case '=':
+      {
+        var condValStrForIs = String(condVal).toLowerCase().trim();
+        var normalizedValues = fieldArray.map(function (val) {
+          if (typeof val === 'string') {
+            return val.trim().toLowerCase();
+          } else if (typeof val === 'number') {
+            return String(val).toLowerCase();
+          } else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(val) === 'object' && val !== null) {
+            if (val.name) return String(val.name).trim().toLowerCase();
+            if (val.label) return String(val.label).trim().toLowerCase();
+            if (val.value) return String(val.value).trim().toLowerCase();
+            if (val.id) return String(val.id).toLowerCase();
+            return String(val).toLowerCase();
+          }
+          return String(val).toLowerCase();
+        });
+        // "is" = strict: all values must match (category/location return IDs only)
+        var hasMatch = normalizedValues.some(function (val) {
+          return val === condValStrForIs;
+        });
+        if (!hasMatch) return false;
+        return normalizedValues.every(function (val) {
+          return val === condValStrForIs;
+        });
+      }
+    case 'contains':
+      {
+        var condValStrContains = String(condVal).toLowerCase();
+        return fieldArray.some(function (val) {
+          var compareVal = val;
+          if (typeof compareVal === 'string') {
+            compareVal = compareVal.trim().toLowerCase();
+          } else if (typeof compareVal === 'number') {
+            compareVal = String(compareVal).toLowerCase();
+          } else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(compareVal) === 'object' && compareVal !== null) {
+            if (compareVal.name) compareVal = compareVal.name;else if (compareVal.label) compareVal = compareVal.label;else if (compareVal.value) compareVal = compareVal.value;else if (compareVal.id) compareVal = compareVal.id;else compareVal = String(compareVal);
+            if (typeof compareVal === 'string') {
+              compareVal = compareVal.trim().toLowerCase();
+            }
+          }
+          var compareValStr = String(compareVal).toLowerCase();
+          return compareValStr === condValStrContains || compareValStr.includes(condValStrContains);
+        });
+      }
+    case 'is not':
+    case '!=':
+    case 'does not contain':
+      return !fieldArray.some(function (val) {
+        var compareVal = val;
+        if (typeof compareVal === 'string') {
+          compareVal = compareVal.trim().toLowerCase();
+        }
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(compareVal) === 'object' && compareVal !== null) {
+          if (compareVal.name) compareVal = compareVal.name;else if (compareVal.label) compareVal = compareVal.label;else if (compareVal.value) compareVal = compareVal.value;else if (compareVal.id) compareVal = compareVal.id;else compareVal = String(compareVal);
+        }
+        return String(compareVal).toLowerCase().includes(String(condVal).toLowerCase()) || String(compareVal).toLowerCase() === String(condVal).toLowerCase();
+      });
+    case 'empty':
+    case 'is empty':
+      return fieldArray.length === 0;
+    case 'not empty':
+    case 'is not empty':
+      return fieldArray.length > 0;
+    default:
+      return false;
+  }
+}
+
+/**
+ * Evaluate full conditional logic (groups, operators, action).
+ * @param {Object} conditionalLogic - { enabled, action, globalOperator, groups }
+ * @param {Function} getFieldValueFn - (fieldKey) => value
+ * @returns {boolean} True if field should show
+ */
+function evaluateConditionalLogic(conditionalLogic, getFieldValueFn) {
+  if (!conditionalLogic) {
+    return true;
+  }
+  var isEnabled = conditionalLogic.enabled === true || conditionalLogic.enabled === 1 || conditionalLogic.enabled === '1' || conditionalLogic.enabled === 'true';
+  if (!isEnabled) {
+    return true;
+  }
+  if (!conditionalLogic.groups || !Array.isArray(conditionalLogic.groups) || conditionalLogic.groups.length === 0) {
+    return true;
+  }
+  var groupResults = [];
+  var _iterator = _createForOfIteratorHelper(conditionalLogic.groups),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var group = _step.value;
+      if (!group.conditions || !Array.isArray(group.conditions) || group.conditions.length === 0) {
+        continue;
+      }
+      var conditionResults = [];
+      var _iterator2 = _createForOfIteratorHelper(group.conditions),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var condition = _step2.value;
+          var rawField = (condition.field || '').trim();
+          if (!rawField) {
+            continue;
+          }
+          if (!condition.operator || !condition.operator.trim()) {
+            continue;
+          }
+          var fieldKeyForLookup = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.normalizeConditionFieldKey)(rawField);
+          var fieldValue = getFieldValueFn(fieldKeyForLookup);
+          var conditionResult = evaluateCondition(condition, fieldValue);
+          conditionResults.push(conditionResult);
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+      if (conditionResults.length === 0) {
+        continue;
+      }
+      var groupOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.normalizeOperator)(group.operator, 'AND');
+      var groupResult = groupOperator === 'OR' ? conditionResults.some(function (result) {
+        return result === true;
+      }) : conditionResults.every(function (result) {
+        return result === true;
+      });
+      groupResults.push(groupResult);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  var globalOperator = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.normalizeOperator)(conditionalLogic.globalOperator, 'OR');
+  var result = true;
+  if (groupResults.length > 0) {
+    result = globalOperator === 'AND' ? groupResults.every(function (groupRes) {
+      return groupRes === true;
+    }) : groupResults.some(function (groupRes) {
+      return groupRes === true;
+    });
+  }
+  if (conditionalLogic.action === 'hide') {
+    return !result;
+  }
+  return result;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/event-handlers/file-upload-handlers.js":
+/*!**************************************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/event-handlers/file-upload-handlers.js ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setupFileUploadHandlers: function() { return /* binding */ setupFileUploadHandlers; }
+/* harmony export */ });
+/**
+ * File upload handlers: plupload, ez-media-uploader, thumb removal.
+ * Uses MutationObserver on document.body to detect uploads/deletes.
+ * @param {jQuery} $
+ * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
+ */
+function setupFileUploadHandlers($, triggerFn) {
+  var fileUploadObserver = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        var $target = $(mutation.target);
+        if ($target.hasClass('ezmu__preview-section') && $target.hasClass('ezmu--show')) {
+          var $imageWrapper = $target.closest('.directorist-form-image-upload-field');
+          if ($imageWrapper.length) {
+            setTimeout(function () {
+              triggerFn('listing_img', 'listing_img', $imageWrapper.find('.ez-media-uploader').first());
+            }, 200);
+          }
+        }
+        if ($target.hasClass('ezmu__preview-section') && !$target.hasClass('ezmu--show')) {
+          var _$imageWrapper = $target.closest('.directorist-form-image-upload-field');
+          if (_$imageWrapper.length) {
+            setTimeout(function () {
+              triggerFn('listing_img', 'listing_img', _$imageWrapper.find('.ez-media-uploader').first());
+            }, 200);
+          }
+        }
+      }
+      if (mutation.addedNodes.length > 0) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeType !== 1) return;
+          var $node = $(node);
+          if ($node.hasClass('thumb') || $node.closest('.plupload-thumbs').length || $node.find('.thumb').length) {
+            var $fileWrapper = $node.closest('.directorist-form-group, .directorist-custom-field-file-upload');
+            if ($fileWrapper.length) {
+              var fieldKey = resolveFileFieldKey($fileWrapper);
+              if (fieldKey) {
+                setTimeout(function () {
+                  triggerFn(fieldKey, fieldKey, $fileWrapper.find('input[type="hidden"]').first());
+                }, 100);
+              }
+            }
+          }
+          if ($node.hasClass('ezmu__preview-section') || $node.hasClass('ezmu--show') || $node.closest('.ezmu__preview-section.ezmu--show').length) {
+            var _$imageWrapper2 = $node.closest('.directorist-form-image-upload-field');
+            if (_$imageWrapper2.length) {
+              setTimeout(function () {
+                triggerFn('listing_img', 'listing_img', _$imageWrapper2.find('.ez-media-uploader').first());
+              }, 200);
+            }
+          }
+        });
+      }
+      if (mutation.removedNodes.length > 0) {
+        mutation.removedNodes.forEach(function (node) {
+          if (node.nodeType !== 1) return;
+          var $node = $(node);
+          if ($node.hasClass('thumb') || $node.closest('.plupload-thumbs').length || $node.find('.thumb').length) {
+            var $thumbsContainer = $(mutation.target);
+            if ($thumbsContainer.hasClass('plupload-thumbs') || $thumbsContainer.find('.plupload-thumbs').length) {
+              var $fileWrapper = $thumbsContainer.closest('.directorist-form-group, .directorist-custom-field-file-upload');
+              if ($fileWrapper.length) {
+                var fieldKey = resolveFileFieldKey($fileWrapper);
+                if (fieldKey) {
+                  setTimeout(function () {
+                    triggerFn(fieldKey, fieldKey, $fileWrapper.find('input[type="hidden"]').first());
+                  }, 300);
+                }
+              }
+            }
+          }
+          if ($node.hasClass('ezmu__file-item') || $node.hasClass('ezmu__new-file') || $node.closest('.ez-media-uploader').length || $node.hasClass('ezmu__old-files-meta') || $node.find('.ezmu__file-item, .ezmu__new-file').length) {
+            var $uploaderContainer = $(mutation.target);
+            if ($uploaderContainer.hasClass('ez-media-uploader') || $uploaderContainer.closest('.ez-media-uploader').length) {
+              var _$imageWrapper3 = $uploaderContainer.closest('.directorist-form-image-upload-field');
+              if (_$imageWrapper3.length) {
+                setTimeout(function () {
+                  triggerFn('listing_img', 'listing_img', _$imageWrapper3.find('.ez-media-uploader').first());
+                }, 300);
+              }
+            }
+          }
+        });
+      }
+    });
+  });
+  fileUploadObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class']
+  });
+  document.addEventListener('click', function (e) {
+    var $target = $(e.target);
+    var $removeButton = $target.closest('.thumbremovelink').length ? $target.closest('.thumbremovelink') : $target.hasClass('thumbremovelink') ? $target : null;
+    if (!$removeButton || !$removeButton.length) return;
+    var $thumb = $removeButton.closest('.thumb');
+    if (!$thumb.length) return;
+    var $fileWrapper = $thumb.closest('.directorist-form-group, .directorist-custom-field-file-upload');
+    if (!$fileWrapper.length) return;
+    var fieldKey = resolveFileFieldKey($fileWrapper);
+    if (fieldKey) {
+      setTimeout(function () {
+        var $hiddenInput = $fileWrapper.find("input[type=\"hidden\"][name=\"".concat(fieldKey, "\"], input[type=\"hidden\"][name=\"").concat(fieldKey, "[]\"]")).first();
+        triggerFn(fieldKey, fieldKey, $hiddenInput.length ? $hiddenInput : $fileWrapper.find('input[type="hidden"]').first() || $fileWrapper);
+      }, 400);
+    }
+  }, true);
+}
+
+/** Get field key from data-field-key or hidden input name. */
+function resolveFileFieldKey($fileWrapper) {
+  var fieldKey = $fileWrapper.attr('data-field-key') || $fileWrapper.find('[data-field-key]').first().attr('data-field-key');
+  if (!fieldKey) {
+    var $hiddenInput = $fileWrapper.find('input[type="hidden"]').first();
+    if ($hiddenInput.length) {
+      var inputName = $hiddenInput.attr('name');
+      if (inputName) {
+        fieldKey = inputName.includes('[') ? inputName.split('[')[0] : inputName;
+      }
+    }
+  }
+  return fieldKey;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/event-handlers/form-handlers.js":
+/*!*******************************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/event-handlers/form-handlers.js ***!
+  \*******************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setupFormHandlers: function() { return /* binding */ setupFormHandlers; }
+/* harmony export */ });
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
+/**
+ * Form change handlers: input/select/textarea, color picker, clear button
+ */
+
+
+
+/**
+ * @param {Function} getWrapperFn
+ * @param {jQuery} $
+ * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
+ */
+function setupFormHandlers(getWrapperFn, $, triggerFn) {
+  // Delegate from document so handlers work after AJAX form replace (e.g. search form tab change)
+  var wrapper = getWrapperFn();
+  var delegatedSelector = wrapper.split(',').map(function (s) {
+    return s.trim();
+  }).flatMap(function (s) {
+    return [s + ' input', s + ' select', s + ' textarea', s + ' .select2-hidden-accessible'];
+  }).join(', ');
+  $(document).on('change input select2:select select2:unselect', delegatedSelector, function () {
+    var $changedField = $(this);
+    var fieldName = $changedField.attr('name') || $changedField.attr('id');
+    if (!fieldName) {
+      console.warn('Field change detected but no name/id found:', $changedField);
+      return;
+    }
+    var _extractFieldKeyFromC = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.extractFieldKeyFromChange)(fieldName, $changedField),
+      fieldKey = _extractFieldKeyFromC.fieldKey,
+      taxonomyFieldSelector = _extractFieldKeyFromC.taxonomyFieldSelector;
+    if (taxonomyFieldSelector) {
+      // Address input: no Select2, just re-evaluate after DOM settles
+      if (taxonomyFieldSelector === _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.TAXONOMY_SELECTOR_SEARCH_FORM_ADDRESS) {
+        setTimeout(function () {
+          triggerFn(fieldName, fieldKey, $changedField);
+        }, 50);
+        return;
+      }
+      var $fieldToUpdate = taxonomyFieldSelector === _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.TAXONOMY_SELECTOR_SEARCH_FORM_FIELD ? $changedField : $(taxonomyFieldSelector);
+      // Let Select2 update data-selected-* before re-evaluating
+      setTimeout(function () {
+        if ($fieldToUpdate.length) {
+          (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.syncSelect2DataAttributes)($fieldToUpdate, $);
+        }
+        triggerFn(fieldName, fieldKey, $changedField);
+      }, 50);
+      return;
+    }
+    triggerFn(fieldName, fieldKey, $changedField);
+  });
+
+  // Clear button
+  $(document).on('click', '.directorist-search-field__btn--clear', function () {
+    var $fieldWrap = $(this).closest('.directorist-search-field');
+    var _extractFieldFromClea = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.extractFieldFromClearButton)($fieldWrap),
+      fieldKey = _extractFieldFromClea.fieldKey,
+      fieldName = _extractFieldFromClea.fieldName,
+      $changedField = _extractFieldFromClea.$changedField;
+    if (fieldKey) {
+      setTimeout(function () {
+        triggerFn(fieldName, fieldKey, $changedField);
+      }, 50);
+    }
+  });
+
+  // Document-level fallback for custom fields
+  $(document).on('change', '.directorist-select select, .directorist-custom-field-select select, select.directorist-form-element, .directorist-custom-field-radio input[type="radio"], .directorist-custom-field-checkbox input[type="checkbox"]', function () {
+    var $changedField = $(this);
+    var fieldName = $changedField.attr('name') || $changedField.attr('id');
+    if (!fieldName) return;
+    var fieldKey = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.extractFieldKeyFromName)(fieldName);
+    triggerFn(fieldName, fieldKey, $changedField);
+  });
+
+  // Color picker: value updates async, delay before re-evaluating
+  function handleColorPickerChange(field) {
+    var $changedField = $(field);
+    var fieldName = $changedField.attr('name') || $changedField.attr('id');
+    if (!fieldName) return;
+    var fieldKey = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.extractFieldKeyFromName)(fieldName);
+    setTimeout(function () {
+      triggerFn(fieldName, fieldKey, $changedField);
+    }, 50);
+  }
+  $(document).on('change', '.directorist-color-picker, .wp-color-picker, input.wp-color-picker', function () {
+    handleColorPickerChange(this);
+  });
+  $(document).on('irischange', '.directorist-color-picker, .wp-color-picker, input.wp-color-picker', function () {
+    handleColorPickerChange(this);
+  });
+  document.addEventListener('click', function (e) {
+    if (e.target && (e.target.classList.contains('wp-picker-clear') || e.target.tagName === 'INPUT' && e.target.type === 'button' && e.target.className.includes('wp-picker-clear'))) {
+      var $clearButton = $(e.target);
+      var $colorPickerInput = $clearButton.closest('.wp-picker-container').find('.directorist-color-picker, .wp-color-picker, input.wp-color-picker');
+      handleColorPickerChange($colorPickerInput);
+    }
+  }, true);
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/event-handlers/taxonomy-handlers.js":
+/*!***********************************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/event-handlers/taxonomy-handlers.js ***!
+  \***********************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setupTaxonomyHandlers: function() { return /* binding */ setupTaxonomyHandlers; }
+/* harmony export */ });
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
+/**
+ * Taxonomy field handlers: Select2, tag metabox, clear button
+ */
+
+
+
+/**
+ * @param {jQuery} $
+ * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
+ */
+function setupTaxonomyHandlers($, triggerFn) {
+  var taxonomyFieldSelectors = "".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.CATEGORY, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAGS, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.LOCATION, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_LOC, ", ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_CAT);
+
+  // Select2: delay so DOM is updated before we read data-selected-*
+  // 'change' needed for search form in_cat/in_loc (Select2 may not fire select2:select in some setups)
+  $(document).on('change select2:select select2:unselect select2:clear', taxonomyFieldSelectors, function () {
+    setTimeout(function () {
+      var $field = $(this);
+      if (!$field.length) return;
+      var fieldKey = 'category';
+      var fieldName = 'admin_category_select[]';
+      if ($field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAGS)) {
+        fieldKey = 'tag';
+        fieldName = $field.attr('name') || 'tag';
+      } else if ($field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.LOCATION) || $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_LOC)) {
+        fieldKey = 'location';
+        fieldName = $field.attr('name') || 'tax_input[at_biz_dir-location][]';
+      } else if ($field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.IN_CAT)) {
+        fieldKey = 'category';
+        fieldName = $field.attr('name') || 'in_cat';
+      }
+      (0,_helpers_js__WEBPACK_IMPORTED_MODULE_1__.syncSelect2DataAttributes)($field, $);
+      triggerFn(fieldName, fieldKey, $field);
+    }.bind(this), 50);
+  });
+
+  // Tag metabox: add/remove tags
+  $(document).on('click', "".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAG_METABOX, " .ntdelbutton, ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAG_METABOX, " input.tagadd, ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAG_METABOX, " .button"), function () {
+    setTimeout(function () {
+      triggerFn('tax_input[at_biz_dir-tags][]', 'tax_input[at_biz_dir-tags][]', $("".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAG_METABOX, " .tagchecklist")));
+    }, 100);
+  });
+  $(document).on('keypress', "".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAG_METABOX, " input.newtag, ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAGS, " input.newtag"), function (e) {
+    if (e.which === 13) {
+      setTimeout(function () {
+        triggerFn('tax_input[at_biz_dir-tags][]', 'tax_input[at_biz_dir-tags][]', $("".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAG_METABOX, " .tagchecklist, ").concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAGS, " .tagchecklist")));
+      }, 50);
+    }
+  });
+
+  // MutationObserver: tagchecklist may load via AJAX
+  function observeTagchecklist() {
+    var $tagchecklist = $("".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.TAG_METABOX, " .tagchecklist"));
+    if ($tagchecklist.length && typeof MutationObserver !== 'undefined') {
+      var tagObserver = new MutationObserver(function () {
+        triggerFn('tax_input[at_biz_dir-tags][]', 'tax_input[at_biz_dir-tags][]', $tagchecklist);
+      });
+      tagObserver.observe($tagchecklist[0], {
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+  observeTagchecklist();
+  setTimeout(observeTagchecklist, 1000);
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/event-handlers/tinymce-handlers.js":
+/*!**********************************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/event-handlers/tinymce-handlers.js ***!
+  \**********************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setupTinyMCEHandlers: function() { return /* binding */ setupTinyMCEHandlers; }
+/* harmony export */ });
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/**
+ * TinyMCE editor handlers for conditional logic
+ */
+
+
+/**
+ * @param {jQuery} $
+ * @param {Function} triggerFn - (fieldName, fieldKey, $changedField) => void
+ */
+function setupTinyMCEHandlers($, triggerFn) {
+  if (typeof tinymce === 'undefined') return;
+  function attachTinyMCEEvents(editor) {
+    if (!editor || !editor.id) return;
+    var editorId = editor.id;
+    var $editorTextarea = $('#' + editorId);
+    if (!$editorTextarea.length) return;
+    var $formGroup = $editorTextarea.closest('.directorist-form-group');
+    var isWordPressContentEditor = editorId === 'content' && $editorTextarea.closest('#postdivrich, #wp-content-wrap').length;
+    if (!$formGroup.length && !isWordPressContentEditor) return;
+    var fieldName = $editorTextarea.attr('name') || editorId;
+    var fieldKey = _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.WIDGET_KEY_TO_FIELD_KEY[fieldName] || fieldName;
+    editor.off('input keyup change NodeChange');
+    editor.on('input keyup change NodeChange', function () {
+      triggerFn(fieldName, fieldKey, $editorTextarea);
+    });
+  }
+  $(document).ready(function () {
+    try {
+      if (typeof tinymce.on === 'function') {
+        tinymce.on('AddEditor', function (e) {
+          if (e && e.editor) attachTinyMCEEvents(e.editor);
+        });
+      }
+    } catch (e) {}
+    function initExistingEditors() {
+      try {
+        if (typeof tinymce !== 'undefined' && tinymce.editors && typeof tinymce.editors.forEach === 'function') {
+          tinymce.editors.forEach(function (editor) {
+            if (editor) attachTinyMCEEvents(editor);
+          });
+        }
+      } catch (e) {}
+    }
+    initExistingEditors();
+    setTimeout(initExistingEditors, 500);
+    setTimeout(initExistingEditors, 1000);
+    setTimeout(initExistingEditors, 2000);
+  });
+  $(document).on('tinymce-editor-init', function (e, editor) {
+    if (editor) attachTinyMCEEvents(editor);
+  });
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/field-mapping.js":
+/*!****************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/field-mapping.js ***!
+  \****************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SELECTORS: function() { return /* binding */ SELECTORS; },
+/* harmony export */   TAXONOMY_FIELD_KEYS: function() { return /* binding */ TAXONOMY_FIELD_KEYS; },
+/* harmony export */   TAXONOMY_SELECTOR_SEARCH_FORM_ADDRESS: function() { return /* binding */ TAXONOMY_SELECTOR_SEARCH_FORM_ADDRESS; },
+/* harmony export */   TAXONOMY_SELECTOR_SEARCH_FORM_FIELD: function() { return /* binding */ TAXONOMY_SELECTOR_SEARCH_FORM_FIELD; },
+/* harmony export */   WIDGET_KEY_TO_FIELD_KEY: function() { return /* binding */ WIDGET_KEY_TO_FIELD_KEY; },
+/* harmony export */   escapeCssId: function() { return /* binding */ escapeCssId; },
+/* harmony export */   extractFieldFromClearButton: function() { return /* binding */ extractFieldFromClearButton; },
+/* harmony export */   extractFieldKeyFromChange: function() { return /* binding */ extractFieldKeyFromChange; },
+/* harmony export */   extractFieldKeyFromName: function() { return /* binding */ extractFieldKeyFromName; },
+/* harmony export */   isTaxonomyFieldKeyOrElement: function() { return /* binding */ isTaxonomyFieldKeyOrElement; },
+/* harmony export */   isTaxonomySelectField: function() { return /* binding */ isTaxonomySelectField; },
+/* harmony export */   mapFieldKeyToSelector: function() { return /* binding */ mapFieldKeyToSelector; },
+/* harmony export */   normalizeConditionFieldKey: function() { return /* binding */ normalizeConditionFieldKey; }
+/* harmony export */ });
+/**
+ * Field mapping: escape IDs, map field keys to selectors, normalize field keys
+ */
+
+/** @readonly Maps widget/short keys to canonical field keys (e.g. title → listing_title) */
+var WIDGET_KEY_TO_FIELD_KEY = {
+  title: 'listing_title',
+  description: 'listing_content',
+  content: 'listing_content'
+};
+
+/** @readonly Taxonomy field keys and names used for condition matching */
+var TAXONOMY_FIELD_KEYS = ['category', 'categories', 'admin_category_select[]', 'tax_input[at_biz_dir-category][]', 'in_cat', 'tag', 'tags', 'in_tag[]', 'location', 'locations', 'tax_input[at_biz_dir-location][]', 'in_loc', 'tax_input[at_biz_dir-tags][]'];
+
+/** @readonly Selectors for taxonomy and special fields */
+var SELECTORS = {
+  CATEGORY: '#at_biz_dir-categories',
+  TAGS: '#at_biz_dir-tags',
+  LOCATION: '#at_biz_dir-location',
+  IN_CAT: "select[name='in_cat']",
+  IN_LOC: "select[name='in_loc']",
+  IN_TAG: "input[name='in_tag[]']",
+  CATEGORY_CHECKLIST: '#at_biz_dir-categorychecklist, #at_biz_dir-categorychecklist-pop',
+  LOCATION_CHECKLIST: '#at_biz_dir-locationchecklist, #at_biz_dir-locationchecklist-pop',
+  TAGS_CHECKLIST: '#at_biz_dir-tagschecklist, #at_biz_dir-tagschecklist-pop, #tagsdiv-at_biz_dir-tags',
+  CATEGORY_CHECKLIST_ID: '#at_biz_dir-categorychecklist',
+  LOCATION_CHECKLIST_ID: '#at_biz_dir-locationchecklist',
+  TAGS_CHECKLIST_ID: '#at_biz_dir-tagschecklist',
+  TAG_METABOX: '#tagsdiv-at_biz_dir-tags',
+  /** For get-field-value: category/tag/location select or multi-select */
+  CATEGORY_SELECT: "#at_biz_dir-categories, select[name='in_cat']",
+  TAGS_SELECT: "#at_biz_dir-tags, input[name='in_tag[]']",
+  LOCATION_SELECT: "#at_biz_dir-location, select[name='in_loc']",
+  CATEGORY_CHECKLIST_CHECKED: '#at_biz_dir-categorychecklist input:checked, #at_biz_dir-categorychecklist-pop input:checked',
+  TAGS_CHECKLIST_CHECKED: '#at_biz_dir-tagschecklist input:checked, #at_biz_dir-tagschecklist-pop input:checked, input[name="tax_input[at_biz_dir-tags][]"]:checked',
+  LOCATION_CHECKLIST_CHECKED: '#at_biz_dir-locationchecklist input:checked, #at_biz_dir-locationchecklist-pop input:checked, input[name="tax_input[at_biz_dir-location][]"]:checked',
+  SEARCH_ADDRESS: ".directorist-search-location input[name='address']",
+  TAG_CHECKLIST_ITEMS: '#tagsdiv-at_biz_dir-tags .tagchecklist li, #at_biz_dir-tags .tagchecklist li',
+  TAG_TEXTAREA: '#tagsdiv-at_biz_dir-tags .the-tags, #at_biz_dir-tags .the-tags'
+};
+
+/** Sentinel values for extractFieldKeyFromChange: taxonomy field is in search form (use $changedField) */
+var TAXONOMY_SELECTOR_SEARCH_FORM_FIELD = 'search_form_field';
+/** Sentinel: taxonomy is search form address input (no Select2 sync, just re-evaluate) */
+var TAXONOMY_SELECTOR_SEARCH_FORM_ADDRESS = 'search_form_address';
+
+/**
+ * Check if element is a taxonomy Select2/select field (category, tag, location).
+ * @param {jQuery} $field
+ * @returns {boolean}
+ */
+function isTaxonomySelectField($field) {
+  return $field && $field.length && ($field.is(SELECTORS.CATEGORY) || $field.is(SELECTORS.TAGS) || $field.is(SELECTORS.LOCATION) || $field.is(SELECTORS.IN_CAT) || $field.is(SELECTORS.IN_LOC));
+}
+
+/**
+ * Check if fieldKey/fieldName/DOM element refers to a taxonomy field.
+ * Used by depends-on-field to determine if a change affects taxonomy conditions.
+ * @param {string} fieldKey
+ * @param {string} fieldName
+ * @param {jQuery} $changedField
+ * @returns {boolean}
+ */
+function isTaxonomyFieldKeyOrElement(fieldKey, fieldName, $changedField) {
+  if (TAXONOMY_FIELD_KEYS.includes(fieldKey) || TAXONOMY_FIELD_KEYS.includes(fieldName)) {
+    return true;
+  }
+  var hasField = $changedField && typeof $changedField.length !== 'undefined' && $changedField.length > 0;
+  if (!hasField) return false;
+  return $changedField.is(SELECTORS.CATEGORY) || $changedField.is(SELECTORS.TAGS) || $changedField.is(SELECTORS.LOCATION) || $changedField.is(SELECTORS.IN_LOC) || $changedField.is(SELECTORS.IN_CAT) || $changedField.is(SELECTORS.IN_TAG) || $changedField.closest(SELECTORS.CATEGORY_CHECKLIST).length > 0 || $changedField.closest(SELECTORS.LOCATION_CHECKLIST).length > 0 || $changedField.closest(SELECTORS.TAGS_CHECKLIST).length > 0;
+}
+
+/**
+ * Escape a string for use in CSS ID/class selectors.
+ * Characters like [ ] in field keys (e.g. admin_category_select[]) break jQuery selectors.
+ * @param {string} str - Raw string
+ * @returns {string} Escaped string
+ */
+function escapeCssId(str) {
+  if (typeof str !== 'string') return str;
+  try {
+    if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') {
+      return CSS.escape(str);
+    }
+  } catch (e) {}
+  // Fallback: escape [ ] and other chars that break ID/class selectors
+  return str.replace(/([!"#$%&'()*+,./:;<=>?@[\]^`{|}~\\])/g, '\\$1');
+}
+
+/**
+ * Map widget_key/field_key to actual frontend field selector.
+ * @param {string} fieldKey - Field key (e.g. 'category', 'custom-select')
+ * @returns {string|null} jQuery selector string or null
+ */
+function mapFieldKeyToSelector(fieldKey) {
+  var fieldKeyMap = {
+    category: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    categories: "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    'admin_category_select[]': "#at_biz_dir-categories, select[name='in_cat'], .directorist-search-category select",
+    in_cat: "select[name='in_cat'], .directorist-search-category select",
+    description: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
+    listing_content: '[name="listing_content"], #listing_content, [name="description"], #description, #content, [name="content"]',
+    title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
+    listing_title: '.directorist-search-query input, .directorist-search-form-wrap input[name="q"], .directorist-search-form input[name="q"], input[name="q"], [name="listing_title"], #listing_title, [name="title"], #title, [name="post_title"]',
+    q: '.directorist-search-query input, input[name="q"]',
+    location: '[name="location"], #at_biz_dir-location, select[name="in_loc"], .directorist-search-location select',
+    in_loc: 'select[name="in_loc"], .directorist-search-location select',
+    address: '[name="address"], #address',
+    phone: '[name="phone"], #phone',
+    email: '[name="email"], #email',
+    website: '[name="website"], #website',
+    tag: '[name="tag"], #at_biz_dir-tags, [name="in_tag[]"]',
+    'in_tag[]': '[name="in_tag[]"]',
+    'tax_input[at_biz_dir-tags][]': "#at_biz_dir-tags, [name='in_tag[]']",
+    'tax_input[at_biz_dir-location][]': "#at_biz_dir-location, select[name='in_loc']",
+    zip: '[name="zip"], #zip',
+    miles: '[name="miles"], .directorist-custom-range-slider__range',
+    search_by_rating: '[name="search_by_rating[]"]',
+    review: '[name="search_by_rating[]"]',
+    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
+  };
+  if (fieldKeyMap[fieldKey]) {
+    return fieldKeyMap[fieldKey];
+  }
+
+  // Search form custom fields: name="custom_field[field_key]"
+  if (fieldKey && (fieldKey.startsWith('custom-') || ['select', 'radio', 'checkbox'].some(function (t) {
+    return fieldKey === t || fieldKey.startsWith(t + '_');
+  }))) {
+    var fk = fieldKey.startsWith('custom-') ? fieldKey : "custom-".concat(fieldKey.replace(/_/g, '-'));
+    return ["select[name=\"custom_field[".concat(fk, "]\"]"), "input[name=\"custom_field[".concat(fk, "]\"]"), "input[name=\"custom_field[".concat(fk, "][]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-select select[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-radio input[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-advanced-filter__advanced__element.directorist-search-field-checkbox input[name=\"custom_field[".concat(fk, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fk, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fk, "][]\"]")].join(', ');
+  }
+  return null;
+}
+
+/**
+ * Extract field key from name attribute (handles array notation).
+ * @param {string} fieldName - Raw name (e.g. 'custom_field[custom-checkbox][]')
+ * @returns {string} Base field key (e.g. 'custom_field[custom-checkbox]')
+ */
+function extractFieldKeyFromName(fieldName) {
+  if (!fieldName || typeof fieldName !== 'string') return '';
+  var key = fieldName;
+  if (fieldName.includes('[')) {
+    key = fieldName.split('[')[0];
+  }
+  if (key.endsWith('[]')) {
+    key = key.slice(0, -2);
+  }
+  return key;
+}
+
+/**
+ * Extract fieldKey and fieldName from a changed field element.
+ * Handles WordPress admin, search form, and custom field mappings.
+ * @param {string} fieldName - Raw name from element
+ * @param {jQuery} $changedField - The DOM element that changed
+ * @param {Object} [selectors] - SELECTORS (default)
+ * @returns {{ fieldKey: string, fieldName: string, taxonomyFieldSelector: string|null }}
+ */
+function extractFieldKeyFromChange(fieldName, $changedField) {
+  var selectors = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : SELECTORS;
+  var fieldKey = extractFieldKeyFromName(fieldName);
+  var taxonomyFieldSelector = null;
+  if (fieldName === 'post_title' || $changedField.attr('id') === 'title') {
+    return {
+      fieldKey: 'listing_title',
+      fieldName: fieldName,
+      taxonomyFieldSelector: null
+    };
+  }
+  if (fieldName === 'q' || $changedField.attr('name') === 'q' && $changedField.closest('.directorist-search-query, .directorist-search-form-wrap, .directorist-search-form').length) {
+    return {
+      fieldKey: 'title',
+      fieldName: fieldName,
+      taxonomyFieldSelector: null
+    };
+  }
+  if (fieldName === 'content' || $changedField.attr('id') === 'content') {
+    return {
+      fieldKey: 'listing_content',
+      fieldName: fieldName,
+      taxonomyFieldSelector: null
+    };
+  }
+  if (fieldName === 'admin_category_select[]' || $changedField.is(selectors.CATEGORY)) {
+    return {
+      fieldKey: 'category',
+      fieldName: fieldName,
+      taxonomyFieldSelector: selectors.CATEGORY
+    };
+  }
+  if (fieldName === 'tax_input[at_biz_dir-category][]' || $changedField.closest(selectors.CATEGORY_CHECKLIST).length) {
+    return {
+      fieldKey: 'admin_category_select[]',
+      fieldName: fieldName,
+      taxonomyFieldSelector: selectors.CATEGORY_CHECKLIST_ID
+    };
+  }
+  if (fieldName === 'tax_input[at_biz_dir-location][]' || $changedField.closest(selectors.LOCATION_CHECKLIST).length) {
+    return {
+      fieldKey: 'tax_input[at_biz_dir-location][]',
+      fieldName: fieldName,
+      taxonomyFieldSelector: selectors.LOCATION_CHECKLIST_ID
+    };
+  }
+  if (fieldName === 'tax_input[at_biz_dir-tags][]' || $changedField.closest(selectors.TAGS_CHECKLIST).length) {
+    return {
+      fieldKey: 'tax_input[at_biz_dir-tags][]',
+      fieldName: fieldName,
+      taxonomyFieldSelector: selectors.TAGS_CHECKLIST_ID
+    };
+  }
+  if ($changedField.is(selectors.TAGS)) {
+    return {
+      fieldKey: 'tag',
+      fieldName: fieldName,
+      taxonomyFieldSelector: selectors.TAGS
+    };
+  }
+  if ($changedField.is(selectors.LOCATION)) {
+    return {
+      fieldKey: 'location',
+      fieldName: fieldName,
+      taxonomyFieldSelector: selectors.LOCATION
+    };
+  }
+  if (fieldName === 'in_loc' || $changedField.is(selectors.IN_LOC)) {
+    return {
+      fieldKey: 'location',
+      fieldName: fieldName,
+      taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD
+    };
+  }
+  if ((fieldName === 'address' || $changedField.is("input[name='address']")) && $changedField.closest('.directorist-search-location').length) {
+    return {
+      fieldKey: 'location',
+      fieldName: fieldName,
+      taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_ADDRESS
+    };
+  }
+  if (fieldName === 'in_cat' || $changedField.is(selectors.IN_CAT)) {
+    return {
+      fieldKey: 'category',
+      fieldName: fieldName,
+      taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD
+    };
+  }
+  if (fieldName === 'in_tag[]' || $changedField.is(selectors.IN_TAG)) {
+    return {
+      fieldKey: 'tag',
+      fieldName: fieldName,
+      taxonomyFieldSelector: TAXONOMY_SELECTOR_SEARCH_FORM_FIELD
+    };
+  }
+  return {
+    fieldKey: fieldKey,
+    fieldName: fieldName,
+    taxonomyFieldSelector: null
+  };
+}
+
+/**
+ * Extract field key/name from clear button's parent search field wrapper.
+ * @param {jQuery} $fieldWrap - .directorist-search-field wrapper
+ * @returns {{ fieldKey: string|null, fieldName: string|null, $changedField: jQuery|null }}
+ */
+function extractFieldFromClearButton($fieldWrap) {
+  if (!$fieldWrap || !$fieldWrap.length) return {
+    fieldKey: null,
+    fieldName: null,
+    $changedField: null
+  };
+  var checks = [{
+    sel: 'input[name="in_tag[]"]',
+    fieldKey: 'tag',
+    fieldName: 'in_tag[]'
+  }, {
+    sel: "select[name='in_cat']",
+    fieldKey: 'category',
+    fieldName: 'in_cat'
+  }, {
+    sel: "select[name='in_loc']",
+    fieldKey: 'location',
+    fieldName: 'in_loc'
+  }, {
+    sel: 'input[name="search_by_rating[]"]',
+    fieldKey: 'search_by_rating',
+    fieldName: 'search_by_rating[]'
+  }, {
+    sel: 'input[name="email"]',
+    fieldKey: 'email',
+    fieldName: 'email'
+  }, {
+    sel: 'input[name="phone"]',
+    fieldKey: 'phone',
+    fieldName: 'phone'
+  }, {
+    sel: 'input[name="phone2"]',
+    fieldKey: 'phone2',
+    fieldName: 'phone2'
+  }, {
+    sel: 'input[name="fax"]',
+    fieldKey: 'fax',
+    fieldName: 'fax'
+  }, {
+    sel: 'input[name="website"]',
+    fieldKey: 'website',
+    fieldName: 'website'
+  }, {
+    sel: 'input[name="zip"]',
+    fieldKey: 'zip',
+    fieldName: 'zip'
+  }];
+  for (var _i = 0, _checks = checks; _i < _checks.length; _i++) {
+    var c = _checks[_i];
+    var $el = $fieldWrap.find(c.sel).first();
+    if ($el.length) return {
+      fieldKey: c.fieldKey,
+      fieldName: c.fieldName,
+      $changedField: $el
+    };
+  }
+  if ($fieldWrap.find('input[name="address"]').length && $fieldWrap.hasClass('directorist-search-location')) {
+    return {
+      fieldKey: 'location',
+      fieldName: 'address',
+      $changedField: $fieldWrap.find('input[name="address"]').first()
+    };
+  }
+  if ($fieldWrap.find('input[name="q"]').length || $fieldWrap.hasClass('directorist-search-query')) {
+    return {
+      fieldKey: 'title',
+      fieldName: 'q',
+      $changedField: $fieldWrap.find('input[name="q"]').first()
+    };
+  }
+  var $customInput = $fieldWrap.find('select[name^="custom_field["], input[name^="custom_field["]').first();
+  if ($customInput.length) {
+    var fieldName = $customInput.attr('name');
+    var match = fieldName && fieldName.match(/^custom_field\[([^\]]+)\]/);
+    if (match) return {
+      fieldKey: match[1],
+      fieldName: fieldName,
+      $changedField: $customInput
+    };
+  }
+  return {
+    fieldKey: null,
+    fieldName: null,
+    $changedField: null
+  };
+}
+
+/**
+ * Normalize condition.field to match actual field name in DOM.
+ * Search form custom fields use name="custom_field[custom-select]" etc.
+ * Conditions may be stored as "select", "select_2" from builder.
+ * @param {string} fieldKey - Raw field key from condition
+ * @returns {string} Normalized key (e.g. 'select_2' → 'custom-select-2')
+ */
+function normalizeConditionFieldKey(fieldKey) {
+  if (!fieldKey || typeof fieldKey !== 'string') {
+    return fieldKey;
+  }
+  var key = String(fieldKey).trim();
+  if (key.startsWith('custom-')) {
+    return key;
+  }
+  var m = key.match(/^(select|radio|checkbox)(?:_(\d+))?$/i);
+  if (m) {
+    var suffix = m[2] ? '-' + m[2] : '';
+    return 'custom-' + m[1].toLowerCase() + suffix;
+  }
+  return key;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/get-field-value.js":
+/*!******************************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/get-field-value.js ***!
+  \******************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getFieldValue: function() { return /* binding */ getFieldValue; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
+
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+/**
+ * Extract field values from form elements
+ */
+
+
+
+/**
+ * Get field value from form by field key.
+ * @param {string} fieldKey - Field key (e.g. 'category', 'custom-select')
+ * @param {jQuery} $ - jQuery
+ * @returns {*} Value, array, 'uploaded', or null
+ */
+function getFieldValue(fieldKey, $) {
+  // Special handling for privacy_policy field (checkbox field)
+  if (fieldKey === 'privacy_policy') {
+    var $privacyCheckbox = $('input[name="privacy_policy"], #directorist_submit_privacy_policy');
+    if ($privacyCheckbox.length) {
+      return $privacyCheckbox.is(':checked') ? 'checked' : '';
+    }
+    return '';
+  }
+
+  // Special handling for listing_img field (image upload field)
+  if (fieldKey === 'listing_img' || fieldKey === 'image_upload') {
+    var $imageUploadWrapper = $('.directorist-form-image-upload-field');
+    if ($imageUploadWrapper.length) {
+      var $previewSection = $imageUploadWrapper.find('.ezmu__preview-section.ezmu--show');
+      if ($previewSection.length > 0) {
+        return 'uploaded';
+      }
+    }
+    return null;
+  }
+  var $field = null;
+
+  // Handle category, tag, and location fields
+  if (fieldKey === 'category' || fieldKey === 'categories' || fieldKey === 'admin_category_select[]' || fieldKey === 'in_cat') {
+    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.CATEGORY_SELECT).first();
+    if (!$field.length) {
+      var $checkboxes = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.CATEGORY_CHECKLIST_CHECKED);
+      if ($checkboxes.length) {
+        return $checkboxes.map(function () {
+          return $(this).val();
+        }).get();
+      }
+      return [];
+    }
+  } else if (fieldKey === 'tag' || fieldKey === 'tags' || fieldKey === 'tax_input[at_biz_dir-tags][]' || fieldKey === 'in_tag[]') {
+    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS_SELECT).first();
+    if (!$field.length) {
+      var _$checkboxes = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS_CHECKLIST_CHECKED);
+      if (_$checkboxes.length) {
+        return _$checkboxes.map(function () {
+          return $(this).val();
+        }).get();
+      }
+      return [];
+    }
+    if ($field.is('div') && !$field.is('select')) {
+      var $tagItems = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAG_CHECKLIST_ITEMS);
+      if ($tagItems.length) {
+        return $tagItems.map(function () {
+          return $(this).clone().children().remove().end().text().trim();
+        }).get().filter(Boolean);
+      }
+      var $textarea = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAG_TEXTAREA);
+      if ($textarea.length && $textarea.val()) {
+        var raw = String($textarea.val()).trim();
+        if (raw) {
+          return raw.split(/[,\u00A0]+/).map(function (s) {
+            return s.trim();
+          }).filter(Boolean);
+        }
+      }
+      return [];
+    }
+  } else if (fieldKey === 'location' || fieldKey === 'locations' || fieldKey === 'tax_input[at_biz_dir-location][]' || fieldKey === 'in_loc' || fieldKey === 'address') {
+    $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.LOCATION_SELECT).first();
+    if (!$field.length) {
+      var $addressInput = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.SEARCH_ADDRESS);
+      if ($addressInput.length) {
+        var val = $addressInput.val();
+        return val && val.trim() ? [val.trim()] : [];
+      }
+      var _$checkboxes2 = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.LOCATION_CHECKLIST_CHECKED);
+      if (_$checkboxes2.length) {
+        return _$checkboxes2.map(function () {
+          return $(this).val();
+        }).get();
+      }
+      return [];
+    }
+  }
+
+  // Search form: in_tag[] checkboxes (1 value per selected = label or ID)
+  if ((fieldKey === 'in_tag[]' || fieldKey === 'tag' || fieldKey === 'tags') && $field && $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.IN_TAG)) {
+    var _$checkboxes3 = $("".concat(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.IN_TAG, ":checked"));
+    if (_$checkboxes3.length) {
+      var values = [];
+      _$checkboxes3.each(function () {
+        var $cb = $(this);
+        var $label = $cb.siblings('label').first();
+        if (!$label.length && $cb.attr('id')) {
+          $label = $("label[for=\"".concat($cb.attr('id'), "\"]"));
+        }
+        var label = $label.length ? $label.text().trim() : '';
+        if (label) {
+          values.push(label);
+        } else {
+          var id = $cb.val();
+          if (id) values.push(String(id));
+        }
+      });
+      return values;
+    }
+    return [];
+  }
+  var isTaxonomyField = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.isTaxonomySelectField)($field);
+  if (isTaxonomyField) {
+    // Strategy 1: data-selected-label AND data-selected-id
+    var cachedLabels = $field.attr('data-selected-label');
+    var cachedIds = $field.attr('data-selected-id');
+    var isTagField = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS);
+    if (cachedLabels && cachedLabels.trim()) {
+      var parsedLabels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.parseLabelsString)(cachedLabels);
+      var parsedIds = cachedIds ? (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.parseIdsString)(cachedIds) : [];
+      var combined = [];
+      if (isTagField) {
+        parsedLabels.forEach(function (label) {
+          if (label) combined.push(label);
+        });
+        parsedIds.forEach(function (id) {
+          if (id && !parsedLabels.includes(id)) {
+            combined.push(id);
+          }
+        });
+      } else {
+        // Category/location: return IDs only so "is" = strict match (not "contains")
+        parsedIds.forEach(function (id) {
+          if (id) combined.push(id);
+        });
+      }
+      if (combined.length > 0) {
+        return combined;
+      }
+    }
+
+    // Strategy 2: Select2 API
+    if ($field.hasClass('select2-hidden-accessible') && typeof $field.select2 === 'function') {
+      try {
+        var selectedData = $field.select2('data');
+        if (selectedData && selectedData.length > 0) {
+          var _combined = [];
+          var _isTagField = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS);
+          selectedData.forEach(function (item) {
+            if (_isTagField) {
+              if (item.text) _combined.push(item.text);
+              if (item.id && item.id !== item.text) {
+                _combined.push(String(item.id));
+              }
+            } else {
+              // Category/location: IDs only for strict "is" match
+              if (item.id) _combined.push(String(item.id));
+            }
+          });
+          if (_combined.length > 0) {
+            $field.attr('data-selected-label', selectedData.map(function (item) {
+              return item.text || '';
+            }).filter(function (t) {
+              return t;
+            }).join(','));
+            $field.attr('data-selected-id', selectedData.map(function (item) {
+              return item.id || '';
+            }).filter(function (id) {
+              return id;
+            }).join(','));
+            return _combined;
+          }
+        }
+      } catch (e) {
+        // Select2 might not be initialized yet
+      }
+    }
+
+    // Strategy 3: Select2 DOM container
+    var $select2Container = $field.next('.select2-container');
+    if ($select2Container.length) {
+      var labels = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.getLabelsFromSelect2Container)($select2Container, $);
+      if (labels.length > 0) {
+        var _val = $field.val();
+        var ids = Array.isArray(_val) ? _val : _val ? [_val] : [];
+        var _combined2 = [];
+        if (isTagField) {
+          labels.forEach(function (label) {
+            if (label) _combined2.push(label);
+          });
+        }
+        ids.forEach(function (id) {
+          if (id) _combined2.push(String(id));
+        });
+        if (_combined2.length > 0) {
+          $field.attr('data-selected-label', labels.join(','));
+          $field.attr('data-selected-id', ids.join(','));
+          return _combined2;
+        }
+      }
+    }
+
+    // Strategy 4: Fallback to select option text and values
+    var _val2 = $field.val();
+    if (_val2) {
+      var _values = Array.isArray(_val2) ? _val2 : [_val2];
+      if (_values.length > 0) {
+        var _combined3 = [];
+        var _labels = [];
+        var _ids = [];
+        var _isTagField2 = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.TAGS);
+        _values.forEach(function (val) {
+          if (_isTagField2) {
+            var tagName = String(val).trim();
+            if (tagName) {
+              _labels.push(tagName);
+              _combined3.push(tagName);
+            }
+          } else {
+            var $option = $field.find("option[value=\"".concat(val, "\"]"));
+            if ($option.length) {
+              var label = $option.text().trim();
+              if (label) _labels.push(label);
+              _ids.push(String(val));
+              _combined3.push(String(val));
+            } else {
+              _combined3.push(String(val));
+            }
+          }
+        });
+        if (_combined3.length > 0) {
+          if (_labels.length > 0) {
+            $field.attr('data-selected-label', _labels.join(','));
+          }
+          if (_ids.length > 0) {
+            $field.attr('data-selected-id', _ids.join(','));
+          } else if (_isTagField2 && _combined3.length > 0) {
+            $field.attr('data-selected-id', _combined3.join(','));
+          }
+          return _combined3;
+        }
+      }
+    }
+    return [];
+  }
+
+  // Reset $field for regular fields (not taxonomy selects)
+  if ($field && !(0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.isTaxonomySelectField)($field)) {
+    $field = null;
+  }
+  var mappedSelector = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.mapFieldKeyToSelector)(fieldKey);
+  if (mappedSelector) {
+    $field = $(mappedSelector).first();
+  }
+  if (!$field || !$field.length) {
+    var potentialFieldKey = _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.WIDGET_KEY_TO_FIELD_KEY[fieldKey] || fieldKey;
+    if (!fieldKey.startsWith('custom-') && !potentialFieldKey.startsWith('custom-')) {
+      var customFieldKey = "custom-".concat(fieldKey);
+      var customFieldIdEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)(customFieldKey);
+      var $customField = $("[name=\"".concat(customFieldKey, "\"], #").concat(customFieldIdEscaped, ", .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] select, .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"checkbox\"], .directorist-form-group[data-field-key=\"").concat(customFieldKey, "\"] input[type=\"radio\"]")).first();
+      if ($customField.length) {
+        potentialFieldKey = customFieldKey;
+      }
+    }
+    var fieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)(fieldKey);
+    var potentialFieldKeyEscaped = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)(potentialFieldKey);
+    var selectors = ["[name=\"".concat(fieldKey, "\"]"), "[name=\"".concat(fieldKey, "[]\"]"), "#".concat(fieldKeyEscaped), "[name=\"".concat(potentialFieldKey, "\"]"), "[name=\"".concat(potentialFieldKey, "[]\"]"), "#".concat(potentialFieldKeyEscaped), ".directorist-form-".concat(fieldKeyEscaped, "-field input"), ".directorist-form-".concat(fieldKeyEscaped, "-field select"), ".directorist-form-".concat(fieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(fieldKeyEscaped, "-field input[type=\"file\"]"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field select"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field textarea"), ".directorist-form-".concat(potentialFieldKeyEscaped, "-field input[type=\"file\"]"), "input[name*=\"".concat(fieldKey, "\"]"), "select[name*=\"".concat(fieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(fieldKey, "\"]"), "input[name*=\"".concat(potentialFieldKey, "\"]"), "select[name*=\"".concat(potentialFieldKey, "\"]"), "input[type=\"file\"][name*=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(fieldKey, "\"] input[type=\"file\"]"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] textarea"), ".directorist-form-group[data-field-key=\"".concat(potentialFieldKey, "\"] input[type=\"file\"]"), ".directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(fieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(fieldKeyEscaped), ".directorist-form-group.directorist-custom-field-select select[name=\"".concat(potentialFieldKey, "\"]"), ".directorist-form-group.directorist-custom-field-select select#".concat(potentialFieldKeyEscaped), "select[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "]\"]"), "input[name=\"custom_field[".concat(fieldKey, "][]\"]"), "select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), "input[name=\"custom_field[".concat(potentialFieldKey, "][]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(fieldKey, "]\"]"), ".directorist-search-field select[name=\"custom_field[".concat(potentialFieldKey, "]\"]"), ".directorist-search-field input[name=\"custom_field[".concat(potentialFieldKey, "]\"]")].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(fieldKey && !fieldKey.startsWith('custom-') ? ["[name=\"custom-".concat(fieldKey, "\"]"), "[name=\"custom-".concat(fieldKey.replace(/_/g, '-'), "\"]"), "select[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "input[name=\"custom_field[custom-".concat(fieldKey.replace(/_/g, '-'), "]\"]"), "#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)('custom-' + fieldKey)), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] select"), ".directorist-form-group[data-field-key=\"custom-".concat(fieldKey, "\"] input"), ".directorist-custom-field-select select[name=\"custom-".concat(fieldKey, "\"]"), ".directorist-custom-field-select select#".concat((0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)('custom-' + fieldKey))] : []));
+    var _iterator = _createForOfIteratorHelper(selectors),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var selector = _step.value;
+        $field = $(selector).first();
+        if ($field.length) {
+          break;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+  if (!$field || !$field.length) {
+    return null;
+  }
+
+  // Checkboxes and radio buttons
+  if ($field.is(':checkbox') || $field.is(':radio')) {
+    if ($field.is('[name$="[]"]') || $field.attr('name') && $field.attr('name').includes('[]')) {
+      var _values2 = [];
+      var nameAttr = $field.attr('name');
+      $("[name=\"".concat(nameAttr, "\"]")).filter(':checked').each(function () {
+        _values2.push($(this).val());
+      });
+      return _values2;
+    }
+    if ($field.is(':radio')) {
+      var _nameAttr = $field.attr('name');
+      var $checkedRadio = $("[name=\"".concat(_nameAttr, "\"]:checked"));
+      return $checkedRadio.length ? $checkedRadio.val() : null;
+    }
+    return $field.is(':checked') ? $field.val() : null;
+  }
+
+  // Multi-select
+  if ($field.is('select[multiple]') || $field.prop('multiple')) {
+    var _val3 = $field.val();
+    return Array.isArray(_val3) ? _val3 : _val3 ? [_val3] : [];
+  }
+
+  // Select2 fields
+  if ($field.hasClass('select2-hidden-accessible')) {
+    try {
+      var _selectedData = $field.select2('data');
+      if (_selectedData && _selectedData.length > 0) {
+        return _selectedData.map(function (item) {
+          return item.text || item.id;
+        });
+      }
+    } catch (e) {}
+  }
+
+  // TinyMCE editor
+  if (typeof tinymce !== 'undefined' && $field.length) {
+    try {
+      var editorId = $field.attr('id');
+      if (editorId) {
+        var editor = tinymce.get(editorId);
+        if (editor && typeof editor.isHidden === 'function' && !editor.isHidden()) {
+          var content = typeof editor.getContent === 'function' ? editor.getContent() : '';
+          if (content) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            return tempDiv.textContent || tempDiv.innerText || '';
+          }
+        }
+      }
+    } catch (e) {
+      // TinyMCE may not be ready or editor not found
+    }
+  }
+
+  // File upload fields
+  var $fileWrapper = $field.closest('.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload');
+  if (!$fileWrapper.length) {
+    $fileWrapper = $field.closest('.directorist-form-group, .directorist-custom-field-file, .directorist-custom-field-file-upload');
+  }
+  var isFileUploadField = $field.is('input[type="file"]') || $field.closest('.directorist-custom-field-file').length || $field.closest('.directorist-custom-field-file-upload').length || $fileWrapper.length && ($fileWrapper.hasClass('directorist-custom-field-file') || $fileWrapper.hasClass('directorist-custom-field-file-upload') || $fileWrapper.find('.plupload-upload-ui, .plupload-thumbs').length > 0);
+  if (isFileUploadField) {
+    if ($field.is('input[type="file"]') && $field[0] && $field[0].files && $field[0].files.length > 0) {
+      return 'uploaded';
+    }
+    if ($fileWrapper.length) {
+      var $thumbsContainer = $fileWrapper.find('.plupload-thumbs');
+      if ($thumbsContainer.length && $thumbsContainer.find('.thumb').length > 0) {
+        return 'uploaded';
+      }
+    }
+    if ($fileWrapper.length) {
+      var fieldKeyFromWrapper = $fileWrapper.attr('data-field-key') || $fileWrapper.find('[data-field-key]').first().attr('data-field-key');
+      if (fieldKeyFromWrapper) {
+        var $hiddenInput = $fileWrapper.find("input[type=\"hidden\"][name=\"".concat(fieldKeyFromWrapper, "\"]"));
+        if ($hiddenInput.length && $hiddenInput.val() && $hiddenInput.val().trim() !== '' && $hiddenInput.val() !== 'null') {
+          return 'uploaded';
+        }
+      }
+    }
+    if ($fileWrapper.length) {
+      var hasUploadedFiles = $fileWrapper.find('.directorist-file-list-item, .directorist-uploaded-file, .directorist-file-item, [data-file-id], .thumb').length > 0 || $fileWrapper.find('input[type="hidden"][name*="_file_id"], input[type="hidden"][name*="_file_url"]').filter(function () {
+        return $(this).val() && $(this).val().trim() !== '';
+      }).length > 0;
+      if (hasUploadedFiles) {
+        return 'uploaded';
+      }
+    }
+    return null;
+  }
+  return $field.val() || null;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/helpers.js":
+/*!**********************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/helpers.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getLabelsFromSelect2Container: function() { return /* binding */ getLabelsFromSelect2Container; },
+/* harmony export */   normalizeOperator: function() { return /* binding */ normalizeOperator; },
+/* harmony export */   parseIdsString: function() { return /* binding */ parseIdsString; },
+/* harmony export */   parseLabelsString: function() { return /* binding */ parseLabelsString; },
+/* harmony export */   syncSelect2DataAttributes: function() { return /* binding */ syncSelect2DataAttributes; }
+/* harmony export */ });
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/**
+ * Helper utilities for conditional logic
+ */
+
+
+/**
+ * Extract labels from Select2 selection container
+ * @param {jQuery} $container - Select2 container element
+ * @param {jQuery} $ - jQuery instance
+ * @returns {string[]} Array of labels
+ */
+function getLabelsFromSelect2Container($container, $) {
+  if (!$container || !$container.length || !$) {
+    return [];
+  }
+  var labels = [];
+  $container.find('.select2-selection__choice').each(function () {
+    var $choice = $(this);
+    var label = $choice.find('.select2-selection__choice__display').text().trim() || $choice.text().trim().replace('×', '').trim();
+    if (label) {
+      labels.push(label);
+    }
+  });
+  return labels;
+}
+
+/**
+ * Parse comma-separated labels string
+ * @param {string} labelsStr - Comma-separated labels
+ * @returns {string[]} Array of trimmed, non-empty labels
+ */
+function parseLabelsString(labelsStr) {
+  if (!labelsStr || !labelsStr.trim()) {
+    return [];
+  }
+  return labelsStr.split(',').map(function (label) {
+    return label.trim();
+  }).filter(function (label) {
+    return label.length > 0;
+  });
+}
+
+/**
+ * Parse comma-separated IDs string
+ * Accepts both numeric IDs and string slugs (e.g. taxonomy slugs)
+ * @param {string} idsStr - Comma-separated IDs
+ * @returns {string[]} Array of trimmed, non-empty ID strings
+ */
+function parseIdsString(idsStr) {
+  if (!idsStr || !idsStr.trim()) {
+    return [];
+  }
+  return idsStr.split(',').map(function (id) {
+    return id.trim();
+  }).filter(function (id) {
+    return id.length > 0;
+  });
+}
+
+/**
+ * Sync data-selected-label and data-selected-id from Select2/DOM to element.
+ * Handles Select2 API, DOM fallback, and admin checklist checkboxes.
+ * @param {jQuery} $field - The select/field element
+ * @param {jQuery} $ - jQuery instance
+ * @returns {void}
+ */
+function syncSelect2DataAttributes($field, $) {
+  if (!$field || !$field.length || !$) return;
+  var labels = [];
+  var ids = [];
+  var isChecklist = $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.CATEGORY_CHECKLIST) || $field.closest(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.CATEGORY_CHECKLIST).length > 0 || $field.is(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.LOCATION_CHECKLIST) || $field.closest(_field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.SELECTORS.LOCATION_CHECKLIST).length > 0;
+  if (!isChecklist && $field.hasClass('select2-hidden-accessible') && typeof $field.select2 === 'function') {
+    try {
+      var selectedData = $field.select2('data');
+      if (selectedData && selectedData.length > 0) {
+        selectedData.forEach(function (item) {
+          if (item.text) labels.push(item.text);
+          if (item.id) ids.push(String(item.id));
+        });
+      }
+    } catch (e) {
+      // Select2 might throw if not initialized
+    }
+  }
+  if (isChecklist && labels.length === 0 && ids.length === 0) {
+    $field.find('input:checked').each(function () {
+      var $cb = $(this);
+      ids.push(String($cb.val()));
+      var labelText = $cb.closest('label').text().trim();
+      if (labelText) labels.push(labelText);
+    });
+  }
+  if (labels.length === 0) {
+    var $container = $field.next('.select2-container');
+    if ($container.length) {
+      getLabelsFromSelect2Container($container, $).forEach(function (l) {
+        return labels.push(l);
+      });
+    }
+  }
+  var val = $field.val();
+  if (val && ids.length === 0) {
+    var values = Array.isArray(val) ? val : [val];
+    values.forEach(function (id) {
+      if (id) ids.push(String(id));
+    });
+  }
+  $field.attr('data-selected-label', labels.join(','));
+  $field.attr('data-selected-id', ids.join(','));
+}
+
+/**
+ * Normalize AND/OR operator - handle null, empty, case variations
+ * @param {*} op - Operator value
+ * @param {string} defaultOp - Default when invalid (e.g. 'AND' or 'OR')
+ * @returns {string} 'AND' or 'OR'
+ */
+function normalizeOperator(op) {
+  var defaultOp = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'OR';
+  if (op === null || op === undefined || op === '') {
+    return defaultOp;
+  }
+  var normalized = String(op).trim().toUpperCase();
+  return normalized || defaultOp;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/conditional-logic/init.js":
+/*!*******************************************************************!*\
+  !*** ./assets/src/js/global/components/conditional-logic/init.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   applyConditionalLogic: function() { return /* binding */ applyConditionalLogic; },
+/* harmony export */   initConditionalLogic: function() { return /* binding */ initConditionalLogic; },
+/* harmony export */   updateCategoryFieldLabel: function() { return /* binding */ updateCategoryFieldLabel; },
+/* harmony export */   watchFieldChanges: function() { return /* binding */ watchFieldChanges; }
+/* harmony export */ });
+/* harmony import */ var _depends_on_field_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./depends-on-field.js */ "./assets/src/js/global/components/conditional-logic/depends-on-field.js");
+/* harmony import */ var _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./field-mapping.js */ "./assets/src/js/global/components/conditional-logic/field-mapping.js");
+/* harmony import */ var _helpers_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers.js */ "./assets/src/js/global/components/conditional-logic/helpers.js");
+/* harmony import */ var _event_handlers_taxonomy_handlers_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./event-handlers/taxonomy-handlers.js */ "./assets/src/js/global/components/conditional-logic/event-handlers/taxonomy-handlers.js");
+/* harmony import */ var _event_handlers_file_upload_handlers_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./event-handlers/file-upload-handlers.js */ "./assets/src/js/global/components/conditional-logic/event-handlers/file-upload-handlers.js");
+/* harmony import */ var _event_handlers_form_handlers_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./event-handlers/form-handlers.js */ "./assets/src/js/global/components/conditional-logic/event-handlers/form-handlers.js");
+/* harmony import */ var _event_handlers_tinymce_handlers_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./event-handlers/tinymce-handlers.js */ "./assets/src/js/global/components/conditional-logic/event-handlers/tinymce-handlers.js");
+/**
+ * Init, apply, and event binding for conditional logic.
+ * Orchestrates evaluation and delegates to event-handlers for change detection.
+ */
+
+
+
+
+
+
+
+
+/**
+ * Apply show/hide and disabled state based on evaluated conditional logic.
+ * @param {jQuery} $fieldWrapper - Wrapper with data-conditional-logic
+ * @param {Function} evaluateConditionalLogicFn - (conditionalLogic) => boolean
+ * @param {jQuery} $
+ */
+function applyConditionalLogic($fieldWrapper, evaluateConditionalLogicFn, $) {
+  var conditionalLogicData = $fieldWrapper.attr('data-conditional-logic');
+  if (!conditionalLogicData) {
+    return;
+  }
+  try {
+    var decodedData = conditionalLogicData;
+    // Decode HTML entities (e.g. &quot;) before JSON.parse
+    if (typeof decodedData === 'string') {
+      var textarea = document.createElement('textarea');
+      textarea.innerHTML = decodedData;
+      decodedData = textarea.value;
+    }
+    var conditionalLogic = JSON.parse(decodedData);
+    var shouldShow = evaluateConditionalLogicFn(conditionalLogic);
+    if (shouldShow) {
+      $fieldWrapper.show();
+      $fieldWrapper.find('input, select, textarea').prop('disabled', false);
+      var $modalInput = $fieldWrapper.closest('.directorist-search-modal__input');
+      if ($modalInput.length) $modalInput.show();
+      var $advancedElement = $fieldWrapper.closest('.directorist-advanced-filter__advanced__element');
+      if ($advancedElement.length) $advancedElement.show();
+      setTinyMCEMode($fieldWrapper, 'design');
+    } else {
+      $fieldWrapper.hide();
+      $fieldWrapper.find('input, select, textarea').prop('disabled', true);
+      var _$modalInput = $fieldWrapper.closest('.directorist-search-modal__input');
+      if (_$modalInput.length) _$modalInput.hide();
+      var _$advancedElement = $fieldWrapper.closest('.directorist-advanced-filter__advanced__element');
+      if (_$advancedElement.length) _$advancedElement.hide();
+      setTinyMCEMode($fieldWrapper, 'readonly');
+    }
+  } catch (e) {
+    console.error('Error parsing conditional logic:', e, {
+      conditionalLogicData: conditionalLogicData
+    });
+  }
+}
+
+/** Set TinyMCE design/readonly mode when field visibility changes. */
+function setTinyMCEMode($fieldWrapper, mode) {
+  if (!$fieldWrapper.find('textarea').length || typeof tinymce === 'undefined') return;
+  try {
+    var editorId = $fieldWrapper.find('textarea').attr('id');
+    if (editorId) {
+      var editor = tinymce.get(editorId);
+      if (editor && typeof editor.setMode === 'function') {
+        editor.setMode(mode);
+      }
+    }
+  } catch (e) {}
+}
+
+/**
+ * Initialize conditional logic for all fields
+ * @param {Function} getWrapperFn
+ * @param {Function} getFieldValueFn
+ * @param {Function} applyConditionalLogicFn
+ * @param {jQuery} $
+ * @param {Array} [adminTargets] - Optional. For admin: [{selector, fieldKey, conditionalLogic}]
+ */
+function initConditionalLogic(getWrapperFn, getFieldValueFn, applyConditionalLogicFn, $) {
+  var adminTargets = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
+  var $categoryField = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.CATEGORY);
+  if ($categoryField.length && $categoryField.hasClass('select2-hidden-accessible') && $categoryField.is('select') && typeof $categoryField.select2 === 'function') {
+    try {
+      var selectedData = $categoryField.select2('data');
+      if (selectedData && selectedData.length > 0) {
+        $categoryField.attr('data-selected-label', selectedData.map(function (item) {
+          return item.text || '';
+        }).filter(function (item) {
+          return item.length > 0;
+        }).join(','));
+      }
+    } catch (e) {}
+  }
+  var $formWrapper = $(getWrapperFn());
+  var $fieldsWithConditionalLogic = $formWrapper.find('.directorist-form-group[data-conditional-logic]');
+  if ($fieldsWithConditionalLogic.length === 0) {
+    $fieldsWithConditionalLogic = $('.directorist-form-group[data-conditional-logic]');
+  }
+  $fieldsWithConditionalLogic.each(function () {
+    applyConditionalLogicFn($(this));
+  });
+  if (adminTargets && Array.isArray(adminTargets) && adminTargets.length > 0) {
+    adminTargets.forEach(function (target) {
+      var $el = $(target.selector);
+      if ($el.length && target.conditionalLogic) {
+        $el.addClass('directorist-conditional-logic-target');
+        $el.attr('data-conditional-logic', typeof target.conditionalLogic === 'string' ? target.conditionalLogic : JSON.stringify(target.conditionalLogic));
+        if (target.fieldKey) $el.attr('data-field-key', target.fieldKey);
+        applyConditionalLogicFn($el);
+      }
+    });
+  }
+}
+
+/**
+ * Watch for field value changes and re-evaluate conditional logic.
+ * Sets up taxonomy, form, file-upload, and TinyMCE handlers.
+ * @param {Function} getWrapperFn - () => form selector
+ * @param {Function} getFieldValueFn - (fieldKey) => value
+ * @param {Function} applyConditionalLogicFn - ($fieldWrapper) => void
+ * @param {jQuery} $
+ */
+function watchFieldChanges(getWrapperFn, getFieldValueFn, applyConditionalLogicFn, $) {
+  function triggerConditionalLogicEvaluation(fieldName, fieldKey, $changedField) {
+    var $fieldsWithLogic = $('.directorist-form-group[data-conditional-logic], .directorist-conditional-logic-target[data-conditional-logic]');
+    $fieldsWithLogic.each(function () {
+      var $fieldWrapper = $(this);
+      var conditionalLogicData = $fieldWrapper.attr('data-conditional-logic');
+      if (!conditionalLogicData) return;
+      try {
+        var decodedData = conditionalLogicData;
+        if (typeof decodedData === 'string') {
+          var textarea = document.createElement('textarea');
+          textarea.innerHTML = decodedData;
+          decodedData = textarea.value;
+        }
+        var conditionalLogic = JSON.parse(decodedData);
+        var dependsOnField = (0,_depends_on_field_js__WEBPACK_IMPORTED_MODULE_0__.fieldDependsOnChange)(conditionalLogic, fieldKey, fieldName, $changedField, _field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.normalizeConditionFieldKey);
+        if (dependsOnField) {
+          applyConditionalLogicFn($fieldWrapper);
+        }
+      } catch (e) {
+        console.error('Error in conditional logic evaluation:', e);
+      }
+    });
+  }
+  (0,_event_handlers_taxonomy_handlers_js__WEBPACK_IMPORTED_MODULE_3__.setupTaxonomyHandlers)($, triggerConditionalLogicEvaluation);
+  (0,_event_handlers_form_handlers_js__WEBPACK_IMPORTED_MODULE_5__.setupFormHandlers)(getWrapperFn, $, triggerConditionalLogicEvaluation);
+  (0,_event_handlers_file_upload_handlers_js__WEBPACK_IMPORTED_MODULE_4__.setupFileUploadHandlers)($, triggerConditionalLogicEvaluation);
+  (0,_event_handlers_tinymce_handlers_js__WEBPACK_IMPORTED_MODULE_6__.setupTinyMCEHandlers)($, triggerConditionalLogicEvaluation);
+}
+
+/**
+ * Update category Select2 data-selected-label and re-run init.
+ * Called after category field is changed externally (e.g. AJAX).
+ * @param {Function} initConditionalLogicFn
+ * @param {jQuery} $
+ */
+function updateCategoryFieldLabel(initConditionalLogicFn, $) {
+  var $field = $(_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.SELECTORS.CATEGORY);
+  if (!$field.length) return;
+  setTimeout(function () {
+    if ($field.is('select')) {
+      (0,_helpers_js__WEBPACK_IMPORTED_MODULE_2__.syncSelect2DataAttributes)($field, $);
+    }
+    initConditionalLogicFn();
+  }, 150);
+}
+
+/***/ }),
+
 /***/ "./assets/src/js/global/components/debounce.js":
 /*!*****************************************************!*\
   !*** ./assets/src/js/global/components/debounce.js ***!
@@ -877,6 +2882,26 @@ function _arrayWithHoles(r) {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _arrayWithoutHoles; }
+/* harmony export */ });
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(r) {
+  if (Array.isArray(r)) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r);
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
@@ -897,6 +2922,24 @@ function _defineProperty(e, r, t) {
     configurable: !0,
     writable: !0
   }) : e[r] = t, e;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/iterableToArray.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _iterableToArray; }
+/* harmony export */ });
+function _iterableToArray(r) {
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
 }
 
 
@@ -962,6 +3005,24 @@ function _nonIterableRest() {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _nonIterableSpread; }
+/* harmony export */ });
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js":
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js ***!
@@ -983,6 +3044,32 @@ __webpack_require__.r(__webpack_exports__);
 
 function _slicedToArray(r, e) {
   return (0,_arrayWithHoles_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r) || (0,_iterableToArrayLimit_js__WEBPACK_IMPORTED_MODULE_1__["default"])(r, e) || (0,_unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(r, e) || (0,_nonIterableRest_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _toConsumableArray; }
+/* harmony export */ });
+/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js");
+/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/iterableToArray.js");
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
+/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js");
+
+
+
+
+function _toConsumableArray(r) {
+  return (0,_arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r) || (0,_iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__["default"])(r) || (0,_unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(r) || (0,_nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
 }
 
 
@@ -1098,12 +3185,6 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -1112,6 +3193,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
@@ -1178,7 +3265,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
 /* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _components_conditional_logic__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/conditional-logic */ "./assets/src/js/global/components/conditional-logic.js");
+/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
 
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
@@ -1187,6 +3275,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 // General Components
 // import { cacheCategoryCustomFields, getCategoryCustomFieldsCache } from '../global/components/cache-category-custom-fields';
 // import loadCategoryCustomFields from '../global/components/load-category-custom-fields';
+
 
 
 
@@ -1705,7 +3794,6 @@ $(function () {
         formData.append('field', uploadableImages[counter].field);
         formData.append('directory', directory_id);
         // formData.append( 'field', uploadableImages[ counter ].field );
-        // console.log(uploadableImages, counter);
 
         $.ajax({
           method: 'POST',
@@ -1834,8 +3922,6 @@ $(function () {
       }
       if (error_count) {
         enableSubmitButton();
-        console.log('Form has invalid data');
-        console.log(error_count, err_log);
         return;
       }
       $.ajax({
@@ -1910,7 +3996,6 @@ $(function () {
         },
         error: function error(_error) {
           enableSubmitButton();
-          console.log(_error);
         }
       });
     }
@@ -1998,16 +4083,13 @@ $(function () {
         }
       },
       error: function error(_error2) {
-        console.log({
-          error: _error2
-        });
         $submit_button.prop('disabled', false);
         $submit_button.html(submit_button_html);
       }
     });
   });
   function addSticky() {
-    $(window).scroll((0,_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
+    $(window).scroll((0,_components_debounce__WEBPACK_IMPORTED_MODULE_8__["default"])(function () {
       var windowWidth = $(window).width();
       var sidebarWidth = $('.multistep-wizard__nav').width();
       var sidebarHeight = $('.multistep-wizard__nav').height();
@@ -2303,6 +4385,90 @@ function updateLocalNonce() {
     }
   });
 }
+
+/**
+ * Conditional Logic Evaluation for Frontend Form
+ */
+(function ($) {
+  'use strict';
+
+  // Set up conditional logic functions with dependencies
+  var getFieldValueFn = function getFieldValueFn(fieldKey) {
+    return (0,_components_conditional_logic__WEBPACK_IMPORTED_MODULE_7__.getFieldValue)(fieldKey, $);
+  };
+  var evaluateConditionalLogicFn = function evaluateConditionalLogicFn(conditionalLogic) {
+    return (0,_components_conditional_logic__WEBPACK_IMPORTED_MODULE_7__.evaluateConditionalLogic)(conditionalLogic, getFieldValueFn);
+  };
+  var applyConditionalLogicFn = function applyConditionalLogicFn($fieldWrapper) {
+    return (0,_components_conditional_logic__WEBPACK_IMPORTED_MODULE_7__.applyConditionalLogic)($fieldWrapper, evaluateConditionalLogicFn, $);
+  };
+  var initConditionalLogicFn = function initConditionalLogicFn() {
+    return (0,_components_conditional_logic__WEBPACK_IMPORTED_MODULE_7__.initConditionalLogic)(getWrapper, getFieldValueFn, applyConditionalLogicFn, $, localized_data.admin_conditional_logic_targets || []);
+  };
+  var watchFieldChangesFn = function watchFieldChangesFn() {
+    return (0,_components_conditional_logic__WEBPACK_IMPORTED_MODULE_7__.watchFieldChanges)(getWrapper, getFieldValueFn, applyConditionalLogicFn, $);
+  };
+  var updateCategoryFieldLabelFn = function updateCategoryFieldLabelFn() {
+    return (0,_components_conditional_logic__WEBPACK_IMPORTED_MODULE_7__.updateCategoryFieldLabel)(initConditionalLogicFn, $);
+  };
+
+  // Initialize on page load
+  $(document).ready(function () {
+    watchFieldChangesFn();
+    // Wait a bit longer to ensure Select2 and all fields are initialized
+    setTimeout(function () {
+      initConditionalLogicFn();
+    }, 800);
+
+    // Also try after a longer delay to catch any late-loading fields
+    setTimeout(function () {
+      initConditionalLogicFn();
+    }, 2000);
+  });
+
+  // Re-initialize when form is reloaded (e.g., after directory type change)
+  $(window).on('directorist-type-change', function () {
+    setTimeout(function () {
+      initConditionalLogicFn();
+    }, 500);
+  });
+
+  // Re-initialize after category custom fields are rendered
+  $(window).on('load', function () {
+    setTimeout(function () {
+      initConditionalLogicFn();
+    }, 1000);
+  });
+
+  // Re-initialize after Select2 is initialized
+  $(document).on('select2-loaded', function () {
+    setTimeout(function () {
+      initConditionalLogicFn();
+    }, 200);
+  });
+
+  // Watch for Select2 changes on category field
+  $(document).on('select2:select select2:unselect select2:clear', '#at_biz_dir-categories', function () {
+    updateCategoryFieldLabelFn();
+  });
+
+  // Also watch for changes on the category field
+  $(document).on('change', '#at_biz_dir-categories', function () {
+    updateCategoryFieldLabelFn();
+  });
+
+  // Watch for custom category field change events
+  $(document).on('directorist-category-changed', function () {
+    updateCategoryFieldLabelFn();
+  });
+
+  // Also trigger after category custom fields are rendered (they might update category field)
+  $(window).on('load', function () {
+    setTimeout(function () {
+      updateCategoryFieldLabelFn();
+    }, 1500);
+  });
+})(jQuery);
 }();
 /******/ })()
 ;

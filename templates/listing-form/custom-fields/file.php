@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.3.3
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -111,7 +111,7 @@ $image_limit = '';
 if ( ! empty( $thumb_img_arr ) ) {
     $totImg = count( $thumb_img_arr );
 }
-$base_plupload_config = json_encode( $plupload_init );
+$base_plupload_config = wp_json_encode( $plupload_init );
 $gd_plupload_init     = [
     'base_plupload_config' => $base_plupload_config,
     'totalImg'             => 0,
@@ -130,8 +130,11 @@ $total_files        = 0;
 $allowed_file_types = ( 'all_types' == $file_types || 'all' == $file_types ) ? '*' : $file_types;
 $display_file_types = ( 'all_types' == $file_types || 'all' == $file_types ) ? '.*' : $file_types;
 $multiple           = false;
+
+// Get conditional logic attributes using centralized method
+$conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
 ?>
-<div class="directorist-form-group directorist-custom-field-file-upload">
+<div class="directorist-form-group directorist-custom-field-file-upload"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <?php $listing_form->field_label_template( $data );?>
 

@@ -1376,7 +1376,7 @@ class Directorist_Single_Listing {
             'cat_icon'              => $cat_icon,
         ];
 
-        return json_encode( $args, JSON_HEX_QUOT | JSON_HEX_APOS | JSON_HEX_AMP );
+        return wp_json_encode( $args, JSON_HEX_QUOT | JSON_HEX_APOS | JSON_HEX_AMP );
     }
 
     public function get_review_template() {
@@ -1545,7 +1545,7 @@ class Directorist_Single_Listing {
             'prevArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--left">%s</a>', directorist_icon( 'las la-angle-left', false ) ),
             'nextArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--right">%s</a>', directorist_icon( 'las la-angle-right', false ) ),
         ];
-        return json_encode( $atts );
+        return wp_json_encode( $atts );
     }
 
     public function get_related_columns() {

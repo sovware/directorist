@@ -64,6 +64,7 @@ var map = {
 	"./form-fields/Card_Builder_Listing_Header_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Listing_Header_Field.vue",
 	"./form-fields/Checkbox_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Checkbox_Field.vue",
 	"./form-fields/ColorField.vue": "./assets/src/js/admin/vue/modules/form-fields/ColorField.vue",
+	"./form-fields/Conditional_Logic_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue",
 	"./form-fields/Editable_Button_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue",
 	"./form-fields/Export_Data_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Export_Data_Field.vue",
 	"./form-fields/Export_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Export_Field.vue",
@@ -118,6 +119,7 @@ var map = {
 	"./form-fields/themes/default/Ajax_Action_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Ajax_Action_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Checkbox_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Checkbox_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Color_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Color_Field_Theme_Default.vue",
+	"./form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Export_Data_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Export_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Export_Field_Theme_Default.vue",
 	"./form-fields/themes/default/Import_Field_Theme_Default.vue": "./assets/src/js/admin/vue/modules/form-fields/themes/default/Import_Field_Theme_Default.vue",
@@ -2825,6 +2827,1306 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       local_value: '#000000',
       validationLog: {}
     };
+  }
+});
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/mixins/form-fields/conditional-logic-field.js":
+/*!*******************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/mixins/form-fields/conditional-logic-field.js ***!
+  \*******************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _input_field_props_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./input-field-props.js */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+
+
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_4__["default"], _helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  created: function created() {
+    this.initValue();
+    this.$emit('update', this.localValue);
+    this.setup();
+  },
+  watch: {
+    value: function value(newVal) {
+      if (JSON.stringify(newVal) !== JSON.stringify(this.localValue)) {
+        this.initValue();
+      }
+    }
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
+    fields: 'fields'
+  })), {}, {
+    toggleClass: function toggleClass() {
+      return {
+        active: this.localValue.enabled
+      };
+    },
+    formGroupClass: function formGroupClass() {
+      var validation_classes = this.validationLog.inputErrorClasses ? this.validationLog.inputErrorClasses : {};
+      return _objectSpread({}, validation_classes);
+    },
+    /**
+     * Get available fields for conditional logic.
+     * Fields that can be used in conditions.
+     */
+    availableFields: function availableFields() {
+      // Get all form fields from the submission form fields
+      // This will be populated from the form builder context
+      var fields = [];
+
+      // Try to get fields from root context (form builder)
+      if (this.root && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.root) === 'object') {
+        // Access submission_form_fields from the builder
+        // This is a placeholder - actual implementation will depend on form builder structure
+        return this.getFieldsFromRoot();
+      }
+
+      // Fallback: return empty array for now
+      // This will be properly implemented when we connect to form builder
+      return fields;
+    },
+    /**
+     * Check if only one rule/group exists (cannot delete)
+     */
+    canDeleteRule: function canDeleteRule() {
+      return this.localValue.groups.length > 1;
+    },
+    /**
+     * Check if a specific group can be deleted
+     */
+    canDeleteGroup: function canDeleteGroup(groupIndex) {
+      // Can delete if there's more than one group, or if this group has multiple conditions
+      if (this.localValue.groups.length > 1) {
+        return true;
+      }
+      // If only one group exists, can only delete if it has multiple conditions
+      var group = this.localValue.groups[groupIndex];
+      return group && group.conditions && group.conditions.length > 1;
+    }
+  }),
+  data: function data() {
+    return {
+      localValue: {
+        enabled: false,
+        action: 'show',
+        globalOperator: 'AND',
+        groups: []
+      },
+      validationLog: {},
+      // Stores the field key of the widget that owns this conditional logic,
+      // so we can exclude it from the "Select a field" dropdown.
+      currentFieldKeyForExclusion: null,
+      // Cache for category options
+      cachedCategoryOptions: null,
+      // Cache for tag options
+      cachedTagOptions: null,
+      // Cache for location options
+      cachedLocationOptions: null
+    };
+  },
+  methods: {
+    setup: function setup() {
+      // Setup initialization
+    },
+    /**
+     * Decode HTML entities in a string
+     * @param {string} str - String potentially containing HTML entities
+     * @returns {string} - Decoded string
+     */
+    decodeHtmlEntities: function decodeHtmlEntities(str) {
+      if (!str || typeof str !== 'string') {
+        return str;
+      }
+      var textarea = document.createElement('textarea');
+      textarea.innerHTML = str;
+      return textarea.value;
+    },
+    initValue: function initValue() {
+      var _this = this;
+      var defaultValue = {
+        enabled: false,
+        action: 'show',
+        globalOperator: 'AND',
+        groups: []
+      };
+      if (!this.value || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.value) !== 'object') {
+        this.localValue = JSON.parse(JSON.stringify(defaultValue));
+        // Store field key when initializing if enabled
+        if (this.localValue.enabled) {
+          this.storeCurrentFieldKey();
+        }
+        return;
+      }
+      this.localValue = {
+        enabled: typeof this.value.enabled !== 'undefined' ? this.value.enabled : false,
+        action: this.value.action || 'show',
+        globalOperator: this.value.globalOperator || 'AND',
+        groups: Array.isArray(this.value.groups) ? JSON.parse(JSON.stringify(this.value.groups)) : []
+      };
+
+      // Validate and fix group structure
+      this.localValue.groups = this.localValue.groups.map(function (group) {
+        if (!Array.isArray(group.conditions)) {
+          group.conditions = [];
+        }
+        if (!group.operator) {
+          group.operator = 'AND';
+        }
+        // Set isGroup flag if not set (for backward compatibility)
+        if (typeof group.isGroup === 'undefined') {
+          // If has multiple conditions, it's a group; otherwise it's a single rule
+          group.isGroup = group.conditions.length > 1;
+        }
+        // Ensure groups have at least one condition
+        if (!group.conditions.length) {
+          group.conditions = [_this.createEmptyCondition()];
+        }
+        return group;
+      });
+
+      // Auto-add first rule if enabled and no groups exist
+      if (this.localValue.enabled && this.localValue.groups.length === 0) {
+        this.localValue.groups.push({
+          operator: 'AND',
+          conditions: [this.createEmptyCondition()],
+          isGroup: false // Single rule, not a group
+        });
+      }
+
+      // Store field key when initializing if enabled
+      if (this.localValue.enabled && !this.currentFieldKeyForExclusion) {
+        this.storeCurrentFieldKey();
+      }
+    },
+    toggleEnabled: function toggleEnabled() {
+      this.localValue.enabled = !this.localValue.enabled;
+      // Auto-add first rule when enabling conditional logic
+      if (this.localValue.enabled && this.localValue.groups.length === 0) {
+        this.addRule();
+        // Store the current field key when enabling conditional logic
+        this.storeCurrentFieldKey();
+      }
+      this.updateValue();
+    },
+    /**
+     * Store the current field key for exclusion from available fields dropdown
+     * This is called when conditional logic is enabled
+     */
+    storeCurrentFieldKey: function storeCurrentFieldKey() {
+      var fieldKey = this.findCurrentFieldKey();
+      if (fieldKey) {
+        this.currentFieldKeyForExclusion = fieldKey;
+      }
+    },
+    /**
+     * Find the current field key - SIMPLIFIED APPROACH
+     * Extract from fieldId or match activeWidget with availableFields
+     */
+    findCurrentFieldKey: function findCurrentFieldKey() {
+      var skipKeys = ['logic', 'conditional_logic', 'conditional-logic', 'conditionalLogic', 'submission_form_fields', 'search_form_fields', 'widgets', 'fields'];
+      var shouldSkip = function shouldSkip(key) {
+        if (!key) return true;
+        var normalized = key.toString().trim().toLowerCase();
+        return skipKeys.includes(normalized);
+      };
+
+      // PRIORITY 0: Check fieldKey prop directly (most reliable)
+      if (this.fieldKey && !shouldSkip(this.fieldKey)) {
+        var fieldKeyStr = this.fieldKey.toString().trim();
+        var availableFields = this.availableFields || [];
+        var availableFieldKeys = availableFields.map(function (f) {
+          return f.value;
+        });
+        if (availableFieldKeys.includes(fieldKeyStr)) {
+          return fieldKeyStr;
+        }
+        // Even if not in availableFields, return it if it looks valid (availableFields might not be loaded yet)
+        if (fieldKeyStr && fieldKeyStr.length > 0) {
+          return fieldKeyStr;
+        }
+      }
+
+      // PRIORITY 1: Extract from fieldId (e.g., "section_category_conditional_logic" -> "category")
+      if (this.fieldId && this.fieldId.toString().includes('_')) {
+        var _parts, _parts2;
+        var parts = this.fieldId.toString().split('_');
+        var lastPart = (_parts = parts[parts.length - 1]) === null || _parts === void 0 ? void 0 : _parts.toLowerCase();
+        var secondLastPart = (_parts2 = parts[parts.length - 2]) === null || _parts2 === void 0 ? void 0 : _parts2.toLowerCase();
+        var isConditionalLogicField = (lastPart === 'conditional' || lastPart === 'logic') && (secondLastPart === 'conditional' || secondLastPart === 'logic');
+        var extractedKey = null;
+        if (isConditionalLogicField) {
+          extractedKey = parts.slice(0, parts.length - 2).join('_');
+        } else {
+          for (var i = parts.length - 2; i >= 0; i--) {
+            var key = parts[i].trim();
+            if (key && !shouldSkip(key)) {
+              extractedKey = key;
+              break;
+            }
+          }
+        }
+        if (extractedKey && !shouldSkip(extractedKey)) {
+          var _availableFields = this.availableFields || [];
+          if (_availableFields.length > 0) {
+            var match = _availableFields.find(function (f) {
+              if (f.value === extractedKey) return true;
+              if (!f.widget) return false;
+              return f.widget.widget_key === extractedKey || f.widget.widget_name === extractedKey || f.widget.name === extractedKey || f.widget.type === extractedKey;
+            });
+            if (match) {
+              return match.value;
+            }
+          }
+          return extractedKey;
+        }
+      }
+
+      // PRIORITY 2: Get from parent Options_Window component (widget prop or activeWidget)
+      // let parent = this.$parent;
+      // let depth = 0;
+      // while (parent && depth < 25) {
+      // 	if (
+      // 		parent.$options &&
+      // 		(parent.$options.name === 'options-window' ||
+      // 			parent.$options.name === 'Options_Window')
+      // 	) {
+      // 		// Method 1: Get widgetKey from widget prop (e.g., "title_123")
+      // 		if (parent.widget && !shouldSkip(parent.widget)) {
+      // 			const widgetKey = parent.widget.toString().trim();
+      // 			const availableFields = this.availableFields || [];
+
+      // 			if (availableFields.length > 0) {
+      // 				const match = availableFields.find((f) => {
+      // 					return (
+      // 						f.value === widgetKey ||
+      // 						(f.widget &&
+      // 							(f.widget.widget_key === widgetKey ||
+      // 								f.widget.field_key === widgetKey))
+      // 					);
+      // 				});
+      // 				if (match) {
+      // 					return match.value;
+      // 				}
+      // 			}
+      // 			return widgetKey;
+      // 		}
+
+      // 		// Method 2: Get key from activeWidget object properties
+      // 		if (parent.activeWidget) {
+      // 			const keysToCheck = [
+      // 				parent.activeWidget.widget_key,
+      // 				parent.activeWidget.field_key,
+      // 				parent.activeWidget.options?.field_key,
+      // 				parent.activeWidget.key,
+      // 				parent.activeWidget.widget_name,
+      // 				parent.activeWidget.name,
+      // 			];
+
+      // 			for (let key of keysToCheck) {
+      // 				if (key && !shouldSkip(key)) {
+      // 					const keyStr = key.toString().trim();
+      // 					const availableFields =
+      // 						this.availableFields || [];
+      // 					if (availableFields.length > 0) {
+      // 						const match = availableFields.find(
+      // 							(f) => f.value === keyStr
+      // 						);
+      // 						if (match) {
+      // 							return match.value;
+      // 						}
+      // 					} else {
+      // 						return keyStr;
+      // 					}
+      // 				}
+      // 			}
+      // 		}
+      // 		break;
+      // 	}
+      // 	parent = parent.$parent;
+      // 	depth++;
+      // }
+
+      return null;
+    },
+    updateValue: function updateValue() {
+      // Deep clone to ensure reactivity
+      var valueToEmit = JSON.parse(JSON.stringify(this.localValue));
+      this.$emit('update', valueToEmit);
+    },
+    createEmptyGroup: function createEmptyGroup() {
+      return {
+        operator: 'AND',
+        conditions: [this.createEmptyCondition()],
+        isGroup: false // false = single rule, true = group container
+      };
+    },
+    createEmptyGroupContainer: function createEmptyGroupContainer() {
+      return {
+        operator: 'AND',
+        conditions: [this.createEmptyCondition()],
+        isGroup: true // This is a group container
+      };
+    },
+    createEmptyCondition: function createEmptyCondition() {
+      return {
+        field: '',
+        operator: 'is',
+        value: ''
+      };
+    },
+    addRule: function addRule() {
+      // Add a single standalone rule (not a group container)
+      this.localValue.groups.push({
+        operator: 'AND',
+        conditions: [this.createEmptyCondition()],
+        isGroup: false // Single rule, not a group
+      });
+      this.updateValue();
+    },
+    removeRule: function removeRule(groupIndex) {
+      // Cannot remove if only one rule exists
+      if (!this.canDeleteRule) {
+        return;
+      }
+      // Remove a single rule (single-condition group)
+      if (!this.localValue.groups || !this.localValue.groups[groupIndex]) {
+        return;
+      }
+      this.localValue.groups.splice(groupIndex, 1);
+      this.updateValue();
+    },
+    addCondition: function addCondition(groupIndex) {
+      // Add a condition to an existing group
+      if (!this.localValue.groups[groupIndex]) {
+        return;
+      }
+      // Mark as group when adding second condition
+      if (this.localValue.groups[groupIndex].conditions.length === 1 && !this.localValue.groups[groupIndex].isGroup) {
+        this.localValue.groups[groupIndex].isGroup = true;
+      }
+      this.localValue.groups[groupIndex].conditions.push(this.createEmptyCondition());
+      this.updateValue();
+    },
+    removeCondition: function removeCondition(groupIndex, conditionIndex) {
+      if (!this.localValue.groups || !this.localValue.groups[groupIndex]) {
+        return;
+      }
+      var group = this.localValue.groups[groupIndex];
+
+      // Cannot remove if it's the only rule/group and only condition
+      if (group.conditions.length === 1 && !this.canDeleteRule) {
+        return;
+      }
+
+      // If removing the last condition in a group
+      if (group.conditions.length <= 1) {
+        // Remove the entire group/rule
+        this.localValue.groups.splice(groupIndex, 1);
+      } else {
+        // Remove the condition
+        this.localValue.groups[groupIndex].conditions.splice(conditionIndex, 1);
+        // If it becomes a single condition, keep it as a group.
+        // Once a group, it should always remain rendered as a group container.
+      }
+      this.updateValue();
+    },
+    addGroup: function addGroup() {
+      // Add a new group container (starts with one condition but is a group)
+      this.localValue.groups.push({
+        operator: 'AND',
+        conditions: [this.createEmptyCondition()],
+        isGroup: true // This is a group container
+      });
+      this.updateValue();
+    },
+    removeGroup: function removeGroup(groupIndex) {
+      // Cannot remove if only one group exists
+      if (!this.canDeleteRule) {
+        return;
+      }
+      if (!this.localValue.groups || !this.localValue.groups[groupIndex]) {
+        return;
+      }
+      this.localValue.groups.splice(groupIndex, 1);
+      this.updateValue();
+    },
+    onFieldChange: function onFieldChange(condition) {
+      var _this2 = this;
+      // When field changes, reset value
+      condition.value = '';
+
+      // Get valid operators for the new field type
+      // Check if getOperatorOptions method exists (defined in component)
+      var validOperators = [];
+      if (this.getOperatorOptions && typeof this.getOperatorOptions === 'function') {
+        validOperators = this.getOperatorOptions(condition);
+      } else {
+        // Fallback: use all operatorOptions if method not available
+        validOperators = this.operatorOptions || [];
+      }
+
+      // Check if current operator is valid for the new field type
+      if (validOperators && validOperators.length > 0) {
+        var isValidOperator = validOperators.some(function (op) {
+          return op.value === condition.operator;
+        });
+
+        // If current operator is not valid, reset to first valid operator (usually "is")
+        if (!isValidOperator && condition.operator) {
+          condition.operator = validOperators[0].value;
+        }
+        // If no operator is set, set to first valid operator
+        else if (!condition.operator) {
+          condition.operator = validOperators[0].value;
+        }
+      } else {
+        // If no valid operators found, reset to "is" as default
+        if (!condition.operator) {
+          condition.operator = 'is';
+        }
+      }
+
+      // Force Vue to update by calling updateValue in next tick
+      // This ensures the operator dropdown re-renders with correct options
+      // and value field visibility updates correctly
+      this.$nextTick(function () {
+        _this2.updateValue();
+      });
+    },
+    onConditionValueUpdate: function onConditionValueUpdate(condition, value) {
+      condition.value = value;
+      this.updateValue();
+    },
+    /**
+     * Get fields from root context (form builder).
+     * This method will extract available fields from the submission form fields.
+     */
+    getFieldsFromRoot: function getFieldsFromRoot() {
+      // Try multiple methods to find the form builder component
+
+      // Method 1: Traverse up the component tree to find form-builder
+      var parent = this.$parent;
+      while (parent) {
+        // Check by component name
+        if (parent.$options && parent.$options.name === 'form-builder') {
+          if (parent.active_widget_fields) {
+            return this.formatFieldsForDropdown(parent.active_widget_fields);
+          }
+        }
+
+        // Check for active_widget_fields property directly (form builder might have it)
+        if (parent.active_widget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(parent.active_widget_fields) === 'object') {
+          return this.formatFieldsForDropdown(parent.active_widget_fields);
+        }
+        parent = parent.$parent;
+      }
+
+      // Method 2: Search in root's children
+      if (this.$root && this.$root.$children) {
+        var _findInChildren = function findInChildren(children) {
+          var _iterator = _createForOfIteratorHelper(children),
+            _step;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var child = _step.value;
+              if (child && child.$options) {
+                if (child.$options.name === 'form-builder' && child.active_widget_fields) {
+                  return child.active_widget_fields;
+                }
+              }
+              // Recursively search nested children
+              if (child && child.$children && child.$children.length > 0) {
+                var found = _findInChildren(child.$children);
+                if (found) return found;
+              }
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+          return null;
+        };
+        var foundFields = _findInChildren(this.$root.$children);
+        if (foundFields) {
+          return this.formatFieldsForDropdown(foundFields);
+        }
+      }
+
+      // Method 3: Check root component itself
+      if (this.$root && this.$root.active_widget_fields) {
+        return this.formatFieldsForDropdown(this.$root.active_widget_fields);
+      }
+
+      // Method 4: Try accessing through provide/inject if available
+      // (Not implemented yet, but could be added if needed)
+
+      return [];
+    },
+    /**
+     * Format fields from form builder for dropdown options.
+     * @param {Object} activeWidgetFields - Object with widget_key as keys and field data as values
+     * @returns {Array} Array of field options for dropdown
+     */
+    formatFieldsForDropdown: function formatFieldsForDropdown(activeWidgetFields) {
+      if (!activeWidgetFields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(activeWidgetFields) !== 'object') {
+        return [];
+      }
+      var fields = [];
+
+      // Iterate through all active widget fields
+      // Note: Filtering is now done in the template via filteredAvailableFields computed property
+      for (var widgetKey in activeWidgetFields) {
+        var widget = activeWidgetFields[widgetKey];
+
+        // Get field label (prefer label, fallback to widget_key)
+        var label = widget.label || widget.name || widget.placeholder || widgetKey || 'Unnamed Field';
+
+        // Get field type (use widget_name for custom fields - e.g. search form radio, date, time, color)
+        var type = widget.type || widget.field_type || 'text';
+        if (type === 'text' && widget.widget_name) {
+          var wn = String(widget.widget_name).toLowerCase();
+          if (['select', 'radio', 'checkbox'].includes(wn)) {
+            type = wn;
+          } else if (['date', 'time', 'color', 'color_picker'].includes(wn)) {
+            // Search form custom fields: date/time/color use widget_name for type
+            type = wn;
+          }
+        }
+
+        // Only include fields that can be used in conditions
+        // Exclude fields like conditional-logic itself and non-comparable types
+        // Note: date, time, and file fields are now included (they use specialized inputs)
+        var excludeTypes = ['conditional-logic', 'button', 'submit', 'section'];
+        if (excludeTypes.includes(type)) {
+          continue;
+        }
+
+        // For custom fields, prefer field_key over widget_key if available
+        // Same logic for both submission and search form
+        var fieldValue = widget.field_key || widgetKey;
+
+        // Enrich widget with options when field links to another (e.g. search form
+        // custom field → submission form). Same structure for both forms.
+        var widgetData = widget;
+        if (widget.original_widget_key) {
+          var linkedOptions = this.getOptionsFromLinkedField(widget);
+          if (linkedOptions && linkedOptions.length > 0) {
+            widgetData = _objectSpread(_objectSpread({}, widget), {}, {
+              value: _objectSpread(_objectSpread({}, widget.value || {}), {}, {
+                options: linkedOptions
+              })
+            });
+          }
+        }
+        fields.push({
+          value: fieldValue,
+          label: label,
+          type: type,
+          widget: widgetData
+        });
+      }
+
+      // Sort fields alphabetically by label
+      fields.sort(function (a, b) {
+        return a.label.localeCompare(b.label);
+      });
+      return fields;
+    },
+    /**
+     * Get value input component based on selected field type.
+     */
+    getValueInputComponent: function getValueInputComponent(condition) {
+      if (!condition.field) {
+        return 'text-field';
+      }
+
+      // TODO: Determine field type and return appropriate component
+      // For now, return text field
+      return 'text-field';
+    },
+    /**
+     * Check if value input should be hidden based on operator.
+     */
+    isValueHidden: function isValueHidden(operator) {
+      var hiddenOperators = ['empty', 'not empty'];
+      return hiddenOperators.includes(operator);
+    },
+    /**
+     * Get field data by field key from availableFields
+     */
+    getFieldData: function getFieldData(fieldKey) {
+      if (!fieldKey || !this.availableFields) {
+        return null;
+      }
+      return this.availableFields.find(function (f) {
+        return f.value === fieldKey;
+      }) || null;
+    },
+    /**
+     * Get value options for a condition based on selected field type
+     * Returns options array or null if field doesn't need a select dropdown
+     */
+    getValueOptions: function getValueOptions(condition) {
+      var _this3 = this;
+      if (!condition || !condition.field) {
+        return null;
+      }
+      var fieldData = this.getFieldData(condition.field);
+      if (!fieldData) {
+        return null;
+      }
+      var fieldType = fieldData.type;
+      var widget = fieldData.widget;
+      var widgetName = widget && widget.widget_name || widget && widget.widget_key || '';
+      var fieldKeyNorm = (condition.field || '').toString().trim().toLowerCase();
+
+      // Helper: check if field is category (submission form + search form)
+      var isCategoryField = function isCategoryField() {
+        return fieldKeyNorm === 'admin_category_select[]' || fieldKeyNorm === 'category' || fieldKeyNorm === 'categories' || fieldKeyNorm === 'in_cat' || widgetName && String(widgetName).toLowerCase() === 'category';
+      };
+
+      // Helper: check if field is tag (submission form + search form)
+      var isTagField = function isTagField() {
+        return fieldKeyNorm === 'tax_input[at_biz_dir-tags][]' || fieldKeyNorm === 'tag' || fieldKeyNorm === 'tags' || fieldKeyNorm === 'in_tag[]' || widgetName && String(widgetName).toLowerCase() === 'tag';
+      };
+
+      // Helper: check if field is location (submission form + search form)
+      var isLocationField = function isLocationField() {
+        return fieldKeyNorm === 'tax_input[at_biz_dir-location][]' || fieldKeyNorm === 'location' || fieldKeyNorm === 'locations' || fieldKeyNorm === 'in_loc' || widgetName && String(widgetName).toLowerCase() === 'location';
+      };
+
+      // Handle category field - needs special handling via AJAX or passed data
+      if (isCategoryField()) {
+        return this.getCategoryOptions(condition.field);
+      }
+
+      // Handle tag field - needs special handling via AJAX or passed data
+      if (isTagField()) {
+        return this.getTagOptions(condition.field);
+      }
+
+      // Handle location field - needs special handling via AJAX or passed data
+      if (isLocationField()) {
+        return this.getLocationOptions(condition.field);
+      }
+
+      // Handle file fields - return "uploaded" option for boolean check
+      if (this.isFileField(condition)) {
+        return [{
+          value: 'uploaded',
+          label: 'Uploaded'
+        }];
+      }
+
+      // Handle privacy_policy field - return "Checked" and "Unchecked" options
+      if (condition && condition.field) {
+        var fieldValue = (condition.field || '').toString().trim().toLowerCase();
+        if (fieldValue === 'privacy_policy') {
+          return [{
+            value: 'checked',
+            label: 'Checked'
+          }];
+        }
+      }
+
+      // Handle search_by_rating (Review) - checkbox field with star options
+      if (fieldKeyNorm === 'search_by_rating' || fieldKeyNorm === 'search_by_rating[]' || fieldKeyNorm === 'review' || widgetName && String(widgetName).toLowerCase() === 'review') {
+        return [{
+          value: '5',
+          label: '5 Star'
+        }, {
+          value: '4',
+          label: '4 Star & Up'
+        }, {
+          value: '3',
+          label: '3 Star & Up'
+        }, {
+          value: '2',
+          label: '2 Star & Up'
+        }, {
+          value: '1',
+          label: '1 Star & Up'
+        }];
+      }
+
+      // Handle select/radio/checkbox fields - get options from widget
+      // Include widget_name for search form custom fields that may not have type set
+      var hasOptionsType = ['select', 'radio', 'checkbox'].includes(fieldType) || widgetName && ['select', 'radio', 'checkbox'].includes(String(widgetName).toLowerCase());
+      if (hasOptionsType && widget) {
+        var options = [];
+
+        // Priority 1: Check widget.value.options (saved field value - actual options data)
+        if (widget.value && widget.value.options && Array.isArray(widget.value.options)) {
+          widget.value.options.forEach(function (option) {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+              // Format: { option_value: 'val', option_label: 'Label' } (from multi-fields)
+              if (option.option_value !== undefined) {
+                options.push({
+                  value: String(option.option_value || ''),
+                  label: _this3.decodeHtmlEntities(option.option_label || option.option_value || '')
+                });
+              }
+              // Format: { value: 'val', label: 'Label' }
+              else if (option.value !== undefined) {
+                options.push({
+                  value: String(option.value || ''),
+                  label: _this3.decodeHtmlEntities(option.label || option.value || '')
+                });
+              }
+            }
+          });
+          if (options.length > 0) {
+            return options;
+          }
+        }
+
+        // Priority 2: Check widget.options.value.options (nested in field definition)
+        if (widget.options && widget.options.options && widget.options.options.value) {
+          var savedOptions = widget.options.options.value;
+          if (Array.isArray(savedOptions)) {
+            savedOptions.forEach(function (option) {
+              if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+                if (option.option_value !== undefined) {
+                  options.push({
+                    value: String(option.option_value || ''),
+                    label: _this3.decodeHtmlEntities(option.option_label || option.option_value || '')
+                  });
+                } else if (option.value !== undefined) {
+                  options.push({
+                    value: String(option.value || ''),
+                    label: _this3.decodeHtmlEntities(option.label || option.value || '')
+                  });
+                }
+              }
+            });
+            if (options.length > 0) {
+              return options;
+            }
+          }
+        }
+
+        // Priority 3: Check widget.options (direct array - less common)
+        if (widget.options && Array.isArray(widget.options)) {
+          widget.options.forEach(function (option) {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+              if (option.option_value !== undefined) {
+                options.push({
+                  value: String(option.option_value || ''),
+                  label: _this3.decodeHtmlEntities(option.option_label || option.option_value || '')
+                });
+              } else if (option.value !== undefined) {
+                options.push({
+                  value: String(option.value || ''),
+                  label: _this3.decodeHtmlEntities(option.label || option.value || '')
+                });
+              }
+            } else if (typeof option === 'string') {
+              options.push({
+                value: option,
+                label: _this3.decodeHtmlEntities(option)
+              });
+            }
+          });
+          if (options.length > 0) {
+            return options;
+          }
+        }
+
+        // Fallback: linked field (e.g. search form custom → submission form)
+        if (widget.original_widget_key) {
+          var linkedOptions = this.getOptionsFromLinkedField(widget);
+          if (linkedOptions && linkedOptions.length > 0) {
+            return linkedOptions;
+          }
+        }
+
+        // No options found
+        return null;
+      }
+
+      // For other field types, return null to show text input
+      return null;
+    },
+    /**
+     * Get options from linked field (widget.original_widget_key).
+     * Same structure for both forms - used when a field references another for options.
+     */
+    getOptionsFromLinkedField: function getOptionsFromLinkedField(widget) {
+      var originalKey = widget && widget.original_widget_key;
+      if (!originalKey || !this.fields) return null;
+      var linked = this.fields.submission_form_fields;
+      if (!linked || !linked.value || !linked.value.fields) return null;
+      var sourceWidget = linked.value.fields[originalKey];
+      return this.extractOptionsFromWidget(sourceWidget);
+    },
+    /**
+     * Extract option array from a widget (select/radio/checkbox)
+     */
+    extractOptionsFromWidget: function extractOptionsFromWidget(sourceWidget) {
+      var _this4 = this;
+      if (!sourceWidget) return null;
+      var options = [];
+      if (sourceWidget.value && sourceWidget.value.options && Array.isArray(sourceWidget.value.options)) {
+        sourceWidget.value.options.forEach(function (option) {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+            if (option.option_value !== undefined) {
+              options.push({
+                value: String(option.option_value || ''),
+                label: _this4.decodeHtmlEntities(option.option_label || option.option_value || '')
+              });
+            } else if (option.value !== undefined) {
+              options.push({
+                value: String(option.value || ''),
+                label: _this4.decodeHtmlEntities(option.label || option.value || '')
+              });
+            }
+          }
+        });
+        if (options.length > 0) return options;
+      }
+      if (sourceWidget.options && sourceWidget.options.options && sourceWidget.options.options.value) {
+        var savedOptions = sourceWidget.options.options.value;
+        if (Array.isArray(savedOptions)) {
+          savedOptions.forEach(function (option) {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+              if (option.option_value !== undefined) {
+                options.push({
+                  value: String(option.option_value || ''),
+                  label: _this4.decodeHtmlEntities(option.option_label || option.option_value || '')
+                });
+              } else if (option.value !== undefined) {
+                options.push({
+                  value: String(option.value || ''),
+                  label: _this4.decodeHtmlEntities(option.label || option.value || '')
+                });
+              }
+            }
+          });
+          if (options.length > 0) return options;
+        }
+      }
+      if (sourceWidget.options && Array.isArray(sourceWidget.options)) {
+        sourceWidget.options.forEach(function (option) {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+            if (option.option_value !== undefined) {
+              options.push({
+                value: String(option.option_value || ''),
+                label: _this4.decodeHtmlEntities(option.option_label || option.option_value || '')
+              });
+            } else if (option.value !== undefined) {
+              options.push({
+                value: String(option.value || ''),
+                label: _this4.decodeHtmlEntities(option.label || option.value || '')
+              });
+            }
+          } else if (typeof option === 'string') {
+            options.push({
+              value: option,
+              label: _this4.decodeHtmlEntities(option)
+            });
+          }
+        });
+        if (options.length > 0) return options;
+      }
+      return options.length > 0 ? options : null;
+    },
+    /**
+     * Check if condition needs a select dropdown (has options)
+     */
+    needsSelectInput: function needsSelectInput(condition) {
+      // File fields need a selectbox with "uploaded" option
+      if (this.isFileField(condition)) {
+        return true;
+      }
+
+      // Privacy policy field needs a selectbox with "Checked" and "Unchecked" options
+      if (condition && condition.field) {
+        var fieldValue = (condition.field || '').toString().trim().toLowerCase();
+        if (fieldValue === 'privacy_policy') {
+          return true;
+        }
+      }
+      return this.getValueOptions(condition) !== null;
+    },
+    /**
+     * Check if field is a date type
+     */
+    isDateField: function isDateField(condition) {
+      if (!condition || !condition.field) {
+        return false;
+      }
+      var fieldData = this.getFieldData(condition.field);
+      if (!fieldData) {
+        return false;
+      }
+      var fieldType = (fieldData.type || '').toString().trim().toLowerCase();
+      return fieldType === 'date';
+    },
+    /**
+     * Check if field is a time type
+     */
+    isTimeField: function isTimeField(condition) {
+      if (!condition || !condition.field) {
+        return false;
+      }
+      var fieldData = this.getFieldData(condition.field);
+      if (!fieldData) {
+        return false;
+      }
+      var fieldType = (fieldData.type || '').toString().trim().toLowerCase();
+      return fieldType === 'time';
+    },
+    /**
+     * Check if field is a color type
+     */
+    isColorField: function isColorField(condition) {
+      if (!condition || !condition.field) {
+        return false;
+      }
+      var fieldData = this.getFieldData(condition.field);
+      if (!fieldData) {
+        return false;
+      }
+      var fieldType = (fieldData.type || '').toString().trim().toLowerCase();
+      return fieldType === 'color' || fieldType === 'color_picker';
+    },
+    /**
+     * Check if field is a file type
+     */
+    isFileField: function isFileField(condition) {
+      if (!condition || !condition.field) {
+        return false;
+      }
+      var fieldValue = (condition.field || '').toString().trim().toLowerCase();
+
+      // Check by field key (listing_img, image_upload)
+      if (fieldValue === 'listing_img' || fieldValue === 'image_upload') {
+        return true;
+      }
+      var fieldData = this.getFieldData(condition.field);
+      if (!fieldData) {
+        return false;
+      }
+      var fieldType = (fieldData.type || '').toString().trim().toLowerCase();
+      return fieldType === 'file' || fieldType === 'file_upload';
+    },
+    /**
+     * Get listing type ID from Vue context
+     */
+    getListingTypeId: function getListingTypeId() {
+      // Try to get from URL parameter
+      var urlParams = new URLSearchParams(window.location.search);
+      var listingTypeId = urlParams.get('listing_type_id');
+      if (listingTypeId) {
+        return listingTypeId;
+      }
+
+      // Try to get from parent components
+      var parent = this.$parent;
+      var depth = 0;
+      while (parent && depth < 25) {
+        if (parent.listing_type_id) {
+          return parent.listing_type_id;
+        }
+        parent = parent.$parent;
+        depth++;
+      }
+
+      // Try to get from root
+      if (this.$root && this.$root.listing_type_id) {
+        return this.$root.listing_type_id;
+      }
+      return null;
+    },
+    /**
+     * Get category options for the current directory type
+     * This will be populated from available data or needs AJAX call
+     * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
+     */
+    getCategoryOptions: function getCategoryOptions(fieldKey) {
+      var _this5 = this;
+      // Return cached options if available
+      if (this.cachedCategoryOptions) {
+        return this.cachedCategoryOptions;
+      }
+      var options = [];
+
+      // Method 1: Try to get from availableFields if category field exists
+      // Check by field value (field_key) - support both submission and search form keys
+      var categoryKeys = ['admin_category_select[]', 'category', 'categories', 'in_cat'];
+      var categoryField = this.availableFields.find(function (f) {
+        return categoryKeys.includes(f.value) || f.widget && (f.widget.widget_name === 'category' || f.widget.widget_key === 'category');
+      });
+      if (categoryField && categoryField.widget && categoryField.widget.options) {
+        // If category field has options stored
+        if (Array.isArray(categoryField.widget.options)) {
+          categoryField.widget.options.forEach(function (option) {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+              options.push({
+                value: option.value || option.id || option.term_id || '',
+                label: _this5.decodeHtmlEntities(option.label || option.name || option.text || '')
+              });
+            }
+          });
+        }
+        if (options.length > 0) {
+          this.cachedCategoryOptions = options;
+          return options;
+        }
+      }
+
+      // Method 2: Try to get from form builder context (categories might be passed)
+      // This would need to be implemented based on how categories are stored
+      if (this.$store && this.$store.state.categories) {
+        var categories = this.$store.state.categories;
+        if (Array.isArray(categories)) {
+          categories.forEach(function (cat) {
+            options.push({
+              value: cat.id || cat.term_id || cat.value || '',
+              label: cat.name || cat.label || cat.text || ''
+            });
+          });
+          if (options.length > 0) {
+            this.cachedCategoryOptions = options;
+            return options;
+          }
+        }
+      }
+
+      // Method 3: Make AJAX call to fetch categories
+      // This will fetch categories for the current directory type
+      var listingTypeId = this.getListingTypeId();
+      if (listingTypeId && typeof jQuery !== 'undefined' && !this.cachedCategoryOptions) {
+        // Fetch categories via AJAX (only if not cached)
+        var self = this;
+        jQuery.ajax({
+          url: typeof directorist !== 'undefined' && directorist.ajaxurl ? directorist.ajaxurl : window.ajaxurl || '',
+          type: 'POST',
+          data: {
+            action: 'directorist_get_category_options',
+            listing_type_id: listingTypeId,
+            directorist_nonce: typeof directorist !== 'undefined' && directorist.directorist_nonce ? directorist.directorist_nonce : ''
+          },
+          success: function success(response) {
+            if (response.success && response.data && Array.isArray(response.data)) {
+              var fetchedOptions = response.data.map(function (cat) {
+                return {
+                  value: String(cat.id || cat.term_id || cat.value || ''),
+                  label: self.decodeHtmlEntities(cat.name || cat.label || cat.text || '')
+                };
+              });
+              self.cachedCategoryOptions = fetchedOptions;
+              // Force Vue update
+              self.$forceUpdate();
+            }
+          },
+          error: function error() {
+            console.warn('Failed to fetch category options for conditional logic');
+          }
+        });
+      }
+
+      // Return empty array for now - will be populated via AJAX if needed
+      return [];
+    },
+    /**
+     * Get tag options for the current directory type
+     * Similar to getCategoryOptions() but for tags
+     * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
+     */
+    getTagOptions: function getTagOptions(fieldKey) {
+      var _this6 = this;
+      // Return cached options if available
+      if (this.cachedTagOptions) {
+        return this.cachedTagOptions;
+      }
+      var options = [];
+
+      // Method 1: Try to get from availableFields if tag field exists
+      // Support both submission and search form keys
+      var tagKeys = ['tax_input[at_biz_dir-tags][]', 'tag', 'tags', 'in_tag[]'];
+      var tagField = this.availableFields.find(function (f) {
+        return tagKeys.includes(f.value) || f.widget && (f.widget.widget_name === 'tag' || f.widget.widget_key === 'tag');
+      });
+      if (tagField && tagField.widget && tagField.widget.options) {
+        if (Array.isArray(tagField.widget.options)) {
+          tagField.widget.options.forEach(function (option) {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+              options.push({
+                value: option.value || option.id || option.term_id || '',
+                label: _this6.decodeHtmlEntities(option.label || option.name || option.text || '')
+              });
+            }
+          });
+        }
+        if (options.length > 0) {
+          this.cachedTagOptions = options;
+          return options;
+        }
+      }
+
+      // Method 2: Try to get from Vuex store
+      if (this.$store && this.$store.state.tags) {
+        var tags = this.$store.state.tags;
+        if (Array.isArray(tags)) {
+          tags.forEach(function (tag) {
+            options.push({
+              value: tag.id || tag.term_id || tag.value || '',
+              label: _this6.decodeHtmlEntities(tag.name || tag.label || tag.text || '')
+            });
+          });
+          if (options.length > 0) {
+            this.cachedTagOptions = options;
+            return options;
+          }
+        }
+      }
+
+      // Method 3: Make AJAX call to fetch tags
+      var listingTypeId = this.getListingTypeId();
+      if (listingTypeId && typeof jQuery !== 'undefined' && !this.cachedTagOptions) {
+        var self = this;
+        jQuery.ajax({
+          url: typeof directorist !== 'undefined' && directorist.ajaxurl ? directorist.ajaxurl : window.ajaxurl || '',
+          type: 'POST',
+          data: {
+            action: 'directorist_get_tag_options',
+            listing_type_id: listingTypeId,
+            directorist_nonce: typeof directorist !== 'undefined' && directorist.directorist_nonce ? directorist.directorist_nonce : ''
+          },
+          success: function success(response) {
+            if (response.success && response.data && Array.isArray(response.data)) {
+              // For tags, use name as value since tag field stores names as option values
+              var fetchedOptions = response.data.map(function (tag) {
+                return {
+                  value: String(tag.name || tag.label || tag.text || tag.id || tag.term_id || ''),
+                  label: tag.name || tag.label || tag.text || ''
+                };
+              });
+              self.cachedTagOptions = fetchedOptions;
+              self.$forceUpdate();
+            }
+          },
+          error: function error() {
+            console.warn('Failed to fetch tag options for conditional logic');
+          }
+        });
+      }
+      return [];
+    },
+    /**
+     * Get location options for the current directory type
+     * Similar to getCategoryOptions() but for locations
+     * @param {string} [fieldKey] - Optional field key (supports submission + search form keys)
+     */
+    getLocationOptions: function getLocationOptions(fieldKey) {
+      var _this7 = this;
+      // Return cached options if available
+      if (this.cachedLocationOptions) {
+        return this.cachedLocationOptions;
+      }
+      var options = [];
+
+      // Method 1: Try to get from availableFields if location field exists
+      // Support both submission and search form keys
+      var locationKeys = ['tax_input[at_biz_dir-location][]', 'location', 'locations', 'in_loc'];
+      var locationField = this.availableFields.find(function (f) {
+        return locationKeys.includes(f.value) || f.widget && (f.widget.widget_name === 'location' || f.widget.widget_key === 'location');
+      });
+      if (locationField && locationField.widget && locationField.widget.options) {
+        if (Array.isArray(locationField.widget.options)) {
+          locationField.widget.options.forEach(function (option) {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(option) === 'object') {
+              options.push({
+                value: option.value || option.id || option.term_id || '',
+                label: _this7.decodeHtmlEntities(option.label || option.name || option.text || '')
+              });
+            }
+          });
+        }
+        if (options.length > 0) {
+          this.cachedLocationOptions = options;
+          return options;
+        }
+      }
+
+      // Method 2: Try to get from Vuex store
+      if (this.$store && this.$store.state.locations) {
+        var locations = this.$store.state.locations;
+        if (Array.isArray(locations)) {
+          locations.forEach(function (location) {
+            options.push({
+              value: location.id || location.term_id || location.value || '',
+              label: _this7.decodeHtmlEntities(location.name || location.label || location.text || '')
+            });
+          });
+          if (options.length > 0) {
+            this.cachedLocationOptions = options;
+            return options;
+          }
+        }
+      }
+
+      // Method 3: Make AJAX call to fetch locations
+      var listingTypeId = this.getListingTypeId();
+      if (listingTypeId && typeof jQuery !== 'undefined' && !this.cachedLocationOptions) {
+        var self = this;
+        jQuery.ajax({
+          url: typeof directorist !== 'undefined' && directorist.ajaxurl ? directorist.ajaxurl : window.ajaxurl || '',
+          type: 'POST',
+          data: {
+            action: 'directorist_get_location_options',
+            listing_type_id: listingTypeId,
+            directorist_nonce: typeof directorist !== 'undefined' && directorist.directorist_nonce ? directorist.directorist_nonce : ''
+          },
+          success: function success(response) {
+            if (response.success && response.data && Array.isArray(response.data)) {
+              var fetchedOptions = response.data.map(function (location) {
+                return {
+                  value: String(location.id || location.term_id || location.value || ''),
+                  label: self.decodeHtmlEntities(location.name || location.label || location.text || '')
+                };
+              });
+              self.cachedLocationOptions = fetchedOptions;
+              self.$forceUpdate();
+            }
+          },
+          error: function error() {
+            console.warn('Failed to fetch location options for conditional logic');
+          }
+        });
+      }
+      return [];
+    },
+    // Translation helper
+    __: function __(text, domain) {
+      if (typeof window.directorist_admin !== 'undefined' && window.directorist_admin.i18n) {
+        // Use WordPress i18n if available
+        return window.directorist_admin.i18n[text] || text;
+      }
+      return text;
+    }
   }
 });
 
@@ -5907,6 +7209,368 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return props;
     }
   },
+  /**
+   * Evaluate conditional logic rules in the new format.
+   * @param {Object} conditionalLogic - Conditional logic configuration
+   * @param {Object} rootFields - Root fields object containing all field values
+   * @returns {Boolean} - True if conditions are met
+   */
+  /**
+   * Evaluate conditional logic rules for admin form builder preview
+   *
+   * This function is used in the ADMIN FORM BUILDER to show/hide fields in the preview
+   * based on conditional logic rules configured by the admin user.
+   *
+   * @param {Object} conditionalLogic - Conditional logic configuration
+   * @param {Object} rootFields - All field values from the form builder (rootFields object)
+   * @returns {boolean} - true if field should be shown, false if hidden
+   *
+   * Usage: Called from Field_List_Component.vue (line 167) to filter visible fields
+   * in the admin form builder preview as the admin configures conditional logic rules.
+   */
+  evaluateConditionalLogic: function evaluateConditionalLogic(conditionalLogic, rootFields) {
+    if (!conditionalLogic || !conditionalLogic.enabled) {
+      return true; // If not enabled, always show
+    }
+    if (!conditionalLogic.groups || !Array.isArray(conditionalLogic.groups) || conditionalLogic.groups.length === 0) {
+      return true; // If no groups, always show
+    }
+
+    // Evaluate each group - groups are combined with OR (if ANY group is true, result is true)
+    var groupResults = [];
+    var _iterator7 = _createForOfIteratorHelper(conditionalLogic.groups),
+      _step7;
+    try {
+      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+        var group = _step7.value;
+        if (!group.conditions || !Array.isArray(group.conditions) || group.conditions.length === 0) {
+          continue;
+        }
+
+        // Evaluate conditions in this group - combined with AND/OR based on group.operator
+        var conditionResults = [];
+        var _iterator8 = _createForOfIteratorHelper(group.conditions),
+          _step8;
+        try {
+          for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+            var condition = _step8.value;
+            // Skip conditions without field (incomplete conditions)
+            if (!condition.field || !condition.field.trim()) {
+              continue;
+            }
+
+            // Skip conditions without operator (incomplete conditions)
+            if (!condition.operator || !condition.operator.trim()) {
+              continue;
+            }
+
+            // Get the field value from rootFields
+            var fieldValue = this.getFieldValueForCondition(rootFields, condition.field);
+            var conditionResult = this.evaluateCondition(condition, fieldValue);
+            conditionResults.push(conditionResult);
+          }
+
+          // Only process group if it has valid conditions
+          // If no valid conditions, skip this group (don't add false result)
+        } catch (err) {
+          _iterator8.e(err);
+        } finally {
+          _iterator8.f();
+        }
+        if (conditionResults.length === 0) {
+          continue;
+        }
+
+        // Combine condition results based on group operator
+        // Normalize operator to handle case variations and empty values
+        var groupOperator = group.operator;
+        if (!groupOperator || typeof groupOperator !== 'string') {
+          groupOperator = 'AND'; // Default to AND
+        }
+        groupOperator = groupOperator.toString().trim().toUpperCase();
+
+        // Evaluate group result based on operator
+        var groupResult = false;
+        if (groupOperator === 'OR') {
+          // Within group: if ANY condition is true, group is true
+          groupResult = conditionResults.some(function (result) {
+            return result === true;
+          });
+        } else {
+          // Default to AND: ALL conditions must be true
+          groupResult = conditionResults.every(function (result) {
+            return result === true;
+          });
+        }
+
+        // Only push result if group had valid conditions
+        groupResults.push(groupResult);
+      }
+
+      // Combine group results based on globalOperator (AND/OR)
+      // Default to OR if globalOperator is not specified (backward compatibility)
+      // Normalize operator to handle case variations
+    } catch (err) {
+      _iterator7.e(err);
+    } finally {
+      _iterator7.f();
+    }
+    var globalOperator = conditionalLogic.globalOperator;
+    if (globalOperator === null || globalOperator === undefined || globalOperator === '') {
+      globalOperator = 'OR'; // Default to OR
+    } else {
+      globalOperator = String(globalOperator).trim().toUpperCase();
+      if (!globalOperator) {
+        globalOperator = 'OR';
+      }
+    }
+    var result = true;
+    if (groupResults.length > 0) {
+      if (globalOperator === 'AND') {
+        // ALL groups must be true
+        result = groupResults.every(function (groupRes) {
+          return groupRes === true;
+        });
+      } else {
+        // OR: ANY group is true
+        result = groupResults.some(function (groupRes) {
+          return groupRes === true;
+        });
+      }
+    }
+
+    // Apply the action (show/hide)
+    if (conditionalLogic.action === 'hide') {
+      return !result; // If hide and conditions are met, return false
+    }
+
+    // Default to show
+    return result;
+  },
+  /**
+   * Get field value from root fields for condition evaluation.
+   * @param {Object} rootFields - Root fields object
+   * @param {String} fieldKey - Field key to get value for
+   * @returns {*} - Field value
+   */
+  getFieldValueForCondition: function getFieldValueForCondition(rootFields, fieldKey) {
+    if (!rootFields || !fieldKey) {
+      return null;
+    }
+
+    // Try to get the field value
+    if (typeof rootFields[fieldKey] !== 'undefined') {
+      var field = rootFields[fieldKey];
+
+      // If field is an object with a value property, use that
+      if (this.isObject(field) && typeof field.value !== 'undefined') {
+        return field.value;
+      }
+
+      // Otherwise use the field itself if it's a primitive value
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(field) !== 'object') {
+        return field;
+      }
+    }
+    return null;
+  },
+  /**
+   * Evaluate a single condition.
+   * @param {Object} condition - Condition object with field, operator, value
+   * @param {*} fieldValue - Current value of the field being checked
+   * @returns {Boolean} - True if condition is met
+   */
+  evaluateCondition: function evaluateCondition(condition, fieldValue) {
+    if (!condition.operator) {
+      return false;
+    }
+    var operator = condition.operator.toLowerCase();
+    var conditionValue = condition.value;
+
+    // Handle empty/not empty operators first (they don't need a value)
+    if (operator === 'empty') {
+      return this.isEmpty(fieldValue);
+    }
+    if (operator === 'not empty') {
+      return !this.isEmpty(fieldValue);
+    }
+
+    // Convert fieldValue and conditionValue to comparable types
+    var fieldVal = fieldValue;
+    var condVal = conditionValue;
+
+    // Handle arrays (for multi-select fields like category)
+    if (Array.isArray(fieldVal)) {
+      return this.evaluateArrayCondition(fieldVal, condVal, operator);
+    }
+
+    // Handle strings
+    if (typeof fieldVal === 'string') {
+      fieldVal = fieldVal.trim().toLowerCase();
+    }
+    if (typeof condVal === 'string') {
+      condVal = condVal.trim().toLowerCase();
+    }
+    switch (operator) {
+      case 'is':
+      case '==':
+      case '=':
+        return fieldVal == condVal;
+      case 'is not':
+      case '!=':
+      case 'not':
+        return fieldVal != condVal;
+      case 'contains':
+        if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+          return fieldVal.includes(condVal);
+        }
+        return false;
+      case 'does not contain':
+        if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+          return !fieldVal.includes(condVal);
+        }
+        return true;
+      case 'greater than':
+      case '>':
+        return Number(fieldVal) > Number(condVal);
+      case 'less than':
+      case '<':
+        return Number(fieldVal) < Number(condVal);
+      case 'greater than or equal':
+      case '>=':
+        return Number(fieldVal) >= Number(condVal);
+      case 'less than or equal':
+      case '<=':
+        return Number(fieldVal) <= Number(condVal);
+      case 'starts with':
+        if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+          return fieldVal.startsWith(condVal);
+        }
+        return false;
+      case 'ends with':
+        if (typeof fieldVal === 'string' && typeof condVal === 'string') {
+          return fieldVal.endsWith(condVal);
+        }
+        return false;
+      default:
+        return false;
+    }
+  },
+  /**
+   * Evaluate condition for array values (multi-select fields).
+   * @param {Array} fieldArray - Array of field values
+   * @param {*} conditionValue - Value to compare against
+   * @param {String} operator - Comparison operator
+   * @returns {Boolean}
+   */
+  evaluateArrayCondition: function evaluateArrayCondition(fieldArray, conditionValue, operator) {
+    if (!Array.isArray(fieldArray) || fieldArray.length === 0) {
+      return operator === 'empty';
+    }
+
+    // Convert condition value to comparable format
+    var condVal = conditionValue;
+    if (typeof condVal === 'string') {
+      condVal = condVal.trim().toLowerCase();
+    }
+
+    // Check if any item in the array matches
+    switch (operator) {
+      case 'is':
+      case '==':
+      case '=':
+        // For "is" operator: must be exactly one selection AND that value must match exactly
+        // Note: fieldArray may contain both IDs and labels (e.g., ["Food", "5"] for one selection)
+        // So we need to check if there's exactly one unique selection, not array length
+
+        // Normalize condition value for comparison
+        var condValStrForIs = String(condVal).toLowerCase().trim();
+
+        // Normalize all array values to strings for comparison
+        var normalizedValues = fieldArray.map(function (val) {
+          if (typeof val === 'string') {
+            return val.trim().toLowerCase();
+          } else if (typeof val === 'number') {
+            return String(val).toLowerCase();
+          } else if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(val) === 'object' && val !== null) {
+            if (val.name) return String(val.name).trim().toLowerCase();
+            if (val.label) return String(val.label).trim().toLowerCase();
+            if (val.value) return String(val.value).trim().toLowerCase();
+            if (val.id) return String(val.id).toLowerCase();
+            return String(val).toLowerCase();
+          }
+          return String(val).toLowerCase();
+        });
+
+        // Check if condition value matches any value in the array
+        var hasMatch = normalizedValues.some(function (val) {
+          return val === condValStrForIs;
+        });
+        if (!hasMatch) {
+          return false; // Condition value not found
+        }
+
+        // For "is" operator: array must represent exactly ONE selection
+        // Category/tag/location fields return ID+label pairs:
+        // - Single selection: ["Food", "5"] → 2 items (ID + label for same selection)
+        // - Multiple selections: ["Food", "5", "Travel", "10"] → 4 items (2 selections)
+        // So: if array.length <= 2, it's a single selection; if > 2, it's multiple
+
+        // Check if this is the ONLY selection
+        if (fieldArray.length > 2) {
+          return false; // Multiple selections (3+ items means at least 2 selections)
+        }
+
+        // Array has 1-2 items, meaning single selection
+        // Condition value must match
+        return hasMatch;
+      case 'contains':
+        // For "contains" operator: value can be one of many (current behavior)
+        return fieldArray.some(function (val) {
+          var compareVal = val;
+          if (typeof compareVal === 'string') {
+            compareVal = compareVal.trim().toLowerCase();
+          }
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(compareVal) === 'object' && compareVal !== null) {
+            // Handle objects (e.g., category objects)
+            if (compareVal.name) compareVal = compareVal.name;else if (compareVal.label) compareVal = compareVal.label;else if (compareVal.value) compareVal = compareVal.value;else if (compareVal.id) compareVal = compareVal.id;else compareVal = String(compareVal);
+          }
+          return String(compareVal).toLowerCase().includes(String(condVal).toLowerCase()) || String(compareVal).toLowerCase() === String(condVal).toLowerCase();
+        });
+      case 'is not':
+      case '!=':
+      case 'does not contain':
+        return !fieldArray.some(function (val) {
+          var compareVal = val;
+          if (typeof compareVal === 'string') {
+            compareVal = compareVal.trim().toLowerCase();
+          }
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(compareVal) === 'object' && compareVal !== null) {
+            if (compareVal.name) compareVal = compareVal.name;else if (compareVal.label) compareVal = compareVal.label;else if (compareVal.value) compareVal = compareVal.value;else if (compareVal.id) compareVal = compareVal.id;else compareVal = String(compareVal);
+          }
+          return String(compareVal).toLowerCase().includes(String(condVal).toLowerCase()) || String(compareVal).toLowerCase() === String(condVal).toLowerCase();
+        });
+      default:
+        return false;
+    }
+  },
+  /**
+   * Check if a value is empty.
+   * @param {*} value - Value to check
+   * @returns {Boolean}
+   */
+  isEmpty: function isEmpty(value) {
+    if (value === null || value === undefined) {
+      return true;
+    }
+    if (typeof value === 'string' && value.trim() === '') {
+      return true;
+    }
+    if (Array.isArray(value) && value.length === 0) {
+      return true;
+    }
+    return false;
+  },
   data: function data() {
     return {
       default_option: {
@@ -7553,8 +9217,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     fieldList: function fieldList() {
       this.filterFieldList();
     },
-    value: function value() {
-      this.filterFieldList();
+    value: {
+      handler: function handler() {
+        this.filterFieldList();
+      },
+      deep: true
     }
   },
   computed: {
@@ -7633,6 +9300,36 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }
       }
       for (var _field_key in new_fields) {
+        var _field$options, _field$options2, _field$conditional_lo;
+        // Extract conditional logic configuration
+        // Structure from PHP get_conditional_logic_field():
+        // options.conditional_logic = { type: 'conditional-logic', value: { enabled, action, groups } }
+        // The actual config is in conditional_logic.value (not directly in conditional_logic)
+        var conditionalLogic = null;
+        var field = new_fields[_field_key];
+
+        // Priority 1: options.conditional_logic.value (current structure)
+        // This matches the structure returned by get_conditional_logic_field() in builder-custom-fields.php
+        if ((_field$options = field.options) !== null && _field$options !== void 0 && (_field$options = _field$options.conditional_logic) !== null && _field$options !== void 0 && _field$options.value) {
+          conditionalLogic = field.options.conditional_logic.value;
+        }
+        // Priority 2: options.conditional_logic (flat structure - backward compatibility)
+        else if (((_field$options2 = field.options) === null || _field$options2 === void 0 || (_field$options2 = _field$options2.conditional_logic) === null || _field$options2 === void 0 ? void 0 : _field$options2.enabled) !== undefined) {
+          conditionalLogic = field.options.conditional_logic;
+        }
+        // Priority 3: field.conditional_logic (direct access - edge cases)
+        else if (((_field$conditional_lo = field.conditional_logic) === null || _field$conditional_lo === void 0 ? void 0 : _field$conditional_lo.enabled) !== undefined) {
+          conditionalLogic = field.conditional_logic;
+        }
+        if (conditionalLogic) {
+          var shouldShow = this.evaluateConditionalLogic(conditionalLogic, new_fields);
+          if (!shouldShow) {
+            delete new_fields[_field_key];
+            continue;
+          }
+        }
+
+        // Check for legacy show_if format
         if (!(new_fields[_field_key].showIf || new_fields[_field_key].show_if)) {
           continue;
         }
@@ -7648,8 +9345,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return new_fields;
     },
     update: function update(payload) {
+      var _this2 = this;
       this.$emit("update", payload);
-      this.filterFieldList();
+      // Re-evaluate conditional logic when any field value changes
+      this.$nextTick(function () {
+        _this2.filterFieldList();
+      });
     }
   }
 });
@@ -11359,24 +13060,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return state;
     },
     /**
-     * Generate a unique key for field-list-component based on group data
-     * This ensures the component re-renders when the label changes,
-     * updating the input field with the new value.
+     * Generate a stable key for field-list-component.
      *
-     * By including the label in the key, Vue will treat it as a new component
-     * instance when the label changes, forcing a fresh render with updated values.
+     * Important: Do NOT include groupData.label (or any value the user is
+     * actively typing) in this key. Doing so causes Vue to destroy and
+     * recreate the field-list-component on every keystroke, which makes
+     * the Section Name input lose focus after a single character.
      *
-     * @returns {string} Unique key combining groupKey and label
+     * Reactivity for label changes coming from other sources (e.g. inline
+     * header editing) is handled by the deep watcher on the `value` prop
+     * inside Field_List_Component.vue.
+     *
+     * @returns {string} Stable key based on groupKey only
      */
     fieldListComponentKey: function fieldListComponentKey() {
-      var _this$groupData;
-      // Include label in the key so component re-renders when label changes
-      // This ensures the "Section Name" input field shows the updated label value
-      var label = this.getSearchGroup() ? this.getSearchLabelContent() : ((_this$groupData = this.groupData) === null || _this$groupData === void 0 ? void 0 : _this$groupData.label) || "";
-
-      // Use groupKey and label to create a unique key
-      // When label changes, the key changes, forcing Vue to re-render the component
-      return "group_".concat(this.groupKey, "_label_").concat(label);
+      return "group_".concat(this.groupKey);
     }
   },
   data: function data() {
@@ -17514,6 +19212,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/form-fields/helper */ "./assets/src/js/admin/vue/mixins/form-fields/helper.js");
+/* harmony import */ var _mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/form-fields/input-field-props */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "conditional-logic-field",
+  mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=script&lang=js":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=script&lang=js ***!
@@ -20527,6 +22244,178 @@ __webpack_require__.r(__webpack_exports__);
     return {
       validationMessages: null
     };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields_conditional_logic_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/conditional-logic-field */ "./assets/src/js/admin/vue/mixins/form-fields/conditional-logic-field.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "conditional-logic-field-theme-default",
+  mixins: [_mixins_form_fields_conditional_logic_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  computed: {
+    /**
+     * Available operator options for conditional logic conditions
+     * Centralized in one place for easy maintenance
+     */
+    operatorOptions: function operatorOptions() {
+      return [{
+        value: "is",
+        label: "is"
+      }, {
+        value: "is not",
+        label: "is not"
+      }, {
+        value: "contains",
+        label: "contains"
+      }, {
+        value: "does not contain",
+        label: "does not contain"
+      }, {
+        value: "empty",
+        label: "empty"
+      }, {
+        value: "not empty",
+        label: "not empty"
+      }, {
+        value: "greater than",
+        label: "greater than"
+      }, {
+        value: "less than",
+        label: "less than"
+      }, {
+        value: "greater than or equal",
+        label: "greater than or equal"
+      }, {
+        value: "less than or equal",
+        label: "less than or equal"
+      }, {
+        value: "starts with",
+        label: "starts with"
+      }, {
+        value: "ends with",
+        label: "ends with"
+      }];
+    },
+    /**
+     * Filtered available fields - excludes the current field being edited
+     */
+    filteredAvailableFields: function filteredAvailableFields() {
+      if (!this.availableFields || !Array.isArray(this.availableFields)) {
+        return [];
+      }
+
+      // Use the stored field key (set when conditional logic was enabled)
+      var currentFieldKey = this.currentFieldKeyForExclusion;
+      var skipKeys = ["logic", "conditional_logic", "conditional-logic", "conditionalLogic", "submission_form_fields", "search_form_fields", "widgets", "fields", "social", "pricing", "map", "listing_type"];
+
+      // Filter out the current field, conditional logic keys, and excluded types
+      var filtered = this.availableFields.filter(function (field) {
+        if (!field || !field.value) {
+          return false;
+        }
+        var fieldValue = field.value.toString().trim().toLowerCase();
+
+        // Skip conditional logic keys
+        if (skipKeys.includes(fieldValue)) {
+          return false;
+        }
+
+        // If we have a stored field key, skip if it matches
+        if (currentFieldKey) {
+          var currentKey = currentFieldKey.toString().trim().toLowerCase();
+          // Check both exact match and widget_key vs field_key variations
+          if (fieldValue === currentKey) {
+            return false;
+          }
+
+          // Also check field.widget.field_key (which is used in formatFieldsForDropdown: widget.field_key || widgetKey)
+          if (field.widget && field.widget.field_key) {
+            var widgetFieldKey = field.widget.field_key.toString().trim().toLowerCase();
+            if (widgetFieldKey === currentKey) {
+              return false;
+            }
+            // Also check without "custom-" prefix
+            var widgetFieldKeyWithoutCustom = widgetFieldKey.replace(/^custom-/, "");
+            var _currentKeyWithoutCustom = currentKey.replace(/^custom-/, "");
+            if (widgetFieldKeyWithoutCustom === _currentKeyWithoutCustom && widgetFieldKeyWithoutCustom) {
+              return false;
+            }
+          }
+
+          // Also check if field.value matches currentFieldKey when removing "custom-" prefix
+          var fieldValueWithoutCustom = fieldValue.replace(/^custom-/, "");
+          var currentKeyWithoutCustom = currentKey.replace(/^custom-/, "");
+          if (fieldValueWithoutCustom === currentKeyWithoutCustom && fieldValueWithoutCustom) {
+            return false;
+          }
+        }
+        return true;
+      });
+      return filtered;
+    }
+  },
+  methods: {
+    /**
+     * Get filtered operator options based on the selected field type
+     * Number fields show numeric operators (greater than, less than, etc.)
+     * Other fields hide numeric operators
+     * @param {Object} condition - The condition object containing the selected field
+     * @returns {Array} Filtered array of operator options
+     */
+    getOperatorOptions: function getOperatorOptions(condition) {
+      if (!condition || !condition.field) {
+        return this.operatorOptions;
+      }
+      var fieldData = this.getFieldData(condition.field);
+      if (!fieldData) {
+        return this.operatorOptions;
+      }
+      var fieldType = (fieldData.type || "").toString().trim().toLowerCase();
+      var fieldValue = (condition.field || "").toString().trim().toLowerCase();
+
+      // File fields (including listing_img), radio fields, privacy policy field: only show "is" and "is not"
+      if (fieldType === "file" || fieldType === "file_upload" || fieldType === "radio" || fieldValue === "privacy_policy") {
+        return this.operatorOptions.filter(function (operator) {
+          return ["is", "is not"].includes(operator.value);
+        });
+      }
+
+      // Date, time and color fields: only show "is", "is not", "empty", "not empty"
+      if (fieldType === "date" || fieldType === "time" || fieldType === "color" || fieldType === "color_picker") {
+        return this.operatorOptions.filter(function (operator) {
+          return ["is", "is not", "empty", "not empty"].includes(operator.value);
+        });
+      }
+
+      // Checkbox & Select fields: only show "is", "is not", "empty", "not empty", "contains", "does not contain"
+      if (fieldType === "checkbox" || fieldType === "select") {
+        return this.operatorOptions.filter(function (operator) {
+          return ["is", "is not", "empty", "not empty", "contains", "does not contain"].includes(operator.value);
+        });
+      }
+
+      // Number fields: show all operators (including numeric comparison)
+      var isNumberField = fieldType === "number" || fieldType === "numeric";
+      if (isNumberField) {
+        return this.operatorOptions;
+      }
+
+      // For other fields, filter out numeric comparison operators
+      var numericOperators = ["greater than", "less than", "greater than or equal", "less than or equal"];
+      return this.operatorOptions.filter(function (operator) {
+        return !numericOperators.includes(operator.value);
+      });
+    }
   }
 });
 
@@ -27489,6 +29378,39 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=template&id=45d345b5":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=template&id=45d345b5 ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.canShow ? _c(_vm.getTheTheme('conditional-logic-field'), _vm._b({
+    tag: "component",
+    on: {
+      "do-action": function doAction($event) {
+        return _vm.$emit('do-action', $event);
+      },
+      "update": function update($event) {
+        return _vm.$emit('update', $event);
+      }
+    }
+  }, 'component', _vm.$props, false)) : _vm._e();
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=template&id=1eee3c3d":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=template&id=1eee3c3d ***!
@@ -31413,6 +33335,749 @@ var render = function render() {
     staticClass: "cptm-form-alert",
     class: 'cptm-' + _vm.validationMessages.type
   }, [_vm._v("\n          " + _vm._s(_vm.validationMessages.message) + "\n        ")])]) : _vm._e()])]), _vm._v(" "), _c('form-field-validatior', {
+    attrs: {
+      "section-id": _vm.sectionId,
+      "field-id": _vm.fieldId,
+      "root": _vm.root,
+      "value": _vm.value,
+      "rules": _vm.rules
+    },
+    on: {
+      "validate": function validate($event) {
+        return _vm.$emit('validate', $event);
+      }
+    },
+    model: {
+      value: _vm.validationLog,
+      callback: function callback($$v) {
+        _vm.validationLog = $$v;
+      },
+      expression: "validationLog"
+    }
+  })], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954 ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "cptm-form-group",
+    class: _vm.formGroupClass
+  }, [_c('div', {
+    staticClass: "cptm-input-toggle-wrap"
+  }, [_c('div', {
+    staticClass: "cptm-input-toggle-content"
+  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+    tag: "component"
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+    staticClass: "cptm-form-group-info",
+    domProps: {
+      "innerHTML": _vm._s(_vm.description)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "directorist_vertical-align-m cptm-input-toggle-btn"
+  }, [_c('div', {
+    staticClass: "directorist_item"
+  }, [_c('span', {
+    staticClass: "cptm-input-toggle",
+    class: _vm.toggleClass,
+    on: {
+      "click": function click($event) {
+        return _vm.toggleEnabled();
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.localValue.enabled,
+      expression: "localValue.enabled"
+    }],
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "type": "checkbox",
+      "id": _vm.fieldId + '_enabled'
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.localValue.enabled) ? _vm._i(_vm.localValue.enabled, null) > -1 : _vm.localValue.enabled
+    },
+    on: {
+      "change": [function ($event) {
+        var $$a = _vm.localValue.enabled,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.localValue, "enabled", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.localValue, "enabled", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.localValue, "enabled", $$c);
+        }
+      }, _vm.updateValue]
+    }
+  })])])]), _vm._v(" "), _vm.localValue.enabled ? _c('div', {
+    staticClass: "directorist-conditional-logic-builder"
+  }, [_c('div', {
+    staticClass: "directorist-conditional-logic-builder__header"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.localValue.action,
+      expression: "localValue.action"
+    }],
+    staticClass: "directorist-conditional-logic-builder__action",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.localValue, "action", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, _vm.updateValue]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "show"
+    }
+  }, [_vm._v("Show")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "hide"
+    }
+  }, [_vm._v("Hide")])]), _vm._v(" "), _c('span', {
+    staticClass: "directorist-conditional-logic-builder__label"
+  }, [_vm._v("this field if")])]), _vm._v(" "), _c('div', {
+    staticClass: "directorist-conditional-logic-builder__rules-and-groups"
+  }, [_vm._l(_vm.localValue.groups, function (group, groupIndex) {
+    return [groupIndex > 0 ? _c('div', {
+      staticClass: "directorist-conditional-logic-builder__rule-separator"
+    }, [_c('span', {
+      staticClass: "directorist-conditional-logic-builder__separator-text"
+    }, [_vm._v(_vm._s(_vm.localValue.globalOperator))])]) : _vm._e(), _vm._v(" "), !group.isGroup ? [_c('div', {
+      staticClass: "directorist-conditional-logic-builder__rule"
+    }, [_c('div', {
+      staticClass: "directorist-conditional-logic-builder__condition"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: group.conditions[0].field,
+        expression: "group.conditions[0].field"
+      }],
+      staticClass: "directorist-conditional-logic-builder__field",
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(group.conditions[0], "field", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.onFieldChange(group.conditions[0]);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v("Select a field")]), _vm._v(" "), _vm._l(_vm.filteredAvailableFields, function (field) {
+      return _c('option', {
+        key: field.value,
+        domProps: {
+          "value": field.value
+        }
+      }, [_vm._v("\n                  " + _vm._s(field.label) + "\n                ")]);
+    })], 2), _vm._v(" "), _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: group.conditions[0].operator,
+        expression: "group.conditions[0].operator"
+      }],
+      key: "operator-".concat(group.conditions[0].field || 'empty'),
+      staticClass: "directorist-conditional-logic-builder__operator-select",
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(group.conditions[0], "operator", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, _vm.updateValue]
+      }
+    }, _vm._l(_vm.getOperatorOptions(group.conditions[0]), function (operator) {
+      return _c('option', {
+        key: operator.value,
+        domProps: {
+          "value": operator.value
+        }
+      }, [_vm._v("\n                  " + _vm._s(operator.label) + "\n                ")]);
+    }), 0), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && _vm.needsSelectInput(group.conditions[0]) ? _c('div', {
+      key: "value-select-wrapper-".concat(group.conditions[0].field || 'empty', "-").concat(group.conditions[0].operator || 'empty'),
+      staticClass: "directorist-conditional-logic-builder__value-select-wrapper"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: group.conditions[0].value,
+        expression: "group.conditions[0].value"
+      }],
+      key: "value-select-".concat(group.conditions[0].field || 'empty', "-").concat(group.conditions[0].operator || 'empty'),
+      staticClass: "directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select",
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(group.conditions[0], "value", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.onConditionValueUpdate(group.conditions[0], $event.target.value);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v("Select value")]), _vm._v(" "), _vm._l(_vm.getValueOptions(group.conditions[0]), function (option) {
+      return _c('option', {
+        key: option.value,
+        domProps: {
+          "value": option.value
+        }
+      }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                  ")]);
+    })], 2), _vm._v(" "), group.conditions[0].value ? _c('button', {
+      staticClass: "directorist-conditional-logic-builder__value-clear",
+      attrs: {
+        "type": "button",
+        "title": "Clear selection"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.onConditionValueUpdate(group.conditions[0], '');
+        }
+      }
+    }, [_c('span', {
+      staticClass: "fa fa-times"
+    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && _vm.isDateField(group.conditions[0]) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: group.conditions[0].value,
+        expression: "group.conditions[0].value"
+      }],
+      key: "value-date-".concat(group.conditions[0].field || 'empty', "-").concat(group.conditions[0].operator || 'empty'),
+      staticClass: "directorist-conditional-logic-builder__value",
+      attrs: {
+        "type": "date"
+      },
+      domProps: {
+        "value": group.conditions[0].value
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(group.conditions[0], "value", $event.target.value);
+        }, function ($event) {
+          return _vm.onConditionValueUpdate(group.conditions[0], $event.target.value);
+        }]
+      }
+    }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && _vm.isTimeField(group.conditions[0]) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: group.conditions[0].value,
+        expression: "group.conditions[0].value"
+      }],
+      key: "value-time-".concat(group.conditions[0].field || 'empty', "-").concat(group.conditions[0].operator || 'empty'),
+      staticClass: "directorist-conditional-logic-builder__value",
+      attrs: {
+        "type": "time"
+      },
+      domProps: {
+        "value": group.conditions[0].value
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(group.conditions[0], "value", $event.target.value);
+        }, function ($event) {
+          return _vm.onConditionValueUpdate(group.conditions[0], $event.target.value);
+        }]
+      }
+    }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && _vm.isColorField(group.conditions[0]) ? _c('div', {
+      key: "value-color-".concat(group.conditions[0].field || 'empty', "-").concat(group.conditions[0].operator || 'empty'),
+      staticClass: "directorist-conditional-logic-builder__value-color-wrapper"
+    }, [_c('div', {
+      staticClass: "directorist-conditional-logic-builder__value-color-swatch",
+      class: {
+        'is-empty': !group.conditions[0].value
+      }
+    }, [group.conditions[0].value ? _c('span', {
+      staticClass: "directorist-conditional-logic-builder__value-color-preview",
+      style: {
+        backgroundColor: group.conditions[0].value
+      }
+    }) : _vm._e(), _vm._v(" "), group.conditions[0].value ? _c('span', {
+      staticClass: "directorist-conditional-logic-builder__value-color-code"
+    }, [_vm._v("\n                    " + _vm._s(group.conditions[0].value) + "\n                  ")]) : _c('span', {
+      staticClass: "directorist-conditional-logic-builder__value-color-placeholder"
+    }, [_vm._v("\n                    Select color\n                  ")]), _vm._v(" "), _c('input', {
+      staticClass: "directorist-conditional-logic-builder__value-color-input",
+      attrs: {
+        "type": "color"
+      },
+      domProps: {
+        "value": group.conditions[0].value || '#000000'
+      },
+      on: {
+        "input": function input($event) {
+          return _vm.onConditionValueUpdate(group.conditions[0], $event.target.value);
+        }
+      }
+    }), _vm._v(" "), group.conditions[0].value ? _c('button', {
+      staticClass: "directorist-conditional-logic-builder__value-clear directorist-conditional-logic-builder__value-clear--color",
+      style: {
+        color: '#f00'
+      },
+      attrs: {
+        "type": "button",
+        "title": "Clear selection"
+      },
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+          return _vm.onConditionValueUpdate(group.conditions[0], '');
+        }
+      }
+    }, [_c('span', {
+      staticClass: "fa fa-times"
+    })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(group.conditions[0].operator) && !_vm.needsSelectInput(group.conditions[0]) && !_vm.isDateField(group.conditions[0]) && !_vm.isTimeField(group.conditions[0]) && !_vm.isColorField(group.conditions[0]) ? _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: group.conditions[0].value,
+        expression: "group.conditions[0].value"
+      }],
+      key: "value-text-".concat(group.conditions[0].field || 'empty', "-").concat(group.conditions[0].operator || 'empty'),
+      staticClass: "directorist-conditional-logic-builder__value",
+      attrs: {
+        "type": "text",
+        "placeholder": "VALUE"
+      },
+      domProps: {
+        "value": group.conditions[0].value
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(group.conditions[0], "value", $event.target.value);
+        }, function ($event) {
+          return _vm.onConditionValueUpdate(group.conditions[0], $event.target.value);
+        }]
+      }
+    }) : _vm._e(), _vm._v(" "), _c('button', {
+      staticClass: "directorist-conditional-logic-builder__remove",
+      attrs: {
+        "type": "button",
+        "disabled": !_vm.canDeleteRule,
+        "title": _vm.__('Remove rule', 'directorist')
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeRule(groupIndex);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "las la-times"
+    })])])])] : group.isGroup ? [_c('div', {
+      staticClass: "directorist-conditional-logic-builder__group"
+    }, [_c('div', {
+      staticClass: "directorist-conditional-logic-builder__conditions"
+    }, [_vm._l(group.conditions, function (condition, conditionIndex) {
+      return [conditionIndex > 0 ? _c('div', {
+        staticClass: "directorist-conditional-logic-builder__condition-separator"
+      }, [_c('span', {
+        staticClass: "directorist-conditional-logic-builder__separator-text"
+      }, [_vm._v(_vm._s(group.operator))])]) : _vm._e(), _vm._v(" "), _c('div', {
+        staticClass: "directorist-conditional-logic-builder__condition"
+      }, [_c('select', {
+        directives: [{
+          name: "model",
+          rawName: "v-model",
+          value: condition.field,
+          expression: "condition.field"
+        }],
+        staticClass: "directorist-conditional-logic-builder__field",
+        on: {
+          "change": [function ($event) {
+            var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+              return o.selected;
+            }).map(function (o) {
+              var val = "_value" in o ? o._value : o.value;
+              return val;
+            });
+            _vm.$set(condition, "field", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+          }, function ($event) {
+            return _vm.onFieldChange(condition);
+          }]
+        }
+      }, [_c('option', {
+        attrs: {
+          "value": ""
+        }
+      }, [_vm._v("Select a field")]), _vm._v(" "), _vm._l(_vm.filteredAvailableFields, function (field) {
+        return _c('option', {
+          key: field.value,
+          domProps: {
+            "value": field.value
+          }
+        }, [_vm._v("\n                      " + _vm._s(field.label) + "\n                    ")]);
+      })], 2), _vm._v(" "), _c('select', {
+        directives: [{
+          name: "model",
+          rawName: "v-model",
+          value: condition.operator,
+          expression: "condition.operator"
+        }],
+        key: "operator-".concat(condition.field || 'empty'),
+        staticClass: "directorist-conditional-logic-builder__operator-select",
+        on: {
+          "change": [function ($event) {
+            var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+              return o.selected;
+            }).map(function (o) {
+              var val = "_value" in o ? o._value : o.value;
+              return val;
+            });
+            _vm.$set(condition, "operator", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+          }, _vm.updateValue]
+        }
+      }, _vm._l(_vm.getOperatorOptions(condition), function (operator) {
+        return _c('option', {
+          key: operator.value,
+          domProps: {
+            "value": operator.value
+          }
+        }, [_vm._v("\n                      " + _vm._s(operator.label) + "\n                    ")]);
+      }), 0), _vm._v(" "), !_vm.isValueHidden(condition.operator) && _vm.needsSelectInput(condition) ? _c('div', {
+        key: "value-select-wrapper-".concat(condition.field || 'empty', "-").concat(condition.operator || 'empty'),
+        staticClass: "directorist-conditional-logic-builder__value-select-wrapper"
+      }, [_c('select', {
+        directives: [{
+          name: "model",
+          rawName: "v-model",
+          value: condition.value,
+          expression: "condition.value"
+        }],
+        key: "value-select-".concat(condition.field || 'empty', "-").concat(condition.operator || 'empty'),
+        staticClass: "directorist-conditional-logic-builder__value directorist-conditional-logic-builder__value-select",
+        on: {
+          "change": [function ($event) {
+            var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+              return o.selected;
+            }).map(function (o) {
+              var val = "_value" in o ? o._value : o.value;
+              return val;
+            });
+            _vm.$set(condition, "value", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+          }, function ($event) {
+            return _vm.onConditionValueUpdate(condition, $event.target.value);
+          }]
+        }
+      }, [_c('option', {
+        attrs: {
+          "value": ""
+        }
+      }, [_vm._v("Select value")]), _vm._v(" "), _vm._l(_vm.getValueOptions(condition), function (option) {
+        return _c('option', {
+          key: option.value,
+          domProps: {
+            "value": option.value
+          }
+        }, [_vm._v("\n                        " + _vm._s(option.label) + "\n                      ")]);
+      })], 2), _vm._v(" "), condition.value ? _c('button', {
+        staticClass: "directorist-conditional-logic-builder__value-clear",
+        attrs: {
+          "type": "button",
+          "title": "Clear selection"
+        },
+        on: {
+          "click": function click($event) {
+            return _vm.onConditionValueUpdate(condition, '');
+          }
+        }
+      }, [_c('span', {
+        staticClass: "fa fa-times"
+      })]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && _vm.isDateField(condition) ? _c('input', {
+        directives: [{
+          name: "model",
+          rawName: "v-model",
+          value: condition.value,
+          expression: "condition.value"
+        }],
+        key: "value-date-".concat(condition.field || 'empty', "-").concat(condition.operator || 'empty'),
+        staticClass: "directorist-conditional-logic-builder__value",
+        attrs: {
+          "type": "date"
+        },
+        domProps: {
+          "value": condition.value
+        },
+        on: {
+          "input": [function ($event) {
+            if ($event.target.composing) return;
+            _vm.$set(condition, "value", $event.target.value);
+          }, function ($event) {
+            return _vm.onConditionValueUpdate(condition, $event.target.value);
+          }]
+        }
+      }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && _vm.isTimeField(condition) ? _c('input', {
+        directives: [{
+          name: "model",
+          rawName: "v-model",
+          value: condition.value,
+          expression: "condition.value"
+        }],
+        key: "value-time-".concat(condition.field || 'empty', "-").concat(condition.operator || 'empty'),
+        staticClass: "directorist-conditional-logic-builder__value",
+        attrs: {
+          "type": "time"
+        },
+        domProps: {
+          "value": condition.value
+        },
+        on: {
+          "input": [function ($event) {
+            if ($event.target.composing) return;
+            _vm.$set(condition, "value", $event.target.value);
+          }, function ($event) {
+            return _vm.onConditionValueUpdate(condition, $event.target.value);
+          }]
+        }
+      }) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && _vm.isColorField(condition) ? _c('div', {
+        key: "value-color-".concat(condition.field || 'empty', "-").concat(condition.operator || 'empty'),
+        staticClass: "directorist-conditional-logic-builder__value-color-wrapper"
+      }, [_c('div', {
+        staticClass: "directorist-conditional-logic-builder__value-color-swatch",
+        class: {
+          'is-empty': !condition.value
+        }
+      }, [condition.value ? _c('span', {
+        staticClass: "directorist-conditional-logic-builder__value-color-preview",
+        style: {
+          backgroundColor: condition.value
+        }
+      }) : _vm._e(), _vm._v(" "), condition.value ? _c('span', {
+        staticClass: "directorist-conditional-logic-builder__value-color-code"
+      }, [_vm._v("\n                        " + _vm._s(condition.value) + "\n                      ")]) : _c('span', {
+        staticClass: "directorist-conditional-logic-builder__value-color-placeholder"
+      }, [_vm._v("\n                        Select color\n                      ")]), _vm._v(" "), _c('input', {
+        staticClass: "directorist-conditional-logic-builder__value-color-input",
+        attrs: {
+          "type": "color"
+        },
+        domProps: {
+          "value": condition.value || '#000000'
+        },
+        on: {
+          "input": function input($event) {
+            return _vm.onConditionValueUpdate(condition, $event.target.value);
+          }
+        }
+      }), _vm._v(" "), condition.value ? _c('button', {
+        staticClass: "directorist-conditional-logic-builder__value-clear directorist-conditional-logic-builder__value-clear--color",
+        style: {
+          color: condition.value
+        },
+        attrs: {
+          "type": "button",
+          "title": "Clear selection"
+        },
+        on: {
+          "click": function click($event) {
+            $event.stopPropagation();
+            return _vm.onConditionValueUpdate(condition, '');
+          }
+        }
+      }, [_c('span', {
+        staticClass: "fa fa-times"
+      })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), !_vm.isValueHidden(condition.operator) && !_vm.needsSelectInput(condition) && !_vm.isDateField(condition) && !_vm.isTimeField(condition) && !_vm.isColorField(condition) ? _c('input', {
+        directives: [{
+          name: "model",
+          rawName: "v-model",
+          value: condition.value,
+          expression: "condition.value"
+        }],
+        key: "value-text-".concat(condition.field || 'empty', "-").concat(condition.operator || 'empty'),
+        staticClass: "directorist-conditional-logic-builder__value",
+        attrs: {
+          "type": "text",
+          "placeholder": "VALUE"
+        },
+        domProps: {
+          "value": condition.value
+        },
+        on: {
+          "input": [function ($event) {
+            if ($event.target.composing) return;
+            _vm.$set(condition, "value", $event.target.value);
+          }, function ($event) {
+            return _vm.onConditionValueUpdate(condition, $event.target.value);
+          }]
+        }
+      }) : _vm._e(), _vm._v(" "), _c('button', {
+        staticClass: "directorist-conditional-logic-builder__remove",
+        attrs: {
+          "type": "button",
+          "disabled": !_vm.canDeleteRule && group.conditions.length === 1,
+          "title": _vm.__('Remove condition', 'directorist')
+        },
+        on: {
+          "click": function click($event) {
+            return _vm.removeCondition(groupIndex, conditionIndex);
+          }
+        }
+      }, [_c('i', {
+        staticClass: "las la-times"
+      })])])];
+    })], 2), _vm._v(" "), _c('div', {
+      staticClass: "directorist-conditional-logic-builder__group-footer"
+    }, [_c('span', {
+      staticClass: "directorist-conditional-logic-builder__group-footer__label"
+    }, [_vm._v("Match:")]), _vm._v(" "), _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: group.operator,
+        expression: "group.operator"
+      }],
+      staticClass: "directorist-conditional-logic-builder__operator",
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(group, "operator", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, _vm.updateValue]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "AND"
+      }
+    }, [_vm._v("All Conditions (AND)")]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "OR"
+      }
+    }, [_vm._v("Any Condition (OR)")])]), _vm._v(" "), _c('button', {
+      staticClass: "cptm-btn directorist-conditional-logic-builder__group-footer__add-rule",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.addCondition(groupIndex);
+        }
+      }
+    }, [_c('span', [_vm._v("+")]), _vm._v(" Add Condition\n              ")]), _vm._v(" "), _c('button', {
+      staticClass: "directorist-conditional-logic-builder__group-footer__remove-group",
+      attrs: {
+        "type": "button",
+        "disabled": !_vm.canDeleteRule,
+        "title": _vm.__('Remove group', 'directorist')
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeGroup(groupIndex);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "las la-times"
+    })])])])] : _vm._e()];
+  })], 2), _vm._v(" "), _vm.localValue.enabled ? _c('div', {
+    staticClass: "directorist-conditional-logic-builder__footer"
+  }, [_c('span', {
+    staticClass: "directorist-conditional-logic-builder__footer__label"
+  }, [_vm._v("Match:")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.localValue.globalOperator,
+      expression: "localValue.globalOperator"
+    }],
+    staticClass: "directorist-conditional-logic-builder__operator",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.localValue, "globalOperator", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, _vm.updateValue]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "AND"
+    }
+  }, [_vm._v("All Conditions (AND)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "OR"
+    }
+  }, [_vm._v("Any Condition (OR)")])]), _vm._v(" "), _c('div', {
+    staticClass: "directorist-conditional-logic-builder__footer__add-group-wrap"
+  }, [_c('button', {
+    staticClass: "cptm-btn cptm-btn-secondery directorist-conditional-logic-builder__footer__add-group",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.addGroup
+    }
+  }, [_c('span', [_vm._v("+")]), _vm._v(" Add Group\n        ")]), _vm._v(" "), _c('button', {
+    staticClass: "cptm-btn directorist-conditional-logic-builder__footer__add-rule",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.addRule
+    }
+  }, [_c('span', [_vm._v("+")]), _vm._v(" Add Condition\n        ")])])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
@@ -39239,6 +41904,43 @@ component.options.__file = "assets/src/js/admin/vue/modules/form-fields/ColorFie
 
 /***/ }),
 
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue":
+/*!*********************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue ***!
+  \*********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Conditional_Logic_Field_vue_vue_type_template_id_45d345b5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Conditional_Logic_Field.vue?vue&type=template&id=45d345b5 */ "./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=template&id=45d345b5");
+/* harmony import */ var _Conditional_Logic_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Conditional_Logic_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Conditional_Logic_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Conditional_Logic_Field_vue_vue_type_template_id_45d345b5__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Conditional_Logic_Field_vue_vue_type_template_id_45d345b5__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue":
 /*!*******************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue ***!
@@ -41237,6 +43939,43 @@ component.options.__file = "assets/src/js/admin/vue/modules/form-fields/themes/d
 
 /***/ }),
 
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue":
+/*!**************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue ***!
+  \**************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Conditional_Logic_Field_Theme_Default_vue_vue_type_template_id_46936954__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954 */ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954");
+/* harmony import */ var _Conditional_Logic_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Conditional_Logic_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Conditional_Logic_Field_Theme_Default_vue_vue_type_template_id_46936954__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Conditional_Logic_Field_Theme_Default_vue_vue_type_template_id_46936954__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue":
 /*!********************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Export_Data_Field_Theme_Default.vue ***!
@@ -42620,6 +45359,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Conditional_Logic_Field.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=script&lang=js ***!
@@ -43319,6 +46071,19 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Color_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Color_Field_Theme_Default.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Color_Field_Theme_Default.vue?vue&type=script&lang=js");
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Color_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_Theme_Default_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -44529,6 +47294,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=template&id=45d345b5":
+/*!***************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=template&id=45d345b5 ***!
+  \***************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_vue_vue_type_template_id_45d345b5__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_vue_vue_type_template_id_45d345b5__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_vue_vue_type_template_id_45d345b5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Conditional_Logic_Field.vue?vue&type=template&id=45d345b5 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Conditional_Logic_Field.vue?vue&type=template&id=45d345b5");
+
+
+/***/ }),
+
 /***/ "./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=template&id=1eee3c3d":
 /*!*************************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Editable_Button_Field.vue?vue&type=template&id=1eee3c3d ***!
@@ -45443,6 +48225,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Color_Field_Theme_Default_vue_vue_type_template_id_3042d272__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Color_Field_Theme_Default_vue_vue_type_template_id_3042d272__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Color_Field_Theme_Default.vue?vue&type=template&id=3042d272 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Color_Field_Theme_Default.vue?vue&type=template&id=3042d272");
+
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954":
+/*!********************************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954 ***!
+  \********************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_Theme_Default_vue_vue_type_template_id_46936954__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_Theme_Default_vue_vue_type_template_id_46936954__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Conditional_Logic_Field_Theme_Default_vue_vue_type_template_id_46936954__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/themes/default/Conditional_Logic_Field_Theme_Default.vue?vue&type=template&id=46936954");
 
 
 /***/ }),
@@ -60758,12 +63557,6 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"axios","version":"0.21.4","de
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -60772,6 +63565,12 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"axios","version":"0.21.4","de
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

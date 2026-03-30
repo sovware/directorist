@@ -1546,8 +1546,6 @@
 	flex-wrap: wrap;
 	gap: 8px;
 	margin-top: 12px;
-	padding-top: 12px;
-	border-top: 1px solid var(--directorist-color-border-light);
 
 	> li,
 	> div {
@@ -1612,10 +1610,9 @@ max-width: 284px;
 			border-radius: 8px;
 			font-size: 14px;
 			font-weight: 500;
-			background-color: var(--directorist-color-white) !important;
-			background: transparent;
-			border: 1px solid var(--directorist-color-bg-light) !important;
-			color: var(--directorist-color-body) !important;
+			border: 1px solid #F0F0F0 !important;
+			background: #F3F4F6 !important;
+			color: #364153 !important;
 			&:hover {
 				background-color: var(--directorist-color-bg-light) !important;
 				border-color: var(--directorist-color-bg-light) !important;

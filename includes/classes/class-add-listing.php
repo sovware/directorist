@@ -982,13 +982,19 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 return;
             }
 
-            if ( $renew_from === 'dashboard' && ! wp_verify_nonce( $token, 'directorist_listing_renewal' ) ) {
-                return;
+            if ( $renew_from === 'dashboard' ) {
+                if ( empty( $token ) || ! wp_verify_nonce( $token, 'directorist_listing_renewal' ) ) {
+                    wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
+                }
             }
-
+            
             $listing_id = get_query_var( 'atbdp_listing_id' );
-            if ( $renew_from === 'email' && directorist_renewal_token_hash( $listing_id, get_current_user_id() ) !== $token ) {
-                return;
+            
+            // Email: token hash REQUIRED — fail early if missing or invalid
+            if ( $renew_from === 'email' ) {
+                if ( empty( $token ) || directorist_renewal_token_hash( $listing_id, get_current_user_id() ) !== $token ) {
+                    wp_die( esc_html__( 'Invalid renewal token.', 'directorist' ), '', array( 'response' => 403 ) );
+                }
             }
 
             if ( ! directorist_is_listing_post_type( $listing_id ) ) {

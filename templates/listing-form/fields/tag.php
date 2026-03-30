@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.8.0
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,8 +14,13 @@ $data_max    = $data['max'] ?? '';
 $data_new    = $data['allow_new'] ?? '';
 $multiple    = $data['type'] === 'multiple' ? 'multiple' : '';
 
-$lazy_load      = $data['lazy_load'];
-$all_tags       = ( ! $lazy_load ) ? get_terms( ATBDP_TAGS, [ 'hide_empty' => 0 ] ) : [];
+$lazy_load = $data['lazy_load'];
+$all_tags  = ( ! $lazy_load ) ? get_terms(
+    [
+        'taxonomy'   => ATBDP_TAGS,
+        'hide_empty' => 0,
+    ]
+) : [];
 
 
 $current_terms = $listing_form->add_listing_terms( ATBDP_TAGS );

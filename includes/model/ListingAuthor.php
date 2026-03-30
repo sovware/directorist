@@ -337,7 +337,8 @@ class Directorist_Listing_Author {
     }
 
     public function get_listing_categories() {
-        return get_terms( ATBDP_CATEGORY , [ 'hide_empty' => 0 ] );
+
+        return get_terms( [ 'taxonomy' => ATBDP_CATEGORY, 'hide_empty' => 0 ] );
     }
 
     public function listing_pagination_enabled() {

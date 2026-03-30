@@ -137,7 +137,11 @@ class Plans_Controller extends Posts_Controller {
         // Verify post type is registered
         $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
         if ( ! post_type_exists( $post_type ) ) {
-            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type "' . $post_type . '" is not registered.', 'directorist' ), array( 'status' => 500 ) );
+            return new WP_Error( 
+                'post_type_not_registered', 
+                sprintf( __( 'Pricing plans post type "%s" is not registered.', 'directorist' ), esc_html( $post_type ) ), 
+                array( 'status' => 500 ) 
+            );
         }
         
         return parent::get_items_permissions_check( $request );
@@ -156,7 +160,8 @@ class Plans_Controller extends Posts_Controller {
         // Verify post type is registered
         $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
         if ( ! post_type_exists( $post_type ) ) {
-            return new WP_Error( 'post_type_not_registered', __( 'Pricing plans post type "' . $post_type . '" is not registered.', 'directorist' ), array( 'status' => 500 ) );
+            /* translators: %s: Post type name */
+            return new WP_Error( 'post_type_not_registered', sprintf( __( 'Pricing plans post type "%s" is not registered.', 'directorist' ), esc_html( $post_type ) ), array( 'status' => 500 ) );
         }
         
         return parent::get_item_permissions_check( $request );
@@ -549,10 +554,14 @@ class Plans_Controller extends Posts_Controller {
         $validity_period = (int) $this->get_plan_meta( $plan, 'fm_length', 'fm_length', 0 );
 
         $translations = array(
-            'day'   => _n( 'Day', '%d days', $validity_period, 'directorist' ),
-            'week'  => _n( 'Week', '%d weeks', $validity_period, 'directorist' ),
-            'month' => _n( 'Month', '%d months', $validity_period, 'directorist' ),
-            'year'  => _n( 'Year', '%d years', $validity_period, 'directorist' ),
+            /* translators: %d: Number of days */
+            'day'   => _n( '%d day', '%d days', $validity_period, 'directorist' ),
+            /* translators: %d: Number of weeks */
+            'week'  => _n( '%d week', '%d weeks', $validity_period, 'directorist' ),
+            /* translators: %d: Number of months */
+            'month' => _n( '%d month', '%d months', $validity_period, 'directorist' ),
+            /* translators: %d: Number of years */
+            'year'  => _n( '%d year', '%d years', $validity_period, 'directorist' ),
         );
 
         return sprintf( $translations[ $this->get_validity_period_unit( $plan ) ], $validity_period );

@@ -19,7 +19,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 
     private function az_listing_categories() {
         $result = [];
-        $categories = get_terms( ATBDP_CATEGORY );
+        $categories = get_terms( [ 'taxonomy' => ATBDP_CATEGORY ] );
         foreach ( $categories as $category ) {
             $result[$category->slug] = $category->name;
         }
@@ -28,7 +28,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 
     private function az_listing_tags() {
         $result = [];
-        $tags = get_terms( ATBDP_TAGS );
+        $tags = get_terms( [ 'taxonomy' => ATBDP_TAGS ] );
         foreach ( $tags as $tag ) {
             $result[$tag->slug] = $tag->name;
         }
@@ -37,7 +37,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 
     private function az_listing_locations() {
         $result = [];
-        $locations = get_terms( ATBDP_LOCATION );
+        $locations = get_terms( [ 'taxonomy' => ATBDP_LOCATION ] );
         foreach ( $locations as $location ) {
             $result[$location->slug] = $location->name;
         }

@@ -16,7 +16,7 @@
         <div class="directorist_builder-header">
             <div class="directorist_builder-header__left">
                 <div class="directorist_logo">
-                    <img src="https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png" alt="">
+                    <img src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/directorist_logo.png' ); ?>" alt="">
                 </div>
             </div>
             <div class="directorist_builder-header__right">
@@ -64,7 +64,7 @@
         <div class="directorist_builder-body">
             <div class="directorist_builder__content">
                 <?php
-                    $all_items =  wp_count_terms( 'atbdp_listing_types' );
+                    $all_items =  wp_count_terms( [ 'taxonomy' => 'atbdp_listing_types' ] );
                     $listing_types = get_terms(
                         apply_filters(
                             'directorist_directory_index_query', [

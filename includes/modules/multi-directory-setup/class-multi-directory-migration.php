@@ -44,12 +44,12 @@ class Multi_Directory_Migration {
                         'taxonomy'   => $term,
                         'hide_empty' => false,
                         'orderby'    => 'date',
-                        'order'      => 'DSCE',
+                        'order'      => 'DESC',
                     ]
                 );
-                if ( ! empty( $term_data ) ) {
+                if ( ! empty( $term_data ) && ! is_wp_error( $term_data ) ) {
                     foreach ( $term_data as $data ) {
-                        update_term_meta( $data->term_id, '_directory_type', [ $add_directory['term_id']] );
+                        update_term_meta( $data->term_id, '_directory_type', [ $add_directory['term_id'] ] );
                     }
                 }
             }

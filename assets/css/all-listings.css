@@ -1,6 +1,6 @@
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@3.6.0_webpack@5.104.1/node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/.pnpm/resolve-url-loader@3.1.5/node_modules/resolve-url-loader/index.js!./node_modules/.pnpm/postcss-loader@3.0.0/node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/.pnpm/sass-loader@16.0.6_sass@1.97.2_webpack@5.104.1/node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* typography */
 @-webkit-keyframes rotate360 {
   0% {
@@ -11193,12 +11193,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   max-height: 300px;
   overflow-y: auto;
 }
-.directorist-content-active .directorist-author-listing-top .directorist-type-nav {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
 .directorist-content-active .directorist-author-listing-top .directorist-type-nav__link {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -11263,16 +11257,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     background-color: var(--directorist-color-body);
   }
 }
-@media screen and (max-width: 575px) {
-  .directorist-content-active .directorist-author-listing-top .directorist-type-nav .directorist-type-nav__link i {
-    display: none;
-  }
-}
 .directorist-content-active .directorist-author-listing-content {
   padding: 0;
 }
 .directorist-content-active .directorist-author-listing-content .directorist-pagination {
   padding-top: 35px;
+}
+.directorist-content-active .directorist-author-listing-type {
+  overflow-x: auto;
 }
 .directorist-content-active .directorist-author-listing-type .directorist-type-nav {
   background: none;
@@ -11438,6 +11430,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-content-active .directorist-type-nav__list {
+    max-width: -webkit-fit-content;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+    margin: 0 auto !important;
     -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
         -ms-flex-pack: start;
@@ -13953,6 +13949,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-margin-end: auto;
           margin-inline-end: auto;
   -webkit-padding-start: 10px;
@@ -14269,7 +14268,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media only screen and (max-width: 575px) {
   .directorist-search-form-wrap .directorist-listing-type-selection {
-    margin: 0 auto;
+    margin: 0 auto !important;
   }
 }
 

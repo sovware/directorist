@@ -75,6 +75,8 @@
 				flex-wrap: nowrap;
 			}
 			@media only screen and (max-width: 575px) {
+				max-width: fit-content;
+                margin: 0 auto !important;
 				justify-content: flex-start;
 			}
 

@@ -306,11 +306,14 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.6.6 - Mar 16, 2026 =
-**Security**
-* Fixed Broken Access Control (CVE-2025-68069) - Added missing capability checks on AJAX handlers accessible by low-privilege users
-* Fixed Open Redirection (CVE-2025-64250) - Registration redirect URL now validated to prevent external host redirection
+= 8.6.6 - Mar 30, 2026 =
 
+**Security**
+ - Fixed Broken Access Control (CVE-2025-68069) - Added missing capability checks on AJAX handlers accessible by low-privilege users
+ - Fixed Open Redirection (CVE-2025-64250) - Registration redirect URL now validated to prevent external host redirection
+
+**Fixed**
+ - PHP Warning for null array offset in single listing slider template
 
 = 8.6.5 - Mar 15, 2026 =
 

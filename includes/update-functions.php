@@ -345,10 +345,10 @@ function directorist_870_migrate_legacy_orders() {
     // Status normalization map: legacy _payment_status -> OrderStatus enum value.
     $status_map = [
         'completed' => 'paid',
+        'created'   => 'unpaid',
         'pending'   => 'pending',
         'failed'    => 'failed',
         'cancelled' => 'cancelled',
-        'canceled'  => 'cancelled',
         'refunded'  => 'refunded',
     ];
 

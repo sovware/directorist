@@ -8,7 +8,7 @@
     "start-default": "wp-scripts start",
     "start:blocks": "wp-scripts start --config blocks/webpack.config.js --webpack-src-dir=blocks/src --output-path=blocks/build",
     "start:blocks-common": "wp-scripts start --config blocks/webpack.config.js --webpack-src-dir=blocks/common --output-path=blocks/assets",
-    "start": "concurrently -n blocks,blocks-common,legacy,default \"npm run start:blocks\" \"npm run start:blocks-common\" \"npm run start-legacy\" \"npm run start-default\"",
+    "start": "concurrently -n legacy,default \"npm run start-legacy\" \"npm run start-default\"",
     "pot": "node pot.js",
     "build-default": "wp-scripts build",
     "build-legacy": "webpack --config webpack.legacy.prod.js",

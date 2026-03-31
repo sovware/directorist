@@ -42,6 +42,11 @@ module.exports = {
 									'./__build/directorist/directorist/views',
 							},
 							{
+								source: './utils',
+								destination:
+									'./__build/directorist/directorist/utils',
+							},
+							{
 								source: './*.php',
 								destination:
 									'./__build/directorist/directorist',

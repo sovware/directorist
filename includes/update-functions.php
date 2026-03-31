@@ -393,6 +393,10 @@ function directorist_870_migrate_legacy_orders() {
         // Normalize status.
         $status = isset( $status_map[ $payment_status ] ) ? $status_map[ $payment_status ] : 'pending';
 
+        if ( $post->post_status !== 'publish' ) {
+            $status = 'cancelled';
+        }
+
         // Insert into directorist_orders.
         $inserted = $wpdb->insert(
             $orders_table,

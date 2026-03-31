@@ -395,7 +395,7 @@ function directorist_870_migrate_legacy_orders() {
         // Normalize status.
         $status = isset( $status_map[ $payment_status ] ) ? $status_map[ $payment_status ] : 'pending';
 
-        if ( $post->post_status !== 'publish' ) {
+        if ( $post->post_status === 'trash' ) {
             $status = 'cancelled';
         }
 
@@ -488,7 +488,7 @@ function directorist_870_migrate_legacy_orders() {
     // Check if any eligible posts remain to decide whether to re-queue.
     $remaining = new WP_Query( [
         'post_type'      => 'atbdp_orders',
-        'post_status'    => 'any',
+        'post_status'    => ['any', 'trash'],
         'posts_per_page' => 1,
         'no_found_rows'  => false,
         'fields'         => 'ids',

@@ -12,6 +12,11 @@ use Directorist\Utils\Database\Schema\Blueprint;
 use Directorist\Utils\Database\Schema\Schema;
 
 class Activation {
+    public static function register_hooks() {
+        add_action( 'directorist_installed', [ __CLASS__, 'run' ] );
+        add_action( 'directorist_updated', [ __CLASS__, 'run' ] );
+    }
+
     public static function run() {
         // Run the activation tasks.
         self::create_tables();

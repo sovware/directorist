@@ -229,6 +229,7 @@ final class Directorist_Base {
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy();
 
             add_action( 'init', [ self::$instance, 'on_install_update_actions' ] );
+            Activation::register_hooks();
 
             Directorist\Asset_Loader\Asset_Loader::init();
 

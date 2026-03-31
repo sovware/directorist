@@ -8,7 +8,7 @@ Directorist uses three separate webpack pipelines to handle different parts of t
 
 ### 1. Legacy (`webpack.legacy.dev.js` / `webpack.legacy.prod.js`)
 
-This is the legacy build system, responsible for handling Vue.js-based JavaScript and SCSS. The files used in this system are not compatible with the new build system; therefore, it is retained to ensure backward compatibility. Existing sources should be gradually migrated to the new (default) build system. Once all legacy sources have been successfully transitioned, this build system can be safely deprecated and removed
+This is the legacy build system, responsible for handling Vue.js-based JavaScript and SCSS. The files used in this system are not compatible with the new build system; therefore, it is retained to ensure backward compatibility. Existing sources should be gradually migrated to the new (default) build system. Once all legacy sources have been successfully transitioned, this build system can be safely deprecated and removed.
 
 **Features:**
 - Babel transpilation with `@wordpress/default` preset
@@ -93,10 +93,10 @@ Used exclusively for Gutenberg blocks. Passes through `@wordpress/scripts` defau
 │   ├── sample-data/      # Sample files
 │   ├── src/              # Source directory for assets
 │   ├── vendor-css/       # Vendor CSS files
-│   └── vendor-jcs/       # Vendor JS files
+│   └── vendor-js/       # Vendor JS files
 │
 ├── blocks/               # Gutenberg Blocks
 │
-└── build/                # Created only during `build-legacy`
+└── __build/                # Created only during `build-legacy`
     └─ directorist.zip    # Distributable plugin archive
 ```

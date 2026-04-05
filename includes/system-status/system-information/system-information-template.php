@@ -392,7 +392,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     <span class="atbd_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><?php echo esc_html__( $environment['platform'] ); ?></td>
+                                            <td><?php echo esc_html( $environment['platform'] ); ?></td>
                                         </tr>
                                         <tr>
                                             <td class="atbds_table-title"><?php esc_html_e( 'Browser name', 'directorist' ); ?>:</td>

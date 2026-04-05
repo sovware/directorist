@@ -525,3 +525,34 @@
 		margin: 0 0 15px;
 	}
 }
+
+// Formgent Integration Styles
+.directorist-single-wrapper {
+	.formgent-field-list--frontend{
+		max-width: 100%;
+	}
+	.formgent-form-general {
+		.formgent-field-list--frontend {
+			padding: 0;
+		}
+	}
+	.formgent-file-upload-progress-text {
+		min-width: 40px;
+	}
+	.formgent-file-preview-action .formgent-file-delete {
+		line-height: 1;
+	}
+	.formgent-rating-wrapper{
+		.formgent-rating-single{
+			flex: 1;
+		}
+	}
+	.formgent-upload-container{
+		.formgent-upload-area{
+			p{
+				font-size: 14px;
+				margin: 8px 0 0 0;
+			}
+		}
+	}
+}

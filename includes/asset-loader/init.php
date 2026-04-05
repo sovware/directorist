@@ -134,6 +134,8 @@ class Asset_Loader {
             case 'dashboard-contents':
                 wp_enqueue_script( 'directorist-dashboard' );
                 wp_enqueue_script( 'directorist-select2-script' );
+                wp_enqueue_script( 'directorist-formgent-integration' );
+                wp_enqueue_style( 'directorist-formgent-integration-style' );
                 break;
 
             // All Authors

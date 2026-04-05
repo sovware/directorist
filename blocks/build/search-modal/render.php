@@ -5,10 +5,10 @@
             directorist_icon( 'fa fa-search' );
         } elseif ( 'text' === $attributes['styleDisplay'] ) {
             directorist_icon( 'fa fa-search' );
-            echo $content;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $content );
 
         } elseif ( 'icon_and_text' === $attributes['styleDisplay'] ) {
-            echo $content;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_kses_post( $content );
 
         }
         ?>

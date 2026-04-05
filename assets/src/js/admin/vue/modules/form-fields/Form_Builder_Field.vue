@@ -118,6 +118,7 @@
                 :expanded-group-key="expandedGroupKey"
                 :expanded-group-fields-key="expandedGroupFieldsKey"
                 :auto-edit-label="newlyCreatedGroupKey === widget_group_key"
+                :field-key="fieldKey"
                 @update-group-field="updateGroupField(widget_group_key, $event)"
                 @update-widget-field="updateWidgetField"
                 @trash-widget="trashWidget(widget_group_key, $event)"
@@ -442,7 +443,7 @@
 <script>
 import Vue from "vue";
 import { mapGetters, mapState } from "vuex";
-import { findObjectItem, isObject } from "../../../../helper";
+import { findObjectItem, isObject, toCapitalize } from "../../../../helper";
 import helpers from "../../mixins/helpers";
 
 export default {
@@ -844,14 +845,19 @@ export default {
       this.isDataChanged = true;
       let activeWidget = this.active_widget_fields[props.widget_key];
       let updatedValue = props.payload.value;
+      const isBlur = !!props.payload.isBlur;
 
       if (props.payload.key === "placeholder" && !props.payload.value) {
-        if (!activeWidget.label) {
-          updatedValue = directorist_admin.search_form_default_placeholder;
+        // Only apply default placeholder when the input loses focus (blur)
+        // and the placeholder is still empty.
+        if (isBlur && !activeWidget.label) {
+          updatedValue = toCapitalize(props?.widget_key) || directorist_admin.search_form_default_label;
         }
       } else if (props.payload.key === "label" && !props.payload.value) {
-        if (!activeWidget.placeholder) {
-          updatedValue = directorist_admin.search_form_default_label;
+        // Only apply default label when the input loses focus (blur)
+        // and the placeholder is still empty.
+        if (isBlur && !activeWidget.placeholder) {
+          updatedValue = toCapitalize(props?.widget_key) || directorist_admin.search_form_default_label;
         }
       }
 

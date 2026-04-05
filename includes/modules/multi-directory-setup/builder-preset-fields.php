@@ -6,6 +6,27 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+/**
+ * Get conditional logic field option configuration.
+ *
+ * @param array $args Optional arguments to override defaults.
+ * @return array Conditional logic field configuration.
+ */
+function directorist_get_conditional_logic_field( array $args = [] ) {
+    $default = [
+        'type'        => 'conditional-logic',
+        'label'       => __( 'Conditional Logic', 'directorist' ),
+        'description' => __( 'Show or hide this field based on other field values.', 'directorist' ),
+        'value'       => [
+            'enabled' => false,
+            'action'  => 'show',
+            'groups'  => [],
+        ],
+    ];
+
+    return array_merge( $default, $args );
+}
+
 return apply_filters(
     'atbdp_form_preset_widgets', [
         'title' => [
@@ -40,6 +61,7 @@ return apply_filters(
                     'label' => __( 'Required', 'directorist' ),
                     'value' => true,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -98,6 +120,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ]
         ],
 
@@ -138,6 +161,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
 
             ],
         ],
@@ -244,6 +268,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
                 'modules' => [
                     'type'  => 'hidden',
                     'value' => [
@@ -298,6 +323,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -366,6 +392,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -421,6 +448,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -476,6 +504,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -509,6 +538,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -548,6 +578,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -587,6 +618,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -631,6 +663,7 @@ return apply_filters(
                     'label' => __( 'Link with WhatsApp', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -670,6 +703,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
                 'whatsapp' => [
                     'type'  => 'toggle',
                     'label' => __( 'Link with WhatsApp', 'directorist' ),
@@ -714,6 +748,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -753,6 +788,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -792,6 +828,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 
@@ -879,7 +916,8 @@ return apply_filters(
                     'type'  => 'toggle',
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
-                ]
+                ],
+                'conditional_logic' => directorist_get_conditional_logic_field()
             ],
         ],
 
@@ -919,6 +957,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => directorist_get_conditional_logic_field(),
             ],
         ],
 

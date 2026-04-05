@@ -2105,6 +2105,10 @@ class Directorist_Listings {
 
             if ( ! empty( $original_field ) ) {
                 $field['original_field'] = $original_field;
+
+                if ( ! empty( $original_field['label'] ) ) {
+                    $field['label'] = $original_field['label'];
+                }
             }
 
             $load_template = true;

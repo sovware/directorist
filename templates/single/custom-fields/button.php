@@ -40,7 +40,7 @@ if ( 'primary' === $button_style ) {
     <div class="directorist-single-info__value">
         <a class="<?php echo esc_attr( $btn_class ); ?>"
            href="<?php echo esc_url( $button_url_label ); ?>"<?php echo esc_attr( $target ); ?>>
-            <?php echo esc_html( $button_text ); ?>
+            <span class="directorist-btn-text"><?php echo esc_html( $button_text ); ?></span>
             <span class="directorist-icon-arrow-right">
                 <?php directorist_icon( 'fas fa-external-link-alt' ); ?>
             </span>

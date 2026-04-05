@@ -1942,6 +1942,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
 }
 /* --- Listing grid: constrained column widths via CSS Grid --- */
 @media (min-width: 1400px) {
+  .directorist-author-listing-content .directorist-row > *,
   .directorist-listing-grid.directorist-row > * {
     padding: 0;
     max-width: 100%;
@@ -1952,6 +1953,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
             flex: none;
     margin-top: 0;
   }
+  .directorist-author-listing-content .directorist-row,
   .directorist-listing-grid.directorist-row {
     display: grid;
     grid-template-columns: repeat(var(--directorist-col-count, 2), minmax(0, 442px));
@@ -1961,6 +1963,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
   }
 }
 @media (max-width: 575px) {
+  .directorist-author-listing-content .directorist-row,
   .directorist-listing-grid.directorist-row {
     grid-template-columns: 1fr;
   }

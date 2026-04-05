@@ -357,12 +357,12 @@ class Directorist_Listing_Search_Form {
                             $search_form_fields['fields'][$key]['options']['options'] = $option_choices;
                         }
                         if ( isset( $value['type'] ) && 'range' === $value['type'] ) {
-                        foreach ( ['min_value', 'max_value', 'step'] as $range_key ) {
-                            if ( isset( $submission_field[ $range_key ] ) && '' !== $submission_field[ $range_key ] ) {
-                                $search_form_fields['fields'][$key]['options'][ $range_key ] = $submission_field[ $range_key ];
+                            foreach ( ['min_value', 'max_value', 'step'] as $range_key ) {
+                                if ( isset( $submission_field[ $range_key ] ) && '' !== $submission_field[ $range_key ] ) {
+                                    $search_form_fields['fields'][$key]['options'][ $range_key ] = $submission_field[ $range_key ];
+                                }
                             }
                         }
-                    }
                     }
                 }
 

@@ -1479,6 +1479,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Globally accessible form_data
   var form_data = {};
+  var initial_view = new URLSearchParams(window.location.search).get('view');
+  if (initial_view) {
+    form_data.view = initial_view;
+  }
 
   // Scrolling Pagination
   var scrollingPage = 1;
@@ -1661,6 +1665,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Update search URL with form data
   function update_instant_search_url(form_data) {
     if (!history.pushState) return;
+
+    // Always preserve current view from URL when form_data does not contain it.
+    if (!form_data.view) {
+      var current_view = new URLSearchParams(window.location.search).get('view');
+      if (current_view) {
+        form_data.view = current_view;
+      }
+    }
     var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname;
     var query = '';
     var appendQuery = function appendQuery(key, value) {

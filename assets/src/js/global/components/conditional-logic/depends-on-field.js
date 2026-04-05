@@ -76,8 +76,10 @@ export function fieldDependsOnChange(
 			// review (builder field) = search_by_rating[] (DOM name)
 			const isReviewField =
 				(conditionFieldKey === 'review' &&
-					(fieldKey === 'search_by_rating' || fieldName === 'search_by_rating[]')) ||
-				(conditionFieldKey === 'search_by_rating' && fieldKey === 'review');
+					(fieldKey === 'search_by_rating' ||
+						fieldName === 'search_by_rating[]')) ||
+				(conditionFieldKey === 'search_by_rating' &&
+					fieldKey === 'review');
 
 			const matches =
 				isReviewField ||

@@ -12,6 +12,7 @@
           :is="tab.type"
           v-bind="tab"
           :tab-key="tab.key"
+          :menu-key="tab.key"
           :class="tab.key"
         ></component>
       </div>

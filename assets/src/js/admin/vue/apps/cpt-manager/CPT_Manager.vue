@@ -141,6 +141,7 @@ export default {
     }
 
     this.$store.commit("updateCachedFields");
+    this.restorePersistedNavigationState();
     this.setupClosingWarning();
     this.setupSaveOnKeyboardInput();
 
@@ -172,6 +173,33 @@ export default {
 
   methods: {
     ...mapGetters(["getFieldsValue"]),
+
+    restorePersistedNavigationState() {
+      const layoutKeys = Object.keys(this.$store.state.layouts || {});
+
+      if (!layoutKeys.length) {
+        return;
+      }
+
+      let activeNavIndex = 0;
+
+      try {
+        const storedValue = window.localStorage.getItem(
+          "directorist_cptm_active_top_tab_index",
+        );
+        const parsedValue = Number.parseInt(storedValue, 10);
+
+        if (
+          !Number.isNaN(parsedValue) &&
+          parsedValue >= 0 &&
+          parsedValue < layoutKeys.length
+        ) {
+          activeNavIndex = parsedValue;
+        }
+      } catch (error) {}
+
+      this.$store.commit("swichNav", activeNavIndex);
+    },
 
     ensureEditableMode() {
       // Only set up the listener if not already in editable mode

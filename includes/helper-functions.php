@@ -2266,7 +2266,7 @@ function search_category_location_filter( $settings, $taxonomy_id, $prefix = '' 
             $directory_type = get_term_meta( $term->term_id, '_directory_type', true );
             $icon           = get_cat_icon( $term->term_id );
             $icon_src       = \Directorist\Helper::get_icon_src( $icon );
-            $directory_type = ! empty( $directory_type ) ? $directory_type : [];
+            $directory_type = ! empty( $directory_type ) ? (array) $directory_type : [];
             if ( in_array( $settings['listing_type'], $directory_type ) ) {
                 $settings['term_id'] = $term->term_id;
 

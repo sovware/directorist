@@ -36,6 +36,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             }
 
             add_action( 'admin_footer', [ $this, 'quick_edit_scripts' ] );
+            add_action( 'admin_footer', [ $this, 'render_reject_modal' ] );
 
             add_action( 'init', [ $this, 'register_post_status' ] );
         }
@@ -50,6 +51,23 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     'label_count' => _n_noop(
                         'Expired <span class="count">(%s)</span>',
                         'Expired <span class="count">(%s)</span>',
+                        'directorist'
+                    ),
+                ]
+            );
+
+            register_post_status(
+                'rejected',
+                [
+                    'label'                     => _x( 'Rejected', 'post status', 'directorist' ),
+                    'public'                    => false,
+                    'exclude_from_search'       => true,
+                    'show_in_admin_all_list'    => true,
+                    'show_in_admin_status_list' => true,
+                    /* translators: %s: Number of rejected listings. */
+                    'label_count'               => _n_noop(
+                        'Rejected <span class="count">(%s)</span>',
+                        'Rejected <span class="count">(%s)</span>',
                         'directorist'
                     ),
                 ]
@@ -126,6 +144,81 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     }
                 } );
             });
+            </script>
+            <?php
+        }
+
+        public function render_reject_modal() {
+            global $current_screen;
+
+            if ( ! isset( $current_screen ) || 'edit-at_biz_dir' !== $current_screen->id ) {
+                return;
+            }
+            ?>
+            <div id="atbdp-reject-modal" style="display:none; position:fixed; z-index:100000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
+                <div style="background:#fff; border-radius:4px; padding:24px; max-width:480px; width:90%; margin:80px auto; position:relative;">
+                    <h2 style="margin:0 0 16px; font-size:18px;"><?php esc_html_e( 'Reject Listing', 'directorist' ); ?></h2>
+                    <p style="margin:0 0 8px;"><label for="atbdp-reject-reason" style="font-weight:600;"><?php esc_html_e( 'Reason for rejection', 'directorist' ); ?> <span style="color:#B42318;">*</span></label></p>
+                    <textarea id="atbdp-reject-reason" rows="5" style="width:100%; box-sizing:border-box;" placeholder="<?php esc_attr_e( 'Explain why this listing is being rejected...', 'directorist' ); ?>"></textarea>
+                    <p id="atbdp-reject-error" style="color:#B42318; margin:6px 0 0; display:none;"><?php esc_html_e( 'Please provide a rejection reason.', 'directorist' ); ?></p>
+                    <div style="margin-top:16px; text-align:right;">
+                        <button id="atbdp-reject-cancel" class="button" style="margin-right:8px;"><?php esc_html_e( 'Cancel', 'directorist' ); ?></button>
+                        <button id="atbdp-reject-confirm" class="button" style="background:#B42318; border-color:#B42318; color:#fff;"><?php esc_html_e( 'Reject Listing', 'directorist' ); ?></button>
+                    </div>
+                </div>
+            </div>
+            <script>
+            jQuery( function( $ ) {
+                var $modal       = $( '#atbdp-reject-modal' );
+                var $reason      = $( '#atbdp-reject-reason' );
+                var $error       = $( '#atbdp-reject-error' );
+                var currentId    = 0;
+
+                $( document ).on( 'click', '.atbdp-reject-listing', function( e ) {
+                    e.preventDefault();
+                    currentId = $( this ).data( 'listing-id' );
+                    $reason.val( '' );
+                    $error.hide();
+                    $modal.fadeIn( 150 );
+                } );
+
+                $( '#atbdp-reject-cancel' ).on( 'click', function() {
+                    $modal.fadeOut( 150 );
+                } );
+
+                $modal.on( 'click', function( e ) {
+                    if ( $( e.target ).is( $modal ) ) {
+                        $modal.fadeOut( 150 );
+                    }
+                } );
+
+                $( '#atbdp-reject-confirm' ).on( 'click', function() {
+                    var reason = $reason.val().trim();
+                    if ( ! reason ) {
+                        $error.show();
+                        return;
+                    }
+                    $error.hide();
+                    var $btn = $( this ).prop( 'disabled', true ).text( '<?php echo esc_js( __( 'Rejecting...', 'directorist' ) ); ?>' );
+
+                    $.post( ajaxurl, {
+                        action     : 'atbdp_reject_listing',
+                        listing_id : currentId,
+                        reason     : reason,
+                        _wpnonce   : '<?php echo esc_js( wp_create_nonce( 'atbdp-reject-listing-nonce' ) ); ?>'
+                    } ).done( function( response ) {
+                        if ( response.success ) {
+                            window.location.reload();
+                        } else {
+                            $btn.prop( 'disabled', false ).text( '<?php echo esc_js( __( 'Reject Listing', 'directorist' ) ); ?>' );
+                            alert( response.data || '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'directorist' ) ); ?>' );
+                        }
+                    } ).fail( function() {
+                        $btn.prop( 'disabled', false ).text( '<?php echo esc_js( __( 'Reject Listing', 'directorist' ) ); ?>' );
+                        alert( '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'directorist' ) ); ?>' );
+                    } );
+                } );
+            } );
             </script>
             <?php
         }
@@ -376,6 +469,14 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                 $nonce              = wp_create_nonce( 'quick-publish-action' );
                 $link               = admin_url( "edit.php?update_id={$post->ID}&_wpnonce={$nonce}&post_type=at_biz_dir" );
                 $actions['publish'] = "<a href='$link' style='color: #4caf50; font-weight: bold'>Publish</a>";
+            }
+
+            if ( get_post_status( $post ) === 'pending' && current_user_can( 'publish_at_biz_dirs' ) ) {
+                $actions['reject'] = sprintf(
+                    '<a href="#" class="atbdp-reject-listing" data-listing-id="%d" style="color: #B42318; font-weight: bold;">%s</a>',
+                    $post->ID,
+                    esc_html__( 'Reject', 'directorist' )
+                );
             }
 
             return $actions;

@@ -3330,6 +3330,35 @@ Please remember that your order may be canceled if you do not make your payment 
                     ", 'directorist'
                         ),
                     ],
+                    'email_sub_rejected_listing' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Email Subject', 'directorist' ),
+                        'description' => __( 'Edit the subject for sending to the user when a listing is rejected.', 'directorist' ),
+                        'value'       => __( 'Your listing was rejected', 'directorist' ),
+                    ],
+                    'email_tmpl_rejected_listing' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Email Body', 'directorist' ),
+                        'description' => __( 'Edit the email template for sending to the user when a listing is rejected. HTML content is allowed too. Use ==REJECTION_REASON== to include the reason.', 'directorist' ),
+                        'value'       => __(
+                            "Hello ==NAME==,
+
+Thank you for submitting your listing, \"==LISTING_TITLE==\".
+
+After review, we could not approve it at this time.
+
+Reason:
+==REJECTION_REASON==
+
+Please review the issue, update your listing, and submit it again for approval.
+
+You can edit your listing from your dashboard:
+==DASHBOARD_LINK==
+
+Best regards,
+==SITE_NAME==", 'directorist'
+                        ),
+                    ],
                     'email_sub_edit_listing'    => [
                         'type'           => 'text',
                         'label'          => __( 'Email Subject', 'directorist' ),
@@ -4810,6 +4839,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'listing_submitted',
                     'payment_received',
                     'listing_published',
+                    'listing_rejected',
                     'listing_to_expire',
                     'listing_expired',
                     'remind_to_renew',
@@ -4841,6 +4871,10 @@ Please remember that your order may be canceled if you do not make your payment 
                     [
                         'value' => 'remind_to_renew',
                         'label' => __( 'Remind to renew', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_rejected',
+                        'label' => __( 'Listing Rejected', 'directorist' ),
                     ],
                 ]
             );

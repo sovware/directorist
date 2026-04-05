@@ -17,6 +17,7 @@ class ATBDP_Metabox {
         if ( is_admin() ) {
             add_action( 'add_meta_boxes_' . ATBDP_POST_TYPE, [$this, 'listing_metabox'] );
             add_action( 'transition_post_status',    [$this, 'publish_atbdp_listings'], 10, 3 );
+            add_action( 'transition_post_status',    [$this, 'clear_rejection_meta_on_resubmit'], 10, 3 );
             add_action( 'edit_post', [$this, 'save_post_meta'], 10, 2 );
             add_action( 'post_submitbox_misc_actions', [$this, 'post_submitbox_meta'] );
             // load dynamic fields
@@ -309,6 +310,23 @@ class ATBDP_Metabox {
         }
     
         do_action( 'atbdp_listing_published', $post->ID );
+    }
+
+    /**
+     * Clears rejection meta when a previously rejected listing is resubmitted (status → pending).
+     */
+    public function clear_rejection_meta_on_resubmit( $new_status, $old_status, $post ) {
+        if ( $post->post_type !== ATBDP_POST_TYPE ) {
+            return;
+        }
+
+        if ( $old_status !== 'rejected' || $new_status !== 'pending' ) {
+            return;
+        }
+
+        delete_post_meta( $post->ID, '_listing_rejection_reason' );
+        delete_post_meta( $post->ID, '_listing_rejected_at' );
+        delete_post_meta( $post->ID, '_listing_rejected_by' );
     }
 
     /**

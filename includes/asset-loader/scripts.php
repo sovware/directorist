@@ -67,7 +67,7 @@ class Scripts {
                 'path' => DIRECTORIST_CSS . 'public-main',
                 'rtl' => true,
             ],
-            'directorist-formgent-integration-style' => [
+'directorist-formgent-integration-style' => [
                 'type' => 'css',
                 'path' => DIRECTORIST_CSS . 'formgent-integration',
                 'rtl' => true,
@@ -239,7 +239,7 @@ class Scripts {
                 'type' => 'js',
                 'path' => DIRECTORIST_JS . 'directorist-dashboard',
             ],
-            'directorist-all-authors' => [
+'directorist-all-authors' => [
                 'type' => 'js',
                 'path' => DIRECTORIST_JS . 'all-authors',
             ],

@@ -155,7 +155,7 @@ function directorist_get_listing_edit_status( $directory_id, $listing_id = 0 ) {
     if ( $listing_id && ( $listing_status = get_post_status( $listing_id ) ) !== false ) {
         if ( $builder_status === 'publish' && $listing_status === 'publish' ) {
             $status = 'publish';
-        } else if ( $builder_status === 'pending' || $listing_status === 'pending' ) {
+        } else if ( $builder_status === 'pending' || $listing_status === 'pending' || $listing_status === 'rejected' ) {
             $status = 'pending';
         }
     }

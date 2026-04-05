@@ -31,6 +31,7 @@ class Directorist_Listing_Dashboard {
         $this->user_type                 = ! empty( $user_type ) ? $user_type : '';
         $this->become_author_button      = get_directorist_option( 'become_author_button', 1 );
         $this->become_author_button_text = get_directorist_option( 'become_author_button_text', __( 'Become An Author', 'directorist' ) );
+
     }
 
     public static function instance() {
@@ -98,10 +99,10 @@ class Directorist_Listing_Dashboard {
             $args['no_found_rows'] = false;
         }
 
-        if ( $status === 'pending' || $status === 'expired' || $status === 'publish' ) {
+        if ( in_array( $status, [ 'pending', 'expired', 'publish', 'rejected' ], true ) ) {
             $args['post_status'] = $status;
         } else {
-            $args['post_status'] = [ 'publish', 'pending', 'expired', 'private' ];
+            $args['post_status'] = [ 'publish', 'pending', 'expired', 'private', 'rejected' ];
         }
 
         if ( $search ) {
@@ -174,12 +175,41 @@ class Directorist_Listing_Dashboard {
         return $links;
     }
 
+    /**
+     * Output the status badge HTML for the current listing in the loop.
+     * For rejected listings, appends a "See why" trigger and popover with the rejection reason.
+     *
+     * @return string Escaped HTML.
+     */
     public function get_listing_status_html() {
-        $id = get_the_ID();
-        $status = get_post_status( $id );
-        $statuses = directorist_get_listing_statuses();
-        $status_label = $statuses[$status] ?? __( 'Unknown', 'directorist' );
-        $html = sprintf( '<span class="directorist_badge dashboard-badge directorist_status_%s">%s</span>', strtolower( $status ), $status_label );
+        $id           = get_the_ID();
+        $status       = get_post_status( $id );
+        $statuses     = directorist_get_listing_statuses();
+        $status_label = $statuses[ $status ] ?? __( 'Unknown', 'directorist' );
+        $html         = sprintf(
+            '<span class="directorist_badge dashboard-badge directorist_status_%s">%s</span>',
+            esc_attr( strtolower( $status ) ),
+            esc_html( $status_label )
+        );
+
+        if ( 'rejected' === $status ) {
+            $reason = get_post_meta( $id, '_listing_rejection_reason', true );
+            if ( $reason ) {
+                $html .= sprintf(
+                    '<span class="directorist-see-why-wrap">' .
+                        '<a href="#" class="directorist-see-why">%s</a>' .
+                        '<span class="directorist-rejection-popover">' .
+                            '<strong class="directorist-rejection-popover__title">%s</strong>' .
+                            '<span class="directorist-rejection-popover__body">%s</span>' .
+                        '</span>' .
+                    '</span>',
+                    esc_html__( 'See why', 'directorist' ),
+                    esc_html__( 'Why this listing was rejected', 'directorist' ),
+                    esc_html( $reason )
+                );
+            }
+        }
+
         return $html;
     }
 

@@ -41,7 +41,7 @@ function initAddListingMap() {
     var loc_manual_lat = parseFloat(localized_data.manual_lat);
     var loc_manual_lng = parseFloat(localized_data.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-    var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
+    var searchIcon = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/map-marker-alt.svg')\"></i>");
     var markerShape = document.createElement('div');
     markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;
@@ -330,7 +330,7 @@ function initSingleMapWidget() {
     return;
   }
   if ($('#gmap-widget').length) {
-    var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
+    var searchIcon = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/map-marker-alt.svg')\"></i>");
     var markerShape = document.createElement('div');
     markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;
@@ -531,7 +531,7 @@ function initSingleMap() {
   }
   if ($('.directorist-single-map').length) {
     document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
-      var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
+      var searchIcon = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/map-marker-alt.svg')\"></i>");
       var markerShape = document.createElement('div');
       markerShape.className = 'atbd_map_shape';
       markerShape.innerHTML = searchIcon;
@@ -783,6 +783,12 @@ function convertToSelect2(selector) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -791,12 +797,6 @@ function convertToSelect2(selector) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		if (!(moduleId in __webpack_modules__)) {
-/******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

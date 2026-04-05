@@ -438,7 +438,7 @@
 						}
 					}
 				}
-				
+
 				.directorist-select {
 					~ .directorist-search-field__btn--clear {
 						right: 15px;
@@ -795,6 +795,7 @@
 .directorist-search-form-action {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	margin-inline-end: auto;
 	padding-inline-start: 10px;
 	gap: 10px;
@@ -1038,7 +1039,7 @@
 	padding: 0;
 	margin: 0;
 	@media only screen and (max-width: 575px) {
-		margin: 0 auto;
+		margin: 0 auto !important;
 	}
 }
 

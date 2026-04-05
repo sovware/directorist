@@ -92,6 +92,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             add_action( 'wp_ajax_directorist_category_custom_field_search', [ $this, 'category_custom_field_search' ] );
             add_action( 'wp_ajax_nopriv_directorist_category_custom_field_search', [ $this, 'category_custom_field_search' ] );
 
+            // Get category options for conditional logic builder
+            add_action( 'wp_ajax_directorist_get_category_options', [ $this, 'ajax_get_category_options' ] );
+            add_action( 'wp_ajax_directorist_get_tag_options', [ $this, 'ajax_get_tag_options' ] );
+            add_action( 'wp_ajax_directorist_get_location_options', [ $this, 'ajax_get_location_options' ] );
+
             // dashboard become author
             add_action( 'wp_ajax_atbdp_become_author', [ $this, 'atbdp_become_author' ] );
             add_action( 'wp_ajax_atbdp_user_type_approved', [ $this, 'atbdp_user_type_approved' ] );
@@ -230,7 +235,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function instant_search() {
-			if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'bdas_ajax_nonce' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'bdas_ajax_nonce' ) ) {
                 wp_send_json(
                     [
                         'search_result'  => esc_html__( 'Something went wrong, please try again.', 'directorist' ),
@@ -356,11 +361,13 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
         // directorist_author_alpha_sorting
         public function directorist_author_alpha_sorting() {
-            if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['_nonce'] ), 'directorist_author_sorting' ) ) {
-                $authors = new Directorist_All_Authors();
-                Helper::get_template( 'all-authors', [ 'authors' => $authors ] );
-                wp_die();
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'directorist_author_sorting' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
             }
+        
+            $authors = new Directorist_All_Authors();
+            Helper::get_template( 'all-authors', [ 'authors' => $authors ] );
+            wp_die();
         }
 
         // directorist_author_pagination
@@ -395,43 +402,62 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function atbdp_user_type_deny() {
-			if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'atbdp_user_type_deny' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
-
-                update_user_meta( $user_id, '_user_type', 'general' );
-
-                wp_send_json(
-                    [
-                        'user_type' => __( 'User', 'directorist' ),
-                    ]
-                );
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'atbdp_user_type_deny' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
             }
+        
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'directorist' ) ), 403 );
+            }
+        
+            $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
+            update_user_meta( $user_id, '_user_type', 'general' );
+        
+            wp_send_json(
+                [
+                    'user_type' => __( 'User', 'directorist' ),
+                ]
+            );
         }
 
         public function atbdp_user_type_approved() {
-			if ( ! empty( $_POST['_nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'atbdp_user_type_approve' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
-                update_user_meta( $user_id, '_user_type', 'author' );
-                wp_send_json(
-                    [
-                        'user_type' => __( 'Author', 'directorist' ),
-                    ]
-                );
+            if ( empty( $_POST['_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_nonce'] ) ), 'atbdp_user_type_approve' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
             }
+        
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'directorist' ) ), 403 );
+            }
+        
+            $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : 0;
+            update_user_meta( $user_id, '_user_type', 'author' );
+        
+            wp_send_json(
+                [
+                    'user_type' => __( 'Author', 'directorist' ),
+                ]
+            );
         }
 
         public function atbdp_become_author() {
-			if ( ! empty( $_POST['nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'atbdp_become_author' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-                $user_id = ! empty( $_POST['userId'] ) ? absint( $_POST['userId'] ) : '';
-                do_action( 'atbdp_become_author', $user_id );
-                update_user_meta( $user_id, '_user_type', 'become_author' );
-                wp_send_json( __( 'Sent successfully', 'directorist' ) );
+            if ( ! is_user_logged_in() ) {
+                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'directorist' ) ), 403 );
             }
+
+            if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'atbdp_become_author' ) ) {
+                wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'directorist' ) ), 403 );
+            }
+
+            // Never trust userId from POST — always use current logged-in user.
+            $user_id = get_current_user_id();
+            do_action( 'atbdp_become_author', $user_id );
+            update_user_meta( $user_id, '_user_type', 'become_author' );
+            wp_send_json( __( 'Sent successfully', 'directorist' ) );
         }
 
         // atbdp_quick_ajax_login
         public function atbdp_quick_ajax_login() {
-			if ( empty( $_POST['directorist-quick-login-security'] ) || ! wp_verify_nonce( wp_unslash( $_POST['directorist-quick-login-security'] ), 'directorist-quick-login-nonce' ) ) { // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            if ( empty( $_POST['directorist-quick-login-security'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['directorist-quick-login-security'] ) ), 'directorist-quick-login-nonce' ) ) {
                 wp_send_json(
                     [
                         'loggedin' => false,
@@ -579,6 +605,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         }
 
         public function atbdp_listing_default_type() {
+            if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
+
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 wp_send_json( 'Invalid request.' );
             }
@@ -699,21 +729,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $form_fields  = directorist_get_listing_form_fields( $directory_id );
             $result       = [];
 
-            foreach ( $form_fields as $field_key => $field_properties ) {
-                $field = directorist_get_field( $field_properties );
-
-                if ( ! $field->is_category_only() || ! $field->get_assigned_category() ) {
-                    continue;
-                }
-
-                if ( in_array( $field->get_assigned_category(), $category_ids, true ) ) {
-                    ob_start();
-
-                    \Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $field_properties, $listing_id );
-
-                    $result[ $field_key ] = ob_get_clean();
-                }
-            }
+            // Removed: Category custom fields loading (assign_to feature removed)
+            // Since is_category_only() always returns false now, this loop would never execute
+            // Conditional logic now handles field visibility dynamically
 
             wp_send_json_success( $result );
         }
@@ -740,6 +758,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     ],
                 ];
 
+                wp_send_json( $data, 200 );
+            }
+
+            if ( ! get_option( 'users_can_register' ) || ! directorist_is_user_registration_enabled() ) {
+                $data = [
+                    'status'      => false,
+                    'status_code' => 'registration_disabled',
+                    'message'     => __( 'User registration is currently disabled.', 'directorist' ),
+                    'data'        => null,
+                ];
                 wp_send_json( $data, 200 );
             }
 
@@ -823,6 +851,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
          * It upgrades old pages and make them compatible with new shortcodes
          */
         public function upgrade_old_pages() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
+
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json_error( array( 'message' => __( 'Security check failed.', 'directorist' ) ), 403 );
+            }
+
             update_option( 'atbdp_pages_version', 0 );
             wp_send_json_success( __( 'Congratulations! All old pages have been updated successfully', 'directorist' ) );
         }
@@ -830,7 +866,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
         public function atbdp_ajax_login() {
 
             if ( ! directorist_verify_nonce( 'security', 'ajax-login-nonce' ) ) {
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin'    => false,
                         'message'     => __( 'Something went wrong, please reload the page', 'directorist' ),
@@ -842,7 +878,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             if ( is_user_logged_in() ) {
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin' => true,
                         'message'  => __( 'Login successful, redirecting...', 'directorist' ),
@@ -862,7 +898,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             $user_signon = wp_signon( $info, $keep_signed_in );
             if ( is_wp_error( $user_signon ) ) {
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin' => false,
                         'message'  => $user_signon->get_error_message()
@@ -871,7 +907,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             } else {
                 wp_set_current_user( $user_signon->ID );
 
-                echo json_encode(
+                echo wp_json_encode(
                     [
                         'loggedin' => true,
                         'message'  => __( 'Login successful, redirecting...', 'directorist' ),
@@ -1842,6 +1878,125 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() )
                 ]
             );
+        }
+
+        /**
+         * AJAX handler to get category options for conditional logic builder
+         */
+        public function ajax_get_category_options() {
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json_error( [ 'message' => __( 'Invalid nonce.', 'directorist' ) ], 400 );
+            }
+
+            $listing_type_id = ! empty( $_POST['listing_type_id'] ) ? absint( $_POST['listing_type_id'] ) : directorist_get_default_directory();
+
+            $terms = get_terms(
+                [
+                    'taxonomy'   => ATBDP_CATEGORY,
+                    'hide_empty' => false,
+                ]
+            );
+
+            $options = [];
+
+            if ( is_wp_error( $terms ) || ! count( $terms ) ) {
+                wp_send_json_success( $options );
+            }
+
+            foreach ( $terms as $term ) {
+                $term_directory_types = get_term_meta( $term->term_id, '_directory_type', true );
+
+                if ( is_array( $term_directory_types ) && in_array( $listing_type_id, $term_directory_types, true ) ) {
+                    $options[] = [
+                        'id'    => $term->term_id,
+                        'value' => $term->term_id,
+                        'label' => $term->name,
+                        'name'  => $term->name,
+                        'term_id' => $term->term_id,
+                    ];
+                }
+            }
+
+            wp_send_json_success( $options );
+        }
+
+        /**
+         * AJAX handler to get tag options for conditional logic builder
+         */
+        public function ajax_get_tag_options() {
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json_error( [ 'message' => __( 'Invalid nonce.', 'directorist' ) ], 400 );
+            }
+
+            $listing_type_id = ! empty( $_POST['listing_type_id'] ) ? absint( $_POST['listing_type_id'] ) : directorist_get_default_directory();
+
+            // Tags don't have directory type assignment like categories/locations
+            // So we fetch all tags
+            $terms = get_terms(
+                [
+                    'taxonomy'   => ATBDP_TAGS,
+                    'hide_empty' => false,
+                ]
+            );
+
+            $options = [];
+
+            if ( is_wp_error( $terms ) || ! count( $terms ) ) {
+                wp_send_json_success( $options );
+            }
+
+            foreach ( $terms as $term ) {
+                // For tags, store name as both id and value since tag field uses names as option values
+                $options[] = [
+                    'id'      => $term->name, // Store name as id for tag field (since option value is name)
+                    'value'   => $term->name, // Store name as value
+                    'label'   => $term->name,
+                    'name'    => $term->name,
+                    'term_id' => $term->term_id, // Keep term_id for reference
+                ];
+            }
+
+            wp_send_json_success( $options );
+        }
+
+        /**
+         * AJAX handler to get location options for conditional logic builder
+         */
+        public function ajax_get_location_options() {
+            if ( ! directorist_verify_nonce() ) {
+                wp_send_json_error( [ 'message' => __( 'Invalid nonce.', 'directorist' ) ], 400 );
+            }
+
+            $listing_type_id = ! empty( $_POST['listing_type_id'] ) ? absint( $_POST['listing_type_id'] ) : directorist_get_default_directory();
+
+            $terms = get_terms(
+                [
+                    'taxonomy'   => ATBDP_LOCATION,
+                    'hide_empty' => false,
+                ]
+            );
+
+            $options = [];
+
+            if ( is_wp_error( $terms ) || ! count( $terms ) ) {
+                wp_send_json_success( $options );
+            }
+
+            foreach ( $terms as $term ) {
+                $term_directory_types = get_term_meta( $term->term_id, '_directory_type', true );
+
+                if ( is_array( $term_directory_types ) && in_array( $listing_type_id, $term_directory_types, true ) ) {
+                    $options[] = [
+                        'id'      => $term->term_id,
+                        'value'   => $term->term_id,
+                        'label'   => $term->name,
+                        'name'    => $term->name,
+                        'term_id' => $term->term_id,
+                    ];
+                }
+            }
+
+            wp_send_json_success( $options );
         }
 
         public static function update_view_count() {

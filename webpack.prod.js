@@ -48,6 +48,9 @@ const prodConfig = {
 								source: './blocks',
 								destination:
 									'./__build/directorist/directorist/blocks',
+								globOptions: {
+									ignore: ['**/node_modules/**'],
+								},
 							},
 							{
 								source: './languages',

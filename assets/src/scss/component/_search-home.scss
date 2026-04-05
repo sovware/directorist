@@ -563,6 +563,14 @@
 
 			@media screen and (max-width: 767px) {
 				flex: 44%;
+				&.directorist-search-query {
+					flex: 100%;
+					padding-right: 0;
+					border-right: none;
+					.directorist-search-field__btn--clear {
+						right: 0;
+					}
+				}
 			}
 
 			@media screen and (max-width: 575px) {

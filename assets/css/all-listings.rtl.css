@@ -1,6 +1,6 @@
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@3.6.0_webpack@5.104.1/node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/.pnpm/resolve-url-loader@3.1.5/node_modules/resolve-url-loader/index.js!./node_modules/.pnpm/postcss-loader@3.0.0/node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/.pnpm/sass-loader@16.0.6_sass@1.97.3_webpack@5.104.1/node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* typography */
 @-webkit-keyframes rotate360 {
   0% {
@@ -11477,9 +11477,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 30px 0;
 }
 @media screen and (max-width: 575px) {
-  .directorist-content-active .directorist-archive-contents__top .directorist-header-bar .directorist-listings-header .directorist-modal-btn--full {
-    display: none;
-  }
   .directorist-content-active .directorist-archive-contents__top .directorist-header-bar .directorist-container-fluid {
     padding: 0;
   }
@@ -11806,49 +11803,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__header .directorist-container-fluid {
   padding: 0;
 }
-.listing-with-sidebar__header .directorist-archive-sidebar-toggle {
-  width: auto;
-  padding: 0 20px;
-  font-size: 14px;
-  font-weight: 400;
-  min-height: 40px;
-  padding: 0 20px;
-  border-radius: 8px;
-  text-transform: capitalize;
-  text-decoration: none !important;
-  color: var(--directorist-color-primary);
-  background-color: var(--directorist-color-light);
-  border: 2px solid var(--directorist-color-white);
-  cursor: pointer;
-  display: none;
-}
-.listing-with-sidebar__header .directorist-archive-sidebar-toggle .directorist-icon-mask {
-  margin-left: 5px;
-}
-.listing-with-sidebar__header .directorist-archive-sidebar-toggle .directorist-icon-mask::after {
-  background-color: currentColor;
-  width: 14px;
-  height: 14px;
-}
-@media only screen and (max-width: 991px) {
-  .listing-with-sidebar__header .directorist-archive-sidebar-toggle {
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-}
-.listing-with-sidebar__header .directorist-archive-sidebar-toggle--active {
-  color: var(--directorist-color-white);
-  background-color: var(--directorist-color-primary);
-}
-.listing-with-sidebar__header .directorist-archive-sidebar-toggle--active .directorist-icon-mask::after {
-  background-color: var(--directorist-color-white);
-}
 .listing-with-sidebar__sidebar {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -11873,7 +11827,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     min-width: 300px;
   }
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 767px) {
   .listing-with-sidebar__sidebar {
     position: fixed;
     right: -360px;
@@ -11927,7 +11881,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .listing-with-sidebar__sidebar .directorist-search-form__box {
   padding: 0;
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 767px) {
   .listing-with-sidebar__sidebar .directorist-search-form__box {
     display: block;
     height: 100svh;
@@ -12225,6 +12179,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-direction: column;
           flex-direction: column;
 }
+@media only screen and (max-width: 991px) {
+  .listing-with-sidebar__listing .directorist-archive-items .directorist-row .directorist-col-4,
+  .listing-with-sidebar__listing .directorist-archive-items .directorist-row .directorist-col-6 {
+    max-width: 100%;
+  }
+}
 .listing-with-sidebar__listing .directorist-search-modal-advanced {
   display: none;
 }
@@ -12234,6 +12194,77 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: -ms-flexbox;
   display: flex;
   gap: 30px;
+}
+@media screen and (max-width: 575px) {
+  .listing-with-sidebar .directorist-search-form__top .directorist-search-field {
+    padding: 0;
+    margin: 0 0 0 20px;
+  }
+  .listing-with-sidebar .directorist-search-form__top .directorist-search-field .directorist-select {
+    width: calc(100% + 20px);
+  }
+  .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-has-value, .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-is-focused {
+    margin: 0 25px;
+  }
+  .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-has-value.input-has-noLabel, .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-is-focused.input-has-noLabel {
+    margin: 0;
+  }
+  .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-has-value.input-has-noLabel .directorist-filter-location-icon, .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-is-focused.input-has-noLabel .directorist-filter-location-icon {
+    left: 0;
+  }
+  .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-has-value.input-has-noLabel .directorist-select, .listing-with-sidebar .directorist-search-form__top .directorist-search-field.input-is-focused.input-has-noLabel .directorist-select {
+    width: 100%;
+  }
+  .listing-with-sidebar .directorist-search-form__top .directorist-search-field .directorist-filter-location-icon {
+    left: -15px;
+  }
+}
+.listing-with-sidebar .directorist-archive-sidebar-toggle {
+  width: auto;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 400;
+  min-height: 40px;
+  padding: 0 20px;
+  border-radius: 8px;
+  text-transform: capitalize;
+  text-decoration: none !important;
+  color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-light);
+  border: 2px solid var(--directorist-color-white);
+  cursor: pointer;
+  display: none;
+}
+.listing-with-sidebar .directorist-archive-sidebar-toggle .directorist-icon-mask {
+  margin-left: 5px;
+}
+.listing-with-sidebar .directorist-archive-sidebar-toggle .directorist-icon-mask::after {
+  background-color: currentColor;
+  width: 14px;
+  height: 14px;
+}
+@media only screen and (max-width: 767px) {
+  .listing-with-sidebar .directorist-archive-sidebar-toggle {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+.listing-with-sidebar .directorist-archive-sidebar-toggle--active {
+  color: var(--directorist-color-white);
+  background-color: var(--directorist-color-primary);
+}
+.listing-with-sidebar .directorist-archive-sidebar-toggle--active .directorist-icon-mask::after {
+  background-color: var(--directorist-color-white);
 }
 
 @media only screen and (max-width: 991px) {
@@ -13683,6 +13714,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     -webkit-flex: 44%;
         -ms-flex: 44%;
             flex: 44%;
+  }
+  .directorist-search-form__top .directorist-search-field.directorist-search-query {
+    -webkit-box-flex: 100%;
+    -webkit-flex: 100%;
+        -ms-flex: 100%;
+            flex: 100%;
+    padding-left: 0;
+    border-left: none;
+  }
+  .directorist-search-form__top .directorist-search-field.directorist-search-query .directorist-search-field__btn--clear {
+    left: 0;
   }
 }
 @media screen and (max-width: 575px) {

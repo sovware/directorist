@@ -826,10 +826,17 @@ function setupTinyMCEHandlers($, triggerFn) {
     if (!$formGroup.length && !isWordPressContentEditor) return;
     var fieldName = $editorTextarea.attr('name') || editorId;
     var fieldKey = _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.WIDGET_KEY_TO_FIELD_KEY[fieldName] || fieldName;
-    editor.off('input keyup change NodeChange');
-    editor.on('input keyup change NodeChange', function () {
+
+    // Do not remove all TinyMCE listeners; that can break core UI
+    // behaviors like link popover visibility/positioning.
+    if (editor.directoristConditionalLogicBound) {
+      return;
+    }
+    var conditionalLogicHandler = function conditionalLogicHandler() {
       triggerFn(fieldName, fieldKey, $editorTextarea);
-    });
+    };
+    editor.on('input keyup change NodeChange', conditionalLogicHandler);
+    editor.directoristConditionalLogicBound = true;
   }
   $(document).ready(function () {
     try {

@@ -990,12 +990,17 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             
             $listing_id = get_query_var( 'atbdp_listing_id' );
             
-            // Email: token hash REQUIRED — fail early if missing or invalid
             if ( $renew_from === 'email' ) {
-                if ( empty( $token ) || directorist_renewal_token_hash( $listing_id, get_current_user_id() ) !== $token ) {
+                if ( ! is_user_logged_in() ) {
+                    wp_die( esc_html__( 'You need to be logged in to renew this listing.', 'directorist' ), '', array( 'response' => 403 ) );
+                }
+
+                $saved_token = get_post_meta( $listing_id, '_renewal_token', true );
+                if ( empty( $token ) || empty( $saved_token ) || $saved_token !== $token ) {
                     wp_die( esc_html__( 'Invalid renewal token.', 'directorist' ), '', array( 'response' => 403 ) );
                 }
             }
+
 
             if ( ! directorist_is_listing_post_type( $listing_id ) ) {
                 return;

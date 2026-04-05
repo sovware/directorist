@@ -656,7 +656,9 @@ export default {
 					const wn = String(widget.widget_name).toLowerCase();
 					if (['select', 'radio', 'checkbox'].includes(wn)) {
 						type = wn;
-					} else if (['date', 'time', 'color', 'color_picker'].includes(wn)) {
+					} else if (
+						['date', 'time', 'color', 'color_picker'].includes(wn)
+					) {
 						// Search form custom fields: date/time/color use widget_name for type
 						type = wn;
 					}

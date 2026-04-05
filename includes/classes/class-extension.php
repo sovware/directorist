@@ -742,6 +742,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_plugins_update_request
         public function handle_plugins_update_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 $status            = [];
@@ -1118,6 +1121,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // plugins_bulk_action
         public function plugins_bulk_action() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status = [ 'success' => true ];
 
             if ( ! directorist_verify_nonce() ) {
@@ -1170,6 +1176,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // activate_theme
         public function activate_theme() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status           = [ 'success' => true ];
             $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? directorist_clean( wp_unslash( $_POST['theme_stylesheet'] ) ) : '';
 
@@ -1193,6 +1202,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // activate_plugin
         public function activate_plugin() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status     = [ 'success' => true ];
             $plugin_key = ( isset( $_POST['item_key'] ) ) ? directorist_clean( wp_unslash( $_POST['item_key'] ) ) : '';
 
@@ -1217,6 +1229,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_theme_update_request
         public function handle_theme_update_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 $status            = [];
@@ -1479,6 +1494,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_refresh_purchase_status_request
         public function handle_refresh_purchase_status_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
+
             $status   = [ 'success' => true ];
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
@@ -1561,6 +1580,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_close_subscriptions_sassion_request
         public function handle_close_subscriptions_sassion_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 $status            = [];
@@ -1697,6 +1719,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_file_install_request_from_subscriptions
         public function handle_file_install_request_from_subscriptions() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $item_key = ( isset( $_POST['item_key'] ) ) ? directorist_clean( wp_unslash( $_POST['item_key'] ) ) : '';
             $type     = ( isset( $_POST['type'] ) ) ? directorist_clean( wp_unslash( $_POST['type'] ) ) : '';
 
@@ -1811,6 +1836,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_plugin_download_request
         public function handle_file_download_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status        = [ 'success' => true ];
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {

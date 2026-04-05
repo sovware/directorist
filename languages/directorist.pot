@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-30 05:24+0000\n"
+"POT-Creation-Date: 2026-04-05 06:47+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -131,10 +131,10 @@ msgstr ""
 #. translators: %1$s: site name, %1$s: user name, %3$s: password reset link
 #: ../blocks/templates/login.php:226
 msgid ""
-"Someone has requested a password reset for the following account:\n"
-"						<strong>Site name:</strong> %1$s\n"
-"						<strong>User name:</strong> %2$s\n"
-"						To reset your password, please click on the <a href=\"%3$s\">Reset Password</a>.<br>\n"
+"Someone has requested a password reset for the following account:\n"
+"						<strong>Site name:</strong> %1$s\n"
+"						<strong>User name:</strong> %2$s\n"
+"						To reset your password, please click on the <a href=\"%3$s\">Reset Password</a>.<br>\n"
 "						If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 
@@ -510,7 +510,7 @@ msgstr ""
 msgid "You need to be logged in to view the content of this page"
 msgstr ""
 
-#: ../includes/helper-functions.php:896, ../includes/checkout/class-checkout.php:184, ../includes/classes/class-custom-post.php:498, ../includes/classes/class-custom-post.php:506, ../includes/classes/class-settings-panel.php:1438, ../includes/model/Listings.php:308, ../includes/model/Listings.php:2510, ../includes/payments/class-order.php:379, ../includes/modules/multi-directory-setup/class-builder-data.php:1495, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/helper-functions.php:896, ../includes/checkout/class-checkout.php:184, ../includes/classes/class-custom-post.php:498, ../includes/classes/class-custom-post.php:506, ../includes/classes/class-settings-panel.php:1438, ../includes/model/Listings.php:308, ../includes/model/Listings.php:2514, ../includes/payments/class-order.php:379, ../includes/modules/multi-directory-setup/class-builder-data.php:1495, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -803,15 +803,15 @@ msgid_plural "Invalid pin code. You have %s attempts left."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/helper-functions.php:4667, ../includes/classes/class-extension.php:1904, ../includes/classes/class-extension.php:2013
+#: ../includes/helper-functions.php:4667, ../includes/classes/class-extension.php:1932, ../includes/classes/class-extension.php:2041
 msgid "Invalid download link"
 msgstr ""
 
-#: ../includes/helper-functions.php:4707, ../includes/classes/class-extension.php:1944, ../includes/classes/class-extension.php:2053
+#: ../includes/helper-functions.php:4707, ../includes/classes/class-extension.php:1972, ../includes/classes/class-extension.php:2081
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/helper-functions.php:4759, ../includes/classes/class-extension.php:1996
+#: ../includes/helper-functions.php:4759, ../includes/classes/class-extension.php:2024
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
@@ -1063,7 +1063,7 @@ msgstr ""
 msgid "Sending user info, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:396, ../includes/classes/class-ajax-handler.php:349, ../includes/classes/class-ajax-handler.php:489
+#: ../includes/asset-loader/localized_data.php:396, ../includes/classes/class-ajax-handler.php:349, ../includes/classes/class-ajax-handler.php:490
 msgid "Wrong username or password."
 msgstr ""
 
@@ -1096,7 +1096,7 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:58, ../includes/classes/class-ajax-handler.php:463, ../includes/classes/class-listing.php:370, ../includes/classes/class-tools.php:153, ../includes/classes/class-tools.php:165, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
+#: ../includes/classes/class-add-listing.php:58, ../includes/classes/class-ajax-handler.php:464, ../includes/classes/class-listing.php:370, ../includes/classes/class-tools.php:153, ../includes/classes/class-tools.php:165, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
 msgid "Invalid request."
 msgstr ""
 
@@ -1104,7 +1104,7 @@ msgstr ""
 msgid "Could not upload (%s), please try again."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:137, ../includes/classes/class-ajax-handler.php:697, ../includes/classes/class-setup-wizard.php:40, ../includes/classes/class-setup-wizard.php:222, ../includes/classes/class-tools.php:211
+#: ../includes/classes/class-add-listing.php:137, ../includes/classes/class-ajax-handler.php:702, ../includes/classes/class-setup-wizard.php:40, ../includes/classes/class-setup-wizard.php:222, ../includes/classes/class-tools.php:211
 msgid "Invalid request!"
 msgstr ""
 
@@ -1144,15 +1144,19 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:987, ../includes/classes/class-custom-post.php:340, ../includes/classes/class-upgrade.php:797, ../includes/classes/class-upgrade.php:804
+#: ../includes/classes/class-add-listing.php:987, ../includes/classes/class-ajax-handler.php:859, ../includes/classes/class-custom-post.php:340, ../includes/classes/class-upgrade.php:797, ../includes/classes/class-upgrade.php:804
 msgid "Security check failed."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:996
+#: ../includes/classes/class-add-listing.php:995
+msgid "You need to be logged in to renew this listing."
+msgstr ""
+
+#: ../includes/classes/class-add-listing.php:1000
 msgid "Invalid renewal token."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:144, ../includes/classes/class-ajax-handler.php:212, ../includes/classes/class-ajax-handler.php:241, ../includes/classes/class-ajax-handler.php:510
+#: ../includes/classes/class-ajax-handler.php:144, ../includes/classes/class-ajax-handler.php:212, ../includes/classes/class-ajax-handler.php:241, ../includes/classes/class-ajax-handler.php:511
 msgid "Something went wrong, please try again."
 msgstr ""
 
@@ -1176,15 +1180,15 @@ msgstr ""
 msgid "Please enter a valid zip code."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:328, ../includes/classes/class-ajax-handler.php:472
+#: ../includes/classes/class-ajax-handler.php:328, ../includes/classes/class-ajax-handler.php:473
 msgid "Your are already loggedin"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:357, ../includes/classes/class-ajax-handler.php:500, ../includes/classes/class-ajax-handler.php:871, ../includes/classes/class-ajax-handler.php:900
+#: ../includes/classes/class-ajax-handler.php:357, ../includes/classes/class-ajax-handler.php:501, ../includes/classes/class-ajax-handler.php:884, ../includes/classes/class-ajax-handler.php:913
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:365, ../includes/classes/class-ajax-handler.php:406, ../includes/classes/class-ajax-handler.php:425, ../includes/classes/class-ajax-handler.php:444, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:52
+#: ../includes/classes/class-ajax-handler.php:365, ../includes/classes/class-ajax-handler.php:406, ../includes/classes/class-ajax-handler.php:425, ../includes/classes/class-ajax-handler.php:448, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:52
 msgid "Invalid security token."
 msgstr ""
 
@@ -1192,143 +1196,147 @@ msgstr ""
 msgid "You are not allowed to export listings."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:394, ../includes/classes/class-ajax-handler.php:1446, ../includes/classes/class-ajax-handler.php:1704, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:418, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:507, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:633
+#: ../includes/classes/class-ajax-handler.php:394, ../includes/classes/class-ajax-handler.php:1459, ../includes/classes/class-ajax-handler.php:1717, ../includes/classes/class-settings-panel.php:309, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:418, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:507, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:633
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:410, ../includes/classes/class-ajax-handler.php:429, ../includes/classes/class-ajax-handler.php:448, ../includes/classes/class-custom-post.php:344
+#: ../includes/classes/class-ajax-handler.php:410, ../includes/classes/class-ajax-handler.php:429, ../includes/classes/class-ajax-handler.php:444, ../includes/classes/class-custom-post.php:344
 msgid "Permission denied."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:454
+#: ../includes/classes/class-ajax-handler.php:455
 msgid "Sent successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:533
+#: ../includes/classes/class-ajax-handler.php:534
 msgid "Invalid request, please reload the page and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:551, ../includes/classes/class-ajax-handler.php:717, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:67, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:83
+#: ../includes/classes/class-ajax-handler.php:552, ../includes/classes/class-ajax-handler.php:722, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:67, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:83
 msgid "Invalid directory."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:647
+#: ../includes/classes/class-ajax-handler.php:609, ../includes/classes/class-ajax-handler.php:855, ../includes/classes/class-extension.php:746, ../includes/classes/class-extension.php:1125, ../includes/classes/class-extension.php:1180, ../includes/classes/class-extension.php:1206, ../includes/classes/class-extension.php:1233, ../includes/classes/class-extension.php:1498, ../includes/classes/class-extension.php:1584, ../includes/classes/class-extension.php:1723, ../includes/classes/class-extension.php:1840
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: ../includes/classes/class-ajax-handler.php:652
 msgid "You are not allowed to modify directory slugs."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:656
+#: ../includes/classes/class-ajax-handler.php:661
 msgid "Session expired, please reload the window and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:688
+#: ../includes/classes/class-ajax-handler.php:693
 msgid "Slug changes successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:679
+#: ../includes/classes/class-ajax-handler.php:684
 msgid "This slug already in use."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:705
+#: ../includes/classes/class-ajax-handler.php:710
 msgid "No category selected."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:709, ../includes/rest-api/Version1/class-orders-controller.php:114
+#: ../includes/classes/class-ajax-handler.php:714, ../includes/rest-api/Version1/class-orders-controller.php:114
 msgid "Invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:750
+#: ../includes/classes/class-ajax-handler.php:755
 msgid "The session has expired, please reload and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:763
+#: ../includes/classes/class-ajax-handler.php:768
 msgid "User registration is currently disabled."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:850
+#: ../includes/classes/class-ajax-handler.php:863
 msgid "Congratulations! All old pages have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:859
+#: ../includes/classes/class-ajax-handler.php:872
 msgid "Something went wrong, please reload the page"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:921
+#: ../includes/classes/class-ajax-handler.php:934
 msgid "Invalid upload request!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:925
+#: ../includes/classes/class-ajax-handler.php:938
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1087, ../includes/classes/class-ajax-handler.php:1129
+#: ../includes/classes/class-ajax-handler.php:1100, ../includes/classes/class-ajax-handler.php:1142
 msgid "You are not allowed to perform this operation"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1091, ../includes/classes/class-ajax-handler.php:1116, ../includes/classes/class-ajax-handler.php:1120, ../includes/classes/class-ajax-handler.php:1133
+#: ../includes/classes/class-ajax-handler.php:1104, ../includes/classes/class-ajax-handler.php:1129, ../includes/classes/class-ajax-handler.php:1133, ../includes/classes/class-ajax-handler.php:1146
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1113
+#: ../includes/classes/class-ajax-handler.php:1126
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1154
+#: ../includes/classes/class-ajax-handler.php:1167
 msgid "Preferences updated successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1245, ../includes/classes/class-ajax-handler.php:1318, ../includes/review/class-email.php:76
+#: ../includes/classes/class-ajax-handler.php:1258, ../includes/classes/class-ajax-handler.php:1331, ../includes/review/class-email.php:76
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1248
+#: ../includes/classes/class-ajax-handler.php:1261
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1321
+#: ../includes/classes/class-ajax-handler.php:1334
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1426, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
+#: ../includes/classes/class-ajax-handler.php:1439, ../includes/rest-api/Version1/class-listings-actions-controller.php:250
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1429, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
+#: ../includes/classes/class-ajax-handler.php:1442, ../includes/rest-api/Version1/class-listings-actions-controller.php:253
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1456
+#: ../includes/classes/class-ajax-handler.php:1469
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1463
+#: ../includes/classes/class-ajax-handler.php:1476
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1471, ../includes/classes/class-ajax-handler.php:1720
+#: ../includes/classes/class-ajax-handler.php:1484, ../includes/classes/class-ajax-handler.php:1733
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1476, ../includes/classes/class-ajax-handler.php:1765
+#: ../includes/classes/class-ajax-handler.php:1489, ../includes/classes/class-ajax-handler.php:1778
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1639
+#: ../includes/classes/class-ajax-handler.php:1652
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1641
+#: ../includes/classes/class-ajax-handler.php:1654
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1860
+#: ../includes/classes/class-ajax-handler.php:1873
 msgid "User not logged in."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1875, ../includes/classes/class-ajax-handler.php:1915, ../includes/classes/class-ajax-handler.php:1954, ../includes/classes/class-ajax-handler.php:1991
+#: ../includes/classes/class-ajax-handler.php:1888, ../includes/classes/class-ajax-handler.php:1928, ../includes/classes/class-ajax-handler.php:1967, ../includes/classes/class-ajax-handler.php:2004
 msgid "Invalid nonce."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1996
+#: ../includes/classes/class-ajax-handler.php:2009
 msgid "No listing ID found."
 msgstr ""
 
@@ -1877,154 +1885,154 @@ msgstr ""
 
 #: ../includes/classes/class-email.php:231
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The following Listing has been deleted on your website ==SITE_NAME==\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The following Listing has been deleted on your website ==SITE_NAME==\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:255
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"You have received a new order\n"
-"\n"
-"This notification was for the order #==ORDER_ID== on the website ==SITE_NAME==.\n"
-"You can access the order details directly by clicking on the link below after logging in your back end:\n"
-"\n"
-"==ORDER_RECEIPT_URL==\n"
-"\n"
-"Here is the order summery:\n"
-"\n"
-"==ORDER_DETAILS==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"You have received a new order\n"
+"\n"
+"This notification was for the order #==ORDER_ID== on the website ==SITE_NAME==.\n"
+"You can access the order details directly by clicking on the link below after logging in your back end:\n"
+"\n"
+"==ORDER_RECEIPT_URL==\n"
+"\n"
+"Here is the order summery:\n"
+"\n"
+"==ORDER_DETAILS==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:283
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"Congratulations!\n"
-"You have received a payment against the order #==ORDER_ID==. The order is now completed.\n"
-"\n"
-"You can access the order details directly by clicking on the link below after logging in your back end:\n"
-"\n"
-"==ORDER_RECEIPT_URL==\n"
-"\n"
-"Here is the order summery:\n"
-"\n"
-"==ORDER_DETAILS==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"Congratulations!\n"
+"You have received a payment against the order #==ORDER_ID==. The order is now completed.\n"
+"\n"
+"You can access the order details directly by clicking on the link below after logging in your back end:\n"
+"\n"
+"==ORDER_RECEIPT_URL==\n"
+"\n"
+"Here is the order summery:\n"
+"\n"
+"==ORDER_DETAILS==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:311
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"A new listing has been submitted on your website [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can Edit/Review the listing using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"A new listing has been submitted on your website [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can Edit/Review the listing using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:337
 msgid ""
-"\n"
-"Dear User,\n"
-"\n"
-"Please use the following PIN to reset your password\n"
-"<div style='margin: 10px 0; text-align: center;'>\n"
-"<h2>==PIN==</h2>\n"
-"<div>\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear User,\n"
+"\n"
+"Please use the following PIN to reset your password\n"
+"<div style='margin: 10px 0; text-align: center;'>\n"
+"<h2>==PIN==</h2>\n"
+"<div>\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:359
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The listing #==LISTING_ID== has been been published on your website [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can Edit/Review the listing using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The listing #==LISTING_ID== has been been published on your website [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can Edit/Review the listing using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:385
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The listing #==LISTING_ID== has been been edited on your website [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can Edit/Review the listing using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The listing #==LISTING_ID== has been been edited on your website [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can Edit/Review the listing using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:411
 msgid ""
-"\n"
-"Dear Administrator,\n"
-"\n"
-"The listing #==LISTING_ID== has a new review [==SITE_NAME==].\n"
-"\n"
-"Listing Summary:\n"
-"ID: ==LISTING_ID==\n"
-"Title: ==LISTING_TITLE==\n"
-"Link: ==LISTING_LINK==\n"
-"You can see the review using the link below:\n"
-"==LISTING_EDIT_URL==\n"
-"\n"
-"This email is sent automatically for information purpose only. Please do not respond to this.\n"
+"\n"
+"Dear Administrator,\n"
+"\n"
+"The listing #==LISTING_ID== has a new review [==SITE_NAME==].\n"
+"\n"
+"Listing Summary:\n"
+"ID: ==LISTING_ID==\n"
+"Title: ==LISTING_TITLE==\n"
+"Link: ==LISTING_LINK==\n"
+"You can see the review using the link below:\n"
+"==LISTING_EDIT_URL==\n"
+"\n"
+"This email is sent automatically for information purpose only. Please do not respond to this.\n"
 ""
 msgstr ""
 
 #: ../includes/classes/class-email.php:431
 msgid ""
-"\n"
-"                        Hello Administrator,\n"
-"\n"
-"                        A user wants to become an author, ==USER_DASHBOARD== to review.\n"
-"\n"
-"                        Regards\n"
+"\n"
+"                        Hello Administrator,\n"
+"\n"
+"                        A user wants to become an author, ==USER_DASHBOARD== to review.\n"
+"\n"
+"                        Regards\n"
 "                        "
 msgstr ""
 
@@ -2264,155 +2272,155 @@ msgstr ""
 msgid "dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:773
+#: ../includes/classes/class-extension.php:776
 msgid "All plugins are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:796
+#: ../includes/classes/class-extension.php:799
 msgid "The plugin is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:805
+#: ../includes/classes/class-extension.php:808
 msgid "No purchased extensions found"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:815
+#: ../includes/classes/class-extension.php:818
 msgid "License not found for this extension"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:823
+#: ../includes/classes/class-extension.php:826
 msgid "Download link could not be retrieved"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:839
+#: ../includes/classes/class-extension.php:842
 msgid "The plugin has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:831
+#: ../includes/classes/class-extension.php:834
 msgid "The plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:891
+#: ../includes/classes/class-extension.php:894
 msgid "No plugins could be updated"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:888
+#: ../includes/classes/class-extension.php:891
 msgid "All plugins have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:885
+#: ../includes/classes/class-extension.php:888
 msgid "Some of the plugins could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1185
+#: ../includes/classes/class-extension.php:1194
 msgid "Theme's stylesheet is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1209
+#: ../includes/classes/class-extension.php:1221
 msgid "Please specefy which plugin to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1248
+#: ../includes/classes/class-extension.php:1263
 msgid "All themes are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1254
+#: ../includes/classes/class-extension.php:1269
 msgid "The theme is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1268
+#: ../includes/classes/class-extension.php:1283
 msgid "The theme is already upto date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1285
+#: ../includes/classes/class-extension.php:1300
 msgid "The theme has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1281
+#: ../includes/classes/class-extension.php:1296
 msgid "The theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1321
+#: ../includes/classes/class-extension.php:1336
 msgid "Some of the theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1326
+#: ../includes/classes/class-extension.php:1341
 msgid "All the themes are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1331
+#: ../includes/classes/class-extension.php:1346
 msgid "No themes could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1415
+#: ../includes/classes/class-extension.php:1430
 msgid "Something went wrong"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1506
+#: ../includes/classes/class-extension.php:1525
 msgid "Password is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1517
+#: ../includes/classes/class-extension.php:1536
 msgid "Sassion is destroyed, please sign-in again"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1557
+#: ../includes/classes/class-extension.php:1576
 msgid "Your purchase has been refreshed successfuly"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1736
+#: ../includes/classes/class-extension.php:1761
 msgid "Item key is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1743
+#: ../includes/classes/class-extension.php:1768
 msgid "Type not specified"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1750
+#: ../includes/classes/class-extension.php:1775
 msgid "Invalid type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1765
+#: ../includes/classes/class-extension.php:1790
 msgid "Nothing available in subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1772
+#: ../includes/classes/class-extension.php:1797
 msgid "The item is not available in your subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1784
+#: ../includes/classes/class-extension.php:1809
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1807
+#: ../includes/classes/class-extension.php:1832
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1851, ../includes/classes/class-extension.php:2820
+#: ../includes/classes/class-extension.php:1879, ../includes/classes/class-extension.php:2848
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1887
+#: ../includes/classes/class-extension.php:1915
 msgid "Donloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2105, ../includes/classes/class-extension.php:2117
+#: ../includes/classes/class-extension.php:2133, ../includes/classes/class-extension.php:2145
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2333
+#: ../includes/classes/class-extension.php:2361
 msgid "Get Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2334
+#: ../includes/classes/class-extension.php:2362
 msgid "Themes & Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2766
+#: ../includes/classes/class-extension.php:2794
 msgid "Nothing to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2817, ../includes/classes/class-extension.php:2827
+#: ../includes/classes/class-extension.php:2845, ../includes/classes/class-extension.php:2855
 msgid "License activated successfully"
 msgstr ""
 
@@ -2614,7 +2622,7 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:217
 msgid ""
-"Enable this option to force the default latitude and longitude to create a default location on all listings map view.\n"
+"Enable this option to force the default latitude and longitude to create a default location on all listings map view.\n"
 "                Otherwise default location works only on the add listing form map."
 msgstr ""
 
@@ -2672,7 +2680,7 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:428
 msgid ""
-"Enable monetization to accept payments from users and earn through listing submissions.\n"
+"Enable monetization to accept payments from users and earn through listing submissions.\n"
 "                    "
 msgstr ""
 
@@ -2682,9 +2690,9 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:440
 msgid ""
-"Enable this option to charge users for featuring their listing.\n"
-"                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n"
-"                        Note: You need to add the \"Listing Type\" field to the add listing form for this feature to work properly.\n"
+"Enable this option to charge users for featuring their listing.\n"
+"                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n"
+"                        Note: You need to add the \"Listing Type\" field to the add listing form for this feature to work properly.\n"
 "                        <a href=\"%s\" target=\"_blank\">Watch how</a>"
 msgstr ""
 
@@ -3236,7 +3244,7 @@ msgstr ""
 msgid "Text displayed on the badge when an item is marked as popular."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1461, ../includes/model/Listings.php:307, ../includes/model/Listings.php:2522, ../includes/modules/multi-directory-setup/class-builder-data.php:1509, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1618
+#: ../includes/classes/class-settings-panel.php:1461, ../includes/model/Listings.php:307, ../includes/model/Listings.php:2526, ../includes/modules/multi-directory-setup/class-builder-data.php:1509, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1618
 msgid "Popular"
 msgstr ""
 
@@ -3568,7 +3576,7 @@ msgstr ""
 msgid "Section Title"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1989, ../includes/model/SearchForm.php:250, ../includes/model/SearchForm.php:857
+#: ../includes/classes/class-settings-panel.php:1989, ../includes/model/SearchForm.php:250, ../includes/model/SearchForm.php:864
 msgid "Browse by popular categories"
 msgstr ""
 
@@ -4026,14 +4034,14 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3301
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    This email is to notify you that your listing '==LISTING_TITLE==' has been received and it is under review now.\n"
-"                    It may take up to 24 hours to complete the review.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    This email is to notify you that your listing '==LISTING_TITLE==' has been received and it is under review now.\n"
+"                    It may take up to 24 hours to complete the review.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4051,12 +4059,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3323
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Congratulations! Your listing '==LISTING_TITLE==' has been approved/published. Now it is publicly available at ==LISTING_URL==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Congratulations! Your listing '==LISTING_TITLE==' has been approved/published. Now it is publicly available at ==LISTING_URL==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4074,12 +4082,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3343
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Congratulations! Your listing '==LISTING_TITLE==' has been edited. It is publicly available at ==LISTING_URL==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Congratulations! Your listing '==LISTING_TITLE==' has been edited. It is publicly available at ==LISTING_URL==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4097,12 +4105,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3363
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Your listing '==LISTING_TITLE==' is about to expire. It will expire on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Your listing '==LISTING_TITLE==' is about to expire. It will expire on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4120,12 +4128,12 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3383
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"                    Your listing '==LISTING_TITLE==' has expired on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"                    Your listing '==LISTING_TITLE==' has expired on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4143,13 +4151,13 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3403
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    We have noticed that you might have forgot to renew your listing '==LISTING_TITLE==' at ==SITE_LINK==. We would like to remind you that it expired on ==EXPIRATION_DATE==. But please don't worry.  You can still renew it by clicking this link: ==RENEWAL_LINK==.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    We have noticed that you might have forgot to renew your listing '==LISTING_TITLE==' at ==SITE_LINK==. We would like to remind you that it expired on ==EXPIRATION_DATE==. But please don't worry.  You can still renew it by clicking this link: ==RENEWAL_LINK==.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4167,15 +4175,15 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3424
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Congratulations!\n"
-"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been renewed successfully at ==SITE_LINK==.\n"
-"                    Your listing is now publicly viewable at ==LISTING_URL==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Congratulations!\n"
+"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been renewed successfully at ==SITE_LINK==.\n"
+"                    Your listing is now publicly viewable at ==LISTING_URL==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4193,13 +4201,13 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3447
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been deleted successfully at ==SITE_LINK==.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been deleted successfully at ==SITE_LINK==.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4217,22 +4225,22 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3468
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Thank you very much for your order.\n"
-"                    This email is to notify you that your order (#==ORDER_ID==) has been received. You can check your order details and progress by clicking the link below.\n"
-"\n"
-"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
-"\n"
-"                    Your order summery:\n"
-"                    ==ORDER_DETAILS==\n"
-"\n"
-"\n"
-"                    NB. You need to be logged in your account to access the order details page.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Thank you very much for your order.\n"
+"                    This email is to notify you that your order (#==ORDER_ID==) has been received. You can check your order details and progress by clicking the link below.\n"
+"\n"
+"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
+"\n"
+"                    Your order summery:\n"
+"                    ==ORDER_DETAILS==\n"
+"\n"
+"\n"
+"                    NB. You need to be logged in your account to access the order details page.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4246,25 +4254,25 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3499
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Thank you very much for your order.\n"
-"                    This email is to notify you that your order (#==ORDER_ID==) has been received.\n"
-"\n"
-"                    %s\n"
-"\n"
-"                    You can check your order details and progress by clicking the link below.\n"
-"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
-"\n"
-"                    Your order summery:\n"
-"                    ==ORDER_DETAILS==\n"
-"\n"
-"\n"
-"                    NB. You need to be logged in your account to access the order details page.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Thank you very much for your order.\n"
+"                    This email is to notify you that your order (#==ORDER_ID==) has been received.\n"
+"\n"
+"                    %s\n"
+"\n"
+"                    You can check your order details and progress by clicking the link below.\n"
+"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
+"\n"
+"                    Your order summery:\n"
+"                    ==ORDER_DETAILS==\n"
+"\n"
+"\n"
+"                    NB. You need to be logged in your account to access the order details page.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4282,22 +4290,22 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3533
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    Congratulation! This email is to notify you that your order #==ORDER_ID== has been completed.\n"
-"\n"
-"                    You can check your order details by clicking the link below.\n"
-"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
-"\n"
-"                    Your order summery:\n"
-"                    ==ORDER_DETAILS==\n"
-"\n"
-"\n"
-"                    NB. You need to be logged in your account to access the order details page.\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    Congratulation! This email is to notify you that your order #==ORDER_ID== has been completed.\n"
+"\n"
+"                    You can check your order details by clicking the link below.\n"
+"                    Order Details Page: ==ORDER_RECEIPT_URL==\n"
+"\n"
+"                    Your order summery:\n"
+"                    ==ORDER_DETAILS==\n"
+"\n"
+"\n"
+"                    NB. You need to be logged in your account to access the order details page.\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4315,18 +4323,18 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3563
 msgid ""
-"\n"
-"                    Dear ==NAME==,\n"
-"\n"
-"                    You have received a message from your listing at ==LISTING_URL==.\n"
-"\n"
-"                    Name: ==SENDER_NAME==\n"
-"                    Email: ==SENDER_EMAIL==\n"
-"                    Message: ==MESSAGE==\n"
-"                    Time: ==NOW==\n"
-"\n"
-"                    Thanks,\n"
-"                    The Administrator of ==SITE_NAME==\n"
+"\n"
+"                    Dear ==NAME==,\n"
+"\n"
+"                    You have received a message from your listing at ==LISTING_URL==.\n"
+"\n"
+"                    Name: ==SENDER_NAME==\n"
+"                    Email: ==SENDER_EMAIL==\n"
+"                    Message: ==MESSAGE==\n"
+"                    Time: ==NOW==\n"
+"\n"
+"                    Thanks,\n"
+"                    The Administrator of ==SITE_NAME==\n"
 "                    "
 msgstr ""
 
@@ -4336,11 +4344,11 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3589
 msgid ""
-"\n"
-"                    Hi ==USERNAME==,\n"
-"\n"
-"                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==\n"
-"\n"
+"\n"
+"                    Hi ==USERNAME==,\n"
+"\n"
+"                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==\n"
+"\n"
 "                    We look forward to seeing you soon"
 msgstr ""
 
@@ -4350,11 +4358,11 @@ msgstr ""
 
 #: ../includes/classes/class-settings-panel.php:3609
 msgid ""
-"Hi ==USERNAME==,\n"
-"                    Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.\n"
-"                    To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.\n"
-"                    ==CONFIRM_EMAIL_ADDRESS_URL==\n"
-"\n"
+"Hi ==USERNAME==,\n"
+"                    Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.\n"
+"                    To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.\n"
+"                    ==CONFIRM_EMAIL_ADDRESS_URL==\n"
+"\n"
 "                    <p align=\"center\">If you did not sign up for this account you can ignore this email.</p>"
 msgstr ""
 
@@ -5813,31 +5821,31 @@ msgstr ""
 msgid "Or"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:456
+#: ../includes/model/SearchForm.php:463
 msgid "Kilometers"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:456
+#: ../includes/model/SearchForm.php:463
 msgid "Miles"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:972
+#: ../includes/model/SearchForm.php:979
 msgid "5 Star"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:977
+#: ../includes/model/SearchForm.php:984
 msgid "4 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:982
+#: ../includes/model/SearchForm.php:989
 msgid "3 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:987
+#: ../includes/model/SearchForm.php:994
 msgid "2 Star & Up"
 msgstr ""
 
-#: ../includes/model/SearchForm.php:992
+#: ../includes/model/SearchForm.php:999
 msgid "1 Star & Up"
 msgstr ""
 
@@ -9579,10 +9587,10 @@ msgstr ""
 #. translators: %1$s: site name, %1$s: user name, %3$s: password reset link
 #: ../templates/account/login-registration-form.php:197
 msgid ""
-"Someone has requested a password reset for the following account:\n"
-"                                    <strong>Site name:</strong> %1$s\n"
-"                                    <strong>User name:</strong> %2$s\n"
-"                                    To reset your password, please click on the <a href=\"%3$s\">Reset Password</a>.<br>\n"
+"Someone has requested a password reset for the following account:\n"
+"                                    <strong>Site name:</strong> %1$s\n"
+"                                    <strong>User name:</strong> %2$s\n"
+"                                    To reset your password, please click on the <a href=\"%3$s\">Reset Password</a>.<br>\n"
 "                                    If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 

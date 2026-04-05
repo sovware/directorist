@@ -822,3 +822,34 @@
 		margin-left: 91.6666666667%;
 	}
 }
+
+/* --- Listing grid: constrained column widths via CSS Grid --- */
+
+
+
+@media (min-width: 1400px) {
+	.directorist-author-listing-content .directorist-row > *,
+	.directorist-listing-grid.directorist-row > * {
+		padding: 0;
+		max-width: 100%;
+		width: 100%;
+		flex: none;
+		margin-top: 0;
+	}
+
+	.directorist-author-listing-content .directorist-row,
+	.directorist-listing-grid.directorist-row {
+		display: grid;
+		grid-template-columns: repeat(var(--directorist-col-count, 2), minmax(0, 442px));
+		gap: 24px;
+		margin: 0;
+		min-width: unset;
+	}
+}
+
+@media (max-width: 575px) {
+	.directorist-author-listing-content .directorist-row,
+	.directorist-listing-grid.directorist-row {
+		grid-template-columns: 1fr;
+	}
+}

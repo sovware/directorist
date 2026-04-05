@@ -5,16 +5,13 @@
 		font-size: 15px;
 
 		@include m(bg) {
-			border-radius: 10px;
+			border-radius: 12px;
 			background-color: var(--directorist-color-white);
-			box-shadow: var(--directorist-box-shadow);
-			border: 1px solid var(--directorist-color-border-light);
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.10), 0 2px 4px -2px rgba(0, 0, 0, 0.10);
 		}
 
 		// Single Listing Content
 		@include e(content) {
-			border-radius: 4px;
-
 			@include e(badges) {
 				display: flex;
 				gap: 10px;
@@ -511,7 +508,6 @@
 				position: relative;
 				width: 100%;
 				height: 100%;
-				border-radius: 10px;
 				overflow: hidden;
 				z-index: 0;
 				background-color: var(--directorist-color-bg-gray);
@@ -712,7 +708,6 @@
 			.directorist-listing-single__thumb {
 				margin: 0;
 				position: relative;
-				padding: 10px 10px 0 10px;
 
 				.directorist-pricing-meta {
 					display: flex;
@@ -731,8 +726,8 @@
 				}
 			}
 
-			.directorist-thumnail-card-front-img {
-				border-radius: 10px;
+			.directorist-thumnail-card {
+				border-radius: 12px 12px 0 0;
 			}
 
 			.directorist-thumb-listing-author {
@@ -784,6 +779,8 @@
 
 		// Single Listing List
 		&.directorist-listing-list {
+			max-width: 1216px;
+
 			@media screen and (min-width: 576.99px) {
 				display: flex;
 				flex-wrap: wrap;
@@ -860,10 +857,9 @@
 				.directorist-listing-single__info__list>div>.directorist-icon-mask {
 					top: 0;
 
-					&:after {
-						width: 12px;
-						height: 14px;
-					}
+				.directorist-listing-single__info__list .directorist-icon-mask:after {
+					width: 12px;
+					height: 14px;
 				}
 			}
 
@@ -875,7 +871,6 @@
 						flex: 1;
 						max-width: 320px;
 						min-height: 240px;
-						padding: 10px 0 10px 10px;
 					}
 
 					@media only screen and (max-width: 575px) {
@@ -897,10 +892,6 @@
 						@media only screen and (min-width: 576.99px) {
 							height: 100% !important;
 						}
-					}
-
-					.directorist-thumnail-card .directorist-thumnail-card-front-img {
-						border-radius: 10px;
 					}
 				}
 
@@ -961,6 +952,10 @@
 					gap: 20px;
 					align-items: center;
 				}
+			}
+
+			.directorist-thumnail-card {
+				border-radius: 12px 0 0 12px;
 			}
 
 			.directorist-listing-single__info--right {
@@ -1670,4 +1665,5 @@
 			width: 100%;
 		}
 	}
+}
 }

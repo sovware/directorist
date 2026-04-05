@@ -3,6 +3,7 @@
 	.directorist-listing-single {
 		flex: 1;
 		font-size: 15px;
+
 		@include m(bg) {
 			border-radius: 10px;
 			background-color: var(--directorist-color-white);
@@ -13,6 +14,7 @@
 		// Single Listing Content
 		@include e(content) {
 			border-radius: 4px;
+
 			@include e(badges) {
 				display: flex;
 				gap: 10px;
@@ -38,6 +40,7 @@
 				flex: 1;
 				gap: 6px;
 				width: 100%;
+
 				@include e(left) {
 					display: flex;
 					flex: 1;
@@ -45,6 +48,7 @@
 					align-items: center;
 					flex-wrap: wrap;
 				}
+
 				@include e(right) {
 					display: flex;
 					flex: auto;
@@ -53,6 +57,7 @@
 					flex-wrap: wrap;
 					justify-content: flex-end;
 				}
+
 				.directorist-badge.directorist-badge-close {
 					background-color: transparent;
 					color: var(--directorist-color-danger);
@@ -106,7 +111,7 @@
 				}
 
 				li,
-				> div {
+				>div {
 					display: flex;
 					gap: 10px;
 					margin: 0;
@@ -114,16 +119,14 @@
 					line-height: 18px;
 					color: var(--directorist-color-body);
 
-					> .directorist-icon-mask {
+					>.directorist-icon-mask {
 						position: relative;
 						top: 2px;
 
 						&:after {
 							width: 16px;
 							height: 16px;
-							background-color: var(
-								--directorist-color-light-gray
-							);
+							background-color: var(--directorist-color-light-gray);
 						}
 					}
 
@@ -312,7 +315,7 @@
 				}
 			}
 
-			.directorist-badge + .directorist-badge {
+			.directorist-badge+.directorist-badge {
 				margin-left: 3px;
 			}
 
@@ -416,7 +419,7 @@
 				}
 
 				/* Legacy Icon */
-				> span {
+				>span {
 					display: inline-block;
 					margin-right: 5px;
 				}
@@ -443,7 +446,7 @@
 			}
 
 			.directorist-listing-category {
-				& > a {
+				&>a {
 					.directorist-icon-mask {
 						height: 34px;
 						width: 34px;
@@ -462,7 +465,7 @@
 					}
 
 					/* Legacy Icon */
-					> span {
+					>span {
 						width: 36px;
 						height: 36px;
 						border-radius: 50%;
@@ -589,6 +592,7 @@
 				gap: 6px;
 
 				.directorist-compare-btn {
+
 					i,
 					span.la,
 					span.las,
@@ -617,6 +621,7 @@
 			align-items: center;
 			justify-content: space-between;
 			padding: 20px 22px 0 22px;
+
 			@include e(left) {
 				display: flex;
 				flex: 1;
@@ -624,6 +629,7 @@
 				align-items: center;
 				flex-wrap: wrap;
 			}
+
 			@include e(right) {
 				display: flex;
 				gap: 8px;
@@ -737,13 +743,16 @@
 				transform: translateY(50%);
 				display: flex;
 				z-index: 1;
+
 				&.directorist-alignment-left {
 					left: 20px;
 				}
+
 				&.directorist-alignment-right {
 					left: unset;
 					right: 20px;
 				}
+
 				&.directorist-alignment-center {
 					left: 50%;
 					transform: translate(-50%, 50%);
@@ -822,8 +831,9 @@
 				}
 
 				.directorist-listing-single__info__list {
-					> li,
-					> div {
+
+					>li,
+					>div {
 						font-size: 12px;
 						line-height: 1.2;
 						gap: 8px;
@@ -841,13 +851,13 @@
 				}
 
 				.directorist-thumb-listing-author a,
-				.directorist-listing-category > a .directorist-icon-mask {
+				.directorist-listing-category>a .directorist-icon-mask {
 					width: 30px;
 					height: 30px;
 				}
 
-				.directorist-listing-single__info__list > li > .directorist-icon-mask,
-				.directorist-listing-single__info__list > div > .directorist-icon-mask {
+				.directorist-listing-single__info__list>li>.directorist-icon-mask,
+				.directorist-listing-single__info__list>div>.directorist-icon-mask {
 					top: 0;
 
 					&:after {
@@ -889,8 +899,7 @@
 						}
 					}
 
-					.directorist-thumnail-card
-						.directorist-thumnail-card-front-img {
+					.directorist-thumnail-card .directorist-thumnail-card-front-img {
 						border-radius: 10px;
 					}
 				}
@@ -1064,15 +1073,15 @@
 
 				&.directorist-badge-popular {
 					background-color: var(--directorist-color-white);
+
 					.directorist-icon-mask:after {
-						background-color: var(
-							--directorist-color-popular-badge
-						);
+						background-color: var(--directorist-color-popular-badge);
 					}
 				}
 
 				&.directorist-badge-new {
 					background-color: var(--directorist-color-white);
+
 					.directorist-icon-mask:after {
 						background-color: var(--directorist-color-new-badge);
 					}
@@ -1080,29 +1089,26 @@
 
 				&.directorist-badge-featured {
 					background-color: var(--directorist-color-white);
+
 					.directorist-icon-mask:after {
-						background-color: var(
-							--directorist-color-featured-badge
-						);
+						background-color: var(--directorist-color-featured-badge);
 					}
 				}
 
 				&.directorist-badge--only-text {
 					&.directorist-badge-featured {
-						background-color: var(
-							--directorist-color-featured-badge
-						);
+						background-color: var(--directorist-color-featured-badge);
 						color: var(--directorist-color-white);
+
 						.directorist-icon-mask:after {
 							background-color: var(--directorist-color-white);
 						}
 					}
 
 					&.directorist-badge-popular {
-						background-color: var(
-							--directorist-color-popular-badge
-						);
+						background-color: var(--directorist-color-popular-badge);
 						color: var(--directorist-color-white);
+
 						.directorist-icon-mask:after {
 							background-color: var(--directorist-color-white);
 						}
@@ -1111,6 +1117,7 @@
 					&.directorist-badge-new {
 						background-color: var(--directorist-color-new-badge);
 						color: var(--directorist-color-white);
+
 						.directorist-icon-mask:after {
 							background-color: var(--directorist-color-white);
 						}
@@ -1215,6 +1222,7 @@
 	}
 
 	&.directorist-info-item-rating {
+
 		i,
 		span.la,
 		span.fa {
@@ -1305,8 +1313,7 @@
 }
 
 /* listing card without thumbnail */
-.directorist-listing-single.directorist-listing-no-thumb
-	.directorist-listing-single {
+.directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single {
 	@include e("header") {
 		display: flex;
 		gap: 15px;
@@ -1441,7 +1448,7 @@
 					margin: 0 0 10px;
 				}
 
-				> div {
+				>div {
 					margin-bottom: 2px;
 					font-size: 14px;
 					display: flex;
@@ -1547,12 +1554,11 @@
 	gap: 8px;
 	margin-top: 12px;
 
-	> li,
-	> div {
+	>li,
+	>div {
 		display: flex;
-		flex: 1 1 136px;
-min-width: 136px;
-max-width: 284px;
+		flex: 48%;
+		min-width: 136px;
 		margin: 0;
 
 		a:not(.directorist-btn) {
@@ -1584,9 +1590,9 @@ max-width: 284px;
 		}
 
 		// Hide standalone icon and label outside the link
-		> .directorist-icon-mask,
-		> i,
-		> span:not(.directorist-listing-card-info-label) {
+		>.directorist-icon-mask,
+		>i,
+		>span:not(.directorist-listing-card-info-label) {
 			display: none;
 		}
 
@@ -1597,15 +1603,30 @@ max-width: 284px;
 
 	.directorist-listing-card-email,
 	.directorist-listing-card-button,
-	.directorist-listing-card-phone{
+	.directorist-listing-card-phone {
 		align-items: center;
 		gap: 8px;
 	}
 
 
-	.directorist-btn{
-		width:100%;
-		&.directorist-btn-default{
+	.directorist-btn {
+		width: 100%;
+		white-space: nowrap;
+
+		.directorist-btn-text {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			min-width: 0;
+			flex: 0 1 auto;
+		}
+
+		.directorist-icon-arrow-right {
+			display: inline-flex;
+			align-items: center;
+		}
+
+		&.directorist-btn-default {
 			min-height: 40px;
 			border-radius: 8px;
 			font-size: 14px;
@@ -1613,6 +1634,7 @@ max-width: 284px;
 			border: 1px solid #F0F0F0 !important;
 			background: #F3F4F6 !important;
 			color: #364153 !important;
+
 			&:hover {
 				background-color: var(--directorist-color-bg-light) !important;
 				border-color: var(--directorist-color-bg-light) !important;
@@ -1625,21 +1647,15 @@ max-width: 284px;
 	.directorist-listing-card-button {
 
 		.directorist-btn {
-			width:100%;
+			width: 100%;
 			min-height: 40px;
 			border-radius: 8px;
 			font-size: 14px;
 			font-weight: 500;
 			letter-spacing: -0.076px;
-
-			.directorist-icon-arrow-right {
-				display: inline-flex;
-				align-items: center;
-
-				.directorist-icon-mask:after {
-					width: 12px;
-					height: 12px;
-				}
+			.directorist-icon-arrow-right .directorist-icon-mask:after{
+				width: 12px;
+				height: 12px;
 			}
 		}
 	}

@@ -25,8 +25,12 @@ $phone_label = ! empty( $data['original_field']['label'] )
 <?php if ( $is_action ) : ?>
 <div class="directorist-listing-card-phone">
     <a class="directorist-btn directorist-btn-xs directorist-btn-default" href="<?php echo esc_url( $phone_link ); ?>">
-        <?php directorist_icon( $icon ); ?>
-        <?php echo esc_html( $phone_label ); ?>
+        <span class="directorist-icon-arrow-right">
+          <?php directorist_icon( $icon ); ?>
+        </span>
+        <span class="directorist-btn-text">
+            <?php echo esc_html( $phone_label ); ?>
+        </span>
     </a>
 </div>
 <?php else : ?>

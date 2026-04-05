@@ -181,6 +181,12 @@ export default new Vuex.Store({
 
 		swichNav: (state, index) => {
 			state.active_nav_index = index;
+			try {
+				window.localStorage.setItem(
+					'directorist_cptm_active_top_tab_index',
+					String(index)
+				);
+			} catch (error) {}
 		},
 
 		setMetaKey: (state, payload) => {

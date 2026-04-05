@@ -2045,10 +2045,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 wp_send_json_error( __( 'Rejection reason is required.', 'directorist' ) );
             }
 
-            wp_update_post( [
-                'ID'          => $listing_id,
-                'post_status' => 'rejected',
-            ] );
+            wp_update_post( [ 'ID' => $listing_id, 'post_status' => 'rejected' ] );
 
             update_post_meta( $listing_id, '_listing_rejection_reason', $reason );
             update_post_meta( $listing_id, '_listing_rejected_at', current_time( 'mysql' ) );

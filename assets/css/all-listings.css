@@ -21964,6 +21964,18 @@ Review: New Style
   -webkit-transform: translateY(-15px);
           transform: translateY(-15px);
 }
+.directorist-user-dashboard-tabcontent .directorist-listing-table tr:last-child .directorist-rejection-popover {
+  bottom: 100%;
+  top: auto;
+  -webkit-transform: translateY(-15px);
+          transform: translateY(-15px);
+}
+.directorist-user-dashboard-tabcontent .directorist-listing-table tr:last-child .directorist-rejection-popover:before {
+  bottom: -5px;
+  top: auto;
+  -webkit-transform: scaleY(-1);
+          transform: scaleY(-1);
+}
 .directorist-user-dashboard-tabcontent .directorist-listing-table tr:first-child .directorist-dropdown .directorist-dropdown-menu {
   -webkit-transform: translateY(0);
           transform: translateY(0);

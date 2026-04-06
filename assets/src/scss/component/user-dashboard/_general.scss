@@ -309,6 +309,17 @@
 						transform: translateY(-15px);
 					}
 				}
+
+				.directorist-rejection-popover{
+					bottom: 100%;
+					top: auto;
+					transform: translateY(-15px);
+					&:before{
+						bottom: -5px;
+						top: auto;
+						transform: scaleY(-1);
+					}
+				}
 			}
 
 			&:first-child {

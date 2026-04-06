@@ -2123,11 +2123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					sliderActivated = true;
 				}
 
-				// Custom number range: real min/max configured in submission form — activate on fresh load
-				if ( !sliderActivated && !sliderRadiusActive && sliderMaxValue > sliderMinValue ) {
-					sliderActivated = true;
-				}
-
 				if (typeof directoristCustomRangeSlider === 'undefined') return;
 
 				if (sliderRadiusActive) {

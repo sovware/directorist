@@ -316,7 +316,6 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Renewal listing notice issue when logged out. (#2771)
  - TinyMCE core link popover handlers broken by conditional logic. (#2765)
  - CPT manager navigation and builder collapse state not persisting after reload. (#2726)
- - Listing card label issue and button conditional logic not working. (#2725)
  - Google Map marker pin icon not rendering in listing maps. (#2718)
 
 = 8.6.6 - Mar 30, 2026 =

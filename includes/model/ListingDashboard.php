@@ -105,7 +105,7 @@ class Directorist_Listing_Dashboard {
         }
 
         if ( $search ) {
-            $args['s'] = $search;
+            $args['s'] = esc_sql( $search );
         }
 
         $this->current_listings_query = new \WP_Query( apply_filters( 'directorist_dashboard_query_arguments', $args, $status ) );

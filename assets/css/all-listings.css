@@ -1,6 +1,6 @@
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@3.6.0_webpack@5.104.1/node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/.pnpm/resolve-url-loader@3.1.5/node_modules/resolve-url-loader/index.js!./node_modules/.pnpm/postcss-loader@3.0.0/node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/.pnpm/sass-loader@16.0.6_sass@1.97.2_webpack@5.104.1/node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* typography */
 @-webkit-keyframes rotate360 {
   0% {
@@ -22006,6 +22006,14 @@ Review: New Style
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-listing-table-listing-info__content .directorist-title {
   margin: 0 0 5px;
@@ -22025,25 +22033,33 @@ Review: New Style
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   border-radius: 4px;
-  padding: 3px 7px;
+  padding: 4px 7px;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.primary {
   color: var(--directorist-color-primary);
   background-color: rgba(var(--directorist-color-primary), 0.15);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_publish {
-  color: var(--directorist-color-success);
+  color: #1a7431;
   background-color: rgba(var(--directorist-color-success-rgb), 0.15);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_pending {
-  color: var(--directorist-color-warning);
+  color: #b45309;
   background-color: rgba(var(--directorist-color-warning-rgb), 0.15);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_private {
-  color: var(--directorist-color-danger);
+  color: #ba3327;
   background-color: rgba(var(--directorist-color-danger-rgb), 0.15);
+}
+.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_expired {
+  color: #92400e;
+  background-color: rgba(146, 64, 14, 0.1);
+}
+.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_rejected {
+  color: #b90e0e;
+  background-color: rgba(var(--directorist-color-danger-rgb), 0.1);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.danger {
   color: var(--directorist-color-danger);
@@ -23115,12 +23131,6 @@ Review: New Style
   display: inline-block;
 }
 
-.directorist_status_rejected {
-  color: #B42318;
-  background: transparent;
-  border: 1.5px solid #B42318;
-}
-
 .directorist-see-why-wrap {
   position: relative;
   display: inline-block;
@@ -23130,7 +23140,8 @@ Review: New Style
 
 .directorist-see-why {
   color: #2563eb;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
 }

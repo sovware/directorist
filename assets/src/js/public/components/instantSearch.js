@@ -9,6 +9,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	// Globally accessible form_data
 	let form_data = {};
 
+	const initial_view = new URLSearchParams(window.location.search).get(
+		'view'
+	);
+	if (initial_view) {
+		form_data.view = initial_view;
+	}
+
 	// Scrolling Pagination
 	let scrollingPage = 1;
 	let infinitePaginationIsLoading = false;
@@ -256,6 +263,16 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	// Update search URL with form data
 	function update_instant_search_url(form_data) {
 		if (!history.pushState) return;
+
+		// Always preserve current view from URL when form_data does not contain it.
+		if (!form_data.view) {
+			const current_view = new URLSearchParams(
+				window.location.search
+			).get('view');
+			if (current_view) {
+				form_data.view = current_view;
+			}
+		}
 
 		let newurl =
 			window.location.protocol +

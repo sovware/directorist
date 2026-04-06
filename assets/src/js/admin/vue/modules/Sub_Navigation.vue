@@ -72,7 +72,6 @@ import helpers from "./../mixins/helpers";
 
 export default {
   name: "sub-navigation",
-  props: ["navLists", "active"],
   props: {
     navLists: Array,
     active: {
@@ -88,10 +87,20 @@ export default {
 
   data() {
     return {
-      active_nav: 0,
+      active_nav: Number.isInteger(this.active) ? this.active : 0,
       showModal: false,
       modalContent: null,
     };
+  },
+
+  watch: {
+    active(value) {
+      if (!Number.isInteger(value)) {
+        return;
+      }
+
+      this.active_nav = value;
+    },
   },
 
   methods: {

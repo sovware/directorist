@@ -1359,7 +1359,7 @@ class Directorist_Single_Listing {
          * Allows plugins (e.g., page builder integrations) to replace the
          * default info window markup with custom-composed content.
          *
-         * @since 8.7.0
+         * @since 8.6.7
          *
          * @param string                    $info_content The info window HTML.
          * @param Directorist_Single_Listing $listing      The single listing instance.

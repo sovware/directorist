@@ -2,15 +2,19 @@
 .directorist-see-why-wrap {
     position: relative;
     display: inline-block;
-    margin-left: 8px;
+    margin-inline-start: 8px;
     vertical-align: middle;
 }
 
 .directorist-see-why {
-    color: #2563eb;
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--directorist-color-info);
     font-size: 12px;
     font-weight: 500;
-    text-decoration: none;
     white-space: nowrap;
 
     &:hover {
@@ -32,11 +36,25 @@
     z-index: 9999;
     line-height: 1.5;
 
+    @media (max-width: 576px) {
+        position: fixed;
+        top: auto;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        min-width: auto;
+        max-width: none;
+
+        &::before {
+            display: none;
+        }
+    }
+
     &::before {
         content: "";
         position: absolute;
         top: -7px;
-        left: 18px;
+        inset-inline-start: 18px;
         border-left: 7px solid transparent;
         border-right: 7px solid transparent;
         border-bottom: 7px solid #fff;
@@ -49,7 +67,7 @@
 
     &__title {
         display: block;
-        color: #111827;
+        color: var(--directorist-color-body, #111827);
         font-size: 14px;
         font-weight: 600;
         margin-bottom: 6px;
@@ -57,7 +75,9 @@
 
     &__body {
         display: block;
-        color: #6b7280;
+        color: var(--directorist-color-body-light, #6b7280);
         font-size: 13px;
+        max-height: 200px;
+        overflow-y: auto;
     }
 }

@@ -23133,15 +23133,20 @@ Review: New Style
 .directorist-see-why-wrap {
   position: relative;
   display: inline-block;
-  margin-right: 8px;
+  -webkit-margin-start: 8px;
+          margin-inline-start: 8px;
   vertical-align: middle;
 }
 
 .directorist-see-why {
-  color: #2563eb;
+  display: block;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--directorist-color-info);
   font-size: 12px;
   font-weight: 500;
-  text-decoration: none;
   white-space: nowrap;
 }
 .directorist-see-why:hover {
@@ -23163,11 +23168,25 @@ Review: New Style
   z-index: 9999;
   line-height: 1.5;
 }
+@media (max-width: 576px) {
+  .directorist-rejection-popover {
+    position: fixed;
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    min-width: auto;
+    max-width: none;
+  }
+  .directorist-rejection-popover::before {
+    display: none;
+  }
+}
 .directorist-rejection-popover::before {
   content: "";
   position: absolute;
   top: -7px;
-  right: 18px;
+  inset-inline-start: 18px;
   border-right: 7px solid transparent;
   border-left: 7px solid transparent;
   border-bottom: 7px solid #fff;
@@ -23179,15 +23198,17 @@ Review: New Style
 }
 .directorist-rejection-popover__title {
   display: block;
-  color: #111827;
+  color: var(--directorist-color-body, #111827);
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 6px;
 }
 .directorist-rejection-popover__body {
   display: block;
-  color: #6b7280;
+  color: var(--directorist-color-body-light, #6b7280);
   font-size: 13px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .directorist-payment-instructions,

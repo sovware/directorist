@@ -413,13 +413,13 @@
 				);
 			}
 
-			&.directorist_status_expired{
+			&.directorist_status_expired {
 				color: #92400e;
 				background-color: rgba(146, 64, 14, 0.10);
 			}
 
-			&.directorist_status_rejected{
-				color:#b90e0e;
+			&.directorist_status_rejected {
+				color: #b90e0e;
 				background-color: rgba(
 					var(--directorist-color-danger-rgb),
 					0.10

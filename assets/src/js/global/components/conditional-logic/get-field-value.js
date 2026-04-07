@@ -51,7 +51,9 @@ export function getFieldValue(fieldKey, $) {
 	if (fieldKey && typeof fieldKey === 'string') {
 		const normalizedButtonFieldKey = fieldKey.trim();
 		if (normalizedButtonFieldKey) {
-			const buttonTextId = escapeCssId(`${normalizedButtonFieldKey}_text`);
+			const buttonTextId = escapeCssId(
+				`${normalizedButtonFieldKey}_text`
+			);
 			const buttonUrlId = escapeCssId(`${normalizedButtonFieldKey}_link`);
 			const $buttonTextField = $(
 				`[name="${normalizedButtonFieldKey}[button_text]"], #${buttonTextId}`

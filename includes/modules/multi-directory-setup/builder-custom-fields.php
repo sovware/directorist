@@ -243,7 +243,6 @@ return apply_filters(
                     'label' => __( 'Required', 'directorist' ),
                     'value' => false,
                 ],
-                'conditional_logic' => get_conditional_logic_field(),
                 'min_value' => [
                     'type'  => 'number',
                     'label' => __( 'Min Value', 'directorist' ),

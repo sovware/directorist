@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.6.6
+Stable tag: 8.6.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,12 +31,6 @@ Build any type of directory website such as a business directory, job directory,
 Create and grow your business directory, classified listings, job directory, event directory, membership directory, service marketplace, or real estate directory with ease using Directorist - Business Directory Plugin.
 
 Directorist is built for people who want control, freedom, and real income from their directory website. You are not just creating listings. You are building a platform where businesses get discovered, services are found, and communities connect. From submissions to payments and search to monetization, everything works together so you can launch your directory faster, manage less, and grow with confidence.
-
-==Discover how Directorist has evolved in 2025 with smarter AI capabilities==
-
-[youtube https://www.youtube.com/watch?v=uA8UxFI_938]
-
-Discover how Directorist has evolved in 2025, bringing smarter AI, faster workflows, and future-ready innovations to help your directory business thrive today and scale tomorrow. Plus, get an exclusive look at what’s coming. 
 
 ==Turn your ideas into a profitable directory effortlessly.==
 
@@ -305,6 +299,24 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.6.7 - Apr 7, 2026 =
+
+**Added**
+ - Filter hook `directorist_single_map_info_content` for customizing single listing map info window HTML. (#2786)
+
+**Fixed**
+ - Search form directory type issue. (#2784)
+ - Instant search not carrying the list view URL parameter. (#2783)
+ - PHP 8 type error in the search category location filter when the directory type is a string. (#2782)
+ - Contact listing form issue in the sidebar. (#2781)
+ - Sort-by dropdown using a placeholder href instead of the actual URL. (#2776)
+ - Number range slider custom field issue in the search form. (#2775)
+ - Renewal listing notice issue when logged out. (#2771)
+ - TinyMCE core link popover handlers broken by conditional logic. (#2765)
+ - CPT manager navigation and builder collapse state not persisting after reload. (#2726)
+ - Google Map marker pin icon not rendering in listing maps. (#2718)
+ - Security issue. (#2791)
 
 = 8.6.6 - Mar 30, 2026 =
 

@@ -2338,11 +2338,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				maxInput.value = defaultValue;
 				slider?.directoristCustomRangeSlider?.set([0, defaultValue]); // Set initial values
 			} else {
-				// Reset values to their initial state
-				slider?.directoristCustomRangeSlider?.set([0, 0]); // Set initial values
-				minInput.value = '0'; // Set initial min value
-				maxInput.value = '0'; // Set initial max value
-				rangeValue.value = '0-0';
+				// Reset values to their initial state using configured min/max from HTML attributes
+				const resetMin = slider.getAttribute('min-value') || '0';
+				const resetMax = slider.getAttribute('max-value') || '0';
+				slider?.directoristCustomRangeSlider?.set([resetMin, resetMax]);
+				minInput.value = resetMin;
+				maxInput.value = resetMax;
+				rangeValue.value = `${resetMin}-${resetMax}`;
 			}
 
 			const sidebarRangeSlider = slider.closest('.listing-with-sidebar');

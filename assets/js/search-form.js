@@ -4924,11 +4924,13 @@ document.addEventListener('DOMContentLoaded', function () {
         slider === null || slider === void 0 || (_slider$directoristCu4 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu4 === void 0 || _slider$directoristCu4.set([0, defaultValue]); // Set initial values
       } else {
         var _slider$directoristCu5;
-        // Reset values to their initial state
-        slider === null || slider === void 0 || (_slider$directoristCu5 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu5 === void 0 || _slider$directoristCu5.set([0, 0]); // Set initial values
-        minInput.value = '0'; // Set initial min value
-        maxInput.value = '0'; // Set initial max value
-        rangeValue.value = '0-0';
+        // Reset values to their initial state using configured min/max from HTML attributes
+        var resetMin = slider.getAttribute('min-value') || '0';
+        var resetMax = slider.getAttribute('max-value') || '0';
+        slider === null || slider === void 0 || (_slider$directoristCu5 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu5 === void 0 || _slider$directoristCu5.set([resetMin, resetMax]);
+        minInput.value = resetMin;
+        maxInput.value = resetMax;
+        rangeValue.value = "".concat(resetMin, "-").concat(resetMax);
       }
       var sidebarRangeSlider = slider.closest('.listing-with-sidebar');
       if (sidebarRangeSlider && slider !== null && slider !== void 0 && slider.directoristCustomRangeSlider) {

@@ -929,6 +929,27 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		}, 250)
 	);
 
+	// Pricing min/max validation - prevent min > max and max < min
+	$('body').on(
+		'change',
+		'.directorist-instant-search .pricing-slider-range__input-values__min, .directorist-instant-search .pricing-slider-range__input-values__max',
+		function () {
+			const $container = $(this).closest('.directorist-price-ranges');
+			const $minInput = $container.find('.pricing-slider-range__input-values__min');
+			const $maxInput = $container.find('.pricing-slider-range__input-values__max');
+			const minVal = parseFloat($minInput.val()) || 0;
+			const maxVal = parseFloat($maxInput.val()) || 0;
+
+			if ($minInput.val() && $maxInput.val() && minVal > maxVal) {
+				if ($(this).hasClass('pricing-slider-range__input-values__min')) {
+					$minInput.val(maxVal);
+				} else {
+					$maxInput.val(minVal);
+				}
+			}
+		}
+	);
+
 	// sidebar on change searching - range slider min/max number inputs
 	$('body').on(
 		'change',

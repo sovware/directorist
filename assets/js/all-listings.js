@@ -2210,6 +2210,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
 
+  // Pricing min/max validation - prevent min > max and max < min
+  $('body').on('change', '.directorist-instant-search .pricing-slider-range__input-values__min, .directorist-instant-search .pricing-slider-range__input-values__max', function () {
+    var $container = $(this).closest('.directorist-price-ranges');
+    var $minInput = $container.find('.pricing-slider-range__input-values__min');
+    var $maxInput = $container.find('.pricing-slider-range__input-values__max');
+    var minVal = parseFloat($minInput.val()) || 0;
+    var maxVal = parseFloat($maxInput.val()) || 0;
+    if ($minInput.val() && $maxInput.val() && minVal > maxVal) {
+      if ($(this).hasClass('pricing-slider-range__input-values__min')) {
+        $minInput.val(maxVal);
+      } else {
+        $maxInput.val(minVal);
+      }
+    }
+  });
+
   // sidebar on change searching - range slider min/max number inputs
   $('body').on('change', '.directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__min, .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__max', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
     e.preventDefault();

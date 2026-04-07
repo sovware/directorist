@@ -300,7 +300,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.6.7 - Apr 6, 2026 =
+= 8.6.7 - Apr 7, 2026 =
 
 **Added**
  - Filter hook `directorist_single_map_info_content` for customizing single listing map info window HTML. (#2786)
@@ -317,6 +317,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - TinyMCE core link popover handlers broken by conditional logic. (#2765)
  - CPT manager navigation and builder collapse state not persisting after reload. (#2726)
  - Google Map marker pin icon not rendering in listing maps. (#2718)
+ - Security issue. (#2791)
 
 = 8.6.6 - Mar 30, 2026 =
 

@@ -25,7 +25,6 @@ import AngleLeftIcon from '@/admin/icons/AngleLeftIcon';
 import AngleRightIcon from '@/admin/icons/AngleRightIcon';
 import { doAction } from '@wordpress/hooks';
 import CustomerInfo from './customer-info';
-import ListingDetails from './listing-details';
 import OrderDetails from './order-details';
 import PaymentLog from './payment-log';
 import Refund from './refund';
@@ -301,7 +300,6 @@ export default function OrderEdit({}: EditProps) {
 				</ContainerLeft>
 				<ContainerRight>
 					<CustomerInfo order={order} />
-					<ListingDetails order={order} />
 					<PaymentLog order={order} />
 				</ContainerRight>
 			</SingleOrderContainer>

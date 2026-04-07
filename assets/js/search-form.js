@@ -4808,15 +4808,17 @@ document.addEventListener('DOMContentLoaded', function () {
           });
         } else {
           var _directoristCustomRan3;
-          // Initialize with [0, 0] and temp min/max
+          // Initialize with real range, using current input values (PHP-rendered)
+          var initMin = parseInt(minInput.value) || sliderMinValue;
+          var initMax = parseInt(maxInput.value) || sliderMinValue;
           (_directoristCustomRan3 = directoristCustomRangeSlider) === null || _directoristCustomRan3 === void 0 || _directoristCustomRan3.create(slider, {
-            start: [0, 0],
+            start: [initMin, initMax],
             connect: true,
             direction: isRTL ? 'rtl' : 'ltr',
-            step: 1,
+            step: sliderStep,
             range: {
-              min: 0,
-              max: 1
+              min: Number(sliderMinValue || 0),
+              max: Number(sliderMaxValue || 100)
             }
           });
         }

@@ -2193,15 +2193,17 @@ document.addEventListener('DOMContentLoaded', () => {
 						},
 					});
 				} else {
-					// Initialize with [0, 0] and temp min/max
+					// Initialize with real range, using current input values (PHP-rendered)
+					const initMin = parseInt(minInput.value) || sliderMinValue;
+					const initMax = parseInt(maxInput.value) || sliderMinValue;
 					directoristCustomRangeSlider?.create(slider, {
-						start: [0, 0],
+						start: [initMin, initMax],
 						connect: true,
 						direction: isRTL ? 'rtl' : 'ltr',
-						step: 1,
+						step: sliderStep,
 						range: {
-							min: 0,
-							max: 1,
+							min: Number(sliderMinValue || 0),
+							max: Number(sliderMaxValue || 100),
 						},
 					});
 				}

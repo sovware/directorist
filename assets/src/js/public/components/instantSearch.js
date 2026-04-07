@@ -338,11 +338,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			typeof form_data.custom_field === 'object'
 		) {
 			Object.entries(form_data.custom_field).forEach(([key, val]) => {
-				// Skip if value is "0-0" (empty range slider)
-				if (val === '0-0') {
-					return;
-				}
-
 				// Skip empty values
 				if (!val || (typeof val === 'string' && val.trim() === '')) {
 					return;
@@ -469,7 +464,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 				if (values.length) custom_field[post_id] = values;
 			} else {
 				const value = $el.val();
-				if (value && value !== '0-0') custom_field[post_id] = value;
+				if (value) custom_field[post_id] = value;
 			}
 		});
 

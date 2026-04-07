@@ -1719,11 +1719,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var _ref8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref7, 2),
           key = _ref8[0],
           val = _ref8[1];
-        // Skip if value is "0-0" (empty range slider)
-        if (val === '0-0') {
-          return;
-        }
-
         // Skip empty values
         if (!val || typeof val === 'string' && val.trim() === '') {
           return;
@@ -1830,7 +1825,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         if (values.length) custom_field[post_id] = values;
       } else {
         var value = $el.val();
-        if (value && value !== '0-0') custom_field[post_id] = value;
+        if (value) custom_field[post_id] = value;
       }
     });
 

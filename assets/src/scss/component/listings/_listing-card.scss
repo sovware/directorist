@@ -3,6 +3,7 @@
 	.directorist-listing-single {
 		flex: 1;
 		font-size: 15px;
+		margin-bottom: 15px;
 
 		@include m(bg) {
 			border-radius: 12px;

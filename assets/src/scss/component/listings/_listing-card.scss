@@ -856,6 +856,7 @@
 				.directorist-listing-single__info__list>li>.directorist-icon-mask,
 				.directorist-listing-single__info__list>div>.directorist-icon-mask {
 					top: 0;
+				}
 
 				.directorist-listing-single__info__list .directorist-icon-mask:after {
 					width: 12px;
@@ -1091,6 +1092,10 @@
 				}
 
 				&.directorist-badge--only-text {
+					.directorist-icon-mask {
+						display: none;
+					}
+
 					&.directorist-badge-featured {
 						background-color: var(--directorist-color-featured-badge);
 						color: var(--directorist-color-white);
@@ -1553,6 +1558,7 @@
 	>div {
 		display: flex;
 		flex: 48%;
+		max-width: 385px;
 		min-width: 136px;
 		margin: 0;
 
@@ -1665,5 +1671,4 @@
 			width: 100%;
 		}
 	}
-}
 }

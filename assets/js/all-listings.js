@@ -1843,12 +1843,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (!rangeName) {
         return;
       }
+      var $slider = $wrap.siblings('.directorist-custom-range-slider__slide');
+      var defaultMin = $slider.attr('min-value') || '0';
+      var defaultMax = $slider.attr('max-value') || '0';
       var minInput = $wrap.find('.directorist-custom-range-slider__value__min');
       var maxInput = $wrap.find('.directorist-custom-range-slider__value__max');
       var minVal = minInput.val();
       var maxVal = maxInput.val();
       var minName = minInput.attr('name');
       var maxName = maxInput.attr('name');
+
+      // If values match default min/max, remove from form_data
+      if (minVal === defaultMin && maxVal === defaultMax) {
+        if (minName) delete form_data[minName];
+        if (maxName) delete form_data[maxName];
+        return;
+      }
       if (minName && minVal && minVal !== '0') {
         range_slider_values[minName] = minVal;
       }

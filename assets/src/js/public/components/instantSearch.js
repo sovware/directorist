@@ -488,6 +488,12 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 					return;
 				}
 
+				const $slider = $wrap.siblings(
+					'.directorist-custom-range-slider__slide'
+				);
+				const defaultMin = $slider.attr('min-value') || '0';
+				const defaultMax = $slider.attr('max-value') || '0';
+
 				const minInput = $wrap.find(
 					'.directorist-custom-range-slider__value__min'
 				);
@@ -499,6 +505,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 
 				const minName = minInput.attr('name');
 				const maxName = maxInput.attr('name');
+
+				// If values match default min/max, remove from form_data
+				if (minVal === defaultMin && maxVal === defaultMax) {
+					if (minName) delete form_data[minName];
+					if (maxName) delete form_data[maxName];
+					return;
+				}
 
 				if (minName && minVal && minVal !== '0') {
 					range_slider_values[minName] = minVal;

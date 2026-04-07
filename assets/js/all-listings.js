@@ -1479,6 +1479,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Globally accessible form_data
   var form_data = {};
+
+  // Track last submitted form_data to avoid duplicate AJAX requests
+  var lastSubmittedFormData = '';
   var initial_view = new URLSearchParams(window.location.search).get('view');
   if (initial_view) {
     form_data.view = initial_view;
@@ -1497,6 +1500,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   function performInstantSearch(searchElement) {
     // get parent element
     var searchElm = searchElement.closest('.directorist-instant-search');
+
+    // Skip if form_data hasn't changed since last request
+    var currentFormData = JSON.stringify(form_data);
+    if (currentFormData === lastSubmittedFormData) {
+      return;
+    }
+    lastSubmittedFormData = currentFormData;
 
     // Instant Search Data
     var instant_search_data = prepareInstantSearchData(searchElm);

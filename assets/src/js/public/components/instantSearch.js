@@ -9,6 +9,9 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	// Globally accessible form_data
 	let form_data = {};
 
+	// Track last submitted form_data to avoid duplicate AJAX requests
+	let lastSubmittedFormData = '';
+
 	const initial_view = new URLSearchParams(window.location.search).get(
 		'view'
 	);
@@ -29,6 +32,13 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	function performInstantSearch(searchElement) {
 		// get parent element
 		const searchElm = searchElement.closest('.directorist-instant-search');
+
+		// Skip if form_data hasn't changed since last request
+		const currentFormData = JSON.stringify(form_data);
+		if (currentFormData === lastSubmittedFormData) {
+			return;
+		}
+		lastSubmittedFormData = currentFormData;
 
 		// Instant Search Data
 		const instant_search_data = prepareInstantSearchData(searchElm);

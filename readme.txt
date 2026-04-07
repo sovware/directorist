@@ -310,7 +310,6 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Instant search not carrying the list view URL parameter. (#2783)
  - PHP 8 type error in the search category location filter when the directory type is a string. (#2782)
  - Contact listing form issue in the sidebar. (#2781)
- - Listing sidebar responsive layout issue at 1367px and list view card max-width issue at 1216px. (#2780)
  - Sort-by dropdown using a placeholder href instead of the actual URL. (#2776)
  - Number range slider custom field issue in the search form. (#2775)
  - Renewal listing notice issue when logged out. (#2771)

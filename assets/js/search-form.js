@@ -4808,15 +4808,17 @@ document.addEventListener('DOMContentLoaded', function () {
           });
         } else {
           var _directoristCustomRan3;
-          // Initialize with [0, 0] and temp min/max
+          // Initialize with real range, using current input values (PHP-rendered)
+          var initMin = parseInt(minInput.value) || sliderMinValue;
+          var initMax = parseInt(maxInput.value) || sliderMinValue;
           (_directoristCustomRan3 = directoristCustomRangeSlider) === null || _directoristCustomRan3 === void 0 || _directoristCustomRan3.create(slider, {
-            start: [0, 0],
+            start: [initMin, initMax],
             connect: true,
             direction: isRTL ? 'rtl' : 'ltr',
-            step: 1,
+            step: sliderStep,
             range: {
-              min: 0,
-              max: 1
+              min: Number(sliderMinValue || 0),
+              max: Number(sliderMaxValue || 100)
             }
           });
         }
@@ -4826,22 +4828,15 @@ document.addEventListener('DOMContentLoaded', function () {
           if (sliderActivated || sliderRadiusActive) return;
           sliderActivated = true;
 
-          // Range slider options update
-          slider.directoristCustomRangeSlider.updateOptions({
-            start: [sliderMinValue, sliderMinValue],
-            step: sliderStep,
-            range: {
-              min: sliderMinValue,
-              max: sliderMaxValue
-            }
-          });
-
           // Trigger range slider observer
           rangeSliderObserver();
         });
 
         // Update slider config - update values but don't trigger change during drag
         (_slider$directoristCu2 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu2 === void 0 || _slider$directoristCu2.on('update', function (values, handle) {
+          // Skip updating input values during initial load when slider is in non-activated (dummy) state
+          // This prevents overwriting PHP-rendered min/max values with 0
+          if (rangeInitLoad && !sliderActivated && !sliderRadiusActive) return;
           var value = Math.round(values[handle]);
           // Assign min-max value based on handler
           if (handle === 0) {
@@ -4919,11 +4914,13 @@ document.addEventListener('DOMContentLoaded', function () {
         slider === null || slider === void 0 || (_slider$directoristCu4 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu4 === void 0 || _slider$directoristCu4.set([0, defaultValue]); // Set initial values
       } else {
         var _slider$directoristCu5;
-        // Reset values to their initial state
-        slider === null || slider === void 0 || (_slider$directoristCu5 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu5 === void 0 || _slider$directoristCu5.set([0, 0]); // Set initial values
-        minInput.value = '0'; // Set initial min value
-        maxInput.value = '0'; // Set initial max value
-        rangeValue.value = '0-0';
+        // Reset values to their initial state using configured min/max from HTML attributes
+        var resetMin = slider.getAttribute('min-value') || '0';
+        var resetMax = slider.getAttribute('max-value') || '0';
+        slider === null || slider === void 0 || (_slider$directoristCu5 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu5 === void 0 || _slider$directoristCu5.set([resetMin, resetMax]);
+        minInput.value = resetMin;
+        maxInput.value = resetMax;
+        rangeValue.value = "".concat(resetMin, "-").concat(resetMax);
       }
       var sidebarRangeSlider = slider.closest('.listing-with-sidebar');
       if (sidebarRangeSlider && slider !== null && slider !== void 0 && slider.directoristCustomRangeSlider) {

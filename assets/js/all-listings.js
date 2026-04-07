@@ -1479,6 +1479,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Globally accessible form_data
   var form_data = {};
+
+  // Track last submitted form_data to avoid duplicate AJAX requests
+  var lastSubmittedFormData = '';
   var initial_view = new URLSearchParams(window.location.search).get('view');
   if (initial_view) {
     form_data.view = initial_view;
@@ -1497,6 +1500,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   function performInstantSearch(searchElement) {
     // get parent element
     var searchElm = searchElement.closest('.directorist-instant-search');
+
+    // Skip if form_data hasn't changed since last request
+    var currentFormData = JSON.stringify(form_data);
+    if (currentFormData === lastSubmittedFormData) {
+      return;
+    }
+    lastSubmittedFormData = currentFormData;
 
     // Instant Search Data
     var instant_search_data = prepareInstantSearchData(searchElm);
@@ -1719,11 +1729,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var _ref8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref7, 2),
           key = _ref8[0],
           val = _ref8[1];
-        // Skip if value is "0-0" (empty range slider)
-        if (val === '0-0') {
-          return;
-        }
-
         // Skip empty values
         if (!val || typeof val === 'string' && val.trim() === '') {
           return;
@@ -1810,8 +1815,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price = []; // Reset price if no valid price found
     }
 
-    // Collect custom field values
-    searchElm.find('[name^="custom_field"]').each(function (_, el) {
+    // Collect custom field values (exclude range slider hidden inputs, handled by range_slider_values)
+    searchElm.find('[name^="custom_field"]:not(.directorist-custom-range-slider__range)').each(function (_, el) {
       var $el = $(el);
       var name = $el.attr('name');
       var type = $el.attr('type');
@@ -1830,7 +1835,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         if (values.length) custom_field[post_id] = values;
       } else {
         var value = $el.val();
-        if (value && value !== '0-0') custom_field[post_id] = value;
+        if (value) custom_field[post_id] = value;
       }
     });
 
@@ -1843,12 +1848,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (!rangeName) {
         return;
       }
+      var $slider = $wrap.siblings('.directorist-custom-range-slider__slide');
+      var defaultMin = $slider.attr('min-value') || '0';
+      var defaultMax = $slider.attr('max-value') || '0';
       var minInput = $wrap.find('.directorist-custom-range-slider__value__min');
       var maxInput = $wrap.find('.directorist-custom-range-slider__value__max');
       var minVal = minInput.val();
       var maxVal = maxInput.val();
       var minName = minInput.attr('name');
       var maxName = maxInput.attr('name');
+
+      // If values match default min/max, remove from form_data
+      if (minVal === defaultMin && maxVal === defaultMax) {
+        if (minName) delete form_data[minName];
+        if (maxName) delete form_data[maxName];
+        return;
+      }
       if (minName && minVal && minVal !== '0') {
         range_slider_values[minName] = minVal;
       }
@@ -2103,6 +2118,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var searchElm = $(targetNode.closest('form'));
       if (targetNode) {
         var timeout;
+        var initialValue = targetNode.getAttribute('value');
+        var initialized = false;
         var observerCallback = function observerCallback(mutationList, observer) {
           var _iterator = _createForOfIteratorHelper(mutationList),
             _step;
@@ -2110,6 +2127,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var mutation = _step.value;
               if (mutation.attributeName == 'value') {
+                // Skip the first attribute change if it matches the initial value
+                // This prevents triggering AJAX on page load
+                if (!initialized) {
+                  initialized = true;
+                  var currentAttrValue = targetNode.getAttribute('value');
+                  if (currentAttrValue === initialValue || currentAttrValue === '0') {
+                    return;
+                  }
+                }
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                   // Instant search with required value
@@ -2183,6 +2209,31 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
+
+  // Pricing min/max validation - prevent min > max and max < min
+  $('body').on('change', '.directorist-instant-search .pricing-slider-range__input-values__min, .directorist-instant-search .pricing-slider-range__input-values__max', function () {
+    var $container = $(this).closest('.directorist-price-ranges');
+    var $minInput = $container.find('.pricing-slider-range__input-values__min');
+    var $maxInput = $container.find('.pricing-slider-range__input-values__max');
+    var minVal = parseFloat($minInput.val()) || 0;
+    var maxVal = parseFloat($maxInput.val()) || 0;
+    if ($minInput.val() && $maxInput.val() && minVal > maxVal) {
+      if ($(this).hasClass('pricing-slider-range__input-values__min')) {
+        $minInput.val(maxVal);
+      } else {
+        $maxInput.val(minVal);
+      }
+    }
+  });
+
+  // sidebar on change searching - range slider min/max number inputs
+  $('body').on('change', '.directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__min, .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__max', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 500));
 
   // sidebar on change searching - radio/checkbox/location/range
   $('body').on('change', ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {

@@ -2213,16 +2213,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					if (sliderActivated || sliderRadiusActive) return;
 					sliderActivated = true;
 
-					// Range slider options update
-					slider.directoristCustomRangeSlider.updateOptions({
-						start: [sliderMinValue, sliderMinValue],
-						step: sliderStep,
-						range: {
-							min: sliderMinValue,
-							max: sliderMaxValue,
-						},
-					});
-
 					// Trigger range slider observer
 					rangeSliderObserver();
 				});

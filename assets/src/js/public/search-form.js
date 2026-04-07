@@ -2223,7 +2223,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					function (values, handle) {
 						// Skip updating input values during initial load when slider is in non-activated (dummy) state
 						// This prevents overwriting PHP-rendered min/max values with 0
-						if (rangeInitLoad && !sliderActivated && !sliderRadiusActive) return;
+						if (
+							rangeInitLoad &&
+							!sliderActivated &&
+							!sliderRadiusActive
+						)
+							return;
 
 						const value = Math.round(values[handle]);
 						// Assign min-max value based on handler

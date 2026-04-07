@@ -449,34 +449,40 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		}
 
 		// Collect custom field values (exclude range slider hidden inputs, handled by range_slider_values)
-		searchElm.find('[name^="custom_field"]:not(.directorist-custom-range-slider__range)').each(function (_, el) {
-			const $el = $(el);
-			const name = $el.attr('name');
-			const type = $el.attr('type');
-			const match = name.match(/^custom_field\[(.+?)\]/);
-			const post_id = match ? match[1] : '';
+		searchElm
+			.find(
+				'[name^="custom_field"]:not(.directorist-custom-range-slider__range)'
+			)
+			.each(function (_, el) {
+				const $el = $(el);
+				const name = $el.attr('name');
+				const type = $el.attr('type');
+				const match = name.match(/^custom_field\[(.+?)\]/);
+				const post_id = match ? match[1] : '';
 
-			if (!post_id) return;
+				if (!post_id) return;
 
-			if (type === 'radio') {
-				const checked = searchElm
-					.find(`input[name="custom_field[${post_id}]"]:checked`)
-					.val();
-				if (checked) custom_field[post_id] = checked;
-			} else if (type === 'checkbox') {
-				const values = [];
-				searchElm
-					.find(`input[name="custom_field[${post_id}][]"]:checked`)
-					.each(function () {
-						const val = $(this).val();
-						if (val) values.push(val);
-					});
-				if (values.length) custom_field[post_id] = values;
-			} else {
-				const value = $el.val();
-				if (value) custom_field[post_id] = value;
-			}
-		});
+				if (type === 'radio') {
+					const checked = searchElm
+						.find(`input[name="custom_field[${post_id}]"]:checked`)
+						.val();
+					if (checked) custom_field[post_id] = checked;
+				} else if (type === 'checkbox') {
+					const values = [];
+					searchElm
+						.find(
+							`input[name="custom_field[${post_id}][]"]:checked`
+						)
+						.each(function () {
+							const val = $(this).val();
+							if (val) values.push(val);
+						});
+					if (values.length) custom_field[post_id] = values;
+				} else {
+					const value = $el.val();
+					if (value) custom_field[post_id] = value;
+				}
+			});
 
 		// Collect custom range slider min/max values
 		let range_slider_values = {};
@@ -825,8 +831,12 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 							// This prevents triggering AJAX on page load
 							if (!initialized) {
 								initialized = true;
-								const currentAttrValue = targetNode.getAttribute('value');
-								if (currentAttrValue === initialValue || currentAttrValue === '0') {
+								const currentAttrValue =
+									targetNode.getAttribute('value');
+								if (
+									currentAttrValue === initialValue ||
+									currentAttrValue === '0'
+								) {
 									return;
 								}
 							}
@@ -935,13 +945,19 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		'.directorist-instant-search .pricing-slider-range__input-values__min, .directorist-instant-search .pricing-slider-range__input-values__max',
 		function () {
 			const $container = $(this).closest('.directorist-price-ranges');
-			const $minInput = $container.find('.pricing-slider-range__input-values__min');
-			const $maxInput = $container.find('.pricing-slider-range__input-values__max');
+			const $minInput = $container.find(
+				'.pricing-slider-range__input-values__min'
+			);
+			const $maxInput = $container.find(
+				'.pricing-slider-range__input-values__max'
+			);
 			const minVal = parseFloat($minInput.val()) || 0;
 			const maxVal = parseFloat($maxInput.val()) || 0;
 
 			if ($minInput.val() && $maxInput.val() && minVal > maxVal) {
-				if ($(this).hasClass('pricing-slider-range__input-values__min')) {
+				if (
+					$(this).hasClass('pricing-slider-range__input-values__min')
+				) {
 					$minInput.val(maxVal);
 				} else {
 					$maxInput.val(minVal);

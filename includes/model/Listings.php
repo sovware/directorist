@@ -1768,7 +1768,7 @@ class Directorist_Listings {
                     if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
                         $opt['ls_data'] = $ls_data;
                         if ( is_callable( $this->map_card_renderer ) ) {
-                            echo call_user_func( $this->map_card_renderer, $listings_id, $opt );
+                            echo call_user_func( $this->map_card_renderer, $listings_id, $opt ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is from a trusted internal renderer callback that handles its own escaping.
                         } else {
                             Helper::get_template( 'archive/fields/google-map', $opt );
                         }

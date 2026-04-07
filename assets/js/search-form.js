@@ -3345,6 +3345,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -3353,12 +3359,6 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		if (!(moduleId in __webpack_modules__)) {
-/******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
@@ -4842,6 +4842,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update slider config - update values but don't trigger change during drag
         (_slider$directoristCu2 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu2 === void 0 || _slider$directoristCu2.on('update', function (values, handle) {
+          // Skip updating input values during initial load when slider is in non-activated (dummy) state
+          // This prevents overwriting PHP-rendered min/max values with 0
+          if (rangeInitLoad && !sliderActivated && !sliderRadiusActive) return;
           var value = Math.round(values[handle]);
           // Assign min-max value based on handler
           if (handle === 0) {

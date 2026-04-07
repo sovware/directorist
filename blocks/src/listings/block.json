@@ -61,7 +61,8 @@
 		},
 		"columns": {
 			"type": "number",
-			"default": 3
+			"default": 3,
+			"enum": [ 2, 3, 4 ]
 		},
 		"featured_only": {
 			"type": "boolean",

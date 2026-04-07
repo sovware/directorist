@@ -1810,8 +1810,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price = []; // Reset price if no valid price found
     }
 
-    // Collect custom field values
-    searchElm.find('[name^="custom_field"]').each(function (_, el) {
+    // Collect custom field values (exclude range slider hidden inputs, handled by range_slider_values)
+    searchElm.find('[name^="custom_field"]:not(.directorist-custom-range-slider__range)').each(function (_, el) {
       var $el = $(el);
       var name = $el.attr('name');
       var type = $el.attr('type');
@@ -2103,6 +2103,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var searchElm = $(targetNode.closest('form'));
       if (targetNode) {
         var timeout;
+        var initialValue = targetNode.getAttribute('value');
+        var initialized = false;
         var observerCallback = function observerCallback(mutationList, observer) {
           var _iterator = _createForOfIteratorHelper(mutationList),
             _step;
@@ -2110,6 +2112,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var mutation = _step.value;
               if (mutation.attributeName == 'value') {
+                // Skip the first attribute change if it matches the initial value
+                // This prevents triggering AJAX on page load
+                if (!initialized) {
+                  initialized = true;
+                  var currentAttrValue = targetNode.getAttribute('value');
+                  if (currentAttrValue === initialValue || currentAttrValue === '0') {
+                    return;
+                  }
+                }
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                   // Instant search with required value
@@ -2183,6 +2194,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
+
+  // sidebar on change searching - range slider min/max number inputs
+  $('body').on('change', '.directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__min, .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__max', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // Instant search with required value
+    performInstantSearchWithRequiredValue(searchElm);
+  }, 500));
 
   // sidebar on change searching - radio/checkbox/location/range
   $('body').on('change', ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
@@ -3424,6 +3444,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -3432,12 +3458,6 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		if (!(moduleId in __webpack_modules__)) {
-/******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

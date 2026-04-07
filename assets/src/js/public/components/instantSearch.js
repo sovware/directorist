@@ -443,8 +443,8 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			price = []; // Reset price if no valid price found
 		}
 
-		// Collect custom field values
-		searchElm.find('[name^="custom_field"]').each(function (_, el) {
+		// Collect custom field values (exclude range slider hidden inputs, handled by range_slider_values)
+		searchElm.find('[name^="custom_field"]:not(.directorist-custom-range-slider__range)').each(function (_, el) {
 			const $el = $(el);
 			const name = $el.attr('name');
 			const type = $el.attr('type');
@@ -797,9 +797,22 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 
 			if (targetNode) {
 				let timeout;
+				let initialValue = targetNode.getAttribute('value');
+				let initialized = false;
+
 				const observerCallback = (mutationList, observer) => {
 					for (const mutation of mutationList) {
 						if (mutation.attributeName == 'value') {
+							// Skip the first attribute change if it matches the initial value
+							// This prevents triggering AJAX on page load
+							if (!initialized) {
+								initialized = true;
+								const currentAttrValue = targetNode.getAttribute('value');
+								if (currentAttrValue === initialValue || currentAttrValue === '0') {
+									return;
+								}
+							}
+
 							clearTimeout(timeout);
 							timeout = setTimeout(() => {
 								// Instant search with required value
@@ -896,6 +909,19 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			// Instant search with required value
 			performInstantSearchWithRequiredValue(searchElm);
 		}, 250)
+	);
+
+	// sidebar on change searching - range slider min/max number inputs
+	$('body').on(
+		'change',
+		'.directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__min, .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__value__max',
+		debounce(function (e) {
+			e.preventDefault();
+			var searchElm = $(this).closest('.listing-with-sidebar');
+
+			// Instant search with required value
+			performInstantSearchWithRequiredValue(searchElm);
+		}, 500)
 	);
 
 	// sidebar on change searching - radio/checkbox/location/range

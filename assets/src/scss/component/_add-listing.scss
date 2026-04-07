@@ -755,6 +755,9 @@
 		height: 40px;
 		cursor: pointer;
 		border-radius: 100%;
+		.directorist-icon-mask:after{
+			background-color: white;
+		}
 		&:before {
 			content: "";
 			position: absolute;
@@ -767,14 +770,6 @@
 			border-radius: 50%;
 			transition: all 0.3s ease-in-out;
 			border: none;
-		}
-		.directorist-icon-mask {
-			&:after {
-				width: 16px;
-				height: 16px;
-				background-color: var(--directorist-color-marker-icon);
-				mask-image: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
-			}
 		}
 		&:hover {
 			&:before {

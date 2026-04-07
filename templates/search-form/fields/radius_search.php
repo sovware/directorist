@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.5
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -21,9 +21,11 @@ if ( ! empty( $_REQUEST['miles'] ) ) {
     $min_distance = $distance['min'];
     $max_distance = $distance['max'];
 }
+
+$conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-search-field directorist-search-field-radius_search <?php echo esc_attr( $empty_label ); ?>">
+<div class="directorist-search-field directorist-form-group directorist-search-field-radius_search <?php echo esc_attr( $empty_label ); ?>"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     <?php if ( ! empty( $data['label'] ) ) : ?>
         <label class="directorist-search-field__label"><?php echo esc_html( $data['label'] ); ?></label>
     <?php endif; ?>

@@ -22,11 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                         <button class="directorist-btn directorist-btn-sm directorist-filter-btn directorist-modal-btn directorist-modal-btn--full" aria-label="Modal Button"><?php echo wp_kses_post( $listings->filter_btn_html() ); ?></button>
                     <?php endif; ?>
 
-                    <?php 
+                    <?php
                     if ( $listings->header_title && ! empty( $listings->options['display_listings_count'] ) ) {
-                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        echo $listings->listings_header_title();
-                    } 
+                        echo wp_kses_post( $listings->listings_header_title() );
+                    }
                     ?>
                 </div>
 

@@ -20,7 +20,10 @@ use \Directorist\ATBDP_Shortcode;
         </div><!-- .archive-header-inner -->
     </header><!-- .archive-header -->
 
-    <?php echo ( new ATBDP_Shortcode() )->category_archive(); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+    <?php
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output contains <form>, <input>, <select> elements for search/filter. Each template escapes its own output.
+    echo ( new ATBDP_Shortcode() )->category_archive();
+    ?>
 </main>
 
 <?php get_footer( 'directorist' ); ?>

@@ -74,7 +74,7 @@ class Directorist_Listing_Dashboard {
 
     public function handle_listing_action( $action, $listing_id ) {
         if ( $action === 'delete' && current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $listing_id ) ) {
-            wp_delete_post( $listing_id );
+            wp_trash_post( $listing_id );
 
             do_action( 'directorist_listing_deleted', $listing_id );
         }

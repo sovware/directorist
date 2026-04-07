@@ -30,6 +30,10 @@ export default {
     submenu: {
       type: Object,
     },
+    menuKey: {
+      type: String,
+      default: "",
+    },
   },
 
   // computed
@@ -81,6 +85,57 @@ export default {
     return {
       active_sub_nav: 0,
     };
+  },
+
+  mounted() {
+    this.active_sub_nav = this.getInitialSubNavIndex();
+  },
+
+  watch: {
+    active_sub_nav(index) {
+      try {
+        window.localStorage.setItem(this.getSubNavStorageKey(), String(index));
+      } catch (error) {}
+    },
+  },
+
+  methods: {
+    getSubNavStorageKey() {
+      return this.menuKey
+        ? `directorist_cptm_active_sub_tab_${this.menuKey}`
+        : "directorist_cptm_active_sub_tab";
+    },
+
+    getInitialSubNavIndex() {
+      if (!this.subNavigation.length) {
+        return 0;
+      }
+
+      let fallbackIndex = this.subNavigation.findIndex(
+        (submenu) => submenu.active === true,
+      );
+
+      if (fallbackIndex < 0) {
+        fallbackIndex = 0;
+      }
+
+      try {
+        const storedValue = window.localStorage.getItem(
+          this.getSubNavStorageKey(),
+        );
+        const parsedValue = Number.parseInt(storedValue, 10);
+
+        if (
+          !Number.isNaN(parsedValue) &&
+          parsedValue >= 0 &&
+          parsedValue < this.subNavigation.length
+        ) {
+          return parsedValue;
+        }
+      } catch (error) {}
+
+      return fallbackIndex;
+    },
   },
 };
 </script>

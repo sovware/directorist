@@ -111,7 +111,7 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
                         ]
                     );
                     foreach ( $listing_types as $listing_type ) { ?>
-                        <option value="<?php echo esc_attr( $listing_type->term_id ); ?>" <?php echo $listing_type->term_id == $current_v ? ' selected="selected"' : ''; ?>><?php echo esc_attr( $listing_type->name ); ?></option>
+                        <option value="<?php echo esc_attr( $listing_type->term_id ); ?>" <?php selected( $listing_type->term_id, $current_v ); ?>><?php echo esc_html( $listing_type->name ); ?></option>
                         <?php } ?>
                 </select>
                 <?php

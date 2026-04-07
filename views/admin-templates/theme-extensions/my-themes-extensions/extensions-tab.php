@@ -42,7 +42,7 @@
 
                                                             $ext_key       = preg_replace( '/\/.+/', '', $extension_base );
                                                             $ext_key_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $ext_key );;
-                                                            $img           = 'https://via.placeholder.com/44' ;
+                                                            $img           = DIRECTORIST_ASSETS . 'images/no-image.png';
 
                                                         if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
                                                             $img = $args['extension_list'][$ext_key]['thumbnail'];
@@ -77,7 +77,7 @@
                                         <td>
                                             <div class="ext-action">
                                                 <?php if ( in_array( $extension_base, $outdated_plugins_key ) ) : ?>
-                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></a>
+                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>"><?php echo esc_html( $args['is_beta'] ? 'Update Beta' : 'Update' ); ?></a>
                                                 <?php endif; ?>
                                                 <a href="<?php echo esc_url( $args['settings_url'] ); ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
                                                 <div>
@@ -102,7 +102,8 @@
 
     <?php if ( ! empty( $args['extensions_available_in_subscriptions'] ) ) : ?>
         <div class="ext-available">
-            <h4><?php esc_html_e( 'Available in your subscription (' . count( array_keys( $args['extensions_available_in_subscriptions'] ) ) . ')', 'directorist' )  ?></h4>
+            <?php $extensions_count = count( array_keys( $args['extensions_available_in_subscriptions'] ) ); ?>
+            <h4><?php printf( esc_html__( 'Available in your subscription (%d)', 'directorist' ), intval( $extensions_count ) ); ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-my-subscribed-extensions-form" class="atbdp-my-subscribed-extensions-form" method="post">
@@ -120,7 +121,7 @@
                                             <div class="ei-action-dropdown">
                                                 <select id="bulk-actions" name="bulk-actions">
                                                     <option value="">Bulk Action</option>
-                                                    <option value="activate"><?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?></option>
+                                                    <option value="activate"><?php echo esc_html( $args['is_beta'] ? 'Install Beta' : 'Install' ); ?></option>
                                                 </select>
                                             </div>
                                             <button type="submit" class="ei-action-btn">Apply</button>
@@ -150,9 +151,9 @@
                                             <span class="ext-info">
                                                 <?php
                                                 if ( ! empty( $args['extension_list'][$extension_base] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base]['description'] );
                                                 } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base_alias]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base_alias]['description'] );
                                                 }
                                                 ?>
                                             </span>
@@ -160,7 +161,7 @@
                                         <td>
                                             <div class="ext-action ext-action-<?php echo esc_attr( $extension_base ); ?>">
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
-                                                    <i class="la la-download"></i> <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
+                                                    <i class="la la-download"></i> <?php echo esc_html( $args['is_beta'] ? 'Install Beta' : 'Install' ); ?>
                                                 </a>
                                             </div>
                                         </td>
@@ -176,7 +177,8 @@
 
     <?php if ( ! empty( $args['required_extensions_list'] ) ) : ?>
         <div class="ext-available">
-            <h4 class="req-ext-title"><?php esc_html_e( 'Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) . ')', 'directorist' )  ?></h4>
+            <?php $required_count = count( array_keys( $args['required_extensions_list'] ) ); ?>
+            <h4 class="req-ext-title"><?php printf( esc_html__( 'Required Extensions (%d)', 'directorist' ), intval( $required_count ) ); ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">
@@ -225,7 +227,7 @@
                                                             $ext_name = ( isset( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['name'] : '';
                                                         }
                                                             
-                                                            $img = 'https://via.placeholder.com/44';
+                                                            $img = DIRECTORIST_ASSETS . 'images/no-image.png';
                                                         if ( ! empty( $args['extension_list'][$extension_base] ) ) {
                                                             $img = $args['extension_list'][$extension_base]['thumbnail'];
                                                         } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
@@ -244,9 +246,9 @@
                                             <span class="ext-info">
                                                 <?php
                                                 if ( ! empty( $args['extension_list'][$extension_base] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base]['description'] );
                                                 } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
-                                                    esc_html_e( $args['extension_list'][$extension_base_alias]['description'], 'directorust' );
+                                                    echo esc_html( $args['extension_list'][$extension_base_alias]['description'] );
                                                 }
                                                 ?>
                                             </span>
@@ -259,7 +261,7 @@
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
-                                                    <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
+                                                    <?php echo esc_html( $args['is_beta'] ? 'Install Beta' : 'Install' ); ?>
                                                 </a>
                                                 <?php else : 
                                                     $download_link = ( ! empty( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['link'] : '';

@@ -375,9 +375,8 @@ class AI_Builder {
         if ( ! empty( $response['response']['keywords'] ) ) {
             foreach ( $response['response']['keywords'] as $keyword ) { ?>
                 <li class="free-enabled">
-                    <?php 
-                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        echo ucwords( $keyword ); 
+                    <?php
+                        echo esc_html( ucwords( $keyword ) );
                     ?>
                 </li>
             <?php }
@@ -856,7 +855,7 @@ class AI_Builder {
             'redirection' => 5,
             'httpversion' => '1.0',
             'headers'     => $headers,
-            'body'        => json_encode( $params ),
+            'body'        => wp_json_encode( $params ),
         ];
 
         $response = wp_remote_post( static::API_URL . $endpoint, $config );

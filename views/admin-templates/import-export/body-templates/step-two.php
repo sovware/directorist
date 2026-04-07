@@ -59,8 +59,7 @@ if ( ! is_wp_error( $csv_file ) ) {
                     } else {
                         printf(
                             '<p style="font-style:italic; color: #d63638">%s</p>',
-                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            $csv_file->get_error_message(),
+                            esc_html( $csv_file->get_error_message() )
                         );
                     }
                     ?>

@@ -9105,6 +9105,9 @@ body.stop-scrolling {
   cursor: pointer;
   border-radius: 100%;
 }
+.directorist-form-map-field .atbd_map_shape .directorist-icon-mask:after {
+  background-color: white;
+}
 .directorist-form-map-field .atbd_map_shape:before {
   content: "";
   position: absolute;

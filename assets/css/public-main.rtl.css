@@ -1940,34 +1940,6 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
     margin-right: 91.6666666667%;
   }
 }
-/* --- Listing grid: constrained column widths via CSS Grid --- */
-@media (min-width: 1400px) {
-  .directorist-author-listing-content .directorist-row > *,
-  .directorist-listing-grid.directorist-row > * {
-    padding: 0;
-    max-width: 100%;
-    width: 100%;
-    -webkit-box-flex: 0;
-    -webkit-flex: none;
-        -ms-flex: none;
-            flex: none;
-    margin-top: 0;
-  }
-  .directorist-author-listing-content .directorist-row,
-  .directorist-listing-grid.directorist-row {
-    display: grid;
-    grid-template-columns: repeat(var(--directorist-col-count, 2), minmax(0, 442px));
-    gap: 24px;
-    margin: 0;
-    min-width: unset;
-  }
-}
-@media (max-width: 575px) {
-  .directorist-author-listing-content .directorist-row,
-  .directorist-listing-grid.directorist-row {
-    grid-template-columns: 1fr;
-  }
-}
 /* typography */
 .atbd_color-primary {
   color: #444752;
@@ -3998,6 +3970,9 @@ body.stop-scrolling {
   height: 40px;
   cursor: pointer;
   border-radius: 100%;
+}
+.directorist-form-map-field .atbd_map_shape .directorist-icon-mask:after {
+  background-color: white;
 }
 .directorist-form-map-field .atbd_map_shape:before {
   content: "";
@@ -8163,7 +8138,7 @@ body.modal-overlay-enabled:before {
   font-weight: 400;
   color: var(--directorist-color-body);
   background-color: var(--directorist-color-light);
-  border-color: var(--directorist-color-light);
+  border: 2px solid var(--directorist-color-white);
   padding: 0 20px;
   border-radius: 8px;
   cursor: pointer;
@@ -8235,10 +8210,6 @@ body.modal-overlay-enabled:before {
     right: unset;
     left: 0;
   }
-}
-.directorist-dropdown.directorist-sortby-dropdown {
-  border-radius: 8px;
-  border: 2px solid var(--directorist-color-white);
 }
 
 /* custom dropdown with select */
@@ -17010,9 +16981,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 30px;
   height: 30px;
   background-color: var(--directorist-color-white);
-}
-.directorist-content-active .directorist-listing-single.directorist-listing-list {
-  max-width: 1216px;
 }
 @media screen and (min-width: 576.99px) {
   .directorist-content-active .directorist-listing-single.directorist-listing-list {

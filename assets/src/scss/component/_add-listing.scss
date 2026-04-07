@@ -755,6 +755,9 @@
 		height: 40px;
 		cursor: pointer;
 		border-radius: 100%;
+		.directorist-icon-mask:after{
+			background-color: white;
+		}
 		&:before {
 			content: "";
 			position: absolute;

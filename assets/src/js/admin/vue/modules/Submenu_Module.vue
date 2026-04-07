@@ -101,9 +101,10 @@ export default {
 
   methods: {
     getSubNavStorageKey() {
+      const typeId = this.$root.id || 0;
       return this.menuKey
-        ? `directorist_cptm_active_sub_tab_${this.menuKey}`
-        : "directorist_cptm_active_sub_tab";
+        ? `directorist_cptm_active_sub_tab_${this.menuKey}_${typeId}`
+        : `directorist_cptm_active_sub_tab_${typeId}`;
     },
 
     getInitialSubNavIndex() {

@@ -130,12 +130,30 @@ export default {
     this.setup();
   },
 
+  mounted() {
+    this.syncExpandedStateFromParent();
+    this.restoreExpandedWidgetState();
+  },
+
   watch: {
     expandedGroupKey(newExpandedKey) {
-      // If another group was expanded, collapse this one
-      if (newExpandedKey !== null && newExpandedKey !== this.groupKey) {
-        this.widgetsExpanded = false;
-      }
+      this.syncExpandedStateFromParent(newExpandedKey);
+    },
+
+    expandedWidgetKey(newExpandedWidgetKey) {
+      this.persistExpandedWidgetState(newExpandedWidgetKey);
+    },
+
+    "groupData.fields": {
+      handler() {
+        if (
+          this.expandedWidgetKey &&
+          !this.groupData.fields.includes(this.expandedWidgetKey)
+        ) {
+          this.expandedWidgetKey = null;
+        }
+      },
+      deep: true,
     },
   },
 
@@ -210,6 +228,70 @@ export default {
   },
 
   methods: {
+    getGroupStorageIdentifier() {
+      if (this.groupData && this.groupData.id) {
+        return `id_${this.groupData.id}`;
+      }
+
+      return `index_${this.groupKey}`;
+    },
+
+    getExpandedWidgetStorageKey() {
+      const activeFieldKey = this.fieldKey || "default";
+      const groupIdentifier = this.getGroupStorageIdentifier();
+      const typeId = this.$root.id || 0;
+
+      return `directorist_cptm_form_builder_${activeFieldKey}_expanded_widget_${groupIdentifier}_${typeId}`;
+    },
+
+    restoreExpandedWidgetState() {
+      if (!Array.isArray(this.groupData.fields) || !this.groupData.fields.length) {
+        this.expandedWidgetKey = null;
+        return;
+      }
+
+      try {
+        const storedExpandedWidgetKey = window.localStorage.getItem(
+          this.getExpandedWidgetStorageKey(),
+        );
+
+        if (
+          storedExpandedWidgetKey &&
+          this.groupData.fields.includes(storedExpandedWidgetKey)
+        ) {
+          this.expandedWidgetKey = storedExpandedWidgetKey;
+          return;
+        }
+      } catch (error) {}
+
+      this.expandedWidgetKey = null;
+    },
+
+    persistExpandedWidgetState(expandedWidgetKey) {
+      const storageKey = this.getExpandedWidgetStorageKey();
+
+      try {
+        if (!expandedWidgetKey) {
+          window.localStorage.removeItem(storageKey);
+          return;
+        }
+
+        window.localStorage.setItem(storageKey, expandedWidgetKey);
+      } catch (error) {}
+    },
+
+    syncExpandedStateFromParent(newExpandedKey = this.expandedGroupKey) {
+      // Sync local accordion state with parent-restored value
+      if (newExpandedKey === this.groupKey && this.canExpand) {
+        this.widgetsExpanded = true;
+        return;
+      }
+
+      if (newExpandedKey !== this.groupKey) {
+        this.widgetsExpanded = false;
+      }
+    },
+
     setup() {
       this.checkIfGroupHasUntrashableWidgets();
     },

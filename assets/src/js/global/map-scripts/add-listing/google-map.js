@@ -37,7 +37,7 @@ export function initAddListingMap() {
 		let loc_manual_lng = parseFloat(localized_data.manual_lng);
 		const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
 
-		const searchIcon = `<i class="directorist-icon-mask"></i>`;
+		const searchIcon = `<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url('${directorist.assets_url}icons/font-awesome/svgs/solid/map-marker-alt.svg')"></i>`;
 		const markerShape = document.createElement('div');
 		markerShape.className = 'atbd_map_shape';
 		markerShape.innerHTML = searchIcon;

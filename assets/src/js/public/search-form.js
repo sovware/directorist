@@ -2193,17 +2193,15 @@ document.addEventListener('DOMContentLoaded', () => {
 						},
 					});
 				} else {
-					// Initialize with real range, using current input values (PHP-rendered)
-					const initMin = parseInt(minInput.value) || sliderMinValue;
-					const initMax = parseInt(maxInput.value) || sliderMinValue;
+					// Initialize with [0, 0] and temp min/max
 					directoristCustomRangeSlider?.create(slider, {
-						start: [initMin, initMax],
+						start: [0, 0],
 						connect: true,
 						direction: isRTL ? 'rtl' : 'ltr',
-						step: sliderStep,
+						step: 1,
 						range: {
-							min: Number(sliderMinValue || 0),
-							max: Number(sliderMaxValue || 100),
+							min: 0,
+							max: 1,
 						},
 					});
 				}
@@ -2213,6 +2211,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					if (sliderActivated || sliderRadiusActive) return;
 					sliderActivated = true;
 
+					// Range slider options update
+					slider.directoristCustomRangeSlider.updateOptions({
+						start: [sliderMinValue, sliderMinValue],
+						step: sliderStep,
+						range: {
+							min: sliderMinValue,
+							max: sliderMaxValue,
+						},
+					});
+
 					// Trigger range slider observer
 					rangeSliderObserver();
 				});
@@ -2221,15 +2229,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				slider.directoristCustomRangeSlider?.on(
 					'update',
 					function (values, handle) {
-						// Skip updating input values during initial load when slider is in non-activated (dummy) state
-						// This prevents overwriting PHP-rendered min/max values with 0
-						if (
-							rangeInitLoad &&
-							!sliderActivated &&
-							!sliderRadiusActive
-						)
-							return;
-
 						const value = Math.round(values[handle]);
 						// Assign min-max value based on handler
 						if (handle === 0) {
@@ -2300,10 +2299,13 @@ document.addEventListener('DOMContentLoaded', () => {
 					]);
 				}
 
-				['change', 'keyup'].forEach((evt) => {
-					minInput.addEventListener(evt, updateSliderFromInputs);
-					maxInput.addEventListener(evt, updateSliderFromInputs);
-				});
+				// Debounce keyup to allow typing multi-digit values before validation
+				const debouncedUpdate = debounce(updateSliderFromInputs, 500);
+
+				minInput.addEventListener('change', updateSliderFromInputs);
+				maxInput.addEventListener('change', updateSliderFromInputs);
+				minInput.addEventListener('keyup', debouncedUpdate);
+				maxInput.addEventListener('keyup', debouncedUpdate);
 			});
 		}
 
@@ -2333,13 +2335,11 @@ document.addEventListener('DOMContentLoaded', () => {
 				maxInput.value = defaultValue;
 				slider?.directoristCustomRangeSlider?.set([0, defaultValue]); // Set initial values
 			} else {
-				// Reset values to their initial state using configured min/max from HTML attributes
-				const resetMin = slider.getAttribute('min-value') || '0';
-				const resetMax = slider.getAttribute('max-value') || '0';
-				slider?.directoristCustomRangeSlider?.set([resetMin, resetMax]);
-				minInput.value = resetMin;
-				maxInput.value = resetMax;
-				rangeValue.value = `${resetMin}-${resetMax}`;
+				// Reset values to their initial state
+				slider?.directoristCustomRangeSlider?.set([0, 0]); // Set initial values
+				minInput.value = '0'; // Set initial min value
+				maxInput.value = '0'; // Set initial max value
+				rangeValue.value = '0-0';
 			}
 
 			const sidebarRangeSlider = slider.closest('.listing-with-sidebar');

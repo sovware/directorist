@@ -22,7 +22,7 @@ class FeaturedListingCheckout {
         if ( ! $featured_enabled ) return;
 
         add_filter( 'directorist_checkout_types', [$this, 'add_checkout_type'] );
-        add_filter( 'directorist_checkout_validation', [$this, 'validate_checkout'], 10, 3 );
+        add_filter( 'directorist_checkout_validation', [$this, 'validate_checkout'], 10, 2 );
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 3 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
@@ -37,17 +37,11 @@ class FeaturedListingCheckout {
         return $checkout_types;
     }
 
-    public function validate_checkout( string $checkout_type, WP_REST_Request $request, Validator $validator ) {
+    public function validate_checkout( string $checkout_type, WP_REST_Request $request ) {
         if ( $checkout_type !== self::CHECKOUT_TYPE ) return;
 
-        $validator->validate(
-            [
-                'listing_id' => 'required|numeric'
-            ], false 
-        );
-
-        if ( $validator->is_fail() ) {
-            throw new \Exception( __( 'Invalid listing id.', 'directorist' ) );
+        if ( ! $request->has_param( 'listing_id' ) ) {
+            throw new \Exception( __( 'Listing ID is required.', 'directorist' ) );
         }
 
         $listing = get_post( $request->get_param( 'listing_id' ) );

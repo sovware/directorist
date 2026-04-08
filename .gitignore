@@ -21,3 +21,5 @@ languages/directorist-en_GB-backup-202002181356150.po~
 /.claude
 /node-update-notes.md
 /openspec
+/pnpm-workspace.yaml
+CLAUDE.md

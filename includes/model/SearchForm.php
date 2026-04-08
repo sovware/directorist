@@ -356,6 +356,13 @@ class Directorist_Listing_Search_Form {
                         if ( ! empty( $option_choices ) ) {
                             $search_form_fields['fields'][$key]['options']['options'] = $option_choices;
                         }
+                        if ( isset( $value['type'] ) && 'range' === $value['type'] ) {
+                            foreach ( ['min_value', 'max_value', 'step'] as $range_key ) {
+                                if ( isset( $submission_field[ $range_key ] ) && '' !== $submission_field[ $range_key ] ) {
+                                    $search_form_fields['fields'][$key]['options'][ $range_key ] = $submission_field[ $range_key ];
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -840,7 +847,7 @@ class Directorist_Listing_Search_Form {
 
         foreach ( $cats as $cat ) {
             $directory_type      = get_term_meta( $cat->term_id, '_directory_type', true );
-            $directory_type      = ! empty( $directory_type ) ? $directory_type : [];
+            $directory_type      = ! empty( $directory_type ) ? (array) $directory_type : [];
             $listing_type_id     = $this->listing_type;
 
             if ( in_array( $listing_type_id, $directory_type ) ) {

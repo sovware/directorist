@@ -19,6 +19,10 @@ class DTO extends \Directorist\Utils\DTO {
 
     private ?int $is_featured_listing;
 
+    private ?string $ref;
+
+    private ?string $ref_type;
+
     private float $amount;
 
     private string $currency;
@@ -171,6 +175,50 @@ class DTO extends \Directorist\Utils\DTO {
      */
     public function set_is_featured_listing( ?int $is_featured_listing ): self {
         $this->is_featured_listing = $is_featured_listing;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ref
+     *
+     * @return ?string
+     */
+    public function get_ref(): ?string {
+        return $this->ref;
+    }
+
+    /**
+     * Set the value of ref
+     *
+     * @param ?string $ref
+     *
+     * @return self
+     */
+    public function set_ref( ?string $ref ): self {
+        $this->ref = $ref;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ref_type
+     *
+     * @return ?string
+     */
+    public function get_ref_type(): ?string {
+        return $this->ref_type;
+    }
+
+    /**
+     * Set the value of ref_type
+     *
+     * @param ?string $ref_type
+     *
+     * @return self
+     */
+    public function set_ref_type( ?string $ref_type ): self {
+        $this->ref_type = $ref_type;
 
         return $this;
     }

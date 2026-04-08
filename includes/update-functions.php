@@ -408,6 +408,8 @@ function directorist_870_migrate_legacy_orders() {
                 'listing_id'         => $listing_id ?: null,
                 'plan_id'            => null,
                 'is_featured_listing'=> $is_featured ? 1 : 0,
+                'ref'                => null,
+                'ref_type'           => $is_featured ? 'featured_listing' : null,
                 'amount'             => $amount,
                 'currency'           => $currency,
                 'coupon_code'        => null,
@@ -427,6 +429,8 @@ function directorist_870_migrate_legacy_orders() {
                 '%d', // listing_id
                 '%s', // plan_id
                 '%d', // is_featured_listing
+                '%s', // ref
+                '%s', // ref_type
                 '%f', // amount
                 '%s', // currency
                 '%s', // coupon_code

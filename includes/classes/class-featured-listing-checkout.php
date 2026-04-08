@@ -80,7 +80,7 @@ class FeaturedListingCheckout {
         if ( $checkout_type !== self::CHECKOUT_TYPE ) return;
 
         $amount = get_directorist_option( 'featured_listing_price' );
-        $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_amount( $amount )->set_sub_total( $amount );
+        $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_ref_type( 'featured_listing' )->set_amount( $amount )->set_sub_total( $amount );
     }
 
     public function handle_before_order_update( DTO $dto ) {
@@ -138,7 +138,7 @@ class FeaturedListingCheckout {
     }
 
     public function handle_order_data( $order ) {
-        if ( ! $order->is_featured_listing ) {
+        if ( $order->ref_type !== 'featured_listing' ) {
             return $order;
         }
 

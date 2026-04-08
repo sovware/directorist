@@ -212,6 +212,8 @@ class OrderRepository extends Repository {
             ->set_listing_id( $order->listing_id )
             ->set_plan_id( $order->plan_id )
             ->set_is_featured_listing( $order->is_featured_listing )
+            ->set_ref( $order->ref ?? null )
+            ->set_ref_type( $order->ref_type ?? null )
             ->set_amount( $order->amount )
             ->set_currency( $order->currency )
             ->set_coupon_code( $order->coupon_code )

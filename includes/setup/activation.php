@@ -34,6 +34,8 @@ class Activation {
                 $table->integer( "listing_id" )->nullable();
                 $table->integer( "plan_id" )->nullable();
                 $table->tiny_integer( "is_featured_listing" )->default( 0 );
+                $table->string( "ref" )->nullable();
+                $table->string( "ref_type" )->nullable();
                 $table->decimal( "amount", 10, 2 )->default( 0.00 );
                 $table->string( "currency", 10 )->default( "USD" );
                 $table->string( "coupon_code" )->nullable();

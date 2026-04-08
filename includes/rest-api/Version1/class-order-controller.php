@@ -23,7 +23,7 @@ class Order_Controller extends Abstract_Controller {
             [
                 [
                     'methods'             => WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'index' ],
+                    'callback'            => [ $this, 'admin_index' ],
                     'permission_callback' => [ $this, 'admin_permissions_check' ],
                     'args'                => $this->index_args(),
                 ],
@@ -120,6 +120,16 @@ class Order_Controller extends Abstract_Controller {
                 ],
             ]
         );
+    }
+
+    public function admin_index( WP_REST_Request $request ) {
+        $page       = (int) $request->get_param( "page" );
+        $per_page   = (int) $request->get_param( "perPage" );
+        $search     = (string) $request->get_param( "search" );
+        $dto        = ( new OrderRead )->set_page( $page )->set_per_page( $per_page )->set_search( $search );
+        $repository = directorist_order_repository();
+
+        return rest_ensure_response( $repository->get( $dto ) );
     }
 
     public function index( WP_REST_Request $request ) {

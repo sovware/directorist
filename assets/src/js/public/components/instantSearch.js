@@ -898,6 +898,31 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 		}, 250)
 	);
 
+	// Range slider min/max number inputs - debounced keyup and change
+	function handleRangeSliderInputSearch(el) {
+		var searchElm = $(el).closest('.directorist-instant-search');
+		var activeForm = getActiveForm(searchElm);
+		performInstantSearchWithRequiredValue(activeForm);
+	}
+
+	$('body').on(
+		'change',
+		'.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max',
+		function (e) {
+			e.preventDefault();
+			handleRangeSliderInputSearch(this);
+		}
+	);
+
+	$('body').on(
+		'keyup',
+		'.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max',
+		debounce(function (e) {
+			e.preventDefault();
+			handleRangeSliderInputSearch(this);
+		}, 800)
+	);
+
 	// sidebar on change searching - radio/checkbox/location/range
 	$('body').on(
 		'change',

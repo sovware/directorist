@@ -38,7 +38,7 @@ $conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data )
                 <label for="directorist-custom-range-slider__value__max__number" class="directorist-custom-range-slider__label"><?php esc_html_e( 'Max', 'directorist' ); ?></label>
                 <input type="number" placeholder="Max" value="<?php echo esc_attr( $max_value ) ?>" name="directorist-custom-range-slider__value__max[<?php echo esc_attr( $data['field_key'] ); ?>]" id="directorist-custom-range-slider__value__max__number" class="directorist-custom-range-slider__text directorist-custom-range-slider__value__max">
             </div>
-            <input type="hidden" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" class="directorist-custom-range-slider__range" value="<?php echo esc_attr( $range_value ); ?>" disabled>
+            <input type="hidden" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" class="directorist-custom-range-slider__range" value="<?php echo esc_attr( $range_value ); ?>">
         </div>
     </div>
 

@@ -9,9 +9,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	// Globally accessible form_data
 	let form_data = {};
 
-	// Track last submitted form_data to avoid duplicate AJAX requests
-	let lastSubmittedFormData = '';
-
 	const initial_view = new URLSearchParams(window.location.search).get(
 		'view'
 	);
@@ -32,13 +29,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	function performInstantSearch(searchElement) {
 		// get parent element
 		const searchElm = searchElement.closest('.directorist-instant-search');
-
-		// Skip if form_data hasn't changed since last request
-		const currentFormData = JSON.stringify(form_data);
-		if (currentFormData === lastSubmittedFormData) {
-			return;
-		}
-		lastSubmittedFormData = currentFormData;
 
 		// Instant Search Data
 		const instant_search_data = prepareInstantSearchData(searchElm);
@@ -348,6 +338,11 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			typeof form_data.custom_field === 'object'
 		) {
 			Object.entries(form_data.custom_field).forEach(([key, val]) => {
+				// Skip if value is "0-0" (empty range slider)
+				if (val === '0-0') {
+					return;
+				}
+
 				// Skip empty values
 				if (!val || (typeof val === 'string' && val.trim() === '')) {
 					return;
@@ -448,41 +443,35 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			price = []; // Reset price if no valid price found
 		}
 
-		// Collect custom field values (exclude range slider hidden inputs, handled by range_slider_values)
-		searchElm
-			.find(
-				'[name^="custom_field"]:not(.directorist-custom-range-slider__range)'
-			)
-			.each(function (_, el) {
-				const $el = $(el);
-				const name = $el.attr('name');
-				const type = $el.attr('type');
-				const match = name.match(/^custom_field\[(.+?)\]/);
-				const post_id = match ? match[1] : '';
+		// Collect custom field values
+		searchElm.find('[name^="custom_field"]').each(function (_, el) {
+			const $el = $(el);
+			const name = $el.attr('name');
+			const type = $el.attr('type');
+			const match = name.match(/^custom_field\[(.+?)\]/);
+			const post_id = match ? match[1] : '';
 
-				if (!post_id) return;
+			if (!post_id) return;
 
-				if (type === 'radio') {
-					const checked = searchElm
-						.find(`input[name="custom_field[${post_id}]"]:checked`)
-						.val();
-					if (checked) custom_field[post_id] = checked;
-				} else if (type === 'checkbox') {
-					const values = [];
-					searchElm
-						.find(
-							`input[name="custom_field[${post_id}][]"]:checked`
-						)
-						.each(function () {
-							const val = $(this).val();
-							if (val) values.push(val);
-						});
-					if (values.length) custom_field[post_id] = values;
-				} else {
-					const value = $el.val();
-					if (value) custom_field[post_id] = value;
-				}
-			});
+			if (type === 'radio') {
+				const checked = searchElm
+					.find(`input[name="custom_field[${post_id}]"]:checked`)
+					.val();
+				if (checked) custom_field[post_id] = checked;
+			} else if (type === 'checkbox') {
+				const values = [];
+				searchElm
+					.find(`input[name="custom_field[${post_id}][]"]:checked`)
+					.each(function () {
+						const val = $(this).val();
+						if (val) values.push(val);
+					});
+				if (values.length) custom_field[post_id] = values;
+			} else {
+				const value = $el.val();
+				if (value && value !== '0-0') custom_field[post_id] = value;
+			}
+		});
 
 		// Collect custom range slider min/max values
 		let range_slider_values = {};
@@ -499,12 +488,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 					return;
 				}
 
-				const $slider = $wrap.siblings(
-					'.directorist-custom-range-slider__slide'
-				);
-				const defaultMin = $slider.attr('min-value') || '0';
-				const defaultMax = $slider.attr('max-value') || '0';
-
 				const minInput = $wrap.find(
 					'.directorist-custom-range-slider__value__min'
 				);
@@ -516,13 +499,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 
 				const minName = minInput.attr('name');
 				const maxName = maxInput.attr('name');
-
-				// If values match default min/max, remove from form_data
-				if (minVal === defaultMin && maxVal === defaultMax) {
-					if (minName) delete form_data[minName];
-					if (maxName) delete form_data[maxName];
-					return;
-				}
 
 				if (minName && minVal && minVal !== '0') {
 					range_slider_values[minName] = minVal;
@@ -821,26 +797,9 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 
 			if (targetNode) {
 				let timeout;
-				let initialValue = targetNode.getAttribute('value');
-				let initialized = false;
-
 				const observerCallback = (mutationList, observer) => {
 					for (const mutation of mutationList) {
 						if (mutation.attributeName == 'value') {
-							// Skip the first attribute change if it matches the initial value
-							// This prevents triggering AJAX on page load
-							if (!initialized) {
-								initialized = true;
-								const currentAttrValue =
-									targetNode.getAttribute('value');
-								if (
-									currentAttrValue === initialValue ||
-									currentAttrValue === '0'
-								) {
-									return;
-								}
-							}
-
 							clearTimeout(timeout);
 							timeout = setTimeout(() => {
 								// Instant search with required value
@@ -937,60 +896,6 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			// Instant search with required value
 			performInstantSearchWithRequiredValue(searchElm);
 		}, 250)
-	);
-
-	// Pricing min/max validation - prevent min > max and max < min
-	$('body').on(
-		'change',
-		'.directorist-instant-search .pricing-slider-range__input-values__min, .directorist-instant-search .pricing-slider-range__input-values__max',
-		function () {
-			const $container = $(this).closest('.directorist-price-ranges');
-			const $minInput = $container.find(
-				'.pricing-slider-range__input-values__min'
-			);
-			const $maxInput = $container.find(
-				'.pricing-slider-range__input-values__max'
-			);
-			const minVal = parseFloat($minInput.val()) || 0;
-			const maxVal = parseFloat($maxInput.val()) || 0;
-
-			if ($minInput.val() && $maxInput.val() && minVal > maxVal) {
-				if (
-					$(this).hasClass('pricing-slider-range__input-values__min')
-				) {
-					$minInput.val(maxVal);
-				} else {
-					$maxInput.val(minVal);
-				}
-			}
-		}
-	);
-
-	// Range slider min/max number inputs - change (on blur) and debounced keyup (while typing)
-	function handleRangeSliderInputSearch(el) {
-		var searchElm = $(el).closest('.directorist-instant-search');
-		var activeForm = getActiveForm(searchElm);
-
-		// Instant search with required value
-		performInstantSearchWithRequiredValue(activeForm);
-	}
-
-	$('body').on(
-		'change',
-		'.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max',
-		function (e) {
-			e.preventDefault();
-			handleRangeSliderInputSearch(this);
-		}
-	);
-
-	$('body').on(
-		'keyup',
-		'.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max',
-		debounce(function (e) {
-			e.preventDefault();
-			handleRangeSliderInputSearch(this);
-		}, 800)
 	);
 
 	// sidebar on change searching - radio/checkbox/location/range

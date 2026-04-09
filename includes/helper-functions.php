@@ -4971,13 +4971,3 @@ function directorist_get_location_base() {
 function directorist_get_tag_base() {
     return get_directorist_option( 'tag_base', directorist_get_default_tag_base() );
 }
-
-/**
- * Get the current Directorist plugin version.
- *
- * @since 8.6.8
- * @return string Plugin version string.
- */
-function directorist_get_version() {
-    return ATBDP_VERSION;
-}

@@ -1,21 +1,19 @@
 name: Claude Code Review
 
 on:
-  pull_request_target:
-    types: [opened, synchronize]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   issue_comment:
     types: [created]
 
-# Cancel in-progress reviews when new commits are pushed to the same PR
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.issue.number }}
   cancel-in-progress: true
 
 jobs:
   review:
-    # Run on PR events, or on issue comments that start with @claude
     if: |
-      github.event_name == 'pull_request_target' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.draft == false) ||
       (github.event_name == 'issue_comment' &&
        github.event.issue.pull_request &&
        contains(github.event.comment.body, '@claude'))
@@ -24,7 +22,6 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
-      id-token: write
     steps:
       - name: Checkout PR head
         uses: actions/checkout@v4
@@ -33,12 +30,10 @@ jobs:
           fetch-depth: 0
 
       - name: Run Claude Code Review
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY_PR_REVIEW }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          model: "claude-sonnet-4-20250514"
-          direct_prompt: |
+          prompt: |
             Review this pull request thoroughly. Focus on:
 
             1. **Code Quality**: Clean code, readability, maintainability, proper error handling

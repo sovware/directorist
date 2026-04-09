@@ -7963,6 +7963,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
   // state
   state: {
     active_nav_index: 0,
+    listing_type_id: 0,
     is_saving: false,
     fields: {},
     layouts: {},
@@ -8092,10 +8093,14 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
       highlight_active_field(hash);
       window.location.hash = hash;
     },
+    setListingTypeId: function setListingTypeId(state, id) {
+      state.listing_type_id = id;
+    },
     swichNav: function swichNav(state, index) {
       state.active_nav_index = index;
       try {
-        window.localStorage.setItem('directorist_cptm_active_top_tab_index', String(index));
+        var typeId = state.listing_type_id || 0;
+        window.localStorage.setItem("directorist_cptm_active_top_tab_index_".concat(typeId), String(index));
       } catch (error) {}
     },
     setMetaKey: function setMetaKey(state, payload) {
@@ -10185,7 +10190,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getSubNavStorageKey: function getSubNavStorageKey() {
-      return this.menuKey ? "directorist_cptm_active_sub_tab_".concat(this.menuKey) : "directorist_cptm_active_sub_tab";
+      var typeId = this.$root.id || 0;
+      return this.menuKey ? "directorist_cptm_active_sub_tab_".concat(this.menuKey, "_").concat(typeId) : "directorist_cptm_active_sub_tab_".concat(typeId);
     },
     getInitialSubNavIndex: function getInitialSubNavIndex() {
       if (!this.subNavigation.length) {
@@ -12843,7 +12849,8 @@ __webpack_require__.r(__webpack_exports__);
     getExpandedWidgetStorageKey: function getExpandedWidgetStorageKey() {
       var activeFieldKey = this.fieldKey || "default";
       var groupIdentifier = this.getGroupStorageIdentifier();
-      return "directorist_cptm_form_builder_".concat(activeFieldKey, "_expanded_widget_").concat(groupIdentifier);
+      var typeId = this.$root.id || 0;
+      return "directorist_cptm_form_builder_".concat(activeFieldKey, "_expanded_widget_").concat(groupIdentifier, "_").concat(typeId);
     },
     restoreExpandedWidgetState: function restoreExpandedWidgetState() {
       if (!Array.isArray(this.groupData.fields) || !this.groupData.fields.length) {
@@ -19599,7 +19606,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   methods: _objectSpread(_objectSpread({
     getExpandedGroupStateStorageKey: function getExpandedGroupStateStorageKey(stateType) {
       var key = this.fieldKey || "default";
-      return "directorist_cptm_form_builder_".concat(key, "_").concat(stateType);
+      var typeId = this.$root.id || 0;
+      return "directorist_cptm_form_builder_".concat(key, "_").concat(stateType, "_").concat(typeId);
     },
     serializeGroupReference: function serializeGroupReference(groupKey) {
       var index = Number.parseInt(groupKey, 10);

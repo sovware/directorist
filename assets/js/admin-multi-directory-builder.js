@@ -7963,6 +7963,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
   // state
   state: {
     active_nav_index: 0,
+    listing_type_id: 0,
     is_saving: false,
     fields: {},
     layouts: {},
@@ -8092,10 +8093,14 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
       highlight_active_field(hash);
       window.location.hash = hash;
     },
+    setListingTypeId: function setListingTypeId(state, id) {
+      state.listing_type_id = id;
+    },
     swichNav: function swichNav(state, index) {
       state.active_nav_index = index;
       try {
-        window.localStorage.setItem('directorist_cptm_active_top_tab_index', String(index));
+        var typeId = state.listing_type_id || 0;
+        window.localStorage.setItem("directorist_cptm_active_top_tab_index_".concat(typeId), String(index));
       } catch (error) {}
     },
     setMetaKey: function setMetaKey(state, payload) {
@@ -8286,6 +8291,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       var id = parseInt(this.$root.id);
       if (id > 0) {
         this.listing_type_id = id;
+        this.$store.commit("setListingTypeId", id);
         this.footer_actions.save.label = "Update";
       }
     }
@@ -8323,7 +8329,8 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       }
       var activeNavIndex = 0;
       try {
-        var storedValue = window.localStorage.getItem("directorist_cptm_active_top_tab_index");
+        var typeId = this.$store.state.listing_type_id || 0;
+        var storedValue = window.localStorage.getItem("directorist_cptm_active_top_tab_index_".concat(typeId));
         var parsedValue = Number.parseInt(storedValue, 10);
         if (!Number.isNaN(parsedValue) && parsedValue >= 0 && parsedValue < layoutKeys.length) {
           activeNavIndex = parsedValue;
@@ -8512,8 +8519,8 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
 
         if (response.data.term_id && !isNaN(response.data.term_id)) {
           self.listing_type_id = response.data.term_id;
+          self.$store.commit("setListingTypeId", parseInt(response.data.term_id));
           self.footer_actions.save.label = "Update";
-          self.listing_type_id = response.data.term_id;
           if (response.data.redirect_url) {
             window.location = response.data.redirect_url;
           }
@@ -10276,7 +10283,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getSubNavStorageKey: function getSubNavStorageKey() {
-      return this.menuKey ? "directorist_cptm_active_sub_tab_".concat(this.menuKey) : "directorist_cptm_active_sub_tab";
+      var typeId = this.$root.id || 0;
+      return this.menuKey ? "directorist_cptm_active_sub_tab_".concat(this.menuKey, "_").concat(typeId) : "directorist_cptm_active_sub_tab_".concat(typeId);
     },
     getInitialSubNavIndex: function getInitialSubNavIndex() {
       if (!this.subNavigation.length) {
@@ -12934,7 +12942,8 @@ __webpack_require__.r(__webpack_exports__);
     getExpandedWidgetStorageKey: function getExpandedWidgetStorageKey() {
       var activeFieldKey = this.fieldKey || "default";
       var groupIdentifier = this.getGroupStorageIdentifier();
-      return "directorist_cptm_form_builder_".concat(activeFieldKey, "_expanded_widget_").concat(groupIdentifier);
+      var typeId = this.$root.id || 0;
+      return "directorist_cptm_form_builder_".concat(activeFieldKey, "_expanded_widget_").concat(groupIdentifier, "_").concat(typeId);
     },
     restoreExpandedWidgetState: function restoreExpandedWidgetState() {
       if (!Array.isArray(this.groupData.fields) || !this.groupData.fields.length) {
@@ -19690,7 +19699,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   methods: _objectSpread(_objectSpread({
     getExpandedGroupStateStorageKey: function getExpandedGroupStateStorageKey(stateType) {
       var key = this.fieldKey || "default";
-      return "directorist_cptm_form_builder_".concat(key, "_").concat(stateType);
+      var typeId = this.$root.id || 0;
+      return "directorist_cptm_form_builder_".concat(key, "_").concat(stateType, "_").concat(typeId);
     },
     serializeGroupReference: function serializeGroupReference(groupKey) {
       var index = Number.parseInt(groupKey, 10);

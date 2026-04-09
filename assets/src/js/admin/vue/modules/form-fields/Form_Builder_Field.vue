@@ -616,7 +616,8 @@ export default {
   methods: {
     getExpandedGroupStateStorageKey(stateType) {
       const key = this.fieldKey || "default";
-      return `directorist_cptm_form_builder_${key}_${stateType}`;
+      const typeId = this.$root.id || 0;
+      return `directorist_cptm_form_builder_${key}_${stateType}_${typeId}`;
     },
 
     serializeGroupReference(groupKey) {

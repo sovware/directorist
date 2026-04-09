@@ -146,9 +146,14 @@ class OrderRepository extends Repository {
 
         do_action( 'directorist_before_order_update', $dto, $old_order );
         
-        $update = parent::update( $dto );
+        $update        = parent::update( $dto );
+        $updated_order = $this->get_by_id( $dto->get_id() );
 
-        do_action( 'directorist_after_order_update', $dto, $old_order );
+        if ( ! $updated_order ) {
+            throw new Exception( 'Failed to update order' );
+        }
+
+        do_action( 'directorist_after_order_update', $this->to_dto( $updated_order ), $old_order );
 
         return $update;
     }

@@ -42,6 +42,12 @@ class PaymentRepository extends Repository {
         return $payment_id;
     }
 
+    public function update_status_by_order_id( int $order_id, string $status ): int {
+        return $this->get_query_builder()
+            ->where( 'order_id', $order_id )
+            ->update( [ 'status' => $status ] );
+    }
+
     public function get_last_payment( $order_id ) {
         $query = $this->get_query_builder();
         return $query->where( 'order_id', $order_id )->order_by_desc( 'id' )->first();

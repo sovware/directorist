@@ -155,6 +155,10 @@ class OrderRepository extends Repository {
 
         do_action( 'directorist_after_order_update', $this->to_dto( $updated_order ), $old_order );
 
+        if ( $dto->is_initialized( 'status' ) ) {
+            ( new PaymentRepository )->update_status_by_order_id( $dto->get_id(), $dto->get_status() );
+        }
+
         return $update;
     }
 

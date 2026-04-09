@@ -104,7 +104,7 @@
     "wp-pot": "^1.10.2"
   },
   "engines": {
-    "node": "24.14.1",
+    "node": "24.13.0",
     "npm": "11.6.2"
   },
   "browserslist": [

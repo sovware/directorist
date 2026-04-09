@@ -3,7 +3,6 @@ name: Claude Code Review
 on:
   pull_request_target:
     types: [opened, synchronize]
-    branches: [development]
   issue_comment:
     types: [created]
 

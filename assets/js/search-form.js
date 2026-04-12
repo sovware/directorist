@@ -4752,11 +4752,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (effectiveRangeMaxParam && effectiveRangeMaxParam !== '0') {
           sliderActivated = true;
         }
-
-        // Custom number range: real min/max configured in submission form — activate on fresh load
-        if (!sliderActivated && !sliderRadiusActive && sliderMaxValue > sliderMinValue) {
-          sliderActivated = true;
-        }
         if (typeof directoristCustomRangeSlider === 'undefined') return;
         if (sliderRadiusActive) {
           var _directoristCustomRan;
@@ -4901,10 +4896,13 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           slider.directoristCustomRangeSlider.set([minValue, maxValue]);
         }
-        ['change', 'keyup'].forEach(function (evt) {
-          minInput.addEventListener(evt, updateSliderFromInputs);
-          maxInput.addEventListener(evt, updateSliderFromInputs);
-        });
+
+        // Debounce keyup to allow typing multi-digit values before validation
+        var debouncedUpdate = (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_5__["default"])(updateSliderFromInputs, 500);
+        minInput.addEventListener('change', updateSliderFromInputs);
+        maxInput.addEventListener('change', updateSliderFromInputs);
+        minInput.addEventListener('keyup', debouncedUpdate);
+        maxInput.addEventListener('keyup', debouncedUpdate);
       });
     }
     directorist_custom_range_slider();

@@ -19,12 +19,6 @@ class Directorist_Listings {
 
     public $options = [];
 
-    /**
-     * Optional callable to override map card rendering.
-     * Signature: callable( int $listing_id, array $opt ): string
-     */
-    public $map_card_renderer = null;
-
     public $atts;
 
     public $type;
@@ -1677,9 +1671,8 @@ class Directorist_Listings {
 
                 $opt['ls_data'] = $ls_data;
 
-                $content = is_callable( $this->map_card_renderer )
-                    ? call_user_func( $this->map_card_renderer, $listings_id, $opt )
-                    : Helper::get_template_contents( 'archive/fields/openstreet-map', $opt );
+                $content = Helper::get_template_contents( 'archive/fields/openstreet-map', $opt );
+                $content = apply_filters( 'directorist_map_card_content', $content, $listings_id, $opt, 'openstreetmap' );
 
                 $map_data[] = [
                     'content'   => $content,
@@ -1767,11 +1760,8 @@ class Directorist_Listings {
 
                     if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
                         $opt['ls_data'] = $ls_data;
-                        if ( is_callable( $this->map_card_renderer ) ) {
-                            echo call_user_func( $this->map_card_renderer, $listings_id, $opt ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is from a trusted internal renderer callback that handles its own escaping.
-                        } else {
-                            Helper::get_template( 'archive/fields/google-map', $opt );
-                        }
+                        $content = Helper::get_template_contents( 'archive/fields/google-map', $opt );
+                        echo apply_filters( 'directorist_map_card_content', $content, $listings_id, $opt, 'google' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     }
 
                 endforeach;

@@ -171,6 +171,9 @@ class Checkout_Controller extends Abstract_Controller {
             return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
         }
 
+        /**
+         * @var PaymentInterface $processor_instance
+         */
         $processor_instance = directorist_make( $payment_processors[$payment->get_method()], __( 'Invalid payment gateway.', 'directorist' ) );
 
         if ( $processor_instance instanceof PaymentInterface ) {

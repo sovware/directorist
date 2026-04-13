@@ -19,4 +19,7 @@ languages/directorist-en_GB-backup-202002181356150.po~
 /.cursor
 /.husky
 /.claude
+/.cursor
 /node-update-notes.md
+/pnpm-workspace.yaml
+/openspec

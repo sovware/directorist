@@ -1353,6 +1353,18 @@ class Directorist_Single_Listing {
 
         $info_content .= "</div>";
 
+        /**
+         * Filters the map info window HTML content for a single listing.
+         *
+         * Allows plugins (e.g., page builder integrations) to replace the
+         * default info window markup with custom-composed content.
+         *
+         * @since 8.6.7
+         *
+         * @param string                    $info_content The info window HTML.
+         * @param Directorist_Single_Listing $listing      The single listing instance.
+         */
+        $info_content = apply_filters( 'directorist_single_map_info_content', $info_content, $this );
 
         $cats = get_the_terms( $this->id, ATBDP_CATEGORY );
         $cat_icon = '';

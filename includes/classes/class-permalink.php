@@ -139,11 +139,11 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
             $page_id = get_directorist_option( 'redirection_after_reg', 'previous_page' );
 
             if ( ! empty( $page_link ) ) {
-                return  $page_link;
+                return wp_validate_redirect( $page_link, home_url( '/' ) );
             }
 
             if ( 'previous_page' == $page_id ) {
-                $link = $previous_page;
+                $link = wp_validate_redirect( $previous_page, home_url( '/' ) );
             } else {
                 $link = $page_id ? get_permalink( $page_id ) : '';
             }

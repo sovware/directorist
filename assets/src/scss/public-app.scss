@@ -1709,7 +1709,7 @@
   }
 
 :root{
-    --wpmvc-primary-25: color-mix(in srgb, #3e62f5 5%, white);
+  --wpmvc-primary-25: color-mix(in srgb, #3e62f5 5%, white);
   --wpmvc-primary-50: color-mix(in srgb, #3e62f5 10%, white);
   --wpmvc-primary-100: color-mix(in srgb, #3e62f5 20%, white);
   --wpmvc-primary-200: color-mix(in srgb, #3e62f5 30%, white);
@@ -1733,29 +1733,29 @@
   --wpmvc-secondary-900: color-mix(in srgb, var(--directorist-color-secondary) 60%, black);
   --wpmvc-success-25: color-mix(in srgb, var(--directorist-color-success) 5%, white);
   --wpmvc-success-50: color-mix(in srgb, var(--directorist-color-success) 10%, white);
-  --wpmvc-success-100: color-mix(in srgb, var(--directorist-color-success) 20%, white);
+  --wpmvc-success-100: #D2F9E1;
   --wpmvc-success-200: color-mix(in srgb, var(--directorist-color-success) 30%, white);
   --wpmvc-success-300: color-mix(in srgb, var(--directorist-color-success) 40%, white);
   --wpmvc-success-400: color-mix(in srgb, var(--directorist-color-success) 60%, white);
   --wpmvc-success-500: var(--directorist-color-success);
-  --wpmvc-success-600: color-mix(in srgb, var(--directorist-color-success) 90%, black);
+  --wpmvc-success-600: #08935A;
   --wpmvc-success-700: color-mix(in srgb, var(--directorist-color-success) 80%, black);
   --wpmvc-success-800: color-mix(in srgb, var(--directorist-color-success) 70%, black);
   --wpmvc-success-900: color-mix(in srgb, var(--directorist-color-success) 60%, black);
   --wpmvc-warning-25: color-mix(in srgb, var(--directorist-color-warning) 5%, white);
   --wpmvc-warning-50: color-mix(in srgb, var(--directorist-color-warning) 10%, white);
-  --wpmvc-warning-100: color-mix(in srgb, var(--directorist-color-warning) 20%, white);
+  --wpmvc-warning-100: #FDEFCE;
   --wpmvc-warning-200: color-mix(in srgb, var(--directorist-color-warning) 30%, white);
   --wpmvc-warning-300: color-mix(in srgb, var(--directorist-color-warning) 40%, white);
   --wpmvc-warning-400: color-mix(in srgb, var(--directorist-color-warning) 60%, white);
   --wpmvc-warning-500: var(--directorist-color-warning);
-  --wpmvc-warning-600: color-mix(in srgb, var(--directorist-color-warning) 90%, black);
+  --wpmvc-warning-600: #CA6F04;
   --wpmvc-warning-700: color-mix(in srgb, var(--directorist-color-warning) 80%, black);
   --wpmvc-warning-800: color-mix(in srgb, var(--directorist-color-warning) 70%, black);
   --wpmvc-warning-900: color-mix(in srgb, var(--directorist-color-warning) 60%, black);
   --wpmvc-error-25: color-mix(in srgb, #D94A4A 5%, white);
   --wpmvc-error-50: color-mix(in srgb, #D94A4A 10%, white);
-  --wpmvc-error-100: color-mix(in srgb, #D94A4A 20%, white);
+  --wpmvc-error-100: #FBE5E5;
   --wpmvc-error-200: color-mix(in srgb, #D94A4A 30%, white);
   --wpmvc-error-300: color-mix(in srgb, #D94A4A 40%, white);
   --wpmvc-error-400: color-mix(in srgb, #D94A4A 60%, white);
@@ -1775,6 +1775,8 @@
   --wpmvc-gray-700: color-mix(in srgb, #141921 80%, black);
   --wpmvc-gray-800: color-mix(in srgb, #141921 70%, black);
   --wpmvc-gray-900: color-mix(in srgb, #141921 60%, black);
+  --wpmvc-DayBreak-Blue-1:#E6F7FF;
+  --wpmvc-DayBreak-Blue-6:#1890FF;
 }
   // Table Typograpphy Style
 .dataviews-view-table{

@@ -239,8 +239,9 @@ export default {
     getExpandedWidgetStorageKey() {
       const activeFieldKey = this.fieldKey || "default";
       const groupIdentifier = this.getGroupStorageIdentifier();
+      const typeId = this.$root.id || 0;
 
-      return `directorist_cptm_form_builder_${activeFieldKey}_expanded_widget_${groupIdentifier}`;
+      return `directorist_cptm_form_builder_${activeFieldKey}_expanded_widget_${groupIdentifier}_${typeId}`;
     },
 
     restoreExpandedWidgetState() {

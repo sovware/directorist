@@ -42,7 +42,7 @@ $placeholder = isset( $data['placeholder'] ) ? (string) $data['placeholder'] : '
     wp_editor( $editor_value, $editor_id, $editor_settings );
 
     if ( $placeholder || $is_required ) :
-    ?>
+        ?>
         <script>
             (function() {
                 var editorTextarea = document.getElementById(<?php echo wp_json_encode( $editor_id ); ?>);
@@ -59,7 +59,7 @@ $placeholder = isset( $data['placeholder'] ) ? (string) $data['placeholder'] : '
                 }
             })();
         </script>
-    <?php
+        <?php
     endif;
 
     $listing_form->field_description_template( $data );

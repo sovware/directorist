@@ -1,8 +1,9 @@
 import Badge from '@/admin/components/badge';
 import Card from '@/admin/components/card';
-import { formatDate } from '@/admin/helper/utils';
-import { LogItem, LogList } from './style';
+import { STATUSES } from '@/admin/constants/status';
+import { formatDate, getBadgeVariantByStatus } from '@/admin/helper/utils';
 import { __, sprintf } from '@wordpress/i18n';
+import { LogItem, LogList } from './style';
 
 type DetailsProps = {
 	order?: any;
@@ -109,15 +110,9 @@ export default function PaymentLog({ order }: DetailsProps) {
 						<LogItem key={index}>
 							<Badge
 								className="directorist-badge"
-								variant={
-									payment?.status === 'pending'
-										? 'warning'
-										: payment?.status === 'paid'
-											? 'success'
-											: 'error'
-								}
+								variant={getBadgeVariantByStatus(payment?.status)}
 							>
-								{payment?.status}
+								{STATUSES[payment?.status] ?? payment?.status}
 							</Badge>
 							<span>
 								{formatDate(

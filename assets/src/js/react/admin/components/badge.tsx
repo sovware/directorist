@@ -2,16 +2,33 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Define the variant types
-type BadgeVariant = 'default' | 'info' | 'warning' | 'success' | 'error';
+export type BadgeVariant =
+	// Semantic
+	| 'default'
+	| 'info'
+	| 'warning'
+	| 'success'
+	| 'error'
+	// Status-named
+	| 'expired'
+	| 'paid'
+	| 'active'
+	| 'pending'
+	| 'failed'
+	| 'cancelled'
+	| 'refunded'
+	| 'unpaid'
+	| 'trialing'
+	| 'paused';
 
 // Styled component with proper TypeScript interface
 const BadgeStyle = styled.div<{ $variant?: BadgeVariant }>`
 	display: inline-flex;
 	align-items: center;
-	padding: 2px 8px;
+	padding: 6px 8px;
 	border-radius: 2px;
 	font-size: 12px;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 1;
 	text-align: center;
 	white-space: nowrap;
@@ -21,24 +38,42 @@ const BadgeStyle = styled.div<{ $variant?: BadgeVariant }>`
 	${({ $variant }) => {
 		switch ($variant) {
 			case 'info':
+			case 'trialing':
 				return `
-					background-color: var(--wpmvc-primary-200);
+					background-color: var(--wpmvc-primary-100);
 					color: var(--wpmvc-primary-500);
 				`;
-			case 'warning':
+			case 'refunded':
 				return `
-					background-color: var(--wpmvc-warning-200);
+					background-color: #e6f4ff;
+					color: #1677ff;
+				`;
+			case 'warning':
+			case 'pending':
+			case 'unpaid':
+			case 'paused':
+				return `
+					background-color: var(--wpmvc-warning-100);
 					color: var(--wpmvc-warning-500);
 				`;
 			case 'success':
+			case 'paid':
+			case 'active':
 				return `
-					background-color: var(--wpmvc-success-200);
+					background-color: var(--wpmvc-success-100);
 					color: var(--wpmvc-success-500);
 				`;
 			case 'error':
+			case 'failed':
+			case 'cancelled':
 				return `
-					background-color: var(--wpmvc-error-200);
+					background-color: var(--wpmvc-error-100);
 					color: var(--wpmvc-error-500);
+				`;
+			case 'expired':
+				return `
+					background-color: #F0E4D9;
+					color: #AD7F58;
 				`;
 			default:
 				return `

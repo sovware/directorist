@@ -5,7 +5,7 @@
 
 namespace Directorist;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 class ATBDP_Shortcode {
     public static $instance = null;
@@ -20,21 +20,21 @@ class ATBDP_Shortcode {
 
             self::$shortcodes = apply_filters(
                 'atbdp_shortcodes', [
-                // Archive
+                    // Archive
                     'directorist_all_listing' => [ $this, 'listing_archive' ],
                     'directorist_category'    => [ $this, 'category_archive' ],
                     'directorist_tag'         => [ $this, 'tag_archive' ],
                     'directorist_location'    => [ $this, 'location_archive' ],
 
-                // Taxonomy
+                    // Taxonomy
                     'directorist_all_categories' => [ $this, 'all_categories' ],
                     'directorist_all_locations'  => [ $this, 'all_locations' ],
 
-                // Search
+                    // Search
                     'directorist_search_listing' => [ $this, 'search_listing' ],
                     'directorist_search_result'  => [ $this, 'search_result' ],
 
-                // Author
+                    // Author
                     'directorist_author_profile'      => [ $this, 'author_profile' ],
                     'directorist_user_dashboard'      => [ $this, 'user_dashboard' ],
                     'directorist_all_authors'         => [ $this, 'all_authors' ],
@@ -42,20 +42,20 @@ class ATBDP_Shortcode {
                     'directorist_custom_registration' => [ $this, 'register_registration_shortcode' ],
                     'directorist_user_login'          => [ $this, 'register_login_shortcode' ],
 
-                // Forms
+                    // Forms
                     'directorist_add_listing'         => [ $this, 'add_listing' ],
 
-                // Checkout
-                    // 'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
-                    // 'directorist_payment_receipt'     => [ new \ATBDP_Checkout, 'payment_receipt' ],
+                    // Checkout
+                    'directorist_payment_receipt'     => [ new \ATBDP_Checkout, 'payment_receipt' ],
+                    'directorist_checkout'            => [ new \ATBDP_Checkout, 'checkout' ],
                     'directorist_transaction_failure' => [ new \ATBDP_Checkout, 'transaction_failure' ],
 
-                // Single
+                    // Single
                     'directorist_single_listings_header' => [ $this, 'single_listings_header' ],
                     'directorist_single_listing_section' => [ $this, 'single_listing_section' ],
                     'directorist_single_listing_field' => [ $this, 'single_listing_field' ],
 
-                // Single -- legacy shortcode
+                    // Single -- legacy shortcode
                     'directorist_listing_top_area'            => '__return_empty_string',
                     'directorist_listing_tags'                => '__return_empty_string',
                     'directorist_listing_custom_fields'       => '__return_empty_string',
@@ -66,7 +66,6 @@ class ATBDP_Shortcode {
                     'directorist_listing_contact_owner'       => '__return_empty_string',
                     'directorist_listing_review'              => '__return_empty_string',
                     'directorist_related_listings'            => '__return_empty_string',
-
                 ]
             );
 
@@ -75,8 +74,6 @@ class ATBDP_Shortcode {
                 add_shortcode( $shortcode, $callback );
             }
         }
-
-        return self::$instance;
     }
 
     public function single_listings_header( $atts ) {
@@ -212,30 +209,38 @@ class ATBDP_Shortcode {
         return $listings->render_shortcode( $atts );
     }
 
-    public function category_archive( $atts ) {
-        $atts             = ! empty( $atts ) ? $atts : [];
-        $category_slug    = ! empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : urldecode( get_query_var( 'atbdp_category' ) );
-        $atts['category'] = sanitize_text_field( $category_slug );
+    public function category_archive( array $atts = [] ) {
+        if ( is_tax( ATBDP_CATEGORY ) ) {
+            $atts['category'] = get_queried_object()->slug;
+        } else {
+            $category_slug    = ! empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : urldecode( get_query_var( 'atbdp_category' ) );
+            $atts['category'] = sanitize_text_field( $category_slug );
+        }
 
-        $atts[ 'shortcode' ] = 'directorist_category';
-
+        $atts['shortcode'] = 'directorist_category';
         return $this->listing_archive( $atts );
     }
 
-    public function tag_archive( $atts ) {
-        $atts        = ! empty( $atts ) ? $atts : [];
-        $tag_slug    = ! empty( $_GET['tag'] ) ? directorist_clean( wp_unslash( $_GET['tag'] ) ) : get_query_var( 'atbdp_tag' );
-        $atts['tag'] = sanitize_title_for_query( $tag_slug );
+    public function tag_archive( array $atts = [] ) {
+        if ( is_tax( ATBDP_TAGS ) ) {
+            $atts['tag'] = get_queried_object()->slug;
+        } else {
+            $tag_slug    = ! empty( $_GET['tag'] ) ? directorist_clean( wp_unslash( $_GET['tag'] ) ) : get_query_var( 'atbdp_tag' );
+            $atts['tag'] = sanitize_title_for_query( $tag_slug );
+        }
 
         $atts[ 'shortcode' ] = 'directorist_tag';
 
         return $this->listing_archive( $atts );
     }
 
-    public function location_archive( $atts ) {
-        $atts             = ! empty( $atts ) ? $atts : [];
-        $location_slug    = ! empty( $_GET['location'] ) ? directorist_clean( wp_unslash( $_GET['location'] ) ) : urldecode( get_query_var( 'atbdp_location' ) );
-        $atts['location'] = sanitize_text_field( $location_slug );
+    public function location_archive( array $atts = [] ) {
+        if ( is_tax( ATBDP_LOCATION ) ) {
+            $atts['location'] = get_queried_object()->slug;
+        } else {
+            $location_slug    = ! empty( $_GET['location'] ) ? directorist_clean( wp_unslash( $_GET['location'] ) ) : urldecode( get_query_var( 'atbdp_location' ) );
+            $atts['location'] = sanitize_text_field( $location_slug );
+        }
 
         $atts[ 'shortcode' ] = 'directorist_location';
 

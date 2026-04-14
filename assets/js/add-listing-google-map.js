@@ -73,12 +73,6 @@ function convertToSelect2(selector) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -87,6 +81,12 @@ function convertToSelect2(selector) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
@@ -145,8 +145,47 @@ function initAddListingMap() {
     return;
   }
   if ($('#gmap').length) {
+    var localized_data = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('map_data');
+
+    // initialize all vars here to avoid hoisting related misunderstanding.
+    var map;
+    var autocomplete;
+    var address_input;
+    var markers;
+    var $manual_lat;
+    var $manual_lng;
+    var saved_lat_lng;
+
+    // Localized Data
+    var loc_default_latitude = parseFloat(localized_data.default_latitude);
+    var loc_default_longitude = parseFloat(localized_data.default_longitude);
+    var loc_manual_lat = parseFloat(localized_data.manual_lat);
+    var loc_manual_lng = parseFloat(localized_data.manual_lng);
+    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
+    var searchIcon = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/map-marker-alt.svg')\"></i>");
+    var markerShape = document.createElement('div');
+    markerShape.className = 'atbd_map_shape';
+    markerShape.innerHTML = searchIcon;
+    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
+    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
+    $manual_lat = $('#manual_lat');
+    $manual_lng = $('#manual_lng');
+    saved_lat_lng = {
+      lat: loc_manual_lat,
+      lng: loc_manual_lng
+    };
+
+    // default is London city
+    markers = [],
+    // initialize the array to keep track all the marker
+    address_input = document.getElementById('address');
+    if (address_input !== null) {
+      address_input.addEventListener('focus', geolocate);
+    }
+    var geocoder = new google.maps.Geocoder();
+
     // This function will help to get the current location of the user
-    var markerDragInit = function markerDragInit(marker) {
+    function markerDragInit(marker) {
       marker.addListener('dragend', function (event) {
         // Get exact coordinates from the marker position
         var exactLat = event.latLng.lat();
@@ -160,8 +199,10 @@ function initAddListingMap() {
         // This doesn't affect the stored coordinates
         geocodeAddressForDisplay(geocoder, exactLat, exactLng);
       });
-    }; // Helper function to format address by removing plus code and using address components
-    var formatAddress = function formatAddress(result) {
+    }
+
+    // Helper function to format address by removing plus code and using address components
+    function formatAddress(result) {
       if (!result || !result.address_components) {
         return '';
       }
@@ -176,8 +217,10 @@ function initAddListingMap() {
       return components.map(function (c) {
         return c.long_name;
       }).join(', ');
-    }; // Function to geocode address for display purposes only (doesn't modify coordinates)
-    var geocodeAddressForDisplay = function geocodeAddressForDisplay(geocoder, lat, lng) {
+    }
+
+    // Function to geocode address for display purposes only (doesn't modify coordinates)
+    function geocodeAddressForDisplay(geocoder, lat, lng) {
       var latLng = new google.maps.LatLng(lat, lng);
       var opt = {
         location: latLng
@@ -189,8 +232,10 @@ function initAddListingMap() {
           address_input.value = cleanedAddress;
         }
       });
-    }; // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
-    var geolocate = function geolocate() {
+    }
+
+    // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
+    function geolocate() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           var geolocation = {
@@ -204,8 +249,8 @@ function initAddListingMap() {
           autocomplete.setBounds(circle.getBounds());
         });
       }
-    };
-    var initAutocomplete = function initAutocomplete() {
+    }
+    function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
       var opt = {
         types: ['geocode'],
@@ -222,8 +267,8 @@ function initAddListingMap() {
 
       // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
       autocomplete.addListener('place_changed', fillInAddress);
-    };
-    var fillInAddress = function fillInAddress() {
+    }
+    function fillInAddress() {
       // Get the place details from the autocomplete object.
       var place = autocomplete.getPlace();
 
@@ -245,10 +290,11 @@ function initAddListingMap() {
       // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
       markers.push(marker);
       markerDragInit(marker);
-    };
-    // start google map place auto complete API call
+    }
+    initAutocomplete(); // start google map place auto complete API call
+
     // Map Initialize
-    var initMap = function initMap() {
+    function initMap() {
       /* Create new map instance */
       map = new google.maps.Map(document.getElementById('gmap'), {
         zoom: loc_map_zoom_level,
@@ -287,11 +333,13 @@ function initAddListingMap() {
         addMarker(event.latLng, map);
       });
       markerDragInit(marker);
-    };
+    }
+
     /*
      * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
      * */
-    var geocodeAddress = function geocodeAddress(geocoder, resultsMap) {
+
+    function geocodeAddress(geocoder, resultsMap) {
       var lat = parseFloat(document.getElementById('manual_lat').value);
       var lng = parseFloat(document.getElementById('manual_lng').value);
       var latLng = new google.maps.LatLng(lat, lng);
@@ -326,12 +374,15 @@ function initAddListingMap() {
           alert(localized_data.geocode_error_msg + status);
         }
       });
-    };
+    }
+    initMap();
+
     // adding features of creating marker manually on the map on add listing page.
     /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
           var labelIndex = 0; */
+
     // Adds a marker to the map.
-    var addMarker = function addMarker(location, map) {
+    function addMarker(location, map) {
       // Add the marker at the clicked location, and add the next-available label;
 
       // from the array of alphabetical characters.
@@ -346,57 +397,19 @@ function initAddListingMap() {
       // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
       markers.push(marker);
       markerDragInit(marker);
-    }; // Delete Marker
-    var deleteMarker = function deleteMarker() {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-      }
-      markers = [];
-    };
-    var localized_data = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('map_data');
-
-    // initialize all vars here to avoid hoisting related misunderstanding.
-    var map;
-    var autocomplete;
-    var address_input;
-    var markers;
-    var $manual_lat;
-    var $manual_lng;
-    var saved_lat_lng;
-
-    // Localized Data
-    var loc_default_latitude = parseFloat(localized_data.default_latitude);
-    var loc_default_longitude = parseFloat(localized_data.default_longitude);
-    var loc_manual_lat = parseFloat(localized_data.manual_lat);
-    var loc_manual_lng = parseFloat(localized_data.manual_lng);
-    var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
-    var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-    var markerShape = document.createElement('div');
-    markerShape.className = 'atbd_map_shape';
-    markerShape.innerHTML = searchIcon;
-    loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
-    loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-    $manual_lat = $('#manual_lat');
-    $manual_lng = $('#manual_lng');
-    saved_lat_lng = {
-      lat: loc_manual_lat,
-      lng: loc_manual_lng
-    };
-
-    // default is London city
-    markers = [],
-    // initialize the array to keep track all the marker
-    address_input = document.getElementById('address');
-    if (address_input !== null) {
-      address_input.addEventListener('focus', geolocate);
     }
-    var geocoder = new google.maps.Geocoder();
-    initAutocomplete();
-    initMap();
+
+    // Delete Marker
     $('#delete_marker').on('click', function (e) {
       e.preventDefault();
       deleteMarker();
     });
+    function deleteMarker() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+      markers = [];
+    }
   }
 }
 $(document).ready(function () {

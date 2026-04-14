@@ -1,5 +1,3 @@
-import './../../scss/layout/admin/admin-style.scss';
-
 // Global
 import './../global/global';
 

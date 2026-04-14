@@ -18,24 +18,38 @@ $custom_field_meta_key_field = apply_filters(
     ]
 );
 
-function get_assign_to_field( array $args = [] ) {
-    $default = [
-        'type' => 'radio',
-        'label' => __( 'Assign to', 'directorist' ),
-        'value' => 'form',
-        'options' => [
-            [
-                'label' => __( 'Form', 'directorist' ),
-                'value' => 'form',
-            ],
-            [
-                'label' => __( 'Category', 'directorist' ),
-                'value' => 'category',
-            ],
+function get_file_upload_field_options() {
+    $options = [
+        [
+            'label' => __( 'All types', 'directorist' ),
+            'value' => 'all_types',
+        ],
+        [
+            'label' => __( 'Image types', 'directorist' ),
+            'value' => 'image',
+        ],
+        [
+            'label' => __( 'Audio types', 'directorist' ),
+            'value' => 'audio',
+        ],
+        [
+            'label' => __( 'Video types', 'directorist' ),
+            'value' => 'video',
+        ],
+        [
+            'label' => __( 'Document types', 'directorist' ),
+            'value' => 'document',
         ],
     ];
 
-    return array_merge( $default, $args );
+    foreach ( directorist_get_supported_file_types() as $file_type ) {
+        $options[] = [
+            'label' => $file_type,
+            'value' => $file_type,
+        ];
+    }
+
+    return $options;
 }
 
 function get_category_select_field( array $args = [] ) {
@@ -84,45 +98,32 @@ function get_cetagory_options() {
     return $options;
 }
 
-function get_file_upload_field_options() {
-    $options = [
-        [
-            'label' => __( 'All types', 'directorist' ),
-            'value' => 'all_types',
-        ],
-        [
-            'label' => __( 'Image types', 'directorist' ),
-            'value' => 'image',
-        ],
-        [
-            'label' => __( 'Audio types', 'directorist' ),
-            'value' => 'audio',
-        ],
-        [
-            'label' => __( 'Video types', 'directorist' ),
-            'value' => 'video',
-        ],
-        [
-            'label' => __( 'Document types', 'directorist' ),
-            'value' => 'document',
+/**
+ * Get conditional logic field option configuration.
+ *
+ * @param array $args Optional arguments to override defaults.
+ * @return array Conditional logic field configuration.
+ */
+function get_conditional_logic_field( array $args = [] ) {
+    $default = [
+        'type'        => 'conditional-logic',
+        'label'       => __( 'Conditional Logic', 'directorist' ),
+        'description' => __( 'Show or hide this field based on other field values.', 'directorist' ),
+        'value'       => [
+            'enabled' => false,
+            'action'  => 'show',
+            'groups'  => [],
         ],
     ];
 
-    foreach ( directorist_get_supported_file_types() as $file_type ) {
-        $options[] = [
-            'label' => $file_type,
-            'value' => $file_type,
-        ];
-    }
-
-    return $options;
+    return array_merge( $default, $args );
 }
 
 return apply_filters(
     'atbdp_form_custom_widgets', [
         'text' => [
             'label'   => __( 'Text', 'directorist' ),
-            'icon'    => 'uil uil-text',
+            'icon'    => 'las la-text-height',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -158,27 +159,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'textarea' => [
             'label'   => __( 'Textarea', 'directorist' ),
-            'icon'    => 'uil uil-align-left',
+            'icon'    => 'las la-align-left',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -219,27 +206,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'number' => [
             'label'   => __( 'Number', 'directorist' ),
-            'icon'    => 'uil uil-0-plus',
+            'icon'    => 'las la-hashtag',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -270,11 +243,6 @@ return apply_filters(
                     'label' => __( 'Required', 'directorist' ),
                     'value' => false,
                 ],
-                'only_for_admin' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Admin Only', 'directorist' ),
-                    'value' => false,
-                ],
                 'min_value' => [
                     'type'  => 'number',
                     'label' => __( 'Min Value', 'directorist' ),
@@ -302,27 +270,18 @@ return apply_filters(
                     'description' => __( 'Appears after The Input', 'directorist' ),
                     'value'       => "",
                 ],
-                'assign_to' => [
+                'only_for_admin' => [
                     'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
+                    'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'url' => [
             'label'   => __( 'URL', 'directorist' ),
-            'icon'    => 'uil uil-link-add',
+            'icon'    => 'las la-link',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -363,27 +322,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'date' => [
             'label'   => __( 'Date', 'directorist' ),
-            'icon'    => 'uil uil-calender',
+            'icon'    => 'la la-calendar',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -419,27 +364,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'time' => [
             'label'   => __( 'Time', 'directorist' ),
-            'icon'    => 'uil uil-clock',
+            'icon'    => 'las la-clock',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -475,27 +406,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'color_picker' => [
             'label'   => __( 'Color Picker', 'directorist' ),
-            'icon'    => 'uil uil-palette',
+            'icon'    => 'las la-palette',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -526,27 +443,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'select' => [
             'label'   => __( 'Dropdown', 'directorist' ),
-            'icon'    => 'uil uil-file-check-alt',
+            'icon'    => 'las la-chevron-circle-down',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -594,27 +497,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'checkbox' => [
             'label'   => __( 'Checkbox', 'directorist' ),
-            'icon'    => 'uil uil-check-square',
+            'icon'    => 'las la-check-square',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -662,27 +551,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'radio' => [
             'label'   => __( 'Radio', 'directorist' ),
-            'icon'    => 'uil uil-circle',
+            'icon'    => 'la la-dot-circle',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -730,27 +605,13 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
         'file' => [
             'label'   => __( 'File Upload', 'directorist' ),
-            'icon'    => 'uil uil-paperclip',
+            'icon'    => 'las la-paperclip',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -794,6 +655,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
     ]

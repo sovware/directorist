@@ -13,6 +13,7 @@
 				action: 'atbdp_public_add_remove_favorites',
 				directorist_nonce: directorist.directorist_nonce,
 				post_id: $(this).data('listing_id'),
+				label: $(this).data('label'),
 			};
 			$.post(directorist.ajaxurl, data, function (response) {
 				if (response) {

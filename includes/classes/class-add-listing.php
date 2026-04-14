@@ -257,9 +257,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                         continue;
                     }
 
-                    if ( self::should_ignore_category_custom_field( $field ) ) {
-                        continue;
-                    }
+                    // Removed: should_ignore_category_custom_field check (assign_to feature removed)
 
                     switch ( $field->get_internal_key() ) {
                         case 'title':
@@ -621,6 +619,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                         continue;
                     }
 
+                    $image    = sanitize_file_name( $image );
                     $filepath = $temp_dir . $image;
 
                     if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
@@ -912,16 +911,12 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             return $field->is_value_empty( $posted_data );
         }
 
-        public static function should_ignore_category_custom_field( $field ) {
-            return ( $field->is_category_only() && ( is_null( self::$selected_categories ) || ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) );
-        }
+        // Removed: should_ignore_category_custom_field method (assign_to feature removed)
 
         public static function validate_field( $field, $posted_data ) {
             $should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
-            if ( self::should_ignore_category_custom_field( $field ) ) {
-                $should_validate = false;
-            }
+            // Removed: should_ignore_category_custom_field check (assign_to feature removed)
 
             if ( ! $should_validate ) {
                 return [
@@ -987,14 +982,25 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 return;
             }
 
-            if ( $renew_from === 'dashboard' && ! wp_verify_nonce( $token, 'directorist_listing_renewal' ) ) {
-                return;
+            if ( $renew_from === 'dashboard' ) {
+                if ( empty( $token ) || ! wp_verify_nonce( $token, 'directorist_listing_renewal' ) ) {
+                    wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
+                }
+            }
+            
+            $listing_id = get_query_var( 'atbdp_listing_id' );
+            
+            if ( $renew_from === 'email' ) {
+                if ( ! is_user_logged_in() ) {
+                    wp_die( esc_html__( 'You need to be logged in to renew this listing.', 'directorist' ), '', array( 'response' => 403 ) );
+                }
+
+                $saved_token = get_post_meta( $listing_id, '_renewal_token', true );
+                if ( empty( $token ) || empty( $saved_token ) || $saved_token !== $token ) {
+                    wp_die( esc_html__( 'Invalid renewal token.', 'directorist' ), '', array( 'response' => 403 ) );
+                }
             }
 
-            $listing_id = get_query_var( 'atbdp_listing_id' );
-            if ( $renew_from === 'email' && directorist_renewal_token_hash( $listing_id, get_current_user_id() ) !== $token ) {
-                return;
-            }
 
             if ( ! directorist_is_listing_post_type( $listing_id ) ) {
                 return;

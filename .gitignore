@@ -15,7 +15,12 @@ languages/directorist-en_GB-backup-202002181356150.po~
 /package-lock.json
 /_build
 /yarn.lock
-/vendor-src
 /pnpm-lock.yaml
-/assets/build
-AGENTS.md
+/.cursor
+/.husky
+/.claude
+/.cursor
+/node-update-notes.md
+/openspec
+/pnpm-workspace.yaml
+/openspec

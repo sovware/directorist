@@ -7,6 +7,7 @@ export default new Vuex.Store({
 	// state
 	state: {
 		active_nav_index: 0,
+		listing_type_id: 0,
 		is_saving: false,
 		fields: {},
 		layouts: {},
@@ -179,8 +180,19 @@ export default new Vuex.Store({
 			window.location.hash = hash;
 		},
 
+		setListingTypeId: (state, id) => {
+			state.listing_type_id = id;
+		},
+
 		swichNav: (state, index) => {
 			state.active_nav_index = index;
+			try {
+				const typeId = state.listing_type_id || 0;
+				window.localStorage.setItem(
+					`directorist_cptm_active_top_tab_index_${typeId}`,
+					String(index)
+				);
+			} catch (error) {}
 		},
 
 		setMetaKey: (state, payload) => {
@@ -241,20 +253,21 @@ export default new Vuex.Store({
 			].fields[payload.field_key].value = payload.value;
 		},
 
+		updateSingleListingLayout: (state, value) => {
+			state.fields.single_listing_header.layout = value;
+		},
+
 		importFields: (state, importing_fields) => {
 			for (let field_key in importing_fields) {
-				const importValue = importing_fields[field_key];
-
-				if (typeof importValue === 'undefined') {
+				if (typeof importing_fields[field_key] === 'undefined') {
 					continue;
 				}
 
-				// Skip if the field is not in the state
-				if (state.fields[field_key]) {
-					Vue.set(state.fields[field_key], 'value', importValue);
-				} else {
-					continue;
-				}
+				Vue.set(
+					state.fields[field_key],
+					'value',
+					importing_fields[field_key]
+				);
 			}
 		},
 	},

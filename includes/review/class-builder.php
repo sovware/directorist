@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Builder {
     protected $fields   = [];
 
-    protected $cookies_consent;
+    protected $cookies_consent = false;
 
-    protected $gdpr_consent;
+    protected $gdpr_consent = false;
 
-    protected $gdpr_consent_label;
+    protected $gdpr_consent_label = '';
 
     protected $rating_type;
 
@@ -35,14 +35,20 @@ class Builder {
 
     private function __construct( $data ) {
         $this->load_data( $data );
-        $this->cookies_consent      = ! empty( $data['fields']['review_consent']['enable_cookie_consent'] ) ? true : false;
-        $this->gdpr_consent         = ! empty( $data['fields']['review_consent']['enable_gdpr_consent'] ) ? true : false;
-        $this->rating_type          = ! empty( $data['rating_type'] ) ? $data['rating_type'] : 'single';
-        $this->gdpr_consent_label   = ! empty( $data['fields']['review_consent']['consent_label'] ) ? $data['fields']['review_consent']['consent_label'] : sprintf(
-            __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
-            esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ),
-            esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() )
-        );;
+
+        $consent_field = $this->get_field_by_widget_name( 'consent' );
+
+        if ( $consent_field ) {
+            $this->cookies_consent    = (bool) $consent_field['enable_cookie_consent'];
+            $this->gdpr_consent       = (bool) $consent_field['enable_gdpr_consent'];
+            $this->gdpr_consent_label = ! empty( $consent_field['consent_label'] ) ? $consent_field['consent_label'] : sprintf(
+                __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
+                esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ),
+                esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() )
+            );
+        }
+
+        $this->rating_type = ! empty( $data['rating_type'] ) ? $data['rating_type'] : 'single';
     }
 
     public function load_data( $data ) {
@@ -63,27 +69,27 @@ class Builder {
     }
 
     public function get_name_label( $default = '' ) {
-        return $this->get_field( 'name', 'label', $default );
+        return $this->get_field_attr_by_widget_name( 'name', 'label', $default );
     }
 
     public function get_name_placeholder( $default = '' ) {
-        return $this->get_field( 'name', 'placeholder', $default );
+        return $this->get_field_attr_by_widget_name( 'name', 'placeholder', $default );
     }
 
     public function get_email_label( $default = '' ) {
-        return $this->get_field( 'email', 'label', $default );
+        return $this->get_field_attr_by_widget_name( 'email', 'label', $default );
     }
 
     public function get_email_placeholder( $default = '' ) {
-        return $this->get_field( 'email', 'placeholder', $default );
+        return $this->get_field_attr_by_widget_name( 'email', 'placeholder', $default );
     }
 
     public function get_website_label( $default = '' ) {
-        return $this->get_field( 'website', 'label', $default );
+        return $this->get_field_attr_by_widget_name( 'website', 'label', $default );
     }
 
     public function get_website_placeholder( $default = '' ) {
-        return $this->get_field( 'website', 'placeholder', $default );
+        return $this->get_field_attr_by_widget_name( 'website', 'placeholder', $default );
     }
 
     /**
@@ -105,11 +111,11 @@ class Builder {
      * @return string
      */
     public function get_comment_field_label( $default = '' ) {
-        return $this->get_field( 'comment_label', $default );
+        return $this->get_field_attr_by_widget_name( 'comment_label', $default );
     }
 
     public function get_comment_placeholder( $default = '' ) {
-        return $this->get_field( 'comment', 'placeholder', $default );
+        return $this->get_field_attr_by_widget_name( 'comment', 'placeholder', $default );
     }
 
     public function is_cookies_consent_active() {
@@ -125,11 +131,30 @@ class Builder {
     }
 
     public function is_website_field_active() {
-        return (bool) $this->get_field( 'website', 'enable', false );
+        return (bool) $this->get_field_attr_by_widget_name( 'website', 'enable', false );
     }
 
-    protected function get_field( $field_key, $attr = 'label', $default = false ) {
-        $field_key = "review_{$field_key}";
-        return ( ( isset( $this->fields[ $field_key ][ $attr ] ) && $this->fields[ $field_key ][ $attr ] !== '' ) ? $this->fields[ $field_key ][ $attr ] : $default );
+    protected function get_field_attr_by_widget_name( $widget_name, $attr = 'label', $default = false ) {
+        $field = $this->get_field_by_widget_name( $widget_name );
+
+        if ( ! $field ) {
+            return $default;
+        }
+
+        return isset( $field[ $attr ] ) ? $field[ $attr ] : $default;
+    }
+
+    protected function get_field_by_widget_name( $widget_name, $default = null ) {
+        $field_key = "review_{$widget_name}";
+
+        foreach ( $this->fields as $field ) {
+            if ( $field['widget_child_name'] !== $field_key ) {
+                continue;
+            }
+
+            return $field;
+        }
+
+        return $default;
     }
 }

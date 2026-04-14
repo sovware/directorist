@@ -6,6 +6,14 @@ import { directoristRequestHeaders } from '../helper';
 import '../public/components/colorPicker';
 import '../public/components/directoristDropdown';
 import '../public/components/directoristSelect';
+import {
+	applyConditionalLogic as applyConditionalLogicBase,
+	evaluateConditionalLogic as evaluateConditionalLogicBase,
+	getFieldValue as getFieldValueBase,
+	initConditionalLogic as initConditionalLogicBase,
+	updateCategoryFieldLabel as updateCategoryFieldLabelBase,
+	watchFieldChanges as watchFieldChangesBase,
+} from './components/conditional-logic';
 import debounce from './components/debounce';
 
 /* eslint-disable */
@@ -428,8 +436,14 @@ $(function () {
 				const $visible = $(visible);
 
 				$visible.removeAttr('style');
-				$visible.find('.directorist-content-module__title').show();
-				$visible.find('.directorist-content-module__contents').show();
+				$visible
+					.find('.directorist-content-module__title')
+					.show()
+					.addClass('opened');
+				$visible
+					.find('.directorist-content-module__contents')
+					.show()
+					.addClass('active');
 
 				$(`a[href="#${$visible.attr('id')}"]`).show();
 			}
@@ -441,10 +455,14 @@ $(function () {
 
 				if ($hidable.find('.directorist-form-group:visible').length) {
 					$hidable.removeAttr('style');
-					$hidable.find('.directorist-content-module__title').show();
+					$hidable
+						.find('.directorist-content-module__title')
+						.show()
+						.addClass('opened');
 					$hidable
 						.find('.directorist-content-module__contents')
-						.show();
+						.show()
+						.addClass('active');
 
 					$(`a[href="#${$hidable.attr('id')}"]`).show();
 				} else {
@@ -456,10 +474,14 @@ $(function () {
 						border: 0,
 						overflow: 'hidden',
 					});
-					$hidable.find('.directorist-content-module__title').hide();
+					$hidable
+						.find('.directorist-content-module__title')
+						.hide()
+						.removeClass('opened');
 					$hidable
 						.find('.directorist-content-module__contents')
-						.hide();
+						.hide()
+						.removeClass('active');
 
 					$(`a[href="#${$hidable.attr('id')}"]`).hide();
 				}
@@ -526,10 +548,11 @@ $(function () {
 		}
 	}
 
-	let on_processing = false;
+	let FORM_ON_PROCESSING = false;
 	let has_media = true;
 	let quickLoginModalSuccessCallback = null;
 	const $notification = $('#listing_notifier');
+	const UPLOADED_IMAGES_CACHE = new WeakMap();
 
 	// -----------------------------
 	// Submit The Form
@@ -537,32 +560,33 @@ $(function () {
 
 	$('body').on('submit', '#directorist-add-listing-form', function (e) {
 		e.preventDefault();
-
-		const $form = $(e.target);
-		let error_count = 0;
-		const err_log = {};
-		const $submitButton = $('.directorist-form-submit__btn');
-
-		if (on_processing) {
+		if (FORM_ON_PROCESSING) {
 			return;
 		}
-
+		var $form = $(e.target);
+		var err_log = {};
+		var $submitButton = $form.find('.directorist-form-submit__btn');
+		var error_count = 0;
+		var uploadableImages = [];
+		var counter = 0;
+		var $directory = $form.find("input[name='directory_type']");
+		var directory_id = $directory !== undefined ? $directory.val() : 0;
+		directory_id = qs.directory_type ? qs.directory_type : directory_id;
 		function disableSubmitButton() {
-			on_processing = true;
+			FORM_ON_PROCESSING = true;
 			$submitButton.addClass('atbd_loading').attr('disabled', true);
 		}
-
 		function enableSubmitButton() {
-			on_processing = false;
+			FORM_ON_PROCESSING = false;
 			$submitButton.removeClass('atbd_loading').attr('disabled', false);
 		}
-
-		// images
-		let selectedImages = [];
-		let uploadedImages = [];
-
 		if (mediaUploaders.length) {
-			for (var uploader of mediaUploaders) {
+			for (
+				var _i2 = 0, _mediaUploaders = mediaUploaders;
+				_i2 < _mediaUploaders.length;
+				_i2++
+			) {
+				var uploader = _mediaUploaders[_i2];
 				if (
 					!uploader.media_uploader ||
 					$(uploader.media_uploader.container)
@@ -571,117 +595,126 @@ $(function () {
 				) {
 					continue;
 				}
-
 				if (!uploader.media_uploader.hasValidFiles()) {
 					$submitButton.removeClass('atbd_loading');
-
 					err_log.listing_gallery = {
 						msg: uploader.uploaders_data['error_msg'],
 					};
-
 					error_count++;
 					scrollTo('.' + uploader.uploaders_data.element_id);
 					break;
 				}
-
 				uploader.media_uploader.getTheFiles().forEach(function (file) {
-					selectedImages.push({
+					if (UPLOADED_IMAGES_CACHE.has(file)) {
+						return;
+					}
+					uploadableImages.push({
 						field: uploader.uploaders_data.meta_name,
 						file: file,
+						uploadedFile: '',
 					});
 				});
 			}
 		}
-
-		if (selectedImages.length) {
-			let counter = 0;
-
+		if (uploadableImages.length) {
 			function uploadImage() {
-				const formData = new FormData();
+				if (UPLOADED_IMAGES_CACHE.has(uploadableImages[counter].file)) {
+					return;
+				}
+				var formData = new FormData();
 
-				formData.append('action', 'directorist_upload_listing_image');
-				formData.append(
-					'directorist_nonce',
-					directorist.directorist_nonce
-				);
-				formData.append('image', selectedImages[counter]);
-				formData.append('image', selectedImages[counter].file);
-				formData.append('field', selectedImages[counter].field);
+				// formData.append( 'action', 'directorist_upload_listing_image' );
+				// formData.append( 'directorist_nonce', directorist.directorist_nonce );
+				// formData.append( 'file', uploadableImages[ counter ] );
+				formData.append('file', uploadableImages[counter].file);
+				formData.append('field', uploadableImages[counter].field);
+				formData.append('directory', directory_id);
+				// formData.append( 'field', uploadableImages[ counter ].field );
 
 				$.ajax({
 					method: 'POST',
 					processData: false,
 					contentType: false,
-					url: localized_data.ajaxurl,
+					mimeType: 'multipart/form-data',
+					async: true,
+					url:
+						directorist.rest_url +
+						'directorist/v1/temp-media-upload',
 					data: formData,
-					beforeSend() {
+					beforeSend: function beforeSend(xhr) {
+						xhr.setRequestHeader(
+							'X-WP-Nonce',
+							directorist.rest_nonce
+						);
 						disableSubmitButton();
-
-						const totalImages = selectedImages.length;
+						var totalImages = uploadableImages.length;
 						if (totalImages === 1) {
 							$notification
 								.show()
 								.html(
-									`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg}</span>`
+									'<span class="atbdp_success">'.concat(
+										localized_data.i18n_text
+											.image_uploading_msg,
+										'</span>'
+									)
 								);
 						} else {
-							const completedPercent = Math.ceil(
+							var completedPercent = Math.ceil(
 								((counter === 0 ? 1 : counter) * 100) /
 									totalImages
 							);
 							$notification
 								.show()
 								.html(
-									`<span class="atbdp_success">${localized_data.i18n_text.image_uploading_msg} (${completedPercent}%)</span>`
+									'<span class="atbdp_success">'
+										.concat(
+											localized_data.i18n_text
+												.image_uploading_msg,
+											' ('
+										)
+										.concat(completedPercent, '%)</span>')
 								);
 						}
 					},
-					success(response) {
-						if (!response.success) {
-							enableSubmitButton();
-
-							$notification
-								.show()
-								.html(
-									`<span class="atbdp_error">${response.data}</span>`
-								);
-
-							return;
-						}
-
-						uploadedImages.push({
-							field: selectedImages[counter].field,
-							file: response.data,
-						});
-
-						counter++;
-
-						if (counter < selectedImages.length) {
+					success: function success(response) {
+						var data = JSON.parse(response);
+						uploadableImages[counter].uploadedFile = data.file;
+						UPLOADED_IMAGES_CACHE.set(
+							uploadableImages[counter].file,
+							true
+						);
+						++counter;
+						if (counter < uploadableImages.length) {
 							uploadImage();
 						} else {
-							submitForm($form, uploadedImages);
+							submitForm($form, uploadableImages);
 						}
 					},
-					error(response) {
+					error: function error(xhr) {
+						var data = JSON.parse(xhr.responseText);
 						enableSubmitButton();
-
 						$notification.html(
-							`<span class="atbdp_error">${response.responseJSON.data}</span>`
+							'<span class="atbdp_error">'.concat(
+								data.message,
+								'</span>'
+							)
 						);
 					},
 				});
 			}
-
-			if (uploadedImages.length === selectedImages.length) {
-				submitForm($form, uploadedImages);
-			} else {
+			if (counter < uploadableImages.length) {
 				uploadImage();
+			} else {
+				submitForm($form, uploadableImages);
 			}
 		} else {
 			submitForm($form);
 		}
-
-		function submitForm($form, uploadedImages = []) {
+		function submitForm($form) {
+			var uploadedImages =
+				arguments.length > 1 && arguments[1] !== undefined
+					? arguments[1]
+					: [];
 			var error_count = 0;
 			var err_log = {};
 			const form_data = new FormData();
@@ -701,35 +734,35 @@ $(function () {
 				'directorist_nonce',
 				directorist.directorist_nonce
 			);
-
 			disableSubmitButton();
-
-			const fieldValuePairs = $form.serializeArray();
+			var fieldValuePairs = $form.serializeArray();
 
 			// Append Form Fields Values
 			for (const field of fieldValuePairs) {
 				form_data.append(field.name, field.value);
 			}
 
-			// Upload existing image
 			if (mediaUploaders.length) {
-				for (let uploader of mediaUploaders) {
+				var _loop = function _loop() {
+					var uploader = _mediaUploaders2[_i3];
 					if (
 						!uploader.media_uploader ||
 						$(uploader.media_uploader.container)
 							.parents('form')
 							.get(0) !== $form.get(0)
 					) {
-						continue;
+						return 1; // continue
 					}
-
 					if (uploader.media_uploader.hasValidFiles()) {
 						uploader.media_uploader
 							.getFilesMeta()
 							.forEach(function (file_meta) {
 								if (file_meta.attachmentID) {
 									form_data.append(
-										`${uploader.uploaders_data.meta_name}_old[]`,
+										''.concat(
+											uploader.uploaders_data.meta_name,
+											'_old[]'
+										),
 										file_meta.attachmentID
 									);
 								}
@@ -738,80 +771,66 @@ $(function () {
 						err_log.listing_gallery = {
 							msg: uploader.uploaders_data['error_msg'],
 						};
-
 						error_count++;
-
 						if (
 							$('.' + uploader.uploaders_data.element_id).length
 						) {
 							scrollTo('.' + uploader.uploaders_data.element_id);
 						}
 					}
+				};
+				for (
+					var _i3 = 0, _mediaUploaders2 = mediaUploaders;
+					_i3 < _mediaUploaders2.length;
+					_i3++
+				) {
+					if (_loop()) continue;
 				}
 			}
 
 			// Upload new image
 			if (uploadedImages.length) {
 				uploadedImages.forEach(function (image) {
-					form_data.append(`${image.field}[]`, image.file);
+					form_data.append(
+						''.concat(image.field, '[]'),
+						image.uploadedFile
+					);
 				});
 			}
 
 			// categories
-			const categories = $form.find('#at_biz_dir-categories').val();
+			var categories = $form.find('#at_biz_dir-categories').val();
 			if (Array.isArray(categories) && categories.length) {
-				for (let key in categories) {
+				for (var key in categories) {
 					form_data.append(
 						'tax_input[at_biz_dir-category][]',
 						categories[key]
 					);
 				}
 			}
-
 			if (typeof categories === 'string') {
 				form_data.append(
 					'tax_input[at_biz_dir-category][]',
 					categories
 				);
 			}
-
 			if (form_data.has('admin_category_select[]')) {
 				form_data.delete('admin_category_select[]');
 			}
-
 			if (form_data.has('directory_type')) {
 				form_data.delete('directory_type');
 			}
-
-			var form_directory_type = $form.find(
-				"input[name='directory_type']"
-			);
-
-			var form_directory_type_value =
-				form_directory_type !== undefined
-					? form_directory_type.val()
-					: '';
-			var directory_type = qs.directory_type
-				? qs.directory_type
-				: form_directory_type_value;
-
-			form_data.append('directory_type', directory_type);
-
+			form_data.append('directory_type', directory_id);
 			if (qs.plan) {
 				form_data.append('plan_id', qs.plan);
 			}
 			if (qs.order) {
 				form_data.append('order_id', qs.order);
 			}
-
 			if (error_count) {
 				enableSubmitButton();
-
-				console.log('Form has invalid data');
-				console.log(error_count, err_log);
 				return;
 			}
-
 			$.ajax({
 				method: 'POST',
 				processData: false,
@@ -819,32 +838,36 @@ $(function () {
 				url: localized_data.ajaxurl,
 				data: form_data,
 				headers: directoristRequestHeaders(),
-				beforeSend() {
+				beforeSend: function beforeSend() {
 					disableSubmitButton();
-
 					$notification
 						.show()
 						.html(
-							`<span class="atbdp_success">${localized_data.i18n_text.submission_wait_msg}</span>`
+							'<span class="atbdp_success">'.concat(
+								localized_data.i18n_text.submission_wait_msg,
+								'</span>'
+							)
 						);
 				},
-				success(response) {
+				success: function success(response) {
 					var redirect_url =
 						response && response.redirect_url
 							? encodeURIComponent(response.redirect_url)
 							: '';
-
-					if (response?.nonce_expired === true) {
+					if (
+						(response === null || response === void 0
+							? void 0
+							: response.nonce_expired) === true
+					) {
 						updateLocalNonce();
 					}
-
 					if (response.error === true) {
 						enableSubmitButton();
-
 						$notification
 							.show()
-							.html(`<span>${response.error_msg}</span>`);
-
+							.html(
+								'<span>'.concat(response.error_msg, '</span>')
+							);
 						if (response.quick_login_required) {
 							var modal = $('#directorist-quick-login');
 							var email = response.email;
@@ -866,22 +889,22 @@ $(function () {
 
 							// Show the modal
 							modal.addClass('show');
-
-							quickLoginModalSuccessCallback = function (
-								$form,
-								$submitButton
-							) {
-								$('#guest_user_email').prop('disabled', true);
-
-								$notification.hide().html('');
-
-								$submitButton.remove();
-
-								$form
-									.find('.directorist-form-actions')
-									.find('.directorist-toggle-modal')
-									.removeClass('directorist-d-none');
-							};
+							quickLoginModalSuccessCallback =
+								function quickLoginModalSuccessCallback(
+									$form,
+									$submitButton
+								) {
+									$('#guest_user_email').prop(
+										'disabled',
+										true
+									);
+									$notification.hide().html('');
+									$submitButton.remove();
+									$form
+										.find('.directorist-form-actions')
+										.find('.directorist-toggle-modal')
+										.removeClass('directorist-d-none');
+								};
 						}
 					} else {
 						// preview on and no need to redirect to payment
@@ -893,30 +916,40 @@ $(function () {
 								$notification
 									.show()
 									.html(
-										`<span class="atbdp_success">${response.success_msg}</span>`
+										'<span class="atbdp_success">'.concat(
+											response.success_msg,
+											'</span>'
+										)
 									);
-
-								const navigate_to = joinQueryString(
+								window.location.href = joinQueryString(
 									response.preview_url,
-									`preview=1&redirect=${redirect_url}`
+									'preview=1&redirect='.concat(redirect_url)
 								);
-
-								window.location.href = navigate_to;
 							} else {
 								$notification
 									.show()
 									.html(
-										`<span class="atbdp_success">${response.success_msg}</span>`
+										'<span class="atbdp_success">'.concat(
+											response.success_msg,
+											'</span>'
+										)
 									);
 								if (qs.redirect) {
 									window.location.href = joinQueryString(
 										response.preview_url,
-										`post_id=${response.id}&preview=1&payment=1&edited=1&redirect=${qs.redirect}`
+										'post_id='
+											.concat(
+												response.id,
+												'&preview=1&payment=1&edited=1&redirect='
+											)
+											.concat(qs.redirect)
 									);
 								} else {
 									window.location.href = joinQueryString(
 										response.preview_url,
-										`preview=1&edited=1&redirect=${redirect_url}`
+										'preview=1&edited=1&redirect='.concat(
+											redirect_url
+										)
 									);
 								}
 							}
@@ -927,25 +960,32 @@ $(function () {
 						) {
 							window.location.href = joinQueryString(
 								response.preview_url,
-								`preview=1&payment=1&redirect=${redirect_url}`
+								'preview=1&payment=1&redirect='.concat(
+									redirect_url
+								)
 							);
 						} else {
-							const is_edited = response.edited_listing
-								? `listing_id=${response.id}&edited=1`
+							var is_edited = response.edited_listing
+								? 'listing_id='.concat(response.id, '&edited=1')
 								: '';
-
 							if (response.need_payment === true) {
 								$notification
 									.show()
 									.html(
-										`<span class="atbdp_success">${response.success_msg}</span>`
+										'<span class="atbdp_success">'.concat(
+											response.success_msg,
+											'</span>'
+										)
 									);
 								window.location.href = redirect_url;
 							} else {
 								$notification
 									.show()
 									.html(
-										`<span class="atbdp_success">${response.success_msg}</span>`
+										'<span class="atbdp_success">'.concat(
+											response.success_msg,
+											'</span>'
+										)
 									);
 
 								window.location.href = joinQueryString(
@@ -956,10 +996,8 @@ $(function () {
 						}
 					}
 				},
-				error(error) {
+				error: function error(_error) {
 					enableSubmitButton();
-
-					console.log(error);
 				},
 			});
 		}
@@ -1089,10 +1127,6 @@ $(function () {
 				}
 			},
 			error: function (error) {
-				console.log({
-					error,
-				});
-
 				$submit_button.prop('disabled', false);
 				$submit_button.html(submit_button_html);
 			},
@@ -1427,6 +1461,14 @@ function defaultAddListing() {
 
 // Add Listing Accordion
 function addListingAccordion() {
+	// Set default state to open for all content modules
+	$(
+		'.directorist-add-listing-form .directorist-content-module__title'
+	).addClass('opened');
+	$(
+		'.directorist-add-listing-form .directorist-content-module__contents'
+	).addClass('active');
+
 	$('body').on(
 		'click',
 		'.directorist-add-listing-form .directorist-content-module__title',
@@ -1481,3 +1523,95 @@ function updateLocalNonce() {
 		},
 	});
 }
+
+/**
+ * Conditional Logic Evaluation for Frontend Form
+ */
+(function ($) {
+	'use strict';
+
+	// Set up conditional logic functions with dependencies
+	const getFieldValueFn = (fieldKey) => getFieldValueBase(fieldKey, $);
+	const evaluateConditionalLogicFn = (conditionalLogic) =>
+		evaluateConditionalLogicBase(conditionalLogic, getFieldValueFn);
+	const applyConditionalLogicFn = ($fieldWrapper) =>
+		applyConditionalLogicBase($fieldWrapper, evaluateConditionalLogicFn, $);
+	const initConditionalLogicFn = () =>
+		initConditionalLogicBase(
+			getWrapper,
+			getFieldValueFn,
+			applyConditionalLogicFn,
+			$,
+			localized_data.admin_conditional_logic_targets || []
+		);
+	const watchFieldChangesFn = () =>
+		watchFieldChangesBase(
+			getWrapper,
+			getFieldValueFn,
+			applyConditionalLogicFn,
+			$
+		);
+	const updateCategoryFieldLabelFn = () =>
+		updateCategoryFieldLabelBase(initConditionalLogicFn, $);
+
+	// Initialize on page load
+	$(document).ready(function () {
+		watchFieldChangesFn();
+		// Wait a bit longer to ensure Select2 and all fields are initialized
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 800);
+
+		// Also try after a longer delay to catch any late-loading fields
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 2000);
+	});
+
+	// Re-initialize when form is reloaded (e.g., after directory type change)
+	$(window).on('directorist-type-change', function () {
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 500);
+	});
+
+	// Re-initialize after category custom fields are rendered
+	$(window).on('load', function () {
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 1000);
+	});
+
+	// Re-initialize after Select2 is initialized
+	$(document).on('select2-loaded', function () {
+		setTimeout(function () {
+			initConditionalLogicFn();
+		}, 200);
+	});
+
+	// Watch for Select2 changes on category field
+	$(document).on(
+		'select2:select select2:unselect select2:clear',
+		'#at_biz_dir-categories',
+		function () {
+			updateCategoryFieldLabelFn();
+		}
+	);
+
+	// Also watch for changes on the category field
+	$(document).on('change', '#at_biz_dir-categories', function () {
+		updateCategoryFieldLabelFn();
+	});
+
+	// Watch for custom category field change events
+	$(document).on('directorist-category-changed', function () {
+		updateCategoryFieldLabelFn();
+	});
+
+	// Also trigger after category custom fields are rendered (they might update category field)
+	$(window).on('load', function () {
+		setTimeout(function () {
+			updateCategoryFieldLabelFn();
+		}, 1500);
+	});
+})(jQuery);

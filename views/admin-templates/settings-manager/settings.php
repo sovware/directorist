@@ -20,7 +20,7 @@
 
             <ul class="directorist_builder-links">
                 <li>
-                    <a href="https://directorist.com/documentation/" target="_blank">
+                    <a href="https://directorist.com/docs" target="_blank">
                         <i class="la la-file"></i>
                         <span class="link-text"><?php esc_html_e( 'Documentation', 'directorist' ); ?></span>
                     </a>

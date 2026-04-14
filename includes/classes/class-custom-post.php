@@ -97,6 +97,34 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                         $view_count_input.val( view_count );
                     }
                 }
+                // Handle bulk edit - clear expiration date fields when bulk edit is triggered.
+                $( document ).on( 'click', '#doaction, #doaction2', function() {
+                    var $form = $( this ).closest( 'form' );
+                    var action = $form.find( 'select[name="action"], select[name="action2"]' ).val();
+
+                    if ( action === 'edit' ) {
+                        setTimeout( function() {
+                            // Clear expiration date fields on bulk edit.
+                            $( 'input[name^="directorist_exp_date"]' ).val( '' );
+                            $( 'select[name="directorist_exp_date[mm]"]' ).val( '' );
+                            $( 'input[name="directorist_never_expire"]' ).prop( 'checked', false );
+                            $( '.atbdp-timestamp-wrap' ).show();
+                        }, 100 );
+                    }
+                } );
+
+                // Toggle expiration date fields based on "Never Expires" checkbox.
+                $( document ).on( 'change', 'input[name="directorist_never_expire"]', function() {
+                    var $expiryFields = $( '.atbdp-timestamp-wrap' );
+                    var $expiryInputs = $( 'input[name^="directorist_exp_date"], select[name="directorist_exp_date[mm]"]' );
+
+                    if ( $( this ).is( ':checked' ) ) {
+                        $expiryFields.hide();
+                        $expiryInputs.val( '' );
+                    } else {
+                        $expiryFields.show();
+                    }
+                } );
             });
             </script>
             <?php
@@ -122,6 +150,48 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
             if ( ! empty( $_REQUEST['directorist_listing_view_count'] ) ) {
                 update_post_meta( $listing_id, directorist_get_listing_views_count_meta_key(), absint( wp_unslash( $_REQUEST['directorist_listing_view_count'] ) ) );
+            }
+
+            // Handle expiration date and never expire option.
+            $never_expire = ! empty( $_REQUEST['directorist_never_expire'] );
+
+            if ( $never_expire ) {
+                update_post_meta( $listing_id, '_never_expire', true );
+                delete_post_meta( $listing_id, '_expiry_date' );
+            } else {
+                $exp_date = ! empty( $_REQUEST['directorist_exp_date'] ) ? directorist_clean( wp_unslash( $_REQUEST['directorist_exp_date'] ) ) : [];
+
+                if ( ! empty( $exp_date ) && ! empty( $exp_date['aa'] ) && ! empty( $exp_date['mm'] ) && ! empty( $exp_date['jj'] ) ) {
+                    $year  = isset( $exp_date['aa'] ) ? absint( $exp_date['aa'] ) : 0;
+                    $month = isset( $exp_date['mm'] ) ? absint( $exp_date['mm'] ) : 0;
+                    $day   = isset( $exp_date['jj'] ) ? absint( $exp_date['jj'] ) : 0;
+                    $hour  = isset( $exp_date['hh'] ) ? absint( $exp_date['hh'] ) : 0;
+                    $min   = isset( $exp_date['mn'] ) ? absint( $exp_date['mn'] ) : 0;
+
+                    // Validate date values.
+                    if ( $year > 0 && $month >= 1 && $month <= 12 && $day >= 1 && $day <= 31 && $hour >= 0 && $hour <= 23 && $min >= 0 && $min <= 59 ) {
+                        // Validate day against month (e.g., February can't have 31 days).
+                        $days_in_month = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
+                        
+                        if ( $day <= $days_in_month ) {
+                            $expiry_date = get_date_in_mysql_format(
+                                [
+                                    'year'  => $year,
+                                    'month' => $month,
+                                    'day'   => $day,
+                                    'hour'  => $hour,
+                                    'min'   => $min,
+                                ]
+                            );
+
+                            // Validate the formatted date.
+                            if ( $expiry_date && strtotime( $expiry_date ) !== false ) {
+                                update_post_meta( $listing_id, '_expiry_date', $expiry_date );
+                                delete_post_meta( $listing_id, '_never_expire' );
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -194,6 +264,51 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     </div>
                 </fieldset>
             <?php endif;
+
+            if ( 'atbdp_date' === $column_name ) : ?>
+                <fieldset class="inline-edit-col-right">
+                    <div class="inline-edit-group wp-clearfix">
+                        <div class="misc-pub-section misc-pub-atbdp-expiration-time">
+                            <span id="atbdp-timestamp">
+                                <strong><?php esc_html_e( 'Expiration', 'directorist' ); ?></strong>
+                                <?php esc_html_e( 'Date & Time', 'directorist' ); ?>
+                            </span>
+                            <div id="atbdp-timestamp-wrap" class="atbdp-timestamp-wrap" style="display: inline-block;">
+                                <label style="display: inline;">
+                                    <select name="directorist_exp_date[mm]">
+                                        <option value=""><?php esc_html_e( 'Month', 'directorist' ); ?></option>
+                                        <?php
+                                        $months = atbdp_get_months();
+                                        foreach ( $months as $key => $month_name ) {
+                                            $key += 1;
+                                            printf( '<option value="%1$d">%1$d-%2$s</option>', esc_attr( $key ), esc_html( $month_name ) );
+                                        }
+                                        ?>
+                                    </select>
+                                </label>
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[jj]" placeholder="<?php esc_attr_e( 'day', 'directorist' ); ?>" size="3" maxlength="2">
+                                </label>,
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[aa]" placeholder="<?php esc_attr_e( 'year', 'directorist' ); ?>" size="4" maxlength="4">
+                                </label>@
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[hh]" placeholder="<?php esc_attr_e( 'hour', 'directorist' ); ?>" size="4" maxlength="2">
+                                </label> :
+                                <label style="display: inline;">
+                                    <input type="text" name="directorist_exp_date[mn]" placeholder="<?php esc_attr_e( 'min', 'directorist' ); ?>" size="3" maxlength="2">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="misc-pub-section misc-pub-atbdp-never-expires">
+                            <label>
+                                <input type="checkbox" name="directorist_never_expire" value="1">
+                                <strong><?php esc_html_e( 'Never Expires', 'directorist' ); ?></strong>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            <?php endif;
         }
 
         public function add_cpt_to_pll( $post_types, $hide ) {
@@ -214,20 +329,33 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
         }
 
         public function work_row_actions_for_quick_view() {
-			$nonce     = ! empty( $_REQUEST['_wpnonce'] ) ? wp_unslash( $_REQUEST['_wpnonce'] ) : ''; // @codingStandardsIgnoreLine
+            $nonce     = ! empty( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) : '';
             $update_id = ! empty( $_REQUEST['update_id'] ) ? absint( wp_unslash( $_REQUEST['update_id'] ) ) : 0;
-
-            if ( wp_verify_nonce( $nonce, 'quick-publish-action' ) && $update_id && is_admin() ) {
-                $my_post                = [];
-                $my_post['ID']          = $update_id;
-                $my_post['post_status'] = 'publish';
-                wp_update_post( $my_post );
-                /**
-                 * @since 5.4.0
-                 */
-                do_action( 'atbdp_listing_published', $my_post['ID'] ); // for sending email notification
-                echo '<script>window.location="' . esc_url( admin_url() . 'edit.php?post_type=at_biz_dir' ) . '"</script>';
+        
+            if ( ! $update_id || ! is_admin() ) {
+                return;
             }
+        
+            if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'quick-publish-action' ) ) {
+                wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
+            }
+        
+            if ( ! current_user_can( 'publish_at_biz_dirs' ) ) {
+                wp_die( esc_html__( 'Permission denied.', 'directorist' ), '', array( 'response' => 403 ) );
+            }
+
+            // Set flag to prevent double-firing in publish_atbdp_listings
+            $GLOBALS['directorist_quick_publishing'] = true;
+
+            $my_post                = [];
+            $my_post['ID']          = $update_id;
+            $my_post['post_status'] = 'publish';
+            wp_update_post( $my_post );
+        
+            do_action( 'atbdp_listing_published', $my_post['ID'] );
+        
+            wp_safe_redirect( admin_url( 'edit.php?post_type=at_biz_dir' ) );
+            exit;
         }
 
         /**
@@ -270,7 +398,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             // Args for ATBDP_POST_TYPE, here any constant may not be available because this function will be called from the
             // register_activation_hook .
             $labels = [
-                'menu_name'                => __( 'Directory Listings', 'directorist' ),
+                'menu_name'                => __( 'Directorist', 'directorist' ),
                 'name_admin_bar'           => __( 'Listing', 'directorist' ),
                 'name'                     => _x( 'Listings', 'post type general name', 'directorist' ),
                 'singular_name'            => _x( 'Listing', 'post type singular name', 'directorist' ),
@@ -317,8 +445,8 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                 'public'              => true,
                 'show_ui'             => current_user_can( 'edit_others_at_biz_dirs' ) ? true : false, // show the menu only to the admin
                 'show_in_menu'        => true,
-                'menu_position'       => 20,
-                'menu_icon'           => DIRECTORIST_ASSETS . 'images/menu_icon.png',
+                'menu_position'       => 5,
+                'menu_icon'           => DIRECTORIST_ASSETS . 'images/menu_icon.svg',
                 'show_in_admin_bar'   => true,
                 'show_in_nav_menus'   => true,
                 'can_export'          => true,
@@ -327,7 +455,6 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                 'publicly_queryable'  => true,
                 'capability_type'     => ATBDP_POST_TYPE,
                 'map_meta_cap'        => true, // set this true, otherwise, even admin will not be able to edit this post. WordPress will map cap from edit_post to edit_at_biz_dir etc,
-                'menu_position'       => 5,
             ];
 
             $slug = get_directorist_option( 'atbdp_listing_slug', 'directory' );
@@ -464,7 +591,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     break;
 
                 case 'directorist_listing_view_count':
-                    printf( '<span>%s</span>', directorist_get_listing_views_count( $post_id ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    printf( '<span>%s</span>', esc_html( directorist_get_listing_views_count( $post_id ) ) );
                     break;
 
                 case 'atbdp_date':
@@ -474,7 +601,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     $never_expire = get_post_meta( $post_id, '_never_expire', true );
                     $expiry_date  = '';
                     if ( ! empty( $never_expire ) ) {
-                        $expiry_date = esc_html( 'Never Expires', 'directorist' );
+                        $expiry_date = esc_html__( 'Never Expires', 'directorist' );
                     } else {
                         $get_expire = get_post_meta( $post_id, '_expiry_date', true );
 

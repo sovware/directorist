@@ -276,7 +276,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
             // else check provided nonce and action
             if ( empty( $nonce ) || empty( $action ) ) {
                 $nonce_name   = $this->nonce_name();
-                $nonce        =  ! empty( ${$method[ $nonce_name ]} ) ? ${$method[ $nonce_name ]} : null;
+                $nonce        = ! empty( ${$method}[ $nonce_name ] ) ? sanitize_text_field( wp_unslash( ${$method}[ $nonce_name ] ) ) : null;
                 $nonce_action = $this->nonce_action();
             } else {
                 $nonce        = ( ! empty( $_REQUEST[ $nonce ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce ] ) ) : null;
@@ -553,7 +553,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
                     <div class="notice_wrapper">
                         <div class="directorist-alert directorist-alert-warning">
                             <?php directorist_icon( 'las la-info-circle' ); ?>
-                            <?php esc_html_e( 'Nothing to show!' ); ?>
+                            <?php esc_html_e( 'Nothing to show!', 'directorist' ); ?>
                         </div>
                     </div>
                 </section>

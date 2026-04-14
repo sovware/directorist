@@ -33,7 +33,7 @@ abstract class Posts_Controller extends Abstract_Controller {
         $valid_vars = apply_filters( 'query_vars', $wp->public_query_vars );
 
         $post_type_obj = get_post_type_object( $this->post_type );
-        if ( current_user_can( $post_type_obj->cap->edit_posts ) ) {
+        if ( $post_type_obj && isset( $post_type_obj->cap ) && current_user_can( $post_type_obj->cap->edit_posts ) ) {
             /**
              * Filter the allowed 'private' query vars for authorized users.
              *
@@ -51,7 +51,7 @@ abstract class Posts_Controller extends Abstract_Controller {
             $valid_vars = array_merge( $valid_vars, $private );
         }
         // Define our own in addition to WP's normal vars.
-        $rest_valid = [
+        $rest_valid = array(
             'date_query',
             'ignore_sticky_posts',
             'offset',
@@ -67,7 +67,7 @@ abstract class Posts_Controller extends Abstract_Controller {
             'meta_value',
             'meta_compare',
             'meta_value_num',
-        ];
+        );
         $valid_vars = array_merge( $valid_vars, $rest_valid );
 
         /**
@@ -93,12 +93,12 @@ abstract class Posts_Controller extends Abstract_Controller {
      * prepare for WP_Query.
      *
      * @param array           $prepared_args Prepared arguments.
-     * @param WP_REST_Request $request Request object.
+     * @param \WP_REST_Request $request Request object.
      * @return array          $query_args
      */
-    protected function prepare_items_query( $prepared_args = [], $request = null ) {
+    protected function prepare_items_query( $prepared_args = array(), $request = null ) {
         $valid_vars = array_flip( $this->get_allowed_query_vars() );
-        $query_args = [];
+        $query_args = array();
         foreach ( $valid_vars as $var => $index ) {
             if ( isset( $prepared_args[ $var ] ) ) {
                 /**
@@ -133,7 +133,7 @@ abstract class Posts_Controller extends Abstract_Controller {
      */
     public function get_items_permissions_check( $request ) {
         if ( ! $this->check_post_permissions( $this->post_type, 'read' ) ) {
-            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -147,7 +147,7 @@ abstract class Posts_Controller extends Abstract_Controller {
      */
     public function create_item_permissions_check( $request ) {
         if ( ! $this->check_post_permissions( $this->post_type, 'create' ) ) {
-            return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -163,7 +163,7 @@ abstract class Posts_Controller extends Abstract_Controller {
         $post = get_post( (int) $request['id'] );
 
         if ( $post && ! $this->check_post_permissions( $this->post_type, 'read', $post->ID ) ) {
-            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -179,7 +179,7 @@ abstract class Posts_Controller extends Abstract_Controller {
         $post = get_post( (int) $request['id'] );
 
         if ( $post && ! $this->check_post_permissions( $this->post_type, 'edit', $post->ID ) ) {
-            return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -195,7 +195,7 @@ abstract class Posts_Controller extends Abstract_Controller {
         $post = get_post( (int) $request['id'] );
 
         if ( $post && ! $this->check_post_permissions( $this->post_type, 'delete', $post->ID ) ) {
-            return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), [ 'status' => rest_authorization_required_code() ] );
+            return new WP_Error( 'directorist_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
         }
 
         return true;
@@ -210,19 +210,23 @@ abstract class Posts_Controller extends Abstract_Controller {
      * @return bool
      */
     protected function check_post_permissions( $post_type, $context = 'read', $object_id = 0 ) {
-        $contexts = [
+        $contexts = array(
             'read'   => 'read_private_posts',
             'create' => 'publish_posts',
             'edit'   => 'edit_post',
             'delete' => 'delete_post',
-        ];
+        );
 
         if ( 'revision' === $post_type ) {
             $permission = false;
         } else {
             $cap              = $contexts[ $context ];
             $post_type_object = get_post_type_object( $post_type );
-            $permission       = current_user_can( $post_type_object->cap->$cap, $object_id );
+            if ( ! $post_type_object || ! isset( $post_type_object->cap ) || ! isset( $post_type_object->cap->$cap ) ) {
+                $permission = false;
+            } else {
+                $permission = current_user_can( $post_type_object->cap->$cap, $object_id );
+            }
         }
 
         return apply_filters( 'directorist_rest_check_permissions', $permission, $context, $object_id, $post_type );

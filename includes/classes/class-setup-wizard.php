@@ -162,7 +162,7 @@ class Directorist_Setup_Wizard {
 
     public function hide_notices() {
         if ( isset( $_GET['directorist-hide-notice'] ) && isset( $_GET['_atbdp_notice_nonce'] ) ) { // WPCS: input var ok, CSRF ok.
-            if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_atbdp_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) { // WPCS: input var ok, CSRF ok.
+            if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_atbdp_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) {
                 wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'directorist' ) );
             }
 
@@ -428,15 +428,16 @@ class Directorist_Setup_Wizard {
     }
 
     public function enqueue_scripts() {
-        wp_enqueue_style( 'atbdp_setup_select2', DIRECTORIST_VENDOR_CSS . 'select2.min.css', ATBDP_VERSION, true );
+        wp_enqueue_style( 'atbdp_setup_select2', DIRECTORIST_VENDOR_CSS . 'select2.min.css', [], ATBDP_VERSION );
         wp_register_script( 'directorist-select2', DIRECTORIST_VENDOR_JS . 'select2.min.js', ['jquery'], ATBDP_VERSION, true );
 
-        wp_enqueue_script( 'directorist-setup' );
         wp_enqueue_script( 'directorist-select2' );
-        wp_enqueue_script( 'directorist-geolocation', DIRECTORIST_JS . 'global-geolocation.js' );
+        wp_enqueue_script( 'directorist-geolocation', DIRECTORIST_BUILD_ASSETS . 'js/global/geolocation.js' );
 
-        wp_register_style( 'directorist-admin-style', DIRECTORIST_CSS . 'admin-main.css', ATBDP_VERSION, true );
-        wp_register_script( 'directorist-admin-setup-wizard-script', DIRECTORIST_JS . 'admin-setup-wizard.js', ['jquery'], ATBDP_VERSION, true );
+        wp_register_style( 'directorist-font-awesome', DIRECTORIST_ICON_URL . 'font-awesome/css/all.css', [], ATBDP_VERSION );
+        wp_register_style( 'directorist-line-awesome', DIRECTORIST_ICON_URL . 'line-awesome/css/line-awesome.css', [], ATBDP_VERSION );
+        wp_register_style( 'directorist-admin-style', DIRECTORIST_BUILD_ASSETS . 'css/admin/main.css', [ 'directorist-font-awesome', 'directorist-line-awesome' ], ATBDP_VERSION );
+        wp_register_script( 'directorist-admin-setup-wizard-script', DIRECTORIST_BUILD_ASSETS . 'js/admin/setup-wizard.js', ['jquery'], ATBDP_VERSION, true );
 
         wp_enqueue_script( 'directorist-openstreet-layers', DIRECTORIST_VENDOR_JS . 'openstreet-map/openstreetlayers.js' );
         wp_enqueue_script( 'directorist-openstreet-unpkg-index', DIRECTORIST_VENDOR_JS . 'openstreet-map/unpkg-index.js' );
@@ -447,7 +448,7 @@ class Directorist_Setup_Wizard {
         wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions', DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet.markercluster-versions.js' );
 
         wp_enqueue_script(
-            'directorist-test', DIRECTORIST_JS . 'openstreet-map.js', [
+            'directorist-test', DIRECTORIST_BUILD_ASSETS . 'js/global/openstreet-map.js', [
                 'jquery',
                 'directorist-openstreet-layers',
                 'directorist-openstreet-unpkg-libs',
@@ -1031,7 +1032,10 @@ class Directorist_Setup_Wizard {
                                 <li class="<?php echo esc_attr( $step_two ); ?>"></li>
                                 <li class="<?php echo esc_attr( $step_three ); ?>"></li>
                         </ul>
-                        <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4',  'Step', $active_number ), 'directorist' ); ?></span>
+                        <span class="step-count"><?php 
+                        /* translators: %1$s: Step text, %2$d: Step number */
+                        printf( esc_html__( '%1$s %2$d of 4', 'directorist' ), esc_html__( 'Step', 'directorist' ), absint( $active_number ) ); 
+                        ?></span>
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__close__btn">

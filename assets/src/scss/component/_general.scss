@@ -101,13 +101,6 @@
 
 .directorist-content-active {
 	.entry-content {
-		ul {
-			margin: 0;
-			padding: 0;
-		}
-		a {
-			text-decoration: none;
-		}
 		.directorist-search-modal__contents__title {
 			margin: 0;
 			padding: 0;
@@ -198,6 +191,8 @@
 				margin: 0;
 				font-size: 0;
 				color: var(--directorist-color-white);
+				background: transparent;
+				border: none;
 				&:before {
 					content: "";
 					mask-image: url("../../../icons/line-awesome/svgs/times-solid.svg");
@@ -207,7 +202,8 @@
 					background-color: var(--directorist-color-white);
 					position: absolute;
 					top: 50%;
-					transform: translateY(-50%);
+					left: 50%;
+					transform: translate(-50%, -50%);
 				}
 			}
 		}

@@ -1,9 +1,7 @@
 <template>
   <div class="directorist-directory-type atbdp-cpt-manager">
     <div class="directorist-directory-type-top">
-      <div 
-        class="directorist-directory-type-top-left"
-      >
+      <div class="directorist-directory-type-top-left">
         <a
           href="edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
           class="directorist-back-directory"
@@ -23,7 +21,7 @@
               fill="currentColor"
             />
           </svg>
-          All Directories
+          Back
         </a>
         <!-- atbdp-cptm-header -->
         <div
@@ -31,12 +29,26 @@
           data-tooltip="Click here to rename the directory."
           data-flow="bottom"
         >
-          <component
-            v-if="options.name && options.name.type"
-            :is="options.name.type + '-field'"
-            v-bind="options.name"
-            @update="updateOptionsField({ field: 'name', value: $event })"
-          />
+          <div
+            class="directorist-type-name-editable"
+            v-if="isEditableName || !options.name.value"
+            @click="ensureEditableMode"
+          >
+            <component
+              v-if="options.name && options.name.type"
+              :is="options.name.type + '-field'"
+              v-bind="options.name"
+              @update="updateOptionsField({ field: 'name', value: $event })"
+              ref="editableNameField"
+            />
+          </div>
+          <span
+            class="directorist-type-name"
+            v-if="!isEditableName && options.name.value"
+          >
+            {{ options.name.value }}
+            <span class="la la-pen" @click.stop="openEditableMode"></span>
+          </span>
         </div>
       </div>
       <div class="directorist-directory-type-top-right">
@@ -124,15 +136,23 @@ export default {
 
       if (id > 0) {
         this.listing_type_id = id;
+        this.$store.commit("setListingTypeId", id);
         this.footer_actions.save.label = "Update";
       }
     }
 
     this.$store.commit("updateCachedFields");
+    this.restorePersistedNavigationState();
     this.setupClosingWarning();
     this.setupSaveOnKeyboardInput();
 
-    this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
+    this.enabled_multi_directory =
+      directorist_admin.enabled_multi_directory === "1";
+  },
+
+  beforeDestroy() {
+    // Clean up click outside listener when component is destroyed
+    document.removeEventListener("click", this.handleClickOutside);
   },
 
   data() {
@@ -148,15 +168,85 @@ export default {
         },
       },
       enabled_multi_directory: null,
+      isEditableName: false,
     };
   },
 
   methods: {
     ...mapGetters(["getFieldsValue"]),
 
+    restorePersistedNavigationState() {
+      const layoutKeys = Object.keys(this.$store.state.layouts || {});
+
+      if (!layoutKeys.length) {
+        return;
+      }
+
+      let activeNavIndex = 0;
+
+      try {
+        const typeId = this.$store.state.listing_type_id || 0;
+        const storedValue = window.localStorage.getItem(
+          `directorist_cptm_active_top_tab_index_${typeId}`,
+        );
+        const parsedValue = Number.parseInt(storedValue, 10);
+
+        if (
+          !Number.isNaN(parsedValue) &&
+          parsedValue >= 0 &&
+          parsedValue < layoutKeys.length
+        ) {
+          activeNavIndex = parsedValue;
+        }
+      } catch (error) {}
+
+      this.$store.commit("swichNav", activeNavIndex);
+    },
+
+    ensureEditableMode() {
+      // Only set up the listener if not already in editable mode
+      if (!this.isEditableName) {
+        this.isEditableName = true;
+        // Add click outside listener after a small delay to avoid immediate trigger
+        setTimeout(() => {
+          document.addEventListener("click", this.handleClickOutside);
+        }, 100);
+      }
+    },
+
+    openEditableMode() {
+      this.isEditableName = true;
+      // Add click outside listener after a small delay to avoid immediate trigger
+      setTimeout(() => {
+        document.addEventListener("click", this.handleClickOutside);
+      }, 100);
+    },
+
+    closeEditableMode() {
+      this.isEditableName = false;
+      // Remove click outside listener
+      document.removeEventListener("click", this.handleClickOutside);
+    },
+
+    handleClickOutside(event) {
+      // Check if the editable field exists
+      if (!this.$refs.editableNameField) {
+        return;
+      }
+
+      // Get the DOM element (component.$el for Vue components)
+      const editableElement =
+        this.$refs.editableNameField.$el || this.$refs.editableNameField;
+
+      // Check if click is outside the editable field
+      if (editableElement && !editableElement.contains(event.target)) {
+        this.closeEditableMode();
+      }
+    },
+
     setupSaveOnKeyboardInput() {
       addEventListener("keydown", (event) => {
-        if ( ( event.metaKey || event.ctrlKey ) && 's' === event.key ) {
+        if ((event.metaKey || event.ctrlKey) && "s" === event.key) {
           event.preventDefault();
           this.saveData();
         }
@@ -235,8 +325,6 @@ export default {
         let value = this.maybeJSON(fields[data_key]);
         form_data.append(data_key, value);
       }
-
-      console.log({ submission_url, submission_with });
     },
 
     async handleSaveData(callback) {
@@ -317,8 +405,8 @@ export default {
 
           if (response.data.term_id && !isNaN(response.data.term_id)) {
             self.listing_type_id = response.data.term_id;
+            self.$store.commit("setListingTypeId", parseInt(response.data.term_id));
             self.footer_actions.save.label = "Update";
-            self.listing_type_id = response.data.term_id;
 
             if (response.data.redirect_url) {
               window.location = response.data.redirect_url;
@@ -356,9 +444,8 @@ export default {
         Array.isArray(value)
       ) {
         let json_encoded_value = JSON.stringify(value);
-        let base64_encoded_value = this.encodeUnicodedToBase64(
-          json_encoded_value
-        );
+        let base64_encoded_value =
+          this.encodeUnicodedToBase64(json_encoded_value);
         value = base64_encoded_value;
       }
 
@@ -374,8 +461,8 @@ export default {
           /%([0-9A-F]{2})/g,
           function toSolidBytes(match, p1) {
             return String.fromCharCode("0x" + p1);
-          }
-        )
+          },
+        ),
       );
     },
   },

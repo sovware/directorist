@@ -17,7 +17,12 @@ function directorist_get_directory_meta( $directory_id, string $meta_key ) {
 }
 
 function directorist_get_listing_form_fields( $directory_id ) {
-    $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+    $form_data = directorist_submission_form_fields( $directory_id );
+
+    if ( empty( $form_data ) || empty( $form_data['fields'] ) ) {
+        return array();
+    }
+
     $_fields   = directorist_get_var( $form_data['fields'], [] );
     $_groups   = directorist_get_var( $form_data['groups'], [] );
 
@@ -40,13 +45,14 @@ function directorist_get_listing_form_fields( $directory_id ) {
 }
 
 function directorist_get_listing_form_groups( $directory_id ) {
-    $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+    $form_data = directorist_submission_form_fields( $directory_id );
     $_groups   = directorist_get_var( $form_data['groups'], [] );
     $groups    = [];
 
     foreach ( $_groups as $group ) {
         $groups[] = [
             'label' => $group['label'],
+            'icon'  => isset( $group['icon'] ) ? $group['icon'] : '',
             'fields' => $group['fields'],
         ];
     }
@@ -313,29 +319,16 @@ function directorist_get_directories_for_template( array $args = [] ) {
 /**
  * Get the the relations of directory custom fields to category.
  *
+ * @deprecated 8.0.0 This function is deprecated. Use conditional_logic instead.
  * @since 8.0.0
  * @param  int $directory_id
  *
- * @return array
+ * @return array Empty array (assign_to feature removed, use conditional_logic)
  */
 function directorist_get_category_custom_field_relations( $directory_id ) {
-    $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
-
-    if ( empty( $submission_form_fields['fields'] ) ) {
-        return [];
-    }
-
-    $relations = [];
-
-    foreach ( $submission_form_fields['fields'] as $field ) {
-        if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
-            continue;
-        }
-
-        $relations[ $field['field_key'] ] = (int) $field['category'];
-    }
-
-    return $relations;
+    // Deprecated: assign_to feature has been removed in favor of conditional_logic
+    // Return empty array to maintain backward compatibility
+    return [];
 }
 
 /**

@@ -48,7 +48,7 @@ class Directories_Controller extends Terms_Controller {
         $is_default   = get_term_meta( $item->term_id, '_default', true );
         $config       = directorist_get_directory_general_settings( $item->term_id );
 
-        $data = [
+        $data = array(
             'id'              => (int) $item->term_id,
             'name'            => $item->name,
             'slug'            => $item->slug,
@@ -60,7 +60,7 @@ class Directories_Controller extends Terms_Controller {
             'edit_status'     => $edit_status,
             'expiration_days' => (int) $expiration,
             'date_created'    => directorist_rest_prepare_date_response( $date_created ),
-        ];
+        );
 
         if ( ! empty( $config['icon'] ) ) {
             $data['icon'] = $config['icon'];
@@ -95,91 +95,91 @@ class Directories_Controller extends Terms_Controller {
      * @return array
      */
     public function get_item_schema() {
-        $schema = [
+        $schema = array(
             '$schema'    => 'http://json-schema.org/draft-04/schema#',
             'title'      => $this->taxonomy,
             'type'       => 'object',
-            'properties' => [
-                'id'          => [
+            'properties' => array(
+                'id'          => array(
                     'description' => __( 'Unique identifier for the resource.', 'directorist' ),
                     'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
+                    'context'     => array( 'view', 'edit' ),
                     'readonly'    => true,
-                ],
-                'name'        => [
+                ),
+                'name'        => array(
                     'description' => __( 'Category name.', 'directorist' ),
                     'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                    'arg_options' => [
+                    'context'     => array( 'view', 'edit' ),
+                    'arg_options' => array(
                         'sanitize_callback' => 'sanitize_text_field',
-                    ],
-                ],
-                'slug'        => [
+                    ),
+                ),
+                'slug'        => array(
                     'description' => __( 'An alphanumeric identifier for the resource unique to its type.', 'directorist' ),
                     'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                    'arg_options' => [
+                    'context'     => array( 'view', 'edit' ),
+                    'arg_options' => array(
                         'sanitize_callback' => 'sanitize_title',
-                    ],
-                ],
-                'image_url'    => [
+                    ),
+                ),
+                'image_url'    => array(
                     'description' => __( 'Preview image url.', 'directorist' ),
                     'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'icon' => [
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'icon' => array(
                     'description' => __( 'Icon class.', 'directorist' ),
                     'type'        => 'string',
-                    'context'     => [ 'view', 'edit' ],
-                    'arg_options' => [
+                    'context'     => array( 'view', 'edit' ),
+                    'arg_options' => array(
                         'sanitize_callback' => 'sanitize_text_field',
-                    ],
-                ],
-                'count' => [
+                    ),
+                ),
+                'count' => array(
                     'description' => __( 'Number of published listings for the resource.', 'directorist' ),
                     'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
+                    'context'     => array( 'view', 'edit' ),
                     'readonly'    => true,
-                ],
-                'is_default' => [
+                ),
+                'is_default' => array(
                     'description' => __( 'Default directory status.', 'directorist' ),
                     'type'        => 'boolean',
                     'default'     => false,
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'new_status' => [
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'new_status' => array(
                     'description' => __( 'Newly created listing status under this directory.', 'directorist' ),
                     'type'        => 'string',
                     'default'     => 'pending',
-                    'enum'        => [
+                    'enum'        => array(
                         'pending',
                         'publish',
-                    ],
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'edit_status' => [
+                    ),
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'edit_status' => array(
                     'description' => __( 'Edited listing status under this directory.', 'directorist' ),
                     'type'        => 'string',
                     'default'     => 'pending',
-                    'enum'        => [
+                    'enum'        => array(
                         'pending',
                         'publish',
-                    ],
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'expiration_days' => [
+                    ),
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'expiration_days' => array(
                     'description' => __( 'Validity days for listings under this directory.', 'directorist' ),
                     'type'        => 'integer',
-                    'context'     => [ 'view', 'edit' ],
-                ],
-                'date_created'      => [
+                    'context'     => array( 'view', 'edit' ),
+                ),
+                'date_created'      => array(
                     'description' => __( "The date the directory was created, in the site's timezone.", 'directorist' ),
                     'type'        => 'date-time',
-                    'context'     => [ 'view', 'edit' ],
+                    'context'     => array( 'view', 'edit' ),
                     'readonly'    => true,
-                ],
-            ],
-        ];
+                ),
+            ),
+        );
 
         return $this->add_additional_fields_schema( $schema );
     }

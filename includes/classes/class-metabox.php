@@ -65,12 +65,10 @@ class ATBDP_Metabox {
 
         $required_script_src = [];
 
-        $map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
-        $script_name = ( 'openstreet' === $map_type ) ? 'openstreet-map' : 'google-map';
+        $map_type    = get_directorist_option( 'select_listing_map', 'openstreet' );
+        $script_name = ( 'openstreet' === $map_type ) ? 'js/global/openstreet-map' : 'js/global/google-map';
 
-        $is_enabled_script_debugging = get_directorist_option( 'script_debugging', false, true );
-        $ext = $is_enabled_script_debugging ? '.js' : '.min.js';
-        $required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . $ext;
+        $required_script_src[ 'map-custom-script' ] = DIRECTORIST_BUILD_ASSETS . $script_name . '.js';
 
         wp_send_json_success(
             [
@@ -87,6 +85,7 @@ class ATBDP_Metabox {
 
     public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id, $parent_id = 0 ) {
         $args = [
+            'taxonomy'     => $taxonomy_id,
             'hide_empty'   => 0,
             'hierarchical' => true,
             'parent'       => $parent_id
@@ -98,7 +97,7 @@ class ATBDP_Metabox {
                 $saving_values[] = $saving_term->term_id;
             }
         }
-        $terms = get_terms( $taxonomy_id, $args );
+        $terms = get_terms( $args );
 
         if ( $terms ) {
             foreach ( $terms as $term ) {
@@ -139,7 +138,8 @@ class ATBDP_Metabox {
                 $saving_values[] = $saving_term->term_id;
             }
         }
-        $terms = get_terms( $taxonomy_id, $args );
+        $args['taxonomy'] = $taxonomy_id;
+        $terms = get_terms( $args );
 
         if ( $terms ) {
             foreach ( $terms as $term ) {
@@ -293,10 +293,20 @@ class ATBDP_Metabox {
      * @since 5.4.0
      */
     public function publish_atbdp_listings( $new_status, $old_status, $post ) {
-        $nonce = isset( $_REQUEST['_wpnonce'] ) ? directorist_clean( wp_unslash( $_REQUEST['_wpnonce'] ) ) : null;
-        if ( ( $post->post_type == 'at_biz_dir' ) && ( $old_status == 'pending'  &&  $new_status == 'publish' ) && ! wp_verify_nonce( $nonce, 'quick-publish-action' ) ) {
-            do_action( 'atbdp_listing_published', $post->ID );//for sending email notification
+        if ( $post->post_type !== 'at_biz_dir' ) {
+            return;
         }
+    
+        if ( $old_status !== 'pending' || $new_status !== 'publish' ) {
+            return;
+        }
+    
+        // Skip if fired by quick-publish (it fires the action itself)
+        if ( ! empty( $GLOBALS['directorist_quick_publishing'] ) ) {
+            return;
+        }
+    
+        do_action( 'atbdp_listing_published', $post->ID );
     }
 
     /**
@@ -338,7 +348,7 @@ class ATBDP_Metabox {
      * @param object    $post       Current post object being saved
      */
     public function save_post_meta( $post_id, $post ) {
-        $nonce = ! empty( $_POST['listing_info_nonce'] ) ? directorist_clean( wp_unslash( $_POST['listing_info_nonce'] ) ) : '';
+        $nonce = ! empty( $_POST['listing_info_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['listing_info_nonce'] ) ) : '';
 
         if ( ! is_admin() ) {
             return;

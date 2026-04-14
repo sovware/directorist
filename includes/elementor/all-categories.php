@@ -19,7 +19,7 @@ class Directorist_All_Categories extends Custom_Widget_Base {
 
     private function az_listing_categories() {
         $result = [];
-        $categories = get_terms( ATBDP_CATEGORY );
+        $categories = get_terms( [ 'taxonomy' => ATBDP_CATEGORY ] );
         foreach ( $categories as $category ) {
             $result[$category->slug] = $category->name;
         }

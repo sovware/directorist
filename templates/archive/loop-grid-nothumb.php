@@ -46,29 +46,20 @@ $quick_info_field = ob_get_clean();
 
         <?php if ( ! empty( $listing_avatar ) ) : ?>
             <figure class="directorist-listing-single__header__left">
-                <?php 
-                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    echo $listing_avatar; 
-                ?>
+                <?php echo wp_kses_post( $listing_avatar ); ?>
             </figure>
         <?php endif; ?>
         
         <?php if ( ! empty( $listing_title ) ) : ?>
             <header class="directorist-listing-single__header__title">
-                <?php 
-                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    echo $listing_title; 
-                ?>
+                <?php echo wp_kses_post( $listing_title ); ?>
             </header>
         <?php endif; ?>
         
         <?php if ( ! empty( $quick_actions_field ) ) : ?>
             <div class="directorist-listing-single__header__right">
                 <div class="directorist-listing-single__action">
-                    <?php 
-                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        echo $quick_actions_field;
-                    ?>
+                    <?php echo wp_kses_post( $quick_actions_field ); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -87,10 +78,7 @@ $quick_info_field = ob_get_clean();
 
     <?php if ( ! empty( $quick_info_field ) ) : ?>
         <div class="directorist-listing-single__info">
-            <?php 
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $quick_info_field; 
-            ?>
+            <?php echo wp_kses_post( $quick_info_field ); ?>
         </div>
     <?php endif; ?>
 

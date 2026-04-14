@@ -13,14 +13,17 @@
       :root="field_list"
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
-      @alert="$emit( 'alert', { key: `${field.type}_${field_key}`, data: $event } )"
+      @blur="update({ key: field_key, value: $event, isBlur: true })"
+      @alert="
+        $emit('alert', { key: `${field.type}_${field_key}`, data: $event })
+      "
     />
-    <button 
+    <button
       class="cptm-form-builder-group-options__advanced-toggle"
       @click="toggleAdvanced"
       v-if="hasAdvancedFields"
     >
-      {{ showAdvanced ? "Basic" : "Advanced" }}
+      {{ showAdvanced ? "Basic options" : "Advanced options" }}
     </button>
   </div>
 </template>
@@ -54,8 +57,11 @@ export default {
     fieldList() {
       this.filterFieldList();
     },
-    value() {
-      this.filterFieldList();
+    value: {
+      handler() {
+        this.filterFieldList();
+      },
+      deep: true,
     },
   },
 
@@ -88,13 +94,15 @@ export default {
       });
 
       // Show basic fields or advanced fields based on the toggle state
-      return this.showAdvanced ? { ...basicFields, ...advancedFields } : basicFields;
+      return this.showAdvanced
+        ? { ...basicFields, ...advancedFields }
+        : basicFields;
     },
 
     hasAdvancedFields() {
       // Check if there are any advanced fields
       return Object.values(this.field_list).some(
-        (field) => field.field_type === "advanced"
+        (field) => field.field_type === "advanced",
       );
     },
   },
@@ -110,7 +118,7 @@ export default {
     filterFieldList() {
       this.field_list = this.getFilteredFieldList(this.fieldList);
     },
-    
+
     toggleAdvanced() {
       this.showAdvanced = !this.showAdvanced;
     },
@@ -153,6 +161,41 @@ export default {
       }
 
       for (let field_key in new_fields) {
+        // Extract conditional logic configuration
+        // Structure from PHP get_conditional_logic_field():
+        // options.conditional_logic = { type: 'conditional-logic', value: { enabled, action, groups } }
+        // The actual config is in conditional_logic.value (not directly in conditional_logic)
+        let conditionalLogic = null;
+
+        const field = new_fields[field_key];
+
+        // Priority 1: options.conditional_logic.value (current structure)
+        // This matches the structure returned by get_conditional_logic_field() in builder-custom-fields.php
+        if (field.options?.conditional_logic?.value) {
+          conditionalLogic = field.options.conditional_logic.value;
+        }
+        // Priority 2: options.conditional_logic (flat structure - backward compatibility)
+        else if (field.options?.conditional_logic?.enabled !== undefined) {
+          conditionalLogic = field.options.conditional_logic;
+        }
+        // Priority 3: field.conditional_logic (direct access - edge cases)
+        else if (field.conditional_logic?.enabled !== undefined) {
+          conditionalLogic = field.conditional_logic;
+        }
+
+        if (conditionalLogic) {
+          let shouldShow = this.evaluateConditionalLogic(
+            conditionalLogic,
+            new_fields,
+          );
+
+          if (!shouldShow) {
+            delete new_fields[field_key];
+            continue;
+          }
+        }
+
+        // Check for legacy show_if format
         if (!(new_fields[field_key].showIf || new_fields[field_key].show_if)) {
           continue;
         }
@@ -176,7 +219,10 @@ export default {
 
     update(payload) {
       this.$emit("update", payload);
-      this.filterFieldList();
+      // Re-evaluate conditional logic when any field value changes
+      this.$nextTick(() => {
+        this.filterFieldList();
+      });
     },
   },
 };

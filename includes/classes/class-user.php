@@ -303,9 +303,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             <?php $email_verify_checkbox = ob_get_clean(); ?>
             <script>
                 jQuery(($) => {
-                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php 
-                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        echo $email_verify_checkbox; 
+                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php
+                        echo wp_kses_post( $email_verify_checkbox );
                     ?>`);
                 });
             </script>
@@ -313,8 +312,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
         }
 
         public function action_admin_edit_user_info( int $user_id ) {
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            if ( empty( $_POST['directorist_nonce'] ) || ! wp_verify_nonce( $_POST['directorist_nonce'], 'update_user_info' ) ) {
+            if ( empty( $_POST['directorist_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['directorist_nonce'] ) ), 'update_user_info' ) ) {
                 return;
             }
 
@@ -388,8 +386,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
         }
 
         public function action_email_verification_notice() {
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            if ( empty( $_GET['users'] ) || empty( $_GET['email-verification-type'] ) || empty( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'directorist_verify_user_email_notice' ) ) {
+            if ( empty( $_GET['users'] ) || empty( $_GET['email-verification-type'] ) || empty( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'directorist_verify_user_email_notice' ) ) {
                 return;
             }
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -529,7 +526,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             /**
              * Return if email is already verified
              */
-            if ( ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
+            if ( directorist_is_guest_user( $user->ID ) || ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
                 return $user;
             }
 
@@ -554,13 +551,39 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             $signin_page_id = (int) get_directorist_option( 'signin_signup_page' );
 
             if ( $dashbord_page_id && ! is_user_logged_in() && is_page( $dashbord_page_id ) ) {
-                wp_safe_redirect( ATBDP_Permalink::get_signin_signup_page_link() );
-                exit;
+
+                /**
+                 * Filter to prevent forced redirect on dashboard page when user is logged out.
+                 *
+                 * @since 8.4.8
+                 *
+                 * @param bool $prevent_redirect Whether to prevent the redirect. Default false.
+                 * @param int  $dashboard_page_id The dashboard page ID.
+                 */
+                $prevent_redirect = apply_filters( 'directorist_allow_guest_access_to_dashboard', false, $dashbord_page_id );
+
+                if ( ! $prevent_redirect ) {
+                    wp_safe_redirect( ATBDP_Permalink::get_signin_signup_page_link() );
+                    exit;
+                }
             }
 
             if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) && empty( $_GET ) ) {
-                wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
-                exit;
+
+                /**
+                 * Filter to prevent forced redirect from login/registration page when user is logged in.
+                 *
+                 * @since 8.4.8
+                 *
+                 * @param bool $prevent_redirect Whether to prevent the redirect. Default false.
+                 * @param int  $signin_page_id The signin/signup page ID.
+                 */
+                $prevent_redirect = apply_filters( 'directorist_allow_logged_in_user_access_to_login_page', false, $signin_page_id );
+
+                if ( ! $prevent_redirect ) {
+                    wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
+                    exit;
+                }
             }
 
             $registration_page = get_directorist_option( 'custom_registration' );
@@ -589,19 +612,25 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                     } else {
                         return "<p style='margin-left:32px;'><span class='dashicons dashicons-yes-alt' style='color:#08bf9c;'></span></p>";
                     }
+                    break;
+
                 case 'user_type':
                     $user_type = (string) get_user_meta( $user_id, '_user_type', true );
 
-                    if ( 'author' === $user_type ) {
-                        return esc_html__( 'Author', 'directorist' );
-                    } elseif ( 'general' === $user_type ) {
-                        return esc_html__( 'User', 'directorist' );
-                    } elseif ( 'become_author' === $user_type ) {
+                    if ( 'become_author' === $user_type ) {
                         $author_pending =  "<p>Author <span style='color:red;'>( " . esc_html__( 'Pending', 'directorist' ) . " )</span></p>";
                         $approve        =  "<a href='' id='atbdp-user-type-approve' style='color: #388E3C' data-userId={$user_id} data-nonce=" . wp_create_nonce( 'atbdp_user_type_approve' ) . "><span>" . esc_html__( 'Approve', 'directorist' ) . " </span></a> | ";
                         $deny           =  "<a href='' id='atbdp-user-type-deny' style='color: red' data-userId={$user_id} data-nonce=" . wp_create_nonce( 'atbdp_user_type_deny' ) . "><span>" . esc_html__( 'Deny', 'directorist' ) . "</span></a>";
+
                         return "<div class='atbdp-user-type' id='user-type-" . $user_id . "'>" . $author_pending . $approve . $deny . "</div>";
                     }
+
+                    $user_types = directorist_get_user_types();
+
+                    if ( isset( $user_types[ $user_type ] ) ) {
+                        return esc_html( $user_types[ $user_type ] );
+                    }
+                    break;
             }
 
             return $column_value;
@@ -666,7 +695,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             if ( $user_id ) {
                 // get user meta activation hash field
                 $code = get_user_meta( $user_id, 'has_to_be_activated', true );
-                $key = filter_input( INPUT_GET, 'key' );
+                $key = filter_input( INPUT_GET, 'key', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 if ( $code == $key ) {
                     delete_user_meta( $user_id, 'has_to_be_activated' );
                     wp_safe_redirect( ATBDP_Permalink::get_login_page_link() );

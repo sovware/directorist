@@ -1,4 +1,4 @@
-import type { BadgeVariant } from '@shamim-ahmed/components/build-types/gutenberg/badge/type';
+import type { BadgeVariant } from '../components/badge';
 // Define interfaces for the user objects
 interface WordPressUser {
 	ID?: number;
@@ -98,9 +98,9 @@ const STATUS_TO_BADGE_VARIANT: Record<string, BadgeVariant> = {
 	pending: 'warning',
 	failed: 'error',
 	cancelled: 'error',
-	refunded: 'default',
+	refunded: 'refunded',
 	unpaid: 'warning',
-	expired: 'error',
+	expired: 'expired',
 };
 
 export function getBadgeVariantByStatus(status: string): BadgeVariant {

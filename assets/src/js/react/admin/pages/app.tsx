@@ -17,7 +17,7 @@ import OrderEdit from './orders/edit';
 
 const actionItems: MenuItemsType = {
 	documentation: {
-		label: 'Knowledge Base',
+		label: 'Docs',
 		path: 'https://directorist.com/documentation/',
 		icon: <DocIcon />,
 	},

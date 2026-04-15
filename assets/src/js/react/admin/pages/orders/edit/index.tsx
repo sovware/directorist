@@ -26,6 +26,7 @@ import AngleRightIcon from '@/admin/icons/AngleRightIcon';
 import { doAction } from '@wordpress/hooks';
 import CustomerInfo from './customer-info';
 import OrderDetails from './order-details';
+import OrderDetailsSkeleton from './skeleton';
 import PaymentLog from './payment-log';
 import Refund from './refund';
 
@@ -179,24 +180,37 @@ export default function OrderEdit({}: EditProps) {
 		[orderId]
 	);
 
+	// Unique store name per order so re-navigation always fetches fresh data.
+	// registerValuesStore ignores subsequent calls with the same name, so a
+	// shared name would keep serving the first order's data on every click.
+	const storeName = orderId
+		? `directorist/single-order/${orderId}`
+		: 'directorist/single-order';
+
 	registerValuesStore({
-		name: 'directorist/single-order',
+		name: storeName,
 		path: singleOrderRoute,
 	});
 
 	const { refresh } = useValuesStore({
-		name: 'directorist/single-order',
+		name: storeName,
 		path: singleOrderRoute,
 	});
 
 	const { data, isResolved } = useValuesStoreData({
-		name: 'directorist/single-order',
+		name: storeName,
 		path: singleOrderRoute,
 	});
 
 	const order = data?.order;
 
 	const isOrderResolved = isResolved;
+
+	// Reset the loading guard whenever we navigate to a different order so the
+	// status dropdown syncs to the newly loaded order's status.
+	useEffect(() => {
+		setLoading(true);
+	}, [orderId]);
 
 	useEffect(() => {
 		if (loading && isOrderResolved) {
@@ -286,23 +300,27 @@ export default function OrderEdit({}: EditProps) {
 					</HeaderAction>
 				</SingleOrderHeader>
 			</Fill>
-			<SingleOrderContainer>
-				<ContainerLeft>
-					<OrderDetails order={order} />
-					{order && <Refund order={order} />}
-					<Slot name="directorist-order-refund-after">
-						{(fills: any) => {
-							if (fills.length) {
-								return fills;
-							}
-						}}
-					</Slot>
-				</ContainerLeft>
-				<ContainerRight>
-					<CustomerInfo order={order} />
-					<PaymentLog order={order} />
-				</ContainerRight>
-			</SingleOrderContainer>
+			{ !isOrderResolved ? (
+				<OrderDetailsSkeleton />
+			) : (
+				<SingleOrderContainer>
+					<ContainerLeft>
+						<OrderDetails order={order} />
+						{order && <Refund order={order} />}
+						<Slot name="directorist-order-refund-after">
+							{(fills: any) => {
+								if (fills.length) {
+									return fills;
+								}
+							}}
+						</Slot>
+					</ContainerLeft>
+					<ContainerRight>
+						<CustomerInfo order={order} />
+						<PaymentLog order={order} />
+					</ContainerRight>
+				</SingleOrderContainer>
+			) }
 		</>
 	);
 }

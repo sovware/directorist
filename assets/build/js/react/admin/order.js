@@ -34562,7 +34562,7 @@ function OrderEdit(_ref) {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(SingleOrderContainer, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(ContainerLeft, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_order_details__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        children: [order && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_order_details__WEBPACK_IMPORTED_MODULE_16__["default"], {
           order: order
         }), order && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_refund__WEBPACK_IMPORTED_MODULE_18__["default"], {
           order: order

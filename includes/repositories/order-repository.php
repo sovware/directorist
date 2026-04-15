@@ -75,6 +75,8 @@ class OrderRepository extends Repository {
     }
 
     protected function get_orders( Builder $query, Read $dto ) {
+        $query = apply_filters( 'directorist_order_list_query', $query, $dto );
+
         $query->with(
             [
                 'payment' => function( $query ) {

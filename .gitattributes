@@ -25,3 +25,6 @@
 /webpack.dev.js          export-ignore
 /webpack.dev.vue.js      export-ignore
 /webpack.prod.js         export-ignore
+
+# Merge strategy
+package.json merge=keep-local

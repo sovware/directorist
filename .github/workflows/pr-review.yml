@@ -1,0 +1,62 @@
+name: Claude Code Review
+
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+    branches: [development]
+  issue_comment:
+    types: [created]
+
+# Cancel in-progress reviews when new commits are pushed to the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # Run on PR events, or on issue comments that start with @claude
+    if: |
+      github.event_name == 'pull_request_target' ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.pull_request &&
+       contains(github.event.comment.body, '@claude'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Run Claude Code Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY_PR_REVIEW }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          model: "claude-sonnet-4-20250514"
+          direct_prompt: |
+            Review this pull request thoroughly. Focus on:
+
+            1. **Code Quality**: Clean code, readability, maintainability, proper error handling
+            2. **Security**: SQL injection, XSS, CSRF, nonce verification, data sanitization/escaping (WordPress-specific)
+            3. **Performance**: Unnecessary queries, N+1 problems, missing caching opportunities
+            4. **WordPress/Directorist Standards**:
+               - Use `directorist_` prefix for new hooks (not legacy `atbdp_`)
+               - Follow WordPress Coding Standards (WPCS)
+               - Proper use of `directorist_clean` for sanitization, `directorist_kses` for escaping
+               - Nonce verification with `directorist_verify_nonce`
+               - Proper text domain usage (`directorist`)
+            5. **Best Practices**:
+               - PHP 7.0+ compatibility
+               - Proper use of Directorist namespace patterns
+               - CSS classes with `directorist-` prefix, BEM-inspired naming
+               - JS follows camelCase conventions
+
+            Provide specific, actionable feedback. Reference file paths and line numbers.
+            Prioritize issues by severity: critical > major > minor > suggestion.
+            Be concise but thorough. Skip praise for obvious things.

@@ -1,4 +1,5 @@
 import { addAction, applyFilters } from '@wordpress/hooks';
+import { useEffect } from '@wordpress/element';
 import { Dashboard } from '@shamim-ahmed/dashboard';
 import { RouteType } from '@shamim-ahmed/dashboard/build-types/components/dashboard/types';
 import { MenuItemsType } from '@shamim-ahmed/dashboard/build-types/components/menu/types';
@@ -14,6 +15,11 @@ import DocIcon from '../icons/DocIcon';
 import QuestionCircleIcon from '../icons/QuestionCircleIcon';
 import Orders from './orders';
 import OrderEdit from './orders/edit';
+
+// Stable reference — avoids recreating the array on every render which would
+// cause useActiveAdminMenu's useLayoutEffect to re-run and re-attach its
+// preventDefault handler, overwriting our click override below.
+const ROOT_PATHS: string[] = [];
 
 const actionItems: MenuItemsType = {
 	documentation: {
@@ -142,6 +148,29 @@ export default function App() {
 		fieldValidation
 	);
 
+	// Bug fix: useActiveAdminMenu (in @wpmvc/admin-sidebar) intercepts the
+	// .wp-first-item ("All Listings") click with e.preventDefault() and tries
+	// React Router navigation. Since rootPaths=[] there is no valid route to
+	// navigate to, so the link silently does nothing.
+	// We re-bind the click handler after the Dashboard's useLayoutEffect runs
+	// (setTimeout 0 defers to the next macrotask) so it always does a full
+	// WordPress page navigation instead.
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			const $ = (window as any).jQuery;
+			if (!$) return;
+			const $firstItem = $('#menu-posts-at_biz_dir').find('a.wp-first-item');
+			const href = $firstItem.attr('href');
+			if (href) {
+				$firstItem.off('click').on('click', (e: Event) => {
+					e.preventDefault();
+					window.location.href = href;
+				});
+			}
+		}, 0);
+		return () => clearTimeout(timer);
+	}, []);
+
 	const routes = [
 		{
 			path: '/',
@@ -159,7 +188,7 @@ export default function App() {
 		<ThemeWrapper>
 			<Dashboard
 				pageTopLevelID="#menu-posts-at_biz_dir"
-				rootPaths={[]}
+				rootPaths={ROOT_PATHS}
 				colors={{
 					primary: '#3e62f5',
 					error: '#D94A4A',

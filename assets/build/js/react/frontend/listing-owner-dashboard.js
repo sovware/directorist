@@ -10411,17 +10411,29 @@ var _templateObject, _templateObject2;
 // Define the variant types
 
 // Styled component with proper TypeScript interface
-var BadgeStyle = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\tdisplay: inline-flex;\n\talign-items: center;\n\tpadding: 2px 8px;\n\tborder-radius: 2px;\n\tfont-size: 12px;\n\tfont-weight: 500;\n\tline-height: 1;\n\ttext-align: center;\n\twhite-space: nowrap;\n\tvertical-align: baseline;\n\n\t/* Variant-specific styles */\n\t", "\n"])), function (_ref) {
+var BadgeStyle = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\tdisplay: inline-flex;\n\talign-items: center;\n\tpadding: 6px 8px;\n\tborder-radius: 2px;\n\tfont-size: 12px;\n\tfont-weight: 400;\n\tline-height: 1;\n\ttext-align: center;\n\twhite-space: nowrap;\n\tvertical-align: baseline;\n\n\t/* Variant-specific styles */\n\t", "\n"])), function (_ref) {
   var $variant = _ref.$variant;
   switch ($variant) {
     case 'info':
-      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-primary-200);\n\t\t\t\t\tcolor: var(--wpmvc-primary-500);\n\t\t\t\t";
+    case 'trialing':
+      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-primary-100);\n\t\t\t\t\tcolor: var(--wpmvc-primary-500);\n\t\t\t\t";
+    case 'refunded':
+      return "\n\t\t\t\t\tbackground-color: #e6f4ff;\n\t\t\t\t\tcolor: #1677ff;\n\t\t\t\t";
     case 'warning':
-      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-warning-200);\n\t\t\t\t\tcolor: var(--wpmvc-warning-500);\n\t\t\t\t";
+    case 'pending':
+    case 'unpaid':
+    case 'paused':
+      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-warning-100);\n\t\t\t\t\tcolor: var(--wpmvc-warning-500);\n\t\t\t\t";
     case 'success':
-      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-success-200);\n\t\t\t\t\tcolor: var(--wpmvc-success-500);\n\t\t\t\t";
+    case 'paid':
+    case 'active':
+      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-success-100);\n\t\t\t\t\tcolor: var(--wpmvc-success-500);\n\t\t\t\t";
     case 'error':
-      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-error-200);\n\t\t\t\t\tcolor: var(--wpmvc-error-500);\n\t\t\t\t";
+    case 'failed':
+    case 'cancelled':
+      return "\n\t\t\t\t\tbackground-color: var(--wpmvc-error-100);\n\t\t\t\t\tcolor: var(--wpmvc-error-500);\n\t\t\t\t";
+    case 'expired':
+      return "\n\t\t\t\t\tbackground-color: #F0E4D9;\n\t\t\t\t\tcolor: #AD7F58;\n\t\t\t\t";
     default:
       return "\n\t\t\t\t\tbackground-color: #f0f0f0;\n\t\t\t\t\tcolor: #2f2f2f;\n\t\t\t\t";
   }
@@ -10569,9 +10581,9 @@ var STATUS_TO_BADGE_VARIANT = {
   pending: 'warning',
   failed: 'error',
   cancelled: 'error',
-  refunded: 'default',
+  refunded: 'refunded',
   unpaid: 'warning',
-  expired: 'error'
+  expired: 'expired'
 };
 function getBadgeVariantByStatus(status) {
   var _STATUS_TO_BADGE_VARI;

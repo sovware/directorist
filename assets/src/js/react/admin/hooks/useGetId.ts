@@ -1,22 +1,37 @@
-import { useMemo } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { getQueryArg } from '@wordpress/url';
 
+function getIdFromLocation(): string | undefined {
+	if ( typeof window === 'undefined' ) return undefined;
+
+	const href = window.location.href;
+	if ( ! href ) return undefined;
+
+	// Try query params first
+	const fromQuery = getQueryArg( href, 'id' ) as string | null;
+	if ( fromQuery ) return fromQuery;
+
+	// Fallback: extract last segment of path
+	const url = new URL( href );
+	const segments = url.href.split( '/' ).filter( Boolean );
+
+	return segments.pop();
+}
+
 export function useGetId(): string | undefined {
-	return useMemo(() => {
-		if (typeof window === 'undefined') return undefined;
+	const [ id, setId ] = useState< string | undefined >( getIdFromLocation );
 
-		const href = window.location.href;
-		if (!href) return undefined;
+	useEffect( () => {
+		const handleLocationChange = () => setId( getIdFromLocation() );
 
-		// Try query params first
-		const fromQuery = getQueryArg(href, 'id') as string | null;
+		window.addEventListener( 'hashchange', handleLocationChange );
+		window.addEventListener( 'popstate', handleLocationChange );
 
-		if (fromQuery) return fromQuery;
+		return () => {
+			window.removeEventListener( 'hashchange', handleLocationChange );
+			window.removeEventListener( 'popstate', handleLocationChange );
+		};
+	}, [] );
 
-		// Fallback: extract last segment of path
-		const url = new URL(href);
-		const segments = url.href.split('/').filter(Boolean);
-
-		return segments.pop();
-	}, []);
+	return id;
 }

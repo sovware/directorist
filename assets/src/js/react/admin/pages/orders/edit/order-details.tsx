@@ -1,7 +1,7 @@
 import Badge from '@/admin/components/badge';
 import Card from '@/admin/components/card';
 import { displayPrice } from '@/admin/helper/payment';
-import { formatDate } from '@/admin/helper/utils';
+import { formatDate, getBadgeVariantByStatus } from '@/admin/helper/utils';
 import { __, sprintf } from '@wordpress/i18n';
 import { InfoHead, InfoList } from './style';
 
@@ -24,13 +24,7 @@ export default function OrderDetails({ order }: DetailsProps) {
 					</span>
 					<Badge
 						className="directorist-badge"
-						variant={
-							order?.status === 'pending'
-								? 'warning'
-								: order?.status === 'paid'
-									? 'success'
-									: 'error'
-						}
+						variant={getBadgeVariantByStatus(order?.status)}
 					>
 						{order?.status}
 					</Badge>

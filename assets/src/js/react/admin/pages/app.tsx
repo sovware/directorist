@@ -23,7 +23,7 @@ const ROOT_PATHS: string[] = [];
 
 const actionItems: MenuItemsType = {
 	documentation: {
-		label: 'Docs',
+		label: 'Documentation',
 		path: 'https://directorist.com/documentation/',
 		icon: <DocIcon />,
 	},

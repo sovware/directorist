@@ -16,6 +16,11 @@ export default function OrderDetails({ order }: DetailsProps) {
 				<div className="directorist-order-details-label">
 					<span className="directorist-order-id">
 						{sprintf(__('Order ID: %s', 'directorist'), order?.id)}
+						{order.legacy_id && (
+							<span style={{ color: '#6b7280', fontSize: '12px', marginLeft: '8px' }}>
+								{sprintf(__('Old ID: #%d', 'directorist'), order.legacy_id)}
+							</span>
+						)}
 					</span>
 					<Badge
 						className="directorist-badge"
@@ -55,6 +60,12 @@ export default function OrderDetails({ order }: DetailsProps) {
 					<span>{__('Payment Method', 'directorist')}</span>
 					<span>{order?.payment_method}</span>
 				</li>
+				{order?.transaction_id && (
+					<li>
+						<span>{__('Transaction ID', 'directorist')}</span>
+						<span>{order?.transaction_id}</span>
+					</li>
+				)}
 				<li>
 					<span>{__('Amount', 'directorist')}</span>
 					<span> {displayPrice(order?.amount, order?.currency)}</span>

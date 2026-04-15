@@ -28,7 +28,16 @@ const columns: Column[] = [
 		id: 'id',
 		label: __('Order Id', 'directorist'),
 		render: ({ item }) => {
-			return `#${item.id}`;
+			return (
+				<>
+					<span>#{item.id}</span>
+					{item.legacy_id && (
+						<span style={{  marginLeft: '5px', color: '#6b7280', fontSize: '12px', display: 'block' }}>
+							{__('Old ID: #', 'directorist')}{item.legacy_id}
+						</span>
+					)}
+				</>
+			);
 		},
 	},
 	{

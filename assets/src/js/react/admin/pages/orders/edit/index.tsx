@@ -305,7 +305,7 @@ export default function OrderEdit({}: EditProps) {
 			) : (
 				<SingleOrderContainer>
 					<ContainerLeft>
-						<OrderDetails order={order} />
+						{order && <OrderDetails order={order} />}
 						{order && <Refund order={order} />}
 						<Slot name="directorist-order-refund-after">
 							{(fills: any) => {

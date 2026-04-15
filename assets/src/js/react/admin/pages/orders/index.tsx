@@ -29,11 +29,18 @@ const baseColumns: Column[] = [
 		label: __('Order Id', 'directorist'),
 		render: ({ item }) => {
 			return (
-				<a
-					href={`/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${item.id}`}
-				>
-					#{item.id}
-				</a>
+				<>
+					<a
+						href={`/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${item.id}`}
+					>
+						#{item.id}
+					</a>
+					{item.legacy_id && (
+						<span style={{ marginLeft: '5px', color: '#6b7280', fontSize: '12px', display: 'block' }}>
+							{__('Old ID: #', 'directorist')}{item.legacy_id}
+						</span>
+					)}
+				</>
 			);
 		},
 	},
@@ -80,6 +87,17 @@ const baseColumns: Column[] = [
 			return (
 				<span className="directorist-table-text-light">
 					{item?.payment_method || __('System', 'directorist')}
+				</span>
+			);
+		},
+	},
+	{
+		id: 'transaction_id',
+		label: __('Transaction ID', 'directorist'),
+		render: ({ item }) => {
+			return (
+				<span className="directorist-table-text-light">
+					{item?.transaction_id || '—'}
 				</span>
 			);
 		},

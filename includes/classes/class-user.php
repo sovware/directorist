@@ -304,7 +304,15 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             <script>
                 jQuery(($) => {
                     $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php
-                        echo wp_kses_post( $email_verify_checkbox );
+                        echo wp_kses( $email_verify_checkbox, array_merge( wp_kses_allowed_html( 'post' ), [
+                                'input' => [
+                                    'type'    => true,
+                                    'name'    => true,
+                                    'id'      => true,
+                                    'value'   => true,
+                                    'checked' => true,
+                                ],
+                            ] ) );
                     ?>`);
                 });
             </script>

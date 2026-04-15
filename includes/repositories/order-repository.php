@@ -80,7 +80,7 @@ class OrderRepository extends Repository {
         $query->with(
             [
                 'payment' => function( $query ) {
-                    $query->select( 'id', 'order_id', 'method' )->order_by_desc( 'id' );
+                    $query->select( 'id', 'order_id', 'method', 'transaction_id' )->order_by_desc( 'id' );
                 }
             ]
         );
@@ -88,7 +88,8 @@ class OrderRepository extends Repository {
         $orders = array_map(
             function( $order ) {
                 if ( ! empty( $order->payment ) ) {
-                    $order->payment_method = $this->get_payment_method_title( $order->payment->method );
+                    $order->payment_method  = $this->get_payment_method_title( $order->payment->method );
+                    $order->transaction_id  = $order->payment->transaction_id ?? null;
                 }
 
                 $order->total_amount = $order->sub_total;
@@ -199,8 +200,10 @@ class OrderRepository extends Repository {
 
         if ( ! empty( $order->payments[0] ) ) {
             $order->payment_method = $this->get_payment_method_title( $order->payments[0]->method );
+            $order->transaction_id = $order->payments[0]->transaction_id ?? null;
         } else {
             $order->payment_method = 'N/A';
+            $order->transaction_id = null;
         }
 
         $order->total_amount = $order->sub_total;

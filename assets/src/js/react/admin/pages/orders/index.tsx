@@ -81,6 +81,17 @@ const columns: Column[] = [
 		},
 	},
 	{
+		id: 'transaction_id',
+		label: __('Transaction ID', 'directorist'),
+		render: ({ item }) => {
+			return (
+				<span className="directorist-table-text-light">
+					{item?.transaction_id || '—'}
+				</span>
+			);
+		},
+	},
+	{
 		id: 'user_id',
 		label: __('Customer', 'directorist'),
 		render: ({ item }) => {

@@ -61,6 +61,12 @@ export default function OrderDetails({ order }: DetailsProps) {
 					<span>{__('Payment Method', 'directorist')}</span>
 					<span>{order?.payment_method}</span>
 				</li>
+				{order?.transaction_id && (
+					<li>
+						<span>{__('Transaction ID', 'directorist')}</span>
+						<span>{order?.transaction_id}</span>
+					</li>
+				)}
 				<li>
 					<span>{__('Amount', 'directorist')}</span>
 					<span> {displayPrice(order?.amount, order?.currency)}</span>

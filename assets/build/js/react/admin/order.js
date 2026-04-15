@@ -34657,6 +34657,12 @@ function OrderDetails(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: order === null || order === void 0 ? void 0 : order.payment_method
         })]
+      }), (order === null || order === void 0 ? void 0 : order.transaction_id) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Transaction ID', 'directorist')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: order === null || order === void 0 ? void 0 : order.transaction_id
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Amount', 'directorist')
@@ -35181,10 +35187,20 @@ var columns = [{
     });
   }
 }, {
-  id: 'user_id',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Customer', 'directorist'),
+  id: 'transaction_id',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Transaction ID', 'directorist'),
   render: function render(_ref6) {
     var item = _ref6.item;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+      className: "directorist-table-text-light",
+      children: (item === null || item === void 0 ? void 0 : item.transaction_id) || '—'
+    });
+  }
+}, {
+  id: 'user_id',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Customer', 'directorist'),
+  render: function render(_ref7) {
+    var item = _ref7.item;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_styles__WEBPACK_IMPORTED_MODULE_7__.UserInfoContainer, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_styles__WEBPACK_IMPORTED_MODULE_7__.UserLink, {
         href: "/wp-admin/user-edit.php?user_id=".concat(item.user_id),
@@ -35198,8 +35214,8 @@ var columns = [{
 }, {
   id: 'date',
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Order Date', 'directorist'),
-  render: function render(_ref7) {
-    var item = _ref7.item;
+  render: function render(_ref8) {
+    var item = _ref8.item;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
       className: "directorist-table-text-light",
       children: moment__WEBPACK_IMPORTED_MODULE_2___default()(item.created_at).format('MMM D, YYYY')

@@ -16,6 +16,11 @@ export default function OrderDetails({ order }: DetailsProps) {
 				<div className="directorist-order-details-label">
 					<span className="directorist-order-id">
 						{sprintf(__('Order ID: %s', 'directorist'), order?.id)}
+						{order.legacy_id && (
+							<span style={{ color: '#6b7280', fontSize: '12px', marginLeft: '8px' }}>
+								{sprintf(__('Old ID: #%d', 'directorist'), order.legacy_id)}
+							</span>
+						)}
 					</span>
 					<Badge
 						className="directorist-badge"

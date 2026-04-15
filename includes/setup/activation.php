@@ -29,6 +29,7 @@ class Activation {
         Schema::create(
             "{$prefix}orders", function( Blueprint $table ) {
                 $table->big_increments( "id" );
+                $table->unsigned_big_integer( "legacy_id" )->nullable();
                 $table->integer( "subscription_id" )->nullable();
                 $table->integer( "user_id" );
                 $table->integer( "listing_id" )->nullable();

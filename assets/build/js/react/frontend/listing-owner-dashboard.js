@@ -10637,7 +10637,19 @@ var columns = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Order Id', 'directorist'),
   render: function render(_ref) {
     var item = _ref.item;
-    return "#".concat(item.id);
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+        children: ["#", item.id]
+      }), item.legacy_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+        style: {
+          marginLeft: '5px',
+          color: '#6b7280',
+          fontSize: '12px',
+          display: 'block'
+        },
+        children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Old ID: #', 'directorist'), item.legacy_id]
+      })]
+    });
   }
 }, {
   id: 'status',

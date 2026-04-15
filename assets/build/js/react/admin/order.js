@@ -34621,9 +34621,16 @@ function OrderDetails(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_style__WEBPACK_IMPORTED_MODULE_5__.InfoHead, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "directorist-order-details-label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
           className: "directorist-order-id",
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Order ID: %s', 'directorist'), order === null || order === void 0 ? void 0 : order.id)
+          children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Order ID: %s', 'directorist'), order === null || order === void 0 ? void 0 : order.id), order.legacy_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            style: {
+              color: '#6b7280',
+              fontSize: '12px',
+              marginLeft: '8px'
+            },
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Old ID: #%d', 'directorist'), order.legacy_id)
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_admin_components_badge__WEBPACK_IMPORTED_MODULE_0__["default"], {
           className: "directorist-badge",
           variant: (order === null || order === void 0 ? void 0 : order.status) === 'pending' ? 'warning' : (order === null || order === void 0 ? void 0 : order.status) === 'paid' ? 'success' : 'error',
@@ -35139,9 +35146,19 @@ var columns = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Order Id', 'directorist'),
   render: function render(_ref) {
     var item = _ref.item;
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
-      href: "/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/".concat(item.id),
-      children: ["#", item.id]
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
+        href: "/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/".concat(item.id),
+        children: ["#", item.id]
+      }), item.legacy_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        style: {
+          marginLeft: '5px',
+          color: '#6b7280',
+          fontSize: '12px',
+          display: 'block'
+        },
+        children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Old ID: #', 'directorist'), item.legacy_id]
+      })]
     });
   }
 }, {

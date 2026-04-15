@@ -403,6 +403,7 @@ function directorist_870_migrate_legacy_orders() {
         $inserted = $wpdb->insert(
             $orders_table,
             [
+                'legacy_id'          => $post_id,
                 'subscription_id'    => null,
                 'user_id'            => (int) $post->post_author,
                 'listing_id'         => $listing_id ?: null,
@@ -424,6 +425,7 @@ function directorist_870_migrate_legacy_orders() {
                 'updated_at'         => $post->post_modified,
             ],
             [
+                '%d', // legacy_id
                 '%s', // subscription_id (null handled by wpdb)
                 '%d', // user_id
                 '%d', // listing_id

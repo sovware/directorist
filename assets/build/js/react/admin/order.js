@@ -34224,21 +34224,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _shamim_ahmed_dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shamim-ahmed/dashboard */ "./node_modules/@shamim-ahmed/dashboard/build/dashboard.es.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _controls_custom_field_validation_FieldValidator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../controls/custom-field/validation/FieldValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/FieldValidator.ts");
-/* harmony import */ var _controls_custom_field_validation_validators_EmailValidator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/EmailValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/EmailValidator.ts");
-/* harmony import */ var _controls_custom_field_validation_validators_MaxLengthValidator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/MaxLengthValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/MaxLengthValidator.ts");
-/* harmony import */ var _controls_custom_field_validation_validators_MinLengthValidator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/MinLengthValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/MinLengthValidator.ts");
-/* harmony import */ var _controls_custom_field_validation_validators_NumberValidator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/NumberValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/NumberValidator.ts");
-/* harmony import */ var _controls_custom_field_validation_validators_RequiredValidator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/RequiredValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/RequiredValidator.ts");
-/* harmony import */ var _icons_CommentIcon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../icons/CommentIcon */ "./assets/src/js/react/admin/icons/CommentIcon.tsx");
-/* harmony import */ var _icons_DocIcon__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../icons/DocIcon */ "./assets/src/js/react/admin/icons/DocIcon.tsx");
-/* harmony import */ var _icons_QuestionCircleIcon__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../icons/QuestionCircleIcon */ "./assets/src/js/react/admin/icons/QuestionCircleIcon.tsx");
-/* harmony import */ var _orders__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./orders */ "./assets/src/js/react/admin/pages/orders/index.tsx");
-/* harmony import */ var _orders_edit__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./orders/edit */ "./assets/src/js/react/admin/pages/orders/edit/index.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _shamim_ahmed_dashboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shamim-ahmed/dashboard */ "./node_modules/@shamim-ahmed/dashboard/build/dashboard.es.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _controls_custom_field_validation_FieldValidator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../controls/custom-field/validation/FieldValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/FieldValidator.ts");
+/* harmony import */ var _controls_custom_field_validation_validators_EmailValidator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/EmailValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/EmailValidator.ts");
+/* harmony import */ var _controls_custom_field_validation_validators_MaxLengthValidator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/MaxLengthValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/MaxLengthValidator.ts");
+/* harmony import */ var _controls_custom_field_validation_validators_MinLengthValidator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/MinLengthValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/MinLengthValidator.ts");
+/* harmony import */ var _controls_custom_field_validation_validators_NumberValidator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/NumberValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/NumberValidator.ts");
+/* harmony import */ var _controls_custom_field_validation_validators_RequiredValidator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../controls/custom-field/validation/validators/RequiredValidator */ "./assets/src/js/react/admin/controls/custom-field/validation/validators/RequiredValidator.ts");
+/* harmony import */ var _icons_CommentIcon__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../icons/CommentIcon */ "./assets/src/js/react/admin/icons/CommentIcon.tsx");
+/* harmony import */ var _icons_DocIcon__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../icons/DocIcon */ "./assets/src/js/react/admin/icons/DocIcon.tsx");
+/* harmony import */ var _icons_QuestionCircleIcon__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../icons/QuestionCircleIcon */ "./assets/src/js/react/admin/icons/QuestionCircleIcon.tsx");
+/* harmony import */ var _orders__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./orders */ "./assets/src/js/react/admin/pages/orders/index.tsx");
+/* harmony import */ var _orders_edit__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./orders/edit */ "./assets/src/js/react/admin/pages/orders/edit/index.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__);
 
 
 
@@ -34260,23 +34262,29 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 
+
+// Stable reference — avoids recreating the array on every render which would
+// cause useActiveAdminMenu's useLayoutEffect to re-run and re-attach its
+// preventDefault handler, overwriting our click override below.
+
+var ROOT_PATHS = [];
 var actionItems = {
   documentation: {
     label: 'Documentation',
     path: 'https://directorist.com/documentation/',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_icons_DocIcon__WEBPACK_IMPORTED_MODULE_13__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_icons_DocIcon__WEBPACK_IMPORTED_MODULE_14__["default"], {})
   },
   support: {
     label: 'Help & Support',
     path: 'https://directorist.com/dashboard/#support',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_icons_QuestionCircleIcon__WEBPACK_IMPORTED_MODULE_14__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_icons_QuestionCircleIcon__WEBPACK_IMPORTED_MODULE_15__["default"], {})
   },
   feedback: {
     path: 'https://directorist.com/dashboard/#feedback',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_icons_CommentIcon__WEBPACK_IMPORTED_MODULE_12__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_icons_CommentIcon__WEBPACK_IMPORTED_MODULE_13__["default"], {})
   }
 };
-var ThemeWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n\t--color-light: #e7ecee;\n"])));
+var ThemeWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n\t--color-light: #e7ecee;\n"])));
 function App() {
   // const fieldValidation = ({
   // 	value,
@@ -34319,7 +34327,7 @@ function App() {
       errors = _ref.errors,
       setErrors = _ref.setErrors;
     if (!(field !== null && field !== void 0 && field.validation)) return;
-    var validatorContext = new _controls_custom_field_validation_FieldValidator__WEBPACK_IMPORTED_MODULE_6__.FieldValidator();
+    var validatorContext = new _controls_custom_field_validation_FieldValidator__WEBPACK_IMPORTED_MODULE_7__.FieldValidator();
     var errorResult = null;
     if (field.validation.condition && !field.validation.condition(attributes)) {
       errorResult = {
@@ -34333,19 +34341,19 @@ function App() {
           ruleValue = _ref3[1];
         switch (rule) {
           case 'required':
-            validatorContext.addValidator(new _controls_custom_field_validation_validators_RequiredValidator__WEBPACK_IMPORTED_MODULE_11__.RequiredValidator());
+            validatorContext.addValidator(new _controls_custom_field_validation_validators_RequiredValidator__WEBPACK_IMPORTED_MODULE_12__.RequiredValidator());
             break;
           case 'email':
-            validatorContext.addValidator(new _controls_custom_field_validation_validators_EmailValidator__WEBPACK_IMPORTED_MODULE_7__.EmailValidator());
+            validatorContext.addValidator(new _controls_custom_field_validation_validators_EmailValidator__WEBPACK_IMPORTED_MODULE_8__.EmailValidator());
             break;
           case 'min_length':
-            validatorContext.addValidator(new _controls_custom_field_validation_validators_MinLengthValidator__WEBPACK_IMPORTED_MODULE_9__.MinLengthValidator(ruleValue));
+            validatorContext.addValidator(new _controls_custom_field_validation_validators_MinLengthValidator__WEBPACK_IMPORTED_MODULE_10__.MinLengthValidator(ruleValue));
             break;
           case 'max_length':
-            validatorContext.addValidator(new _controls_custom_field_validation_validators_MaxLengthValidator__WEBPACK_IMPORTED_MODULE_8__.MaxLengthValidator(ruleValue));
+            validatorContext.addValidator(new _controls_custom_field_validation_validators_MaxLengthValidator__WEBPACK_IMPORTED_MODULE_9__.MaxLengthValidator(ruleValue));
             break;
           case 'number':
-            validatorContext.addValidator(new _controls_custom_field_validation_validators_NumberValidator__WEBPACK_IMPORTED_MODULE_10__.NumberValidator());
+            validatorContext.addValidator(new _controls_custom_field_validation_validators_NumberValidator__WEBPACK_IMPORTED_MODULE_11__.NumberValidator());
             break;
         }
       });
@@ -34360,26 +34368,51 @@ function App() {
   };
   (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_3__.addAction)('wpmvc-field-on-blur', 'directorist-form-validation', fieldValidation);
   (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_3__.addAction)('wpmvc-field-on-change', 'directorist-form-validation', fieldValidation);
+
+  // Bug fix: useActiveAdminMenu (in @wpmvc/admin-sidebar) intercepts the
+  // .wp-first-item ("All Listings") click with e.preventDefault() and tries
+  // React Router navigation. Since rootPaths=[] there is no valid route to
+  // navigate to, so the link silently does nothing.
+  // We re-bind the click handler after the Dashboard's useLayoutEffect runs
+  // (setTimeout 0 defers to the next macrotask) so it always does a full
+  // WordPress page navigation instead.
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
+    var timer = setTimeout(function () {
+      var $ = window.jQuery;
+      if (!$) return;
+      var $firstItem = $('#menu-posts-at_biz_dir').find('a.wp-first-item');
+      var href = $firstItem.attr('href');
+      if (href) {
+        $firstItem.off('click').on('click', function (e) {
+          e.preventDefault();
+          window.location.href = href;
+        });
+      }
+    }, 0);
+    return function () {
+      return clearTimeout(timer);
+    };
+  }, []);
   var routes = [{
     path: '/',
-    element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_orders__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+    element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_orders__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
     index: true
   }, {
     path: '/edit/:id',
     // element: <Edit />,
-    element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_orders_edit__WEBPACK_IMPORTED_MODULE_16__["default"], {})
+    element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_orders_edit__WEBPACK_IMPORTED_MODULE_17__["default"], {})
   }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(ThemeWrapper, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_shamim_ahmed_dashboard__WEBPACK_IMPORTED_MODULE_4__.Dashboard, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(ThemeWrapper, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_shamim_ahmed_dashboard__WEBPACK_IMPORTED_MODULE_5__.Dashboard, {
       pageTopLevelID: "#menu-posts-at_biz_dir",
-      rootPaths: [],
+      rootPaths: ROOT_PATHS,
       colors: {
         primary: '#3e62f5',
         error: '#D94A4A',
         gray: '#141921'
       },
       header: {
-        logo: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("img", {
+        logo: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("img", {
           src: "https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png",
           alt: "Directorist",
           width: 116

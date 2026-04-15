@@ -34143,7 +34143,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 var actionItems = {
   documentation: {
-    label: 'Knowledge Base',
+    label: 'Documentation',
     path: 'https://directorist.com/documentation/',
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_icons_DocIcon__WEBPACK_IMPORTED_MODULE_13__["default"], {})
   },

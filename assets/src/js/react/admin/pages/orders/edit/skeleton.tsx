@@ -28,10 +28,10 @@ const Bar = styled.div<{
 `;
 
 const Grid = styled.div`
-	padding: 30px 48px;
+	padding: 24px;
 	display: grid;
 	grid-template-columns: 2fr 1fr;
-	gap: 30px;
+	gap: 24px;
 `;
 
 const Col = styled.div``;

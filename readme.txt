@@ -300,6 +300,12 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.6.9 - Apr 15, 2026 =
+
+**Fixed**
+ - Email verified checkbox not rendering in admin user profile. (#2812)
+ - Fixed CSV import not downloading images from extension-less CDN URLs (e.g. logo.dev) (#2809)
+
 = 8.6.8 - Apr 8, 2026 =
 
 **Fixed**

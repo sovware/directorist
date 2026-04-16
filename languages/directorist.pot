@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-08 09:59+0000\n"
+"POT-Creation-Date: 2026-04-16 05:06+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -282,99 +282,99 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr ""
 
-#: ../directorist-base.php:506, ../directorist-base.php:518
+#: ../directorist-base.php:507, ../directorist-base.php:519
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:532
+#: ../directorist-base.php:533
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:534
+#: ../directorist-base.php:535
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:660
+#: ../directorist-base.php:661
 msgid "Directorist Add Listing"
 msgstr ""
 
-#: ../directorist-base.php:663
+#: ../directorist-base.php:664
 msgid "Directorist All Listings"
 msgstr ""
 
-#: ../directorist-base.php:666
+#: ../directorist-base.php:667
 msgid "Directorist Dashboard"
 msgstr ""
 
-#: ../directorist-base.php:669
+#: ../directorist-base.php:670
 msgid "Directorist Author Profile"
 msgstr ""
 
-#: ../directorist-base.php:672
+#: ../directorist-base.php:673
 msgid "Directorist All Categories"
 msgstr ""
 
-#: ../directorist-base.php:675
+#: ../directorist-base.php:676
 msgid "Directorist Single Category"
 msgstr ""
 
-#: ../directorist-base.php:678
+#: ../directorist-base.php:679
 msgid "Directorist All Locations"
 msgstr ""
 
-#: ../directorist-base.php:681
+#: ../directorist-base.php:682
 msgid "Directorist Single Location"
 msgstr ""
 
-#: ../directorist-base.php:684
+#: ../directorist-base.php:685
 msgid "Directorist Single Tag"
 msgstr ""
 
-#: ../directorist-base.php:687
+#: ../directorist-base.php:688
 msgid "Directorist Listing Search Form"
 msgstr ""
 
-#: ../directorist-base.php:690
+#: ../directorist-base.php:691
 msgid "Directorist Search Result"
 msgstr ""
 
-#: ../directorist-base.php:693
+#: ../directorist-base.php:694
 msgid "Directorist Checkout"
 msgstr ""
 
-#: ../directorist-base.php:696
+#: ../directorist-base.php:697
 msgid "Directorist Payment Receipt"
 msgstr ""
 
-#: ../directorist-base.php:699
+#: ../directorist-base.php:700
 msgid "Directorist Payment Failure"
 msgstr ""
 
-#: ../directorist-base.php:702
+#: ../directorist-base.php:703
 msgid "Directorist Privacy Policy"
 msgstr ""
 
-#: ../directorist-base.php:705
+#: ../directorist-base.php:706
 msgid "Directorist Terms & Conditions"
 msgstr ""
 
-#: ../directorist-base.php:708
+#: ../directorist-base.php:709
 msgid "Directorist Pricing Plan"
 msgstr ""
 
-#: ../directorist-base.php:711
+#: ../directorist-base.php:712
 msgid "Directorist Sign In"
 msgstr ""
 
-#: ../directorist-base.php:719, ../includes/classes/class-settings-panel.php:4556
+#: ../directorist-base.php:720, ../includes/classes/class-settings-panel.php:4556
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:726
+#: ../directorist-base.php:727
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:733, ../directorist-base.php:740
+#: ../directorist-base.php:734, ../directorist-base.php:741
 msgid "Listings Import"
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:172, ../includes/classes/class-featured-listing-checkout.php:50, ../includes/classes/class-featured-listing-checkout.php:56, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
+#: ../includes/directorist-directory-functions.php:172, ../includes/classes/class-featured-listing-checkout.php:50, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
 msgid "Invalid listing id."
 msgstr ""
 
@@ -2428,12 +2428,16 @@ msgstr ""
 msgid "License activated successfully"
 msgstr ""
 
-#: ../includes/classes/class-featured-listing-checkout.php:145
+#: ../includes/classes/class-featured-listing-checkout.php:44
+msgid "Listing ID is required."
+msgstr ""
+
+#: ../includes/classes/class-featured-listing-checkout.php:139
 msgid "Featured Listing"
 msgstr ""
 
 #. translators: %s is the listing title
-#: ../includes/classes/class-featured-listing-checkout.php:157
+#: ../includes/classes/class-featured-listing-checkout.php:151
 msgid "Featured Listing: %s"
 msgstr ""
 
@@ -5052,7 +5056,7 @@ msgstr ""
 msgid "Registration completed. Please check your email for confirmation. You will be redirected..."
 msgstr ""
 
-#: ../includes/classes/class-user.php:273, ../includes/classes/class-user.php:481
+#: ../includes/classes/class-user.php:273, ../includes/classes/class-user.php:493
 msgid "Request email verification"
 msgstr ""
 
@@ -5064,7 +5068,7 @@ msgstr ""
 msgid "Mark as email unverified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:297, ../includes/classes/class-user.php:648
+#: ../includes/classes/class-user.php:297, ../includes/classes/class-user.php:660
 msgid "Email Verified?"
 msgstr ""
 
@@ -5072,109 +5076,109 @@ msgstr ""
 msgid "Check this option to mark user email as verified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:414
+#: ../includes/classes/class-user.php:426
 msgid "Email verification request sent to %s user."
 msgid_plural "Email verification request sent to %s users."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:424
+#: ../includes/classes/class-user.php:436
 msgid "%s user marked as email verified."
 msgid_plural "%s users marked as email verified."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:434
+#: ../includes/classes/class-user.php:446
 msgid "%s user marked as email unverified."
 msgid_plural "%s users marked as email unverified."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:543
+#: ../includes/classes/class-user.php:555
 msgid "Your account is not yet verified. Please check your email to verify your account. If you did not receive the verification email, please click on the %s"
 msgstr ""
 
-#: ../includes/classes/class-user.php:544
+#: ../includes/classes/class-user.php:556
 msgid "Resend confirmation email"
 msgstr ""
 
-#: ../includes/classes/class-user.php:621, ../includes/payments/functions.php:47, ../includes/enums/payment/status.php:32, ../includes/modules/multi-directory-setup/class-builder-data.php:2093, ../includes/modules/multi-directory-setup/class-builder-data.php:2109, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/classes/class-user.php:633, ../includes/payments/functions.php:47, ../includes/enums/payment/status.php:32, ../includes/modules/multi-directory-setup/class-builder-data.php:2093, ../includes/modules/multi-directory-setup/class-builder-data.php:2109, ../templates/dashboard/tab-my-listings.php:28
 msgid "Pending"
 msgstr ""
 
-#: ../includes/classes/class-user.php:622
+#: ../includes/classes/class-user.php:634
 msgid "Approve"
 msgstr ""
 
-#: ../includes/classes/class-user.php:623
+#: ../includes/classes/class-user.php:635
 msgid "Deny"
 msgstr ""
 
-#: ../includes/classes/class-user.php:650
+#: ../includes/classes/class-user.php:662
 msgid "User Type"
 msgstr ""
 
-#: ../includes/classes/class-user.php:792
+#: ../includes/classes/class-user.php:804
 msgid "Required form field is missing. Please fill all required fields."
 msgstr ""
 
-#: ../includes/classes/class-user.php:796
+#: ../includes/classes/class-user.php:808
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:800
+#: ../includes/classes/class-user.php:812
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:803
+#: ../includes/classes/class-user.php:815
 msgid "Sorry, space is not allowed in username!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:806
+#: ../includes/classes/class-user.php:818
 msgid "Sorry, the username you entered is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:810
+#: ../includes/classes/class-user.php:822
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/classes/class-user.php:814
+#: ../includes/classes/class-user.php:826
 msgid "Privacy field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:817, ../includes/classes/class-user.php:821
+#: ../includes/classes/class-user.php:829, ../includes/classes/class-user.php:833
 msgid "Terms and Condition field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:825
+#: ../includes/classes/class-user.php:837
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:828
+#: ../includes/classes/class-user.php:840
 msgid "Email Already in use"
 msgstr ""
 
-#: ../includes/classes/class-user.php:832
+#: ../includes/classes/class-user.php:844
 msgid "First Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:837
+#: ../includes/classes/class-user.php:849
 msgid "Last Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:843
+#: ../includes/classes/class-user.php:855
 msgid "Website is not a valid URL"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1115
+#: ../includes/classes/class-user.php:1127
 msgid "Password should be matched and more than five character"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1134
+#: ../includes/classes/class-user.php:1146
 msgid "Oops! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-user.php:1130
+#: ../includes/classes/class-user.php:1142
 msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
@@ -6095,7 +6099,7 @@ msgid "Error: %s"
 msgstr ""
 
 #. translators: %s: error message
-#: ../includes/rest-api/functions.php:152
+#: ../includes/rest-api/functions.php:174
 msgid "Invalid image: %s"
 msgstr ""
 
@@ -8348,7 +8352,7 @@ msgstr ""
 msgid "Limit result set to specific directory type ids."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-checkout-controller.php:100, ../includes/rest-api/Version1/class-checkout-controller.php:174
+#: ../includes/rest-api/Version1/class-checkout-controller.php:100, ../includes/rest-api/Version1/class-checkout-controller.php:177
 msgid "Invalid payment gateway."
 msgstr ""
 

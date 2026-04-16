@@ -4,6 +4,7 @@
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
  * Version: 8.7.0
+ * Requires PHP: 7.4
  * Author: wpWax
  * Author URI: https://wpwax.com
  * License: GPLv3

@@ -1095,22 +1095,23 @@ Please remember that your order may be canceled if you do not make your payment 
                         'options' => [
                              [
                                 'value' => '2',
-                                'label' => __( '2 Columns', 'directorist' ),
-                            ],
-                             [
+                        'label' => __( '2 Columns', 'directorist' ),
+                    ],
+                        [
                                 'value' => '3',
-                                'label' => __( '3 Columns', 'directorist' ),
-                            ],
-                             [
+                            'label' => __( '3 Columns', 'directorist' ),
+                        ],
+                        [
                                 'value' => '4',
-                                'label' => __( '4 Columns', 'directorist' ),
-                            ],
-                         ],
+                            'label' => __( '4 Columns', 'directorist' ),
+                        ],
+                    ],
                         'preview' => [
                              '2' => DIRECTORIST_ASSETS . 'images/col2.svg',
                              '3' => DIRECTORIST_ASSETS . 'images/col3.svg',
                              '4' => DIRECTORIST_ASSETS . 'images/col4.svg',
                          ],
+                    
                     ],
                     'preview_image_quality' => [
                         'label' => __( 'Image Quality', 'directorist' ),

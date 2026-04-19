@@ -1,1 +1,190 @@
-!function(){var t={1375:function(){var t;t=jQuery,window.addEventListener("load",function(){function a(){var a=t(".directorist-authors__cards");t(a).each(function(a,r){var e=t(r).find(".directorist-row"),o=t(e).imagesLoaded(function(){t(o).masonry({percentPosition:!0,horizontalOrder:!0})})})}var r;a(),t(".directorist-authors__nav").length&&t(".directorist-authors__nav ul li:first-child").addClass("active"),t("body").on("click",".directorist-alphabet",function(e){e.preventDefault();var o=t(this),i=t(this).attr("data-alphabet");t("body").addClass("atbdp-form-fade"),t.ajax({method:"POST",url:directorist.ajaxurl,data:{action:"directorist_author_alpha_sorting",_nonce:t(this).attr("data-nonce"),alphabet:t(this).attr("data-alphabet")},success:function(e){t("#directorist-all-authors").empty().append(e),t("body").removeClass("atbdp-form-fade"),t("."+i).parent().addClass("active"),r=t(o).attr("data-alphabet"),a()},error:function(t){}})}),t("body").on("click",".directorist-authors-pagination a",function(e){e.preventDefault();var o=t(this).text();t(this).hasClass("prev")&&(o=parseInt(t(".directorist-authors-pagination .current").text())-1),t(this).hasClass("next")&&(o=parseInt(t(".directorist-authors-pagination .current").text())+1),t("body").addClass("atbdp-form-fade");var i=r;t.ajax({method:"POST",url:directorist.ajaxurl,data:{action:"directorist_author_pagination",paged:o},success:function(r){t("body").removeClass("atbdp-form-fade"),t("#directorist-all-authors").empty().append(r),a(),null!==document.querySelector("."+i)?document.querySelector("."+i).closest("li").classList.add("active"):t(".directorist-authors__nav").length&&t(".directorist-authors__nav ul li:first-child").addClass("active")},error:function(t){}})})})}},a={};function r(e){var o=a[e];if(void 0!==o)return o.exports;var i=a[e]={exports:{}};return t[e](i,i.exports,r),i.exports}r.n=function(t){var a=t&&t.__esModule?function(){return t.default}:function(){return t};return r.d(a,{a:a}),a},r.d=function(t,a){for(var e in a)r.o(a,e)&&!r.o(t,e)&&Object.defineProperty(t,e,{enumerable:!0,get:a[e]})},r.o=function(t,a){return Object.prototype.hasOwnProperty.call(t,a)},function(){"use strict";r(1375)}()}();
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./assets/src/js/public/components/author.js":
+/*!***************************************************!*\
+  !*** ./assets/src/js/public/components/author.js ***!
+  \***************************************************/
+/***/ (function() {
+
+// author sorting
+(function ($) {
+  window.addEventListener('load', function () {
+    /* Masonry layout */
+    function authorsMasonry() {
+      var authorsCard = $('.directorist-authors__cards');
+      $(authorsCard).each(function (id, elm) {
+        var authorsCardRow = $(elm).find('.directorist-row');
+        var authorMasonryInit = $(authorsCardRow).imagesLoaded(function () {
+          $(authorMasonryInit).masonry({
+            percentPosition: true,
+            horizontalOrder: true
+          });
+        });
+      });
+    }
+    authorsMasonry();
+
+    /* alphabet data value */
+    var alphabetValue;
+
+    /* authors nav default active item */
+    if ($('.directorist-authors__nav').length) {
+      $('.directorist-authors__nav ul li:first-child').addClass('active');
+    }
+    /* authors nav item */
+    $('body').on('click', '.directorist-alphabet', function (e) {
+      e.preventDefault();
+      var _this = $(this);
+      var alphabet = $(this).attr('data-alphabet');
+      $('body').addClass('atbdp-form-fade');
+      $.ajax({
+        method: 'POST',
+        url: directorist.ajaxurl,
+        data: {
+          action: 'directorist_author_alpha_sorting',
+          _nonce: $(this).attr('data-nonce'),
+          alphabet: $(this).attr('data-alphabet')
+        },
+        success: function success(response) {
+          $('#directorist-all-authors').empty().append(response);
+          $('body').removeClass('atbdp-form-fade');
+          $('.' + alphabet).parent().addClass('active');
+          alphabetValue = $(_this).attr('data-alphabet');
+          authorsMasonry();
+        },
+        error: function error(_error) {
+          //console.log(error);
+        }
+      });
+    });
+
+    /* authors pagination */
+    $('body').on('click', '.directorist-authors-pagination a', function (e) {
+      e.preventDefault();
+      var paged = $(this).text();
+      if ($(this).hasClass('prev')) {
+        paged = parseInt($('.directorist-authors-pagination .current').text()) - 1;
+      }
+      if ($(this).hasClass('next')) {
+        paged = parseInt($('.directorist-authors-pagination .current').text()) + 1;
+      }
+      $('body').addClass('atbdp-form-fade');
+      var getAlphabetValue = alphabetValue;
+      $.ajax({
+        method: 'POST',
+        url: directorist.ajaxurl,
+        data: {
+          action: 'directorist_author_pagination',
+          paged: paged
+        },
+        success: function success(response) {
+          $('body').removeClass('atbdp-form-fade');
+          $('#directorist-all-authors').empty().append(response);
+          authorsMasonry();
+          if (document.querySelector('.' + getAlphabetValue) !== null) {
+            document.querySelector('.' + getAlphabetValue).closest('li').classList.add('active');
+          } else if ($('.directorist-authors__nav').length) {
+            $('.directorist-authors__nav ul li:first-child').addClass('active');
+          }
+        },
+        error: function error(_error2) {
+          //console.log(error);
+        }
+      });
+    });
+  });
+})(jQuery);
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+!function() {
+"use strict";
+/*!*****************************************************!*\
+  !*** ./assets/src/js/public/modules/all-authors.js ***!
+  \*****************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/author */ "./assets/src/js/public/components/author.js");
+/* harmony import */ var _components_author__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_author__WEBPACK_IMPORTED_MODULE_0__);
+//General Components
+
+}();
+/******/ })()
+;
+//# sourceMappingURL=all-authors.js.map

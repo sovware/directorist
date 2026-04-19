@@ -7,7 +7,17 @@
     "dev": "webpack --config webpack.dev.js",
     "dev-vue": "webpack --config webpack.dev.vue.js",
     "prod": "node pot.js && webpack --config webpack.prod.js",
-    "format": "wp-scripts format ./assets/src"
+    "format": "wp-scripts format ./assets/src",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{css,scss,js}": [
+      "yarn format",
+      "git add"
+    ],
+    "*.php": [
+      "composer format"
+    ]
   },
   "repository": {
     "type": "git",
@@ -72,7 +82,7 @@
     "wp-pot": "^1.10.2"
   },
   "engines": {
-    "node": "24.13.0",
+    "node": "24.14.1",
     "npm": "11.6.2"
   },
   "browserslist": [

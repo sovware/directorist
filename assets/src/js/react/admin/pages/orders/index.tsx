@@ -19,7 +19,7 @@ import moment from 'moment';
  */
 import { STATUSES } from '@/admin/constants/status';
 import { displayPrice } from '@/admin/helper/payment';
-import { getBadgeVariantByStatus } from '@/admin/helper/utils';
+import { getBadgeVariantByStatus, getAdminUrl } from '@/admin/helper/utils';
 import Badge from '../../components/badge';
 import { DeleteModalContent, GlobalDropdownMenuStyles, OrderTableContainer, UserInfoContainer, UserLink } from './styles';
 
@@ -31,7 +31,7 @@ const baseColumns: Column[] = [
 			return (
 				<>
 					<a
-						href={`/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${item.id}`}
+						href={`${getAdminUrl()}edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${item.id}`}
 					>
 						#{item.id}
 					</a>
@@ -109,7 +109,7 @@ const baseColumns: Column[] = [
 			return (
 				<UserInfoContainer>
 					<UserLink
-						href={`/wp-admin/user-edit.php?user_id=${item.user_id}`}
+						href={`${getAdminUrl()}user-edit.php?user_id=${item.user_id}`}
 					>
 						{item.user_display_name}
 					</UserLink>
@@ -167,7 +167,7 @@ export default function Orders() {
 									icon={ seen }
 									onClick={ () => {
 										onClose();
-										window.location.href = `/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${ item.id }`;
+										window.location.href = `${ getAdminUrl() }edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/${ item.id }`;
 									} }
 								>
 									{ __( 'View Order', 'directorist' ) }

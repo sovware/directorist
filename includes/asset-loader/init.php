@@ -350,7 +350,8 @@ class Asset_Loader {
                     'symbol_position' => $c_position,
                     'currency'        => $currency,
                     'symbol'          => $symbol,
-                ] 
+                    'admin_url'       => admin_url(),
+                ]
             );
             wp_enqueue_style( 'directorist-admin-style' );
         }

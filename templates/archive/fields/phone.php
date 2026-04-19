@@ -35,8 +35,7 @@ $phone_label = ! empty( $data['original_field']['label'] )
 </div>
 <?php else : ?>
 <li class="directorist-listing-card-phone">
-   
-    <?php $listings->print_label( $phone_label ); ?>
+    <?php directorist_icon( $icon ); ?>
     <a href="<?php echo esc_url( $phone_link ); ?>">
         <?php echo esc_html( $value ); ?>
     </a>

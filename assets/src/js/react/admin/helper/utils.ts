@@ -107,4 +107,8 @@ export function getBadgeVariantByStatus(status: string): BadgeVariant {
 	return STATUS_TO_BADGE_VARIANT[status] ?? 'default';
 }
 
+export function getAdminUrl(): string {
+	return ( window as any ).directorist_admin_order?.admin_url ?? '/wp-admin/';
+}
+
 export { STATUS_TO_BADGE_VARIANT };

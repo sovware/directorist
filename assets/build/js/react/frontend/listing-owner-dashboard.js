@@ -10521,6 +10521,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   STATUS_TO_BADGE_VARIANT: function() { return /* binding */ STATUS_TO_BADGE_VARIANT; },
 /* harmony export */   formatDate: function() { return /* binding */ formatDate; },
+/* harmony export */   getAdminUrl: function() { return /* binding */ getAdminUrl; },
 /* harmony export */   getBadgeVariantByStatus: function() { return /* binding */ getBadgeVariantByStatus; },
 /* harmony export */   getUser: function() { return /* binding */ getUser; }
 /* harmony export */ });
@@ -10588,6 +10589,10 @@ var STATUS_TO_BADGE_VARIANT = {
 function getBadgeVariantByStatus(status) {
   var _STATUS_TO_BADGE_VARI;
   return (_STATUS_TO_BADGE_VARI = STATUS_TO_BADGE_VARIANT[status]) !== null && _STATUS_TO_BADGE_VARI !== void 0 ? _STATUS_TO_BADGE_VARI : 'default';
+}
+function getAdminUrl() {
+  var _directorist_admin_or, _directorist_admin_or2;
+  return (_directorist_admin_or = (_directorist_admin_or2 = window.directorist_admin_order) === null || _directorist_admin_or2 === void 0 ? void 0 : _directorist_admin_or2.admin_url) !== null && _directorist_admin_or !== void 0 ? _directorist_admin_or : '/wp-admin/';
 }
 
 

@@ -1,6 +1,6 @@
 // Directorist Single Info
 .directorist-details-info-wrap {
-  .directorist-single-info {
+  .directorist-single-info:not(.directorist-single-info-html) {
     display: flex;
     font-size: 15px;
     word-break: break-word;

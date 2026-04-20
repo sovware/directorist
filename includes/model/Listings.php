@@ -2203,7 +2203,7 @@ class Directorist_Listings {
     }
 
     public function is_custom_field( $data ) {
-        $fields      = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url', 'button' ];
+        $fields      = [ 'html', 'button', 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
         $widget_name = $data['widget_name'];
 
         if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {

@@ -286,6 +286,15 @@ class Builder_Data {
                                 ],
                             ],
                         ],
+                        'html'         => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => __( 'Icon', 'directorist' ),
+                                    'value' => 'las la-code',
+                                ],
+                            ],
+                        ],
                     ] 
                 ),
             ],
@@ -1600,6 +1609,34 @@ class Builder_Data {
                                 'type'  => 'icon',
                                 'label' => __( 'Icon', 'directorist' ),
                                 'value' => 'las la-comment',
+                            ],
+                            'show_label' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Show Label', 'directorist' ),
+                                'value' => false,
+                            ],
+                        ],
+                    ],
+                ],
+
+                'html'              => [
+                    'type'    => 'list-item',
+                    'label'   => __( 'Html', 'directorist' ),
+                    'icon'    => 'las la-code',
+                    'hook'    => 'atbdp_custom_html',
+                    'show_if' => [
+                        'where'      => 'submission_form_fields.value.fields',
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'html'],
+                        ],
+                    ],
+                    'options' => [
+                        'title'  => __( 'Html Settings', 'directorist' ),
+                        'fields' => [
+                            'icon'       => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-code',
                             ],
                             'show_label' => [
                                 'type'  => 'toggle',

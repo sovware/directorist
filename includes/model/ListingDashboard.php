@@ -681,7 +681,7 @@ class Directorist_Listing_Dashboard {
         }
 
         // Add unfeature option if listing is featured.
-        if ( $this->can_unfeature() ) {
+        if ( apply_filters( 'directorist_can_unfeature_listing', $this->can_unfeature(), $this ) ) {
             $dropdown_items['unfeature'] = [
                 'class'             => '',
                 'data_attr'         => 'data-task="unfeature"',

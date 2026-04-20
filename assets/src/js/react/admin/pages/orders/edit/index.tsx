@@ -31,10 +31,10 @@ import PaymentLog from './payment-log';
 import Refund from './refund';
 
 const SingleOrderContainer = styled.div`
-	padding: 30px 48px;
+	padding: 24px;
 	display: grid;
 	grid-template-columns: 2fr 1fr;
-	grid-gap: 30px;
+	grid-gap: 24px;
 	.components-card {
 		border-radius: 8px;
 		border: 1px solid var(--color-light);

@@ -33736,6 +33736,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   STATUS_TO_BADGE_VARIANT: function() { return /* binding */ STATUS_TO_BADGE_VARIANT; },
 /* harmony export */   formatDate: function() { return /* binding */ formatDate; },
+/* harmony export */   getAdminUrl: function() { return /* binding */ getAdminUrl; },
 /* harmony export */   getBadgeVariantByStatus: function() { return /* binding */ getBadgeVariantByStatus; },
 /* harmony export */   getUser: function() { return /* binding */ getUser; }
 /* harmony export */ });
@@ -33803,6 +33804,10 @@ var STATUS_TO_BADGE_VARIANT = {
 function getBadgeVariantByStatus(status) {
   var _STATUS_TO_BADGE_VARI;
   return (_STATUS_TO_BADGE_VARI = STATUS_TO_BADGE_VARIANT[status]) !== null && _STATUS_TO_BADGE_VARI !== void 0 ? _STATUS_TO_BADGE_VARI : 'default';
+}
+function getAdminUrl() {
+  var _directorist_admin_or, _directorist_admin_or2;
+  return (_directorist_admin_or = (_directorist_admin_or2 = window.directorist_admin_order) === null || _directorist_admin_or2 === void 0 ? void 0 : _directorist_admin_or2.admin_url) !== null && _directorist_admin_or !== void 0 ? _directorist_admin_or : '/wp-admin/';
 }
 
 
@@ -35483,7 +35488,7 @@ var baseColumns = [{
     var item = _ref.item;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("a", {
-        href: "/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/".concat(item.id),
+        href: "".concat((0,_admin_helper_utils__WEBPACK_IMPORTED_MODULE_13__.getAdminUrl)(), "edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/").concat(item.id),
         children: ["#", item.id]
       }), item.legacy_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("span", {
         style: {
@@ -35555,7 +35560,7 @@ var baseColumns = [{
     var item = _ref7.item;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_styles__WEBPACK_IMPORTED_MODULE_15__.UserInfoContainer, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_styles__WEBPACK_IMPORTED_MODULE_15__.UserLink, {
-        href: "/wp-admin/user-edit.php?user_id=".concat(item.user_id),
+        href: "".concat((0,_admin_helper_utils__WEBPACK_IMPORTED_MODULE_13__.getAdminUrl)(), "user-edit.php?user_id=").concat(item.user_id),
         children: item.user_display_name
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
         className: "directorist-table-text-light",
@@ -35631,7 +35636,7 @@ function Orders() {
                 icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"],
                 onClick: function onClick() {
                   onClose();
-                  window.location.href = "/wp-admin/edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/".concat(item.id);
+                  window.location.href = "".concat((0,_admin_helper_utils__WEBPACK_IMPORTED_MODULE_13__.getAdminUrl)(), "edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/").concat(item.id);
                 },
                 children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('View Order', 'directorist')
               })

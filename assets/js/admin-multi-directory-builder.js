@@ -3550,6 +3550,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }
       }
 
+      // Handle listing_type field - return "General" and "Featured" options
+      if (fieldKeyNorm === 'listing_type') {
+        return [{
+          value: 'general',
+          label: 'General'
+        }, {
+          value: 'featured',
+          label: 'Featured'
+        }];
+      }
+
       // Handle search_by_rating (Review) - checkbox field with star options
       if (fieldKeyNorm === 'search_by_rating' || fieldKeyNorm === 'search_by_rating[]' || fieldKeyNorm === 'review' || widgetName && String(widgetName).toLowerCase() === 'review') {
         return [{
@@ -22526,7 +22537,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // Use the stored field key (set when conditional logic was enabled)
       var currentFieldKey = this.currentFieldKeyForExclusion;
-      var skipKeys = ["logic", "conditional_logic", "conditional-logic", "conditionalLogic", "submission_form_fields", "search_form_fields", "widgets", "fields", "social", "pricing", "map", "listing_type"];
+      var skipKeys = ["logic", "conditional_logic", "conditional-logic", "conditionalLogic", "submission_form_fields", "search_form_fields", "widgets", "fields", "social", "pricing", "map"];
 
       // Filter out the current field, conditional logic keys, and excluded types
       var filtered = this.availableFields.filter(function (field) {
@@ -22594,7 +22605,7 @@ __webpack_require__.r(__webpack_exports__);
       var fieldValue = (condition.field || "").toString().trim().toLowerCase();
 
       // File fields (including listing_img), radio fields, privacy policy field: only show "is" and "is not"
-      if (fieldType === "file" || fieldType === "file_upload" || fieldType === "radio" || fieldValue === "privacy_policy") {
+      if (fieldType === "file" || fieldType === "file_upload" || fieldType === "radio" || fieldValue === "privacy_policy" || fieldValue === "listing_type") {
         return this.operatorOptions.filter(function (operator) {
           return ["is", "is not"].includes(operator.value);
         });

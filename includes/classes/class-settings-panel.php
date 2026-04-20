@@ -1107,9 +1107,9 @@ Please remember that your order may be canceled if you do not make your payment 
                             ],
                         ],
                         'preview' => [
-                            '2' => DIRECTORIST_ASSETS . 'images/col2.svg',
-                            '3' => DIRECTORIST_ASSETS . 'images/col3.svg',
-                            '4' => DIRECTORIST_ASSETS . 'images/col4.svg',
+                            '2' => DIRECTORIST_ASSETS . 'src/images/col2.svg',
+                            '3' => DIRECTORIST_ASSETS . 'src/images/col3.svg',
+                            '4' => DIRECTORIST_ASSETS . 'src/images/col4.svg',
                         ],
                     ],
                     'preview_image_quality' => [

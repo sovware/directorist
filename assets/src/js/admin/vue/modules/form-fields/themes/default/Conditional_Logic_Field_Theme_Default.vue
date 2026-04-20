@@ -619,7 +619,6 @@ export default {
         "social",
         "pricing",
         "map",
-        "listing_type",
       ];
 
       // Filter out the current field, conditional logic keys, and excluded types
@@ -712,7 +711,8 @@ export default {
         fieldType === "file" ||
         fieldType === "file_upload" ||
         fieldType === "radio" ||
-        fieldValue === "privacy_policy"
+        fieldValue === "privacy_policy" ||
+        fieldValue === "listing_type"
       ) {
         return this.operatorOptions.filter((operator) =>
           ["is", "is not"].includes(operator.value),

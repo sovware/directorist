@@ -837,6 +837,14 @@ export default {
 				}
 			}
 
+			// Handle listing_type field - return "General" and "Featured" options
+			if (fieldKeyNorm === 'listing_type') {
+				return [
+					{ value: 'general', label: 'General' },
+					{ value: 'featured', label: 'Featured' },
+				];
+			}
+
 			// Handle search_by_rating (Review) - checkbox field with star options
 			if (
 				fieldKeyNorm === 'search_by_rating' ||

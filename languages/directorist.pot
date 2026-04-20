@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-15 10:10+0000\n"
+"POT-Creation-Date: 2026-04-20 06:06+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1545,7 +1545,7 @@ msgstr ""
 msgid "Directory listings"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:489, ../includes/classes/class-settings-panel.php:2679, ../includes/classes/class-settings-panel.php:2789, ../includes/classes/class-settings-panel.php:3147, ../includes/elementor/all-categories.php:92, ../includes/elementor/all-locations.php:92, ../includes/model/SingleListing.php:804, ../includes/review/class-comment-form-renderer.php:221, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:58, ../includes/widgets/all-locations.php:58, ../includes/widgets/all-tags.php:57, ../includes/modules/multi-directory-setup/builder-custom-fields.php:678, ../includes/modules/multi-directory-setup/class-builder-data.php:399, ../includes/modules/multi-directory-setup/class-builder-data.php:544, ../includes/modules/multi-directory-setup/class-builder-data.php:556, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:197, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:111, ../templates/widgets/contact-form.php:15
+#: ../includes/classes/class-custom-post.php:489, ../includes/classes/class-settings-panel.php:2679, ../includes/classes/class-settings-panel.php:2789, ../includes/classes/class-settings-panel.php:3147, ../includes/elementor/all-categories.php:92, ../includes/elementor/all-locations.php:92, ../includes/model/SingleListing.php:804, ../includes/review/class-comment-form-renderer.php:221, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:58, ../includes/widgets/all-locations.php:58, ../includes/widgets/all-tags.php:57, ../includes/modules/multi-directory-setup/class-builder-data.php:399, ../includes/modules/multi-directory-setup/class-builder-data.php:544, ../includes/modules/multi-directory-setup/class-builder-data.php:556, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:197, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:111, ../templates/widgets/contact-form.php:15
 msgid "Name"
 msgstr ""
 
@@ -4662,7 +4662,7 @@ msgstr ""
 msgid "Brand"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4453, ../includes/modules/multi-directory-setup/builder-custom-fields.php:663, ../includes/modules/multi-directory-setup/class-builder-data.php:1834, ../includes/modules/multi-directory-setup/class-builder-data.php:2738
+#: ../includes/classes/class-settings-panel.php:4453, ../includes/modules/multi-directory-setup/builder-custom-fields.php:663, ../includes/modules/multi-directory-setup/builder-custom-fields.php:678, ../includes/modules/multi-directory-setup/class-builder-data.php:1834, ../includes/modules/multi-directory-setup/class-builder-data.php:2738
 msgid "Button"
 msgstr ""
 
@@ -5039,7 +5039,7 @@ msgstr ""
 msgid "Registration completed. Please check your email for confirmation. You will be redirected..."
 msgstr ""
 
-#: ../includes/classes/class-user.php:273, ../includes/classes/class-user.php:481
+#: ../includes/classes/class-user.php:273, ../includes/classes/class-user.php:493
 msgid "Request email verification"
 msgstr ""
 
@@ -5051,7 +5051,7 @@ msgstr ""
 msgid "Mark as email unverified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:297, ../includes/classes/class-user.php:648
+#: ../includes/classes/class-user.php:297, ../includes/classes/class-user.php:660
 msgid "Email Verified?"
 msgstr ""
 
@@ -5059,109 +5059,109 @@ msgstr ""
 msgid "Check this option to mark user email as verified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:414
+#: ../includes/classes/class-user.php:426
 msgid "Email verification request sent to %s user."
 msgid_plural "Email verification request sent to %s users."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:424
+#: ../includes/classes/class-user.php:436
 msgid "%s user marked as email verified."
 msgid_plural "%s users marked as email verified."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:434
+#: ../includes/classes/class-user.php:446
 msgid "%s user marked as email unverified."
 msgid_plural "%s users marked as email unverified."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:543
+#: ../includes/classes/class-user.php:555
 msgid "Your account is not yet verified. Please check your email to verify your account. If you did not receive the verification email, please click on the %s"
 msgstr ""
 
-#: ../includes/classes/class-user.php:544
+#: ../includes/classes/class-user.php:556
 msgid "Resend confirmation email"
 msgstr ""
 
-#: ../includes/classes/class-user.php:621, ../includes/payments/functions.php:47, ../includes/modules/multi-directory-setup/class-builder-data.php:2163, ../includes/modules/multi-directory-setup/class-builder-data.php:2179, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/classes/class-user.php:633, ../includes/payments/functions.php:47, ../includes/modules/multi-directory-setup/class-builder-data.php:2163, ../includes/modules/multi-directory-setup/class-builder-data.php:2179, ../templates/dashboard/tab-my-listings.php:28
 msgid "Pending"
 msgstr ""
 
-#: ../includes/classes/class-user.php:622
+#: ../includes/classes/class-user.php:634
 msgid "Approve"
 msgstr ""
 
-#: ../includes/classes/class-user.php:623
+#: ../includes/classes/class-user.php:635
 msgid "Deny"
 msgstr ""
 
-#: ../includes/classes/class-user.php:650
+#: ../includes/classes/class-user.php:662
 msgid "User Type"
 msgstr ""
 
-#: ../includes/classes/class-user.php:792
+#: ../includes/classes/class-user.php:804
 msgid "Required form field is missing. Please fill all required fields."
 msgstr ""
 
-#: ../includes/classes/class-user.php:796
+#: ../includes/classes/class-user.php:808
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:800
+#: ../includes/classes/class-user.php:812
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:803
+#: ../includes/classes/class-user.php:815
 msgid "Sorry, space is not allowed in username!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:806
+#: ../includes/classes/class-user.php:818
 msgid "Sorry, the username you entered is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:810
+#: ../includes/classes/class-user.php:822
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/classes/class-user.php:814
+#: ../includes/classes/class-user.php:826
 msgid "Privacy field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:817, ../includes/classes/class-user.php:821
+#: ../includes/classes/class-user.php:829, ../includes/classes/class-user.php:833
 msgid "Terms and Condition field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:825
+#: ../includes/classes/class-user.php:837
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:828
+#: ../includes/classes/class-user.php:840
 msgid "Email Already in use"
 msgstr ""
 
-#: ../includes/classes/class-user.php:832
+#: ../includes/classes/class-user.php:844
 msgid "First Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:837
+#: ../includes/classes/class-user.php:849
 msgid "Last Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:843
+#: ../includes/classes/class-user.php:855
 msgid "Website is not a valid URL"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1115
+#: ../includes/classes/class-user.php:1127
 msgid "Password should be matched and more than five character"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1134
+#: ../includes/classes/class-user.php:1146
 msgid "Oops! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-user.php:1130
+#: ../includes/classes/class-user.php:1142
 msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
@@ -6065,7 +6065,7 @@ msgid "Error: %s"
 msgstr ""
 
 #. translators: %s: error message
-#: ../includes/rest-api/functions.php:152
+#: ../includes/rest-api/functions.php:174
 msgid "Invalid image: %s"
 msgstr ""
 

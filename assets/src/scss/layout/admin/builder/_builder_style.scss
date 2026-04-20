@@ -3994,6 +3994,107 @@ input[type="radio"].cptm-radio {
 			}
 		}
 	}
+	.cptm-listing-card-preview-action-placeholder {
+		.cptm-widget-preview-container {
+			width: 100%;
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+		}
+
+		// Style action widgets as badges (like excerpt)
+		.cptm-widget-preview-area {
+			display: inline-flex;
+			gap: 8px;
+			flex-wrap: wrap;
+		}
+
+		.cptm-widget-card-block-wrap {
+			display: inline-flex;
+			vertical-align: top;
+		}
+
+		.cptm-list-item-card {
+			display: inline-flex;
+			gap: 4px;
+			align-items: center;
+			height: 32px;
+			padding: 0 10px;
+			border-radius: 4px;
+			background: #ffffff;
+			border: 1px solid #e5e7eb;
+			box-sizing: border-box;
+			color: #141921;
+			font-size: 12px;
+			font-weight: 400;
+			transition: 0.3s ease;
+			position: relative;
+
+			.cptm-list-item {
+				display: flex;
+				gap: 4px;
+				align-items: center;
+			}
+
+			.cptm-list-item-content {
+				display: inline-flex;
+				gap: 4px;
+				align-items: center;
+				flex: unset;
+			}
+
+			.cptm-list-item-icon {
+				font-size: 16px;
+				color: #141921;
+			}
+
+			.cptm-list-item-label-text {
+				font-size: 12px;
+				font-weight: 400;
+				color: #141921;
+			}
+
+			.cptm-list-item-actions {
+				display: flex;
+				align-items: center;
+				opacity: 1;
+				visibility: visible;
+
+				// Hide per-widget settings gear (settings at placeholder level)
+				.cptm-list-item-edit {
+					display: none;
+				}
+
+				// Style trash to look like badge X close
+				.cptm-list-item-trash {
+					width: auto;
+					height: auto;
+					border-radius: 0;
+					background: transparent;
+					margin-left: 4px;
+					cursor: pointer;
+					transition: color ease 0.3s;
+
+					span {
+						font-size: 16px;
+						color: #141921;
+
+						// Replace trash icon with X icon (la-times)
+						&::before {
+							content: "\f00d";
+						}
+					}
+
+					&:hover {
+						background: transparent;
+						span {
+							color: #3e62f5;
+						}
+					}
+				}
+			}
+		}
+	}
 	.cptm-listing-card-preview-tagline-placeholder,
 	.cptm-listing-card-preview-rating-placeholder {
 		.cptm-placeholder-label {
@@ -4542,8 +4643,10 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-listing-card-preview-body {
-	display: block;
-	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 16px 16px 12px;
 	position: relative;
 }
 
@@ -4894,7 +4997,7 @@ input[type="radio"].cptm-radio {
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		padding: 20px;
+		padding: 16px;
 		@media only screen and (max-width: 480px) {
 			box-sizing: border-box;
 		}
@@ -4934,7 +5037,7 @@ input[type="radio"].cptm-radio {
 	}
 	.cptm-listing-card-preview-footer {
 		display: flex;
-		gap: 8px;
+		gap: 12px;
 		padding: 0;
 	}
 	.cptm-listing-card-author-avatar {
@@ -4982,7 +5085,7 @@ input[type="radio"].cptm-radio {
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		padding: 20px;
+		padding: 16px;
 		@media only screen and (max-width: 480px) {
 			box-sizing: border-box;
 		}
@@ -5026,7 +5129,7 @@ input[type="radio"].cptm-radio {
 	}
 	.cptm-listing-card-preview-footer {
 		display: flex;
-		gap: 8px;
+		gap: 12px;
 		padding: 0;
 	}
 }
@@ -5041,7 +5144,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-listing-card-preview-footer {
 	display: flex;
-	gap: 22px;
+	gap: 12px;
 	flex-wrap: wrap;
 	padding: 0 16px 24px;
 	.cptm-widget-preview-area {

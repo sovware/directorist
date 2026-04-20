@@ -675,7 +675,7 @@ return apply_filters(
                 'label' => [
                     'type'        => 'text',
                     'label'       => __( 'Button Text Label', 'directorist' ),
-                    'value'       => __( 'Name', 'directorist' ),
+                    'value'       => __( 'Button', 'directorist' ),
                     'description' => __( 'Label for the “Button Text” input shown to the listing owner (e.g., Name, Button Text).', 'directorist' ),
                 ],
                 'button_text_placeholder' => [

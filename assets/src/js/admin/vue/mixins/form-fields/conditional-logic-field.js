@@ -667,12 +667,7 @@ export default {
 				// Only include fields that can be used in conditions
 				// Exclude fields like conditional-logic itself and non-comparable types
 				// Note: date, time, and file fields are now included (they use specialized inputs)
-				const excludeTypes = [
-					'conditional-logic',
-					'button',
-					'submit',
-					'section',
-				];
+				const excludeTypes = ['conditional-logic', 'submit', 'section'];
 				if (excludeTypes.includes(type)) {
 					continue;
 				}

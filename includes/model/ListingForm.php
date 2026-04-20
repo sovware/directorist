@@ -919,7 +919,7 @@ class Directorist_Listing_Form {
     }
 
     public function is_custom_field( $data ) {
-        $fields = [ 'checkbox', 'color_picker', 'date', 'file', 'html', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+        $fields = [ 'html', 'button', 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
         return in_array( $data['widget_name'], $fields ) ? true : false;
     }
 

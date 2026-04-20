@@ -191,6 +191,11 @@
 				color: var(--directorist-color-primary);
 			}
 		}
+		.directorist-form-button-field{
+			display: flex;
+			flex-direction: column;
+			gap: 40px 0;
+		}
 		.directorist-checkbox {
 			.directorist-checkbox__label {
 				margin-left: 0;

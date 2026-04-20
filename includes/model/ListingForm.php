@@ -724,6 +724,11 @@ class Directorist_Listing_Form {
             $valid_conditions = [];
             foreach ( $group['conditions'] as $condition ) {
                 if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
+                    // listing_type is not rendered in admin — skip its conditions so
+                    // dependent fields are always visible when editing a listing.
+                    if ( is_admin() && 'listing_type' === $condition['field'] ) {
+                        continue;
+                    }
                     $valid_conditions[] = $condition;
                 }
             }

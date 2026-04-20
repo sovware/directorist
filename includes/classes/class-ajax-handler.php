@@ -824,7 +824,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $username  = "{$user_name}_{$rand}";
             $new_user  = register_new_user( $username, $email );
 
-            if ( ! $new_user ) {
+            if ( is_wp_error( $new_user ) ) {
                 $data = [
                     'status'      => false,
                     'status_code' => 'unknown_error',

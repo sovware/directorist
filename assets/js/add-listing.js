@@ -1009,7 +1009,8 @@ function mapFieldKeyToSelector(fieldKey) {
     miles: '[name="miles"], .directorist-custom-range-slider__range',
     search_by_rating: '[name="search_by_rating[]"]',
     review: '[name="search_by_rating[]"]',
-    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
+    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field',
+    listing_type: 'input[name="listing_type"]'
   };
   if (fieldKeyMap[fieldKey]) {
     return fieldKeyMap[fieldKey];

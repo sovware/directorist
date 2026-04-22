@@ -31,6 +31,22 @@ class API {
         return $promotion;
     }
 
+    public static function get_dashboard_promo() {
+        $promotion = get_transient( 'directorist_dashboard_promo' );
+
+        if ( ! empty( $promotion ) ) {
+            return $promotion;
+        }
+
+        $promotion  = static::get( 'v1/get-dashboard-notice' );
+        $promotion = json_decode( $promotion );
+        $end_time  = static::get_promotion_end_time( $promotion );
+
+        set_transient( 'directorist_dashboard_promo', $promotion, $end_time );
+
+        return $promotion;
+    }
+
     protected static function get_promotion_end_time( $promotion ) {
         if ( empty( $promotion ) ||
             ( is_object( $promotion ) && empty( $promotion->promo_end_date ) ) ||

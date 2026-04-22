@@ -321,10 +321,10 @@ function directorist_850_update_db_version() {
  *
  * Follows the batched callback convention: return true to re-queue, false when done.
  *
- * @since 8.7.0
+ * @since 8.8.0
  * @return bool True if more posts remain, false when migration is complete.
  */
-function directorist_870_migrate_legacy_orders() {
+function directorist_880_migrate_legacy_orders() {
     global $wpdb;
 
     $orders_table   = $wpdb->prefix . 'directorist_orders';
@@ -335,7 +335,7 @@ function directorist_870_migrate_legacy_orders() {
     $payments_exists = $wpdb->get_var( "SHOW TABLES LIKE '{$payments_table}'" );
 
     if ( ! $orders_exists || ! $payments_exists ) {
-        error_log( 'Directorist 8.7.0 migration: target tables missing, skipping order migration.' );
+        error_log( 'Directorist 8.8.0 migration: target tables missing, skipping order migration.' );
         return false;
     }
 
@@ -514,6 +514,6 @@ function directorist_870_migrate_legacy_orders() {
     return $remaining->found_posts > 0;
 }
 
-function directorist_870_update_db_version() {
-    \ATBDP_Installation::update_db_version( '8.7.0' );
+function directorist_880_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.8.0' );
 }

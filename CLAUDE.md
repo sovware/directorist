@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Name:** Directorist — Business Directory Solution
 - **Type:** WordPress plugin (GPLv3)
-- **Version:** 8.7.0
+- **Version:** 8.8.0
 - **Repo:** https://github.com/sovware/directorist
 - **Entry point:** `directorist-base.php` → singleton `Directorist_Base`
 - **Config:** `config.php` — constants: `ATBDP_VERSION`, `ATBDP_POST_TYPE` (`at_biz_dir`), `ATBDP_TEXTDOMAIN` (`directorist`)

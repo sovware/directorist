@@ -3,6 +3,7 @@
  */
 import apiFetch from '@wordpress/api-fetch';
 import { doAction } from '@wordpress/hooks';
+import { t, tsprintf } from './i18n';
 
 /**
  * Utility functions for enquiry operations
@@ -53,8 +54,8 @@ export const getUserEmail = (enquiry) => {
  * @returns {string} - The listing title or 'Unknown Listing' if not found
  */
 export const getListingTitle = (enquiry) => {
-	if (!enquiry) return 'Unknown Listing';
-	return enquiry.listing_title || 'Unknown Listing';
+	if (!enquiry) return t('unknown_listing', 'Unknown Listing');
+	return enquiry.listing_title || t('unknown_listing', 'Unknown Listing');
 };
 
 /**
@@ -87,7 +88,7 @@ export const markEnquiryAsRead = async (item, onSuccess, silent = false) => {
 
 		if (!silent) {
 			doAction('helpgent-toast', {
-				message: 'Response marked as read',
+				message: t('response_marked_as_read', 'Response marked as read'),
 				type: 'success',
 			});
 		}
@@ -123,7 +124,11 @@ export const bulkMarkEnquiriesAsRead = async (items, onSuccess) => {
 		if (onSuccess) onSuccess();
 
 		doAction('helpgent-toast', {
-			message: `${ids.length} response(s) marked as read.`,
+			message: tsprintf(
+				'responses_marked_as_read',
+				'%d response(s) marked as read.',
+				ids.length
+			),
 			type: 'success',
 		});
 	} catch (error) {
@@ -160,7 +165,10 @@ export const deleteEnquiry = async (item, onSuccess) => {
 		}
 
 		doAction('helpgent-toast', {
-			message: 'Response deleted successfully.',
+			message: t(
+				'response_deleted_successfully',
+				'Response deleted successfully.'
+			),
 			type: 'success',
 		});
 
@@ -195,7 +203,11 @@ export const bulkDeleteEnquiries = async (items, onSuccess) => {
 		if (onSuccess) onSuccess();
 
 		doAction('helpgent-toast', {
-			message: `${ids.length} response(s) deleted successfully.`,
+			message: tsprintf(
+				'responses_deleted_successfully',
+				'%d response(s) deleted successfully.',
+				ids.length
+			),
 			type: 'success',
 		});
 	} catch (error) {
@@ -223,14 +235,21 @@ export const sendEmailToUser = (item) => {
 	if (!userEmail) {
 		console.error('No user email found for enquiry:', enquiry);
 		doAction('helpgent-toast', {
-			message: 'No email address found for this enquiry.',
+			message: t(
+				'no_email_address_found',
+				'No email address found for this enquiry.'
+			),
 			type: 'error',
 		});
 		return;
 	}
 
 	// Create mailto link with pre-filled fields
-	const subject = `Your Enquiry on ${listingTitle}`;
+	const subject = tsprintf(
+		'your_enquiry_on',
+		'Your Enquiry on %s',
+		listingTitle
+	);
 	const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}`;
 
 	// Open native email client
@@ -292,7 +311,9 @@ export const getStatusBadgeClass = (isRead) => {
  * @returns {string} - The status badge text
  */
 export const getStatusBadgeText = (isRead) => {
-	return isRead === '1' ? 'Read' : 'New';
+	return isRead === '1'
+		? t('status_read', 'Read')
+		: t('status_new', 'New');
 };
 
 /**

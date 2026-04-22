@@ -9,13 +9,13 @@ import {
 	useRef,
 } from '@wordpress/element';
 import { DataViews } from '@wordpress/dataviews';
-import { __ } from '@wordpress/i18n';
 
 /**
  * External dependencies
  */
 import CheckIcon from '../icons/Check';
 import TrashIcon from '../icons/Trash';
+import { t, tsprintf } from '../utils/i18n';
 
 /**
  * Internal dependencies
@@ -40,6 +40,7 @@ export default function Tables(props) {
 	const [enrichedItems, setEnrichedItems] = useState([]);
 	const [isLoadingAnswers, setIsLoadingAnswers] = useState(false);
 	const answersCacheRef = useRef(new Map()); // Cache for answers data
+	const dataViewsRef = useRef(null);
 
 	// Initialize view state for DataViews
 	const [view, setView] = useState({
@@ -70,7 +71,9 @@ export default function Tables(props) {
 
 	// Get enquiry status text
 	const getEnquiryStatusText = (status) => {
-		return status === '0' ? 'new' : 'read';
+		return status === '0'
+			? t('status_new', 'New')
+			: t('status_read', 'Read');
 	};
 
 	// Define fields configuration for DataViews
@@ -78,7 +81,7 @@ export default function Tables(props) {
 		() => [
 			{
 				id: 'enquiry',
-				header: 'Enquiry',
+				header: t('enquiry', 'Enquiry'),
 				enableHiding: false,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -104,7 +107,7 @@ export default function Tables(props) {
 										setIsViewModalOpen(true);
 									}}
 								>
-									{__('View', 'directorist')}
+									{t('view', 'View')}
 								</a>
 								<a
 									href="#"
@@ -115,7 +118,7 @@ export default function Tables(props) {
 										handleSendEmail(item);
 									}}
 								>
-									{__('Send Email', 'directorist')}
+									{t('send_email', 'Send Email')}
 								</a>
 							</div>
 						</div>
@@ -124,7 +127,7 @@ export default function Tables(props) {
 			},
 			{
 				id: 'listing',
-				header: 'Listing',
+				header: t('listing', 'Listing'),
 				enableHiding: true,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -138,7 +141,7 @@ export default function Tables(props) {
 			},
 			{
 				id: 'sender',
-				header: 'Sender',
+				header: t('sender', 'Sender'),
 				enableHiding: true,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -160,7 +163,7 @@ export default function Tables(props) {
 			},
 			{
 				id: 'status',
-				header: 'Status',
+				header: t('status', 'Status'),
 				enableHiding: true,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -222,7 +225,7 @@ export default function Tables(props) {
 		() => [
 			{
 				id: 'mark-as-read',
-				label: __('Mark as read', 'directorist'),
+				label: t('mark_as_read', 'Mark as read'),
 				supportsBulk: hasBulk,
 				icon: <CheckIcon />,
 				callback: (items) => {
@@ -243,19 +246,20 @@ export default function Tables(props) {
 						<div className="directorist-formgent-table-modal">
 							<h1>
 								{items.length > 1
-									? __(
-											`Are you sure to delete ${items.length} items?`,
-											'directorist'
+									? tsprintf(
+											'confirm_delete_multiple_items',
+											'Are you sure to delete %d items?',
+											items.length
 										)
-									: __(
-											'Are you sure to delete this item?',
-											'directorist'
+									: t(
+											'confirm_delete_single_item',
+											'Are you sure to delete this item?'
 										)}
 							</h1>
 							<p>
-								{__(
-									'This action cannot be undone.',
-									'directorist'
+								{t(
+									'action_cannot_be_undone',
+									'This action cannot be undone.'
 								)}
 							</p>
 							<div className="directorist-formgent-table-modal-action">
@@ -269,13 +273,13 @@ export default function Tables(props) {
 									}}
 									className="directorist-btn directorist-btn-danger"
 								>
-									{__('Delete', 'directorist')}
+									{t('delete', 'Delete')}
 								</button>
 								<button
 									onClick={closeModal}
 									className="directorist-btn directorist-btn-light"
 								>
-									{__('Cancel', 'directorist')}
+									{t('cancel', 'Cancel')}
 								</button>
 							</div>
 						</div>
@@ -283,7 +287,7 @@ export default function Tables(props) {
 				},
 				hideModalHeader: true,
 				id: 'delete',
-				label: __('Delete', 'directorist'),
+				label: t('delete', 'Delete'),
 				icon: <TrashIcon />,
 				isDestructive: true,
 				modalFocusOnMount: 'firstContentElement',
@@ -330,6 +334,38 @@ export default function Tables(props) {
 	}, [filteredData, view.page, view.perPage]);
 
 	// Lazy load answers only for visible/paginated items
+	useEffect(() => {
+		const container = dataViewsRef.current;
+
+		if (!container) {
+			return undefined;
+		}
+
+		const actionLabel = t('actions', 'Actions');
+		const updateInternalLabels = () => {
+			container
+				.querySelectorAll('.dataviews-view-table-header')
+				.forEach((element) => {
+					if (element.textContent.trim() === 'Actions') {
+						element.textContent = actionLabel;
+					}
+				});
+
+			container
+				.querySelectorAll('button[aria-label="Actions"]')
+				.forEach((element) => {
+					element.setAttribute('aria-label', actionLabel);
+				});
+		};
+
+		updateInternalLabels();
+
+		const observer = new MutationObserver(updateInternalLabels);
+		observer.observe(container, { childList: true, subtree: true });
+
+		return () => observer.disconnect();
+	}, [view, actions]);
+
 	useEffect(() => {
 		if (paginatedData.length === 0) {
 			return;
@@ -397,27 +433,30 @@ export default function Tables(props) {
 
 	return (
 		<>
-			<DataViews
-				data={displayData}
-				fields={fields}
-				view={view}
-				onChangeView={handleChangeView}
-				actions={actions}
-				getItemId={(item) => String(item.id)}
-				search
-				searchLabel={__('Search enquiries...', 'directorist')}
-				paginationInfo={{
-					totalItems: totalItems,
-					totalPages: totalPages,
-				}}
-				defaultLayouts={{
-					table: {
-						layout: {
-							styles: {},
+			<div ref={dataViewsRef}>
+				<DataViews
+					data={displayData}
+					fields={fields}
+					view={view}
+					onChangeView={handleChangeView}
+					actions={actions}
+					getItemId={(item) => String(item.id)}
+					search
+					searchLabel={t('search_enquiries', 'Search enquiries...')}
+					empty={t('no_results', 'No results')}
+					paginationInfo={{
+						totalItems: totalItems,
+						totalPages: totalPages,
+					}}
+					defaultLayouts={{
+						table: {
+							layout: {
+								styles: {},
+							},
 						},
-					},
-				}}
-			/>
+					}}
+				/>
+			</div>
 
 			{/* View Enquiry Details Modal */}
 			<EnquiryDetailsModal

@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -11,6 +10,7 @@ import Calendar from '../icons/Calendar';
 import Check from '../icons/Check';
 import Envelope from '../icons/Envelope';
 import Inbox from '../icons/Inbox';
+import { t } from '../utils/i18n';
 import {
 	fetchAllEnquiries,
 	fetchEnquiryKPIs,
@@ -41,25 +41,25 @@ const EnquiriesComponent = ({ data = {} }) => {
 	const enquiryStats = [
 		{
 			icon: <Inbox />,
-			title: 'Total Enquiries',
+			title: t('total_enquiries', 'Total Enquiries'),
 			value: responseKPIs.total || 0,
 			type: 'total',
 		},
 		{
 			icon: <Envelope />,
-			title: 'New Messages',
+			title: t('new_messages', 'New Messages'),
 			value: responseKPIs.unread || 0,
 			type: 'new',
 		},
 		{
 			icon: <Calendar />,
-			title: 'This Week',
+			title: t('this_week', 'This Week'),
 			value: responseKPIs.this_week || 0,
 			type: 'this-week',
 		},
 		{
 			icon: <Check />,
-			title: 'Total Resolved',
+			title: t('total_resolved', 'Total Resolved'),
 			value: responseKPIs.read || 0,
 			type: 'resolved',
 		},
@@ -83,12 +83,12 @@ const EnquiriesComponent = ({ data = {} }) => {
 		<EnquiriesComponentStyle className="directorist-enquiries-container">
 			<div className="directorist-enquiries-header">
 				<h1 className="directorist-enquiries-title">
-					{__('My Enquiries', 'directorist')}
+					{t('my_enquiries', 'My Enquiries')}
 				</h1>
 				<p className="directorist-enquiries-description">
-					{__(
-						'Track and manage all your incoming messages',
-						'directorist'
+					{t(
+						'dashboard_description',
+						'Track and manage all your incoming messages'
 					)}
 				</p>
 			</div>

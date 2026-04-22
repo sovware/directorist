@@ -3,7 +3,6 @@
  */
 import { Modal } from '@wordpress/components';
 import { useEffect, useState, useRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 
 /**
  * External dependencies
@@ -16,6 +15,7 @@ import ReactSVG from 'react-inlinesvg';
 import Check from '../icons/Check';
 import Reply from '../icons/Reply';
 import Trash from '../icons/Trash';
+import { t } from '../utils/i18n';
 import {
 	fetchSingleEnquiry,
 	findMatchingEnquiry,
@@ -75,7 +75,12 @@ export default function EnquiryDetailsModal({
 				setMatchedEnquiry(matched);
 			})
 			.catch((err) => {
-				setError('Failed to load enquiry details');
+				setError(
+					t(
+						'failed_load_enquiry_details',
+						'Failed to load enquiry details'
+					)
+				);
 				console.error('Error loading enquiry:', err);
 			})
 			.finally(() => {
@@ -151,7 +156,10 @@ export default function EnquiryDetailsModal({
 		<>
 			<EnquiryModalGlobalStyle />
 			<Modal
-				title={`Enquiry Details - ${matchedEnquiry?.listing_title || 'Unknown Listing'}`}
+				title={`${t('enquiry_details', 'Enquiry Details')} - ${
+					matchedEnquiry?.listing_title ||
+					t('unknown_listing', 'Unknown Listing')
+				}`}
 				onRequestClose={onClose}
 				className="directorist-enquiry-modal"
 				size="large"
@@ -179,9 +187,9 @@ export default function EnquiryDetailsModal({
 					{loading && (
 						<div className="directorist-loading">
 							<p>
-								{__(
-									'Loading enquiry details...',
-									'directorist'
+								{t(
+									'loading_enquiry_details',
+									'Loading enquiry details...'
 								)}
 							</p>
 						</div>
@@ -239,7 +247,10 @@ export default function EnquiryDetailsModal({
 								</div>
 								<div className="directorist-enquiry-listing">
 									<h3>
-										{__('Regarding Listing', 'directorist')}
+										{t(
+											'regarding_listing',
+											'Regarding Listing'
+										)}
 									</h3>
 									<a
 										href={
@@ -249,9 +260,9 @@ export default function EnquiryDetailsModal({
 										rel="noopener noreferrer"
 									>
 										{matchedEnquiry?.listing_title ||
-											__(
-												'Unknown Listing',
-												'directorist'
+											t(
+												'unknown_listing',
+												'Unknown Listing'
 											)}
 									</a>
 								</div>
@@ -289,7 +300,7 @@ export default function EnquiryDetailsModal({
 								>
 									<Reply />
 									<span>
-										{__('Send Email', 'directorist')}
+										{t('send_email', 'Send Email')}
 									</span>
 								</button>
 								<button
@@ -302,11 +313,14 @@ export default function EnquiryDetailsModal({
 									<Check />
 									<span>
 										{singleItem?.response?.is_read === '1'
-											? __(
-													'Marked as read',
-													'directorist'
+											? t(
+													'marked_as_read',
+													'Marked as read'
 												)
-											: __('Mark as read', 'directorist')}
+											: t(
+													'mark_as_read',
+													'Mark as read'
+												)}
 									</span>
 								</button>
 								<button
@@ -317,7 +331,7 @@ export default function EnquiryDetailsModal({
 									}}
 								>
 									<Trash />
-									<span>{__('Delete', 'directorist')}</span>
+									<span>{t('delete', 'Delete')}</span>
 								</button>
 							</div>
 						</>

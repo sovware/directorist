@@ -326,7 +326,7 @@ class Directorist_Single_Listing {
     }
 
     public function is_custom_field( $data ) {
-        $fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+        $fields = ['html', 'button', 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
         $is_custom_field = in_array( $data['widget_name'], $fields ) ? true : false;
         return $is_custom_field;
     }
@@ -542,6 +542,70 @@ class Directorist_Single_Listing {
 
         if ( $quick_info ) {
             Helper::get_template( 'single/quick-info', $args );
+        }
+    }
+
+    public function action_template() {
+
+        $actions = $this->listing_header( '', 'action-placeholder' );
+
+        // Filter out actions whose widget no longer exists in the submission form.
+        $submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
+        $active_form_widgets    = [];
+        $form_fields_by_widget  = [];
+        $form_fields_by_key     = [];
+
+        if ( ! empty( $submission_form_fields['fields'] ) ) {
+            foreach ( $submission_form_fields['fields'] as $field ) {
+                if ( ! empty( $field['widget_name'] ) ) {
+                    $active_form_widgets[] = $field['widget_name'];
+                    $form_fields_by_widget[ $field['widget_name'] ] = $field;
+
+                    // Index button fields by their field_key/widget_key for
+                    // precise mapping when multiple buttons exist.
+                    if ( ! empty( $field['widget_key'] ) ) {
+                        $form_fields_by_key[ $field['widget_key'] ] = $field;
+                    }
+                    if ( ! empty( $field['field_key'] ) ) {
+                        $form_fields_by_key[ $field['field_key'] ] = $field;
+                    }
+                }
+            }
+        }
+
+        if ( ! empty( $actions ) ) {
+            $actions = array_filter(
+                $actions, function ( $action ) use ( $active_form_widgets ) {
+                    $widget = $action['widget_name'] ?? '';
+                    return in_array( $widget, $active_form_widgets, true );
+                } 
+            );
+
+            foreach ( $actions as &$action ) {
+                $widget     = $action['widget_name'] ?? '';
+                $widget_key = $action['widget_key'] ?? '';
+
+                // For button widgets, match by widget_key first to support
+                // multiple button fields, then resolve the real meta key
+                // (field_key) from the matched form field data.
+                if ( 'button' === $widget && $widget_key && isset( $form_fields_by_key[ $widget_key ] ) ) {
+                    $matched_field          = $form_fields_by_key[ $widget_key ];
+                    $action['form_data']    = $matched_field;
+                    $action['field_key']    = ! empty( $matched_field['field_key'] ) ? $matched_field['field_key'] : $widget_key;
+                } elseif ( isset( $form_fields_by_widget[ $widget ] ) ) {
+                    $action['form_data'] = $form_fields_by_widget[ $widget ];
+                }
+            }
+            unset( $action );
+        }
+
+        $args = [
+            'listing' => $this,
+            'actions' => $actions,
+        ];
+
+        if ( $actions ) {
+            Helper::get_template( 'single/action-section', $args );
         }
     }
 

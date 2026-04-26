@@ -632,7 +632,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             if ( get_post_status( $post ) !== 'publish' && current_user_can( 'publish_at_biz_dirs' ) ) {
                 $nonce              = wp_create_nonce( 'quick-publish-action' );
                 $link               = admin_url( "edit.php?update_id={$post->ID}&_wpnonce={$nonce}&post_type=at_biz_dir" );
-                $actions['publish'] = "<a href='$link' style='color: #4caf50; font-weight: bold'>Publish</a>";
+                $actions['publish'] = "<a href='" . esc_url( $link ) . "' style='color: #4caf50; font-weight: bold'>Publish</a>";
             }
 
             if ( get_post_status( $post ) === 'pending' && current_user_can( 'publish_at_biz_dirs' ) ) {

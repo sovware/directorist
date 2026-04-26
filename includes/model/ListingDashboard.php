@@ -193,14 +193,16 @@ class Directorist_Listing_Dashboard {
 
         if ( 'rejected' === $status ) {
             $reason = get_post_meta( $id, '_listing_rejection_reason', true );
-            if ( $reason ) {
-                $html .= sprintf(
-                    '<span class="directorist-see-why-wrap"><a href="#" class="directorist-see-why">%s</a><span class="directorist-rejection-popover"><strong class="directorist-rejection-popover__title">%s</strong><span class="directorist-rejection-popover__body">%s</span></span></span>',
-                    esc_html__( 'See why', 'directorist' ),
-                    esc_html__( 'Why this listing was rejected', 'directorist' ),
-                    esc_html( $reason )
-                );
-            }
+            $display_reason = $reason ? esc_html( $reason ) : esc_html__( 'No reason was provided. Please contact the administrator.', 'directorist' );
+            $popover_id = 'directorist-rejection-popover-' . $id;
+            $html .= sprintf(
+                '<span class="directorist-see-why-wrap"><button type="button" class="directorist-see-why" aria-expanded="false" aria-controls="%s">%s</button><span id="%s" class="directorist-rejection-popover" role="tooltip"><strong class="directorist-rejection-popover__title">%s</strong><span class="directorist-rejection-popover__body">%s</span></span></span>',
+                esc_attr( $popover_id ),
+                esc_html__( 'See why', 'directorist' ),
+                esc_attr( $popover_id ),
+                esc_html__( 'Why this listing was rejected', 'directorist' ),
+                $display_reason
+            );
         }
 
         return $html;
@@ -246,7 +248,7 @@ class Directorist_Listing_Dashboard {
         $image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
         $image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
 
-        return "<img src='$image_src' alt='$image_alt' />";
+        return "<img src='" . esc_url( $image_src ) . "' alt='$image_alt' />";
     }
 
     public function fav_listing_items() {

@@ -163,7 +163,7 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
                 '==PIN=='                                        => $pin,
                 '==CONFIRM_EMAIL_ADDRESS_URL=='                  => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw( directorist_password_reset_url( $user, false, true ) ), __( 'Confirm Email Address', 'directorist' ) ) : '',
                 '==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw( directorist_password_reset_url( $user, true, true ) ), __( 'Set Password And Confirm Email Address', 'directorist' ) ) : '',
-                '==REJECTION_REASON=='                           => $listing_id ? (string) get_post_meta( $listing_id, '_listing_rejection_reason', true ) : '',
+                '==REJECTION_REASON=='                           => $listing_id ? esc_html( (string) get_post_meta( $listing_id, '_listing_rejection_reason', true ) ) : '',
             ];
 
             /**

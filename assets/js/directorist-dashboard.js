@@ -491,24 +491,37 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function() {
 
 (function () {
+  function closeAllPopovers() {
+    document.querySelectorAll('.directorist-rejection-popover.is-open').forEach(function (p) {
+      p.classList.remove('is-open');
+      var trigger = p.closest('.directorist-see-why-wrap');
+      if (trigger) {
+        var btn = trigger.querySelector('.directorist-see-why');
+        if (btn) {
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+  }
   document.addEventListener('click', function (e) {
     var trigger = e.target.closest ? e.target.closest('.directorist-see-why') : null;
     if (trigger) {
-      e.preventDefault();
       var popover = trigger.nextElementSibling;
       var isOpen = popover.classList.contains('is-open');
-      document.querySelectorAll('.directorist-rejection-popover.is-open').forEach(function (p) {
-        p.classList.remove('is-open');
-      });
+      closeAllPopovers();
       if (!isOpen) {
         popover.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
       }
       return;
     }
     if (!e.target.closest || !e.target.closest('.directorist-see-why-wrap')) {
-      document.querySelectorAll('.directorist-rejection-popover.is-open').forEach(function (p) {
-        p.classList.remove('is-open');
-      });
+      closeAllPopovers();
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeAllPopovers();
     }
   });
 })();
@@ -1178,6 +1191,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -1186,12 +1205,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		if (!(moduleId in __webpack_modules__)) {
-/******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

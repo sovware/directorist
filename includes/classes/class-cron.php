@@ -25,7 +25,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
             // add_action('init', array($this, 'atbdp_schedule_tasks'));
             add_filter( 'cron_schedules', [ $this, 'atbdp_cron_init' ] );
 
-            add_action( 'edit_post', [ $this, 'update_atbdp_schedule_tasks' ], 10, 2 );
+            //add_action( 'edit_post', [ $this, 'update_atbdp_schedule_tasks' ], 10, 2 );
 
             add_action( 'directorist_cleanup_temporary_uploads', [ $this, 'cleanup_temporary_uploads' ] );
         }

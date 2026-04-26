@@ -108,6 +108,9 @@
 			gap: 15px;
 			min-height: 66px;
 			justify-content: flex-start;
+			.post-php & {
+				gap: 0;
+			}
 			i {
 				display: flex;
 				align-items: center;
@@ -217,6 +220,9 @@
 	@include e(title) {
 		padding: 20px 30px;
 		border-bottom: 1px solid #e3e6ef;
+		.post-php & {
+			border-bottom: none;
+		}
 		i {
 			background-color: var(--directorist-color-primary);
 			&:after {
@@ -755,6 +761,9 @@
 		height: 40px;
 		cursor: pointer;
 		border-radius: 100%;
+		.directorist-icon-mask:after{
+			background-color: white;
+		}
 		&:before {
 			content: "";
 			position: absolute;

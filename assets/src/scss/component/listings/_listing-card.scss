@@ -117,7 +117,7 @@
 					line-height: 18px;
 					color: var(--directorist-color-body);
 
-					.directorist-icon-mask {
+					>.directorist-icon-mask {
 						position: relative;
 						top: 2px;
 
@@ -139,7 +139,7 @@
 					margin-right: 8px;
 				}
 
-				a {
+				a:not(.directorist-btn) {
 					text-decoration: none;
 					color: var(--directorist-color-body);
 					word-break: break-word;
@@ -216,7 +216,7 @@
 				}
 			}
 
-			a {
+			a:not(.directorist-btn) {
 				text-decoration: none;
 				box-shadow: none;
 				color: var(--directorist-color-body);
@@ -780,7 +780,6 @@
 
 		// Single Listing List
 		&.directorist-listing-list {
-			max-width: 1216px;
 
 			@media screen and (min-width: 576.99px) {
 				display: flex;
@@ -854,7 +853,8 @@
 					height: 30px;
 				}
 
-				.directorist-listing-single__info__list .directorist-icon-mask {
+				.directorist-listing-single__info__list>li>.directorist-icon-mask,
+				.directorist-listing-single__info__list>div>.directorist-icon-mask {
 					top: 0;
 				}
 
@@ -1092,6 +1092,10 @@
 				}
 
 				&.directorist-badge--only-text {
+					.directorist-icon-mask {
+						display: none;
+					}
+
 					&.directorist-badge-featured {
 						background-color: var(--directorist-color-featured-badge);
 						color: var(--directorist-color-white);
@@ -1418,7 +1422,7 @@
 					margin-right: 8px;
 				}
 
-				a,
+				a:not(.directorist-btn),
 				span {
 					text-decoration: none;
 					color: var(--directorist-color-body);
@@ -1466,7 +1470,7 @@
 					margin-right: 8px;
 				}
 
-				a {
+				a:not(.directorist-btn) {
 					text-decoration: none;
 					color: var(--directorist-color-body);
 					border-bottom: 0 none;
@@ -1479,7 +1483,7 @@
 				}
 			}
 
-			a {
+			a:not(.directorist-btn) {
 				color: var(--directorist-color-primary);
 				text-decoration: underline;
 
@@ -1537,6 +1541,123 @@
 		.directorist-mark-as-favorite__btn {
 			width: auto;
 			height: auto;
+		}
+	}
+}
+
+// Action list section below excerpt in listing cards
+.directorist-listing-single__action-list {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 12px;
+
+	>li,
+	>div {
+		display: flex;
+		flex: 48%;
+		max-width: 385px;
+		min-width: 136px;
+		margin: 0;
+
+		a:not(.directorist-btn) {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 0 16px;
+			min-height: 36px;
+			border-radius: 8px;
+			border: 1px solid var(--directorist-color-border-light);
+			background-color: var(--directorist-color-light);
+			font-size: 13px;
+			font-weight: 500;
+			text-decoration: none;
+			color: var(--directorist-color-body);
+			transition: all ease 0.3s;
+			box-sizing: border-box;
+
+			&:hover {
+				border-color: var(--directorist-color-primary);
+				color: var(--directorist-color-primary);
+			}
+
+			.directorist-icon-mask:after {
+				width: 14px;
+				height: 14px;
+				background-color: currentColor;
+			}
+		}
+
+		// Hide standalone icon and label outside the link
+		>.directorist-icon-mask,
+		>i,
+		>span:not(.directorist-listing-card-info-label) {
+			display: none;
+		}
+
+		.directorist-listing-card-info-label {
+			display: none;
+		}
+	}
+
+	.directorist-listing-card-email,
+	.directorist-listing-card-button,
+	.directorist-listing-card-phone {
+		align-items: center;
+		gap: 8px;
+	}
+
+
+	.directorist-btn {
+		width: 100%;
+		white-space: nowrap;
+
+		.directorist-btn-text {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			min-width: 0;
+			flex: 0 1 auto;
+		}
+
+		.directorist-icon-arrow-right {
+			display: inline-flex;
+			align-items: center;
+		}
+
+		&.directorist-btn-default {
+			min-height: 40px;
+			border-radius: 8px;
+			font-size: 14px;
+			font-weight: 500;
+			border: 1px solid #F0F0F0 !important;
+			background: #F3F4F6 !important;
+			color: #364153 !important;
+
+			&:hover {
+				background-color: var(--directorist-color-bg-light) !important;
+				border-color: var(--directorist-color-bg-light) !important;
+				color: var(--directorist-color-dark) !important;
+			}
+		}
+	}
+
+	// Button custom field already has .directorist-btn – override to match
+	.directorist-listing-card-button {
+
+		.directorist-btn {
+			width: 100%;
+			min-height: 40px;
+			border-radius: 8px;
+			font-size: 14px;
+			font-weight: 500;
+			letter-spacing: -0.076px;
+			.directorist-icon-arrow-right .directorist-icon-mask:after{
+				width: 12px;
+				height: 12px;
+			}
 		}
 	}
 }

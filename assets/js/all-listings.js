@@ -1479,6 +1479,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Globally accessible form_data
   var form_data = {};
+
+  // Track last submitted form_data to skip duplicate AJAX requests
+  var lastSubmittedFormData = '';
   var initial_view = new URLSearchParams(window.location.search).get('view');
   if (initial_view) {
     form_data.view = initial_view;
@@ -1497,6 +1500,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   function performInstantSearch(searchElement) {
     // get parent element
     var searchElm = searchElement.closest('.directorist-instant-search');
+
+    // Skip if form_data hasn't changed since last request
+    var currentFormData = JSON.stringify(form_data);
+    if (currentFormData === lastSubmittedFormData) {
+      return;
+    }
+    lastSubmittedFormData = currentFormData;
 
     // Instant Search Data
     var instant_search_data = prepareInstantSearchData(searchElm);
@@ -2183,6 +2193,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
+
+  // Range slider min/max number inputs - debounced keyup and change
+  function handleRangeSliderInputSearch(el) {
+    var searchElm = $(el).closest('.directorist-instant-search');
+    var activeForm = getActiveForm(searchElm);
+    performInstantSearchWithRequiredValue(activeForm);
+  }
+  $('body').on('change', '.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max', function (e) {
+    e.preventDefault();
+    handleRangeSliderInputSearch(this);
+  });
+  $('body').on('keyup', '.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    handleRangeSliderInputSearch(this);
+  }, 800));
 
   // sidebar on change searching - radio/checkbox/location/range
   $('body').on('change', ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {

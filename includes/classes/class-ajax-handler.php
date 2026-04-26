@@ -2045,11 +2045,25 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 wp_send_json_error( __( 'Rejection reason is required.', 'directorist' ) );
             }
 
-            wp_update_post( [ 'ID' => $listing_id, 'post_status' => 'rejected' ] );
+            $status_update = wp_update_post(
+                [
+                    'ID'          => $listing_id,
+                    'post_status' => 'rejected',
+                ],
+                true
+            );
+
+            if ( is_wp_error( $status_update ) ) {
+                wp_send_json_error( __( 'Could not reject the listing. Please try again.', 'directorist' ) );
+            }
 
             update_post_meta( $listing_id, '_listing_rejection_reason', $reason );
             update_post_meta( $listing_id, '_listing_rejected_at', current_time( 'mysql' ) );
             update_post_meta( $listing_id, '_listing_rejected_by', get_current_user_id() );
+
+            if ( class_exists( 'ATBDP_Metabox' ) ) {
+                ATBDP_Metabox::add_rejection_history_entry( $listing_id, $reason, get_current_user_id() );
+            }
 
             do_action( 'atbdp_listing_rejected', $listing_id );
 

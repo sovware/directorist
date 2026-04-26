@@ -2550,6 +2550,73 @@ span.atbdp-tick-cross {
 	}
 }
 
+// Admin add listing moderation history
+#directorist_moderation_history {
+	.directorist-moderation-history__item {
+		padding: 16px 0;
+
+		&:first-child {
+			padding-top: 0;
+		}
+
+		& + .directorist-moderation-history__item {
+			border-top: 1px solid #f0f0f1;
+		}
+	}
+
+	.directorist-moderation-history__header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 12px;
+	}
+
+	.directorist-moderation-history__status {
+		display: inline-flex;
+		align-items: flex-start;
+		gap: 8px;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.4;
+		color: #1d2327;
+	}
+
+	.directorist-moderation-history__status-dot {
+		width: 10px;
+		height: 10px;
+		margin-top: 4px;
+		flex: 0 0 auto;
+		border-radius: 50%;
+		background: #b42318;
+	}
+
+	.directorist-moderation-history__date {
+		flex: 0 0 auto;
+		font-size: 13px;
+		line-height: 1.4;
+		color: #646970;
+		text-align: right;
+	}
+
+	.directorist-moderation-history__reason {
+		margin: 0 0 12px 18px;
+		padding-left: 14px;
+		border-left: 3px solid #dcdcde;
+		font-size: 13px;
+		line-height: 1.6;
+		color: #1d2327;
+		white-space: pre-line;
+	}
+
+	.directorist-moderation-history__byline {
+		margin-left: 18px;
+		font-size: 12px;
+		line-height: 1.4;
+		color: #646970;
+	}
+}
+
 #announcment_submit .vp-input ~ span {
 	display: flex;
 	background-color: #007cba;

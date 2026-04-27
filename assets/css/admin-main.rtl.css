@@ -2389,7 +2389,10 @@ span.atbdp-tick-cross {
   padding: 16px 0;
 }
 #directorist_moderation_history .directorist-moderation-history__item:first-child {
-  padding-top: 0;
+  padding-top: 6px;
+}
+#directorist_moderation_history .directorist-moderation-history__item:last-child {
+  padding-bottom: 0;
 }
 #directorist_moderation_history .directorist-moderation-history__item + .directorist-moderation-history__item {
   border-top: 1px solid #f0f0f1;
@@ -2460,6 +2463,7 @@ span.atbdp-tick-cross {
   font-size: 12px;
   line-height: 1.4;
   color: #646970;
+  margin-bottom: 0;
 }
 
 #atbdp-reject-modal[hidden] {
@@ -2470,36 +2474,45 @@ span.atbdp-tick-cross {
   position: fixed;
   z-index: 100000;
   inset: 0;
-  padding: 24px;
-  background: rgba(17, 24, 39, 0.52);
+  padding: 32px 16px;
+  background: rgba(29, 35, 39, 0.45);
   overflow-y: auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 .directorist-reject-modal .directorist-reject-modal__dialog {
-  width: min(720px, 100% - 48px);
-  margin: 48px auto;
+  width: min(680px, 100%);
+  margin: 32px auto;
   background: #fff;
-  border-radius: 20px;
-  -webkit-box-shadow: 0 20px 48px rgba(15, 23, 42, 0.2);
-          box-shadow: 0 20px 48px rgba(15, 23, 42, 0.2);
+  border: 1px solid #c3c4c7;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   overflow: hidden;
 }
+.directorist-reject-modal .directorist-reject-modal__header {
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid #dcdcde;
+}
 .directorist-reject-modal .directorist-reject-modal__body {
-  padding: 28px;
+  padding: 20px 24px 24px;
 }
 .directorist-reject-modal .directorist-reject-modal__title {
-  margin: 0 0 6px;
-  font-size: 24px;
+  margin: 0 0 4px;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.4;
   color: #1d2327;
 }
 .directorist-reject-modal .directorist-reject-modal__listing-meta {
-  margin: 0 0 24px;
-  font-size: 15px;
+  margin: 0;
+  font-size: 13px;
   line-height: 1.5;
   color: #646970;
+}
+.directorist-reject-modal .directorist-reject-modal__listing-title {
+  font-weight: 600;
+  color: #1d2327;
 }
 .directorist-reject-modal .directorist-reject-modal__listing-owner-wrap[hidden] {
   display: none;
@@ -2507,18 +2520,19 @@ span.atbdp-tick-cross {
 .directorist-reject-modal .directorist-reject-modal__listing-separator {
   margin: 0 6px;
 }
-.directorist-reject-modal .directorist-reject-modal__section {
-  padding-top: 24px;
+.directorist-reject-modal .directorist-reject-modal__section + .directorist-reject-modal__section {
+  margin-top: 20px;
+  padding-top: 20px;
   border-top: 1px solid #f0f0f1;
 }
-.directorist-reject-modal .directorist-reject-modal__section + .directorist-reject-modal__section {
-  margin-top: 24px;
+.directorist-reject-modal .directorist-reject-modal__section--presets {
+  margin-bottom: 4px;
 }
 .directorist-reject-modal .directorist-reject-modal__section-title,
 .directorist-reject-modal .directorist-reject-modal__label {
   display: block;
-  margin: 0 0 14px;
-  font-size: 15px;
+  margin: 0 0 10px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
   color: #1d2327;
@@ -2534,41 +2548,34 @@ span.atbdp-tick-cross {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
 }
 .directorist-reject-modal .directorist-reject-modal__preset {
-  padding: 10px 16px;
-  border: 1px solid #dcdcde;
-  border-radius: 999px;
-  background: #f6f7f7;
-  color: #2c3338;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
-  cursor: pointer;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+  line-height: 30px;
+  -webkit-transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 .directorist-reject-modal .directorist-reject-modal__preset:hover, .directorist-reject-modal .directorist-reject-modal__preset:focus {
-  border-color: #b42318;
-  color: #b42318;
-  background: #fff;
+  border-color: #8c8f94;
 }
 .directorist-reject-modal .directorist-reject-modal__preset.is-active {
-  border-color: #b42318;
-  background: #fff1ef;
-  color: #b42318;
+  border-color: #2271b1;
+  background: #f0f6fc;
+  color: #0a4b78;
+  -webkit-box-shadow: inset 0 0 0 1px #2271b1;
+          box-shadow: inset 0 0 0 1px #2271b1;
 }
 .directorist-reject-modal .directorist-reject-modal__textarea {
   width: 100%;
-  min-height: 146px;
-  padding: 16px 18px;
-  border: 1px solid #dcdcde;
-  border-radius: 12px;
+  min-height: 132px;
+  padding: 8px 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.5;
   color: #1d2327;
   resize: vertical;
 }
@@ -2588,16 +2595,20 @@ span.atbdp-tick-cross {
   color: #8c8f94;
 }
 .directorist-reject-modal .directorist-reject-modal__help-text {
-  margin: 14px 0 0;
-  font-size: 14px;
+  margin: 8px 0 0;
+  font-size: 13px;
   line-height: 1.5;
   color: #646970;
 }
 .directorist-reject-modal .directorist-reject-modal__error {
   margin: 12px 0 0;
+  padding: 0;
+  border-right-width: 4px;
+}
+.directorist-reject-modal .directorist-reject-modal__error p {
+  margin: 10px 12px;
   font-size: 13px;
   line-height: 1.5;
-  color: #b42318;
 }
 .directorist-reject-modal .directorist-reject-modal__error[hidden] {
   display: none;
@@ -2615,29 +2626,35 @@ span.atbdp-tick-cross {
   -webkit-justify-content: flex-end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  gap: 12px;
-  padding: 20px 28px 28px;
-  border-top: 1px solid #f0f0f1;
+  gap: 8px;
+  padding: 16px 24px;
+  border-top: 1px solid #dcdcde;
+  background: #f6f7f7;
 }
 .directorist-reject-modal .directorist-reject-modal__action-button {
-  min-width: 140px;
-  height: 48px;
-  padding: 0 20px;
-  border-radius: 14px;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 46px;
-  text-align: center;
+  min-width: 110px;
 }
 .directorist-reject-modal .directorist-reject-modal__action-button--primary {
-  border-color: #b42318;
-  background: #b42318;
-  color: #fff;
+  text-shadow: none;
 }
-.directorist-reject-modal .directorist-reject-modal__action-button--primary:hover, .directorist-reject-modal .directorist-reject-modal__action-button--primary:focus {
-  border-color: #9f1f15;
-  background: #9f1f15;
-  color: #fff;
+@media (max-width: 782px) {
+  .directorist-reject-modal {
+    padding: 16px;
+  }
+  .directorist-reject-modal .directorist-reject-modal__dialog {
+    margin: 16px auto;
+  }
+  .directorist-reject-modal .directorist-reject-modal__header,
+  .directorist-reject-modal .directorist-reject-modal__body,
+  .directorist-reject-modal .directorist-reject-modal__actions {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .directorist-reject-modal .directorist-reject-modal__actions {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+  }
 }
 
 #announcment_submit .vp-input ~ span {

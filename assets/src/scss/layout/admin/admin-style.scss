@@ -2556,7 +2556,10 @@ span.atbdp-tick-cross {
 		padding: 16px 0;
 
 		&:first-child {
-			padding-top: 0;
+			padding-top: 6px;
+		}
+		&:last-child{
+			padding-bottom: 0;
 		}
 
 		& + .directorist-moderation-history__item {
@@ -2614,6 +2617,7 @@ span.atbdp-tick-cross {
 		font-size: 12px;
 		line-height: 1.4;
 		color: #646970;
+		margin-bottom: 0;
 	}
 }
 
@@ -2625,37 +2629,48 @@ span.atbdp-tick-cross {
 	position: fixed;
 	z-index: 100000;
 	inset: 0;
-	padding: 24px;
-	background: rgba(17, 24, 39, 0.52);
+	padding: 32px 16px;
+	background: rgba(29, 35, 39, 0.45);
 	overflow-y: auto;
 	box-sizing: border-box;
 
 	.directorist-reject-modal__dialog {
-		width: min(720px, calc(100% - 48px));
-		margin: 48px auto;
+		width: min(680px, 100%);
+		margin: 32px auto;
 		background: #fff;
-		border-radius: 20px;
-		box-shadow: 0 20px 48px rgba(15, 23, 42, 0.2);
+		border: 1px solid #c3c4c7;
+		border-radius: 4px;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 		overflow: hidden;
 	}
 
+	.directorist-reject-modal__header {
+		padding: 18px 24px 16px;
+		border-bottom: 1px solid #dcdcde;
+	}
+
 	.directorist-reject-modal__body {
-		padding: 28px;
+		padding: 20px 24px 24px;
 	}
 
 	.directorist-reject-modal__title {
-		margin: 0 0 6px;
-		font-size: 24px;
+		margin: 0 0 4px;
+		font-size: 20px;
 		font-weight: 600;
-		line-height: 1.25;
+		line-height: 1.4;
 		color: #1d2327;
 	}
 
 	.directorist-reject-modal__listing-meta {
-		margin: 0 0 24px;
-		font-size: 15px;
+		margin: 0;
+		font-size: 13px;
 		line-height: 1.5;
 		color: #646970;
+	}
+
+	.directorist-reject-modal__listing-title {
+		font-weight: 600;
+		color: #1d2327;
 	}
 
 	.directorist-reject-modal__listing-owner-wrap[hidden] {
@@ -2667,19 +2682,22 @@ span.atbdp-tick-cross {
 	}
 
 	.directorist-reject-modal__section {
-		padding-top: 24px;
-		border-top: 1px solid #f0f0f1;
-
 		& + .directorist-reject-modal__section {
-			margin-top: 24px;
+			margin-top: 20px;
+			padding-top: 20px;
+			border-top: 1px solid #f0f0f1;
 		}
+	}
+
+	.directorist-reject-modal__section--presets {
+		margin-bottom: 4px;
 	}
 
 	.directorist-reject-modal__section-title,
 	.directorist-reject-modal__label {
 		display: block;
-		margin: 0 0 14px;
-		font-size: 15px;
+		margin: 0 0 10px;
+		font-size: 13px;
 		font-weight: 600;
 		line-height: 1.4;
 		color: #1d2327;
@@ -2692,44 +2710,36 @@ span.atbdp-tick-cross {
 	.directorist-reject-modal__presets {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 12px;
+		gap: 8px;
 	}
 
 	.directorist-reject-modal__preset {
-		padding: 10px 16px;
-		border: 1px solid #dcdcde;
-		border-radius: 999px;
-		background: #f6f7f7;
-		color: #2c3338;
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 1.2;
-		cursor: pointer;
-		transition: all 0.2s ease;
+		min-height: 32px;
+		padding: 0 12px;
+		font-size: 13px;
+		line-height: 30px;
+		transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 
 		&:hover,
 		&:focus {
-			border-color: #b42318;
-			color: #b42318;
-			background: #fff;
+			border-color: #8c8f94;
 		}
 
 		&.is-active {
-			border-color: #b42318;
-			background: #fff1ef;
-			color: #b42318;
+			border-color: #2271b1;
+			background: #f0f6fc;
+			color: #0a4b78;
+			box-shadow: inset 0 0 0 1px #2271b1;
 		}
 	}
 
 	.directorist-reject-modal__textarea {
 		width: 100%;
-		min-height: 146px;
-		padding: 16px 18px;
-		border: 1px solid #dcdcde;
-		border-radius: 12px;
+		min-height: 132px;
+		padding: 8px 10px;
 		box-sizing: border-box;
-		font-size: 15px;
-		line-height: 1.6;
+		font-size: 14px;
+		line-height: 1.5;
 		color: #1d2327;
 		resize: vertical;
 
@@ -2739,17 +2749,22 @@ span.atbdp-tick-cross {
 	}
 
 	.directorist-reject-modal__help-text {
-		margin: 14px 0 0;
-		font-size: 14px;
+		margin: 8px 0 0;
+		font-size: 13px;
 		line-height: 1.5;
 		color: #646970;
 	}
 
 	.directorist-reject-modal__error {
 		margin: 12px 0 0;
-		font-size: 13px;
-		line-height: 1.5;
-		color: #b42318;
+		padding: 0;
+		border-left-width: 4px;
+
+		p {
+			margin: 10px 12px;
+			font-size: 13px;
+			line-height: 1.5;
+		}
 	}
 
 	.directorist-reject-modal__error[hidden] {
@@ -2760,32 +2775,36 @@ span.atbdp-tick-cross {
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		gap: 12px;
-		padding: 20px 28px 28px;
-		border-top: 1px solid #f0f0f1;
+		gap: 8px;
+		padding: 16px 24px;
+		border-top: 1px solid #dcdcde;
+		background: #f6f7f7;
 	}
 
 	.directorist-reject-modal__action-button {
-		min-width: 140px;
-		height: 48px;
-		padding: 0 20px;
-		border-radius: 14px;
-		font-size: 15px;
-		font-weight: 600;
-		line-height: 46px;
-		text-align: center;
+		min-width: 110px;
 	}
 
 	.directorist-reject-modal__action-button--primary {
-		border-color: #b42318;
-		background: #b42318;
-		color: #fff;
+		text-shadow: none;
+	}
 
-		&:hover,
-		&:focus {
-			border-color: #9f1f15;
-			background: #9f1f15;
-			color: #fff;
+	@media (max-width: 782px) {
+		padding: 16px;
+
+		.directorist-reject-modal__dialog {
+			margin: 16px auto;
+		}
+
+		.directorist-reject-modal__header,
+		.directorist-reject-modal__body,
+		.directorist-reject-modal__actions {
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+
+		.directorist-reject-modal__actions {
+			flex-wrap: wrap;
 		}
 	}
 }

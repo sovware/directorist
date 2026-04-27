@@ -158,21 +158,29 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             $presets = $this->get_rejection_reason_presets();
             ?>
             <div id="atbdp-reject-modal" class="directorist-reject-modal" hidden>
-                <div class="directorist-reject-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="atbdp-reject-modal-title">
-                    <div class="directorist-reject-modal__body">
+                <div
+                    class="directorist-reject-modal__dialog"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="atbdp-reject-modal-title"
+                    aria-describedby="atbdp-reject-modal-description"
+                >
+                    <div class="directorist-reject-modal__header">
                         <h2 id="atbdp-reject-modal-title" class="directorist-reject-modal__title"><?php esc_html_e( 'Reject listing', 'directorist' ); ?></h2>
 
-                        <p class="directorist-reject-modal__listing-meta">
-                            <span id="atbdp-reject-listing-title"></span>
+                        <p id="atbdp-reject-modal-description" class="directorist-reject-modal__listing-meta">
+                            <strong id="atbdp-reject-listing-title" class="directorist-reject-modal__listing-title"></strong>
                             <span id="atbdp-reject-owner-wrap" class="directorist-reject-modal__listing-owner-wrap" hidden>
                                 <span class="directorist-reject-modal__listing-separator">&mdash;</span>
                                 <?php esc_html_e( 'submitted by', 'directorist' ); ?>
                                 <span id="atbdp-reject-owner-email"></span>
                             </span>
                         </p>
+                    </div>
 
+                    <div class="directorist-reject-modal__body">
                         <?php if ( ! empty( $presets ) ) : ?>
-                            <div class="directorist-reject-modal__section">
+                            <div class="directorist-reject-modal__section directorist-reject-modal__section--presets">
                                 <p class="directorist-reject-modal__section-title"><?php esc_html_e( 'Common reasons', 'directorist' ); ?></p>
 
                                 <div class="directorist-reject-modal__presets">
@@ -187,7 +195,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                                         ?>
                                         <button
                                             type="button"
-                                            class="directorist-reject-modal__preset"
+                                            class="button button-secondary directorist-reject-modal__preset"
                                             data-preset-message="<?php echo esc_attr( $message ); ?>"
                                         >
                                             <?php echo esc_html( $label ); ?>
@@ -197,7 +205,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                             </div>
                         <?php endif; ?>
 
-                        <div class="directorist-reject-modal__section">
+                        <div class="directorist-reject-modal__section directorist-reject-modal__section--reason">
                             <label for="atbdp-reject-reason" class="directorist-reject-modal__label">
                                 <?php esc_html_e( 'Reason for rejection', 'directorist' ); ?>
                                 <span class="directorist-reject-modal__required">*</span>
@@ -205,21 +213,23 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 
                             <textarea
                                 id="atbdp-reject-reason"
-                                class="directorist-reject-modal__textarea"
+                                class="large-text directorist-reject-modal__textarea"
                                 rows="5"
                                 placeholder="<?php esc_attr_e( 'Explain what needs to be fixed before resubmitting...', 'directorist' ); ?>"
                             ></textarea>
 
-                            <p class="directorist-reject-modal__help-text"><?php esc_html_e( 'This message will be sent to the listing owner.', 'directorist' ); ?></p>
-                            <p id="atbdp-reject-error" class="directorist-reject-modal__error" hidden><?php esc_html_e( 'Please provide a rejection reason.', 'directorist' ); ?></p>
+                            <p class="description directorist-reject-modal__help-text"><?php esc_html_e( 'This message will be sent to the listing owner.', 'directorist' ); ?></p>
+                            <div id="atbdp-reject-error" class="notice notice-error inline directorist-reject-modal__error" hidden role="alert">
+                                <p><?php esc_html_e( 'Please provide a rejection reason.', 'directorist' ); ?></p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="directorist-reject-modal__actions">
-                        <button id="atbdp-reject-cancel" type="button" class="button directorist-reject-modal__action-button">
+                        <button id="atbdp-reject-cancel" type="button" class="button button-secondary directorist-reject-modal__action-button">
                             <?php esc_html_e( 'Cancel', 'directorist' ); ?>
                         </button>
-                        <button id="atbdp-reject-confirm" type="button" class="button directorist-reject-modal__action-button directorist-reject-modal__action-button--primary">
+                        <button id="atbdp-reject-confirm" type="button" class="button button-primary directorist-reject-modal__action-button directorist-reject-modal__action-button--primary">
                             <?php esc_html_e( 'Reject listing', 'directorist' ); ?>
                         </button>
                     </div>

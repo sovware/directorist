@@ -2556,7 +2556,10 @@ span.atbdp-tick-cross {
 		padding: 16px 0;
 
 		&:first-child {
-			padding-top: 0;
+			padding-top: 6px;
+		}
+		&:last-child{
+			padding-bottom: 0;
 		}
 
 		& + .directorist-moderation-history__item {
@@ -2614,6 +2617,7 @@ span.atbdp-tick-cross {
 		font-size: 12px;
 		line-height: 1.4;
 		color: #646970;
+		margin-bottom: 0;
 	}
 }
 

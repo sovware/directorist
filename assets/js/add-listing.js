@@ -1009,7 +1009,8 @@ function mapFieldKeyToSelector(fieldKey) {
     miles: '[name="miles"], .directorist-custom-range-slider__range',
     search_by_rating: '[name="search_by_rating[]"]',
     review: '[name="search_by_rating[]"]',
-    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
+    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field',
+    listing_type: 'input[name="listing_type"]'
   };
   if (fieldKeyMap[fieldKey]) {
     return fieldKeyMap[fieldKey];
@@ -1319,6 +1320,25 @@ function getFieldValue(fieldKey, $) {
       }
     }
     return null;
+  }
+
+  // Special handling for custom button fields.
+  // Button fields store values in nested keys: field_key[button_text], field_key[button_url_label].
+  if (fieldKey && typeof fieldKey === 'string') {
+    var normalizedButtonFieldKey = fieldKey.trim();
+    if (normalizedButtonFieldKey) {
+      var buttonTextId = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)("".concat(normalizedButtonFieldKey, "_text"));
+      var buttonUrlId = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)("".concat(normalizedButtonFieldKey, "_link"));
+      var $buttonTextField = $("[name=\"".concat(normalizedButtonFieldKey, "[button_text]\"], #").concat(buttonTextId)).first();
+      var $buttonUrlField = $("[name=\"".concat(normalizedButtonFieldKey, "[button_url_label]\"], #").concat(buttonUrlId)).first();
+      if ($buttonTextField.length || $buttonUrlField.length) {
+        var buttonTextValue = $buttonTextField.length ? String($buttonTextField.val() || '').trim() : '';
+        var buttonUrlValue = $buttonUrlField.length ? String($buttonUrlField.val() || '').trim() : '';
+
+        // Prefer button text for direct comparisons; fallback to URL.
+        return buttonTextValue || buttonUrlValue || null;
+      }
+    }
   }
   var $field = null;
 

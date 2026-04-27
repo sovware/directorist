@@ -1422,11 +1422,9 @@ class Directorist_Listings {
     private function supports_nearby_sort() {
         $current_page = ! empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
 
-        return (
-            'search_result' === $this->type
+        return 'search_result' === $this->type
             || 'listing' === $this->type
-            || ( 'instant_search' === $this->type && in_array( $current_page, [ 'search_result', 'listing' ], true ) )
-        );
+            || ( 'instant_search' === $this->type && in_array( $current_page, [ 'search_result', 'listing' ], true ) );
     }
 
     private function has_valid_distance_coordinates( $latitude, $longitude ) {

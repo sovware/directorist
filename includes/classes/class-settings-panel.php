@@ -1044,6 +1044,10 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'value' => 'random',
                                 'label' => __( 'Random listings', 'directorist' ),
                             ],
+                            [
+                                'value' => 'nearby',
+                                'label' => __( 'Nearby', 'directorist' ),
+                            ],
                         ],
                     ],
                     'listings_view_as_items' => [
@@ -2214,6 +2218,10 @@ Please remember that your order may be canceled if you do not make your payment 
                             [
                                 'value' => 'random',
                                 'label' => __( 'Random listings', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'nearby',
+                                'label' => __( 'Nearby', 'directorist' ),
                             ],
                         ],
                     ],

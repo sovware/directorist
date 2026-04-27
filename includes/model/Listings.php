@@ -806,6 +806,14 @@ class Directorist_Listings {
                     $args['orderby'] = 'rand';
                 }
                 break;
+
+            case 'distance-asc':
+                if ( $this->is_nearby_sort_enabled() && $this->has_nearby_sort_context() ) {
+                    unset( $args['meta_key'] );
+                    $args['orderby'] = 'distance';
+                    $args['order']   = 'ASC';
+                }
+                break;
         }
     }
 
@@ -1411,10 +1419,58 @@ class Directorist_Listings {
         _deprecated_function( __METHOD__, '7.3.1' );
     }
 
+    private function supports_nearby_sort() {
+        $current_page = ! empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
+
+        return (
+            'search_result' === $this->type
+            || 'listing' === $this->type
+            || ( 'instant_search' === $this->type && in_array( $current_page, [ 'search_result', 'listing' ], true ) )
+        );
+    }
+
+    private function has_valid_distance_coordinates( $latitude, $longitude ) {
+        return ( '' !== $latitude && '' !== $longitude && is_numeric( $latitude ) && is_numeric( $longitude ) );
+    }
+
+    private function has_nearby_sort_context() {
+        if ( ! $this->supports_nearby_sort() ) {
+            return false;
+        }
+
+        $miles = ! empty( $_REQUEST['miles'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : '';
+
+        if ( empty( $miles ) ) {
+            return false;
+        }
+
+        if ( 'zip' === $this->radius_search_based_on ) {
+            $zip_lat = ! empty( $_REQUEST['zip_cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ) : '';
+            $zip_lng = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ) : '';
+
+            return $this->has_valid_distance_coordinates( $zip_lat, $zip_lng );
+        }
+
+        $address  = ! empty( $_REQUEST['address'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['address'] ) ) : '';
+        $city_lat = ! empty( $_REQUEST['cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cityLat'] ) ) : '';
+        $city_lng = ! empty( $_REQUEST['cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cityLng'] ) ) : '';
+
+        return ( ! empty( $address ) && $this->has_valid_distance_coordinates( $city_lat, $city_lng ) );
+    }
+
+    private function is_nearby_sort_enabled() {
+        return in_array( 'nearby', (array) $this->sort_by_items, true );
+    }
+
     public function get_sort_by_link_list() {
         $link_list = [];
 
-        $options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
+        $options = atbdp_get_listings_orderby_options( $this->sort_by_items );
+
+        if ( $this->is_nearby_sort_enabled() && $this->has_nearby_sort_context() ) {
+            $options['distance-asc'] = __( 'Nearby', 'directorist' );
+        }
+
         $queryString = isset( $_SERVER['QUERY_STRING'] ) ? sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) ) : '';
         parse_str( $queryString, $arguments );
         $actual_link = ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';

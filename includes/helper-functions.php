@@ -4992,7 +4992,13 @@ function directorist_get_tag_base() {
 }
 
 function directorist_submission_form_fields_raw( int $directory_type_id ): array {
-    return get_term_meta( $directory_type_id, 'submission_form_fields', true );
+    $submission_form_fields = get_term_meta( $directory_type_id, 'submission_form_fields', true );
+
+    if ( empty( $submission_form_fields ) ) {
+        $submission_form_fields = [];
+    }
+
+    return $submission_form_fields;
 }
 
 function directorist_submission_form_fields( int $directory_type_id, array $data = [] ): array {
@@ -5002,12 +5008,26 @@ function directorist_submission_form_fields( int $directory_type_id, array $data
 
 function directorist_single_listing_header( int $directory_type_id, array $data = [] ): array {
     $data['directory_type_id'] = $directory_type_id;
-    return apply_filters( 'directorist_single_listing_header', get_term_meta( $directory_type_id, 'single_listing_header', true ), $data );
+
+    $single_listing_header = get_term_meta( $directory_type_id, 'single_listing_header', true );
+
+    if ( empty( $single_listing_header ) ) {
+        $single_listing_header = [];
+    }
+
+    return apply_filters( 'directorist_single_listing_header', $single_listing_header, $data );
 }
 
 function directorist_single_listings_contents( int $directory_type_id, array $data = [] ): array {
     $data['directory_type_id'] = $directory_type_id;
-    return apply_filters( 'directorist_single_listings_contents', get_term_meta( $directory_type_id, 'single_listings_contents', true ), $data );
+
+    $single_listings_contents = get_term_meta( $directory_type_id, 'single_listings_contents', true );
+
+    if ( empty( $single_listings_contents ) ) {
+        $single_listings_contents = [];
+    }
+
+    return apply_filters( 'directorist_single_listings_contents', $single_listings_contents, $data );
 }
 
 function directorist_listing_archive_fields( int $directory_type_id, array $data = [] ): array {

@@ -25,7 +25,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
             // add_action('init', array($this, 'atbdp_schedule_tasks'));
             add_filter( 'cron_schedules', [ $this, 'atbdp_cron_init' ] );
 
-            add_action( 'edit_post', [ $this, 'update_atbdp_schedule_tasks' ], 10, 2 );
+            //add_action( 'edit_post', [ $this, 'update_atbdp_schedule_tasks' ], 10, 2 );
 
             add_action( 'directorist_cleanup_temporary_uploads', [ $this, 'cleanup_temporary_uploads' ] );
         }
@@ -261,16 +261,16 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                     
                     // if deletion threshold is set then add deletion date
                     if ( $delete_threshold > 0 ) {
-                        $metas['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
+                        $meta_input['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
                     } else {
-                        $metas['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
+                        $meta_input['_deletion_date'] = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) );
                     }
 
                     wp_update_post(
                         [
                             'ID'          => $listing->ID,
                             'post_status' => 'expired',      // update the status to private so that we do not run this func a second time
-                            'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
+                            'meta_input'  => $meta_input,         // insert all meta data once to reduce update meta query
                         ]
                     );
                     // Hook for developers

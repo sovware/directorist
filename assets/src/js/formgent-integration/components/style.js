@@ -566,16 +566,16 @@ const EnquiryDetailsModalStyle = styled.div`
 		border-radius: 4px;
 	}
 
-	.formgent-response-table__drawer__tab__item {
+	.formgent-single-response-answer {
 		display: flex;
 		gap: 12px;
 		width: 100%;
-		&.formgent-response-table__drawer__tab__item--tag {
-			.formgent-response-table__drawer__tab__item__title {
+		&.formgent-single-response-answer--tag {
+			.formgent-single-response-answer__title {
 				height: 40px;
 			}
 		}
-		.formgent-response-table__drawer__tab__item__icon {
+		.formgent-single-response-answer__icon {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -586,13 +586,13 @@ const EnquiryDetailsModalStyle = styled.div`
 			color: var(--directorist-color-dark);
 			background-color: var(--directorist-color-light);
 		}
-		.formgent-response-table__drawer__tab__item__content {
+		.formgent-single-response-answer__content {
 			display: flex;
 			gap: 6px;
 			flex-direction: column;
 			flex: 1;
 		}
-		.formgent-response-table__drawer__tab__item__title {
+		.formgent-single-response-answer__title {
 			display: block;
 			font-size: 15px;
 			font-weight: 600;
@@ -602,7 +602,7 @@ const EnquiryDetailsModalStyle = styled.div`
 				text-transform: uppercase;
 			}
 		}
-		.formgent-response-table__drawer__tab__item__desc {
+		.formgent-single-response-answer__desc {
 			display: flex;
 			gap: 5px;
 			flex-wrap: wrap;
@@ -692,7 +692,7 @@ const EnquiryDetailsModalStyle = styled.div`
 				}
 			}
 		}
-		.formgent-response-table__drawer__tab__item__desc__key {
+		.formgent-single-response-answer__desc__key {
 			font-size: 14px;
 			font-weight: 500;
 			display: inline-flex;
@@ -701,11 +701,11 @@ const EnquiryDetailsModalStyle = styled.div`
 				text-transform: uppercase;
 			}
 		}
-		.formgent-response-table__drawer__tab__item__desc__value {
+		.formgent-single-response-answer__desc__value {
 			font-size: 14px;
 			color: var(--directorist-color-light-gray);
 		}
-		.formgent-response-table__drawer__tab__item__add {
+		.formgent-single-response-answer__add {
 			display: flex;
 			align-items: center;
 			background: transparent;
@@ -717,11 +717,11 @@ const EnquiryDetailsModalStyle = styled.div`
 				color: var(--directorist-color-primary);
 			}
 		}
-		.formgent-response-table__drawer__tab__item__btns {
+		.formgent-single-response-answer__btns {
 			display: flex;
 			gap: 8px;
 			flex-wrap: wrap;
-			.formgent-response-table__drawer__tab__item__btn {
+			.formgent-single-response-answer__btn {
 				font-size: 14px;
 				font-weight: 500;
 				padding: 0 8px;

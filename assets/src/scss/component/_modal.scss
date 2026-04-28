@@ -913,11 +913,6 @@
 					background-color: #808080;
 				}
 			}
-			&:before {
-				@media screen and (max-width: 575px) {
-					left: -20px !important;
-				}
-			}
 		}
 		.directorist-search-basic-dropdown-content {
 			position: absolute;

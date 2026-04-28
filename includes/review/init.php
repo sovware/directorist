@@ -99,7 +99,7 @@ class Bootstrap {
                 $scope = '#respond';
             }
 
-            return wp_sanitize_redirect( wp_unslash( $_GET['redirect'] ) ) . $scope;
+            return wp_validate_redirect( esc_url_raw( wp_unslash( $_GET['redirect'] ) ), home_url( '/' ) ) . $scope;
         }
 
         return $redirect;

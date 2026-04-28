@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   8.0
- * @version 8.0
+ * @version 8.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -20,9 +20,10 @@ if ( ! empty( $value ) && strpos( $value, '-' ) !== false ) {
 
 $range_value = ( is_numeric( $min_value ) && is_numeric( $max_value ) ) ? "{$min_value}-{$max_value}" : '';
 
+$conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
 ?>
 
-<div class="directorist-search-field directorist-search-field-text_range">
+<div class="directorist-search-field directorist-form-group directorist-search-field-text_range"<?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
     <?php if ( ! empty( $data['label'] ) ) : ?>
         <label class="directorist-search-field__label"><?php echo esc_html( $data['label'] ); ?></label>
     <?php endif; ?>
@@ -31,7 +32,7 @@ $range_value = ( is_numeric( $min_value ) && is_numeric( $max_value ) ) ? "{$min
         <div class="directorist-custom-range-slider__wrap">
             <div class="directorist-custom-range-slider__value">
                 <label for="directorist-custom-range-slider__value__min__number" class="directorist-custom-range-slider__label"><?php esc_html_e( 'Min', 'directorist' ); ?></label>
-                <input type="number" placeholder="Min" value="<?php echo esc_attr( $min_value ) ?>" name="directorist-custom-range-slider__value__min[<?php echo esc_attr( $data['field_key'] ); ?>]" id="directorist-custom-range-slider__value__min__number" class="directorist-custom-range-slider__text directorist-custom-range-slider__value__min">
+                <input type="number" placeholder="Min " value="<?php echo esc_attr( $min_value ) ?>" name="directorist-custom-range-slider__value__min[<?php echo esc_attr( $data['field_key'] ); ?>]" id="directorist-custom-range-slider__value__min__number" class="directorist-custom-range-slider__text directorist-custom-range-slider__value__min">
             </div>
             <div class="directorist-custom-range-slider__value">
                 <label for="directorist-custom-range-slider__value__max__number" class="directorist-custom-range-slider__label"><?php esc_html_e( 'Max', 'directorist' ); ?></label>

@@ -1,6 +1,6 @@
 // Directorist Single Info
 .directorist-details-info-wrap {
-  .directorist-single-info {
+  .directorist-single-info:not(.directorist-single-info-html) {
     display: flex;
     font-size: 15px;
     word-break: break-word;
@@ -59,7 +59,7 @@
   .directorist-single-info__label__text {
     position: relative;
     min-width: 70px;
-    margin-top: 5px;
+    margin-top: 6px;
     padding-right: 10px;
     &:before {
       content: ":";
@@ -80,16 +80,34 @@
   }
 
   .directorist-single-info__value {
-    margin-top: 4px;
+    margin-top: 6px;
     flex: 1;
     color: var(--directorist-color-body);
     @media screen and (max-width: 575px) {
       flex: 100%;
       margin-top: 0;
     }
-    a {
+    a:not(.directorist-btn) {
       color: var(--directorist-color-body);
     }
+    .directorist-btn{
+      .directorist-icon-mask:after {
+        background-color: currentColor;
+        width: 13px;
+        height: 13px;
+      }
+			&.directorist-btn-default{
+				background-color: var(--directorist-color-white) !important;
+				background: transparent;
+    			border: 1px solid var(--directorist-color-bg-light) !important;
+				color: var(--directorist-color-body) !important;
+				&:hover {
+					background-color: var(--directorist-color-bg-light) !important;
+					border-color: var(--directorist-color-bg-light) !important;
+					color: var(--directorist-color-dark) !important;
+				}
+			}
+		}
   }
 
   @media screen and (max-width: 575px) {

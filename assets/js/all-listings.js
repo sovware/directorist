@@ -614,8 +614,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ initSearchCategoryCustomFields; }
 /* harmony export */ });
-// Search Category Change
+/**
+ * @deprecated This file is deprecated. The assign_to feature has been removed.
+ * Use conditional_logic instead for field visibility.
+ *
+ * This file is kept as a no-op for backward compatibility.
+ * Since directorist_get_category_custom_field_relations() now returns empty array,
+ * this function will have no effect.
+ */
 function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
+  // Deprecated: assign_to feature removed - use conditional_logic instead
+  // Early return since relations will always be empty now
+  if (!relations || Object.keys(relations).length === 0) {
+    return;
+  }
   var fields = Object.keys(relations);
   var wrappers = ['.directorist-advanced-filter__advanced__element', '.directorist-search-modal__input', '.directorist-search-field'];
   if (!fields.length) {
@@ -664,7 +676,18 @@ function hideAllCustomFieldsExceptSelected(relations, categories, $container) {
     }
   });
 }
+
+/**
+ * @deprecated This function is deprecated. The assign_to feature has been removed.
+ * Use conditional_logic instead for field visibility.
+ *
+ * This function is kept for backward compatibility but will have no effect
+ * since category_custom_fields_relations will always be empty.
+ */
 function initSearchCategoryCustomFields($) {
+  // Deprecated: assign_to feature removed - use conditional_logic instead
+  // This function is kept as a no-op for backward compatibility
+
   // Handle multiple search forms and containers
   var containers = ['.directorist-search-contents', '.directorist-archive-contents', '.directorist-search-form', '.directorist-add-listing-form'];
   containers.forEach(function (containerSelector) {
@@ -1457,6 +1480,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Globally accessible form_data
   var form_data = {};
 
+  // Track last submitted form_data to skip duplicate AJAX requests
+  var lastSubmittedFormData = '';
+  var initial_view = new URLSearchParams(window.location.search).get('view');
+  if (initial_view) {
+    form_data.view = initial_view;
+  }
+
   // Scrolling Pagination
   var scrollingPage = 1;
   var infinitePaginationIsLoading = false;
@@ -1470,6 +1500,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   function performInstantSearch(searchElement) {
     // get parent element
     var searchElm = searchElement.closest('.directorist-instant-search');
+
+    // Skip if form_data hasn't changed since last request
+    var currentFormData = JSON.stringify(form_data);
+    if (currentFormData === lastSubmittedFormData) {
+      return;
+    }
+    lastSubmittedFormData = currentFormData;
 
     // Instant Search Data
     var instant_search_data = prepareInstantSearchData(searchElm);
@@ -1638,6 +1675,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Update search URL with form data
   function update_instant_search_url(form_data) {
     if (!history.pushState) return;
+
+    // Always preserve current view from URL when form_data does not contain it.
+    if (!form_data.view) {
+      var current_view = new URLSearchParams(window.location.search).get('view');
+      if (current_view) {
+        form_data.view = current_view;
+      }
+    }
     var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname;
     var query = '';
     var appendQuery = function appendQuery(key, value) {
@@ -2148,6 +2193,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Instant search with required value
     performInstantSearchWithRequiredValue(searchElm);
   }, 250));
+
+  // Range slider min/max number inputs - debounced keyup and change
+  function handleRangeSliderInputSearch(el) {
+    var searchElm = $(el).closest('.directorist-instant-search');
+    var activeForm = getActiveForm(searchElm);
+    performInstantSearchWithRequiredValue(activeForm);
+  }
+  $('body').on('change', '.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max', function (e) {
+    e.preventDefault();
+    handleRangeSliderInputSearch(this);
+  });
+  $('body').on('keyup', '.directorist-instant-search .directorist-custom-range-slider__value__min, .directorist-instant-search .directorist-custom-range-slider__value__max', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
+    e.preventDefault();
+    handleRangeSliderInputSearch(this);
+  }, 800));
 
   // sidebar on change searching - radio/checkbox/location/range
   $('body').on('change', ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
@@ -3389,12 +3449,6 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -3403,6 +3457,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

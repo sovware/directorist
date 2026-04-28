@@ -18,24 +18,38 @@ $custom_field_meta_key_field = apply_filters(
     ]
 );
 
-function get_assign_to_field( array $args = [] ) {
-    $default = [
-        'type' => 'radio',
-        'label' => __( 'Assign to', 'directorist' ),
-        'value' => 'form',
-        'options' => [
-            [
-                'label' => __( 'Form', 'directorist' ),
-                'value' => 'form',
-            ],
-            [
-                'label' => __( 'Category', 'directorist' ),
-                'value' => 'category',
-            ],
+function get_file_upload_field_options() {
+    $options = [
+        [
+            'label' => __( 'All types', 'directorist' ),
+            'value' => 'all_types',
+        ],
+        [
+            'label' => __( 'Image types', 'directorist' ),
+            'value' => 'image',
+        ],
+        [
+            'label' => __( 'Audio types', 'directorist' ),
+            'value' => 'audio',
+        ],
+        [
+            'label' => __( 'Video types', 'directorist' ),
+            'value' => 'video',
+        ],
+        [
+            'label' => __( 'Document types', 'directorist' ),
+            'value' => 'document',
         ],
     ];
 
-    return array_merge( $default, $args );
+    foreach ( directorist_get_supported_file_types() as $file_type ) {
+        $options[] = [
+            'label' => $file_type,
+            'value' => $file_type,
+        ];
+    }
+
+    return $options;
 }
 
 function get_category_select_field( array $args = [] ) {
@@ -84,38 +98,25 @@ function get_cetagory_options() {
     return $options;
 }
 
-function get_file_upload_field_options() {
-    $options = [
-        [
-            'label' => __( 'All types', 'directorist' ),
-            'value' => 'all_types',
-        ],
-        [
-            'label' => __( 'Image types', 'directorist' ),
-            'value' => 'image',
-        ],
-        [
-            'label' => __( 'Audio types', 'directorist' ),
-            'value' => 'audio',
-        ],
-        [
-            'label' => __( 'Video types', 'directorist' ),
-            'value' => 'video',
-        ],
-        [
-            'label' => __( 'Document types', 'directorist' ),
-            'value' => 'document',
+/**
+ * Get conditional logic field option configuration.
+ *
+ * @param array $args Optional arguments to override defaults.
+ * @return array Conditional logic field configuration.
+ */
+function get_conditional_logic_field( array $args = [] ) {
+    $default = [
+        'type'        => 'conditional-logic',
+        'label'       => __( 'Conditional Logic', 'directorist' ),
+        'description' => __( 'Show or hide this field based on other field values.', 'directorist' ),
+        'value'       => [
+            'enabled' => false,
+            'action'  => 'show',
+            'groups'  => [],
         ],
     ];
 
-    foreach ( directorist_get_supported_file_types() as $file_type ) {
-        $options[] = [
-            'label' => $file_type,
-            'value' => $file_type,
-        ];
-    }
-
-    return $options;
+    return array_merge( $default, $args );
 }
 
 return apply_filters(
@@ -158,21 +159,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -219,21 +206,49 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
+                'conditional_logic' => get_conditional_logic_field(),
+            ]
+        ],
+        
+        'html' => [
+            'label'   => __( 'Html', 'directorist' ),
+            'icon'    => 'las la-code',
+            'options' => [
+                'type' => [
+                    'type'  => 'hidden',
+                    'value' => 'wp_editor',
                 ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
+                'field_key' => array_merge(
+                    $custom_field_meta_key_field, [
+                        'value' => 'custom-html',
                     ]
                 ),
+                'label' => [
+                    'type'  => 'text',
+                    'label' => __( 'Label', 'directorist' ),
+                    'value' => 'Html',
+                ],
+                'description' => [
+                    'type'  => 'text',
+                    'label' => __( 'Description', 'directorist' ),
+                    'value' => '',
+                ],
+                'placeholder' => [
+                    'type'  => 'text',
+                    'label' => __( 'Placeholder', 'directorist' ),
+                    'value' => '',
+                ],
+                'required' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Required', 'directorist' ),
+                    'value' => false,
+                ],
+                'only_for_admin' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Admin Only', 'directorist' ),
+                    'value' => false,
+                ],
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -270,11 +285,6 @@ return apply_filters(
                     'label' => __( 'Required', 'directorist' ),
                     'value' => false,
                 ],
-                'only_for_admin' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Admin Only', 'directorist' ),
-                    'value' => false,
-                ],
                 'min_value' => [
                     'type'  => 'number',
                     'label' => __( 'Min Value', 'directorist' ),
@@ -302,21 +312,12 @@ return apply_filters(
                     'description' => __( 'Appears after The Input', 'directorist' ),
                     'value'       => "",
                 ],
-                'assign_to' => [
+                'only_for_admin' => [
                     'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
+                    'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -363,21 +364,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -419,21 +406,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -475,21 +448,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -526,21 +485,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -594,21 +539,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -662,21 +593,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -730,21 +647,7 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __( 'Assign to Category', 'directorist' ),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field(
-                    [
-                        'show_if' => [
-                            'where'      => "self.assign_to",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                            ],
-                        ],
-                    ]
-                ),
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
 
@@ -794,6 +697,94 @@ return apply_filters(
                     'label' => __( 'Admin Only', 'directorist' ),
                     'value' => false,
                 ],
+                'conditional_logic' => get_conditional_logic_field(),
+            ]
+        ],
+
+        'button' => [
+            'label'   => __( 'Button', 'directorist' ),
+            'icon'    => 'la la-link',
+            'options' => [
+                'type' => [
+                    'type'  => 'hidden',
+                    'value' => 'button',
+                ],
+                'field_key' => array_merge(
+                    $custom_field_meta_key_field, [
+                        'value' => 'custom-button',
+                    ]
+                ),
+                'label' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button Text Label', 'directorist' ),
+                    'value'       => __( 'Button', 'directorist' ),
+                    'description' => __( 'Label for the “Button Text” input shown to the listing owner (e.g., Name, Button Text).', 'directorist' ),
+                ],
+                'button_text_placeholder' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button Text Placeholder', 'directorist' ),
+                    'value'       => __( 'Visit Now', 'directorist' ),
+                    'description' => __( 'Placeholder example for the Button Text input (e.g., Book Now, Visit Site).', 'directorist' ),
+                ],
+                'button_text_description' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button Text Description', 'directorist' ),
+                    'value'       => '',
+                    'description' => __( 'Help text displayed below the Button Text input (e.g., This text will appear as the button label on your listing).', 'directorist' ),
+                ],
+                'button_url_label' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button URL Label', 'directorist' ),
+                    'value'       => __( 'Website URL', 'directorist' ),
+                    'description' => __( 'Label for the “Button URL” input shown to the listing owner (e.g., Button Link, Website URL).', 'directorist' ),
+                ],
+                'button_url_placeholder' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button URL Placeholder', 'directorist' ),
+                    'value'       => 'https://yourlink.com',
+                    'description' => __( 'Placeholder example for the Button URL input (e.g., https://yourlink.com).', 'directorist' ),
+                ],
+                'button_url_description' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button URL Description', 'directorist' ),
+                    'value'       => '',
+                    'description' => __( 'Help text displayed below the Button URL input (e.g., Add the full website link).', 'directorist' ),
+                ],
+                'button_style' => [
+                    'type'    => 'select',
+                    'label'   => __( 'Button Style', 'directorist' ),
+                    'value'   => 'default',
+                    'options' => [
+                        [
+                            'value' => 'default',
+                            'label' => __( 'Default', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'primary',
+                            'label' => __( 'Primary', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'secondary',
+                            'label' => __( 'Secondary', 'directorist' ),
+                        ],
+                    ],
+                ],
+                'open_in_new_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Open in New Tab', 'directorist' ),
+                    'value' => true,
+                ],
+                'required' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Required', 'directorist' ),
+                    'value' => false,
+                ],
+                'only_for_admin' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Admin Only', 'directorist' ),
+                    'value' => false,
+                ],
+                'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
     ]

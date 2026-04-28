@@ -55,17 +55,16 @@ use \Directorist\Helper;
                             <?php echo directorist_kses( ATBDP_Gateway::gateways_markup( apply_filters( 'directorist_checkout_active_gateways', ATBDP_Gateway::get_active_gateways(), $checkout_type, $request ) ), 'all' ); ?>
                         </div>
                     </div>
-                    <?php endif; 
-                    
-                    
+                    <?php endif;
                     $submit_button_label = ( $subtotal < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );
                     $submit_button_label = apply_filters( 'directorist_checkout_submit_button_label', $submit_button_label, $checkout_type, $subtotal, $request );
+                    $dashboard_page_link = \ATBDP_Permalink::get_dashboard_page_link();
                     ?>
 
                     <p id="atbdp_checkout_errors" class="text-danger"></p>
 
                     <div class="directorist-payment-action directorist-flex directorist-justify-content-between" id="atbdp_pay_notpay_btn">
-                        <a href="" class="directorist-btn directorist-btn-lg directorist-btn-light atbdp_not_now_button"><?php esc_html_e( 'Not Now', 'directorist' ); ?></a>
+                        <a href="<?php echo $dashboard_page_link; ?>" class="directorist-btn directorist-btn-lg directorist-btn-light atbdp_not_now_button"><?php esc_html_e( 'Not Now', 'directorist' ); ?></a>
                         <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-lg directorist-btn-payment-submit" data-loading-text="<?php esc_html_e( 'Processing...', 'directorist' ); ?>">
                             <span class="directorist-btn-text"><?php echo esc_html( $submit_button_label ); ?></span>
                             <span class="directorist-btn-spinner" style="display: none;">

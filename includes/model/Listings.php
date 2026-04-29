@@ -1671,8 +1671,11 @@ class Directorist_Listings {
 
                 $opt['ls_data'] = $ls_data;
 
+                $content = Helper::get_template_contents( 'archive/fields/openstreet-map', $opt );
+                $content = apply_filters( 'directorist_map_card_content', $content, $listings_id, $opt, 'openstreetmap' );
+
                 $map_data[] = [
-                    'content'   => Helper::get_template_contents( 'archive/fields/openstreet-map', $opt ),
+                    'content'   => $content,
                     'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
                     'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
                     'cat_icon'  => $cat_icon,
@@ -1757,7 +1760,8 @@ class Directorist_Listings {
 
                     if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
                         $opt['ls_data'] = $ls_data;
-                        Helper::get_template( 'archive/fields/google-map', $opt );
+                        $content = Helper::get_template_contents( 'archive/fields/google-map', $opt );
+                        echo apply_filters( 'directorist_map_card_content', $content, $listings_id, $opt, 'google' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     }
 
                 endforeach;

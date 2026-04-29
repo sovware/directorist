@@ -71,6 +71,25 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			},
 			success: function (html) {
 				if (html.search_result) {
+					if (typeof html.sortby_dropdown !== 'undefined') {
+						const existingSortbyDropdown = searchElm.find(
+							'.directorist-sortby-dropdown'
+						);
+
+						if (html.sortby_dropdown) {
+							if (existingSortbyDropdown.length) {
+								existingSortbyDropdown.replaceWith(
+									html.sortby_dropdown
+								);
+							} else {
+								searchElm
+									.find('.directorist-listings-header__right')
+									.append(html.sortby_dropdown);
+							}
+						} else {
+							existingSortbyDropdown.remove();
+						}
+					}
 					searchElm
 						.find(
 							'.directorist-header-found-title, .dsa-save-search-container'

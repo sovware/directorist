@@ -379,95 +379,6 @@ window.addEventListener('load', function () {
     });
   });
 
-  // send system info to admin
-  $('#atbdp-send-system-info-submit').on('click', function (event) {
-    event.preventDefault();
-    if (!$('#atbdp-email-subject').val()) {
-      alert('The Subject field is required');
-      return;
-    }
-    if (!$('#atbdp-email-address').val()) {
-      alert('The Email field is required');
-      return;
-    }
-    if (!$('#atbdp-email-message').val()) {
-      alert('The Message field is required');
-      return;
-    }
-    $.ajax({
-      type: 'post',
-      url: directorist_admin.ajaxurl,
-      data: {
-        action: 'send_system_info',
-        // calls wp_ajax_nopriv_ajaxlogin
-        _nonce: $('#atbdp_email_nonce').val(),
-        email: $('#atbdp-email-address').val(),
-        sender_email: $('#atbdp-sender-address').val(),
-        subject: $('#atbdp-email-subject').val(),
-        message: $('#atbdp-email-message').val(),
-        system_info_url: $('#atbdp-system-info-url').val()
-      },
-      beforeSend: function beforeSend() {
-        $('#atbdp-send-system-info-submit').html('Sending');
-      },
-      success: function success(data) {
-        if (data.success) {
-          $('#atbdp-send-system-info-submit').html('Send Email');
-          $('.system_info_success').html('Successfully sent');
-        }
-      },
-      error: function error(data) {
-        console.log(data);
-      }
-    });
-  });
-
-  /**
-   * Generate new Remote View URL and display it on the admin page
-   */
-  $('#generate-url').on('click', function (e) {
-    e.preventDefault();
-    $.ajax({
-      type: 'post',
-      url: directorist_admin.ajaxurl,
-      data: {
-        action: 'generate_url',
-        // calls wp_ajax_nopriv_ajaxlogin nonce: ()
-        _nonce: $(this).attr('data-nonce')
-      },
-      success: function success(response) {
-        $('#atbdp-remote-response').html(response.data.message);
-        $('#system-info-url, #atbdp-system-info-url').val(response.data.url);
-        $('#system-info-url-text-link').attr('href', response.data.url).css('display', 'inline-block');
-      },
-      error: function error(response) {
-        // $('#atbdp-remote-response').val(response.data.error);
-      }
-    });
-    return false;
-  });
-  $('#revoke-url').on('click', function (e) {
-    e.preventDefault();
-    $.ajax({
-      type: 'post',
-      url: directorist_admin.ajaxurl,
-      data: {
-        action: 'revoke_url',
-        // calls wp_ajax_nopriv_ajaxlogin
-        _nonce: $(this).attr('data-nonce')
-      },
-      success: function success(response) {
-        $('#atbdp-remote-response').html(response.data);
-        $('#system-info-url, #atbdp-system-info-url').val('');
-        $('#system-info-url-text-link').attr('href', '#').css('display', 'none');
-      },
-      error: function error(response) {
-        // $('#atbdp-remote-response').val(response.data.error);
-      }
-    });
-    return false;
-  });
-
   // redirect to import import_page_link
   $('#csv_import input[name="csv_import"]').on('change', function (event) {
     event.preventDefault();
@@ -786,24 +697,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ─── Custom Tab Support ───────────────────────────────────────────────────────
-  $('.atbds_wrapper a.nav-link').on('click', function (e) {
-    e.preventDefault();
-    var atbds_tabParent = $(this).parent().parent().find('a.nav-link');
-    var $href = $(this).attr('href');
-    $(atbds_tabParent).removeClass('active');
-    $(this).addClass('active');
-    switch ($(this).data('tabarea')) {
-      case 'atbds_system-status-tab':
-        $(".tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane").removeClass('active show');
-        $(".tab-content[data-tabarea='atbds_system-status-tab'] ".concat($href)).addClass('active show');
-        break;
-      case 'atbds_system-info-tab':
-        $(".tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane").removeClass('active show');
-        $(".tab-content[data-tabarea='atbds_system-info-tab'] ".concat($href)).addClass('active show');
-        break;
-    }
-  });
-
   // ─── Custom Tooltip ───────────────────────────────────────────────────────────
   $('.atbds_tooltip').on('hover', function () {
     var toolTipLabel = $(this).data('label');
@@ -1711,6 +1604,7 @@ window.addEventListener('load', function () {
   $('.atbdp-tab__nav-link').on('click', function (e) {
     e.preventDefault();
     var data_target = $(this).data('target');
+    var data_parent = $(this).data('parent');
     var current_item = $(this).parent();
     // Active Nav Item
     $('.atbdp-tab__nav-item').removeClass('active');
@@ -1718,6 +1612,24 @@ window.addEventListener('load', function () {
     // Active Tab Content
     $('.atbdp-tab__content').removeClass('active');
     $(data_target).addClass('active');
+    // Persist active tab across page reloads
+    if (data_parent) {
+      sessionStorage.setItem('directorist_active_tab' + data_parent, data_target);
+    }
+  });
+
+  // Restore active tab after page reload
+  $('.atbdp-tab__nav-link').each(function () {
+    var data_parent = $(this).data('parent');
+    if (!data_parent) return;
+    var stored_target = sessionStorage.getItem('directorist_active_tab' + data_parent);
+    if (stored_target && $(this).data('target') === stored_target) {
+      var current_item = $(this).parent();
+      $('.atbdp-tab__nav-item').removeClass('active');
+      current_item.addClass('active');
+      $('.atbdp-tab__content').removeClass('active');
+      $(stored_target).addClass('active');
+    }
   });
 
   // Custom
@@ -2850,7 +2762,7 @@ function selec2_adjust_space_for_addons() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__);
@@ -3114,7 +3026,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 
 document.addEventListener('load', init, false);
 function Tasks() {
@@ -3323,10 +3235,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
-/*!**************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
-  \**************************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
+  \*********************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3343,10 +3255,10 @@ function _arrayLikeToArray(r, a) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js":
-/*!***************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js ***!
-  \***************************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js ***!
+  \**********************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3354,7 +3266,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ _arrayWithoutHoles; }
 /* harmony export */ });
-/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
 
 function _arrayWithoutHoles(r) {
   if (Array.isArray(r)) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r);
@@ -3363,10 +3275,10 @@ function _arrayWithoutHoles(r) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/defineProperty.js":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
-  \************************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
+  \*******************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3374,7 +3286,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ _defineProperty; }
 /* harmony export */ });
-/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toPropertyKey.js");
+/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js");
 
 function _defineProperty(e, r, t) {
   return (r = (0,_toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r)) in e ? Object.defineProperty(e, r, {
@@ -3388,10 +3300,10 @@ function _defineProperty(e, r, t) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/iterableToArray.js":
-/*!*************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/iterableToArray.js ***!
-  \*************************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/iterableToArray.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js ***!
+  \********************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3406,10 +3318,10 @@ function _iterableToArray(r) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js":
-/*!***************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js ***!
-  \***************************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js ***!
+  \**********************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3424,10 +3336,10 @@ function _nonIterableSpread() {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js":
-/*!***************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
-  \***************************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
+  \**********************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3435,10 +3347,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ _toConsumableArray; }
 /* harmony export */ });
-/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js");
-/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/iterableToArray.js");
-/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
-/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js");
+/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js");
+/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/iterableToArray.js");
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
+/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js");
 
 
 
@@ -3450,10 +3362,10 @@ function _toConsumableArray(r) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toPrimitive.js":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toPrimitive.js ***!
-  \*********************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/toPrimitive.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toPrimitive.js ***!
+  \****************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3461,7 +3373,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ toPrimitive; }
 /* harmony export */ });
-/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
 
 function toPrimitive(t, r) {
   if ("object" != (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(t) || !t) return t;
@@ -3477,10 +3389,10 @@ function toPrimitive(t, r) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toPropertyKey.js":
-/*!***********************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toPropertyKey.js ***!
-  \***********************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js ***!
+  \******************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3488,8 +3400,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ toPropertyKey; }
 /* harmony export */ });
-/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/toPrimitive.js");
+/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/esm/toPrimitive.js");
 
 
 function toPropertyKey(t) {
@@ -3500,10 +3412,10 @@ function toPropertyKey(t) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/typeof.js":
-/*!****************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/typeof.js ***!
-  \****************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/typeof.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/typeof.js ***!
+  \***********************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3524,10 +3436,10 @@ function _typeof(o) {
 
 /***/ }),
 
-/***/ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js":
-/*!************************************************************************************************************************!*\
-  !*** ./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
-  \************************************************************************************************************************/
+/***/ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
+  \*******************************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3535,7 +3447,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ _unsupportedIterableToArray; }
 /* harmony export */ });
-/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
 
 function _unsupportedIterableToArray(r, a) {
   if (r) {
@@ -3560,12 +3472,6 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -3574,6 +3480,12 @@ function _unsupportedIterableToArray(r, a) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

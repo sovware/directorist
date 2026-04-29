@@ -18778,8 +18778,23 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: 15px;
 }
 
+.directorist-single-tag-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 24px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
 .directorist-single-tag-list li {
-  margin: 0 0 10px;
+  margin: 0;
 }
 .directorist-single-tag-list a {
   text-decoration: none;

@@ -277,6 +277,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $listings->archive_view_template();
             $archive_view           = ob_get_clean();
 
+            $sortby_dropdown = '';
+
+            if ( $listings->display_sortby_dropdown ) {
+                ob_start();
+                $listings->sortby_dropdown_template();
+                $sortby_dropdown = ob_get_clean();
+            }
+
             $display_listings_count = get_directorist_option( 'display_listings_count', true );
             $category_id            = ! empty( $_POST['in_cat'] ) ? absint( $_POST['in_cat'] ) : 0;
             $category               = get_term_by( 'id', $category_id, ATBDP_CATEGORY );
@@ -289,6 +297,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             wp_send_json(
                 [
                     'search_result'  => $archive_view,
+                    'sortby_dropdown' => $sortby_dropdown,
                     'directory_type' => $listings->render_shortcode(),
                     'view_as'        => $archive_view,
                     'count'          => $listings->query_results->total,

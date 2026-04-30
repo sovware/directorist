@@ -993,7 +993,6 @@ class Directorist_Single_Listing {
         return $link;
     }
 
-
     public function has_redirect_link() {
         return isset( $_GET['redirect'] );
     }

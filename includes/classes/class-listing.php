@@ -126,10 +126,14 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
             if ( ( empty( $_GET['listing_status'] ) && empty( $_GET['reviewed'] ) ) || isset( $_GET['preview'] ) ) {
                 return;
             }
-
             // Retrieve listing ID from multiple possible query parameters
             $listing_id = $this->get_listing_id_from_request();
+
             if ( ! $listing_id || ! directorist_is_listing_post_type( $listing_id ) ) {
+                return;
+            }
+
+            if ( ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_post, $listing_id ) ) {
                 return;
             }
 

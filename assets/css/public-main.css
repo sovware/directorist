@@ -1,6 +1,6 @@
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/.pnpm/css-loader@3.6.0_webpack@5.104.1/node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/.pnpm/resolve-url-loader@3.1.5/node_modules/resolve-url-loader/index.js!./node_modules/.pnpm/postcss-loader@3.0.0/node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/.pnpm/sass-loader@16.0.6_sass@1.97.2_webpack@5.104.1/node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
 /* typography */
 @-webkit-keyframes rotate360 {
   0% {
@@ -22173,6 +22173,18 @@ Review: New Style
   -webkit-transform: translateY(-15px);
           transform: translateY(-15px);
 }
+.directorist-user-dashboard-tabcontent .directorist-listing-table tr:last-child .directorist-rejection-popover {
+  bottom: 100%;
+  top: auto;
+  -webkit-transform: translateY(-15px);
+          transform: translateY(-15px);
+}
+.directorist-user-dashboard-tabcontent .directorist-listing-table tr:last-child .directorist-rejection-popover:before {
+  bottom: -5px;
+  top: auto;
+  -webkit-transform: scaleY(-1);
+          transform: scaleY(-1);
+}
 .directorist-user-dashboard-tabcontent .directorist-listing-table tr:first-child .directorist-dropdown .directorist-dropdown-menu {
   -webkit-transform: translateY(0);
           transform: translateY(0);
@@ -22215,6 +22227,14 @@ Review: New Style
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-listing-table-listing-info__content .directorist-title {
   margin: 0 0 5px;
@@ -22234,25 +22254,33 @@ Review: New Style
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   border-radius: 4px;
-  padding: 3px 7px;
+  padding: 4px 7px;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.primary {
   color: var(--directorist-color-primary);
   background-color: rgba(var(--directorist-color-primary), 0.15);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_publish {
-  color: var(--directorist-color-success);
+  color: #1a7431;
   background-color: rgba(var(--directorist-color-success-rgb), 0.15);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_pending {
-  color: var(--directorist-color-warning);
+  color: #b45309;
   background-color: rgba(var(--directorist-color-warning-rgb), 0.15);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_private {
-  color: var(--directorist-color-danger);
+  color: #ba3327;
   background-color: rgba(var(--directorist-color-danger-rgb), 0.15);
+}
+.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_expired {
+  color: #92400e;
+  background-color: rgba(146, 64, 14, 0.1);
+}
+.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_rejected {
+  color: #b90e0e;
+  background-color: rgba(var(--directorist-color-danger-rgb), 0.1);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.danger {
   color: var(--directorist-color-danger);
@@ -23322,6 +23350,87 @@ Review: New Style
 
 .directorist-announcement-count.show {
   display: inline-block;
+}
+
+.directorist-see-why-wrap {
+  position: relative;
+  display: inline-block;
+  -webkit-margin-start: 8px;
+          margin-inline-start: 8px;
+  vertical-align: middle;
+}
+
+.directorist-see-why {
+  display: block;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--directorist-color-info);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.directorist-see-why:hover {
+  text-decoration: underline;
+}
+
+.directorist-rejection-popover {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+  padding: 16px 18px;
+  min-width: 260px;
+  max-width: 320px;
+  z-index: 9999;
+  line-height: 1.5;
+}
+@media (max-width: 576px) {
+  .directorist-rejection-popover {
+    position: fixed;
+    top: auto;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    min-width: auto;
+    max-width: none;
+  }
+  .directorist-rejection-popover::before {
+    display: none;
+  }
+}
+.directorist-rejection-popover::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  inset-inline-start: 18px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #fff;
+  -webkit-filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.06));
+          filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.06));
+}
+.directorist-rejection-popover.is-open {
+  display: block;
+}
+.directorist-rejection-popover__title {
+  display: block;
+  color: var(--directorist-color-body, #111827);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.directorist-rejection-popover__body {
+  display: block;
+  color: var(--directorist-color-body-light, #6b7280);
+  font-size: 13px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .directorist-payment-instructions,

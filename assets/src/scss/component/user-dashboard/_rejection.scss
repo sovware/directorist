@@ -1,0 +1,83 @@
+// Listing Rejection
+.directorist-see-why-wrap {
+    position: relative;
+    display: inline-block;
+    margin-inline-start: 8px;
+    vertical-align: middle;
+}
+
+.directorist-see-why {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--directorist-color-info);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.directorist-rejection-popover {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+    padding: 16px 18px;
+    min-width: 260px;
+    max-width: 320px;
+    z-index: 9999;
+    line-height: 1.5;
+
+    @media (max-width: 576px) {
+        position: fixed;
+        top: auto;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        min-width: auto;
+        max-width: none;
+
+        &::before {
+            display: none;
+        }
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -7px;
+        inset-inline-start: 18px;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid #fff;
+        filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.06));
+    }
+
+    &.is-open {
+        display: block;
+    }
+
+    &__title {
+        display: block;
+        color: var(--directorist-color-body, #111827);
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    &__body {
+        display: block;
+        color: var(--directorist-color-body-light, #6b7280);
+        font-size: 13px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}

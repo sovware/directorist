@@ -368,7 +368,9 @@
 		.directorist-listing-table-listing-info__content {
 			flex: 1;
 			display: inline-flex;
-			align-items: center;
+			gap: 4px;
+			flex-direction: column;
+			justify-content: center;
 
 			.directorist-title {
 				margin: 0 0 5px;

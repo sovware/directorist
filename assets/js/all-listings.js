@@ -1526,6 +1526,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       },
       success: function success(html) {
         if (html.search_result) {
+          if (typeof html.sortby_dropdown !== 'undefined') {
+            var existingSortbyDropdown = searchElm.find('.directorist-sortby-dropdown');
+            if (html.sortby_dropdown) {
+              if (existingSortbyDropdown.length) {
+                existingSortbyDropdown.replaceWith(html.sortby_dropdown);
+              } else {
+                searchElm.find('.directorist-listings-header__right').append(html.sortby_dropdown);
+              }
+            } else {
+              existingSortbyDropdown.remove();
+            }
+          }
           searchElm.find('.directorist-header-found-title, .dsa-save-search-container').remove();
           if (html.header_title) {
             searchElm.find('.directorist-listings-header__left').append(html.header_title);

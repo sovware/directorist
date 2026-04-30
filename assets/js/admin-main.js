@@ -379,95 +379,6 @@ window.addEventListener('load', function () {
     });
   });
 
-  // send system info to admin
-  $('#atbdp-send-system-info-submit').on('click', function (event) {
-    event.preventDefault();
-    if (!$('#atbdp-email-subject').val()) {
-      alert('The Subject field is required');
-      return;
-    }
-    if (!$('#atbdp-email-address').val()) {
-      alert('The Email field is required');
-      return;
-    }
-    if (!$('#atbdp-email-message').val()) {
-      alert('The Message field is required');
-      return;
-    }
-    $.ajax({
-      type: 'post',
-      url: directorist_admin.ajaxurl,
-      data: {
-        action: 'send_system_info',
-        // calls wp_ajax_nopriv_ajaxlogin
-        _nonce: $('#atbdp_email_nonce').val(),
-        email: $('#atbdp-email-address').val(),
-        sender_email: $('#atbdp-sender-address').val(),
-        subject: $('#atbdp-email-subject').val(),
-        message: $('#atbdp-email-message').val(),
-        system_info_url: $('#atbdp-system-info-url').val()
-      },
-      beforeSend: function beforeSend() {
-        $('#atbdp-send-system-info-submit').html('Sending');
-      },
-      success: function success(data) {
-        if (data.success) {
-          $('#atbdp-send-system-info-submit').html('Send Email');
-          $('.system_info_success').html('Successfully sent');
-        }
-      },
-      error: function error(data) {
-        console.log(data);
-      }
-    });
-  });
-
-  /**
-   * Generate new Remote View URL and display it on the admin page
-   */
-  $('#generate-url').on('click', function (e) {
-    e.preventDefault();
-    $.ajax({
-      type: 'post',
-      url: directorist_admin.ajaxurl,
-      data: {
-        action: 'generate_url',
-        // calls wp_ajax_nopriv_ajaxlogin nonce: ()
-        _nonce: $(this).attr('data-nonce')
-      },
-      success: function success(response) {
-        $('#atbdp-remote-response').html(response.data.message);
-        $('#system-info-url, #atbdp-system-info-url').val(response.data.url);
-        $('#system-info-url-text-link').attr('href', response.data.url).css('display', 'inline-block');
-      },
-      error: function error(response) {
-        // $('#atbdp-remote-response').val(response.data.error);
-      }
-    });
-    return false;
-  });
-  $('#revoke-url').on('click', function (e) {
-    e.preventDefault();
-    $.ajax({
-      type: 'post',
-      url: directorist_admin.ajaxurl,
-      data: {
-        action: 'revoke_url',
-        // calls wp_ajax_nopriv_ajaxlogin
-        _nonce: $(this).attr('data-nonce')
-      },
-      success: function success(response) {
-        $('#atbdp-remote-response').html(response.data);
-        $('#system-info-url, #atbdp-system-info-url').val('');
-        $('#system-info-url-text-link').attr('href', '#').css('display', 'none');
-      },
-      error: function error(response) {
-        // $('#atbdp-remote-response').val(response.data.error);
-      }
-    });
-    return false;
-  });
-
   // redirect to import import_page_link
   $('#csv_import input[name="csv_import"]').on('change', function (event) {
     event.preventDefault();
@@ -786,24 +697,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ─── Custom Tab Support ───────────────────────────────────────────────────────
-  $('.atbds_wrapper a.nav-link').on('click', function (e) {
-    e.preventDefault();
-    var atbds_tabParent = $(this).parent().parent().find('a.nav-link');
-    var $href = $(this).attr('href');
-    $(atbds_tabParent).removeClass('active');
-    $(this).addClass('active');
-    switch ($(this).data('tabarea')) {
-      case 'atbds_system-status-tab':
-        $(".tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane").removeClass('active show');
-        $(".tab-content[data-tabarea='atbds_system-status-tab'] ".concat($href)).addClass('active show');
-        break;
-      case 'atbds_system-info-tab':
-        $(".tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane").removeClass('active show');
-        $(".tab-content[data-tabarea='atbds_system-info-tab'] ".concat($href)).addClass('active show');
-        break;
-    }
-  });
-
   // ─── Custom Tooltip ───────────────────────────────────────────────────────────
   $('.atbds_tooltip').on('hover', function () {
     var toolTipLabel = $(this).data('label');
@@ -1711,6 +1604,7 @@ window.addEventListener('load', function () {
   $('.atbdp-tab__nav-link').on('click', function (e) {
     e.preventDefault();
     var data_target = $(this).data('target');
+    var data_parent = $(this).data('parent');
     var current_item = $(this).parent();
     // Active Nav Item
     $('.atbdp-tab__nav-item').removeClass('active');
@@ -1718,6 +1612,24 @@ window.addEventListener('load', function () {
     // Active Tab Content
     $('.atbdp-tab__content').removeClass('active');
     $(data_target).addClass('active');
+    // Persist active tab across page reloads
+    if (data_parent) {
+      sessionStorage.setItem('directorist_active_tab' + data_parent, data_target);
+    }
+  });
+
+  // Restore active tab after page reload
+  $('.atbdp-tab__nav-link').each(function () {
+    var data_parent = $(this).data('parent');
+    if (!data_parent) return;
+    var stored_target = sessionStorage.getItem('directorist_active_tab' + data_parent);
+    if (stored_target && $(this).data('target') === stored_target) {
+      var current_item = $(this).parent();
+      $('.atbdp-tab__nav-item').removeClass('active');
+      current_item.addClass('active');
+      $('.atbdp-tab__content').removeClass('active');
+      $(stored_target).addClass('active');
+    }
   });
 
   // Custom

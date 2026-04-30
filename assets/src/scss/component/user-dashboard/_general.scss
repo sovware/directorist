@@ -309,6 +309,17 @@
 						transform: translateY(-15px);
 					}
 				}
+
+				.directorist-rejection-popover{
+					bottom: 100%;
+					top: auto;
+					transform: translateY(-15px);
+					&:before{
+						bottom: -5px;
+						top: auto;
+						transform: scaleY(-1);
+					}
+				}
 			}
 
 			&:first-child {
@@ -356,6 +367,8 @@
 
 		.directorist-listing-table-listing-info__content {
 			flex: 1;
+			display: inline-flex;
+			align-items: center;
 
 			.directorist-title {
 				margin: 0 0 5px;
@@ -378,9 +391,9 @@
 
 		.directorist_badge {
 			font-size: 12px;
-			font-weight: 700;
+			font-weight: 600;
 			border-radius: 4px;
-			padding: 3px 7px;
+			padding: 4px 7px;
 
 			&.primary {
 				color: var(--directorist-color-primary);
@@ -388,7 +401,7 @@
 			}
 
 			&.directorist_status_publish {
-				color: var(--directorist-color-success);
+				color: #1a7431;
 				background-color: rgba(
 					var(--directorist-color-success-rgb),
 					0.15
@@ -396,7 +409,7 @@
 			}
 
 			&.directorist_status_pending {
-				color: var(--directorist-color-warning);
+				color: #b45309;
 				background-color: rgba(
 					var(--directorist-color-warning-rgb),
 					0.15
@@ -404,10 +417,23 @@
 			}
 
 			&.directorist_status_private {
-				color: var(--directorist-color-danger);
+				color:#ba3327;
 				background-color: rgba(
 					var(--directorist-color-danger-rgb),
 					0.15
+				);
+			}
+
+			&.directorist_status_expired {
+				color: #92400e;
+				background-color: rgba(146, 64, 14, 0.10);
+			}
+
+			&.directorist_status_rejected {
+				color: #b90e0e;
+				background-color: rgba(
+					var(--directorist-color-danger-rgb),
+					0.10
 				);
 			}
 

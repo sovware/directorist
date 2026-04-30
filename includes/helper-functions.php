@@ -3636,11 +3636,12 @@ function directorist_get_listing_views_count_meta_key() {
  */
 function directorist_get_listing_statuses() {
     return [
-        'draft'   => __( 'Draft', 'directorist' ),
-        'pending' => __( 'In Review', 'directorist' ),
-        'private' => __( 'Private', 'directorist' ),
-        'publish' => __( 'Published', 'directorist' ),
-        'expired' => __( 'Expired', 'directorist' ),
+        'draft'    => __( 'Draft', 'directorist' ),
+        'pending'  => __( 'In Review', 'directorist' ),
+        'private'  => __( 'Private', 'directorist' ),
+        'publish'  => __( 'Published', 'directorist' ),
+        'expired'  => __( 'Expired', 'directorist' ),
+        'rejected' => __( 'Rejected', 'directorist' ),
     ];
 }
 

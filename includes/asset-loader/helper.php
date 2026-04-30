@@ -240,12 +240,6 @@ class Helper {
                 }
                 break;
 
-            case 'support':
-                if ( $screen == 'at_biz_dir_page_directorist-status' ) {
-                    $status = true;
-                }
-                break;
-
             case 'extensions':
                 if ( $screen == 'at_biz_dir_page_atbdp-extension' ) {
                     $status = true;

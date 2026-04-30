@@ -951,15 +951,14 @@ class Directorist_Single_Listing {
     }
 
     public function submit_link() {
-        $payment    = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
-        
+        $payment = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
+
         $redirect = '';
         if ( isset( $_GET['redirect'] ) ) {
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             $redirect = wp_validate_redirect( wp_unslash( $_GET['redirect'] ), '' );
         }
-        
-        
+
         $listing_id = isset( $_GET['post_id'] ) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : get_the_ID();
         $listing_id = isset( $_GET['p'] ) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : $listing_id;
         $link       = '';
@@ -978,16 +977,17 @@ class Directorist_Single_Listing {
                     'p'        => $listing_id,
                     'post_id'  => $listing_id,
                     'reviewed' => 'yes',
-                    'edited'   => $edited ? 'yes' : 'no'
+                    'edited'   => $edited ? 'yes' : 'no',
                 ];
             } else {
                 $args = [
                     'atbdp_listing_id' => $listing_id,
-                    'reviewed'         => 'yes'
+                    'reviewed'         => 'yes',
                 ];
             }
 
             $link = add_query_arg( $args, $redirect );
+            $link = wp_nonce_url( $link, 'directorist_listing_form_redirect_url_' . $listing_id, '_token' );
         }
 
         return $link;

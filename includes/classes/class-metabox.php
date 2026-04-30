@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class ATBDP_Metabox {
+    const REJECTION_HISTORY_META_KEY = '_listing_rejection_history';
+
     /**
      * Add meta boxes for ATBDP_POST_TYPE and ATBDP_SHORT_CODE_POST_TYPE
      * and Save the meta data
@@ -17,6 +19,7 @@ class ATBDP_Metabox {
         if ( is_admin() ) {
             add_action( 'add_meta_boxes_' . ATBDP_POST_TYPE, [$this, 'listing_metabox'] );
             add_action( 'transition_post_status',    [$this, 'publish_atbdp_listings'], 10, 3 );
+            add_action( 'transition_post_status',    [$this, 'clear_rejection_meta_on_resubmit'], 10, 3 );
             add_action( 'edit_post', [$this, 'save_post_meta'], 10, 2 );
             add_action( 'post_submitbox_misc_actions', [$this, 'post_submitbox_meta'] );
             // load dynamic fields
@@ -159,6 +162,166 @@ class ATBDP_Metabox {
 
     public function listing_metabox( $post ) {
         add_meta_box( 'listing_form_info', __( 'Listing Information', 'directorist' ), [$this, 'listing_form_info_meta'], ATBDP_POST_TYPE, 'normal', 'high' );
+
+        if ( self::get_rejection_history( $post->ID ) ) {
+            add_meta_box(
+                'directorist_moderation_history',
+                __( 'Moderation history', 'directorist' ),
+                [ $this, 'render_moderation_history_meta' ],
+                ATBDP_POST_TYPE,
+                'side',
+                'high'
+            );
+        }
+    }
+
+    /**
+     * Renders the moderation history sidebar box on the listing edit screen.
+     *
+     * @param WP_Post $post Current listing post object.
+     */
+    public function render_moderation_history_meta( $post ) {
+        $history = self::get_rejection_history( $post->ID );
+
+        if ( empty( $history ) ) {
+            echo '<p>' . esc_html__( 'No moderation history available yet.', 'directorist' ) . '</p>';
+            return;
+        }
+
+        foreach ( $history as $entry ) {
+            $admin_name = self::get_rejection_history_admin_name( $entry );
+            $date       = ! empty( $entry['rejected_at'] )
+                ? mysql2date( get_option( 'date_format' ), $entry['rejected_at'], true )
+                : esc_html__( 'Unknown date', 'directorist' );
+            ?>
+            <div class="directorist-moderation-history__item">
+                <div class="directorist-moderation-history__header">
+                    <span class="directorist-moderation-history__status">
+                        <span class="directorist-moderation-history__status-dot" aria-hidden="true"></span>
+                        <?php esc_html_e( 'Rejected', 'directorist' ); ?>
+                    </span>
+                    <span class="directorist-moderation-history__date"><?php echo esc_html( $date ); ?></span>
+                </div>
+                <p class="directorist-moderation-history__reason"><?php echo esc_html( $entry['reason'] ); ?></p>
+                <p class="directorist-moderation-history__byline">
+                    <?php
+                    printf(
+                        esc_html__( 'by %s', 'directorist' ),
+                        esc_html( $admin_name )
+                    );
+                    ?>
+                </p>
+            </div>
+            <?php
+        }
+    }
+
+    /**
+     * Appends a rejection history entry for a listing.
+     *
+     * @param int    $listing_id Listing post ID.
+     * @param string $reason     Rejection reason.
+     * @param int    $user_id    Admin user ID.
+     *
+     * @return bool True on successful meta update, false otherwise.
+     */
+    public static function add_rejection_history_entry( $listing_id, $reason, $user_id = 0 ) {
+        $listing_id = absint( $listing_id );
+        $reason     = sanitize_textarea_field( $reason );
+        $user_id    = absint( $user_id );
+
+        if ( ! $listing_id || '' === $reason ) {
+            return false;
+        }
+
+        $history = self::get_rejection_history( $listing_id, false );
+        $user    = $user_id ? get_user_by( 'id', $user_id ) : false;
+
+        $history[] = [
+            'reason'                    => $reason,
+            'rejected_at'               => current_time( 'mysql' ),
+            'rejected_by'               => $user_id,
+            'rejected_by_name_snapshot' => $user ? sanitize_text_field( $user->display_name ) : '',
+        ];
+
+        return (bool) update_post_meta( $listing_id, self::REJECTION_HISTORY_META_KEY, $history );
+    }
+
+    /**
+     * Retrieves normalized rejection history entries for a listing.
+     *
+     * @param int  $listing_id    Listing post ID.
+     * @param bool $newest_first  Whether to return newest-first ordering.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function get_rejection_history( $listing_id, $newest_first = true ) {
+        $history = get_post_meta( absint( $listing_id ), self::REJECTION_HISTORY_META_KEY, true );
+
+        if ( ! is_array( $history ) ) {
+            return [];
+        }
+
+        $history = array_values(
+            array_filter(
+                array_map( [ __CLASS__, 'normalize_rejection_history_entry' ], $history )
+            )
+        );
+
+        if ( $newest_first ) {
+            $history = array_reverse( $history );
+        }
+
+        return $history;
+    }
+
+    /**
+     * Normalizes a single rejection history entry.
+     *
+     * @param mixed $entry Raw stored entry.
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function normalize_rejection_history_entry( $entry ) {
+        if ( ! is_array( $entry ) ) {
+            return null;
+        }
+
+        $reason = isset( $entry['reason'] ) ? sanitize_textarea_field( $entry['reason'] ) : '';
+
+        if ( '' === $reason ) {
+            return null;
+        }
+
+        return [
+            'reason'                    => $reason,
+            'rejected_at'               => isset( $entry['rejected_at'] ) ? sanitize_text_field( $entry['rejected_at'] ) : '',
+            'rejected_by'               => isset( $entry['rejected_by'] ) ? absint( $entry['rejected_by'] ) : 0,
+            'rejected_by_name_snapshot' => isset( $entry['rejected_by_name_snapshot'] ) ? sanitize_text_field( $entry['rejected_by_name_snapshot'] ) : '',
+        ];
+    }
+
+    /**
+     * Gets the display name for the admin who rejected the listing.
+     *
+     * @param array $entry Normalized rejection history entry.
+     *
+     * @return string
+     */
+    private static function get_rejection_history_admin_name( $entry ) {
+        if ( ! empty( $entry['rejected_by_name_snapshot'] ) ) {
+            return $entry['rejected_by_name_snapshot'];
+        }
+
+        if ( ! empty( $entry['rejected_by'] ) ) {
+            $user = get_user_by( 'id', absint( $entry['rejected_by'] ) );
+
+            if ( $user && ! empty( $user->display_name ) ) {
+                return sanitize_text_field( $user->display_name );
+            }
+        }
+
+        return __( 'admin', 'directorist' );
     }
 
     public function render_listing_meta_fields( $type, $id ) {
@@ -309,6 +472,23 @@ class ATBDP_Metabox {
         }
     
         do_action( 'atbdp_listing_published', $post->ID );
+    }
+
+    /**
+     * Clears rejection meta when a previously rejected listing is resubmitted (status → pending).
+     */
+    public function clear_rejection_meta_on_resubmit( $new_status, $old_status, $post ) {
+        if ( $post->post_type !== ATBDP_POST_TYPE ) {
+            return;
+        }
+
+        if ( $old_status !== 'rejected' || $new_status !== 'pending' ) {
+            return;
+        }
+
+        delete_post_meta( $post->ID, '_listing_rejection_reason' );
+        delete_post_meta( $post->ID, '_listing_rejected_at' );
+        delete_post_meta( $post->ID, '_listing_rejected_by' );
     }
 
     /**

@@ -51,7 +51,6 @@ class Updater_Notice {
             'edit-' . $root_slug . '-tags',
             $root_slug . '_page_atbdp-directory-types',
             $root_slug . '_page_atbdp-settings',
-            $root_slug . '_page_directorist-status',
             $root_slug . '_page_atbdp-extension',
             'edit-atbdp_listing_review',
             'dashboard',

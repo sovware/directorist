@@ -24102,7 +24102,7 @@ var render = function render() {
       }, [_c('a', {
         staticClass: "cptm-preview-notice-btn",
         attrs: {
-          "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+          "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings#listing_settings__listings_page",
           "target": "_blank"
         }
       }, [_vm._v("\n              Go to settings\n              "), _c('svg', {

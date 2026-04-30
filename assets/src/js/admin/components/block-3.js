@@ -292,25 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	// ─── Custom Tab Support ───────────────────────────────────────────────────────
-	$('.atbds_wrapper a.nav-link').on('click', function (e) {
-		e.preventDefault();
-		const atbds_tabParent = $(this).parent().parent().find('a.nav-link');
-		const $href = $(this).attr('href');
-		$(atbds_tabParent).removeClass('active');
-		$(this).addClass('active');
-
-		switch ($(this).data('tabarea')) {
-			case 'atbds_system-status-tab':
-				$(`.tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane`).removeClass('active show');
-				$(`.tab-content[data-tabarea='atbds_system-status-tab'] ${$href}`).addClass('active show');
-				break;
-			case 'atbds_system-info-tab':
-				$(`.tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane`).removeClass('active show');
-				$(`.tab-content[data-tabarea='atbds_system-info-tab'] ${$href}`).addClass('active show');
-				break;
-		}
-	});
-
 	// ─── Custom Tooltip ───────────────────────────────────────────────────────────
 	$('.atbds_tooltip').on('hover', function () {
 		const toolTipLabel = $(this).data('label');

@@ -164,9 +164,15 @@
 }
 
 .directorist-single-tag-list {
-  li {
-    margin: 0 0 10px;
-  }
+  	margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    li{
+      margin: 0;
+    }
   a {
     text-decoration: none;
     color: var(--directorist-color-body);

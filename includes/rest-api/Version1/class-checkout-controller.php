@@ -112,12 +112,6 @@ class Checkout_Controller extends Abstract_Controller {
                 $repository->create( $dto );
             }
 
-            // Update the order status to paid if the amount is zero or less
-            if ( $dto->get_amount() < 1 ) {
-                $dto->set_id( $dto->get_id() )->set_status( OrderStatus::PAID );
-                $repository->update( $dto );
-            }
-
             if ( $process_payment ) {
                 do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
 
@@ -129,6 +123,12 @@ class Checkout_Controller extends Abstract_Controller {
             }
 
             do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
+
+            // Update the order status to paid if the amount is zero or less
+            if ( $dto->get_amount() < 1 ) {
+                $dto->set_id( $dto->get_id() )->set_status( OrderStatus::PAID );
+                $repository->update( $dto );
+            }
 
             return rest_ensure_response(
                 [

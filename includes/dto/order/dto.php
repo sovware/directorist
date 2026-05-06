@@ -15,8 +15,6 @@ class DTO extends \Directorist\Utils\DTO {
 
     private ?int $listing_id;
 
-    private ?int $plan_id;
-
     private ?int $is_featured_listing;
 
     private ?string $ref;
@@ -131,28 +129,6 @@ class DTO extends \Directorist\Utils\DTO {
      */
     public function set_listing_id( ?int $listing_id ): self {
         $this->listing_id = $listing_id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of plan_id
-     *
-     * @return ?int
-     */
-    public function get_plan_id(): ?int {
-        return $this->plan_id;
-    }
-
-    /**
-     * Set the value of plan_id
-     *
-     * @param ?int $plan_id 
-     *
-     * @return self
-     */
-    public function set_plan_id( ?int $plan_id ): self {
-        $this->plan_id = $plan_id;
 
         return $this;
     }

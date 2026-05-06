@@ -33,7 +33,6 @@ class Activation {
                 $table->integer( "subscription_id" )->nullable();
                 $table->integer( "user_id" );
                 $table->integer( "listing_id" )->nullable();
-                $table->integer( "plan_id" )->nullable();
                 $table->tiny_integer( "is_featured_listing" )->default( 0 );
                 $table->string( "ref" )->nullable();
                 $table->string( "ref_type" )->nullable();

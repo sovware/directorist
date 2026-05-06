@@ -224,7 +224,6 @@ class OrderRepository extends Repository {
             ->set_subscription_id( $order->subscription_id )
             ->set_user_id( $order->user_id )
             ->set_listing_id( $order->listing_id )
-            ->set_plan_id( $order->plan_id )
             ->set_is_featured_listing( $order->is_featured_listing )
             ->set_ref( $order->ref ?? null )
             ->set_ref_type( $order->ref_type ?? null )

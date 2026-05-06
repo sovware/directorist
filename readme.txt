@@ -300,6 +300,38 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.7.1 - Apr 30, 2026 =
+
+**Added**
+ - Rejected listing status flow with rejection reason, moderation history, owner notification email, and dashboard visibility. (#2785)
+ - Nearby sort option for location/radius-based listing results. (#2836)
+ - directorist_map_card_content filter to customize listing map card content.
+ (#2774)
+
+**Improved**
+ - Guest preview publish nonce flow now uses the authenticated session after account creation, with added edit capability check for post-review status updates. (#2828)
+ - Reset default tag style handling for single listing content. (#2834)
+
+**Fixed**
+ - "Go to Settings" button redirect now opens the correct settings page/tab and preserves subdirectory paths. (#2697)
+
+**Removed**
+ - Deprecated Elementor activation notice flow. (#2837)
+ - Help & Support admin menu and related functionality. (#2838)
+
+= 8.7 - Apr 22, 2026 =
+
+**Added**
+ - Button custom field. (#2822)
+ - HTML custom field editor. (#2779)
+ - Listing Type field in conditional logic available fields. (#2813)
+
+**Improved**
+ - Listings Columns setting changed from a number field to an image radio selector. (#2796)
+
+**Fixed**
+ - Unlimited email sending issue. (#2779)
+
 = 8.6.9 - Apr 15, 2026 =
 
 **Fixed**

@@ -2,6 +2,8 @@
 
 namespace Directorist\Repositories;
 
+use stdClass;
+
 defined( "ABSPATH" ) || exit;
 
 use Directorist\Utils\Exception;
@@ -92,7 +94,7 @@ class OrderRepository extends Repository {
                     $order->transaction_id  = $order->payment->transaction_id ?? null;
                 }
 
-                $order->total_amount = $order->sub_total;
+                $order->total_amount = $order->total_amount = $this->order_total_amount( $order );
 
                 if ( ! empty( $order->tax_type ) ) {
                     $order->total_amount += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
@@ -206,6 +208,12 @@ class OrderRepository extends Repository {
             $order->transaction_id = null;
         }
 
+        $order->total_amount = $this->order_total_amount( $order );
+
+        return apply_filters( 'directorist_order_data', $order );
+    }
+
+    public function order_total_amount( stdClass $order ) {
         $total_amount = $order->sub_total;
 
         if ( ! empty( $order->coupon_discount ) && ! empty( $order->coupon_discount_type ) ) {
@@ -217,9 +225,7 @@ class OrderRepository extends Repository {
             $total_amount += directorist_compute_fixed_or_percent_amount( $order->tax_type, $order->tax_rate, $total_amount );
         }
 
-        $order->total_amount = round( $total_amount, 2 );
-
-        return apply_filters( 'directorist_order_data', $order );
+        return round( $total_amount, 2 );
     }
 
     public function to_dto( $order ) {

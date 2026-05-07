@@ -206,11 +206,18 @@ class OrderRepository extends Repository {
             $order->transaction_id = null;
         }
 
-        $order->total_amount = $order->sub_total;
+        $total_amount = $order->sub_total;
+
+        if ( ! empty( $order->coupon_discount ) && ! empty( $order->coupon_discount_type ) ) {
+            $total_amount -= directorist_compute_fixed_or_percent_amount( $order->coupon_discount_type, $order->coupon_discount, $total_amount );
+            $total_amount  = max( 0, $total_amount ); // Ensure total amount doesn't go negative
+        }
 
         if ( ! empty( $order->tax_type ) ) {
-            $order->total_amount += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+            $total_amount += directorist_compute_fixed_or_percent_amount( $order->tax_type, $order->tax_rate, $total_amount );
         }
+
+        $order->total_amount = round( $total_amount, 2 );
 
         return apply_filters( 'directorist_order_data', $order );
     }

@@ -40,15 +40,18 @@ function directorist_get_order_by_id( $order_id ) {
 }
 
 function directorist_calculate_tax_amount( string $tax_type, float $tax_rate, float $sub_total ): float {
-    if ( $tax_rate <= 0 ) {
+    return directorist_compute_fixed_or_percent_amount( $tax_type, $tax_rate, $sub_total );
+}
+
+function directorist_compute_fixed_or_percent_amount( string $type, float $rate, float $amount ): float {
+    if ( $rate <= 0 || $amount <= 0 ) {
         return 0;
     }
 
-    if ( $tax_type === 'percent' ) {
-        return round( ( $tax_rate * $sub_total ) / 100, 2 );
+    if ( $type === 'flat' || $type === 'fixed' ) {
+        return round( $rate, 2 );
     } else {
-        // flat/fixed tax
-        return round( $tax_rate, 2 );
+        return round( ( $amount * $rate ) / 100, 2 );
     }
 }
 

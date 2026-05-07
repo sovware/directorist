@@ -70,6 +70,15 @@ export default function OrderDetails({ order }: DetailsProps) {
 					<span>{__('Amount', 'directorist')}</span>
 					<span> {displayPrice(order?.amount, order?.currency)}</span>
 				</li>
+				<li>
+					<span>{__('Sub Total', 'directorist')}</span>
+					<span>
+						{displayPrice(
+							order?.sub_total,
+							order?.currency
+						)}
+					</span>
+				</li>
 				{order?.coupon_code && (
 					<>
 						<li>
@@ -82,21 +91,12 @@ export default function OrderDetails({ order }: DetailsProps) {
 									{order?.coupon_code}
 								</Badge>
 								-{' '}
-								{order?.coupon_discount_type === 'fixed'
+								{order?.coupon_discount_type === 'flat'
 									? displayPrice(
 											order?.coupon_discount || 0,
 											order?.currency
 										)
 									: `${order?.coupon_discount}%`}
-							</span>
-						</li>
-						<li>
-							<span>{__('Sub Total', 'directorist')}</span>
-							<span>
-								{displayPrice(
-									order?.sub_total,
-									order?.currency
-								)}
 							</span>
 						</li>
 					</>

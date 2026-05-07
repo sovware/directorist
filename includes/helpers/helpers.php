@@ -26,6 +26,17 @@ function directorist_currency(): string {
     return atbdp_get_payment_currency();
 }
 
+function directorist_permalink(): ATBDP_Permalink {
+    static $instance = null;
+
+    if ( null === $instance ) {
+        $instance = new ATBDP_Permalink();
+    }
+
+    return $instance;
+}
+
+
 function directorist_payment_failure_url( array $query_args = [] ) {
     return add_query_arg( $query_args, ATBDP_Permalink::get_transaction_failure_page_link() );
 }

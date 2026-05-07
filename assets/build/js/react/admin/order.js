@@ -34834,7 +34834,7 @@ function OrderDetails(_ref) {
               variant: "success",
               className: "directorist-badge",
               children: order === null || order === void 0 ? void 0 : order.coupon_code
-            }), "-", ' ', (order === null || order === void 0 ? void 0 : order.coupon_discount_type) === 'flat' ? (0,_admin_helper_payment__WEBPACK_IMPORTED_MODULE_2__.displayPrice)((order === null || order === void 0 ? void 0 : order.coupon_discount) || 0, order === null || order === void 0 ? void 0 : order.currency) : "".concat(order === null || order === void 0 ? void 0 : order.coupon_discount, "%")]
+            }), "-", ' ', (order === null || order === void 0 ? void 0 : order.coupon_discount_type) === 'fixed' || (order === null || order === void 0 ? void 0 : order.coupon_discount_type) === 'flat' ? (0,_admin_helper_payment__WEBPACK_IMPORTED_MODULE_2__.displayPrice)((order === null || order === void 0 ? void 0 : order.coupon_discount) || 0, order === null || order === void 0 ? void 0 : order.currency) : "".concat(order === null || order === void 0 ? void 0 : order.coupon_discount, "%")]
           })]
         })
       }), (order === null || order === void 0 ? void 0 : order.tax_type) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {

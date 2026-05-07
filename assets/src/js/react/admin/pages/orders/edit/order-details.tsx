@@ -91,7 +91,7 @@ export default function OrderDetails({ order }: DetailsProps) {
 									{order?.coupon_code}
 								</Badge>
 								-{' '}
-								{order?.coupon_discount_type === 'flat'
+								{order?.coupon_discount_type === 'fixed' || order?.coupon_discount_type === 'flat'
 									? displayPrice(
 											order?.coupon_discount || 0,
 											order?.currency

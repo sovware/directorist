@@ -130,11 +130,14 @@ class ATBDP_Checkout {
         wp_enqueue_script( 'directorist-checkout' );
         wp_enqueue_script( 'wp-api-fetch' );
 
+        $subtotal = round( apply_filters( 'directorist_checkout_subtotal', 0, $request->get_param( 'checkout_type' ), $request ) , 2 );
+
         return Template::get(
             'checkout/checkout', [
                 'checkout_type' => $request->get_param( 'checkout_type' ),
                 'request'       => $request,
-                'subtotal'      => apply_filters( 'directorist_checkout_subtotal', 0, $request->get_param( 'checkout_type' ), $request )
+                'subtotal'      => $subtotal,
+                'total'         => round( apply_filters( 'directorist_checkout_total', $subtotal, $request->get_param( 'checkout_type' ), $request ), 2 )
             ]
         );
     }

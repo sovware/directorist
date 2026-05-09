@@ -29,13 +29,13 @@ use \Directorist\Helper;
                         <div class="directorist-card__body">
                             <div class="directorist-table-responsive">
                                 <table id="directorist-checkout-table" class="directorist-table">
-                                    <?php do_action( 'directorist_checkout_table', $checkout_type, $subtotal, $request ); ?>
+                                    <?php do_action( 'directorist_checkout_table', $checkout_type, $total, $subtotal, $request ); ?>
                                     <tr class="directorist-summery-total">
                                         <td colspan="2" class="">
                                             <span class="directorist-summery-label"><?php printf( esc_html__( 'Total amount', 'directorist' ) ); ?></h4>
                                         </td>
                                         <td class="directorist-text-right">
-                                            <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo wp_kses_post( directorist_price( $subtotal ) ) ?></div>
+                                            <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo wp_kses_post( directorist_price( $total ) ) ?></div>
                                         </td>
                                     </tr>
                                 </table> <!--ends table-->

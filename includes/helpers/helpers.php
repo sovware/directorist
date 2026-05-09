@@ -22,6 +22,31 @@ function directorist_price( $price, $html = true ) {
     return atbdp_display_price( $price, false, '', '', '', false, $html );
 }
 
+function directorist_order_total_amount( stdClass $order ) {
+    return directorist_compute_order_total_amount(
+        $order->sub_total, 
+        $order->tax_rate, 
+        $order->tax_type, 
+        $order->coupon_discount, 
+        $order->coupon_discount_type
+    );
+}
+
+function directorist_compute_order_total_amount( float $sub_total, ?float $tax_rate = null, ?string $tax_type = null, ?float $coupon_discount = null, ?string $coupon_discount_type = null ) {
+    $total_amount = $sub_total;
+
+    if ( ! empty( $order->coupon_discount ) && ! empty( $coupon_discount_type ) ) {
+        $total_amount -= directorist_compute_fixed_or_percent_amount( $coupon_discount_type, $coupon_discount, $total_amount );
+        $total_amount  = max( 0, $total_amount ); // Ensure total amount doesn't go negative
+    }
+
+    if ( ! empty( $tax_type ) ) {
+        $total_amount += directorist_compute_fixed_or_percent_amount( $tax_type, $tax_rate, $total_amount );
+    }
+
+    return round( $total_amount, 2 );
+}
+
 function directorist_currency(): string {
     return atbdp_get_payment_currency();
 }

@@ -74,7 +74,7 @@ class ATBDP_Checkout {
             return __( "Order not found" );
         }
 
-        $order = $order_repository->to_dto( $order_db );
+        $order = apply_filters( 'directorist_payment_receipt_order_dto', $order_repository->to_dto( $order_db ) );
 
         $payment_repository = directorist_payment_repository();
         $payments           = $payment_repository->get( $order_id );

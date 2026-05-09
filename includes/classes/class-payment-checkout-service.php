@@ -104,19 +104,7 @@ class PaymentCheckoutService {
         }
 
         // Set the existing order ID on the DTO so the core skips order creation
-        $dto->set_id( (int) $order->id )
-            ->set_ref_type( $order->ref_type )
-            ->set_ref( $order->ref )
-            ->set_amount( (float) $order->amount )
-            ->set_sub_total( (float) $order->sub_total );
-
-        if ( ! empty( $order->listing_id ) ) {
-            $dto->set_listing_id( (int) $order->listing_id );
-        }
-
-        if ( ! empty( $order->is_featured_listing ) ) {
-            $dto->set_is_featured_listing( (int) $order->is_featured_listing );
-        }
+        $dto->set_id( (int) $order->id );
     }
 
     public function before_checkout_form_end() {

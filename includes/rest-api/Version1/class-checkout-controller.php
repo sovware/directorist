@@ -78,6 +78,18 @@ class Checkout_Controller extends Abstract_Controller {
 
             do_action( 'directorist_checkout_create_order', $dto, $checkout_type, $request );
 
+            $repository = directorist_order_repository();
+
+            if ( $dto->is_initialized( 'id' ) ) {
+                $order = $repository->get_by_id( $dto->get_id() );
+
+                if ( ! $order ) {
+                    return new WP_Error( 'rest_not_found', __( 'Order not found.' ) );
+                }
+
+                $dto = $repository->to_dto( $order );
+            }
+
             $processor_instance = null;
             $process_payment    = apply_filters( 'directorist_checkout_process_payment', $dto->get_amount() > 0, $dto, $request );
             

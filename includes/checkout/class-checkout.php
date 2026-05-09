@@ -97,7 +97,6 @@ class ATBDP_Checkout {
     public function checkout() {
         // return null if user is not logged in
         if ( ! atbdp_is_user_logged_in() ) {
-            ob_end_clean();
             return null;
         }
 

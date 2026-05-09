@@ -80,7 +80,7 @@ class Checkout_Controller extends Abstract_Controller {
 
             $processor_instance = null;
             $process_payment    = apply_filters( 'directorist_checkout_process_payment', $dto->get_amount() > 0, $dto, $request );
-
+            
             if ( $process_payment ) {
                 $payment_gateway = $request->get_param( 'payment_gateway' );
 

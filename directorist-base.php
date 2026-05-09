@@ -222,6 +222,7 @@ final class Directorist_Base {
             new Directorist\AdminMenu();
             new Directorist\FeaturedListingCheckout();
             new Directorist\PaymentService();
+            new Directorist\PaymentCheckoutService();
 
             // Check if this is a beta version by looking for 'Beta' in version string
             self::$instance->beta = false !== stripos( ATBDP_VERSION, 'Beta' );

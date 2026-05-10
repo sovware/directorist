@@ -212,6 +212,7 @@
                 :fields="getWidgetFields(widget)"
                 :disabled="readOnly && !isWidgetSelected(widget)"
                 :readOnly="readOnly"
+                :disableEdit="disableWidgetEdit"
                 :activeWidgets="activeWidgets"
                 :selectedWidgets="selectedWidgets"
                 :availableWidgets="availableWidgets"
@@ -260,6 +261,7 @@
               :fields="getWidgetFields(widget)"
               :disabled="readOnly && !isWidgetSelected(widget)"
               :readOnly="readOnly"
+              :disableEdit="disableWidgetEdit"
               :activeWidgets="activeWidgets"
               :selectedWidgets="selectedWidgets"
               :availableWidgets="availableWidgets"
@@ -345,6 +347,7 @@ export default {
       default: "Up to __DATA__ item{s} can be added",
     },
     readOnly: { type: Boolean, default: false },
+    disableWidgetEdit: { type: Boolean, default: false },
     canDragAndDrop: { type: Boolean, default: false },
     dragAxis: {
       type: String,
@@ -465,6 +468,8 @@ export default {
     },
 
     editWidget(widgetKey) {
+      if (this.disableWidgetEdit) return;
+
       // Check if click target is inside modal
       if (event?.target?.closest(".cptm-options-area")) {
         return;

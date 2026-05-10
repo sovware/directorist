@@ -92,7 +92,7 @@
             </div>
             <div class="cptm-preview-notice-action">
               <a
-                href="/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings"
+                href="/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings#listing_settings__listings_page"
                 target="_blank"
                 class="cptm-preview-notice-btn"
               >

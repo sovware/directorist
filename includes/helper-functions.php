@@ -2266,7 +2266,7 @@ function search_category_location_filter( $settings, $taxonomy_id, $prefix = '' 
             $directory_type = get_term_meta( $term->term_id, '_directory_type', true );
             $icon           = get_cat_icon( $term->term_id );
             $icon_src       = \Directorist\Helper::get_icon_src( $icon );
-            $directory_type = ! empty( $directory_type ) ? $directory_type : [];
+            $directory_type = ! empty( $directory_type ) ? (array) $directory_type : [];
             if ( in_array( $settings['listing_type'], $directory_type ) ) {
                 $settings['term_id'] = $term->term_id;
 
@@ -2357,6 +2357,23 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
  * @since 6.3.0
  */
 function atbdp_guest_submission( $guest_email ) {
+    // Rate limit: max 3 guest registration attempts per IP per hour
+    $ip       = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+    $rate_key = 'directorist_guest_reg_' . md5( $ip );
+    $attempts = (int) get_transient( $rate_key );
+
+    if ( $attempts >= 3 ) {
+        wp_send_json(
+            [
+                'error'     => true,
+                'error_msg' => esc_html__( 'Too many attempts. Please try again later.', 'directorist' ),
+            ]
+        );
+        die();
+    }
+
+    set_transient( $rate_key, $attempts + 1, HOUR_IN_SECONDS );
+
     if ( email_exists( $guest_email ) ) {
         wp_send_json(
             [
@@ -3619,11 +3636,12 @@ function directorist_get_listing_views_count_meta_key() {
  */
 function directorist_get_listing_statuses() {
     return [
-        'draft'   => __( 'Draft', 'directorist' ),
-        'pending' => __( 'In Review', 'directorist' ),
-        'private' => __( 'Private', 'directorist' ),
-        'publish' => __( 'Published', 'directorist' ),
-        'expired' => __( 'Expired', 'directorist' ),
+        'draft'    => __( 'Draft', 'directorist' ),
+        'pending'  => __( 'In Review', 'directorist' ),
+        'private'  => __( 'Private', 'directorist' ),
+        'publish'  => __( 'Published', 'directorist' ),
+        'expired'  => __( 'Expired', 'directorist' ),
+        'rejected' => __( 'Rejected', 'directorist' ),
     ];
 }
 

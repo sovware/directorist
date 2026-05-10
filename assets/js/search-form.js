@@ -826,10 +826,17 @@ function setupTinyMCEHandlers($, triggerFn) {
     if (!$formGroup.length && !isWordPressContentEditor) return;
     var fieldName = $editorTextarea.attr('name') || editorId;
     var fieldKey = _field_mapping_js__WEBPACK_IMPORTED_MODULE_0__.WIDGET_KEY_TO_FIELD_KEY[fieldName] || fieldName;
-    editor.off('input keyup change NodeChange');
-    editor.on('input keyup change NodeChange', function () {
+
+    // Do not remove all TinyMCE listeners; that can break core UI
+    // behaviors like link popover visibility/positioning.
+    if (editor.directoristConditionalLogicBound) {
+      return;
+    }
+    var conditionalLogicHandler = function conditionalLogicHandler() {
       triggerFn(fieldName, fieldKey, $editorTextarea);
-    });
+    };
+    editor.on('input keyup change NodeChange', conditionalLogicHandler);
+    editor.directoristConditionalLogicBound = true;
   }
   $(document).ready(function () {
     try {
@@ -1002,7 +1009,8 @@ function mapFieldKeyToSelector(fieldKey) {
     miles: '[name="miles"], .directorist-custom-range-slider__range',
     search_by_rating: '[name="search_by_rating[]"]',
     review: '[name="search_by_rating[]"]',
-    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field'
+    image_upload: '[name="listing_img[]"], .directorist-form-image_upload-field',
+    listing_type: 'input[name="listing_type"]'
   };
   if (fieldKeyMap[fieldKey]) {
     return fieldKeyMap[fieldKey];
@@ -1312,6 +1320,25 @@ function getFieldValue(fieldKey, $) {
       }
     }
     return null;
+  }
+
+  // Special handling for custom button fields.
+  // Button fields store values in nested keys: field_key[button_text], field_key[button_url_label].
+  if (fieldKey && typeof fieldKey === 'string') {
+    var normalizedButtonFieldKey = fieldKey.trim();
+    if (normalizedButtonFieldKey) {
+      var buttonTextId = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)("".concat(normalizedButtonFieldKey, "_text"));
+      var buttonUrlId = (0,_field_mapping_js__WEBPACK_IMPORTED_MODULE_1__.escapeCssId)("".concat(normalizedButtonFieldKey, "_link"));
+      var $buttonTextField = $("[name=\"".concat(normalizedButtonFieldKey, "[button_text]\"], #").concat(buttonTextId)).first();
+      var $buttonUrlField = $("[name=\"".concat(normalizedButtonFieldKey, "[button_url_label]\"], #").concat(buttonUrlId)).first();
+      if ($buttonTextField.length || $buttonUrlField.length) {
+        var buttonTextValue = $buttonTextField.length ? String($buttonTextField.val() || '').trim() : '';
+        var buttonUrlValue = $buttonUrlField.length ? String($buttonUrlField.val() || '').trim() : '';
+
+        // Prefer button text for direct comparisons; fallback to URL.
+        return buttonTextValue || buttonUrlValue || null;
+      }
+    }
   }
   var $field = null;
 
@@ -4745,11 +4772,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (effectiveRangeMaxParam && effectiveRangeMaxParam !== '0') {
           sliderActivated = true;
         }
-
-        // Custom number range: real min/max configured in submission form — activate on fresh load
-        if (!sliderActivated && !sliderRadiusActive && sliderMaxValue > sliderMinValue) {
-          sliderActivated = true;
-        }
         if (typeof directoristCustomRangeSlider === 'undefined') return;
         if (sliderRadiusActive) {
           var _directoristCustomRan;
@@ -4894,10 +4916,13 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           slider.directoristCustomRangeSlider.set([minValue, maxValue]);
         }
-        ['change', 'keyup'].forEach(function (evt) {
-          minInput.addEventListener(evt, updateSliderFromInputs);
-          maxInput.addEventListener(evt, updateSliderFromInputs);
-        });
+
+        // Debounce keyup to allow typing multi-digit values before validation
+        var debouncedUpdate = (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_5__["default"])(updateSliderFromInputs, 500);
+        minInput.addEventListener('change', updateSliderFromInputs);
+        maxInput.addEventListener('change', updateSliderFromInputs);
+        minInput.addEventListener('keyup', debouncedUpdate);
+        maxInput.addEventListener('keyup', debouncedUpdate);
       });
     }
     directorist_custom_range_slider();

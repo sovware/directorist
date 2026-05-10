@@ -77,14 +77,14 @@
                   <span class="cptm-elements-settings__group__single__label">
                     <!-- Display icon only if it exists -->
                     <span
-                      v-if="available_widgets[widget_key].icon"
+                      v-if="getResolvedWidget(widget_key).icon"
                       class="cptm-elements-settings__group__single__label__icon"
-                      :class="available_widgets[widget_key].icon"
+                      :class="getResolvedWidget(widget_key).icon"
                     ></span>
                     <span
-                      v-if="available_widgets[widget_key]"
+                      v-if="getResolvedWidget(widget_key)"
                       class="cptm-elements-settings__group__single__label__text"
-                      >{{ available_widgets[widget_key].label }}</span
+                      >{{ getResolvedWidget(widget_key).label }}</span
                     >
                     <span v-else>Unknown Widget</span>
                   </span>
@@ -97,7 +97,7 @@
                           !active_widgets[widget_key],
                       }"
                       @click.prevent="editWidget(widget_key)"
-                      v-if="hasWidgetOptions(widget_key)"
+                      v-if="getResolvedWidget(widget_key).options"
                     >
                       <span
                         class="cptm-elements-settings__group__single__edit__icon la la-cog"
@@ -174,7 +174,7 @@
               :label="placeholderSubItem.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
-              :acceptedWidgets="placeholderSubItem.acceptedWidgets"
+              :acceptedWidgets="getAvailableWidgetsForPlaceholder(placeholderSubItem)"
               :rejectedWidgets="placeholderSubItem.rejectedWidgets"
               :selectedWidgets="placeholderSubItem.selectedWidgetList"
               :maxWidget="placeholderSubItem.maxWidget"
@@ -208,7 +208,7 @@
                   :label="placeholderItem.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="placeholderItem.acceptedWidgets"
+                  :acceptedWidgets="getAvailableWidgetsForPlaceholder(placeholderItem)"
                   :rejectedWidgets="placeholderItem.rejectedWidgets"
                   :selectedWidgets="placeholderItem.selectedWidgetList"
                   :maxWidget="placeholderItem.maxWidget"
@@ -394,6 +394,7 @@ export default {
               processedWidgets[finalKey] = {
                 ...optimizedWidget,
                 widget_key: finalKey,
+                field_key: matchedField.field_key || finalKey,
                 label: matchedField.label || optimizedWidget.label,
               };
             });
@@ -412,30 +413,29 @@ export default {
     },
 
     // Optimized method to get available widgets for a placeholder
+    // Includes dynamically generated widgets (e.g., multiple button fields)
     getAvailableWidgetsForPlaceholder() {
       return (placeholder) => {
         if (!placeholder || !placeholder.acceptedWidgets) {
           return [];
         }
 
-        // Use cached result if available
-        const cacheKey = `widgets_${placeholder.placeholderKey}`;
-        if (
-          this._placeholderWidgetsCache &&
-          this._placeholderWidgetsCache[cacheKey]
-        ) {
-          return this._placeholderWidgetsCache[cacheKey];
-        }
+        const accepted = new Set(placeholder.acceptedWidgets);
 
-        const availableWidgets = placeholder.acceptedWidgets.filter(
-          (widgetKey) => this.isWidgetAvailable(widgetKey),
+        // Include widgets whose key OR widget_name matches an accepted widget.
+        // This allows dynamically generated widgets (from show_if matched_data)
+        // to appear when their base widget_name is accepted.
+        const availableWidgets = Object.keys(this.theAvailableWidgets).filter(
+          (widgetKey) => {
+            const widget = this.theAvailableWidgets[widgetKey];
+            return (
+              accepted.has(widgetKey) ||
+              (widget &&
+                widget.widget_name &&
+                accepted.has(widget.widget_name))
+            );
+          },
         );
-
-        // Cache the result
-        if (!this._placeholderWidgetsCache) {
-          this._placeholderWidgetsCache = {};
-        }
-        this._placeholderWidgetsCache[cacheKey] = availableWidgets;
 
         return availableWidgets;
       };
@@ -500,6 +500,15 @@ export default {
     // ===========================================
     // HELPER METHODS
     // ===========================================
+
+    // Resolve a widget from theAvailableWidgets, with fallback to available_widgets
+    getResolvedWidget(widgetKey) {
+      return (
+        this.theAvailableWidgets[widgetKey] ||
+        this.available_widgets[widgetKey] ||
+        {}
+      );
+    },
 
     // Get filtered acceptedWidgets (only available widgets) for a placeholder
     getFilteredAcceptedWidgets(placeholder) {
@@ -734,22 +743,27 @@ export default {
      */
     checkWidgetAvailability(widgetKey) {
       try {
-        // Basic check if widget exists
-        if (!this.available_widgets[widgetKey]) {
-          return false;
+        // Check static available_widgets first
+        if (this.available_widgets[widgetKey]) {
+          const widget = this.available_widgets[widgetKey];
+
+          // Check show_if condition if present
+          if (widget.show_if && this.isValidObject(widget.show_if)) {
+            const showIfResult = this.checkShowIfCondition({
+              condition: widget.show_if,
+            });
+            return showIfResult && showIfResult.status === true;
+          }
+
+          return true;
         }
 
-        const widget = this.available_widgets[widgetKey];
-
-        // Check show_if condition if present
-        if (widget.show_if && this.isValidObject(widget.show_if)) {
-          const showIfResult = this.checkShowIfCondition({
-            condition: widget.show_if,
-          });
-          return showIfResult && showIfResult.status === true;
+        // Fallback: check theAvailableWidgets for dynamically generated widgets
+        if (this.theAvailableWidgets && this.theAvailableWidgets[widgetKey]) {
+          return true;
         }
 
-        return true;
+        return false;
       } catch (error) {
         this.handleError(
           `Error checking widget availability for ${widgetKey}`,
@@ -1769,16 +1783,35 @@ export default {
        * @param {Object} widget - Widget object with saved data (may have custom label/icon)
        */
       const addActiveWidget = (widget) => {
-        // Ensure that the widget exists in the available widgets
-        if (!this.theAvailableWidgets[widget.widget_name]) {
-          console.error(
-            `Widget ${widget.widget_name} not found in available widgets.`,
-          );
-          return; // Exit if widget is not available
+        // Resolve the widget template from theAvailableWidgets.
+        // Try widget_key first (for dynamic widgets like button fields),
+        // then widget_name, then search by widget_name property.
+        let templateKey =
+          widget.widget_key || widget.widget_name;
+        let widgetTemplate = this.theAvailableWidgets[templateKey];
+
+        if (!widgetTemplate && widget.widget_name) {
+          widgetTemplate = this.theAvailableWidgets[widget.widget_name];
+        }
+
+        if (!widgetTemplate) {
+          for (const key in this.theAvailableWidgets) {
+            if (
+              this.theAvailableWidgets[key].widget_name ===
+              widget.widget_name
+            ) {
+              widgetTemplate = this.theAvailableWidgets[key];
+              break;
+            }
+          }
+        }
+
+        if (!widgetTemplate) {
+          return;
         }
 
         let widgets_template = {
-          ...this.theAvailableWidgets[widget.widget_name],
+          ...widgetTemplate,
         };
 
         let has_widget_options = false;
@@ -1864,9 +1897,14 @@ export default {
           ? this.promoteFieldsToRoot(widgets_template)
           : widgets_template;
 
-        // Set the widget data in the active_widgets object
-        Vue.set(this.active_widgets, widget.widget_name, processedWidget);
-        Vue.set(this.available_widgets, widget.widget_name, processedWidget);
+        // Use widget_key for active_widgets so dynamic widgets (e.g. phone_2,
+        // button_2) don't overwrite each other. Only update the base entry in
+        // available_widgets when the widget is not a dynamic variant.
+        const activeKey = widget.widget_key || widget.widget_name;
+        Vue.set(this.active_widgets, activeKey, processedWidget);
+        if (activeKey === widget.widget_name) {
+          Vue.set(this.available_widgets, widget.widget_name, processedWidget);
+        }
       };
 
       /**
@@ -1990,15 +2028,13 @@ export default {
               return;
             }
 
-            // Get widget from available_widgets and add to active_widgets
-            if (
-              typeof widgetKey !== "undefined" &&
-              typeof widgetKey === "string" &&
-              typeof this.available_widgets[widgetKey] !== "undefined"
-            ) {
-              const widget = this.available_widgets[widgetKey];
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+              // Try available_widgets first, then theAvailableWidgets for dynamic keys
+              const widget =
+                this.available_widgets[widgetKey] ||
+                this.theAvailableWidgets[widgetKey];
               if (widget) {
-                addActiveWidget(widget);
+                addActiveWidget({ ...widget, widget_key: widgetKey });
               }
             }
           });
@@ -2113,15 +2149,12 @@ export default {
                   return;
                 }
 
-                // Get widget from available_widgets and add to active_widgets
-                if (
-                  typeof widgetKey !== "undefined" &&
-                  typeof widgetKey === "string" &&
-                  typeof this.available_widgets[widgetKey] !== "undefined"
-                ) {
-                  const widget = this.available_widgets[widgetKey];
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+                  const widget =
+                    this.available_widgets[widgetKey] ||
+                    this.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    this.$set(this.active_widgets, widgetKey, widget);
+                    this.$set(this.active_widgets, widgetKey, { ...widget, widget_key: widgetKey });
                   }
                 }
               });
@@ -2411,15 +2444,12 @@ export default {
                   return;
                 }
 
-                // Get widget from available_widgets and add to active_widgets
-                if (
-                  typeof widgetKey !== "undefined" &&
-                  typeof widgetKey === "string" &&
-                  typeof this.available_widgets[widgetKey] !== "undefined"
-                ) {
-                  const widget = this.available_widgets[widgetKey];
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+                  const widget =
+                    this.available_widgets[widgetKey] ||
+                    this.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    this.$set(this.active_widgets, widgetKey, widget);
+                    this.$set(this.active_widgets, widgetKey, { ...widget, widget_key: widgetKey });
                   }
                 }
               });
@@ -2503,10 +2533,18 @@ export default {
         if (
           !selectedWidgets.some((widget) => widget.widget_key === widget_key)
         ) {
-          const widgetIndex = acceptedWidgets.indexOf(widget_key);
-          if (widgetIndex !== -1) {
+          // Accept both static keys and dynamic keys whose widget_name
+          // matches an accepted widget (e.g., button fields)
+          const widget = this.theAvailableWidgets[widget_key];
+          const isAccepted =
+            acceptedWidgets.includes(widget_key) ||
+            (widget &&
+              widget.widget_name &&
+              acceptedWidgets.includes(widget.widget_name));
+
+          if (isAccepted && widget) {
             selectedWidgetList.push(widget_key);
-            selectedWidgets.push(this.theAvailableWidgets[widget_key]);
+            selectedWidgets.push(widget);
           }
         }
       } else {
@@ -2519,14 +2557,26 @@ export default {
         );
       }
 
-      // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order
+      // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order.
+      // For dynamic widgets (not directly in acceptedWidgets), sort by their
+      // widget_name's position in acceptedWidgets.
+      const getAcceptedIndex = (key) => {
+        let idx = acceptedWidgets.indexOf(key);
+        if (idx === -1) {
+          const w = this.theAvailableWidgets[key];
+          if (w && w.widget_name) {
+            idx = acceptedWidgets.indexOf(w.widget_name);
+          }
+        }
+        return idx === -1 ? acceptedWidgets.length : idx;
+      };
+
       selectedWidgetList.sort(
-        (a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b),
+        (a, b) => getAcceptedIndex(a) - getAcceptedIndex(b),
       );
       selectedWidgets.sort(
         (a, b) =>
-          acceptedWidgets.indexOf(a.widget_key) -
-          acceptedWidgets.indexOf(b.widget_key),
+          getAcceptedIndex(a.widget_key) - getAcceptedIndex(b.widget_key),
       );
 
       // Filter out null items from selectedWidgetList one more time after sorting

@@ -110552,6 +110552,7 @@ function useDialog(options) {
     node.addEventListener("keydown", (event) => {
       if (event.keyCode === _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_1__.ESCAPE && !event.defaultPrevented && currentOptions.current?.onClose) {
         event.preventDefault();
+        event.stopPropagation();
         currentOptions.current.onClose();
       }
     });
@@ -117403,27 +117404,36 @@ function __experimentalGetSettings() {
   });
   return getSettings();
 }
+var wpZonePacked;
+function ensureWPTimezone() {
+  if (!moment__WEBPACK_IMPORTED_MODULE_0__.tz.zone(WP_ZONE)) {
+    if (wpZonePacked) {
+      moment__WEBPACK_IMPORTED_MODULE_0__.tz.add(wpZonePacked);
+    } else {
+      setupWPTimezone();
+    }
+  }
+}
 function setupWPTimezone() {
   const currentTimezone = moment__WEBPACK_IMPORTED_MODULE_0__.tz.zone(settings.timezone.string);
+  let packed;
   if (currentTimezone) {
-    moment__WEBPACK_IMPORTED_MODULE_0__.tz.add(
-      moment__WEBPACK_IMPORTED_MODULE_0__.tz.pack({
-        name: WP_ZONE,
-        abbrs: currentTimezone.abbrs,
-        untils: currentTimezone.untils,
-        offsets: currentTimezone.offsets
-      })
-    );
+    packed = moment__WEBPACK_IMPORTED_MODULE_0__.tz.pack({
+      name: WP_ZONE,
+      abbrs: currentTimezone.abbrs,
+      untils: currentTimezone.untils,
+      offsets: currentTimezone.offsets
+    });
   } else {
-    moment__WEBPACK_IMPORTED_MODULE_0__.tz.add(
-      moment__WEBPACK_IMPORTED_MODULE_0__.tz.pack({
-        name: WP_ZONE,
-        abbrs: [WP_ZONE],
-        untils: [null],
-        offsets: [-settings.timezone.offset * 60 || 0]
-      })
-    );
+    packed = moment__WEBPACK_IMPORTED_MODULE_0__.tz.pack({
+      name: WP_ZONE,
+      abbrs: [WP_ZONE],
+      untils: [null],
+      offsets: [-settings.timezone.offset * 60 || 0]
+    });
   }
+  wpZonePacked = packed;
+  moment__WEBPACK_IMPORTED_MODULE_0__.tz.add(packed);
 }
 var MINUTE_IN_SECONDS = 60;
 var HOUR_IN_MINUTES = 60;
@@ -117607,17 +117617,20 @@ function gmdateI18n(dateFormat, dateValue = /* @__PURE__ */ new Date()) {
   return format(dateFormat, dateMoment);
 }
 function isInTheFuture(dateValue) {
+  ensureWPTimezone();
   const now = moment__WEBPACK_IMPORTED_MODULE_0__.tz(WP_ZONE);
   const momentObject = moment__WEBPACK_IMPORTED_MODULE_0__.tz(dateValue, WP_ZONE);
   return momentObject.isAfter(now);
 }
 function getDate(dateString) {
+  ensureWPTimezone();
   if (!dateString) {
     return moment__WEBPACK_IMPORTED_MODULE_0__.tz(WP_ZONE).toDate();
   }
   return moment__WEBPACK_IMPORTED_MODULE_0__.tz(dateString, WP_ZONE).toDate();
 }
 function humanTimeDiff(from, to) {
+  ensureWPTimezone();
   const fromMoment = moment__WEBPACK_IMPORTED_MODULE_0__.tz(from, WP_ZONE);
   const toMoment = to ? moment__WEBPACK_IMPORTED_MODULE_0__.tz(to, WP_ZONE) : moment__WEBPACK_IMPORTED_MODULE_0__.tz(WP_ZONE);
   return fromMoment.from(toMoment);
@@ -117757,20 +117770,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // packages/dom/src/dom/caret-range-from-point.js
 function caretRangeFromPoint(doc, x, y) {
+  if (doc.caretPositionFromPoint) {
+    const point = doc.caretPositionFromPoint(x, y);
+    if (!point) {
+      return null;
+    }
+    const range = doc.createRange();
+    range.setStart(point.offsetNode, point.offset);
+    range.collapse(true);
+    return range;
+  }
   if (doc.caretRangeFromPoint) {
     return doc.caretRangeFromPoint(x, y);
   }
-  if (!doc.caretPositionFromPoint) {
-    return null;
-  }
-  const point = doc.caretPositionFromPoint(x, y);
-  if (!point) {
-    return null;
-  }
-  const range = doc.createRange();
-  range.setStart(point.offsetNode, point.offset);
-  range.collapse(true);
-  return range;
+  return null;
 }
 
 //# sourceMappingURL=caret-range-from-point.mjs.map
@@ -119717,7 +119730,7 @@ function createFrame(element, tokenStart, tokenLength, prevOffset, leadingTextSt
     children: []
   };
 }
-var createInterpolateElement = (interpolatedString, conversionMap) => {
+function createInterpolateElement(interpolatedString, conversionMap) {
   indoc = interpolatedString;
   offset = 0;
   output = [];
@@ -119731,7 +119744,7 @@ var createInterpolateElement = (interpolatedString, conversionMap) => {
   do {
   } while (proceed(conversionMap));
   return (0,_react_mjs__WEBPACK_IMPORTED_MODULE_0__.createElement)(_react_mjs__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, ...output);
-};
+}
 var isValidConversionMap = (conversionMap) => {
   const isObject = typeof conversionMap === "object" && conversionMap !== null;
   const values = isObject && Object.values(conversionMap);
@@ -121564,7 +121577,8 @@ var CORE_MODULES_USING_PRIVATE_APIS = [
   "@wordpress/media-utils",
   "@wordpress/upload-media",
   "@wordpress/global-styles-ui",
-  "@wordpress/ui"
+  "@wordpress/ui",
+  "@wordpress/views"
 ];
 var requiredConsent = "I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of WordPress.";
 var __dangerousOptInToUnstableAPIsOnlyForCoreModules = (consent, moduleName) => {

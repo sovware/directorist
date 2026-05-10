@@ -2123,11 +2123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					sliderActivated = true;
 				}
 
-				// Custom number range: real min/max configured in submission form — activate on fresh load
-				if ( !sliderActivated && !sliderRadiusActive && sliderMaxValue > sliderMinValue ) {
-					sliderActivated = true;
-				}
-
 				if (typeof directoristCustomRangeSlider === 'undefined') return;
 
 				if (sliderRadiusActive) {
@@ -2304,10 +2299,13 @@ document.addEventListener('DOMContentLoaded', () => {
 					]);
 				}
 
-				['change', 'keyup'].forEach((evt) => {
-					minInput.addEventListener(evt, updateSliderFromInputs);
-					maxInput.addEventListener(evt, updateSliderFromInputs);
-				});
+				// Debounce keyup to allow typing multi-digit values before validation
+				const debouncedUpdate = debounce(updateSliderFromInputs, 500);
+
+				minInput.addEventListener('change', updateSliderFromInputs);
+				maxInput.addEventListener('change', updateSliderFromInputs);
+				minInput.addEventListener('keyup', debouncedUpdate);
+				maxInput.addEventListener('keyup', debouncedUpdate);
 			});
 		}
 

@@ -93,7 +93,7 @@
               <div class="cptm-card-placeholder-top-left">
                 <card-widget-placeholder
                   id="thumbnail_body_top"
-                  containerClass="cptm-listing-card-quick-actions-placeholder cptm-mb-20"
+                  containerClass="cptm-listing-card-quick-actions-placeholder"
                   :label="local_layout.body.top.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
@@ -136,7 +136,7 @@
               <div class="cptm-card-placeholder-top-right">
                 <card-widget-placeholder
                   id="thumbnail_body_right"
-                  containerClass="cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right"
+                  containerClass="cptm-listing-card-quick-info-placeholder cptm-text-right"
                   :label="local_layout.body.right.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
@@ -186,7 +186,7 @@
               id="thumbnail_body_bottom"
               :containerClass="{
                 'cptm-listing-card-preview-body-placeholder': true,
-                'cptm-mb-12': hasExcerptWidget,
+                '': hasExcerptWidget,
               }"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
@@ -264,6 +264,47 @@
               @update-active-widget="handleActiveWidgetUpdate"
               @activate-widget-options="toggleActivateWidgetOptions"
               v-if="hasExcerptWidget"
+            />
+
+            <card-widget-placeholder
+              id="thumbnail_body_action"
+              :containerClass="{
+                'cptm-listing-card-preview-action-placeholder': true,
+                '': hasActionWidget,
+              }"
+              :label="local_layout.body.action.label"
+              :availableWidgets="theAvailableWidgets"
+              :activeWidgets="active_widgets"
+              :acceptedWidgets="actionAcceptedWidgets"
+              :selectedWidgets="local_layout.body.action.selectedWidgets"
+              :maxWidget="local_layout.body.action.maxWidget"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('thumbnail_body_action')
+              "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('thumbnail_body_action')
+              "
+              :widgetOptionsWindow="widgetOptionsWindow"
+              :canOpenSettings="false"
+              :disableWidgetEdit="true"
+              @insert-widget="insertWidget($event, local_layout.body.action)"
+              @edit-widget="editWidget($event)"
+              @trash-widget="trashWidget($event, local_layout.body.action)"
+              @open-widgets-picker-window="
+                toggleInsertWindow('thumbnail_body_action')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('thumbnail_body_action')
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
+              @update="
+                handleUpdateSelectedWidgets($event, 'local_layout.body.action')
+              "
+              @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
+              v-if="hasActionWidget"
             />
           </div>
 
@@ -408,6 +449,22 @@ export default {
     // Whether excerpt widget is available
     hasExcerptWidget() {
       return !!this.theAvailableWidgets?.excerpt;
+    },
+
+    actionAcceptedWidgets() {
+      const accepted = this.local_layout.body.action.acceptedWidgets;
+      if (!accepted?.length) return [];
+      const acceptedSet = new Set(accepted);
+      return Object.keys(this.theAvailableWidgets).filter((widgetKey) => {
+        const widget = this.theAvailableWidgets[widgetKey];
+        return (
+          acceptedSet.has(widgetKey) ||
+          (widget && widget.widget_name && acceptedSet.has(widget.widget_name))
+        );
+      });
+    },
+    hasActionWidget() {
+      return this.actionAcceptedWidgets.length > 0;
     },
     // Output Data
     output_data() {
@@ -627,6 +684,10 @@ export default {
           },
           excerpt: {
             label: "Body Excerpt",
+            selectedWidgets: [],
+          },
+          action: {
+            label: "Action",
             selectedWidgets: [],
           },
         },

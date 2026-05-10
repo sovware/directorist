@@ -92,6 +92,10 @@ class Orders_Controller extends Posts_Controller {
             return new WP_Error( 'invalid_request', __( 'Monetization disabled.', 'directorist' ), array( 'status' => 400 ) );
         }
 
+        if ( ! current_user_can( 'manage_atbdp_options' ) ) {
+            $request->set_param( 'created_by', 'web' );
+        }
+
         if ( ! empty( $request['customer'] ) && ! get_user( $request['customer'] ) ) {
             return new WP_Error( 'invalid_customer', __( 'Invalid customer.', 'directorist' ), array( 'status' => 400 ) );
         }

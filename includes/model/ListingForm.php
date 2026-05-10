@@ -724,6 +724,11 @@ class Directorist_Listing_Form {
             $valid_conditions = [];
             foreach ( $group['conditions'] as $condition ) {
                 if ( ! empty( $condition['field'] ) && ! empty( $condition['operator'] ) ) {
+                    // listing_type is not rendered in admin — skip its conditions so
+                    // dependent fields are always visible when editing a listing.
+                    if ( is_admin() && 'listing_type' === $condition['field'] ) {
+                        continue;
+                    }
                     $valid_conditions[] = $condition;
                 }
             }
@@ -914,7 +919,7 @@ class Directorist_Listing_Form {
     }
 
     public function is_custom_field( $data ) {
-        $fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+        $fields = [ 'html', 'button', 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
         return in_array( $data['widget_name'], $fields ) ? true : false;
     }
 

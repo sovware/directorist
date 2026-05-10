@@ -503,11 +503,20 @@ export default {
 
   mounted() {
     this.setupActiveWidgetGroups();
+    this.restoreExpandedGroupStates();
   },
 
   watch: {
     finalValue() {
       this.$emit("update", this.finalValue);
+    },
+
+    expandedGroupKey(value) {
+      this.persistExpandedGroupState("expanded_group", value);
+    },
+
+    expandedGroupFieldsKey(value) {
+      this.persistExpandedGroupState("expanded_group_fields", value);
     },
   },
 
@@ -685,6 +694,108 @@ export default {
   },
 
   methods: {
+    getExpandedGroupStateStorageKey(stateType) {
+      const key = this.fieldKey || "default";
+      const typeId = this.$root.id || 0;
+      return `directorist_cptm_form_builder_${key}_${stateType}_${typeId}`;
+    },
+
+    serializeGroupReference(groupKey) {
+      const index = Number.parseInt(groupKey, 10);
+
+      if (Number.isNaN(index)) {
+        return null;
+      }
+
+      const group = this.active_widget_groups[index];
+
+      if (!group) {
+        return null;
+      }
+
+      if (group.id) {
+        return `id:${group.id}`;
+      }
+
+      return `idx:${index}`;
+    },
+
+    resolveStoredGroupReference(reference) {
+      if (typeof reference !== "string" || !reference.length) {
+        return null;
+      }
+
+      if (reference.startsWith("id:")) {
+        const groupId = reference.replace("id:", "");
+        const matchedIndex = this.active_widget_groups.findIndex(
+          (group) => group.id === groupId,
+        );
+
+        return matchedIndex >= 0 ? matchedIndex : null;
+      }
+
+      if (reference.startsWith("idx:")) {
+        const index = Number.parseInt(reference.replace("idx:", ""), 10);
+
+        if (
+          !Number.isNaN(index) &&
+          index >= 0 &&
+          index < this.active_widget_groups.length
+        ) {
+          return index;
+        }
+      }
+
+      return null;
+    },
+
+    persistExpandedGroupState(stateType, groupKey) {
+      const storageKey = this.getExpandedGroupStateStorageKey(stateType);
+
+      try {
+        if (groupKey === null || typeof groupKey === "undefined") {
+          window.localStorage.removeItem(storageKey);
+          return;
+        }
+
+        const serializedValue = this.serializeGroupReference(groupKey);
+
+        if (!serializedValue) {
+          window.localStorage.removeItem(storageKey);
+          return;
+        }
+
+        window.localStorage.setItem(storageKey, serializedValue);
+      } catch (error) {}
+    },
+
+    restoreExpandedGroupStates() {
+      if (!this.active_widget_groups.length) {
+        this.expandedGroupKey = null;
+        this.expandedGroupFieldsKey = null;
+        return;
+      }
+
+      try {
+        const expandedGroupRef = window.localStorage.getItem(
+          this.getExpandedGroupStateStorageKey("expanded_group"),
+        );
+        const expandedGroupFieldsRef = window.localStorage.getItem(
+          this.getExpandedGroupStateStorageKey("expanded_group_fields"),
+        );
+
+        this.expandedGroupKey = this.resolveStoredGroupReference(
+          expandedGroupRef,
+        );
+        this.expandedGroupFieldsKey = this.resolveStoredGroupReference(
+          expandedGroupFieldsRef,
+        );
+      } catch (error) {
+        this.expandedGroupKey = null;
+        this.expandedGroupFieldsKey = null;
+      }
+    },
+
     setup() {
       this.setupActiveWidgetFields();
       this.setupActiveWidgetGroups();

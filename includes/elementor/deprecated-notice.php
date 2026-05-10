@@ -64,13 +64,9 @@ class DeprecatedNotice {
             return;
         }
 
-        if ( $this->is_installed ) {
-            $this->admin_notice_callback_to_activate_plugin();
-
-            return;
+        if ( ! $this->is_installed ) {
+            $this->admin_notice_callback_to_install_plugin();
         }
-
-        $this->admin_notice_callback_to_install_plugin();
     }
 
     public function parent_plugin_invalid_notice() {
@@ -79,31 +75,6 @@ class DeprecatedNotice {
             <p style="display: flex; align-items: center;">
                 The current version of your &nbsp; <strong><?php echo esc_html( $this->parent_label ); ?> is not compatible with <?php echo esc_html( $this->core_plugin ); ?></strong>. To ensure compatibility and access new features,&nbsp;<strong>update <?php echo esc_html( $this->parent_label ); ?> to version <?php echo esc_html( $this->min_addon_version ) ?> or later</strong>.
             </p>
-        </div>
-    <?php }
-
-    public function admin_notice_callback_to_activate_plugin(): void {
-        $can_activate_plugin = $this->is_plugin_compatible( 'activate_plugin', $this->addon_requires_php, $this->addon_requires_wp );
-        ?>
-        <div class="notice notice-warning" style="display: flex; flex-wrap:wrap; justify-content:space-between">
-            <p style="display: flex; align-items: center;">
-                <span>
-                    <?php echo wp_kses(
-                        sprintf(
-                            __( '<b>Directorist Announcement!</b> We\'ve enhanced our Elementor support! Introducing <a href="%1$s" target="_blank">Directorist Addonskit for Elementor</a> - a dedicated, feature-rich extension that\'s completely free. This specialized addon provides more powerful Elementor widgets and functionality than ever before.', 'directorist' ),
-                            esc_url( $this->addon_url ),
-                            esc_html( $this->parent_label ),
-                            esc_html( $this->core_plugin ) 
-                        ),
-                        ['a' => ['href' => true, 'target' => true], 'b' => []] 
-                    ); ?>
-                </span>
-            </p>
-            <?php if ( $can_activate_plugin ) : ?>
-                <p>
-                    <a class="button button-primary" href="<?php echo esc_url( $this->get_plugin_activation_url( $this->addon_slug ) ); ?>">Activate <?php echo esc_html( $this->parent_label ); ?></a>
-                </p>
-            <?php endif;?>
         </div>
     <?php }
 
@@ -139,10 +110,6 @@ class DeprecatedNotice {
         $compatible_wp  = is_wp_version_compatible( $requires_wp );
 
         return $can_use_plugin && $compatible_php && $compatible_wp;
-    }
-
-    public function get_plugin_activation_url( $path ): string {
-        return wp_nonce_url( self_admin_url( "plugins.php?action=activate&plugin={$path}&paged=1" ), 'activate-plugin_' . $path );
     }
 
     public function get_plugin_installation_url( $path ): string {

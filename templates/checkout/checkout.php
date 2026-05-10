@@ -38,6 +38,7 @@ use \Directorist\Helper;
                                             <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo wp_kses_post( directorist_price( $total ) ) ?></div>
                                         </td>
                                     </tr>
+                                    <?php do_action( 'directorist_checkout_table_after_total', $checkout_type, $total, $subtotal, $request ); ?>
                                 </table> <!--ends table-->
                             </div>
                         </div>

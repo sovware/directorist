@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-06 05:14+0000\n"
+"POT-Creation-Date: 2026-05-10 02:20+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -282,99 +282,99 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr ""
 
-#: ../directorist-base.php:506, ../directorist-base.php:518
+#: ../directorist-base.php:507, ../directorist-base.php:519
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:532
+#: ../directorist-base.php:533
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:534
+#: ../directorist-base.php:535
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:660
+#: ../directorist-base.php:661
 msgid "Directorist Add Listing"
 msgstr ""
 
-#: ../directorist-base.php:663
+#: ../directorist-base.php:664
 msgid "Directorist All Listings"
 msgstr ""
 
-#: ../directorist-base.php:666
+#: ../directorist-base.php:667
 msgid "Directorist Dashboard"
 msgstr ""
 
-#: ../directorist-base.php:669
+#: ../directorist-base.php:670
 msgid "Directorist Author Profile"
 msgstr ""
 
-#: ../directorist-base.php:672
+#: ../directorist-base.php:673
 msgid "Directorist All Categories"
 msgstr ""
 
-#: ../directorist-base.php:675
+#: ../directorist-base.php:676
 msgid "Directorist Single Category"
 msgstr ""
 
-#: ../directorist-base.php:678
+#: ../directorist-base.php:679
 msgid "Directorist All Locations"
 msgstr ""
 
-#: ../directorist-base.php:681
+#: ../directorist-base.php:682
 msgid "Directorist Single Location"
 msgstr ""
 
-#: ../directorist-base.php:684
+#: ../directorist-base.php:685
 msgid "Directorist Single Tag"
 msgstr ""
 
-#: ../directorist-base.php:687
+#: ../directorist-base.php:688
 msgid "Directorist Listing Search Form"
 msgstr ""
 
-#: ../directorist-base.php:690
+#: ../directorist-base.php:691
 msgid "Directorist Search Result"
 msgstr ""
 
-#: ../directorist-base.php:693
+#: ../directorist-base.php:694
 msgid "Directorist Checkout"
 msgstr ""
 
-#: ../directorist-base.php:696
+#: ../directorist-base.php:697
 msgid "Directorist Payment Receipt"
 msgstr ""
 
-#: ../directorist-base.php:699
+#: ../directorist-base.php:700
 msgid "Directorist Payment Failure"
 msgstr ""
 
-#: ../directorist-base.php:702
+#: ../directorist-base.php:703
 msgid "Directorist Privacy Policy"
 msgstr ""
 
-#: ../directorist-base.php:705
+#: ../directorist-base.php:706
 msgid "Directorist Terms & Conditions"
 msgstr ""
 
-#: ../directorist-base.php:708
+#: ../directorist-base.php:709
 msgid "Directorist Pricing Plan"
 msgstr ""
 
-#: ../directorist-base.php:711
+#: ../directorist-base.php:712
 msgid "Directorist Sign In"
 msgstr ""
 
-#: ../directorist-base.php:719, ../includes/classes/class-settings-panel.php:4611
+#: ../directorist-base.php:720, ../includes/classes/class-settings-panel.php:4611
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:726
+#: ../directorist-base.php:727
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:733, ../directorist-base.php:740
+#: ../directorist-base.php:734, ../directorist-base.php:741
 msgid "Listings Import"
 msgstr ""
 
@@ -510,7 +510,7 @@ msgstr ""
 msgid "You need to be logged in to view the content of this page"
 msgstr ""
 
-#: ../includes/helper-functions.php:896, ../includes/checkout/class-checkout.php:276, ../includes/classes/class-custom-post.php:778, ../includes/classes/class-custom-post.php:786, ../includes/classes/class-settings-panel.php:1460, ../includes/model/Listings.php:308, ../includes/model/Listings.php:2570, ../includes/payments/class-order.php:379, ../includes/modules/multi-directory-setup/class-builder-data.php:1504, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/helper-functions.php:896, ../includes/checkout/class-checkout.php:278, ../includes/classes/class-custom-post.php:778, ../includes/classes/class-custom-post.php:786, ../includes/classes/class-settings-panel.php:1460, ../includes/model/Listings.php:308, ../includes/model/Listings.php:2570, ../includes/payments/class-order.php:379, ../includes/modules/multi-directory-setup/class-builder-data.php:1504, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
@@ -1079,27 +1079,27 @@ msgstr ""
 msgid "Enquiries"
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:67, ../includes/checkout/class-checkout.php:250
+#: ../includes/checkout/class-checkout.php:67, ../includes/checkout/class-checkout.php:252
 msgid "Sorry! No order id has been provided."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:111, ../includes/checkout/class-checkout.php:153
+#: ../includes/checkout/class-checkout.php:110, ../includes/checkout/class-checkout.php:155
 msgid "Monetization is not active on this site. if you are an admin, you can enable it from the settings panel."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:121
+#: ../includes/checkout/class-checkout.php:120
 msgid "Invalid checkout type."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:165
+#: ../includes/checkout/class-checkout.php:167
 msgid "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:204
+#: ../includes/checkout/class-checkout.php:206
 msgid "Sorry, Nothing is available to buy. Please try again."
 msgstr ""
 
-#: ../includes/checkout/class-checkout.php:256
+#: ../includes/checkout/class-checkout.php:258
 msgid "Sorry! order not found."
 msgstr ""
 
@@ -1689,7 +1689,7 @@ msgstr ""
 msgid "Listing views"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:791, ../includes/elementor/all-listing.php:191, ../includes/elementor/category.php:92, ../includes/elementor/location.php:91, ../includes/elementor/search-result.php:105, ../includes/elementor/tag.php:91, ../includes/payments/class-order.php:338, ../includes/modules/multi-directory-setup/builder-custom-fields.php:372, ../includes/modules/multi-directory-setup/class-builder-data.php:1708, ../templates/checkout/receipt.php:49, ../templates/payment/payment-receipt.php:38
+#: ../includes/classes/class-custom-post.php:791, ../includes/elementor/all-listing.php:191, ../includes/elementor/category.php:92, ../includes/elementor/location.php:91, ../includes/elementor/search-result.php:105, ../includes/elementor/tag.php:91, ../includes/payments/class-order.php:338, ../includes/modules/multi-directory-setup/builder-custom-fields.php:372, ../includes/modules/multi-directory-setup/class-builder-data.php:1708, ../templates/checkout/receipt.php:48, ../templates/payment/payment-receipt.php:38
 msgid "Date"
 msgstr ""
 
@@ -6179,7 +6179,7 @@ msgstr ""
 msgid "All orders"
 msgstr ""
 
-#: ../includes/payments/class-order.php:332, ../templates/checkout/receipt.php:45, ../templates/payment/payment-receipt.php:34
+#: ../includes/payments/class-order.php:332, ../templates/checkout/receipt.php:44, ../templates/payment/payment-receipt.php:34
 msgid "Order ID"
 msgstr ""
 
@@ -6187,7 +6187,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: ../includes/payments/class-order.php:334, ../templates/checkout/receipt.php:74, ../templates/payment/payment-receipt.php:69
+#: ../includes/payments/class-order.php:334, ../templates/checkout/receipt.php:73, ../templates/payment/payment-receipt.php:69
 msgid "Amount"
 msgstr ""
 
@@ -6195,7 +6195,7 @@ msgstr ""
 msgid "Payment Type"
 msgstr ""
 
-#: ../includes/payments/class-order.php:336, ../templates/checkout/receipt.php:53, ../templates/payment/payment-receipt.php:42
+#: ../includes/payments/class-order.php:336, ../templates/checkout/receipt.php:52, ../templates/payment/payment-receipt.php:42
 msgid "Transaction ID"
 msgstr ""
 
@@ -8167,7 +8167,7 @@ msgstr ""
 msgid "Limit result set to specific directory type ids."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-checkout-controller.php:100, ../includes/rest-api/Version1/class-checkout-controller.php:179
+#: ../includes/rest-api/Version1/class-checkout-controller.php:112, ../includes/rest-api/Version1/class-checkout-controller.php:191
 msgid "Invalid payment gateway."
 msgstr ""
 
@@ -9395,11 +9395,11 @@ msgstr ""
 msgid "Your order details are given below. Please review it and click on Proceed to Payment to complete this order."
 msgstr ""
 
-#: ../templates/checkout/checkout.php:27, ../templates/checkout/receipt.php:40, ../templates/payment/checkout.php:29, ../templates/payment/payment-receipt.php:29
+#: ../templates/checkout/checkout.php:27, ../templates/checkout/receipt.php:39, ../templates/payment/checkout.php:29, ../templates/payment/payment-receipt.php:29
 msgid "Order Summary"
 msgstr ""
 
-#: ../templates/checkout/checkout.php:35, ../templates/checkout/receipt.php:128, ../templates/payment/payment-receipt.php:151
+#: ../templates/checkout/checkout.php:35, ../templates/checkout/receipt.php:140, ../templates/payment/payment-receipt.php:151
 msgid "Total amount"
 msgstr ""
 
@@ -9423,23 +9423,27 @@ msgstr ""
 msgid "Thank you for your order!"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:58, ../templates/payment/payment-receipt.php:46
+#: ../templates/checkout/receipt.php:57, ../templates/payment/payment-receipt.php:46
 msgid "Payment Method"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:68, ../templates/payment/payment-receipt.php:60
+#: ../templates/checkout/receipt.php:67, ../templates/payment/payment-receipt.php:60
 msgid "Payment Status"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:89, ../templates/payment/payment-receipt.php:96
+#: ../templates/checkout/receipt.php:84, ../templates/payment/payment-receipt.php:96
 msgid "Item summary"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:115, ../templates/payment/payment-receipt.php:141
+#: ../templates/checkout/receipt.php:111, ../templates/payment/payment-receipt.php:141
 msgid "Discount"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:139, ../templates/payment/payment-receipt.php:167
+#: ../templates/checkout/receipt.php:126
+msgid "Tax"
+msgstr ""
+
+#: ../templates/checkout/receipt.php:160, ../templates/payment/payment-receipt.php:167
 msgid "View your listings"
 msgstr ""
 

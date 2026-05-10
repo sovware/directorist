@@ -23,7 +23,7 @@ class FeaturedListingCheckout {
 
         add_filter( 'directorist_checkout_types', [$this, 'add_checkout_type'] );
         add_filter( 'directorist_checkout_validation', [$this, 'validate_checkout'], 10, 2 );
-        add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 3 );
+        add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 4 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
         add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
@@ -51,7 +51,7 @@ class FeaturedListingCheckout {
         }
     }
 
-    public function handle_checkout_table( string $checkout_type, float $subtotal, WP_REST_Request $request ) {
+    public function handle_checkout_table( string $checkout_type, float $total, float $subtotal, WP_REST_Request $request ) {
         if ( $checkout_type !== self::CHECKOUT_TYPE ) return;
 
         $listing = get_post( $request->get_param( 'listing_id' ) );

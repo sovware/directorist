@@ -94,11 +94,8 @@ class OrderRepository extends Repository {
                     $order->transaction_id  = $order->payment->transaction_id ?? null;
                 }
 
-                $order->total_amount = $order->total_amount = directorist_order_total_amount( $order );
+                $order->total_amount = directorist_order_total_amount( $order );
 
-                if ( ! empty( $order->tax_type ) ) {
-                    $order->total_amount += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
-                }
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );

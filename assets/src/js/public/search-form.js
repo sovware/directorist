@@ -1500,54 +1500,62 @@ document.addEventListener('DOMContentLoaded', () => {
 			window.history.back();
 		});
 
+		function getRadiusVisibilityContext($element = $()) {
+			const $context = $element.closest(
+				'.directorist-contents-wrap, .directorist-search-form, form'
+			);
+
+			return $context.length ? $context.first() : $(document.body);
+		}
+
 		// Radius Search Field Hide on Empty Location Field
-		function handleRadiusVisibility() {
+		function handleRadiusVisibility($scope = null) {
 			// Add class to mark the radius search field
 			$('.directorist-range-slider-wrap')
 				.closest('.directorist-search-field')
 				.addClass('directorist-search-field-radius_search');
 
-			let radius_search_item_selector = null;
-			const radius_search_based_on = $(
-				'.directorist-radius_search_based_on'
-			).val();
+			let $radiusFields = $(
+				'.directorist-search-field-radius_search, .directorist-radius-search'
+			);
 
-			// Determine which search item selector to use
-			if (radius_search_based_on === 'address') {
-				radius_search_item_selector = '.directorist-location-js';
-			} else if (radius_search_based_on === 'zip') {
-				radius_search_item_selector =
-					'.directorist-zipcode-search .zip-radius-search';
-			} else {
-				// Default fallback
-				radius_search_item_selector = '.directorist-location-js';
-			}
-
-			// Check if radius search item selector elements exist
-			const $radiusSearchItems = $(radius_search_item_selector);
-
-			if ($radiusSearchItems.length === 0) {
-				// If no elements found, hide all radius search containers
-				$(
+			if ($scope && $scope.length) {
+				$radiusFields = $scope.find(
 					'.directorist-search-field-radius_search, .directorist-radius-search'
-				).css({
-					display: 'none',
-				});
-			} else {
-				// Loop through the elements
-				$radiusSearchItems.each((index, locationDOM) => {
-					const $location = $(locationDOM);
-					const isEmpty = $location.val() === '';
+				);
 
-					const $container = $location
-						.closest('.directorist-contents-wrap')
-						.find(
-							'.directorist-search-field-radius_search, .directorist-radius-search'
-						);
-
-					$container.css({ display: isEmpty ? 'none' : 'block' });
-				});
+				if (
+					!$radiusFields.length &&
+					$scope.is(
+						'.directorist-search-field-radius_search, .directorist-radius-search'
+					)
+				) {
+					$radiusFields = $scope;
+				}
 			}
+
+			$radiusFields.each((index, radiusFieldDOM) => {
+				const $radiusField = $(radiusFieldDOM);
+				const $context = getRadiusVisibilityContext($radiusField);
+				const radius_search_based_on =
+					$radiusField.find('.directorist-radius_search_based_on').first().val() ||
+					$context.find('.directorist-radius_search_based_on').first().val() ||
+					'address';
+				const radius_search_item_selector =
+					radius_search_based_on === 'zip'
+						? '.directorist-zipcode-search .zip-radius-search'
+						: '.directorist-location-js';
+				const hasValue =
+					$context
+						.find(radius_search_item_selector)
+						.filter((itemIndex, locationDOM) => {
+							return String($(locationDOM).val()).trim() !== '';
+						}).length > 0;
+
+				$radiusField.css({
+					display: hasValue ? 'block' : 'none',
+				});
+			});
 		}
 
 		// handleRadiusVisibility Trigger
@@ -1555,7 +1563,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			'keyup keydown input change focus',
 			'.directorist-location-js, .zip-radius-search',
 			function (e) {
-				handleRadiusVisibility();
+				handleRadiusVisibility(getRadiusVisibilityContext($(this)));
 			}
 		);
 
@@ -1581,6 +1589,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				defaultTags();
 			}
 		);
+
+		handleRadiusVisibility();
 
 		// active class add on view as button
 		$('body').on(

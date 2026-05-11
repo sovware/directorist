@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $conditional_logic_attr = $searchform->get_conditional_logic_attributes( $data );
 $field_key              = ! empty( $data['field_key'] ) ? $data['field_key'] : ( ! empty( $data['widget_name'] ) ? $data['widget_name'] : 'zip' );
+$value                  = ! empty( $value ) ? $value : ( ! empty( $_REQUEST[ $field_key ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $field_key ] ) ) : '' );
 $lat                    = ! empty( $_REQUEST['zip_cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ) : '';
 $lng                    = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ) : '';
 ?>

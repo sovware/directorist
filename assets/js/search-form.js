@@ -4442,46 +4442,41 @@ document.addEventListener('DOMContentLoaded', function () {
       window.history.back();
     });
 
+    function getRadiusVisibilityContext() {
+      var $element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $();
+      var $context = $element.closest('.directorist-contents-wrap, .directorist-search-form, form');
+      return $context.length ? $context.first() : $(document.body);
+    }
+
     // Radius Search Field Hide on Empty Location Field
     function handleRadiusVisibility() {
+      var $scope = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       // Add class to mark the radius search field
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
-      var radius_search_item_selector = null;
-      var radius_search_based_on = $('.directorist-radius_search_based_on').val();
-
-      // Determine which search item selector to use
-      if (radius_search_based_on === 'address') {
-        radius_search_item_selector = '.directorist-location-js';
-      } else if (radius_search_based_on === 'zip') {
-        radius_search_item_selector = '.directorist-zipcode-search .zip-radius-search';
-      } else {
-        // Default fallback
-        radius_search_item_selector = '.directorist-location-js';
+      var $radiusFields = $('.directorist-search-field-radius_search, .directorist-radius-search');
+      if ($scope && $scope.length) {
+        $radiusFields = $scope.find('.directorist-search-field-radius_search, .directorist-radius-search');
+        if (!$radiusFields.length && $scope.is('.directorist-search-field-radius_search, .directorist-radius-search')) {
+          $radiusFields = $scope;
+        }
       }
-
-      // Check if radius search item selector elements exist
-      var $radiusSearchItems = $(radius_search_item_selector);
-      if ($radiusSearchItems.length === 0) {
-        // If no elements found, hide all radius search containers
-        $('.directorist-search-field-radius_search, .directorist-radius-search').css({
-          display: 'none'
+      $radiusFields.each(function (index, radiusFieldDOM) {
+        var $radiusField = $(radiusFieldDOM);
+        var $context = getRadiusVisibilityContext($radiusField);
+        var radius_search_based_on = $radiusField.find('.directorist-radius_search_based_on').first().val() || $context.find('.directorist-radius_search_based_on').first().val() || 'address';
+        var radius_search_item_selector = radius_search_based_on === 'zip' ? '.directorist-zipcode-search .zip-radius-search' : '.directorist-location-js';
+        var hasValue = $context.find(radius_search_item_selector).filter(function (itemIndex, locationDOM) {
+          return String($(locationDOM).val()).trim() !== '';
+        }).length > 0;
+        $radiusField.css({
+          display: hasValue ? 'block' : 'none'
         });
-      } else {
-        // Loop through the elements
-        $radiusSearchItems.each(function (index, locationDOM) {
-          var $location = $(locationDOM);
-          var isEmpty = $location.val() === '';
-          var $container = $location.closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search');
-          $container.css({
-            display: isEmpty ? 'none' : 'block'
-          });
-        });
-      }
+      });
     }
 
     // handleRadiusVisibility Trigger
     $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
-      handleRadiusVisibility();
+      handleRadiusVisibility(getRadiusVisibilityContext($(this)));
     });
 
     // rangeSlider, defaultTags Trigger on directory type | page change
@@ -4499,6 +4494,7 @@ document.addEventListener('DOMContentLoaded', function () {
       directorist_custom_range_slider();
       defaultTags();
     });
+    handleRadiusVisibility();
 
     // active class add on view as button
     $('body').on('click', '.directorist-viewas .directorist-viewas__item', function (e) {

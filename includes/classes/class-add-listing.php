@@ -469,33 +469,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     $data['redirect_url'] = add_query_arg( 'notice', true, $data['redirect_url'] );
                 }
 
-                $is_listing_featured = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) );
-                $should_monetize     = ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() && $is_listing_featured );
-
-                if ( $should_monetize && ! is_fee_manager_active() ) {
-                    $payment_status            = Helper::get_listing_payment_status( $listing_id );
-                    $rejectable_payment_status = [ 'failed', 'cancelled', 'refunded' ];
-
-                    if ( empty( $payment_status ) || in_array( $payment_status, $rejectable_payment_status, true ) ) {
-                        $data['redirect_url'] = directorist_get_checkout_page_url( 'featured_listing', [ 'listing_id' => $listing_id ] );
-                        $data['need_payment'] = true;
-
-                        wp_update_post(
-                            [
-                                'ID'          => $listing_id,
-                                'post_status' => 'pending',
-                            ]
-                        );
-                    }
-                }
-
                 $data['success']     = true;
                 $data['success_msg'] = __( 'Your listing submission is completed! Redirecting...', 'directorist' );
                 $data['preview_url'] = $permalink;
-
-                if ( ! empty( $data['need_payment'] ) && $data['need_payment'] === true ) {
-                    $data['success_msg'] = __( 'Payment required! Redirecting to checkout...', 'directorist' );
-                }
 
                 $data['preview_mode'] = $preview_enable;
 
@@ -517,8 +493,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
                 do_action( 'directorist_ajax_after_request_handling', [ 'params' => $posted_data, 'request' => $_REQUEST, 'response' => $data ] );
 
-                wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
+                if ( ! empty( $data['need_payment'] ) && $data['need_payment'] === true ) {
+                    $data['success_msg'] = __( 'Payment required! Redirecting to checkout...', 'directorist' );
+                }
 
+                wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
             } catch ( Exception $e ) {
                 return wp_send_json(
                     [

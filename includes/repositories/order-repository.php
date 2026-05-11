@@ -11,6 +11,7 @@ use Directorist\Utils\Repositories\Repository;
 use Directorist\Utils\Database\Query\Builder;
 use Directorist\Helpers\DateTime;
 use Directorist\DTO\Order\DTO;
+use Directorist\Enums\Order\Status as OrderStatus;
 use Directorist\DTO\Order\Read;
 use Directorist\DBModels\Post;
 use Directorist\DBModels\Order;
@@ -74,6 +75,16 @@ class OrderRepository extends Repository {
             "items" => $this->get_orders( $query, $dto ),
             "total" => $count_query->count( "d_order.id" )
         ];
+    }
+
+    public function listing_has_paid_featured_order( int $listing_id ): bool {
+        $order = $this->get_query_builder()->select( 'd_order.id' )
+            ->where( 'd_order.ref_type', 'featured_listing' )
+            ->where( 'd_order.listing_id', $listing_id )
+            ->where( 'd_order.status', OrderStatus::PAID )
+            ->first();
+
+        return $order ? true : false;
     }
 
     protected function get_orders( Builder $query, Read $dto ) {

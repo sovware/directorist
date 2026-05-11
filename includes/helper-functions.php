@@ -4988,9 +4988,9 @@ function directorist_submission_form_fields_raw( int $directory_type_id ): array
     return $submission_form_fields;
 }
 
-function directorist_submission_form_fields( int $directory_type_id, array $data = [] ): array {
-    $data['directory_type_id'] = $directory_type_id;
-    return apply_filters( 'directorist_submission_form_fields', directorist_submission_form_fields_raw( $directory_type_id ), $data );
+function directorist_submission_form_fields( int $directory_type_id, array $context = [] ): array {
+    $context['directory_type_id'] = $directory_type_id;
+    return apply_filters( 'directorist_submission_form_fields', directorist_submission_form_fields_raw( $directory_type_id ), $context );
 }
 
 function directorist_single_listing_header( int $directory_type_id, array $data = [] ): array {

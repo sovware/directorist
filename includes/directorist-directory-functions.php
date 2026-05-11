@@ -16,8 +16,8 @@ function directorist_get_directory_meta( $directory_id, string $meta_key ) {
     return get_term_meta( $directory_id, $meta_key, true );
 }
 
-function directorist_get_listing_form_fields( $directory_id ) {
-    $form_data = directorist_submission_form_fields( $directory_id );
+function directorist_get_listing_form_fields( $directory_id, $context = [] ) {
+    $form_data = directorist_submission_form_fields( $directory_id, $context );
 
     if ( empty( $form_data ) || empty( $form_data['fields'] ) ) {
         return array();
@@ -44,15 +44,15 @@ function directorist_get_listing_form_fields( $directory_id ) {
     return $fields;
 }
 
-function directorist_get_listing_form_groups( $directory_id ) {
-    $form_data = directorist_submission_form_fields( $directory_id );
+function directorist_get_listing_form_groups( $directory_id, $context = [] ) {
+    $form_data = directorist_submission_form_fields( $directory_id, $context );
     $_groups   = directorist_get_var( $form_data['groups'], [] );
     $groups    = [];
 
     foreach ( $_groups as $group ) {
         $groups[] = [
-            'label' => $group['label'],
-            'icon'  => isset( $group['icon'] ) ? $group['icon'] : '',
+            'label'  => $group['label'],
+            'icon'   => isset( $group['icon'] ) ? $group['icon'] : '',
             'fields' => $group['fields'],
         ];
     }

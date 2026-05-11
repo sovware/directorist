@@ -126,6 +126,7 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
             if ( ( empty( $_GET['listing_status'] ) && empty( $_GET['reviewed'] ) ) || isset( $_GET['preview'] ) ) {
                 return;
             }
+
             // Retrieve listing ID from multiple possible query parameters
             $listing_id = $this->get_listing_id_from_request();
 
@@ -143,6 +144,7 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
 
             // Retrieve directory ID and validate or set it if not numeric
             $directory_id = $this->get_or_set_directory_id( $listing_id );
+            
             if ( ! $directory_id ) {
                 return;
             }
@@ -221,14 +223,18 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
                 'edit_status'   => $edit_status,
             ];
 
+            $post_status = atbdp_get_listing_status_after_submission( $args );
+
             // Filter for custom argument modifications
-            return apply_filters(
+            $args = apply_filters(
                 'atbdp_reviewed_listing_status_controller_argument', [
                     'ID'          => $listing_id,
-                    'post_status' => atbdp_get_listing_status_after_submission( $args ),
+                    'post_status' => $post_status,
                     'edited'      => $args['edited'],
                 ] 
             );
+
+            return apply_filters( 'directorist_listing_update_args_after_preview', $args, $directory_id );
         }
 
         // manage_listings_status

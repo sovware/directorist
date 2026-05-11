@@ -1,6 +1,5 @@
 <?php
 use Directorist\Helper;
-use Directorist\database\DB;
 
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
@@ -306,20 +305,7 @@ if ( ! function_exists( 'atbdp_get_listing_status_after_submission' ) ) :
             ], $args
         );
 
-        $listing_id            = $args['id'];
-        $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
-        $monetization_enabled  = directorist_is_monetization_enabled();
-        $featured_enabled      = directorist_is_featured_listing_enabled();
-        $pricing_plans_enabled = is_fee_manager_active();
-
-        // Determine post status based on monetization settings and plans
-        if ( $monetization_enabled ) {
-            if ( $pricing_plans_enabled ) {
-                return directorist_get_pricing_plan_status( $listing_id, $listing_status );
-            } elseif ( $featured_enabled ) {
-                return directorist_get_featured_listing_status( $listing_id, $listing_status );
-            }
-        }
+        $listing_status = $args['edited'] ? $args['edit_status'] : $args['create_status'];
 
         return $listing_status;
     }

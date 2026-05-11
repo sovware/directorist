@@ -25,6 +25,7 @@ class FeaturedListingCheckout {
         add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
         add_filter( 'directorist_checkout_product_name', [$this, 'handle_checkout_product_name'], 10, 2 );
         add_filter( 'directorist_ajax_listing_submission_response', [ $this, 'handle_listing_submission_response_data' ], 10, 2 );
+        add_filter( 'directorist_listing_update_args_after_preview', [ $this, 'handle_listing_status_after_preview' ], 10, 2 );
     }
 
     public function handle_listing_submission_response_data( array $data, array $request ) {
@@ -52,6 +53,23 @@ class FeaturedListingCheckout {
         $data['need_payment'] = true;
 
         return $data;
+    }
+
+    public function handle_listing_status_after_preview( array $args ): array {
+        $listing_id    = $args['ID'];
+        $checkout_type = isset( $_GET['checkout_type'] ) ? sanitize_text_field( wp_unslash( $_GET['checkout_type'] ) ) : '';
+
+        if ( self::CHECKOUT_TYPE !== $checkout_type ) {
+            return $args;
+        }
+
+        if ( directorist_order_repository()->listing_has_paid_featured_order( $listing_id ) ) {
+            return $args;
+        }
+
+        $args['post_status'] = 'pending';
+
+        return $args;
     }
 
     public function add_checkout_type( array $checkout_types ) {

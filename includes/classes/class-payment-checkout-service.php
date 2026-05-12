@@ -20,6 +20,7 @@ class PaymentCheckoutService {
         add_filter( 'directorist_checkout_types', [ $this, 'add_checkout_type' ] );
         add_action( 'directorist_checkout_validation', [ $this, 'validate_checkout' ], 10, 2 );
         add_action( 'directorist_checkout_table', [ $this, 'handle_checkout_table' ], 10, 4 );
+        add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_filter( 'directorist_checkout_total', [ $this, 'handle_checkout_total' ], 10, 3 );
         add_action( 'directorist_checkout_create_order', [ $this, 'handle_checkout_create_order' ], 10, 3 );
         add_action( 'atbdp_before_checkout_form_end', [ $this, 'before_checkout_form_end' ], 10 );
@@ -76,6 +77,20 @@ class PaymentCheckoutService {
         $order = apply_filters( 'directorist_checkout_payment_order', $order, $request );
 
         Template::render( 'checkout/order-payment-summary', [ 'order' => $order ] );
+    }
+
+    public function handle_checkout_subtotal( float $subtotal, string $checkout_type, WP_REST_Request $request ) {
+        if ( $checkout_type !== self::CHECKOUT_TYPE ) {
+            return $subtotal;
+        }
+
+        $order = directorist_get_order_by_id( $request->get_param( 'order_id' ) );
+
+        if ( ! $order ) {
+            return $subtotal;
+        }
+
+        return $order->sub_total;
     }
 
     public function handle_checkout_total( float $total, string $checkout_type, WP_REST_Request $request ) {

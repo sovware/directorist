@@ -523,6 +523,18 @@ __webpack_require__.r(__webpack_exports__);
 
 (function ($) {
   window.addEventListener('load', function () {
+    function get_error_message(error) {
+      var message = '';
+      if (error.message) {
+        message = error.message;
+      } else if (error.messages) {
+        var messages = Object.values(error.messages);
+        if (messages.length > 0) {
+          message = messages[0][0];
+        }
+      }
+      return message;
+    }
     $('#atbdp-checkout-form').on('submit', /*#__PURE__*/function () {
       var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(e) {
         var submitBtn, btnText, btnSpinner, originalText, formData, data, response, message, _t;

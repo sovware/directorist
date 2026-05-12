@@ -1,5 +1,21 @@
 (function ($) {
 	window.addEventListener('load', () => {
+		function get_error_message(error) {
+			let message = '';
+
+			if (error.message) {
+				message = error.message;
+			} else if (error.messages) {
+				const messages = Object.values(error.messages);
+
+				if (messages.length > 0) {
+					message = messages[0][0];
+				}
+			}
+
+			return message;
+		}
+
 		$('#atbdp-checkout-form').on('submit', async function (e) {
 			e.preventDefault();
 

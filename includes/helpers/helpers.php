@@ -2,6 +2,8 @@
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\Utils\Template;
+
 require_once __DIR__ . '/app.php';
 require_once __DIR__ . '/repositories.php';
 
@@ -75,11 +77,15 @@ function directorist_get_order_by_id( $order_id ) {
     return $order_repository->get_by_id( $order_id );
 }
 
-function directorist_calculate_tax_amount( string $tax_type, float $tax_rate, float $sub_total ): float {
+function directorist_calculate_tax_amount( ?string $tax_type = null, ?float $tax_rate = null, float $sub_total ): float {
     return directorist_compute_fixed_or_percent_amount( $tax_type, $tax_rate, $sub_total );
 }
 
-function directorist_compute_fixed_or_percent_amount( string $type, float $rate, float $amount ): float {
+function directorist_compute_fixed_or_percent_amount( ?string $type = null, ?float $rate = null, float $amount ): float {
+    if ( ! $type || ! $rate ) {
+        return 0;
+    }
+
     if ( $rate <= 0 || $amount <= 0 ) {
         return 0;
     }
@@ -115,4 +121,12 @@ function directorist_get_directory_by_slug( string $slug ) {
 
 function directorist_date_time_format() {
     return apply_filters( 'directorist_date_time_format', 'Y-m-d H:i:s' );
+}
+
+function directorist_template_render( $path, array $data = [] ) {
+    Template::render( $path, $data );
+}
+
+function directorist_template_get( $path, array $data = [] ) {
+    return Template::get( $path, $data );
 }

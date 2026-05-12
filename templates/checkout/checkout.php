@@ -30,12 +30,16 @@ use \Directorist\Helper;
                             <div class="directorist-table-responsive">
                                 <table id="directorist-checkout-table" class="directorist-table">
                                     <?php do_action( 'directorist_checkout_table', $checkout_type, $total, $subtotal, $request ); ?>
-                                    <tr class="directorist-summery-total">
-                                        <td colspan="2" class="">
-                                            <span class="directorist-summery-label"><?php printf( esc_html__( 'Total amount', 'directorist' ) ); ?></h4>
+                                    <tr class="directorist-summery-total directorist-row--order-total" data-order-total="<?php echo esc_attr( $total ) ?>">
+                                        <td colspan="2">
+                                            <span class="directorist-summery-label directorist-row-label--order-total">
+                                                <?php printf( esc_html__( 'Total amount', 'directorist' ) ); ?>
+                                            </span>
                                         </td>
                                         <td class="directorist-text-right">
-                                            <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo wp_kses_post( directorist_price( $total ) ) ?></div>
+                                            <div id="atbdp_checkout_total_amount" class="directorist-summery-amount directorist-row-value--order-total">
+                                                <?php echo wp_kses_post( directorist_price( $total ) ) ?>
+                                            </div>
                                         </td>
                                     </tr>
                                     <?php do_action( 'directorist_checkout_table_after_total', $checkout_type, $total, $subtotal, $request ); ?>

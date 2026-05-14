@@ -417,26 +417,33 @@ export default {
     // Includes dynamically generated widgets (e.g., multiple button fields)
     getAvailableWidgetsForPlaceholder() {
       return (placeholder) => {
-        if (!placeholder || !placeholder.acceptedWidgets) {
+        if (
+          !placeholder ||
+          !placeholder.acceptedWidgets ||
+          !Array.isArray(placeholder.acceptedWidgets)
+        ) {
           return [];
         }
 
-        const accepted = new Set(placeholder.acceptedWidgets);
+        const availableWidgetKeys = Object.keys(this.theAvailableWidgets);
+        const availableWidgets = [];
+        const addedWidgetKeys = new Set();
 
-        // Include widgets whose key OR widget_name matches an accepted widget.
-        // This allows dynamically generated widgets (from show_if matched_data)
-        // to appear when their base widget_name is accepted.
-        const availableWidgets = Object.keys(this.theAvailableWidgets).filter(
-          (widgetKey) => {
+        placeholder.acceptedWidgets.forEach((acceptedWidgetKey) => {
+          availableWidgetKeys.forEach((widgetKey) => {
             const widget = this.theAvailableWidgets[widgetKey];
-            return (
-              accepted.has(widgetKey) ||
+            const isAcceptedWidget =
+              widgetKey === acceptedWidgetKey ||
               (widget &&
                 widget.widget_name &&
-                accepted.has(widget.widget_name))
-            );
-          },
-        );
+                widget.widget_name === acceptedWidgetKey);
+
+            if (isAcceptedWidget && !addedWidgetKeys.has(widgetKey)) {
+              availableWidgets.push(widgetKey);
+              addedWidgetKeys.add(widgetKey);
+            }
+          });
+        });
 
         return availableWidgets;
       };
@@ -513,13 +520,7 @@ export default {
 
     // Get filtered acceptedWidgets (only available widgets) for a placeholder
     getFilteredAcceptedWidgets(placeholder) {
-      if (!placeholder || !placeholder.acceptedWidgets) {
-        return [];
-      }
-
-      return placeholder.acceptedWidgets.filter((widgetKey) =>
-        this.isWidgetAvailable(widgetKey),
-      );
+      return this.getAvailableWidgetsForPlaceholder(placeholder);
     },
 
     // ===========================================

@@ -33,6 +33,7 @@
           <div
             class="cptm-elements-settings__group"
             v-for="(placeholder, placeholder_index) in allPlaceholderItems"
+            v-if="getAvailableWidgetsForPlaceholder(placeholder).length"
             :key="placeholder_index"
           >
             <span
@@ -72,7 +73,7 @@
                 <div class="cptm-elements-settings__group__single">
                   <span
                     class="drag-handle drag-icon uil uil-draggabledots"
-                    v-if="placeholder.acceptedWidgets?.length > 1"
+                    v-if="placeholder.acceptedWidgets?.length > 1 && getAvailableWidgetsForPlaceholder(placeholder).length > 1"
                   ></span>
                   <span class="cptm-elements-settings__group__single__label">
                     <!-- Display icon only if it exists -->
@@ -193,7 +194,7 @@
           <Draggable
             v-for="(placeholderItem, index) in placeholders"
             :key="index"
-            v-if="placeholderItem.type == 'placeholder_item'"
+            v-if="placeholderItem.type == 'placeholder_item' && getAvailableWidgetsForPlaceholder(placeholderItem).length"
             :class="{
               dragging: currentDraggingIndex === placeholderItem.placeholderKey,
             }"

@@ -103,7 +103,7 @@ use Directorist\Enums\Order\DiscountType as OrderDiscountType;
                             <?php if ( ! empty( $order->get_coupon_discount() ) ): ?>
                             <tr>
                                 <td class="directorist-payment-table__title">
-                                    <?php echo $order->get_coupon_discount_type() === OrderDiscountType::PERCENT ? sprintf( 'Discount ( %d%% )', $order->get_coupon_discount() ) : esc_html__( 'Discount', 'directorist' ); ?>
+                                    <?php echo $order->get_coupon_discount_type() === OrderDiscountType::PERCENT ? sprintf( esc_html__('Discount ( %d%% )', 'directorist' ), $order->get_coupon_discount() ) : esc_html__( 'Discount', 'directorist' ); ?>
                                 </td>
                                 <td>
                                     <?php echo '-' . wp_kses_post( directorist_price( $discount_amount ) ); ?>
@@ -114,7 +114,7 @@ use Directorist\Enums\Order\DiscountType as OrderDiscountType;
                             <?php if ( ! empty( $order->get_tax_rate() ) ): ?>
                             <tr>
                                 <td class="directorist-payment-table__title">
-                                    <?php echo $order->get_tax_type() === OrderTaxType::PERCENT ? sprintf( 'Tax ( %d%% )', $order->get_coupon_discount() ) : esc_html__( 'Tax', 'directorist' ); ?>
+                                    <?php echo $order->get_tax_type() === OrderTaxType::PERCENT ? sprintf( esc_html__( 'Tax ( %d%% )', 'directorist' ), $order->get_coupon_discount() ) : esc_html__( 'Tax', 'directorist' ); ?>
                                 </td>
                                 <td>
                                     <?php echo wp_kses_post( directorist_price( $tax_amount ) ) ?>

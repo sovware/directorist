@@ -79,36 +79,22 @@ export default function OrderDetails({ order }: DetailsProps) {
 						)}
 					</span>
 				</li>
-				{order?.coupon_code && (
-					<>
-						<li>
-							<span>{__('Coupon Discount', 'directorist')}</span>
-							<span className="directorist-list-coupon">
-								<Badge
-									variant="success"
-									className="directorist-badge"
-								>
-									{order?.coupon_code}
-								</Badge>
-								-{' '}
-								{order?.coupon_discount_type === 'fixed' || order?.coupon_discount_type === 'flat'
-									? displayPrice(
-											order?.coupon_discount || 0,
-											order?.currency
-										)
-									: `${order?.coupon_discount}%`}
-							</span>
-						</li>
-					</>
-				)}
-				{order?.tax_type && (
+				{order?.discount_amount && (
 					<li>
-						<span>{__('Tax', 'directorist')}</span>
 						<span>
-							{order?.tax_rate}
-							{order?.tax_type === 'percent'
-								? '%'
-								: order?.currency}
+							{ order?.discount_label }{ ' ' }
+							{ order?.coupon_code ? ( <Badge variant="success" className="directorist-badge">{ __('Coupon:', 'directorist') } {order?.coupon_code}</Badge> ) : '' }
+						</span>
+						<span>
+							-{ displayPrice( order?.discount_amount, order?.currency )}
+						</span>
+					</li>
+				)}
+				{order?.tax_amount && (
+					<li>
+						<span>{ order?.tax_label }</span>
+						<span>
+							{displayPrice( order?.tax_amount, order?.currency )}
 						</span>
 					</li>
 				)}

@@ -10,28 +10,22 @@ use Directorist\DTO\Order\DTO;
 use Directorist\DTO\Payment\DTO as PaymentDTO;
 use Directorist\Enums\Order\Status as OrderStatus;
 use Directorist\Enums\Order\TaxType as OrderTaxType;
+use Directorist\Enums\Order\DiscountType as OrderDiscountType;
 
 /**
+ * @var array $order_items
  * @var DTO $order
  * @var ?PaymentDTO $payment
+ * @var float $discount_amount
+ * @var float $tax_amount
  */
-$order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $order, $payment );
 ?>
-
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-8 directorist-offset-md-2">
                 <div class="directorist-payment-receipt">
                     <p class="directorist-payment-thanks-text"><?php esc_html_e( 'Thank you for your order!', 'directorist' ); ?></p>
-                    <?php
-                    // show the user instruction for banking gateway
-                    // if ( isset( $o_metas['_payment_gateway'] ) && 'bank_transfer' == $o_metas['_payment_gateway'][0] && 'created' == $o_metas['_payment_status'][0] ) {
-                    //     $ins = get_directorist_option( 'bank_transfer_instruction' );
-                    //     $output = ! empty( $ins ) ? '<p class="directorist-payment-instructions">' . ATBDP()->email->replace_in_content( $ins, @$order_id, @$o_metas['_listing_id'][0] ) . '</p>' : '';
-                    //     echo wp_kses_post( $output );
-                    // }
-                    ?>
                     <div class="directorist-payment-table directorist-table-responsive directorist-mb-30">
                         <table class="directorist-table">
                             <thead>
@@ -108,30 +102,22 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
 
                             <?php if ( ! empty( $order->get_coupon_discount() ) ): ?>
                             <tr>
-                                <td class="directorist-payment-table__title"><?php esc_html_e( 'Discount', 'directorist' ); ?></td>
+                                <td class="directorist-payment-table__title">
+                                    <?php echo $order->get_coupon_discount_type() === OrderDiscountType::PERCENT ? sprintf( 'Discount ( %d%% )', $order->get_coupon_discount() ) : esc_html__( 'Discount', 'directorist' ); ?>
+                                </td>
                                 <td>
-                                    <?php
-                                    if ( $order->get_coupon_discount_type() == 'percentage' ) {
-                                        echo '- ' . esc_html( $order->get_coupon_discount() ) . '%';
-                                    } else {
-                                        echo '- ' . esc_html( wp_kses_post( directorist_price( $order->get_coupon_discount() ) ) );
-                                    }
-                                    ?>
+                                    <?php echo '-' . wp_kses_post( directorist_price( $discount_amount ) ); ?>
                                 </td>
                             </tr>
                             <?php endif; ?>
 
                             <?php if ( ! empty( $order->get_tax_rate() ) ): ?>
                             <tr>
-                                <td class="directorist-payment-table__title"><?php esc_html_e( 'Tax', 'directorist' ); ?></td>
+                                <td class="directorist-payment-table__title">
+                                    <?php echo $order->get_tax_type() === OrderTaxType::PERCENT ? sprintf( 'Tax ( %d%% )', $order->get_coupon_discount() ) : esc_html__( 'Tax', 'directorist' ); ?>
+                                </td>
                                 <td>
-                                    <?php
-                                    if ( $order->get_tax_type() === OrderTaxType::PERCENT ) {
-                                        echo esc_html( $order->get_tax_rate() ) . '%';
-                                    } else {
-                                        echo wp_kses_post( directorist_price( $order->get_tax_rate() ) );
-                                    }
-                                    ?>
+                                    <?php echo wp_kses_post( directorist_price( $tax_amount ) ) ?>
                                 </td>
                             </tr>
                             <?php endif; ?>

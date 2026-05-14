@@ -34824,24 +34824,21 @@ function OrderDetails(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: (0,_admin_helper_payment__WEBPACK_IMPORTED_MODULE_2__.displayPrice)(order === null || order === void 0 ? void 0 : order.sub_total, order === null || order === void 0 ? void 0 : order.currency)
         })]
-      }), (order === null || order === void 0 ? void 0 : order.coupon_code) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Coupon Discount', 'directorist')
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-            className: "directorist-list-coupon",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_admin_components_badge__WEBPACK_IMPORTED_MODULE_0__["default"], {
-              variant: "success",
-              className: "directorist-badge",
-              children: order === null || order === void 0 ? void 0 : order.coupon_code
-            }), "-", ' ', (order === null || order === void 0 ? void 0 : order.coupon_discount_type) === 'fixed' || (order === null || order === void 0 ? void 0 : order.coupon_discount_type) === 'flat' ? (0,_admin_helper_payment__WEBPACK_IMPORTED_MODULE_2__.displayPrice)((order === null || order === void 0 ? void 0 : order.coupon_discount) || 0, order === null || order === void 0 ? void 0 : order.currency) : "".concat(order === null || order === void 0 ? void 0 : order.coupon_discount, "%")]
-          })]
-        })
-      }), (order === null || order === void 0 ? void 0 : order.tax_type) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Tax', 'directorist')
+      }), (order === null || order === void 0 ? void 0 : order.discount_amount) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+          children: [order === null || order === void 0 ? void 0 : order.discount_label, ' ', order !== null && order !== void 0 && order.coupon_code ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_admin_components_badge__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            variant: "success",
+            className: "directorist-badge",
+            children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Coupon:', 'directorist'), " ", order === null || order === void 0 ? void 0 : order.coupon_code]
+          }) : '']
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-          children: [order === null || order === void 0 ? void 0 : order.tax_rate, (order === null || order === void 0 ? void 0 : order.tax_type) === 'percent' ? '%' : order === null || order === void 0 ? void 0 : order.currency]
+          children: ["-", (0,_admin_helper_payment__WEBPACK_IMPORTED_MODULE_2__.displayPrice)(order === null || order === void 0 ? void 0 : order.discount_amount, order === null || order === void 0 ? void 0 : order.currency)]
+        })]
+      }), (order === null || order === void 0 ? void 0 : order.tax_amount) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: order === null || order === void 0 ? void 0 : order.tax_label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: (0,_admin_helper_payment__WEBPACK_IMPORTED_MODULE_2__.displayPrice)(order === null || order === void 0 ? void 0 : order.tax_amount, order === null || order === void 0 ? void 0 : order.currency)
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("li", {
         className: "directorist-list-highlight",

@@ -2,7 +2,6 @@
 
 namespace Directorist\Repositories;
 
-use stdClass;
 
 defined( "ABSPATH" ) || exit;
 
@@ -12,6 +11,8 @@ use Directorist\Utils\Database\Query\Builder;
 use Directorist\Helpers\DateTime;
 use Directorist\DTO\Order\DTO;
 use Directorist\Enums\Order\Status as OrderStatus;
+use Directorist\Enums\Order\TaxType as OrderTaxType;
+use Directorist\Enums\Order\DiscountType as OrderDiscountType;
 use Directorist\DTO\Order\Read;
 use Directorist\DBModels\Post;
 use Directorist\DBModels\Order;
@@ -216,6 +217,28 @@ class OrderRepository extends Repository {
             $order->transaction_id = null;
         }
 
+        $sub_total = (float) $order->sub_total;
+
+        $order->discount_label  = null;
+        $order->discount_amount = null;
+
+        if ( ! empty( $order->coupon_discount ) && ! empty( $order->coupon_discount_type ) ) {
+            $discount_amount = directorist_compute_fixed_or_percent_amount( $order->coupon_discount_type, $order->coupon_discount, $sub_total );
+            $sub_total       = max( 0, $sub_total - $discount_amount );
+
+            $order->discount_amount = $discount_amount > 0 ? $discount_amount : null;
+            $order->discount_label  = OrderDiscountType::PERCENT === $order->coupon_discount_type ? sprintf( esc_html__( 'Discount ( %s%% )', 'directorist' ), $order->coupon_discount ) : esc_html__( 'Discount', 'directorist' );
+        }
+
+        $order->tax_label  = null;
+        $order->tax_amount = null;
+        $tax_amount        = directorist_compute_fixed_or_percent_amount( $order->tax_type, $order->tax_rate, $sub_total );
+        
+        if ( $tax_amount > 0 ) {
+            $order->tax_amount = $tax_amount;
+            $order->tax_label  = OrderTaxType::PERCENT === $order->tax_type ? sprintf( esc_html__( 'Tax ( %s%% )', 'directorist' ), $order->coupon_discount ) : esc_html__( 'Tax', 'directorist' );
+        }
+        
         $order->total_amount = directorist_order_total_amount( $order );
 
         return apply_filters( 'directorist_order_data', $order );

@@ -37,7 +37,7 @@ function directorist_order_total_amount( stdClass $order ) {
 function directorist_compute_order_total_amount( float $sub_total, ?float $tax_rate = null, ?string $tax_type = null, ?float $coupon_discount = null, ?string $coupon_discount_type = null ) {
     $total_amount = $sub_total;
 
-    if ( ! empty( $order->coupon_discount ) && ! empty( $coupon_discount_type ) ) {
+    if ( ! empty( $coupon_discount ) && ! empty( $coupon_discount_type ) ) {
         $total_amount -= directorist_compute_fixed_or_percent_amount( $coupon_discount_type, $coupon_discount, $total_amount );
         $total_amount  = max( 0, $total_amount ); // Ensure total amount doesn't go negative
     }

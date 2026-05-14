@@ -86,10 +86,18 @@ class ATBDP_Checkout {
 
         wp_enqueue_script( 'directorist-payment-receipt' );
 
+        $discount_amount      = directorist_compute_fixed_or_percent_amount( $order->get_coupon_discount_type(), $order->get_coupon_discount(), $order->get_sub_total() );
+        $discounted_sub_total = max( 0, $order->get_sub_total() - $discount_amount );
+        $tax_amount           = directorist_compute_fixed_or_percent_amount( $order->get_tax_type(), $order->get_tax_rate(), $discounted_sub_total );
+        $order_items          = apply_filters( 'directorist_payment_receipt_order_items', [], $order, $payment, $discount_amount, $tax_amount, $discounted_sub_total );
+
         return Template::get(
             'checkout/receipt', [
-                'order'   => $order,
-                'payment' => $payment
+                'order_items'     => $order_items,
+                'order'           => $order,
+                'payment'         => $payment,
+                'discount_amount' => $discount_amount,
+                'tax_amount'      => $tax_amount,
             ]
         );
     }

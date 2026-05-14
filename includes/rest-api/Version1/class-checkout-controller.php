@@ -122,6 +122,8 @@ class Checkout_Controller extends Abstract_Controller {
 
             if ( ! $dto->is_initialized( 'id' ) ) {
                 $repository->create( $dto );
+            } else {
+                $repository->silent_update( $dto );
             }
 
             if ( $process_payment ) {

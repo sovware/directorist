@@ -3,13 +3,14 @@
 defined( "ABSPATH" ) || exit;
 
 use Directorist\Utils\Template;
+use Directorist\DTO\Order\DTO as OrderDTO;
 
 require_once __DIR__ . '/app.php';
 require_once __DIR__ . '/repositories.php';
 
 function directorist_get_checkout_page_url( string $checkout_type, array $query_args = [] ) {
     $query_args['checkout_type'] = $checkout_type;
-    
+
     $checkout_page_id = get_directorist_option( 'checkout_page', 0 );
     $link             = add_query_arg( $query_args, get_permalink( $checkout_page_id ) );
 
@@ -26,10 +27,10 @@ function directorist_price( $price, $html = true ) {
 
 function directorist_order_total_amount( stdClass $order ) {
     return directorist_compute_order_total_amount(
-        $order->sub_total, 
-        $order->tax_rate, 
-        $order->tax_type, 
-        $order->coupon_discount, 
+        $order->sub_total,
+        $order->tax_rate,
+        $order->tax_type,
+        $order->coupon_discount,
         $order->coupon_discount_type
     );
 }
@@ -42,7 +43,7 @@ function directorist_compute_order_total_amount( float $sub_total, ?float $tax_r
         $total_amount  = max( 0, $total_amount ); // Ensure total amount doesn't go negative
     }
 
-    if ( ! empty( $tax_type ) ) {
+    if ( $total_amount > 0 && ! empty( $tax_type ) ) {
         $total_amount += directorist_compute_fixed_or_percent_amount( $tax_type, $tax_rate, $total_amount );
     }
 
@@ -97,6 +98,39 @@ function directorist_compute_fixed_or_percent_amount( ?string $type = null, ?flo
     }
 }
 
+function directorist_order_payable( OrderDTO $order_dto ) {
+    $payable = $order_dto->get_sub_total();
+
+    if (
+        $order_dto->is_initialized( 'coupon_discount' ) &&
+        $order_dto->is_initialized( 'coupon_discount_type' )
+    ) {
+        $discount = directorist_compute_fixed_or_percent_amount(
+            $order_dto->get_coupon_discount_type(),
+            $order_dto->get_coupon_discount(),
+            $payable
+        );
+
+        $payable = max( 0, $payable - $discount );
+    }
+
+    if (
+        $payable > 0 &&
+        $order_dto->is_initialized( 'tax_rate' ) &&
+        $order_dto->is_initialized( 'tax_type' )
+    ) {
+        $tax = directorist_compute_fixed_or_percent_amount(
+            $order_dto->get_tax_type(),
+            $order_dto->get_tax_rate(),
+            $payable
+        );
+
+        $payable = $payable + $tax;
+    }
+
+    return $payable;
+}
+
 function directorist_is_listing_featured( int $listing_id ): bool {
     return strval( get_post_meta( $listing_id, '_featured', true ) ) === '1';
 }
@@ -110,7 +144,7 @@ function directorist_set_listing_status( int $listing_id, string $status ): bool
         [
             'ID'          => $listing_id,
             'post_status' => $status,
-        ] 
+        ]
     );
 }
 

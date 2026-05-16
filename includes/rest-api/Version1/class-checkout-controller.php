@@ -91,7 +91,8 @@ class Checkout_Controller extends Abstract_Controller {
             }
 
             $processor_instance = null;
-            $process_payment    = apply_filters( 'directorist_checkout_process_payment', $dto->get_amount() > 0, $dto, $request );
+            $order_payable      = directorist_order_payable( $dto );
+            $process_payment    = apply_filters( 'directorist_checkout_process_payment', $order_payable > 0, $dto, $request );
             
             if ( $process_payment ) {
                 $payment_gateway = $request->get_param( 'payment_gateway' );
@@ -138,8 +139,8 @@ class Checkout_Controller extends Abstract_Controller {
 
             do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
 
-            // Update the order status to paid if the amount is zero or less
-            if ( $dto->get_amount() < 1 ) {
+            // Update the order status to paid if the payable amount is zero or less
+            if ( $order_payable < 1 ) {
                 $dto->set_id( $dto->get_id() )->set_status( OrderStatus::PAID );
                 $repository->update( $dto );
             }

@@ -15,14 +15,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/.pnpm/@wordpress+i18n@6.12.0/node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _icons_Calendar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icons/Calendar */ "./assets/src/js/formgent-integration/icons/Calendar.js");
-/* harmony import */ var _icons_Check__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icons/Check */ "./assets/src/js/formgent-integration/icons/Check.js");
-/* harmony import */ var _icons_Envelope__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../icons/Envelope */ "./assets/src/js/formgent-integration/icons/Envelope.js");
-/* harmony import */ var _icons_Inbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../icons/Inbox */ "./assets/src/js/formgent-integration/icons/Inbox.js");
-/* harmony import */ var _utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../utils/enquiryUtils */ "./assets/src/js/formgent-integration/utils/enquiryUtils.js");
-/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./style */ "./assets/src/js/formgent-integration/components/style.js");
-/* harmony import */ var _Table__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Table */ "./assets/src/js/formgent-integration/components/Table.js");
+/* harmony import */ var _icons_Calendar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../icons/Calendar */ "./assets/src/js/formgent-integration/icons/Calendar.js");
+/* harmony import */ var _icons_Check__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../icons/Check */ "./assets/src/js/formgent-integration/icons/Check.js");
+/* harmony import */ var _icons_Envelope__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icons/Envelope */ "./assets/src/js/formgent-integration/icons/Envelope.js");
+/* harmony import */ var _icons_Inbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../icons/Inbox */ "./assets/src/js/formgent-integration/icons/Inbox.js");
+/* harmony import */ var _utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/enquiryUtils */ "./assets/src/js/formgent-integration/utils/enquiryUtils.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./style */ "./assets/src/js/formgent-integration/components/style.js");
+/* harmony import */ var _Table__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Table */ "./assets/src/js/formgent-integration/components/Table.js");
 
 
 
@@ -30,7 +29,6 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -54,38 +52,39 @@ var EnquiriesComponent = function EnquiriesComponent(_ref) {
     _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
     responses = _useState4[0],
     setResponses = _useState4[1];
+  var strings = (data === null || data === void 0 ? void 0 : data.strings) || {};
 
   //get response KPIs
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.fetchEnquiryKPIs)().then(function (data) {
+    (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_8__.fetchEnquiryKPIs)().then(function (data) {
       setResponseKPIs(data);
     });
   }, []);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.fetchAllEnquiries)().then(function (data) {
+    (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_8__.fetchAllEnquiries)().then(function (data) {
       var items = Array.isArray(data) ? data : (data === null || data === void 0 ? void 0 : data.responses) || [];
       // Don't fetch answers here - let Table component handle lazy loading
       setResponses(items);
     });
   }, []);
   var enquiryStats = [{
-    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Inbox__WEBPACK_IMPORTED_MODULE_8__["default"], null),
-    title: 'Total Enquiries',
+    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Inbox__WEBPACK_IMPORTED_MODULE_7__["default"], null),
+    title: strings.total_enquiries || 'Total Enquiries',
     value: responseKPIs.total || 0,
     type: 'total'
   }, {
-    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Envelope__WEBPACK_IMPORTED_MODULE_7__["default"], null),
-    title: 'New Messages',
+    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Envelope__WEBPACK_IMPORTED_MODULE_6__["default"], null),
+    title: strings.new_messages || 'New Messages',
     value: responseKPIs.unread || 0,
     type: 'new'
   }, {
-    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Calendar__WEBPACK_IMPORTED_MODULE_5__["default"], null),
-    title: 'This Week',
+    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Calendar__WEBPACK_IMPORTED_MODULE_4__["default"], null),
+    title: strings.this_week || 'This Week',
     value: responseKPIs.this_week || 0,
     type: 'this-week'
   }, {
-    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Check__WEBPACK_IMPORTED_MODULE_6__["default"], null),
-    title: 'Total Resolved',
+    icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_icons_Check__WEBPACK_IMPORTED_MODULE_5__["default"], null),
+    title: strings.total_resolved || 'Total Resolved',
     value: responseKPIs.read || 0,
     type: 'resolved'
   }];
@@ -97,7 +96,7 @@ var EnquiriesComponent = function EnquiriesComponent(_ref) {
           case 0:
             _context.prev = 0;
             _context.next = 1;
-            return (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_9__.refreshEnquiryData)();
+            return (0,_utils_enquiryUtils__WEBPACK_IMPORTED_MODULE_8__.refreshEnquiryData)();
           case 1:
             _yield$refreshEnquiry = _context.sent;
             _responses = _yield$refreshEnquiry.responses;
@@ -121,15 +120,15 @@ var EnquiriesComponent = function EnquiriesComponent(_ref) {
       return _ref2.apply(this, arguments);
     };
   }();
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_style__WEBPACK_IMPORTED_MODULE_10__.EnquiriesComponentStyle, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_style__WEBPACK_IMPORTED_MODULE_9__.EnquiriesComponentStyle, {
     className: "directorist-enquiries-container"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
     className: "directorist-enquiries-header"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("h1", {
     className: "directorist-enquiries-title"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('My Enquiries', 'directorist')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("p", {
+  }, strings.my_enquiries || 'My Enquiries'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("p", {
     className: "directorist-enquiries-description"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Track and manage all your incoming messages', 'directorist'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
+  }, strings.enquiries_description || 'Track and manage all your incoming messages')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
     className: "directorist-enquires-stats"
   }, enquiryStats.map(function (item, index) {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
@@ -142,9 +141,10 @@ var EnquiriesComponent = function EnquiriesComponent(_ref) {
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("span", null, item.icon)));
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
     className: "directorist-enquiries-table"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_Table__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_Table__WEBPACK_IMPORTED_MODULE_10__["default"], {
     items: Array.isArray(responses) ? responses : [],
-    handleTableRefresh: handleRefresh
+    handleTableRefresh: handleRefresh,
+    strings: strings
   })));
 };
 /* harmony default export */ __webpack_exports__["default"] = (EnquiriesComponent);
@@ -444,7 +444,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 function Tables(props) {
   var _props$items = props.items,
     items = _props$items === void 0 ? [] : _props$items,
-    handleTableRefresh = props.handleTableRefresh;
+    handleTableRefresh = props.handleTableRefresh,
+    _props$strings = props.strings,
+    strings = _props$strings === void 0 ? {} : _props$strings;
   var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
     isViewModalOpen = _useState2[0],
@@ -502,7 +504,7 @@ function Tables(props) {
   var fields = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
     return [{
       id: 'enquiry',
-      header: 'Enquiry',
+      header: strings.enquiry_header || 'Enquiry',
       enableHiding: false,
       enableSorting: false,
       render: function render(_ref) {
@@ -527,7 +529,7 @@ function Tables(props) {
             setSelectedItem(item.id);
             setIsViewModalOpen(true);
           }
-        }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('View', 'directorist')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("a", {
+        }, strings.view || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('View', 'directorist')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("a", {
           href: "#",
           className: "directorist-table-enquiry-send-email",
           onClick: function onClick(e) {
@@ -535,11 +537,11 @@ function Tables(props) {
             e.stopPropagation();
             handleSendEmail(item);
           }
-        }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Send Email', 'directorist'))));
+        }, strings.send_email || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Send Email', 'directorist'))));
       }
     }, {
       id: 'listing',
-      header: 'Listing',
+      header: strings.listing_header || 'Listing',
       enableHiding: true,
       enableSorting: false,
       render: function render(_ref2) {
@@ -550,7 +552,7 @@ function Tables(props) {
       }
     }, {
       id: 'sender',
-      header: 'Sender',
+      header: strings.sender_header || 'Sender',
       enableHiding: true,
       enableSorting: false,
       render: function render(_ref3) {
@@ -569,7 +571,7 @@ function Tables(props) {
       }
     }, {
       id: 'status',
-      header: 'Status',
+      header: strings.status_header || 'Status',
       enableHiding: true,
       enableSorting: false,
       render: function render(_ref4) {
@@ -613,7 +615,7 @@ function Tables(props) {
   var actions = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
     return [{
       id: 'mark-as-read',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Mark as read', 'directorist'),
+      label: strings.mark_as_read || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Mark as read', 'directorist'),
       supportsBulk: hasBulk,
       icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_icons_Check__WEBPACK_IMPORTED_MODULE_6__["default"], null),
       callback: function callback(items) {
@@ -633,7 +635,7 @@ function Tables(props) {
           closeModal = _ref5.closeModal;
         return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
           className: "directorist-formgent-table-modal"
-        }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("h1", null, items.length > 1 ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Are you sure to delete ".concat(items.length, " items?"), 'directorist') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Are you sure to delete this item?', 'directorist')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('This action cannot be undone.', 'directorist')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
+        }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("h1", null, items.length > 1 ? (strings.delete_items_confirm || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Are you sure to delete %d items?', 'directorist')).replace('%d', items.length) : strings.delete_item_confirm || 'Are you sure to delete this item?'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("p", null, strings.action_cannot_be_undone || 'This action cannot be undone.'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
           className: "directorist-formgent-table-modal-action"
         }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("button", {
           onClick: function onClick() {
@@ -641,14 +643,14 @@ function Tables(props) {
             closeModal();
           },
           className: "directorist-btn directorist-btn-danger"
-        }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Delete', 'directorist')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("button", {
+        }, strings.delete || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Delete', 'directorist')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("button", {
           onClick: closeModal,
           className: "directorist-btn directorist-btn-light"
-        }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Cancel', 'directorist'))));
+        }, strings.cancel || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Cancel', 'directorist'))));
       },
       hideModalHeader: true,
       id: 'delete',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Delete', 'directorist'),
+      label: strings.delete || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Delete', 'directorist'),
       icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_icons_Trash__WEBPACK_IMPORTED_MODULE_7__["default"], null),
       isDestructive: true,
       modalFocusOnMount: 'firstContentElement',
@@ -757,7 +759,7 @@ function Tables(props) {
       return String(item.id);
     },
     search: true,
-    searchLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Search enquiries...', 'directorist'),
+    searchLabel: strings.search_enquiries_placeholder || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Search enquiries...', 'directorist'),
     paginationInfo: {
       totalItems: totalItems,
       totalPages: totalPages

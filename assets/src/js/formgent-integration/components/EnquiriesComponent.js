@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -22,6 +21,7 @@ import Tables from './Table';
 const EnquiriesComponent = ({ data = {} }) => {
 	const [responseKPIs, setResponseKPIs] = useState({});
 	const [responses, setResponses] = useState([]);
+	const strings = data?.strings || {};
 
 	//get response KPIs
 	useEffect(() => {
@@ -41,25 +41,25 @@ const EnquiriesComponent = ({ data = {} }) => {
 	const enquiryStats = [
 		{
 			icon: <Inbox />,
-			title: 'Total Enquiries',
+			title: strings.total_enquiries || 'Total Enquiries',
 			value: responseKPIs.total || 0,
 			type: 'total',
 		},
 		{
 			icon: <Envelope />,
-			title: 'New Messages',
+			title: strings.new_messages || 'New Messages',
 			value: responseKPIs.unread || 0,
 			type: 'new',
 		},
 		{
 			icon: <Calendar />,
-			title: 'This Week',
+			title: strings.this_week || 'This Week',
 			value: responseKPIs.this_week || 0,
 			type: 'this-week',
 		},
 		{
 			icon: <Check />,
-			title: 'Total Resolved',
+			title: strings.total_resolved || 'Total Resolved',
 			value: responseKPIs.read || 0,
 			type: 'resolved',
 		},
@@ -81,17 +81,15 @@ const EnquiriesComponent = ({ data = {} }) => {
 
 	return (
 		<EnquiriesComponentStyle className="directorist-enquiries-container">
-			<div className="directorist-enquiries-header">
-				<h1 className="directorist-enquiries-title">
-					{__('My Enquiries', 'directorist')}
-				</h1>
-				<p className="directorist-enquiries-description">
-					{__(
-						'Track and manage all your incoming messages',
-						'directorist'
-					)}
-				</p>
-			</div>
+				<div className="directorist-enquiries-header">
+					<h1 className="directorist-enquiries-title">
+						{strings.my_enquiries || 'My Enquiries'}
+					</h1>
+					<p className="directorist-enquiries-description">
+						{strings.enquiries_description ||
+							'Track and manage all your incoming messages'}
+					</p>
+				</div>
 
 			<div className="directorist-enquires-stats">
 				{enquiryStats.map((item, index) => (
@@ -110,14 +108,15 @@ const EnquiriesComponent = ({ data = {} }) => {
 				))}
 			</div>
 
-			<div className="directorist-enquiries-table">
-				<Tables
-					items={Array.isArray(responses) ? responses : []}
-					handleTableRefresh={handleRefresh}
-				/>
-			</div>
-		</EnquiriesComponentStyle>
-	);
+				<div className="directorist-enquiries-table">
+					<Tables
+						items={Array.isArray(responses) ? responses : []}
+						handleTableRefresh={handleRefresh}
+						strings={strings}
+					/>
+				</div>
+			</EnquiriesComponentStyle>
+		);
 };
 
 export default EnquiriesComponent;

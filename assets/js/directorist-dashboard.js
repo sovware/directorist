@@ -1075,8 +1075,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           return "".concat(item).length;
         });
         queryStrings = queryStrings.join('&');
-        window.location.hash = hashLink;
-        hash = window.location.hash;
+        hash = hashLink;
       }
 
       // Activate Current Navigation Item
@@ -1123,7 +1122,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           link.addEventListener('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            var ul = event.target.closest('.directorist-tab__nav'),
+            var currentLink = event.currentTarget;
+            var ul = currentLink.closest('.directorist-tab__nav'),
               main = ul.nextElementSibling,
               item_link = ul.querySelectorAll('.directorist-tab__nav__link'),
               section = main.querySelectorAll('.directorist-tab__pane');
@@ -1132,16 +1132,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             item_link.forEach(function (link) {
               link.classList.remove('directorist-tab__nav__active');
             });
-            var parentNavRef = event.target.getAttribute('data-parent-nav');
+            var parentNavRef = currentLink.getAttribute('data-parent-nav');
             if (parentNavRef) {
               var parentNav = document.querySelector(parentNavRef);
               if (parentNav) {
                 parentNav.classList.add('directorist-tab__nav__active');
               }
             } else {
-              var _event$target$closest;
-              event.target.classList.add('directorist-tab__nav__active');
-              var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
+              var _currentLink$closest;
+              currentLink.classList.add('directorist-tab__nav__active');
+              var dropDownToggler = (_currentLink$closest = currentLink.closest('.atbdp_tab_nav--has-child')) === null || _currentLink$closest === void 0 ? void 0 : _currentLink$closest.querySelector('.atbd-dash-nav-dropdown');
               if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
                 dropDownToggler.classList.add('directorist-tab__nav__active');
               }
@@ -1151,19 +1151,18 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             section.forEach(function (sectionItem) {
               sectionItem.classList.remove('directorist-tab__pane--active');
             });
-            var content_id = event.target.getAttribute('target');
+            var content_id = currentLink.getAttribute('target');
             document.getElementById(content_id).classList.add('directorist-tab__pane--active');
 
-            // Add Hash To Window Location
+            // Keep the active tab shareable without triggering hash navigation scroll.
             var hashID = content_id;
-            var link = event.target.getAttribute('href');
+            var link = currentLink.getAttribute('href');
             if (link) {
               var matchLink = link.match(/#(.+)/);
               hashID = matchLink ? matchLink[1] : hashID;
             }
             var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
-            window.location.hash = hasMatch ? hasMatch[0] : '#' + hashID;
-            var newHash = window.location.hash;
+            var newHash = hasMatch ? hasMatch[0] : '#' + hashID;
             var newUrl = window.location.pathname + newHash;
             window.history.replaceState(null, null, newUrl);
           });

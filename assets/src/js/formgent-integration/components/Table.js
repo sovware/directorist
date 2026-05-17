@@ -34,7 +34,7 @@ import {
 } from '../utils/enquiryUtils';
 
 export default function Tables(props) {
-	const { items = [], handleTableRefresh } = props;
+	const { items = [], handleTableRefresh, strings = {} } = props;
 	const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [enrichedItems, setEnrichedItems] = useState([]);
@@ -76,9 +76,9 @@ export default function Tables(props) {
 	// Define fields configuration for DataViews
 	const fields = useMemo(
 		() => [
-			{
-				id: 'enquiry',
-				header: 'Enquiry',
+				{
+					id: 'enquiry',
+					header: strings.enquiry_header || 'Enquiry',
 				enableHiding: false,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -103,9 +103,9 @@ export default function Tables(props) {
 										setSelectedItem(item.id);
 										setIsViewModalOpen(true);
 									}}
-								>
-									{__('View', 'directorist')}
-								</a>
+									>
+										{strings.view || __('View', 'directorist')}
+									</a>
 								<a
 									href="#"
 									className="directorist-table-enquiry-send-email"
@@ -114,17 +114,18 @@ export default function Tables(props) {
 										e.stopPropagation();
 										handleSendEmail(item);
 									}}
-								>
-									{__('Send Email', 'directorist')}
-								</a>
+									>
+										{strings.send_email ||
+											__('Send Email', 'directorist')}
+									</a>
 							</div>
 						</div>
 					);
 				},
 			},
-			{
-				id: 'listing',
-				header: 'Listing',
+				{
+					id: 'listing',
+					header: strings.listing_header || 'Listing',
 				enableHiding: true,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -136,9 +137,9 @@ export default function Tables(props) {
 					);
 				},
 			},
-			{
-				id: 'sender',
-				header: 'Sender',
+				{
+					id: 'sender',
+					header: strings.sender_header || 'Sender',
 				enableHiding: true,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -158,9 +159,9 @@ export default function Tables(props) {
 					);
 				},
 			},
-			{
-				id: 'status',
-				header: 'Status',
+				{
+					id: 'status',
+					header: strings.status_header || 'Status',
 				enableHiding: true,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -222,7 +223,7 @@ export default function Tables(props) {
 		() => [
 			{
 				id: 'mark-as-read',
-				label: __('Mark as read', 'directorist'),
+				label: strings.mark_as_read || __('Mark as read', 'directorist'),
 				supportsBulk: hasBulk,
 				icon: <CheckIcon />,
 				callback: (items) => {
@@ -243,20 +244,16 @@ export default function Tables(props) {
 						<div className="directorist-formgent-table-modal">
 							<h1>
 								{items.length > 1
-									? __(
-											`Are you sure to delete ${items.length} items?`,
-											'directorist'
-										)
-									: __(
-											'Are you sure to delete this item?',
-											'directorist'
-										)}
+									? (
+											strings.delete_items_confirm ||
+											__('Are you sure to delete %d items?', 'directorist')
+										).replace('%d', items.length)
+									: strings.delete_item_confirm ||
+										'Are you sure to delete this item?'}
 							</h1>
 							<p>
-								{__(
-									'This action cannot be undone.',
-									'directorist'
-								)}
+								{strings.action_cannot_be_undone ||
+									'This action cannot be undone.'}
 							</p>
 							<div className="directorist-formgent-table-modal-action">
 								<button
@@ -269,13 +266,13 @@ export default function Tables(props) {
 									}}
 									className="directorist-btn directorist-btn-danger"
 								>
-									{__('Delete', 'directorist')}
+									{strings.delete || __('Delete', 'directorist')}
 								</button>
 								<button
 									onClick={closeModal}
 									className="directorist-btn directorist-btn-light"
 								>
-									{__('Cancel', 'directorist')}
+									{strings.cancel || __('Cancel', 'directorist')}
 								</button>
 							</div>
 						</div>
@@ -283,7 +280,7 @@ export default function Tables(props) {
 				},
 				hideModalHeader: true,
 				id: 'delete',
-				label: __('Delete', 'directorist'),
+				label: strings.delete || __('Delete', 'directorist'),
 				icon: <TrashIcon />,
 				isDestructive: true,
 				modalFocusOnMount: 'firstContentElement',
@@ -405,7 +402,10 @@ export default function Tables(props) {
 				actions={actions}
 				getItemId={(item) => String(item.id)}
 				search
-				searchLabel={__('Search enquiries...', 'directorist')}
+				searchLabel={
+					strings.search_enquiries_placeholder ||
+					__('Search enquiries...', 'directorist')
+				}
 				paginationInfo={{
 					totalItems: totalItems,
 					totalPages: totalPages,

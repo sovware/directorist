@@ -454,6 +454,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		return Object.keys(idsMap);
 	}
 
+	function hasServerRenderedEditorMarkup(editorId, $container) {
+		const $scope = $container && $container.length ? $container : $(document.body);
+		const $wrap = $scope.find('#wp-' + editorId + '-wrap');
+
+		return !!($wrap.length && $wrap.find('.wp-editor-container textarea#' + editorId).length);
+	}
+
 	function unlockListingFormUi() {
 		$('#listing_form_info').find('.directorist_loader').remove();
 		$('select[name="directory_type"]')
@@ -485,6 +492,55 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 		editorLifecycleLog('dispatched-events', directoryTypeReloadEventNames);
+	}
+
+	function getWpEditorApi() {
+		return typeof window.wp !== 'undefined' && window.wp
+			? window.wp.editor || window.wp.oldEditor || null
+			: null;
+	}
+
+	function getEditorTinyMceSettings(editorId, mceInit) {
+		const fallbackTinyMce = mceInit && typeof mceInit === 'object'
+			? {}
+			: {
+				plugins:  'charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpgallery,wplink,wpdialogs,wptextpattern,wpview',
+				toolbar1: 'formatselect,bold,italic,bullist,numlist,blockquote,alignleft,aligncenter,alignright,link,wp_more,fullscreen,wp_adv',
+				toolbar2: 'strikethrough,hr,forecolor,pastetext,removeformat,charmap,outdent,indent,undo,redo,wp_help',
+				menubar:  false,
+				branding: false,
+			};
+
+		return Object.assign({}, fallbackTinyMce, mceInit || {}, { selector: '#' + editorId });
+	}
+
+	function getEditorQuicktagsSettings(editorId, qtInit) {
+		const fallbackQuicktags = qtInit && typeof qtInit === 'object'
+			? {}
+			: {
+				buttons: 'strong,em,link,block,del,ins,img,ul,ol,li,code,more,close',
+			};
+
+		return Object.assign({}, fallbackQuicktags, qtInit || {}, { id: editorId });
+	}
+
+	function initializeExistingEditorMarkup(editorId, mceInit, qtInit, $container) {
+		if (
+			!document.getElementById(editorId + '_ifr') &&
+			!$container.find('#wp-' + editorId + '-wrap .mce-tinymce').length &&
+			typeof window.tinymce !== 'undefined' &&
+			window.tinymce &&
+			typeof window.tinymce.init === 'function' &&
+			mceInit !== false
+		) {
+			try {
+				window.tinymce.init(getEditorTinyMceSettings(editorId, mceInit));
+			} catch (e) {
+				editorLifecycleLog('reinit-tinymce-fail', editorId, e && e.message ? e.message : e);
+			}
+		}
+
+		ensureQuicktagsForEditor(editorId, getEditorQuicktagsSettings(editorId, qtInit), $container);
 	}
 
 	// ─── WP Editor — destroy ──────────────────────────────────────────────────────
@@ -527,12 +583,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			// 1. wp.editor.remove() — the correct WP public API (WP >= 4.8).
 			//    This handles both TinyMCE and Quicktags in one call.
-			if (
-				typeof window.wp !== 'undefined' &&
-				wp.editor &&
-				typeof wp.editor.remove === 'function'
-			) {
-				try { wp.editor.remove(editorId); } catch (e) { /* ignore */ }
+			const wpEditor = getWpEditorApi();
+			if (wpEditor && typeof wpEditor.remove === 'function') {
+				try { wpEditor.remove(editorId); } catch (e) { /* ignore */ }
 			}
 
 			// 2. Belt-and-suspenders: direct TinyMCE teardown in case wp.editor.remove
@@ -627,11 +680,8 @@ document.addEventListener('DOMContentLoaded', () => {
 					}
 				}
 
-				if (
-					typeof window.wp === 'undefined' ||
-					!wp.editor ||
-					typeof wp.editor.initialize !== 'function'
-				) {
+				const wpEditor = getWpEditorApi();
+				if (!wpEditor || typeof wpEditor.initialize !== 'function') {
 					editorLifecycleLog('reinit-skip', editorId, 'wp-editor-unavailable');
 					return;
 				}
@@ -639,10 +689,11 @@ document.addEventListener('DOMContentLoaded', () => {
 				const preinit = window.tinyMCEPreInit || {};
 				const mceInit = (preinit.mceInit || {})[editorId];
 				const qtInit  = (preinit.qtInit  || {})[editorId];
+				const hasRenderedMarkup = hasServerRenderedEditorMarkup(editorId, $container);
 
 				// AJAX-injected wp_editor() output should register per-editor preinit.
 				// If missing, wait briefly before falling back to defaults.
-				if (!mceInit && retryAttempt < maxRetryAttempts) {
+				if (!mceInit && !hasRenderedMarkup && retryAttempt < maxRetryAttempts) {
 					hasPendingEditorInit = true;
 					editorLifecycleLog('reinit-wait', editorId, 'preinit-missing');
 					return;
@@ -661,22 +712,21 @@ document.addEventListener('DOMContentLoaded', () => {
 					return;
 				}
 
-				// Prefer per-editor preinit config. If missing, use WP defaults.
-				const mceSettings = mceInit
-					? Object.assign({}, mceInit, { selector: '#' + editorId })
-					: true;
+				const mceSettings = getEditorTinyMceSettings(editorId, mceInit);
 
-				wp.editor.initialize(editorId, {
-					tinymce:      mceSettings,
-					quicktags:    qtInit ? Object.assign({}, qtInit) : true,
-					mediaButtons: true,
-				});
-				editorLifecycleLog('reinit-done', editorId, mceInit ? 'preinit' : 'wp-default');
-				setTimeout(function () {
-					ensureQuicktagsForEditor(editorId, qtInit, $container);
-				}, 0);
+				if (hasRenderedMarkup) {
+					initializeExistingEditorMarkup(editorId, mceInit, qtInit, $container);
+					editorLifecycleLog('reinit-done', editorId, mceInit ? 'existing-markup-preinit' : 'existing-markup-default');
+				} else {
+					wpEditor.initialize(editorId, {
+						tinymce:      mceSettings,
+						quicktags:    getEditorQuicktagsSettings(editorId, qtInit),
+						mediaButtons: true,
+					});
+					editorLifecycleLog('reinit-done', editorId, mceInit ? 'wp-initialize-preinit' : 'wp-initialize-default');
+				}
 
-				const wantsTinyMce = mceSettings !== false;
+				const wantsTinyMce = mceInit !== false;
 				if (wantsTinyMce) {
 					const ensureTinyMceReady = function (verifyAttempt) {
 						const tinyMceEditor = (
@@ -689,6 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 						if (hasTinyMceEditor || hasTinyMceContainer) {
 							editorLifecycleLog('reinit-verify', editorId, 'tinymce-ready', verifyAttempt);
+							switchDirectoristHtmlEditorMode(editorId, 'tmce');
 							return;
 						}
 
@@ -703,19 +754,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					};
 
 					setTimeout(function () {
-						if (
-							typeof window.switchEditors !== 'undefined' &&
-							window.switchEditors &&
-							typeof window.switchEditors.go === 'function'
-						) {
-							try {
-								window.switchEditors.go(editorId, 'tmce');
-								editorLifecycleLog('reinit-switch', editorId, 'tmce');
-							} catch (e) {
-								editorLifecycleLog('reinit-switch-fail', editorId, e && e.message ? e.message : e);
-							}
-						}
-
 						ensureTinyMceReady(0);
 					}, 0);
 				}
@@ -729,6 +767,58 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// ─── Race-condition guard ─────────────────────────────────────────────────────
+	function syncDirectoristHtmlEditorModeUi(editorId, mode) {
+		const isVisualMode = mode === 'tmce';
+		const $wrap = $('#wp-' + editorId + '-wrap');
+
+		if (!$wrap.length) {
+			return;
+		}
+
+		$wrap
+			.toggleClass('tmce-active', isVisualMode)
+			.toggleClass('html-active', !isVisualMode);
+
+		$('#' + editorId).toggle(!isVisualMode);
+		$('#qt_' + editorId + '_toolbar').toggle(!isVisualMode);
+		$wrap.find('.mce-tinymce').toggle(isVisualMode);
+
+		$('#' + editorId + '-tmce').attr('aria-pressed', isVisualMode ? 'true' : 'false');
+		$('#' + editorId + '-html').attr('aria-pressed', isVisualMode ? 'false' : 'true');
+	}
+
+	function switchDirectoristHtmlEditorMode(editorId, mode) {
+		if (
+			typeof window.switchEditors !== 'undefined' &&
+			window.switchEditors &&
+			typeof window.switchEditors.go === 'function'
+		) {
+			try {
+				window.switchEditors.go(editorId, mode);
+				syncDirectoristHtmlEditorModeUi(editorId, mode);
+				editorLifecycleLog('switch-ready', editorId, mode);
+				return true;
+			} catch (e) {
+				editorLifecycleLog('switch-ready-fail', editorId, e && e.message ? e.message : e);
+			}
+		}
+
+		syncDirectoristHtmlEditorModeUi(editorId, mode);
+		return false;
+	}
+
+	function ensureDirectoristHtmlEditor(editorId) {
+		const $container = $('#' + editorId).closest('#directiost-listing-fields_wrapper .directorist-listing-fields, .directorist-form-group');
+		const preinit = window.tinyMCEPreInit || {};
+
+		initializeExistingEditorMarkup(
+			editorId,
+			(preinit.mceInit || {})[editorId],
+			(preinit.qtInit || {})[editorId],
+			$container.length ? $container : $(document.body)
+		);
+	}
+
 	let ajaxRequestSeq = 0;
 	let activeListingFormRequest = null;
 
@@ -767,15 +857,23 @@ document.addEventListener('DOMContentLoaded', () => {
 	);
 
 	$(document)
-		.off('click.directorist-switch-html', '.wp-switch-editor.switch-html')
-		.on('click.directorist-switch-html', '.wp-switch-editor.switch-html', function () {
+		.off('click.directorist-switch-html', '.wp-switch-editor.switch-html, .wp-switch-editor.switch-tmce')
+		.on('click.directorist-switch-html', '.wp-switch-editor.switch-html, .wp-switch-editor.switch-tmce', function (event) {
 			const editorId = $(this).attr('data-wp-editor-id');
 			if (!editorId || editorId.indexOf('directorist_html_') !== 0) { return; }
 
+			event.preventDefault();
+			event.stopImmediatePropagation();
+
+			if ($(this).hasClass('switch-tmce')) {
+				ensureDirectoristHtmlEditor(editorId);
+				switchDirectoristHtmlEditorMode(editorId, 'tmce');
+				return;
+			}
+
 			setTimeout(function () {
-				const preinit = window.tinyMCEPreInit || {};
-				const qtInit = (preinit.qtInit || {})[editorId];
-				ensureQuicktagsForEditor(editorId, qtInit);
+				ensureDirectoristHtmlEditor(editorId);
+				switchDirectoristHtmlEditorMode(editorId, 'html');
 			}, 0);
 		});
 

@@ -20,7 +20,8 @@ class BankTransfer extends Payment implements PaymentInterface {
         ->set_amount( $dto->get_amount() )
         ->set_currency( directorist_currency() )
         ->set_status( Status::PENDING )
-        ->set_method( static::get_key() );
+        ->set_method( static::get_key() )
+        ->set_transaction_id( wp_generate_password( 15, false ) );
 
         directorist_payment_repository()->create( $payment_dto );
         return null;

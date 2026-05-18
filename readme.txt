@@ -3,7 +3,7 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.0
 Stable tag: 8.7.2
 License: GPLv3
@@ -306,6 +306,8 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Dashboard tab navigation to prevent scroll jumps while preserving hash-based deep links. (#2850)
 
 **Fixed**
+ - Single listing map popup image. (#2857)
+ - Missing nonce in regenerate pages action. (#2856)
  - HTML custom field editor initialization when switching listing types via AJAX. (#2854)
  - Listing Header Builder empty groups and preserved widget drag ordering. (#2853)
  - Payment receipt grand total formatting when discounts are applied. (#2852)

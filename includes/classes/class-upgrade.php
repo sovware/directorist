@@ -684,46 +684,143 @@ class ATBDP_Upgrade
         $description = $is_multiple
             ? __( 'Directorist detected deprecated extensions that are not compatible with this version. Upgrade them to the minimum compatible versions listed below.', 'directorist' )
             : __( 'Directorist detected a deprecated extension that is not compatible with this version. Upgrade it to the minimum compatible version listed below.', 'directorist' );
+        $toggle_id   = wp_unique_id( 'directorist-deprecated-extensions-' );
+        $content_id  = $toggle_id . '-content';
 
         ?>
         <div class="notice notice-warning directorist-deprecated-extension-notice">
+            <style>
+                .directorist-deprecated-extension-toggle {
+                    margin: 0;
+                }
+
+                .directorist-deprecated-extension-actions {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    align-items: center;
+                    margin: 0;
+                }
+
+                .directorist-deprecated-extension-table-wrap {
+                    max-height: 0;
+                    margin-top: 0;
+                    overflow: hidden;
+                    opacity: 0;
+                    transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+                }
+
+                .directorist-deprecated-extension-table-wrap.is-open {
+                    margin-top: 12px;
+                    opacity: 1;
+                }
+            </style>
             <p><strong><?php echo esc_html( $title ); ?></strong></p>
             <p><?php echo esc_html( $description ); ?></p>
-            <table class="widefat striped" style="width: 100%; margin: 12px 0 12px 0;">
-                <thead>
-                    <tr>
-                        <th scope="col"><?php esc_html_e( 'Extension', 'directorist' ); ?></th>
-                        <th scope="col"><?php esc_html_e( 'Installed Version', 'directorist' ); ?></th>
-                        <th scope="col"><?php esc_html_e( 'Required Version', 'directorist' ); ?></th>
-                        <th scope="col"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ( $outdated_extensions as $extension ) : ?>
-                        <tr>
-                            <td><strong><?php echo esc_html( $extension['name'] ); ?></strong></td>
-                            <td><?php echo esc_html( $extension['current_version'] ); ?></td>
-                            <td>
-                                <?php
-                                printf(
-                                    /* translators: %s: minimum compatible extension version. */
-                                    esc_html__( '%s or later', 'directorist' ),
-                                    esc_html( $extension['required_version'] )
-                                );
-                                ?>
-                            </td>
-                            <td><?php echo esc_html( $extension['status'] ); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <?php if ( ! $this->is_plugins_screen() ) : ?>
-                <p>
+            <p class="directorist-deprecated-extension-actions">
+                <button
+                    type="button"
+                    class="button button-secondary directorist-deprecated-extension-toggle"
+                    data-directorist-toggle-target="<?php echo esc_attr( $content_id ); ?>"
+                    aria-expanded="false"
+                    aria-controls="<?php echo esc_attr( $content_id ); ?>"
+                >
+                    <?php esc_html_e( 'Show deprecated extensions', 'directorist' ); ?>
+                </button>
+                <?php if ( ! $this->is_plugins_screen() ) : ?>
                     <a class="button button-primary" href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">
                         <?php esc_html_e( 'Manage Plugins', 'directorist' ); ?>
                     </a>
-                </p>
-            <?php endif; ?>
+                <?php endif; ?>
+            </p>
+            <div
+                id="<?php echo esc_attr( $content_id ); ?>"
+                class="directorist-deprecated-extension-table-wrap"
+                hidden
+            >
+                <table class="widefat striped" style="width: 100%; margin: 0 0 12px 0;">
+                    <thead>
+                        <tr>
+                            <th scope="col"><?php esc_html_e( 'Extension', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Installed Version', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Required Version', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ( $outdated_extensions as $extension ) : ?>
+                            <tr>
+                                <td><strong><?php echo esc_html( $extension['name'] ); ?></strong></td>
+                                <td><?php echo esc_html( $extension['current_version'] ); ?></td>
+                                <td>
+                                    <?php
+                                    printf(
+                                        /* translators: %s: minimum compatible extension version. */
+                                        esc_html__( '%s or later', 'directorist' ),
+                                        esc_html( $extension['required_version'] )
+                                    );
+                                    ?>
+                                </td>
+                                <td><?php echo esc_html( $extension['status'] ); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                ( function() {
+                    const toggleButton = document.querySelector( '[data-directorist-toggle-target="<?php echo esc_js( $content_id ); ?>"]' );
+
+                    if ( ! toggleButton ) {
+                        return;
+                    }
+
+                    const tableWrap = document.getElementById( toggleButton.getAttribute( 'data-directorist-toggle-target' ) );
+
+                    if ( ! tableWrap ) {
+                        return;
+                    }
+
+                    const openLabel = '<?php echo esc_js( __( 'Show deprecated extensions', 'directorist' ) ); ?>';
+                    const closeLabel = '<?php echo esc_js( __( 'Hide deprecated extensions', 'directorist' ) ); ?>';
+
+                    toggleButton.addEventListener( 'click', function() {
+                        const isOpen = 'true' === toggleButton.getAttribute( 'aria-expanded' );
+
+                        if ( isOpen ) {
+                            tableWrap.style.maxHeight = tableWrap.scrollHeight + 'px';
+
+                            window.requestAnimationFrame( function() {
+                                tableWrap.classList.remove( 'is-open' );
+                                tableWrap.style.maxHeight = '0px';
+                            } );
+
+                            toggleButton.setAttribute( 'aria-expanded', 'false' );
+                            toggleButton.textContent = openLabel;
+
+                            window.setTimeout( function() {
+                                if ( 'false' === toggleButton.getAttribute( 'aria-expanded' ) ) {
+                                    tableWrap.hidden = true;
+                                    tableWrap.style.maxHeight = '';
+                                }
+                            }, 300 );
+
+                            return;
+                        }
+
+                        tableWrap.hidden = false;
+                        tableWrap.style.maxHeight = '0px';
+
+                        window.requestAnimationFrame( function() {
+                            tableWrap.classList.add( 'is-open' );
+                            tableWrap.style.maxHeight = tableWrap.scrollHeight + 'px';
+                        } );
+
+                        toggleButton.setAttribute( 'aria-expanded', 'true' );
+                        toggleButton.textContent = closeLabel;
+                    } );
+                }() );
+            </script>
         </div>
         <?php
     }

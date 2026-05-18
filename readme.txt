@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.7.1
+Stable tag: 8.7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,22 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.7.2 - May 19, 2026 =
+
+**Improved**
+ - Dashboard tab navigation to prevent scroll jumps while preserving hash-based deep links. (#2850)
+
+**Fixed**
+ - Single listing map popup image. (#2857)
+ - Missing nonce in regenerate pages action. (#2856)
+ - HTML custom field editor initialization when switching listing types. (#2854)
+ - Listing Header Builder empty groups and preserved widget drag ordering. (#2853)
+ - Payment receipt grand total formatting when discounts are applied. (#2852)
+ - Radius search visibility for select-based address fields. (#2848)
+ - Formgent enquiry dashboard translation support. (#2847)
+ - MySQL query placeholders, invalid taxonomy handling, and empty background process batches. (#2846)
+ - Default preview image fallback for single listing sidebar widgets. (#2845)
 
 = 8.7.1 - Apr 30, 2026 =
 

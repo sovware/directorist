@@ -125,6 +125,10 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
                 'button-label'               => 'Regenerate Pages',
                 'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
                 'data'                       => [],
+                'nonce'                      => [
+                    'key'   => 'directorist_nonce',
+                    'value' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ];
 
             $fields['listing_import_button'] = [

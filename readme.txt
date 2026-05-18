@@ -300,7 +300,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.7.2 - May 18, 2026 =
+= 8.7.2 - May 19, 2026 =
 
 **Improved**
  - Dashboard tab navigation to prevent scroll jumps while preserving hash-based deep links. (#2850)

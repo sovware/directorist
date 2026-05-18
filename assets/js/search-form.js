@@ -4450,13 +4450,11 @@ document.addEventListener('DOMContentLoaded', function () {
       var radius_search_based_on = $('.directorist-radius_search_based_on').val();
 
       // Determine which search item selector to use
-      if (radius_search_based_on === 'address') {
-        radius_search_item_selector = '.directorist-location-js';
-      } else if (radius_search_based_on === 'zip') {
+      if (radius_search_based_on === 'zip') {
         radius_search_item_selector = '.directorist-zipcode-search .zip-radius-search';
       } else {
-        // Default fallback
-        radius_search_item_selector = '.directorist-location-js';
+        // Default fallback for address and others
+        radius_search_item_selector = $('.directorist-location-js').length ? '.directorist-location-js' : '.directorist-location-select';
       }
 
       // Check if radius search item selector elements exist
@@ -4480,7 +4478,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // handleRadiusVisibility Trigger
-    $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
+    $('body').on('keyup keydown input change focus', '.directorist-location-js, .directorist-location-select, .zip-radius-search', function (e) {
       handleRadiusVisibility();
     });
 

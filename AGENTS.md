@@ -17,12 +17,11 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 | Layer | Technology |
 |-------|-----------|
-| PHP | 7.0+ (PHPCS targets 8.1 compat), WordPress 4.6+ (tested 6.9) |
+| PHP | 7.0+ (PHPCS targets 7.4), WordPress 4.6+ (tested 6.9) |
 | Admin UI | Vue 2.6 + Vuex (builder/settings), jQuery (legacy) |
-| React Pages | React ( `assets/src/js/react/`) |
 | Blocks | React via @wordpress/components |
 | CSS | SCSS → Webpack → CSS + RTL variants |
-| Build | Webpack 5, wp-scripts, npm scripts, Husky + lint-staged |
+| Build | Webpack 5, npm scripts, Husky + lint-staged |
 | PHP QA | PHPCS + WordPress Coding Standards 2.3 |
 | JS QA | Prettier 3.5.3, wp-scripts |
 
@@ -203,8 +202,8 @@ Location: `includes/template-functions.php`, public templates in `templates/`, a
 
 ## Block Editor (Gutenberg)
 
-**19 blocks** registered in `blocks/init.php` via `register_block_type()` with `block.json` (apiVersion 3):
-account-button, author-profile, authors, categories, checkout, dashboard, listing-form, listings, locations, payment-receipt, search-form, search-modal, search-result, signin-signup, single-category, single-listing, single-location, single-tag, transaction-failure
+**21 blocks** registered in `blocks/init.php` via `register_block_type()` with `block.json` (apiVersion 3):
+account-button, author-profile, authors, categories, checkout, dashboard, listing-form, listings, locations, payment-receipt, search-form, search-modal, search-result, signin-signup, single-category, single-listing, single-location, single-tag, transaction-failure, vendors
 
 **Pattern:** Render callback (`directorist_block_render_callback`) converts block attributes to shortcode calls.
 **Category:** `directorist-blocks-collection`
@@ -212,7 +211,7 @@ account-button, author-profile, authors, categories, checkout, dashboard, listin
 
 ## Elementor Integration
 
-**17 widgets** in `includes/elementor/` — namespace `AazzTech\Directorist\Elementor`, base class in `base.php`
+**19 widgets** in `includes/elementor/` — namespace `AazzTech\Directorist\Elementor`, base class in `base.php`
 Widgets: all-listing, all-categories, all-locations, category, location, tag, search-listing, search-result, add-listing, user-login, custom-registration, user-dashboard, author-profile, transaction-failure, payment-receipt, checkout, deprecated-notice
 **Theme override:** `STYLESHEETPATH/directorist-elementor/{widget}.php`
 

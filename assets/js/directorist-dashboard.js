@@ -484,6 +484,50 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/dashboard/rejectionPopover.js":
+/*!***********************************************************************!*\
+  !*** ./assets/src/js/public/components/dashboard/rejectionPopover.js ***!
+  \***********************************************************************/
+/***/ (function() {
+
+(function () {
+  function closeAllPopovers() {
+    document.querySelectorAll('.directorist-rejection-popover.is-open').forEach(function (p) {
+      p.classList.remove('is-open');
+      var trigger = p.closest('.directorist-see-why-wrap');
+      if (trigger) {
+        var btn = trigger.querySelector('.directorist-see-why');
+        if (btn) {
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest ? e.target.closest('.directorist-see-why') : null;
+    if (trigger) {
+      var popover = trigger.nextElementSibling;
+      var isOpen = popover.classList.contains('is-open');
+      closeAllPopovers();
+      if (!isOpen) {
+        popover.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+      return;
+    }
+    if (!e.target.closest || !e.target.closest('.directorist-see-why-wrap')) {
+      closeAllPopovers();
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeAllPopovers();
+    }
+  });
+})();
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/directoristAlert.js":
 /*!*************************************************************!*\
   !*** ./assets/src/js/public/components/directoristAlert.js ***!
@@ -1031,8 +1075,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           return "".concat(item).length;
         });
         queryStrings = queryStrings.join('&');
-        window.location.hash = hashLink;
-        hash = window.location.hash;
+        hash = hashLink;
       }
 
       // Activate Current Navigation Item
@@ -1079,7 +1122,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           link.addEventListener('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            var ul = event.target.closest('.directorist-tab__nav'),
+            var currentLink = event.currentTarget;
+            var ul = currentLink.closest('.directorist-tab__nav'),
               main = ul.nextElementSibling,
               item_link = ul.querySelectorAll('.directorist-tab__nav__link'),
               section = main.querySelectorAll('.directorist-tab__pane');
@@ -1088,16 +1132,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             item_link.forEach(function (link) {
               link.classList.remove('directorist-tab__nav__active');
             });
-            var parentNavRef = event.target.getAttribute('data-parent-nav');
+            var parentNavRef = currentLink.getAttribute('data-parent-nav');
             if (parentNavRef) {
               var parentNav = document.querySelector(parentNavRef);
               if (parentNav) {
                 parentNav.classList.add('directorist-tab__nav__active');
               }
             } else {
-              var _event$target$closest;
-              event.target.classList.add('directorist-tab__nav__active');
-              var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
+              var _currentLink$closest;
+              currentLink.classList.add('directorist-tab__nav__active');
+              var dropDownToggler = (_currentLink$closest = currentLink.closest('.atbdp_tab_nav--has-child')) === null || _currentLink$closest === void 0 ? void 0 : _currentLink$closest.querySelector('.atbd-dash-nav-dropdown');
               if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
                 dropDownToggler.classList.add('directorist-tab__nav__active');
               }
@@ -1107,19 +1151,18 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             section.forEach(function (sectionItem) {
               sectionItem.classList.remove('directorist-tab__pane--active');
             });
-            var content_id = event.target.getAttribute('target');
+            var content_id = currentLink.getAttribute('target');
             document.getElementById(content_id).classList.add('directorist-tab__pane--active');
 
-            // Add Hash To Window Location
+            // Keep the active tab shareable without triggering hash navigation scroll.
             var hashID = content_id;
-            var link = event.target.getAttribute('href');
+            var link = currentLink.getAttribute('href');
             if (link) {
               var matchLink = link.match(/#(.+)/);
               hashID = matchLink ? matchLink[1] : hashID;
             }
             var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
-            window.location.hash = hasMatch ? hasMatch[0] : '#' + hashID;
-            var newHash = window.location.hash;
+            var newHash = hasMatch ? hasMatch[0] : '#' + hashID;
             var newUrl = window.location.pathname + newHash;
             window.history.replaceState(null, null, newUrl);
           });
@@ -1232,24 +1275,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardAnnouncement__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/dashboard/dashboardBecomeAuthor */ "./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js");
 /* harmony import */ var _components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_dashboardBecomeAuthor__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/profileForm */ "./assets/src/js/public/components/profileForm.js");
-/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
-/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
-/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
-/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _components_preferenceForm__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/preferenceForm */ "./assets/src/js/public/components/preferenceForm.js");
-/* harmony import */ var _components_preferenceForm__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_preferenceForm__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_dashboard_rejectionPopover__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/dashboard/rejectionPopover */ "./assets/src/js/public/components/dashboard/rejectionPopover.js");
+/* harmony import */ var _components_dashboard_rejectionPopover__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_dashboard_rejectionPopover__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/profileForm */ "./assets/src/js/public/components/profileForm.js");
+/* harmony import */ var _components_profileForm__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_profileForm__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/legacy-support */ "./assets/src/js/public/components/legacy-support.js");
+/* harmony import */ var _components_legacy_support__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_legacy_support__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristFavorite */ "./assets/src/js/public/components/directoristFavorite.js");
+/* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_preferenceForm__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/preferenceForm */ "./assets/src/js/public/components/preferenceForm.js");
+/* harmony import */ var _components_preferenceForm__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_components_preferenceForm__WEBPACK_IMPORTED_MODULE_15__);
 // Lib
 
 
 // Dashboard Js
+
 
 
 

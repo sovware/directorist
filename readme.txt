@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 8.7
+Stable tag: 8.7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,25 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.7.1 - Apr 30, 2026 =
+
+**Added**
+ - Rejected listing status flow with rejection reason, moderation history, owner notification email, and dashboard visibility. (#2785)
+ - Nearby sort option for location/radius-based listing results. (#2836)
+ - directorist_map_card_content filter to customize listing map card content.
+ (#2774)
+
+**Improved**
+ - Guest preview publish nonce flow now uses the authenticated session after account creation, with added edit capability check for post-review status updates. (#2828)
+ - Reset default tag style handling for single listing content. (#2834)
+
+**Fixed**
+ - "Go to Settings" button redirect now opens the correct settings page/tab and preserves subdirectory paths. (#2697)
+
+**Removed**
+ - Deprecated Elementor activation notice flow. (#2837)
+ - Help & Support admin menu and related functionality. (#2838)
 
 = 8.7 - Apr 22, 2026 =
 

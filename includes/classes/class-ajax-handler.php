@@ -134,6 +134,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             add_action( 'wp_ajax_directorist_update_view_count', [ static::class, 'update_view_count' ] );
             add_action( 'wp_ajax_nopriv_directorist_update_view_count', [ static::class, 'update_view_count' ] );
+
+            add_action( 'wp_ajax_atbdp_reject_listing', [ $this, 'reject_listing' ] );
         }
 
         public function directorist_taxonomy_pagination() {
@@ -277,6 +279,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $listings->archive_view_template();
             $archive_view           = ob_get_clean();
 
+            $sortby_dropdown = '';
+
+            if ( $listings->display_sortby_dropdown ) {
+                ob_start();
+                $listings->sortby_dropdown_template();
+                $sortby_dropdown = ob_get_clean();
+            }
+
             $display_listings_count = get_directorist_option( 'display_listings_count', true );
             $category_id            = ! empty( $_POST['in_cat'] ) ? absint( $_POST['in_cat'] ) : 0;
             $category               = get_term_by( 'id', $category_id, ATBDP_CATEGORY );
@@ -289,6 +299,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             wp_send_json(
                 [
                     'search_result'  => $archive_view,
+                    'sortby_dropdown' => $sortby_dropdown,
                     'directory_type' => $listings->render_shortcode(),
                     'view_as'        => $archive_view,
                     'count'          => $listings->query_results->total,
@@ -2017,6 +2028,55 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             wp_send_json_success( [ 'view_count' => $view_count ] );
+        }
+
+        public function reject_listing() {
+            if ( ! check_ajax_referer( 'atbdp-reject-listing-nonce', '_wpnonce', false ) ) {
+                wp_send_json_error( __( 'Security check failed.', 'directorist' ), 403 );
+            }
+
+            if ( ! current_user_can( 'publish_at_biz_dirs' ) ) {
+                wp_send_json_error( __( 'Permission denied.', 'directorist' ), 403 );
+            }
+
+            $listing_id = isset( $_POST['listing_id'] ) ? absint( $_POST['listing_id'] ) : 0;
+            $reason     = isset( $_POST['reason'] ) ? sanitize_textarea_field( wp_unslash( $_POST['reason'] ) ) : '';
+
+            if ( ! $listing_id || get_post_type( $listing_id ) !== ATBDP_POST_TYPE ) {
+                wp_send_json_error( __( 'Invalid listing.', 'directorist' ) );
+            }
+
+            if ( get_post_status( $listing_id ) !== 'pending' ) {
+                wp_send_json_error( __( 'Only pending listings can be rejected.', 'directorist' ) );
+            }
+
+            if ( empty( $reason ) ) {
+                wp_send_json_error( __( 'Rejection reason is required.', 'directorist' ) );
+            }
+
+            $status_update = wp_update_post(
+                [
+                    'ID'          => $listing_id,
+                    'post_status' => 'rejected',
+                ],
+                true
+            );
+
+            if ( is_wp_error( $status_update ) ) {
+                wp_send_json_error( __( 'Could not reject the listing. Please try again.', 'directorist' ) );
+            }
+
+            update_post_meta( $listing_id, '_listing_rejection_reason', $reason );
+            update_post_meta( $listing_id, '_listing_rejected_at', current_time( 'mysql' ) );
+            update_post_meta( $listing_id, '_listing_rejected_by', get_current_user_id() );
+
+            if ( class_exists( 'ATBDP_Metabox' ) ) {
+                ATBDP_Metabox::add_rejection_history_entry( $listing_id, $reason, get_current_user_id() );
+            }
+
+            do_action( 'atbdp_listing_rejected', $listing_id );
+
+            wp_send_json_success();
         }
     }
 

@@ -511,10 +511,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     $data['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
                 }
 
-                if ( $preview_enable ) {
-                    $data['redirect_url'] = wp_nonce_url( $data['redirect_url'], 'directorist_listing_form_redirect_url_' . $listing_id, '_token' );
-                }
-
                 $data['redirect_url'] = urlencode( $data['redirect_url'] );
 
                 $data = apply_filters( 'directorist_ajax_listing_submission_response', $data );

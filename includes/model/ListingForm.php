@@ -964,7 +964,11 @@ class Directorist_Listing_Form {
 
         if ( ! empty( $maybe_directory_id ) && ! is_numeric( $maybe_directory_id ) ) {
             $term = get_term_by( 'slug', $maybe_directory_id, ATBDP_TYPE );
-            $maybe_directory_id = $term->term_id;
+            if ( $term && ! is_wp_error( $term ) ) {
+                $maybe_directory_id = $term->term_id;
+            } else {
+                $maybe_directory_id = 0;
+            }
         }
 
         $this->current_listing_type = (int) $maybe_directory_id;

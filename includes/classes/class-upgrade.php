@@ -35,7 +35,6 @@ class ATBDP_Upgrade
         add_action( 'admin_init', [ $this, 'migrate_assign_to_conditional_logic' ] );
 
         add_action( 'admin_notices', [ $this, 'dashboard_upgrade_notice' ] );
-
     }
 
     public function dashboard_upgrade_notice() {
@@ -54,7 +53,6 @@ class ATBDP_Upgrade
         }
 
         ATBDP()->load_template( 'admin-templates/admin-dashboard-notice' );
-
     }
 
      /**

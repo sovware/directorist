@@ -308,7 +308,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 **Fixed**
  - Single listing map popup image. (#2857)
  - Missing nonce in regenerate pages action. (#2856)
- - HTML custom field editor initialization when switching listing types via AJAX. (#2854)
+ - HTML custom field editor initialization when switching listing types. (#2854)
  - Listing Header Builder empty groups and preserved widget drag ordering. (#2853)
  - Payment receipt grand total formatting when discounts are applied. (#2852)
  - Radius search visibility for select-based address fields. (#2848)

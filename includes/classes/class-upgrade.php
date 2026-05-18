@@ -689,22 +689,34 @@ class ATBDP_Upgrade
         <div class="notice notice-warning directorist-deprecated-extension-notice">
             <p><strong><?php echo esc_html( $title ); ?></strong></p>
             <p><?php echo esc_html( $description ); ?></p>
-            <ul style="list-style: disc; margin-left: 20px;">
-                <?php foreach ( $outdated_extensions as $extension ) : ?>
-                    <li>
-                        <strong><?php echo esc_html( $extension['name'] ); ?></strong>
-                        <?php
-                        printf(
-                            /* translators: 1: installed extension version, 2: minimum compatible extension version, 3: extension activation status. */
-                            esc_html__( 'Installed version: %1$s. Expected version: %2$s or later. Status: %3$s.', 'directorist' ),
-                            esc_html( $extension['current_version'] ),
-                            esc_html( $extension['required_version'] ),
-                            esc_html( $extension['status'] )
-                        );
-                        ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <table class="widefat striped" style="width: 100%; margin: 12px 0 12px 0;">
+                <thead>
+                    <tr>
+                        <th scope="col"><?php esc_html_e( 'Extension', 'directorist' ); ?></th>
+                        <th scope="col"><?php esc_html_e( 'Installed Version', 'directorist' ); ?></th>
+                        <th scope="col"><?php esc_html_e( 'Required Version', 'directorist' ); ?></th>
+                        <th scope="col"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ( $outdated_extensions as $extension ) : ?>
+                        <tr>
+                            <td><strong><?php echo esc_html( $extension['name'] ); ?></strong></td>
+                            <td><?php echo esc_html( $extension['current_version'] ); ?></td>
+                            <td>
+                                <?php
+                                printf(
+                                    /* translators: %s: minimum compatible extension version. */
+                                    esc_html__( '%s or later', 'directorist' ),
+                                    esc_html( $extension['required_version'] )
+                                );
+                                ?>
+                            </td>
+                            <td><?php echo esc_html( $extension['status'] ); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
             <?php if ( ! $this->is_plugins_screen() ) : ?>
                 <p>
                     <a class="button button-primary" href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">

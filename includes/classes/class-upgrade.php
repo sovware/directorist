@@ -6,13 +6,25 @@ use Directorist\Multi_Directory\Multi_Directory_Manager;
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
-    public $upgrade_notice_id       = 'migrate_to_7';
+    public $upgrade_notice_id = 'migrate_to_7';
 
-    public $legacy_notice_id        = 'directorist_legacy_template';
+    public $legacy_notice_id = 'directorist_legacy_template';
 
-    public $directorist_notices     = [];
+    public $directorist_notices = [];
 
-    public $directorist_migration   = [];
+    public $directorist_migration = [];
+
+    public $deprecated_extensions = [
+        'directorist-pricing-plans/directorist-pricing-plans.php' => '4.0.0',
+        'directorist-stripe/directorist-stripe.php'               => '3.0.0',
+        'directorist-paypal/directorist-paypal.php'               => '3.0.0',
+        'directorist-authorize-net/directorist-authorize-net.php' => '3.0.0',
+        'directorist-coupon/directorist-coupon.php'               => '3.0.0',
+        'directorist-business-hours/bd-business-hour.php'         => '3.7.2',
+        'directorist-faqs/directorist-faqs.php'                   => '2.2.2',
+        'directorist-live-chat/directorist-live-chat.php'         => '2.4.2',
+        'directorist-mark-as-sold/directorist-mark-as-sold.php'   => '2.3.0',
+    ];
 
     public function __construct() {
         if ( ! is_admin() ) return;
@@ -28,6 +40,8 @@ class ATBDP_Upgrade
         add_action( 'directorist_before_all_directory_types', [$this, 'promo_banner'] );
 
         add_action( 'admin_notices', [ $this, 'bfcm_notice'] );
+
+        add_action( 'admin_notices', [ $this, 'deprecated_extension_upgrade_notice' ], 100 );
 
         add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
 
@@ -649,6 +663,113 @@ class ATBDP_Upgrade
 
     protected static function can_manage_plugins() {
         return ( current_user_can( 'install_plugins' ) || current_user_can( 'manage_options' ) );
+    }
+
+    public function deprecated_extension_upgrade_notice() {
+        if ( ! self::can_manage_plugins() ) {
+            return;
+        }
+
+        $outdated_extensions = $this->get_deprecated_extensions();
+
+        if ( empty( $outdated_extensions ) ) {
+            return;
+        }
+
+        $is_multiple = count( $outdated_extensions ) > 1;
+        $title       = $is_multiple ? __( 'Deprecated Directorist extensions require upgrades', 'directorist' ) : __( 'Deprecated Directorist extension requires an upgrade', 'directorist' );
+        $description = $is_multiple
+            ? __( 'Directorist detected deprecated extensions that are not compatible with this version. Upgrade them to the minimum compatible versions listed below.', 'directorist' )
+            : __( 'Directorist detected a deprecated extension that is not compatible with this version. Upgrade it to the minimum compatible version listed below.', 'directorist' );
+
+        ?>
+        <div class="notice notice-warning directorist-deprecated-extension-notice">
+            <p><strong><?php echo esc_html( $title ); ?></strong></p>
+            <p><?php echo esc_html( $description ); ?></p>
+            <ul style="list-style: disc; margin-left: 20px;">
+                <?php foreach ( $outdated_extensions as $extension ) : ?>
+                    <li>
+                        <strong><?php echo esc_html( $extension['name'] ); ?></strong>
+                        <?php
+                        printf(
+                            /* translators: 1: installed extension version, 2: minimum compatible extension version, 3: extension activation status. */
+                            esc_html__( 'Installed version: %1$s. Expected version: %2$s or later. Status: %3$s.', 'directorist' ),
+                            esc_html( $extension['current_version'] ),
+                            esc_html( $extension['required_version'] ),
+                            esc_html( $extension['status'] )
+                        );
+                        ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if ( ! $this->is_plugins_screen() ) : ?>
+                <p>
+                    <a class="button button-primary" href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">
+                        <?php esc_html_e( 'Manage Plugins', 'directorist' ); ?>
+                    </a>
+                </p>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    public function get_deprecated_extensions() {
+        if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'is_plugin_active' ) ) {
+            include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $plugins_data        = get_plugins();
+        $outdated_extensions = [];
+
+        foreach ( $this->deprecated_extensions as $plugin_file => $required_version ) {
+            if ( empty( $plugins_data[ $plugin_file ] ) ) {
+                continue;
+            }
+
+            $plugin_data     = $plugins_data[ $plugin_file ];
+            $current_version = isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : '';
+
+            if ( empty( $current_version ) || ! version_compare( $current_version, $required_version, '<' ) ) {
+                continue;
+            }
+
+            $outdated_extensions[ $plugin_file ] = [
+                'name'             => ! empty( $plugin_data['Name'] ) ? $plugin_data['Name'] : $plugin_file,
+                'current_version'  => $current_version,
+                'required_version' => $required_version,
+                'status'           => $this->get_plugin_status_label( $plugin_file ),
+            ];
+        }
+
+        return apply_filters( 'directorist_deprecated_extensions', $outdated_extensions, $plugins_data, $this->deprecated_extensions );
+    }
+
+    private function get_plugin_status_label( $plugin_file ) {
+        if ( is_plugin_active( $plugin_file ) ) {
+            return __( 'Active', 'directorist' );
+        }
+
+        if ( function_exists( 'is_plugin_active_for_network' ) && is_plugin_active_for_network( $plugin_file ) ) {
+            return __( 'Network active', 'directorist' );
+        }
+
+        return __( 'Installed', 'directorist' );
+    }
+
+    private function is_plugins_screen() {
+        global $pagenow;
+
+        if ( 'plugins.php' === $pagenow ) {
+            return true;
+        }
+
+        if ( ! function_exists( 'get_current_screen' ) ) {
+            return false;
+        }
+
+        $screen = get_current_screen();
+
+        return ! empty( $screen->base ) && 'plugins' === $screen->base;
     }
 
     public function bfcm_notice() {

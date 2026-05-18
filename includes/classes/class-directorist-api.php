@@ -21,7 +21,7 @@ class API {
         return static::get_cached_promo(
             'directorist_promotion',
             'directorist_promotion_version_check',
-            'v1/get-promo'
+            'v1/get-promo-two'
         );
     }
 

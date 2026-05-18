@@ -11,38 +11,104 @@ if ( ! defined( 'ABSPATH' ) ) {
 class API {
 
     const URL = 'https://app.directorist.com/wp-json/directorist/';
+    const PROMO_CACHE_TTL = HOUR_IN_SECONDS;
+    const PROMO_VERSION_CHECK_TTL = 5 * MINUTE_IN_SECONDS;
 
     /**
      * @return object
      */
     public static function get_promotion() {
-        $promotion = get_transient( 'directorist_promotion' );
+        return static::get_cached_promo(
+            'directorist_promotion',
+            'directorist_promotion_version_check',
+            'v1/get-promo-two'
+        );
+    }
 
-        if ( ! empty( $promotion ) ) {
+    public static function get_dashboard_promo() {
+        return static::get_cached_promo(
+            'directorist_dashboard_promo',
+            'directorist_dashboard_promo_version_check',
+            'v1/get-dashboard-notice'
+        );
+    }
+
+    protected static function get_cached_promo( $cache_key, $version_check_key, $endpoint ) {
+        $promotion = get_transient( $cache_key );
+
+        if ( empty( $promotion ) ) {
+            $promotion = static::get_remote_promo( $endpoint );
+            static::cache_promo_response( $cache_key, $version_check_key, $endpoint, $promotion );
+
             return $promotion;
         }
 
-        $promotion  = static::get( 'v1/get-promo' );
-        $promotion = json_decode( $promotion );
-        $end_time  = static::get_promotion_end_time( $promotion );
+        if ( false !== get_transient( $version_check_key ) ) {
+            return $promotion;
+        }
 
-        set_transient( 'directorist_promotion', $promotion, $end_time );
+        $remote_promotion = static::get_remote_promo( $endpoint );
+
+        if ( empty( $remote_promotion ) ) {
+            set_transient( $version_check_key, static::get_promo_version( $promotion ), static::get_promo_version_check_ttl( $endpoint ) );
+
+            return $promotion;
+        }
+
+        if ( static::has_promo_version_changed( $promotion, $remote_promotion ) ) {
+            static::cache_promo_response( $cache_key, $version_check_key, $endpoint, $remote_promotion );
+
+            return $remote_promotion;
+        }
+
+        set_transient( $version_check_key, static::get_promo_version( $promotion ), static::get_promo_version_check_ttl( $endpoint ) );
 
         return $promotion;
     }
 
-    protected static function get_promotion_end_time( $promotion ) {
-        if ( empty( $promotion ) ||
-            ( is_object( $promotion ) && empty( $promotion->promo_end_date ) ) ||
-            ( is_array( $promotion ) && empty( $promotion['promo_end_date'] ) ) ) {
-            return ( 3 * DAY_IN_SECONDS );
+    protected static function get_remote_promo( $endpoint ) {
+        $promotion = static::get( $endpoint );
+
+        return json_decode( $promotion );
+    }
+
+    protected static function cache_promo_response( $cache_key, $version_check_key, $endpoint, $promotion ) {
+        if ( empty( $promotion ) ) {
+            return;
         }
 
-        $promotion = (object) $promotion;
-        $end_time  = is_numeric( $promotion->promo_end_date ) ? (int) $promotion->promo_end_date : strtotime( $promotion->promo_end_date );
-        $end_time  = $end_time - time();
+        set_transient( $cache_key, $promotion, static::get_promo_cache_ttl( $endpoint ) );
+        set_transient( $version_check_key, static::get_promo_version( $promotion ), static::get_promo_version_check_ttl( $endpoint ) );
+    }
 
-        return $end_time;
+    protected static function get_promo_cache_ttl( $endpoint ) {
+        return (int) apply_filters( 'directorist_promo_cache_ttl', static::PROMO_CACHE_TTL, $endpoint );
+    }
+
+    protected static function get_promo_version_check_ttl( $endpoint ) {
+        return (int) apply_filters( 'directorist_promo_version_check_ttl', static::PROMO_VERSION_CHECK_TTL, $endpoint );
+    }
+
+    protected static function get_promo_version( $promotion ) {
+        if ( is_object( $promotion ) && isset( $promotion->promo_version ) ) {
+            return (string) $promotion->promo_version;
+        }
+
+        if ( is_array( $promotion ) && isset( $promotion['promo_version'] ) ) {
+            return (string) $promotion['promo_version'];
+        }
+
+        return '';
+    }
+
+    protected static function has_promo_version_changed( $cached_promotion, $remote_promotion ) {
+        $remote_version = static::get_promo_version( $remote_promotion );
+
+        if ( '' === $remote_version ) {
+            return false;
+        }
+
+        return $remote_version !== static::get_promo_version( $cached_promotion );
     }
 
     /**

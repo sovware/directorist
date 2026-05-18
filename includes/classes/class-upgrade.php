@@ -33,6 +33,26 @@ class ATBDP_Upgrade
 
         // Migrate assign_to to conditional logic (custom fields only)
         add_action( 'admin_init', [ $this, 'migrate_assign_to_conditional_logic' ] );
+
+        add_action( 'admin_notices', [ $this, 'dashboard_upgrade_notice' ] );
+    }
+
+    public function dashboard_upgrade_notice() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        if ( ! function_exists( 'get_current_screen' ) ) {
+            return;
+        }
+
+        $screen = get_current_screen();
+
+        if ( ! $screen || 'dashboard' !== $screen->base ) {
+            return;
+        }
+
+        ATBDP()->load_template( 'admin-templates/admin-dashboard-notice' );
     }
 
      /**
@@ -687,6 +707,10 @@ class ATBDP_Upgrade
         return API::get_promotion();
     }
 
+    public static function dashboard_promo_remote_get() {
+        return API::get_dashboard_promo();
+    }
+
     public function upgrade_notice() {
         if ( ! self::can_manage_plugins() ) {
             return;
@@ -804,6 +828,18 @@ SCRIPT;
                 wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
             }
             update_user_meta( get_current_user_id(), 'directorist_promo2_closed_version', directorist_clean( wp_unslash( $_GET['directorist_promo2_closed_version'] ) ) );
+        }
+
+        if ( isset( $_GET['close-directorist-dashboard-promo-version'] ) ) {
+            if ( empty( $_GET['directorist_dashboard_promo_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['directorist_dashboard_promo_nonce'] ) ), 'directorist_dashboard_promo_nonce' ) ) {
+                wp_die( esc_html__( 'Security check failed.', 'directorist' ), '', array( 'response' => 403 ) );
+            }
+
+            update_user_meta(
+                get_current_user_id(),
+                'directorist_dashboard_promo_closed_version',
+                directorist_clean( wp_unslash( $_GET['close-directorist-dashboard-promo-version'] ) )
+            );
         }
     }
 

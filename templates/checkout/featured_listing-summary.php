@@ -10,18 +10,16 @@ defined( "ABSPATH" ) || exit;
 ?>
 <input type="hidden" name="listing_id" value="<?php echo esc_attr( $listing->ID ); ?>">
 <tr>
-    <td>Featured Listing</td>
-    <td><?php echo esc_html( $listing->post_title ); ?></td>
-</tr>
-<tr class="atbdp_ch_subtotal">
-    <td colspan="2" class="">
-        <span class="directorist-summery-label"><?php esc_html_e( 'Subtotal', 'directorist' ); ?></span>
+    <td colspan="2">
+        <span class="directorist-summery-label">
+            <?php esc_html_e( 'Featured Listing', 'directorist' ); ?>
+        </span>
     </td>
     <td class="directorist-text-right">
         <div id="atbdp_checkout_subtotal_amount" class="directorist-summery-amount">
-            <?php
-            echo wp_kses_post( directorist_price( $subtotal ) );
-            ?>
+            <?php echo esc_html( $listing->post_title ); ?>
         </div>
     </td>
 </tr>
+
+<?php directorist_template_render( 'checkout/checkout-order-sub-total', [ 'sub_total' => $subtotal ] ) ?>

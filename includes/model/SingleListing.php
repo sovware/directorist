@@ -1353,11 +1353,32 @@ class Directorist_Single_Listing {
         $display_favorite_badge_map = get_directorist_option( 'display_favorite_badge_map', 1 );
 
         $listing_prv_img = directorist_get_listing_preview_image( $id );
-        $default_image = get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
-        $listing_prv_imgurl = ! empty( $listing_prv_img ) ? atbdp_get_image_source( $listing_prv_img, 'small' ) : '';
-        $listing_prv_imgurl = atbdp_image_cropping( $listing_prv_img, 150, 150, true, 100 )['url'];
-        $img_url = ! empty( $listing_prv_imgurl ) ? $listing_prv_imgurl : $default_image;
-        $image = "<figure><img src=" . $img_url . " /></figure>";
+        $listing_img     = directorist_get_listing_gallery_images( $id );
+        $listing_type    = directorist_get_listing_directory( $id );
+        $default_image   = Helper::default_preview_image_src( $listing_type );
+        $listing_title   = get_the_title( $id );
+        $img_url         = '';
+
+        if ( ! empty( $listing_prv_img ) ) {
+            $cropped_image = atbdp_image_cropping( $listing_prv_img, 150, 150, true, 100 );
+            $img_url = ! empty( $cropped_image['url'] ) ? $cropped_image['url'] : atbdp_get_image_source( $listing_prv_img, 'small' );
+        }
+
+        if ( empty( $img_url ) && ! empty( $listing_img[0] ) ) {
+            $gallery_image_id = (int) $listing_img[0];
+            $cropped_image = atbdp_image_cropping( $gallery_image_id, 150, 150, true, 100 );
+            $img_url = ! empty( $cropped_image['url'] ) ? $cropped_image['url'] : atbdp_get_image_source( $gallery_image_id, 'small' );
+        }
+
+        if ( empty( $img_url ) ) {
+            $img_url = $default_image;
+        }
+
+        $image = sprintf(
+            "<figure><img src='%s' alt='%s' /></figure>",
+            esc_url( $img_url ),
+            esc_attr( $listing_title )
+        );
         if ( empty( $display_image_map ) ) {
             $image = '';
         }

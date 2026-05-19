@@ -2404,6 +2404,13 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       }
       var form_data = new FormData();
       form_data.append('action', action);
+      var nonce = this.nonce && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.nonce) === 'object' && this.nonce.key && this.nonce.value ? this.nonce : {
+        key: 'directorist_nonce',
+        value: typeof directorist_admin !== 'undefined' && directorist_admin.directorist_nonce ? directorist_admin.directorist_nonce : ''
+      };
+      if (nonce.value) {
+        form_data.append(nonce.key, nonce.value);
+      }
 
       // Append if has option field
       if (this.local_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.local_value) === 'object' && Object.keys(this.local_value)) {
@@ -17303,17 +17310,21 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     getAvailableWidgetsForPlaceholder: function getAvailableWidgetsForPlaceholder() {
       var _this2 = this;
       return function (placeholder) {
-        if (!placeholder || !placeholder.acceptedWidgets) {
+        if (!placeholder || !placeholder.acceptedWidgets || !Array.isArray(placeholder.acceptedWidgets)) {
           return [];
         }
-        var accepted = new Set(placeholder.acceptedWidgets);
-
-        // Include widgets whose key OR widget_name matches an accepted widget.
-        // This allows dynamically generated widgets (from show_if matched_data)
-        // to appear when their base widget_name is accepted.
-        var availableWidgets = Object.keys(_this2.theAvailableWidgets).filter(function (widgetKey) {
-          var widget = _this2.theAvailableWidgets[widgetKey];
-          return accepted.has(widgetKey) || widget && widget.widget_name && accepted.has(widget.widget_name);
+        var availableWidgetKeys = Object.keys(_this2.theAvailableWidgets);
+        var availableWidgets = [];
+        var addedWidgetKeys = new Set();
+        placeholder.acceptedWidgets.forEach(function (acceptedWidgetKey) {
+          availableWidgetKeys.forEach(function (widgetKey) {
+            var widget = _this2.theAvailableWidgets[widgetKey];
+            var isAcceptedWidget = widgetKey === acceptedWidgetKey || widget && widget.widget_name && widget.widget_name === acceptedWidgetKey;
+            if (isAcceptedWidget && !addedWidgetKeys.has(widgetKey)) {
+              availableWidgets.push(widgetKey);
+              addedWidgetKeys.add(widgetKey);
+            }
+          });
         });
         return availableWidgets;
       };
@@ -17374,13 +17385,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Get filtered acceptedWidgets (only available widgets) for a placeholder
     getFilteredAcceptedWidgets: function getFilteredAcceptedWidgets(placeholder) {
-      var _this3 = this;
-      if (!placeholder || !placeholder.acceptedWidgets) {
-        return [];
-      }
-      return placeholder.acceptedWidgets.filter(function (widgetKey) {
-        return _this3.isWidgetAvailable(widgetKey);
-      });
+      return this.getAvailableWidgetsForPlaceholder(placeholder);
     },
     // ===========================================
     // INITIALIZATION & LIFECYCLE METHODS
@@ -17406,10 +17411,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     setupEventListeners: function setupEventListeners() {
-      var _this4 = this;
+      var _this3 = this;
       // Debounced update emitter
       this.debouncedEmitUpdate = this.debounce(function () {
-        _this4.emitUpdate();
+        _this3.emitUpdate();
       }, 100);
     },
     /**
@@ -17500,14 +17505,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     debounce: function debounce(func, wait) {
-      var _this5 = this;
+      var _this4 = this;
       return function () {
         for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
         }
-        clearTimeout(_this5._debounceTimer);
-        _this5._debounceTimer = setTimeout(function () {
-          return func.apply(_this5, args);
+        clearTimeout(_this4._debounceTimer);
+        _this4._debounceTimer = setTimeout(function () {
+          return func.apply(_this4, args);
         }, wait);
       };
     },
@@ -17652,7 +17657,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     syncSelectedWidgetsWithList: function syncSelectedWidgetsWithList(selectedWidgets, selectedWidgetList) {
-      var _this6 = this;
+      var _this5 = this;
       var activeWidgets = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
       // Early return if no selectedWidgetList
       if (!selectedWidgetList || !Array.isArray(selectedWidgetList) || selectedWidgetList.length === 0) {
@@ -17707,8 +17712,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
         // STEP 3: Final fallback to default widget template
         if (!widgetData) {
-          if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this6.theAvailableWidgets[widgetKey] !== "undefined") {
-            widgetData = _this6.theAvailableWidgets[widgetKey];
+          if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this5.theAvailableWidgets[widgetKey] !== "undefined") {
+            widgetData = _this5.theAvailableWidgets[widgetKey];
           }
         }
 
@@ -17990,12 +17995,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @private
      */
     syncAllPlaceholderItems: function syncAllPlaceholderItems() {
-      var _this7 = this;
+      var _this6 = this;
       try {
         var newAllPlaceholderItems = [];
         this.placeholders.forEach(function (placeholder) {
           if (placeholder.type === "placeholder_item") {
-            var matchedItem = _this7.allPlaceholderItems.find(function (item) {
+            var matchedItem = _this6.allPlaceholderItems.find(function (item) {
               return item.placeholderKey === placeholder.placeholderKey;
             });
             if (matchedItem) {
@@ -18012,7 +18017,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             }
           } else if (placeholder.type === "placeholder_group") {
             placeholder.placeholders.forEach(function (subPlaceholder) {
-              var matchedItem = _this7.allPlaceholderItems.find(function (item) {
+              var matchedItem = _this6.allPlaceholderItems.find(function (item) {
                 return item.placeholderKey === subPlaceholder.placeholderKey;
               });
               if (matchedItem) {
@@ -18085,7 +18090,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Handle the drop event
     onDrop: function onDrop(dropResult) {
-      var _this8 = this;
+      var _this7 = this;
       var draggablePlaceholders = this.placeholders.filter(function (placeholder) {
         return placeholder.type === "placeholder_item";
       });
@@ -18108,7 +18113,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       this.placeholders.forEach(function (placeholder) {
         if (placeholder.type === "placeholder_item") {
           // Find the matching item from allPlaceholderItems
-          var matchedItem = _this8.allPlaceholderItems.find(function (item) {
+          var matchedItem = _this7.allPlaceholderItems.find(function (item) {
             return item.placeholderKey === placeholder.placeholderKey;
           });
 
@@ -18131,7 +18136,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         } else if (placeholder.type === "placeholder_group") {
           // Iterate over subPlaceholders for a group
           placeholder.placeholders.forEach(function (subPlaceholder) {
-            var matchedItem = _this8.allPlaceholderItems.find(function (item) {
+            var matchedItem = _this7.allPlaceholderItems.find(function (item) {
               return item.placeholderKey === subPlaceholder.placeholderKey;
             });
 
@@ -18425,7 +18430,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
      * @public
      */
     importOldData: function importOldData() {
-      var _this9 = this;
+      var _this8 = this;
       var value = JSON.parse(JSON.stringify(this.value));
       if (!Array.isArray(value)) {
         return;
@@ -18446,14 +18451,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         // Try widget_key first (for dynamic widgets like button fields),
         // then widget_name, then search by widget_name property.
         var templateKey = widget.widget_key || widget.widget_name;
-        var widgetTemplate = _this9.theAvailableWidgets[templateKey];
+        var widgetTemplate = _this8.theAvailableWidgets[templateKey];
         if (!widgetTemplate && widget.widget_name) {
-          widgetTemplate = _this9.theAvailableWidgets[widget.widget_name];
+          widgetTemplate = _this8.theAvailableWidgets[widget.widget_name];
         }
         if (!widgetTemplate) {
-          for (var key in _this9.theAvailableWidgets) {
-            if (_this9.theAvailableWidgets[key].widget_name === widget.widget_name) {
-              widgetTemplate = _this9.theAvailableWidgets[key];
+          for (var key in _this8.theAvailableWidgets) {
+            if (_this8.theAvailableWidgets[key].widget_name === widget.widget_name) {
+              widgetTemplate = _this8.theAvailableWidgets[key];
               break;
             }
           }
@@ -18514,16 +18519,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         }
 
         // Apply field promotion logic during initialization
-        var shouldPromote = _this9.shouldPromoteFieldsToRoot(widget.widget_name, widgets_template);
-        var processedWidget = shouldPromote ? _this9.promoteFieldsToRoot(widgets_template) : widgets_template;
+        var shouldPromote = _this8.shouldPromoteFieldsToRoot(widget.widget_name, widgets_template);
+        var processedWidget = shouldPromote ? _this8.promoteFieldsToRoot(widgets_template) : widgets_template;
 
         // Use widget_key for active_widgets so dynamic widgets (e.g. phone_2,
         // button_2) don't overwrite each other. Only update the base entry in
         // available_widgets when the widget is not a dynamic variant.
         var activeKey = widget.widget_key || widget.widget_name;
-        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.active_widgets, activeKey, processedWidget);
+        vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this8.active_widgets, activeKey, processedWidget);
         if (activeKey === widget.widget_name) {
-          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.available_widgets, widget.widget_name, processedWidget);
+          vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this8.available_widgets, widget.widget_name, processedWidget);
         }
       };
 
@@ -18535,12 +18540,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
        * @param {Array} destination - Array to add the processed placeholder to
        */
       var importWidgets = function importWidgets(placeholder, destination) {
-        if (!_this9.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+        if (!_this8.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
           return;
         }
 
         // Clone the placeholder template from placeholdersMap
-        var newPlaceholder = JSON.parse(JSON.stringify(_this9.placeholdersMap[placeholder.placeholderKey]));
+        var newPlaceholder = JSON.parse(JSON.stringify(_this8.placeholdersMap[placeholder.placeholderKey]));
 
         // Update acceptedWidgets if provided in saved data
         if (placeholder.acceptedWidgets) {
@@ -18580,7 +18585,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
          * SYNC LOGIC: Ensure selectedWidgets matches selectedWidgetList
          * Uses reusable sync function to keep code DRY
          */
-        newPlaceholder.selectedWidgets = _this9.syncSelectedWidgetsWithList(newPlaceholder.selectedWidgets, newPlaceholder.selectedWidgetList);
+        newPlaceholder.selectedWidgets = _this8.syncSelectedWidgetsWithList(newPlaceholder.selectedWidgets, newPlaceholder.selectedWidgetList);
         newPlaceholder.maxWidget = typeof newPlaceholder.maxWidget !== "undefined" ? parseInt(newPlaceholder.maxWidget) : 0;
         newAllPlaceholders.push(newPlaceholder);
         var targetPlaceholderIndex = destination.length;
@@ -18595,7 +18600,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         if (Array.isArray(widgetsToProcess) && widgetsToProcess.length > 0) {
           widgetsToProcess.forEach(function (widget) {
             // Validate widget exists in available_widgets before adding
-            if (typeof widget !== "undefined" && widget && (typeof _this9.available_widgets[widget.widget_name] !== "undefined" || typeof _this9.available_widgets[widget.widget_key] !== "undefined")) {
+            if (typeof widget !== "undefined" && widget && (typeof _this8.available_widgets[widget.widget_name] !== "undefined" || typeof _this8.available_widgets[widget.widget_key] !== "undefined")) {
               // addActiveWidget merges saved data with default template and applies field promotion
               addActiveWidget(widget);
             }
@@ -18611,12 +18616,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         if (Array.isArray(selectedWidgetListToProcess) && selectedWidgetListToProcess.length > 0) {
           selectedWidgetListToProcess.forEach(function (widgetKey) {
             // Skip if already in active_widgets
-            if (_this9.active_widgets[widgetKey]) {
+            if (_this8.active_widgets[widgetKey]) {
               return;
             }
             if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
               // Try available_widgets first, then theAvailableWidgets for dynamic keys
-              var widget = _this9.available_widgets[widgetKey] || _this9.theAvailableWidgets[widgetKey];
+              var widget = _this8.available_widgets[widgetKey] || _this8.theAvailableWidgets[widgetKey];
               if (widget) {
                 addActiveWidget(_objectSpread(_objectSpread({}, widget), {}, {
                   widget_key: widgetKey
@@ -18627,7 +18632,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         }
       };
       value.forEach(function (placeholder, index) {
-        if (!_this9.isTruthyObject(placeholder)) {
+        if (!_this8.isTruthyObject(placeholder)) {
           return;
         }
         if ("placeholder_item" === placeholder.type) {
@@ -18639,12 +18644,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           return;
         }
         if ("placeholder_group" === placeholder.type) {
-          if (!_this9.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
+          if (!_this8.placeholdersMap.hasOwnProperty(placeholder.placeholderKey)) {
             return;
           }
-          var newPlaceholder = JSON.parse(JSON.stringify(_this9.placeholdersMap[placeholder.placeholderKey]));
+          var newPlaceholder = JSON.parse(JSON.stringify(_this8.placeholdersMap[placeholder.placeholderKey]));
           newPlaceholder.placeholders = [];
-          var targetPlaceholderIndex = _this9.placeholders.length;
+          var targetPlaceholderIndex = _this8.placeholders.length;
           newPlaceholders.splice(targetPlaceholderIndex, 0, newPlaceholder);
           placeholder.placeholders.forEach(function (subPlaceholder) {
             // if (!Array.isArray(subPlaceholder.selectedWidgets)) {
@@ -18689,7 +18694,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               }); // Filter out null, undefined, and empty values
 
               // Update the item with the new selectedWidgetList
-              _this9.$set(item, "selectedWidgetList", item.selectedWidgetList);
+              _this8.$set(item, "selectedWidgetList", item.selectedWidgetList);
             }
 
             /**
@@ -18697,20 +18702,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
              * Uses reusable sync function to keep code DRY
              * Updates using Vue reactivity for proper reactivity
              */
-            var syncedWidgets = _this9.syncSelectedWidgetsWithList(item.selectedWidgets, item.selectedWidgetList);
-            _this9.$set(item, "selectedWidgets", syncedWidgets);
+            var syncedWidgets = _this8.syncSelectedWidgetsWithList(item.selectedWidgets, item.selectedWidgetList);
+            _this8.$set(item, "selectedWidgets", syncedWidgets);
 
             // Process selectedWidgetList
             if (item.selectedWidgetList && Array.isArray(item.selectedWidgetList)) {
               item.selectedWidgetList.forEach(function (widgetKey) {
                 // Skip if already in active_widgets
-                if (_this9.active_widgets[widgetKey]) {
+                if (_this8.active_widgets[widgetKey]) {
                   return;
                 }
                 if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
-                  var widget = _this9.available_widgets[widgetKey] || _this9.theAvailableWidgets[widgetKey];
+                  var widget = _this8.available_widgets[widgetKey] || _this8.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    _this9.$set(_this9.active_widgets, widgetKey, _objectSpread(_objectSpread({}, widget), {}, {
+                    _this8.$set(_this8.active_widgets, widgetKey, _objectSpread(_objectSpread({}, widget), {}, {
                       widget_key: widgetKey
                     }));
                   }
@@ -18770,7 +18775,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Import Placeholders
     importPlaceholders: function importPlaceholders() {
-      var _this0 = this;
+      var _this9 = this;
       this.allPlaceholderItems = [];
       if (!Array.isArray(this.layout)) {
         return;
@@ -18779,7 +18784,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         return;
       }
       var sanitizePlaceholderData = function sanitizePlaceholderData(placeholder) {
-        if (!_this0.isTruthyObject(placeholder)) {
+        if (!_this9.isTruthyObject(placeholder)) {
           placeholder = {};
         }
         if (typeof placeholder.label === "undefined") {
@@ -18790,15 +18795,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         if (placeholder.selectedWidgetList && Array.isArray(placeholder.selectedWidgetList)) {
           placeholder.selectedWidgetList.forEach(function (widgetKey) {
             // Skip if already in active_widgets
-            if (_this0.active_widgets[widgetKey]) {
+            if (_this9.active_widgets[widgetKey]) {
               return;
             }
 
             // Get widget from available_widgets and add to active_widgets
-            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this0.available_widgets[widgetKey] !== "undefined") {
-              var widget = _this0.available_widgets[widgetKey];
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this9.available_widgets[widgetKey] !== "undefined") {
+              var widget = _this9.available_widgets[widgetKey];
               if (widget) {
-                _this0.$set(_this0.active_widgets, widgetKey, widget);
+                _this9.$set(_this9.active_widgets, widgetKey, widget);
               }
             }
           });
@@ -18810,15 +18815,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             var widgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widget) === "object" && widget !== null ? widget.widget_key || widget.widget_name : widget;
 
             // Skip if already in active_widgets
-            if (_this0.active_widgets[widgetKey]) {
+            if (_this9.active_widgets[widgetKey]) {
               return;
             }
 
             // Get widget from available_widgets and add to active_widgets
-            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this0.available_widgets[widgetKey] !== "undefined") {
-              var widgetObj = _this0.available_widgets[widgetKey];
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string" && typeof _this9.available_widgets[widgetKey] !== "undefined") {
+              var widgetObj = _this9.available_widgets[widgetKey];
               if (widgetObj) {
-                _this0.$set(_this0.active_widgets, widgetKey, widgetObj);
+                _this9.$set(_this9.active_widgets, widgetKey, widgetObj);
               }
             }
           });
@@ -18831,7 +18836,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       try {
         var _loop2 = function _loop2() {
             var placeholder = _step5.value;
-            if (!_this0.isTruthyObject(placeholder)) {
+            if (!_this9.isTruthyObject(placeholder)) {
               return 0; // continue
             }
             var placeholderItem = placeholder;
@@ -18841,15 +18846,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             if (typeof placeholderItem.placeholderKey === "undefined") {
               return 0; // continue
             }
-            if (_this0.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)) {
+            if (_this9.placeholdersMap.hasOwnProperty(placeholderItem.placeholderKey)) {
               return 0; // continue
             }
-            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this0.placeholdersMap, placeholderItem.placeholderKey, placeholderItem);
+            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.placeholdersMap, placeholderItem.placeholderKey, placeholderItem);
             if (placeholderItem.type === "placeholder_item") {
               var placeholderItemData = sanitizePlaceholderData(placeholderItem);
               if (placeholderItemData) {
                 sanitizedPlaceholders.push(placeholderItemData);
-                _this0.allPlaceholderItems.push(placeholderItemData);
+                _this9.allPlaceholderItems.push(placeholderItemData);
               }
               return 0; // continue
             }
@@ -18864,15 +18869,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
                 return 0; // continue
               }
               placeholderItem.placeholders.forEach(function (placeholderSubItem, subPlaceholderIndex) {
-                if (_this0.placeholdersMap.hasOwnProperty(placeholderSubItem.placeholderKey)) {
+                if (_this9.placeholdersMap.hasOwnProperty(placeholderSubItem.placeholderKey)) {
                   placeholderItem.placeholders.splice(subPlaceholderIndex, 1);
                   return;
                 }
-                vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this0.placeholdersMap, placeholderSubItem.placeholderKey, placeholderSubItem);
+                vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(_this9.placeholdersMap, placeholderSubItem.placeholderKey, placeholderSubItem);
                 var placeholderItemData = sanitizePlaceholderData(placeholderSubItem);
                 if (placeholderItemData) {
                   placeholderItem.placeholders.splice(subPlaceholderIndex, 1, placeholderItemData);
-                  _this0.allPlaceholderItems.push(placeholderItemData);
+                  _this9.allPlaceholderItems.push(placeholderItemData);
                 }
               });
               if (placeholderItem.placeholders.length) {
@@ -18914,20 +18919,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               }); // Filter out null, undefined, and empty values
 
               // Update the item with the new selectedWidgetList
-              _this0.$set(item, "selectedWidgetList", item.selectedWidgetList);
+              _this9.$set(item, "selectedWidgetList", item.selectedWidgetList);
             }
 
             // Process selectedWidgetList
             if (item.selectedWidgetList && Array.isArray(item.selectedWidgetList)) {
               item.selectedWidgetList.forEach(function (widgetKey) {
                 // Skip if already in active_widgets
-                if (_this0.active_widgets[widgetKey]) {
+                if (_this9.active_widgets[widgetKey]) {
                   return;
                 }
                 if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
-                  var widget = _this0.available_widgets[widgetKey] || _this0.theAvailableWidgets[widgetKey];
+                  var widget = _this9.available_widgets[widgetKey] || _this9.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    _this0.$set(_this0.active_widgets, widgetKey, _objectSpread(_objectSpread({}, widget), {}, {
+                    _this9.$set(_this9.active_widgets, widgetKey, _objectSpread(_objectSpread({}, widget), {}, {
                       widget_key: widgetKey
                     }));
                   }
@@ -18974,7 +18979,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Add/remove widget from selectedWidgets & active_widgets
     toggleWidgetInSelectedWidgets: function toggleWidgetInSelectedWidgets(widget_key, placeholder_index, isChecked) {
-      var _this1 = this;
+      var _this0 = this;
       var placeholder = this.allPlaceholderItems[placeholder_index];
       var acceptedWidgets = placeholder.acceptedWidgets || [];
       var selectedWidgets = placeholder.selectedWidgets || [];
@@ -19019,7 +19024,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var getAcceptedIndex = function getAcceptedIndex(key) {
         var idx = acceptedWidgets.indexOf(key);
         if (idx === -1) {
-          var w = _this1.theAvailableWidgets[key];
+          var w = _this0.theAvailableWidgets[key];
           if (w && w.widget_name) {
             idx = acceptedWidgets.indexOf(w.widget_name);
           }
@@ -19092,7 +19097,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Filter active_widgets to only include widgets from selectedWidgetList of placeholder_item types
     filterActiveWidgetsBySelectedWidgetList: function filterActiveWidgetsBySelectedWidgetList() {
-      var _this10 = this;
+      var _this1 = this;
       // Collect all widget keys from selectedWidgetList of placeholder_item types
       var allowedWidgetKeys = new Set();
       var _collectWidgetKeys = function collectWidgetKeys(items) {
@@ -19127,28 +19132,28 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       // Remove widgets from active_widgets that are not in allowedWidgetKeys
       Object.keys(this.active_widgets).forEach(function (widgetKey) {
         if (!allowedWidgetKeys.has(widgetKey)) {
-          _this10.$delete(_this10.active_widgets, widgetKey);
+          _this1.$delete(_this1.active_widgets, widgetKey);
         }
       });
 
       // Add widgets to active_widgets that are in allowedWidgetKeys but not yet in active_widgets
       allowedWidgetKeys.forEach(function (widgetKey) {
-        if (!_this10.active_widgets[widgetKey] && typeof _this10.available_widgets[widgetKey] !== "undefined") {
-          var widget = _this10.available_widgets[widgetKey];
+        if (!_this1.active_widgets[widgetKey] && typeof _this1.available_widgets[widgetKey] !== "undefined") {
+          var widget = _this1.available_widgets[widgetKey];
           if (widget) {
-            _this10.$set(_this10.active_widgets, widgetKey, widget);
+            _this1.$set(_this1.active_widgets, widgetKey, widget);
           }
         }
       });
     },
     // Sync placeholders with allPlaceholderItems
     syncPlaceholdersWithAllPlaceholderItems: function syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
-      var _this11 = this;
+      var _this10 = this;
       var updatePlaceholderItem = function updatePlaceholderItem(placeholder, allPlaceholderItem) {
         if (placeholder.placeholderKey === allPlaceholderItem.placeholderKey) {
           // Filter acceptedWidgets to only include available widgets
           var filteredAcceptedWidgets = (allPlaceholderItem.acceptedWidgets || []).filter(function (widgetKey) {
-            return _this11.isWidgetAvailable(widgetKey);
+            return _this10.isWidgetAvailable(widgetKey);
           });
           placeholder.acceptedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredAcceptedWidgets);
 
@@ -19158,14 +19163,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
           // Filter selectedWidgets based on available widgets
           var filteredSelectedWidgets = selectedWidgets.filter(function (widget) {
-            return widget && widget.widget_key && _this11.isWidgetAvailable(widget.widget_key);
+            return widget && widget.widget_key && _this10.isWidgetAvailable(widget.widget_key);
           });
 
           // Filter selectedWidgetList based on available widgets and remove null items
           var filteredSelectedWidgetList = selectedWidgetList.filter(function (widgetKey) {
             return widgetKey != null && widgetKey !== "";
           }).filter(function (widgetKey) {
-            return _this11.isWidgetAvailable(widgetKey);
+            return _this10.isWidgetAvailable(widgetKey);
           });
           placeholder.selectedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredSelectedWidgets);
           placeholder.selectedWidgetList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__["default"])(filteredSelectedWidgetList);
@@ -29636,7 +29641,7 @@ var render = function render() {
   })]), _vm._v("\n        Learn\n      ")]) : _vm._e()]), _vm._v(" "), [_c('div', {
     staticClass: "cptm-elements-settings__content"
   }, _vm._l(_vm.allPlaceholderItems, function (placeholder, placeholder_index) {
-    return _c('div', {
+    return _vm.getAvailableWidgetsForPlaceholder(placeholder).length ? _c('div', {
       key: placeholder_index,
       staticClass: "cptm-elements-settings__group"
     }, [placeholder.label && (placeholder === null || placeholder === void 0 ? void 0 : placeholder.placeholderKey) !== 'listing-title-placeholder' && (placeholder === null || placeholder === void 0 ? void 0 : placeholder.placeholderKey) !== 'slider-placeholder' ? _c('span', {
@@ -29672,7 +29677,7 @@ var render = function render() {
         }
       }, [_c('div', {
         staticClass: "cptm-elements-settings__group__single"
-      }, [((_placeholder$accepted = placeholder.acceptedWidgets) === null || _placeholder$accepted === void 0 ? void 0 : _placeholder$accepted.length) > 1 ? _c('span', {
+      }, [((_placeholder$accepted = placeholder.acceptedWidgets) === null || _placeholder$accepted === void 0 ? void 0 : _placeholder$accepted.length) > 1 && _vm.getAvailableWidgetsForPlaceholder(placeholder).length > 1 ? _c('span', {
         staticClass: "drag-handle drag-icon uil uil-draggabledots"
       }) : _vm._e(), _vm._v(" "), _c('span', {
         staticClass: "cptm-elements-settings__group__single__label"
@@ -29731,7 +29736,7 @@ var render = function render() {
           "close": _vm.closeWidgetOptionsWindow
         }
       }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()]);
-    }), 1)], 1);
+    }), 1)], 1) : _vm._e();
   }), 0)]], 2), _vm._v(" "), _c('div', {
     staticClass: "cptm-preview-placeholder"
   }, [_c('div', {
@@ -29774,7 +29779,7 @@ var render = function render() {
       "drag-end": _vm.onDragEnd
     }
   }, _vm._l(_vm.placeholders, function (placeholderItem, index) {
-    return placeholderItem.type == 'placeholder_item' ? _c('Draggable', {
+    return placeholderItem.type == 'placeholder_item' && _vm.getAvailableWidgetsForPlaceholder(placeholderItem).length ? _c('Draggable', {
       key: index,
       class: {
         dragging: _vm.currentDraggingIndex === placeholderItem.placeholderKey

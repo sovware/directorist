@@ -260,6 +260,11 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
             $metas                 = ! empty( $_POST['meta'] ) ? directorist_clean( wp_unslash( $_POST['meta'] ) ) : [];
             $tax_inputs            = ! empty( $_POST['tax_input'] ) ? directorist_clean( wp_unslash( $_POST['tax_input'] ) ) : [];
             $publish_date          = ! empty( $metas['publish_date'] ) ? directorist_clean( $metas['publish_date'] ) : '';
+            $reviews               = ! empty( $metas['reviews'] ) ? directorist_clean( $metas['reviews'] ) : '';
+
+            if ( isset( $metas['reviews'] ) ) {
+                unset( $metas['reviews'] );
+            }
 
             $total_items = $importer->get_total_items();
 
@@ -464,6 +469,14 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                     }
                 }
 
+                if ( $reviews && ! empty( $post[ $reviews ] ) ) {
+                    $imported_reviews = $this->import_listing_reviews( $post_id, $post[ $reviews ] );
+
+                    if ( $imported_reviews ) {
+                        $processed_logs[] = sprintf( '[%d->%d]: %d reviews imported.', $position, $post_id, $imported_reviews );
+                    }
+                }
+
                 /**
                  * Fire this event once a listing is successfully imported from CSV.
                  *
@@ -521,6 +534,156 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
             }
 
             return null;
+        }
+
+        public function import_listing_reviews( $listing_id, $reviews_data ) {
+            $reviews = $this->parse_listing_reviews_data( $reviews_data );
+
+            if ( empty( $reviews ) || ! is_array( $reviews ) ) {
+                return 0;
+            }
+
+            $imported      = 0;
+            $review_id_map = [];
+
+            foreach ( $reviews as $review ) {
+                if ( ! is_array( $review ) ) {
+                    continue;
+                }
+
+                $content = ! empty( $review['content'] ) ? static::sanitize_textarea( $review['content'] ) : '';
+                $rating  = isset( $review['rating'] ) ? (float) $review['rating'] : 0;
+
+                if ( '' === $content && $rating <= 0 ) {
+                    continue;
+                }
+
+                $old_parent_id = ! empty( $review['parent_review_id'] ) ? absint( $review['parent_review_id'] ) : 0;
+                $comment_id    = wp_insert_comment(
+                    [
+                        'comment_post_ID'      => absint( $listing_id ),
+                        'comment_author'       => ! empty( $review['author'] ) ? static::sanitize_text( $review['author'] ) : '',
+                        'comment_author_email' => ! empty( $review['email'] ) && is_email( $review['email'] ) ? sanitize_email( $review['email'] ) : '',
+                        'comment_author_url'   => ! empty( $review['url'] ) ? esc_url_raw( $review['url'] ) : '',
+                        'comment_content'      => $content,
+                        'comment_type'         => 'review',
+                        'comment_approved'     => $this->prepare_review_status_for_import( $review['status'] ?? 'approve' ),
+                        'comment_parent'       => ! empty( $review_id_map[ $old_parent_id ] ) ? $review_id_map[ $old_parent_id ] : 0,
+                        'comment_date'         => $this->prepare_review_date_for_import( $review['date'] ?? '' ),
+                        'comment_date_gmt'     => $this->prepare_review_date_for_import( $review['date_gmt'] ?? '', true ),
+                        'user_id'              => ! empty( $review['user_id'] ) ? absint( $review['user_id'] ) : 0,
+                    ]
+                );
+
+                if ( ! $comment_id ) {
+                    continue;
+                }
+
+                if ( $rating > 0 ) {
+                    $rating = number_format( max( 0, min( 5, $rating ) ), 2, '.', '' );
+
+                    if ( class_exists( 'Directorist\Review\Comment_Meta' ) ) {
+                        \Directorist\Review\Comment_Meta::set_rating( $comment_id, $rating );
+                    } else {
+                        update_comment_meta( $comment_id, 'rating', $rating );
+                    }
+                }
+
+                if ( ! empty( $review['meta'] ) && is_array( $review['meta'] ) ) {
+                    $this->import_listing_review_meta( $comment_id, $review['meta'], $review, $listing_id );
+                }
+
+                if ( ! empty( $review['review_id'] ) ) {
+                    $review_id_map[ absint( $review['review_id'] ) ] = $comment_id;
+                }
+
+                $imported++;
+            }
+
+            if ( $imported && class_exists( 'Directorist\Review\Comment' ) ) {
+                \Directorist\Review\Comment::clear_transients( $listing_id );
+            }
+
+            return $imported;
+        }
+
+        protected function import_listing_review_meta( $comment_id, $meta, $review, $listing_id ) {
+            $meta = apply_filters( 'directorist_listings_import_review_meta', $meta, $review, $comment_id, $listing_id );
+
+            if ( empty( $meta ) || ! is_array( $meta ) ) {
+                return;
+            }
+
+            foreach ( $meta as $key => $values ) {
+                $key = sanitize_key( $key );
+
+                if ( ! $key ) {
+                    continue;
+                }
+
+                if ( ! is_array( $values ) ) {
+                    $values = [ $values ];
+                }
+
+                delete_comment_meta( $comment_id, $key );
+
+                foreach ( $values as $value ) {
+                    add_comment_meta( $comment_id, $key, maybe_unserialize( $value ) );
+                }
+            }
+        }
+
+        protected function parse_listing_reviews_data( $reviews_data ) {
+            $reviews_data = trim( self::unescape_data( $reviews_data ) );
+
+            if ( '' === $reviews_data ) {
+                return [];
+            }
+
+            $decoded_data = base64_decode( $reviews_data, true );
+            if ( false !== $decoded_data ) {
+                $decoded_reviews = json_decode( $decoded_data, true );
+
+                if ( is_array( $decoded_reviews ) ) {
+                    return $decoded_reviews;
+                }
+            }
+
+            $decoded_reviews = json_decode( $reviews_data, true );
+            if ( is_array( $decoded_reviews ) ) {
+                return $decoded_reviews;
+            }
+
+            $decoded_reviews = json_decode( str_replace( "'", '"', $reviews_data ), true );
+            if ( is_array( $decoded_reviews ) ) {
+                return $decoded_reviews;
+            }
+
+            return [];
+        }
+
+        protected function prepare_review_status_for_import( $status ) {
+            $status = sanitize_key( $status );
+
+            if ( in_array( $status, [ '1', 'approve', 'approved' ], true ) ) {
+                return '1';
+            }
+
+            if ( in_array( $status, [ 'spam', 'trash' ], true ) ) {
+                return $status;
+            }
+
+            return '0';
+        }
+
+        protected function prepare_review_date_for_import( $date, $gmt = false ) {
+            $timestamp = strtotime( $date );
+
+            if ( ! $timestamp ) {
+                return current_time( 'mysql', $gmt );
+            }
+
+            return date( 'Y-m-d H:i:s', $timestamp );
         }
 
         // maybe_unserialize_csv_string
@@ -647,6 +810,7 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
 
             $this->importable_fields[ 'publish_date' ]   = esc_html__( 'Publish Date', 'directorist' );
             $this->importable_fields[ 'listing_status' ] = esc_html__( 'Listing Status', 'directorist' );
+            $this->importable_fields[ 'reviews' ]        = esc_html__( 'Reviews', 'directorist' );
 
             foreach ( $fields as $field ) {
                 $field_key  = ! empty( $field['field_key'] ) ? $field['field_key'] : '';

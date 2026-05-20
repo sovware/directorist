@@ -17,11 +17,6 @@ jQuery(document).ready(function ($) {
 	const moreLink = $('.directorist-extensions').find('.ext-more-link');
 	$(moreLink).hide();
 
-	$('#the-list tr[data-slug="listing-importer"]').attr(
-		'data-slug',
-		'directorist-listing-importer'
-	);
-
 	$(tbody).append(
 		$(
 			'#the-list tr[data-slug^="directorist-"], #the-list tr[data-slug^="addonskit-for-elementor"]'

@@ -593,6 +593,10 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                     $this->import_listing_review_meta( $comment_id, $review['meta'], $review, $listing_id );
                 }
 
+                if ( ! empty( $review['advanced_review'] ) && is_array( $review['advanced_review'] ) ) {
+                    $this->import_listing_advanced_review_data( $comment_id, $review['advanced_review'], $review, $listing_id );
+                }
+
                 if ( ! empty( $review['review_id'] ) ) {
                     $review_id_map[ absint( $review['review_id'] ) ] = $comment_id;
                 }
@@ -617,7 +621,7 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
             foreach ( $meta as $key => $values ) {
                 $key = sanitize_key( $key );
 
-                if ( ! $key ) {
+                if ( ! $key || 'rating' === $key ) {
                     continue;
                 }
 
@@ -631,6 +635,121 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                     add_comment_meta( $comment_id, $key, maybe_unserialize( $value ) );
                 }
             }
+        }
+
+        protected function import_listing_advanced_review_data( $comment_id, $advanced_review, $review, $listing_id ) {
+            global $wpdb;
+
+            $table = $this->get_advanced_review_table_name();
+
+            if ( ! $this->advanced_review_table_exists( $table ) ) {
+                return 0;
+            }
+
+            $advanced_review = apply_filters( 'directorist_listings_import_advanced_review_data', $advanced_review, $review, $comment_id, $listing_id );
+
+            if ( empty( $advanced_review ) || ! is_array( $advanced_review ) ) {
+                return 0;
+            }
+
+            $wpdb->delete(
+                $table,
+                [
+                    'comment_ID' => absint( $comment_id ),
+                ],
+                [
+                    '%d',
+                ]
+            );
+
+            $imported = 0;
+            $now      = current_time( 'mysql' );
+
+            foreach ( $advanced_review as $criteria ) {
+                if ( ! isset( $criteria['rating'] ) ) {
+                    continue;
+                }
+
+                $criteria_key = '';
+
+                if ( ! empty( $criteria['criteria_label'] ) ) {
+                    $criteria_key = $this->get_advanced_review_criteria_key_by_label( $criteria['criteria_label'], $listing_id );
+                }
+
+                if ( '' === $criteria_key && ! empty( $criteria['criteria_key'] ) ) {
+                    $criteria_key = sanitize_text_field( wp_unslash( $criteria['criteria_key'] ) );
+                }
+
+                $rating = max( 0, min( 5, (float) $criteria['rating'] ) );
+
+                if ( '' === $criteria_key || $rating <= 0 ) {
+                    continue;
+                }
+
+                $inserted = $wpdb->insert(
+                    $table,
+                    [
+                        'comment_ID'   => absint( $comment_id ),
+                        'listing_id'   => absint( $listing_id ),
+                        'criteria_key' => $criteria_key,
+                        'rating'       => $rating,
+                        'created_at'   => $now,
+                        'updated_at'   => $now,
+                    ],
+                    [
+                        '%d',
+                        '%d',
+                        '%s',
+                        '%f',
+                        '%s',
+                        '%s',
+                    ]
+                );
+
+                if ( $inserted ) {
+                    $imported++;
+                }
+            }
+
+            return $imported;
+        }
+
+        protected function get_advanced_review_table_name() {
+            global $wpdb;
+
+            return $wpdb->prefix . 'directorist_advanced_reviews';
+        }
+
+        protected function get_advanced_review_criteria_key_by_label( $criteria_label, $listing_id = 0 ) {
+            if ( ! function_exists( 'directorist_get_directory_meta' ) || ! function_exists( 'directorist_get_listings_directory_type' ) ) {
+                return '';
+            }
+
+            $contents = directorist_get_directory_meta( directorist_get_listings_directory_type( $listing_id ), 'single_listings_contents' );
+
+            if ( empty( $contents['fields']['review_criteria']['criterias'] ) || ! is_array( $contents['fields']['review_criteria']['criterias'] ) ) {
+                return '';
+            }
+
+            $criteria_label = sanitize_text_field( wp_unslash( $criteria_label ) );
+
+            foreach ( $contents['fields']['review_criteria']['criterias'] as $criteria ) {
+                if ( ! isset( $criteria['id'], $criteria['value'] ) ) {
+                    continue;
+                }
+
+                if ( $criteria_label === $criteria['value'] ) {
+                    return (string) $criteria['id'];
+                }
+            }
+
+            return '';
+        }
+
+        protected function advanced_review_table_exists( $table ) {
+            global $wpdb;
+
+            return $table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
         }
 
         protected function parse_listing_reviews_data( $reviews_data ) {

@@ -341,7 +341,7 @@ class Listings_Exporter {
             return $row;
         }
 
-        $row['reviews'] = base64_encode( wp_json_encode( $reviews ) );
+        $row['reviews'] = wp_json_encode( $reviews, JSON_HEX_APOS );
 
         return $row;
     }
@@ -444,6 +444,7 @@ class Listings_Exporter {
                 'date'             => $comment->comment_date,
                 'date_gmt'         => $comment->comment_date_gmt,
                 'meta'             => self::get_listing_review_meta_data( $comment, $listing_id ),
+                'advanced_review'  => self::get_listing_advanced_review_data( $comment, $listing_id ),
             ];
         }
 
@@ -458,6 +459,78 @@ class Listings_Exporter {
         }
 
         return apply_filters( 'directorist_listings_export_review_meta', $meta, $comment, $listing_id );
+    }
+
+    public static function get_listing_advanced_review_data( $comment, $listing_id = 0 ) {
+        global $wpdb;
+
+        $table = self::get_advanced_review_table_name();
+
+        if ( ! self::advanced_review_table_exists( $table ) ) {
+            return [];
+        }
+
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT criteria_key, rating FROM {$table} WHERE comment_ID = %d AND listing_id = %d ORDER BY id ASC",
+                $comment->comment_ID,
+                absint( $listing_id )
+            ),
+            ARRAY_A
+        );
+
+        if ( empty( $rows ) ) {
+            return [];
+        }
+
+        $advanced_review = [];
+        $criteria_labels = self::get_advanced_review_criteria_labels( $listing_id );
+
+        foreach ( $rows as $row ) {
+            $criteria_key      = (string) $row['criteria_key'];
+            $advanced_review[] = [
+                'criteria_key'   => self::escape_data( $criteria_key ),
+                'criteria_label' => ! empty( $criteria_labels[ $criteria_key ] ) ? self::escape_data( $criteria_labels[ $criteria_key ] ) : '',
+                'rating'         => (float) $row['rating'],
+            ];
+        }
+
+        return apply_filters( 'directorist_listings_export_advanced_review_data', $advanced_review, $comment, $listing_id );
+    }
+
+    protected static function get_advanced_review_table_name() {
+        global $wpdb;
+
+        return $wpdb->prefix . 'directorist_advanced_reviews';
+    }
+
+    protected static function advanced_review_table_exists( $table ) {
+        global $wpdb;
+
+        return $table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+    }
+
+    protected static function get_advanced_review_criteria_labels( $listing_id = 0 ) {
+        if ( ! function_exists( 'directorist_get_directory_meta' ) || ! function_exists( 'directorist_get_listings_directory_type' ) ) {
+            return [];
+        }
+
+        $contents = directorist_get_directory_meta( directorist_get_listings_directory_type( $listing_id ), 'single_listings_contents' );
+
+        if ( empty( $contents['fields']['review_criteria']['criterias'] ) || ! is_array( $contents['fields']['review_criteria']['criterias'] ) ) {
+            return [];
+        }
+
+        $labels = [];
+        foreach ( $contents['fields']['review_criteria']['criterias'] as $criteria ) {
+            if ( ! isset( $criteria['id'], $criteria['value'] ) ) {
+                continue;
+            }
+
+            $labels[ (string) $criteria['id'] ] = $criteria['value'];
+        }
+
+        return $labels;
     }
 
     protected static function prepare_review_status_for_export( $status ) {

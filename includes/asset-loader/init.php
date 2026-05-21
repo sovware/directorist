@@ -145,6 +145,7 @@ class Asset_Loader {
             case 'listing-form/add-listing':
                 wp_enqueue_script( 'directorist-select2-script' );
                 wp_enqueue_script( 'directorist-add-listing' );
+                wp_enqueue_media();
                 break;
 
             // Dashboard
@@ -279,11 +280,6 @@ class Asset_Loader {
             wp_enqueue_style( 'directorist-unicons' );
             wp_enqueue_script( 'directorist-settings-manager' );
             wp_enqueue_media();
-        } elseif ( Helper::is_admin_page( 'support' ) ) {
-            // @todo remove lineawesome dependency
-            wp_enqueue_style( 'directorist-admin-style' );
-            wp_enqueue_script( 'directorist-admin-script' );
-            wp_enqueue_script( 'directorist-tooltip' );
         } elseif ( Helper::is_admin_page( 'extensions' ) ) {
             wp_enqueue_style( 'directorist-admin-style' );
             wp_enqueue_script( 'directorist-admin-script' );
@@ -316,6 +312,8 @@ class Asset_Loader {
             wp_enqueue_style( 'directorist-admin-style' );
             wp_enqueue_script( 'directorist-admin-script' );
         } elseif ( Helper::is_admin_page( 'add_listing' ) ) {
+            global $pagenow;
+
             wp_enqueue_style( 'directorist-admin-style' );
             wp_enqueue_style( 'directorist-unicons' );
             wp_enqueue_script( 'directorist-admin-script' );
@@ -323,6 +321,10 @@ class Asset_Loader {
             wp_enqueue_script( 'directorist-select2-script' );
             wp_enqueue_script( 'directorist-add-listing' );
             wp_enqueue_media();
+
+            if ( in_array( $pagenow, [ 'post.php', 'post-new.php' ], true ) && function_exists( 'wp_enqueue_editor' ) ) {
+                wp_enqueue_editor();
+            }
 
             wp_enqueue_script( 'iris', admin_url( 'js/iris.min.js' ), [ 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ], Helper::get_script_version() );
             wp_enqueue_script( 'wp-color-picker', admin_url( 'js/color-picker.min.js' ), [ 'iris', 'wp-i18n' ], Helper::get_script_version() );

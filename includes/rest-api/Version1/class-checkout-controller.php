@@ -78,9 +78,22 @@ class Checkout_Controller extends Abstract_Controller {
 
             do_action( 'directorist_checkout_create_order', $dto, $checkout_type, $request );
 
-            $processor_instance = null;
-            $process_payment    = apply_filters( 'directorist_checkout_process_payment', $dto->get_amount() > 0, $dto, $request );
+            $repository = directorist_order_repository();
 
+            if ( $dto->is_initialized( 'id' ) ) {
+                $order = $repository->get_by_id( $dto->get_id() );
+
+                if ( ! $order ) {
+                    return new WP_Error( 'rest_not_found', __( 'Order not found.' ) );
+                }
+
+                $dto = $repository->to_dto( $order );
+            }
+
+            $processor_instance = null;
+            $order_payable      = directorist_order_payable( $dto );
+            $process_payment    = apply_filters( 'directorist_checkout_process_payment', $order_payable > 0, $dto, $request );
+            
             if ( $process_payment ) {
                 $payment_gateway = $request->get_param( 'payment_gateway' );
 
@@ -110,6 +123,8 @@ class Checkout_Controller extends Abstract_Controller {
 
             if ( ! $dto->is_initialized( 'id' ) ) {
                 $repository->create( $dto );
+            } else {
+                $repository->silent_update( $dto );
             }
 
             if ( $process_payment ) {
@@ -122,11 +137,13 @@ class Checkout_Controller extends Abstract_Controller {
                 );
             }
 
-            // Update the order status to paid
-            $dto->set_id( $dto->get_id() )->set_status( OrderStatus::PAID );
-            $repository->update( $dto );
-            
             do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
+
+            // Update the order status to paid if the payable amount is zero or less
+            if ( $order_payable < 1 ) {
+                $dto->set_id( $dto->get_id() )->set_status( OrderStatus::PAID );
+                $repository->update( $dto );
+            }
 
             return rest_ensure_response(
                 [

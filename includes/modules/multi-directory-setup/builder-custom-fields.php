@@ -209,6 +209,48 @@ return apply_filters(
                 'conditional_logic' => get_conditional_logic_field(),
             ]
         ],
+        
+        'html' => [
+            'label'   => __( 'Html', 'directorist' ),
+            'icon'    => 'las la-code',
+            'options' => [
+                'type' => [
+                    'type'  => 'hidden',
+                    'value' => 'wp_editor',
+                ],
+                'field_key' => array_merge(
+                    $custom_field_meta_key_field, [
+                        'value' => 'custom-html',
+                    ]
+                ),
+                'label' => [
+                    'type'  => 'text',
+                    'label' => __( 'Label', 'directorist' ),
+                    'value' => 'Html',
+                ],
+                'description' => [
+                    'type'  => 'text',
+                    'label' => __( 'Description', 'directorist' ),
+                    'value' => '',
+                ],
+                'placeholder' => [
+                    'type'  => 'text',
+                    'label' => __( 'Placeholder', 'directorist' ),
+                    'value' => '',
+                ],
+                'required' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Required', 'directorist' ),
+                    'value' => false,
+                ],
+                'only_for_admin' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Admin Only', 'directorist' ),
+                    'value' => false,
+                ],
+                'conditional_logic' => get_conditional_logic_field(),
+            ]
+        ],
 
         'number' => [
             'label'   => __( 'Number', 'directorist' ),
@@ -644,6 +686,93 @@ return apply_filters(
                     'label'       => __( 'File Size', 'directorist' ),
                     'description' => __( 'Set maximum file size to upload', 'directorist' ),
                     'value'       => '2mb',
+                ],
+                'required' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Required', 'directorist' ),
+                    'value' => false,
+                ],
+                'only_for_admin' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Admin Only', 'directorist' ),
+                    'value' => false,
+                ],
+                'conditional_logic' => get_conditional_logic_field(),
+            ]
+        ],
+
+        'button' => [
+            'label'   => __( 'Button', 'directorist' ),
+            'icon'    => 'la la-link',
+            'options' => [
+                'type' => [
+                    'type'  => 'hidden',
+                    'value' => 'button',
+                ],
+                'field_key' => array_merge(
+                    $custom_field_meta_key_field, [
+                        'value' => 'custom-button',
+                    ]
+                ),
+                'label' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button Text Label', 'directorist' ),
+                    'value'       => __( 'Button', 'directorist' ),
+                    'description' => __( 'Label for the “Button Text” input shown to the listing owner (e.g., Name, Button Text).', 'directorist' ),
+                ],
+                'button_text_placeholder' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button Text Placeholder', 'directorist' ),
+                    'value'       => __( 'Visit Now', 'directorist' ),
+                    'description' => __( 'Placeholder example for the Button Text input (e.g., Book Now, Visit Site).', 'directorist' ),
+                ],
+                'button_text_description' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button Text Description', 'directorist' ),
+                    'value'       => '',
+                    'description' => __( 'Help text displayed below the Button Text input (e.g., This text will appear as the button label on your listing).', 'directorist' ),
+                ],
+                'button_url_label' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button URL Label', 'directorist' ),
+                    'value'       => __( 'Website URL', 'directorist' ),
+                    'description' => __( 'Label for the “Button URL” input shown to the listing owner (e.g., Button Link, Website URL).', 'directorist' ),
+                ],
+                'button_url_placeholder' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button URL Placeholder', 'directorist' ),
+                    'value'       => 'https://yourlink.com',
+                    'description' => __( 'Placeholder example for the Button URL input (e.g., https://yourlink.com).', 'directorist' ),
+                ],
+                'button_url_description' => [
+                    'type'        => 'text',
+                    'label'       => __( 'Button URL Description', 'directorist' ),
+                    'value'       => '',
+                    'description' => __( 'Help text displayed below the Button URL input (e.g., Add the full website link).', 'directorist' ),
+                ],
+                'button_style' => [
+                    'type'    => 'select',
+                    'label'   => __( 'Button Style', 'directorist' ),
+                    'value'   => 'default',
+                    'options' => [
+                        [
+                            'value' => 'default',
+                            'label' => __( 'Default', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'primary',
+                            'label' => __( 'Primary', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'secondary',
+                            'label' => __( 'Secondary', 'directorist' ),
+                        ],
+                    ],
+                ],
+                'open_in_new_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Open in New Tab', 'directorist' ),
+                    'value' => true,
                 ],
                 'required' => [
                     'type'  => 'toggle',

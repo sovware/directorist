@@ -9,6 +9,7 @@ import '../components/dashboard/dashBoardMoreBtn';
 import '../components/dashboard/dashboardResponsive';
 import '../components/dashboard/dashboardAnnouncement';
 import '../components/dashboard/dashboardBecomeAuthor';
+import '../components/dashboard/rejectionPopover';
 
 // General Components
 // import '../components/tab';

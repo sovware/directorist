@@ -7,7 +7,8 @@ defined( "ABSPATH" ) || exit;
 use Directorist\Enums\Order\Status as OrderStatus;
 use Directorist\Enums\Payment\Status as PaymentStatus;
 use Directorist\Enums\Refund\Status as RefundStatus;
-use Directorist\Enums\Order\TaxType as TaxType;
+use Directorist\Enums\Order\TaxType;
+use Directorist\Enums\Order\DiscountType;
 use Directorist\Utils\Database\Schema\Blueprint;
 use Directorist\Utils\Database\Schema\Schema;
 
@@ -33,7 +34,6 @@ class Activation {
                 $table->integer( "subscription_id" )->nullable();
                 $table->integer( "user_id" );
                 $table->integer( "listing_id" )->nullable();
-                $table->integer( "plan_id" )->nullable();
                 $table->tiny_integer( "is_featured_listing" )->default( 0 );
                 $table->string( "ref" )->nullable();
                 $table->string( "ref_type" )->nullable();
@@ -41,7 +41,7 @@ class Activation {
                 $table->string( "currency", 10 )->default( "USD" );
                 $table->string( "coupon_code" )->nullable();
                 $table->decimal( "coupon_discount", 10, 2 )->default( 0.00 );
-                $table->string( "coupon_discount_type" )->nullable();
+                $table->enum( "coupon_discount_type", DiscountType::all() )->nullable();
                 $table->decimal( "tax_rate", 10, 2 )->default( 0.00 );
                 $table->enum( "tax_type", TaxType::all() )->nullable();
                 $table->decimal( "sub_total", 10, 2 )->default( 0.00 );

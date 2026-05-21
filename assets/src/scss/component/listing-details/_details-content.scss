@@ -112,25 +112,24 @@
 	}
 
 	.directorist-details-info-wrap {
-		a {
-			font-size: 15px;
-			text-decoration: none;
-			box-shadow: none;
-			color: var(--directorist-color-body);
-			&:hover {
-				color: var(--directorist-color-primary);
+		.directorist-single-info:not(.directorist-single-info-html){
+			a {
+				font-size: 15px;
+				text-decoration: none;
+				box-shadow: none;
 			}
-		}
-		ul {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0 10px;
-			margin: 0;
-			list-style-type: none;
-			padding: 0;
-		}
-		li {
-			flex: 0 0 49%;
+			
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0 10px;
+				margin: 0;
+				list-style-type: none;
+				padding: 0;
+			}
+			li {
+				flex: 0 0 49%;
+			}
 		}
 		.directorist-social-links a:hover {
 			background-color: var(--directorist-color-primary);
@@ -174,6 +173,14 @@
 					height: auto;
 					line-height: unset;
 					color: var(--directorist-color-body);
+				}
+			}
+		}
+		.directorist-single-info-button{
+			.directorist-single-info__value{
+				.directorist-icon-mask:after{
+					width: 12px;
+					height: 12px;
 				}
 			}
 		}
@@ -241,6 +248,31 @@
 	margin-bottom: 25px;
 	margin-top: -15px;
 	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	@media screen and (max-width: 575px) {
+		gap: 8px;
+	}
+	.directorist-listing-actions{
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+		.directorist-btn{
+			&.directorist-btn-default{
+				background-color: var(--directorist-color-white) !important;
+				background: transparent;
+    			border: 1px solid var(--directorist-color-bg-light) !important;
+				color: var(--directorist-color-body) !important;
+				&:hover {
+					background-color: var(--directorist-color-bg-light) !important;
+					border-color: var(--directorist-color-bg-light) !important;
+					color: var(--directorist-color-dark) !important;
+				}
+			}
+		}
+	}
 }
 .directorist-single-wrapper {
 	.directorist-listing-single__info {
@@ -248,7 +280,7 @@
 	}
 	.directorist-single-listing-slider-wrap {
 		padding: 0;
-		margin: 15px 0;
+		margin: 0;
 		&.background-contain {
 			.directorist-single-listing-slider {
 				.swiper-slide {
@@ -369,6 +401,17 @@
 		gap: 8px;
 		flex-wrap: wrap;
 	}
+
+	.directorist-listing-actions {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		margin-top: 12px;
+
+		.directorist-btn {
+			font-size: 13px;
+		}
+	}
 }
 
 .directorist-single-listing-action {
@@ -447,7 +490,7 @@
 
 // Listing Details
 .directorist-listing-details {
-	margin: 15px 0 30px;
+	
 	@include e("text") {
 		p {
 			margin: 0 0 15px;
@@ -464,10 +507,10 @@
 		}
 	}
 	@include e("listing-title") {
+		margin: 0;
 		font-size: 30px;
 		font-weight: 600;
 		display: inline-block;
-		margin: 15px 0 0;
 		color: var(--directorist-color-dark);
 		@media screen and (max-width: 575px) {
 			font-size: 24px;

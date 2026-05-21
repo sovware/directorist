@@ -120,12 +120,6 @@ function register_controllers() {
     $temp_media_upload = new \Directorist\Rest_Api\Controllers\Version1\Temporary_Media_Upload_Controller();
     $temp_media_upload->register_routes();
 
-    // Orders controller
-    require_once $dir . 'Version1/class-orders-controller.php';
-
-    $orders = new \Directorist\Rest_Api\Controllers\Version1\Orders_Controller();
-    $orders->register_routes();
-
     // Pages controller
     require_once $dir . 'Version1/class-pages-controller.php';
 

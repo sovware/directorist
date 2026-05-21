@@ -4,6 +4,7 @@ namespace Directorist\Rest_Api\Controllers\Version1;
 
 defined( 'ABSPATH' ) || exit;
 
+use Exception;
 use WP_REST_Request;
 use WP_REST_Server;
 use WP_Error;
@@ -103,7 +104,11 @@ class Order_Refund_Controller extends Abstract_Controller {
 
         $repository = new RefundRepository();
 
-        $id  = $repository->create( $dto );
+        try {
+            $id  = $repository->create( $dto );
+        } catch ( Exception $e ) {
+            return new WP_Error( 'rest_exception', $e->getMessage() );
+        }
 
         status_header( 201 );
 

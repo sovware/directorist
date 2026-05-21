@@ -36,6 +36,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             }
 
             add_action( 'admin_footer', [ $this, 'quick_edit_scripts' ] );
+            add_action( 'admin_footer', [ $this, 'render_reject_modal' ] );
 
             add_action( 'init', [ $this, 'register_post_status' ] );
         }
@@ -50,6 +51,23 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     'label_count' => _n_noop(
                         'Expired <span class="count">(%s)</span>',
                         'Expired <span class="count">(%s)</span>',
+                        'directorist'
+                    ),
+                ]
+            );
+
+            register_post_status(
+                'rejected',
+                [
+                    'label'                     => _x( 'Rejected', 'post status', 'directorist' ),
+                    'public'                    => false,
+                    'exclude_from_search'       => true,
+                    'show_in_admin_all_list'    => true,
+                    'show_in_admin_status_list' => true,
+                    /* translators: %s: Number of rejected listings. */
+                    'label_count'               => _n_noop(
+                        'Rejected <span class="count">(%s)</span>',
+                        'Rejected <span class="count">(%s)</span>',
                         'directorist'
                     ),
                 ]
@@ -128,6 +146,255 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             });
             </script>
             <?php
+        }
+
+        public function render_reject_modal() {
+            global $current_screen;
+
+            if ( ! isset( $current_screen ) || 'edit-at_biz_dir' !== $current_screen->id ) {
+                return;
+            }
+
+            $presets = $this->get_rejection_reason_presets();
+            ?>
+            <div id="atbdp-reject-modal" class="directorist-reject-modal" hidden>
+                <div
+                    class="directorist-reject-modal__dialog"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="atbdp-reject-modal-title"
+                    aria-describedby="atbdp-reject-modal-description"
+                >
+                    <div class="directorist-reject-modal__header">
+                        <h2 id="atbdp-reject-modal-title" class="directorist-reject-modal__title"><?php esc_html_e( 'Reject listing', 'directorist' ); ?></h2>
+
+                        <p id="atbdp-reject-modal-description" class="directorist-reject-modal__listing-meta">
+                            <strong id="atbdp-reject-listing-title" class="directorist-reject-modal__listing-title"></strong>
+                            <span id="atbdp-reject-owner-wrap" class="directorist-reject-modal__listing-owner-wrap" hidden>
+                                <span class="directorist-reject-modal__listing-separator">&mdash;</span>
+                                <?php esc_html_e( 'submitted by', 'directorist' ); ?>
+                                <span id="atbdp-reject-owner-email"></span>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="directorist-reject-modal__body">
+                        <?php if ( ! empty( $presets ) ) : ?>
+                            <div class="directorist-reject-modal__section directorist-reject-modal__section--presets">
+                                <p class="directorist-reject-modal__section-title"><?php esc_html_e( 'Common reasons', 'directorist' ); ?></p>
+
+                                <div class="directorist-reject-modal__presets">
+                                    <?php foreach ( $presets as $preset ) : ?>
+                                        <?php
+                                        $label   = isset( $preset['label'] ) ? (string) $preset['label'] : '';
+                                        $message = isset( $preset['message'] ) ? (string) $preset['message'] : '';
+
+                                        if ( '' === $label || '' === $message ) {
+                                            continue;
+                                        }
+                                        ?>
+                                        <button
+                                            type="button"
+                                            class="button button-secondary directorist-reject-modal__preset"
+                                            data-preset-message="<?php echo esc_attr( $message ); ?>"
+                                        >
+                                            <?php echo esc_html( $label ); ?>
+                                        </button>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="directorist-reject-modal__section directorist-reject-modal__section--reason">
+                            <label for="atbdp-reject-reason" class="directorist-reject-modal__label">
+                                <?php esc_html_e( 'Reason for rejection', 'directorist' ); ?>
+                                <span class="directorist-reject-modal__required">*</span>
+                            </label>
+
+                            <textarea
+                                id="atbdp-reject-reason"
+                                class="large-text directorist-reject-modal__textarea"
+                                rows="5"
+                                placeholder="<?php esc_attr_e( 'Explain what needs to be fixed before resubmitting...', 'directorist' ); ?>"
+                            ></textarea>
+
+                            <p class="description directorist-reject-modal__help-text"><?php esc_html_e( 'This message will be sent to the listing owner.', 'directorist' ); ?></p>
+                            <div id="atbdp-reject-error" class="notice notice-error inline directorist-reject-modal__error" hidden role="alert">
+                                <p><?php esc_html_e( 'Please provide a rejection reason.', 'directorist' ); ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="directorist-reject-modal__actions">
+                        <button id="atbdp-reject-cancel" type="button" class="button button-secondary directorist-reject-modal__action-button">
+                            <?php esc_html_e( 'Cancel', 'directorist' ); ?>
+                        </button>
+                        <button id="atbdp-reject-confirm" type="button" class="button button-primary directorist-reject-modal__action-button directorist-reject-modal__action-button--primary">
+                            <?php esc_html_e( 'Reject listing', 'directorist' ); ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <script>
+            jQuery( function( $ ) {
+                var $modal             = $( '#atbdp-reject-modal' );
+                var $reason            = $( '#atbdp-reject-reason' );
+                var $error             = $( '#atbdp-reject-error' );
+                var $confirmButton     = $( '#atbdp-reject-confirm' );
+                var $cancelButton      = $( '#atbdp-reject-cancel' );
+                var $listingTitle      = $( '#atbdp-reject-listing-title' );
+                var $ownerWrap         = $( '#atbdp-reject-owner-wrap' );
+                var $ownerEmail        = $( '#atbdp-reject-owner-email' );
+                var $presetButtons     = $( '.directorist-reject-modal__preset' );
+                var currentId          = 0;
+                var defaultButtonText  = '<?php echo esc_js( __( 'Reject listing', 'directorist' ) ); ?>';
+                var progressButtonText = '<?php echo esc_js( __( 'Rejecting...', 'directorist' ) ); ?>';
+
+                function resetPresetSelection() {
+                    $presetButtons.removeClass( 'is-active' ).attr( 'aria-pressed', 'false' );
+                }
+
+                function syncPresetSelection() {
+                    var currentReason = $reason.val().trim();
+                    var hasMatched = false;
+
+                    $presetButtons.each( function() {
+                        var $button = $( this );
+                        var isMatch = currentReason === String( $button.data( 'preset-message' ) || '' ).trim();
+
+                        $button.toggleClass( 'is-active', isMatch );
+                        $button.attr( 'aria-pressed', isMatch ? 'true' : 'false' );
+
+                        if ( isMatch ) {
+                            hasMatched = true;
+                        }
+                    } );
+
+                    if ( ! hasMatched ) {
+                        resetPresetSelection();
+                    }
+                }
+
+                function closeModal() {
+                    $modal.fadeOut( 150, function() {
+                        $modal.attr( 'hidden', true );
+                    } );
+                }
+
+                $( document ).on( 'click', '.atbdp-reject-listing', function( e ) {
+                    var ownerEmail = String( $( this ).data( 'owner-email' ) || '' ).trim();
+
+                    e.preventDefault();
+                    currentId = parseInt( $( this ).data( 'listing-id' ), 10 ) || 0;
+                    $listingTitle.text( String( $( this ).data( 'listing-title' ) || '' ).trim() );
+                    $ownerEmail.text( ownerEmail );
+                    $ownerWrap.prop( 'hidden', ! ownerEmail );
+                    $reason.val( '' );
+                    $error.prop( 'hidden', true );
+                    resetPresetSelection();
+                    $confirmButton.prop( 'disabled', false ).text( defaultButtonText );
+                    $modal.removeAttr( 'hidden' ).hide().fadeIn( 150 );
+                } );
+
+                $cancelButton.on( 'click', function() {
+                    closeModal();
+                } );
+
+                $modal.on( 'click', function( e ) {
+                    if ( $( e.target ).is( $modal ) ) {
+                        closeModal();
+                    }
+                } );
+
+                $( document ).on( 'keydown', function( e ) {
+                    if ( 'Escape' === e.key && $modal.is( ':visible' ) ) {
+                        closeModal();
+                    }
+                } );
+
+                $presetButtons.on( 'click', function() {
+                    var message = String( $( this ).data( 'preset-message' ) || '' ).trim();
+
+                    if ( ! message ) {
+                        return;
+                    }
+
+                    $reason.val( message );
+                    $error.prop( 'hidden', true );
+                    syncPresetSelection();
+                    $reason.trigger( 'focus' );
+                } );
+
+                $reason.on( 'input', function() {
+                    syncPresetSelection();
+                } );
+
+                $confirmButton.on( 'click', function() {
+                    var reason = $reason.val().trim();
+
+                    if ( ! reason ) {
+                        $error.prop( 'hidden', false );
+                        return;
+                    }
+                    $error.prop( 'hidden', true );
+
+                    if ( ! currentId ) {
+                        return;
+                    }
+
+                    $confirmButton.prop( 'disabled', true ).text( progressButtonText );
+
+                    $.post( ajaxurl, {
+                        action     : 'atbdp_reject_listing',
+                        listing_id : currentId,
+                        reason     : reason,
+                        _wpnonce   : '<?php echo esc_js( wp_create_nonce( 'atbdp-reject-listing-nonce' ) ); ?>'
+                    } ).done( function( response ) {
+                        if ( response.success ) {
+                            window.location.reload();
+                        } else {
+                            $confirmButton.prop( 'disabled', false ).text( defaultButtonText );
+                            alert( response.data || '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'directorist' ) ); ?>' );
+                        }
+                    } ).fail( function() {
+                        $confirmButton.prop( 'disabled', false ).text( defaultButtonText );
+                        alert( '<?php echo esc_js( __( 'Something went wrong. Please try again.', 'directorist' ) ); ?>' );
+                    } );
+                } );
+            } );
+            </script>
+            <?php
+        }
+
+        private function get_rejection_reason_presets() {
+            $presets = [
+                [
+                    'label'   => __( 'Wrong category', 'directorist' ),
+                    'message' => __( 'This listing appears to be submitted in the wrong category. Please select the correct category before resubmitting.', 'directorist' ),
+                ],
+                [
+                    'label'   => __( 'Missing contact info', 'directorist' ),
+                    'message' => __( 'Please add complete contact information so visitors can reach this business before resubmitting.', 'directorist' ),
+                ],
+                [
+                    'label'   => __( 'No business address', 'directorist' ),
+                    'message' => __( 'No business address was provided. Please add a full business address before resubmitting.', 'directorist' ),
+                ],
+                [
+                    'label'   => __( 'Duplicate listing', 'directorist' ),
+                    'message' => __( 'This looks like a duplicate listing. Please remove duplicate content and resubmit only the correct listing.', 'directorist' ),
+                ],
+                [
+                    'label'   => __( 'Incomplete details', 'directorist' ),
+                    'message' => __( 'The listing information is incomplete. Please fill in the missing details before resubmitting.', 'directorist' ),
+                ],
+                [
+                    'label'   => __( 'Spam or fake', 'directorist' ),
+                    'message' => __( 'This listing could not be approved because it appears to be spam, misleading, or not a legitimate business listing.', 'directorist' ),
+                ],
+            ];
+
+            return apply_filters( 'directorist_rejection_reason_presets', $presets );
         }
 
         // customize_listing_slug
@@ -375,7 +642,20 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
             if ( get_post_status( $post ) !== 'publish' && current_user_can( 'publish_at_biz_dirs' ) ) {
                 $nonce              = wp_create_nonce( 'quick-publish-action' );
                 $link               = admin_url( "edit.php?update_id={$post->ID}&_wpnonce={$nonce}&post_type=at_biz_dir" );
-                $actions['publish'] = "<a href='$link' style='color: #4caf50; font-weight: bold'>Publish</a>";
+                $actions['publish'] = "<a href='" . esc_url( $link ) . "' style='color: #4caf50; font-weight: bold'>Publish</a>";
+            }
+
+            if ( get_post_status( $post ) === 'pending' && current_user_can( 'publish_at_biz_dirs' ) ) {
+                $owner       = get_userdata( (int) $post->post_author );
+                $owner_email = $owner ? sanitize_email( $owner->user_email ) : '';
+
+                $actions['reject'] = sprintf(
+                    '<a href="#" class="atbdp-reject-listing" data-listing-id="%1$d" data-listing-title="%2$s" data-owner-email="%3$s" style="color: #B42318; font-weight: bold;">%4$s</a>',
+                    $post->ID,
+                    esc_attr( wp_strip_all_tags( get_the_title( $post ) ) ),
+                    esc_attr( $owner_email ),
+                    esc_html__( 'Reject', 'directorist' )
+                );
             }
 
             return $actions;

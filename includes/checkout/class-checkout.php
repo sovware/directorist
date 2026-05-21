@@ -74,7 +74,7 @@ class ATBDP_Checkout {
             return __( "Order not found" );
         }
 
-        $order = $order_repository->to_dto( $order_db );
+        $order = apply_filters( 'directorist_payment_receipt_order_dto', $order_repository->to_dto( $order_db ) );
 
         $payment_repository = directorist_payment_repository();
         $payments           = $payment_repository->get( $order_id );
@@ -86,10 +86,18 @@ class ATBDP_Checkout {
 
         wp_enqueue_script( 'directorist-payment-receipt' );
 
+        $discount_amount      = directorist_compute_fixed_or_percent_amount( $order->get_coupon_discount_type(), $order->get_coupon_discount(), $order->get_sub_total() );
+        $discounted_sub_total = max( 0, $order->get_sub_total() - $discount_amount );
+        $tax_amount           = directorist_compute_fixed_or_percent_amount( $order->get_tax_type(), $order->get_tax_rate(), $discounted_sub_total );
+        $order_items          = apply_filters( 'directorist_payment_receipt_order_items', [], $order, $payment, $discount_amount, $tax_amount, $discounted_sub_total );
+
         return Template::get(
             'checkout/receipt', [
-                'order'   => $order,
-                'payment' => $payment
+                'order_items'     => $order_items,
+                'order'           => $order,
+                'payment'         => $payment,
+                'discount_amount' => $discount_amount,
+                'tax_amount'      => $tax_amount,
             ]
         );
     }
@@ -97,7 +105,6 @@ class ATBDP_Checkout {
     public function checkout() {
         // return null if user is not logged in
         if ( ! atbdp_is_user_logged_in() ) {
-            ob_end_clean();
             return null;
         }
 
@@ -130,11 +137,14 @@ class ATBDP_Checkout {
         wp_enqueue_script( 'directorist-checkout' );
         wp_enqueue_script( 'wp-api-fetch' );
 
+        $subtotal = round( apply_filters( 'directorist_checkout_subtotal', 0, $request->get_param( 'checkout_type' ), $request ) , 2 );
+
         return Template::get(
             'checkout/checkout', [
                 'checkout_type' => $request->get_param( 'checkout_type' ),
                 'request'       => $request,
-                'subtotal'      => apply_filters( 'directorist_checkout_subtotal', 0, $request->get_param( 'checkout_type' ), $request )
+                'subtotal'      => $subtotal,
+                'total'         => round( apply_filters( 'directorist_checkout_total', $subtotal, $request->get_param( 'checkout_type' ), $request ), 2 )
             ]
         );
     }

@@ -9,30 +9,23 @@ use Directorist\Helper;
 use Directorist\DTO\Order\DTO;
 use Directorist\DTO\Payment\DTO as PaymentDTO;
 use Directorist\Enums\Order\Status as OrderStatus;
+use Directorist\Enums\Order\TaxType as OrderTaxType;
+use Directorist\Enums\Order\DiscountType as OrderDiscountType;
 
 /**
+ * @var array $order_items
  * @var DTO $order
  * @var ?PaymentDTO $payment
+ * @var float $discount_amount
+ * @var float $tax_amount
  */
-$order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $order, $payment );
-
 ?>
-
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-8 directorist-offset-md-2">
                 <div class="directorist-payment-receipt">
                     <p class="directorist-payment-thanks-text"><?php esc_html_e( 'Thank you for your order!', 'directorist' ); ?></p>
-                    <?php
-                    // show the user instruction for banking gateway
-                    // if ( isset( $o_metas['_payment_gateway'] ) && 'bank_transfer' == $o_metas['_payment_gateway'][0] && 'created' == $o_metas['_payment_status'][0] ) {
-                    //     $ins = get_directorist_option( 'bank_transfer_instruction' );
-                    //     $output = ! empty( $ins ) ? '<p class="directorist-payment-instructions">' . ATBDP()->email->replace_in_content( $ins, @$order_id, @$o_metas['_listing_id'][0] ) . '</p>' : '';
-                    //     echo wp_kses_post( $output );
-                    // }
-                    ?>
-
                     <div class="directorist-payment-table directorist-table-responsive directorist-mb-30">
                         <table class="directorist-table">
                             <thead>
@@ -72,68 +65,82 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                 </tr>
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Amount', 'directorist' ); ?></td>
-                                    <td>
-                                    <?php
-                                    echo wp_kses_post( directorist_price( $order->get_sub_total() ) );
-                                    ?>
-                                    </td>
+                                    <td><?php echo wp_kses_post( directorist_price( $order->get_sub_total() ) ); ?></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-            
-                        <div class="directorist-payment-table directorist-table-responsive directorist-payment-summery-table">
-                            <table class="directorist-table">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2"><?php esc_html_e( 'Item summary', 'directorist' ); ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                if ( ! empty( $order_items ) ) { 
-                                    foreach ( $order_items as $order_item ) {  ?>
-                                    <tr>
-                                        <td>
-                                            <?php
-                                            if ( ! empty( $order_item['title'] ) ) {
-                                                printf( '<h5 class="directorist-payment-table__title">%s</h5>', esc_html( $order_item['title'] ) );
-                                            }
 
-                                            if ( ! empty( $order_item['desc'] ) ) { ?>
-                                            <p> <?php echo esc_html( $order_item['desc'] ); ?> </p> 
-                                            <?php } ?>
-                                        </td>
-                                        <td>
-                                                <?php echo wp_kses_post( directorist_price( $order_item['price'] ) );
-                                                ?>
-                                        </td>
-                                    </tr>
-                                    <?php } }
-                                if ( ! empty( $order->get_coupon_discount() ) ) { ?>
+                    <div class="directorist-payment-table directorist-table-responsive directorist-payment-summery-table">
+                        <table class="directorist-table">
+                            <thead>
                                 <tr>
-                                    <td class="directorist-payment-table__title"><?php esc_html_e( 'Discount', 'directorist' ); ?></td>
-                                    <td>
-                                        <?php
-                                        if ( $order->get_coupon_discount_type() == 'percentage' ) {
-                                            echo '- ' . esc_html( $order->get_coupon_discount() ) . '%';
-                                        } else {
-                                            echo '- ' . esc_html( wp_kses_post( directorist_price( $order->get_coupon_discount() ) ) );
-                                        }
-                                        ?>
-                                    </td>
+                                    <th colspan="2"><?php esc_html_e( 'Item summary', 'directorist' ); ?></th>
                                 </tr>
-                            <?php } ?>
-                                <tr class="directorsit-payment-table-total">
-                                    <td class="directorist-payment-table__title"><?php esc_html_e( 'Total amount', 'directorist' ); ?></td>
-                                    <td>
-                                        <?php echo wp_kses_post( directorist_price( $order->get_sub_total() ) ); ?>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            </thead>
+                            <tbody>
+
+                            <?php if ( ! empty( $order_items ) ): ?>
+                            <?php foreach ( $order_items as $order_item ): ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    if ( ! empty( $order_item['title'] ) ) {
+                                        printf( '<h5 class="directorist-payment-table__title">%s</h5>', esc_html( $order_item['title'] ) );
+                                    }
+
+                                    if ( ! empty( $order_item['desc'] ) ) { ?>
+                                    <p> <?php echo esc_html( $order_item['desc'] ); ?> </p> 
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php echo wp_kses_post( directorist_price( $order_item['price'] ) ); ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+
+                            <?php if ( ! empty( $order->get_coupon_discount() ) ): ?>
+                            <tr>
+                                <td class="directorist-payment-table__title">
+                                    <?php echo $order->get_coupon_discount_type() === OrderDiscountType::PERCENT ? sprintf( esc_html__('Discount ( %d%% )', 'directorist' ), $order->get_coupon_discount() ) : esc_html__( 'Discount', 'directorist' ); ?>
+                                </td>
+                                <td>
+                                    <?php echo '-' . wp_kses_post( directorist_price( $discount_amount ) ); ?>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+
+                            <?php if ( ! empty( $order->get_tax_rate() ) ): ?>
+                            <tr>
+                                <td class="directorist-payment-table__title">
+                                    <?php echo $order->get_tax_type() === OrderTaxType::PERCENT ? sprintf( esc_html__( 'Tax ( %d%% )', 'directorist' ), $order->get_coupon_discount() ) : esc_html__( 'Tax', 'directorist' ); ?>
+                                </td>
+                                <td>
+                                    <?php echo wp_kses_post( directorist_price( $tax_amount ) ) ?>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+
+                            <tr class="directorsit-payment-table-total">
+                                <td class="directorist-payment-table__title"><?php esc_html_e( 'Total amount', 'directorist' ); ?></td>
+                                <td>
+                                    <?php 
+                                        echo wp_kses_post( directorist_price( directorist_compute_order_total_amount(
+                                            $order->get_sub_total(), 
+                                            $order->get_tax_rate(), 
+                                            $order->get_tax_type(), 
+                                            $order->get_coupon_discount(), 
+                                            $order->get_coupon_discount_type()
+                                        ) ) );
+                                    ?>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
                 <?php
                 $url  = apply_filters( 'atbdp_payment_receipt_button_link', ATBDP_Permalink::get_dashboard_page_link(), $order->get_id() );
                 $text = apply_filters( 'atbdp_payment_receipt_button_text', __( 'View your listings', 'directorist' ), $order->get_id() );

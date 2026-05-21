@@ -265,9 +265,7 @@ class Directorist_Listing_Form {
 
         $plan_slider = false;
 
-        if ( is_fee_manager_active() ) {
-            $plan_slider = is_plan_allowed_slider( $fm_plan );
-        } elseif ( empty( $display_glr_img_for ) && ! empty( $display_gallery_field ) ) {
+        if ( empty( $display_glr_img_for ) && ! empty( $display_gallery_field ) ) {
             $plan_slider = true;
         }
 
@@ -919,7 +917,7 @@ class Directorist_Listing_Form {
     }
 
     public function is_custom_field( $data ) {
-        $fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+        $fields = [ 'html', 'button', 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
         return in_array( $data['widget_name'], $fields ) ? true : false;
     }
 
@@ -964,7 +962,11 @@ class Directorist_Listing_Form {
 
         if ( ! empty( $maybe_directory_id ) && ! is_numeric( $maybe_directory_id ) ) {
             $term = get_term_by( 'slug', $maybe_directory_id, ATBDP_TYPE );
-            $maybe_directory_id = $term->term_id;
+            if ( $term && ! is_wp_error( $term ) ) {
+                $maybe_directory_id = $term->term_id;
+            } else {
+                $maybe_directory_id = 0;
+            }
         }
 
         $this->current_listing_type = (int) $maybe_directory_id;
@@ -986,10 +988,8 @@ class Directorist_Listing_Form {
             return $form_data;
         }
 
-        // $submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
-
-        $form_fields = directorist_get_listing_form_fields( $directory_id );
-        $field_groups = directorist_get_listing_form_groups( $directory_id );
+        $form_fields  = directorist_get_listing_form_fields( $directory_id, [ 'type' => 'listing_submission_form' ] );
+        $field_groups = directorist_get_listing_form_groups( $directory_id, [ 'type' => 'listing_submission_form' ] );
 
         foreach ( $field_groups as $group ) {
             $section           = $group;

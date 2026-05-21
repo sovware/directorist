@@ -29,15 +29,20 @@ use \Directorist\Helper;
                         <div class="directorist-card__body">
                             <div class="directorist-table-responsive">
                                 <table id="directorist-checkout-table" class="directorist-table">
-                                    <?php do_action( 'directorist_checkout_table', $checkout_type, $subtotal, $request ); ?>
-                                    <tr class="directorist-summery-total">
-                                        <td colspan="2" class="">
-                                            <span class="directorist-summery-label"><?php printf( esc_html__( 'Total amount', 'directorist' ) ); ?></h4>
+                                    <?php do_action( 'directorist_checkout_table', $checkout_type, $total, $subtotal, $request ); ?>
+                                    <tr class="directorist-summery-total directorist-row--order-total" data-order-total="<?php echo esc_attr( $total ) ?>">
+                                        <td colspan="2">
+                                            <span class="directorist-summery-label directorist-row-label--order-total">
+                                                <?php printf( esc_html__( 'Total amount', 'directorist' ) ); ?>
+                                            </span>
                                         </td>
                                         <td class="directorist-text-right">
-                                            <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo wp_kses_post( directorist_price( $subtotal ) ) ?></div>
+                                            <div id="atbdp_checkout_total_amount" class="directorist-summery-amount directorist-row-value--order-total">
+                                                <?php echo wp_kses_post( directorist_price( $total ) ) ?>
+                                            </div>
                                         </td>
                                     </tr>
+                                    <?php do_action( 'directorist_checkout_table_after_total', $checkout_type, $total, $subtotal, $request ); ?>
                                 </table> <!--ends table-->
                             </div>
                         </div>
@@ -55,17 +60,16 @@ use \Directorist\Helper;
                             <?php echo directorist_kses( ATBDP_Gateway::gateways_markup( apply_filters( 'directorist_checkout_active_gateways', ATBDP_Gateway::get_active_gateways(), $checkout_type, $request ) ), 'all' ); ?>
                         </div>
                     </div>
-                    <?php endif; 
-                    
-                    
+                    <?php endif;
                     $submit_button_label = ( $subtotal < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );
                     $submit_button_label = apply_filters( 'directorist_checkout_submit_button_label', $submit_button_label, $checkout_type, $subtotal, $request );
+                    $dashboard_page_link = \ATBDP_Permalink::get_dashboard_page_link();
                     ?>
 
                     <p id="atbdp_checkout_errors" class="text-danger"></p>
 
                     <div class="directorist-payment-action directorist-flex directorist-justify-content-between" id="atbdp_pay_notpay_btn">
-                        <a href="" class="directorist-btn directorist-btn-lg directorist-btn-light atbdp_not_now_button"><?php esc_html_e( 'Not Now', 'directorist' ); ?></a>
+                        <a href="<?php echo $dashboard_page_link; ?>" class="directorist-btn directorist-btn-lg directorist-btn-light atbdp_not_now_button"><?php esc_html_e( 'Not Now', 'directorist' ); ?></a>
                         <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-lg directorist-btn-payment-submit" data-loading-text="<?php esc_html_e( 'Processing...', 'directorist' ); ?>">
                             <span class="directorist-btn-text"><?php echo esc_html( $submit_button_label ); ?></span>
                             <span class="directorist-btn-spinner" style="display: none;">

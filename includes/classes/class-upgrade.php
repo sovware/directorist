@@ -6,13 +6,28 @@ use Directorist\Multi_Directory\Multi_Directory_Manager;
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
-    public $upgrade_notice_id       = 'migrate_to_7';
+    public $upgrade_notice_id = 'migrate_to_7';
 
-    public $legacy_notice_id        = 'directorist_legacy_template';
+    public $legacy_notice_id = 'directorist_legacy_template';
 
-    public $directorist_notices     = [];
+    public $directorist_notices = [];
 
-    public $directorist_migration   = [];
+    public $directorist_migration = [];
+
+    public $deprecated_extensions = [
+        'directorist-pricing-plans/directorist-pricing-plans.php' => '4.0.0',
+        'directorist-stripe/directorist-stripe.php'               => '3.0.0',
+        'directorist-paypal/directorist-paypal.php'               => '3.0.0',
+        'directorist-authorize-net/directorist-authorize-net.php' => '3.0.0',
+        'directorist-coupon/directorist-coupon.php'               => '3.0.0',
+        'directorist-booking/directorist-booking.php'             => '4.0.0',
+        'directorist-claim-listing/directorist-claim-listing.php' => '2.5.2',
+        'directorist-mark-as-sold/directorist-mark-as-sold.php'   => '2.3.0',
+        'directorist-business-hours/bd-business-hour.php'         => '3.7.2',
+        'directorist-job-manager/directorist-job-manager.php'     => '2.3.0',
+        'directorist-faqs/directorist-faqs.php'                   => '2.2.2',
+        'directorist-live-chat/directorist-live-chat.php'         => '2.4.2',
+    ];
 
     public function __construct() {
         if ( ! is_admin() ) return;
@@ -28,6 +43,8 @@ class ATBDP_Upgrade
         add_action( 'directorist_before_all_directory_types', [$this, 'promo_banner'] );
 
         add_action( 'admin_notices', [ $this, 'bfcm_notice'] );
+
+        add_action( 'admin_notices', [ $this, 'deprecated_extension_upgrade_notice' ], 100 );
 
         add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
 
@@ -649,6 +666,222 @@ class ATBDP_Upgrade
 
     protected static function can_manage_plugins() {
         return ( current_user_can( 'install_plugins' ) || current_user_can( 'manage_options' ) );
+    }
+
+    public function deprecated_extension_upgrade_notice() {
+        if ( ! self::can_manage_plugins() ) {
+            return;
+        }
+
+        $outdated_extensions = $this->get_deprecated_extensions();
+
+        if ( empty( $outdated_extensions ) ) {
+            return;
+        }
+
+        $is_multiple = count( $outdated_extensions ) > 1;
+        $title       = $is_multiple ? __( 'Deprecated Directorist extensions require upgrades', 'directorist' ) : __( 'Deprecated Directorist extension requires an upgrade', 'directorist' );
+        $description = $is_multiple
+            ? __( 'Directorist detected deprecated extensions that are not compatible with this version. Upgrade them to the minimum compatible versions listed below.', 'directorist' )
+            : __( 'Directorist detected a deprecated extension that is not compatible with this version. Upgrade it to the minimum compatible version listed below.', 'directorist' );
+        $toggle_id   = wp_unique_id( 'directorist-deprecated-extensions-' );
+        $content_id  = $toggle_id . '-content';
+
+        ?>
+        <div class="notice notice-warning directorist-deprecated-extension-notice">
+            <style>
+                .directorist-deprecated-extension-toggle {
+                    margin: 0;
+                }
+
+                .directorist-deprecated-extension-actions {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    align-items: center;
+                    margin: 0;
+                }
+
+                .directorist-deprecated-extension-table-wrap {
+                    max-height: 0;
+                    margin-top: 0;
+                    overflow: hidden;
+                    opacity: 0;
+                    transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+                }
+
+                .directorist-deprecated-extension-table-wrap.is-open {
+                    margin-top: 12px;
+                    opacity: 1;
+                }
+            </style>
+            <p><strong><?php echo esc_html( $title ); ?></strong></p>
+            <p><?php echo esc_html( $description ); ?></p>
+            <p class="directorist-deprecated-extension-actions">
+                <button
+                    type="button"
+                    class="button button-secondary directorist-deprecated-extension-toggle"
+                    data-directorist-toggle-target="<?php echo esc_attr( $content_id ); ?>"
+                    aria-expanded="false"
+                    aria-controls="<?php echo esc_attr( $content_id ); ?>"
+                >
+                    <?php esc_html_e( 'Show deprecated extensions', 'directorist' ); ?>
+                </button>
+                <?php if ( ! $this->is_plugins_screen() ) : ?>
+                    <a class="button button-primary" href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">
+                        <?php esc_html_e( 'Manage Plugins', 'directorist' ); ?>
+                    </a>
+                <?php endif; ?>
+            </p>
+            <div
+                id="<?php echo esc_attr( $content_id ); ?>"
+                class="directorist-deprecated-extension-table-wrap"
+                hidden
+            >
+                <table class="widefat striped" style="width: 100%; margin: 0 0 12px 0;">
+                    <thead>
+                        <tr>
+                            <th scope="col"><?php esc_html_e( 'Extension', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Installed Version', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Required Version', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ( $outdated_extensions as $extension ) : ?>
+                            <tr>
+                                <td><strong><?php echo esc_html( $extension['name'] ); ?></strong></td>
+                                <td><?php echo esc_html( $extension['current_version'] ); ?></td>
+                                <td>
+                                    <?php
+                                    printf(
+                                        /* translators: %s: minimum compatible extension version. */
+                                        esc_html__( '%s or later', 'directorist' ),
+                                        esc_html( $extension['required_version'] )
+                                    );
+                                    ?>
+                                </td>
+                                <td><?php echo esc_html( $extension['status'] ); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                ( function() {
+                    const toggleButton = document.querySelector( '[data-directorist-toggle-target="<?php echo esc_js( $content_id ); ?>"]' );
+
+                    if ( ! toggleButton ) {
+                        return;
+                    }
+
+                    const tableWrap = document.getElementById( toggleButton.getAttribute( 'data-directorist-toggle-target' ) );
+
+                    if ( ! tableWrap ) {
+                        return;
+                    }
+
+                    const openLabel = '<?php echo esc_js( __( 'Show deprecated extensions', 'directorist' ) ); ?>';
+                    const closeLabel = '<?php echo esc_js( __( 'Hide deprecated extensions', 'directorist' ) ); ?>';
+
+                    toggleButton.addEventListener( 'click', function() {
+                        const isOpen = 'true' === toggleButton.getAttribute( 'aria-expanded' );
+
+                        if ( isOpen ) {
+                            tableWrap.style.maxHeight = tableWrap.scrollHeight + 'px';
+
+                            window.requestAnimationFrame( function() {
+                                tableWrap.classList.remove( 'is-open' );
+                                tableWrap.style.maxHeight = '0px';
+                            } );
+
+                            toggleButton.setAttribute( 'aria-expanded', 'false' );
+                            toggleButton.textContent = openLabel;
+
+                            window.setTimeout( function() {
+                                if ( 'false' === toggleButton.getAttribute( 'aria-expanded' ) ) {
+                                    tableWrap.hidden = true;
+                                    tableWrap.style.maxHeight = '';
+                                }
+                            }, 300 );
+
+                            return;
+                        }
+
+                        tableWrap.hidden = false;
+                        tableWrap.style.maxHeight = '0px';
+
+                        window.requestAnimationFrame( function() {
+                            tableWrap.classList.add( 'is-open' );
+                            tableWrap.style.maxHeight = tableWrap.scrollHeight + 'px';
+                        } );
+
+                        toggleButton.setAttribute( 'aria-expanded', 'true' );
+                        toggleButton.textContent = closeLabel;
+                    } );
+                }() );
+            </script>
+        </div>
+        <?php
+    }
+
+    public function get_deprecated_extensions() {
+        if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'is_plugin_active' ) ) {
+            include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $plugins_data        = get_plugins();
+        $outdated_extensions = [];
+
+        foreach ( $this->deprecated_extensions as $plugin_file => $required_version ) {
+            if ( empty( $plugins_data[ $plugin_file ] ) ) {
+                continue;
+            }
+
+            $plugin_data     = $plugins_data[ $plugin_file ];
+            $current_version = isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : '';
+
+            if ( empty( $current_version ) || ! version_compare( $current_version, $required_version, '<' ) ) {
+                continue;
+            }
+
+            $outdated_extensions[ $plugin_file ] = [
+                'name'             => ! empty( $plugin_data['Name'] ) ? $plugin_data['Name'] : $plugin_file,
+                'current_version'  => $current_version,
+                'required_version' => $required_version,
+                'status'           => $this->get_plugin_status_label( $plugin_file ),
+            ];
+        }
+
+        return apply_filters( 'directorist_deprecated_extensions', $outdated_extensions, $plugins_data, $this->deprecated_extensions );
+    }
+
+    private function get_plugin_status_label( $plugin_file ) {
+        if ( is_plugin_active( $plugin_file ) ) {
+            return __( 'Active', 'directorist' );
+        }
+
+        if ( function_exists( 'is_plugin_active_for_network' ) && is_plugin_active_for_network( $plugin_file ) ) {
+            return __( 'Network active', 'directorist' );
+        }
+
+        return __( 'Installed', 'directorist' );
+    }
+
+    private function is_plugins_screen() {
+        global $pagenow;
+
+        if ( 'plugins.php' === $pagenow ) {
+            return true;
+        }
+
+        if ( ! function_exists( 'get_current_screen' ) ) {
+            return false;
+        }
+
+        $screen = get_current_screen();
+
+        return ! empty( $screen->base ) && 'plugins' === $screen->base;
     }
 
     public function bfcm_notice() {

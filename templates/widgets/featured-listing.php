@@ -57,7 +57,7 @@ $default_icon = 'las la-tags';
                 <div class="directorist-widget-listing__single">
                     <div class="directorist-widget-listing__image">
                         <?php
-                        $default_image = get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
+                        $default_image = \Directorist\Helper::default_preview_image_src( directorist_get_listing_directory( get_the_ID() ) );
                         if ( ! empty( $listing_prv_img ) ) {
                             echo '<a href="' . esc_url( get_the_permalink() ) . '"><img src="' . esc_url( wp_get_attachment_image_url( $listing_prv_img, [90, 90] ) ) . '" alt="listing image"></a>';
                         } elseif ( ! empty( $listing_img[0] ) && empty( $listing_prv_img ) ) {

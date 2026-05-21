@@ -1,6 +1,5 @@
 <?php
 use Directorist\Helper;
-use Directorist\database\DB;
 
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
@@ -306,20 +305,7 @@ if ( ! function_exists( 'atbdp_get_listing_status_after_submission' ) ) :
             ], $args
         );
 
-        $listing_id            = $args['id'];
-        $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
-        $monetization_enabled  = directorist_is_monetization_enabled();
-        $featured_enabled      = directorist_is_featured_listing_enabled();
-        $pricing_plans_enabled = is_fee_manager_active();
-
-        // Determine post status based on monetization settings and plans
-        if ( $monetization_enabled ) {
-            if ( $pricing_plans_enabled ) {
-                return directorist_get_pricing_plan_status( $listing_id, $listing_status );
-            } elseif ( $featured_enabled ) {
-                return directorist_get_featured_listing_status( $listing_id, $listing_status );
-            }
-        }
+        $listing_status = $args['edited'] ? $args['edit_status'] : $args['create_status'];
 
         return $listing_status;
     }
@@ -3638,11 +3624,12 @@ function directorist_get_listing_views_count_meta_key() {
  */
 function directorist_get_listing_statuses() {
     return [
-        'draft'   => __( 'Draft', 'directorist' ),
-        'pending' => __( 'In Review', 'directorist' ),
-        'private' => __( 'Private', 'directorist' ),
-        'publish' => __( 'Published', 'directorist' ),
-        'expired' => __( 'Expired', 'directorist' ),
+        'draft'    => __( 'Draft', 'directorist' ),
+        'pending'  => __( 'In Review', 'directorist' ),
+        'private'  => __( 'Private', 'directorist' ),
+        'publish'  => __( 'Published', 'directorist' ),
+        'expired'  => __( 'Expired', 'directorist' ),
+        'rejected' => __( 'Rejected', 'directorist' ),
     ];
 }
 
@@ -4992,22 +4979,42 @@ function directorist_get_tag_base() {
 }
 
 function directorist_submission_form_fields_raw( int $directory_type_id ): array {
-    return get_term_meta( $directory_type_id, 'submission_form_fields', true );
+    $submission_form_fields = get_term_meta( $directory_type_id, 'submission_form_fields', true );
+
+    if ( empty( $submission_form_fields ) ) {
+        $submission_form_fields = [];
+    }
+
+    return $submission_form_fields;
 }
 
-function directorist_submission_form_fields( int $directory_type_id, array $data = [] ): array {
-    $data['directory_type_id'] = $directory_type_id;
-    return apply_filters( 'directorist_submission_form_fields', directorist_submission_form_fields_raw( $directory_type_id ), $data );
+function directorist_submission_form_fields( int $directory_type_id, array $context = [] ): array {
+    $context['directory_type_id'] = $directory_type_id;
+    return apply_filters( 'directorist_submission_form_fields', directorist_submission_form_fields_raw( $directory_type_id ), $context );
 }
 
 function directorist_single_listing_header( int $directory_type_id, array $data = [] ): array {
     $data['directory_type_id'] = $directory_type_id;
-    return apply_filters( 'directorist_single_listing_header', get_term_meta( $directory_type_id, 'single_listing_header', true ), $data );
+
+    $single_listing_header = get_term_meta( $directory_type_id, 'single_listing_header', true );
+
+    if ( empty( $single_listing_header ) ) {
+        $single_listing_header = [];
+    }
+
+    return apply_filters( 'directorist_single_listing_header', $single_listing_header, $data );
 }
 
 function directorist_single_listings_contents( int $directory_type_id, array $data = [] ): array {
     $data['directory_type_id'] = $directory_type_id;
-    return apply_filters( 'directorist_single_listings_contents', get_term_meta( $directory_type_id, 'single_listings_contents', true ), $data );
+
+    $single_listings_contents = get_term_meta( $directory_type_id, 'single_listings_contents', true );
+
+    if ( empty( $single_listings_contents ) ) {
+        $single_listings_contents = [];
+    }
+
+    return apply_filters( 'directorist_single_listings_contents', $single_listings_contents, $data );
 }
 
 function directorist_listing_archive_fields( int $directory_type_id, array $data = [] ): array {

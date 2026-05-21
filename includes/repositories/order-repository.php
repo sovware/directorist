@@ -2,6 +2,7 @@
 
 namespace Directorist\Repositories;
 
+
 defined( "ABSPATH" ) || exit;
 
 use Directorist\Utils\Exception;
@@ -9,6 +10,9 @@ use Directorist\Utils\Repositories\Repository;
 use Directorist\Utils\Database\Query\Builder;
 use Directorist\Helpers\DateTime;
 use Directorist\DTO\Order\DTO;
+use Directorist\Enums\Order\Status as OrderStatus;
+use Directorist\Enums\Order\TaxType as OrderTaxType;
+use Directorist\Enums\Order\DiscountType as OrderDiscountType;
 use Directorist\DTO\Order\Read;
 use Directorist\DBModels\Post;
 use Directorist\DBModels\Order;
@@ -74,6 +78,16 @@ class OrderRepository extends Repository {
         ];
     }
 
+    public function listing_has_paid_featured_order( int $listing_id ): bool {
+        $order = $this->get_query_builder()->select( 'd_order.id' )
+            ->where( 'd_order.ref_type', 'featured_listing' )
+            ->where( 'd_order.listing_id', $listing_id )
+            ->where( 'd_order.status', OrderStatus::PAID )
+            ->first();
+
+        return $order ? true : false;
+    }
+
     protected function get_orders( Builder $query, Read $dto ) {
         $query = apply_filters( 'directorist_order_list_query', $query, $dto );
 
@@ -92,11 +106,8 @@ class OrderRepository extends Repository {
                     $order->transaction_id  = $order->payment->transaction_id ?? null;
                 }
 
-                $order->total_amount = $order->sub_total;
+                $order->total_amount = directorist_order_total_amount( $order );
 
-                if ( ! empty( $order->tax_type ) ) {
-                    $order->total_amount += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
-                }
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
@@ -206,11 +217,29 @@ class OrderRepository extends Repository {
             $order->transaction_id = null;
         }
 
-        $order->total_amount = $order->sub_total;
+        $sub_total = (float) $order->sub_total;
 
-        if ( ! empty( $order->tax_type ) ) {
-            $order->total_amount += directorist_calculate_tax_amount( $order->tax_type, $order->tax_rate, $order->sub_total );
+        $order->discount_label  = null;
+        $order->discount_amount = null;
+
+        if ( ! empty( $order->coupon_discount ) && ! empty( $order->coupon_discount_type ) ) {
+            $discount_amount = directorist_compute_fixed_or_percent_amount( $order->coupon_discount_type, $order->coupon_discount, $sub_total );
+            $sub_total       = max( 0, $sub_total - $discount_amount );
+
+            $order->discount_amount = $discount_amount > 0 ? $discount_amount : null;
+            $order->discount_label  = OrderDiscountType::PERCENT === $order->coupon_discount_type ? sprintf( esc_html__( 'Discount ( %s%% )', 'directorist' ), $order->coupon_discount ) : esc_html__( 'Discount', 'directorist' );
         }
+
+        $order->tax_label  = null;
+        $order->tax_amount = null;
+        $tax_amount        = directorist_compute_fixed_or_percent_amount( $order->tax_type, $order->tax_rate, $sub_total );
+        
+        if ( $tax_amount > 0 ) {
+            $order->tax_amount = $tax_amount;
+            $order->tax_label  = OrderTaxType::PERCENT === $order->tax_type ? sprintf( esc_html__( 'Tax ( %s%% )', 'directorist' ), $order->coupon_discount ) : esc_html__( 'Tax', 'directorist' );
+        }
+        
+        $order->total_amount = directorist_order_total_amount( $order );
 
         return apply_filters( 'directorist_order_data', $order );
     }
@@ -224,7 +253,6 @@ class OrderRepository extends Repository {
             ->set_subscription_id( $order->subscription_id )
             ->set_user_id( $order->user_id )
             ->set_listing_id( $order->listing_id )
-            ->set_plan_id( $order->plan_id )
             ->set_is_featured_listing( $order->is_featured_listing )
             ->set_ref( $order->ref ?? null )
             ->set_ref_type( $order->ref_type ?? null )

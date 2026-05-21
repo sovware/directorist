@@ -1062,7 +1062,7 @@ class Directorist_Listing_Search_Form {
 
         $taxonomy = get_term( $id );
 
-        if ( is_wp_error( $taxonomy ) ) {
+        if ( is_wp_error( $taxonomy ) || ! is_object( $taxonomy ) ) {
             return $item;
         }
 

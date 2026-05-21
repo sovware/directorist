@@ -238,6 +238,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-ai-search' => [
+                    'name'        => 'Directorist AI Search',
+                    'description' => __( 'AI-powered directory search that understands intent and improves listing discovery.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-ai-search/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/AI-Search-Preview.jpg',
+                    'active'      => true,
+                    'item_id'     => 370908,
+                ],
                 'directorist-listing-importer' => [
                     'name'        => 'Directorist Listing Importer',
                     'description' => __( 'Import Google Maps and feeds into Directorist automatically, effortlessly.', 'directorist' ),

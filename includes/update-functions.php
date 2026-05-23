@@ -407,7 +407,6 @@ function directorist_880_migrate_legacy_orders() {
                 'subscription_id'    => null,
                 'user_id'            => (int) $post->post_author,
                 'listing_id'         => $listing_id ?: null,
-                'plan_id'            => null,
                 'is_featured_listing'=> $is_featured ? 1 : 0,
                 'ref'                => null,
                 'ref_type'           => $is_featured ? 'featured_listing' : null,
@@ -429,7 +428,6 @@ function directorist_880_migrate_legacy_orders() {
                 '%s', // subscription_id (null handled by wpdb)
                 '%d', // user_id
                 '%d', // listing_id
-                '%s', // plan_id
                 '%d', // is_featured_listing
                 '%s', // ref
                 '%s', // ref_type

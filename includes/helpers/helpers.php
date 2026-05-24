@@ -78,11 +78,11 @@ function directorist_get_order_by_id( $order_id ) {
     return $order_repository->get_by_id( $order_id );
 }
 
-function directorist_calculate_tax_amount( ?string $tax_type = null, ?float $tax_rate = null, float $sub_total ): float {
+function directorist_calculate_tax_amount( ?string $tax_type = null, ?float $tax_rate = null, float $sub_total = 0 ): float {
     return directorist_compute_fixed_or_percent_amount( $tax_type, $tax_rate, $sub_total );
 }
 
-function directorist_compute_fixed_or_percent_amount( ?string $type = null, ?float $rate = null, float $amount ): float {
+function directorist_compute_fixed_or_percent_amount( ?string $type = null, ?float $rate = null, float $amount = 0 ): float {
     if ( ! $type || ! $rate ) {
         return 0;
     }

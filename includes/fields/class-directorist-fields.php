@@ -110,7 +110,7 @@ class Fields {
             'dhotels-number'              => 'number',
             'dhotels-area'                => 'number',
             'dlawyers_age'                => 'number',
-            'dlawyers_gender'             => 'number',
+            'dlawyers_gender'             => 'radio',
             'drealestate-number'          => 'number',
             'drealestate-area'            => 'number',
             'dclassified-bullet-list'      => 'textarea',

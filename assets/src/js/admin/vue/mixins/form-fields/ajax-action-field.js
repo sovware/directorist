@@ -91,6 +91,25 @@ export default {
 			let form_data = new FormData();
 			form_data.append('action', action);
 
+			let nonce =
+				this.nonce &&
+				typeof this.nonce === 'object' &&
+				this.nonce.key &&
+				this.nonce.value
+					? this.nonce
+					: {
+							key: 'directorist_nonce',
+							value:
+								typeof directorist_admin !== 'undefined' &&
+								directorist_admin.directorist_nonce
+									? directorist_admin.directorist_nonce
+									: '',
+					  };
+
+			if (nonce.value) {
+				form_data.append(nonce.key, nonce.value);
+			}
+
 			// Append if has option field
 			if (
 				this.local_value &&

@@ -35047,23 +35047,14 @@ function Refund(_ref3) {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Pending', 'directorist'),
         value: 'pending'
       }, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Processing', 'directorist'),
+        value: 'processing'
+      }, {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Paid', 'directorist'),
         value: 'paid'
       }, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Failed', 'directorist'),
-        value: 'failed'
-      }, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cancelled', 'directorist'),
-        value: 'cancelled'
-      }, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Refunded', 'directorist'),
-        value: 'refunded'
-      }, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Unpaid', 'directorist'),
-        value: 'unpaid'
-      }, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Expired', 'directorist'),
-        value: 'expired'
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Rejected', 'directorist'),
+        value: 'rejected'
       }],
       isMulti: false,
       menuPosition: 'fixed'

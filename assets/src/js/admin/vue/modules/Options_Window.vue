@@ -18,7 +18,7 @@
     <div class="cptm-option-card-body">
       <template v-if="local_fields">
         <component
-          v-for="(field, field_key) in local_fields"
+          v-for="(field, field_key) in visibleFields"
           :is="field.type + '-field'"
           v-bind="field"
           :key="fieldKeys[field_key]"
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "options-window",
 
@@ -91,6 +93,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      builderFields: "fields",
+    }),
+
     mainWrapperClass() {
       return {
         active: this.active,
@@ -100,14 +106,29 @@ export default {
 
     // Generate unique keys for components to ensure proper re-rendering
     fieldKeys() {
-      if (!this.local_fields) return {};
+      if (!this.visibleFields) return {};
       const keys = {};
-      Object.keys(this.local_fields).forEach((key) => {
-        const field = this.local_fields[key];
+      Object.keys(this.visibleFields).forEach((key) => {
+        const field = this.visibleFields[key];
         // Use a stable key based on field properties, excluding dynamic values
         keys[key] = `${key}-${field.id || field.type || key}`;
       });
       return keys;
+    },
+
+    visibleFields() {
+      if (!this.local_fields) {
+        return {};
+      }
+
+      return Object.keys(this.local_fields).reduce((fields, fieldKey) => {
+        if (!this.canShowField(fieldKey)) {
+          return fields;
+        }
+
+        fields[fieldKey] = this.local_fields[fieldKey];
+        return fields;
+      }, {});
     },
   },
 
@@ -156,6 +177,24 @@ export default {
         widgetKey: this.widget,
         updatedWidget: updatedWidget,
       });
+    },
+
+    canShowField(fieldKey) {
+      if (!["show_tagline", "enable_tagline"].includes(fieldKey)) {
+        return true;
+      }
+
+      return this.hasSubmissionFormField("tagline");
+    },
+
+    hasSubmissionFormField(fieldKey) {
+      const submissionFormFields = this.builderFields?.submission_form_fields;
+      const activeFields =
+        submissionFormFields?.value?.fields ||
+        submissionFormFields?.fields ||
+        {};
+
+      return Object.prototype.hasOwnProperty.call(activeFields, fieldKey);
     },
   },
 };

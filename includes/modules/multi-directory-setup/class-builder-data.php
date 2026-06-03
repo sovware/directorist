@@ -1186,9 +1186,15 @@ class Builder_Data {
                         'title'  => __( 'Listing Title Settings', 'directorist' ),
                         'fields' => [
                             'show_tagline' => [
-                                'type'  => 'toggle',
-                                'label' => __( 'Tagline', 'directorist' ),
-                                'value' => false,
+                                'type'    => 'toggle',
+                                'label'   => __( 'Tagline', 'directorist' ),
+                                'value'   => false,
+                                'show_if' => [
+                                    'where'      => 'submission_form_fields.value.fields',
+                                    'conditions' => [
+                                        ['key' => 'tagline.widget_name', 'compare' => '=', 'value' => 'tagline'],
+                                    ],
+                                ],
                             ],
                         ],
                     ],

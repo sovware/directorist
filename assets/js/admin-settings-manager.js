@@ -9899,9 +9899,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/.pnpm/vuex@3.6.2_vue@2.7.16/node_modules/vuex/dist/vuex.esm.js");
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "options-window",
   model: {
@@ -9958,7 +9960,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     }
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
+    builderFields: "fields"
+  })), {}, {
     mainWrapperClass: function mainWrapperClass() {
       return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
         active: this.active
@@ -9967,16 +9971,29 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Generate unique keys for components to ensure proper re-rendering
     fieldKeys: function fieldKeys() {
       var _this = this;
-      if (!this.local_fields) return {};
+      if (!this.visibleFields) return {};
       var keys = {};
-      Object.keys(this.local_fields).forEach(function (key) {
-        var field = _this.local_fields[key];
+      Object.keys(this.visibleFields).forEach(function (key) {
+        var field = _this.visibleFields[key];
         // Use a stable key based on field properties, excluding dynamic values
         keys[key] = "".concat(key, "-").concat(field.id || field.type || key);
       });
       return keys;
+    },
+    visibleFields: function visibleFields() {
+      var _this2 = this;
+      if (!this.local_fields) {
+        return {};
+      }
+      return Object.keys(this.local_fields).reduce(function (fields, fieldKey) {
+        if (!_this2.canShowField(fieldKey)) {
+          return fields;
+        }
+        fields[fieldKey] = _this2.local_fields[fieldKey];
+        return fields;
+      }, {});
     }
-  },
+  }),
   data: function data() {
     return {
       local_fields: null
@@ -9990,7 +10007,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     updateFieldData: function updateFieldData(value, field_key) {
       var _this$activeWidget$op,
-        _this2 = this;
+        _this3 = this;
       // Update the field value
       this.local_fields[field_key].value = value;
 
@@ -10004,7 +10021,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       // Sync root-level widget properties with options.fields values
       // This ensures that if widget.label exists, it gets updated from widget.options.fields.label
       Object.keys(this.local_fields).forEach(function (fieldKey) {
-        var fieldValue = _this2.local_fields[fieldKey].value;
+        var fieldValue = _this3.local_fields[fieldKey].value;
 
         // Update root-level widget property if it exists (dynamic comparison)
         if (updatedWidget.hasOwnProperty(fieldKey)) {
@@ -10017,6 +10034,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         widgetKey: this.widget,
         updatedWidget: updatedWidget
       });
+    },
+    canShowField: function canShowField(fieldKey) {
+      if (!["show_tagline", "enable_tagline"].includes(fieldKey)) {
+        return true;
+      }
+      return this.hasSubmissionFormField("tagline");
+    },
+    hasSubmissionFormField: function hasSubmissionFormField(fieldKey) {
+      var _this$builderFields, _submissionFormFields;
+      var submissionFormFields = (_this$builderFields = this.builderFields) === null || _this$builderFields === void 0 ? void 0 : _this$builderFields.submission_form_fields;
+      var activeFields = (submissionFormFields === null || submissionFormFields === void 0 || (_submissionFormFields = submissionFormFields.value) === null || _submissionFormFields === void 0 ? void 0 : _submissionFormFields.fields) || (submissionFormFields === null || submissionFormFields === void 0 ? void 0 : submissionFormFields.fields) || {};
+      return Object.prototype.hasOwnProperty.call(activeFields, fieldKey);
     }
   }
 });
@@ -11823,12 +11852,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/.pnpm/@babel+runtime@7.29.2/node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/.pnpm/vuex@3.6.2_vue@2.7.16/node_modules/vuex/dist/vuex.esm.js");
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "title-card-widget",
   props: {
@@ -11866,10 +11897,24 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       localOptions: {}
     };
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)(["fields"])), {}, {
     hasOptions: function hasOptions() {
-      var fields = this.localOptions.fields;
-      return fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(fields) === "object" && Object.keys(fields).length > 0;
+      return this.visibleOptionFields && Object.keys(this.visibleOptionFields).length > 0;
+    },
+    visibleOptionFields: function visibleOptionFields() {
+      var _this$localOptions,
+        _this = this;
+      var fields = (_this$localOptions = this.localOptions) === null || _this$localOptions === void 0 ? void 0 : _this$localOptions.fields;
+      if (!fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(fields) !== "object") {
+        return {};
+      }
+      return Object.keys(fields).reduce(function (visibleFields, fieldKey) {
+        if (!_this.canShowOptionField(fieldKey)) {
+          return visibleFields;
+        }
+        visibleFields[fieldKey] = fields[fieldKey];
+        return visibleFields;
+      }, {});
     },
     currentActiveWidget: function currentActiveWidget() {
       return this.activeWidgets[this.widgetKey];
@@ -11878,7 +11923,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var _this$currentActiveWi;
       return (_this$currentActiveWi = this.currentActiveWidget) === null || _this$currentActiveWi === void 0 || (_this$currentActiveWi = _this$currentActiveWi.options) === null || _this$currentActiveWi === void 0 ? void 0 : _this$currentActiveWi.fields;
     }
-  },
+  }),
   watch: {
     options: {
       handler: function handler(newOptions) {
@@ -11891,6 +11936,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   },
   methods: {
+    canShowOptionField: function canShowOptionField(fieldKey) {
+      if (fieldKey !== "show_tagline") {
+        return true;
+      }
+      return this.hasSubmissionFormField("tagline");
+    },
+    hasSubmissionFormField: function hasSubmissionFormField(fieldKey) {
+      var _this$fields, _submissionFormFields;
+      var submissionFormFields = (_this$fields = this.fields) === null || _this$fields === void 0 ? void 0 : _this$fields.submission_form_fields;
+      var activeFields = (submissionFormFields === null || submissionFormFields === void 0 || (_submissionFormFields = submissionFormFields.value) === null || _submissionFormFields === void 0 ? void 0 : _submissionFormFields.fields) || (submissionFormFields === null || submissionFormFields === void 0 ? void 0 : submissionFormFields.fields) || {};
+      return Object.prototype.hasOwnProperty.call(activeFields, fieldKey);
+    },
     updateFieldData: function updateFieldData(value, field_key) {
       var currentFields = this.currentWidgetFields;
       if (currentFields !== null && currentFields !== void 0 && currentFields[field_key]) {
@@ -19733,6 +19790,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         this.closeWidgetOptionsWindow();
         return;
       }
+      if (!this.hasWidgetOptions(key)) {
+        return;
+      }
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
@@ -24742,7 +24802,7 @@ var render = function render() {
     staticClass: "las la-times"
   })])])])]), _vm._v(" "), _c('div', {
     staticClass: "cptm-option-card-body"
-  }, [_vm.local_fields ? _vm._l(_vm.local_fields, function (field, field_key) {
+  }, [_vm.local_fields ? _vm._l(_vm.visibleFields, function (field, field_key) {
     return _c(field.type + '-field', _vm._b({
       key: _vm.fieldKeys[field_key],
       tag: "component",
@@ -26267,7 +26327,7 @@ var render = function render() {
     staticClass: "cptm-widget-card-disabled-badge"
   }, [_vm._v("\n      Disable\n    ")]) : _vm._e()]), _vm._v(" "), _vm.hasOptions ? _c('div', {
     staticClass: "cptm-widget-card-options-area"
-  }, _vm._l(_vm.localOptions.fields, function (field, field_key) {
+  }, _vm._l(_vm.visibleOptionFields, function (field, field_key) {
     return _c('div', {
       key: field_key,
       staticClass: "cptm-field-item"
@@ -30326,7 +30386,7 @@ var render = function render() {
         staticClass: "cptm-elements-settings__group__single__label__text"
       }, [_vm._v(_vm._s(_vm.getResolvedWidget(widget_key).label))]) : _c('span', [_vm._v("Unknown Widget")])]), _vm._v(" "), _c('div', {
         staticClass: "cptm-elements-settings__group__single__action"
-      }, [_vm.getResolvedWidget(widget_key).options ? _c('span', {
+      }, [_vm.hasWidgetOptions(widget_key) ? _c('span', {
         staticClass: "cptm-elements-settings__group__single__edit",
         class: {
           'cptm-elements-settings__group__single__edit--disabled': !_vm.active_widgets[widget_key]

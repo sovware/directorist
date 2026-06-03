@@ -98,7 +98,7 @@
                           !active_widgets[widget_key],
                       }"
                       @click.prevent="editWidget(widget_key)"
-                      v-if="getResolvedWidget(widget_key).options"
+                      v-if="hasWidgetOptions(widget_key)"
                     >
                       <span
                         class="cptm-elements-settings__group__single__edit__icon la la-cog"
@@ -2831,6 +2831,11 @@ export default {
         this.closeWidgetOptionsWindow();
         return;
       }
+
+      if (!this.hasWidgetOptions(key)) {
+        return;
+      }
+
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }

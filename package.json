@@ -28,19 +28,21 @@
   "homepage": "https://github.com/sovware/directorist",
   "dependencies": {
     "@babel/runtime": "^7.29.2",
-    "@wordpress/api-fetch": "^7.42.0",
-    "@wordpress/components": "^30.9.0",
-    "@wordpress/dataviews": "^7.0.0",
-    "@wordpress/dom-ready": "^4.42.0",
-    "@wordpress/element": "^6.42.0",
-    "@wordpress/hooks": "^4.42.0",
-    "@wordpress/i18n": "^6.15.0",
+    "@wordpress/api-fetch": "7.47.0",
+    "@wordpress/components": "30.9.0",
+    "@wordpress/dataviews": "7.0.0",
+    "@wordpress/dom-ready": "4.47.0",
+    "@wordpress/element": "6.46.0",
+    "@wordpress/hooks": "4.47.0",
+    "@wordpress/i18n": "6.20.0",
     "axios": "^0.21.4",
     "dom-scroll-into-view": "^2.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
     "lodash": "^4.17.23",
     "prettier": "^3.8.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-hot-toast": "^2.6.0",
     "react-inlinesvg": "^4.2.0",
     "styled-components": "~6.3.12",
@@ -80,6 +82,26 @@
     "webpack-merge": "^5.10.0",
     "webpackbar": "^7.0.0",
     "wp-pot": "^1.10.2"
+  },
+  "resolutions": {
+    "@wordpress/compose": "7.46.0",
+    "@wordpress/data": "10.46.0",
+    "@wordpress/element": "6.46.0",
+    "@wordpress/primitives": "4.46.0",
+    "@wordpress/rich-text": "7.46.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@wordpress/compose": "7.46.0",
+      "@wordpress/data": "10.46.0",
+      "@wordpress/element": "6.46.0",
+      "@wordpress/primitives": "4.46.0",
+      "@wordpress/rich-text": "7.46.0",
+      "react": "18.3.1",
+      "react-dom": "18.3.1"
+    }
   },
   "engines": {
     "node": "24.15.0",

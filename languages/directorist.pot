@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-01 13:50+0000\n"
+"POT-Creation-Date: 2026-06-04 03:44+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1753,7 +1753,7 @@ msgstr ""
 msgid "Listing views"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:791, ../includes/elementor/all-listing.php:191, ../includes/elementor/category.php:92, ../includes/elementor/location.php:91, ../includes/elementor/search-result.php:105, ../includes/elementor/tag.php:91, ../includes/payments/class-order.php:338, ../includes/modules/multi-directory-setup/builder-custom-fields.php:372, ../includes/modules/multi-directory-setup/class-builder-data.php:1708, ../templates/checkout/receipt.php:42, ../templates/payment/payment-receipt.php:38
+#: ../includes/classes/class-custom-post.php:791, ../includes/elementor/all-listing.php:191, ../includes/elementor/category.php:92, ../includes/elementor/location.php:91, ../includes/elementor/search-result.php:105, ../includes/elementor/tag.php:91, ../includes/payments/class-order.php:338, ../includes/modules/multi-directory-setup/builder-custom-fields.php:372, ../includes/modules/multi-directory-setup/class-builder-data.php:1708, ../templates/checkout/receipt.php:45, ../templates/payment/payment-receipt.php:38
 msgid "Date"
 msgstr ""
 
@@ -2711,6 +2711,10 @@ msgstr ""
 
 #: ../includes/classes/class-metabox.php:403
 msgid "Select a directory..."
+msgstr ""
+
+#: ../includes/classes/class-payment-service.php:48
+msgid "Please transfer the amount to our bank account. We will process your order once we receive the payment."
 msgstr ""
 
 #: ../includes/classes/class-schema.php:43
@@ -6300,7 +6304,7 @@ msgstr ""
 msgid "All orders"
 msgstr ""
 
-#: ../includes/payments/class-order.php:332, ../templates/checkout/receipt.php:38, ../templates/payment/payment-receipt.php:34
+#: ../includes/payments/class-order.php:332, ../templates/checkout/receipt.php:41, ../templates/payment/payment-receipt.php:34
 msgid "Order ID"
 msgstr ""
 
@@ -6308,7 +6312,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: ../includes/payments/class-order.php:334, ../templates/checkout/receipt.php:67, ../templates/payment/payment-receipt.php:69
+#: ../includes/payments/class-order.php:334, ../templates/checkout/receipt.php:70, ../templates/payment/payment-receipt.php:69
 msgid "Amount"
 msgstr ""
 
@@ -6316,7 +6320,7 @@ msgstr ""
 msgid "Payment Type"
 msgstr ""
 
-#: ../includes/payments/class-order.php:336, ../templates/checkout/receipt.php:46, ../templates/payment/payment-receipt.php:42
+#: ../includes/payments/class-order.php:336, ../templates/checkout/receipt.php:49, ../templates/payment/payment-receipt.php:42
 msgid "Transaction ID"
 msgstr ""
 
@@ -6404,7 +6408,7 @@ msgstr ""
 msgid "Discount ( %s%% )"
 msgstr ""
 
-#: ../includes/repositories/order-repository.php:230, ../templates/checkout/receipt.php:106, ../templates/payment/payment-receipt.php:141
+#: ../includes/repositories/order-repository.php:230, ../templates/checkout/receipt.php:109, ../templates/payment/payment-receipt.php:141
 msgid "Discount"
 msgstr ""
 
@@ -6412,7 +6416,7 @@ msgstr ""
 msgid "Tax ( %s%% )"
 msgstr ""
 
-#: ../includes/repositories/order-repository.php:239, ../templates/checkout/receipt.php:117
+#: ../includes/repositories/order-repository.php:239, ../templates/checkout/receipt.php:120
 msgid "Tax"
 msgstr ""
 
@@ -9444,15 +9448,19 @@ msgstr ""
 msgid "Filter by category"
 msgstr ""
 
+#: ../templates/checkout/bank-transfer-instruction.php:12
+msgid "Payment Instruction"
+msgstr ""
+
 #: ../templates/checkout/checkout.php:17, ../templates/payment/checkout.php:19
 msgid "Your order details are given below. Please review it and click on Proceed to Payment to complete this order."
 msgstr ""
 
-#: ../templates/checkout/checkout.php:27, ../templates/checkout/receipt.php:33, ../templates/payment/checkout.php:29, ../templates/payment/payment-receipt.php:29
+#: ../templates/checkout/checkout.php:27, ../templates/checkout/receipt.php:36, ../templates/payment/checkout.php:29, ../templates/payment/payment-receipt.php:29
 msgid "Order Summary"
 msgstr ""
 
-#: ../templates/checkout/checkout.php:36, ../templates/checkout/receipt.php:126, ../templates/payment/payment-receipt.php:151
+#: ../templates/checkout/checkout.php:36, ../templates/checkout/receipt.php:129, ../templates/payment/payment-receipt.php:151
 msgid "Total amount"
 msgstr ""
 
@@ -9472,27 +9480,27 @@ msgstr ""
 msgid "Thank you for your order!"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:51, ../templates/payment/payment-receipt.php:46
+#: ../templates/checkout/receipt.php:54, ../templates/payment/payment-receipt.php:46
 msgid "Payment Method"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:61, ../templates/payment/payment-receipt.php:60
+#: ../templates/checkout/receipt.php:64, ../templates/payment/payment-receipt.php:60
 msgid "Payment Status"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:78, ../templates/payment/payment-receipt.php:96
+#: ../templates/checkout/receipt.php:81, ../templates/payment/payment-receipt.php:96
 msgid "Item summary"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:106
+#: ../templates/checkout/receipt.php:109
 msgid "Discount ( %d%% )"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:117
+#: ../templates/checkout/receipt.php:120
 msgid "Tax ( %d%% )"
 msgstr ""
 
-#: ../templates/checkout/receipt.php:146, ../templates/payment/payment-receipt.php:167
+#: ../templates/checkout/receipt.php:149, ../templates/payment/payment-receipt.php:167
 msgid "View your listings"
 msgstr ""
 

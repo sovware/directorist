@@ -29,30 +29,58 @@
       </div>
 
       <div class="cptm-form-fields" v-if="sectionFields(section)">
-        <div
-          v-for="(field, field_key) in sectionFields(section)"
-          v-if="fields[field].group !== 'container'"
-          :key="field_key"
-        >
+        <template v-for="(field, field_key) in sectionFields(section)">
+          <div
+            v-if="shouldRenderNestedAdvancedToggle(section, field)"
+            class="cptm-card-advanced"
+            :key="'nested-advanced-toggle-' + section_key"
+          >
+            <button
+              type="button"
+              class="cptm-card-advanced__toggle"
+              :aria-expanded="isNestedAdvancedOpen(section_key) ? 'true' : 'false'"
+              @click.stop="toggleNestedAdvanced(section_key)"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="cptm-card-advanced__chevron"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+              Advanced
+            </button>
+          </div>
+
+          <div
+            v-if="fieldShouldRender(field)"
+            v-show="fieldIsVisibleInSection(section_key, section, field)"
+            :key="field_key"
+            :class="fieldWrapperClass(field, fields[field], section)"
+          >
           <!-- Render the regular fields -->
-          <component
-            v-if="fields[field]"
-            :is="getFormFieldName(fields[field].type)"
-            :field-id="field_key"
-            :fieldKey="field"
-            :id="menuKey + '__' + section_key + '__' + field"
-            :ref="field"
-            :class="{ ['highlight-field']: getHighlightState(field) }"
-            :cached-data="cached_fields[field]"
-            :listing_type_id="listing_type_id"
-            :video="video"
-            v-bind="fields[field]"
-            @update="updateFieldValue(field, $event)"
-            @save="$emit('save', $event)"
-            @validate="updateFieldValidationState(field, $event)"
-            @is-visible="updateFieldData(field, 'isVisible', $event)"
-            @do-action="doAction($event, 'sections-module')"
-          />
+            <component
+              v-if="fields[field]"
+              :is="getFormFieldName(fields[field].type)"
+              :field-id="field_key"
+              :fieldKey="field"
+              :id="menuKey + '__' + section_key + '__' + field"
+              :ref="field"
+              :class="{ ['highlight-field']: getHighlightState(field) }"
+              :cached-data="cached_fields[field]"
+              :listing_type_id="listing_type_id"
+              :video="video"
+              v-bind="fields[field]"
+              @update="updateFieldValue(field, $event)"
+              @save="$emit('save', $event)"
+              @validate="updateFieldValidationState(field, $event)"
+              @is-visible="updateFieldData(field, 'isVisible', $event)"
+              @do-action="doAction($event, 'sections-module')"
+            />
 
           <div
             v-if="
@@ -157,7 +185,8 @@
             </div>
           </div>
           <!-- ends: .field-group-container -->
-        </div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -201,6 +230,7 @@ export default {
     ...mapState({
       layout: (state) => state.layouts,
       fields: (state) => state.fields,
+      highlightedFieldKey: (state) => state.highlighted_field_key,
     }),
 
     containerClass() {
@@ -226,6 +256,29 @@ export default {
     },
   },
 
+  data() {
+    return {
+      nestedAdvancedOpen: {},
+    };
+  },
+
+  mounted() {
+    this.openNestedAdvancedForHighlightedField();
+  },
+
+  watch: {
+    highlightedFieldKey() {
+      this.openNestedAdvancedForHighlightedField();
+    },
+
+    sections: {
+      deep: true,
+      handler() {
+        this.openNestedAdvancedForHighlightedField();
+      },
+    },
+  },
+
   methods: {
     sectionFields(section) {
       if (!this.isObject(section)) {
@@ -236,6 +289,57 @@ export default {
       }
 
       return section.fields;
+    },
+
+    nestedAdvancedFields(section) {
+      if (!section || !Array.isArray(section.advancedFields)) {
+        return [];
+      }
+
+      return section.advancedFields;
+    },
+
+    nestedAdvancedKey(sectionKey) {
+      return `${this.menuKey}__${sectionKey}`;
+    },
+
+    isNestedAdvancedOpen(sectionKey) {
+      return !!this.nestedAdvancedOpen[this.nestedAdvancedKey(sectionKey)];
+    },
+
+    toggleNestedAdvanced(sectionKey) {
+      const key = this.nestedAdvancedKey(sectionKey);
+      this.$set(this.nestedAdvancedOpen, key, !this.nestedAdvancedOpen[key]);
+    },
+
+    isNestedAdvancedField(section, field) {
+      return this.nestedAdvancedFields(section).includes(field);
+    },
+
+    shouldRenderNestedAdvancedToggle(section, field) {
+      return this.nestedAdvancedFields(section)[0] === field;
+    },
+
+    fieldIsVisibleInSection(sectionKey, section, field) {
+      if (!this.isNestedAdvancedField(section, field)) {
+        return true;
+      }
+
+      return this.isNestedAdvancedOpen(sectionKey);
+    },
+
+    openNestedAdvancedForHighlightedField() {
+      if (!this.highlightedFieldKey || !this.sections) {
+        return;
+      }
+
+      Object.keys(this.sections).forEach((sectionKey) => {
+        const section = this.sections[sectionKey];
+
+        if (this.isNestedAdvancedField(section, this.highlightedFieldKey)) {
+          this.$set(this.nestedAdvancedOpen, this.nestedAdvancedKey(sectionKey), true);
+        }
+      });
     },
 
     // Group fields by their group value, focusing on the container group
@@ -271,7 +375,7 @@ export default {
       };
     },
 
-    fieldWrapperClass(field_key, field) {
+    fieldWrapperClass(field_key, field, section = null) {
       let type_class =
         field && field.type
           ? "cptm-field-wraper-type-" + field.type
@@ -281,6 +385,10 @@ export default {
       return {
         [type_class]: true,
         [key_class]: true,
+        "cptm-field-wraper--nested-advanced": this.isNestedAdvancedField(
+          section,
+          field_key
+        ),
       };
     },
 
@@ -290,6 +398,33 @@ export default {
         type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
       }
       return type_id;
+    },
+
+    fieldShouldRender(field) {
+      if (!this.fields[field]) {
+        return false;
+      }
+
+      if (this.fields[field].group === "container") {
+        return false;
+      }
+
+      return this.fieldIsVisible(field);
+    },
+
+    fieldIsVisible(field) {
+      const fieldData = this.fields[field];
+      const showIf =
+        fieldData.showIf || fieldData.show_if || fieldData["show-if"];
+
+      if (!showIf) {
+        return true;
+      }
+
+      return !!this.checkShowIfCondition({
+        condition: showIf,
+        root: this.fields,
+      }).status;
     },
   },
 };

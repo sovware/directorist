@@ -567,7 +567,6 @@ $light-gray: #f4f5f7;
 
 .cptm-btn,
 .cptm-btn.cptm-label-btn {
-	margin: 0 5px 10px;
 	display: inline-block;
 	text-align: center;
 	border: 1px solid transparent;
@@ -624,6 +623,7 @@ $light-gray: #f4f5f7;
 .cptm-file-input-wrap {
 	display: flex;
 	flex-wrap: wrap;
+	gap: 10px;
 
 	.cptm-btn {
 		flex-grow: 1;
@@ -6419,9 +6419,9 @@ input[type="text"] {
 }
 
 .cptm-modal-confirmation-title {
-	margin: 30px auto;
 	font-size: 20px;
 	text-align: center;
+	margin: 30px auto 24px;
 }
 
 .cptm-section-alert-area {

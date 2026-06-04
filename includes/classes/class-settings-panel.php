@@ -1528,7 +1528,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'count_loggedin_user' => [
                         'type'          => 'toggle',
                         'label'         => __( 'Track Logged-In User Views', 'directorist' ),
-                        'description'   => __( 'Include visits from logged-in users in total listing view counts.', 'directorist' ),
                         'value'         => true,
                     ],
                     'dynamic_view_count_cache' => [

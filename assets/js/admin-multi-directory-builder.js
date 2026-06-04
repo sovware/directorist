@@ -8323,6 +8323,9 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/.pnpm/axios@0.21.4
     this.setupSaveOnKeyboardInput();
     this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
   },
+  mounted: function mounted() {
+    this.focusDirectoryNameForNewDirectory();
+  },
   beforeDestroy: function beforeDestroy() {
     // Clean up click outside listener when component is destroyed
     document.removeEventListener("click", this.handleClickOutside);
@@ -8360,23 +8363,54 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/.pnpm/axios@0.21.4
       } catch (error) {}
       this.$store.commit("swichNav", activeNavIndex);
     },
+    focusDirectoryNameForNewDirectory: function focusDirectoryNameForNewDirectory() {
+      var _this$options,
+        _this = this;
+      var directoryName = (_this$options = this.options) === null || _this$options === void 0 || (_this$options = _this$options.name) === null || _this$options === void 0 ? void 0 : _this$options.value;
+      if (this.listing_type_id || directoryName) {
+        return;
+      }
+      this.isEditableName = true;
+      this.$nextTick(function () {
+        var editableNameField = _this.$refs.editableNameField;
+        if (!editableNameField) {
+          return;
+        }
+        var editableNameElement = editableNameField.$el || editableNameField;
+        var nameInput = editableNameElement.querySelector('input:not([type="hidden"]):not(:disabled)');
+        if (!nameInput || nameInput.offsetParent === null) {
+          return;
+        }
+        nameInput.focus();
+      });
+      setTimeout(function () {
+        document.addEventListener("click", _this.handleClickOutside);
+      }, 100);
+    },
+    saveDirectoryNameOnEnter: function saveDirectoryNameOnEnter() {
+      var _this$options2;
+      if (!((_this$options2 = this.options) !== null && _this$options2 !== void 0 && (_this$options2 = _this$options2.name) !== null && _this$options2 !== void 0 && _this$options2.value)) {
+        return;
+      }
+      this.closeEditableMode();
+    },
     ensureEditableMode: function ensureEditableMode() {
-      var _this = this;
+      var _this2 = this;
       // Only set up the listener if not already in editable mode
       if (!this.isEditableName) {
         this.isEditableName = true;
         // Add click outside listener after a small delay to avoid immediate trigger
         setTimeout(function () {
-          document.addEventListener("click", _this.handleClickOutside);
+          document.addEventListener("click", _this2.handleClickOutside);
         }, 100);
       }
     },
     openEditableMode: function openEditableMode() {
-      var _this2 = this;
+      var _this3 = this;
       this.isEditableName = true;
       // Add click outside listener after a small delay to avoid immediate trigger
       setTimeout(function () {
-        document.addEventListener("click", _this2.handleClickOutside);
+        document.addEventListener("click", _this3.handleClickOutside);
       }, 100);
     },
     closeEditableMode: function closeEditableMode() {
@@ -8399,11 +8433,11 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/.pnpm/axios@0.21.4
       }
     },
     setupSaveOnKeyboardInput: function setupSaveOnKeyboardInput() {
-      var _this3 = this;
+      var _this4 = this;
       addEventListener("keydown", function (event) {
         if ((event.metaKey || event.ctrlKey) && "s" === event.key) {
           event.preventDefault();
-          _this3.saveData();
+          _this4.saveData();
         }
       });
     },
@@ -8468,22 +8502,22 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/.pnpm/axios@0.21.4
       }
     },
     handleSaveData: function handleSaveData(callback) {
-      var _this4 = this;
+      var _this5 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
         var addListingURL, urlWithListingType;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 1;
-              return _this4.saveData();
+              return _this5.saveData();
             case 1:
               if (typeof callback === "function") {
-                callback(_this4.$store.state);
+                callback(_this5.$store.state);
               }
 
               // Get Add Listing URL from Object
               addListingURL = directorist_admin.add_listing_url; // Append the listing_type_id to the URL as a query parameter
-              urlWithListingType = "".concat(addListingURL, "?directory_type=").concat(_this4.listing_type_id); // Open the URL with the listing_type_id parameter
+              urlWithListingType = "".concat(addListingURL, "?directory_type=").concat(_this5.listing_type_id); // Open the URL with the listing_type_id parameter
               window.open(urlWithListingType, "_blank");
             case 2:
             case "end":
@@ -23890,7 +23924,11 @@ var render = function render() {
   }, [_vm.isEditableName || !_vm.options.name.value ? _c('div', {
     staticClass: "directorist-type-name-editable",
     on: {
-      "click": _vm.ensureEditableMode
+      "click": _vm.ensureEditableMode,
+      "keyup": function keyup($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.saveDirectoryNameOnEnter.apply(null, arguments);
+      }
     }
   }, [_vm.options.name && _vm.options.name.type ? _c(_vm.options.name.type + '-field', _vm._b({
     ref: "editableNameField",

@@ -44,6 +44,7 @@
 /webpack.prod.js
 
 # Documentation & notes
+/docs
 /README.md
 /node-update-notes.md
 /CLAUDE.md

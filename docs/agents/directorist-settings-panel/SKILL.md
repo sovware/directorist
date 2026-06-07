@@ -58,6 +58,8 @@ If the task mentions extensions, extension settings, or a design inside the Exte
 - Preserve the field/layout/config data contract unless the user approves a structural change.
 - Do not change settings keys, option storage, nonce handling, capability checks, AJAX action names, or `atbdp_option` behavior without explicit QA with the user.
 - Do not remove legacy `atbdp_` behavior just because new code prefers `directorist_`.
+- Treat existing installations as compatibility-critical. Directorist settings features may affect 20k+ sites; prefer implementations that work automatically after plugin update without data migration or manual admin action.
+- If a migration, upgrade routine, data backfill, or compatibility shim appears necessary, do not implement it silently. Create a Markdown note that explains the migration need, affected option keys/data, risks, rollback concerns, and QA plan before changing migration code.
 - Keep generated build assets out of scope unless the user approves the required build command or specifically asks to edit committed build output.
 - Treat Figma as design intent, not a reason to rewrite data flow.
 
@@ -114,6 +116,20 @@ When the user asks for a new setting or behavior:
 6. Use existing field types and `show-if` conventions when possible.
 7. If adding, removing, renaming, moving, or repurposing a key, update the settings option catalog after the implementation is confirmed.
 8. If adding a new key, document default value, sanitize behavior, and all readers.
+
+## Needs Design Workflow
+
+When the user says to start work on the `Needs Design` menu, do a research pass before implementation. Treat every menu and option currently placed under `Needs Design` as pending classification, not final navigation.
+
+1. Inventory all `Needs Design` menus, sections, and option keys from the current layout/source.
+2. For each option, find the closest existing redesigned settings pattern and reuse that design language instead of inventing a new pattern.
+3. Decide whether each option belongs inside an existing redesigned menu/submenu or should remain as a separate menu.
+4. Explain the alignment decision step by step before editing code.
+5. Only implement after the user confirms the proposed menu alignment and design pattern.
+
+## Pattern Reuse Rule
+
+Before creating a new settings interaction or card pattern, check whether the redesign already has the same pattern elsewhere. Reuse existing patterns first, including nested card advanced disclosures, page-level advanced disclosures, compact row controls, textarea message rows, save/footer behavior, and modal scaffolds. Only create a new pattern when no existing pattern can satisfy the reference design.
 
 ## Extension Settings Workflow
 

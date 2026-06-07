@@ -175,6 +175,206 @@ const FIELD_OVERRIDES = {
 		description:
 			"Shows around the image when it doesn't fill the slider area.",
 	},
+	guest_listings: {
+		label: 'Allow guest submissions',
+		description: 'Visitors can add a listing without creating an account.',
+	},
+	guest_email_label: {
+		label: 'Guest email field label',
+		description: '',
+	},
+	guest_email_placeholder: {
+		label: 'Guest email placeholder',
+		description: '',
+	},
+	submission_confirmation: {
+		label: 'Show confirmation message',
+		description: 'Display a message to listing owners after they submit.',
+	},
+	pending_confirmation_msg: {
+		label: 'Pending review message',
+		description: 'Shown when a listing is waiting for admin approval.',
+	},
+	publish_confirmation_msg: {
+		label: 'Published message',
+		description: 'Shown when a listing is approved and live.',
+	},
+	select_listing_map: {
+		label: 'Provider',
+		description: 'OpenStreetMap is free. Google Maps needs an API key.',
+	},
+	map_api_key: {
+		label: 'Google Maps API key',
+		description: 'Required only when Google Maps is selected.',
+		placeholder: 'Enter Google Maps API key',
+	},
+	default_latitude: {
+		label: 'Default latitude',
+		description: 'Used as the fallback map center when no listing location is available.',
+	},
+	default_longitude: {
+		label: 'Default longitude',
+		description: 'Used with the default latitude to center map views.',
+	},
+	use_def_lat_long: {
+		label: 'Apply default location to all listings on the map',
+		description: 'Use the default address above for any listing that has no map pin set.',
+	},
+	listings_map_height: {
+		label: 'Map height',
+		description: '',
+	},
+	map_zoom_level: {
+		label: 'Zoom on single listing',
+		description: '0 is fully zoomed out, 22 is closest.',
+	},
+	map_view_zoom_level: {
+		label: 'Zoom on map view',
+		description: 'Zoom for the map that shows many listings. Lower is more zoomed out.',
+	},
+	display_map_info: {
+		label: 'Show info window',
+		description: '',
+	},
+	display_image_map: {
+		label: 'Image',
+		description: '',
+	},
+	display_user_avatar_map: {
+		label: 'Author avatar',
+		description: '',
+	},
+	display_favorite_badge_map: {
+		label: 'Favorite badge',
+		description: '',
+	},
+	display_title_map: {
+		label: 'Title',
+		description: '',
+	},
+	display_address_map: {
+		label: 'Address',
+		description: '',
+	},
+	display_phone_map: {
+		label: 'Phone',
+		description: '',
+	},
+	display_price_map: {
+		label: 'Price',
+		description: '',
+	},
+	display_review_map: {
+		label: 'Rating',
+		description: '',
+	},
+	display_direction_map: {
+		label: 'Get directions link',
+		description: '',
+	},
+	marker_clustering: {
+		label: 'Cluster nearby pins',
+		description: '',
+	},
+	country_restriction: {
+		label: 'Restrict to specific countries',
+		description: 'Limits address autocomplete to selected countries.',
+	},
+	restricted_countries: {
+		label: 'Selected countries',
+		description: 'Hold Cmd / Ctrl to select more than one.',
+	},
+	enable_review: {
+		label: 'Allow user reviews',
+		description: '',
+	},
+	enable_owner_review: {
+		label: 'Allow listing owners to review their own listings',
+		description: '',
+	},
+	guest_review: {
+		label: 'Allow guest reviews',
+		description: 'Visitors can leave a review without signing in. Subject to moderation.',
+	},
+	review_enable_reply: {
+		label: 'Allow replies to reviews',
+		description: '',
+	},
+	approve_immediately: {
+		label: 'Auto-approve submitted reviews',
+		description: 'New reviews appear immediately without admin approval.',
+	},
+	review_num: {
+		label: 'Reviews per page',
+		description: 'Keep under 10 for best performance.',
+	},
+	g_currency: {
+		label: 'Currency code',
+		description: 'Three-letter ISO code (e.g. USD, EUR, GBP, BDT).',
+	},
+	g_currency_position: {
+		label: 'Currency position',
+		description: '',
+	},
+	payment_currency: {
+		label: 'Currency code',
+		description: 'Three-letter ISO code (e.g. USD, EUR, GBP, BDT).',
+	},
+	payment_currency_position: {
+		label: 'Currency position',
+		description: '',
+	},
+	payment_thousand_separator: {
+		label: 'Thousands separator',
+		description: 'Character between thousands, e.g. a comma in 1,000.',
+	},
+	payment_decimal_separator: {
+		label: 'Decimal separator',
+		description: 'Character before the decimals, e.g. a period in 9.99.',
+	},
+	enable_monetization: {
+		label: 'Enable monetization',
+		description:
+			'Master switch for paid listings and payment gateways. Turn off to make all listings free.',
+	},
+	enable_featured_listing: {
+		label: 'Allow featured upgrades',
+		description:
+			'Listing owners can pay to highlight their listing on search and category pages.',
+	},
+	featured_listing_price: {
+		label: 'Featured fee',
+		description: 'What a user pays to feature a single listing.',
+	},
+	featured_listing_time: {
+		label: 'Featured duration',
+		description: 'How long a listing stays featured before it returns to normal.',
+	},
+	featured_listing_desc: {
+		label: 'Description at checkout',
+		description: 'Shown to listing owners when they upgrade.',
+	},
+	active_gateways: {
+		label: 'Bank transfer',
+		description:
+			'Accept manual bank or wire payments. You confirm each one from the orders screen.',
+	},
+	default_gateway: {
+		label: 'Default gateway',
+		description: 'Pre-selected at checkout.',
+	},
+	bank_transfer_title: {
+		label: 'Gateway title',
+		description: 'Shown to users at checkout.',
+	},
+	bank_transfer_description: {
+		label: 'Gateway description',
+		description: '',
+	},
+	bank_transfer_instruction: {
+		label: 'Bank instructions',
+		description: 'Shown after order is placed. Use ==ORDER_ID== as a placeholder.',
+	},
 	gallery_crop_width: {
 		label: 'Image width',
 		description: '',
@@ -275,6 +475,8 @@ const FIELD_GROUPS = {
 				'pending_confirmation_msg',
 				'publish_confirmation_msg',
 			],
+			advancedLabel: 'Customize message wording',
+			advancedFields: ['pending_confirmation_msg', 'publish_confirmation_msg'],
 		},
 	],
 
@@ -288,22 +490,55 @@ const FIELD_GROUPS = {
 			key: 'default_location',
 			title: 'Default location',
 			fields: ['default_latitude', 'default_longitude', 'use_def_lat_long'],
+			defaultLocationAddress: {
+				beforeField: 'use_def_lat_long',
+				latitudeField: 'default_latitude',
+				longitudeField: 'default_longitude',
+				providerField: 'select_listing_map',
+				apiKeyField: 'map_api_key',
+			},
+			hiddenFields: ['default_latitude', 'default_longitude'],
 		},
 		{
 			key: 'zoom_size',
 			title: 'Zoom and size',
 			fields: ['listings_map_height', 'map_zoom_level', 'map_view_zoom_level'],
+			advancedLabel: 'Advanced',
+			advancedFields: ['map_zoom_level', 'map_view_zoom_level'],
 		},
 		{
 			key: 'pins_coverage',
 			title: 'Pins and coverage',
 			fields: ['marker_clustering', 'country_restriction', 'restricted_countries'],
+			showIf: {
+				where: 'select_listing_map',
+				conditions: [
+					{
+						key: 'value',
+						compare: '=',
+						value: 'google',
+					},
+				],
+			},
 		},
 		{
 			key: 'info_window',
 			title: 'Info window on map',
+			description: 'What appears in the popup when someone clicks a map pin.',
 			fields: [
 				'display_map_info',
+				'display_image_map',
+				'display_user_avatar_map',
+				'display_favorite_badge_map',
+				'display_title_map',
+				'display_address_map',
+				'display_phone_map',
+				'display_price_map',
+				'display_review_map',
+				'display_direction_map',
+			],
+			advancedLabel: 'What to show in the info window',
+			advancedFields: [
 				'display_image_map',
 				'display_user_avatar_map',
 				'display_favorite_badge_map',
@@ -336,15 +571,24 @@ const FIELD_GROUPS = {
 		{
 			key: 'display_currency',
 			title: 'Display currency',
+			description: 'How prices appear across listings, search, and the front-end.',
 			fields: ['g_currency_note', 'g_currency', 'g_currency_position'],
+			hiddenFields: ['g_currency_note'],
 		},
 		{
 			key: 'checkout_currency',
 			title: 'Checkout currency',
+			description: 'The currency customers are actually charged in when they pay.',
 			fields: [
 				'payment_currency_note',
 				'payment_currency',
 				'payment_currency_position',
+				'payment_thousand_separator',
+				'payment_decimal_separator',
+			],
+			hiddenFields: ['payment_currency_note'],
+			advancedLabel: 'Number formatting',
+			advancedFields: [
 				'payment_thousand_separator',
 				'payment_decimal_separator',
 			],
@@ -369,7 +613,25 @@ const FIELD_GROUPS = {
 		{
 			key: 'payment_gateways',
 			title: 'Payment gateways',
-			fields: ['default_gateway', 'active_gateways'],
+			description:
+				'Bank transfer is included. PayPal, Stripe, and Authorize.Net are available via Extensions.',
+			fields: ['active_gateways', 'default_gateway'],
+		},
+		{
+			key: 'bank_transfer_details',
+			title: 'Bank transfer details',
+			fields: [
+				'offline_payment_note',
+				'bank_transfer_title',
+				'bank_transfer_description',
+				'bank_transfer_instruction',
+			],
+			hiddenFields: ['offline_payment_note'],
+			advancedLabel: 'Description & bank instructions',
+			advancedFields: [
+				'bank_transfer_description',
+				'bank_transfer_instruction',
+			],
 		},
 	],
 
@@ -688,6 +950,20 @@ const sectionFromFieldGroup = (group, fields, usedFields) => {
 		title: group.title,
 		description: group.description || '',
 		...(group.advanced ? { advanced: true } : {}),
+		...(group.advancedLabel ? { advancedLabel: group.advancedLabel } : {}),
+		...(group.showIf ? { showIf: clone(group.showIf) } : {}),
+		...(group.show_if ? { show_if: clone(group.show_if) } : {}),
+		...(group['show-if'] ? { 'show-if': clone(group['show-if']) } : {}),
+		...(group.defaultLocationAddress
+			? { defaultLocationAddress: clone(group.defaultLocationAddress) }
+			: {}),
+		...(Array.isArray(group.hiddenFields)
+			? {
+					hiddenFields: group.hiddenFields.filter((fieldKey) =>
+						existingFields.includes(fieldKey)
+					),
+			  }
+			: {}),
 		...(Array.isArray(group.advancedFields)
 			? {
 					advancedFields: group.advancedFields.filter((fieldKey) =>
@@ -970,15 +1246,6 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 					icon: SETTINGS_REDESIGN_ICONS.gateways,
 					sections: sectionsFromGroups(
 						FIELD_GROUPS.monetizationGateways,
-						fields,
-						usedFields
-					),
-				},
-				offline_gateway: {
-					label: 'Bank transfer',
-					icon: SETTINGS_REDESIGN_ICONS.gateways,
-					sections: sectionsFromGroups(
-						FIELD_GROUPS.monetizationBankTransfer,
 						fields,
 						usedFields
 					),

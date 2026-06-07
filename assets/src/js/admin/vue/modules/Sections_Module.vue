@@ -1,6 +1,7 @@
 <template>
   <div class="cptm-tab-content" :class="containerClass">
     <div
+      v-if="sectionShouldRender(section)"
       class="cptm-section"
       :class="sectionClass(section)"
       v-for="(section, section_key) in sections"
@@ -30,9 +31,17 @@
 
       <div class="cptm-form-fields" v-if="sectionFields(section)">
         <template v-for="(field, field_key) in sectionFields(section)">
+          <settings-default-location-address
+            v-if="shouldRenderDefaultLocationAddress(section, field)"
+            :key="'default-location-address-' + section_key"
+            :config="section.defaultLocationAddress"
+            @update-field="updateFieldValue($event.fieldKey, $event.value)"
+          />
+
           <div
             v-if="shouldRenderNestedAdvancedToggle(section, field)"
             class="cptm-card-advanced"
+            :class="nestedAdvancedToggleClass(section_key)"
             :key="'nested-advanced-toggle-' + section_key"
           >
             <button
@@ -52,19 +61,34 @@
               >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
-              Advanced
+              {{ nestedAdvancedToggleLabel(section) }}
             </button>
           </div>
 
           <div
-            v-if="fieldShouldRender(field)"
+            v-if="fieldShouldRenderInSection(section, field)"
             v-show="fieldIsVisibleInSection(section_key, section, field)"
             :key="field_key"
             :class="fieldWrapperClass(field, fields[field], section)"
+            :data-field-suffix="fieldSuffix(field)"
           >
           <!-- Render the regular fields -->
+            <settings-active-gateways-toggle
+              v-if="shouldRenderActiveGatewaysToggle(field)"
+              :field="fields[field]"
+              :field-key="field"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+            />
+
+            <settings-restricted-countries-select
+              v-else-if="shouldRenderRestrictedCountriesSelect(field)"
+              :field="fields[field]"
+              :field-key="field"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+            />
+
             <component
-              v-if="fields[field]"
+              v-else-if="fields[field]"
               :is="getFormFieldName(fields[field].type)"
               :field-id="field_key"
               :fieldKey="field"
@@ -81,6 +105,14 @@
               @is-visible="updateFieldData(field, 'isVisible', $event)"
               @do-action="doAction($event, 'sections-module')"
             />
+
+            <span
+              v-if="fieldSuffix(field)"
+              class="cptm-field-suffix"
+              aria-hidden="true"
+            >
+              {{ fieldSuffix(field) }}
+            </span>
 
           <div
             v-if="
@@ -195,9 +227,17 @@
 <script>
 import { mapState } from "vuex";
 import helpers from "./../mixins/helpers";
+import SettingsActiveGatewaysToggle from "../apps/settings-manager/components/Settings_Active_Gateways_Toggle.vue";
+import SettingsDefaultLocationAddress from "../apps/settings-manager/components/Settings_Default_Location_Address.vue";
+import SettingsRestrictedCountriesSelect from "../apps/settings-manager/components/Settings_Restricted_Countries_Select.vue";
 
 export default {
   name: "sections-module",
+  components: {
+    SettingsActiveGatewaysToggle,
+    SettingsDefaultLocationAddress,
+    SettingsRestrictedCountriesSelect,
+  },
   mixins: [helpers],
 
   props: {
@@ -291,12 +331,40 @@ export default {
       return section.fields;
     },
 
+    sectionShouldRender(section) {
+      if (!section || typeof section !== "object") {
+        return false;
+      }
+
+      const showIf = section.showIf || section.show_if || section["show-if"];
+
+      if (!showIf) {
+        return true;
+      }
+
+      return !!this.checkShowIfCondition({
+        condition: showIf,
+        root: this.fields,
+      }).status;
+    },
+
     nestedAdvancedFields(section) {
       if (!section || !Array.isArray(section.advancedFields)) {
         return [];
       }
 
       return section.advancedFields;
+    },
+
+    nestedAdvancedToggleLabel(section) {
+      return section && section.advancedLabel ? section.advancedLabel : "Advanced";
+    },
+
+    nestedAdvancedToggleClass(sectionKey) {
+      return {
+        "cptm-card-advanced--open": this.isNestedAdvancedOpen(sectionKey),
+        "cptm-card-advanced--collapsed": !this.isNestedAdvancedOpen(sectionKey),
+      };
     },
 
     nestedAdvancedKey(sectionKey) {
@@ -320,6 +388,48 @@ export default {
       return this.nestedAdvancedFields(section)[0] === field;
     },
 
+    shouldRenderDefaultLocationAddress(section, field) {
+      if (!section || !section.defaultLocationAddress) {
+        return false;
+      }
+
+      return section.defaultLocationAddress.beforeField === field;
+    },
+
+    shouldRenderRestrictedCountriesSelect(field) {
+      const isMapSettings =
+        this.menuKey === "listing_settings__map" || this.tabKey === "map";
+
+      return (
+        isMapSettings &&
+        field === "restricted_countries"
+      );
+    },
+
+    shouldRenderActiveGatewaysToggle(field) {
+      const isPaymentGatewaySettings =
+        this.menuKey === "monetization_settings__gateway" ||
+        this.tabKey === "gateway";
+
+      return isPaymentGatewaySettings && field === "active_gateways";
+    },
+
+    hiddenFieldsInSection(section) {
+      if (!section || !Array.isArray(section.hiddenFields)) {
+        return [];
+      }
+
+      return section.hiddenFields;
+    },
+
+    fieldShouldRenderInSection(section, field) {
+      if (this.hiddenFieldsInSection(section).includes(field)) {
+        return false;
+      }
+
+      return this.fieldShouldRender(field);
+    },
+
     fieldIsVisibleInSection(sectionKey, section, field) {
       if (!this.isNestedAdvancedField(section, field)) {
         return true;
@@ -339,6 +449,7 @@ export default {
         if (this.isNestedAdvancedField(section, this.highlightedFieldKey)) {
           this.$set(this.nestedAdvancedOpen, this.nestedAdvancedKey(sectionKey), true);
         }
+
       });
     },
 
@@ -361,9 +472,12 @@ export default {
       const isDisabled =
         this.fields[section.fields[0]]?.type === "toggle" &&
         this.fields[section.fields[0]].value !== true;
-      const sectionClass = `${isDisabled ? "cptm-section--disabled" : ""} ${
-        section.fields[0]
-      }`.trim();
+      const classList = [
+        isDisabled ? "cptm-section--disabled" : "",
+        section.fields[0],
+      ];
+
+      const sectionClass = classList.filter(Boolean).join(" ");
 
       return sectionClass;
     },
@@ -390,6 +504,22 @@ export default {
           field_key
         ),
       };
+    },
+
+    fieldSuffix(field) {
+      if (field === "featured_listing_price") {
+        const paymentCurrency = this.fields.payment_currency?.value;
+        const displayCurrency = this.fields.g_currency?.value;
+        const currency = paymentCurrency || displayCurrency || "";
+
+        return currency ? String(currency).toUpperCase() : "";
+      }
+
+      if (field === "featured_listing_time") {
+        return "days";
+      }
+
+      return "";
     },
 
     fieldWrapperID(field) {

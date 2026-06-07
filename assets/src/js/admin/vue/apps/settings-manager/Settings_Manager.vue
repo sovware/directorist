@@ -50,6 +50,9 @@
                             <button 
                                 type="submit" 
                                 class="settings-save-btn"
+                                :class="{
+                                    'settings-save-btn--saved': 'saved' === saveFeedbackState,
+                                }"
                                 :disabled="saveButtonIsDisabled"
                                 v-html="submit_button.label">
                             </button>
@@ -270,6 +273,15 @@ export default {
         document.body.classList.remove( 'directorist-settings-redesign-page' );
         document.removeEventListener( 'click', this.handleDocumentNavigationClick, true );
         window.removeEventListener( 'beforeunload', this.handleBeforeUnload );
+        this.clearSaveSuccessTimer();
+    },
+
+    watch: {
+        hasUnsavedChanges( has_changes ) {
+            if ( has_changes && 'saved' === this.saveFeedbackState ) {
+                this.resetSaveButtonFeedback();
+            }
+        },
     },
 
     created() {
@@ -309,10 +321,13 @@ export default {
             leaveSaveIsProcessing: false,
             leaveModalErrorMessage: '',
             lastLeaveTrigger: null,
+            saveFeedbackState: '',
+            saveSuccessTimer: null,
 
             submit_button: {
                 label_default: 'Save changes',
                 label_on_progress: '<i class="fas fa-circle-notch fa-spin"></i> Saving...',
+                label_saved: '<i class="fas fa-check"></i> Saved',
                 label: 'Save changes',
                 is_disabled: false,
             },
@@ -480,7 +495,9 @@ export default {
             this.leaveSaveIsProcessing = true;
             this.leaveModalErrorMessage = '';
 
-            this.saveSettingsData()
+            this.saveSettingsData({
+                    skip_success_feedback: true,
+                })
                 .then( () => {
                     this.leaveSaveIsProcessing = false;
                     this.leaveGuardBypass = true;
@@ -571,7 +588,7 @@ export default {
                 .catch( () => {} );
         },
 
-        saveSettingsData() {
+        saveSettingsData( args = {} ) {
             if ( this.form_is_processing ) {
                 return Promise.reject( new Error( 'Please wait...' ) );
             }
@@ -615,6 +632,7 @@ export default {
             }
 
             // Before submit the form
+            this.resetSaveButtonFeedback();
             this.form_is_processing        = true;
             this.submit_button.is_disabled = true;
             this.submit_button.label       = this.submit_button.label_on_progress;
@@ -667,6 +685,10 @@ export default {
                                 value: payload.changed_fields[ field_key ],
                             });
                         });
+
+                        if ( ! args.skip_success_feedback ) {
+                            self.showSaveSuccessFeedback();
+                        }
                     }
 
                     if ( response_status && response_status.status_log ) {
@@ -706,6 +728,31 @@ export default {
 
                     return Promise.reject( error );
                 });
+        },
+
+        clearSaveSuccessTimer() {
+            if ( ! this.saveSuccessTimer ) { return; }
+
+            clearTimeout( this.saveSuccessTimer );
+            this.saveSuccessTimer = null;
+        },
+
+        resetSaveButtonFeedback() {
+            this.clearSaveSuccessTimer();
+            this.saveFeedbackState = '';
+            this.submit_button.label = this.submit_button.label_default;
+        },
+
+        showSaveSuccessFeedback() {
+            this.clearSaveSuccessTimer();
+            this.saveFeedbackState = 'saved';
+            this.submit_button.label = this.submit_button.label_saved;
+
+            this.saveSuccessTimer = setTimeout( () => {
+                this.saveFeedbackState = '';
+                this.submit_button.label = this.submit_button.label_default;
+                this.saveSuccessTimer = null;
+            }, 1600 );
         },
 
         getIconClass( icon_type ) {

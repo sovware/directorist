@@ -90,7 +90,7 @@ Source: most Listings settings are direct core settings from `class-settings-pan
 - `map_api_key`: provider API key, especially for Google maps.
 - `marker_clustering`: clusters markers for Google map views.
 - `country_restriction`, `restricted_countries`: restricts autocomplete/geocoding to selected countries.
-- `default_latitude`, `default_longitude`: default map center.
+- `default_latitude`, `default_longitude`: default map center. In the redesigned settings UI these remain the saved keys behind the visible `Default address` row; the address row reverse-geocodes saved coordinates and writes selected/entered addresses back to these coordinate keys.
 - `use_def_lat_long`: forces default coordinates in all-listings map behavior.
 - `map_zoom_level`, `map_view_zoom_level`: default zoom levels for form/map views.
 - `listings_map_height`: all-listings map height.

@@ -47453,10 +47453,31 @@ body.directorist-settings-redesign-page .atbdp-settings-manager {
   max-width: none;
   margin: 0 !important;
 }
+body.directorist-settings-redesign-page #wpbody-content > .wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: calc(100vh - 32px);
+  min-height: 0;
+}
+body.directorist-settings-redesign-page .directorist_membership-notice {
+  display: none !important;
+}
 body.directorist-settings-redesign-page .atbdp-settings-manager {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  height: calc(100vh - 32px);
+  height: auto;
+  min-height: 0;
   overflow: hidden;
   padding: 16px 24px 24px;
 }
@@ -48110,6 +48131,90 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-ad
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced__body .cptm-section:last-child {
   margin-bottom: 0 !important;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] {
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  margin: 0 32px 24px;
+  background: #f8fafc;
+  border: 1px solid #dfe5ee;
+  border-radius: 0 0 8px 8px;
+  -webkit-box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+          box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  overflow: hidden;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__toggle {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  height: 52px;
+  padding: 16px 20px;
+  color: #050b18;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__toggle:hover, body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__toggle:focus {
+  color: #111827;
+  background: #f8fafc;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__body {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  height: auto;
+  min-height: 0;
+  margin-top: 0;
+  background: #f8fafc;
+  border-top: 1px solid #e8edf4;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__body .cptm-tab-content {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__body .cptm-section {
+  height: auto;
+  min-height: 0;
+  margin: 0 !important;
+  background: #f8fafc;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__body .cptm-section .cptm-form-fields {
+  height: auto;
+  min-height: 0;
+  background: #f8fafc;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__body .cptm-section .cptm-title-area {
+  display: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .atbdp-tab-content-item > .cptm-tab-content-menu-email_settings__email_events {
+  padding-bottom: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-email_settings__email_events .cptm-section:last-child {
+  margin-bottom: 0 !important;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+}
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-section {
   position: relative;
   margin: 0 0 16px !important;
@@ -48341,6 +48446,722 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-default-loca
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-form-fields > .cptm-default-location-address:has(.cptm-default-location-address__results) {
   z-index: 50;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(360px, 520px);
+  gap: 4px 24px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: visible;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row--open {
+  z-index: 40;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row__label {
+  display: block;
+  margin: 0 0 3px;
+  color: #050b18;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row__description {
+  margin: 0;
+  color: #536681;
+  font-size: 13px;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row__control {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row__control .directorist_dropdown {
+  width: 200px;
+  max-width: 200px !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages {
+  min-height: 74px !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .cptm-form-group > .atbdp-row {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 1fr) auto !important;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .atbdp-col {
+  width: auto;
+  max-width: none;
+  padding: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .atbdp-col-8 {
+  justify-self: end;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .settings-save-btn {
+  min-width: 91px;
+  height: 34px;
+  min-height: 34px;
+  padding: 7px 14px;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #dfe4ea;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .settings-save-btn:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .settings-save-btn:focus {
+  color: #111827;
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .settings-save-btn:disabled {
+  color: #64748b;
+  background: #f8fafc;
+  border-color: #e5e7eb;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .cptm-form-group-feedback {
+  margin: 8px 0 0 !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .cptm-form-alert {
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-title-area {
+  padding: 17px 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-title-area .cptm-title {
+  margin: 0;
+  color: #050b18 !important;
+  font-size: 15px !important;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-title-area .cptm-des {
+  margin-top: 5px;
+  color: #536681 !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 18px;
+  letter-spacing: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-fields > div {
+  min-height: 56px;
+  padding: 13px 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-group > .atbdp-row {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 1fr) auto !important;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .atbdp-col {
+  width: auto;
+  max-width: none;
+  padding: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .atbdp-col-8 {
+  justify-self: end;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-group label {
+  margin: 0;
+  color: #050b18 !important;
+  font-size: 14px !important;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-group label span {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-group-info {
+  margin: 2px 0 0;
+  color: #536681 !important;
+  font-size: 13px !important;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .settings-save-btn,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-btn,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-label-btn {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-width: 90px;
+  width: auto;
+  height: 30px;
+  min-height: 30px;
+  margin: 0;
+  padding: 5px 13px;
+  color: #111827 !important;
+  background: #ffffff;
+  border: 1px solid #dfe4ea;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 18px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .settings-save-btn:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .settings-save-btn:focus,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-btn:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-btn:focus,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-label-btn:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-label-btn:focus {
+  color: #111827 !important;
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .settings-save-btn .fas,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-btn .fas,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-label-btn .fas {
+  display: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-group > .atbdp-row > .atbdp-col-8 label {
+  font-size: 12px !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-field-wraper-key-restore_default_settings .cptm-btn {
+  min-width: 120px;
+  color: #b42318 !important;
+  border-color: #f2b8b5;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-field-wraper-key-restore_default_settings .cptm-btn:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-field-wraper-key-restore_default_settings .cptm-btn:focus {
+  color: #991b1b !important;
+  background: #fff7f7;
+  border-color: #f0a5a0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-group-feedback {
+  margin: 8px 0 0 !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-tools .cptm-form-alert {
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-section {
+  border-color: #e9ebef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-title-area {
+  padding: 17px 20px;
+  border-bottom-color: #e8edf4;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-title-area .cptm-title {
+  margin: 0;
+  color: #111827;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-form-fields > .cptm-field-wraper-key-extension_promotion {
+  min-height: 0;
+  padding: 0;
+  border-top: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion {
+  display: block;
+  width: 100%;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion__row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 24px;
+  min-height: 71px;
+  padding: 17px 20px;
+  border-top: 1px solid #edf1f6;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion__row:first-child {
+  border-top: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion__row h3 {
+  margin: 0;
+  color: #111827;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion__row p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion__button {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  min-width: 104px;
+  height: 34px;
+  min-height: 34px;
+  padding: 8px 18px;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  text-decoration: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion__button:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-extension-promotion__button:focus {
+  color: #111827;
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__pages .cptm-field-wraper-type-select:has(.cptm-page-setup-row--open),
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__seo_settings .cptm-field-wraper-type-select:has(.directorist_dropdown.--open),
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-field-wraper-type-select:has(.directorist_dropdown.--open) {
+  position: relative;
+  z-index: 45;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-fields {
+  display: block;
+  width: 100%;
+  padding: 0 !important;
+  border-top: 0 !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__seo_settings .cptm-form-fields > .cptm-field-wraper:has(.cptm-seo-meta-fields) {
+  min-height: 0;
+  padding: 0 !important;
+  border-top: 0 !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 14px;
+  padding: 14px 20px;
+  border-top: 1px solid #edf1f6;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row:first-child {
+  border-top: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__field {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__field span {
+  display: block;
+  color: #050b18;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__field small {
+  display: block;
+  margin-top: -2px;
+  color: #536681;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__input,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__input[type=text] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 7px 10px !important;
+  color: #111827;
+  background: #ffffff !important;
+  border: 1px solid #d9dee7 !important;
+  border-radius: 6px !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  font-size: 13px;
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__textarea,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__textarea[type=text] {
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 54px !important;
+  min-height: 54px !important;
+  padding: 7px 10px !important;
+  color: #111827;
+  background: #ffffff !important;
+  border: 1px solid #d9dee7 !important;
+  border-radius: 6px !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  font-size: 13px;
+  line-height: 18px;
+  resize: vertical;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__input:focus {
+  border-color: #3e62f5 !important;
+  -webkit-box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.12) !important;
+          box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.12) !important;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row__textarea:focus {
+  border-color: #3e62f5 !important;
+  -webkit-box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.12) !important;
+          box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.12) !important;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced {
+  overflow: hidden;
+  width: 100%;
+  border-top: 1px solid #edf1f6;
+  border-radius: 0 0 8px 8px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced .cptm-seo-meta-row:first-of-type {
+  border-top: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced__toggle {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 42px;
+  padding: 12px 20px;
+  color: #050b18;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  background: #f8fafc;
+  border: 0;
+  border-bottom: 0;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced--open .cptm-seo-meta-advanced__toggle {
+  border-bottom: 1px solid #edf1f6;
+  border-radius: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced:not(.cptm-seo-meta-advanced--open) .cptm-seo-meta-advanced__toggle {
+  border-radius: 0 0 8px 8px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced__toggle:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced__toggle:focus {
+  color: #050b18;
+  background: #f8fafc;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced__chevron {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 12px;
+      -ms-flex: 0 0 12px;
+          flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  color: #536681;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  -webkit-transition: -webkit-transform 0.15s ease;
+  transition: -webkit-transform 0.15s ease;
+  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, -webkit-transform 0.15s ease;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-advanced--open .cptm-seo-meta-advanced__chevron {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-area {
+  width: 100%;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-label {
+  margin-bottom: 10px;
+  color: #050b18;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-field-wraper-key-apply_schema_markup .cptm-form-group {
+  display: block;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-item {
+  display: block;
+  padding: 0 !important;
+  margin: 0;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  -webkit-transition: none;
+  transition: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-label-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 8px;
+  min-height: 86px;
+  margin: 0;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #d9dee7;
+  border-radius: 8px;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-item.active .cptm-schema-label-wrapper {
+  background: #eef3ff;
+  border-color: #4361f2;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-label-wrapper::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1/span 2;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: inset 0 0 0 4px #ffffff;
+          box-shadow: inset 0 0 0 4px #ffffff;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-item.active .cptm-schema-label-wrapper::before {
+  background: #4361f2;
+  border-color: #4361f2;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-label {
+  grid-column: 2;
+  color: #050b18;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-item.active .cptm-schema-label {
+  color: #3155f6;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-label-description {
+  grid-column: 2;
+  margin-top: 3px;
+  color: #536681;
+  font-size: 12px;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-field-wraper-key-enable_uninstall .cptm-form-group-info {
+  max-width: 720px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-field-wraper-key-atbdp_reset_cache .cptm-input-toggle {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: auto;
+  min-width: 85px;
+  height: 30px;
+  min-height: 30px;
+  padding: 5px 13px;
+  color: #111827 !important;
+  background: #ffffff !important;
+  border: 1px solid #dfe4ea;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-field-wraper-key-atbdp_reset_cache .cptm-input-toggle::before {
+  content: "Reset now";
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-field-wraper-key-atbdp_reset_cache .cptm-input-toggle::after {
+  display: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-field-wraper-key-atbdp_reset_cache .cptm-input-toggle:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-field-wraper-key-atbdp_reset_cache .cptm-input-toggle:focus {
+  color: #111827 !important;
+  background: #f8fafc !important;
+  border-color: #cbd5e1;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-section.enable_uninstall {
+  border-color: #f5b9b8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-section.enable_uninstall .cptm-title-area {
+  background: #fef2f2;
+  border-bottom-color: #f5b9b8;
+  border-radius: 8px 8px 0 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-section.enable_uninstall .cptm-title {
+  color: #991b1b;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-section.enable_uninstall .cptm-form-fields > div {
+  background: #fff7f7;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__maintenance .cptm-section.enable_uninstall .cptm-form-fields > div:last-child {
+  border-radius: 0 0 8px 8px;
+}
+@media only screen and (max-width: 960px) {
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row,
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-seo-meta-row,
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .cptm-form-group > .atbdp-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-regenerate_pages .atbdp-col-8 {
+    justify-self: start;
+  }
+}
+@media only screen and (max-width: 640px) {
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-page_setup__schema_markup .cptm-schema-tab-wrapper {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row__control {
+    -webkit-box-pack: stretch;
+    -webkit-justify-content: stretch;
+        -ms-flex-pack: stretch;
+            justify-content: stretch;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-page-setup-row__control .directorist_dropdown {
+    width: 100%;
+    max-width: 100% !important;
+  }
+}
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-section .cptm-form-fields > .cptm-card-advanced {
   min-height: 0;
   padding: 0;
@@ -48513,8 +49334,77 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper
   min-height: 70px;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-featured_listing_price,
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-featured_listing_time {
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-featured_listing_time,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day {
   position: relative;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day .atbdp-col-8,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day .atbdp-col-8 {
+  padding-right: 42px !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day {
+  height: auto !important;
+  min-height: 72px !important;
+  padding: 14px 20px !important;
+  background: #f8fafc;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day .cptm-form-group > .atbdp-row,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day .cptm-form-group > .atbdp-row {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 1fr) 310px !important;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day .atbdp-col-4,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day .atbdp-col-4 {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day .atbdp-col-8,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day .atbdp-col-8 {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 310px !important;
+  max-width: 310px !important;
+  padding: 0 78px 0 0 !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day input[type=number],
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day input[type=number],
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day .cptm-form-control,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day .cptm-form-control {
+  width: 200px !important;
+  max-width: 200px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_to_expire_day .cptm-field-suffix,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-email_renewal_day .cptm-field-suffix {
+  right: 20px;
+  width: 70px;
+  color: #536681;
+  font-size: 13px;
+  line-height: 18px;
+  white-space: nowrap;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-featured_listing_price .cptm-form-group > .atbdp-row,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-featured_listing_time .cptm-form-group > .atbdp-row {
@@ -48575,11 +49465,16 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-suffix
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-active_gateways {
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-active_gateways,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-payment_currency,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-payment_currency_position,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-disable_email_notification {
   padding-top: 13px !important;
   padding-bottom: 13px !important;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle {
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-checkout-currency-match,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-email-notification-toggle {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -48595,10 +49490,14 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gatew
   gap: 24px;
   width: 100%;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle__content {
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle__content,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-checkout-currency-match__content,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-email-notification-toggle__content {
   min-width: 0;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle__content label {
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle__content label,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-checkout-currency-match__content label,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-email-notification-toggle__content label {
   display: block;
   margin: 0 0 3px;
   color: #050b18;
@@ -48606,13 +49505,17 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gatew
   font-weight: 600;
   line-height: 20px;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle__content p {
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle__content p,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-checkout-currency-match__content p,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-email-notification-toggle__content p {
   margin: 0;
   color: #536681;
   font-size: 13px;
   line-height: 18px;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle > .cptm-input-toggle {
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gateways-toggle > .cptm-input-toggle,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-checkout-currency-match > .cptm-input-toggle,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-email-notification-toggle > .cptm-input-toggle {
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 40px;
       -ms-flex: 0 0 40px;
@@ -48624,6 +49527,519 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gatew
           box-shadow: none;
   cursor: pointer;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-admin_email_lists textarea {
+  width: 200px !important;
+  max-width: 200px !important;
+  min-height: 32px !important;
+  height: 32px !important;
+  padding: 7px 10px;
+  line-height: 18px;
+  resize: vertical;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events {
+  width: 100%;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th {
+  padding: 10px 20px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: uppercase;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th:first-child,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td:first-child {
+  width: 72%;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th:nth-child(2),
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td:nth-child(2) {
+  width: 14%;
+  text-align: center;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th:nth-child(3),
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td:nth-child(3) {
+  width: 14%;
+  text-align: right;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td {
+  height: 63px;
+  padding: 12px 20px;
+  vertical-align: middle;
+  border-bottom: 1px solid #edf0f4;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__group-row td {
+  height: auto;
+  padding: 10px 20px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: left !important;
+  text-transform: uppercase;
+  background: #f8fafc;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__event {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__name {
+  color: #050b18;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__description {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table .cptm-input-toggle {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table .cptm-input-toggle:disabled {
+  cursor: not-allowed;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__always-on {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  vertical-align: middle;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 28px;
+  padding: 0 13px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  background: #ffffff;
+  border: 1px solid #dfe4ea;
+  border-radius: 6px;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit:focus {
+  color: #111827;
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit--disabled,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit--disabled:hover,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit--disabled:focus {
+  color: #94a3b8;
+  background: #f8fafc;
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.45);
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__panel {
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 720px;
+  max-width: calc(100vw - 40px);
+  height: auto;
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+          box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__header,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid #e5e7eb;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__footer {
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__header h3 {
+  margin: 0 0 6px;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__badge {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 240px;
+  padding: 3px 8px;
+  overflow: hidden;
+  color: #536681;
+  font-size: 12px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__close {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 29px;
+  height: 30px;
+  padding: 4px 8px;
+  color: #64748b;
+  font-size: 22px;
+  line-height: 1;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 13px;
+  padding: 20px 22px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__placeholders {
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__placeholders p {
+  margin: 0 0 8px;
+  color: #536681;
+  font-size: 12px;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__placeholder-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 6px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__placeholder-list button {
+  height: 22px;
+  padding: 0 8px;
+  color: #536681;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 11px;
+  line-height: 16px;
+  background: #ffffff;
+  border: 1px solid #dfe4ea;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 7px;
+  margin: 0;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field small {
+  margin-top: -4px;
+  color: #536681;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field > span {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 12px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field > span small {
+  margin: 0;
+  color: #94a3b8;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field input,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field textarea {
+  width: 100%;
+  max-width: none !important;
+  margin: 0;
+  color: #111827;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: left !important;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field input {
+  height: 32px;
+  padding: 7px 10px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field textarea {
+  height: 220px;
+  min-height: 220px;
+  padding: 7px 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  resize: vertical;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field input:disabled {
+  color: #111827;
+  background: #ffffff;
+  opacity: 1;
+  cursor: default;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field input:focus,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field textarea:focus {
+  border-color: #3e62f5;
+  -webkit-box-shadow: 0 0 0 2px rgba(62, 98, 245, 0.12);
+          box-shadow: 0 0 0 2px rgba(62, 98, 245, 0.12);
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__footer span {
+  color: #536681;
+  font-size: 12px;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__footer > div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__cancel,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__save {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__cancel {
+  padding: 7px 14px;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__save {
+  padding: 8px 18px;
+  color: #ffffff;
+  background: #3e62f5;
+  border: 0;
+  border-radius: 8px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__section-title {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__section-title::after {
+  content: "";
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  height: 1px;
+  background: #e5e7eb;
+}
+@media (max-width: 782px) {
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events {
+    overflow-x: auto;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table {
+    min-width: 560px;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th,
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 12px;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__panel {
+    max-height: calc(100vh - 24px);
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__header,
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__footer {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color .cptm-color-picker-wrap,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color_picker .cptm-color-picker-wrap {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -48640,12 +50056,13 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper
   width: 124px;
   max-width: 124px;
   height: 32px;
-  padding: 4px 8px;
+  padding: 5px;
   gap: 8px;
   background: #ffffff;
   border: 1px solid #d2d6db;
   border-radius: 6px;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color .cptm-color-picker,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color_picker .cptm-color-picker {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -48662,28 +50079,29 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper
   -webkit-flex-shrink: 0;
       -ms-flex-negative: 0;
           flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   padding: 0;
   overflow: hidden;
   border: 1px solid #e5e7eb;
   border-radius: 4px;
   background: #ffffff;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color .cptm-color-picker input,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color_picker .cptm-color-picker input {
   display: block;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-box-flex: 0;
-  -webkit-flex: 0 0 18px;
-      -ms-flex: 0 0 18px;
-          flex: 0 0 18px;
-  width: 18px !important;
-  min-width: 18px;
-  max-width: 18px;
-  height: 18px !important;
-  min-height: 18px;
-  max-height: 18px;
+  -webkit-flex: 0 0 20px;
+      -ms-flex: 0 0 20px;
+          flex: 0 0 20px;
+  width: 20px !important;
+  min-width: 20px;
+  max-width: 20px;
+  height: 20px !important;
+  min-height: 20px;
+  max-height: 20px;
   padding: 0;
   border: 0;
   border-radius: 3px;
@@ -48695,33 +50113,40 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper
        appearance: none;
   -webkit-appearance: none;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color .cptm-color-picker input[type=color]::-webkit-color-swatch-wrapper,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color_picker .cptm-color-picker input[type=color]::-webkit-color-swatch-wrapper {
   padding: 0;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color .cptm-color-picker input[type=color]::-webkit-color-swatch,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color_picker .cptm-color-picker input[type=color]::-webkit-color-swatch {
   border: 0;
   border-radius: 3px;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color .cptm-color-picker input[type=color]::-moz-color-swatch,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color_picker .cptm-color-picker input[type=color]::-moz-color-swatch {
   border: 0;
   border-radius: 3px;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color .cptm-color-picker-label,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-type-color_picker .cptm-color-picker-label {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 80px;
+      -ms-flex: 0 0 80px;
+          flex: 0 0 80px;
   min-width: 0;
-  max-width: 82px;
-  height: 18px;
-  min-height: 18px;
-  max-height: 18px;
+  width: 80px !important;
+  max-width: 80px;
+  height: 22px;
+  min-height: 22px;
+  max-height: 22px;
   margin: 0;
-  padding: 0;
+  padding: 7px 10px 7px 0;
   color: #111827;
   background: transparent !important;
   border: 0 !important;
   border-radius: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
   font-size: 13px;
@@ -48924,7 +50349,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-input-toggle
           transform: none;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-form-control,
-body.directorist-settings-redesign-page .atbdp-settings-panel input[type=text]:not(.settings-sidebar-search__input),
 body.directorist-settings-redesign-page .atbdp-settings-panel input[type=email],
 body.directorist-settings-redesign-page .atbdp-settings-panel input[type=number],
 body.directorist-settings-redesign-page .atbdp-settings-panel input[type=password],
@@ -49291,8 +50715,14 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .directorist_dropd
   min-width: 0;
   min-height: 100%;
   padding-top: 0;
+  padding-right: 10px;
   padding-bottom: 0;
+  padding-left: 10px;
   line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel select {
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .directorist_dropdown .directorist_dropdown-toggle__text {
   display: block;
@@ -49695,6 +51125,20 @@ body.directorist-settings-redesign-page .atbdp-settings-panel #settings_design_g
   }
 }
 
+body.directorist-settings-redesign-page.cptm-notification-modal-open {
+  overflow: hidden;
+}
+
+body.directorist-settings-redesign-page.cptm-notification-modal-open .atbdp-settings-panel {
+  overflow: visible;
+}
+
+body.directorist-settings-redesign-page.cptm-notification-modal-open .atbdp-tab-sub-contents > .atbdp-tab-content-item {
+  position: relative;
+  z-index: 2147482999;
+  overflow: visible;
+}
+
 @-webkit-keyframes directorist-settings-modal-spin {
   to {
     -webkit-transform: rotate(360deg);
@@ -49709,8 +51153,11 @@ body.directorist-settings-redesign-page .atbdp-settings-panel #settings_design_g
   }
 }
 @media screen and (max-width: 782px) {
-  body.directorist-settings-redesign-page .atbdp-settings-manager {
+  body.directorist-settings-redesign-page #wpbody-content > .wrap {
     height: calc(100vh - 46px);
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-manager {
+    height: auto;
   }
 }
 body.folded.directorist-settings-redesign-page .atbdp-settings-panel .settings-footer {

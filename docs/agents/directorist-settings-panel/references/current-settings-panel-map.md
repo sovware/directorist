@@ -85,11 +85,12 @@ Settings values are read throughout Directorist. Treat these areas as connected 
 
 ## Redesign Implementation Notes
 
-Last updated: 2026-06-04
+Last updated: 2026-06-08
 
 - The static/reference redesign keeps WordPress admin chrome visible. Only the Directorist settings surface should be redesigned inside the available `#wpcontent` area.
 - Use the native Vue shell rather than an iframe, but mirror the reference shell behavior: breadcrumb above a rounded contained settings panel, with standard admin-content gutters.
 - Do not render the legacy PHP `atbdp-settings-manager__top` fallback header (`Settings`, `Documentation`, `Support`) in `views/admin-templates/settings-manager/settings.php`; it flashes during reload before Vue mounts and conflicts with the redesigned Vue shell.
+- Do not render the `directorist_membership-notice` promo banner on the settings panel. `views/admin-templates/settings-manager/settings.php` intentionally does not fire `directorist_before_settings_panel_header`, and the redesigned settings SCSS keeps `.directorist_membership-notice` hidden as a defensive guard. Revisit only if the user explicitly asks to restore the settings-panel banner.
 - Do not let the browser window become the main settings scroller. Keep `.atbdp-settings-manager` viewport-height bounded, `.setting-body` fixed inside the shell with `overflow: hidden`, and `.settings-contents` as a flex column.
 - Keep the settings subnav/header outside the scrolling area. `.atbdp-cptm-tab-contents` and `.atbdp-tab-sub-contents` should be flex column wrappers with `overflow: hidden`; the actual scroll owners are `.atbdp-tab-sub-contents > .atbdp-tab-content-item` for submenus and `.atbdp-tab-content-body` for menus without submenus. Do not use `scrollbar-gutter: stable` for this redesign because it leaves an empty right-side strip when content is short and no scrollbar is needed.
 - Keep `.settings-footer` in normal flex layout at the bottom of `.settings-contents`; avoid a fixed footer because it overlaps scrolled settings rows and causes page-level scroll conflicts.

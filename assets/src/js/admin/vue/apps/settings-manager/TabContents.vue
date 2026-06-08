@@ -26,6 +26,7 @@
 
             <div
               class="settings-panel-advanced"
+              :data-container-key="containerKey(menu_key)"
               v-if="hasSections(menu.sections, true)"
             >
               <button
@@ -102,6 +103,7 @@
 
               <div
                 class="settings-panel-advanced"
+                :data-container-key="containerKey(menu_key, submenu_key)"
                 v-if="hasSections(submenu.sections, true)"
               >
                 <button
@@ -194,6 +196,10 @@ export default {
     advancedToggleLabel(menuKey, submenuKey = "") {
       if (menuKey === "listing_settings" && submenuKey === "single_listing") {
         return "Advanced";
+      }
+
+      if (menuKey === "email_settings" && submenuKey === "email_events") {
+        return "Schedule & timing";
       }
 
       return "Show advanced settings";

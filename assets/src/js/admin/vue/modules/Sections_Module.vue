@@ -38,6 +38,32 @@
             @update-field="updateFieldValue($event.fieldKey, $event.value)"
           />
 
+          <settings-notification-events
+            v-if="shouldRenderNotificationEvents(section, field)"
+            :key="'notification-events-' + section_key"
+            :fields="fields"
+            @update-field="updateFieldValue($event.fieldKey, $event.value)"
+          />
+
+          <settings-seo-meta-fields
+            v-if="shouldRenderSeoMetaFields(section, field)"
+            :key="'seo-meta-fields-' + section_key"
+            :fields="fields"
+            :pairs="section.seoMetaPairs"
+            :advanced-label="section.seoAdvancedLabel"
+            @update-field="updateFieldValue($event.fieldKey, $event.value)"
+          />
+
+          <settings-checkout-currency-match
+            v-if="shouldRenderCheckoutCurrencyMatch(section, field)"
+            :key="'checkout-currency-match-' + section_key"
+            :config="section.checkoutCurrencyMatch"
+            :fields="fields"
+            :custom-mode="isCheckoutCurrencyCustomMode(section_key)"
+            @set-custom-mode="setCheckoutCurrencyCustomMode(section_key, $event)"
+            @update-field="updateFieldValue($event.fieldKey, $event.value)"
+          />
+
           <div
             v-if="shouldRenderNestedAdvancedToggle(section, field)"
             class="cptm-card-advanced"
@@ -73,8 +99,20 @@
             :data-field-suffix="fieldSuffix(field)"
           >
           <!-- Render the regular fields -->
+            <settings-email-notification-toggle
+              v-if="shouldRenderEmailNotificationToggle(field)"
+              :field="fields[field]"
+              :field-key="field"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+            />
+
+            <settings-extension-promotion
+              v-else-if="shouldRenderExtensionPromotion(field)"
+              :field="fields[field]"
+            />
+
             <settings-active-gateways-toggle
-              v-if="shouldRenderActiveGatewaysToggle(field)"
+              v-else-if="shouldRenderActiveGatewaysToggle(field)"
               :field="fields[field]"
               :field-key="field"
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
@@ -82,6 +120,13 @@
 
             <settings-restricted-countries-select
               v-else-if="shouldRenderRestrictedCountriesSelect(field)"
+              :field="fields[field]"
+              :field-key="field"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+            />
+
+            <settings-page-setup-row
+              v-else-if="shouldRenderPageSetupRow(field)"
               :field="fields[field]"
               :field-key="field"
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
@@ -228,15 +273,27 @@
 import { mapState } from "vuex";
 import helpers from "./../mixins/helpers";
 import SettingsActiveGatewaysToggle from "../apps/settings-manager/components/Settings_Active_Gateways_Toggle.vue";
+import SettingsCheckoutCurrencyMatch from "../apps/settings-manager/components/Settings_Checkout_Currency_Match.vue";
 import SettingsDefaultLocationAddress from "../apps/settings-manager/components/Settings_Default_Location_Address.vue";
+import SettingsEmailNotificationToggle from "../apps/settings-manager/components/Settings_Email_Notification_Toggle.vue";
+import SettingsExtensionPromotion from "../apps/settings-manager/components/Settings_Extension_Promotion.vue";
+import SettingsNotificationEvents from "../apps/settings-manager/components/Settings_Notification_Events.vue";
+import SettingsPageSetupRow from "../apps/settings-manager/components/Settings_Page_Setup_Row.vue";
 import SettingsRestrictedCountriesSelect from "../apps/settings-manager/components/Settings_Restricted_Countries_Select.vue";
+import SettingsSeoMetaFields from "../apps/settings-manager/components/Settings_SEO_Meta_Fields.vue";
 
 export default {
   name: "sections-module",
   components: {
     SettingsActiveGatewaysToggle,
+    SettingsCheckoutCurrencyMatch,
     SettingsDefaultLocationAddress,
+    SettingsEmailNotificationToggle,
+    SettingsExtensionPromotion,
+    SettingsNotificationEvents,
+    SettingsPageSetupRow,
     SettingsRestrictedCountriesSelect,
+    SettingsSeoMetaFields,
   },
   mixins: [helpers],
 
@@ -279,6 +336,7 @@ export default {
         "tab-short-wide": this.container === "short-wide",
         "tab-full-width": this.container === "full-width",
         [`cptm-tab-content-${this.tabKey}`]: !!this.tabKey,
+        [`cptm-tab-content-menu-${this.menuKey}`]: !!this.menuKey,
       };
     },
 
@@ -298,6 +356,7 @@ export default {
 
   data() {
     return {
+      checkoutCurrencyCustomOpen: {},
       nestedAdvancedOpen: {},
     };
   },
@@ -396,6 +455,70 @@ export default {
       return section.defaultLocationAddress.beforeField === field;
     },
 
+    shouldRenderNotificationEvents(section, field) {
+      if (!section || !section.notificationEvents) {
+        return false;
+      }
+
+      return section.notificationEvents.beforeField === field;
+    },
+
+    shouldRenderSeoMetaFields(section, field) {
+      if (!section || !Array.isArray(section.seoMetaPairs)) {
+        return false;
+      }
+
+      return section.seoMetaPairs[0]?.titleField === field;
+    },
+
+    shouldRenderCheckoutCurrencyMatch(section, field) {
+      if (!section || !section.checkoutCurrencyMatch) {
+        return false;
+      }
+
+      return section.checkoutCurrencyMatch.beforeField === field;
+    },
+
+    checkoutCurrencyCustomModeKey(sectionKey) {
+      return `${this.menuKey}__${sectionKey}`;
+    },
+
+    isCheckoutCurrencyCustomMode(sectionKey) {
+      const key = this.checkoutCurrencyCustomModeKey(sectionKey);
+
+      return !!this.checkoutCurrencyCustomOpen[key];
+    },
+
+    setCheckoutCurrencyCustomMode(sectionKey, isOpen) {
+      this.$set(
+        this.checkoutCurrencyCustomOpen,
+        this.checkoutCurrencyCustomModeKey(sectionKey),
+        !!isOpen
+      );
+    },
+
+    checkoutCurrencyMatchesDisplay() {
+      const displayCurrency = String(this.fields.g_currency?.value || "")
+        .trim()
+        .toUpperCase();
+      const checkoutCurrency = String(this.fields.payment_currency?.value || "")
+        .trim()
+        .toUpperCase();
+      const displayPosition = String(this.fields.g_currency_position?.value || "");
+      const checkoutPosition = String(
+        this.fields.payment_currency_position?.value || ""
+      );
+
+      return (
+        displayCurrency === checkoutCurrency &&
+        displayPosition === checkoutPosition
+      );
+    },
+
+    isCheckoutCurrencyField(field) {
+      return ["payment_currency", "payment_currency_position"].includes(field);
+    },
+
     shouldRenderRestrictedCountriesSelect(field) {
       const isMapSettings =
         this.menuKey === "listing_settings__map" || this.tabKey === "map";
@@ -406,12 +529,36 @@ export default {
       );
     },
 
+    shouldRenderEmailNotificationToggle(field) {
+      const isNotificationChannels =
+        this.menuKey === "email_settings__email_general" ||
+        this.tabKey === "email_general";
+
+      return isNotificationChannels && field === "disable_email_notification";
+    },
+
+    shouldRenderExtensionPromotion(field) {
+      const isExtensionsSettings =
+        this.menuKey === "extensions_settings" ||
+        this.tabKey === "extensions_settings" ||
+        this.tabKey === "extensions_general";
+
+      return isExtensionsSettings && field === "extension_promotion";
+    },
+
     shouldRenderActiveGatewaysToggle(field) {
       const isPaymentGatewaySettings =
         this.menuKey === "monetization_settings__gateway" ||
         this.tabKey === "gateway";
 
       return isPaymentGatewaySettings && field === "active_gateways";
+    },
+
+    shouldRenderPageSetupRow(field) {
+      const isPagesSettings =
+        this.menuKey === "page_setup__pages" || this.tabKey === "pages";
+
+      return isPagesSettings && this.fields[field]?.type === "select";
     },
 
     hiddenFieldsInSection(section) {
@@ -431,6 +578,16 @@ export default {
     },
 
     fieldIsVisibleInSection(sectionKey, section, field) {
+      if (
+        section?.checkoutCurrencyMatch &&
+        this.isCheckoutCurrencyField(field)
+      ) {
+        return (
+          this.isCheckoutCurrencyCustomMode(sectionKey) ||
+          !this.checkoutCurrencyMatchesDisplay()
+        );
+      }
+
       if (!this.isNestedAdvancedField(section, field)) {
         return true;
       }
@@ -469,12 +626,14 @@ export default {
     },
 
     sectionClass(section) {
+      const firstField = section.fields[0];
       const isDisabled =
-        this.fields[section.fields[0]]?.type === "toggle" &&
-        this.fields[section.fields[0]].value !== true;
+        firstField !== "disable_email_notification" &&
+        this.fields[firstField]?.type === "toggle" &&
+        this.fields[firstField].value !== true;
       const classList = [
         isDisabled ? "cptm-section--disabled" : "",
-        section.fields[0],
+        firstField,
       ];
 
       const sectionClass = classList.filter(Boolean).join(" ");
@@ -517,6 +676,14 @@ export default {
 
       if (field === "featured_listing_time") {
         return "days";
+      }
+
+      if (field === "email_to_expire_day") {
+        return "days before";
+      }
+
+      if (field === "email_renewal_day") {
+        return "days after";
       }
 
       return "";

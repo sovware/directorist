@@ -130,6 +130,8 @@ Treat these as compatibility-sensitive legacy options if a redesign or feature a
 
 Purpose: maps Directorist workflows to WordPress pages and regenerates/upgrades required pages.
 
+Redesigned UI note: Site & pages renders `Pages`, `SEO`, `Schema`, and `Maintenance` as presentation-only tabs. Page setup rows use custom copy and row layout while preserving the original page-select keys and values; shortcode chips are currently hidden by design.
+
 - `regenerate_pages`: AJAX action field to upgrade/regenerate Directorist pages.
 - `add_listing_page`: page used for listing submission.
 - `all_listing_page`: page used for all listings archive.
@@ -221,19 +223,22 @@ Purpose: registration/login form labels and visibility, dashboard tabs, author d
 
 Purpose: sender identity, notification recipients/events, email template content, and placeholder guidance.
 
-### General
+Redesigned UI note: Notifications renders as `Channels` plus merged `Events & Templates`. The merge is presentation-only; all fields still save through their existing option keys in `atbdp_option`.
+
+### Channels
 
 - `email_from_name`, `email_from_email`: sender name and sender email.
-- `disable_email_notification`: disables Directorist email notifications.
+- `disable_email_notification`: disables Directorist email notifications; the redesigned UI shows it as the inverse `Enable email notifications` toggle.
 - `admin_email_lists`: admin recipient list.
-- `notify_admin`, `notify_user`: event lists for admin/user notifications.
-
-### Templates
-
 - `allow_email_header`, `email_header_color`: email header visibility and color.
+
+### Events & Templates
+
+- `notify_admin`, `notify_user`: event lists for admin/user notifications.
 - `email_note`: placeholder note shown in template settings.
 - `email_sub_new_listing`, `email_tmpl_new_listing`: new listing email subject/body.
 - `email_sub_pub_listing`, `email_tmpl_pub_listing`: approved/published listing subject/body.
+- `email_sub_rejected_listing`, `email_tmpl_rejected_listing`: rejected listing subject/body.
 - `email_sub_edit_listing`, `email_tmpl_edit_listing`: edited listing subject/body.
 - `email_sub_to_expire_listing`, `email_tmpl_to_expire_listing`: about-to-expire listing subject/body.
 - `email_sub_expired_listing`, `email_tmpl_expired_listing`: expired listing subject/body.
@@ -260,6 +265,8 @@ Source: direct core settings from `includes/classes/class-settings-panel.php`.
 - `payment_currency`: 3-letter payment currency code.
 - `payment_thousand_separator`, `payment_decimal_separator`: payment number formatting.
 - `payment_currency_position`: payment currency symbol position.
+
+Redesigned UI note (2026-06-08): `Monetization > Currency` shows a presentation-only `Match display currency` toggle. There is no saved `match_display_currency` key. The toggle is ON when `payment_currency` / `payment_currency_position` match `g_currency` / `g_currency_position`; turning it ON writes the display values into the existing payment keys. Turning it OFF exposes `Checkout currency code` and `Checkout currency position` rows for editing the existing payment keys.
 
 ### Featured Listings
 
@@ -295,17 +302,31 @@ Source: direct core extension menu from `class-settings-panel.php`; extension-sp
 
 - `extension_promotion`: note linking admins to Directorist extensions.
 
+Current redesign behavior (2026-06-08): the core `Extensions` menu renders `extension_promotion` as a reference-style empty-state card:
+
+- Card header: `Extensions`.
+- Empty state: `Installed extensions` with `No extensions installed yet. Each extension you install will add its own section here.`
+- Browse row: `Browse extensions` with `30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.`
+- Action: `View directory`, linking to the existing Directorist extensions admin page. This is presentation-only and does not add extension-specific settings.
+
 Extension-specific design rule: do not assume settings for Directorist extensions are present from core alone. If a design targets an extension, identify the exact extension, install/activate only after user approval, inspect its filters/settings/layouts, then document any confirmed extension-provided options under an extension-specific heading.
 
 ## Import And Export
 
 Purpose: listing import/export actions and settings backup/restore actions.
 
-- `listing_import_button`: link/action for running listing importer.
-- `listing_export_button`: export listings data.
-- `import_settings`: import settings backup file.
-- `export_settings`: export settings backup file.
-- `restore_default_settings`: restore default settings from bundled sample data.
+Current redesign behavior (2026-06-08): the `Import / Export` menu renders two reference-style cards without subnavigation:
+
+- `Listings`: CSV listing migration actions.
+- `Settings`: JSON settings migration actions and defaults restore.
+
+Existing keys and behavior are preserved:
+
+- `listing_import_button`: link/action for running the CSV listing importer, shown as `Import listings` with an `Import CSV` button.
+- `listing_export_button`: exports listings data, shown as `Export listings` with an `Export CSV` button.
+- `import_settings`: imports a settings backup file, shown as `Import settings` with an `Import JSON` button.
+- `export_settings`: exports a settings backup file, shown as `Export settings` with an `Export JSON` button.
+- `restore_default_settings`: restores default settings from bundled sample data, shown as `Restore defaults` with a danger-outline `Restore defaults` button.
 
 ## Advanced
 
@@ -329,9 +350,13 @@ Source: SEO and miscellaneous sections are direct core settings from `class-sett
 - `homepage_meta_title`, `homepage_meta_desc`: home page meta.
 - `meta_title_for_search_result`, `search_result_meta_title`, `search_result_meta_desc`: search result meta behavior/content.
 
+Redesigned UI note: SEO renders as `Built-in SEO` plus `Page titles and descriptions`. `meta_title_for_search_result` remains in the layout as a hidden preserved key for now; no visible search-friendly title control is shown until the behavior is revisited. Page meta fields render as full-width title inputs and description textareas, with non-primary page fields under the `Meta for the other pages` disclosure. The UI is presentation-only and still writes the existing `*_meta_title`, `*_meta_desc`, `meta_title_for_search_result`, `search_result_meta_title`, and `search_result_meta_desc` option keys.
+
 ### Schema Markup
 
 Source: core filter-injected settings from `includes/classes/class-schema.php`, added through `atbdp_advanced_submenu` and `atbdp_listing_type_settings_field_list`.
+
+Redesigned UI note: Schema renders as a `Schema markup` card and, when `apply_schema_markup = per-directory`, a separate `Schema type per directory` card. `directory_schema_type_global` is rendered only once in the first card. Dynamic `directory_schema_type_{directory_id}` fields remain existing saved keys, are grouped in the per-directory card, and are not migrated or renamed.
 
 - `enable_schema_markup`: enables JSON-LD schema output in the frontend footer.
 - `apply_schema_markup`: chooses whether one schema type applies to all directories or different schema types apply per directory.
@@ -343,7 +368,7 @@ Schema output uses `Directorist\Schema::print_schema()` and `Directorist\Schema:
 ### Miscellaneous
 
 - `atbdp_enable_cache`: enables Directorist cache behavior.
-- `atbdp_reset_cache`: triggers cache reset behavior.
+- `atbdp_reset_cache`: existing reset-cache toggle field. The redesigned Maintenance tab presents it with `Reset cache` / `Reset now` reference styling, but no new instant-reset AJAX action is added.
 - `script_debugging`: loads unminified CSS/JS files for debugging.
 - `enable_uninstall`: controls data cleanup behavior on uninstall.
 

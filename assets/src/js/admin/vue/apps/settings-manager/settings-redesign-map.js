@@ -375,6 +375,287 @@ const FIELD_OVERRIDES = {
 		label: 'Bank instructions',
 		description: 'Shown after order is placed. Use ==ORDER_ID== as a placeholder.',
 	},
+	email_to_expire_day: {
+		label: 'Send expiry notice',
+		description: 'Heads-up email before a listing expires.',
+	},
+	email_renewal_day: {
+		label: 'Send renewal reminder',
+		description: 'Follow-up email after a listing has expired.',
+	},
+	disable_email_notification: {
+		label: 'Enable email notifications',
+		description: 'Master switch for all outgoing email.',
+	},
+	email_from_name: {
+		label: 'Sender name',
+		description: 'Appears as the sender on every email.',
+	},
+	email_from_email: {
+		label: 'Sender email',
+		description: 'Reply address for all outgoing email.',
+	},
+	admin_email_lists: {
+		label: 'Admin email addresses',
+		description: 'Comma-separated. Where admin notifications are sent.',
+	},
+	allow_email_header: {
+		label: 'Show email header',
+		description: 'Branded header at the top of every email.',
+	},
+	email_header_color: {
+		label: 'Header color',
+		description: '',
+	},
+	add_listing_page: {
+		label: 'Add listing page',
+	},
+	all_listing_page: {
+		label: 'All listings page',
+	},
+	user_dashboard: {
+		label: 'Dashboard page',
+	},
+	signin_signup_page: {
+		label: 'Sign in & signup page',
+	},
+	author_profile_page: {
+		label: 'Author profile page',
+	},
+	all_categories_page: {
+		label: 'All categories page',
+	},
+	single_category_page: {
+		label: 'Single category page',
+	},
+	all_locations_page: {
+		label: 'All locations page',
+	},
+	single_location_page: {
+		label: 'Single location page',
+	},
+	single_tag_page: {
+		label: 'Single tag page',
+	},
+	search_listing: {
+		label: 'Search form page',
+	},
+	search_result_page: {
+		label: 'Search results page',
+	},
+	checkout_page: {
+		label: 'Checkout page',
+	},
+	payment_receipt_page: {
+		label: 'Payment receipt page',
+	},
+	transaction_failure_page: {
+		label: 'Transaction failure page',
+	},
+	privacy_policy: {
+		label: 'Privacy policy page',
+		description: '',
+	},
+	terms_conditions: {
+		label: 'Terms and conditions page',
+		description: '',
+	},
+	regenerate_pages: {
+		label: 'Regenerate missing pages',
+		description: 'Creates any pages from the list above that are not currently mapped.',
+		buttonLabel: 'Regenerate',
+		buttonLabelOnProcessing: '<i class="fas fa-circle-notch fa-spin"></i> Regenerating',
+	},
+	listing_import_button: {
+		label: 'Import listings',
+		description: 'Upload a CSV file. Map columns to listing fields in the next step.',
+		buttonLabel: 'Import CSV',
+	},
+	listing_export_button: {
+		label: 'Export listings',
+		description: '',
+		buttonLabel: 'Export CSV',
+	},
+	import_settings: {
+		label: 'Import settings',
+		description: 'Upload a JSON file exported from another Directorist site.',
+		buttonLabel: 'Import JSON',
+	},
+	export_settings: {
+		label: 'Export settings',
+		description: '',
+		buttonLabel: 'Export JSON',
+	},
+	restore_default_settings: {
+		label: 'Restore defaults',
+		description: 'Resets every setting. Listings are not affected.',
+		buttonLabel: 'Restore defaults',
+	},
+	atbdp_enable_seo: {
+		label: 'Enable Directorist SEO',
+		description: '',
+	},
+	add_listing_page_meta_title: {
+		label: 'Add listing meta title',
+		description: '',
+	},
+	add_listing_page_meta_desc: {
+		label: 'Add listing meta description',
+		description: '',
+	},
+	all_listing_meta_title: {
+		label: 'All listings meta title',
+		description: '',
+	},
+	all_listing_meta_desc: {
+		label: 'All listings meta description',
+		description: '',
+	},
+	dashboard_meta_title: {
+		label: 'Dashboard meta title',
+		description: '',
+	},
+	dashboard_meta_desc: {
+		label: 'Dashboard meta description',
+		description: '',
+	},
+	author_profile_meta_title: {
+		label: 'Author profile meta title',
+		description: '',
+	},
+	author_page_meta_desc: {
+		label: 'Author profile meta description',
+		description: '',
+	},
+	category_meta_title: {
+		label: 'Categories meta title',
+		description: '',
+	},
+	category_meta_desc: {
+		label: 'Categories meta description',
+		description: '',
+	},
+	single_category_meta_title: {
+		label: 'Single category meta title',
+		description: '',
+	},
+	single_category_meta_desc: {
+		label: 'Single category meta description',
+		description: '',
+	},
+	all_locations_meta_title: {
+		label: 'All locations meta title',
+		description: '',
+	},
+	all_locations_meta_desc: {
+		label: 'All locations meta description',
+		description: '',
+	},
+	single_locations_meta_title: {
+		label: 'Single location meta title',
+		description: '',
+	},
+	single_locations_meta_desc: {
+		label: 'Single location meta description',
+		description: '',
+	},
+	registration_meta_title: {
+		label: 'Registration meta title',
+		description: '',
+	},
+	registration_meta_desc: {
+		label: 'Registration meta description',
+		description: '',
+	},
+	login_meta_title: {
+		label: 'Login meta title',
+		description: '',
+	},
+	login_meta_desc: {
+		label: 'Login meta description',
+		description: '',
+	},
+	homepage_meta_title: {
+		label: 'Search home meta title',
+		description: '',
+	},
+	homepage_meta_desc: {
+		label: 'Search home meta description',
+		description: '',
+	},
+	meta_title_for_search_result: {
+		label: 'Use search-friendly title on search results',
+		description:
+			"Builds the meta title from the visitor's search terms instead of the static title below.",
+	},
+	search_result_meta_title: {
+		label: 'Custom search result meta title',
+		description: '',
+	},
+	search_result_meta_desc: {
+		label: 'Search result meta description',
+		description: '',
+	},
+	enable_schema_markup: {
+		label: 'Enable schema markup',
+		description:
+			'Outputs JSON-LD on listing pages. Turn off to stop emitting structured data entirely.',
+	},
+	apply_schema_markup: {
+		schema: 'Apply schema to',
+		options: [
+			{
+				label: 'All directories',
+				description:
+					'Use one schema type everywhere. Pick this if Multi-directory is off.',
+				value: 'all-directory',
+			},
+			{
+				label: 'Per directory',
+				description: 'Set a different schema type for each directory.',
+				value: 'per-directory',
+			},
+		],
+	},
+	directory_schema_type_global: {
+		label: 'Schema type',
+		description: 'Used when a listing has no specific type set.',
+	},
+	atbdp_enable_cache: {
+		label: 'Enable cache',
+		description: 'Stores frequently used queries in memory for faster page loads.',
+	},
+	atbdp_reset_cache: {
+		label: 'Reset cache',
+		description: 'Clear all cached data. Useful after making large changes.',
+		showIf: null,
+		show_if: null,
+		'show-if': null,
+	},
+	script_debugging: {
+		label: 'Script debugging',
+		description: 'Loads unminified JavaScript files. Use only when investigating bugs.',
+	},
+	enable_uninstall: {
+		label: 'Remove all data on uninstall',
+		description:
+			'Permanently deletes every listing, order, review, and setting if you delete the plugin. This cannot be undone.',
+	},
+	extension_promotion: {
+		title: 'Installed extensions',
+		description:
+			'No extensions installed yet. Each extension you install will add its own section here.',
+		browseTitle: 'Browse extensions',
+		browseDescription:
+			'30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.',
+		browseButtonLabel: 'View directory',
+		browseUrl: '/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-extension',
+	},
+	brand_color: {
+		label: 'Brand color',
+		description:
+			'Used for primary buttons, links, and accents on the directory front-end.',
+	},
 	gallery_crop_width: {
 		label: 'Image width',
 		description: '',
@@ -587,6 +868,12 @@ const FIELD_GROUPS = {
 				'payment_decimal_separator',
 			],
 			hiddenFields: ['payment_currency_note'],
+			checkoutCurrencyMatch: {
+				beforeField: 'payment_currency',
+				label: 'Match display currency',
+				description:
+					'Charge in the same currency you display. Turn off to settle payments in a different currency.',
+			},
 			advancedLabel: 'Number formatting',
 			advancedFields: [
 				'payment_thousand_separator',
@@ -652,6 +939,7 @@ const FIELD_GROUPS = {
 		{
 			key: 'active_channels',
 			title: 'Active channels',
+			description: 'Turn each channel on or off across the directory.',
 			fields: ['disable_email_notification'],
 		},
 		{
@@ -662,6 +950,7 @@ const FIELD_GROUPS = {
 		{
 			key: 'email_template_styling',
 			title: 'Email template styling',
+			description: 'Applied to every outgoing email.',
 			fields: ['allow_email_header', 'email_header_color'],
 		},
 	],
@@ -689,6 +978,8 @@ const FIELD_GROUPS = {
 				'email_tmpl_new_listing',
 				'email_sub_pub_listing',
 				'email_tmpl_pub_listing',
+				'email_sub_rejected_listing',
+				'email_tmpl_rejected_listing',
 				'email_sub_edit_listing',
 				'email_tmpl_edit_listing',
 				'email_sub_to_expire_listing',
@@ -729,10 +1020,98 @@ const FIELD_GROUPS = {
 		},
 	],
 
+	notificationEventsTemplates: [
+		{
+			key: 'notification_events',
+			title: 'Notification events',
+			description:
+				'Toggle email notifications per event. Click Edit to customize subject and body.',
+			fields: [
+				'notify_admin',
+				'notify_user',
+				'email_note',
+				'email_sub_new_listing',
+				'email_tmpl_new_listing',
+				'email_sub_pub_listing',
+				'email_tmpl_pub_listing',
+				'email_sub_rejected_listing',
+				'email_tmpl_rejected_listing',
+				'email_sub_edit_listing',
+				'email_tmpl_edit_listing',
+				'email_sub_to_expire_listing',
+				'email_tmpl_to_expire_listing',
+				'email_sub_expired_listing',
+				'email_tmpl_expired_listing',
+				'email_sub_to_renewal_listing',
+				'email_tmpl_to_renewal_listing',
+				'email_sub_renewed_listing',
+				'email_tmpl_renewed_listing',
+				'email_sub_deleted_listing',
+				'email_tmpl_deleted_listing',
+				'email_sub_new_order',
+				'email_tmpl_new_order',
+				'email_sub_offline_new_order',
+				'email_tmpl_offline_new_order',
+				'email_sub_completed_order',
+				'email_tmpl_completed_order',
+				'email_sub_listing_contact_email',
+				'email_tmpl_listing_contact_email',
+				'email_sub_registration_confirmation',
+				'email_tmpl_registration_confirmation',
+				'email_sub_email_verification',
+				'email_tmpl_email_verification',
+			],
+			hiddenFields: [
+				'notify_admin',
+				'notify_user',
+				'email_note',
+				'email_sub_new_listing',
+				'email_tmpl_new_listing',
+				'email_sub_pub_listing',
+				'email_tmpl_pub_listing',
+				'email_sub_rejected_listing',
+				'email_tmpl_rejected_listing',
+				'email_sub_edit_listing',
+				'email_tmpl_edit_listing',
+				'email_sub_to_expire_listing',
+				'email_tmpl_to_expire_listing',
+				'email_sub_expired_listing',
+				'email_tmpl_expired_listing',
+				'email_sub_to_renewal_listing',
+				'email_tmpl_to_renewal_listing',
+				'email_sub_renewed_listing',
+				'email_tmpl_renewed_listing',
+				'email_sub_deleted_listing',
+				'email_tmpl_deleted_listing',
+				'email_sub_new_order',
+				'email_tmpl_new_order',
+				'email_sub_offline_new_order',
+				'email_tmpl_offline_new_order',
+				'email_sub_completed_order',
+				'email_tmpl_completed_order',
+				'email_sub_listing_contact_email',
+				'email_tmpl_listing_contact_email',
+				'email_sub_registration_confirmation',
+				'email_tmpl_registration_confirmation',
+				'email_sub_email_verification',
+				'email_tmpl_email_verification',
+			],
+			notificationEvents: {
+				beforeField: 'notify_admin',
+			},
+		},
+		{
+			key: 'schedule_timing',
+			title: 'Schedule & timing',
+			fields: ['email_to_expire_day', 'email_renewal_day'],
+			advanced: true,
+		},
+	],
+
 	appearanceBrand: [
 		{
 			key: 'brand',
-			title: 'Brand',
+			title: 'Brand color',
 			fields: ['brand_color'],
 		},
 		{
@@ -788,6 +1167,8 @@ const FIELD_GROUPS = {
 		{
 			key: 'page_setup',
 			title: 'Page setup',
+			description:
+				'Map each Directorist function to a WordPress page. These pages should contain the matching Directorist block.',
 			fields: [
 				'add_listing_page',
 				'all_listing_page',
@@ -818,17 +1199,22 @@ const FIELD_GROUPS = {
 	siteSeo: [
 		{
 			key: 'seo_general',
-			title: 'SEO',
-			fields: ['atbdp_enable_seo'],
+			title: 'Built-in SEO',
+			description:
+				'Works alongside Yoast and other SEO plugins. Turn off if you want only your SEO plugin to control these pages.',
+			fields: ['atbdp_enable_seo', 'meta_title_for_search_result'],
+			hiddenFields: ['meta_title_for_search_result'],
 		},
 		{
 			key: 'page_meta',
-			title: 'Page meta',
+			title: 'Page titles and descriptions',
+			description:
+				'Meta title and description shown in search results for each Directorist page.',
 			fields: [
-				'add_listing_page_meta_title',
-				'add_listing_page_meta_desc',
 				'all_listing_meta_title',
 				'all_listing_meta_desc',
+				'add_listing_page_meta_title',
+				'add_listing_page_meta_desc',
 				'dashboard_meta_title',
 				'dashboard_meta_desc',
 				'author_profile_meta_title',
@@ -841,21 +1227,124 @@ const FIELD_GROUPS = {
 				'all_locations_meta_desc',
 				'single_locations_meta_title',
 				'single_locations_meta_desc',
-			],
-		},
-		{
-			key: 'account_search_meta',
-			title: 'Account and search meta',
-			fields: [
 				'registration_meta_title',
 				'registration_meta_desc',
 				'login_meta_title',
 				'login_meta_desc',
 				'homepage_meta_title',
 				'homepage_meta_desc',
-				'meta_title_for_search_result',
 				'search_result_meta_title',
 				'search_result_meta_desc',
+			],
+			hiddenFields: [
+				'all_listing_meta_title',
+				'all_listing_meta_desc',
+				'add_listing_page_meta_title',
+				'add_listing_page_meta_desc',
+				'dashboard_meta_title',
+				'dashboard_meta_desc',
+				'author_profile_meta_title',
+				'author_page_meta_desc',
+				'category_meta_title',
+				'category_meta_desc',
+				'single_category_meta_title',
+				'single_category_meta_desc',
+				'all_locations_meta_title',
+				'all_locations_meta_desc',
+				'single_locations_meta_title',
+				'single_locations_meta_desc',
+				'registration_meta_title',
+				'registration_meta_desc',
+				'login_meta_title',
+				'login_meta_desc',
+				'homepage_meta_title',
+				'homepage_meta_desc',
+				'search_result_meta_title',
+				'search_result_meta_desc',
+			],
+			seoAdvancedLabel: 'Meta for the other pages',
+			seoMetaPairs: [
+				{
+					key: 'all_listings',
+					primary: true,
+					titleLabel: 'All listings page meta title',
+					titleField: 'all_listing_meta_title',
+					descriptionLabel: 'All listings page meta description',
+					descriptionField: 'all_listing_meta_desc',
+				},
+				{
+					key: 'add_listing',
+					titleLabel: 'Add listing page meta title',
+					titleField: 'add_listing_page_meta_title',
+					descriptionLabel: 'Add listing page meta description',
+					descriptionField: 'add_listing_page_meta_desc',
+				},
+				{
+					key: 'dashboard',
+					titleLabel: 'Dashboard meta title',
+					titleField: 'dashboard_meta_title',
+					descriptionLabel: 'Dashboard meta description',
+					descriptionField: 'dashboard_meta_desc',
+				},
+				{
+					key: 'author_profile',
+					titleLabel: 'Author profile meta title',
+					titleField: 'author_profile_meta_title',
+					descriptionLabel: 'Author profile meta description',
+					descriptionField: 'author_page_meta_desc',
+				},
+				{
+					key: 'categories',
+					titleLabel: 'All categories page meta title',
+					titleField: 'category_meta_title',
+					descriptionLabel: 'All categories page meta description',
+					descriptionField: 'category_meta_desc',
+				},
+				{
+					key: 'single_category',
+					titleLabel: 'Single category meta title',
+					titleField: 'single_category_meta_title',
+					descriptionLabel: 'Single category meta description',
+					descriptionField: 'single_category_meta_desc',
+				},
+				{
+					key: 'all_locations',
+					titleLabel: 'All locations page meta title',
+					titleField: 'all_locations_meta_title',
+					descriptionLabel: 'All locations page meta description',
+					descriptionField: 'all_locations_meta_desc',
+				},
+				{
+					key: 'single_location',
+					titleLabel: 'Single location meta title',
+					titleField: 'single_locations_meta_title',
+					descriptionLabel: 'Single location meta description',
+					descriptionField: 'single_locations_meta_desc',
+				},
+				{
+					key: 'search_home',
+					titleLabel: 'Search page meta title',
+					titleDescription: 'The search form / search home page.',
+					titleField: 'homepage_meta_title',
+					descriptionLabel: 'Search page meta description',
+					descriptionField: 'homepage_meta_desc',
+				},
+				{
+					key: 'search_result',
+					titleLabel: 'Search results meta title',
+					titleDescription: 'Used when search-friendly title is off.',
+					titleField: 'search_result_meta_title',
+					descriptionLabel: 'Search results meta description',
+					descriptionField: 'search_result_meta_desc',
+				},
+				{
+					key: 'account',
+					titleLabel: 'Account page meta title',
+					titleDescription: 'Single sign in / sign up page.',
+					titleField: 'registration_meta_title',
+					descriptionLabel: 'Account page meta description',
+					descriptionField: 'registration_meta_desc',
+				},
 			],
 		},
 	],
@@ -863,17 +1352,17 @@ const FIELD_GROUPS = {
 	siteMaintenance: [
 		{
 			key: 'cache',
-			title: 'Cache',
+			title: 'Caching',
 			fields: ['atbdp_enable_cache', 'atbdp_reset_cache'],
 		},
 		{
 			key: 'debugging',
-			title: 'Debugging',
+			title: 'Developer tools',
 			fields: ['script_debugging'],
 		},
 		{
 			key: 'uninstall',
-			title: 'Uninstall',
+			title: 'Uninstall behavior',
 			fields: ['enable_uninstall'],
 		},
 	],
@@ -881,7 +1370,7 @@ const FIELD_GROUPS = {
 	extensionsBrowse: [
 		{
 			key: 'installed_extensions',
-			title: 'Installed extensions',
+			title: 'Extensions',
 			fields: ['extension_promotion'],
 		},
 	],
@@ -890,11 +1379,13 @@ const FIELD_GROUPS = {
 		{
 			key: 'listings',
 			title: 'Listings',
+			description: 'Move listings as CSV with full custom field support.',
 			fields: ['listing_import_button', 'listing_export_button'],
 		},
 		{
 			key: 'settings',
 			title: 'Settings',
+			description: 'Move your configuration between Directorist sites.',
 			fields: ['import_settings', 'export_settings', 'restore_default_settings'],
 		},
 	],
@@ -957,6 +1448,18 @@ const sectionFromFieldGroup = (group, fields, usedFields) => {
 		...(group.defaultLocationAddress
 			? { defaultLocationAddress: clone(group.defaultLocationAddress) }
 			: {}),
+		...(group.notificationEvents
+			? { notificationEvents: clone(group.notificationEvents) }
+			: {}),
+		...(group.seoMetaPairs
+			? { seoMetaPairs: clone(group.seoMetaPairs) }
+			: {}),
+		...(group.seoAdvancedLabel
+			? { seoAdvancedLabel: group.seoAdvancedLabel }
+			: {}),
+		...(group.checkoutCurrencyMatch
+			? { checkoutCurrencyMatch: clone(group.checkoutCurrencyMatch) }
+			: {}),
 		...(Array.isArray(group.hiddenFields)
 			? {
 					hiddenFields: group.hiddenFields.filter((fieldKey) =>
@@ -994,20 +1497,54 @@ const hasFieldsForGroups = (groups, fields) =>
 
 const schemaGroups = (fields) => {
 	const schemaFields = Object.keys(fields || {}).filter((fieldKey) =>
-		fieldKey.indexOf('directory_schema_type_') === 0
+		fieldKey.indexOf('directory_schema_type_') === 0 &&
+		fieldKey !== 'directory_schema_type_global'
 	);
 
 	return [
 		{
-			key: 'schema_type',
-			title: 'Schema',
+			key: 'schema_markup',
+			title: 'Schema markup',
+			description:
+				'Adds structured data (JSON-LD) so your listings can appear with rich results in Google.',
 			fields: [
 				'enable_schema_markup',
 				'apply_schema_markup',
 				'directory_schema_type_global',
-				...schemaFields,
 			],
 		},
+		...(schemaFields.length
+			? [
+					{
+						key: 'schema_type_per_directory',
+						title: 'Schema type per directory',
+						description: "Choose a schema type for each directory you've built.",
+						fields: schemaFields,
+						showIf: [
+							{
+								where: 'enable_schema_markup',
+								conditions: [
+									{
+										key: 'value',
+										compare: '=',
+										value: true,
+									},
+								],
+							},
+							{
+								where: 'apply_schema_markup',
+								conditions: [
+									{
+										key: 'value',
+										compare: '=',
+										value: 'per-directory',
+									},
+								],
+							},
+						],
+					},
+				]
+			: []),
 	];
 };
 
@@ -1267,19 +1804,10 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 				),
 			},
 			email_events: {
-				label: 'Events',
+				label: 'Events & Templates',
 				icon: SETTINGS_REDESIGN_ICONS.events,
 				sections: sectionsFromGroups(
-					FIELD_GROUPS.notificationEvents,
-					fields,
-					usedFields
-				),
-			},
-			email_templates: {
-				label: 'Templates',
-				icon: SETTINGS_REDESIGN_ICONS.docs,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.notificationTemplates,
+					FIELD_GROUPS.notificationEventsTemplates,
 					fields,
 					usedFields
 				),
@@ -1411,6 +1939,8 @@ export const resolveSettingsHashTarget = (hash, layouts = {}, cachedFields = {})
 		style_settings: 'style_settings__brand_styling',
 		'listing_settings__badge': 'style_settings__badges',
 		'listing_settings__review': 'listing_settings__review',
+		'email_settings__email_templates': 'email_settings__email_events',
+		'email_settings__email_events_templates': 'email_settings__email_events',
 	};
 
 	const resolvedHash = directAliases[cleanHash] || cleanHash;

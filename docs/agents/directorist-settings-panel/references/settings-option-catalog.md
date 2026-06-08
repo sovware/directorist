@@ -25,6 +25,8 @@ Purpose: global listing behavior, listing archive display, single listing behavi
 
 Source: most Listings settings are direct core settings from `class-settings-panel.php`. The Review submenu is a core filter-injected section from `includes/review/class-settings-screen.php`.
 
+Redesigned UI note (2026-06-08): Core listing display settings are no longer routed through the temporary `Needs Design` fallback. `Listings page` and `Categories & locations` are permanent `Directory` submenus. Their fields remain the same saved keys and keep the existing save/show-if behavior.
+
 ### General
 
 - `enable_multi_directory`: enables multi-directory mode and exposes directory type workflows.
@@ -149,6 +151,8 @@ Redesigned UI note: Site & pages renders `Pages`, `SEO`, `Schema`, and `Maintena
 
 Purpose: search form copy/filter behavior and search result page layout.
 
+Redesigned UI note (2026-06-08): Search settings now render as a permanent top-level `Search` menu with `Search form` and `Search results` tabs. This is a navigation/layout change only; all existing search option keys, values, and save behavior are preserved.
+
 ### Search Listing
 
 - `search_title`, `search_subtitle`, `search_listing_text`: search form heading and input copy.
@@ -175,6 +179,8 @@ Purpose: search form copy/filter behavior and search result page layout.
 ## User
 
 Purpose: registration/login form labels and visibility, dashboard tabs, author dashboard behavior, and all-authors display.
+
+Redesigned UI note (2026-06-08): User settings now render as a permanent top-level `Users & accounts` menu with `Registration`, `Login`, `Dashboard`, and `Authors` tabs. This replaces the temporary `Needs Design` placement without adding, renaming, or migrating saved option keys.
 
 ### Registration Form
 

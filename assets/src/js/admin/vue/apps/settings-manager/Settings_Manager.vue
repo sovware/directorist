@@ -167,6 +167,13 @@ import {
 } from './settings-redesign-map';
 
 const axios = require('axios').default;
+const CHECKBOX_ARRAY_ACCORDION_FIELDS = [
+    'listings_view_as_items',
+    'listings_sort_by_items',
+    'search_view_as_items',
+    'search_sort_by_items',
+    'search_filters',
+];
 
 export default {
     name: 'settings-manager',
@@ -244,7 +251,8 @@ export default {
                 if (
                     ! this.settingsValuesAreSame(
                         this.cached_fields[ field_key ].value,
-                        this.fields[ field_key ].value
+                        this.fields[ field_key ].value,
+                        field_key
                     )
                 ) {
                     return true;
@@ -558,7 +566,7 @@ export default {
 
                 if (
                     ! this.fields[ field_key ].forceUpdate &&
-                    this.settingsValuesAreSame( cahced_value, new_value )
+                    this.settingsValuesAreSame( cahced_value, new_value, field_key )
                 ) {
                     continue;
                 }
@@ -827,7 +835,12 @@ export default {
             return 'Something went wrong';
         },
 
-        settingsValuesAreSame( old_value, new_value ) {
+        settingsValuesAreSame( old_value, new_value, field_key = '' ) {
+            if ( this.isCheckboxArrayAccordionField( field_key ) ) {
+                return JSON.stringify( this.normalizeCheckboxArrayValue( old_value ) ) ===
+                    JSON.stringify( this.normalizeCheckboxArrayValue( new_value ) );
+            }
+
             const old_is_object = old_value && typeof old_value === 'object';
             const new_is_object = new_value && typeof new_value === 'object';
 
@@ -836,6 +849,21 @@ export default {
             }
 
             return old_value == new_value;
+        },
+
+        isCheckboxArrayAccordionField( field_key ) {
+            return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes( field_key );
+        },
+
+        normalizeCheckboxArrayValue( value ) {
+            if ( ! Array.isArray( value ) ) {
+                return [];
+            }
+
+            return value
+                .map( item => String( item ) )
+                .filter( ( item, index, values ) => values.indexOf( item ) === index )
+                .sort();
         },
 
         maybeJSON( data ) {

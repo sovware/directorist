@@ -45,6 +45,18 @@ const SETTINGS_REDESIGN_ICONS = {
 	reviews: svgIcon(
 		'<path d="m12 2 3 6.5 7 .8-5 4.8 1.3 7L12 17.8 5.4 21l1.3-7-5-4.8 7-.8z"/>'
 	),
+	listings: svgIcon(
+		'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>'
+	),
+	taxonomies: svgIcon(
+		'<path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6v12M16 6v12"/>'
+	),
+	search: svgIcon(
+		'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'
+	),
+	users: svgIcon(
+		'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
+	),
 	currency: svgIcon(
 		'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
 	),
@@ -656,6 +668,41 @@ const FIELD_OVERRIDES = {
 		description:
 			'Used for primary buttons, links, and accents on the directory front-end.',
 	},
+	listings_view_as_items: {
+		label: 'View type',
+		description: '',
+	},
+	listings_sort_by_items: {
+		label: 'Sort options',
+		description: '',
+	},
+	preview_image_quality: {
+		label: 'Image quality',
+	},
+	way_to_show_preview: {
+		label: 'Image fit',
+		description: 'Controls how listing preview images fill their card area.',
+	},
+	crop_width: {
+		label: 'Width',
+		description: '',
+	},
+	crop_height: {
+		label: 'Height',
+		description: '',
+	},
+	prv_container_size_by: {
+		label: 'Unit',
+		description: '',
+	},
+	prv_background_type: {
+		label: 'Background',
+		description: '',
+	},
+	prv_background_color: {
+		label: 'Background color',
+		description: '',
+	},
 	gallery_crop_width: {
 		label: 'Image width',
 		description: '',
@@ -710,6 +757,65 @@ const FIELD_GROUPS = {
 		},
 	],
 
+	directoriesListingsPage: [
+		{
+			key: 'archive_layout',
+			title: 'Archive layout',
+			fields: [
+				'all_listing_layout',
+				'all_listing_columns',
+				'all_listing_page_items',
+				'pagination_type',
+			],
+		},
+		{
+			key: 'archive_search_filters',
+			title: 'Search and filters',
+			fields: [
+				'listing_hide_top_search_bar',
+				'listings_sidebar_filter_text',
+				'listings_reset_text',
+				'listings_sidebar_reset_text',
+				'listings_apply_text',
+			],
+		},
+		{
+			key: 'archive_header',
+			title: 'Header and controls',
+			fields: [
+				'display_listings_header',
+				'listing_filters_button',
+				'listings_filter_button_text',
+				'display_listings_count',
+				'all_listing_title',
+			],
+		},
+		{
+			key: 'archive_sorting_view',
+			title: 'View and sorting',
+			fields: [
+				'listings_view_as_items',
+				'default_listing_view',
+				'display_sort_by',
+				'sort_by_text',
+				'listings_sort_by_items',
+			],
+		},
+		{
+			key: 'archive_preview_image',
+			title: 'Preview image',
+			fields: [
+				'preview_image_quality',
+				'way_to_show_preview',
+				'crop_width',
+				'crop_height',
+				'prv_container_size_by',
+				'prv_background_type',
+				'prv_background_color',
+			],
+		},
+	],
+
 	directoriesSingleListing: [
 		{
 			key: 'template_visibility',
@@ -758,6 +864,35 @@ const FIELD_GROUPS = {
 			],
 			advancedLabel: 'Customize message wording',
 			advancedFields: ['pending_confirmation_msg', 'publish_confirmation_msg'],
+		},
+	],
+
+	directoriesCategoryLocation: [
+		{
+			key: 'categories_display',
+			title: 'Categories',
+			fields: [
+				'display_categories_as',
+				'categories_column_number',
+				'categories_depth_number',
+				'order_category_by',
+				'sort_category_by',
+				'display_listing_count',
+				'hide_empty_categories',
+			],
+		},
+		{
+			key: 'locations_display',
+			title: 'Locations',
+			fields: [
+				'display_locations_as',
+				'locations_column_number',
+				'locations_depth_number',
+				'order_location_by',
+				'sort_location_by',
+				'display_location_listing_count',
+				'hide_empty_locations',
+			],
 		},
 	],
 
@@ -845,6 +980,221 @@ const FIELD_GROUPS = {
 				'approve_immediately',
 				'review_num',
 			],
+		},
+	],
+
+	searchForm: [
+		{
+			key: 'search_hero',
+			title: 'Search form',
+			fields: ['search_title', 'search_subtitle', 'search_listing_text'],
+		},
+		{
+			key: 'search_filters',
+			title: 'Filters',
+			fields: [
+				'search_more_filter',
+				'search_more_filters',
+				'search_filters',
+				'search_reset_text',
+				'search_apply_filter',
+			],
+		},
+		{
+			key: 'popular_categories',
+			title: 'Popular categories',
+			fields: ['show_popular_category', 'popular_cat_title', 'popular_cat_num'],
+		},
+	],
+
+	searchResults: [
+		{
+			key: 'search_results_layout',
+			title: 'Results layout',
+			fields: [
+				'search_result_layout',
+				'search_listing_columns',
+				'search_posts_num',
+			],
+		},
+		{
+			key: 'search_results_filters',
+			title: 'Search and filters',
+			fields: [
+				'search_result_hide_top_search_bar',
+				'search_result_sidebar_filter_text',
+				'sresult_reset_text',
+				'sresult_sidebar_reset_text',
+				'sresult_apply_text',
+			],
+		},
+		{
+			key: 'search_results_header',
+			title: 'Header and controls',
+			fields: [
+				'search_header',
+				'search_result_filters_button_display',
+				'search_result_filter_button_text',
+				'display_search_result_listings_count',
+				'search_result_listing_title',
+			],
+		},
+		{
+			key: 'search_results_sorting_view',
+			title: 'View and sorting',
+			fields: [
+				'search_view_as_items',
+				'search_sort_by',
+				'search_sortby_text',
+				'search_sort_by_items',
+			],
+		},
+	],
+
+	userRegistration: [
+		{
+			key: 'registration_required_fields',
+			title: 'Registration fields',
+			fields: [
+				'reg_username',
+				'reg_email',
+				'display_password_reg',
+				'reg_password',
+				'require_password_reg',
+				'display_website_reg',
+				'reg_website',
+				'require_website_reg',
+				'display_fname_reg',
+				'reg_fname',
+				'require_fname_reg',
+				'display_lname_reg',
+				'reg_lname',
+				'require_lname_reg',
+				'display_bio_reg',
+				'reg_bio',
+				'require_bio_reg',
+				'display_user_type',
+			],
+		},
+		{
+			key: 'registration_terms',
+			title: 'Privacy and terms',
+			fields: [
+				'registration_privacy',
+				'registration_privacy_label',
+				'registration_privacy_label_link',
+				'regi_terms_condition',
+				'regi_terms_label',
+				'regi_terms_label_link',
+			],
+		},
+		{
+			key: 'registration_flow',
+			title: 'Signup flow',
+			fields: [
+				'reg_signup',
+				'display_login',
+				'login_text',
+				'log_linkingmsg',
+				'auto_login',
+				'redirection_after_reg',
+			],
+		},
+	],
+
+	userLogin: [
+		{
+			key: 'login_form',
+			title: 'Login form',
+			fields: [
+				'log_username',
+				'log_password',
+				'display_rememberme',
+				'log_rememberme',
+				'log_button',
+			],
+		},
+		{
+			key: 'signup_prompt',
+			title: 'Signup prompt',
+			fields: ['display_signup', 'reg_text', 'reg_linktxt'],
+		},
+		{
+			key: 'password_recovery',
+			title: 'Password recovery',
+			fields: [
+				'display_recpass',
+				'recpass_text',
+				'recpass_desc',
+				'recpass_username',
+				'recpass_placeholder',
+				'recpass_button',
+			],
+		},
+		{
+			key: 'login_redirect',
+			title: 'Redirect',
+			fields: ['redirection_after_login'],
+		},
+	],
+
+	userDashboard: [
+		{
+			key: 'dashboard_tabs',
+			title: 'Dashboard tabs',
+			fields: [
+				'my_profile_tab',
+				'my_profile_tab_text',
+				'fav_listings_tab',
+				'fav_listings_tab_text',
+				'my_listing_tab',
+				'my_listing_tab_text',
+			],
+		},
+		{
+			key: 'dashboard_listings',
+			title: 'Listings table',
+			fields: [
+				'user_listings_pagination',
+				'user_listings_per_page',
+				'submit_listing_button',
+			],
+		},
+		{
+			key: 'become_author',
+			title: 'Become author',
+			fields: ['become_author_button', 'become_author_button_text'],
+		},
+	],
+
+	userAuthors: [
+		{
+			key: 'authors_layout',
+			title: 'Author directory',
+			fields: [
+				'all_authors_columns',
+				'all_authors_sorting',
+				'all_authors_select_role',
+			],
+		},
+		{
+			key: 'authors_card',
+			title: 'Author card',
+			fields: [
+				'all_authors_image',
+				'all_authors_name',
+				'all_authors_contact',
+				'all_authors_description',
+				'all_authors_social_info',
+				'all_authors_description_limit',
+				'all_authors_button',
+				'all_authors_button_text',
+			],
+		},
+		{
+			key: 'authors_pagination',
+			title: 'Pagination',
+			fields: ['all_authors_pagination', 'all_authors_per_page'],
 		},
 	],
 
@@ -1719,6 +2069,15 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 					usedFields
 				),
 			},
+			listings_page: {
+				label: 'Listings page',
+				icon: SETTINGS_REDESIGN_ICONS.listings,
+				sections: sectionsFromGroups(
+					FIELD_GROUPS.directoriesListingsPage,
+					fields,
+					usedFields
+				),
+			},
 			single_listing: {
 				label: 'Single listing',
 				icon: SETTINGS_REDESIGN_ICONS.singleListing,
@@ -1737,6 +2096,15 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 					usedFields
 				),
 			},
+			category_location: {
+				label: 'Categories & locations',
+				icon: SETTINGS_REDESIGN_ICONS.taxonomies,
+				sections: sectionsFromGroups(
+					FIELD_GROUPS.directoriesCategoryLocation,
+					fields,
+					usedFields
+				),
+			},
 			map: {
 				label: 'Map',
 				icon: SETTINGS_REDESIGN_ICONS.map,
@@ -1750,6 +2118,60 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 					fields,
 					usedFields
 				),
+			},
+		},
+	});
+
+	displayLayouts.search_settings = makeMenu(rawLayouts.search_settings, 'Search', {
+		icon: SETTINGS_REDESIGN_ICONS.search,
+		submenu: {
+			search_listing: {
+				label: 'Search form',
+				icon: SETTINGS_REDESIGN_ICONS.search,
+				sections: sectionsFromGroups(FIELD_GROUPS.searchForm, fields, usedFields),
+			},
+			search_result: {
+				label: 'Search results',
+				icon: SETTINGS_REDESIGN_ICONS.listings,
+				sections: sectionsFromGroups(
+					FIELD_GROUPS.searchResults,
+					fields,
+					usedFields
+				),
+			},
+		},
+	});
+
+	displayLayouts.user_settings = makeMenu(rawLayouts.user_settings, 'Users & accounts', {
+		icon: SETTINGS_REDESIGN_ICONS.users,
+		submenu: {
+			registration_form: {
+				label: 'Registration',
+				icon: SETTINGS_REDESIGN_ICONS.users,
+				sections: sectionsFromGroups(
+					FIELD_GROUPS.userRegistration,
+					fields,
+					usedFields
+				),
+			},
+			login_form: {
+				label: 'Login',
+				icon: SETTINGS_REDESIGN_ICONS.singleListing,
+				sections: sectionsFromGroups(FIELD_GROUPS.userLogin, fields, usedFields),
+			},
+			dashboard: {
+				label: 'Dashboard',
+				icon: SETTINGS_REDESIGN_ICONS.pages,
+				sections: sectionsFromGroups(
+					FIELD_GROUPS.userDashboard,
+					fields,
+					usedFields
+				),
+			},
+			all_authors: {
+				label: 'Authors',
+				icon: SETTINGS_REDESIGN_ICONS.users,
+				sections: sectionsFromGroups(FIELD_GROUPS.userAuthors, fields, usedFields),
 			},
 		},
 	});
@@ -1915,22 +2337,16 @@ export const resolveSettingsHashTarget = (hash, layouts = {}, cachedFields = {})
 	}
 
 	const directAliases = {
-		search_settings: 'settings_design_gaps__search_settings_search_listing',
-		'search_settings__search_listing':
-			'settings_design_gaps__search_settings_search_listing',
-		'search_settings__search_result':
-			'settings_design_gaps__search_settings_search_result',
-		user_settings: 'settings_design_gaps__user_settings_registration_form',
-		'user_settings__registration_form':
-			'settings_design_gaps__user_settings_registration_form',
-		'user_settings__login_form': 'settings_design_gaps__user_settings_login_form',
-		'user_settings__dashboard': 'settings_design_gaps__user_settings_dashboard',
-		'user_settings__all_authors':
-			'settings_design_gaps__user_settings_all_authors',
-		'listing_settings__listings_page':
-			'settings_design_gaps__listing_settings_listings_page',
-		'listing_settings__category_location':
-			'settings_design_gaps__listing_settings_category_location',
+		search_settings: 'search_settings__search_listing',
+		'search_settings__search_listing': 'search_settings__search_listing',
+		'search_settings__search_result': 'search_settings__search_result',
+		user_settings: 'user_settings__registration_form',
+		'user_settings__registration_form': 'user_settings__registration_form',
+		'user_settings__login_form': 'user_settings__login_form',
+		'user_settings__dashboard': 'user_settings__dashboard',
+		'user_settings__all_authors': 'user_settings__all_authors',
+		'listing_settings__listings_page': 'listing_settings__listings_page',
+		'listing_settings__category_location': 'listing_settings__category_location',
 		page_setup: 'page_setup__pages',
 		advanced: 'page_setup__seo_settings',
 		'advanced__seo_settings': 'page_setup__seo_settings',

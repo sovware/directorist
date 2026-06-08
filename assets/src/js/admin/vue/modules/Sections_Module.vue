@@ -132,6 +132,21 @@
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
             />
 
+            <settings-color-text-field
+              v-else-if="shouldRenderPreviewBackgroundColor(field)"
+              :field="fields[field]"
+              :field-key="field"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+            />
+
+            <settings-checkbox-array-accordion
+              v-else-if="shouldRenderCheckboxArrayAccordion(field)"
+              :field="fields[field]"
+              :field-key="field"
+              :is-highlighted="getHighlightState(field)"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+            />
+
             <component
               v-else-if="fields[field]"
               :is="getFormFieldName(fields[field].type)"
@@ -223,14 +238,14 @@
           <div
             v-if="
               field === 'way_to_show_preview' &&
-              groupedContainerFields.length > 0
+              sectionGroupedContainerFields(section).length > 0
             "
             class="cptm-field-group-container"
           >
             <div class="atbdp-row">
               <div class="atbdp-col atbdp-col-4">
                 <label class="cptm-field-group-container__label">
-                  <span>{{ containerGroupLabel }}</span>
+                  <span>{{ containerGroupLabel(section) }}</span>
                 </label>
               </div>
               <div class="atbdp-col atbdp-col-8">
@@ -238,14 +253,15 @@
                   <component
                     v-for="(
                       groupedField, groupedFieldKey
-                    ) in groupedContainerFields"
+                    ) in sectionGroupedContainerFields(section)"
                     :is="getFormFieldName(fields[groupedField].type)"
                     :field-id="groupedFieldKey"
                     :id="menuKey + '__' + section_key + '__' + groupedField"
                     :ref="groupedField"
-                    :class="{
-                      ['highlight-field']: getHighlightState(groupedField),
-                    }"
+                    :class="[
+                      fieldWrapperClass(groupedField, fields[groupedField], section),
+                      { ['highlight-field']: getHighlightState(groupedField) },
+                    ]"
                     :cached-data="cached_fields[groupedField]"
                     v-bind="fields[groupedField]"
                     @update="updateFieldValue(groupedField, $event)"
@@ -273,7 +289,9 @@
 import { mapState } from "vuex";
 import helpers from "./../mixins/helpers";
 import SettingsActiveGatewaysToggle from "../apps/settings-manager/components/Settings_Active_Gateways_Toggle.vue";
+import SettingsCheckboxArrayAccordion from "../apps/settings-manager/components/Settings_Checkbox_Array_Accordion.vue";
 import SettingsCheckoutCurrencyMatch from "../apps/settings-manager/components/Settings_Checkout_Currency_Match.vue";
+import SettingsColorTextField from "../apps/settings-manager/components/Settings_Color_Text_Field.vue";
 import SettingsDefaultLocationAddress from "../apps/settings-manager/components/Settings_Default_Location_Address.vue";
 import SettingsEmailNotificationToggle from "../apps/settings-manager/components/Settings_Email_Notification_Toggle.vue";
 import SettingsExtensionPromotion from "../apps/settings-manager/components/Settings_Extension_Promotion.vue";
@@ -286,7 +304,9 @@ export default {
   name: "sections-module",
   components: {
     SettingsActiveGatewaysToggle,
+    SettingsCheckboxArrayAccordion,
     SettingsCheckoutCurrencyMatch,
+    SettingsColorTextField,
     SettingsDefaultLocationAddress,
     SettingsEmailNotificationToggle,
     SettingsExtensionPromotion,
@@ -340,18 +360,6 @@ export default {
       };
     },
 
-    // Get the grouped container fields
-    groupedContainerFields() {
-      return this.groupFieldsByContainer().container || [];
-    },
-
-    // Get the label for the container group
-    containerGroupLabel() {
-      const firstContainerField = this.groupedContainerFields[0];
-      return firstContainerField
-        ? this.fields[firstContainerField].group_label
-        : "";
-    },
   },
 
   data() {
@@ -561,6 +569,24 @@ export default {
       return isPagesSettings && this.fields[field]?.type === "select";
     },
 
+    shouldRenderPreviewBackgroundColor(field) {
+      const isListingsPageSettings =
+        this.menuKey === "listing_settings__listings_page" ||
+        this.tabKey === "listings_page";
+
+      return isListingsPageSettings && field === "prv_background_color";
+    },
+
+    shouldRenderCheckboxArrayAccordion(field) {
+      return [
+        "listings_view_as_items",
+        "listings_sort_by_items",
+        "search_view_as_items",
+        "search_sort_by_items",
+        "search_filters",
+      ].includes(field);
+    },
+
     hiddenFieldsInSection(section) {
       if (!section || !Array.isArray(section.hiddenFields)) {
         return [];
@@ -610,19 +636,22 @@ export default {
       });
     },
 
-    // Group fields by their group value, focusing on the container group
-    groupFieldsByContainer() {
-      let groupedFields = {
-        container: [],
-      };
+    sectionGroupedContainerFields(section) {
+      if (!section || !Array.isArray(section.fields)) {
+        return [];
+      }
 
-      Object.keys(this.fields).forEach((field) => {
-        if (this.fields[field].group === "container") {
-          groupedFields.container.push(field);
-        }
+      return section.fields.filter((field) => {
+        return this.fields[field]?.group === "container";
       });
+    },
 
-      return groupedFields;
+    containerGroupLabel(section) {
+      const firstContainerField = this.sectionGroupedContainerFields(section)[0];
+
+      return firstContainerField
+        ? this.fields[firstContainerField].group_label
+        : "";
     },
 
     sectionClass(section) {
@@ -658,6 +687,8 @@ export default {
       return {
         [type_class]: true,
         [key_class]: true,
+        "cptm-field-wraper--checkbox-accordion":
+          this.shouldRenderCheckboxArrayAccordion(field_key),
         "cptm-field-wraper--nested-advanced": this.isNestedAdvancedField(
           section,
           field_key

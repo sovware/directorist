@@ -33,6 +33,7 @@
             class="directorist-type-name-editable"
             v-if="isEditableName || !options.name.value"
             @click="ensureEditableMode"
+            @keyup.enter="saveDirectoryNameOnEnter"
           >
             <component
               v-if="options.name && options.name.type"
@@ -150,6 +151,10 @@ export default {
       directorist_admin.enabled_multi_directory === "1";
   },
 
+  mounted() {
+    this.focusDirectoryNameForNewDirectory();
+  },
+
   beforeDestroy() {
     // Clean up click outside listener when component is destroyed
     document.removeEventListener("click", this.handleClickOutside);
@@ -201,6 +206,48 @@ export default {
       } catch (error) {}
 
       this.$store.commit("swichNav", activeNavIndex);
+    },
+
+    focusDirectoryNameForNewDirectory() {
+      const directoryName = this.options?.name?.value;
+
+      if (this.listing_type_id || directoryName) {
+        return;
+      }
+
+      this.isEditableName = true;
+
+      this.$nextTick(() => {
+        const editableNameField = this.$refs.editableNameField;
+
+        if (!editableNameField) {
+          return;
+        }
+
+        const editableNameElement =
+          editableNameField.$el || editableNameField;
+        const nameInput = editableNameElement.querySelector(
+          'input:not([type="hidden"]):not(:disabled)',
+        );
+
+        if (!nameInput || nameInput.offsetParent === null) {
+          return;
+        }
+
+        nameInput.focus();
+      });
+
+      setTimeout(() => {
+        document.addEventListener("click", this.handleClickOutside);
+      }, 100);
+    },
+
+    saveDirectoryNameOnEnter() {
+      if (!this.options?.name?.value) {
+        return;
+      }
+
+      this.closeEditableMode();
     },
 
     ensureEditableMode() {

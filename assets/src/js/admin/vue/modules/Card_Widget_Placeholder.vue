@@ -12,7 +12,33 @@
         },
       ]"
     >
-      <p class="cptm-placeholder-label" :class="{ hide: hasDisplayedWidgets }">
+      <!-- Placeholder Author Thumb -->
+      <span
+        class="cptm-placeholder-author-thumb cptm-placeholder-author-avatar-placeholder"
+        v-if="canOpenAvatarSettings"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M16.0001 5.33268C13.4228 5.33268 11.3334 7.42202 11.3334 9.99935C11.3334 12.5767 13.4228 14.666 16.0001 14.666C18.5774 14.666 20.6668 12.5767 20.6668 9.99935C20.6668 7.42202 18.5774 5.33268 16.0001 5.33268ZM8.66678 9.99935C8.66678 5.94926 11.95 2.66602 16.0001 2.66602C20.0502 2.66602 23.3334 5.94926 23.3334 9.99935C23.3334 14.0494 20.0502 17.3327 16.0001 17.3327C11.95 17.3327 8.66678 14.0494 8.66678 9.99935ZM12.4351 19.3326C12.5112 19.3326 12.5884 19.3327 12.6668 19.3327H19.3334C19.4118 19.3327 19.489 19.3326 19.5651 19.3326C21.2015 19.332 22.3188 19.3316 23.2687 19.6197C25.3994 20.2661 27.0667 21.9334 27.713 24.0641C28.0012 25.014 28.0008 26.1313 28.0002 27.7677C28.0001 27.8438 28.0001 27.921 28.0001 27.9993C28.0001 28.7357 27.4032 29.3327 26.6668 29.3327C25.9304 29.3327 25.3334 28.7357 25.3334 27.9993C25.3334 26.0416 25.319 25.3583 25.1612 24.8382C24.7734 23.5598 23.773 22.5594 22.4946 22.1716C21.9745 22.0138 21.2912 21.9993 19.3334 21.9993H12.6668C10.709 21.9993 10.0257 22.0138 9.50564 22.1716C8.22723 22.5594 7.22682 23.5598 6.83902 24.8382C6.68125 25.3583 6.66678 26.0416 6.66678 27.9993C6.66678 28.7357 6.06982 29.3327 5.33344 29.3327C4.59706 29.3327 4.00011 28.7357 4.00011 27.9993C4.00011 27.921 4.00008 27.8438 4.00005 27.7677C3.99945 26.1313 3.99904 25.014 4.28718 24.0641C4.93351 21.9334 6.60087 20.2661 8.73154 19.6197C9.68141 19.3316 10.7988 19.332 12.4351 19.3326Z"
+            fill="#141921"
+          />
+        </svg>
+      </span>
+
+      <!-- Placeholder Label -->
+      <p
+        class="cptm-placeholder-label"
+        :class="{ hide: hasDisplayedWidgets }"
+        v-else
+      >
         {{ label }}
       </p>
 
@@ -24,11 +50,28 @@
             :class="{
               active:
                 showWidgetsOptionWindow &&
-                selectedWidgets?.length &&
+                (selectedWidgets?.length || canOpenAvatarSettings) &&
                 !showWidgetsPickerWindow,
             }"
           >
+            <!-- Avatar Settings Window (when canOpenAvatarSettings is true) -->
+            <avatar-settings-window
+              v-if="canOpenAvatarSettings"
+              :id="id"
+              :availableWidgets="availableWidgets"
+              :selected-widgets="selectedWidgets"
+              @update="handleUpdateOptionWindow"
+              @update-active-widget="handleActiveWidgetUpdate"
+              @insert-widget="$emit('insert-widget', $event)"
+              :active="!!(showWidgetsOptionWindow && !showWidgetsPickerWindow)"
+              :maxWidgetInfoText="maxWidgetInfoText"
+              @trash-widget="$emit('trash-widget', $event)"
+              @close="$emit('close-widgets-option-window')"
+            />
+
+            <!-- Normal Widgets Option Window -->
             <widgets-option-window
+              v-else
               :id="id"
               :availableWidgets="availableWidgets"
               :selected-widgets="selectedWidgets"
@@ -53,7 +96,6 @@
             :class="{
               active:
                 showWidgetsPickerWindow &&
-                selectedWidgets?.length &&
                 !showWidgetsOptionWindow,
             }"
           >
@@ -75,8 +117,21 @@
 
           <!-- Widgets Actions -->
           <div class="cptm-widget-actions">
+            <!-- Avatar Settings Button -->
             <a
-              v-if="canOpenSettings && selectedWidgets?.length"
+              v-if="canOpenAvatarSettings"
+              href="#"
+              class="cptm-widget-action-link"
+              @click.prevent="handleAvatarSettingsClick"
+            >
+              <span class="las la-cog"></span>
+            </a>
+            <a
+              v-if="
+                canOpenSettings &&
+                selectedWidgets?.length &&
+                !canOpenAvatarSettings
+              "
               href="#"
               class="cptm-widget-action-link"
               @click.prevent="handleSettingsClick"
@@ -84,7 +139,7 @@
               <span class="las la-cog"></span>
             </a>
             <a
-              v-if="canAddMore"
+              v-if="canAddMore && !canOpenAvatarSettings"
               href="#"
               class="cptm-widget-action-link"
               @click.prevent="handleInsertClick"
@@ -96,7 +151,10 @@
       </div>
 
       <!-- Widgets Preview Area -->
-      <div class="cptm-widget-preview-area" v-if="hasDisplayedWidgets">
+      <div
+        class="cptm-widget-preview-area"
+        v-if="hasDisplayedWidgets && !canOpenAvatarSettings"
+      >
         <!-- With Drag and Drop Preview -->
         <Container
           @drop="onWidgetsDrop($event)"
@@ -165,12 +223,11 @@
               />
 
               <div
-                v-if="shouldShowOptionsArea(widget)"
                 class="cptm-options-area"
                 @click.stop="handleModalClick"
               >
                 <options-window
-                  :active="true"
+                  :active=isWidgetActive(widget)
                   v-bind="widgetOptionsWindow"
                   @close="handleOptionsWindowClose"
                 />
@@ -283,6 +340,7 @@ export default {
     showWidgetsPickerWindow: { type: Boolean, default: false },
     showWidgetsOptionWindow: { type: Boolean, default: false },
     canOpenSettings: { type: Boolean, default: false },
+    canOpenAvatarSettings: { type: Boolean, default: false },
     maxWidget: { type: Number, default: 0 },
     maxWidgetInfoText: {
       type: String,
@@ -388,13 +446,6 @@ export default {
       return true;
     },
 
-    shouldShowOptionsArea(widget) {
-      return (
-        this.widgetOptionsWindow.widget === widget &&
-        this.widgetOptionsWindow.widget !== ""
-      );
-    },
-
     getWidgetLabel(widget) {
       return this.availableWidgets[widget]?.label || "Not Available";
     },
@@ -468,6 +519,13 @@ export default {
       this.$emit("open-widgets-option-window");
     },
 
+    handleAvatarSettingsClick() {
+      if (this.showWidgetsPickerWindow) {
+        this.$emit("close-widgets-picker-window");
+      }
+      this.$emit("open-widgets-option-window");
+    },
+
     /**
      * Handle insert button click with modal mutual exclusion
      * Closes settings modal if open, then opens insert modal
@@ -475,10 +533,20 @@ export default {
     handleInsertClick() {
       // Special case for single accepted widget
       if (this.acceptedWidgets.length === 1) {
-        this.selectedWidgets.push(this.acceptedWidgets[0]);
-        this.activeWidgets[this.acceptedWidgets[0]] = {
-          ...this.availableWidgets[this.acceptedWidgets[0]],
-        };
+        // Don't mutate props directly - emit event to parent instead
+        // Create a new array with the new widget added
+        const updatedWidgets = [...(this.selectedWidgets || [])];
+
+        // Only add if not already present
+        if (!updatedWidgets.includes(this.acceptedWidgets[0])) {
+          updatedWidgets.push(this.acceptedWidgets[0]);
+        }
+
+        // Emit insert-widget event to parent (same as normal flow)
+        this.$emit("insert-widget", {
+          key: this.acceptedWidgets[0],
+          selected_widgets: updatedWidgets,
+        });
 
         return;
       }

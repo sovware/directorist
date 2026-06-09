@@ -294,6 +294,7 @@ export default {
 
     setup() {
       this.checkIfGroupHasUntrashableWidgets();
+      this.initializeExpandedState();
     },
 
     checkIfGroupHasUntrashableWidgets() {
@@ -313,6 +314,14 @@ export default {
 
     updateDetectedUntrashableWidgets(widget_key) {
       this.detectedUntrashableWidgets.push(widget_key);
+    },
+
+    initializeExpandedState() {
+      if (this.expandedGroupKey === null) {
+        return;
+      }
+
+      this.widgetsExpanded = this.expandedGroupKey === this.groupKey;
     },
 
     toggleExpandWidgets(groupKey) {

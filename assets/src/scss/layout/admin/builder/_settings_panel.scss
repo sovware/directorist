@@ -2094,6 +2094,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		display: flex;
 		flex: 0 0 54px;
 		align-items: stretch;
+		flex-wrap: nowrap;
 		height: 54px;
 		margin: 0;
 		padding: 6px 32px 0 38px;
@@ -2101,13 +2102,35 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		border-bottom: 1px solid #e5e7eb;
 		border-radius: 0 14px 0 0;
 		box-shadow: none;
-		gap: 25px;
+		gap: 22px;
+		overflow-x: auto;
+		overflow-y: hidden;
+		overscroll-behavior-x: contain;
+		scroll-behavior: smooth;
+		scrollbar-color: #cbd5e1 transparent;
+		scrollbar-width: thin;
+		-webkit-overflow-scrolling: touch;
+
+		&::-webkit-scrollbar {
+			height: 6px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: #cbd5e1;
+			border: 2px solid #ffffff;
+			border-radius: 999px;
+		}
 	}
 
 	.settings-panel-subnav__item {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
+		flex: 0 0 auto;
 		min-height: 47px;
 		padding: 14px 0;
 		color: #475569;
@@ -2116,6 +2139,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		font-size: 15px;
 		font-weight: 500;
 		line-height: 20px;
+		white-space: nowrap;
 
 		&:hover,
 		&:focus {

@@ -48431,6 +48431,9 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-su
   -webkit-align-items: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
   height: 54px;
   margin: 0;
   padding: 6px 38px 0 32px;
@@ -48439,7 +48442,25 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-su
   border-radius: 14px 0 0 0;
   -webkit-box-shadow: none;
           box-shadow: none;
-  gap: 25px;
+  gap: 22px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-subnav::-webkit-scrollbar {
+  height: 6px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-subnav::-webkit-scrollbar-track {
+  background: transparent;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-subnav::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-subnav__item {
   position: relative;
@@ -48451,6 +48472,10 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-su
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
   min-height: 47px;
   padding: 14px 0;
   color: #475569;
@@ -48459,6 +48484,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-su
   font-size: 15px;
   font-weight: 500;
   line-height: 20px;
+  white-space: nowrap;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-subnav__item:hover, body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-subnav__item:focus {
   color: #111827;

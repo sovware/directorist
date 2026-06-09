@@ -19459,7 +19459,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: 0.2s background-color ease-in-out;
   transition: 0.2s background-color ease-in-out;
 }
-.directorist-single-listing-action:hover {
+.directorist-single-listing-action:hover, .directorist-single-listing-action:focus {
   background-color: var(--directorist-color-white) !important;
   border-color: var(--directorist-color-primary) !important;
 }
@@ -20284,15 +20284,14 @@ Review: New Style
       -ms-flex-align: center;
           align-items: center;
   padding: 6px 20px;
-  border: 1px solid #EFF1F6;
-  border-bottom-color: #f2f2f2;
+  border-bottom: 1px solid var(--directorist-color-border);
   background-color: var(--directorist-color-white);
   border-radius: 16px 16px 0 0;
 }
 .directorist-review-content .directorist-review-content__header h3:not(.directorist-card__header__title) {
   font-size: 16px;
   font-weight: 500;
-  color: #1A1B29;
+  color: #1a1b29;
   margin: 10px 0;
 }
 .directorist-review-content .directorist-review-content__header h3:not(.directorist-card__header__title) span {
@@ -20300,7 +20299,7 @@ Review: New Style
 }
 .directorist-review-content .directorist-review-content__header h3:not(.directorist-card__header__title) span:before {
   content: "-";
-  color: #8F8E9F;
+  color: #8f8e9f;
   padding-right: 5px;
 }
 .directorist-review-content .directorist-review-content__header .directorist-btn {
@@ -20363,13 +20362,13 @@ Review: New Style
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-point {
   font-size: 34px;
   font-weight: 600;
-  color: #1A1B29;
+  color: #1a1b29;
   display: block;
   margin-right: 15px;
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars {
   font-size: 15px;
-  color: #EF8000;
+  color: #ef8000;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -20383,7 +20382,7 @@ Review: New Style
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask:after {
   width: 15px;
   height: 15px;
-  background-color: #EF8000;
+  background-color: #ef8000;
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask.directorist_fraction_star {
   position: relative;
@@ -20396,11 +20395,11 @@ Review: New Style
   left: 0;
   -webkit-mask-image: url(../js/../images/b6ad67158aa2d6258e619021127e704f.svg);
           mask-image: url(../js/../images/b6ad67158aa2d6258e619021127e704f.svg);
-  background-color: #EF8000;
+  background-color: #ef8000;
 }
 .directorist-review-content .directorist-review-content__overview__rating .directorist-rating-overall {
   font-size: 14px;
-  color: #8C90A4;
+  color: #8c90a4;
   display: block;
 }
 .directorist-review-content .directorist-review-content__overview__benchmarks {
@@ -20451,21 +20450,21 @@ Review: New Style
           box-shadow: none;
 }
 .directorist-review-content .directorist-review-content__overview__benchmarks .directorist-benchmark-single progress::-webkit-progress-bar {
-  background-color: #F2F3F5;
+  background-color: #f2f3f5;
   border-radius: 2px;
 }
 .directorist-review-content .directorist-review-content__overview__benchmarks .directorist-benchmark-single progress::-webkit-progress-value {
-  background-color: #EF8000;
+  background-color: #ef8000;
   border-radius: 2px;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 .directorist-review-content .directorist-review-content__overview__benchmarks .directorist-benchmark-single progress::-moz-progress-bar {
-  background-color: #F2F3F5;
+  background-color: #f2f3f5;
   border-radius: 2px;
 }
 .directorist-review-content .directorist-review-content__overview__benchmarks .directorist-benchmark-single progress::-moz-progress-value {
-  background-color: #EF8000;
+  background-color: #ef8000;
   border-radius: 2px;
   box-shadow: none;
 }
@@ -20476,20 +20475,22 @@ Review: New Style
           flex: 0.1;
   font-size: 15px;
   font-weight: 500;
-  color: #090E30;
+  color: #090e30;
   text-align: right;
 }
-.directorist-review-content .directorist-review-content__reviews, .directorist-review-content .directorist-review-content__reviews ul {
+.directorist-review-content .directorist-review-content__reviews,
+.directorist-review-content .directorist-review-content__reviews ul {
   padding: 0;
   margin: 10px 0 0 0;
   list-style-type: none;
 }
-.directorist-review-content .directorist-review-content__reviews li, .directorist-review-content .directorist-review-content__reviews ul li {
+.directorist-review-content .directorist-review-content__reviews li,
+.directorist-review-content .directorist-review-content__reviews ul li {
   list-style-type: none;
   margin-left: 0;
 }
 .directorist-review-content .directorist-review-content__reviews > li {
-  border-top: 1px solid #EFF1F6;
+  border-top: 1px solid #eff1f6;
 }
 .directorist-review-content .directorist-review-content__reviews > li:not(:last-child) {
   margin-bottom: 10px;
@@ -20595,7 +20596,7 @@ Review: New Style
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details h2 {
   font-size: 15px;
   font-weight: 500;
-  color: #090E30;
+  color: #090e30;
   margin: 0 0 5px;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details h2:before, .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details h2:after {
@@ -20604,7 +20605,7 @@ Review: New Style
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details h2 time {
   display: inline-block;
   font-size: 14px;
-  color: #8C90A4;
+  color: #8c90a4;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details h2 time::before {
   content: "-";
@@ -20613,7 +20614,7 @@ Review: New Style
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details .directorist-rating-stars {
   font-size: 11px;
-  color: #EF8000;
+  color: #ef8000;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -20627,11 +20628,11 @@ Review: New Style
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__author__details .directorist-rating-stars .directorist-icon-mask::after {
   width: 11px;
   height: 11px;
-  background-color: #EF8000;
+  background-color: #ef8000;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__header .directorist-review-single__report a {
   font-size: 13px;
-  color: #8C90A4;
+  color: #8c90a4;
   display: block;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single .directorist-review-single__contents-wrap .directorist-review-single__content {
@@ -20684,7 +20685,7 @@ Review: New Style
           align-items: center;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__reply a {
-  color: #8C90A4;
+  color: #8c90a4;
   font-size: 13px;
   display: block;
   margin: 0 8px;
@@ -20706,7 +20707,7 @@ Review: New Style
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__reply a.directorist-comment-edit-link .directorist-icon-mask::after {
   width: 0.9em;
   height: 0.9em;
-  background-color: #8C90A4;
+  background-color: #8c90a4;
 }
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__comments .directorist-review-single--comment {
   padding-left: 40px;
@@ -20717,7 +20718,7 @@ Review: New Style
 .directorist-review-content .directorist-review-content__reviews .directorist-review-single__comments .directorist-review-single--comment .directorist-review-single__contents-wrap::before {
   content: "";
   height: 100%;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   width: 2px;
   left: -20px;
   position: absolute;
@@ -20792,14 +20793,14 @@ Review: New Style
       -ms-flex-pack: center;
           justify-content: center;
   border-radius: 6px;
-  border: 1px solid #E1E4EC;
-  color: #090E30;
+  border: 1px solid #e1e4ec;
+  color: #090e30;
   font-weight: 500;
   font-size: 14px;
   background-color: var(--directorist-color-white);
 }
 .directorist-review-content .directorist-review-content__pagination ul li .page-numbers.current {
-  border-color: #090E30;
+  border-color: #090e30;
 }
 
 .directorist-review-submit {
@@ -20807,7 +20808,7 @@ Review: New Style
   margin-bottom: 25px;
   background-color: var(--directorist-color-white);
   border-radius: 4px;
-  border: 1px solid #EFF1F6;
+  border: 1px solid #eff1f6;
 }
 .directorist-review-submit__header {
   display: -webkit-box;
@@ -20830,7 +20831,7 @@ Review: New Style
 .directorist-review-submit__header h3 {
   font-size: 16px;
   font-weight: 500;
-  color: #1A1B29;
+  color: #1a1b29;
   margin: 0;
 }
 .directorist-review-submit__header h3 span {
@@ -20838,7 +20839,7 @@ Review: New Style
 }
 .directorist-review-submit__header h3 span:before {
   content: "-";
-  color: #8F8E9F;
+  color: #8f8e9f;
   padding-right: 5px;
 }
 .directorist-review-submit__header .directorist-btn {
@@ -20985,7 +20986,8 @@ Review: New Style
   height: 12px;
   background-color: var(--directorist-color-white);
 }
-.directorist-review-submit__reviews, .directorist-review-submit__reviews ul {
+.directorist-review-submit__reviews,
+.directorist-review-submit__reviews ul {
   padding: 0;
   margin: 10px 0 0 0;
   list-style-type: none;
@@ -21092,14 +21094,14 @@ Review: New Style
       -ms-flex-pack: center;
           justify-content: center;
   border-radius: 6px;
-  border: 1px solid #E1E4EC;
-  color: #090E30;
+  border: 1px solid #e1e4ec;
+  color: #090e30;
   font-weight: 500;
   font-size: 14px;
   background-color: var(--directorist-color-white);
 }
 .directorist-review-content__pagination li .page-numbers.current {
-  border-color: #090E30;
+  border-color: #090e30;
 }
 
 .directorist-review-single {
@@ -21211,7 +21213,7 @@ Review: New Style
 }
 .directorist-review-single__report a {
   font-size: 13px;
-  color: #8C90A4;
+  color: #8c90a4;
   display: block;
 }
 .directorist-review-single__content p {
@@ -21432,7 +21434,7 @@ Review: New Style
   width: 24px;
   height: 24px;
   border-radius: 4px;
-  background-color: #E1E4EC;
+  background-color: #e1e4ec;
   margin: 1px;
   text-decoration: none;
   outline: 0;
@@ -21448,7 +21450,7 @@ Review: New Style
   background-color: var(--directorist-color-white);
 }
 .directorist-review-submit__form .directorist-review-criteria__single a:focus {
-  background-color: #E1E4EC !important;
+  background-color: #e1e4ec !important;
   text-decoration: none !important;
   outline: 0;
 }
@@ -21467,14 +21469,14 @@ Review: New Style
   margin-bottom: 20px;
 }
 .directorist-review-submit__form .directorist-form-group textarea {
-  background-color: #F6F7F9;
+  background-color: #f6f7f9;
   font-size: 15px;
   display: block;
   resize: vertical;
   margin: 0;
 }
 .directorist-review-submit__form .directorist-form-group textarea:focus {
-  background-color: #F6F7F9;
+  background-color: #f6f7f9;
 }
 .directorist-review-submit__form .directorist-form-group label {
   display: block;
@@ -21571,13 +21573,13 @@ Review: New Style
   width: 115px;
   height: 100px;
   border-radius: 8px;
-  border: 1px dashed #C6D0DC;
+  border: 1px dashed #c6d0dc;
   cursor: pointer;
   margin-bottom: 0;
 }
 .directorist-review-submit__form .directorist-review-media-upload label i {
   font-size: 26px;
-  color: #AFB2C4;
+  color: #afb2c4;
 }
 .directorist-review-submit__form .directorist-review-media-upload label span {
   display: block;

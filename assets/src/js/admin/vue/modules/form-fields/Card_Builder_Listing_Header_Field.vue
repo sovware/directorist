@@ -98,7 +98,7 @@
                           !active_widgets[widget_key],
                       }"
                       @click.prevent="editWidget(widget_key)"
-                      v-if="getResolvedWidget(widget_key).options"
+                      v-if="hasWidgetOptions(widget_key)"
                     >
                       <span
                         class="cptm-elements-settings__group__single__edit__icon la la-cog"
@@ -2788,12 +2788,54 @@ export default {
       return placeholders;
     },
 
+    /**
+     * Check if widget has options
+     * @param {String} widget_key - Widget key to check
+     * @returns {Boolean} Whether widget has options
+     * @public
+     */
+    hasWidgetOptions(widget_key) {
+      if (!widget_key || !this.available_widgets[widget_key]) {
+        return false;
+      }
+
+      // If widget_key is "title", log options and active_fields via console
+      if (widget_key === "title") {
+        const submissionFormFields =
+          this.fields?.submission_form_fields;
+
+        // Get active_widget_fields (added fields) from submission_form_fields
+        const activeWidgetFields =
+          submissionFormFields?.value?.fields ||
+          submissionFormFields?.fields ||
+          {};
+
+        // Check if tagline exists in activeWidgetFields
+        if (
+          activeWidgetFields &&
+          !activeWidgetFields.hasOwnProperty("tagline")
+        ) {
+          return false;
+        }
+      }
+
+      // Check if widget has options
+      const hasOptions = !!this.available_widgets[widget_key].options;
+
+      return hasOptions;
+    },
+
     // Edit Widget
     editWidget(key) {
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
         return;
       }
+
+      if (!this.hasWidgetOptions(key)) {
+        return;
+      }
+
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }

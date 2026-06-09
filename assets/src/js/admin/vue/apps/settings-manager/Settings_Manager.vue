@@ -173,6 +173,7 @@ const CHECKBOX_ARRAY_ACCORDION_FIELDS = [
     'search_view_as_items',
     'search_sort_by_items',
     'search_filters',
+    'all_authors_contact',
 ];
 
 export default {
@@ -282,6 +283,7 @@ export default {
         document.removeEventListener( 'click', this.handleDocumentNavigationClick, true );
         window.removeEventListener( 'beforeunload', this.handleBeforeUnload );
         this.clearSaveSuccessTimer();
+        this.cancelSearchHighlightFrame();
     },
 
     watch: {
@@ -331,6 +333,7 @@ export default {
             lastLeaveTrigger: null,
             saveFeedbackState: '',
             saveSuccessTimer: null,
+            searchHighlightFrame: null,
 
             submit_button: {
                 label_default: 'Save changes',
@@ -372,6 +375,72 @@ export default {
             });
 
             this.search_query = '';
+            this.queueSearchResultHighlight( field.layout_path.field_key );
+        },
+
+        queueSearchResultHighlight( fieldKey ) {
+            if ( ! fieldKey ) { return; }
+
+            this.cancelSearchHighlightFrame();
+            this.$store.commit( 'setHighlightedFieldKey', '' );
+
+            this.$nextTick( () => {
+                this.runSearchResultHighlight( fieldKey, 0 );
+            });
+        },
+
+        runSearchResultHighlight( fieldKey, attempt ) {
+            const maxAttempts = 12;
+
+            this.searchHighlightFrame = window.requestAnimationFrame( () => {
+                this.searchHighlightFrame = null;
+                this.$store.commit( 'setHighlightedFieldKey', fieldKey );
+
+                this.$nextTick( () => {
+                    const target = this.getSearchHighlightTarget( fieldKey );
+
+                    if ( target ) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest',
+                        });
+
+                        return;
+                    }
+
+                    if ( attempt < maxAttempts ) {
+                        this.runSearchResultHighlight( fieldKey, attempt + 1 );
+                    }
+                });
+            });
+        },
+
+        getSearchHighlightTarget( fieldKey ) {
+            if ( ! this.$el || ! fieldKey ) { return null; }
+
+            const escapedFieldKey = this.escapeCssIdentifier( fieldKey );
+
+            return this.$el.querySelector(
+                `.cptm-field-wraper-key-${escapedFieldKey}`
+            );
+        },
+
+        escapeCssIdentifier( value ) {
+            const stringValue = String( value || '' );
+
+            if ( window.CSS && typeof window.CSS.escape === 'function' ) {
+                return window.CSS.escape( stringValue );
+            }
+
+            return stringValue.replace( /[^a-zA-Z0-9_-]/g, '\\$&' );
+        },
+
+        cancelSearchHighlightFrame() {
+            if ( ! this.searchHighlightFrame ) { return; }
+
+            window.cancelAnimationFrame( this.searchHighlightFrame );
+            this.searchHighlightFrame = null;
         },
 
         handleDocumentNavigationClick( event ) {

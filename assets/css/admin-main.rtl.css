@@ -48028,12 +48028,14 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-nav__ite
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-nav__item.active .settings-nav__item__icon {
   color: #3e62f5;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-nav__item--extension_settings,
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-nav__item--extensions_settings {
   position: relative;
   margin-top: 12px;
   padding-top: 12px;
   border-top: 0;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-nav__item--extension_settings::before,
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-nav__item--extensions_settings::before {
   content: "";
   position: absolute;
@@ -48463,9 +48465,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-ad
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-panel-advanced[data-container-key=email_settings__email_events] .settings-panel-advanced__body .cptm-section .cptm-title-area {
   display: none;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .atbdp-tab-content-item > .cptm-tab-content-menu-email_settings__email_events {
-  padding-bottom: 0;
-}
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-email_settings__email_events .cptm-section:last-child {
   margin-bottom: 0 !important;
   border-bottom: 0;
@@ -48489,11 +48488,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-section .cpt
   font-size: 15px;
   font-weight: 700;
   line-height: 20px;
-}
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-section .cptm-form-fields > div {
-  min-height: 52px;
-  padding: 14px 20px;
-  border-top: 1px solid #edf1f6;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-section .cptm-form-fields > div:first-child {
   border-top: 0;
@@ -48952,16 +48946,19 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-
   font-size: 12px;
   line-height: 16px;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-section {
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extension_settings] .cptm-section,
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extensions_settings] .cptm-section {
   border-color: #e9ebef;
   border-radius: 10px;
   overflow: hidden;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-title-area {
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extension_settings] .cptm-title-area,
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extensions_settings] .cptm-title-area {
   padding: 17px 20px;
   border-bottom-color: #e8edf4;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-title-area .cptm-title {
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extension_settings] .cptm-title-area .cptm-title,
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extensions_settings] .cptm-title-area .cptm-title {
   margin: 0;
   color: #111827;
   font-size: 15px;
@@ -48969,7 +48966,8 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-
   line-height: 22px;
   letter-spacing: 0;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-tab-content-menu-extensions_settings .cptm-form-fields > .cptm-field-wraper-key-extension_promotion {
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extension_settings] .cptm-form-fields > .cptm-field-wraper-key-extension_promotion,
+body.directorist-settings-redesign-page .atbdp-settings-panel [class*=cptm-tab-content-menu-extensions_settings] .cptm-form-fields > .cptm-field-wraper-key-extension_promotion {
   min-height: 0;
   padding: 0;
   border-top: 0;
@@ -49494,9 +49492,14 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-card-advance
   transition: color 0.18s ease, transform 0.18s ease, -webkit-transform 0.18s ease;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper--checkbox-accordion {
+  display: block !important;
+  height: auto !important;
   min-height: 0;
   padding: 0 !important;
-  background: #fafbfc;
+  line-height: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper--checkbox-accordion > .cptm-checkbox-accordion {
+  line-height: normal;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-checkbox-accordion__toggle {
   display: -webkit-inline-box;
@@ -50053,6 +50056,20 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__template-only {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 24px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 16px;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit {
   display: -webkit-inline-box;

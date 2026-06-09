@@ -21,6 +21,7 @@
             v-for="event in group.events"
             :key="group.key + '-' + event.key"
             class="cptm-notification-events__row"
+            :class="eventRowClass(event)"
           >
             <td>
               <div class="cptm-notification-events__event">
@@ -32,7 +33,13 @@
             </td>
             <td>
               <span
-                v-if="event.alwaysOn"
+                v-if="event.templateOnly"
+                class="cptm-notification-events__template-only"
+              >
+                Template
+              </span>
+              <span
+                v-else-if="event.alwaysOn"
                 class="cptm-notification-events__always-on"
                 title="Always on for account emails"
               >
@@ -89,7 +96,7 @@
         <div class="cptm-notification-modal__header">
           <div>
             <h3 id="cptm-notification-modal-title">Edit &middot; {{ modalEvent.label }}</h3>
-            <span class="cptm-notification-modal__badge">{{ modalEvent.value }}</span>
+            <span class="cptm-notification-modal__badge">{{ modalEvent.badge || modalEvent.value }}</span>
           </div>
 
           <button
@@ -111,7 +118,7 @@
             <p>Click a placeholder to insert it into the body.</p>
             <div class="cptm-notification-modal__placeholder-list">
               <button
-                v-for="placeholder in placeholders"
+                v-for="placeholder in modalPlaceholders"
                 :key="placeholder"
                 type="button"
                 @click="insertPlaceholder(placeholder)"
@@ -277,6 +284,14 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    sections: {
+      type: Object,
+      default: () => ({}),
+    },
+    highlightedFieldKey: {
+      type: String,
+      default: "",
+    },
   },
 
   data() {
@@ -349,6 +364,7 @@ export default {
           label: "Account emails",
           events: this.buildAccountEvents(),
         },
+        ...this.buildExtensionTemplateGroups(),
       ];
 
       return groups
@@ -357,6 +373,20 @@ export default {
           events: group.events.filter((event) => event),
         }))
         .filter((group) => group.events.length);
+    },
+
+    modalPlaceholders() {
+      const placeholders = [...this.placeholders];
+
+      if (this.modalDraft.subject) {
+        placeholders.push(...this.extractPlaceholders(this.modalDraft.subject));
+      }
+
+      if (this.modalDraft.body) {
+        placeholders.push(...this.extractPlaceholders(this.modalDraft.body));
+      }
+
+      return [...new Set(placeholders)];
     },
 
   },
@@ -425,6 +455,113 @@ export default {
       );
     },
 
+    buildExtensionTemplateGroups() {
+      const events = Object.keys(this.sections || {})
+        .filter((sectionKey) => this.isExtensionTemplateSection(sectionKey))
+        .map((sectionKey) =>
+          this.buildExtensionTemplateEvent(sectionKey, this.sections[sectionKey])
+        )
+        .filter((event) => event);
+
+      if (!events.length) {
+        return [];
+      }
+
+      return [
+        {
+          key: "extension-templates",
+          label: this.extensionTemplateGroupLabel(events),
+          events,
+        },
+      ];
+    },
+
+    isExtensionTemplateSection(sectionKey) {
+      return (
+        String(sectionKey || "").indexOf("routed_email_settings_email_templates_") ===
+        0
+      );
+    },
+
+    buildExtensionTemplateEvent(sectionKey, section) {
+      if (!section || !Array.isArray(section.fields)) {
+        return null;
+      }
+
+      const template = this.getTemplatePairFromFields(section.fields);
+
+      if (!this.templateExists(template)) {
+        return null;
+      }
+
+      return {
+        key: `extension-${sectionKey}`,
+        value: sectionKey,
+        badge: this.extensionTemplateBadge(sectionKey),
+        fieldKey: "",
+        label: this.cleanExtensionTemplateLabel(section.title || sectionKey),
+        description: section.description || "",
+        template,
+        alwaysOn: false,
+        templateOnly: true,
+      };
+    },
+
+    getTemplatePairFromFields(fieldKeys) {
+      const subject = fieldKeys.find((fieldKey) => {
+        const field = this.fields[fieldKey] || {};
+        const label = String(field.label || "");
+
+        return (
+          field.type === "text" &&
+          /subject/i.test(`${fieldKey} ${label}`)
+        );
+      });
+      const body = fieldKeys.find((fieldKey) => {
+        const field = this.fields[fieldKey] || {};
+        const label = String(field.label || "");
+
+        return (
+          field.type === "textarea" &&
+          /(body|template|tmpl)/i.test(`${fieldKey} ${label}`)
+        );
+      });
+
+      if (!subject || !body) {
+        return null;
+      }
+
+      return { subject, body };
+    },
+
+    extensionTemplateGroupLabel(events) {
+      const isBooking = events.some((event) => {
+        return (
+          /booking/i.test(event.label) ||
+          /^bdb_/i.test(event.template.subject) ||
+          /^bdb_/i.test(event.template.body)
+        );
+      });
+
+      return isBooking ? "Booking emails" : "Extension email templates";
+    },
+
+    extensionTemplateBadge(sectionKey) {
+      return String(sectionKey || "").replace(
+        /^routed_email_settings_email_templates_/,
+        ""
+      );
+    },
+
+    cleanExtensionTemplateLabel(label) {
+      return String(label || "")
+        .replace(/^For\s+/i, "")
+        .replace(/\s+/g, " ")
+        .replace(/\(\s+/g, "(")
+        .replace(/\s+\)/g, ")")
+        .trim();
+    },
+
     buildChannelEvents(eventDefinitions, fieldKey) {
       const availableValues =
         fieldKey === "notify_admin"
@@ -441,6 +578,7 @@ export default {
           description,
           template: this.templateForEvent(value),
           alwaysOn: false,
+          templateOnly: false,
         }));
     },
 
@@ -454,8 +592,35 @@ export default {
           description,
           template,
           alwaysOn: true,
+          templateOnly: false,
         })
       );
+    },
+
+    eventRowClass(event) {
+      const classes = {};
+
+      if (event && event.template) {
+        classes[`cptm-field-wraper-key-${event.template.subject}`] = true;
+        classes[`cptm-field-wraper-key-${event.template.body}`] = true;
+      }
+
+      if (this.eventIncludesHighlightedField(event)) {
+        classes["highlight-field"] = true;
+      }
+
+      return classes;
+    },
+
+    eventIncludesHighlightedField(event) {
+      if (!event || !event.template || !this.highlightedFieldKey) {
+        return false;
+      }
+
+      return [
+        event.template.subject,
+        event.template.body,
+      ].includes(this.highlightedFieldKey);
     },
 
     eventIsEnabled(event) {
@@ -535,6 +700,12 @@ export default {
       });
 
       this.closeTemplateModal();
+    },
+
+    extractPlaceholders(value) {
+      const matches = String(value || "").match(/==[A-Z0-9_]+==/g);
+
+      return matches || [];
     },
 
     insertPlaceholder(placeholder) {

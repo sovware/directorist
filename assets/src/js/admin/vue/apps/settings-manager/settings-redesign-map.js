@@ -2,6 +2,14 @@ const clone = (value) => JSON.parse(JSON.stringify(value || {}));
 
 const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object || {}, key);
 
+const normalizeLayoutFieldKey = (fieldKey) => {
+	if (Array.isArray(fieldKey)) {
+		return fieldKey[0] || '';
+	}
+
+	return fieldKey;
+};
+
 const svgIcon = (content) =>
 	`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${content}</svg>`;
 
@@ -1053,75 +1061,117 @@ const FIELD_GROUPS = {
 
 	userRegistration: [
 		{
-			key: 'registration_required_fields',
-			title: 'Registration fields',
+			key: 'registration_username',
+			title: 'Username',
+			fields: ['reg_username'],
+		},
+		{
+			key: 'registration_password',
+			title: 'Password',
 			fields: [
-				'reg_username',
-				'reg_email',
 				'display_password_reg',
 				'reg_password',
 				'require_password_reg',
-				'display_website_reg',
-				'reg_website',
-				'require_website_reg',
-				'display_fname_reg',
-				'reg_fname',
-				'require_fname_reg',
-				'display_lname_reg',
-				'reg_lname',
-				'require_lname_reg',
-				'display_bio_reg',
-				'reg_bio',
-				'require_bio_reg',
-				'display_user_type',
 			],
 		},
 		{
-			key: 'registration_terms',
-			title: 'Privacy and terms',
+			key: 'registration_email',
+			title: 'Email',
+			fields: ['reg_email'],
+		},
+		{
+			key: 'registration_website',
+			title: 'Website',
+			fields: ['display_website_reg', 'reg_website', 'require_website_reg'],
+		},
+		{
+			key: 'registration_first_name',
+			title: 'First Name',
+			fields: ['display_fname_reg', 'reg_fname', 'require_fname_reg'],
+		},
+		{
+			key: 'registration_last_name',
+			title: 'Last Name',
+			fields: ['display_lname_reg', 'reg_lname', 'require_lname_reg'],
+		},
+		{
+			key: 'registration_about_bio',
+			title: 'About/Bio',
+			fields: ['display_bio_reg', 'reg_bio', 'require_bio_reg'],
+		},
+		{
+			key: 'registration_user_type',
+			title: 'User Type Registration',
+			fields: ['display_user_type'],
+		},
+		{
+			key: 'registration_privacy_policy',
+			title: 'Privacy Policy',
 			fields: [
 				'registration_privacy',
 				'registration_privacy_label',
 				'registration_privacy_label_link',
+			],
+		},
+		{
+			key: 'registration_terms_conditions',
+			title: 'Terms Conditions',
+			fields: [
 				'regi_terms_condition',
 				'regi_terms_label',
 				'regi_terms_label_link',
 			],
 		},
 		{
-			key: 'registration_flow',
-			title: 'Signup flow',
+			key: 'registration_signup_button',
+			title: 'Sign Up Button',
+			fields: ['reg_signup'],
+		},
+		{
+			key: 'registration_login_message',
+			title: 'Login Message',
 			fields: [
-				'reg_signup',
 				'display_login',
 				'login_text',
 				'log_linkingmsg',
-				'auto_login',
-				'redirection_after_reg',
 			],
+		},
+		{
+			key: 'registration_redirect',
+			title: 'Registration Redirect',
+			fields: ['auto_login', 'redirection_after_reg'],
 		},
 	],
 
 	userLogin: [
 		{
-			key: 'login_form',
-			title: 'Login form',
-			fields: [
-				'log_username',
-				'log_password',
-				'display_rememberme',
-				'log_rememberme',
-				'log_button',
-			],
+			key: 'login_username',
+			title: 'Username',
+			fields: ['log_username'],
 		},
 		{
-			key: 'signup_prompt',
-			title: 'Signup prompt',
+			key: 'login_password',
+			title: 'Password',
+			fields: ['log_password'],
+		},
+		{
+			key: 'remember_login_info',
+			title: 'Remember Login Information',
+			fields: ['display_rememberme', 'log_rememberme'],
+		},
+		{
+			key: 'login_button',
+			title: 'Login Button',
+			fields: ['log_button'],
+		},
+		{
+			key: 'signup_message',
+			title: 'Sign Up Message',
 			fields: ['display_signup', 'reg_text', 'reg_linktxt'],
 		},
 		{
-			key: 'password_recovery',
-			title: 'Password recovery',
+			key: 'recover_password',
+			title: 'Recover Password',
 			fields: [
 				'display_recpass',
 				'recpass_text',
@@ -1133,7 +1183,7 @@ const FIELD_GROUPS = {
 		},
 		{
 			key: 'login_redirect',
-			title: 'Redirect',
+			title: 'Login Redirect',
 			fields: ['redirection_after_login'],
 		},
 	],
@@ -1410,6 +1460,8 @@ const FIELD_GROUPS = {
 				'email_tmpl_registration_confirmation',
 				'email_sub_email_verification',
 				'email_tmpl_email_verification',
+				'email_to_expire_day',
+				'email_renewal_day',
 			],
 			hiddenFields: [
 				'notify_admin',
@@ -1449,12 +1501,8 @@ const FIELD_GROUPS = {
 			notificationEvents: {
 				beforeField: 'notify_admin',
 			},
-		},
-		{
-			key: 'schedule_timing',
-			title: 'Schedule & timing',
-			fields: ['email_to_expire_day', 'email_renewal_day'],
-			advanced: true,
+			advancedLabel: 'Schedule & timing',
+			advancedFields: ['email_to_expire_day', 'email_renewal_day'],
 		},
 	],
 
@@ -1703,7 +1751,7 @@ const FIELD_GROUPS = {
 		{
 			key: 'cache',
 			title: 'Caching',
-			fields: ['atbdp_enable_cache', 'atbdp_reset_cache'],
+			fields: ['atbdp_enable_cache'],
 		},
 		{
 			key: 'debugging',
@@ -1924,6 +1972,92 @@ const cloneRawMenu = (rawMenu, label, fields, usedFields) => {
 	return menu;
 };
 
+const cloneRawSections = (
+	sections = {},
+	fields,
+	usedFields,
+	excludedFields = new Set()
+) => {
+	const clonedSections = {};
+
+	Object.keys(sections || {}).forEach((sectionKey) => {
+		const section = clone(sections[sectionKey]);
+		section.fields = (section.fields || [])
+			.map(normalizeLayoutFieldKey)
+			.filter(
+				(fieldKey) =>
+					fieldKey &&
+					hasOwn(fields, fieldKey) &&
+					!excludedFields.has(fieldKey)
+			);
+
+		if (!section.fields.length) {
+			return;
+		}
+
+		section.fields.forEach((fieldKey) => usedFields.add(fieldKey));
+		clonedSections[sectionKey] = section;
+	});
+
+	return clonedSections;
+};
+
+const buildExtensionSettingsMenu = (rawLayouts, fields, usedFields) => {
+	const rawMenu = rawLayouts.extension_settings || rawLayouts.extensions_settings || {};
+	const rawSubmenus = rawMenu.submenu || {};
+	const submenu = {};
+
+	Object.keys(rawSubmenus).forEach((submenuKey) => {
+		const rawSubmenu = rawSubmenus[submenuKey] || {};
+		const sections =
+			submenuKey === 'extensions_general'
+				? {}
+				: cloneRawSections(rawSubmenu.sections || {}, fields, usedFields);
+
+		if (submenuKey === 'extensions_general') {
+			const generalSections = sectionsFromGroups(
+				FIELD_GROUPS.extensionsBrowse,
+				fields,
+				usedFields
+			);
+			const extraGeneralSections = cloneRawSections(
+				rawSubmenu.sections || {},
+				fields,
+				usedFields,
+				new Set(['extension_promotion'])
+			);
+
+			Object.assign(sections, generalSections, extraGeneralSections);
+		}
+
+		if (!Object.keys(sections).length) {
+			return;
+		}
+
+		submenu[submenuKey] = {
+			label: rawSubmenu.label || 'Extension',
+			icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.extensions,
+			sections,
+		};
+	});
+
+	if (
+		!submenu.extensions_general &&
+		hasFieldsForGroups(FIELD_GROUPS.extensionsBrowse, fields)
+	) {
+		submenu.extensions_general = {
+			label: 'Extensions General',
+			icon: SETTINGS_REDESIGN_ICONS.extensions,
+			sections: sectionsFromGroups(FIELD_GROUPS.extensionsBrowse, fields, usedFields),
+		};
+	}
+
+	return makeMenu(rawMenu, 'Extensions', {
+		icon: SETTINGS_REDESIGN_ICONS.extensions,
+		submenu,
+	});
+};
+
 const originalFieldPaths = (layouts, fields) => {
 	const paths = [];
 
@@ -1932,6 +2066,8 @@ const originalFieldPaths = (layouts, fields) => {
 		const readSections = (sections, submenuKey = '') => {
 			Object.keys(sections || {}).forEach((sectionKey) => {
 				(sections[sectionKey].fields || []).forEach((fieldKey) => {
+					fieldKey = normalizeLayoutFieldKey(fieldKey);
+
 					if (hasOwn(fields, fieldKey)) {
 						paths.push({ menuKey, submenuKey, sectionKey, fieldKey });
 					}
@@ -2006,6 +2142,105 @@ const appendUnmappedFields = (displayLayouts, rawLayouts, fields, usedFields) =>
 				description:
 					sourceSection.description ||
 					'This setting exists in the current panel but was not represented in the static redesign mockup.',
+				fields: [],
+			};
+		}
+
+		targetSubmenu.sections[sectionKey].fields.push(path.fieldKey);
+		usedFields.add(path.fieldKey);
+	});
+};
+
+const getRecognizedFallbackTarget = (path) => {
+	const menuKey = path.menuKey || '';
+	const submenuKey = path.submenuKey || '';
+
+	if (['page_settings', 'page_setup'].includes(menuKey)) {
+		return {
+			menuKey: 'page_setup',
+			submenuKey: 'pages',
+		};
+	}
+
+	if (menuKey === 'email_settings' && submenuKey === 'email_templates') {
+		return {
+			menuKey: 'email_settings',
+			submenuKey: 'email_events',
+		};
+	}
+
+	if (
+		['extension_settings', 'extensions_settings'].includes(menuKey) &&
+		submenuKey === 'extensions_general'
+	) {
+		return {
+			menuKey: 'extension_settings',
+			submenuKey: 'extensions_general',
+		};
+	}
+
+	if (['extension_settings', 'extensions_settings'].includes(menuKey) && submenuKey) {
+		return {
+			menuKey: 'extension_settings',
+			submenuKey,
+		};
+	}
+
+	return null;
+};
+
+const appendFieldsToExistingTab = (
+	displayLayouts,
+	rawLayouts,
+	fields,
+	usedFields
+) => {
+	originalFieldPaths(rawLayouts, fields).forEach((path) => {
+		if (
+			usedFields.has(path.fieldKey) ||
+			SUPPRESSED_REDESIGN_FIELDS.has(path.fieldKey)
+		) {
+			return;
+		}
+
+		const target = getRecognizedFallbackTarget(path);
+
+		if (!target) {
+			return;
+		}
+
+		const targetMenu = displayLayouts[target.menuKey];
+		const targetSubmenu = targetMenu?.submenu?.[target.submenuKey];
+
+		if (!targetMenu || !targetSubmenu) {
+			return;
+		}
+
+		if (!targetSubmenu.sections) {
+			targetSubmenu.sections = {};
+		}
+
+		const sourceMenu = rawLayouts[path.menuKey] || {};
+		const sourceSubmenu = sourceMenu.submenu?.[path.submenuKey] || {};
+		const sourceSection =
+			(path.submenuKey
+				? sourceSubmenu.sections?.[path.sectionKey]
+				: sourceMenu.sections?.[path.sectionKey]) || {};
+		const sectionKey = [
+			'routed',
+			path.menuKey,
+			path.submenuKey || 'main',
+			path.sectionKey,
+		].join('_');
+
+		if (!targetSubmenu.sections[sectionKey]) {
+			targetSubmenu.sections[sectionKey] = {
+				title:
+					sourceSection.title ||
+					sourceSubmenu.label ||
+					sourceMenu.label ||
+					targetSubmenu.label,
+				description: sourceSection.description || '',
 				fields: [],
 			};
 		}
@@ -2292,20 +2527,14 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 	});
 
 	if (
+		rawLayouts.extension_settings ||
 		rawLayouts.extensions_settings ||
 		hasFieldsForGroups(FIELD_GROUPS.extensionsBrowse, fields)
 	) {
-		displayLayouts.extensions_settings = makeMenu(
-			rawLayouts.extensions_settings,
-			'Extensions',
-			{
-				icon: SETTINGS_REDESIGN_ICONS.extensions,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.extensionsBrowse,
-					fields,
-					usedFields
-				),
-			}
+		displayLayouts.extension_settings = buildExtensionSettingsMenu(
+			rawLayouts,
+			fields,
+			usedFields
 		);
 	}
 
@@ -2316,6 +2545,7 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 		});
 	}
 
+	appendFieldsToExistingTab(displayLayouts, rawLayouts, fields, usedFields);
 	appendUnmappedFields(displayLayouts, rawLayouts, fields, usedFields);
 	pruneEmptyNavigation(displayLayouts);
 
@@ -2336,6 +2566,11 @@ export const resolveSettingsHashTarget = (hash, layouts = {}, cachedFields = {})
 		return cachedFields[fieldKey].layout_path;
 	}
 
+	const extensionCompatibleHash =
+		cleanHash.indexOf('extensions_settings__') === 0
+			? cleanHash.replace(/^extensions_settings/, 'extension_settings')
+			: cleanHash;
+
 	const directAliases = {
 		search_settings: 'search_settings__search_listing',
 		'search_settings__search_listing': 'search_settings__search_listing',
@@ -2348,6 +2583,9 @@ export const resolveSettingsHashTarget = (hash, layouts = {}, cachedFields = {})
 		'listing_settings__listings_page': 'listing_settings__listings_page',
 		'listing_settings__category_location': 'listing_settings__category_location',
 		page_setup: 'page_setup__pages',
+		page_settings: 'page_setup__pages',
+		'page_settings__upgrade_pages': 'page_setup__pages',
+		'page_settings__pages_links_views': 'page_setup__pages',
 		advanced: 'page_setup__seo_settings',
 		'advanced__seo_settings': 'page_setup__seo_settings',
 		'advanced__schema_markup': 'page_setup__schema_markup',
@@ -2357,9 +2595,15 @@ export const resolveSettingsHashTarget = (hash, layouts = {}, cachedFields = {})
 		'listing_settings__review': 'listing_settings__review',
 		'email_settings__email_templates': 'email_settings__email_events',
 		'email_settings__email_events_templates': 'email_settings__email_events',
+		extensions_settings: 'extension_settings__extensions_general',
+		extension_settings: 'extension_settings__extensions_general',
+		'extensions_settings__extensions_general':
+			'extension_settings__extensions_general',
+		'extension_settings__extensions_general':
+			'extension_settings__extensions_general',
 	};
 
-	const resolvedHash = directAliases[cleanHash] || cleanHash;
+	const resolvedHash = directAliases[extensionCompatibleHash] || extensionCompatibleHash;
 	const resolvedParts = resolvedHash.split('__');
 	const menuKey = resolvedParts[0];
 	const submenuKey = resolvedParts.length > 1 ? resolvedParts[1] : '';

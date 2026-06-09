@@ -1,7 +1,7 @@
 <template>
   <div class="cptm-tab-content" :class="containerClass">
     <div
-      v-if="sectionShouldRender(section)"
+      v-if="sectionShouldRender(section, section_key)"
       class="cptm-section"
       :class="sectionClass(section)"
       v-for="(section, section_key) in sections"
@@ -42,6 +42,8 @@
             v-if="shouldRenderNotificationEvents(section, field)"
             :key="'notification-events-' + section_key"
             :fields="fields"
+            :sections="sections"
+            :highlighted-field-key="highlightedFieldKey"
             @update-field="updateFieldValue($event.fieldKey, $event.value)"
           />
 
@@ -398,8 +400,12 @@ export default {
       return section.fields;
     },
 
-    sectionShouldRender(section) {
+    sectionShouldRender(section, sectionKey = "") {
       if (!section || typeof section !== "object") {
+        return false;
+      }
+
+      if (this.isRoutedEmailTemplateSection(sectionKey)) {
         return false;
       }
 
@@ -413,6 +419,17 @@ export default {
         condition: showIf,
         root: this.fields,
       }).status;
+    },
+
+    isRoutedEmailTemplateSection(sectionKey) {
+      const isNotificationTemplates =
+        this.menuKey === "email_settings__email_events" ||
+        this.tabKey === "email_events";
+
+      return (
+        isNotificationTemplates &&
+        String(sectionKey || "").indexOf("routed_email_settings_email_templates_") === 0
+      );
     },
 
     nestedAdvancedFields(section) {
@@ -547,8 +564,10 @@ export default {
 
     shouldRenderExtensionPromotion(field) {
       const isExtensionsSettings =
-        this.menuKey === "extensions_settings" ||
-        this.tabKey === "extensions_settings" ||
+        this.menuKey.indexOf("extension_settings") === 0 ||
+        this.menuKey.indexOf("extensions_settings") === 0 ||
+        this.tabKey.indexOf("extension_settings") === 0 ||
+        this.tabKey.indexOf("extensions_settings") === 0 ||
         this.tabKey === "extensions_general";
 
       return isExtensionsSettings && field === "extension_promotion";
@@ -584,6 +603,7 @@ export default {
         "search_view_as_items",
         "search_sort_by_items",
         "search_filters",
+        "all_authors_contact",
       ].includes(field);
     },
 

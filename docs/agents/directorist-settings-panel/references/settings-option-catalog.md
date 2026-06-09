@@ -184,6 +184,8 @@ Redesigned UI note (2026-06-08): User settings now render as a permanent top-lev
 
 ### Registration Form
 
+Redesigned UI note (2026-06-09): Registration keeps the redesigned card/row pattern, but uses the old readable section naming: `Username`, `Password`, `Email`, `Website`, `First Name`, `Last Name`, `About/Bio`, `User Type Registration`, `Privacy Policy`, `Terms Conditions`, `Sign Up Button`, `Login Message`, and `Registration Redirect`. This is layout/copy metadata only; option keys and saved values are unchanged.
+
 - `reg_username`, `reg_email`: username and email label/copy.
 - `display_password_reg`, `reg_password`, `require_password_reg`: password field visibility, label, and requirement.
 - `display_website_reg`, `reg_website`, `require_website_reg`: website field visibility, label, and requirement.
@@ -198,6 +200,8 @@ Redesigned UI note (2026-06-08): User settings now render as a permanent top-lev
 - `auto_login`, `redirection_after_reg`: post-registration login and redirect behavior.
 
 ### Login Form
+
+Redesigned UI note (2026-06-09): Login keeps the redesigned card/row pattern, but uses the old readable section naming: `Username`, `Password`, `Remember Login Information`, `Login Button`, `Sign Up Message`, `Recover Password`, and `Login Redirect`. This is layout/copy metadata only; option keys and saved values are unchanged.
 
 - `log_username`, `log_password`: login username/password labels.
 - `display_rememberme`, `log_rememberme`: remember-me visibility and label.
@@ -217,6 +221,8 @@ Redesigned UI note (2026-06-08): User settings now render as a permanent top-lev
 
 ### All Authors
 
+Redesigned UI note (2026-06-09): `all_authors_contact` renders as the same checkbox-array accordion pattern used by search/listing checkbox arrays. It keeps the existing selected contact values and option key.
+
 - `all_authors_columns`: author grid column count.
 - `all_authors_sorting`: author sorting behavior.
 - `all_authors_image`, `all_authors_name`, `all_authors_contact`, `all_authors_description`, `all_authors_social_info`: author card field visibility.
@@ -229,7 +235,7 @@ Redesigned UI note (2026-06-08): User settings now render as a permanent top-lev
 
 Purpose: sender identity, notification recipients/events, email template content, and placeholder guidance.
 
-Redesigned UI note: Notifications renders as `Channels` plus merged `Events & Templates`. The merge is presentation-only; all fields still save through their existing option keys in `atbdp_option`.
+Redesigned UI note: Notifications renders as `Channels` plus merged `Events & Templates`. The merge is presentation-only; all fields still save through their existing option keys in `atbdp_option`. Core notification events render as toggle rows with an Edit modal. Extension email-template sections registered through `atbdp_email_templates_settings_sections` render in the same table as editable template rows without fake enable/disable toggles. Schedule timing lives as the bottom disclosure inside the `Notification events` card.
 
 ### Channels
 
@@ -315,6 +321,10 @@ Current redesign behavior (2026-06-08): the core `Extensions` menu renders `exte
 - Browse row: `Browse extensions` with `30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.`
 - Action: `View directory`, linking to the existing Directorist extensions admin page. This is presentation-only and does not add extension-specific settings.
 
+Current redesign behavior (2026-06-09): runtime extension settings registered through `atbdp_extension_settings_submenu` now render under the redesigned `Extensions` menu using the extension-provided submenu label, for example `Booking`, `Pricing Plans`, or `Social Login` when those extensions are active. The redesign preserves each extension's existing section/field definitions and save keys. These extension-owned fields should not be routed to `Needs Design` simply because they are not core mockup fields. The canonical core layout key is `extension_settings`; `extensions_settings` remains only as a compatibility hash alias.
+
+Hook-routing rule (2026-06-09): extension-owned settings should follow the hook/source layout that registered them. Settings registered through `atbdp_extension_settings_submenu` belong under `Extensions`; settings registered by extensions through `atbdp_pages_settings_fields` belong under `Site & pages > Pages`; settings registered through `atbdp_email_templates_settings_sections` belong under `Notifications > Events & Templates`. Do not classify extension-owned fields as `Needs Design` when their source hook maps to an existing redesigned tab.
+
 Extension-specific design rule: do not assume settings for Directorist extensions are present from core alone. If a design targets an extension, identify the exact extension, install/activate only after user approval, inspect its filters/settings/layouts, then document any confirmed extension-provided options under an extension-specific heading.
 
 ## Import And Export
@@ -374,7 +384,7 @@ Schema output uses `Directorist\Schema::print_schema()` and `Directorist\Schema:
 ### Miscellaneous
 
 - `atbdp_enable_cache`: enables Directorist cache behavior.
-- `atbdp_reset_cache`: existing reset-cache toggle field. The redesigned Maintenance tab presents it with `Reset cache` / `Reset now` reference styling, but no new instant-reset AJAX action is added.
+- `atbdp_reset_cache`: existing reset-cache toggle field. Hidden in the redesigned Maintenance tab for now because it is not a true instant reset action; revisit when adding a dedicated reset-cache AJAX action.
 - `script_debugging`: loads unminified CSS/JS files for debugging.
 - `enable_uninstall`: controls data cleanup behavior on uninstall.
 

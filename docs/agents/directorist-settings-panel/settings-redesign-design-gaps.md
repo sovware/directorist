@@ -9,7 +9,8 @@ This report lists current Directorist settings that exist in the old settings pa
 Implementation status:
 
 - These options are preserved and still save through the existing settings contract.
-- They are routed to the bottom `Needs Design` menu in the redesigned settings panel.
+- Recognizable old-source settings are routed into their matching redesigned tabs before the `Needs Design` fallback runs.
+- Only truly unknown runtime fields are routed to the bottom `Needs Design` menu in the redesigned settings panel.
 - They need final static-design treatment before they should be merged into the main redesigned navigation.
 
 ## Needs Design Menu
@@ -244,15 +245,13 @@ Design needed:
 
 ## Runtime/Extension Gaps
 
-The settings panel can receive additional fields through filters and active extensions. Any runtime field not explicitly mapped to the static mockup is preserved and routed to `Needs Design` automatically.
+The settings panel can receive additional fields through filters and active extensions. Runtime extension fields registered under `atbdp_extension_settings_submenu` are preserved under the redesigned `Extensions` menu by extension submenu label. Runtime fields from known old-source areas are routed to their matching redesigned tabs before the fallback: page setup fields go to `Site & pages > Pages`, email template fields go to `Notifications > Events & Templates`, and extension general fields go to `Extensions > Extensions General`. Other runtime fields not explicitly mapped to the static mockup are preserved and routed to `Needs Design` automatically.
 
 Known examples:
 
-- Extension-specific settings under `atbdp_extension_settings_submenu`.
 - Filter-injected fields from `atbdp_listing_type_settings_field_list`.
 - Filter-injected sections from `directorist_search_setting_sections`, `atbdp_user_settings_submenu`, `atbdp_pages_settings_fields`, `atbdp_style_settings_controls`, `atbdp_caching_controls`, and related settings filters.
 
 Design needed:
 
-- A standard pattern for extension-provided settings.
 - A standard pattern for unmapped filtered fields so they can be reviewed before being promoted into the main redesign.

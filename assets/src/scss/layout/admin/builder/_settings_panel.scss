@@ -1752,6 +1752,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		color: #3e62f5;
 	}
 
+	.settings-nav__item--extension_settings,
 	.settings-nav__item--extensions_settings {
 		position: relative;
 		margin-top: 12px;
@@ -1759,6 +1760,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		border-top: 0;
 	}
 
+	.settings-nav__item--extension_settings::before,
 	.settings-nav__item--extensions_settings::before {
 		content: "";
 		position: absolute;
@@ -2104,10 +2106,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		}
 	}
 
-	.atbdp-tab-content-item > .cptm-tab-content-menu-email_settings__email_events {
-		padding-bottom: 0;
-	}
-
 	.cptm-tab-content-menu-email_settings__email_events .cptm-section:last-child {
 		margin-bottom: 0 !important;
 		border-bottom: 0;
@@ -2135,10 +2133,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		}
 
 		.cptm-form-fields > div {
-			min-height: 52px;
-			padding: 14px 20px;
-			border-top: 1px solid #edf1f6;
-
 			&:first-child {
 				border-top: 0;
 			}
@@ -2591,18 +2585,21 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		line-height: 16px;
 	}
 
-	.cptm-tab-content-menu-extensions_settings .cptm-section {
+	[class*="cptm-tab-content-menu-extension_settings"] .cptm-section,
+	[class*="cptm-tab-content-menu-extensions_settings"] .cptm-section {
 		border-color: #e9ebef;
 		border-radius: 10px;
 		overflow: hidden;
 	}
 
-	.cptm-tab-content-menu-extensions_settings .cptm-title-area {
+	[class*="cptm-tab-content-menu-extension_settings"] .cptm-title-area,
+	[class*="cptm-tab-content-menu-extensions_settings"] .cptm-title-area {
 		padding: 17px 20px;
 		border-bottom-color: #e8edf4;
 	}
 
-	.cptm-tab-content-menu-extensions_settings .cptm-title-area .cptm-title {
+	[class*="cptm-tab-content-menu-extension_settings"] .cptm-title-area .cptm-title,
+	[class*="cptm-tab-content-menu-extensions_settings"] .cptm-title-area .cptm-title {
 		margin: 0;
 		color: #111827;
 		font-size: 15px;
@@ -2611,7 +2608,10 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		letter-spacing: 0;
 	}
 
-	.cptm-tab-content-menu-extensions_settings
+	[class*="cptm-tab-content-menu-extension_settings"]
+		.cptm-form-fields
+		> .cptm-field-wraper-key-extension_promotion,
+	[class*="cptm-tab-content-menu-extensions_settings"]
 		.cptm-form-fields
 		> .cptm-field-wraper-key-extension_promotion {
 		min-height: 0;
@@ -3142,9 +3142,15 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 	}
 
 	.cptm-field-wraper--checkbox-accordion {
+		display: block !important;
+		height: auto !important;
 		min-height: 0;
 		padding: 0 !important;
-		background: #fafbfc;
+		line-height: 0;
+	}
+
+	.cptm-field-wraper--checkbox-accordion > .cptm-checkbox-accordion {
+		line-height: normal;
 	}
 
 	.cptm-checkbox-accordion__toggle {
@@ -3720,6 +3726,15 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 	.cptm-notification-events__always-on {
 		display: inline-flex;
 		vertical-align: middle;
+	}
+
+	.cptm-notification-events__template-only {
+		display: inline-flex;
+		align-items: center;
+		height: 24px;
+		color: #64748b;
+		font-size: 12px;
+		line-height: 16px;
 	}
 
 	.cptm-notification-events__edit {

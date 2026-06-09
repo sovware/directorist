@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/@babel/runtime/helpers/esm/typeof.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/typeof.js ***!
-  \***********************************************************/
+/***/ "./node_modules/.pnpm/@babel+runtime@7.29.7/node_modules/@babel/runtime/helpers/esm/typeof.js":
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/.pnpm/@babel+runtime@7.29.7/node_modules/@babel/runtime/helpers/esm/typeof.js ***!
+  \****************************************************************************************************/
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -99,7 +99,7 @@ var __webpack_exports__ = {};
   !*** ./assets/src/js/public/range-slider.js ***!
   \**********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/.pnpm/@babel+runtime@7.29.7/node_modules/@babel/runtime/helpers/esm/typeof.js");
 
 // Directorist Custom Range Slider with Multiple Handlers
 (function (global, factory) {
@@ -565,7 +565,8 @@ __webpack_require__.r(__webpack_exports__);
              - The provided value for the option;
              - A reference to the options object;
              - The name for the option;
-          The testing function returns false when an error is detected,
+  
+         The testing function returns false when an error is detected,
          or true when everything is OK. It can also modify the option
          object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults

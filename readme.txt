@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.7.3
+Stable tag: 8.7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,18 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.7.4 - Jun 9, 2026 =
+
+**Improved**
+ - Directory Builder initial setup with default icons, preselected layout widgets, Search Box defaults, avatar settings, and better create-from-scratch directory name focus flow. (#2611)
+ - Builder UI with updated close icon, draggable placeholder styles, preview mode placement, first group expansion, and improved top bar/modal z-index handling. (#2611)
+
+**Fixed**
+ - Builder layout data consistency to prevent empty selected widgets, missing widget metadata, duplicate widgets, and null widget errors in saved/imported layouts. (#2611)
+ - Tagline/title widget options showing when the Tagline field is unavailable in the Add Listing Form. (#2611)
+ - Zipcode radius search issue. (#2873)
+ - FormGent enquiry page compatibility. (#2871)
 
 = 8.7.3 - May 20, 2026 =
 

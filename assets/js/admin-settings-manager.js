@@ -2876,7 +2876,7 @@ var FIELD_OVERRIDES = {
     description: ''
   }
 };
-var SUPPRESSED_REDESIGN_FIELDS = new Set(['gallery_crop_width', 'gallery_crop_height']);
+var SUPPRESSED_REDESIGN_FIELDS = new Set(['atbdp_reset_cache', 'gallery_crop_width', 'gallery_crop_height']);
 var FIELD_GROUPS = {
   directoriesGeneral: [{
     key: 'multi_directory',
@@ -10097,7 +10097,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 var axios = (__webpack_require__(/*! axios */ "./node_modules/.pnpm/axios@0.21.4/node_modules/axios/index.js")["default"]);
-var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_by_items', 'search_view_as_items', 'search_sort_by_items', 'search_filters', 'all_authors_contact'];
+var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_by_items', 'search_view_as_items', 'search_sort_by_items', 'search_filters', 'all_authors_contact', 'booking_type'];
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'settings-manager',
   components: {
@@ -10138,29 +10138,25 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
       }
       return nav;
     },
-    searchSuggestions: function searchSuggestions() {
-      if (!this.search_query.length) {
-        return false;
+    quickSearchPayload: function quickSearchPayload() {
+      var query = this.search_query.trim();
+      if (!query.length) {
+        return {
+          results: [],
+          total: 0
+        };
       }
-      var search_suggestions = {};
-      var query = this.search_query.toLowerCase();
-      for (var field in this.cached_fields) {
-        if (!this.cached_fields[field].label) {
-          continue;
-        }
-        var label = this.cached_fields[field].label.toLowerCase();
-        var match = label.match(query);
-        if (match) {
-          search_suggestions[field] = this.cached_fields[field];
-        }
-      }
-
-      // console.log( {search_suggestions}, this.cached_fields );
-
-      if (!Object.keys(search_suggestions).length) {
-        return false;
-      }
-      return search_suggestions;
+      var results = this.buildQuickSearchResults(query);
+      return {
+        results: results.slice(0, 30),
+        total: results.length
+      };
+    },
+    quickSearchResults: function quickSearchResults() {
+      return this.quickSearchPayload.results;
+    },
+    quickSearchResultTotal: function quickSearchResultTotal() {
+      return this.quickSearchPayload.total;
     },
     hasUnsavedChanges: function hasUnsavedChanges() {
       for (var field_key in this.fields) {
@@ -10220,6 +10216,7 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
       form_is_processing: false,
       search_query: '',
       search_suggestions: false,
+      active_search_result_index: 0,
       leaveConfirmIsOpen: false,
       pendingNavigationUrl: '',
       leaveGuardBypass: false,
@@ -10254,6 +10251,189 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
     resetStates: function resetStates() {
       this.$store.commit('resetHighlightedFieldKey');
     },
+    updateSearchQuery: function updateSearchQuery(value) {
+      this.search_query = value;
+      this.active_search_result_index = 0;
+    },
+    buildQuickSearchResults: function buildQuickSearchResults(query) {
+      var normalizedQuery = this.normalizeSearchText(query);
+      var results = [];
+      if (!normalizedQuery) {
+        return results;
+      }
+      for (var fieldKey in this.cached_fields) {
+        var cachedField = this.cached_fields[fieldKey];
+        var liveField = this.fields[fieldKey];
+        if (!cachedField || !cachedField.layout_path || !liveField) {
+          continue;
+        }
+        var label = this.toPlainSearchText(liveField.label || cachedField.label || '');
+        if (!label) {
+          continue;
+        }
+        var pathSegments = this.getQuickSearchPathSegments(cachedField.layout_path, fieldKey);
+        var pathText = pathSegments.join(' › ');
+        var score = this.getQuickSearchScore({
+          label: label,
+          fieldKey: fieldKey,
+          pathText: pathText,
+          query: normalizedQuery
+        });
+        if (null === score) {
+          continue;
+        }
+        results.push({
+          field_key: fieldKey,
+          fieldKey: fieldKey,
+          label: label,
+          path: pathSegments,
+          pathText: pathText,
+          layout_path: cachedField.layout_path,
+          controlType: this.getQuickSearchControlType(liveField),
+          inputType: this.getQuickSearchInputType(liveField),
+          value: liveField.value,
+          options: this.getQuickSearchOptions(liveField),
+          score: score
+        });
+      }
+      return results.sort(function (a, b) {
+        if (a.score !== b.score) {
+          return a.score - b.score;
+        }
+        return a.label.localeCompare(b.label);
+      });
+    },
+    getQuickSearchScore: function getQuickSearchScore(_ref) {
+      var label = _ref.label,
+        fieldKey = _ref.fieldKey,
+        pathText = _ref.pathText,
+        query = _ref.query;
+      var labelText = this.normalizeSearchText(label);
+      var path = this.normalizeSearchText(pathText);
+      var key = this.normalizeSearchText(fieldKey);
+      if (labelText === query) {
+        return 0;
+      }
+      if (labelText.indexOf(query) === 0) {
+        return 1;
+      }
+      if (labelText.indexOf(query) > -1) {
+        return 2;
+      }
+      if (path.indexOf(query) > -1) {
+        return 3;
+      }
+      if (key.indexOf(query) > -1) {
+        return 4;
+      }
+      return null;
+    },
+    getQuickSearchPathSegments: function getQuickSearchPathSegments(layoutPath, fieldKey) {
+      var segments = [];
+      if (!layoutPath || !layoutPath.menu_key) {
+        return segments;
+      }
+      var menu = this.layouts[layoutPath.menu_key];
+      if (menu && menu.label) {
+        segments.push(this.toPlainSearchText(menu.label));
+      }
+      var submenu = menu && menu.submenu && layoutPath.submenu_key ? menu.submenu[layoutPath.submenu_key] : null;
+      if (submenu && submenu.label) {
+        segments.push(this.toPlainSearchText(submenu.label));
+      }
+      var sectionRoot = submenu || menu;
+      var section = sectionRoot && sectionRoot.sections && layoutPath.section_key ? sectionRoot.sections[layoutPath.section_key] : null;
+      if (section) {
+        var sectionLabel = section.title || section.label || '';
+        if (sectionLabel) {
+          segments.push(this.toPlainSearchText(sectionLabel));
+        }
+        if (Array.isArray(section.advancedFields) && section.advancedFields.includes(fieldKey)) {
+          segments.push(this.toPlainSearchText(section.advancedLabel || 'Advanced'));
+        }
+      }
+      return segments.filter(Boolean);
+    },
+    getQuickSearchControlType: function getQuickSearchControlType(field) {
+      if (!field || field.disable || field.disabled) {
+        return '';
+      }
+      if (field.type === 'toggle' && !field.confirmBeforeChange && !field.confirmationModal && !field.dataOnChange) {
+        return 'toggle';
+      }
+      if (['text', 'number', 'url', 'email'].includes(field.type)) {
+        return 'input';
+      }
+      if (field.type === 'select' && Array.isArray(field.options) && field.options.length) {
+        return 'select';
+      }
+      return '';
+    },
+    getQuickSearchInputType: function getQuickSearchInputType(field) {
+      if (!field || !field.type) {
+        return 'text';
+      }
+      return ['number', 'url', 'email'].includes(field.type) ? field.type : 'text';
+    },
+    getQuickSearchOptions: function getQuickSearchOptions(field) {
+      var _this = this;
+      if (!field || !Array.isArray(field.options)) {
+        return [];
+      }
+      return field.options.map(function (option) {
+        return {
+          value: typeof option.value === 'undefined' ? '' : String(option.value),
+          label: _this.toPlainSearchText(option.label || '')
+        };
+      });
+    },
+    updateQuickSearchFieldValue: function updateQuickSearchFieldValue(payload) {
+      if (!payload || !payload.fieldKey) {
+        return;
+      }
+      if (!this.fields[payload.fieldKey]) {
+        return;
+      }
+      this.$store.commit('updateFieldValue', {
+        field_key: payload.fieldKey,
+        value: payload.value
+      });
+    },
+    setActiveSearchIndex: function setActiveSearchIndex(index) {
+      var maxIndex = this.quickSearchResults.length - 1;
+      if (maxIndex < 0) {
+        this.active_search_result_index = 0;
+        return;
+      }
+      this.active_search_result_index = Math.min(Math.max(Number(index) || 0, 0), maxIndex);
+    },
+    moveQuickSearchResult: function moveQuickSearchResult(direction) {
+      var count = this.quickSearchResults.length;
+      if (!count) {
+        return;
+      }
+      var nextIndex = (this.active_search_result_index + Number(direction) + count) % count;
+      this.active_search_result_index = nextIndex;
+    },
+    submitQuickSearchResult: function submitQuickSearchResult() {
+      var result = this.quickSearchResults[this.active_search_result_index] || this.quickSearchResults[0];
+      if (result) {
+        this.jumpToSearchResult(result);
+      }
+    },
+    closeQuickSearch: function closeQuickSearch() {
+      this.search_query = '';
+      this.active_search_result_index = 0;
+    },
+    normalizeSearchText: function normalizeSearchText(value) {
+      return this.toPlainSearchText(value).toLowerCase();
+    },
+    toPlainSearchText: function toPlainSearchText(value) {
+      if (typeof value === 'undefined' || value === null) {
+        return '';
+      }
+      return String(value).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    },
     jumpToSearchResult: function jumpToSearchResult(field) {
       if (!field.layout_path) {
         return;
@@ -10264,27 +10444,28 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
         hash: field.layout_path.hash
       });
       this.search_query = '';
+      this.active_search_result_index = 0;
       this.queueSearchResultHighlight(field.layout_path.field_key);
     },
     queueSearchResultHighlight: function queueSearchResultHighlight(fieldKey) {
-      var _this = this;
+      var _this2 = this;
       if (!fieldKey) {
         return;
       }
       this.cancelSearchHighlightFrame();
       this.$store.commit('setHighlightedFieldKey', '');
       this.$nextTick(function () {
-        _this.runSearchResultHighlight(fieldKey, 0);
+        _this2.runSearchResultHighlight(fieldKey, 0);
       });
     },
     runSearchResultHighlight: function runSearchResultHighlight(fieldKey, attempt) {
-      var _this2 = this;
+      var _this3 = this;
       var maxAttempts = 12;
       this.searchHighlightFrame = window.requestAnimationFrame(function () {
-        _this2.searchHighlightFrame = null;
-        _this2.$store.commit('setHighlightedFieldKey', fieldKey);
-        _this2.$nextTick(function () {
-          var target = _this2.getSearchHighlightTarget(fieldKey);
+        _this3.searchHighlightFrame = null;
+        _this3.$store.commit('setHighlightedFieldKey', fieldKey);
+        _this3.$nextTick(function () {
+          var target = _this3.getSearchHighlightTarget(fieldKey);
           if (target) {
             target.scrollIntoView({
               behavior: 'smooth',
@@ -10294,7 +10475,7 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
             return;
           }
           if (attempt < maxAttempts) {
-            _this2.runSearchResultHighlight(fieldKey, attempt + 1);
+            _this3.runSearchResultHighlight(fieldKey, attempt + 1);
           }
         });
       });
@@ -10402,14 +10583,14 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
       return target_url.href;
     },
     openLeaveConfirm: function openLeaveConfirm(navigation_url, trigger) {
-      var _this3 = this;
+      var _this4 = this;
       this.pendingNavigationUrl = navigation_url;
       this.lastLeaveTrigger = trigger || null;
       this.leaveModalErrorMessage = '';
       this.leaveConfirmIsOpen = true;
       this.$nextTick(function () {
-        if (_this3.$refs.leaveConfirmClose && _this3.$refs.leaveConfirmClose.focus) {
-          _this3.$refs.leaveConfirmClose.focus();
+        if (_this4.$refs.leaveConfirmClose && _this4.$refs.leaveConfirmClose.focus) {
+          _this4.$refs.leaveConfirmClose.focus();
         }
       });
     },
@@ -10439,7 +10620,7 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
       window.location.href = this.pendingNavigationUrl;
     },
     saveAndLeave: function saveAndLeave() {
-      var _this4 = this;
+      var _this5 = this;
       if (this.leaveSaveIsProcessing) {
         return;
       }
@@ -10451,12 +10632,12 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
       this.saveSettingsData({
         skip_success_feedback: true
       }).then(function () {
-        _this4.leaveSaveIsProcessing = false;
-        _this4.leaveGuardBypass = true;
-        window.location.href = _this4.pendingNavigationUrl;
+        _this5.leaveSaveIsProcessing = false;
+        _this5.leaveGuardBypass = true;
+        window.location.href = _this5.pendingNavigationUrl;
       }).catch(function (error) {
-        _this4.leaveSaveIsProcessing = false;
-        _this4.leaveModalErrorMessage = error && error.message ? error.message : 'Could not save changes. Please try again.';
+        _this5.leaveSaveIsProcessing = false;
+        _this5.leaveModalErrorMessage = error && error.message ? error.message : 'Could not save changes. Please try again.';
       });
     },
     updateCurrentPage: function updateCurrentPage() {
@@ -10648,14 +10829,14 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
       this.submit_button.label = this.submit_button.label_default;
     },
     showSaveSuccessFeedback: function showSaveSuccessFeedback() {
-      var _this5 = this;
+      var _this6 = this;
       this.clearSaveSuccessTimer();
       this.saveFeedbackState = 'saved';
       this.submit_button.label = this.submit_button.label_saved;
       this.saveSuccessTimer = setTimeout(function () {
-        _this5.saveFeedbackState = '';
-        _this5.submit_button.label = _this5.submit_button.label_default;
-        _this5.saveSuccessTimer = null;
+        _this6.saveFeedbackState = '';
+        _this6.submit_button.label = _this6.submit_button.label_default;
+        _this6.saveSuccessTimer = null;
       }, 1600);
     },
     getIconClass: function getIconClass(icon_type) {
@@ -14471,7 +14652,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return isListingsPageSettings && field === "prv_background_color";
     },
     shouldRenderCheckboxArrayAccordion: function shouldRenderCheckboxArrayAccordion(field) {
-      return ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact"].includes(field);
+      return ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact", "booking_type"].includes(field);
     },
     hiddenFieldsInSection: function hiddenFieldsInSection(section) {
       if (!section || !Array.isArray(section.hiddenFields)) {
@@ -14612,18 +14793,63 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       default: ""
     },
-    searchSuggestions: {
-      type: [Object, Boolean],
-      default: false
+    searchResults: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    searchResultTotal: {
+      type: Number,
+      default: 0
+    },
+    activeSearchIndex: {
+      type: Number,
+      default: 0
     }
   },
-  // computed
-  computed: {},
-  // methods
+  mounted: function mounted() {
+    document.addEventListener("click", this.handleOutsideClick);
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener("click", this.handleOutsideClick);
+  },
   methods: {
+    handleOutsideClick: function handleOutsideClick(event) {
+      if (!this.searchQuery.length || !this.$refs.searchRoot) {
+        return;
+      }
+      if (!this.$refs.searchRoot.contains(event.target)) {
+        this.$emit("close-search");
+      }
+    },
     swichToNav: function swichToNav(args, e) {
       e.preventDefault();
-      this.$store.commit('swichToNav', args);
+      this.$store.commit("swichToNav", args);
+    },
+    quickBooleanValue: function quickBooleanValue(value) {
+      return value === true || value === "true" || value === 1 || value === "1";
+    },
+    highlightText: function highlightText(value) {
+      var text = this.escapeHtml(value);
+      var query = this.escapeHtml(this.searchQuery.trim());
+      if (!query) {
+        return text;
+      }
+      var escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      var regex = new RegExp("(".concat(escapedQuery, ")"), "ig");
+      return text.replace(regex, "<mark>$1</mark>");
+    },
+    escapeHtml: function escapeHtml(value) {
+      return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    },
+    selectHasUnknownValue: function selectHasUnknownValue(result) {
+      if (!result || !Array.isArray(result.options)) {
+        return false;
+      }
+      return !result.options.some(function (option) {
+        return String(option.value) === String(result.value);
+      });
     }
   }
 });
@@ -27788,13 +28014,18 @@ var render = function render() {
     attrs: {
       "menu": _vm.layouts,
       "search-query": _vm.search_query,
-      "search-suggestions": _vm.searchSuggestions
+      "search-results": _vm.quickSearchResults,
+      "search-result-total": _vm.quickSearchResultTotal,
+      "active-search-index": _vm.active_search_result_index
     },
     on: {
-      "update-search-query": function updateSearchQuery($event) {
-        _vm.search_query = $event;
-      },
-      "jump-to-search-result": _vm.jumpToSearchResult
+      "update-search-query": _vm.updateSearchQuery,
+      "jump-to-search-result": _vm.jumpToSearchResult,
+      "quick-update-field": _vm.updateQuickSearchFieldValue,
+      "move-search-result": _vm.moveQuickSearchResult,
+      "set-active-search-index": _vm.setActiveSearchIndex,
+      "submit-search-result": _vm.submitQuickSearchResult,
+      "close-search": _vm.closeQuickSearch
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "settings-contents"
@@ -30046,6 +30277,7 @@ var render = function render() {
           }
         }
       }) : _vm.shouldRenderCheckboxArrayAccordion(field) ? _c('settings-checkbox-array-accordion', {
+        class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, 'highlight-field', _vm.getHighlightState(field)),
         attrs: {
           "field": _vm.fields[field],
           "field-key": field,
@@ -30223,8 +30455,12 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "setting-left-sibebar setting-left-sidebar"
+    staticClass: "setting-left-sibebar setting-left-sidebar",
+    class: {
+      'setting-left-sidebar--search-open': _vm.searchQuery.length
+    }
   }, [_c('div', {
+    ref: "searchRoot",
     staticClass: "settings-sidebar-search"
   }, [_c('svg', {
     staticClass: "settings-sidebar-search__icon",
@@ -30244,7 +30480,7 @@ var render = function render() {
       "cy": "11",
       "r": "7"
     }
-  }), _c('path', {
+  }), _vm._v(" "), _c('path', {
     attrs: {
       "d": "m21 21-4.3-4.3"
     }
@@ -30260,29 +30496,188 @@ var render = function render() {
     on: {
       "input": function input($event) {
         return _vm.$emit('update-search-query', $event.target.value);
+      },
+      "keydown": [function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "down", 40, $event.key, ["Down", "ArrowDown"])) return null;
+        $event.preventDefault();
+        return _vm.$emit('move-search-result', 1);
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "up", 38, $event.key, ["Up", "ArrowUp"])) return null;
+        $event.preventDefault();
+        return _vm.$emit('move-search-result', -1);
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        $event.preventDefault();
+        return _vm.$emit('submit-search-result');
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) return null;
+        $event.preventDefault();
+        return _vm.$emit('close-search');
+      }]
+    }
+  }), _vm._v(" "), _vm.searchQuery.length && _vm.searchResults.length ? _c('div', {
+    staticClass: "settings-command-palette",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
       }
     }
-  }), _vm._v(" "), _vm.searchSuggestions ? _c('div', {
-    staticClass: "setting-search-suggestions"
-  }, [_c('ul', {
-    staticClass: "search-suggestions-list"
-  }, _vm._l(Object.keys(_vm.searchSuggestions), function (field_key, field_index) {
-    return _c('li', {
-      key: field_index,
-      staticClass: "search-suggestions-list--list-item"
-    }, [_c('a', {
-      staticClass: "search-suggestions-list--link",
+  }, [_c('div', {
+    staticClass: "settings-command-palette__header"
+  }, [_c('span', [_vm._v(_vm._s(_vm.searchResultTotal) + " RESULTS")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__divider"
+  }, [_vm._v("·")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__kbd"
+  }, [_vm._v("↑")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__kbd"
+  }, [_vm._v("↓")]), _vm._v(" "), _c('span', [_vm._v("TO NAVIGATE")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__divider"
+  }, [_vm._v("·")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__kbd"
+  }, [_vm._v("ESC")]), _vm._v(" "), _c('span', [_vm._v("TO CLOSE")])]), _vm._v(" "), _c('div', {
+    staticClass: "settings-command-palette__list"
+  }, _vm._l(_vm.searchResults, function (result, index) {
+    return _c('div', {
+      key: result.fieldKey,
+      staticClass: "settings-command-palette__result",
+      class: {
+        'settings-command-palette__result--active': index === _vm.activeSearchIndex
+      },
+      on: {
+        "mouseenter": function mouseenter($event) {
+          return _vm.$emit('set-active-search-index', index);
+        }
+      }
+    }, [_c('button', {
+      staticClass: "settings-command-palette__target",
       attrs: {
-        "href": "#"
+        "type": "button"
       },
       on: {
         "click": function click($event) {
-          $event.preventDefault();
-          return _vm.$emit('jump-to-search-result', _vm.searchSuggestions[field_key]);
+          return _vm.$emit('jump-to-search-result', result);
         }
       }
-    }, [_vm._v("\n            " + _vm._s(_vm.searchSuggestions[field_key].label) + "\n          ")])]);
-  }), 0)]) : _vm._e()]), _vm._v(" "), _c('ul', {
+    }, [_c('span', {
+      staticClass: "settings-command-palette__label",
+      domProps: {
+        "innerHTML": _vm._s(_vm.highlightText(result.label))
+      }
+    }), _vm._v(" "), _c('span', {
+      staticClass: "settings-command-palette__path"
+    }, [_c('span', {
+      staticClass: "settings-command-palette__path-text",
+      domProps: {
+        "innerHTML": _vm._s(_vm.highlightText(result.pathText))
+      }
+    }), _vm._v(" "), _c('svg', {
+      attrs: {
+        "viewBox": "0 0 24 24",
+        "fill": "none",
+        "stroke": "currentColor",
+        "stroke-width": "2.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round",
+        "aria-hidden": "true",
+        "focusable": "false"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M7 17 17 7M7 7h10v10"
+      }
+    })])])]), _vm._v(" "), _c('div', {
+      staticClass: "settings-command-palette__action",
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+        },
+        "mousedown": function mousedown($event) {
+          $event.stopPropagation();
+        }
+      }
+    }, [result.controlType === 'toggle' ? _c('button', {
+      staticClass: "settings-command-palette__toggle",
+      class: {
+        'settings-command-palette__toggle--active': _vm.quickBooleanValue(result.value)
+      },
+      attrs: {
+        "type": "button",
+        "aria-pressed": _vm.quickBooleanValue(result.value) ? 'true' : 'false'
+      },
+      on: {
+        "click": function click($event) {
+          _vm.$emit('quick-update-field', {
+            fieldKey: result.fieldKey,
+            value: !_vm.quickBooleanValue(result.value)
+          });
+        }
+      }
+    }, [_c('span', {
+      staticClass: "settings-command-palette__toggle-knob"
+    })]) : result.controlType === 'input' ? _c('input', {
+      staticClass: "settings-command-palette__input",
+      attrs: {
+        "type": result.inputType
+      },
+      domProps: {
+        "value": result.value
+      },
+      on: {
+        "input": function input($event) {
+          return _vm.$emit('quick-update-field', {
+            fieldKey: result.fieldKey,
+            value: $event.target.value
+          });
+        },
+        "keydown": [function ($event) {
+          if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+          $event.stopPropagation();
+        }, function ($event) {
+          if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) return null;
+          $event.stopPropagation();
+          return _vm.$emit('close-search');
+        }]
+      }
+    }) : result.controlType === 'select' ? _c('select', {
+      staticClass: "settings-command-palette__select",
+      domProps: {
+        "value": String(result.value)
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.$emit('quick-update-field', {
+            fieldKey: result.fieldKey,
+            value: $event.target.value
+          });
+        },
+        "keydown": function keydown($event) {
+          if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) return null;
+          $event.stopPropagation();
+          return _vm.$emit('close-search');
+        }
+      }
+    }, [_vm.selectHasUnknownValue(result) ? _c('option', {
+      domProps: {
+        "value": String(result.value)
+      }
+    }, [_vm._v("\n                " + _vm._s(result.value) + "\n              ")]) : _vm._e(), _vm._v(" "), _vm._l(result.options, function (option) {
+      return _c('option', {
+        key: option.value,
+        domProps: {
+          "value": option.value
+        }
+      }, [_vm._v("\n                " + _vm._s(option.label) + "\n              ")]);
+    })], 2) : _vm._e()])]);
+  }), 0)]) : _vm.searchQuery.length ? _c('div', {
+    staticClass: "settings-command-palette settings-command-palette--empty",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "settings-command-palette__empty"
+  }, [_vm._v("No settings found.")])]) : _vm._e()]), _vm._v(" "), _c('ul', {
     staticClass: "settings-nav"
   }, _vm._l(_vm.menu, function (meue_item, menu_key) {
     return _c('li', {

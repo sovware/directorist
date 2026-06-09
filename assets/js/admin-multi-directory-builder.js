@@ -12325,7 +12325,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return isListingsPageSettings && field === "prv_background_color";
     },
     shouldRenderCheckboxArrayAccordion: function shouldRenderCheckboxArrayAccordion(field) {
-      return ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact"].includes(field);
+      return ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact", "booking_type"].includes(field);
     },
     hiddenFieldsInSection: function hiddenFieldsInSection(section) {
       if (!section || !Array.isArray(section.hiddenFields)) {
@@ -12466,18 +12466,63 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       default: ""
     },
-    searchSuggestions: {
-      type: [Object, Boolean],
-      default: false
+    searchResults: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    searchResultTotal: {
+      type: Number,
+      default: 0
+    },
+    activeSearchIndex: {
+      type: Number,
+      default: 0
     }
   },
-  // computed
-  computed: {},
-  // methods
+  mounted: function mounted() {
+    document.addEventListener("click", this.handleOutsideClick);
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener("click", this.handleOutsideClick);
+  },
   methods: {
+    handleOutsideClick: function handleOutsideClick(event) {
+      if (!this.searchQuery.length || !this.$refs.searchRoot) {
+        return;
+      }
+      if (!this.$refs.searchRoot.contains(event.target)) {
+        this.$emit("close-search");
+      }
+    },
     swichToNav: function swichToNav(args, e) {
       e.preventDefault();
-      this.$store.commit('swichToNav', args);
+      this.$store.commit("swichToNav", args);
+    },
+    quickBooleanValue: function quickBooleanValue(value) {
+      return value === true || value === "true" || value === 1 || value === "1";
+    },
+    highlightText: function highlightText(value) {
+      var text = this.escapeHtml(value);
+      var query = this.escapeHtml(this.searchQuery.trim());
+      if (!query) {
+        return text;
+      }
+      var escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      var regex = new RegExp("(".concat(escapedQuery, ")"), "ig");
+      return text.replace(regex, "<mark>$1</mark>");
+    },
+    escapeHtml: function escapeHtml(value) {
+      return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    },
+    selectHasUnknownValue: function selectHasUnknownValue(result) {
+      if (!result || !Array.isArray(result.options)) {
+        return false;
+      }
+      return !result.options.some(function (option) {
+        return String(option.value) === String(result.value);
+      });
     }
   }
 });
@@ -27710,6 +27755,7 @@ var render = function render() {
           }
         }
       }) : _vm.shouldRenderCheckboxArrayAccordion(field) ? _c('settings-checkbox-array-accordion', {
+        class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, 'highlight-field', _vm.getHighlightState(field)),
         attrs: {
           "field": _vm.fields[field],
           "field-key": field,
@@ -27887,8 +27933,12 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "setting-left-sibebar setting-left-sidebar"
+    staticClass: "setting-left-sibebar setting-left-sidebar",
+    class: {
+      'setting-left-sidebar--search-open': _vm.searchQuery.length
+    }
   }, [_c('div', {
+    ref: "searchRoot",
     staticClass: "settings-sidebar-search"
   }, [_c('svg', {
     staticClass: "settings-sidebar-search__icon",
@@ -27908,7 +27958,7 @@ var render = function render() {
       "cy": "11",
       "r": "7"
     }
-  }), _c('path', {
+  }), _vm._v(" "), _c('path', {
     attrs: {
       "d": "m21 21-4.3-4.3"
     }
@@ -27924,29 +27974,188 @@ var render = function render() {
     on: {
       "input": function input($event) {
         return _vm.$emit('update-search-query', $event.target.value);
+      },
+      "keydown": [function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "down", 40, $event.key, ["Down", "ArrowDown"])) return null;
+        $event.preventDefault();
+        return _vm.$emit('move-search-result', 1);
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "up", 38, $event.key, ["Up", "ArrowUp"])) return null;
+        $event.preventDefault();
+        return _vm.$emit('move-search-result', -1);
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        $event.preventDefault();
+        return _vm.$emit('submit-search-result');
+      }, function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) return null;
+        $event.preventDefault();
+        return _vm.$emit('close-search');
+      }]
+    }
+  }), _vm._v(" "), _vm.searchQuery.length && _vm.searchResults.length ? _c('div', {
+    staticClass: "settings-command-palette",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
       }
     }
-  }), _vm._v(" "), _vm.searchSuggestions ? _c('div', {
-    staticClass: "setting-search-suggestions"
-  }, [_c('ul', {
-    staticClass: "search-suggestions-list"
-  }, _vm._l(Object.keys(_vm.searchSuggestions), function (field_key, field_index) {
-    return _c('li', {
-      key: field_index,
-      staticClass: "search-suggestions-list--list-item"
-    }, [_c('a', {
-      staticClass: "search-suggestions-list--link",
+  }, [_c('div', {
+    staticClass: "settings-command-palette__header"
+  }, [_c('span', [_vm._v(_vm._s(_vm.searchResultTotal) + " RESULTS")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__divider"
+  }, [_vm._v("·")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__kbd"
+  }, [_vm._v("↑")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__kbd"
+  }, [_vm._v("↓")]), _vm._v(" "), _c('span', [_vm._v("TO NAVIGATE")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__divider"
+  }, [_vm._v("·")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__kbd"
+  }, [_vm._v("ESC")]), _vm._v(" "), _c('span', [_vm._v("TO CLOSE")])]), _vm._v(" "), _c('div', {
+    staticClass: "settings-command-palette__list"
+  }, _vm._l(_vm.searchResults, function (result, index) {
+    return _c('div', {
+      key: result.fieldKey,
+      staticClass: "settings-command-palette__result",
+      class: {
+        'settings-command-palette__result--active': index === _vm.activeSearchIndex
+      },
+      on: {
+        "mouseenter": function mouseenter($event) {
+          return _vm.$emit('set-active-search-index', index);
+        }
+      }
+    }, [_c('button', {
+      staticClass: "settings-command-palette__target",
       attrs: {
-        "href": "#"
+        "type": "button"
       },
       on: {
         "click": function click($event) {
-          $event.preventDefault();
-          return _vm.$emit('jump-to-search-result', _vm.searchSuggestions[field_key]);
+          return _vm.$emit('jump-to-search-result', result);
         }
       }
-    }, [_vm._v("\n            " + _vm._s(_vm.searchSuggestions[field_key].label) + "\n          ")])]);
-  }), 0)]) : _vm._e()]), _vm._v(" "), _c('ul', {
+    }, [_c('span', {
+      staticClass: "settings-command-palette__label",
+      domProps: {
+        "innerHTML": _vm._s(_vm.highlightText(result.label))
+      }
+    }), _vm._v(" "), _c('span', {
+      staticClass: "settings-command-palette__path"
+    }, [_c('span', {
+      staticClass: "settings-command-palette__path-text",
+      domProps: {
+        "innerHTML": _vm._s(_vm.highlightText(result.pathText))
+      }
+    }), _vm._v(" "), _c('svg', {
+      attrs: {
+        "viewBox": "0 0 24 24",
+        "fill": "none",
+        "stroke": "currentColor",
+        "stroke-width": "2.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round",
+        "aria-hidden": "true",
+        "focusable": "false"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M7 17 17 7M7 7h10v10"
+      }
+    })])])]), _vm._v(" "), _c('div', {
+      staticClass: "settings-command-palette__action",
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+        },
+        "mousedown": function mousedown($event) {
+          $event.stopPropagation();
+        }
+      }
+    }, [result.controlType === 'toggle' ? _c('button', {
+      staticClass: "settings-command-palette__toggle",
+      class: {
+        'settings-command-palette__toggle--active': _vm.quickBooleanValue(result.value)
+      },
+      attrs: {
+        "type": "button",
+        "aria-pressed": _vm.quickBooleanValue(result.value) ? 'true' : 'false'
+      },
+      on: {
+        "click": function click($event) {
+          _vm.$emit('quick-update-field', {
+            fieldKey: result.fieldKey,
+            value: !_vm.quickBooleanValue(result.value)
+          });
+        }
+      }
+    }, [_c('span', {
+      staticClass: "settings-command-palette__toggle-knob"
+    })]) : result.controlType === 'input' ? _c('input', {
+      staticClass: "settings-command-palette__input",
+      attrs: {
+        "type": result.inputType
+      },
+      domProps: {
+        "value": result.value
+      },
+      on: {
+        "input": function input($event) {
+          return _vm.$emit('quick-update-field', {
+            fieldKey: result.fieldKey,
+            value: $event.target.value
+          });
+        },
+        "keydown": [function ($event) {
+          if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+          $event.stopPropagation();
+        }, function ($event) {
+          if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) return null;
+          $event.stopPropagation();
+          return _vm.$emit('close-search');
+        }]
+      }
+    }) : result.controlType === 'select' ? _c('select', {
+      staticClass: "settings-command-palette__select",
+      domProps: {
+        "value": String(result.value)
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.$emit('quick-update-field', {
+            fieldKey: result.fieldKey,
+            value: $event.target.value
+          });
+        },
+        "keydown": function keydown($event) {
+          if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) return null;
+          $event.stopPropagation();
+          return _vm.$emit('close-search');
+        }
+      }
+    }, [_vm.selectHasUnknownValue(result) ? _c('option', {
+      domProps: {
+        "value": String(result.value)
+      }
+    }, [_vm._v("\n                " + _vm._s(result.value) + "\n              ")]) : _vm._e(), _vm._v(" "), _vm._l(result.options, function (option) {
+      return _c('option', {
+        key: option.value,
+        domProps: {
+          "value": option.value
+        }
+      }, [_vm._v("\n                " + _vm._s(option.label) + "\n              ")]);
+    })], 2) : _vm._e()])]);
+  }), 0)]) : _vm.searchQuery.length ? _c('div', {
+    staticClass: "settings-command-palette settings-command-palette--empty",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "settings-command-palette__empty"
+  }, [_vm._v("No settings found.")])]) : _vm._e()]), _vm._v(" "), _c('ul', {
     staticClass: "settings-nav"
   }, _vm._l(_vm.menu, function (meue_item, menu_key) {
     return _c('li', {

@@ -17,9 +17,16 @@
                 <sidebar-navigation
                     :menu="layouts"
                     :search-query="search_query"
-                    :search-suggestions="searchSuggestions"
-                    @update-search-query="search_query = $event"
+                    :search-results="quickSearchResults"
+                    :search-result-total="quickSearchResultTotal"
+                    :active-search-index="active_search_result_index"
+                    @update-search-query="updateSearchQuery"
                     @jump-to-search-result="jumpToSearchResult"
+                    @quick-update-field="updateQuickSearchFieldValue"
+                    @move-search-result="moveQuickSearchResult"
+                    @set-active-search-index="setActiveSearchIndex"
+                    @submit-search-result="submitQuickSearchResult"
+                    @close-search="closeQuickSearch"
                 />
 
                 <div class="settings-contents">
@@ -174,6 +181,7 @@ const CHECKBOX_ARRAY_ACCORDION_FIELDS = [
     'search_sort_by_items',
     'search_filters',
     'all_authors_contact',
+    'booking_type',
 ];
 
 export default {
@@ -217,32 +225,30 @@ export default {
             return nav;
         },
 
-        searchSuggestions() {
-            if ( ! this.search_query.length ) {
-                return false;
+        quickSearchPayload() {
+            const query = this.search_query.trim();
+
+            if ( ! query.length ) {
+                return {
+                    results: [],
+                    total: 0,
+                };
             }
 
-            let search_suggestions = {};
-            let query = this.search_query.toLowerCase();
+            const results = this.buildQuickSearchResults( query );
 
-            for ( let field in this.cached_fields ) {
-                if ( ! this.cached_fields[ field ].label ) { continue; }
-                
-                let label = this.cached_fields[ field ].label.toLowerCase();
-                let match = label.match( query );
+            return {
+                results: results.slice( 0, 30 ),
+                total: results.length,
+            };
+        },
 
-                if ( match ) {
-                    search_suggestions[ field ] = this.cached_fields[ field ];
-                }
-            }
+        quickSearchResults() {
+            return this.quickSearchPayload.results;
+        },
 
-            // console.log( {search_suggestions}, this.cached_fields );
-
-            if ( ! Object.keys( search_suggestions ).length ) {
-                return false;
-            }
-
-            return search_suggestions;
+        quickSearchResultTotal() {
+            return this.quickSearchPayload.total;
         },
 
         hasUnsavedChanges() {
@@ -325,6 +331,7 @@ export default {
 
             search_query: '',
             search_suggestions: false,
+            active_search_result_index: 0,
             leaveConfirmIsOpen: false,
             pendingNavigationUrl: '',
             leaveGuardBypass: false,
@@ -365,6 +372,237 @@ export default {
             this.$store.commit( 'resetHighlightedFieldKey' );
         },
 
+        updateSearchQuery( value ) {
+            this.search_query = value;
+            this.active_search_result_index = 0;
+        },
+
+        buildQuickSearchResults( query ) {
+            const normalizedQuery = this.normalizeSearchText( query );
+            let results = [];
+
+            if ( ! normalizedQuery ) {
+                return results;
+            }
+
+            for ( let fieldKey in this.cached_fields ) {
+                const cachedField = this.cached_fields[ fieldKey ];
+                const liveField = this.fields[ fieldKey ];
+
+                if ( ! cachedField || ! cachedField.layout_path || ! liveField ) { continue; }
+
+                const label = this.toPlainSearchText( liveField.label || cachedField.label || '' );
+
+                if ( ! label ) { continue; }
+
+                const pathSegments = this.getQuickSearchPathSegments(
+                    cachedField.layout_path,
+                    fieldKey
+                );
+                const pathText = pathSegments.join( ' › ' );
+                const score = this.getQuickSearchScore({
+                    label,
+                    fieldKey,
+                    pathText,
+                    query: normalizedQuery,
+                });
+
+                if ( null === score ) { continue; }
+
+                results.push({
+                    field_key: fieldKey,
+                    fieldKey,
+                    label,
+                    path: pathSegments,
+                    pathText,
+                    layout_path: cachedField.layout_path,
+                    controlType: this.getQuickSearchControlType( liveField ),
+                    inputType: this.getQuickSearchInputType( liveField ),
+                    value: liveField.value,
+                    options: this.getQuickSearchOptions( liveField ),
+                    score,
+                });
+            }
+
+            return results.sort( ( a, b ) => {
+                if ( a.score !== b.score ) {
+                    return a.score - b.score;
+                }
+
+                return a.label.localeCompare( b.label );
+            });
+        },
+
+        getQuickSearchScore( { label, fieldKey, pathText, query } ) {
+            const labelText = this.normalizeSearchText( label );
+            const path = this.normalizeSearchText( pathText );
+            const key = this.normalizeSearchText( fieldKey );
+
+            if ( labelText === query ) { return 0; }
+            if ( labelText.indexOf( query ) === 0 ) { return 1; }
+            if ( labelText.indexOf( query ) > -1 ) { return 2; }
+            if ( path.indexOf( query ) > -1 ) { return 3; }
+            if ( key.indexOf( query ) > -1 ) { return 4; }
+
+            return null;
+        },
+
+        getQuickSearchPathSegments( layoutPath, fieldKey ) {
+            let segments = [];
+
+            if ( ! layoutPath || ! layoutPath.menu_key ) {
+                return segments;
+            }
+
+            const menu = this.layouts[ layoutPath.menu_key ];
+
+            if ( menu && menu.label ) {
+                segments.push( this.toPlainSearchText( menu.label ) );
+            }
+
+            const submenu = menu && menu.submenu && layoutPath.submenu_key
+                ? menu.submenu[ layoutPath.submenu_key ]
+                : null;
+
+            if ( submenu && submenu.label ) {
+                segments.push( this.toPlainSearchText( submenu.label ) );
+            }
+
+            const sectionRoot = submenu || menu;
+            const section = sectionRoot &&
+                sectionRoot.sections &&
+                layoutPath.section_key
+                    ? sectionRoot.sections[ layoutPath.section_key ]
+                    : null;
+
+            if ( section ) {
+                const sectionLabel = section.title || section.label || '';
+
+                if ( sectionLabel ) {
+                    segments.push( this.toPlainSearchText( sectionLabel ) );
+                }
+
+                if (
+                    Array.isArray( section.advancedFields ) &&
+                    section.advancedFields.includes( fieldKey )
+                ) {
+                    segments.push( this.toPlainSearchText( section.advancedLabel || 'Advanced' ) );
+                }
+            }
+
+            return segments.filter( Boolean );
+        },
+
+        getQuickSearchControlType( field ) {
+            if ( ! field || field.disable || field.disabled ) { return ''; }
+
+            if (
+                field.type === 'toggle' &&
+                ! field.confirmBeforeChange &&
+                ! field.confirmationModal &&
+                ! field.dataOnChange
+            ) {
+                return 'toggle';
+            }
+
+            if ( [ 'text', 'number', 'url', 'email' ].includes( field.type ) ) {
+                return 'input';
+            }
+
+            if (
+                field.type === 'select' &&
+                Array.isArray( field.options ) &&
+                field.options.length
+            ) {
+                return 'select';
+            }
+
+            return '';
+        },
+
+        getQuickSearchInputType( field ) {
+            if ( ! field || ! field.type ) { return 'text'; }
+
+            return [ 'number', 'url', 'email' ].includes( field.type )
+                ? field.type
+                : 'text';
+        },
+
+        getQuickSearchOptions( field ) {
+            if ( ! field || ! Array.isArray( field.options ) ) {
+                return [];
+            }
+
+            return field.options.map( option => ({
+                value: typeof option.value === 'undefined' ? '' : String( option.value ),
+                label: this.toPlainSearchText( option.label || '' ),
+            }));
+        },
+
+        updateQuickSearchFieldValue( payload ) {
+            if ( ! payload || ! payload.fieldKey ) { return; }
+            if ( ! this.fields[ payload.fieldKey ] ) { return; }
+
+            this.$store.commit( 'updateFieldValue', {
+                field_key: payload.fieldKey,
+                value: payload.value,
+            });
+        },
+
+        setActiveSearchIndex( index ) {
+            const maxIndex = this.quickSearchResults.length - 1;
+
+            if ( maxIndex < 0 ) {
+                this.active_search_result_index = 0;
+                return;
+            }
+
+            this.active_search_result_index = Math.min(
+                Math.max( Number( index ) || 0, 0 ),
+                maxIndex
+            );
+        },
+
+        moveQuickSearchResult( direction ) {
+            const count = this.quickSearchResults.length;
+
+            if ( ! count ) { return; }
+
+            const nextIndex =
+                ( this.active_search_result_index + Number( direction ) + count ) % count;
+
+            this.active_search_result_index = nextIndex;
+        },
+
+        submitQuickSearchResult() {
+            const result = this.quickSearchResults[ this.active_search_result_index ] ||
+                this.quickSearchResults[0];
+
+            if ( result ) {
+                this.jumpToSearchResult( result );
+            }
+        },
+
+        closeQuickSearch() {
+            this.search_query = '';
+            this.active_search_result_index = 0;
+        },
+
+        normalizeSearchText( value ) {
+            return this.toPlainSearchText( value ).toLowerCase();
+        },
+
+        toPlainSearchText( value ) {
+            if ( typeof value === 'undefined' || value === null ) {
+                return '';
+            }
+
+            return String( value )
+                .replace( /<[^>]*>/g, ' ' )
+                .replace( /\s+/g, ' ' )
+                .trim();
+        },
+
         jumpToSearchResult( field ) {
             if ( ! field.layout_path ) { return; }
 
@@ -375,6 +613,7 @@ export default {
             });
 
             this.search_query = '';
+            this.active_search_result_index = 0;
             this.queueSearchResultHighlight( field.layout_path.field_key );
         },
 

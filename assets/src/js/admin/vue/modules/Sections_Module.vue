@@ -146,6 +146,7 @@
               :field="fields[field]"
               :field-key="field"
               :is-highlighted="getHighlightState(field)"
+              :class="{ ['highlight-field']: getHighlightState(field) }"
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
             />
 
@@ -604,6 +605,7 @@ export default {
         "search_sort_by_items",
         "search_filters",
         "all_authors_contact",
+        "booking_type",
       ].includes(field);
     },
 

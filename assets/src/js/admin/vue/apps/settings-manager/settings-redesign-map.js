@@ -722,6 +722,7 @@ const FIELD_OVERRIDES = {
 };
 
 const SUPPRESSED_REDESIGN_FIELDS = new Set([
+	'atbdp_reset_cache',
 	'gallery_crop_width',
 	'gallery_crop_height',
 ]);

@@ -47866,6 +47866,11 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .setting-left-side
   border-radius: 14px 0 0 14px;
   color: #111827;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .setting-left-sibebar.setting-left-sidebar--search-open,
+body.directorist-settings-redesign-page .atbdp-settings-panel .setting-left-sidebar.setting-left-sidebar--search-open {
+  z-index: 10030;
+  overflow: visible;
+}
 body.directorist-settings-redesign-page .atbdp-settings-panel .settings-sidebar-search {
   position: relative;
   -webkit-box-sizing: border-box;
@@ -47932,6 +47937,275 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .settings-sidebar-
   right: auto;
   left: 0;
   width: 100%;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-sidebar-search > .settings-command-palette {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 10020;
+  width: 440px;
+  max-width: 440px;
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 18px 42px rgba(15, 23, 42, 0.16);
+          box-shadow: 0 18px 42px rgba(15, 23, 42, 0.16);
+  overflow: hidden;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 6px;
+  min-height: 39px;
+  padding: 8px 14px;
+  color: #8492a8;
+  background: #f8fafc;
+  border-bottom: 1px solid #eef2f7;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 18px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__divider {
+  color: #c2cad7;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__kbd {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-width: 19px;
+  height: 17px;
+  padding: 0 5px;
+  color: #8795aa;
+  background: #ffffff;
+  border: 1px solid #dce3ee;
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 15px;
+  text-transform: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__list {
+  max-height: min(643px, 100vh - 165px);
+  overflow-y: auto;
+  background: #ffffff;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__result {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  min-height: 70px;
+  background: #ffffff;
+  border-top: 1px solid #eef2f7;
+  -webkit-transition: background 0.15s ease;
+  transition: background 0.15s ease;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__result:first-child {
+  border-top: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__result:hover, body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__result--active {
+  background: #f8fafc;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__target {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-width: 0;
+  margin: 0;
+  padding: 11px 14px;
+  color: #111827;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__target:hover, body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__target:focus {
+  color: #111827;
+  background: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__label {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__path {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  margin-top: 3px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__path svg {
+  width: 11px;
+  height: 11px;
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+  color: #94a3b8;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__path-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette mark {
+  padding: 0 1px;
+  color: inherit;
+  background: #fff1a8;
+  border-radius: 2px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__action {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  min-width: 0;
+  padding: 12px 14px 12px 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__toggle {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 42px;
+  min-width: 42px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  background: #cbd5e1;
+  border: 0;
+  border-radius: 999px;
+  -webkit-box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+          box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  -webkit-transition: background-color 0.18s ease;
+  transition: background-color 0.18s ease;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__toggle:focus {
+  outline: none;
+  -webkit-box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08), 0 0 0 3px rgba(62, 98, 245, 0.12);
+          box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08), 0 0 0 3px rgba(62, 98, 245, 0.12);
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__toggle--active {
+  background: var(--settings-primary);
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+          box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+  -webkit-transition: left 0.18s ease;
+  transition: left 0.18s ease;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__toggle--active .settings-command-palette__toggle-knob {
+  left: 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__input,
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__select {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 140px;
+  max-width: 140px !important;
+  height: 32px;
+  min-height: 32px;
+  margin: 0;
+  padding: 6px 10px !important;
+  color: #111827 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #dce3ee !important;
+  border-radius: 6px;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__input:focus,
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__select:focus {
+  border-color: #3e62f5 !important;
+  -webkit-box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.12) !important;
+          box-shadow: 0 0 0 3px rgba(62, 98, 245, 0.12) !important;
+  outline: none;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__select {
+  padding-right: 24px !important;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .settings-command-palette__empty {
+  padding: 13px 14px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 20px;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .search-suggestions-list {
   border-color: #d8dee8;

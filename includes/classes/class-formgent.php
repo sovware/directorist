@@ -110,8 +110,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             $form = formgent_get_form_by_id( $response->form_id );
 
             $fields_settings = formgent_get_form_fields( $form );
-            $response_controller = formgent_singleton( \FormGent\App\Http\Controllers\Admin\ResponseController::class );
-            $fields          = $response_controller->prepare_fields( $fields_settings );
+            $fields          = $this->prepare_response_fields( $fields_settings );
 
             $listing_id = formgent_response_repository()->get_meta_value( $response_id, 'listing_id' );
             $listing_permalink = '';
@@ -226,6 +225,124 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 'unread' => $un_read_query->count(),
                 'read' => $read_query->count(),
             ];
+        }
+
+        protected function prepare_response_fields( array $fields_settings, $parent_name = '', $parent_type = '' ) {
+            $registered_fields = formgent_config( 'fields' );
+            $fields = [];
+
+            foreach ( $fields_settings as $field ) {
+                if ( empty( $field['field_type'] ) || empty( $field['name'] ) || empty( $registered_fields[$field['field_type']]['allowed_in_response_table'] ) ) {
+                    continue;
+                }
+
+                $name = ! empty( $parent_name ) ? $parent_name . '.' . $field['name'] : $field['name'];
+
+                if ( ! empty( $field['children'] ) && is_array( $field['children'] ) ) {
+                    $fields = array_merge( $fields, $this->prepare_response_fields( $field['children'], $name, $field['field_type'] ) );
+                    continue;
+                }
+
+                $field_data = [
+                    'name'  => sanitize_text_field( $name ),
+                    'label' => isset( $field['label'] ) ? sanitize_text_field( $field['label'] ) : '',
+                    'type'  => sanitize_text_field( $field['field_type'] ),
+                ];
+
+                if ( in_array( $field['field_type'], [ 'dropdown', 'single-choice', 'multiple-choice' ], true ) ) {
+                    if ( 'dropdown' !== $field['field_type'] || 'address' !== $parent_type ) {
+                        if ( ! empty( $field['options'] ) && is_array( $field['options'] ) ) {
+                            $field_data['options'] = $this->sanitize_response_field_options( $field['options'] );
+                        }
+                    }
+                }
+
+                if ( in_array( $field['field_type'], [ 'single-choice', 'multiple-choice' ], true ) ) {
+                    if ( isset( $field['allow_user_add_other_option'] ) ) {
+                        $field_data['allow_user_add_other_option'] = (bool) $field['allow_user_add_other_option'];
+                    }
+
+                    if ( isset( $field['other_label'] ) ) {
+                        $field_data['other_label'] = sanitize_text_field( $field['other_label'] );
+                    }
+
+                    if ( isset( $field['other_placeholder'] ) ) {
+                        $field_data['other_placeholder'] = sanitize_text_field( $field['other_placeholder'] );
+                    }
+                }
+
+                if ( 'range-slider' === $field['field_type'] ) {
+                    if ( isset( $field['min_value'] ) && is_numeric( $field['min_value'] ) ) {
+                        $field_data['min_value'] = floatval( $field['min_value'] );
+                    }
+
+                    if ( isset( $field['max_value'] ) && is_numeric( $field['max_value'] ) ) {
+                        $field_data['max_value'] = floatval( $field['max_value'] );
+                    }
+                }
+
+                if ( 'rating' === $field['field_type'] ) {
+                    if ( isset( $field['rating_icon'] ) ) {
+                        $field_data['rating_icon'] = sanitize_text_field( $field['rating_icon'] );
+                    }
+
+                    if ( isset( $field['rating_limit'] ) && is_numeric( $field['rating_limit'] ) ) {
+                        $field_data['rating_limit'] = absint( $field['rating_limit'] );
+                    }
+                }
+
+                if ( 'date-picker' === $field['field_type'] ) {
+                    if ( isset( $field['option'] ) && is_string( $field['option'] ) ) {
+                        $field_data['option'] = sanitize_text_field( $field['option'] );
+                    }
+
+                    if ( isset( $field['range'] ) ) {
+                        $field_data['range'] = (bool) $field['range'];
+                    }
+
+                    if ( isset( $field['date_format'] ) && is_string( $field['date_format'] ) ) {
+                        $field_data['date_format'] = sanitize_text_field( $field['date_format'] );
+                    }
+
+                    if ( isset( $field['separator'] ) && is_string( $field['separator'] ) ) {
+                        $field_data['separator'] = sanitize_text_field( $field['separator'] );
+                    }
+
+                    if ( isset( $field['allowed_days'] ) && is_array( $field['allowed_days'] ) ) {
+                        $field_data['allowed_days'] = array_map( 'sanitize_text_field', $field['allowed_days'] );
+                    }
+                }
+
+                $fields[] = $field_data;
+            }
+
+            return $fields;
+        }
+
+        protected function sanitize_response_field_options( array $options ) {
+            $sanitized_options = [];
+
+            foreach ( $options as $option ) {
+                if ( ! is_array( $option ) ) {
+                    continue;
+                }
+
+                $sanitized_option = [];
+
+                if ( isset( $option['label'] ) ) {
+                    $sanitized_option['label'] = sanitize_text_field( $option['label'] );
+                }
+
+                if ( isset( $option['value'] ) ) {
+                    $sanitized_option['value'] = sanitize_text_field( $option['value'] );
+                }
+
+                if ( ! empty( $sanitized_option ) ) {
+                    $sanitized_options[] = $sanitized_option;
+                }
+            }
+
+            return $sanitized_options;
         }
 
         protected function get_responses_query() {

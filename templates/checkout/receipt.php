@@ -26,6 +26,9 @@ use Directorist\Enums\Order\DiscountType as OrderDiscountType;
             <div class="directorist-col-md-8 directorist-offset-md-2">
                 <div class="directorist-payment-receipt">
                     <p class="directorist-payment-thanks-text"><?php esc_html_e( 'Thank you for your order!', 'directorist' ); ?></p>
+
+                    <?php do_action( 'directorist_payment_receipt_before_order_details', $order ); ?>
+                    
                     <div class="directorist-payment-table directorist-table-responsive directorist-mb-30">
                         <table class="directorist-table">
                             <thead>
@@ -114,7 +117,7 @@ use Directorist\Enums\Order\DiscountType as OrderDiscountType;
                             <?php if ( ! empty( $order->get_tax_rate() ) ): ?>
                             <tr>
                                 <td class="directorist-payment-table__title">
-                                    <?php echo $order->get_tax_type() === OrderTaxType::PERCENT ? sprintf( esc_html__( 'Tax ( %d%% )', 'directorist' ), $order->get_coupon_discount() ) : esc_html__( 'Tax', 'directorist' ); ?>
+                                    <?php echo $order->get_tax_type() === OrderTaxType::PERCENT ? sprintf( esc_html__( 'Tax ( %d%% )', 'directorist' ), $order->get_tax_rate() ) : esc_html__( 'Tax', 'directorist' ); ?>
                                 </td>
                                 <td>
                                     <?php echo wp_kses_post( directorist_price( $tax_amount ) ) ?>

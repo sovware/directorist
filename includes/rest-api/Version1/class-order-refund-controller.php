@@ -9,7 +9,6 @@ use WP_REST_Request;
 use WP_REST_Server;
 use WP_Error;
 
-use Directorist\DTO\Order\DTO as OrderDTO;
 use Directorist\DTO\Refund\DTO as RefundDTO;
 use Directorist\DTO\Refund\Read as RefundRead;
 use Directorist\Enums\Refund\Status as RefundStatus;
@@ -55,7 +54,7 @@ class Order_Refund_Controller extends Abstract_Controller {
                     ],
                 ],
                 [
-                    'methods'             => WP_REST_Server::CREATABLE,
+                    'methods'             => WP_REST_Server::EDITABLE,
                     'callback'            => [ $this, 'update' ],
                     'permission_callback' => [ $this, 'admin_permissions_check' ],
                     'args'                => array_merge(
@@ -123,41 +122,44 @@ class Order_Refund_Controller extends Abstract_Controller {
     }
 
     public function show( WP_REST_Request $request ) {
-        $repository = directorist_order_repository();
-        $order      = $repository->single( $request->get_param( "id" ) );
+        $repository = new RefundRepository();
+        $refund     = $repository->get_by_id( $request->get_param( "id" ) );
 
-        if ( ! $order ) {
-            return new WP_Error( 'rest_not_found', __( 'The order was not found' ) );
+        if ( ! $refund ) {
+            return new WP_Error( 'rest_not_found', __( 'The refund was not found' ) );
         }
 
         return rest_ensure_response(
             [
-                "order" => $order
+                "data" => $refund
             ]
         );
     }
 
     public function update( WP_REST_Request $request ) {
-        $dto = ( new OrderDTO )->set_id( $request->get_param( 'id' ) )
-            ->set_user_id(  $request->get_param( 'user_id'  ) )
-            ->set_listing_id( $request->get_param( 'listing_id' ) )
-            ->set_status( $request->get_param( 'status' ) );
+        $dto = ( new RefundDTO )->set_id( $request->get_param( 'id' ) )
+            ->set_order_id( (int) $request->get_param( "order_id" ) )
+            ->set_amount( $request->get_param( "amount" ) )
+            ->set_status( $request->get_param( "status" ) )
+            ->set_reason( (string) $request->get_param( "reason" ) );
 
-        directorist_order_repository()->update( $dto );
+        $repository = new RefundRepository();
+        $repository->update( $dto );
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Order was updated successfully" )
+                "message" => esc_html__( "Refund was updated successfully" )
             ]
         );
     }
 
     public function delete( WP_REST_Request $request ) {
-        directorist_order_repository()->delete_by_id( $request->get_param( "id" ) );
+        $repository = new RefundRepository();
+        $repository->delete_by_id( $request->get_param( "id" ) );
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Order was deleted successfully" )
+                "message" => esc_html__( "Refund was deleted successfully" )
             ]
         );
     }

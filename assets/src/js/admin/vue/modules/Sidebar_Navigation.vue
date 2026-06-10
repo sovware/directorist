@@ -149,9 +149,22 @@
       <div
         class="settings-command-palette settings-command-palette--empty"
         v-else-if="searchQuery.length"
+        role="status"
+        aria-live="polite"
         @click.stop
       >
-        <div class="settings-command-palette__empty">No settings found.</div>
+        <div class="settings-command-palette__empty">
+          <span>No settings match </span>
+          <span
+            class="settings-command-palette__empty-query"
+            :title="trimmedSearchQuery"
+          >
+            <span aria-hidden="true">"</span>
+            <span class="settings-command-palette__empty-query-value">{{ trimmedSearchQuery }}</span>
+            <span aria-hidden="true">"</span>
+          </span>
+          <span>. Try a shorter word.</span>
+        </div>
       </div>
     </div>
 
@@ -180,12 +193,12 @@
     </ul>
 
     <div class="settings-sidebar-footer">
-      <a href="https://directorist.com/documentation/" target="_blank" rel="noopener">
+      <a href="https://www.youtube.com/@wpdirectorist" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
         Tutorials
       </a>
       <span class="settings-sidebar-footer__separator"></span>
-      <a href="https://directorist.com/documentation/directorist/" target="_blank" rel="noopener">
+      <a href="https://directorist.com/docs/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></svg>
         Docs
       </a>
@@ -222,6 +235,12 @@ export default {
     activeSearchIndex: {
       type: Number,
       default: 0,
+    },
+  },
+
+  computed: {
+    trimmedSearchQuery() {
+      return this.searchQuery.trim();
     },
   },
 

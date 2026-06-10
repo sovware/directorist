@@ -3,10 +3,50 @@
     <div class="cptm-page-setup-row__content">
       <label class="cptm-page-setup-row__label" v-html="fieldLabel"></label>
       <p
-        v-if="fieldDescription"
+        v-if="hasDescriptionDetails"
         class="cptm-page-setup-row__description"
-        v-html="fieldDescription"
-      ></p>
+      >
+        <span
+          v-if="fieldDescription"
+          class="cptm-page-setup-row__description-text"
+        >
+          {{ fieldDescription }}
+        </span>
+        <span
+          v-if="shortcodeText"
+          class="cptm-page-setup-row__shortcode-group"
+        >
+          <code class="cptm-page-setup-row__shortcode">
+            {{ shortcodeText }}
+          </code>
+          <button
+            type="button"
+            class="cptm-page-setup-row__copy"
+            :aria-label="'Copy shortcode ' + shortcodeText"
+            :title="copyState === 'copied' ? 'Copied' : 'Copy shortcode'"
+            @click.stop.prevent="copyShortcode"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+          </button>
+          <span
+            v-if="copyState === 'copied'"
+            class="cptm-page-setup-row__copy-feedback"
+          >
+            Copied
+          </span>
+        </span>
+      </p>
     </div>
 
     <div class="cptm-page-setup-row__control">
@@ -60,6 +100,8 @@ export default {
   data() {
     return {
       isOpen: false,
+      copyState: "",
+      copyTimer: null,
     };
   },
 
@@ -97,6 +139,14 @@ export default {
       return currentOption ? this.plainText(currentOption.label) : "Select page";
     },
 
+    rawDescriptionParts() {
+      return this.parseDescriptionParts(this.field.description || "");
+    },
+
+    shortcodeText() {
+      return this.rawDescriptionParts.shortcode;
+    },
+
     fieldDescription() {
       const pageDescriptions = {
         add_listing_page: "Where users submit a new listing.",
@@ -122,7 +172,11 @@ export default {
         return pageDescriptions[this.fieldKey];
       }
 
-      return this.field.description || "";
+      return this.rawDescriptionParts.text;
+    },
+
+    hasDescriptionDetails() {
+      return !!(this.fieldDescription || this.shortcodeText);
     },
 
   },
@@ -133,9 +187,39 @@ export default {
 
   beforeDestroy() {
     document.removeEventListener("click", this.closeDropdown);
+    clearTimeout(this.copyTimer);
   },
 
   methods: {
+    parseDescriptionParts(value) {
+      const description = {
+        text: "",
+        shortcode: "",
+      };
+
+      if (typeof value === "undefined" || value === null || value === "") {
+        return description;
+      }
+
+      const element = document.createElement("div");
+      element.innerHTML = String(value);
+
+      const shortcodeElement = element.querySelector(".atbdp_shortcodes");
+
+      if (shortcodeElement) {
+        description.shortcode = this.plainText(
+          shortcodeElement.innerHTML || shortcodeElement.textContent || ""
+        );
+        shortcodeElement.remove();
+      }
+
+      description.text = (element.textContent || element.innerText || "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      return description;
+    },
+
     plainText(value) {
       if (typeof value === "undefined" || value === null) {
         return "";
@@ -145,6 +229,55 @@ export default {
       element.innerHTML = String(value);
 
       return (element.textContent || element.innerText || "").trim();
+    },
+
+    copyShortcode() {
+      if (!this.shortcodeText) {
+        return;
+      }
+
+      this.copyText(this.shortcodeText)
+        .then(() => {
+          this.copyState = "copied";
+          clearTimeout(this.copyTimer);
+          this.copyTimer = setTimeout(() => {
+            this.copyState = "";
+          }, 1400);
+        })
+        .catch(() => {
+          this.copyState = "";
+        });
+    },
+
+    copyText(value) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard
+          .writeText(value)
+          .catch(() => this.copyTextFallback(value));
+      }
+
+      return this.copyTextFallback(value);
+    },
+
+    copyTextFallback(value) {
+      return new Promise((resolve, reject) => {
+        try {
+          const textarea = document.createElement("textarea");
+          textarea.value = value;
+          textarea.setAttribute("readonly", "readonly");
+          textarea.style.position = "fixed";
+          textarea.style.left = "-9999px";
+          textarea.style.top = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
     },
 
     toggleDropdown() {

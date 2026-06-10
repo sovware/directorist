@@ -156,6 +156,10 @@ const FIELD_OVERRIDES = {
 		label: 'Tag URL slug',
 		description: '',
 	},
+	all_listing_columns: {
+		type: 'select',
+		preview: {},
+	},
 	single_listing_template: {
 		label: 'Template',
 	},
@@ -2003,6 +2007,81 @@ const cloneRawSections = (
 	return clonedSections;
 };
 
+const REDESIGNED_MONETIZATION_SUBMENU_TARGETS = {
+	monetization_general: 'monetization_general',
+	monetization_submenu1: 'monetization_general',
+	featured_listing: 'featured_listing',
+	featured_listings: 'featured_listing',
+	gateway: 'gateway',
+	gateway_general: 'gateway',
+	gateway_submenu: 'gateway',
+	offline_gateway: 'gateway',
+	offline_gateway_submenu: 'gateway',
+	bank_transfer: 'gateway',
+};
+
+const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
+	const submenu = {
+		monetization_general: {
+			label: 'Currency',
+			icon: SETTINGS_REDESIGN_ICONS.currency,
+			sections: sectionsFromGroups(
+				FIELD_GROUPS.monetizationCurrency,
+				fields,
+				usedFields
+			),
+		},
+		featured_listing: {
+			label: 'Featured listings',
+			icon: SETTINGS_REDESIGN_ICONS.featured,
+			sections: sectionsFromGroups(
+				FIELD_GROUPS.monetizationFeatured,
+				fields,
+				usedFields
+			),
+		},
+		gateway: {
+			label: 'Payment gateways',
+			icon: SETTINGS_REDESIGN_ICONS.gateways,
+			sections: sectionsFromGroups(
+				FIELD_GROUPS.monetizationGateways,
+				fields,
+				usedFields
+			),
+		},
+	};
+	const rawSubmenus = rawMenu?.submenu || {};
+
+	Object.keys(rawSubmenus).forEach((submenuKey) => {
+		if (REDESIGNED_MONETIZATION_SUBMENU_TARGETS[submenuKey]) {
+			return;
+		}
+
+		const rawSubmenu = rawSubmenus[submenuKey] || {};
+		const sections = cloneRawSections(
+			rawSubmenu.sections || {},
+			fields,
+			usedFields,
+			usedFields
+		);
+
+		if (!Object.keys(sections).length) {
+			return;
+		}
+
+		submenu[submenuKey] = {
+			label: rawSubmenu.label || rawSubmenu.title || 'Payment gateway',
+			icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.gateways,
+			sections,
+		};
+	});
+
+	return makeMenu(rawMenu, 'Monetization', {
+		icon: SETTINGS_REDESIGN_ICONS.monetization,
+		submenu,
+	});
+};
+
 const buildExtensionSettingsMenu = (rawLayouts, fields, usedFields) => {
 	const rawMenu = rawLayouts.extension_settings || rawLayouts.extensions_settings || {};
 	const rawSubmenus = rawMenu.submenu || {};
@@ -2184,6 +2263,16 @@ const getRecognizedFallbackTarget = (path) => {
 		return {
 			menuKey: 'extension_settings',
 			submenuKey,
+		};
+	}
+
+	if (
+		menuKey === 'monetization_settings' &&
+		REDESIGNED_MONETIZATION_SUBMENU_TARGETS[submenuKey]
+	) {
+		return {
+			menuKey: 'monetization_settings',
+			submenuKey: REDESIGNED_MONETIZATION_SUBMENU_TARGETS[submenuKey],
 		};
 	}
 
@@ -2412,41 +2501,10 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 		},
 	});
 
-	displayLayouts.monetization_settings = makeMenu(
+	displayLayouts.monetization_settings = buildMonetizationSettingsMenu(
 		rawLayouts.monetization_settings,
-		'Monetization',
-		{
-			icon: SETTINGS_REDESIGN_ICONS.monetization,
-			submenu: {
-				monetization_general: {
-					label: 'Currency',
-					icon: SETTINGS_REDESIGN_ICONS.currency,
-					sections: sectionsFromGroups(
-						FIELD_GROUPS.monetizationCurrency,
-						fields,
-						usedFields
-					),
-				},
-				featured_listing: {
-					label: 'Featured listings',
-					icon: SETTINGS_REDESIGN_ICONS.featured,
-					sections: sectionsFromGroups(
-						FIELD_GROUPS.monetizationFeatured,
-						fields,
-						usedFields
-					),
-				},
-				gateway: {
-					label: 'Payment gateways',
-					icon: SETTINGS_REDESIGN_ICONS.gateways,
-					sections: sectionsFromGroups(
-						FIELD_GROUPS.monetizationGateways,
-						fields,
-						usedFields
-					),
-				},
-			},
-		}
+		fields,
+		usedFields
 	);
 
 	displayLayouts.email_settings = makeMenu(rawLayouts.email_settings, 'Notifications', {

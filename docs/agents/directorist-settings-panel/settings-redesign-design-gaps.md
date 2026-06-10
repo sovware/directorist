@@ -245,7 +245,7 @@ Design needed:
 
 ## Runtime/Extension Gaps
 
-The settings panel can receive additional fields through filters and active extensions. Runtime extension fields registered under `atbdp_extension_settings_submenu` are preserved under the redesigned `Extensions` menu by extension submenu label. Runtime fields from known old-source areas are routed to their matching redesigned tabs before the fallback: page setup fields go to `Site & pages > Pages`, email template fields go to `Notifications > Events & Templates`, and extension general fields go to `Extensions > Extensions General`. Other runtime fields not explicitly mapped to the static mockup are preserved and routed to `Needs Design` automatically.
+The settings panel can receive additional fields through filters and active extensions. Runtime extension fields registered under `atbdp_extension_settings_submenu` are preserved under the redesigned `Extensions` menu by extension submenu label. Runtime fields from known old-source areas are routed to their matching redesigned tabs before the fallback: page setup fields go to `Site & pages > Pages`, email template fields go to `Notifications > Events & Templates`, extension general fields go to `Extensions > Extensions General`, and payment gateway extension fields from `atbdp_monetization_settings_submenu` go to `Monetization` by submenu label. Other runtime fields not explicitly mapped to the static mockup are preserved and routed to `Needs Design` automatically.
 
 Known examples:
 

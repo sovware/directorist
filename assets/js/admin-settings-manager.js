@@ -2329,6 +2329,10 @@ var FIELD_OVERRIDES = {
     label: 'Tag URL slug',
     description: ''
   },
+  all_listing_columns: {
+    type: 'select',
+    preview: {}
+  },
   single_listing_template: {
     label: 'Template'
   },
@@ -3555,6 +3559,60 @@ var cloneRawSections = function cloneRawSections() {
   });
   return clonedSections;
 };
+var REDESIGNED_MONETIZATION_SUBMENU_TARGETS = {
+  monetization_general: 'monetization_general',
+  monetization_submenu1: 'monetization_general',
+  featured_listing: 'featured_listing',
+  featured_listings: 'featured_listing',
+  gateway: 'gateway',
+  gateway_general: 'gateway',
+  gateway_submenu: 'gateway',
+  offline_gateway: 'gateway',
+  offline_gateway_submenu: 'gateway',
+  bank_transfer: 'gateway'
+};
+var buildMonetizationSettingsMenu = function buildMonetizationSettingsMenu() {
+  var rawMenu = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var fields = arguments.length > 1 ? arguments[1] : undefined;
+  var usedFields = arguments.length > 2 ? arguments[2] : undefined;
+  var submenu = {
+    monetization_general: {
+      label: 'Currency',
+      icon: SETTINGS_REDESIGN_ICONS.currency,
+      sections: sectionsFromGroups(FIELD_GROUPS.monetizationCurrency, fields, usedFields)
+    },
+    featured_listing: {
+      label: 'Featured listings',
+      icon: SETTINGS_REDESIGN_ICONS.featured,
+      sections: sectionsFromGroups(FIELD_GROUPS.monetizationFeatured, fields, usedFields)
+    },
+    gateway: {
+      label: 'Payment gateways',
+      icon: SETTINGS_REDESIGN_ICONS.gateways,
+      sections: sectionsFromGroups(FIELD_GROUPS.monetizationGateways, fields, usedFields)
+    }
+  };
+  var rawSubmenus = (rawMenu === null || rawMenu === void 0 ? void 0 : rawMenu.submenu) || {};
+  Object.keys(rawSubmenus).forEach(function (submenuKey) {
+    if (REDESIGNED_MONETIZATION_SUBMENU_TARGETS[submenuKey]) {
+      return;
+    }
+    var rawSubmenu = rawSubmenus[submenuKey] || {};
+    var sections = cloneRawSections(rawSubmenu.sections || {}, fields, usedFields, usedFields);
+    if (!Object.keys(sections).length) {
+      return;
+    }
+    submenu[submenuKey] = {
+      label: rawSubmenu.label || rawSubmenu.title || 'Payment gateway',
+      icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.gateways,
+      sections: sections
+    };
+  });
+  return makeMenu(rawMenu, 'Monetization', {
+    icon: SETTINGS_REDESIGN_ICONS.monetization,
+    submenu: submenu
+  });
+};
 var buildExtensionSettingsMenu = function buildExtensionSettingsMenu(rawLayouts, fields, usedFields) {
   var rawMenu = rawLayouts.extension_settings || rawLayouts.extensions_settings || {};
   var rawSubmenus = rawMenu.submenu || {};
@@ -3678,6 +3736,12 @@ var getRecognizedFallbackTarget = function getRecognizedFallbackTarget(path) {
     return {
       menuKey: 'extension_settings',
       submenuKey: submenuKey
+    };
+  }
+  if (menuKey === 'monetization_settings' && REDESIGNED_MONETIZATION_SUBMENU_TARGETS[submenuKey]) {
+    return {
+      menuKey: 'monetization_settings',
+      submenuKey: REDESIGNED_MONETIZATION_SUBMENU_TARGETS[submenuKey]
     };
   }
   return null;
@@ -3831,26 +3895,7 @@ var buildSettingsRedesignLayout = function buildSettingsRedesignLayout() {
       }
     }
   });
-  displayLayouts.monetization_settings = makeMenu(rawLayouts.monetization_settings, 'Monetization', {
-    icon: SETTINGS_REDESIGN_ICONS.monetization,
-    submenu: {
-      monetization_general: {
-        label: 'Currency',
-        icon: SETTINGS_REDESIGN_ICONS.currency,
-        sections: sectionsFromGroups(FIELD_GROUPS.monetizationCurrency, fields, usedFields)
-      },
-      featured_listing: {
-        label: 'Featured listings',
-        icon: SETTINGS_REDESIGN_ICONS.featured,
-        sections: sectionsFromGroups(FIELD_GROUPS.monetizationFeatured, fields, usedFields)
-      },
-      gateway: {
-        label: 'Payment gateways',
-        icon: SETTINGS_REDESIGN_ICONS.gateways,
-        sections: sectionsFromGroups(FIELD_GROUPS.monetizationGateways, fields, usedFields)
-      }
-    }
-  });
+  displayLayouts.monetization_settings = buildMonetizationSettingsMenu(rawLayouts.monetization_settings, fields, usedFields);
   displayLayouts.email_settings = makeMenu(rawLayouts.email_settings, 'Notifications', {
     icon: SETTINGS_REDESIGN_ICONS.notifications,
     submenu: {
@@ -10906,7 +10951,15 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
       return old_value == new_value;
     },
     isCheckboxArrayAccordionField: function isCheckboxArrayAccordionField(field_key) {
-      return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes(field_key);
+      return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes(field_key) || this.isDynamicExtensionCheckboxArrayField(field_key);
+    },
+    isDynamicExtensionCheckboxArrayField: function isDynamicExtensionCheckboxArrayField(field_key) {
+      var field = this.fields[field_key] || {};
+      var cachedField = this.cached_fields[field_key] || {};
+      var layoutPath = cachedField.layout_path || [];
+      var layoutPathText = Array.isArray(layoutPath) ? layoutPath.join('__') : String(layoutPath || '');
+      var isExtensionField = layoutPathText.indexOf('extension_settings') > -1 || layoutPathText.indexOf('extensions_settings') > -1;
+      return isExtensionField && field.type === 'checkbox' && Array.isArray(field.options) && field.options.length > 1;
     },
     normalizeCheckboxArrayValue: function normalizeCheckboxArrayValue(value) {
       if (!Array.isArray(value)) {
@@ -10959,22 +11012,56 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "tab-area",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
     layouts: "layouts",
     highlightedFieldKey: "highlighted_field_key"
-  })),
+  })), {}, {
+    activeSubnavSignature: function activeSubnavSignature() {
+      for (var menuKey in this.layouts) {
+        var menu = this.layouts[menuKey];
+        if (!menu || !menu.active || !menu.submenu) {
+          continue;
+        }
+        for (var submenuKey in menu.submenu) {
+          if (menu.submenu[submenuKey].active) {
+            return "".concat(menuKey, "__").concat(submenuKey);
+          }
+        }
+      }
+      return "";
+    }
+  }),
   data: function data() {
     return {
-      advancedOpen: {}
+      advancedOpen: {},
+      subnavScrollState: {},
+      subnavFrame: null,
+      resizeHandler: null
     };
   },
   watch: {
     highlightedFieldKey: function highlightedFieldKey() {
       this.openAdvancedForHighlightedField();
+      this.queueActiveSubnavIntoView();
+    },
+    activeSubnavSignature: function activeSubnavSignature() {
+      this.queueActiveSubnavIntoView();
     }
   },
   mounted: function mounted() {
+    var _this = this;
     this.openAdvancedForHighlightedField();
+    this.resizeHandler = function () {
+      return _this.queueSubnavStateSync();
+    };
+    window.addEventListener("resize", this.resizeHandler);
+    this.queueActiveSubnavIntoView();
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.resizeHandler) {
+      window.removeEventListener("resize", this.resizeHandler);
+    }
+    this.cancelSubnavFrame();
   },
   methods: {
     swichToNav: function swichToNav(args) {
@@ -11017,6 +11104,177 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     hasSections: function hasSections(sections, advanced) {
       return !!Object.keys(this.sectionsFor(sections, advanced)).length;
+    },
+    subnavRefName: function subnavRefName(menuKey) {
+      return "settings-panel-subnav-".concat(menuKey);
+    },
+    subnavState: function subnavState(menuKey) {
+      return this.subnavScrollState[menuKey] || {};
+    },
+    subnavCanScrollLeft: function subnavCanScrollLeft(menuKey) {
+      return !!this.subnavState(menuKey).canScrollLeft;
+    },
+    subnavCanScrollRight: function subnavCanScrollRight(menuKey) {
+      return !!this.subnavState(menuKey).canScrollRight;
+    },
+    subnavShellClasses: function subnavShellClasses(menuKey) {
+      var state = this.subnavState(menuKey);
+      return {
+        "settings-panel-subnav-shell--scrollable": !!state.isScrollable,
+        "settings-panel-subnav-shell--can-scroll-left": !!state.canScrollLeft,
+        "settings-panel-subnav-shell--can-scroll-right": !!state.canScrollRight
+      };
+    },
+    getSubnavEl: function getSubnavEl(menuKey) {
+      var ref = this.$refs[this.subnavRefName(menuKey)];
+      return Array.isArray(ref) ? ref[0] : ref;
+    },
+    handleSubnavScroll: function handleSubnavScroll(menuKey) {
+      this.syncSubnavState(menuKey);
+    },
+    handleSubnavWheel: function handleSubnavWheel(event, menuKey) {
+      var rail = this.getSubnavEl(menuKey);
+      if (!rail || rail.scrollWidth <= rail.clientWidth) {
+        return;
+      }
+      var delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+      if (!delta) {
+        return;
+      }
+      var maxScrollLeft = this.maxSubnavScrollLeft(rail);
+      var nextScrollLeft = this.clamp(rail.scrollLeft + delta, 0, maxScrollLeft);
+      if (nextScrollLeft === rail.scrollLeft) {
+        return;
+      }
+      event.preventDefault();
+      rail.scrollLeft = nextScrollLeft;
+      this.syncSubnavState(menuKey);
+    },
+    scrollSubnav: function scrollSubnav(menuKey, direction) {
+      var rail = this.getSubnavEl(menuKey);
+      if (!rail) {
+        return;
+      }
+      var distance = Math.max(Math.round(rail.clientWidth * 0.7), 180);
+      var nextScrollLeft = this.clamp(rail.scrollLeft + distance * direction, 0, this.maxSubnavScrollLeft(rail));
+      rail.scrollTo({
+        left: nextScrollLeft,
+        behavior: "smooth"
+      });
+      this.queueSubnavStateSync();
+    },
+    focusAdjacentSubnav: function focusAdjacentSubnav(menuKey, submenuKey, direction) {
+      var _this2 = this;
+      var menu = this.layouts[menuKey];
+      var submenuKeys = Object.keys(menu && menu.submenu || {});
+      var currentIndex = submenuKeys.indexOf(submenuKey);
+      if (currentIndex < 0) {
+        return;
+      }
+      var nextIndex = this.clamp(currentIndex + direction, 0, submenuKeys.length - 1);
+      if (nextIndex === currentIndex) {
+        return;
+      }
+      var nextSubmenuKey = submenuKeys[nextIndex];
+      this.swichToNav({
+        menu_key: menuKey,
+        submenu_key: nextSubmenuKey
+      });
+      this.$nextTick(function () {
+        var rail = _this2.getSubnavEl(menuKey);
+        var items = rail ? rail.querySelectorAll(".settings-panel-subnav__item") : [];
+        var nextItem = items[nextIndex];
+        if (nextItem && typeof nextItem.focus === "function") {
+          nextItem.focus({
+            preventScroll: true
+          });
+        }
+      });
+    },
+    queueActiveSubnavIntoView: function queueActiveSubnavIntoView() {
+      var _this3 = this;
+      this.$nextTick(function () {
+        _this3.cancelSubnavFrame();
+        _this3.subnavFrame = window.requestAnimationFrame(function () {
+          _this3.subnavFrame = null;
+          _this3.scrollActiveSubnavIntoView();
+          _this3.syncAllSubnavStates();
+        });
+      });
+    },
+    queueSubnavStateSync: function queueSubnavStateSync() {
+      var _this4 = this;
+      this.$nextTick(function () {
+        if (_this4.subnavFrame) {
+          return;
+        }
+        _this4.subnavFrame = window.requestAnimationFrame(function () {
+          _this4.subnavFrame = null;
+          _this4.syncAllSubnavStates();
+        });
+      });
+    },
+    cancelSubnavFrame: function cancelSubnavFrame() {
+      if (!this.subnavFrame) {
+        return;
+      }
+      window.cancelAnimationFrame(this.subnavFrame);
+      this.subnavFrame = null;
+    },
+    scrollActiveSubnavIntoView: function scrollActiveSubnavIntoView() {
+      var active = this.activeSubnavSignature.split("__");
+      var menuKey = active[0];
+      if (!menuKey) {
+        return;
+      }
+      var rail = this.getSubnavEl(menuKey);
+      var activeItem = rail ? rail.querySelector(".settings-panel-subnav__item.active") : null;
+      if (!rail || !activeItem || rail.scrollWidth <= rail.clientWidth) {
+        return;
+      }
+      var railRect = rail.getBoundingClientRect();
+      var activeRect = activeItem.getBoundingClientRect();
+      var safePadding = 44;
+      var nextScrollLeft = rail.scrollLeft;
+      if (activeRect.left < railRect.left + safePadding) {
+        nextScrollLeft -= railRect.left + safePadding - activeRect.left;
+      } else if (activeRect.right > railRect.right - safePadding) {
+        nextScrollLeft += activeRect.right - (railRect.right - safePadding);
+      }
+      nextScrollLeft = this.clamp(nextScrollLeft, 0, this.maxSubnavScrollLeft(rail));
+      if (Math.abs(nextScrollLeft - rail.scrollLeft) < 1) {
+        return;
+      }
+      rail.scrollTo({
+        left: nextScrollLeft,
+        behavior: "smooth"
+      });
+    },
+    syncAllSubnavStates: function syncAllSubnavStates() {
+      for (var menuKey in this.layouts) {
+        var menu = this.layouts[menuKey];
+        if (menu && menu.submenu) {
+          this.syncSubnavState(menuKey);
+        }
+      }
+    },
+    syncSubnavState: function syncSubnavState(menuKey) {
+      var rail = this.getSubnavEl(menuKey);
+      if (!rail) {
+        return;
+      }
+      var maxScrollLeft = this.maxSubnavScrollLeft(rail);
+      this.$set(this.subnavScrollState, menuKey, {
+        isScrollable: maxScrollLeft > 1,
+        canScrollLeft: rail.scrollLeft > 1,
+        canScrollRight: rail.scrollLeft < maxScrollLeft - 1
+      });
+    },
+    maxSubnavScrollLeft: function maxSubnavScrollLeft(rail) {
+      return Math.max(rail.scrollWidth - rail.clientWidth, 0);
+    },
+    clamp: function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
     },
     openAdvancedForHighlightedField: function openAdvancedForHighlightedField() {
       if (!this.highlightedFieldKey) {
@@ -12720,7 +12978,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   data: function data() {
     return {
-      isOpen: false
+      isOpen: false,
+      copyState: "",
+      copyTimer: null
     };
   },
   computed: {
@@ -12748,6 +13008,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       });
       return currentOption ? this.plainText(currentOption.label) : "Select page";
     },
+    rawDescriptionParts: function rawDescriptionParts() {
+      return this.parseDescriptionParts(this.field.description || "");
+    },
+    shortcodeText: function shortcodeText() {
+      return this.rawDescriptionParts.shortcode;
+    },
     fieldDescription: function fieldDescription() {
       var pageDescriptions = {
         add_listing_page: "Where users submit a new listing.",
@@ -12771,7 +13037,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (pageDescriptions[this.fieldKey]) {
         return pageDescriptions[this.fieldKey];
       }
-      return this.field.description || "";
+      return this.rawDescriptionParts.text;
+    },
+    hasDescriptionDetails: function hasDescriptionDetails() {
+      return !!(this.fieldDescription || this.shortcodeText);
     }
   },
   mounted: function mounted() {
@@ -12779,8 +13048,27 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   beforeDestroy: function beforeDestroy() {
     document.removeEventListener("click", this.closeDropdown);
+    clearTimeout(this.copyTimer);
   },
   methods: {
+    parseDescriptionParts: function parseDescriptionParts(value) {
+      var description = {
+        text: "",
+        shortcode: ""
+      };
+      if (typeof value === "undefined" || value === null || value === "") {
+        return description;
+      }
+      var element = document.createElement("div");
+      element.innerHTML = String(value);
+      var shortcodeElement = element.querySelector(".atbdp_shortcodes");
+      if (shortcodeElement) {
+        description.shortcode = this.plainText(shortcodeElement.innerHTML || shortcodeElement.textContent || "");
+        shortcodeElement.remove();
+      }
+      description.text = (element.textContent || element.innerText || "").replace(/\s+/g, " ").trim();
+      return description;
+    },
     plainText: function plainText(value) {
       if (typeof value === "undefined" || value === null) {
         return "";
@@ -12788,6 +13076,49 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var element = document.createElement("div");
       element.innerHTML = String(value);
       return (element.textContent || element.innerText || "").trim();
+    },
+    copyShortcode: function copyShortcode() {
+      var _this2 = this;
+      if (!this.shortcodeText) {
+        return;
+      }
+      this.copyText(this.shortcodeText).then(function () {
+        _this2.copyState = "copied";
+        clearTimeout(_this2.copyTimer);
+        _this2.copyTimer = setTimeout(function () {
+          _this2.copyState = "";
+        }, 1400);
+      }).catch(function () {
+        _this2.copyState = "";
+      });
+    },
+    copyText: function copyText(value) {
+      var _this3 = this;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(value).catch(function () {
+          return _this3.copyTextFallback(value);
+        });
+      }
+      return this.copyTextFallback(value);
+    },
+    copyTextFallback: function copyTextFallback(value) {
+      return new Promise(function (resolve, reject) {
+        try {
+          var textarea = document.createElement("textarea");
+          textarea.value = value;
+          textarea.setAttribute("readonly", "readonly");
+          textarea.style.position = "fixed";
+          textarea.style.left = "-9999px";
+          textarea.style.top = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
     },
     toggleDropdown: function toggleDropdown() {
       this.isOpen = !this.isOpen;
@@ -14652,7 +14983,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return isListingsPageSettings && field === "prv_background_color";
     },
     shouldRenderCheckboxArrayAccordion: function shouldRenderCheckboxArrayAccordion(field) {
-      return ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact", "booking_type"].includes(field);
+      var staticAccordionFields = ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact", "booking_type"];
+      if (staticAccordionFields.includes(field)) {
+        return true;
+      }
+      return this.isExtensionSettingsContext() && this.isMultiOptionCheckboxField(field);
+    },
+    isExtensionSettingsContext: function isExtensionSettingsContext() {
+      var menuKey = String(this.menuKey || "");
+      var tabKey = String(this.tabKey || "");
+      return menuKey.indexOf("extension_settings") === 0 || menuKey.indexOf("extensions_settings") === 0 || tabKey.indexOf("extension_settings") === 0 || tabKey.indexOf("extensions_settings") === 0 || tabKey === "extensions_general";
+    },
+    isMultiOptionCheckboxField: function isMultiOptionCheckboxField(field) {
+      var fieldConfig = this.fields[field] || {};
+      return fieldConfig.type === "checkbox" && Array.isArray(fieldConfig.options) && fieldConfig.options.length > 1;
     },
     hiddenFieldsInSection: function hiddenFieldsInSection(section) {
       if (!section || !Array.isArray(section.hiddenFields)) {
@@ -14806,6 +15150,11 @@ __webpack_require__.r(__webpack_exports__);
     activeSearchIndex: {
       type: Number,
       default: 0
+    }
+  },
+  computed: {
+    trimmedSearchQuery: function trimmedSearchQuery() {
+      return this.searchQuery.trim();
     }
   },
   mounted: function mounted() {
@@ -28267,8 +28616,49 @@ var render = function render() {
       }
     })], 1)]) : _vm._e()], 1) : _vm._e()] : _vm._e(), _vm._v(" "), menu.submenu ? _c('div', {
       staticClass: "atbdp-tab-sub-contents"
-    }, [_c('nav', {
-      staticClass: "settings-panel-subnav"
+    }, [_c('div', {
+      staticClass: "settings-panel-subnav-shell",
+      class: _vm.subnavShellClasses(menu_key)
+    }, [_vm.subnavCanScrollLeft(menu_key) ? _c('button', {
+      staticClass: "settings-panel-subnav-scroll settings-panel-subnav-scroll--left",
+      attrs: {
+        "type": "button",
+        "aria-label": "Scroll settings tabs left"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.scrollSubnav(menu_key, -1);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "viewBox": "0 0 24 24",
+        "fill": "none",
+        "stroke": "currentColor",
+        "stroke-width": "2.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round",
+        "aria-hidden": "true"
+      }
+    }, [_c('polyline', {
+      attrs: {
+        "points": "15 18 9 12 15 6"
+      }
+    })])]) : _vm._e(), _vm._v(" "), _c('nav', {
+      ref: _vm.subnavRefName(menu_key),
+      refInFor: true,
+      staticClass: "settings-panel-subnav",
+      attrs: {
+        "aria-label": "Settings tabs"
+      },
+      on: {
+        "&scroll": function scroll($event) {
+          return _vm.handleSubnavScroll(menu_key);
+        },
+        "wheel": function wheel($event) {
+          return _vm.handleSubnavWheel($event, menu_key);
+        }
+      }
     }, _vm._l(menu.submenu, function (submenu, submenu_key) {
       return _c('a', {
         key: submenu_key,
@@ -28277,7 +28667,9 @@ var render = function render() {
           active: submenu.active
         },
         attrs: {
-          "href": "#"
+          "href": "#",
+          "aria-current": submenu.active ? 'page' : null,
+          "data-submenu-key": submenu_key
         },
         on: {
           "click": function click($event) {
@@ -28286,15 +28678,51 @@ var render = function render() {
               menu_key: menu_key,
               submenu_key: submenu_key
             });
-          }
+          },
+          "keydown": [function ($event) {
+            if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "left", 37, $event.key, ["Left", "ArrowLeft"])) return null;
+            if ('button' in $event && $event.button !== 0) return null;
+            $event.preventDefault();
+            return _vm.focusAdjacentSubnav(menu_key, submenu_key, -1);
+          }, function ($event) {
+            if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "right", 39, $event.key, ["Right", "ArrowRight"])) return null;
+            if ('button' in $event && $event.button !== 2) return null;
+            $event.preventDefault();
+            return _vm.focusAdjacentSubnav(menu_key, submenu_key, 1);
+          }]
         }
       }, [submenu.icon ? _c('span', {
         staticClass: "settings-panel-subnav__icon",
         domProps: {
           "innerHTML": _vm._s(submenu.icon)
         }
-      }) : _vm._e(), _vm._v("\n            " + _vm._s(submenu.label) + "\n          ")]);
-    }), 0), _vm._v(" "), _vm._l(menu.submenu, function (submenu, submenu_key) {
+      }) : _vm._e(), _vm._v("\n              " + _vm._s(submenu.label) + "\n            ")]);
+    }), 0), _vm._v(" "), _vm.subnavCanScrollRight(menu_key) ? _c('button', {
+      staticClass: "settings-panel-subnav-scroll settings-panel-subnav-scroll--right",
+      attrs: {
+        "type": "button",
+        "aria-label": "Scroll settings tabs right"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.scrollSubnav(menu_key, 1);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "viewBox": "0 0 24 24",
+        "fill": "none",
+        "stroke": "currentColor",
+        "stroke-width": "2.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round",
+        "aria-hidden": "true"
+      }
+    }, [_c('polyline', {
+      attrs: {
+        "points": "9 18 15 12 9 6"
+      }
+    })])]) : _vm._e()]), _vm._v(" "), _vm._l(menu.submenu, function (submenu, submenu_key) {
       return [submenu.active ? _c('div', {
         key: submenu_key,
         staticClass: "atbdp-tab-content-item",
@@ -29081,12 +29509,54 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.fieldLabel)
     }
-  }), _vm._v(" "), _vm.fieldDescription ? _c('p', {
-    staticClass: "cptm-page-setup-row__description",
-    domProps: {
-      "innerHTML": _vm._s(_vm.fieldDescription)
+  }), _vm._v(" "), _vm.hasDescriptionDetails ? _c('p', {
+    staticClass: "cptm-page-setup-row__description"
+  }, [_vm.fieldDescription ? _c('span', {
+    staticClass: "cptm-page-setup-row__description-text"
+  }, [_vm._v("\n        " + _vm._s(_vm.fieldDescription) + "\n      ")]) : _vm._e(), _vm._v(" "), _vm.shortcodeText ? _c('span', {
+    staticClass: "cptm-page-setup-row__shortcode-group"
+  }, [_c('code', {
+    staticClass: "cptm-page-setup-row__shortcode"
+  }, [_vm._v("\n          " + _vm._s(_vm.shortcodeText) + "\n        ")]), _vm._v(" "), _c('button', {
+    staticClass: "cptm-page-setup-row__copy",
+    attrs: {
+      "type": "button",
+      "aria-label": 'Copy shortcode ' + _vm.shortcodeText,
+      "title": _vm.copyState === 'copied' ? 'Copied' : 'Copy shortcode'
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+        return _vm.copyShortcode.apply(null, arguments);
+      }
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_c('svg', {
+    attrs: {
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "stroke-width": "2",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "aria-hidden": "true"
+    }
+  }, [_c('rect', {
+    attrs: {
+      "x": "9",
+      "y": "9",
+      "width": "13",
+      "height": "13",
+      "rx": "2",
+      "ry": "2"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+    }
+  })])]), _vm._v(" "), _vm.copyState === 'copied' ? _c('span', {
+    staticClass: "cptm-page-setup-row__copy-feedback"
+  }, [_vm._v("\n          Copied\n        ")]) : _vm._e()]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "cptm-page-setup-row__control"
   }, [_c('div', {
     staticClass: "directorist_dropdown",
@@ -30670,6 +31140,10 @@ var render = function render() {
     })], 2) : _vm._e()])]);
   }), 0)]) : _vm.searchQuery.length ? _c('div', {
     staticClass: "settings-command-palette settings-command-palette--empty",
+    attrs: {
+      "role": "status",
+      "aria-live": "polite"
+    },
     on: {
       "click": function click($event) {
         $event.stopPropagation();
@@ -30677,7 +31151,22 @@ var render = function render() {
     }
   }, [_c('div', {
     staticClass: "settings-command-palette__empty"
-  }, [_vm._v("No settings found.")])]) : _vm._e()]), _vm._v(" "), _c('ul', {
+  }, [_c('span', [_vm._v("No settings match ")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__empty-query",
+    attrs: {
+      "title": _vm.trimmedSearchQuery
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("\"")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__empty-query-value"
+  }, [_vm._v(_vm._s(_vm.trimmedSearchQuery))]), _vm._v(" "), _c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("\"")])]), _vm._v(" "), _c('span', [_vm._v(". Try a shorter word.")])])]) : _vm._e()]), _vm._v(" "), _c('ul', {
     staticClass: "settings-nav"
   }, _vm._l(_vm.menu, function (meue_item, menu_key) {
     return _c('li', {
@@ -30714,7 +31203,7 @@ var render = function render() {
     staticClass: "settings-sidebar-footer"
   }, [_c('a', {
     attrs: {
-      "href": "https://directorist.com/documentation/",
+      "href": "https://www.youtube.com/@wpdirectorist",
       "target": "_blank",
       "rel": "noopener"
     }
@@ -30745,7 +31234,7 @@ var render = function render() {
     staticClass: "settings-sidebar-footer__separator"
   }), _vm._v(" "), _c('a', {
     attrs: {
-      "href": "https://directorist.com/documentation/directorist/",
+      "href": "https://directorist.com/docs/",
       "target": "_blank",
       "rel": "noopener"
     }

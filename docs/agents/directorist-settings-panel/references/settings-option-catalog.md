@@ -45,7 +45,7 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 ### All Listings
 
 - `all_listing_layout`: archive/search listing layout mode.
-- `all_listing_columns`: grid column count for all listings.
+- `all_listing_columns`: grid column count for all listings. In the redesigned panel this renders as a normal select so quick settings search can edit it inline; the legacy PHP field remains `radio-images`.
 - `all_listing_page_items`: listing count per page.
 - `pagination_type`: pagination behavior.
 - `listing_hide_top_search_bar`: hides the top search bar on all listings.
@@ -296,6 +296,8 @@ Redesigned UI note (2026-06-08): `Monetization > Currency` shows a presentation-
 
 Bank Transfer is the built-in offline gateway in core Directorist settings. It is not extension-only. Other gateways may be extension-provided and can extend `active_gateways`, `default_gateway`, and related gateway settings through filters or extension code.
 
+Redesigned UI note (2026-06-10): payment gateway extension submenus registered through `atbdp_monetization_settings_submenu`, such as `Authorize.net Gateway` and `Paypal`, render under the existing `Monetization` sidebar menu as additional tabs after `Payment gateways`. They preserve the extension-provided labels, sections, fields, show-if behavior, and saved option keys. They must not be routed to `Needs Design` or generic `Extensions` simply because they are extension-owned.
+
 ## Personalization
 
 Purpose: visual branding colors for Directorist frontend/admin output controlled by settings.
@@ -323,7 +325,7 @@ Current redesign behavior (2026-06-08): the core `Extensions` menu renders `exte
 
 Current redesign behavior (2026-06-09): runtime extension settings registered through `atbdp_extension_settings_submenu` now render under the redesigned `Extensions` menu using the extension-provided submenu label, for example `Booking`, `Pricing Plans`, or `Social Login` when those extensions are active. The redesign preserves each extension's existing section/field definitions and save keys. These extension-owned fields should not be routed to `Needs Design` simply because they are not core mockup fields. The canonical core layout key is `extension_settings`; `extensions_settings` remains only as a compatibility hash alias.
 
-Hook-routing rule (2026-06-09): extension-owned settings should follow the hook/source layout that registered them. Settings registered through `atbdp_extension_settings_submenu` belong under `Extensions`; settings registered by extensions through `atbdp_pages_settings_fields` belong under `Site & pages > Pages`; settings registered through `atbdp_email_templates_settings_sections` belong under `Notifications > Events & Templates`. Do not classify extension-owned fields as `Needs Design` when their source hook maps to an existing redesigned tab.
+Hook-routing rule (2026-06-10): extension-owned settings should follow the hook/source layout that registered them. Settings registered through `atbdp_extension_settings_submenu` belong under `Extensions`; payment gateway extension settings registered through `atbdp_monetization_settings_submenu` belong under `Monetization`; settings registered by extensions through `atbdp_pages_settings_fields` belong under `Site & pages > Pages`; settings registered through `atbdp_email_templates_settings_sections` belong under `Notifications > Events & Templates`. Do not classify extension-owned fields as `Needs Design` when their source hook maps to an existing redesigned tab.
 
 Extension-specific design rule: do not assume settings for Directorist extensions are present from core alone. If a design targets an extension, identify the exact extension, install/activate only after user approval, inspect its filters/settings/layouts, then document any confirmed extension-provided options under an extension-specific heading.
 

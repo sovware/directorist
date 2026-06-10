@@ -598,7 +598,7 @@ export default {
     },
 
     shouldRenderCheckboxArrayAccordion(field) {
-      return [
+      const staticAccordionFields = [
         "listings_view_as_items",
         "listings_sort_by_items",
         "search_view_as_items",
@@ -606,7 +606,39 @@ export default {
         "search_filters",
         "all_authors_contact",
         "booking_type",
-      ].includes(field);
+      ];
+
+      if (staticAccordionFields.includes(field)) {
+        return true;
+      }
+
+      return (
+        this.isExtensionSettingsContext() &&
+        this.isMultiOptionCheckboxField(field)
+      );
+    },
+
+    isExtensionSettingsContext() {
+      const menuKey = String(this.menuKey || "");
+      const tabKey = String(this.tabKey || "");
+
+      return (
+        menuKey.indexOf("extension_settings") === 0 ||
+        menuKey.indexOf("extensions_settings") === 0 ||
+        tabKey.indexOf("extension_settings") === 0 ||
+        tabKey.indexOf("extensions_settings") === 0 ||
+        tabKey === "extensions_general"
+      );
+    },
+
+    isMultiOptionCheckboxField(field) {
+      const fieldConfig = this.fields[field] || {};
+
+      return (
+        fieldConfig.type === "checkbox" &&
+        Array.isArray(fieldConfig.options) &&
+        fieldConfig.options.length > 1
+      );
     },
 
     hiddenFieldsInSection(section) {

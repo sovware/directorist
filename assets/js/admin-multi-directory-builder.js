@@ -10393,7 +10393,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   data: function data() {
     return {
-      isOpen: false
+      isOpen: false,
+      copyState: "",
+      copyTimer: null
     };
   },
   computed: {
@@ -10421,6 +10423,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       });
       return currentOption ? this.plainText(currentOption.label) : "Select page";
     },
+    rawDescriptionParts: function rawDescriptionParts() {
+      return this.parseDescriptionParts(this.field.description || "");
+    },
+    shortcodeText: function shortcodeText() {
+      return this.rawDescriptionParts.shortcode;
+    },
     fieldDescription: function fieldDescription() {
       var pageDescriptions = {
         add_listing_page: "Where users submit a new listing.",
@@ -10444,7 +10452,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (pageDescriptions[this.fieldKey]) {
         return pageDescriptions[this.fieldKey];
       }
-      return this.field.description || "";
+      return this.rawDescriptionParts.text;
+    },
+    hasDescriptionDetails: function hasDescriptionDetails() {
+      return !!(this.fieldDescription || this.shortcodeText);
     }
   },
   mounted: function mounted() {
@@ -10452,8 +10463,27 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   beforeDestroy: function beforeDestroy() {
     document.removeEventListener("click", this.closeDropdown);
+    clearTimeout(this.copyTimer);
   },
   methods: {
+    parseDescriptionParts: function parseDescriptionParts(value) {
+      var description = {
+        text: "",
+        shortcode: ""
+      };
+      if (typeof value === "undefined" || value === null || value === "") {
+        return description;
+      }
+      var element = document.createElement("div");
+      element.innerHTML = String(value);
+      var shortcodeElement = element.querySelector(".atbdp_shortcodes");
+      if (shortcodeElement) {
+        description.shortcode = this.plainText(shortcodeElement.innerHTML || shortcodeElement.textContent || "");
+        shortcodeElement.remove();
+      }
+      description.text = (element.textContent || element.innerText || "").replace(/\s+/g, " ").trim();
+      return description;
+    },
     plainText: function plainText(value) {
       if (typeof value === "undefined" || value === null) {
         return "";
@@ -10461,6 +10491,49 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var element = document.createElement("div");
       element.innerHTML = String(value);
       return (element.textContent || element.innerText || "").trim();
+    },
+    copyShortcode: function copyShortcode() {
+      var _this2 = this;
+      if (!this.shortcodeText) {
+        return;
+      }
+      this.copyText(this.shortcodeText).then(function () {
+        _this2.copyState = "copied";
+        clearTimeout(_this2.copyTimer);
+        _this2.copyTimer = setTimeout(function () {
+          _this2.copyState = "";
+        }, 1400);
+      }).catch(function () {
+        _this2.copyState = "";
+      });
+    },
+    copyText: function copyText(value) {
+      var _this3 = this;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(value).catch(function () {
+          return _this3.copyTextFallback(value);
+        });
+      }
+      return this.copyTextFallback(value);
+    },
+    copyTextFallback: function copyTextFallback(value) {
+      return new Promise(function (resolve, reject) {
+        try {
+          var textarea = document.createElement("textarea");
+          textarea.value = value;
+          textarea.setAttribute("readonly", "readonly");
+          textarea.style.position = "fixed";
+          textarea.style.left = "-9999px";
+          textarea.style.top = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
     },
     toggleDropdown: function toggleDropdown() {
       this.isOpen = !this.isOpen;
@@ -12325,7 +12398,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return isListingsPageSettings && field === "prv_background_color";
     },
     shouldRenderCheckboxArrayAccordion: function shouldRenderCheckboxArrayAccordion(field) {
-      return ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact", "booking_type"].includes(field);
+      var staticAccordionFields = ["listings_view_as_items", "listings_sort_by_items", "search_view_as_items", "search_sort_by_items", "search_filters", "all_authors_contact", "booking_type"];
+      if (staticAccordionFields.includes(field)) {
+        return true;
+      }
+      return this.isExtensionSettingsContext() && this.isMultiOptionCheckboxField(field);
+    },
+    isExtensionSettingsContext: function isExtensionSettingsContext() {
+      var menuKey = String(this.menuKey || "");
+      var tabKey = String(this.tabKey || "");
+      return menuKey.indexOf("extension_settings") === 0 || menuKey.indexOf("extensions_settings") === 0 || tabKey.indexOf("extension_settings") === 0 || tabKey.indexOf("extensions_settings") === 0 || tabKey === "extensions_general";
+    },
+    isMultiOptionCheckboxField: function isMultiOptionCheckboxField(field) {
+      var fieldConfig = this.fields[field] || {};
+      return fieldConfig.type === "checkbox" && Array.isArray(fieldConfig.options) && fieldConfig.options.length > 1;
     },
     hiddenFieldsInSection: function hiddenFieldsInSection(section) {
       if (!section || !Array.isArray(section.hiddenFields)) {
@@ -12479,6 +12565,11 @@ __webpack_require__.r(__webpack_exports__);
     activeSearchIndex: {
       type: Number,
       default: 0
+    }
+  },
+  computed: {
+    trimmedSearchQuery: function trimmedSearchQuery() {
+      return this.searchQuery.trim();
     }
   },
   mounted: function mounted() {
@@ -26559,12 +26650,54 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.fieldLabel)
     }
-  }), _vm._v(" "), _vm.fieldDescription ? _c('p', {
-    staticClass: "cptm-page-setup-row__description",
-    domProps: {
-      "innerHTML": _vm._s(_vm.fieldDescription)
+  }), _vm._v(" "), _vm.hasDescriptionDetails ? _c('p', {
+    staticClass: "cptm-page-setup-row__description"
+  }, [_vm.fieldDescription ? _c('span', {
+    staticClass: "cptm-page-setup-row__description-text"
+  }, [_vm._v("\n        " + _vm._s(_vm.fieldDescription) + "\n      ")]) : _vm._e(), _vm._v(" "), _vm.shortcodeText ? _c('span', {
+    staticClass: "cptm-page-setup-row__shortcode-group"
+  }, [_c('code', {
+    staticClass: "cptm-page-setup-row__shortcode"
+  }, [_vm._v("\n          " + _vm._s(_vm.shortcodeText) + "\n        ")]), _vm._v(" "), _c('button', {
+    staticClass: "cptm-page-setup-row__copy",
+    attrs: {
+      "type": "button",
+      "aria-label": 'Copy shortcode ' + _vm.shortcodeText,
+      "title": _vm.copyState === 'copied' ? 'Copied' : 'Copy shortcode'
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+        return _vm.copyShortcode.apply(null, arguments);
+      }
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_c('svg', {
+    attrs: {
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "stroke-width": "2",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "aria-hidden": "true"
+    }
+  }, [_c('rect', {
+    attrs: {
+      "x": "9",
+      "y": "9",
+      "width": "13",
+      "height": "13",
+      "rx": "2",
+      "ry": "2"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+    }
+  })])]), _vm._v(" "), _vm.copyState === 'copied' ? _c('span', {
+    staticClass: "cptm-page-setup-row__copy-feedback"
+  }, [_vm._v("\n          Copied\n        ")]) : _vm._e()]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "cptm-page-setup-row__control"
   }, [_c('div', {
     staticClass: "directorist_dropdown",
@@ -28148,6 +28281,10 @@ var render = function render() {
     })], 2) : _vm._e()])]);
   }), 0)]) : _vm.searchQuery.length ? _c('div', {
     staticClass: "settings-command-palette settings-command-palette--empty",
+    attrs: {
+      "role": "status",
+      "aria-live": "polite"
+    },
     on: {
       "click": function click($event) {
         $event.stopPropagation();
@@ -28155,7 +28292,22 @@ var render = function render() {
     }
   }, [_c('div', {
     staticClass: "settings-command-palette__empty"
-  }, [_vm._v("No settings found.")])]) : _vm._e()]), _vm._v(" "), _c('ul', {
+  }, [_c('span', [_vm._v("No settings match ")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__empty-query",
+    attrs: {
+      "title": _vm.trimmedSearchQuery
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("\"")]), _vm._v(" "), _c('span', {
+    staticClass: "settings-command-palette__empty-query-value"
+  }, [_vm._v(_vm._s(_vm.trimmedSearchQuery))]), _vm._v(" "), _c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("\"")])]), _vm._v(" "), _c('span', [_vm._v(". Try a shorter word.")])])]) : _vm._e()]), _vm._v(" "), _c('ul', {
     staticClass: "settings-nav"
   }, _vm._l(_vm.menu, function (meue_item, menu_key) {
     return _c('li', {
@@ -28192,7 +28344,7 @@ var render = function render() {
     staticClass: "settings-sidebar-footer"
   }, [_c('a', {
     attrs: {
-      "href": "https://directorist.com/documentation/",
+      "href": "https://www.youtube.com/@wpdirectorist",
       "target": "_blank",
       "rel": "noopener"
     }
@@ -28223,7 +28375,7 @@ var render = function render() {
     staticClass: "settings-sidebar-footer__separator"
   }), _vm._v(" "), _c('a', {
     attrs: {
-      "href": "https://directorist.com/documentation/directorist/",
+      "href": "https://directorist.com/docs/",
       "target": "_blank",
       "rel": "noopener"
     }

@@ -1160,7 +1160,25 @@ export default {
         },
 
         isCheckboxArrayAccordionField( field_key ) {
-            return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes( field_key );
+            return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes( field_key ) ||
+                this.isDynamicExtensionCheckboxArrayField( field_key );
+        },
+
+        isDynamicExtensionCheckboxArrayField( field_key ) {
+            const field = this.fields[ field_key ] || {};
+            const cachedField = this.cached_fields[ field_key ] || {};
+            const layoutPath = cachedField.layout_path || [];
+            const layoutPathText = Array.isArray( layoutPath )
+                ? layoutPath.join( '__' )
+                : String( layoutPath || '' );
+            const isExtensionField =
+                layoutPathText.indexOf( 'extension_settings' ) > -1 ||
+                layoutPathText.indexOf( 'extensions_settings' ) > -1;
+
+            return isExtensionField &&
+                field.type === 'checkbox' &&
+                Array.isArray( field.options ) &&
+                field.options.length > 1;
         },
 
         normalizeCheckboxArrayValue( value ) {

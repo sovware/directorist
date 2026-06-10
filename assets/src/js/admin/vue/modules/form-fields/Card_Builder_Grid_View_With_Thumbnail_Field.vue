@@ -20,7 +20,9 @@
                       local_layout.thumbnail.top_left.acceptedWidgets
                     "
                     :selectedWidgets="
-                      local_layout.thumbnail.top_left.selectedWidgets
+                      getFilteredSelectedWidgets(
+                        local_layout.thumbnail.top_left.selectedWidgets,
+                      )
                     "
                     :maxWidget="local_layout.thumbnail.top_left.maxWidget"
                     :showWidgetsPickerWindow="
@@ -73,7 +75,9 @@
                       local_layout.thumbnail.top_right.acceptedWidgets
                     "
                     :selectedWidgets="
-                      local_layout.thumbnail.top_right.selectedWidgets
+                      getFilteredSelectedWidgets(
+                        local_layout.thumbnail.top_right.selectedWidgets,
+                      )
                     "
                     :maxWidget="local_layout.thumbnail.top_right.maxWidget"
                     :showWidgetsPickerWindow="
@@ -122,7 +126,9 @@
                       local_layout.thumbnail.bottom_left.acceptedWidgets
                     "
                     :selectedWidgets="
-                      local_layout.thumbnail.bottom_left.selectedWidgets
+                      getFilteredSelectedWidgets(
+                        local_layout.thumbnail.bottom_left.selectedWidgets,
+                      )
                     "
                     :maxWidget="local_layout.thumbnail.bottom_left.maxWidget"
                     :showWidgetsPickerWindow="
@@ -171,7 +177,9 @@
                       local_layout.thumbnail.bottom_right.acceptedWidgets
                     "
                     :selectedWidgets="
-                      local_layout.thumbnail.bottom_right.selectedWidgets
+                      getFilteredSelectedWidgets(
+                        local_layout.thumbnail.bottom_right.selectedWidgets,
+                      )
                     "
                     :maxWidget="local_layout.thumbnail.bottom_right.maxWidget"
                     :showWidgetsPickerWindow="
@@ -242,16 +250,24 @@
             <div class="cptm-listing-card-author-avatar">
               <card-widget-placeholder
                 id="thumbnail_avatar"
+                :canOpenAvatarSettings="true"
                 :containerClass="getAvatarPlaceholderClass"
                 :label="local_layout.thumbnail.avatar.label"
                 :enable_widget="local_layout.thumbnail.avatar.enable_widget"
                 :availableWidgets="theAvailableWidgets"
                 :activeWidgets="active_widgets"
                 :acceptedWidgets="local_layout.thumbnail.avatar.acceptedWidgets"
-                :selectedWidgets="local_layout.thumbnail.avatar.selectedWidgets"
+                :selectedWidgets="
+                  getFilteredSelectedWidgets(
+                    local_layout.thumbnail.avatar.selectedWidgets,
+                  )
+                "
                 :maxWidget="local_layout.thumbnail.avatar.maxWidget"
                 :showWidgetsPickerWindow="
                   getActiveInsertWindowStatus('thumbnail_avatar')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('thumbnail_avatar')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
                 @insert-widget="
@@ -288,7 +304,11 @@
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.body.top.acceptedWidgets"
-              :selectedWidgets="local_layout.body.top.selectedWidgets"
+              :selectedWidgets="
+                getFilteredSelectedWidgets(
+                  local_layout.body.top.selectedWidgets,
+                )
+              "
               :maxWidget="local_layout.body.top.maxWidget"
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_body_top')
@@ -327,7 +347,11 @@
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
-              :selectedWidgets="local_layout.body.bottom.selectedWidgets"
+              :selectedWidgets="
+                getFilteredSelectedWidgets(
+                  local_layout.body.bottom.selectedWidgets,
+                )
+              "
               :maxWidget="local_layout.body.bottom.maxWidget"
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_body_bottom')
@@ -363,7 +387,11 @@
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.body.excerpt.acceptedWidgets"
-              :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
+              :selectedWidgets="
+                getFilteredSelectedWidgets(
+                  local_layout.body.excerpt.selectedWidgets,
+                )
+              "
               :maxWidget="local_layout.body.excerpt.maxWidget"
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_body_excerpt')
@@ -446,7 +474,11 @@
                 :availableWidgets="theAvailableWidgets"
                 :activeWidgets="active_widgets"
                 :acceptedWidgets="local_layout.footer.left.acceptedWidgets"
-                :selectedWidgets="local_layout.footer.left.selectedWidgets"
+                :selectedWidgets="
+                  getFilteredSelectedWidgets(
+                    local_layout.footer.left.selectedWidgets,
+                  )
+                "
                 :maxWidget="local_layout.footer.left.maxWidget"
                 :showWidgetsPickerWindow="
                   getActiveInsertWindowStatus('thumbnail_footer_left')
@@ -488,7 +520,11 @@
                 :availableWidgets="theAvailableWidgets"
                 :activeWidgets="active_widgets"
                 :acceptedWidgets="local_layout.footer.right.acceptedWidgets"
-                :selectedWidgets="local_layout.footer.right.selectedWidgets"
+                :selectedWidgets="
+                  getFilteredSelectedWidgets(
+                    local_layout.footer.right.selectedWidgets,
+                  )
+                "
                 :maxWidget="local_layout.footer.right.maxWidget"
                 :showWidgetsPickerWindow="
                   getActiveInsertWindowStatus('thumbnail_footer_right')
@@ -599,8 +635,35 @@ export default {
           ];
 
           for (let widget_name of uniqueWidgets) {
+            // Check if widget is available
+            if (!this.available_widgets[widget_name]) {
+              continue;
+            }
+
+            // Check if widget is already active
             if (
-              !this.active_widgets[widget_name] &&
+              !this.active_widgets[widget_name] ||
+              this.active_widgets[widget_name] === null ||
+              typeof this.active_widgets[widget_name] !== "object"
+            ) {
+              // Get widget from theAvailableWidgets to ensure widget_key and widget_name are set
+              const widgetFromAvailable = this.theAvailableWidgets[widget_name];
+              if (widgetFromAvailable) {
+                this.active_widgets[widget_name] = {
+                  ...widgetFromAvailable,
+                  widget_name: widget_name,
+                  widget_key: widget_name,
+                };
+              } else {
+                // Widget not available, skip it
+                continue;
+              }
+            }
+
+            // Check if active_widgets[widget_name] is null or invalid
+            if (
+              !this.active_widgets[widget_name] ||
+              this.active_widgets[widget_name] === null ||
               typeof this.active_widgets[widget_name] !== "object"
             ) {
               continue;
@@ -616,7 +679,10 @@ export default {
                 this.active_widgets[widget_name][root_option];
             }
 
-            if (typeof this.active_widgets[widget_name].options !== "object") {
+            if (
+              !this.active_widgets[widget_name].options ||
+              typeof this.active_widgets[widget_name].options !== "object"
+            ) {
               output[section][section_area].push(widget_data);
               continue;
             }
@@ -691,6 +757,8 @@ export default {
           }
         }
       }
+
+      Vue.set(this, "available_widgets", available_widgets);
 
       return available_widgets;
     },
@@ -881,7 +949,9 @@ export default {
       if (!this.isTruthyObject(value)) {
         return;
       }
+
       let selectedWidgets = [];
+      const areasWithValue = new Set();
 
       // Get Active Widgets Data
       let active_widgets_data = {};
@@ -891,6 +961,8 @@ export default {
         }
 
         for (let area in value[section]) {
+          const areaKey = `${section}.${area}`;
+          areasWithValue.add(areaKey);
           if (
             !value[section][area] &&
             typeof value[section][area] !== "object"
@@ -929,6 +1001,7 @@ export default {
 
       // Load Active Widgets
       for (let widget_key in active_widgets_data) {
+        // Validate widget exists in theAvailableWidgets (computed property)
         if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
@@ -967,26 +1040,52 @@ export default {
           }
         }
 
+        // Ensure widget_key and widget_name are set
+        widgets_template.widget_key = widget_key;
+        widgets_template.widget_name =
+          active_widgets_data[widget_key].widget_name || widget_key;
+
         Vue.set(this.active_widgets, widget_key, widgets_template);
         Vue.set(this.available_widgets, widget_key, widgets_template);
       }
 
-      // Load Selected Widgets Data
+      // Load Selected Widgets Data - Group by section/area first
+      let widgetsByArea = {};
       for (let item of selectedWidgets) {
-        const currentWidgets =
-          this.local_layout[item.section][item.area].selectedWidgets;
-
-        // Check if widget already exists to prevent duplicates
-        if (!currentWidgets.includes(item.widget)) {
-          // If it's listing_title, add as first item
-          if (item.widget === "listing_title") {
-            currentWidgets.unshift(item.widget);
-          } else {
-            // For other widgets, add to the end
-            currentWidgets.push(item.widget);
-          }
+        const key = `${item.section}.${item.area}`;
+        if (!widgetsByArea[key]) {
+          widgetsByArea[key] = {
+            section: item.section,
+            area: item.area,
+            widgets: [],
+          };
+        }
+        // Only add if widget exists in theAvailableWidgets and not already added
+        if (
+          typeof this.theAvailableWidgets[item.widget] !== "undefined" &&
+          !widgetsByArea[key].widgets.includes(item.widget)
+        ) {
+          widgetsByArea[key].widgets.push(item.widget);
         }
       }
+
+      // Now set selectedWidgets for each area that was present in the saved value
+      areasWithValue.forEach((key) => {
+        const [section, area] = key.split(".");
+        const widgets = widgetsByArea[key]?.widgets || [];
+
+        // Separate listing_title from other widgets
+        const listingTitleWidgets = widgets.filter(
+          (w) => w === "listing_title",
+        );
+        const otherWidgets = widgets.filter((w) => w !== "listing_title");
+
+        // Replace the array with imported widgets (listing_title first)
+        this.local_layout[section][area].selectedWidgets = [
+          ...listingTitleWidgets,
+          ...otherWidgets,
+        ];
+      });
     },
 
     // Import Widgets
@@ -1136,8 +1235,12 @@ export default {
         return;
       }
 
+      // Get widget from theAvailableWidgets and ensure widget_key and widget_name are set
+      const widgetFromAvailable = this.theAvailableWidgets[payload.key];
       Vue.set(this.active_widgets, payload.key, {
-        ...this.theAvailableWidgets[payload.key],
+        ...widgetFromAvailable,
+        widget_key: payload.key,
+        widget_name: widgetFromAvailable.widget_name || payload.key,
       });
 
       // If payload.key is listing_title, insert as first item
@@ -1221,6 +1324,12 @@ export default {
      * For user_avatar widget, increments reactive trigger to force getAvatarPlaceholderClass recalculation
      */
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
+      // Ensure widget_key and widget_name are set
+      updatedWidget.widget_key = widgetKey;
+      if (!updatedWidget.widget_name) {
+        updatedWidget.widget_name = widgetKey;
+      }
+
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
 
@@ -1235,6 +1344,26 @@ export default {
       // Always activate the widget options
       this.$set(this.widgetOptionsWindow, "widget", widgetKey);
       this.active_option_widget_key = widgetKey;
+    },
+
+    /**
+     * Get Filtered Selected Widgets
+     * Filters selectedWidgets to only include widgets that exist in theAvailableWidgets
+     * @param {Array} selectedWidgets - Array of widget keys
+     * @returns {Array} Filtered array of widget keys that are available
+     */
+    getFilteredSelectedWidgets(selectedWidgets) {
+      if (!Array.isArray(selectedWidgets)) {
+        return [];
+      }
+
+      // Filter to only include widgets that exist in theAvailableWidgets
+      return selectedWidgets.filter((widgetKey) => {
+        return (
+          typeof this.theAvailableWidgets[widgetKey] !== "undefined" &&
+          this.theAvailableWidgets[widgetKey] !== null
+        );
+      });
     },
   },
 };

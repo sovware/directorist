@@ -1,7 +1,10 @@
 <template>
   <div class="cptm-tab-content" :class="containerClass">
     <div
-      v-if="sectionShouldRender(section, section_key)"
+      v-if="
+        sectionShouldRender(section, section_key) &&
+        !shouldSkipSection(section, section_key)
+      "
       class="cptm-section"
       :class="sectionClass(section)"
       v-for="(section, section_key) in sections"
@@ -807,6 +810,24 @@ export default {
         condition: showIf,
         root: this.fields,
       }).status;
+    },
+
+    // Skip specific sections that are rendered elsewhere (e.g. preview_mode in form builder)
+    shouldSkipSection(section, section_key) {
+      if (!section || !Array.isArray(section.fields)) {
+        return false;
+      }
+
+      // Skip the form_options section whose first field is preview_mode,
+      // because preview_mode is rendered inside the form-builder content instead.
+      if (
+        section_key === "form_options" &&
+        section.fields[0] === "preview_mode"
+      ) {
+        return true;
+      }
+
+      return false;
     },
   },
 };

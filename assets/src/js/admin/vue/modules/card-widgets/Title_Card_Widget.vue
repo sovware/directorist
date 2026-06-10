@@ -16,7 +16,7 @@
 
     <div class="cptm-widget-card-options-area" v-if="hasOptions">
       <div
-        v-for="(field, field_key) in localOptions.fields"
+        v-for="(field, field_key) in visibleOptionFields"
         :key="field_key"
         class="cptm-field-item"
       >
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "title-card-widget",
 
@@ -77,11 +79,30 @@ export default {
   },
 
   computed: {
+    ...mapState(["fields"]),
+
     hasOptions() {
-      const { fields } = this.localOptions;
       return (
-        fields && typeof fields === "object" && Object.keys(fields).length > 0
+        this.visibleOptionFields &&
+        Object.keys(this.visibleOptionFields).length > 0
       );
+    },
+
+    visibleOptionFields() {
+      const fields = this.localOptions?.fields;
+
+      if (!fields || typeof fields !== "object") {
+        return {};
+      }
+
+      return Object.keys(fields).reduce((visibleFields, fieldKey) => {
+        if (!this.canShowOptionField(fieldKey)) {
+          return visibleFields;
+        }
+
+        visibleFields[fieldKey] = fields[fieldKey];
+        return visibleFields;
+      }, {});
     },
 
     currentActiveWidget() {
@@ -106,6 +127,24 @@ export default {
   },
 
   methods: {
+    canShowOptionField(fieldKey) {
+      if (fieldKey !== "show_tagline") {
+        return true;
+      }
+
+      return this.hasSubmissionFormField("tagline");
+    },
+
+    hasSubmissionFormField(fieldKey) {
+      const submissionFormFields = this.fields?.submission_form_fields;
+      const activeFields =
+        submissionFormFields?.value?.fields ||
+        submissionFormFields?.fields ||
+        {};
+
+      return Object.prototype.hasOwnProperty.call(activeFields, fieldKey);
+    },
+
     updateFieldData(value, field_key) {
       const currentFields = this.currentWidgetFields;
 

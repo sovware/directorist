@@ -12,7 +12,7 @@
                 class="cptm-modal-action-link"
                 @click.prevent="cancel()"
               >
-                <span class="fa fa-times"></span>
+                <span class="las la-times"></span>
               </a>
             </div>
           </div>

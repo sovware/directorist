@@ -4516,6 +4516,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var lon = $(this).data('lon');
       zipcode_search.find('.zip-cityLat').val(lat);
       zipcode_search.find('.zip-cityLng').val(lon);
+      zipcode_search.trigger('change');
       $('.directorist-country').hide();
     });
     $('.address_result').hide();
@@ -5009,12 +5010,14 @@ document.addEventListener('DOMContentLoaded', function () {
             zipcode_search.find('.error_message').remove();
             zipcode_search.find('.zip-cityLat').val(data.lat);
             zipcode_search.find('.zip-cityLng').val(data.lng);
+            zipcode_search.trigger('change');
           } else {
             if (data.length === 1) {
               var lat = data[0].lat;
               var lon = data[0].lon;
               zipcode_search.find('.zip-cityLat').val(lat);
               zipcode_search.find('.zip-cityLng').val(lon);
+              zipcode_search.trigger('change');
             } else {
               for (var i = 0; i < data.length; i++) {
                 var country = data[i] && data[i].address && data[i].address.country ? data[i].address.country : '';

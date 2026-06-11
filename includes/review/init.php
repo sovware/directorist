@@ -111,6 +111,8 @@ class Bootstrap {
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $comment_post_id = ! empty( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0;
 
+            $error_message = __( 'Sorry, something went wrong, please try again.', 'directorist' );
+
             if ( $code === 'require_valid_comment' && directorist_is_listing_post_type( $comment_post_id ) ) {
 				if ( ! empty( $_POST['comment_parent'] ) ) { // @codingStandardsIgnoreLine.
                     $error_message = __( 'To submit your reply, please add your comment.', 'directorist' );

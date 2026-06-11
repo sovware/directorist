@@ -50,6 +50,24 @@ function joinQueryString(url, queryString) {
 	return url.match(/[?]/) ? `${url}&${queryString}` : `${url}?${queryString}`;
 }
 
+function normalizeRedirectUrl(url) {
+	if (!url || typeof url !== 'string') {
+		return '';
+	}
+
+	try {
+		const decodedUrl = decodeURIComponent(url);
+
+		if (/^https?:\/\//i.test(decodedUrl) || decodedUrl.startsWith('/')) {
+			return decodedUrl;
+		}
+	} catch (error) {
+		// Keep the original value when it is not URI-encoded.
+	}
+
+	return url;
+}
+
 function scrollTo(selector) {
 	document.querySelector(selector)?.scrollIntoView({
 		block: 'start',
@@ -850,10 +868,14 @@ $(function () {
 						);
 				},
 				success: function success(response) {
-					var redirect_url =
+					var redirect_url = normalizeRedirectUrl(
 						response && response.redirect_url
-							? encodeURIComponent(response.redirect_url)
-							: '';
+							? response.redirect_url
+							: ''
+					);
+					var encoded_redirect_url = redirect_url
+						? encodeURIComponent(redirect_url)
+						: '';
 					if (
 						(response === null || response === void 0
 							? void 0
@@ -923,7 +945,9 @@ $(function () {
 									);
 								window.location.href = joinQueryString(
 									response.preview_url,
-									'preview=1&redirect='.concat(redirect_url)
+									'preview=1&redirect='.concat(
+										encoded_redirect_url
+									)
 								);
 							} else {
 								$notification
@@ -948,7 +972,7 @@ $(function () {
 									window.location.href = joinQueryString(
 										response.preview_url,
 										'preview=1&edited=1&redirect='.concat(
-											redirect_url
+											encoded_redirect_url
 										)
 									);
 								}
@@ -961,7 +985,7 @@ $(function () {
 							window.location.href = joinQueryString(
 								response.preview_url,
 								'preview=1&payment=1&redirect='.concat(
-									redirect_url
+									encoded_redirect_url
 								)
 							);
 						} else {

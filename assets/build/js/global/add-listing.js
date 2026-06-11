@@ -3339,6 +3339,20 @@ function scrollToEl(selector) {
 function joinQueryString(url, queryString) {
   return url.match(/[?]/) ? "".concat(url, "&").concat(queryString) : "".concat(url, "?").concat(queryString);
 }
+function normalizeRedirectUrl(url) {
+  if (!url || typeof url !== 'string') {
+    return '';
+  }
+  try {
+    var decodedUrl = decodeURIComponent(url);
+    if (/^https?:\/\//i.test(decodedUrl) || decodedUrl.startsWith('/')) {
+      return decodedUrl;
+    }
+  } catch (error) {
+    // Keep the original value when it is not URI-encoded.
+  }
+  return url;
+}
 function scrollTo(selector) {
   var _document$querySelect;
   (_document$querySelect = document.querySelector(selector)) === null || _document$querySelect === void 0 || _document$querySelect.scrollIntoView({
@@ -3983,7 +3997,8 @@ $(function () {
           $notification.show().html('<span class="atbdp_success">'.concat(localized_data.i18n_text.submission_wait_msg, '</span>'));
         },
         success: function success(response) {
-          var redirect_url = response && response.redirect_url ? encodeURIComponent(response.redirect_url) : '';
+          var redirect_url = normalizeRedirectUrl(response && response.redirect_url ? response.redirect_url : '');
+          var encoded_redirect_url = redirect_url ? encodeURIComponent(redirect_url) : '';
           if ((response === null || response === void 0 ? void 0 : response.nonce_expired) === true) {
             updateLocalNonce();
           }
@@ -4016,18 +4031,18 @@ $(function () {
             if (response.preview_mode === true && response.need_payment !== true) {
               if (response.edited_listing !== true) {
                 $notification.show().html('<span class="atbdp_success">'.concat(response.success_msg, '</span>'));
-                window.location.href = joinQueryString(response.preview_url, 'preview=1&redirect='.concat(redirect_url));
+                window.location.href = joinQueryString(response.preview_url, 'preview=1&redirect='.concat(encoded_redirect_url));
               } else {
                 $notification.show().html('<span class="atbdp_success">'.concat(response.success_msg, '</span>'));
                 if (qs.redirect) {
                   window.location.href = joinQueryString(response.preview_url, 'post_id='.concat(response.id, '&preview=1&payment=1&edited=1&redirect=').concat(qs.redirect));
                 } else {
-                  window.location.href = joinQueryString(response.preview_url, 'preview=1&edited=1&redirect='.concat(redirect_url));
+                  window.location.href = joinQueryString(response.preview_url, 'preview=1&edited=1&redirect='.concat(encoded_redirect_url));
                 }
               }
               // preview mode active and need payment
             } else if (response.preview_mode === true && response.need_payment === true) {
-              window.location.href = joinQueryString(response.preview_url, 'preview=1&payment=1&redirect='.concat(redirect_url));
+              window.location.href = joinQueryString(response.preview_url, 'preview=1&payment=1&redirect='.concat(encoded_redirect_url));
             } else {
               var is_edited = response.edited_listing ? 'listing_id='.concat(response.id, '&edited=1') : '';
               if (response.need_payment === true) {

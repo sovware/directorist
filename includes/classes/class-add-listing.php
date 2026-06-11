@@ -487,8 +487,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     $data['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
                 }
 
-                $data['redirect_url'] = urlencode( $data['redirect_url'] );
-
                 $data = apply_filters( 'directorist_ajax_listing_submission_response', $data, $_REQUEST );
 
                 do_action( 'directorist_ajax_after_request_handling', [ 'params' => $posted_data, 'request' => $_REQUEST, 'response' => $data ] );

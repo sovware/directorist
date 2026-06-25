@@ -116,7 +116,7 @@ window.IconPicker = function (args) {
                     class="cptm-form-control"
                     value="${safeDisplayValue}" style="${safeDisplayValue ? 'padding-left: 38px' : ''}"
                     />
-                    <span class="icon-picker-selector__icon__reset"><span class="fas fa-times"></span
+                    <span class="icon-picker-selector__icon__reset"><span class="las la-times"></span
                     ></span>
                 </div>
                 <button class="icon-picker-selector__btn">${this.labels.changeIconButtonLabel}</button>

@@ -102,6 +102,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                     'directorist-faqs'                     => 'directorist-listing-faqs',
                     'directorist-listing-faqs'             => 'directorist-faqs',
+
+                    'directorist-mailchimp'                => 'directorist-mailchimp-integration',
+                    'directorist-mailchimp-integration'    => 'directorist-mailchimp',
                 ]
             );
         }
@@ -235,6 +238,23 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-ai-search' => [
+                    'name'        => 'Directorist AI Search',
+                    'description' => __( 'AI-powered directory search that understands intent and improves listing discovery.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-ai-search/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/AI-Search-Preview.jpg',
+                    'active'      => true,
+                    'item_id'     => 370908,
+                ],
+                'directorist-listing-importer' => [
+                    'name'        => 'Directorist Listing Importer',
+                    'description' => __( 'Import Google Maps and feeds into Directorist automatically, effortlessly.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-listing-importer/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-listing-importer.png',
+                    'active'      => true,
+                    'item_id'     => 370853,
+                ],
+
                 'directorist-analytics' => [
                     'name'        => 'Directorist Analytics',
                     'description' => __( 'Unlock powerful insights to grow your directory with confidence.', 'directorist' ),
@@ -488,8 +508,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'directorist-mailchimp-integration' => [
                     'name'        => 'Mailchimp Integration',
                     'description' => __( 'Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-mailchimp-integration/',
-                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/mailchimp.svg',
+                    'link'        => 'https://directorist.com/product/directorist-mailchimp/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/27_Mailchimp.svg',
                     'active'      => true,
                     'item_id'     => 76269,
                 ],

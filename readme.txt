@@ -300,6 +300,18 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.7.4 - Jun 9, 2026 =
+
+**Improved**
+ - Directory Builder initial setup with default icons, preselected layout widgets, Search Box defaults, avatar settings, and better create-from-scratch directory name focus flow. (#2611)
+ - Builder UI with updated close icon, draggable placeholder styles, preview mode placement, first group expansion, and improved top bar/modal z-index handling. (#2611)
+
+**Fixed**
+ - Builder layout data consistency to prevent empty selected widgets, missing widget metadata, duplicate widgets, and null widget errors in saved/imported layouts. (#2611)
+ - Tagline/title widget options showing when the Tagline field is unavailable in the Add Listing Form. (#2611)
+ - Zipcode radius search issue. (#2873)
+ - FormGent enquiry page compatibility. (#2871)
+
 = 8.7.3 - May 20, 2026 =
 
 **Improved**

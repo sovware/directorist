@@ -1605,6 +1605,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			zipcode_search.find('.zip-cityLat').val(lat);
 			zipcode_search.find('.zip-cityLng').val(lon);
+			zipcode_search.trigger('change');
 
 			$('.directorist-country').hide();
 		});
@@ -2428,12 +2429,14 @@ document.addEventListener('DOMContentLoaded', () => {
 							zipcode_search.find('.error_message').remove();
 							zipcode_search.find('.zip-cityLat').val(data.lat);
 							zipcode_search.find('.zip-cityLng').val(data.lng);
+							zipcode_search.trigger('change');
 						} else {
 							if (data.length === 1) {
 								var lat = data[0].lat;
 								var lon = data[0].lon;
 								zipcode_search.find('.zip-cityLat').val(lat);
 								zipcode_search.find('.zip-cityLng').val(lon);
+								zipcode_search.trigger('change');
 							} else {
 								for (let i = 0; i < data.length; i++) {
 									let country =

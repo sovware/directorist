@@ -275,6 +275,7 @@ class Asset_Loader {
             wp_enqueue_script( 'wp-tinymce' );
             wp_enqueue_script( 'wp-media' );
             wp_enqueue_media();
+            do_action( 'directorist_builder_edit_assets_enqueued', $hook_suffix );
         } elseif ( Helper::is_admin_page( 'settings' ) ) {
             wp_enqueue_style( 'directorist-admin-style' );
             wp_enqueue_style( 'directorist-unicons' );

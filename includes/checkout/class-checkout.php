@@ -67,6 +67,7 @@ class ATBDP_Checkout {
             return __( 'Sorry! No order id has been provided.', 'directorist' );
         }
 
+        $order_id         = absint( $order_id );
         $order_repository = directorist_order_repository();
         $order_db         = $order_repository->get_by_id( $order_id );
 

@@ -4867,7 +4867,7 @@ function directorist_get_listing_directory( $listing_id = 0 ) {
  * @return int
  */
 function directorist_get_listing_preview_image( $listing_id = 0 ) {
-    $image = get_post_meta( $listing_id, '_listing_prv_img', true );
+    $image = maybe_unserialize( get_post_meta( $listing_id, '_listing_prv_img', true ) );
 
     if ( empty( $image ) || ! is_numeric( $image ) ) {
         return 0;

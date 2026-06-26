@@ -51,13 +51,15 @@ use \Directorist\Helper;
                     <?php
                     $show_payment_gateways = apply_filters( 'directorist_checkout_show_payment_gateways', $subtotal > 0, $checkout_type, $subtotal, $request );
                     if ( $show_payment_gateways ) : ?>
+                    <?php $active_gateways = apply_filters( 'directorist_checkout_active_gateways', ATBDP_Gateway::get_active_gateways(), $checkout_type, $request ); ?>
                     <div class="directorist-card directorist-mt-30 directorist-payment-gateways directorist-mb-15 directorist-checkout-card directorist-checkout-payment" id="directorist_payment_gateways">
                         <div class="directorist-card__header">
                             <h3 class="directorist-card__header__title"><?php esc_html_e( 'Choose a payment method', 'directorist' ); ?></h3>
                         </div>
 
                         <div class="directorist-card__body">
-                            <?php echo directorist_kses( ATBDP_Gateway::gateways_markup( apply_filters( 'directorist_checkout_active_gateways', ATBDP_Gateway::get_active_gateways(), $checkout_type, $request ) ), 'all' ); ?>
+                            <?php echo directorist_kses( ATBDP_Gateway::gateways_markup( $active_gateways ), 'all' ); ?>
+                            <?php do_action( 'directorist_checkout_payment_gateways_after', $checkout_type, $request, $active_gateways ); ?>
                         </div>
                     </div>
                     <?php endif;

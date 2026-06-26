@@ -64569,6 +64569,68 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide
 
 
 
+var createSettingsPanelRegistry = function createSettingsPanelRegistry() {
+  var mutators = [];
+  var beforeMountHooks = [];
+  var afterMountHooks = [];
+  var components = {};
+  return {
+    registerComponent: function registerComponent(name, component) {
+      if (typeof name !== 'string' || !name.length || !component) {
+        return;
+      }
+      components[name] = component;
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].component(name, component);
+    },
+    getComponent: function getComponent(name) {
+      return components[name] || vue__WEBPACK_IMPORTED_MODULE_0__["default"].options.components[name] || null;
+    },
+    getVue: function getVue() {
+      return vue__WEBPACK_IMPORTED_MODULE_0__["default"];
+    },
+    registerSettingsDataMutator: function registerSettingsDataMutator(callback) {
+      if (typeof callback === 'function') {
+        mutators.push(callback);
+      }
+    },
+    registerBeforeMount: function registerBeforeMount(callback) {
+      if (typeof callback === 'function') {
+        beforeMountHooks.push(callback);
+      }
+    },
+    registerAfterMount: function registerAfterMount(callback) {
+      if (typeof callback === 'function') {
+        afterMountHooks.push(callback);
+      }
+    },
+    applySettingsDataMutators: function applySettingsDataMutators(settingsData) {
+      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return mutators.reduce(function (currentData, callback) {
+        var nextData = callback(currentData, context);
+        return typeof nextData === 'undefined' ? currentData : nextData;
+      }, settingsData);
+    },
+    runBeforeMount: function runBeforeMount(settingsData) {
+      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      beforeMountHooks.forEach(function (callback) {
+        return callback(settingsData, context);
+      });
+    },
+    runAfterMount: function runAfterMount(app, settingsData) {
+      var context = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      afterMountHooks.forEach(function (callback) {
+        return callback(app, settingsData, context);
+      });
+    }
+  };
+};
+window.DirectoristSettingsPanel = window.DirectoristSettingsPanel || createSettingsPanelRegistry();
+document.dispatchEvent(new CustomEvent('directorist:settings-panel:registry-ready', {
+  detail: {
+    registry: window.DirectoristSettingsPanel,
+    Vue: vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+}));
 window.addEventListener('load', function () {
   var settings_panel_el = document.getElementById('atbdp-settings-manager');
   if (settings_panel_el) {
@@ -64579,7 +64641,22 @@ window.addEventListener('load', function () {
     } catch (error) {
       builderData = [];
     }
-    new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
+    builderData = window.DirectoristSettingsPanel.applySettingsDataMutators(builderData, {
+      element: settings_panel_el,
+      Vue: vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    });
+    window.DirectoristSettingsPanel.runBeforeMount(builderData, {
+      element: settings_panel_el,
+      Vue: vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    });
+    document.dispatchEvent(new CustomEvent('directorist:settings-panel:before-mount', {
+      detail: {
+        settingsData: builderData,
+        element: settings_panel_el,
+        Vue: vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+      }
+    }));
+    var app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
       el: '#atbdp-settings-manager',
       store: _vue_store_CPT_Manager_Store__WEBPACK_IMPORTED_MODULE_5__["default"],
       components: {
@@ -64587,13 +64664,25 @@ window.addEventListener('load', function () {
       },
       data: function data() {
         return {
-          id: builderData.id,
-          fields: builderData.fields,
-          layouts: builderData.layouts,
-          config: builderData.config
+          id: typeof builderData.id !== 'undefined' ? builderData.id : 0,
+          fields: typeof builderData.fields !== 'undefined' ? builderData.fields : [],
+          layouts: typeof builderData.layouts !== 'undefined' ? builderData.layouts : [],
+          config: typeof builderData.config !== 'undefined' ? builderData.config : {}
         };
       }
     });
+    window.DirectoristSettingsPanel.runAfterMount(app, builderData, {
+      element: settings_panel_el,
+      Vue: vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    });
+    document.dispatchEvent(new CustomEvent('directorist:settings-panel:mounted', {
+      detail: {
+        app: app,
+        settingsData: builderData,
+        element: settings_panel_el,
+        Vue: vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+      }
+    }));
   }
 
   /* Copy shortcodes on click */

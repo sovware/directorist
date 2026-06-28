@@ -148,27 +148,35 @@ export default function App() {
 		fieldValidation
 	);
 
-	// Bug fix: useActiveAdminMenu (in @wpmvc/admin-sidebar) intercepts the
-	// .wp-first-item ("All Listings") click with e.preventDefault() and tries
-	// React Router navigation. Since rootPaths=[] there is no valid route to
-	// navigate to, so the link silently does nothing.
-	// We re-bind the click handler after the Dashboard's useLayoutEffect runs
-	// (setTimeout 0 defers to the next macrotask) so it always does a full
-	// WordPress page navigation instead.
 	useEffect(() => {
-		const timer = setTimeout(() => {
-			const $ = (window as any).jQuery;
-			if (!$) return;
-			const $firstItem = $('#menu-posts-at_biz_dir').find('a.wp-first-item');
-			const href = $firstItem.attr('href');
-			if (href) {
-				$firstItem.off('click').on('click', (e: Event) => {
-					e.preventDefault();
-					window.location.href = href;
-				});
+		const handleDirectoristMenuClick = (event: MouseEvent) => {
+			const target = event.target;
+			if (!(target instanceof Element)) {
+				return;
 			}
-		}, 0);
-		return () => clearTimeout(timer);
+
+			const anchor = target.closest(
+				'#menu-posts-at_biz_dir a.wp-first-item'
+			) as HTMLAnchorElement | null;
+
+			if (!anchor?.href) {
+				return;
+			}
+
+			event.preventDefault();
+			event.stopPropagation();
+			window.location.assign(anchor.href);
+		};
+
+		document.addEventListener('click', handleDirectoristMenuClick, true);
+
+		return () => {
+			document.removeEventListener(
+				'click',
+				handleDirectoristMenuClick,
+				true
+			);
+		};
 	}, []);
 
 	const routes = [

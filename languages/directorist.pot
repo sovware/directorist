@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-26 15:02+0000\n"
+"POT-Creation-Date: 2026-06-28 09:42+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1115,7 +1115,7 @@ msgstr ""
 msgid "Sender"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:425, ../includes/classes/class-custom-post.php:776, ../includes/classes/class-upgrade.php:798, ../templates/dashboard/tab-my-listings.php:63
+#: ../includes/asset-loader/localized_data.php:425, ../includes/classes/class-custom-post.php:776, ../includes/classes/class-upgrade.php:822, ../templates/dashboard/tab-my-listings.php:63
 msgid "Status"
 msgstr ""
 
@@ -1228,7 +1228,7 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:960, ../includes/classes/class-ajax-handler.php:870, ../includes/classes/class-ajax-handler.php:2035, ../includes/classes/class-custom-post.php:607, ../includes/classes/class-upgrade.php:1158, ../includes/classes/class-upgrade.php:1165, ../includes/classes/class-upgrade.php:1172
+#: ../includes/classes/class-add-listing.php:960, ../includes/classes/class-ajax-handler.php:870, ../includes/classes/class-ajax-handler.php:2035, ../includes/classes/class-custom-post.php:607, ../includes/classes/class-upgrade.php:1182, ../includes/classes/class-upgrade.php:1189, ../includes/classes/class-upgrade.php:1196
 msgid "Security check failed."
 msgstr ""
 
@@ -5288,112 +5288,112 @@ msgstr ""
 msgid "Directorist data update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:582
+#: ../includes/classes/class-upgrade.php:583
 msgid "Listings Slider Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:586
+#: ../includes/classes/class-upgrade.php:587
 msgid "Enable Footer Thumbnail"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:610, ../includes/modules/multi-directory-setup/class-builder-data.php:1186, ../includes/modules/multi-directory-setup/class-builder-data.php:2616, ../includes/modules/multi-directory-setup/class-builder-data.php:2663
+#: ../includes/classes/class-upgrade.php:611, ../includes/modules/multi-directory-setup/class-builder-data.php:1186, ../includes/modules/multi-directory-setup/class-builder-data.php:2616, ../includes/modules/multi-directory-setup/class-builder-data.php:2663
 msgid "Listing Title Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:614, ../includes/modules/multi-directory-setup/builder-preset-fields.php:128, ../includes/modules/multi-directory-setup/class-builder-data.php:1190, ../includes/modules/multi-directory-setup/class-builder-data.php:2625, ../includes/modules/multi-directory-setup/class-builder-data.php:2667
+#: ../includes/classes/class-upgrade.php:615, ../includes/modules/multi-directory-setup/builder-preset-fields.php:128, ../includes/modules/multi-directory-setup/class-builder-data.php:1190, ../includes/modules/multi-directory-setup/class-builder-data.php:2625, ../includes/modules/multi-directory-setup/class-builder-data.php:2667
 msgid "Tagline"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:716
+#: ../includes/classes/class-upgrade.php:717
 msgid "Deprecated Directorist items require upgrades"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:716
+#: ../includes/classes/class-upgrade.php:717
 msgid "Deprecated Directorist item requires an upgrade"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:718
+#: ../includes/classes/class-upgrade.php:719
 msgid "Directorist detected deprecated themes or extensions that are not compatible with this version. Upgrade them to the compatible versions listed below."
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:719
+#: ../includes/classes/class-upgrade.php:720
 msgid "Directorist detected a deprecated theme or extension that is not compatible with this version. Upgrade it to the compatible version listed below."
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:773, ../includes/classes/class-upgrade.php:844
+#: ../includes/classes/class-upgrade.php:797, ../includes/classes/class-upgrade.php:868
 msgid "Show deprecated items"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:777
+#: ../includes/classes/class-upgrade.php:801
 msgid "Manage Plugins"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:782
+#: ../includes/classes/class-upgrade.php:806
 msgid "Manage Themes"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:794, ../includes/modules/multi-directory-setup/builder-preset-fields.php:75, ../templates/dashboard/tab-my-listings.php:58
+#: ../includes/classes/class-upgrade.php:818, ../includes/modules/multi-directory-setup/builder-preset-fields.php:75, ../templates/dashboard/tab-my-listings.php:58
 msgid "Type"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:795
+#: ../includes/classes/class-upgrade.php:819
 msgid "Item"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:796
+#: ../includes/classes/class-upgrade.php:820
 msgid "Installed Version"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:797
+#: ../includes/classes/class-upgrade.php:821
 msgid "Required Version"
 msgstr ""
 
 #. translators: %s: minimum compatible extension version.
-#: ../includes/classes/class-upgrade.php:818
+#: ../includes/classes/class-upgrade.php:842
 msgid "%s or later"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:812
+#: ../includes/classes/class-upgrade.php:836
 msgid "Grater then %s"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:845
+#: ../includes/classes/class-upgrade.php:869
 msgid "Hide deprecated items"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:919
+#: ../includes/classes/class-upgrade.php:943
 msgid "Extension"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:948
+#: ../includes/classes/class-upgrade.php:972
 msgid "Theme"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:961, ../includes/classes/class-upgrade.php:973
+#: ../includes/classes/class-upgrade.php:985, ../includes/classes/class-upgrade.php:997
 msgid "Active"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:965
+#: ../includes/classes/class-upgrade.php:989
 msgid "Network active"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:968, ../includes/classes/class-upgrade.php:976
+#: ../includes/classes/class-upgrade.php:992, ../includes/classes/class-upgrade.php:1000
 msgid "Installed"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:1038, ../views/admin-templates/admin-dashboard-notice.php:69, ../views/admin-templates/admin-dashboard-notice.php:71
+#: ../includes/classes/class-upgrade.php:1062, ../views/admin-templates/admin-dashboard-notice.php:69, ../views/admin-templates/admin-dashboard-notice.php:71
 msgid "Dismiss this notice."
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:1096
+#: ../includes/classes/class-upgrade.php:1120
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with <a href=\"%s\" target=\"_blank\">some cool new features</a>. You are using <b style=\"color:#dba617\">%s outdated extension(s)</b> which are incompatible with Directorist v8.0. Please update the following outdated extensions:<br>%s</p><br>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:1103, ../includes/classes/class-upgrade.php:1140
+#: ../includes/classes/class-upgrade.php:1127, ../includes/classes/class-upgrade.php:1164
 msgid "<p class=\"directorist__notice_new_action\">Mistakenly updated? Use <a target=\"_blank\" href=\"%s\">WP Rollback</a> to install your old Directorist</p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:1137
+#: ../includes/classes/class-upgrade.php:1161
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Theme Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.Please update <a target=\"_blank\" href=\"%s\">%s theme</a> </p>"
 msgstr ""
 

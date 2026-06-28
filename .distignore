@@ -7,6 +7,8 @@
 /.vscode
 /.idea
 /.yarn
+/artisan
+/tsconfig.json
 
 /assets/src
 /bin
@@ -22,6 +24,7 @@
 /package-lock.json
 /yarn.lock
 /pnpm-lock.yaml
+/pnpm-workspace.yaml
 
 # Composer
 /composer.json
@@ -37,7 +40,7 @@
 /postcss.config.js
 /pot.js
 
-/webpack-config.js
+/webpack.config.js
 /webpack.legacy.dev.js
 /webpack.legacy.prod.js
 

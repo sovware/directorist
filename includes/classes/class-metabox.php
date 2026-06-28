@@ -68,12 +68,10 @@ class ATBDP_Metabox {
 
         $required_script_src = [];
 
-        $map_type = get_directorist_option( 'select_listing_map', 'openstreet' );
-        $script_name = ( 'openstreet' === $map_type ) ? 'openstreet-map' : 'google-map';
+        $map_type    = get_directorist_option( 'select_listing_map', 'openstreet' );
+        $script_name = ( 'openstreet' === $map_type ) ? 'js/global/openstreet-map' : 'js/global/google-map';
 
-        $is_enabled_script_debugging = get_directorist_option( 'script_debugging', false, true );
-        $ext = $is_enabled_script_debugging ? '.js' : '.min.js';
-        $required_script_src[ 'map-custom-script' ] = DIRECTORIST_JS . $script_name . $ext;
+        $required_script_src[ 'map-custom-script' ] = DIRECTORIST_BUILD_ASSETS . $script_name . '.js';
 
         wp_send_json_success(
             [

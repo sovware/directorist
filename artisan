@@ -1,0 +1,7 @@
+<?php
+
+require_once  __DIR__ . '/vendor/vendor-src/autoload.php';
+
+$artisan = new Directorist\WpMVC\Artisan\Artisan( __DIR__ );
+
+$artisan->execute();

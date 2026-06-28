@@ -6,13 +6,41 @@ use Directorist\Multi_Directory\Multi_Directory_Manager;
 // it handles directorist upgrade
 class ATBDP_Upgrade
 {
-    public $upgrade_notice_id       = 'migrate_to_7';
+    public $upgrade_notice_id = 'migrate_to_7';
 
-    public $legacy_notice_id        = 'directorist_legacy_template';
+    public $legacy_notice_id = 'directorist_legacy_template';
 
-    public $directorist_notices     = [];
+    public $directorist_notices = [];
 
-    public $directorist_migration   = [];
+    public $directorist_migration = [];
+
+    public $deprecated_extensions = [
+        'directorist-pricing-plans/directorist-pricing-plans.php' => '4.0.0',
+        'directorist-stripe/directorist-stripe.php'               => '3.0.0',
+        'directorist-paypal/directorist-paypal.php'               => '3.0.0',
+        'directorist-authorize-net/directorist-authorize-net.php' => '3.0.0',
+        'directorist-coupon/directorist-coupon.php'               => '3.0.0',
+        'directorist-booking/directorist-booking.php'             => '4.0.0',
+        'directorist-claim-listing/directorist-claim-listing.php' => '2.5.2',
+        'directorist-mark-as-sold/directorist-mark-as-sold.php'   => '2.3.0',
+        'directorist-business-hours/bd-business-hour.php'         => '3.7.2',
+        'directorist-job-manager/directorist-job-manager.php'     => '2.3.0',
+        'directorist-faqs/directorist-faqs.php'                   => '2.2.2',
+        'directorist-live-chat/directorist-live-chat.php'         => '2.4.2',
+    ];
+
+    public $deprecated_themes = [
+        'dcar'           => '2.0.19',
+        'dclassified'    => '2.0.19',
+        'ddoctors'       => '2.0.18',
+        'dhotels'        => '2.0.16',
+        'djobs'          => '2.0.15',
+        'dlawyers'       => '2.0.15',
+        'drealestate'    => '2.0.16',
+        'drestaurant'    => '2.0.15',
+        'onelisting-pro' => '2.0.23',
+        'onelisting'     => '2.0.23',
+    ];
 
     public function __construct() {
         if ( ! is_admin() ) return;
@@ -28,6 +56,8 @@ class ATBDP_Upgrade
         add_action( 'directorist_before_all_directory_types', [$this, 'promo_banner'] );
 
         add_action( 'admin_notices', [ $this, 'bfcm_notice'] );
+
+        add_action( 'admin_notices', [ $this, 'deprecated_item_upgrade_notice' ], 100 );
 
         add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
 
@@ -669,6 +699,313 @@ class ATBDP_Upgrade
 
     protected static function can_manage_plugins() {
         return ( current_user_can( 'install_plugins' ) || current_user_can( 'manage_options' ) );
+    }
+
+    public function deprecated_item_upgrade_notice() {
+        if ( ! self::can_manage_plugins() ) {
+            return;
+        }
+
+        $deprecated_items = $this->get_deprecated_items();
+
+        if ( empty( $deprecated_items ) ) {
+            return;
+        }
+
+        $is_multiple = count( $deprecated_items ) > 1;
+        $title       = $is_multiple ? __( 'Deprecated Directorist items require upgrades', 'directorist' ) : __( 'Deprecated Directorist item requires an upgrade', 'directorist' );
+        $description = $is_multiple
+            ? __( 'Directorist detected deprecated themes or extensions that are not compatible with this version. Upgrade them to the compatible versions listed below.', 'directorist' )
+            : __( 'Directorist detected a deprecated theme or extension that is not compatible with this version. Upgrade it to the compatible version listed below.', 'directorist' );
+        $toggle_id   = wp_unique_id( 'directorist-deprecated-items-' );
+        $content_id  = $toggle_id . '-content';
+        $has_extensions = false;
+        $has_themes     = false;
+
+        foreach ( $deprecated_items as $deprecated_item ) {
+            if ( 'extension' === $deprecated_item['type'] ) {
+                $has_extensions = true;
+            }
+
+            if ( 'theme' === $deprecated_item['type'] ) {
+                $has_themes = true;
+            }
+        }
+
+        ?>
+        <div class="notice notice-warning directorist-deprecated-item-notice">
+            <style>
+                .directorist-deprecated-item-toggle {
+                    margin: 0;
+                }
+
+                .directorist-deprecated-item-actions {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    align-items: center;
+                    margin: 0;
+                }
+
+                .directorist-deprecated-item-table-wrap {
+                    max-height: 0;
+                    margin-top: 0;
+                    overflow: hidden;
+                    opacity: 0;
+                    transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+                }
+
+                .directorist-deprecated-item-table-wrap.is-open {
+                    margin-top: 12px;
+                    opacity: 1;
+                }
+            </style>
+            <p><strong><?php echo esc_html( $title ); ?></strong></p>
+            <p><?php echo esc_html( $description ); ?></p>
+            <p class="directorist-deprecated-item-actions">
+                <button
+                    type="button"
+                    class="button button-secondary directorist-deprecated-item-toggle"
+                    data-directorist-toggle-target="<?php echo esc_attr( $content_id ); ?>"
+                    aria-expanded="false"
+                    aria-controls="<?php echo esc_attr( $content_id ); ?>"
+                >
+                    <?php esc_html_e( 'Show deprecated items', 'directorist' ); ?>
+                </button>
+                <?php if ( $has_extensions && ! $this->is_plugins_screen() ) : ?>
+                    <a class="button button-secondary" href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">
+                        <?php esc_html_e( 'Manage Plugins', 'directorist' ); ?>
+                    </a>
+                <?php endif; ?>
+                <?php if ( $has_themes && ! $this->is_themes_screen() ) : ?>
+                    <a class="button button-secondary" href="<?php echo esc_url( admin_url( 'themes.php' ) ); ?>">
+                        <?php esc_html_e( 'Manage Themes', 'directorist' ); ?>
+                    </a>
+                <?php endif; ?>
+            </p>
+            <div
+                id="<?php echo esc_attr( $content_id ); ?>"
+                class="directorist-deprecated-item-table-wrap"
+                hidden
+            >
+                <table class="widefat striped" style="width: 100%; margin: 0 0 12px 0;">
+                    <thead>
+                        <tr>
+                            <th scope="col"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Item', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Installed Version', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Required Version', 'directorist' ); ?></th>
+                            <th scope="col"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ( $deprecated_items as $deprecated_item ) : ?>
+                            <tr>
+                                <td><?php echo esc_html( $deprecated_item['type_label'] ); ?></td>
+                                <td><strong><?php echo esc_html( $deprecated_item['name'] ); ?></strong></td>
+                                <td><?php echo esc_html( $deprecated_item['current_version'] ); ?></td>
+                                <td>
+                                    <?php
+                                    if ( 'theme' === $deprecated_item['type'] ) {
+                                        printf(
+                                            /* translators: %s: required theme version. */
+                                            esc_html__( 'Grater then %s', 'directorist' ),
+                                            esc_html( $deprecated_item['required_version'] )
+                                        );
+                                    } else {
+                                        printf(
+                                            /* translators: %s: minimum compatible extension version. */
+                                            esc_html__( '%s or later', 'directorist' ),
+                                            esc_html( $deprecated_item['required_version'] )
+                                        );
+                                    }
+                                    ?>
+                                </td>
+                                <td><?php echo esc_html( $deprecated_item['status'] ); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                ( function() {
+                    const toggleButton = document.querySelector( '[data-directorist-toggle-target="<?php echo esc_js( $content_id ); ?>"]' );
+
+                    if ( ! toggleButton ) {
+                        return;
+                    }
+
+                    const tableWrap = document.getElementById( toggleButton.getAttribute( 'data-directorist-toggle-target' ) );
+
+                    if ( ! tableWrap ) {
+                        return;
+                    }
+
+                    const openLabel = '<?php echo esc_js( __( 'Show deprecated items', 'directorist' ) ); ?>';
+                    const closeLabel = '<?php echo esc_js( __( 'Hide deprecated items', 'directorist' ) ); ?>';
+
+                    toggleButton.addEventListener( 'click', function() {
+                        const isOpen = 'true' === toggleButton.getAttribute( 'aria-expanded' );
+
+                        if ( isOpen ) {
+                            tableWrap.style.maxHeight = tableWrap.scrollHeight + 'px';
+
+                            window.requestAnimationFrame( function() {
+                                tableWrap.classList.remove( 'is-open' );
+                                tableWrap.style.maxHeight = '0px';
+                            } );
+
+                            toggleButton.setAttribute( 'aria-expanded', 'false' );
+                            toggleButton.textContent = openLabel;
+
+                            window.setTimeout( function() {
+                                if ( 'false' === toggleButton.getAttribute( 'aria-expanded' ) ) {
+                                    tableWrap.hidden = true;
+                                    tableWrap.style.maxHeight = '';
+                                }
+                            }, 300 );
+
+                            return;
+                        }
+
+                        tableWrap.hidden = false;
+                        tableWrap.style.maxHeight = '0px';
+
+                        window.requestAnimationFrame( function() {
+                            tableWrap.classList.add( 'is-open' );
+                            tableWrap.style.maxHeight = tableWrap.scrollHeight + 'px';
+                        } );
+
+                        toggleButton.setAttribute( 'aria-expanded', 'true' );
+                        toggleButton.textContent = closeLabel;
+                    } );
+                }() );
+            </script>
+        </div>
+        <?php
+    }
+
+    public function get_deprecated_items() {
+        $deprecated_items = array_merge(
+            $this->get_deprecated_extensions(),
+            $this->get_deprecated_themes()
+        );
+
+        return apply_filters( 'directorist_deprecated_items', $deprecated_items, $this->deprecated_extensions, $this->deprecated_themes );
+    }
+
+    public function get_deprecated_extensions() {
+        if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'is_plugin_active' ) ) {
+            include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $plugins_data        = get_plugins();
+        $outdated_extensions = [];
+
+        foreach ( $this->deprecated_extensions as $plugin_file => $required_version ) {
+            if ( empty( $plugins_data[ $plugin_file ] ) ) {
+                continue;
+            }
+
+            $plugin_data     = $plugins_data[ $plugin_file ];
+            $current_version = isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : '';
+
+            if ( empty( $current_version ) || ! version_compare( $current_version, $required_version, '<' ) ) {
+                continue;
+            }
+
+            $outdated_extensions[ $plugin_file ] = [
+                'type'             => 'extension',
+                'type_label'       => __( 'Extension', 'directorist' ),
+                'name'             => ! empty( $plugin_data['Name'] ) ? $plugin_data['Name'] : $plugin_file,
+                'current_version'  => $current_version,
+                'required_version' => $required_version,
+                'status'           => $this->get_plugin_status_label( $plugin_file ),
+            ];
+        }
+
+        return apply_filters( 'directorist_deprecated_extensions', $outdated_extensions, $plugins_data, $this->deprecated_extensions );
+    }
+
+    public function get_deprecated_themes() {
+        $installed_themes = wp_get_themes();
+        $outdated_themes  = [];
+
+        foreach ( $this->deprecated_themes as $theme_slug => $required_version ) {
+            if ( empty( $installed_themes[ $theme_slug ] ) ) {
+                continue;
+            }
+
+            $theme           = $installed_themes[ $theme_slug ];
+            $current_version = $theme->get( 'Version' );
+
+            if ( empty( $current_version ) || ! version_compare( $current_version, $required_version, '<=' ) ) {
+                continue;
+            }
+
+            $outdated_themes[ $theme_slug ] = [
+                'type'             => 'theme',
+                'type_label'       => __( 'Theme', 'directorist' ),
+                'name'             => $theme->get( 'Name' ) ? $theme->get( 'Name' ) : $theme_slug,
+                'current_version'  => $current_version,
+                'required_version' => $required_version,
+                'status'           => $this->get_theme_status_label( $theme_slug ),
+            ];
+        }
+
+        return apply_filters( 'directorist_deprecated_themes', $outdated_themes, $installed_themes, $this->deprecated_themes );
+    }
+
+    private function get_plugin_status_label( $plugin_file ) {
+        if ( is_plugin_active( $plugin_file ) ) {
+            return __( 'Active', 'directorist' );
+        }
+
+        if ( function_exists( 'is_plugin_active_for_network' ) && is_plugin_active_for_network( $plugin_file ) ) {
+            return __( 'Network active', 'directorist' );
+        }
+
+        return __( 'Installed', 'directorist' );
+    }
+
+    private function get_theme_status_label( $theme_slug ) {
+        if ( $theme_slug === get_stylesheet() || $theme_slug === get_template() ) {
+            return __( 'Active', 'directorist' );
+        }
+
+        return __( 'Installed', 'directorist' );
+    }
+
+    private function is_plugins_screen() {
+        global $pagenow;
+
+        if ( 'plugins.php' === $pagenow ) {
+            return true;
+        }
+
+        if ( ! function_exists( 'get_current_screen' ) ) {
+            return false;
+        }
+
+        $screen = get_current_screen();
+
+        return ! empty( $screen->base ) && 'plugins' === $screen->base;
+    }
+
+    private function is_themes_screen() {
+        global $pagenow;
+
+        if ( 'themes.php' === $pagenow ) {
+            return true;
+        }
+
+        if ( ! function_exists( 'get_current_screen' ) ) {
+            return false;
+        }
+
+        $screen = get_current_screen();
+
+        return ! empty( $screen->base ) && 'themes' === $screen->base;
     }
 
     public function bfcm_notice() {

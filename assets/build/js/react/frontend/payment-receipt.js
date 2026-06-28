@@ -1,0 +1,1 @@
+!function(){var t;(t=jQuery)(document).ready(function(){t("#directorist-payment-receipt-retry-payment").on("click",function(){var e=t(this).data("order-id");try{wp.apiFetch({path:"/directorist/v1/checkout/retry-payment",method:"POST",data:{order_id:e}}).then(function(t){window.location.href=t.redirect_url})}catch(t){console.log(t)}})})}();

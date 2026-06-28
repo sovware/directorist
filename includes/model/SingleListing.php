@@ -39,9 +39,9 @@ class Directorist_Single_Listing {
 
     private function __construct( $listing_id = 0 ) {
         if ( $listing_id && is_int( $listing_id ) ) {
-            $this->id = $listing_id;
+            $this->id = (int) $listing_id;
         } else {
-            $this->id = get_the_ID();
+            $this->id = (int) get_the_ID();
         }
 
         $this->prepare_data();
@@ -64,10 +64,10 @@ class Directorist_Single_Listing {
     }
 
     public function prepare_data() {
-        $this->author_id            = get_post_field( 'post_author', $this->id );
+        $this->author_id            = (int) get_post_field( 'post_author', $this->id );
         $this->post                 = get_post( $this->id );
-        $this->type                 = $this->get_directory_type_id();
-        $this->header_data          = get_term_meta( $this->type, 'single_listing_header', true );
+        $this->type                 = (int) $this->get_directory_type_id();
+        $this->header_data          = directorist_single_listing_header( $this->type, [ 'listing_id' => $this->id, 'listing_owner_id' => $this->author_id, 'directory_type_id' => $this->type ] );
         $this->content_data         = $this->build_content_data();
         $this->fm_plan              = get_post_meta( $this->id, '_fm_plans', true );
         $this->price_range          = get_post_meta( $this->id, '_price_range', true );
@@ -77,8 +77,14 @@ class Directorist_Single_Listing {
 
     public function build_content_data() {
         $content_data           = [];
-        $single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
-        $submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
+        $single_fields          = directorist_single_listings_contents( 
+            $this->type,
+            [
+                'listing_id'        => (int) $this->id,
+                'listing_owner_id'  => (int) $this->author_id,
+            ]
+        );
+        $submission_form_fields = directorist_submission_form_fields_raw( $this->type );
 
         if ( ! empty( $single_fields['fields'] ) ) {
             foreach ( $single_fields['fields'] as $key => $value ) {
@@ -679,6 +685,8 @@ class Directorist_Single_Listing {
             array_unshift( $data['images'], $preview_img );
         }
 
+        $data['images'] = apply_filters( 'directorist_single_listing_thumbnails', $data['images'], $listing_id );
+
         if ( count( $data['images'] ) < 1 ) {
             $data['images'][] = [
                 'alt' => $listing_title,
@@ -692,7 +700,6 @@ class Directorist_Single_Listing {
     }
 
     public function slider_template() {
-
         $slider = $this->listing_header( 'slider', 'slider-placeholder' );
 
         if ( ! $slider ) {
@@ -703,7 +710,6 @@ class Directorist_Single_Listing {
     }
 
     public function slider_field_template( $slider = null ) {
-
         $args = [
             'listing'    => $this,
             'has_slider' => true,
@@ -1120,23 +1126,22 @@ class Directorist_Single_Listing {
     }
 
     public function header_template() {
-
+        
         $display_title     = $this->listing_header( 'title', 'listing-title-placeholder' );
         $args = [
-            'listing'           => $this,
-            'use_listing_title' => true,
-            'section_title'     => '',
-            'section_icon'      => '',
-            'display_title'     => $display_title,
-            'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
-            'display_content'   => false,
+                'listing'           => $this,
+                'use_listing_title' => true,
+                'section_title'     => '',
+                'section_icon'      => '',
+                'display_title'     => $display_title,
+                'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
+                'display_content'   => false,
         ];
 
         return Helper::get_template( 'single/header', $args );
     }
 
     public function render_shortcode_single_listing() {
-
         if ( ! is_singular( ATBDP_POST_TYPE ) ) {
             return;
         }

@@ -447,7 +447,7 @@ class Directorist_Listings {
         $this->current_listing_type       = $this->get_current_listing_type();
 
         $this->has_featured                = $this->options['enable_featured_listing'];
-        $this->has_featured                = $this->has_featured || is_fee_manager_active() ? $this->_featured : $this->has_featured;
+        $this->has_featured                = apply_filters( 'directorist_query_arg_has_featured', $this->has_featured ? $this->_featured : $this->has_featured, $this->params );
         $this->popular_by                  = $this->options['listing_popular_by'];
         $this->average_review_for_popular  = $this->options['average_review_for_popular'];
         $this->view_to_popular             = $this->options['views_for_popular'];
@@ -507,16 +507,12 @@ class Directorist_Listings {
         $u_pro_pic           = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
         $bdbh                = get_post_meta( $id, '_bdbh', true );
 
-
         $listing_type       = $this->current_listing_type;
-        $card_fields        = get_term_meta( $listing_type, 'listings_card_grid_view', true );
-        $list_fields        = get_term_meta( $listing_type, 'listings_card_list_view', true );
         $get_directory_type = get_term_by( 'id', $this->current_listing_type, ATBDP_TYPE );
         $directory_type     = ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
+        
         $this->loop = [
             'id'                   => $id,
-            'card_fields'          => $card_fields,
-            'list_fields'          => $list_fields,
             'permalink'            => get_permalink( $id ),
             'title'                => get_the_title(),
             'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
@@ -541,6 +537,10 @@ class Directorist_Listings {
             'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ), '', $author_display_name ),
             'review'                  => $this->get_review_data(),
         ];
+
+        $archive_fields = directorist_listing_archive_fields( $listing_type, [ 'author_id' => $author_id, ] );
+
+        $this->loop = array_merge( $this->loop, $archive_fields );
     }
 
     public function get_review_data() {
@@ -1870,11 +1870,11 @@ class Directorist_Listings {
         $listing_prv_img   = directorist_get_listing_preview_image( $id );
         $listing_img       = directorist_get_listing_gallery_images( $id );
 
-
-
         $thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
         $link_start       = '<a href="' . esc_url( $this->loop['permalink'] ) . '"><figure>';
         $link_end         = '</figure></a>';
+
+        $thumbnail_img_id = apply_filters( 'directorist_listing_archive_thumbnails', $thumbnail_img_id, $id );
 
         if ( empty( $thumbnail_img_id ) ) {
             $thumbnail_img_id = $default_image_src;
@@ -1891,7 +1891,7 @@ class Directorist_Listings {
                 return is_numeric( $value );
             }
         );
-
+        
         $image_count = count( $thumbnail_img_id );
 
         if ( 1 === (int) $image_count ) {

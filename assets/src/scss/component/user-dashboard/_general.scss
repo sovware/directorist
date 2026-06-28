@@ -410,6 +410,11 @@
 				);
 			}
 
+      &.directorist_status_featured {
+        color: var(--directorist-color-featured-badge);
+        background-color: rgba(var(--directorist-color-featured-badge-rgb), 0.15);
+      }
+
 			&.directorist_status_pending {
 				color: #b45309;
 				background-color: rgba(

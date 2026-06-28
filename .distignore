@@ -22,6 +22,7 @@
 /package-lock.json
 /yarn.lock
 /pnpm-lock.yaml
+/pnpm-workspace.yaml
 
 # Composer
 /composer.json
@@ -37,14 +38,13 @@
 /postcss.config.js
 /pot.js
 
-/webpack-entry-list.js
-/webpack.common.js
-/webpack.dev.js
-/webpack.dev.vue.js
-/webpack.prod.js
+/webpack-config.js
+/webpack.legacy.dev.js
+/webpack.legacy.prod.js
 
 # Documentation & notes
 /README.md
 /node-update-notes.md
+/.documentation
 /CLAUDE.md
 /AGENTS.md

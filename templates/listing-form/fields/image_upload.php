@@ -22,13 +22,18 @@ $accepted_mime_types       = directorist_get_mime_types( 'image', 'extension' );
 $accepted_mime_types_upper = array_map( 'strtoupper', $accepted_mime_types );
 $accepted_mime_types       = array_merge( $accepted_mime_types, $accepted_mime_types_upper );
 
-$img_upload_data = [
-    'type'               => join( ', ', $accepted_mime_types ),
-    'max_num_of_img'     => $limit,
-    'max_total_img_size' => $max_total_file_size_kb,
-    'is_required'        => $required,
-    'max_size_per_img'   => $max_file_size_kb,
-];
+$img_upload_data = apply_filters(
+    'directorist_image_upload_config',
+    [
+        'type'               => join( ', ', $accepted_mime_types ),
+        'max_num_of_img'     => $limit,
+        'max_total_img_size' => $max_total_file_size_kb,
+        'is_required'        => $required,
+        'max_size_per_img'   => $max_file_size_kb,
+    ],
+    $listing_form, 
+    $data
+);
 
 $img_upload_data = wp_json_encode( $img_upload_data );
 

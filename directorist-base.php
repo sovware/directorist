@@ -3,7 +3,8 @@
  * Plugin Name: Directorist - Business Directory Solution
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 8.7.4
+ * Version: 8.8.0
+ * Requires PHP: 7.4
  * Author: wpWax
  * Author URI: https://wpwax.com
  * License: GPLv3
@@ -14,6 +15,8 @@
 
 // prevent direct access to the file
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
+
+use Directorist\Setup\Activation;
 
 /**
  * Main Directorist_Base Class.
@@ -216,6 +219,11 @@ final class Directorist_Base {
 
             self::$instance->includes();
 
+            new Directorist\AdminMenu();
+            new Directorist\FeaturedListingCheckout();
+            new Directorist\PaymentService();
+            new Directorist\PaymentCheckoutService();
+
             // Check if this is a beta version by looking for 'Beta' in version string
             self::$instance->beta = false !== stripos( ATBDP_VERSION, 'Beta' );
 
@@ -223,6 +231,7 @@ final class Directorist_Base {
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy();
 
             add_action( 'init', [ self::$instance, 'on_install_update_actions' ] );
+            Activation::register_hooks();
 
             Directorist\Asset_Loader\Asset_Loader::init();
 
@@ -243,7 +252,7 @@ final class Directorist_Base {
             if ( class_exists( 'ATBDP_Gateway' ) ) {
                 self::$instance->gateway = new ATBDP_Gateway();
             }
-            self::$instance->order = new ATBDP_Order();
+            // self::$instance->order = new ATBDP_Order();
             self::$instance->shortcode = new \Directorist\ATBDP_Shortcode();
             self::$instance->email = new ATBDP_Email();
             self::$instance->seo = new ATBDP_SEO();
@@ -411,8 +420,26 @@ final class Directorist_Base {
         $this->autoload( ATBDP_INC_DIR . 'asset-loader/' );
         $this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
+        self::require_files( [ ATBDP_DIR . 'utils/index' ] );
+
+        $this->autoload( ATBDP_INC_DIR . 'contracts/' );
+        $this->autoload( ATBDP_INC_DIR . 'db-models/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/order/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/payment/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/refund/' );
+        $this->autoload( ATBDP_INC_DIR . 'dto/subscription/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/order/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/payment/' );
+        $this->autoload( ATBDP_INC_DIR . 'enums/refund/' );
+        $this->autoload( ATBDP_INC_DIR . 'repositories/' );
+        $this->autoload( ATBDP_INC_DIR . 'setup/' );
+        
         self::require_files(
             [
+                ATBDP_INC_DIR . 'payment-processors/payment',
+                ATBDP_INC_DIR . 'payment-processors/bank-transfer',
                 ATBDP_INC_DIR . 'directorist-core-functions',
                 ATBDP_INC_DIR . 'directorist-directory-functions',
                 ATBDP_INC_DIR . 'class-helper',
@@ -462,6 +489,7 @@ final class Directorist_Base {
     public static function prepare_plugin() {
         include ATBDP_INC_DIR . 'classes/class-installation.php';
         ATBDP_Installation::install();
+        Activation::run();
     }
 
     /**
@@ -815,6 +843,24 @@ final class Directorist_Base {
     }
 } // ends Directorist_Base
 
+
+/**
+ * The main function for that returns Directorist_Base
+ *
+ * The main function responsible for returning the one true Directorist_Base
+ * Instance to functions everywhere.
+ *
+ * Use this function like you would a global variable, except without needing
+ * to declare the global.
+ *
+ *
+ * @since 8.0
+ * @return object|Directorist_Base The one true Directorist_Base Instance.
+ */
+function directorist():Directorist_Base {
+    return Directorist_Base::instance();
+}
+
 /**
  * The main function for that returns Directorist_Base
  *
@@ -827,10 +873,11 @@ final class Directorist_Base {
  *
  * @since 1.0
  * @return object|Directorist_Base The one true Directorist_Base Instance.
+ * @deprecated Use directorist() instead.
  */
 function ATBDP() {
-    return Directorist_Base::instance();
+    return directorist();
 }
 
-ATBDP();
+directorist();
 register_activation_hook( __FILE__, ['Directorist_Base', 'prepare_plugin'] );

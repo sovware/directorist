@@ -9,7 +9,12 @@
  * @since         3.1.0
  */
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
+
+use Directorist\Utils\Template;
+use Directorist\Utils\Helpers;
+use Directorist\Utils\RequestValidator as Validator;
+use Directorist\Utils\Mime;
 
 /**
  * ATBDP_Checkout Class
@@ -17,8 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since    3.1.0
  * @access   public
  */
-class ATBDP_Checkout
-{
+class ATBDP_Checkout {
     /**
      * @var string
      */
@@ -46,10 +50,110 @@ class ATBDP_Checkout
         wp_die();
     }
 
+    public function payment_receipt() {
+        if ( ! atbdp_is_user_logged_in() ) {
+            return null;
+        }
+
+        $order_id = (int) get_query_var( 'atbdp_order_id' );
+
+        //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if ( empty( $order_id ) && ! empty( $_REQUEST['order'] ) ) {
+            //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $order_id = sanitize_text_field( wp_unslash( $_REQUEST['order'] ) );
+        }
+        
+        if ( empty( $order_id ) ) {
+            return __( 'Sorry! No order id has been provided.', 'directorist' );
+        }
+
+        $order_id         = absint( $order_id );
+        $order_repository = directorist_order_repository();
+        $order_db         = $order_repository->get_by_id( $order_id );
+
+        if ( ! $order_db ) {
+            return __( "Order not found" );
+        }
+
+        $order = apply_filters( 'directorist_payment_receipt_order_dto', $order_repository->to_dto( $order_db ) );
+
+        $payment_repository = directorist_payment_repository();
+        $payments           = $payment_repository->get( $order_id );
+        $payment            = $payments[0] ?? null;
+
+        if ( $payment ) {
+            $payment = $payment_repository->to_dto( $payment );
+        }
+
+        wp_enqueue_script( 'directorist-payment-receipt' );
+
+        $discount_amount      = directorist_compute_fixed_or_percent_amount( $order->get_coupon_discount_type(), $order->get_coupon_discount(), $order->get_sub_total() );
+        $discounted_sub_total = max( 0, $order->get_sub_total() - $discount_amount );
+        $tax_amount           = directorist_compute_fixed_or_percent_amount( $order->get_tax_type(), $order->get_tax_rate(), $discounted_sub_total );
+        $order_items          = apply_filters( 'directorist_payment_receipt_order_items', [], $order, $payment, $discount_amount, $tax_amount, $discounted_sub_total );
+
+        return Template::get(
+            'checkout/receipt', [
+                'order_items'     => $order_items,
+                'order'           => $order,
+                'payment'         => $payment,
+                'discount_amount' => $discount_amount,
+                'tax_amount'      => $tax_amount,
+            ]
+        );
+    }
+
+    public function checkout() {
+        // return null if user is not logged in
+        if ( ! atbdp_is_user_logged_in() ) {
+            return null;
+        }
+
+        $request   = Helpers::request();
+        $validator = new Validator( $request, new Mime );
+
+        try {
+            $enable_monetization = apply_filters( 'atbdp_enable_monetization_checkout', directorist_is_monetization_enabled() );
+
+            if ( ! $enable_monetization ) {
+                throw new Exception( __( 'Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist' ) );
+            }
+
+            $validator->validate(
+                [
+                    'checkout_type' => 'required|accepted:' . implode( ',', directorist_get_checkout_types() )
+                ], false 
+            );
+
+            if ( $validator->is_fail() ) {
+                throw new Exception( __( 'Invalid checkout type.', 'directorist' ) );
+            }
+
+            do_action( 'directorist_checkout_validation', $request->get_param( 'checkout_type' ), $request );
+
+        } catch ( \Throwable $th ) {
+            return "<div class='notice_wrapper'><div class='directorist-alert directorist-alert-warning'>{$th->getMessage()}</div></div>";
+        }
+
+        wp_enqueue_script( 'directorist-checkout' );
+        wp_enqueue_script( 'wp-api-fetch' );
+
+        $subtotal = round( apply_filters( 'directorist_checkout_subtotal', 0, $request->get_param( 'checkout_type' ), $request ) , 2 );
+
+        return Template::get(
+            'checkout/checkout', [
+                'checkout_type' => $request->get_param( 'checkout_type' ),
+                'request'       => $request,
+                'subtotal'      => $subtotal,
+                'total'         => round( apply_filters( 'directorist_checkout_total', $subtotal, $request->get_param( 'checkout_type' ), $request ), 2 )
+            ]
+        );
+    }
+
     /**
      * @return string
      */
-    public function display_checkout_content() {
+    public function old_display_checkout_content() {
         // vail out showing a friendly-message, if user is not logged in. No need to run further code
         if ( ! atbdp_is_user_logged_in() ) return null;
 
@@ -74,6 +178,9 @@ class ATBDP_Checkout
         // if the checkout form is submitted, then process placing order
         if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) { // @codingStandardsIgnoreLine.
             // Process the order
+
+            // do_action( 'directorist_create_order', $listing_id );
+
             $this->create_order($listing_id, $_POST); // @codingStandardsIgnoreLine.
         } else {
             // Checkout form is not submitted, so show the content of the checkout items here
@@ -141,12 +248,8 @@ class ATBDP_Checkout
     /**
      * @return string
      */
-    public function payment_receipt() {
-        ob_start();
-        if ( ! atbdp_is_user_logged_in() ) {
-            ob_end_clean();
-            return null; // vail out showing a friendly-message, if user is not logged in. 
-        }
+    public function old_payment_receipt() {
+        if ( ! atbdp_is_user_logged_in() ) return null; // vail out showing a friendly-message, if user is not logged in.
         //content of order receipt should be outputted here.
         $order_id = (int) get_query_var( 'atbdp_order_id' );
 

@@ -18,12 +18,12 @@ function directorist_is_guest_submission_enabled() {
     return (bool) get_directorist_option( 'guest_listings', false );
 }
 
-function directorist_is_featured_listing_enabled() {
-    return (bool) get_directorist_option( 'enable_featured_listing' );
+function directorist_is_featured_listing_enabled( array $context = [] ) {
+    return (bool) apply_filters( 'directorist_is_featured_listing_enabled', get_directorist_option( 'enable_featured_listing' ), $context );
 }
 
 function directorist_is_monetization_enabled() {
-    return (bool) get_directorist_option( 'enable_monetization' );
+    return (bool) apply_filters( 'directorist_is_monetization_enabled', get_directorist_option( 'enable_monetization' ) );
 }
 
 function directorist_get_currency() {

@@ -1,6 +1,5 @@
 <?php
 use Directorist\Helper;
-use Directorist\database\DB;
 
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
@@ -306,20 +305,7 @@ if ( ! function_exists( 'atbdp_get_listing_status_after_submission' ) ) :
             ], $args
         );
 
-        $listing_id            = $args['id'];
-        $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
-        $monetization_enabled  = directorist_is_monetization_enabled();
-        $featured_enabled      = directorist_is_featured_listing_enabled();
-        $pricing_plans_enabled = is_fee_manager_active();
-
-        // Determine post status based on monetization settings and plans
-        if ( $monetization_enabled ) {
-            if ( $pricing_plans_enabled ) {
-                return directorist_get_pricing_plan_status( $listing_id, $listing_status );
-            } elseif ( $featured_enabled ) {
-                return directorist_get_featured_listing_status( $listing_id, $listing_status );
-            }
-        }
+        $listing_status = $args['edited'] ? $args['edit_status'] : $args['create_status'];
 
         return $listing_status;
     }
@@ -1090,8 +1076,8 @@ if ( ! function_exists( 'currency_has_decimal' ) ) {
  * @param bool $echo Whether to Print value or to Return value. Default is printing value.
  * @return mixed
  */
-function atbdp_display_price( $price = '', $disable_price = false, $currency = '', $symbol = '', $c_position = '', $echo = true ) {
-    if ( empty( $price ) || $disable_price ) return null; // vail if the price is empty or price display is disabled.
+function atbdp_display_price( $price = '', $disable_price = false, $currency = '', $symbol = '', $c_position = '', $echo = true, $html = true ) {
+    if ( $disable_price ) return null; // vail if the price is empty or price display is disabled.
 
     $allow_decimal = get_directorist_option( 'allow_decimal', 1 );
     $before = '';
@@ -1107,8 +1093,10 @@ function atbdp_display_price( $price = '', $disable_price = false, $currency = '
     }
 
     ( 'after' == $c_position ) ? $after = $symbol : $before = $symbol;
+    
     $price = $before . atbdp_format_amount( $price, $allow_decimal ) . $after;
-    $p = sprintf( "<span class='directorist-listing-price'>%s</span>", $price );
+    $p     = $html ? sprintf( "<span class='directorist-listing-price'>%s</span>", $price ) : $price;
+
     if ( $echo ) {
         echo wp_kses_post( $p );
     } else {
@@ -4879,7 +4867,7 @@ function directorist_get_listing_directory( $listing_id = 0 ) {
  * @return int
  */
 function directorist_get_listing_preview_image( $listing_id = 0 ) {
-    $image = get_post_meta( $listing_id, '_listing_prv_img', true );
+    $image = maybe_unserialize( get_post_meta( $listing_id, '_listing_prv_img', true ) );
 
     if ( empty( $image ) || ! is_numeric( $image ) ) {
         return 0;
@@ -4988,4 +4976,59 @@ function directorist_get_location_base() {
  */
 function directorist_get_tag_base() {
     return get_directorist_option( 'tag_base', directorist_get_default_tag_base() );
+}
+
+function directorist_submission_form_fields_raw( int $directory_type_id ): array {
+    $submission_form_fields = get_term_meta( $directory_type_id, 'submission_form_fields', true );
+
+    if ( empty( $submission_form_fields ) ) {
+        $submission_form_fields = [];
+    }
+
+    return $submission_form_fields;
+}
+
+function directorist_submission_form_fields( int $directory_type_id, array $context = [] ): array {
+    $context['directory_type_id'] = $directory_type_id;
+    return apply_filters( 'directorist_submission_form_fields', directorist_submission_form_fields_raw( $directory_type_id ), $context );
+}
+
+function directorist_single_listing_header( int $directory_type_id, array $data = [] ): array {
+    $data['directory_type_id'] = $directory_type_id;
+
+    $single_listing_header = get_term_meta( $directory_type_id, 'single_listing_header', true );
+
+    if ( empty( $single_listing_header ) ) {
+        $single_listing_header = [];
+    }
+
+    return apply_filters( 'directorist_single_listing_header', $single_listing_header, $data );
+}
+
+function directorist_single_listings_contents( int $directory_type_id, array $data = [] ): array {
+    $data['directory_type_id'] = $directory_type_id;
+
+    $single_listings_contents = get_term_meta( $directory_type_id, 'single_listings_contents', true );
+
+    if ( empty( $single_listings_contents ) ) {
+        $single_listings_contents = [];
+    }
+
+    return apply_filters( 'directorist_single_listings_contents', $single_listings_contents, $data );
+}
+
+function directorist_listing_archive_fields( int $directory_type_id, array $data = [] ): array {
+    $card_fields = get_term_meta( $directory_type_id, 'listings_card_grid_view', true );
+    $list_fields = get_term_meta( $directory_type_id, 'listings_card_list_view', true );
+
+    $data['directory_type_id'] = $directory_type_id;
+
+    return apply_filters(
+        'directorist_listing_archive_fields',
+        [
+            'card_fields' => ! empty( $card_fields ) && is_array( $card_fields ) ? $card_fields : [],
+            'list_fields' => ! empty( $list_fields ) && is_array( $list_fields ) ? $list_fields : [],
+        ],
+        $data
+    );
 }

@@ -15,18 +15,19 @@ class ATBDP_Upgrade
     public $directorist_migration = [];
 
     public $deprecated_extensions = [
-        'directorist-pricing-plans/directorist-pricing-plans.php' => '4.0.0',
-        'directorist-stripe/directorist-stripe.php'               => '3.0.0',
-        'directorist-paypal/directorist-paypal.php'               => '3.0.0',
-        'directorist-authorize-net/directorist-authorize-net.php' => '3.0.0',
-        'directorist-coupon/directorist-coupon.php'               => '3.0.0',
-        'directorist-booking/directorist-booking.php'             => '4.0.0',
-        'directorist-claim-listing/directorist-claim-listing.php' => '2.5.2',
-        'directorist-mark-as-sold/directorist-mark-as-sold.php'   => '2.3.0',
-        'directorist-business-hours/bd-business-hour.php'         => '3.7.2',
-        'directorist-job-manager/directorist-job-manager.php'     => '2.3.0',
-        'directorist-faqs/directorist-faqs.php'                   => '2.2.2',
-        'directorist-live-chat/directorist-live-chat.php'         => '2.4.2',
+        'directorist-pricing-plans/directorist-pricing-plans.php'                     => '4.0.0',
+        'directorist-stripe/directorist-stripe.php'                                   => '3.0.0',
+        'directorist-paypal/directorist-paypal.php'                                   => '3.0.0',
+        'directorist-authorize-net/directorist-authorize-net.php'                     => '3.0.0',
+        'directorist-coupon/directorist-coupon.php'                                   => '2.5.0',
+        'directorist-booking/directorist-booking.php'                                 => '3.1.0',
+        'directorist-claim-listing/directorist-claim-listing.php'                     => '2.6.0',
+        'directorist-mark-as-sold/directorist-mark-as-sold.php'                       => '2.3.0',
+        'directorist-business-hours/bd-business-hour.php'                             => '3.8.0',
+        'directorist-job-manager/directorist-job-manager.php'                         => '2.3.0',
+        'directorist-faqs/directorist-faqs.php'                                       => '3.3.0',
+        'directorist-live-chat/directorist-live-chat.php'                             => '2.5.0',
+        'directorist-woocommerce-pricing-plans/directorist-woocommerce-pricing-plans' => '3.7.0',
     ];
 
     public $deprecated_themes = [

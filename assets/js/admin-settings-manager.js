@@ -10938,22 +10938,45 @@ var CHECKBOX_ARRAY_ACCORDION_FIELDS = ['listings_view_as_items', 'listings_sort_
         return error.message;
       }
       return 'Something went wrong';
-    },
-    settingsValuesAreSame: function settingsValuesAreSame(old_value, new_value) {
-      var field_key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-      if (this.isCheckboxArrayAccordionField(field_key)) {
-        return JSON.stringify(this.normalizeCheckboxArrayValue(old_value)) === JSON.stringify(this.normalizeCheckboxArrayValue(new_value));
-      }
-      var old_is_object = old_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(old_value) === 'object';
-      var new_is_object = new_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(new_value) === 'object';
-      if (old_is_object || new_is_object) {
-        return JSON.stringify(old_value || null) === JSON.stringify(new_value || null);
-      }
-      return old_value == new_value;
-    },
-    isCheckboxArrayAccordionField: function isCheckboxArrayAccordionField(field_key) {
-      return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes(field_key) || this.isDynamicExtensionCheckboxArrayField(field_key);
-    },
+	    },
+	    settingsValuesAreSame: function settingsValuesAreSame(old_value, new_value) {
+	      var field_key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+	      if (this.isCheckboxArrayAccordionField(field_key)) {
+	        return JSON.stringify(this.normalizeCheckboxArrayValue(old_value)) === JSON.stringify(this.normalizeCheckboxArrayValue(new_value));
+	      }
+	      if (this.isSelectFieldWithDefaultOption(field_key)) {
+	        return this.normalizeSelectDefaultValue(old_value, field_key) == this.normalizeSelectDefaultValue(new_value, field_key);
+	      }
+	      var old_is_object = old_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(old_value) === 'object';
+	      var new_is_object = new_value && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(new_value) === 'object';
+	      if (old_is_object || new_is_object) {
+	        return JSON.stringify(old_value || null) === JSON.stringify(new_value || null);
+	      }
+	      return old_value == new_value;
+	    },
+	    isSelectFieldWithDefaultOption: function isSelectFieldWithDefaultOption(field_key) {
+	      var field = this.fields[field_key] || this.cached_fields[field_key] || {};
+	      return field.type === 'select' && (!!field.showDefaultOption || !!field['show-default-option']);
+	    },
+	    normalizeSelectDefaultValue: function normalizeSelectDefaultValue(value, field_key) {
+	      if (this.isSelectPlaceholderValue(value)) {
+	        return this.getSelectDefaultValue(field_key);
+	      }
+	      return value;
+	    },
+	    isSelectPlaceholderValue: function isSelectPlaceholderValue(value) {
+	      return value === '' || value === 'select_option' || value === null || typeof value === 'undefined';
+	    },
+	    getSelectDefaultValue: function getSelectDefaultValue(field_key) {
+	      var field = this.fields[field_key] || this.cached_fields[field_key] || {};
+	      if (field.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(field.defaultOption) === 'object' && typeof field.defaultOption.value !== 'undefined') {
+	        return field.defaultOption.value;
+	      }
+	      return '';
+	    },
+	    isCheckboxArrayAccordionField: function isCheckboxArrayAccordionField(field_key) {
+	      return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes(field_key) || this.isDynamicExtensionCheckboxArrayField(field_key);
+	    },
     isDynamicExtensionCheckboxArrayField: function isDynamicExtensionCheckboxArrayField(field_key) {
       var field = this.fields[field_key] || {};
       var cachedField = this.cached_fields[field_key] || {};

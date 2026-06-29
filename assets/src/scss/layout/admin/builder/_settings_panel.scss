@@ -1516,7 +1516,7 @@ body.directorist-settings-redesign-page {
 		min-height: 0;
 		margin: 0 !important;
 		overflow: hidden;
-		padding: 16px 24px 8px;
+		padding: 16px 24px 48px;
 	}
 
 	.atbdp-settings-manager__top,
@@ -6573,7 +6573,7 @@ body.directorist-settings-redesign-page.cptm-notification-modal-open
 
 		.atbdp-settings-manager {
 			height: auto;
-			padding: 10px 12px 8px;
+			padding: 10px 12px 32px;
 		}
 	}
 }
@@ -6581,7 +6581,7 @@ body.directorist-settings-redesign-page.cptm-notification-modal-open
 @media screen and (max-width: 480px) {
 	body.directorist-settings-redesign-page {
 		.atbdp-settings-manager {
-			padding: 8px;
+			padding: 8px 8px 24px;
 		}
 	}
 }

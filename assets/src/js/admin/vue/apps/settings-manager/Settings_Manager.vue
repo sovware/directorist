@@ -1149,6 +1149,11 @@ export default {
                     JSON.stringify( this.normalizeCheckboxArrayValue( new_value ) );
             }
 
+            if ( this.isSelectFieldWithDefaultOption( field_key ) ) {
+                return this.normalizeSelectDefaultValue( old_value, field_key ) ==
+                    this.normalizeSelectDefaultValue( new_value, field_key );
+            }
+
             const old_is_object = old_value && typeof old_value === 'object';
             const new_is_object = new_value && typeof new_value === 'object';
 
@@ -1157,6 +1162,40 @@ export default {
             }
 
             return old_value == new_value;
+        },
+
+        isSelectFieldWithDefaultOption( field_key ) {
+            const field = this.fields[ field_key ] || this.cached_fields[ field_key ] || {};
+
+            return field.type === 'select' &&
+                ( !! field.showDefaultOption || !! field[ 'show-default-option' ] );
+        },
+
+        normalizeSelectDefaultValue( value, field_key ) {
+            if ( this.isSelectPlaceholderValue( value ) ) {
+                return this.getSelectDefaultValue( field_key );
+            }
+
+            return value;
+        },
+
+        isSelectPlaceholderValue( value ) {
+            return value === '' || value === 'select_option' || value === null ||
+                typeof value === 'undefined';
+        },
+
+        getSelectDefaultValue( field_key ) {
+            const field = this.fields[ field_key ] || this.cached_fields[ field_key ] || {};
+
+            if (
+                field.defaultOption &&
+                typeof field.defaultOption === 'object' &&
+                typeof field.defaultOption.value !== 'undefined'
+            ) {
+                return field.defaultOption.value;
+            }
+
+            return '';
         },
 
         isCheckboxArrayAccordionField( field_key ) {

@@ -265,9 +265,7 @@ class Directorist_Listing_Form {
 
         $plan_slider = false;
 
-        if ( is_fee_manager_active() ) {
-            $plan_slider = is_plan_allowed_slider( $fm_plan );
-        } elseif ( empty( $display_glr_img_for ) && ! empty( $display_gallery_field ) ) {
+        if ( empty( $display_glr_img_for ) && ! empty( $display_gallery_field ) ) {
             $plan_slider = true;
         }
 
@@ -815,7 +813,7 @@ class Directorist_Listing_Form {
             $template = 'listing-form/fields/' . $field_data['widget_name'];
         }
 
-        $template = apply_filters( 'directorist_field_template', $template, $field_data );
+        $template = apply_filters( 'directorist_field_template', $template, $field_data, $this->get_current_listing_type() );
 
         if ( is_admin() && empty( $field_data['request_from_no_admin'] ) ) {
             $admin_template = 'listing-form/' . $field_data['widget_name'];
@@ -879,7 +877,7 @@ class Directorist_Listing_Form {
             $template = 'listing-form/fields/' . $field_data['widget_name'];
         }
 
-        $template = apply_filters( 'directorist_field_template', $template, $field_data );
+        $template = apply_filters( 'directorist_field_template', $template, $field_data, $this->get_current_listing_type() );
 
         $args = [
             'listing_form'  => $this,
@@ -976,6 +974,13 @@ class Directorist_Listing_Form {
         return $this->current_listing_type;
     }
 
+    public function get_listing_owner_id(): int {
+        if ( $this->add_listing_id ) {
+            return (int) get_post_field( 'post_author', $this->add_listing_id );
+        }
+        return get_current_user_id();
+    }
+
     public function build_form_data( $directory_id ) {
         $form_data = array();
 
@@ -983,10 +988,8 @@ class Directorist_Listing_Form {
             return $form_data;
         }
 
-        // $submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
-
-        $form_fields = directorist_get_listing_form_fields( $directory_id );
-        $field_groups = directorist_get_listing_form_groups( $directory_id );
+        $form_fields  = directorist_get_listing_form_fields( $directory_id, [ 'type' => 'listing_submission_form' ] );
+        $field_groups = directorist_get_listing_form_groups( $directory_id, [ 'type' => 'listing_submission_form' ] );
 
         foreach ( $field_groups as $group ) {
             $section           = $group;
@@ -1056,8 +1059,13 @@ class Directorist_Listing_Form {
 
         $args = $this->get_map_data();
 
+        $args['listing_id']   = (int) $p_id;
+        $args['is_edit_mode'] = false;
+
         $listing_types      = $this->get_listing_types();
         $listing_type_count = count( $listing_types );
+
+        $args['listing_types'] = array_values( $listing_types );
 
         // Edit Mode
         if ( $p_id ) {
@@ -1067,9 +1075,11 @@ class Directorist_Listing_Form {
             $args['enable_sidebar'] = (bool) get_directorist_type_option( $type, 'enable_sidebar', 1 );
             $args['is_edit_mode']   = true;
 
-            return Helper::get_template_contents( 'listing-form/add-listing', $args );
+            $template = Helper::get_template_contents( 'listing-form/add-listing', $args );
+
+            return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
         } else {
-            // if no listing type exists
+            // If no listing type exists
             if ( $listing_type_count == 0 ) {
 
                 if ( ! directory_types() ) {
@@ -1093,12 +1103,12 @@ class Directorist_Listing_Form {
                 $args['single_directory'] = $type;
                 $template                 = Helper::get_template_contents( 'listing-form/add-listing', $args );
 
-                return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+                return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
             }
 
             // multiple directory available
             $template = Helper::get_template_contents( 'listing-form/add-listing-type', [ 'listing_form' => $this ] );
-            return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
+            return apply_filters( 'atbdp_add_listing_page_template', $template, $args, $this );
         }
     }
 }

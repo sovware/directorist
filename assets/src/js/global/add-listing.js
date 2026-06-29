@@ -50,6 +50,24 @@ function joinQueryString(url, queryString) {
 	return url.match(/[?]/) ? `${url}&${queryString}` : `${url}?${queryString}`;
 }
 
+function normalizeRedirectUrl(url) {
+	if (!url || typeof url !== 'string') {
+		return '';
+	}
+
+	try {
+		const decodedUrl = decodeURIComponent(url);
+
+		if (/^https?:\/\//i.test(decodedUrl) || decodedUrl.startsWith('/')) {
+			return decodedUrl;
+		}
+	} catch (error) {
+		// Keep the original value when it is not URI-encoded.
+	}
+
+	return url;
+}
+
 function scrollTo(selector) {
 	document.querySelector(selector)?.scrollIntoView({
 		block: 'start',
@@ -717,7 +735,18 @@ $(function () {
 					: [];
 			var error_count = 0;
 			var err_log = {};
-			var form_data = new FormData();
+			const form_data = new FormData();
+
+			// Add query vars from the URL to form_data
+			const urlParams = new URLSearchParams(window.location.search);
+
+			for (const [key, value] of urlParams.entries()) {
+				// Don't override any existing FormData key
+				if (!form_data.has(key)) {
+					form_data.append(key, value);
+				}
+			}
+
 			form_data.append('action', 'add_listing_action');
 			form_data.append(
 				'directorist_nonce',
@@ -839,17 +868,14 @@ $(function () {
 						);
 				},
 				success: function success(response) {
-					var redirect_url =
+					var redirect_url = normalizeRedirectUrl(
 						response && response.redirect_url
 							? response.redirect_url
-							: '';
-					redirect_url =
-						redirect_url && typeof redirect_url === 'string'
-							? response.redirect_url.replace(
-									/:\/\//g,
-									'%3A%2F%2F'
-								)
-							: '';
+							: ''
+					);
+					var encoded_redirect_url = redirect_url
+						? encodeURIComponent(redirect_url)
+						: '';
 					if (
 						(response === null || response === void 0
 							? void 0
@@ -919,7 +945,9 @@ $(function () {
 									);
 								window.location.href = joinQueryString(
 									response.preview_url,
-									'preview=1&redirect='.concat(redirect_url)
+									'preview=1&redirect='.concat(
+										encoded_redirect_url
+									)
 								);
 							} else {
 								$notification
@@ -944,7 +972,7 @@ $(function () {
 									window.location.href = joinQueryString(
 										response.preview_url,
 										'preview=1&edited=1&redirect='.concat(
-											redirect_url
+											encoded_redirect_url
 										)
 									);
 								}
@@ -957,7 +985,7 @@ $(function () {
 							window.location.href = joinQueryString(
 								response.preview_url,
 								'preview=1&payment=1&redirect='.concat(
-									redirect_url
+									encoded_redirect_url
 								)
 							);
 						} else {
@@ -973,8 +1001,7 @@ $(function () {
 											'</span>'
 										)
 									);
-								window.location.href =
-									decodeURIComponent(redirect_url);
+								window.location.href = redirect_url;
 							} else {
 								$notification
 									.show()
@@ -984,8 +1011,9 @@ $(function () {
 											'</span>'
 										)
 									);
+
 								window.location.href = joinQueryString(
-									decodeURIComponent(response.redirect_url),
+									redirect_url,
 									is_edited
 								);
 							}

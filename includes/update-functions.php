@@ -8,6 +8,24 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+function directorist_get_payment_currency_settings() {
+    // Get the payment currency settings, and use the general currency settings if the payment currency setting is empty.
+    $currency_settings = [
+        'currency'            => get_directorist_option( 'payment_currency', directorist_get_currency() ),
+        'thousands_separator' => get_directorist_option( 'payment_thousand_separator', get_directorist_option( 'g_thousand_separator', ',' ) ),
+        'decimal_separator'   => get_directorist_option( 'payment_decimal_separator', get_directorist_option( 'g_decimal_separator', '.' ) ),
+        'position'            => get_directorist_option( 'payment_currency_position', directorist_get_currency_position() ),
+
+    ];
+
+    return apply_filters( 'atbdp_payment_currency_settings', $currency_settings ); // return the currency settings array
+}
+
+function directorist_get_payment_currency() {
+    $cs = directorist_get_payment_currency_settings();
+    return ! empty( $cs['currency'] ) ? strtoupper( $cs['currency'] ) : 'USD';
+}
+
 // Migrate old reviews data from review table to comments table
 function directorist_710_migrate_reviews_table_to_comments_table() {
     if ( get_option( 'directorist_old_reviews_table_migrated' ) ) {
@@ -296,4 +314,204 @@ function directorist_850_migrate_archive_base() {
 
 function directorist_850_update_db_version() {
     \ATBDP_Installation::update_db_version( '8.5.0' );
+}
+
+/**
+ * Migrate legacy atbdp_orders posts into directorist_orders and directorist_payments tables.
+ *
+ * Follows the batched callback convention: return true to re-queue, false when done.
+ *
+ * @since 8.8.0
+ * @return bool True if more posts remain, false when migration is complete.
+ */
+function directorist_880_migrate_legacy_orders() {
+    global $wpdb;
+
+    $orders_table   = $wpdb->prefix . 'directorist_orders';
+    $payments_table = $wpdb->prefix . 'directorist_payments';
+
+    // Guard: abort if target tables do not exist yet.
+    $orders_exists   = $wpdb->get_var( "SHOW TABLES LIKE '{$orders_table}'" );
+    $payments_exists = $wpdb->get_var( "SHOW TABLES LIKE '{$payments_table}'" );
+
+    if ( ! $orders_exists || ! $payments_exists ) {
+        error_log( 'Directorist 8.8.0 migration: target tables missing, skipping order migration.' );
+        return false;
+    }
+
+    // Resolve site currency once for the entire batch.
+    $currency = directorist_get_payment_currency();
+
+    // Status normalization map: legacy _payment_status -> OrderStatus enum value.
+    $status_map = [
+        'completed' => 'paid',
+        'created'   => 'unpaid',
+        'pending'   => 'pending',
+        'failed'    => 'failed',
+        'cancelled' => 'cancelled',
+        'refunded'  => 'refunded',
+    ];
+
+    // Query up to 100 eligible posts: exclude _fm_plan_ordered and already-migrated posts.
+    $query = new WP_Query( [
+        'post_type'      => 'atbdp_orders',
+        'post_status'    => ['any', 'trash'],
+        'posts_per_page' => 100,
+        'cache_results'  => false,
+        'no_found_rows'  => false,
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+        'meta_query'     => [
+            'relation' => 'AND',
+            [
+                'key'     => '_fm_plan_ordered',
+                'compare' => 'NOT EXISTS',
+            ],
+            [
+                'key'     => '_is_migrated',
+                'compare' => 'NOT EXISTS',
+            ],
+        ],
+    ] );
+
+    if ( ! $query->have_posts() ) {
+        return false;
+    }
+
+    while ( $query->have_posts() ) {
+        $query->the_post();
+        $post = get_post( get_the_ID() );
+
+        $post_id = (int) $post->ID;
+
+        // Read legacy meta.
+        $listing_id     = (int) get_post_meta( $post_id, '_listing_id', true );
+        $amount         = (float) get_post_meta( $post_id, '_amount', true );
+        $is_featured    = (int) get_post_meta( $post_id, '_featured', true );
+        $payment_status = (string) get_post_meta( $post_id, '_payment_status', true );
+        $transaction_id = get_post_meta( $post_id, '_transaction_id', true );
+        $gateway        = (string) get_post_meta( $post_id, '_payment_gateway', true );
+
+        // Normalize status.
+        $status = isset( $status_map[ $payment_status ] ) ? $status_map[ $payment_status ] : 'pending';
+
+        if ( $post->post_status === 'trash' ) {
+            $status = 'cancelled';
+        }
+
+        // Insert into directorist_orders.
+        $inserted = $wpdb->insert(
+            $orders_table,
+            [
+                'legacy_id'          => $post_id,
+                'subscription_id'    => null,
+                'user_id'            => (int) $post->post_author,
+                'listing_id'         => $listing_id ?: null,
+                'is_featured_listing'=> $is_featured ? 1 : 0,
+                'ref'                => null,
+                'ref_type'           => $is_featured ? 'featured_listing' : null,
+                'amount'             => $amount,
+                'currency'           => $currency,
+                'coupon_code'        => null,
+                'coupon_discount'    => 0.00,
+                'coupon_discount_type'=> null,
+                'tax_rate'           => 0.00,
+                'tax_type'           => null,
+                'sub_total'          => $amount,
+                'status'             => $status,
+                'expires_at'         => null,
+                'created_at'         => $post->post_date,
+                'updated_at'         => $post->post_modified,
+            ],
+            [
+                '%d', // legacy_id
+                '%s', // subscription_id (null handled by wpdb)
+                '%d', // user_id
+                '%d', // listing_id
+                '%d', // is_featured_listing
+                '%s', // ref
+                '%s', // ref_type
+                '%f', // amount
+                '%s', // currency
+                '%s', // coupon_code
+                '%f', // coupon_discount
+                '%s', // coupon_discount_type
+                '%f', // tax_rate
+                '%s', // tax_type
+                '%f', // sub_total
+                '%s', // status
+                '%s', // expires_at
+                '%s', // created_at
+                '%s', // updated_at
+            ]
+        );
+
+        if ( false === $inserted ) {
+            // Insert failed; skip this post without marking it migrated so it can be retried.
+            continue;
+        }
+
+        $new_order_id = (int) $wpdb->insert_id;
+
+        // Write _is_migrated immediately. If it fails, roll back the order row.
+        $meta_saved = add_post_meta( $post_id, '_is_migrated', '1', true );
+
+        if ( ! $meta_saved ) {
+            $wpdb->delete( $orders_table, [ 'id' => $new_order_id ], [ '%d' ] );
+            continue;
+        }
+
+        // Insert corresponding payment row.
+        $wpdb->insert(
+            $payments_table,
+            [
+                'order_id'       => $new_order_id,
+                'amount'         => $amount,
+                'currency'       => $currency,
+                'status'         => $status,
+                'transaction_id' => $transaction_id ?: null,
+                'method'         => $gateway ?: '',
+                'created_at'     => $post->post_date,
+                'updated_at'     => $post->post_modified,
+            ],
+            [
+                '%d', // order_id
+                '%f', // amount
+                '%s', // currency
+                '%s', // status
+                '%s', // transaction_id
+                '%s', // method
+                '%s', // created_at
+                '%s', // updated_at
+            ]
+        );
+    }
+
+    wp_reset_postdata();
+
+    // Check if any eligible posts remain to decide whether to re-queue.
+    $remaining = new WP_Query( [
+        'post_type'      => 'atbdp_orders',
+        'post_status'    => ['any', 'trash'],
+        'posts_per_page' => 1,
+        'no_found_rows'  => false,
+        'fields'         => 'ids',
+        'meta_query'     => [
+            'relation' => 'AND',
+            [
+                'key'     => '_fm_plan_ordered',
+                'compare' => 'NOT EXISTS',
+            ],
+            [
+                'key'     => '_is_migrated',
+                'compare' => 'NOT EXISTS',
+            ],
+        ],
+    ] );
+
+    return $remaining->found_posts > 0;
+}
+
+function directorist_880_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.8.0' );
 }

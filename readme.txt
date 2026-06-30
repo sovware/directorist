@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.8.1
+Stable tag: 8.8.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -300,17 +300,24 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.8.2 - Jun 30, 2026 =
+
+**Improved**
+ - Redesigned settings panel UX with refined navigation, section layouts, field controls, and responsive styling. (#2878)
+
+**Fixed**
+ - PayPal extension download link in the setup wizard to install the latest compatible package. (#2890)
+ - PHP 8.4 compatibility issue. (#2891)
+
 = 8.8.1 - Jun 28, 2026 =
 
 **Fixed**
  - Deprecated extension notice issue.
 
-
 = 8.8.0 - Jun 28, 2026 =
 
 **Improved**
  - Payment system rewritten for better performance, flexibility, and a more reliable checkout experience.
-
 
 = 8.7.4 - Jun 9, 2026 =
 

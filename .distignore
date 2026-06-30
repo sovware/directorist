@@ -45,6 +45,7 @@
 /webpack.legacy.prod.js
 
 # Documentation & notes
+/docs
 /README.md
 /node-update-notes.md
 /.documentation

@@ -267,6 +267,7 @@ Widgets: all-listing, all-categories, all-locations, category, location, tag, se
 **Save:** `wp_ajax_save_settings_data`
 **Options prefix:** `atbdp_` (legacy) and `directorist_` (new)
 **Features:** Import/export settings, restore defaults, per-directory-type settings, conditional field visibility (show-if)
+**Settings panel agent:** Before redesigning, auditing, or adding settings-panel features, load `docs/agents/directorist-settings-panel/SKILL.md` and follow its report-first workflow.
 
 ## Build Pipeline
 

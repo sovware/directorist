@@ -19,10 +19,6 @@
 
           <div class="cptm-modal-body cptm-center-content cptm-content-wide">
             <form action="#" method="post" class="cptm-import-directory-form">
-              <div
-                class="cptm-form-group-feedback cptm-text-center cptm-mb-10"
-              ></div>
-
               <h2
                 class="cptm-modal-confirmation-title"
                 v-html="confirmationText"

@@ -16,7 +16,7 @@ class DateTime extends PHPDateTime {
     const MONTHS_PER_QUARTER = 3;
     const QUARTERS_PER_YEAR  = 4;
 
-    public function __construct( string $datetime = "now", DateTimeZone $timezone = null ) {
+    public function __construct( string $datetime = "now", ?DateTimeZone $timezone = null ) {
         parent::__construct( $datetime, $timezone ?? wp_timezone() );
     }
 

@@ -307,6 +307,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 **Fixed**
  - PayPal extension download link in the setup wizard to install the latest compatible package. (#2890)
+ - PHP 8.4 compatibility issue. (#2891)
 
 = 8.8.1 - Jun 28, 2026 =
 

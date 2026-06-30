@@ -78,11 +78,14 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 $queue
             );
 
-            $recipients = $this->normalize_email_recipients( $recipient );
+            $listing_owner_recipients = $this->normalize_email_recipients( $recipient );
 
-            if ( empty( $recipients ) ) {
+            if ( empty( $listing_owner_recipients ) ) {
                 return $send_to;
             }
+
+            $send_to_recipients = $this->normalize_email_recipients( $send_to );
+            $recipients         = array_values( array_unique( array_merge( $send_to_recipients, $listing_owner_recipients ) ) );
 
             return count( $recipients ) > 1 ? $recipients : reset( $recipients );
         }

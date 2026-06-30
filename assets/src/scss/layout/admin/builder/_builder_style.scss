@@ -567,7 +567,6 @@ $light-gray: #f4f5f7;
 
 .cptm-btn,
 .cptm-btn.cptm-label-btn {
-	margin: 0 5px 10px;
 	display: inline-block;
 	text-align: center;
 	border: 1px solid transparent;
@@ -624,6 +623,7 @@ $light-gray: #f4f5f7;
 .cptm-file-input-wrap {
 	display: flex;
 	flex-wrap: wrap;
+	gap: 10px;
 
 	.cptm-btn {
 		flex-grow: 1;
@@ -6531,9 +6531,9 @@ input[type="text"] {
 }
 
 .cptm-modal-confirmation-title {
-	margin: 30px auto;
 	font-size: 20px;
 	text-align: center;
+	margin: 30px auto 24px;
 }
 
 .cptm-section-alert-area {
@@ -6577,10 +6577,50 @@ input[type="text"] {
 	display: inline-flex;
 }
 
+.cptm-color-picker {
+	flex-shrink: 0;
+}
+
+.cptm-color-picker input[type="color"] {
+	display: block;
+	box-sizing: border-box;
+	padding: 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	cursor: pointer;
+	appearance: none;
+	-webkit-appearance: none;
+}
+
+.cptm-color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+.cptm-color-picker input[type="color"]::-webkit-color-swatch {
+	border: 0;
+}
+
+.cptm-color-picker input[type="color"]::-moz-color-swatch {
+	border: 0;
+}
+
 .cptm-color-picker-label {
 	display: flex;
 	align-items: center;
 	margin-left: 10px;
+}
+
+input.cptm-color-picker-label {
+	width: 82px;
+	min-height: auto;
+	padding: 0;
+	color: inherit;
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	font: inherit;
+	outline: none;
 }
 
 // Utility

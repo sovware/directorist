@@ -16,6 +16,10 @@ function register_controllers() {
     // Base controller.
     require_once $dir . 'Version1/class-abstract-controller.php';
 
+     // Admin Controller
+    require_once $dir . "Version1/class-admin-controller.php";
+    ( new \Directorist\Rest_Api\Controllers\Version1\Admin_Controller() )->register_routes();
+
     // Listings
     require_once $dir . 'Version1/class-abstract-posts-controller.php';
     require_once $dir . 'Version1/class-listings-controller.php';
@@ -74,6 +78,30 @@ function register_controllers() {
     $directories = new \Directorist\Rest_Api\Controllers\Version1\Directories_Controller();
     $directories->register_routes();
 
+    // Checkout
+    require_once $dir . 'Version1/class-checkout-controller.php';
+
+    $checkout = new \Directorist\Rest_Api\Controllers\Version1\Checkout_Controller();
+    $checkout->register_routes();
+
+    // Orders
+    require_once $dir . 'Version1/class-order-controller.php';
+
+    $orders = new \Directorist\Rest_Api\Controllers\Version1\Order_Controller();
+    $orders->register_routes();
+
+    // Order Refunds
+    require_once $dir . 'Version1/class-order-refund-controller.php';
+
+    $order_refunds = new \Directorist\Rest_Api\Controllers\Version1\Order_Refund_Controller();
+    $order_refunds->register_routes();
+
+    // Payments
+    require_once $dir . 'Version1/class-payments-controller.php';
+
+    $payments = new \Directorist\Rest_Api\Controllers\Version1\Payments_Controller();
+    $payments->register_routes();
+    
     // Directory builder
     require_once $dir . 'Version1/class-builder-controller.php';
 
@@ -91,12 +119,6 @@ function register_controllers() {
 
     $temp_media_upload = new \Directorist\Rest_Api\Controllers\Version1\Temporary_Media_Upload_Controller();
     $temp_media_upload->register_routes();
-
-    // Orders controller
-    require_once $dir . 'Version1/class-orders-controller.php';
-
-    $orders = new \Directorist\Rest_Api\Controllers\Version1\Orders_Controller();
-    $orders->register_routes();
 
     // Pages controller
     require_once $dir . 'Version1/class-pages-controller.php';

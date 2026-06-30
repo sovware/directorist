@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Name:** Directorist — Business Directory Solution
 - **Type:** WordPress plugin (GPLv3)
-- **Version:** 8.6.7+
+- **Version:** 8.8.0
 - **Repo:** https://github.com/sovware/directorist
 - **Entry point:** `directorist-base.php` → singleton `Directorist_Base`
 - **Config:** `config.php` — constants: `ATBDP_VERSION`, `ATBDP_POST_TYPE` (`at_biz_dir`), `ATBDP_TEXTDOMAIN` (`directorist`)
@@ -17,11 +17,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | Layer | Technology |
 |-------|-----------|
-| PHP | 7.0+ (PHPCS targets 7.4), WordPress 4.6+ (tested 6.9) |
+| PHP | 7.0+ (PHPCS targets 8.1 compat), WordPress 4.6+ (tested 6.9) |
 | Admin UI | Vue 2.6 + Vuex (builder/settings), jQuery (legacy) |
+| React Pages | React ( `assets/src/js/react/`) |
 | Blocks | React via @wordpress/components |
 | CSS | SCSS → Webpack → CSS + RTL variants |
-| Build | Webpack 5, npm scripts, Husky + lint-staged |
+| Build | Webpack 5, wp-scripts, npm scripts, Husky + lint-staged |
 | PHP QA | PHPCS + WordPress Coding Standards 2.3 |
 | JS QA | Prettier 3.5.3, wp-scripts |
 
@@ -29,10 +30,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | Task | Command |
 |------|---------|
-| Dev build (JS/CSS) | `npm run dev` |
-| Dev build (Vue) | `npm run dev-vue` |
-| Production build | `npm run prod` |
-| Format JS/CSS/SCSS | `npm run format` |
+| Dev build (all) | `npm run start` |
+| Dev build (legacy/Vue) | `npm run start-legacy` |
+| Dev build (wp-scripts) | `npm run start-default` |
+| Dev build (blocks) | `npm run start:blocks` |
+| Production build | `npm run build` |
+| Production build (legacy) | `npm run build-legacy` |
+| Production build (blocks) | `npm run build:blocks` |
 | PHP lint | `composer phpcs` |
 | PHP auto-fix | `composer format` |
 | PHP 8.1 compat check | `composer sniffer:php8.1` |
@@ -52,23 +56,32 @@ includes/
 ├── classes/          # Core classes (ajax, email, extension, listing, metabox, settings, user, tools)
 ├── model/            # Data models (9 classes — see Model Layer below)
 ├── fields/           # Custom field type system (Base_Field + 24 field types)
-├── rest-api/         # REST controllers: Version1/ (16), Version2/ (1)
+├── rest-api/         # REST controllers: Version1/ (23), Version2/ (1)
 ├── checkout/         # Checkout flow (ATBDP_Checkout)
 ├── gateways/         # Payment gateways (ATBDP_Gateway base, ATBDP_Offline_Gateway)
 ├── payments/         # Order management (ATBDP_Order)
+├── payment-processors/ # Modular payment processor system
+├── db-models/        # Database models (Order, Payment, Post, Refund, Subscription, User)
+├── contracts/        # PHP interfaces (payment-interface.php)
+├── repositories/     # Repository pattern (listing, order, payment, refund, subscription)
+├── dto/              # Data Transfer Objects (Order, Payment, Refund, Subscription)
+├── enums/            # Status enums (Order/Status, Order/Tax_Type, Payment/Status, Refund/Status)
 ├── elementor/        # 19 Elementor widgets
 ├── hooks/            # Hook registration
-├── helpers/          # Traits: Icon, Markup, URI
-├── modules/          # Background processing, multi-directory setup, Appsero
+├── helpers/          # Traits: Icon, Markup, URI + date-time, repositories helpers
+├── modules/          # Background processing, multi-directory setup (incl. AI builder), Appsero
 ├── review/           # Review system
 ├── database/         # ATBDP_Database base class
 ├── data-store/       # Term caching (ATBDP_Terms_Store)
 ├── asset-loader/     # Dynamic asset enqueue system
+├── setup/            # Activation logic
+├── system-status/    # System status reporting
+├── deprecated/       # Deprecated PHP files
 └── widgets/          # Classic WordPress widgets
 templates/            # Public templates (theme-overridable)
 views/admin-templates/ # Admin UI templates
-blocks/src/ → build/  # 21 Gutenberg blocks
-assets/src/js/        # JS source (public/, admin/, global/, lib/)
+blocks/src/ → build/  # 19 Gutenberg blocks
+assets/src/js/        # JS source (public/, admin/, global/, react/, formgent-integration/, lib/)
 assets/src/scss/      # SCSS source
 ```
 
@@ -92,6 +105,10 @@ assets/src/scss/      # SCSS source
 | Builder_Controller | `/builder/{tab}` | Abstract_Controller |
 | Plans_Controller | `/plans` | Posts_Controller |
 | Orders_Controller | `/orders` | Posts_Controller |
+| Order_Controller | `/order` | Abstract_Controller |
+| Order_Refund_Controller | `/orders/{id}/refunds` | Abstract_Controller |
+| Payments_Controller | `/payments` | Abstract_Controller |
+| Checkout_Controller | `/checkout` | Abstract_Controller |
 | Pages_Controller | `/pages` | Abstract_Controller |
 | Admin_Controller | `/admin/install-plugin` | Abstract_Controller |
 | Temporary_Media_Upload_Controller | `/temp-media-upload` | Abstract_Controller |
@@ -114,7 +131,7 @@ Location: `includes/fields/`
 
 **Entry points:**
 - `assets/src/js/admin/multi-directory-builder.js` → mounts on `#atbdp-cpt-manager`
-- Settings manager entry in `webpack-entry-list.js`
+- Settings manager entry in `webpack.legacy.dev.js`
 
 **Store:** `assets/src/js/admin/vue/store/CPT_Manager_Store.js` (Vuex)
 - State: `fields`, `layouts`, `options`, `config`, `listing_type_id`, `metaKeys`, `sidebarNavigation`
@@ -158,6 +175,21 @@ Location: `includes/model/` — namespace `Directorist`
 
 **Key hooks:** `atbdp_order_created`, `atbdp_order_completed`, `atbdp_process_{$gateway}_payment` (dynamic per gateway)
 
+### New Payment Architecture (feature/payment-migration)
+
+A layered payment system is being introduced alongside the legacy gateway system:
+
+| Layer | Location | Purpose |
+|-------|----------|---------|
+| Contracts | `includes/contracts/payment-interface.php` | Standardized payment interface |
+| DB Models | `includes/db-models/` | Order, Payment, Post, Refund, Subscription, User |
+| DTOs | `includes/dto/` | Typed data transfer: `Order\dto.php`, `Payment\dto.php`, `Refund\dto.php`, `Subscription\dto.php` |
+| Enums | `includes/enums/` | `Order\Status`, `Order\Tax_Type`, `Payment\Status`, `Refund\Status` |
+| Repositories | `includes/repositories/` | listing, order, payment, refund, subscription repositories |
+| Processors | `includes/payment-processors/` | `payment.php`, `bank-transfer.php` |
+
+**New REST endpoints:** `Checkout_Controller`, `Order_Controller`, `Orders_Controller`, `Order_Refund_Controller`, `Payments_Controller`
+
 ## Template System
 
 **Lookup hierarchy** (via `atbdp_get_template()`):
@@ -171,8 +203,8 @@ Location: `includes/template-functions.php`, public templates in `templates/`, a
 
 ## Block Editor (Gutenberg)
 
-**21 blocks** registered in `blocks/init.php` via `register_block_type()` with `block.json` (apiVersion 3):
-account-button, author-profile, authors, categories, checkout, dashboard, listing-form, listings, locations, payment-receipt, search-form, search-modal, search-result, signin-signup, single-category, single-listing, single-location, single-tag, transaction-failure, vendors
+**19 blocks** registered in `blocks/init.php` via `register_block_type()` with `block.json` (apiVersion 3):
+account-button, author-profile, authors, categories, checkout, dashboard, listing-form, listings, locations, payment-receipt, search-form, search-modal, search-result, signin-signup, single-category, single-listing, single-location, single-tag, transaction-failure
 
 **Pattern:** Render callback (`directorist_block_render_callback`) converts block attributes to shortcode calls.
 **Category:** `directorist-blocks-collection`
@@ -180,13 +212,13 @@ account-button, author-profile, authors, categories, checkout, dashboard, listin
 
 ## Elementor Integration
 
-**19 widgets** in `includes/elementor/` — namespace `AazzTech\Directorist\Elementor`, base class in `base.php`
+**17 widgets** in `includes/elementor/` — namespace `AazzTech\Directorist\Elementor`, base class in `base.php`
 Widgets: all-listing, all-categories, all-locations, category, location, tag, search-listing, search-result, add-listing, user-login, custom-registration, user-dashboard, author-profile, transaction-failure, payment-receipt, checkout, deprecated-notice
 **Theme override:** `STYLESHEETPATH/directorist-elementor/{widget}.php`
 
 ## AJAX Endpoints
 
-**Handler:** `includes/classes/class-ajax-handler.php` (89 KB)
+**Handler:** `includes/classes/class-ajax-handler.php`
 **Naming:** `wp_ajax_atbdp_*` (legacy) and `wp_ajax_directorist_*` (new)
 
 **Key categories:**
@@ -231,25 +263,52 @@ Widgets: all-listing, all-categories, all-locations, category, location, tag, se
 
 ## Settings Architecture
 
-**Class:** `ATBDP_Settings_Panel` (`includes/classes/class-settings-panel.php`, 263 KB)
+**Class:** `ATBDP_Settings_Panel` (`includes/classes/class-settings-panel.php`)
 **Registration:** Add fields via `atbdp_listing_type_settings_field_list` filter
 **Save:** `wp_ajax_save_settings_data`
 **Options prefix:** `atbdp_` (legacy) and `directorist_` (new)
 **Features:** Import/export settings, restore defaults, per-directory-type settings, conditional field visibility (show-if)
+**Settings panel agent:** Before redesigning, auditing, or adding settings-panel features, load `docs/agents/directorist-settings-panel/SKILL.md` and follow its report-first workflow.
 
 ## Build Pipeline
 
 | Config | Purpose | Watch |
 |--------|---------|-------|
-| `webpack.common.js` | Shared loaders (Vue, Babel, SASS, images) | — |
-| `webpack.dev.js` | JS/CSS dev build (commonEntries) | Yes |
-| `webpack.dev.vue.js` | Vue admin dev build (vueEntries) | Yes |
-| `webpack.prod.js` | Minified + RTL + zip packaging | No |
+| `webpack.config.js` | Main wp-scripts config (blocks + React admin pages) | Yes (`start-default`) |
+| `webpack.legacy.dev.js` | Vue/legacy dev build | Yes (`start-legacy`) |
+| `webpack.legacy.prod.js` | Vue/legacy production build (minified + RTL) | No |
 
-**Entry list:** `webpack-entry-list.js` defines `commonEntries` (30+ public/admin/global bundles) and `vueEntries` (admin-multi-directory-builder, admin-settings-manager)
+**Entry list:** `webpack.legacy.dev.js` defines public bundles (checkout, search-form, all-listings, single-listing, etc.) and admin bundles (multi-directory-builder, settings-manager, listing-type-metabox, etc.)
 **Output:** `assets/js/`, `assets/css/` — production adds `.min.js`, `.min.css`, `.rtl.min.css`
 **Packaging:** Production builds to `__build/directorist/` → `directorist.zip`
 **RTL:** Auto-generated via webpack-rtl-plugin
+
+## PHP Namespaces
+
+| Namespace | Location |
+|-----------|----------|
+| `Directorist\` | Core classes, models |
+| `Directorist\Fields\` | `includes/fields/` |
+| `Directorist\Rest_Api\Controllers\Version1\` | `includes/rest-api/Version1/` |
+| `Directorist\Rest_Api\Controllers\Version2\` | `includes/rest-api/Version2/` |
+| `Directorist\DBModels\` | `includes/db-models/` |
+| `Directorist\DTO\Order\` | `includes/dto/` |
+| `Directorist\DTO\Payment\` | `includes/dto/` |
+| `Directorist\DTO\Refund\` | `includes/dto/` |
+| `Directorist\DTO\Subscription\` | `includes/dto/` |
+| `Directorist\Enums\Order\` | `includes/enums/` |
+| `Directorist\Enums\Payment\` | `includes/enums/` |
+| `Directorist\Enums\Refund\` | `includes/enums/` |
+| `Directorist\Repositories\` | `includes/repositories/` |
+| `Directorist\Contracts\` | `includes/contracts/` |
+| `Directorist\PaymentProcessors\` | `includes/payment-processors/` |
+| `Directorist\Asset_Loader\` | `includes/asset-loader/` |
+| `Directorist\Helpers\` | `includes/helpers/` |
+| `Directorist\Multi_Directory\` | `includes/modules/multi-directory-setup/` |
+| `Directorist\Review\` | `includes/review/` |
+| `Directorist\Setup\` | `includes/setup/` |
+| `Directorist\Widgets\` | `includes/widgets/` |
+| `AazzTech\Directorist\Elementor\` | `includes/elementor/` |
 
 ## Naming Conventions
 
@@ -264,7 +323,7 @@ Widgets: all-listing, all-categories, all-locations, category, location, tag, se
 
 ## Extension System
 
-**Manager:** `includes/classes/class-extension.php` (144 KB)
+**Manager:** `includes/classes/class-extension.php`
 **Lifecycle:** Authentication → download → install → activate (via AJAX)
 **Key AJAX actions:** `atbdp_authenticate_the_customer`, `atbdp_download_file`, `atbdp_install_file_from_subscriptions`
 **Filters:** `directorist_extensions_aliases` (deprecated name mapping), `directorist_required_extensions`
@@ -275,3 +334,4 @@ Widgets: all-listing, all-categories, all-locations, category, location, tag, se
 - Build files (`assets/css/`, `assets/js/`) are committed to the repo
 - Multi-directory support: each listing type (`atbdp_listing_types` taxonomy) has its own builder config stored as term meta
 - Builder data is base64-encoded JSON containing fields, layouts, options, config
+- Active payment system refactor on `feature/payment-migration` branch — introduces DTO/Enum/Repository/Processor layers alongside legacy gateways

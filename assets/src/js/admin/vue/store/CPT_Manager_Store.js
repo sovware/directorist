@@ -109,6 +109,10 @@ export default new Vuex.Store({
 			state.highlighted_field_key = '';
 		},
 
+		setHighlightedFieldKey: (state, field_key) => {
+			state.highlighted_field_key = field_key || '';
+		},
+
 		updateCachedFieldData: (state, payload) => {
 			state.cached_fields[payload.key].value = payload.value;
 		},

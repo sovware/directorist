@@ -15,7 +15,7 @@
                 >
 
                 <label :for="getOptionID( option, option_index, sectionId )" class="cptm-checkbox-ui"></label>
-                <label :for="getOptionID( option, option_index, sectionId )" v-html="option.label + ' ' + option_index"></label>
+                <label :for="getOptionID( option, option_index, sectionId )" v-html="option.label"></label>
             </div>
         </div>
 

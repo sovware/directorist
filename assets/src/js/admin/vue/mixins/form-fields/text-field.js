@@ -37,9 +37,14 @@ export default {
 			var validation_classes = this.validationLog?.inputErrorClasses
 				? this.validationLog.inputErrorClasses
 				: {};
+			var safe_field_key = String(this.fieldKey).replace(/[^a-zA-Z0-9_-]/g, '-');
+			var field_key_class = this.fieldKey
+				? `cptm-form-group--${safe_field_key}`
+				: '';
 
 			return {
 				...validation_classes,
+				[field_key_class]: !!field_key_class,
 				'cptm-mb-0': 'hidden' === this.input_type ? true : false,
 			};
 		},

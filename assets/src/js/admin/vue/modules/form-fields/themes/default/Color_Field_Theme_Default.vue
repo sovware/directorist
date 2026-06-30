@@ -26,7 +26,14 @@
             />
           </div>
 
-          <div class="cptm-color-picker-label">{{ local_value }}</div>
+          <input
+            class="cptm-color-picker-label"
+            type="text"
+            :value="color_value_input"
+            :aria-label="`${label} color value`"
+            @input="updateColorValueInput($event.target.value)"
+            @blur="resetColorValueInput"
+          />
         </div>
 
         <div class="cptm-form-group-feedback" v-if="validationMessages">

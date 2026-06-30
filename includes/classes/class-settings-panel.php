@@ -67,13 +67,13 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
             $fields['import_settings'] = [
                 'type'         => 'import',
                 'label'        => 'Import',
-                'button-label' => 'Upload Settings File',
+                'button-label' => __( 'Import JSON', 'directorist' ),
             ];
 
             $fields['export_settings'] = [
                 'type'             => 'export',
                 'label'            => 'Export',
-                'button-label'     => 'Download Settings File',
+                'button-label'     => __( 'Export JSON', 'directorist' ),
                 'export-file-name' => 'directory-settings',
             ];
 
@@ -92,7 +92,7 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
             $fields['restore_default_settings'] = [
                 'type'         => 'restore',
                 'label'        => 'Restore Default Settings',
-                'button-label' => 'Restore',
+                'button-label' => __( 'Restore defaults', 'directorist' ),
                 'restor-data'  => $this->get_simple_data_content( [ 'path' => 'directory/directory-settings.json' ] ),
             ];
 
@@ -136,13 +136,13 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
                 'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                 'open-in-new-tab' => true,
                 'label'           => __( 'Import', 'directorist' ),
-                'button-label'    => __( 'Run Importer', 'directorist' ),
+                'button-label'    => __( 'Import CSV', 'directorist' ),
             ];
 
             $fields['listing_export_button'] = [
                 'type'                     => 'export-data',
                 'label'                    => __( 'Export', 'directorist' ),
-                'button-label'             => __( 'Download Export File', 'directorist' ),
+                'button-label'             => __( 'Export CSV', 'directorist' ),
                 'export-file-name'         => __( 'listings-export-data', 'directorist' ),
                 'prepare-export-file-from' => 'directorist_prepare_listings_export_file',
                 'nonce'                    => [
@@ -1528,7 +1528,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'count_loggedin_user' => [
                         'type'          => 'toggle',
                         'label'         => __( 'Track Logged-In User Views', 'directorist' ),
-                        'description'   => __( 'Include visits from logged-in users in total listing view counts.', 'directorist' ),
                         'value'         => true,
                     ],
                     'dynamic_view_count_cache' => [

@@ -2,6 +2,7 @@
 /.cache               export-ignore
 /.github              export-ignore
 /.wordpress-org       export-ignore
+/docs                 export-ignore
 
 /assets/src           export-ignore
 

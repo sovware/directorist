@@ -654,7 +654,7 @@ class Directorist_Setup_Wizard {
 
             include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
             
-            directorist_download_plugin( [ 'url' => 'https://app.directorist.com/wp-content/uploads/2025/05/directorist-paypal.zip' ] );
+            directorist_download_plugin( [ 'url' => 'https://app.directorist.com/wp-content/uploads/2026/06/directorist-paypal-3.0.0.zip' ] );
 
             $path = 'directorist-paypal/directorist-paypal.php';
 

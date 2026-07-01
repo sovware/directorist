@@ -257,6 +257,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 if ( $slug = get_query_var( 'atbdp_category' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-category' );
+                    if ( ! $term || is_wp_error( $term ) ) {
+                        return $desc;
+                    }
+
                     $replacements['%%term_title%%'] = $term->name;
 
                     // Get Archive SEO desc
@@ -287,6 +291,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 if ( $slug = get_query_var( 'atbdp_location' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-location' );
+                    if ( ! $term || is_wp_error( $term ) ) {
+                        return $desc;
+                    }
+
                     $replacements['%%term_title%%'] = $term->name;
 
                     // Get Archive SEO desc
@@ -317,6 +325,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 if ( $slug = get_query_var( 'atbdp_tag' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-tags' );
+                    if ( ! $term || is_wp_error( $term ) ) {
+                        return $desc;
+                    }
+
                     $replacements['%%term_title%%'] = $term->name;
 
                     // Get Archive SEO desc
@@ -386,6 +398,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             if ( $post->ID == $CAT_page_ID ) {
                 if ( $slug = get_query_var( 'atbdp_category' ) ) {
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-category' );
+                    if ( ! $term || is_wp_error( $term ) ) {
+                        return $title;
+                    }
+
                     $replacements['%%term_title%%'] = $term->name;
 
                     // Get Archive SEO title
@@ -416,6 +432,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 $slug = get_query_var( 'atbdp_location' );
                 if ( ! empty( $slug ) ) {
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-location' );
+                    if ( ! $term || is_wp_error( $term ) ) {
+                        return $title;
+                    }
+
                     $replacements['%%term_title%%'] = $term->name;
 
                     // Get Archive SEO title
@@ -447,6 +467,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                 if ( $slug = get_query_var( 'atbdp_tag' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-tags' );
+                    if ( ! $term || is_wp_error( $term ) ) {
+                        return $title;
+                    }
+
                     $replacements['%%term_title%%'] = $term->name;
 
                     // Get Archive SEO title
@@ -519,7 +543,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             if ( $post->ID == $LOC_page_ID ) {
                 if ( $slug = get_query_var( 'atbdp_location' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
-                    $url = ATBDP_Permalink::atbdp_get_location_page( $term );
+                    if ( $term && ! is_wp_error( $term ) ) {
+                        $url = ATBDP_Permalink::atbdp_get_location_page( $term );
+                    }
                 }
             }
 
@@ -527,7 +553,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             if ( $post->ID == $CAT_page_ID ) {
                 if ( $slug = get_query_var( 'atbdp_category' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
-                    $url = ATBDP_Permalink::atbdp_get_category_page( $term );
+                    if ( $term && ! is_wp_error( $term ) ) {
+                        $url = ATBDP_Permalink::atbdp_get_category_page( $term );
+                    }
                 }
             }
 
@@ -536,7 +564,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
                 if ( $slug = get_query_var( 'atbdp_tag' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_TAGS );
-                    $url = ATBDP_Permalink::atbdp_get_tag_page( $term );
+                    if ( $term && ! is_wp_error( $term ) ) {
+                        $url = ATBDP_Permalink::atbdp_get_tag_page( $term );
+                    }
                 }
             }
             ?>
@@ -567,7 +597,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
                 if ( $slug = get_query_var( 'atbdp_location' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
-                    $url = ATBDP_Permalink::atbdp_get_location_page( $term );
+                    if ( $term && ! is_wp_error( $term ) ) {
+                        $url = ATBDP_Permalink::atbdp_get_location_page( $term );
+                    }
                 }
             }
 
@@ -576,7 +608,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
                 if ( $slug = get_query_var( 'atbdp_category' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
-                    $url = ATBDP_Permalink::atbdp_get_category_page( $term );
+                    if ( $term && ! is_wp_error( $term ) ) {
+                        $url = ATBDP_Permalink::atbdp_get_category_page( $term );
+                    }
                 }
             }
 
@@ -585,7 +619,9 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
                 if ( $slug = get_query_var( 'atbdp_tag' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_TAGS );
-                    $url = ATBDP_Permalink::atbdp_get_tag_page( $term );
+                    if ( $term && ! is_wp_error( $term ) ) {
+                        $url = ATBDP_Permalink::atbdp_get_tag_page( $term );
+                    }
                 }
             }
 

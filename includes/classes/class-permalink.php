@@ -438,6 +438,13 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
          * @return   string             Term link.
          */
         public static function atbdp_get_category_page( $term, $directory_type = '' ) {
+            if ( ! $term || is_wp_error( $term ) || empty( $term->slug ) ) {
+                $page_id = get_directorist_option( 'single_category_page' );
+                $link    = $page_id ? get_permalink( $page_id ) : '/';
+
+                return apply_filters( 'atbdp_single_category', $link, $page_id, $term, $directory_type );
+            }
+
             if ( directorist_is_archive_template_enabled() ) {
                 $page_id = 0;
                 $link    = get_term_link( $term );
@@ -492,6 +499,13 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
          * @return   string             Term link.
          */
         public static function atbdp_get_location_page( $term, $directory_type = '' ) {
+            if ( ! $term || is_wp_error( $term ) || empty( $term->slug ) ) {
+                $page_id = get_directorist_option( 'single_location_page' );
+                $link    = $page_id ? get_permalink( $page_id ) : '/';
+
+                return apply_filters( 'atbdp_single_location', $link, $page_id, $term, $directory_type );
+            }
+
             if ( directorist_is_archive_template_enabled() ) {
                 $page_id = 0;
                 $link    = get_term_link( $term );
@@ -545,6 +559,13 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
          * @return   string             Term link.
          */
         public static function atbdp_get_tag_page( $term, $directory_type = '' ) {
+            if ( ! $term || is_wp_error( $term ) || empty( $term->slug ) ) {
+                $page_id = get_directorist_option( 'single_tag_page' );
+                $link    = $page_id ? get_permalink( $page_id ) : '/';
+
+                return apply_filters( 'atbdp_single_tag', $link, $page_id, $term, $directory_type );
+            }
+
             if ( directorist_is_archive_template_enabled() ) {
                 $page_id = 0;
                 $link    = get_term_link( $term );

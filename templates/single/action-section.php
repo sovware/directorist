@@ -46,7 +46,7 @@ foreach ( $actions as $action ) {
         case 'button':
             $field_key = ! empty( $action['field_key'] ) ? sanitize_key( $action['field_key'] ) : 'custom-button';
             $btn_raw   = get_post_meta( $listing_id, '_' . $field_key, true );
-            $btn_value = is_array( $btn_raw ) ? $btn_raw : maybe_unserialize( $btn_raw );
+            $btn_value = is_array( $btn_raw ) ? $btn_raw : [];
             $btn_text  = $btn_value['button_text'] ?? '';
             $btn_url   = $btn_value['button_url_label'] ?? '';
 

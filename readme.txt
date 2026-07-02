@@ -300,7 +300,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.8.3 - Jun 30, 2026 =
+= 8.8.3 - Jul 2, 2026 =
 
 **Fixed**
  - Security issue. (#2896)

@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$button_value     = is_array( $value ) ? $value : maybe_unserialize( $value );
+$button_value     = is_array( $value ) ? $value : [];
 $button_text      = isset( $button_value['button_text'] ) ? $button_value['button_text'] : '';
 $button_url_label = isset( $button_value['button_url_label'] ) ? $button_value['button_url_label'] : '';
 

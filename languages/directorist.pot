@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-30 05:17+0000\n"
+"POT-Creation-Date: 2026-07-02 04:30+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1224,7 +1224,7 @@ msgstr ""
 msgid "Payment required! Redirecting to checkout..."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:902, ../includes/classes/class-submission-controller.php:66, ../includes/fields/class-directorist-image-upload-field.php:41
+#: ../includes/classes/class-add-listing.php:902, ../includes/classes/class-submission-controller.php:66, ../includes/fields/class-directorist-button-field.php:35, ../includes/fields/class-directorist-image-upload-field.php:41
 msgid "This field is required."
 msgstr ""
 
@@ -2801,7 +2801,7 @@ msgstr ""
 msgid "Service"
 msgstr ""
 
-#: ../includes/classes/class-seo.php:832, ../includes/classes/class-seo.php:833
+#: ../includes/classes/class-seo.php:868, ../includes/classes/class-seo.php:869
 msgid "from"
 msgstr ""
 
@@ -5853,6 +5853,10 @@ msgstr ""
 
 #: ../includes/elementor/user-login.php:29
 msgid "This widget works only in Login page. It has no additional elementor settings."
+msgstr ""
+
+#: ../includes/fields/class-directorist-button-field.php:23, ../includes/fields/class-directorist-button-field.php:29
+msgid "Invalid button field."
 msgstr ""
 
 #: ../includes/fields/class-directorist-checkbox-field.php:32, ../includes/fields/class-directorist-radio-field.php:33, ../includes/fields/class-directorist-select-field.php:33

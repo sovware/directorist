@@ -411,6 +411,15 @@ const FIELD_OVERRIDES = {
 		label: 'Enable email notifications',
 		description: 'Master switch for all outgoing email.',
 	},
+	web_push_notify_admin: {
+		label: 'Enable web push notifications',
+		description:
+			'Send browser push to admins and listing owners who have opted in.',
+	},
+	web_push_notify_user: {
+		label: 'Web push listing owner events',
+		description: 'Events that send browser push notifications to listing owners.',
+	},
 	email_from_name: {
 		label: 'Sender name',
 		description: 'Appears as the sender on every email.',
@@ -729,7 +738,49 @@ const SUPPRESSED_REDESIGN_FIELDS = new Set([
 	'atbdp_reset_cache',
 	'gallery_crop_width',
 	'gallery_crop_height',
+	'web_push_events_note',
+	'web_push_templates_note',
 ]);
+
+const WEB_PUSH_ADMIN_EVENTS = [
+	'order_created',
+	'order_completed',
+	'payment_received',
+	'listing_submitted',
+	'listing_published',
+	'listing_edited',
+	'listing_deleted',
+	'listing_renewed',
+	'listing_contact_form',
+	'listing_review',
+];
+
+const WEB_PUSH_OWNER_EVENTS = [
+	'order_created',
+	'order_completed',
+	'payment_received',
+	'listing_submitted',
+	'listing_published',
+	'listing_edited',
+	'listing_deleted',
+	'listing_renewed',
+	'listing_to_expire',
+	'listing_expired',
+	'remind_to_renew',
+	'listing_contact_form',
+	'listing_review',
+];
+
+const WEB_PUSH_TEMPLATE_FIELDS = [
+	...WEB_PUSH_ADMIN_EVENTS.flatMap((eventKey) => [
+		`web_push_admin_${eventKey}_title`,
+		`web_push_admin_${eventKey}_message`,
+	]),
+	...WEB_PUSH_OWNER_EVENTS.flatMap((eventKey) => [
+		`web_push_owner_${eventKey}_title`,
+		`web_push_owner_${eventKey}_message`,
+	]),
+];
 
 const FIELD_GROUPS = {
 	directoriesGeneral: [
@@ -1352,7 +1403,18 @@ const FIELD_GROUPS = {
 			key: 'active_channels',
 			title: 'Active channels',
 			description: 'Turn each channel on or off across the directory.',
-			fields: ['disable_email_notification'],
+			fields: [
+				'disable_email_notification',
+				'web_push_notify_admin',
+				'web_push_notify_user',
+			],
+			hiddenFields: ['web_push_notify_user'],
+		},
+		{
+			key: 'web_push_setup',
+			title: 'Web push setup',
+			description: 'Connect this browser and review delivery logs.',
+			fields: ['web_push_admin_subscription', 'web_push_log_note'],
 		},
 		{
 			key: 'sender_details',
@@ -1437,7 +1499,7 @@ const FIELD_GROUPS = {
 			key: 'notification_events',
 			title: 'Notification events',
 			description:
-				'Toggle email notifications per event. Click Edit to customize subject and body.',
+				'Toggle a channel per event. Click Edit to customize subject, body, and push wording.',
 			fields: [
 				'notify_admin',
 				'notify_user',
@@ -1472,6 +1534,7 @@ const FIELD_GROUPS = {
 				'email_tmpl_registration_confirmation',
 				'email_sub_email_verification',
 				'email_tmpl_email_verification',
+				...WEB_PUSH_TEMPLATE_FIELDS,
 				'email_to_expire_day',
 				'email_renewal_day',
 			],
@@ -1509,6 +1572,7 @@ const FIELD_GROUPS = {
 				'email_tmpl_registration_confirmation',
 				'email_sub_email_verification',
 				'email_tmpl_email_verification',
+				...WEB_PUSH_TEMPLATE_FIELDS,
 			],
 			notificationEvents: {
 				beforeField: 'notify_admin',

@@ -3776,6 +3776,8 @@ Best regards,
                 ]
             );
 
+            $this->register_web_push_backup_fields();
+
             $this->layouts = apply_filters(
                 'atbdp_listing_type_settings_layout', [
                     'listing_settings' => [
@@ -4682,6 +4684,38 @@ Best regards,
                         'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
                     ],
                 ],
+            ];
+        }
+
+        /**
+         * Register hidden backup fields for the redesigned Notifications Pro web push master switch.
+         *
+         * Notifications Pro stores enabled delivery events in the web_push_notify_* arrays and does
+         * not expose a separate channel master option. These hidden fields let the redesigned core UI
+         * disable delivery by emptying the live arrays while preserving the previous event selection
+         * for reload display and one-click restore.
+         *
+         * @return void
+         */
+        private function register_web_push_backup_fields() {
+            if ( empty( $this->fields['web_push_notify_admin'] ) && empty( $this->fields['web_push_notify_user'] ) ) {
+                return;
+            }
+
+            $this->fields['directorist_web_push_notify_admin_backup'] = [
+                'type'       => 'hidden',
+                'label'      => __( 'Web push admin events backup', 'directorist' ),
+                'value'      => [],
+                'hidden'     => true,
+                'input_type' => 'hidden',
+            ];
+
+            $this->fields['directorist_web_push_notify_user_backup'] = [
+                'type'       => 'hidden',
+                'label'      => __( 'Web push listing owner events backup', 'directorist' ),
+                'value'      => [],
+                'hidden'     => true,
+                'input_type' => 'hidden',
             ];
         }
 

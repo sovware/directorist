@@ -47801,6 +47801,16 @@ span.drop-toggle-caret:before {
   -webkit-transform: none;
           transform: none;
 }
+.atbdp-settings-panel .cptm-input-toggle:disabled {
+  opacity: 1;
+  background: #e8edf4;
+  -webkit-box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
+          box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
+  cursor: not-allowed;
+}
+.atbdp-settings-panel .cptm-input-toggle.active:disabled {
+  background: #b9c7ff;
+}
 .atbdp-settings-panel .cptm-radio-images-wrapper .cptm-radio-images-grid {
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 12px;
@@ -51210,6 +51220,131 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-active-gatew
   font-size: 13px;
   line-height: 18px;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-web_push_admin_subscription,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-web_push_log_note {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  background: #ffffff;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-section.web_push_admin_subscription {
+  overflow: hidden;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-web_push_log_note {
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-log-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 20px;
+  background: #ffffff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__content,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-log-link__content {
+  min-width: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card h4,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-log-link h4 {
+  margin: 0;
+  color: #050b18;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-log-link p {
+  margin: 0;
+  color: #536681;
+  font-size: 13px;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__description,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__description .directorist-notifications-pro-admin-control {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__description .directorist-notifications-pro-admin-control__description {
+  margin: 0;
+  color: #536681;
+  font-size: 13px;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__description .directorist-notifications-pro-admin-control__actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__description .directorist-notifications-pro-admin-subscribe,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-log-link__button {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 34px;
+  padding: 7px 14px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  text-decoration: none;
+  background: var(--settings-primary);
+  border: 1px solid var(--settings-primary);
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: pointer;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__description .directorist-notifications-pro-admin-status {
+  color: #536681;
+  font-size: 13px;
+  line-height: 18px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card--locked .directorist-notifications-pro-admin-subscribe,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card__description .directorist-notifications-pro-admin-subscribe[data-directorist-settings-unsupported=true] {
+  background: #cbd5e1;
+  border-color: #cbd5e1;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-field-wraper-key-active_gateways.highlight-field {
   padding: 13px 20px !important;
   background: #eef2ff;
@@ -51250,19 +51385,18 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
   background: #f8fafc;
   border-bottom: 1px solid #e5e7eb;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th:first-child,
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td:first-child {
-  width: 72%;
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__event-column {
+  width: auto;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th:nth-child(2),
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td:nth-child(2) {
-  width: 14%;
-  text-align: center;
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__channel-column,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__channel-cell {
+  width: 13%;
+  text-align: center !important;
 }
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th:nth-child(3),
-body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td:nth-child(3) {
-  width: 14%;
-  text-align: right;
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__action-column,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__action-cell {
+  width: 12%;
+  text-align: center !important;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td {
   height: 63px;
@@ -51309,7 +51443,8 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
   line-height: 16px;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table .cptm-input-toggle {
-  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
   padding: 0;
   border: 0;
   -webkit-box-shadow: none;
@@ -51317,7 +51452,12 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
   cursor: pointer;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table .cptm-input-toggle:disabled {
+  opacity: 1;
+  background: #e8edf4;
   cursor: not-allowed;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table .cptm-input-toggle.active:disabled {
+  background: #b9c7ff;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__always-on {
   display: -webkit-inline-box;
@@ -51340,6 +51480,20 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
   font-size: 12px;
   line-height: 16px;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__unavailable {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 24px;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 18px;
+}
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__edit {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -51354,6 +51508,8 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
       -ms-flex-pack: center;
           justify-content: center;
   height: 28px;
+  margin-right: auto;
+  margin-left: auto;
   padding: 0 13px;
   color: #111827;
   font-size: 13px;
@@ -51618,11 +51774,33 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
   white-space: pre-wrap;
   resize: vertical;
 }
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__hint {
+  margin: -2px 0 0;
+  color: #536681;
+  font-size: 12px;
+  line-height: 16px;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__disabled-note {
+  margin: -4px 0 0;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 16px;
+}
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field input:disabled {
   color: #111827;
-  background: #ffffff;
+  background: #f8fafc;
+  border-color: #e5e7eb;
   opacity: 1;
-  cursor: default;
+  cursor: not-allowed;
+}
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field--disabled > span,
+body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__section-title--disabled {
+  color: #94a3b8;
 }
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field input:focus,
 body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__field textarea:focus {
@@ -51691,7 +51869,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
       -ms-flex-align: center;
           align-items: center;
   gap: 10px;
-  margin: 0;
+  margin: 4px 0 0;
   color: #374151;
   font-size: 12px;
   font-weight: 600;
@@ -51712,7 +51890,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification
     overflow-x: auto;
   }
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table {
-    min-width: 560px;
+    min-width: 780px;
   }
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table th,
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table td {
@@ -53215,7 +53393,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel #settings_design_g
     -webkit-overflow-scrolling: touch;
   }
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table {
-    min-width: 720px;
+    min-width: 780px;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -53439,7 +53617,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel #settings_design_g
     max-height: 230px;
   }
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-events__table {
-    min-width: 640px;
+    min-width: 780px;
   }
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal {
     -webkit-box-align: stretch;
@@ -53460,6 +53638,9 @@ body.directorist-settings-redesign-page .atbdp-settings-panel #settings_design_g
   }
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__body {
     padding: 14px 16px;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__grid {
+    grid-template-columns: minmax(0, 1fr);
   }
   body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-modal__placeholder-list {
     gap: 5px;
@@ -53572,6 +53753,106 @@ body.directorist-settings-redesign-page .atbdp-settings-panel #settings_design_g
     margin-left: auto;
     min-width: 108px;
   }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-web-push-setup-card,
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-log-link {
+    grid-template-columns: minmax(0, 1fr);
+    -webkit-box-align: start;
+    -webkit-align-items: start;
+        -ms-flex-align: start;
+            align-items: start;
+    gap: 12px;
+    padding: 16px;
+  }
+  body.directorist-settings-redesign-page .atbdp-settings-panel .cptm-notification-log-link__button {
+    grid-column: 1;
+    justify-self: start;
+  }
+}
+
+body.directorist_page_directorist-notifications-pro-log,
+body.at_biz_dir_page_directorist-notifications-pro-log {
+  background: #f5f7fb;
+}
+body.directorist_page_directorist-notifications-pro-log .wrap,
+body.at_biz_dir_page_directorist-notifications-pro-log .wrap {
+  margin: 20px;
+}
+body.directorist_page_directorist-notifications-pro-log .wrap h1,
+body.at_biz_dir_page_directorist-notifications-pro-log .wrap h1 {
+  margin: 0 0 6px;
+  color: #050b18;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+body.directorist_page_directorist-notifications-pro-log .wrap > p,
+body.at_biz_dir_page_directorist-notifications-pro-log .wrap > p {
+  margin: 0 0 18px;
+  color: #536681;
+  font-size: 14px;
+  line-height: 20px;
+}
+body.directorist_page_directorist-notifications-pro-log table.widefat,
+body.at_biz_dir_page_directorist-notifications-pro-log table.widefat {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+          box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+body.directorist_page_directorist-notifications-pro-log table.widefat thead th,
+body.at_biz_dir_page_directorist-notifications-pro-log table.widefat thead th {
+  padding: 12px 14px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+}
+body.directorist_page_directorist-notifications-pro-log table.widefat tbody td,
+body.at_biz_dir_page_directorist-notifications-pro-log table.widefat tbody td {
+  padding: 13px 14px;
+  color: #334155;
+  font-size: 13px;
+  line-height: 18px;
+  vertical-align: middle;
+  border-bottom: 1px solid #edf0f4;
+}
+body.directorist_page_directorist-notifications-pro-log table.widefat tbody tr:last-child td,
+body.at_biz_dir_page_directorist-notifications-pro-log table.widefat tbody tr:last-child td {
+  border-bottom: 0;
+}
+body.directorist_page_directorist-notifications-pro-log table.widefat a,
+body.at_biz_dir_page_directorist-notifications-pro-log table.widefat a {
+  color: var(--settings-primary, #3e62f5);
+  text-decoration: none;
+}
+body.directorist_page_directorist-notifications-pro-log table.widefat a:hover,
+body.directorist_page_directorist-notifications-pro-log table.widefat a:focus,
+body.at_biz_dir_page_directorist-notifications-pro-log table.widefat a:hover,
+body.at_biz_dir_page_directorist-notifications-pro-log table.widefat a:focus {
+  text-decoration: underline;
+}
+body.directorist_page_directorist-notifications-pro-log .directorist-notifications-pro-log-pagination,
+body.at_biz_dir_page_directorist-notifications-pro-log .directorist-notifications-pro-log-pagination {
+  margin-top: 14px;
+}
+body.directorist_page_directorist-notifications-pro-log .directorist-notifications-pro-log-pagination .tablenav-pages,
+body.at_biz_dir_page_directorist-notifications-pro-log .directorist-notifications-pro-log-pagination .tablenav-pages {
+  float: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin: 0;
 }
 
 body.directorist-settings-redesign-page.cptm-notification-modal-open {

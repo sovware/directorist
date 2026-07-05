@@ -112,6 +112,26 @@
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
             />
 
+            <settings-web-push-notification-toggle
+              v-else-if="shouldRenderWebPushNotificationToggle(field)"
+              :fields="fields"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+              @update-field-data="
+                updateFieldData($event.fieldKey, $event.optionKey, $event.value)
+              "
+            />
+
+            <settings-web-push-setup-card
+              v-else-if="shouldRenderWebPushSetupCard(field)"
+              :field="fields[field]"
+              :is-locked="!webPushNotificationsEnabled"
+            />
+
+            <settings-notification-log-link
+              v-else-if="shouldRenderNotificationLogLink(field)"
+              :field="fields[field]"
+            />
+
             <settings-extension-promotion
               v-else-if="shouldRenderExtensionPromotion(field)"
               :field="fields[field]"
@@ -301,9 +321,12 @@ import SettingsDefaultLocationAddress from "../apps/settings-manager/components/
 import SettingsEmailNotificationToggle from "../apps/settings-manager/components/Settings_Email_Notification_Toggle.vue";
 import SettingsExtensionPromotion from "../apps/settings-manager/components/Settings_Extension_Promotion.vue";
 import SettingsNotificationEvents from "../apps/settings-manager/components/Settings_Notification_Events.vue";
+import SettingsNotificationLogLink from "../apps/settings-manager/components/Settings_Notification_Log_Link.vue";
 import SettingsPageSetupRow from "../apps/settings-manager/components/Settings_Page_Setup_Row.vue";
 import SettingsRestrictedCountriesSelect from "../apps/settings-manager/components/Settings_Restricted_Countries_Select.vue";
 import SettingsSeoMetaFields from "../apps/settings-manager/components/Settings_SEO_Meta_Fields.vue";
+import SettingsWebPushNotificationToggle from "../apps/settings-manager/components/Settings_Web_Push_Notification_Toggle.vue";
+import SettingsWebPushSetupCard from "../apps/settings-manager/components/Settings_Web_Push_Setup_Card.vue";
 
 export default {
   name: "sections-module",
@@ -316,9 +339,12 @@ export default {
     SettingsEmailNotificationToggle,
     SettingsExtensionPromotion,
     SettingsNotificationEvents,
+    SettingsNotificationLogLink,
     SettingsPageSetupRow,
     SettingsRestrictedCountriesSelect,
     SettingsSeoMetaFields,
+    SettingsWebPushNotificationToggle,
+    SettingsWebPushSetupCard,
   },
   mixins: [helpers],
 
@@ -366,6 +392,15 @@ export default {
       };
     },
 
+    webPushNotificationsEnabled() {
+      const adminField = this.fields.web_push_notify_admin || {};
+      const userField = this.fields.web_push_notify_user || {};
+
+      return (
+        this.normalizeArray(adminField.value).length > 0 ||
+        this.normalizeArray(userField.value).length > 0
+      );
+    },
   },
 
   data() {
@@ -566,6 +601,42 @@ export default {
       return isNotificationChannels && field === "disable_email_notification";
     },
 
+    shouldRenderWebPushNotificationToggle(field) {
+      const isNotificationChannels =
+        this.menuKey === "email_settings__email_general" ||
+        this.tabKey === "email_general";
+
+      return isNotificationChannels && field === "web_push_notify_admin";
+    },
+
+    shouldRenderWebPushSetupCard(field) {
+      const isNotificationChannels =
+        this.menuKey === "email_settings__email_general" ||
+        this.tabKey === "email_general";
+
+      return isNotificationChannels && field === "web_push_admin_subscription";
+    },
+
+    shouldRenderNotificationLogLink(field) {
+      const isNotificationChannels =
+        this.menuKey === "email_settings__email_general" ||
+        this.tabKey === "email_general";
+
+      return isNotificationChannels && field === "web_push_log_note";
+    },
+
+    normalizeArray(value) {
+      if (Array.isArray(value)) {
+        return value.map((item) => String(item));
+      }
+
+      if (value === null || typeof value === "undefined" || value === "") {
+        return [];
+      }
+
+      return [String(value)];
+    },
+
     shouldRenderExtensionPromotion(field) {
       const isExtensionsSettings =
         this.menuKey.indexOf("extension_settings") === 0 ||
@@ -725,6 +796,7 @@ export default {
         firstField !== "disable_email_notification" &&
         this.fields[firstField]?.type === "toggle" &&
         this.fields[firstField].value !== true;
+
       return {
         "cptm-section--disabled": isDisabled,
         "highlight-section": this.getSectionHighlightState(sectionKey),

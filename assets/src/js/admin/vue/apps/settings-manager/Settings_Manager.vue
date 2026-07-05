@@ -392,7 +392,13 @@ export default {
 
                 if ( ! cachedField || ! cachedField.layout_path || ! liveField ) { continue; }
 
-                const label = this.toPlainSearchText( liveField.label || cachedField.label || '' );
+                const label = this.toPlainSearchText(
+                    liveField.label ||
+                    liveField.title ||
+                    cachedField.label ||
+                    cachedField.title ||
+                    ''
+                );
 
                 if ( ! label ) { continue; }
 
@@ -403,11 +409,13 @@ export default {
                 const pathText = pathSegments.join( ' › ' );
                 const options = this.getQuickSearchOptions( liveField );
                 const controlType = this.getQuickSearchControlType( liveField );
+                const aliases = this.getQuickSearchAliases( fieldKey );
                 const score = this.getQuickSearchScore({
                     label,
                     fieldKey,
                     pathText,
                     options,
+                    aliases,
                     fieldType: liveField.type,
                     query: normalizedQuery,
                 });
@@ -427,7 +435,8 @@ export default {
                         inputType: this.getQuickSearchInputType( liveField ),
                         value: liveField.value,
                         options,
-                        matchText: this.getQuickSearchMatchText( options, normalizedQuery ),
+                        matchText: this.getQuickSearchAliasMatchText( aliases, normalizedQuery ) ||
+                            this.getQuickSearchMatchText( options, normalizedQuery ),
                         score,
                     });
                 }
@@ -596,10 +605,21 @@ export default {
             return null;
         },
 
-        getQuickSearchScore( { label, fieldKey, pathText, options = [], fieldType = '', query } ) {
+        getQuickSearchScore( {
+            label,
+            fieldKey,
+            pathText,
+            options = [],
+            aliases = [],
+            fieldType = '',
+            query,
+        } ) {
             const labelText = this.normalizeSearchText( label );
             const path = this.normalizeSearchText( pathText );
             const key = this.normalizeSearchText( fieldKey );
+            const aliasLabels = aliases
+                .map( alias => this.normalizeSearchText( alias ) )
+                .filter( Boolean );
             const optionLabels = options
                 .map( option => this.normalizeSearchText( option.label ) )
                 .filter( Boolean );
@@ -608,6 +628,9 @@ export default {
             if ( labelText === query ) { return 0; }
             if ( labelText.indexOf( query ) === 0 ) { return 1; }
             if ( labelText.indexOf( query ) > -1 ) { return 2; }
+            if ( aliasLabels.some( alias => alias === query ) ) { return 2.25; }
+            if ( aliasLabels.some( alias => alias.indexOf( query ) === 0 ) ) { return 2.5; }
+            if ( aliasLabels.some( alias => alias.indexOf( query ) > -1 ) ) { return 2.75; }
             if ( optionLabels.some( optionLabel => optionLabel === query ) ) {
                 return isCheckboxOptionField ? 3 : 4;
             }
@@ -621,6 +644,39 @@ export default {
             if ( key.indexOf( query ) > -1 ) { return 10; }
 
             return null;
+        },
+
+        getQuickSearchAliases( fieldKey ) {
+            const aliases = {
+                notify_admin: [
+                    'Admin notifications',
+                    'Admin email notifications',
+                ],
+                web_push_notify_admin: [
+                    'Admin notifications',
+                    'Admin web push notifications',
+                ],
+                notify_user: [
+                    'Listing owner notifications',
+                    'Owner notifications',
+                ],
+                web_push_notify_user: [
+                    'Listing owner notifications',
+                    'Owner web push notifications',
+                ],
+                web_push_admin_subscription: [
+                    'Admin Browser Notifications',
+                    'Browser notifications',
+                    'Enable notifications',
+                ],
+                web_push_log_note: [
+                    'Notification Log',
+                    'View log',
+                    'Web push delivery log',
+                ],
+            };
+
+            return aliases[ fieldKey ] || [];
         },
 
         getQuickSearchOptionResults({
@@ -699,6 +755,22 @@ export default {
                 })
                 .map( option => option.label )
                 .filter( Boolean );
+
+            if ( ! matches.length ) {
+                return '';
+            }
+
+            return `Matches: ${matches.slice( 0, 3 ).join( ', ' )}`;
+        },
+
+        getQuickSearchAliasMatchText( aliases, query ) {
+            if ( ! Array.isArray( aliases ) || ! query ) {
+                return '';
+            }
+
+            const matches = aliases.filter( alias => {
+                return this.normalizeSearchText( alias ).indexOf( query ) > -1;
+            });
 
             if ( ! matches.length ) {
                 return '';
@@ -849,7 +921,12 @@ export default {
         },
 
         normalizeSearchText( value ) {
-            return this.toPlainSearchText( value ).toLowerCase();
+            return this.toPlainSearchText( value )
+                .toLowerCase()
+                .replace( /&/g, ' ' )
+                .replace( /[^a-z0-9_]+/g, ' ' )
+                .replace( /\s+/g, ' ' )
+                .trim();
         },
 
         toPlainSearchText( value ) {

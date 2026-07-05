@@ -1680,9 +1680,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 	}
 
 	.settings-sidebar-search > .settings-command-palette {
-		position: absolute;
-		top: calc(100% + 6px);
-		left: 0;
+		position: fixed;
 		z-index: 10020;
 		width: 440px;
 		max-width: 440px;
@@ -1731,7 +1729,10 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 	}
 
 	.settings-command-palette__list {
-		max-height: min(643px, calc(100vh - 165px));
+		max-height: var(
+			--settings-command-palette-list-max-height,
+			min(643px, calc(100vh - 165px))
+		);
 		overflow-y: auto;
 		background: #ffffff;
 	}
@@ -1810,6 +1811,19 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 			flex-shrink: 0;
 			color: #94a3b8;
 		}
+	}
+
+	.settings-command-palette__match {
+		display: block;
+		width: 100%;
+		margin-top: 2px;
+		overflow: hidden;
+		color: #475569;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 18px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.settings-command-palette__path-text {
@@ -2535,6 +2549,13 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		z-index: 35;
 	}
 
+	.cptm-section.highlight-section {
+		border-color: var(--settings-primary);
+		box-shadow:
+			0 0 0 2px rgba(62, 98, 245, 0.12),
+			0 1px 2px rgba(15, 23, 42, 0.05);
+	}
+
 	.cptm-section:has(.cptm-restricted-countries-select--open) {
 		z-index: 95;
 		overflow: visible;
@@ -3049,7 +3070,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 	[class*="cptm-tab-content-menu-extensions_settings"] .cptm-section {
 		border-color: #e9ebef;
 		border-radius: 10px;
-		overflow: hidden;
 	}
 
 	[class*="cptm-tab-content-menu-extension_settings"] .cptm-title-area,
@@ -4319,6 +4339,10 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		width: 100%;
 	}
 
+	.cptm-active-gateways-toggle {
+		display: block;
+	}
+
 	.cptm-active-gateways-toggle__content,
 	.cptm-checkout-currency-match__content,
 	.cptm-email-notification-toggle__content {
@@ -4345,7 +4369,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		line-height: 18px;
 	}
 
-	.cptm-active-gateways-toggle > .cptm-input-toggle,
 	.cptm-checkout-currency-match > .cptm-input-toggle,
 	.cptm-email-notification-toggle > .cptm-input-toggle {
 		flex: 0 0 40px;
@@ -4356,13 +4379,110 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		cursor: pointer;
 	}
 
-	.cptm-field-wraper-key-admin_email_lists textarea {
-		width: 200px !important;
-		max-width: 200px !important;
-		min-height: 32px !important;
-		height: 32px !important;
-		padding: 7px 10px;
+	.cptm-active-gateways-toggle__options {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		width: 100%;
+		max-width: none;
+		min-width: 0;
+	}
+
+	.cptm-active-gateways-toggle__option {
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		margin: 0;
+		width: 100%;
+		min-height: 24px;
+		color: #111827;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 20px;
+		cursor: pointer;
+	}
+
+	.cptm-active-gateways-toggle__option + .cptm-active-gateways-toggle__option {
+		margin-top: 14px;
+	}
+
+	.cptm-active-gateways-toggle__label {
+		min-width: 0;
+	}
+
+	.cptm-active-gateways-toggle__switch {
+		position: relative;
+		display: block;
+		flex: 0 0 42px;
+		width: 42px;
+		min-width: 42px;
+		height: 24px;
+		background: #cbd5e1;
+		border-radius: 999px;
+		box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+		transition: background-color 0.18s ease;
+	}
+
+	.cptm-active-gateways-toggle__switch::after {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 20px;
+		height: 20px;
+		background: #ffffff;
+		border-radius: 50%;
+		box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+		content: "";
+		transition: left 0.18s ease;
+	}
+
+	.cptm-active-gateways-toggle__switch--active {
+		background: var(--settings-primary);
+	}
+
+	.cptm-active-gateways-toggle__switch--active::after {
+		left: 20px;
+	}
+
+	.cptm-active-gateways-toggle__checkbox {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+
+	.cptm-active-gateways-toggle__option:focus-within .cptm-active-gateways-toggle__switch {
+		box-shadow:
+			inset 0 0 0 1px rgba(15, 23, 42, 0.08),
+			0 0 0 3px rgba(62, 98, 245, 0.12);
+	}
+
+	.cptm-active-gateways-toggle__empty {
+		margin: 0;
+		color: #64748b;
+		font-size: 13px;
 		line-height: 18px;
+	}
+
+	.cptm-field-wraper-key-active_gateways.highlight-field {
+		padding: 13px 20px !important;
+		background: #eef2ff;
+		border: 2px solid var(--settings-primary);
+		border-radius: 0 0 6px 6px;
+	}
+
+	.cptm-field-wraper-key-admin_email_lists textarea {
+		width: 100% !important;
+		max-width: 100% !important;
+		min-height: 70px !important;
+		height: 70px !important;
+		padding: 9px 10px;
+		line-height: 20px;
 		resize: vertical;
 	}
 
@@ -5857,6 +5977,7 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 	}
 
 	.settings-leave-modal__spinner {
+		max-width: 14px;
 		width: 14px;
 		height: 14px;
 		border: 2px solid rgba(255, 255, 255, 0.45);
@@ -6198,10 +6319,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 			min-height: 64px;
 		}
 
-		.settings-command-palette__list {
-			max-height: calc(100vh - 220px);
-		}
-
 		.settings-command-palette__action {
 			justify-content: flex-start;
 			padding: 0 12px 11px;
@@ -6332,33 +6449,50 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		}
 
 		.cptm-form-control,
-		input[type="email"],
-		input[type="number"],
-		input[type="password"],
-		input[type="text"],
-		input[type="url"],
-		select,
-		.directorist_dropdown,
-		.cptm-page-setup-row__control .directorist_dropdown,
-		.cptm-field-group-container .cptm-container-group-fields .directorist_dropdown {
-			width: 100%;
-			max-width: 100% !important;
-		}
+			input[type="email"],
+			input[type="number"],
+			input[type="password"],
+			input[type="text"],
+			input[type="url"],
+			select,
+			.directorist_dropdown,
+			.cptm-page-setup-row__control .directorist_dropdown,
+			.cptm-field-group-container .cptm-container-group-fields .directorist_dropdown {
+				width: 100%;
+				max-width: 100% !important;
+			}
 
-		input[type="checkbox"],
-		input[type="radio"],
-		input[type="range"],
-		input[type="hidden"],
-		input[type="button"],
-		input[type="submit"],
-		.cptm-input-toggle {
-			width: auto;
-			max-width: none !important;
-		}
+			input[type="checkbox"],
+			input[type="radio"],
+			input[type="range"],
+			input[type="hidden"],
+			input[type="button"],
+			input[type="submit"] {
+				width: auto;
+				max-width: none !important;
+			}
 
-		.cptm-field-group-container .cptm-container-group-fields {
-			gap: 10px;
-		}
+			.cptm-input-toggle {
+				flex: 0 0 40px;
+				width: 40px;
+				min-width: 40px;
+				max-width: 40px !important;
+				height: 22px;
+			}
+
+			.cptm-tab-content-menu-page_setup__maintenance
+				.cptm-field-wraper-key-atbdp_reset_cache
+				.cptm-input-toggle {
+				flex: initial;
+				width: auto;
+				min-width: 85px;
+				max-width: none !important;
+				height: 30px;
+			}
+
+			.cptm-field-group-container .cptm-container-group-fields {
+				gap: 10px;
+			}
 
 		.cptm-field-group-container .cptm-container-group-fields .cptm-form-group > .atbdp-row {
 			grid-template-columns: minmax(0, 1fr) !important;
@@ -6453,11 +6587,6 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		.setting-left-sibebar,
 		.setting-left-sidebar {
 			padding: 10px 10px 8px;
-		}
-
-		.settings-sidebar-search > .settings-command-palette {
-			width: calc(100vw - 32px);
-			max-width: calc(100vw - 32px);
 		}
 
 		.settings-nav__item__link {

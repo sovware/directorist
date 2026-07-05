@@ -6,7 +6,8 @@
         !shouldSkipSection(section, section_key)
       "
       class="cptm-section"
-      :class="sectionClass(section)"
+      :class="sectionClass(section, section_key)"
+      :data-section-highlight-key="sectionHighlightKey(section_key)"
       v-for="(section, section_key) in sections"
       :key="section_key"
     >
@@ -149,7 +150,6 @@
               :field="fields[field]"
               :field-key="field"
               :is-highlighted="getHighlightState(field)"
-              :class="{ ['highlight-field']: getHighlightState(field) }"
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
             />
 
@@ -160,7 +160,6 @@
               :fieldKey="field"
               :id="menuKey + '__' + section_key + '__' + field"
               :ref="field"
-              :class="{ ['highlight-field']: getHighlightState(field) }"
               :cached-data="cached_fields[field]"
               :listing_type_id="listing_type_id"
               :video="video"
@@ -354,6 +353,7 @@ export default {
       layout: (state) => state.layouts,
       fields: (state) => state.fields,
       highlightedFieldKey: (state) => state.highlighted_field_key,
+      highlightedSectionKey: (state) => state.highlighted_section_key,
     }),
 
     containerClass() {
@@ -711,20 +711,25 @@ export default {
         : "";
     },
 
-    sectionClass(section) {
+    sectionHighlightKey(sectionKey) {
+      return `${this.menuKey}__${sectionKey}`;
+    },
+
+    getSectionHighlightState(sectionKey) {
+      return this.highlightedSectionKey === this.sectionHighlightKey(sectionKey);
+    },
+
+    sectionClass(section, sectionKey = "") {
       const firstField = section.fields[0];
       const isDisabled =
         firstField !== "disable_email_notification" &&
         this.fields[firstField]?.type === "toggle" &&
         this.fields[firstField].value !== true;
-      const classList = [
-        isDisabled ? "cptm-section--disabled" : "",
-        firstField,
-      ];
-
-      const sectionClass = classList.filter(Boolean).join(" ");
-
-      return sectionClass;
+      return {
+        "cptm-section--disabled": isDisabled,
+        "highlight-section": this.getSectionHighlightState(sectionKey),
+        [firstField]: !!firstField,
+      };
     },
 
     sectionTitleAreaClass(section) {
@@ -744,6 +749,7 @@ export default {
       return {
         [type_class]: true,
         [key_class]: true,
+        "highlight-field": this.getHighlightState(field_key),
         "cptm-field-wraper--checkbox-accordion":
           this.shouldRenderCheckboxArrayAccordion(field_key),
         "cptm-field-wraper--nested-advanced": this.isNestedAdvancedField(

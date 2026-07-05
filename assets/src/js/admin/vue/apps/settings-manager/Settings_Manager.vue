@@ -370,6 +370,7 @@ export default {
 
         resetStates() {
             this.$store.commit( 'resetHighlightedFieldKey' );
+            this.$store.commit( 'resetHighlightedSectionKey' );
         },
 
         updateSearchQuery( value ) {
@@ -379,7 +380,7 @@ export default {
 
         buildQuickSearchResults( query ) {
             const normalizedQuery = this.normalizeSearchText( query );
-            let results = [];
+            let results = this.getQuickSearchSectionResults( normalizedQuery );
 
             if ( ! normalizedQuery ) {
                 return results;
@@ -400,28 +401,49 @@ export default {
                     fieldKey
                 );
                 const pathText = pathSegments.join( ' › ' );
+                const options = this.getQuickSearchOptions( liveField );
+                const controlType = this.getQuickSearchControlType( liveField );
                 const score = this.getQuickSearchScore({
                     label,
                     fieldKey,
                     pathText,
+                    options,
+                    fieldType: liveField.type,
                     query: normalizedQuery,
                 });
 
                 if ( null === score ) { continue; }
 
-                results.push({
-                    field_key: fieldKey,
-                    fieldKey,
-                    label,
-                    path: pathSegments,
-                    pathText,
-                    layout_path: cachedField.layout_path,
-                    controlType: this.getQuickSearchControlType( liveField ),
-                    inputType: this.getQuickSearchInputType( liveField ),
-                    value: liveField.value,
-                    options: this.getQuickSearchOptions( liveField ),
-                    score,
-                });
+                if ( this.shouldAddQuickSearchFieldResult({ label, pathSegments, controlType }) ) {
+                    results.push({
+                        field_key: fieldKey,
+                        fieldKey,
+                        label,
+                        path: pathSegments,
+                        pathText,
+                        layout_path: cachedField.layout_path,
+                        highlightType: 'field',
+                        controlType,
+                        inputType: this.getQuickSearchInputType( liveField ),
+                        value: liveField.value,
+                        options,
+                        matchText: this.getQuickSearchMatchText( options, normalizedQuery ),
+                        score,
+                    });
+                }
+
+                results.push(
+                    ...this.getQuickSearchOptionResults({
+                        fieldKey,
+                        label,
+                        pathSegments,
+                        pathText,
+                        layoutPath: cachedField.layout_path,
+                        liveField,
+                        options,
+                        query: normalizedQuery,
+                    })
+                );
             }
 
             return results.sort( ( a, b ) => {
@@ -433,18 +455,256 @@ export default {
             });
         },
 
-        getQuickSearchScore( { label, fieldKey, pathText, query } ) {
+        shouldAddQuickSearchFieldResult({ label, pathSegments, controlType }) {
+            if ( controlType ) {
+                return true;
+            }
+
+            const sectionTitle = Array.isArray( pathSegments ) && pathSegments.length
+                ? pathSegments[ pathSegments.length - 1 ]
+                : '';
+
+            return this.normalizeSearchText( label ) !== this.normalizeSearchText( sectionTitle );
+        },
+
+        getQuickSearchSectionResults( query ) {
+            if ( ! query ) {
+                return [];
+            }
+
+            const results = [];
+
+            Object.keys( this.layouts || {} ).forEach( menuKey => {
+                const menu = this.layouts[ menuKey ] || {};
+
+                this.collectQuickSearchSectionResults({
+                    results,
+                    sections: menu.sections || {},
+                    menu,
+                    menuKey,
+                    submenu: null,
+                    submenuKey: '',
+                    query,
+                });
+
+                Object.keys( menu.submenu || {} ).forEach( submenuKey => {
+                    const submenu = menu.submenu[ submenuKey ] || {};
+
+                    this.collectQuickSearchSectionResults({
+                        results,
+                        sections: submenu.sections || {},
+                        menu,
+                        menuKey,
+                        submenu,
+                        submenuKey,
+                        query,
+                    });
+                });
+            });
+
+            return results;
+        },
+
+        collectQuickSearchSectionResults({
+            results,
+            sections,
+            menu,
+            menuKey,
+            submenu,
+            submenuKey,
+            query,
+        }) {
+            Object.keys( sections || {} ).forEach( sectionKey => {
+                const section = sections[ sectionKey ] || {};
+                const title = this.toPlainSearchText( section.title || section.label || '' );
+                const description = this.toPlainSearchText( section.description || '' );
+                const firstFieldKey = this.getFirstSearchableSectionField( section );
+
+                if ( ! title || ! firstFieldKey || ! this.cached_fields[ firstFieldKey ] ) {
+                    return;
+                }
+
+                const pathSegments = [
+                    this.toPlainSearchText( menu.label || '' ),
+                    submenu ? this.toPlainSearchText( submenu.label || '' ) : '',
+                    title,
+                ].filter( Boolean );
+                const pathText = pathSegments.join( ' › ' );
+                const score = this.getQuickSearchSectionScore({
+                    title,
+                    description,
+                    pathText,
+                    query,
+                });
+
+                if ( null === score ) {
+                    return;
+                }
+
+                results.push({
+                    field_key: `section__${menuKey}__${submenuKey || 'main'}__${sectionKey}`,
+                    fieldKey: `section__${menuKey}__${submenuKey || 'main'}__${sectionKey}`,
+                    label: title,
+                    path: pathSegments,
+                    pathText,
+                    layout_path: this.cached_fields[ firstFieldKey ].layout_path,
+                    highlightType: 'section',
+                    highlightSectionKey: this.getQuickSearchSectionHighlightKey({
+                        menuKey,
+                        submenuKey,
+                        sectionKey,
+                    }),
+                    controlType: '',
+                    inputType: 'text',
+                    value: '',
+                    options: [],
+                    matchText: description,
+                    score,
+                });
+            });
+        },
+
+        getQuickSearchSectionHighlightKey({ menuKey, submenuKey, sectionKey }) {
+            return [
+                menuKey,
+                submenuKey,
+                sectionKey,
+            ].filter( Boolean ).join( '__' );
+        },
+
+        getFirstSearchableSectionField( section ) {
+            if ( ! section || ! Array.isArray( section.fields ) ) {
+                return '';
+            }
+
+            return section.fields.find( fieldKey => {
+                return this.cached_fields[ fieldKey ] && this.fields[ fieldKey ];
+            }) || '';
+        },
+
+        getQuickSearchSectionScore( { title, description, pathText, query } ) {
+            const titleText = this.normalizeSearchText( title );
+            const descriptionText = this.normalizeSearchText( description );
+            const path = this.normalizeSearchText( pathText );
+
+            if ( titleText === query ) { return 0; }
+            if ( titleText.indexOf( query ) === 0 ) { return 1; }
+            if ( titleText.indexOf( query ) > -1 ) { return 2; }
+            if ( descriptionText.indexOf( query ) > -1 ) { return 8.5; }
+            if ( path.indexOf( query ) > -1 ) { return 9.5; }
+
+            return null;
+        },
+
+        getQuickSearchScore( { label, fieldKey, pathText, options = [], fieldType = '', query } ) {
             const labelText = this.normalizeSearchText( label );
             const path = this.normalizeSearchText( pathText );
             const key = this.normalizeSearchText( fieldKey );
+            const optionLabels = options
+                .map( option => this.normalizeSearchText( option.label ) )
+                .filter( Boolean );
+            const isCheckboxOptionField = fieldType === 'checkbox';
 
             if ( labelText === query ) { return 0; }
             if ( labelText.indexOf( query ) === 0 ) { return 1; }
             if ( labelText.indexOf( query ) > -1 ) { return 2; }
-            if ( path.indexOf( query ) > -1 ) { return 3; }
-            if ( key.indexOf( query ) > -1 ) { return 4; }
+            if ( optionLabels.some( optionLabel => optionLabel === query ) ) {
+                return isCheckboxOptionField ? 3 : 4;
+            }
+            if ( optionLabels.some( optionLabel => optionLabel.indexOf( query ) === 0 ) ) {
+                return isCheckboxOptionField ? 5 : 6;
+            }
+            if ( optionLabels.some( optionLabel => optionLabel.indexOf( query ) > -1 ) ) {
+                return isCheckboxOptionField ? 7 : 8;
+            }
+            if ( path.indexOf( query ) > -1 ) { return 9; }
+            if ( key.indexOf( query ) > -1 ) { return 10; }
 
             return null;
+        },
+
+        getQuickSearchOptionResults({
+            fieldKey,
+            label,
+            pathSegments,
+            pathText,
+            layoutPath,
+            liveField,
+            options,
+            query,
+        }) {
+            if (
+                ! liveField ||
+                liveField.type !== 'checkbox' ||
+                ! Array.isArray( options ) ||
+                ! options.length
+            ) {
+                return [];
+            }
+
+            const currentValue = Array.isArray( liveField.value )
+                ? liveField.value.map( item => String( item ) )
+                : [];
+
+            return options
+                .map( option => {
+                    const optionLabel = this.toPlainSearchText( option.label );
+                    const normalizedOptionLabel = this.normalizeSearchText( optionLabel );
+                    const optionValue = String( option.value );
+
+                    if ( ! optionLabel || normalizedOptionLabel.indexOf( query ) === -1 ) {
+                        return null;
+                    }
+
+                    let score = 12;
+
+                    if ( normalizedOptionLabel === query ) {
+                        score = 0.5;
+                    } else if ( normalizedOptionLabel.indexOf( query ) === 0 ) {
+                        score = 1.5;
+                    } else {
+                        score = 2.5;
+                    }
+
+                    return {
+                        field_key: `${fieldKey}__${option.value}`,
+                        fieldKey: `${fieldKey}__${option.value}`,
+                        parentFieldKey: fieldKey,
+                        label: optionLabel,
+                        path: pathSegments,
+                        pathText,
+                        layout_path: layoutPath,
+                        highlightType: 'option',
+                        controlType: 'checkbox-option',
+                        inputType: 'text',
+                        value: currentValue.includes( optionValue ),
+                        optionValue,
+                        fieldValue: currentValue,
+                        options: [],
+                        matchText: label,
+                        score,
+                    };
+                })
+                .filter( Boolean );
+        },
+
+        getQuickSearchMatchText( options, query ) {
+            if ( ! Array.isArray( options ) || ! query ) {
+                return '';
+            }
+
+            const matches = options
+                .filter( option => {
+                    return this.normalizeSearchText( option.label ).indexOf( query ) > -1;
+                })
+                .map( option => option.label )
+                .filter( Boolean );
+
+            if ( ! matches.length ) {
+                return '';
+            }
+
+            return `Matches: ${matches.slice( 0, 3 ).join( ', ' )}`;
         },
 
         getQuickSearchPathSegments( layoutPath, fieldKey ) {
@@ -606,29 +866,49 @@ export default {
         jumpToSearchResult( field ) {
             if ( ! field.layout_path ) { return; }
 
+            const isSectionResult = field.highlightType === 'section';
+
             this.$store.commit( 'swichToNav', {
                 menu_key: field.layout_path.menu_key,
                 submenu_key: field.layout_path.submenu_key,
-                hash: field.layout_path.hash,
+                hash: isSectionResult
+                    ? this.getQuickSearchSectionHash( field.layout_path )
+                    : field.layout_path.hash,
             });
 
             this.search_query = '';
             this.active_search_result_index = 0;
-            this.queueSearchResultHighlight( field.layout_path.field_key );
+            this.queueSearchResultHighlight( field );
         },
 
-        queueSearchResultHighlight( fieldKey ) {
-            if ( ! fieldKey ) { return; }
+        getQuickSearchSectionHash( layoutPath ) {
+            if ( ! layoutPath ) { return ''; }
+
+            return [
+                layoutPath.menu_key,
+                layoutPath.submenu_key,
+                layoutPath.section_key,
+            ].filter( Boolean ).join( '__' );
+        },
+
+        queueSearchResultHighlight( result ) {
+            if ( ! result || ! result.layout_path ) { return; }
 
             this.cancelSearchHighlightFrame();
             this.$store.commit( 'setHighlightedFieldKey', '' );
+            this.$store.commit( 'setHighlightedSectionKey', '' );
 
             this.$nextTick( () => {
-                this.runSearchResultHighlight( fieldKey, 0 );
+                if ( result.highlightType === 'section' && result.highlightSectionKey ) {
+                    this.runSearchResultSectionHighlight( result.highlightSectionKey, 0 );
+                    return;
+                }
+
+                this.runSearchResultFieldHighlight( result.layout_path.field_key, 0 );
             });
         },
 
-        runSearchResultHighlight( fieldKey, attempt ) {
+        runSearchResultFieldHighlight( fieldKey, attempt ) {
             const maxAttempts = 12;
 
             this.searchHighlightFrame = window.requestAnimationFrame( () => {
@@ -649,7 +929,34 @@ export default {
                     }
 
                     if ( attempt < maxAttempts ) {
-                        this.runSearchResultHighlight( fieldKey, attempt + 1 );
+                        this.runSearchResultFieldHighlight( fieldKey, attempt + 1 );
+                    }
+                });
+            });
+        },
+
+        runSearchResultSectionHighlight( sectionKey, attempt ) {
+            const maxAttempts = 12;
+
+            this.searchHighlightFrame = window.requestAnimationFrame( () => {
+                this.searchHighlightFrame = null;
+                this.$store.commit( 'setHighlightedSectionKey', sectionKey );
+
+                this.$nextTick( () => {
+                    const target = this.getSectionHighlightTarget( sectionKey );
+
+                    if ( target ) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest',
+                        });
+
+                        return;
+                    }
+
+                    if ( attempt < maxAttempts ) {
+                        this.runSearchResultSectionHighlight( sectionKey, attempt + 1 );
                     }
                 });
             });
@@ -663,6 +970,20 @@ export default {
             return this.$el.querySelector(
                 `.cptm-field-wraper-key-${escapedFieldKey}`
             );
+        },
+
+        getSectionHighlightTarget( sectionKey ) {
+            if ( ! this.$el || ! sectionKey ) { return null; }
+
+            const escapedSectionKey = this.escapeCssAttributeValue( sectionKey );
+
+            return this.$el.querySelector(
+                `[data-section-highlight-key="${escapedSectionKey}"]`
+            );
+        },
+
+        escapeCssAttributeValue( value ) {
+            return String( value || '' ).replace( /\\/g, '\\\\' ).replace( /"/g, '\\"' );
         },
 
         escapeCssIdentifier( value ) {

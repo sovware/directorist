@@ -379,9 +379,9 @@ const FIELD_OVERRIDES = {
 		description: 'Shown to listing owners when they upgrade.',
 	},
 	active_gateways: {
-		label: 'Bank transfer',
+		label: 'Payment Methods',
 		description:
-			'Accept manual bank or wire payments. You confirm each one from the orders screen.',
+			'Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process.',
 	},
 	default_gateway: {
 		label: 'Default gateway',
@@ -1307,7 +1307,14 @@ const FIELD_GROUPS = {
 			title: 'Payment gateways',
 			description:
 				'Bank transfer is included. PayPal, Stripe, and Authorize.Net are available via Extensions.',
-			fields: ['active_gateways', 'default_gateway'],
+			fields: ['default_gateway'],
+		},
+		{
+			key: 'payment_methods',
+			title: 'Payment Methods',
+			description:
+				'Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process.',
+			fields: ['active_gateways'],
 		},
 		{
 			key: 'bank_transfer_details',
@@ -2173,7 +2180,7 @@ const appendUnmappedFields = (displayLayouts, rawLayouts, fields, usedFields) =>
 			.join('_')
 			.replace(/[^a-zA-Z0-9_]/g, '_');
 
-	displayLayouts[designGapsMenuKey] = makeMenu({}, 'Needs Design', {
+	displayLayouts[designGapsMenuKey] = makeMenu({}, 'Other', {
 		icon: SETTINGS_REDESIGN_ICONS.help,
 		submenu: {},
 	});

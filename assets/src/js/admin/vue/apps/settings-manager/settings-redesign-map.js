@@ -1414,7 +1414,11 @@ const FIELD_GROUPS = {
 			key: 'web_push_setup',
 			title: 'Web push setup',
 			description: 'Connect this browser and review delivery logs.',
-			fields: ['web_push_admin_subscription', 'web_push_log_note'],
+			fields: [
+				'web_push_admin_subscription',
+				'web_push_enable_log',
+				'web_push_log_note',
+			],
 		},
 		{
 			key: 'sender_details',

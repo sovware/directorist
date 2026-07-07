@@ -30,6 +30,9 @@ $pagination = $dashboard->listing_pagination();
                     <li class="directorist-tab-nav--content-link">
                         <a href="#" data-tab="expired"><?php esc_html_e( 'Expired', 'directorist' ); ?></a>
                     </li>
+                    <li class="directorist-tab-nav--content-link">
+                        <a href="#" data-tab="rejected"><?php esc_html_e( 'Rejected', 'directorist' ); ?></a>
+                    </li>
                 </ul>
 
                 <div class="directorist-user-dashboard-search">

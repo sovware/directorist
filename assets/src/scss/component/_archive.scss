@@ -258,7 +258,7 @@
 	display: flex;
 	gap: 30px;
 	flex-wrap: wrap;
-	@media only screen and (max-width: 991px) {
+	@media only screen and (max-width: 1367px) {
 		flex-direction: column;
 		.directorist-advanced-filter__form {
 			width: 100%;
@@ -380,7 +380,7 @@
 					height: 14px;
 				}
 			}
-			@media only screen and (max-width: 991px) {
+			@media only screen and (max-width: 1367px) {
 				display: inline-flex;
 				align-items: center;
 			}
@@ -397,7 +397,10 @@
 		display: inline-flex;
 		flex: 1;
 		height: 100%;
-		max-width: 350px;
+		max-width: 310px;
+		@media only screen and (min-width: 1400px) {
+			max-width: 350px;
+		}
 		form {
 			width: 100%;
 		}
@@ -405,12 +408,12 @@
 			display: none;
 		}
 
-		@media screen and (max-width: 1199px) {
+		@media screen and (max-width: 1367px) {
 			max-width: 300px;
 			min-width: 300px;
 		}
 
-		@media only screen and (max-width: 991px) {
+		@media only screen and (max-width: 1367px) {
 			position: fixed;
 			left: -360px;
 			top: 0;
@@ -461,7 +464,7 @@
 		}
 		.directorist-search-form__box {
 			padding: 0;
-			@media only screen and (max-width: 991px) {
+			@media only screen and (max-width: 1367px) {
 				display: block;
 				height: 100svh;
 				box-shadow: none !important;
@@ -693,11 +696,11 @@
 	}
 	@include e(contents) {
 		display: flex;
-		gap: 30px;
+		gap: 24px;
 	}
 }
 .logged-in .listing-with-sidebar__sidebar .directorist-search-form__box {
-	@media only screen and (max-width: 991px) {
+	@media only screen and (max-width: 1367px) {
 		padding-top: 30px;
 	}
 	@media only screen and (max-width: 767px) {

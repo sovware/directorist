@@ -97,10 +97,9 @@ class Helper {
             return $script['ext'];
         }
 
-        $min  = self::debug_enabled() ? '' : '.min';
-        $rtl  = ( ! empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
-        $ext  = $script['type'] == 'css' ? '.css' : '.js';
-        $url = $script['path'] . $rtl . $min . $ext;
+        $rtl = ( ! empty( $script['rtl'] ) && is_rtl() ) ? '.rtl' : '';
+        $ext = $script['type'] == 'css' ? '.css' : '.js';
+        $url = $script['path'] . $rtl . $ext;
         return $url;
     }
 
@@ -237,12 +236,6 @@ class Helper {
                     if ( isset( $_GET['taxonomy'] ) && in_array( $_GET['taxonomy'], $taxonomies ) ) {
                         $status = true;
                     }
-                }
-                break;
-
-            case 'support':
-                if ( $screen == 'at_biz_dir_page_directorist-status' ) {
-                    $status = true;
                 }
                 break;
 

@@ -656,7 +656,9 @@ export default {
 					const wn = String(widget.widget_name).toLowerCase();
 					if (['select', 'radio', 'checkbox'].includes(wn)) {
 						type = wn;
-					} else if (['date', 'time', 'color', 'color_picker'].includes(wn)) {
+					} else if (
+						['date', 'time', 'color', 'color_picker'].includes(wn)
+					) {
 						// Search form custom fields: date/time/color use widget_name for type
 						type = wn;
 					}
@@ -665,12 +667,7 @@ export default {
 				// Only include fields that can be used in conditions
 				// Exclude fields like conditional-logic itself and non-comparable types
 				// Note: date, time, and file fields are now included (they use specialized inputs)
-				const excludeTypes = [
-					'conditional-logic',
-					'button',
-					'submit',
-					'section',
-				];
+				const excludeTypes = ['conditional-logic', 'submit', 'section'];
 				if (excludeTypes.includes(type)) {
 					continue;
 				}
@@ -833,6 +830,14 @@ export default {
 						},
 					];
 				}
+			}
+
+			// Handle listing_type field - return "General" and "Featured" options
+			if (fieldKeyNorm === 'listing_type') {
+				return [
+					{ value: 'general', label: 'General' },
+					{ value: 'featured', label: 'Featured' },
+				];
 			}
 
 			// Handle search_by_rating (Review) - checkbox field with star options

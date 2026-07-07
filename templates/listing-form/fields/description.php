@@ -29,7 +29,7 @@ $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data
             apply_filters(
                 'atbdp_add_listing_wp_editor_settings',
                 [
-                    'media_buttons' => false,
+                    'media_buttons' => true,
                     'quicktags'     => true,
                     'editor_height' => 200,
                     'tinymce'       => array(

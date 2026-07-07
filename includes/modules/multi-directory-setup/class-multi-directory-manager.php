@@ -854,6 +854,14 @@ class Multi_Directory_Manager {
             }
         }
 
+        // Merge new layout placeholders into saved card-builder field values.
+        // When a new placeholder (e.g. action-placeholder) is added to the default
+        // layout but the directory was saved before it existed, this ensures the
+        // placeholder appears in the builder UI for existing directory types.
+        $this->merge_new_layout_placeholders_into_saved_value( 'single_listing_header' );
+        $this->merge_new_card_layout_sections_into_saved_value( 'listings_card_grid_view' );
+        $this->merge_new_card_layout_sections_into_saved_value( 'listings_card_list_view' );
+
         foreach ( self::$config['fields_group'] as $group_key => $group_fields ) {
             if ( array_key_exists( $group_key, $all_term_meta ) ) {
                 $_group_meta_value = ( ! $test_migration ) ? $all_term_meta[$group_key][0] : $all_term_meta[$group_key];
@@ -877,6 +885,144 @@ class Multi_Directory_Manager {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Merge new layout placeholders into saved card-builder field values.
+     *
+     * When a new placeholder is added to the default layout definition but the
+     * directory type was saved before that placeholder existed, the saved value
+     * (from term meta) won't contain it. This method detects the gap and injects
+     * the missing placeholder(s) at the correct position so the builder UI
+     * shows them without requiring a manual reset.
+     *
+     * @param string $field_key The field key (e.g. 'single_listing_header').
+     */
+    protected function merge_new_layout_placeholders_into_saved_value( $field_key ) {
+        // Sanitize input for security.
+        $field_key = sanitize_key( $field_key );
+
+        if ( ! isset( self::$fields[ $field_key ] ) ) {
+            return;
+        }
+
+        $field  = self::$fields[ $field_key ];
+        $value  = isset( $field['value'] ) ? $field['value'] : null;
+        $layout = isset( $field['layout'] ) ? $field['layout'] : null;
+
+        if ( ! is_array( $value ) || ! is_array( $layout ) ) {
+            return;
+        }
+
+        // Collect all placeholder keys already present in the saved value.
+        // Use associative array for O(1) lookup instead of O(n) in_array().
+        $saved_keys = [];
+        $collect_keys = function ( $items ) use ( &$saved_keys, &$collect_keys ) {
+            foreach ( $items as $item ) {
+                if ( isset( $item['placeholderKey'] ) ) {
+                    $saved_keys[ $item['placeholderKey'] ] = true;
+                }
+                if ( isset( $item['placeholders'] ) && is_array( $item['placeholders'] ) ) {
+                    $collect_keys( $item['placeholders'] );
+                }
+            }
+        };
+        $collect_keys( $value );
+
+        // Walk the default layout and inject any missing placeholders.
+        $offset = 0;
+        foreach ( $layout as $index => $layout_item ) {
+            if ( ! isset( $layout_item['placeholderKey'] ) ) {
+                continue;
+            }
+
+            // Use isset for O(1) lookup instead of in_array() O(n).
+            if ( isset( $saved_keys[ $layout_item['placeholderKey'] ] ) ) {
+                continue;
+            }
+
+            // Placeholder exists in default layout but not in saved value — inject it.
+            $insert_position = min( $index + $offset, count( $value ) );
+            array_splice( $value, $insert_position, 0, [ $layout_item ] );
+            $offset++;
+        }
+
+        if ( $offset > 0 ) {
+            self::$fields[ $field_key ]['value'] = $value;
+        }
+    }
+
+    /**
+     * Merge new layout sections into saved card-builder field values.
+     *
+     * When a new section (e.g. action) is added to the default card layout but the
+     * directory type was saved before it existed, the saved value won't contain it.
+     * This method detects missing sections and adds them from the default layout.
+     *
+     * @param string $field_key The field key (e.g. 'listings_card_grid_view').
+     */
+    protected function merge_new_card_layout_sections_into_saved_value( $field_key ) {
+        // Sanitize input for security.
+        $field_key = sanitize_key( $field_key );
+
+        if ( ! isset( self::$fields[ $field_key ] ) ) {
+            return;
+        }
+
+        $field          = self::$fields[ $field_key ];
+        $value          = isset( $field['value'] ) ? $field['value'] : null;
+        $card_templates = isset( $field['card_templates'] ) ? $field['card_templates'] : null;
+
+        if ( ! is_array( $value ) || ! is_array( $card_templates ) ) {
+            return;
+        }
+
+        $has_changes     = false;
+        $section_types   = [ 'body', 'thumbnail', 'footer' ];
+
+        // Process each template (grid_view_with_thumbnail, grid_view_without_thumbnail, etc.)
+        foreach ( $card_templates as $template_key => $template_config ) {
+            if ( ! isset( $template_config['layout'] ) || ! is_array( $template_config['layout'] ) ) {
+                continue;
+            }
+
+            $default_layout = $template_config['layout'];
+
+            if ( ! isset( $value['template_data'][ $template_key ] ) || ! is_array( $value['template_data'][ $template_key ] ) ) {
+                continue;
+            }
+
+            $saved_template_data = &$value['template_data'][ $template_key ];
+            $template_has_changes = false;
+
+            // Process all section types (body, thumbnail, footer) using the same logic
+            foreach ( $section_types as $section_type ) {
+                if ( ! isset( $default_layout[ $section_type ] ) || ! is_array( $default_layout[ $section_type ] ) ) {
+                    continue;
+                }
+
+                if ( ! isset( $saved_template_data[ $section_type ] ) ) {
+                    $saved_template_data[ $section_type ] = [];
+                    $template_has_changes                 = true;
+                }
+
+                foreach ( $default_layout[ $section_type ] as $section_key => $section_config ) {
+                    if ( ! isset( $saved_template_data[ $section_type ][ $section_key ] ) ) {
+                        // Section exists in default but not in saved value — add it.
+                        $saved_template_data[ $section_type ][ $section_key ] = [];
+                        $template_has_changes                                 = true;
+                    }
+                }
+            }
+
+            if ( $template_has_changes ) {
+                $has_changes = true;
+            }
+        }
+
+        if ( $has_changes ) {
+            self::$fields[ $field_key ]['value'] = $value;
         }
     }
 

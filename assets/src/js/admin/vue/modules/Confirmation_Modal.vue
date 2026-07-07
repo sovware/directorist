@@ -12,17 +12,13 @@
                 class="cptm-modal-action-link"
                 @click.prevent="cancel()"
               >
-                <span class="fa fa-times"></span>
+                <span class="las la-times"></span>
               </a>
             </div>
           </div>
 
           <div class="cptm-modal-body cptm-center-content cptm-content-wide">
             <form action="#" method="post" class="cptm-import-directory-form">
-              <div
-                class="cptm-form-group-feedback cptm-text-center cptm-mb-10"
-              ></div>
-
               <h2
                 class="cptm-modal-confirmation-title"
                 v-html="confirmationText"

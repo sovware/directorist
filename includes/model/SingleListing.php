@@ -39,9 +39,9 @@ class Directorist_Single_Listing {
 
     private function __construct( $listing_id = 0 ) {
         if ( $listing_id && is_int( $listing_id ) ) {
-            $this->id = $listing_id;
+            $this->id = (int) $listing_id;
         } else {
-            $this->id = get_the_ID();
+            $this->id = (int) get_the_ID();
         }
 
         $this->prepare_data();
@@ -64,10 +64,10 @@ class Directorist_Single_Listing {
     }
 
     public function prepare_data() {
-        $this->author_id            = get_post_field( 'post_author', $this->id );
+        $this->author_id            = (int) get_post_field( 'post_author', $this->id );
         $this->post                 = get_post( $this->id );
-        $this->type                 = $this->get_directory_type_id();
-        $this->header_data          = get_term_meta( $this->type, 'single_listing_header', true );
+        $this->type                 = (int) $this->get_directory_type_id();
+        $this->header_data          = directorist_single_listing_header( $this->type, [ 'listing_id' => $this->id, 'listing_owner_id' => $this->author_id, 'directory_type_id' => $this->type ] );
         $this->content_data         = $this->build_content_data();
         $this->fm_plan              = get_post_meta( $this->id, '_fm_plans', true );
         $this->price_range          = get_post_meta( $this->id, '_price_range', true );
@@ -77,8 +77,14 @@ class Directorist_Single_Listing {
 
     public function build_content_data() {
         $content_data           = [];
-        $single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
-        $submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
+        $single_fields          = directorist_single_listings_contents( 
+            $this->type,
+            [
+                'listing_id'        => (int) $this->id,
+                'listing_owner_id'  => (int) $this->author_id,
+            ]
+        );
+        $submission_form_fields = directorist_submission_form_fields_raw( $this->type );
 
         if ( ! empty( $single_fields['fields'] ) ) {
             foreach ( $single_fields['fields'] as $key => $value ) {
@@ -326,7 +332,7 @@ class Directorist_Single_Listing {
     }
 
     public function is_custom_field( $data ) {
-        $fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+        $fields = ['html', 'button', 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
         $is_custom_field = in_array( $data['widget_name'], $fields ) ? true : false;
         return $is_custom_field;
     }
@@ -545,6 +551,70 @@ class Directorist_Single_Listing {
         }
     }
 
+    public function action_template() {
+
+        $actions = $this->listing_header( '', 'action-placeholder' );
+
+        // Filter out actions whose widget no longer exists in the submission form.
+        $submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
+        $active_form_widgets    = [];
+        $form_fields_by_widget  = [];
+        $form_fields_by_key     = [];
+
+        if ( ! empty( $submission_form_fields['fields'] ) ) {
+            foreach ( $submission_form_fields['fields'] as $field ) {
+                if ( ! empty( $field['widget_name'] ) ) {
+                    $active_form_widgets[] = $field['widget_name'];
+                    $form_fields_by_widget[ $field['widget_name'] ] = $field;
+
+                    // Index button fields by their field_key/widget_key for
+                    // precise mapping when multiple buttons exist.
+                    if ( ! empty( $field['widget_key'] ) ) {
+                        $form_fields_by_key[ $field['widget_key'] ] = $field;
+                    }
+                    if ( ! empty( $field['field_key'] ) ) {
+                        $form_fields_by_key[ $field['field_key'] ] = $field;
+                    }
+                }
+            }
+        }
+
+        if ( ! empty( $actions ) ) {
+            $actions = array_filter(
+                $actions, function ( $action ) use ( $active_form_widgets ) {
+                    $widget = $action['widget_name'] ?? '';
+                    return in_array( $widget, $active_form_widgets, true );
+                } 
+            );
+
+            foreach ( $actions as &$action ) {
+                $widget     = $action['widget_name'] ?? '';
+                $widget_key = $action['widget_key'] ?? '';
+
+                // For button widgets, match by widget_key first to support
+                // multiple button fields, then resolve the real meta key
+                // (field_key) from the matched form field data.
+                if ( 'button' === $widget && $widget_key && isset( $form_fields_by_key[ $widget_key ] ) ) {
+                    $matched_field          = $form_fields_by_key[ $widget_key ];
+                    $action['form_data']    = $matched_field;
+                    $action['field_key']    = ! empty( $matched_field['field_key'] ) ? $matched_field['field_key'] : $widget_key;
+                } elseif ( isset( $form_fields_by_widget[ $widget ] ) ) {
+                    $action['form_data'] = $form_fields_by_widget[ $widget ];
+                }
+            }
+            unset( $action );
+        }
+
+        $args = [
+            'listing' => $this,
+            'actions' => $actions,
+        ];
+
+        if ( $actions ) {
+            Helper::get_template( 'single/action-section', $args );
+        }
+    }
+
     public function get_slider_data( $data = null ) {
 
         $show_slider = get_directorist_option( 'dsiplay_slider_single_page', true );
@@ -615,6 +685,8 @@ class Directorist_Single_Listing {
             array_unshift( $data['images'], $preview_img );
         }
 
+        $data['images'] = apply_filters( 'directorist_single_listing_thumbnails', $data['images'], $listing_id );
+
         if ( count( $data['images'] ) < 1 ) {
             $data['images'][] = [
                 'alt' => $listing_title,
@@ -628,7 +700,6 @@ class Directorist_Single_Listing {
     }
 
     public function slider_template() {
-
         $slider = $this->listing_header( 'slider', 'slider-placeholder' );
 
         if ( ! $slider ) {
@@ -639,7 +710,6 @@ class Directorist_Single_Listing {
     }
 
     public function slider_field_template( $slider = null ) {
-
         $args = [
             'listing'    => $this,
             'has_slider' => true,
@@ -887,15 +957,14 @@ class Directorist_Single_Listing {
     }
 
     public function submit_link() {
-        $payment    = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
-        
+        $payment = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
+
         $redirect = '';
         if ( isset( $_GET['redirect'] ) ) {
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             $redirect = wp_validate_redirect( wp_unslash( $_GET['redirect'] ), '' );
         }
-        
-        
+
         $listing_id = isset( $_GET['post_id'] ) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : get_the_ID();
         $listing_id = isset( $_GET['p'] ) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : $listing_id;
         $link       = '';
@@ -914,16 +983,17 @@ class Directorist_Single_Listing {
                     'p'        => $listing_id,
                     'post_id'  => $listing_id,
                     'reviewed' => 'yes',
-                    'edited'   => $edited ? 'yes' : 'no'
+                    'edited'   => $edited ? 'yes' : 'no',
                 ];
             } else {
                 $args = [
                     'atbdp_listing_id' => $listing_id,
-                    'reviewed'         => 'yes'
+                    'reviewed'         => 'yes',
                 ];
             }
 
             $link = add_query_arg( $args, $redirect );
+            $link = wp_nonce_url( $link, 'directorist_listing_form_redirect_url_' . $listing_id, '_token' );
         }
 
         return $link;
@@ -1056,23 +1126,22 @@ class Directorist_Single_Listing {
     }
 
     public function header_template() {
-
+        
         $display_title     = $this->listing_header( 'title', 'listing-title-placeholder' );
         $args = [
-            'listing'           => $this,
-            'use_listing_title' => true,
-            'section_title'     => '',
-            'section_icon'      => '',
-            'display_title'     => $display_title,
-            'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
-            'display_content'   => false,
+                'listing'           => $this,
+                'use_listing_title' => true,
+                'section_title'     => '',
+                'section_icon'      => '',
+                'display_title'     => $display_title,
+                'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
+                'display_content'   => false,
         ];
 
         return Helper::get_template( 'single/header', $args );
     }
 
     public function render_shortcode_single_listing() {
-
         if ( ! is_singular( ATBDP_POST_TYPE ) ) {
             return;
         }
@@ -1289,11 +1358,32 @@ class Directorist_Single_Listing {
         $display_favorite_badge_map = get_directorist_option( 'display_favorite_badge_map', 1 );
 
         $listing_prv_img = directorist_get_listing_preview_image( $id );
-        $default_image = get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
-        $listing_prv_imgurl = ! empty( $listing_prv_img ) ? atbdp_get_image_source( $listing_prv_img, 'small' ) : '';
-        $listing_prv_imgurl = atbdp_image_cropping( $listing_prv_img, 150, 150, true, 100 )['url'];
-        $img_url = ! empty( $listing_prv_imgurl ) ? $listing_prv_imgurl : $default_image;
-        $image = "<figure><img src=" . $img_url . " /></figure>";
+        $listing_img     = directorist_get_listing_gallery_images( $id );
+        $listing_type    = directorist_get_listing_directory( $id );
+        $default_image   = Helper::default_preview_image_src( $listing_type );
+        $listing_title   = get_the_title( $id );
+        $img_url         = '';
+
+        if ( ! empty( $listing_prv_img ) ) {
+            $cropped_image = atbdp_image_cropping( $listing_prv_img, 150, 150, true, 100 );
+            $img_url = ! empty( $cropped_image['url'] ) ? $cropped_image['url'] : atbdp_get_image_source( $listing_prv_img, 'small' );
+        }
+
+        if ( empty( $img_url ) && ! empty( $listing_img[0] ) ) {
+            $gallery_image_id = (int) $listing_img[0];
+            $cropped_image = atbdp_image_cropping( $gallery_image_id, 150, 150, true, 100 );
+            $img_url = ! empty( $cropped_image['url'] ) ? $cropped_image['url'] : atbdp_get_image_source( $gallery_image_id, 'small' );
+        }
+
+        if ( empty( $img_url ) ) {
+            $img_url = $default_image;
+        }
+
+        $image = sprintf(
+            "<figure><img src='%s' alt='%s' /></figure>",
+            esc_url( $img_url ),
+            esc_attr( $listing_title )
+        );
         if ( empty( $display_image_map ) ) {
             $image = '';
         }
@@ -1353,6 +1443,18 @@ class Directorist_Single_Listing {
 
         $info_content .= "</div>";
 
+        /**
+         * Filters the map info window HTML content for a single listing.
+         *
+         * Allows plugins (e.g., page builder integrations) to replace the
+         * default info window markup with custom-composed content.
+         *
+         * @since 8.6.7
+         *
+         * @param string                    $info_content The info window HTML.
+         * @param Directorist_Single_Listing $listing      The single listing instance.
+         */
+        $info_content = apply_filters( 'directorist_single_map_info_content', $info_content, $this );
 
         $cats = get_the_terms( $this->id, ATBDP_CATEGORY );
         $cat_icon = '';

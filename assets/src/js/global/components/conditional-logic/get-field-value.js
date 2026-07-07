@@ -46,6 +46,36 @@ export function getFieldValue(fieldKey, $) {
 		return null;
 	}
 
+	// Special handling for custom button fields.
+	// Button fields store values in nested keys: field_key[button_text], field_key[button_url_label].
+	if (fieldKey && typeof fieldKey === 'string') {
+		const normalizedButtonFieldKey = fieldKey.trim();
+		if (normalizedButtonFieldKey) {
+			const buttonTextId = escapeCssId(
+				`${normalizedButtonFieldKey}_text`
+			);
+			const buttonUrlId = escapeCssId(`${normalizedButtonFieldKey}_link`);
+			const $buttonTextField = $(
+				`[name="${normalizedButtonFieldKey}[button_text]"], #${buttonTextId}`
+			).first();
+			const $buttonUrlField = $(
+				`[name="${normalizedButtonFieldKey}[button_url_label]"], #${buttonUrlId}`
+			).first();
+
+			if ($buttonTextField.length || $buttonUrlField.length) {
+				const buttonTextValue = $buttonTextField.length
+					? String($buttonTextField.val() || '').trim()
+					: '';
+				const buttonUrlValue = $buttonUrlField.length
+					? String($buttonUrlField.val() || '').trim()
+					: '';
+
+				// Prefer button text for direct comparisons; fallback to URL.
+				return buttonTextValue || buttonUrlValue || null;
+			}
+		}
+	}
+
 	let $field = null;
 
 	// Handle category, tag, and location fields

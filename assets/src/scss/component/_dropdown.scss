@@ -9,7 +9,7 @@
         font-weight: 400;
         color: var(--directorist-color-body);
         background-color: var(--directorist-color-light);
-        border-color:var(--directorist-color-light);
+        border: 2px solid var(--directorist-color-white);
         padding: 0 20px;
         border-radius: 8px;
         cursor: pointer;
@@ -82,11 +82,6 @@
             left: unset;
             right: 0;
         }
-    }
-
-    &.directorist-sortby-dropdown {
-        border-radius: 8px;
-        border: 2px solid var(--directorist-color-white);
     }
 }
 

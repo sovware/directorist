@@ -45,7 +45,14 @@ if ( $query->have_posts() ) {
 
             <td><span class="directorist-ex-plan"><?php echo wp_kses_post( $dashboard->get_listing_expired_html() ); ?></span></td>
 
-            <td><?php echo wp_kses_post( $dashboard->get_listing_status_html() ); ?></td>
+            <td>
+                <?php echo wp_kses_post( $dashboard->get_listing_status_html() ); ?>
+                <?php if ( Helper::is_featured( get_the_ID() ) ) : ?>
+                    <span class="directorist_badge dashboard-badge directorist_status_featured">
+                        <?php echo esc_html( Helper::featured_badge_text() ); ?>
+                    </span>
+                <?php endif; ?>
+            </td>
 
             <?php do_action( 'directorist_dashboard_listing_td_6', $dashboard ); ?>
 

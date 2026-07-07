@@ -19,7 +19,10 @@
         class="directorist_dropdown-toggle"
         @click.prevent="toggleTheOptionModal()"
       >
-        <span class="directorist_dropdown-toggle__text">{{
+        <span
+          class="directorist_dropdown-toggle__text"
+          :title="theCurrentOptionTitle"
+        >{{
           theCurrentOptionLabel
         }}</span>
       </a>

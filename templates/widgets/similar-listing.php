@@ -43,7 +43,7 @@ $default_icon = 'las la-tags';
             <a href="<?php echo esc_url( get_post_permalink( $related_listing->ID ) ); ?>">
                 <?php
             }
-            $default_image = get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );
+            $default_image = \Directorist\Helper::default_preview_image_src( directorist_get_listing_directory( $related_listing->ID ) );
             if ( ! empty( $listing_prv_img ) ) {
                 echo '<img src="' . esc_url( wp_get_attachment_image_url( $listing_prv_img, [90, 90] ) ) . '" alt="listing image">';
             } elseif ( ! empty( $listing_img[0] ) && empty( $listing_prv_img ) ) {

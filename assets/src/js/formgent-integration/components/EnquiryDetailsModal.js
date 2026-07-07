@@ -52,12 +52,48 @@ export default function EnquiryDetailsModal({
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const hasMarkedAsReadRef = useRef(false);
+	const directoristModules = window.formgent?.directorist_modules || {};
 	const {
+		TableDrawerAnswer,
 		SingleResponseAnswer,
 		getFormattedAnswer,
 		handleAnswerIcon,
-		isProActive,
-	} = window.formgent.directorist_modules;
+	} = directoristModules;
+	const ResponseAnswer = TableDrawerAnswer || SingleResponseAnswer;
+
+	const getFallbackAnswerValue = (answer) => {
+		if (typeof getFormattedAnswer === 'function') {
+			return getFormattedAnswer(answer);
+		}
+
+		return (
+			answer?.value ||
+			answer?.answer ||
+			answer?.formatted_value ||
+			answer?.display_value ||
+			''
+		);
+	};
+
+	const renderFallbackAnswer = (answer, index) => {
+		const label =
+			answer?.label ||
+			answer?.title ||
+			answer?.field?.label ||
+			answer?.name ||
+			__('Answer', 'directorist');
+		const value = getFallbackAnswerValue(answer);
+		const displayValue = Array.isArray(value) ? value.join(', ') : value;
+
+		return (
+			<div className="directorist-enquiry-answer-item" key={index}>
+				<h4 className="directorist-enquiry-answer-title">{label}</h4>
+				<p className="directorist-enquiry-answer-value">
+					{displayValue || __('No answer provided', 'directorist')}
+				</p>
+			</div>
+		);
+	};
 
 	// Effect to fetch single item data when selectedItem changes
 	useEffect(() => {
@@ -260,21 +296,30 @@ export default function EnquiryDetailsModal({
 							<div className="directorist-answers-section">
 								{singleItem?.response?.answers.map(
 									(answer, index) => {
-										return (
-											<SingleResponseAnswer
-												key={index}
-												answer={answer}
-												handleAnswerIcon={
-													handleAnswerIcon
-												}
-												getFormattedAnswer={
-													getFormattedAnswer
-												}
-												ReactSVG={ReactSVG}
-												useState={useState}
-												useEffect={useEffect}
-												isLoadedFromDirectorist={true}
-											/>
+										if (ResponseAnswer) {
+											return (
+												<ResponseAnswer
+													key={index}
+													answer={answer}
+													handleAnswerIcon={
+														handleAnswerIcon
+													}
+													getFormattedAnswer={
+														getFormattedAnswer
+													}
+													ReactSVG={ReactSVG}
+													useState={useState}
+													useEffect={useEffect}
+													isLoadedFromDirectorist={
+														true
+													}
+												/>
+											);
+										}
+
+										return renderFallbackAnswer(
+											answer,
+											index
 										);
 									}
 								)}

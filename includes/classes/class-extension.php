@@ -102,6 +102,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                     'directorist-faqs'                     => 'directorist-listing-faqs',
                     'directorist-listing-faqs'             => 'directorist-faqs',
+
+                    'directorist-mailchimp'                => 'directorist-mailchimp-integration',
+                    'directorist-mailchimp-integration'    => 'directorist-mailchimp',
                 ]
             );
         }
@@ -235,6 +238,23 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-ai-search' => [
+                    'name'        => 'Directorist AI Search',
+                    'description' => __( 'AI-powered directory search that understands intent and improves listing discovery.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-ai-search/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/AI-Search-Preview.jpg',
+                    'active'      => true,
+                    'item_id'     => 370908,
+                ],
+                'directorist-listing-importer' => [
+                    'name'        => 'Directorist Listing Importer',
+                    'description' => __( 'Import Google Maps and feeds into Directorist automatically, effortlessly.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-listing-importer/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-listing-importer.png',
+                    'active'      => true,
+                    'item_id'     => 370853,
+                ],
+
                 'directorist-analytics' => [
                     'name'        => 'Directorist Analytics',
                     'description' => __( 'Unlock powerful insights to grow your directory with confidence.', 'directorist' ),
@@ -488,8 +508,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'directorist-mailchimp-integration' => [
                     'name'        => 'Mailchimp Integration',
                     'description' => __( 'Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-mailchimp-integration/',
-                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/mailchimp.svg',
+                    'link'        => 'https://directorist.com/product/directorist-mailchimp/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/27_Mailchimp.svg',
                     'active'      => true,
                     'item_id'     => 76269,
                 ],
@@ -742,6 +762,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_plugins_update_request
         public function handle_plugins_update_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 $status            = [];
@@ -1118,6 +1141,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // plugins_bulk_action
         public function plugins_bulk_action() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status = [ 'success' => true ];
 
             if ( ! directorist_verify_nonce() ) {
@@ -1170,6 +1196,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // activate_theme
         public function activate_theme() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status           = [ 'success' => true ];
             $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? directorist_clean( wp_unslash( $_POST['theme_stylesheet'] ) ) : '';
 
@@ -1193,6 +1222,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // activate_plugin
         public function activate_plugin() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status     = [ 'success' => true ];
             $plugin_key = ( isset( $_POST['item_key'] ) ) ? directorist_clean( wp_unslash( $_POST['item_key'] ) ) : '';
 
@@ -1217,6 +1249,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_theme_update_request
         public function handle_theme_update_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 $status            = [];
@@ -1479,6 +1514,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_refresh_purchase_status_request
         public function handle_refresh_purchase_status_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
+
             $status   = [ 'success' => true ];
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
@@ -1561,6 +1600,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_close_subscriptions_sassion_request
         public function handle_close_subscriptions_sassion_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 $status            = [];
@@ -1697,6 +1739,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_file_install_request_from_subscriptions
         public function handle_file_install_request_from_subscriptions() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $item_key = ( isset( $_POST['item_key'] ) ) ? directorist_clean( wp_unslash( $_POST['item_key'] ) ) : '';
             $type     = ( isset( $_POST['type'] ) ) ? directorist_clean( wp_unslash( $_POST['type'] ) ) : '';
 
@@ -1811,6 +1856,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // handle_plugin_download_request
         public function handle_file_download_request() {
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
+            }
             $status        = [ 'success' => true ];
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {

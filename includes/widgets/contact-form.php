@@ -53,13 +53,13 @@ class Contact_Form extends \WP_Widget {
             $plan_permission = true;
             $email = get_post_meta( get_the_ID(), '_email', true );
             $author_id = get_post_field( 'post_author', get_the_ID() );
-            $hide_form = get_user_meta( $author_id, 'hide_contact_form', true );
+            $hide_form = get_user_meta( $author_id, 'directorist_hide_contact_form', true );
 
             if ( is_fee_manager_active() ) {
                 $plan_permission = is_plan_allowed_owner_contact_widget( get_post_meta( get_the_ID(), '_fm_plans', true ) );
             }
 
-            if ( $plan_permission && ! $hide_form ) {
+            if ( $plan_permission && ( empty( $hide_form ) || 'no' === $hide_form ) ) {
 
                 $title = ! empty( $instance['title'] ) ? esc_html( $instance['title'] ) : esc_html__( 'Contact the listing owner', 'directorist' );
                 $widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];

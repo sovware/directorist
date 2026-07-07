@@ -64,12 +64,12 @@ class Scripts {
             // Public CSS
             'directorist-main-style' => [
                 'type' => 'css',
-                'path' => DIRECTORIST_CSS . 'public-main',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'css/public/main',
                 'rtl' => true,
             ],
             'directorist-formgent-integration-style' => [
                 'type' => 'css',
-                'path' => DIRECTORIST_CSS . 'formgent-integration',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'css/public/formgent-integration',
                 'rtl' => true,
                 'dep' => ['wp-components'],
             ],
@@ -77,7 +77,7 @@ class Scripts {
             // Admin CSS
             'directorist-admin-style' => [
                 'type' => 'css',
-                'path' => DIRECTORIST_CSS . 'admin-main',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'css/admin/main',
                 'rtl'  => true,
                 'dep' => [
                     'directorist-font-awesome',
@@ -140,7 +140,7 @@ class Scripts {
             ],
             'directorist-openstreet-map' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'openstreet-map',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/global/openstreet-map',
                 'dep' => [
                     'jquery',
                     'directorist-openstreet-layers',
@@ -156,7 +156,7 @@ class Scripts {
             ],
             'directorist-google-map' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'google-map',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/global/google-map',
                 'dep' => [
                     'jquery',
                     'google-map-api',
@@ -215,138 +215,102 @@ class Scripts {
             // Global JS
             'directorist-global-script' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'global-main',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/global/main',
             ],
 
             // Public JS
             'directorist-widgets' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'widgets',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/widgets',
             ],
             'directorist-all-listings' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'all-listings',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/all-listings',
             ],
             'directorist-search-form' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'search-form',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/search-form',
             ],
             'directorist-listing-slider' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'listing-slider',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/listing-slider',
             ],
             'directorist-dashboard' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'directorist-dashboard',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/directorist-dashboard',
             ],
             'directorist-all-authors' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'all-authors',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/all-authors',
             ],
             'directorist-author-profile' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'author-profile',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/author-profile',
             ],
             'directorist-all-location-category' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'all-location-category',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/all-location-category',
             ],
             'directorist-account' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'account',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/account',
             ],
             'directorist-range-slider' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'range-slider',
-            ],
-            'directorist-releated-listings-slider' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-releated-listings-slider',
-            ],
-            'directorist-atmodal' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-atmodal',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/range-slider',
             ],
             'directorist-geolocation' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'global-geolocation',
-            ],
-            'directorist-geolocation-widget' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-geolocation-widget',
-            ],
-            'directorist-search-listing' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-search-listing',
-            ],
-            'directorist-search-form-listing' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-search-form-listing',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/global/geolocation',
             ],
             'directorist-checkout' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'checkout',
-            ],
-            'directorist-single-listing-openstreet-map-custom-script' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-single-listing-openstreet-map-custom-script',
-            ],
-            'directorist-single-listing-openstreet-map-widget-custom-script' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-single-listing-openstreet-map-widget-custom-script',
-            ],
-            'directorist-single-listing-gmap-custom-script' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-single-listing-gmap-custom-script',
-            ],
-            'directorist-single-listing-gmap-widget-custom-script' => [
-                'type' => 'js',
-                'path' => DIRECTORIST_JS . 'public-single-listing-gmap-custom-script',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/checkout',
             ],
             'directorist-add-listing' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'add-listing',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/global/add-listing',
             ],
             'directorist-single-listing' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'single-listing',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/single-listing',
             ],
             'directorist-plupload' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'directorist-plupload',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/global/directorist-plupload',
                 'dep'  => ['jquery', 'plupload-handlers'],
             ],
 
             // Admin JS
             'directorist-admin-script' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'admin-main',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/main',
             ],
             'directorist-admin-builder-archive' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'admin-builder-archive',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/builder-archive',
             ],
             'directorist-multi-directory-builder' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'admin-multi-directory-builder',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/multi-directory-builder',
                 'dep'  => [ 'lodash', 'wp-api-fetch' ]
             ],
             'directorist-settings-manager' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'admin-settings-manager',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/settings-manager',
                 'dep'  => [ 'lodash' ]
             ],
             'directorist-plugins' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'admin-plugins',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/plugins',
             ],
             'directorist-import-export' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'admin-import-export',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/import-export',
             ],
             'directorist-formgent-integration' => [
                 'type' => 'js',
-                'path' => DIRECTORIST_JS . 'formgent-integration',
+                'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/formgent-integration',
                 'dep' => ['wp-element', 'wp-api-fetch'],
             ],
         ];

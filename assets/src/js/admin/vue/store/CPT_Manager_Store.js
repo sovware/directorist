@@ -7,6 +7,7 @@ export default new Vuex.Store({
 	// state
 	state: {
 		active_nav_index: 0,
+		listing_type_id: 0,
 		is_saving: false,
 		fields: {},
 		layouts: {},
@@ -108,6 +109,10 @@ export default new Vuex.Store({
 			state.highlighted_field_key = '';
 		},
 
+		setHighlightedFieldKey: (state, field_key) => {
+			state.highlighted_field_key = field_key || '';
+		},
+
 		updateCachedFieldData: (state, payload) => {
 			state.cached_fields[payload.key].value = payload.value;
 		},
@@ -179,8 +184,19 @@ export default new Vuex.Store({
 			window.location.hash = hash;
 		},
 
+		setListingTypeId: (state, id) => {
+			state.listing_type_id = id;
+		},
+
 		swichNav: (state, index) => {
 			state.active_nav_index = index;
+			try {
+				const typeId = state.listing_type_id || 0;
+				window.localStorage.setItem(
+					`directorist_cptm_active_top_tab_index_${typeId}`,
+					String(index)
+				);
+			} catch (error) {}
 		},
 
 		setMetaKey: (state, payload) => {

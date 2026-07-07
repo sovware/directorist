@@ -7,6 +7,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+if ( empty( $data ) || ! is_array( $data ) ) {
+    return;
+}
 ?>
 <section id="directorist-single-listing-slider-wrap" class="directorist-single-listing-slider-wrap background-<?php echo esc_attr( $data['background-size'] ); ?>"
     data-width="<?php echo esc_attr( $data['width'] ); ?>"

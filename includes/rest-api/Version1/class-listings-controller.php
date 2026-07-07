@@ -10,10 +10,12 @@ namespace Directorist\Rest_Api\Controllers\Version1;
 
 defined( 'ABSPATH' ) || exit;
 
-use WP_Error;
+use WP_REST_Request;
 use WP_Query;
 use WP_REST_Server;
+use WP_Error;
 use Directorist\Helper;
+use Directorist\Repositories\ListingRepository;
 
 /**
  * Listings controller class.
@@ -81,6 +83,36 @@ class Listings_Controller extends Posts_Controller {
                 ),
                 'schema' => array( $this, 'get_public_item_schema' ),
             )
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/(?P<id>[\d]+)/update-status',
+            [
+                'args'   => [
+                    'id' => [
+                        'description' => __( 'Unique identifier for the resource.', 'directorist' ),
+                        'type'        => 'integer',
+                    ],
+                    'status' => [
+                        'description' => __( 'The status of the listing.', 'directorist' ),
+                        'type'        => 'string',
+                        'enum'        => [ 'publish', 'private' ],
+                    ],
+                ],
+                [
+                    'methods'             => WP_REST_Server::CREATABLE,
+                    'callback'            => [ $this, 'update_status' ],
+                    'permission_callback' => [ $this, 'get_item_permissions_check' ],
+                    'args'                => [
+                        'context' => $this->get_context_param(
+                            [
+                                'default' => 'view',
+                            ]
+                        ),
+                    ],
+                ],
+            ]
         );
     }
 
@@ -517,6 +549,29 @@ class Listings_Controller extends Posts_Controller {
         $response = apply_filters( 'directorist_rest_response', $response, 'get_listing_item', $request, $id );
 
         return $response;
+    }
+
+    public function update_status( WP_REST_Request $request ) {
+        $id     = (int) $request->get_param( 'id' );
+        $status = $request->get_param( 'status' );
+
+        $listing = get_post( $id );
+
+        if ( ! $listing ) {
+            return new WP_Error( 'rest_not_found', __( 'The listing was not found' ) );
+        }
+
+        do_action( 'directorist_before_update_listing_status', $id, $status );
+
+        $repository = new ListingRepository();
+
+        $repository->update_listing_status( $id, $status );
+
+        return rest_ensure_response(
+            [
+                'message' => esc_html__( 'The listing status was updated successfully', 'directorist-pricing-plans' )
+            ]
+        );
     }
 
     /**

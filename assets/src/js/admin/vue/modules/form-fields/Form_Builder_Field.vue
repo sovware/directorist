@@ -395,6 +395,37 @@
             ></button>
           </div>
         </div>
+
+        <!-- Render preview_mode section inside form builder content -->
+        <div
+          v-if="fieldKey === 'submission_form_fields' && previewModeSection"
+          class="cptm-section preview_mode"
+        >
+          <div class="cptm-form-fields" v-if="previewModeSection.fields">
+            <div
+              v-for="(field, field_key) in previewModeSection.fields"
+              v-if="fields[field] && fields[field].group !== 'container'"
+              :key="field_key"
+            >
+              <component
+                v-if="fields[field]"
+                :is="getFormFieldName(fields[field].type)"
+                :field-id="field_key"
+                :fieldKey="field"
+                :id="fieldId + '__form_options__' + field"
+                :ref="field"
+                :class="{ ['highlight-field']: getHighlightState(field) }"
+                :cached-data="cached_fields[field]"
+                v-bind="fields[field]"
+                @update="updateFieldValue(field, $event)"
+                @save="$emit('save', $event)"
+                @validate="updateFieldValidationState(field, $event)"
+                @is-visible="updateFieldData(field, 'isVisible', $event)"
+                @do-action="doAction($event, 'form-builder')"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -472,11 +503,20 @@ export default {
 
   mounted() {
     this.setupActiveWidgetGroups();
+    this.restoreExpandedGroupStates();
   },
 
   watch: {
     finalValue() {
       this.$emit("update", this.finalValue);
+    },
+
+    expandedGroupKey(value) {
+      this.persistExpandedGroupState("expanded_group", value);
+    },
+
+    expandedGroupFieldsKey(value) {
+      this.persistExpandedGroupState("expanded_group_fields", value);
     },
   },
 
@@ -563,7 +603,56 @@ export default {
 
     ...mapState({
       options: "options",
+      layouts: "layouts",
+      fields: "fields",
+      cached_fields: "cached_fields",
     }),
+
+    // Get the form_options section that contains preview_mode
+    previewModeSection() {
+      if (this.fieldKey !== "submission_form_fields") {
+        return null;
+      }
+
+      // Find form_options section in layouts
+      if (!this.layouts) {
+        return null;
+      }
+
+      // Search through layouts to find form_options section
+      for (let menuKey in this.layouts) {
+        const menu = this.layouts[menuKey];
+        if (menu.sections && menu.sections.form_options) {
+          const formOptions = menu.sections.form_options;
+          if (
+            formOptions.fields &&
+            Array.isArray(formOptions.fields) &&
+            formOptions.fields.includes("preview_mode")
+          ) {
+            return formOptions;
+          }
+        }
+
+        // Also check submenu
+        if (menu.submenu) {
+          for (let submenuKey in menu.submenu) {
+            const submenu = menu.submenu[submenuKey];
+            if (submenu.sections && submenu.sections.form_options) {
+              const formOptions = submenu.sections.form_options;
+              if (
+                formOptions.fields &&
+                Array.isArray(formOptions.fields) &&
+                formOptions.fields.includes("preview_mode")
+              ) {
+                return formOptions;
+              }
+            }
+          }
+        }
+      }
+
+      return null;
+    },
   },
 
   data() {
@@ -605,6 +694,108 @@ export default {
   },
 
   methods: {
+    getExpandedGroupStateStorageKey(stateType) {
+      const key = this.fieldKey || "default";
+      const typeId = this.$root.id || 0;
+      return `directorist_cptm_form_builder_${key}_${stateType}_${typeId}`;
+    },
+
+    serializeGroupReference(groupKey) {
+      const index = Number.parseInt(groupKey, 10);
+
+      if (Number.isNaN(index)) {
+        return null;
+      }
+
+      const group = this.active_widget_groups[index];
+
+      if (!group) {
+        return null;
+      }
+
+      if (group.id) {
+        return `id:${group.id}`;
+      }
+
+      return `idx:${index}`;
+    },
+
+    resolveStoredGroupReference(reference) {
+      if (typeof reference !== "string" || !reference.length) {
+        return null;
+      }
+
+      if (reference.startsWith("id:")) {
+        const groupId = reference.replace("id:", "");
+        const matchedIndex = this.active_widget_groups.findIndex(
+          (group) => group.id === groupId,
+        );
+
+        return matchedIndex >= 0 ? matchedIndex : null;
+      }
+
+      if (reference.startsWith("idx:")) {
+        const index = Number.parseInt(reference.replace("idx:", ""), 10);
+
+        if (
+          !Number.isNaN(index) &&
+          index >= 0 &&
+          index < this.active_widget_groups.length
+        ) {
+          return index;
+        }
+      }
+
+      return null;
+    },
+
+    persistExpandedGroupState(stateType, groupKey) {
+      const storageKey = this.getExpandedGroupStateStorageKey(stateType);
+
+      try {
+        if (groupKey === null || typeof groupKey === "undefined") {
+          window.localStorage.removeItem(storageKey);
+          return;
+        }
+
+        const serializedValue = this.serializeGroupReference(groupKey);
+
+        if (!serializedValue) {
+          window.localStorage.removeItem(storageKey);
+          return;
+        }
+
+        window.localStorage.setItem(storageKey, serializedValue);
+      } catch (error) {}
+    },
+
+    restoreExpandedGroupStates() {
+      if (!this.active_widget_groups.length) {
+        this.expandedGroupKey = null;
+        this.expandedGroupFieldsKey = null;
+        return;
+      }
+
+      try {
+        const expandedGroupRef = window.localStorage.getItem(
+          this.getExpandedGroupStateStorageKey("expanded_group"),
+        );
+        const expandedGroupFieldsRef = window.localStorage.getItem(
+          this.getExpandedGroupStateStorageKey("expanded_group_fields"),
+        );
+
+        this.expandedGroupKey = this.resolveStoredGroupReference(
+          expandedGroupRef,
+        );
+        this.expandedGroupFieldsKey = this.resolveStoredGroupReference(
+          expandedGroupFieldsRef,
+        );
+      } catch (error) {
+        this.expandedGroupKey = null;
+        this.expandedGroupFieldsKey = null;
+      }
+    },
+
     setup() {
       this.setupActiveWidgetFields();
       this.setupActiveWidgetGroups();
@@ -658,6 +849,10 @@ export default {
       }
 
       this.$emit("active-group-updated");
+
+      if (this.expandedGroupKey === null && this.active_widget_groups.length) {
+        this.expandedGroupKey = 0;
+      }
     },
 
     // sanitizeActiveWidgetGroups

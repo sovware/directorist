@@ -447,7 +447,7 @@ class Directorist_Listings {
         $this->current_listing_type       = $this->get_current_listing_type();
 
         $this->has_featured                = $this->options['enable_featured_listing'];
-        $this->has_featured                = $this->has_featured || is_fee_manager_active() ? $this->_featured : $this->has_featured;
+        $this->has_featured                = apply_filters( 'directorist_query_arg_has_featured', $this->has_featured ? $this->_featured : $this->has_featured, $this->params );
         $this->popular_by                  = $this->options['listing_popular_by'];
         $this->average_review_for_popular  = $this->options['average_review_for_popular'];
         $this->view_to_popular             = $this->options['views_for_popular'];
@@ -507,16 +507,12 @@ class Directorist_Listings {
         $u_pro_pic           = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
         $bdbh                = get_post_meta( $id, '_bdbh', true );
 
-
         $listing_type       = $this->current_listing_type;
-        $card_fields        = get_term_meta( $listing_type, 'listings_card_grid_view', true );
-        $list_fields        = get_term_meta( $listing_type, 'listings_card_list_view', true );
         $get_directory_type = get_term_by( 'id', $this->current_listing_type, ATBDP_TYPE );
         $directory_type     = ! empty( $get_directory_type ) ? $get_directory_type->slug : '';
+        
         $this->loop = [
             'id'                   => $id,
-            'card_fields'          => $card_fields,
-            'list_fields'          => $list_fields,
             'permalink'            => get_permalink( $id ),
             'title'                => get_the_title(),
             'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
@@ -541,6 +537,10 @@ class Directorist_Listings {
             'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ), '', $author_display_name ),
             'review'                  => $this->get_review_data(),
         ];
+
+        $archive_fields = directorist_listing_archive_fields( $listing_type, [ 'author_id' => $author_id, ] );
+
+        $this->loop = array_merge( $this->loop, $archive_fields );
     }
 
     public function get_review_data() {
@@ -804,6 +804,14 @@ class Directorist_Listings {
                     $args['orderby']  = 'meta_value_num rand';
                 } else {
                     $args['orderby'] = 'rand';
+                }
+                break;
+
+            case 'distance-asc':
+                if ( $this->is_nearby_sort_enabled() && $this->has_nearby_sort_context() ) {
+                    unset( $args['meta_key'] );
+                    $args['orderby'] = 'distance';
+                    $args['order']   = 'ASC';
                 }
                 break;
         }
@@ -1411,10 +1419,54 @@ class Directorist_Listings {
         _deprecated_function( __METHOD__, '7.3.1' );
     }
 
+    private function supports_nearby_sort() {
+        $current_page = ! empty( $this->atts['_current_page'] ) ? $this->atts['_current_page'] : '';
+
+        return 'search_result' === $this->type || 'listing' === $this->type || ( 'instant_search' === $this->type && in_array( $current_page, [ 'search_result', 'listing' ], true ) );
+    }
+
+    private function has_valid_distance_coordinates( $latitude, $longitude ) {
+        return ( '' !== $latitude && '' !== $longitude && is_numeric( $latitude ) && is_numeric( $longitude ) );
+    }
+
+    private function has_nearby_sort_context() {
+        if ( ! $this->supports_nearby_sort() ) {
+            return false;
+        }
+
+        $miles = ! empty( $_REQUEST['miles'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : '';
+
+        if ( empty( $miles ) ) {
+            return false;
+        }
+
+        if ( 'zip' === $this->radius_search_based_on ) {
+            $zip_lat = ! empty( $_REQUEST['zip_cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ) : '';
+            $zip_lng = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ) : '';
+
+            return $this->has_valid_distance_coordinates( $zip_lat, $zip_lng );
+        }
+
+        $address  = ! empty( $_REQUEST['address'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['address'] ) ) : '';
+        $city_lat = ! empty( $_REQUEST['cityLat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cityLat'] ) ) : '';
+        $city_lng = ! empty( $_REQUEST['cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cityLng'] ) ) : '';
+
+        return ( ! empty( $address ) && $this->has_valid_distance_coordinates( $city_lat, $city_lng ) );
+    }
+
+    private function is_nearby_sort_enabled() {
+        return in_array( 'nearby', (array) $this->sort_by_items, true );
+    }
+
     public function get_sort_by_link_list() {
         $link_list = [];
 
-        $options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
+        $options = atbdp_get_listings_orderby_options( $this->sort_by_items );
+
+        if ( $this->is_nearby_sort_enabled() && $this->has_nearby_sort_context() ) {
+            $options['distance-asc'] = __( 'Nearby', 'directorist' );
+        }
+
         $queryString = isset( $_SERVER['QUERY_STRING'] ) ? sanitize_text_field( wp_unslash( $_SERVER['QUERY_STRING'] ) ) : '';
         parse_str( $queryString, $arguments );
         $actual_link = ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
@@ -1671,8 +1723,11 @@ class Directorist_Listings {
 
                 $opt['ls_data'] = $ls_data;
 
+                $content = Helper::get_template_contents( 'archive/fields/openstreet-map', $opt );
+                $content = apply_filters( 'directorist_map_card_content', $content, $listings_id, $opt, 'openstreetmap' );
+
                 $map_data[] = [
-                    'content'   => Helper::get_template_contents( 'archive/fields/openstreet-map', $opt ),
+                    'content'   => $content,
                     'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
                     'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
                     'cat_icon'  => $cat_icon,
@@ -1757,7 +1812,8 @@ class Directorist_Listings {
 
                     if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
                         $opt['ls_data'] = $ls_data;
-                        Helper::get_template( 'archive/fields/google-map', $opt );
+                        $content = Helper::get_template_contents( 'archive/fields/google-map', $opt );
+                        echo apply_filters( 'directorist_map_card_content', $content, $listings_id, $opt, 'google' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     }
 
                 endforeach;
@@ -1814,11 +1870,11 @@ class Directorist_Listings {
         $listing_prv_img   = directorist_get_listing_preview_image( $id );
         $listing_img       = directorist_get_listing_gallery_images( $id );
 
-
-
         $thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
         $link_start       = '<a href="' . esc_url( $this->loop['permalink'] ) . '"><figure>';
         $link_end         = '</figure></a>';
+
+        $thumbnail_img_id = apply_filters( 'directorist_listing_archive_thumbnails', $thumbnail_img_id, $id );
 
         if ( empty( $thumbnail_img_id ) ) {
             $thumbnail_img_id = $default_image_src;
@@ -1835,7 +1891,7 @@ class Directorist_Listings {
                 return is_numeric( $value );
             }
         );
-
+        
         $image_count = count( $thumbnail_img_id );
 
         if ( 1 === (int) $image_count ) {
@@ -2105,6 +2161,10 @@ class Directorist_Listings {
 
             if ( ! empty( $original_field ) ) {
                 $field['original_field'] = $original_field;
+
+                if ( ! empty( $original_field['label'] ) ) {
+                    $field['label'] = $original_field['label'];
+                }
             }
 
             $load_template = true;
@@ -2199,7 +2259,7 @@ class Directorist_Listings {
     }
 
     public function is_custom_field( $data ) {
-        $fields      = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
+        $fields      = [ 'html', 'button', 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
         $widget_name = $data['widget_name'];
 
         if ( isset( $data['original_field'] ) && isset( $data['original_field']['widget_name'] ) ) {

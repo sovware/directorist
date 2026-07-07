@@ -151,7 +151,7 @@ use \Directorist\Helper;
                                     <td class="directorist-payment-table__title"><?php esc_html_e( 'Total amount', 'directorist' ); ?></td>
                                     <td>
                                         <?php
-                                        $grand_total = ! empty( $discount ) ? atbdp_format_payment_amount( $total - $discount ) : atbdp_format_payment_amount( $total );
+                                        $grand_total = ! empty( $discount ) ? $total - $discount : $total;
                                         $output = $before . atbdp_format_payment_amount( $grand_total ) . $after ;
                                         ?>
                                         <?php echo wp_kses_post( $output ); ?>

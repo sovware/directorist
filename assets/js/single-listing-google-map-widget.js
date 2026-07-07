@@ -50,7 +50,7 @@ function initSingleMapWidget() {
     return;
   }
   if ($('#gmap-widget').length) {
-    var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
+    var searchIcon = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(directorist.assets_url, "icons/font-awesome/svgs/solid/map-marker-alt.svg')\"></i>");
     var markerShape = document.createElement('div');
     markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;

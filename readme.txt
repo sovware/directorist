@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.6.4
+Stable tag: 8.8.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,12 +31,6 @@ Build any type of directory website such as a business directory, job directory,
 Create and grow your business directory, classified listings, job directory, event directory, membership directory, service marketplace, or real estate directory with ease using Directorist - Business Directory Plugin.
 
 Directorist is built for people who want control, freedom, and real income from their directory website. You are not just creating listings. You are building a platform where businesses get discovered, services are found, and communities connect. From submissions to payments and search to monetization, everything works together so you can launch your directory faster, manage less, and grow with confidence.
-
-==Discover how Directorist has evolved in 2025 with smarter AI capabilities==
-
-[youtube https://www.youtube.com/watch?v=uA8UxFI_938]
-
-Discover how Directorist has evolved in 2025, bringing smarter AI, faster workflows, and future-ready innovations to help your directory business thrive today and scale tomorrow. Plus, get an exclusive look at what’s coming. 
 
 ==Turn your ideas into a profitable directory effortlessly.==
 
@@ -305,6 +299,141 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.8.3 - Jul 2, 2026 =
+
+**Fixed**
+ - Security issue. (#2896)
+ - SEO term warnings on taxonomy archives. (#2895)
+
+= 8.8.2 - Jun 30, 2026 =
+
+**Improved**
+ - Redesigned settings panel UX with refined navigation, section layouts, field controls, and responsive styling. (#2878)
+
+**Fixed**
+ - PayPal extension download link in the setup wizard to install the latest compatible package. (#2890)
+ - PHP 8.4 compatibility issue. (#2891)
+
+= 8.8.1 - Jun 28, 2026 =
+
+**Fixed**
+ - Deprecated extension notice issue.
+
+= 8.8.0 - Jun 28, 2026 =
+
+**Improved**
+ - Payment system rewritten for better performance, flexibility, and a more reliable checkout experience.
+
+= 8.7.4 - Jun 9, 2026 =
+
+**Improved**
+ - Directory Builder initial setup with default icons, preselected layout widgets, Search Box defaults, avatar settings, and better create-from-scratch directory name focus flow. (#2611)
+ - Builder UI with updated close icon, draggable placeholder styles, preview mode placement, first group expansion, and improved top bar/modal z-index handling. (#2611)
+
+**Fixed**
+ - Builder layout data consistency to prevent empty selected widgets, missing widget metadata, duplicate widgets, and null widget errors in saved/imported layouts. (#2611)
+ - Tagline/title widget options showing when the Tagline field is unavailable in the Add Listing Form. (#2611)
+ - Zipcode radius search issue. (#2873)
+ - FormGent enquiry page compatibility. (#2871)
+
+= 8.7.3 - May 20, 2026 =
+
+**Improved**
+ - Listing import/export to include listing reviews and Advanced Review criteria data in the existing CSV flow. (#2862)
+
+= 8.7.2 - May 19, 2026 =
+
+**Improved**
+ - Dashboard tab navigation to prevent scroll jumps while preserving hash-based deep links. (#2850)
+
+**Fixed**
+ - Single listing map popup image. (#2857)
+ - Missing nonce in regenerate pages action. (#2856)
+ - HTML custom field editor initialization when switching listing types. (#2854)
+ - Listing Header Builder empty groups and preserved widget drag ordering. (#2853)
+ - Payment receipt grand total formatting when discounts are applied. (#2852)
+ - Radius search visibility for select-based address fields. (#2848)
+ - Formgent enquiry dashboard translation support. (#2847)
+ - MySQL query placeholders, invalid taxonomy handling, and empty background process batches. (#2846)
+ - Default preview image fallback for single listing sidebar widgets. (#2845)
+
+= 8.7.1 - Apr 30, 2026 =
+
+**Added**
+ - Rejected listing status flow with rejection reason, moderation history, owner notification email, and dashboard visibility. (#2785)
+ - Nearby sort option for location/radius-based listing results. (#2836)
+ - directorist_map_card_content filter to customize listing map card content.
+ (#2774)
+
+**Improved**
+ - Guest preview publish nonce flow now uses the authenticated session after account creation, with added edit capability check for post-review status updates. (#2828)
+ - Reset default tag style handling for single listing content. (#2834)
+
+**Fixed**
+ - "Go to Settings" button redirect now opens the correct settings page/tab and preserves subdirectory paths. (#2697)
+
+**Removed**
+ - Deprecated Elementor activation notice flow. (#2837)
+ - Help & Support admin menu and related functionality. (#2838)
+
+= 8.7 - Apr 22, 2026 =
+
+**Added**
+ - Button custom field. (#2822)
+ - HTML custom field editor. (#2779)
+ - Listing Type field in conditional logic available fields. (#2813)
+
+**Improved**
+ - Listings Columns setting changed from a number field to an image radio selector. (#2796)
+
+**Fixed**
+ - Unlimited email sending issue. (#2779)
+
+= 8.6.9 - Apr 15, 2026 =
+
+**Fixed**
+ - Email verified checkbox not rendering in admin user profile. (#2812)
+ - Fixed CSV import not downloading images from extension-less CDN URLs (e.g. logo.dev) (#2809)
+
+= 8.6.8 - Apr 8, 2026 =
+
+**Fixed**
+ - Custom number field range slider issue in search form. (#2799)
+ - Prevented .directorist-content-active CSS from overriding theme list styles (#2762)
+
+= 8.6.7 - Apr 7, 2026 =
+
+**Added**
+ - Filter hook `directorist_single_map_info_content` for customizing single listing map info window HTML. (#2786)
+
+**Fixed**
+ - Search form directory type issue. (#2784)
+ - Instant search not carrying the list view URL parameter. (#2783)
+ - PHP 8 type error in the search category location filter when the directory type is a string. (#2782)
+ - Contact listing form issue in the sidebar. (#2781)
+ - Sort-by dropdown using a placeholder href instead of the actual URL. (#2776)
+ - Number range slider custom field issue in the search form. (#2775)
+ - Renewal listing notice issue when logged out. (#2771)
+ - TinyMCE core link popover handlers broken by conditional logic. (#2765)
+ - CPT manager navigation and builder collapse state not persisting after reload. (#2726)
+ - Google Map marker pin icon not rendering in listing maps. (#2718)
+ - Security issue. (#2791)
+
+= 8.6.6 - Mar 30, 2026 =
+
+**Security**
+ - Fixed Broken Access Control (CVE-2025-68069) - Added missing capability checks on AJAX handlers accessible by low-privilege users
+ - Fixed Open Redirection (CVE-2025-64250) - Registration redirect URL now validated to prevent external host redirection
+
+**Fixed**
+ - PHP Warning for null array offset in single listing slider template
+
+= 8.6.5 - Mar 15, 2026 =
+
+**Fixed**
+ - Subscriber image upload issue in add listing form.
+ - "Remember Me" label not showing for new users. Added default value.
 
 = 8.6.4 - Mar 11, 2026 =
 

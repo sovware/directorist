@@ -61,6 +61,11 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    disableEdit: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -104,11 +109,10 @@ export default {
   },
 
   methods: {
-    // Check if the widget is editable
     isEditable(widgetOptions) {
+      if (this.disableEdit) return false;
       if (!widgetOptions || typeof widgetOptions !== "object") return false;
 
-      // Add more custom checks if needed
       return true;
     },
 

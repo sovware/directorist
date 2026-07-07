@@ -99,7 +99,7 @@ class Bootstrap {
                 $scope = '#respond';
             }
 
-            return wp_sanitize_redirect( wp_unslash( $_GET['redirect'] ) ) . $scope;
+            return wp_validate_redirect( esc_url_raw( wp_unslash( $_GET['redirect'] ) ), home_url( '/' ) ) . $scope;
         }
 
         return $redirect;
@@ -110,6 +110,8 @@ class Bootstrap {
             remove_action( 'wp_error_added', [ __CLASS__, 'update_error_message' ] );
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $comment_post_id = ! empty( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0;
+
+            $error_message = __( 'Sorry, something went wrong, please try again.', 'directorist' );
 
             if ( $code === 'require_valid_comment' && directorist_is_listing_post_type( $comment_post_id ) ) {
 				if ( ! empty( $_POST['comment_parent'] ) ) { // @codingStandardsIgnoreLine.

@@ -214,6 +214,15 @@ class Builder_Data {
                                 ],
                             ],
                         ],
+                        'button'       => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => __( 'Icon', 'directorist' ),
+                                    'value' => 'las la-link',
+                                ],
+                            ],
+                        ],
                         'date'         => [
                             'options' => [
                                 'icon' => [
@@ -274,6 +283,15 @@ class Builder_Data {
                                     'type'  => 'icon',
                                     'label' => __( 'Icon', 'directorist' ),
                                     'value' => 'las la-file-alt',
+                                ],
+                            ],
+                        ],
+                        'html'         => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => __( 'Icon', 'directorist' ),
+                                    'value' => 'las la-code',
                                 ],
                             ],
                         ],
@@ -1168,9 +1186,15 @@ class Builder_Data {
                         'title'  => __( 'Listing Title Settings', 'directorist' ),
                         'fields' => [
                             'show_tagline' => [
-                                'type'  => 'toggle',
-                                'label' => __( 'Tagline', 'directorist' ),
-                                'value' => false,
+                                'type'    => 'toggle',
+                                'label'   => __( 'Tagline', 'directorist' ),
+                                'value'   => false,
+                                'show_if' => [
+                                    'where'      => 'submission_form_fields.value.fields',
+                                    'conditions' => [
+                                        ['key' => 'tagline.widget_name', 'compare' => '=', 'value' => 'tagline'],
+                                    ],
+                                ],
                             ],
                         ],
                     ],
@@ -1601,6 +1625,34 @@ class Builder_Data {
                     ],
                 ],
 
+                'html'              => [
+                    'type'    => 'list-item',
+                    'label'   => __( 'Html', 'directorist' ),
+                    'icon'    => 'las la-code',
+                    'hook'    => 'atbdp_custom_html',
+                    'show_if' => [
+                        'where'      => 'submission_form_fields.value.fields',
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'html'],
+                        ],
+                    ],
+                    'options' => [
+                        'title'  => __( 'Html Settings', 'directorist' ),
+                        'fields' => [
+                            'icon'       => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-code',
+                            ],
+                            'show_label' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Show Label', 'directorist' ),
+                                'value' => false,
+                            ],
+                        ],
+                    ],
+                ],
+
                 'number'            => [
                     'type'    => 'list-item',
                     'label'   => __( 'Number', 'directorist' ),
@@ -1819,6 +1871,34 @@ class Builder_Data {
                         ],
                     ],
                 ],
+
+                'button'            => [
+                    'type'    => 'list-item',
+                    'label'   => __( 'Button', 'directorist' ),
+                    'icon'    => 'las la-link',
+                    'hook'    => 'atbdp_custom_button',
+                    'show_if' => [
+                        'where'      => 'submission_form_fields.value.fields',
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'button'],
+                        ],
+                    ],
+                    'options' => [
+                        'title'  => __( 'Button Settings', 'directorist' ),
+                        'fields' => [
+                            'icon'       => [
+                                'type'  => 'icon',
+                                'label' => __( 'Icon', 'directorist' ),
+                                'value' => 'las la-link',
+                            ],
+                            'show_label' => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Show Label', 'directorist' ),
+                                'value' => false,
+                            ],
+                        ],
+                    ],
+                ],
             ] 
         );
 
@@ -1841,22 +1921,27 @@ class Builder_Data {
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'top_left'     => [
                     'maxWidget'       => 3,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'bottom_right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => [],
                 ],
                 'bottom_left'  => [
                     'maxWidget'       => 3,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => [],
                 ],
                 'avatar'       => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['user_avatar'],
+                    "selectedWidgets" => ['user_avatar'],
                 ],
             ],
 
@@ -1864,13 +1949,14 @@ class Builder_Data {
                 'top'     => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [ 'listing_title', "rating", "pricing" ],
-                    "selectedWidgets" => [],
+                    "selectedWidgets" => ['listing_title', 'rating'],
                 ],
                 'bottom'  => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -1882,20 +1968,51 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                'action'  => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 2,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
+                ],
             ],
 
             'footer'    => [
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];
+
+        // Prepare default field assignments for the Search Form builder.
+        // $search_bar_default_fields contains widget keys referenced by the group layout,
+        // while $search_form_default_fields stores the widget config that populates `value.fields`.
+        $search_bar_default_fields = [];
+        $search_form_default_fields = [];
+        $preset_widgets = $search_form_widgets['available_widgets']['widgets'] ?? [];
+
+        if ( isset( $preset_widgets['title'] ) ) {
+            $search_bar_default_fields[] = 'title';
+
+            // Seed the Search Box widget with its metadata/options so Vue can render it immediately.
+            $search_form_default_fields['title'] = [
+                'widget_group' => 'available_widgets',
+                'widget_name'  => 'title',
+                'original_widget_key' => 'title',
+            ];
+
+            if ( isset( $preset_widgets['title']['options'] ) && is_array( $preset_widgets['title']['options'] ) ) {
+                foreach ( $preset_widgets['title']['options'] as $option_key => $option_args ) {
+                    $search_form_default_fields['title'][ $option_key ] = isset( $option_args['value'] ) ? $option_args['value'] : '';
+                }
+            }
+        }
 
         $listing_card_grid_view_without_thumbnail_layout = [
             'body'   => [
@@ -1904,24 +2021,28 @@ class Builder_Data {
                     'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => [ 'user_avatar' ],
+                    "selectedWidgets" => ['user_avatar'],
                 ],
                 'title'         => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['listing_title'],
-                    "selectedWidgets" => [],
+                    "selectedWidgets" => ['listing_title'],
                 ],
                 'quick_actions' => [
                     'maxWidget'       => 3,
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'quick_info'    => [
                     'acceptedWidgets' => ['rating', 'pricing'],
+                    "selectedWidgets" => ['rating'],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt'       => [
                     'maxWidget'       => 1,
@@ -1933,17 +2054,24 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                'action'        => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 2,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
+                ],
             ],
 
             'footer' => [
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];
@@ -1955,6 +2083,7 @@ class Builder_Data {
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
             ],
 
@@ -1964,13 +2093,14 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['listing_title', 'rating', 'pricing'],
-                    "selectedWidgets" => [],
+                    "selectedWidgets" => ['listing_title', 'rating'],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
                     'maxWidget'         => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Body Bottom', 'directorist' ),
@@ -1978,6 +2108,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -1989,17 +2120,24 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                'action'  => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 2,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
+                ],
             ],
 
             'footer'    => [
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['user_avatar', 'category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];
@@ -2011,13 +2149,14 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['listing_title', 'rating', 'pricing'],
-                    "selectedWidgets"   => [],
+                    "selectedWidgets"   => ['listing_title', 'rating'],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    "selectedWidgets" => ['favorite_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Body Bottom', 'directorist' ),
@@ -2025,6 +2164,7 @@ class Builder_Data {
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
+                    "selectedWidgets" => ['posted_date'],
                 ],
                 'excerpt' => [
                     'maxWidget'       => 1,
@@ -2036,27 +2176,47 @@ class Builder_Data {
                         ],
                     ],
                 ],
+                'action'  => [
+                    'label'           => __( 'Action', 'directorist' ),
+                    'maxWidget'       => 2,
+                    'acceptedWidgets' => [ 'phone', 'email', 'button' ],
+                ],
             ],
 
             'footer' => [
                 'right' => [
                     'maxWidget'       => 2,
                     'acceptedWidgets' => ['user_avatar', 'category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    "selectedWidgets" => ['category'],
                 ],
             ],
         ];
+
+        $directory_type        = isset( $_GET['listing_type_id'] ) ? absint( $_GET['listing_type_id'] ) : directorist_get_default_directory();
+        $submission_form_data  = get_term_meta( $directory_type, 'submission_form_fields', true );
+        $form_field_labels     = [];
+
+        if ( ! empty( $submission_form_data['fields'] ) ) {
+            foreach ( $submission_form_data['fields'] as $field ) {
+                $widget_name = $field['widget_name'] ?? '';
+                if ( $widget_name && ! empty( $field['label'] ) ) {
+                    $form_field_labels[ $widget_name ] = $field['label'];
+                }
+            }
+        }
 
         self::$fields = apply_filters(
             'atbdp_listing_type_settings_field_list', [
                 'icon' => [
                     'label'       => '',
                     'type'        => 'icon',
-                    'value'       => '',
+                    'value'       => 'las la-home',
                     'placeholder' => __( 'las la-home', 'directorist' ),
                     'rules'       => [
                         'required' => false,
@@ -2366,13 +2526,15 @@ class Builder_Data {
                     ],
                     'widgets'         => $search_form_widgets,
                     'value'           => [
+                        // Preload the Search Box widget when it exists in preset widgets.
+                        'fields' => $search_form_default_fields,
                         'groups' => [
                             [
                                 'label'     => __( 'Search Bar', 'directorist' ), 
                                 'lock'      => true,
                                 'draggable' => false,
                                 'type'      => 'general_group',
-                                'fields'    => [],
+                                'fields'    => $search_bar_default_fields,
                             ],
                             [
                                 'label'     => __( 'Search Filter', 'directorist' ),
@@ -2641,6 +2803,39 @@ class Builder_Data {
                                     ],
                                 ],
                             ],
+                            'phone' => [
+                                'type' => "badge",
+                                'label' => $form_field_labels['phone'] ?? __( "Phone", "directorist" ),
+                                'icon' => 'las la-phone',
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'phone'],
+                                    ],
+                                ],
+                            ],
+                            'email' => [
+                                'type' => "badge",
+                                'label' => $form_field_labels['email'] ?? __( "Email", "directorist" ),
+                                'icon' => 'las la-envelope',
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'email'],
+                                    ],
+                                ],
+                            ],
+                            'button' => [
+                                'type' => "badge",
+                                'label' => $form_field_labels['button'] ?? __( "Button", "directorist" ),
+                                'icon' => 'las la-link',
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'button'],
+                                    ],
+                                ],
+                            ],
                         ],
 
                         'layout' => [
@@ -2685,6 +2880,15 @@ class Builder_Data {
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
                                 'selectedWidgetList'   => ['price', 'ratings_count'],
+                            ],
+                            [
+                                'type'              => 'placeholder_item',
+                                'placeholderKey'    => 'action-placeholder',
+                                'label'             => __( 'Action', 'directorist' ),
+                                'maxWidget'         => 0,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets'   => [ 'phone', 'email', 'button' ],
+                                'selectedWidgetList'   => [],
                             ],
                             [
                                 'type'            => 'placeholder_item',

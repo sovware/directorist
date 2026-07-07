@@ -149,6 +149,7 @@ class Listings_Exporter {
                     }
                 }
 
+                $row = self::updateListingReviewsData( $row, get_the_ID() );
                 $row = apply_filters( 'directorist_listings_export_row', $row );
                 $max_row_length = count( array_keys( $row ) );
                 $tr_lengths   [] = $max_row_length;
@@ -332,6 +333,19 @@ class Listings_Exporter {
         return $row;
     }
 
+    public static function updateListingReviewsData( array $row = [], $listing_id = 0 ) {
+        $reviews = self::get_listing_reviews_data( $listing_id );
+        $row['reviews'] = '';
+
+        if ( empty( $reviews ) ) {
+            return $row;
+        }
+
+        $row['reviews'] = wp_json_encode( $reviews, JSON_HEX_APOS );
+
+        return $row;
+    }
+
     // verifyPriceModuleField
     public static function verifyPriceModuleField( $args = [] ) {
         if ( ! is_array( $args ) ) {
@@ -398,6 +412,137 @@ class Listings_Exporter {
         }
 
         return join( ',', wp_list_pluck( $terms, 'name' ) );
+    }
+
+    public static function get_listing_reviews_data( $listing_id = 0 ) {
+        $comments = get_comments(
+            [
+                'post_id' => absint( $listing_id ),
+                'type'    => 'review',
+                'status'  => 'all',
+                'orderby' => 'comment_date_gmt',
+                'order'   => 'ASC',
+            ]
+        );
+
+        if ( empty( $comments ) ) {
+            return [];
+        }
+
+        $reviews = [];
+        foreach ( $comments as $comment ) {
+            $reviews[] = [
+                'review_id'        => (int) $comment->comment_ID,
+                'parent_review_id' => (int) $comment->comment_parent,
+                'user_id'          => (int) $comment->user_id,
+                'author'           => self::escape_data( $comment->comment_author ),
+                'email'            => self::escape_data( $comment->comment_author_email ),
+                'url'              => esc_url_raw( $comment->comment_author_url ),
+                'content'          => self::escape_data( $comment->comment_content ),
+                'rating'           => (float) get_comment_meta( $comment->comment_ID, 'rating', true ),
+                'status'           => self::prepare_review_status_for_export( $comment->comment_approved ),
+                'date'             => $comment->comment_date,
+                'date_gmt'         => $comment->comment_date_gmt,
+                'meta'             => self::get_listing_review_meta_data( $comment, $listing_id ),
+                'advanced_review'  => self::get_listing_advanced_review_data( $comment, $listing_id ),
+            ];
+        }
+
+        return apply_filters( 'directorist_listings_export_reviews_data', $reviews, $listing_id );
+    }
+
+    public static function get_listing_review_meta_data( $comment, $listing_id = 0 ) {
+        $meta = get_comment_meta( $comment->comment_ID );
+
+        foreach ( $meta as $key => $values ) {
+            $meta[ $key ] = array_map( 'maybe_unserialize', $values );
+        }
+
+        return apply_filters( 'directorist_listings_export_review_meta', $meta, $comment, $listing_id );
+    }
+
+    public static function get_listing_advanced_review_data( $comment, $listing_id = 0 ) {
+        global $wpdb;
+
+        $table = self::get_advanced_review_table_name();
+
+        if ( ! self::advanced_review_table_exists( $table ) ) {
+            return [];
+        }
+
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT criteria_key, rating FROM {$table} WHERE comment_ID = %d AND listing_id = %d ORDER BY id ASC",
+                $comment->comment_ID,
+                absint( $listing_id )
+            ),
+            ARRAY_A
+        );
+
+        if ( empty( $rows ) ) {
+            return [];
+        }
+
+        $advanced_review = [];
+        $criteria_labels = self::get_advanced_review_criteria_labels( $listing_id );
+
+        foreach ( $rows as $row ) {
+            $criteria_key      = (string) $row['criteria_key'];
+            $advanced_review[] = [
+                'criteria_key'   => self::escape_data( $criteria_key ),
+                'criteria_label' => ! empty( $criteria_labels[ $criteria_key ] ) ? self::escape_data( $criteria_labels[ $criteria_key ] ) : '',
+                'rating'         => (float) $row['rating'],
+            ];
+        }
+
+        return apply_filters( 'directorist_listings_export_advanced_review_data', $advanced_review, $comment, $listing_id );
+    }
+
+    protected static function get_advanced_review_table_name() {
+        global $wpdb;
+
+        return $wpdb->prefix . 'directorist_advanced_reviews';
+    }
+
+    protected static function advanced_review_table_exists( $table ) {
+        global $wpdb;
+
+        return $table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+    }
+
+    protected static function get_advanced_review_criteria_labels( $listing_id = 0 ) {
+        if ( ! function_exists( 'directorist_get_directory_meta' ) || ! function_exists( 'directorist_get_listings_directory_type' ) ) {
+            return [];
+        }
+
+        $contents = directorist_get_directory_meta( directorist_get_listings_directory_type( $listing_id ), 'single_listings_contents' );
+
+        if ( empty( $contents['fields']['review_criteria']['criterias'] ) || ! is_array( $contents['fields']['review_criteria']['criterias'] ) ) {
+            return [];
+        }
+
+        $labels = [];
+        foreach ( $contents['fields']['review_criteria']['criterias'] as $criteria ) {
+            if ( ! isset( $criteria['id'], $criteria['value'] ) ) {
+                continue;
+            }
+
+            $labels[ (string) $criteria['id'] ] = $criteria['value'];
+        }
+
+        return $labels;
+    }
+
+    protected static function prepare_review_status_for_export( $status ) {
+        if ( '1' === (string) $status ) {
+            return 'approve';
+        }
+
+        if ( '0' === (string) $status ) {
+            return 'hold';
+        }
+
+        return (string) $status;
     }
 
     /**

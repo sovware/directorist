@@ -177,6 +177,7 @@ export function mapFieldKeyToSelector(fieldKey) {
 		review: '[name="search_by_rating[]"]',
 		image_upload:
 			'[name="listing_img[]"], .directorist-form-image_upload-field',
+		listing_type: 'input[name="listing_type"]',
 	};
 
 	if (fieldKeyMap[fieldKey]) {

@@ -1,0 +1,68 @@
+<template>
+  <div class="cptm-extension-promotion">
+    <div class="cptm-extension-promotion__row">
+      <div>
+        <h3>{{ title }}</h3>
+        <p>{{ description }}</p>
+      </div>
+    </div>
+
+    <div class="cptm-extension-promotion__row">
+      <div>
+        <h3>{{ browseTitle }}</h3>
+        <p>{{ browseDescription }}</p>
+      </div>
+      <a :href="browseUrl" class="cptm-extension-promotion__button">
+        {{ browseButtonLabel }}
+      </a>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "settings-extension-promotion",
+
+  props: {
+    field: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+
+  computed: {
+    title() {
+      return this.field.title || "Installed extensions";
+    },
+
+    description() {
+      return (
+        this.field.description ||
+        "No extensions installed yet. Each extension you install will add its own section here."
+      );
+    },
+
+    browseTitle() {
+      return this.field.browseTitle || "Browse extensions";
+    },
+
+    browseDescription() {
+      return (
+        this.field.browseDescription ||
+        "30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans."
+      );
+    },
+
+    browseButtonLabel() {
+      return this.field.browseButtonLabel || "View directory";
+    },
+
+    browseUrl() {
+      return (
+        this.field.browseUrl ||
+        "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-extension"
+      );
+    },
+  },
+};
+</script>

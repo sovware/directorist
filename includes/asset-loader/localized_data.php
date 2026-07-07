@@ -412,7 +412,26 @@ class Localized_Data {
     public static function formgent_data() {
         $data = [
             'strings' => [
-                'enquiries' => __( 'Enquiries', 'directorist' ),
+                'enquiries'                    => __( 'Enquiries', 'directorist' ),
+                'my_enquiries'                 => __( 'My Enquiries', 'directorist' ),
+                'enquiries_description'        => __( 'Track and manage all your incoming messages', 'directorist' ),
+                'total_enquiries'              => __( 'Total Enquiries', 'directorist' ),
+                'new_messages'                 => __( 'New Messages', 'directorist' ),
+                'this_week'                    => __( 'This Week', 'directorist' ),
+                'total_resolved'               => __( 'Total Resolved', 'directorist' ),
+                'enquiry_header'               => __( 'Enquiry', 'directorist' ),
+                'listing_header'               => __( 'Listing', 'directorist' ),
+                'sender_header'                => __( 'Sender', 'directorist' ),
+                'status_header'                => __( 'Status', 'directorist' ),
+                'search_enquiries_placeholder' => __( 'Search enquiries...', 'directorist' ),
+                'view'                         => __( 'View', 'directorist' ),
+                'send_email'                   => __( 'Send Email', 'directorist' ),
+                'mark_as_read'                 => __( 'Mark as read', 'directorist' ),
+                'delete'                       => __( 'Delete', 'directorist' ),
+                'cancel'                       => __( 'Cancel', 'directorist' ),
+                'delete_item_confirm'          => __( 'Are you sure to delete this item?', 'directorist' ),
+                'delete_items_confirm'         => __( 'Are you sure to delete %d items?', 'directorist' ),
+                'action_cannot_be_undone'      => __( 'This action cannot be undone.', 'directorist' ),
             ]
         ];
 

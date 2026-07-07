@@ -43,6 +43,9 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
             /*Fire up emails when a general user apply for become author user*/
             add_action( 'atbdp_become_author', [ $this, 'notify_admin_become_author' ] );
             // add_action('atbdp_become_author', array($this, 'notify_owner_become_author'));
+
+            /*Fire up email when a listing is rejected*/
+            add_action( 'atbdp_listing_rejected', [ $this, 'notify_owner_listing_rejected' ] );
         }
 
         public function send_email_after_listing_preview_status_updated( $listing_id, $args ) {
@@ -159,7 +162,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
                 '==USER_DASHBOARD=='                             => sprintf( '<a href="%s">%s</a>', $user_dashboard, __( 'Click Here', 'directorist' ) ),
                 '==PIN=='                                        => $pin,
                 '==CONFIRM_EMAIL_ADDRESS_URL=='                  => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw( directorist_password_reset_url( $user, false, true ) ), __( 'Confirm Email Address', 'directorist' ) ) : '',
-                '==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw( directorist_password_reset_url( $user, true, true ) ), __( 'Set Password And Confirm Email Address', 'directorist' ) ) : ''
+                '==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $user ? sprintf( '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',  esc_url_raw( directorist_password_reset_url( $user, true, true ) ), __( 'Set Password And Confirm Email Address', 'directorist' ) ) : '',
+                '==REJECTION_REASON=='                           => $listing_id ? esc_html( (string) get_post_meta( $listing_id, '_listing_rejection_reason', true ) ) : '',
             ];
 
             /**
@@ -715,6 +719,42 @@ This email is sent automatically for information purpose only. Please do not res
             ];
 
             do_action( 'directorist_email_on_notify_owner_listing_published', $action_args );
+
+            return $is_sent;
+        }
+
+        /**
+         * It notifies the listing owner via email when his listing is rejected.
+         *
+         * @param int $listing_id The listing ID.
+         * @return bool Whether the message was sent successfully or not.
+         */
+        public function notify_owner_listing_rejected( $listing_id ) {
+            $notify = apply_filters( 'directorist_notify_owner_listing_rejected', true, $listing_id );
+
+            if ( ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_rejected' ) ) {
+                return false;
+            }
+
+            $user    = $this->get_owner( $listing_id );
+            $subject = $this->replace_in_content( get_directorist_option( 'email_sub_rejected_listing' ), 0, $listing_id, $user );
+            $body    = $this->replace_in_content( get_directorist_option( 'email_tmpl_rejected_listing' ), 0, $listing_id, $user );
+            $message = atbdp_email_html( $subject, $body );
+            $to      = $user->user_email;
+            $headers = $this->get_email_headers();
+
+            $is_sent = $this->send_mail( $to, $subject, $message, $headers );
+
+            $action_args = [
+                'is_sent'    => $is_sent,
+                'to_email'   => $to,
+                'subject'    => $subject,
+                'message'    => $message,
+                'headers'    => $headers,
+                'listing_id' => $listing_id,
+            ];
+
+            do_action( 'directorist_email_on_notify_owner_listing_rejected', $action_args );
 
             return $is_sent;
         }

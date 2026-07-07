@@ -194,7 +194,12 @@ abstract class WP_Background_Process extends WP_Async_Request {
 
         $key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
 
-        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %s WHERE %s LIKE %s", $table, $column, $key ) );
+        $count = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s",
+                $key
+            )
+        );
 
         return ( $count > 0 ) ? false : true;
     }
@@ -267,19 +272,26 @@ abstract class WP_Background_Process extends WP_Async_Request {
 
         $query = $wpdb->get_row(
             $wpdb->prepare(
-                "
-			SELECT *
-			FROM %s
-			WHERE %s LIKE %s
-			ORDER BY %s ASC
-			LIMIT 1
-		", $table, $column, $key, $key_column
-            ) 
+                "SELECT * FROM {$table} WHERE {$column} LIKE %s ORDER BY {$key_column} ASC LIMIT 1",
+                $key
+            )
         );
 
         $batch       = new stdClass();
-        $batch->key  = $query->$column;
-        $batch->data = maybe_unserialize( $query->$value_column );
+        $batch->key  = '';
+        $batch->data = [];
+
+        if ( ! is_object( $query ) ) {
+            return $batch;
+        }
+
+        $batch->key  = isset( $query->$column ) ? $query->$column : '';
+        $batch->data = maybe_unserialize( $query->$value_column ?? [] );
+
+        if ( ! is_array( $batch->data ) ) {
+            $batch->data = [];
+        }
+
 
         return $batch;
     }
@@ -295,6 +307,10 @@ abstract class WP_Background_Process extends WP_Async_Request {
 
         do {
             $batch = $this->get_batch();
+
+            if ( empty( $batch->key ) || empty( $batch->data ) || ! is_array( $batch->data ) ) {
+                break;
+            }
 
             foreach ( $batch->data as $key => $value ) {
                 $task = $this->task( $value );

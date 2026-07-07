@@ -428,15 +428,16 @@ class Directorist_Setup_Wizard {
     }
 
     public function enqueue_scripts() {
-        wp_enqueue_style( 'atbdp_setup_select2', DIRECTORIST_VENDOR_CSS . 'select2.min.css', ATBDP_VERSION, true );
+        wp_enqueue_style( 'atbdp_setup_select2', DIRECTORIST_VENDOR_CSS . 'select2.min.css', [], ATBDP_VERSION );
         wp_register_script( 'directorist-select2', DIRECTORIST_VENDOR_JS . 'select2.min.js', ['jquery'], ATBDP_VERSION, true );
 
-        wp_enqueue_script( 'directorist-setup' );
         wp_enqueue_script( 'directorist-select2' );
-        wp_enqueue_script( 'directorist-geolocation', DIRECTORIST_JS . 'global-geolocation.js' );
+        wp_enqueue_script( 'directorist-geolocation', DIRECTORIST_BUILD_ASSETS . 'js/global/geolocation.js' );
 
-        wp_register_style( 'directorist-admin-style', DIRECTORIST_CSS . 'admin-main.css', ATBDP_VERSION, true );
-        wp_register_script( 'directorist-admin-setup-wizard-script', DIRECTORIST_JS . 'admin-setup-wizard.js', ['jquery'], ATBDP_VERSION, true );
+        wp_register_style( 'directorist-font-awesome', DIRECTORIST_ICON_URL . 'font-awesome/css/all.css', [], ATBDP_VERSION );
+        wp_register_style( 'directorist-line-awesome', DIRECTORIST_ICON_URL . 'line-awesome/css/line-awesome.css', [], ATBDP_VERSION );
+        wp_register_style( 'directorist-admin-style', DIRECTORIST_BUILD_ASSETS . 'css/admin/main.css', [ 'directorist-font-awesome', 'directorist-line-awesome' ], ATBDP_VERSION );
+        wp_register_script( 'directorist-admin-setup-wizard-script', DIRECTORIST_BUILD_ASSETS . 'js/admin/setup-wizard.js', ['jquery'], ATBDP_VERSION, true );
 
         wp_enqueue_script( 'directorist-openstreet-layers', DIRECTORIST_VENDOR_JS . 'openstreet-map/openstreetlayers.js' );
         wp_enqueue_script( 'directorist-openstreet-unpkg-index', DIRECTORIST_VENDOR_JS . 'openstreet-map/unpkg-index.js' );
@@ -447,7 +448,7 @@ class Directorist_Setup_Wizard {
         wp_enqueue_script( 'directorist-openstreet-leaflet-markercluster-versions', DIRECTORIST_VENDOR_JS . 'openstreet-map/leaflet.markercluster-versions.js' );
 
         wp_enqueue_script(
-            'directorist-test', DIRECTORIST_JS . 'openstreet-map.js', [
+            'directorist-test', DIRECTORIST_BUILD_ASSETS . 'js/global/openstreet-map.js', [
                 'jquery',
                 'directorist-openstreet-layers',
                 'directorist-openstreet-unpkg-libs',
@@ -653,7 +654,7 @@ class Directorist_Setup_Wizard {
 
             include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
             
-            directorist_download_plugin( [ 'url' => 'https://app.directorist.com/wp-content/uploads/2025/05/directorist-paypal.zip' ] );
+            directorist_download_plugin( [ 'url' => 'https://app.directorist.com/wp-content/uploads/2026/06/directorist-paypal-3.0.0.zip' ] );
 
             $path = 'directorist-paypal/directorist-paypal.php';
 

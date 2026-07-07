@@ -160,7 +160,7 @@ class Directorist_Account {
             'user_role_label'           => $atts['user_role_label'],
             'active_form'               => $active_form,
             'display_rememberme'        => get_directorist_option( 'display_rememberme', 1 ) ? 'yes' : 'no',
-            'rememberme_label'          => get_directorist_option( 'log_rememberme' ),
+            'rememberme_label'          => get_directorist_option( 'log_rememberme', __( 'Remember Me', 'directorist' ) ),
         ];
 
         return Helper::get_template_contents( 'account/login-registration-form', $args );

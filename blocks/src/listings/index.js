@@ -190,10 +190,6 @@ registerBlockType( metadata.name, {
 								value={ columns }
 								options={ [
 									{
-										label: __( '1 Column', 'directorist' ),
-										value: 1,
-									},
-									{
 										label: __( '2 Columns', 'directorist' ),
 										value: 2,
 									},
@@ -204,11 +200,7 @@ registerBlockType( metadata.name, {
 									{
 										label: __( '4 Columns', 'directorist' ),
 										value: 4,
-									},
-									{
-										label: __( '6 Columns', 'directorist' ),
-										value: 6,
-									},
+									}
 								] }
 								onChange={ ( newState ) =>
 									setAttributes( {

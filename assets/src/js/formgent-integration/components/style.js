@@ -156,7 +156,6 @@ const EnquiriesComponentStyle = styled.div`
 			td:last-child {
 				text-align: left !important;
 				.dataviews-item-actions {
-					justify-content: flex-start !important;
 					@media screen and (max-width: 992px) {
 						justify-content: center !important;
 					}
@@ -767,6 +766,7 @@ const EnquiryModalGlobalStyle = createGlobalStyle`
 		padding: 0;
 		color: #1e1e1e;
 		transition: opacity 0.2s;
+		z-index: 10;
 		&:hover {
 			opacity: 0.7;
 		}

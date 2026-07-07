@@ -126,13 +126,35 @@ function directorist_rest_upload_image_from_url( $image_url ) {
 
     $allowed_mime_types = get_allowed_mime_types();
 
-    // Add extension to the name when downloaded from extension less url
-    if ( strrpos( $file_array['name'], '.' ) === false ) {
-        $mime_type          = mime_content_type( $file_array['tmp_name'] );
-        $_mime_types        = array_flip( $allowed_mime_types );
-        $extensions         = isset( $_mime_types[ $mime_type ] ) ? $_mime_types[ $mime_type ] : '';
-        $extensions         = explode( '|', $extensions, 2 );
-        $file_array['name'] .= '.' . $extensions[0];
+    // Add extension to the name when downloaded from extension-less URL,
+    // or when the URL path ends with a domain-like suffix (e.g. .com) that
+    // is not a valid image extension — as happens with logo.dev URLs.
+    $name_ext     = strtolower( pathinfo( $file_array['name'], PATHINFO_EXTENSION ) );
+    $_mime_types  = array_flip( $allowed_mime_types );
+    $ext_is_valid = false;
+
+    if ( $name_ext ) {
+        foreach ( $allowed_mime_types as $exts => $mime ) {
+            if ( in_array( $name_ext, explode( '|', $exts ), true ) ) {
+                $ext_is_valid = true;
+                break;
+            }
+        }
+    }
+
+    if ( ! $ext_is_valid ) {
+        $mime_type  = mime_content_type( $file_array['tmp_name'] );
+        $extensions = isset( $_mime_types[ $mime_type ] ) ? $_mime_types[ $mime_type ] : '';
+        $extensions = explode( '|', $extensions, 2 );
+
+        // Strip the invalid extension (e.g. ".com") before appending the real one.
+        if ( $name_ext ) {
+            $file_array['name'] = substr( $file_array['name'], 0, strrpos( $file_array['name'], '.' ) );
+        }
+
+        if ( ! empty( $extensions[0] ) ) {
+            $file_array['name'] .= '.' . $extensions[0];
+        }
     }
 
     // Do the validation and storage stuff.

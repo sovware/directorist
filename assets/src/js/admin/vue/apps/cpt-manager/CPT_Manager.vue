@@ -33,6 +33,7 @@
             class="directorist-type-name-editable"
             v-if="isEditableName || !options.name.value"
             @click="ensureEditableMode"
+            @keyup.enter="saveDirectoryNameOnEnter"
           >
             <component
               v-if="options.name && options.name.type"
@@ -136,16 +137,22 @@ export default {
 
       if (id > 0) {
         this.listing_type_id = id;
+        this.$store.commit("setListingTypeId", id);
         this.footer_actions.save.label = "Update";
       }
     }
 
     this.$store.commit("updateCachedFields");
+    this.restorePersistedNavigationState();
     this.setupClosingWarning();
     this.setupSaveOnKeyboardInput();
 
     this.enabled_multi_directory =
       directorist_admin.enabled_multi_directory === "1";
+  },
+
+  mounted() {
+    this.focusDirectoryNameForNewDirectory();
   },
 
   beforeDestroy() {
@@ -172,6 +179,76 @@ export default {
 
   methods: {
     ...mapGetters(["getFieldsValue"]),
+
+    restorePersistedNavigationState() {
+      const layoutKeys = Object.keys(this.$store.state.layouts || {});
+
+      if (!layoutKeys.length) {
+        return;
+      }
+
+      let activeNavIndex = 0;
+
+      try {
+        const typeId = this.$store.state.listing_type_id || 0;
+        const storedValue = window.localStorage.getItem(
+          `directorist_cptm_active_top_tab_index_${typeId}`,
+        );
+        const parsedValue = Number.parseInt(storedValue, 10);
+
+        if (
+          !Number.isNaN(parsedValue) &&
+          parsedValue >= 0 &&
+          parsedValue < layoutKeys.length
+        ) {
+          activeNavIndex = parsedValue;
+        }
+      } catch (error) {}
+
+      this.$store.commit("swichNav", activeNavIndex);
+    },
+
+    focusDirectoryNameForNewDirectory() {
+      const directoryName = this.options?.name?.value;
+
+      if (this.listing_type_id || directoryName) {
+        return;
+      }
+
+      this.isEditableName = true;
+
+      this.$nextTick(() => {
+        const editableNameField = this.$refs.editableNameField;
+
+        if (!editableNameField) {
+          return;
+        }
+
+        const editableNameElement =
+          editableNameField.$el || editableNameField;
+        const nameInput = editableNameElement.querySelector(
+          'input:not([type="hidden"]):not(:disabled)',
+        );
+
+        if (!nameInput || nameInput.offsetParent === null) {
+          return;
+        }
+
+        nameInput.focus();
+      });
+
+      setTimeout(() => {
+        document.addEventListener("click", this.handleClickOutside);
+      }, 100);
+    },
+
+    saveDirectoryNameOnEnter() {
+      if (!this.options?.name?.value) {
+        return;
+      }
+
+      this.closeEditableMode();
+    },
 
     ensureEditableMode() {
       // Only set up the listener if not already in editable mode
@@ -375,8 +452,8 @@ export default {
 
           if (response.data.term_id && !isNaN(response.data.term_id)) {
             self.listing_type_id = response.data.term_id;
+            self.$store.commit("setListingTypeId", parseInt(response.data.term_id));
             self.footer_actions.save.label = "Update";
-            self.listing_type_id = response.data.term_id;
 
             if (response.data.redirect_url) {
               window.location = response.data.redirect_url;

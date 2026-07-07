@@ -73,6 +73,10 @@ export default {
 			return this.optionsInObject[this.value];
 		},
 
+		theCurrentOptionTitle() {
+			return this.toPlainText(this.theCurrentOptionLabel);
+		},
+
 		theOptions() {
 			if (
 				!this.fetchedOptions ||
@@ -258,6 +262,14 @@ export default {
 		updateOption(value) {
 			this.update_value(value);
 			this.show_option_modal = false;
+		},
+
+		toPlainText(value) {
+			if (typeof value === 'undefined' || value === null) {
+				return '';
+			}
+
+			return String(value).replace(/<[^>]*>/g, '').trim();
 		},
 
 		toggleTheOptionModal() {

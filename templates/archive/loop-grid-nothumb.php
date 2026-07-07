@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.4.6
+ * @version 8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -108,6 +108,17 @@ $quick_info_field = ob_get_clean();
          */
         do_action( 'directorist_loop_grid_info_after_excerpt', $listings );
         ?>
+
+        <?php if ( ! empty( $loop_fields['body']['action'] ) ) : ?>
+            <?php ob_start(); ?>
+            <?php $listings->render_loop_fields( $loop_fields['body']['action'], 'div', 'div' ); ?>
+            <?php $action_html = ob_get_clean(); ?>
+            <?php if ( trim( $action_html ) ) : ?>
+                <div class="directorist-listing-single__action-list">
+                    <?php echo $action_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
     </section>
 
     <footer class="directorist-listing-single__meta">

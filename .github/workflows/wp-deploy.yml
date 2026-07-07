@@ -1,11 +1,12 @@
 name: Deploy to WordPress.org
 on:
-  push:
-    tags:
-    - "*"
+  release:
+    types:
+      - released
+
 jobs:
   tag:
-    name: Deploy on new tag
+    name: Deploy on new release
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@master

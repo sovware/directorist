@@ -598,4 +598,12 @@ abstract class Abstract_Controller extends WP_REST_Controller {
         );
         return $this->_fields;
     }
+
+    public function auth_permissions_check(): bool {
+        return is_user_logged_in();
+    }
+
+    public function admin_permissions_check(): bool {
+        return current_user_can( 'manage_options' );
+    }
 }

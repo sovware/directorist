@@ -33,6 +33,7 @@
           <div
             class="cptm-elements-settings__group"
             v-for="(placeholder, placeholder_index) in allPlaceholderItems"
+            v-if="getAvailableWidgetsForPlaceholder(placeholder).length"
             :key="placeholder_index"
           >
             <span
@@ -72,19 +73,19 @@
                 <div class="cptm-elements-settings__group__single">
                   <span
                     class="drag-handle drag-icon uil uil-draggabledots"
-                    v-if="placeholder.acceptedWidgets?.length > 1"
+                    v-if="placeholder.acceptedWidgets?.length > 1 && getAvailableWidgetsForPlaceholder(placeholder).length > 1"
                   ></span>
                   <span class="cptm-elements-settings__group__single__label">
                     <!-- Display icon only if it exists -->
                     <span
-                      v-if="available_widgets[widget_key].icon"
+                      v-if="getResolvedWidget(widget_key).icon"
                       class="cptm-elements-settings__group__single__label__icon"
-                      :class="available_widgets[widget_key].icon"
+                      :class="getResolvedWidget(widget_key).icon"
                     ></span>
                     <span
-                      v-if="available_widgets[widget_key]"
+                      v-if="getResolvedWidget(widget_key)"
                       class="cptm-elements-settings__group__single__label__text"
-                      >{{ available_widgets[widget_key].label }}</span
+                      >{{ getResolvedWidget(widget_key).label }}</span
                     >
                     <span v-else>Unknown Widget</span>
                   </span>
@@ -97,7 +98,7 @@
                           !active_widgets[widget_key],
                       }"
                       @click.prevent="editWidget(widget_key)"
-                      v-if="available_widgets[widget_key].options"
+                      v-if="hasWidgetOptions(widget_key)"
                     >
                       <span
                         class="cptm-elements-settings__group__single__edit__icon la la-cog"
@@ -174,7 +175,7 @@
               :label="placeholderSubItem.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
-              :acceptedWidgets="placeholderSubItem.acceptedWidgets"
+              :acceptedWidgets="getAvailableWidgetsForPlaceholder(placeholderSubItem)"
               :rejectedWidgets="placeholderSubItem.rejectedWidgets"
               :selectedWidgets="placeholderSubItem.selectedWidgetList"
               :maxWidget="placeholderSubItem.maxWidget"
@@ -193,7 +194,7 @@
           <Draggable
             v-for="(placeholderItem, index) in placeholders"
             :key="index"
-            v-if="placeholderItem.type == 'placeholder_item'"
+            v-if="placeholderItem.type == 'placeholder_item' && getAvailableWidgetsForPlaceholder(placeholderItem).length"
             :class="{
               dragging: currentDraggingIndex === placeholderItem.placeholderKey,
             }"
@@ -208,7 +209,7 @@
                   :label="placeholderItem.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="placeholderItem.acceptedWidgets"
+                  :acceptedWidgets="getAvailableWidgetsForPlaceholder(placeholderItem)"
                   :rejectedWidgets="placeholderItem.rejectedWidgets"
                   :selectedWidgets="placeholderItem.selectedWidgetList"
                   :maxWidget="placeholderItem.maxWidget"
@@ -394,6 +395,7 @@ export default {
               processedWidgets[finalKey] = {
                 ...optimizedWidget,
                 widget_key: finalKey,
+                field_key: matchedField.field_key || finalKey,
                 label: matchedField.label || optimizedWidget.label,
               };
             });
@@ -412,30 +414,36 @@ export default {
     },
 
     // Optimized method to get available widgets for a placeholder
+    // Includes dynamically generated widgets (e.g., multiple button fields)
     getAvailableWidgetsForPlaceholder() {
       return (placeholder) => {
-        if (!placeholder || !placeholder.acceptedWidgets) {
+        if (
+          !placeholder ||
+          !placeholder.acceptedWidgets ||
+          !Array.isArray(placeholder.acceptedWidgets)
+        ) {
           return [];
         }
 
-        // Use cached result if available
-        const cacheKey = `widgets_${placeholder.placeholderKey}`;
-        if (
-          this._placeholderWidgetsCache &&
-          this._placeholderWidgetsCache[cacheKey]
-        ) {
-          return this._placeholderWidgetsCache[cacheKey];
-        }
+        const availableWidgetKeys = Object.keys(this.theAvailableWidgets);
+        const availableWidgets = [];
+        const addedWidgetKeys = new Set();
 
-        const availableWidgets = placeholder.acceptedWidgets.filter(
-          (widgetKey) => this.isWidgetAvailable(widgetKey),
-        );
+        placeholder.acceptedWidgets.forEach((acceptedWidgetKey) => {
+          availableWidgetKeys.forEach((widgetKey) => {
+            const widget = this.theAvailableWidgets[widgetKey];
+            const isAcceptedWidget =
+              widgetKey === acceptedWidgetKey ||
+              (widget &&
+                widget.widget_name &&
+                widget.widget_name === acceptedWidgetKey);
 
-        // Cache the result
-        if (!this._placeholderWidgetsCache) {
-          this._placeholderWidgetsCache = {};
-        }
-        this._placeholderWidgetsCache[cacheKey] = availableWidgets;
+            if (isAcceptedWidget && !addedWidgetKeys.has(widgetKey)) {
+              availableWidgets.push(widgetKey);
+              addedWidgetKeys.add(widgetKey);
+            }
+          });
+        });
 
         return availableWidgets;
       };
@@ -501,15 +509,18 @@ export default {
     // HELPER METHODS
     // ===========================================
 
+    // Resolve a widget from theAvailableWidgets, with fallback to available_widgets
+    getResolvedWidget(widgetKey) {
+      return (
+        this.theAvailableWidgets[widgetKey] ||
+        this.available_widgets[widgetKey] ||
+        {}
+      );
+    },
+
     // Get filtered acceptedWidgets (only available widgets) for a placeholder
     getFilteredAcceptedWidgets(placeholder) {
-      if (!placeholder || !placeholder.acceptedWidgets) {
-        return [];
-      }
-
-      return placeholder.acceptedWidgets.filter((widgetKey) =>
-        this.isWidgetAvailable(widgetKey),
-      );
+      return this.getAvailableWidgetsForPlaceholder(placeholder);
     },
 
     // ===========================================
@@ -734,22 +745,27 @@ export default {
      */
     checkWidgetAvailability(widgetKey) {
       try {
-        // Basic check if widget exists
-        if (!this.available_widgets[widgetKey]) {
-          return false;
+        // Check static available_widgets first
+        if (this.available_widgets[widgetKey]) {
+          const widget = this.available_widgets[widgetKey];
+
+          // Check show_if condition if present
+          if (widget.show_if && this.isValidObject(widget.show_if)) {
+            const showIfResult = this.checkShowIfCondition({
+              condition: widget.show_if,
+            });
+            return showIfResult && showIfResult.status === true;
+          }
+
+          return true;
         }
 
-        const widget = this.available_widgets[widgetKey];
-
-        // Check show_if condition if present
-        if (widget.show_if && this.isValidObject(widget.show_if)) {
-          const showIfResult = this.checkShowIfCondition({
-            condition: widget.show_if,
-          });
-          return showIfResult && showIfResult.status === true;
+        // Fallback: check theAvailableWidgets for dynamically generated widgets
+        if (this.theAvailableWidgets && this.theAvailableWidgets[widgetKey]) {
+          return true;
         }
 
-        return true;
+        return false;
       } catch (error) {
         this.handleError(
           `Error checking widget availability for ${widgetKey}`,
@@ -1769,16 +1785,35 @@ export default {
        * @param {Object} widget - Widget object with saved data (may have custom label/icon)
        */
       const addActiveWidget = (widget) => {
-        // Ensure that the widget exists in the available widgets
-        if (!this.theAvailableWidgets[widget.widget_name]) {
-          console.error(
-            `Widget ${widget.widget_name} not found in available widgets.`,
-          );
-          return; // Exit if widget is not available
+        // Resolve the widget template from theAvailableWidgets.
+        // Try widget_key first (for dynamic widgets like button fields),
+        // then widget_name, then search by widget_name property.
+        let templateKey =
+          widget.widget_key || widget.widget_name;
+        let widgetTemplate = this.theAvailableWidgets[templateKey];
+
+        if (!widgetTemplate && widget.widget_name) {
+          widgetTemplate = this.theAvailableWidgets[widget.widget_name];
+        }
+
+        if (!widgetTemplate) {
+          for (const key in this.theAvailableWidgets) {
+            if (
+              this.theAvailableWidgets[key].widget_name ===
+              widget.widget_name
+            ) {
+              widgetTemplate = this.theAvailableWidgets[key];
+              break;
+            }
+          }
+        }
+
+        if (!widgetTemplate) {
+          return;
         }
 
         let widgets_template = {
-          ...this.theAvailableWidgets[widget.widget_name],
+          ...widgetTemplate,
         };
 
         let has_widget_options = false;
@@ -1864,9 +1899,14 @@ export default {
           ? this.promoteFieldsToRoot(widgets_template)
           : widgets_template;
 
-        // Set the widget data in the active_widgets object
-        Vue.set(this.active_widgets, widget.widget_name, processedWidget);
-        Vue.set(this.available_widgets, widget.widget_name, processedWidget);
+        // Use widget_key for active_widgets so dynamic widgets (e.g. phone_2,
+        // button_2) don't overwrite each other. Only update the base entry in
+        // available_widgets when the widget is not a dynamic variant.
+        const activeKey = widget.widget_key || widget.widget_name;
+        Vue.set(this.active_widgets, activeKey, processedWidget);
+        if (activeKey === widget.widget_name) {
+          Vue.set(this.available_widgets, widget.widget_name, processedWidget);
+        }
       };
 
       /**
@@ -1990,15 +2030,13 @@ export default {
               return;
             }
 
-            // Get widget from available_widgets and add to active_widgets
-            if (
-              typeof widgetKey !== "undefined" &&
-              typeof widgetKey === "string" &&
-              typeof this.available_widgets[widgetKey] !== "undefined"
-            ) {
-              const widget = this.available_widgets[widgetKey];
+            if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+              // Try available_widgets first, then theAvailableWidgets for dynamic keys
+              const widget =
+                this.available_widgets[widgetKey] ||
+                this.theAvailableWidgets[widgetKey];
               if (widget) {
-                addActiveWidget(widget);
+                addActiveWidget({ ...widget, widget_key: widgetKey });
               }
             }
           });
@@ -2113,15 +2151,12 @@ export default {
                   return;
                 }
 
-                // Get widget from available_widgets and add to active_widgets
-                if (
-                  typeof widgetKey !== "undefined" &&
-                  typeof widgetKey === "string" &&
-                  typeof this.available_widgets[widgetKey] !== "undefined"
-                ) {
-                  const widget = this.available_widgets[widgetKey];
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+                  const widget =
+                    this.available_widgets[widgetKey] ||
+                    this.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    this.$set(this.active_widgets, widgetKey, widget);
+                    this.$set(this.active_widgets, widgetKey, { ...widget, widget_key: widgetKey });
                   }
                 }
               });
@@ -2411,15 +2446,12 @@ export default {
                   return;
                 }
 
-                // Get widget from available_widgets and add to active_widgets
-                if (
-                  typeof widgetKey !== "undefined" &&
-                  typeof widgetKey === "string" &&
-                  typeof this.available_widgets[widgetKey] !== "undefined"
-                ) {
-                  const widget = this.available_widgets[widgetKey];
+                if (typeof widgetKey !== "undefined" && typeof widgetKey === "string") {
+                  const widget =
+                    this.available_widgets[widgetKey] ||
+                    this.theAvailableWidgets[widgetKey];
                   if (widget) {
-                    this.$set(this.active_widgets, widgetKey, widget);
+                    this.$set(this.active_widgets, widgetKey, { ...widget, widget_key: widgetKey });
                   }
                 }
               });
@@ -2503,10 +2535,18 @@ export default {
         if (
           !selectedWidgets.some((widget) => widget.widget_key === widget_key)
         ) {
-          const widgetIndex = acceptedWidgets.indexOf(widget_key);
-          if (widgetIndex !== -1) {
+          // Accept both static keys and dynamic keys whose widget_name
+          // matches an accepted widget (e.g., button fields)
+          const widget = this.theAvailableWidgets[widget_key];
+          const isAccepted =
+            acceptedWidgets.includes(widget_key) ||
+            (widget &&
+              widget.widget_name &&
+              acceptedWidgets.includes(widget.widget_name));
+
+          if (isAccepted && widget) {
             selectedWidgetList.push(widget_key);
-            selectedWidgets.push(this.theAvailableWidgets[widget_key]);
+            selectedWidgets.push(widget);
           }
         }
       } else {
@@ -2519,14 +2559,26 @@ export default {
         );
       }
 
-      // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order
+      // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order.
+      // For dynamic widgets (not directly in acceptedWidgets), sort by their
+      // widget_name's position in acceptedWidgets.
+      const getAcceptedIndex = (key) => {
+        let idx = acceptedWidgets.indexOf(key);
+        if (idx === -1) {
+          const w = this.theAvailableWidgets[key];
+          if (w && w.widget_name) {
+            idx = acceptedWidgets.indexOf(w.widget_name);
+          }
+        }
+        return idx === -1 ? acceptedWidgets.length : idx;
+      };
+
       selectedWidgetList.sort(
-        (a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b),
+        (a, b) => getAcceptedIndex(a) - getAcceptedIndex(b),
       );
       selectedWidgets.sort(
         (a, b) =>
-          acceptedWidgets.indexOf(a.widget_key) -
-          acceptedWidgets.indexOf(b.widget_key),
+          getAcceptedIndex(a.widget_key) - getAcceptedIndex(b.widget_key),
       );
 
       // Filter out null items from selectedWidgetList one more time after sorting
@@ -2736,12 +2788,54 @@ export default {
       return placeholders;
     },
 
+    /**
+     * Check if widget has options
+     * @param {String} widget_key - Widget key to check
+     * @returns {Boolean} Whether widget has options
+     * @public
+     */
+    hasWidgetOptions(widget_key) {
+      if (!widget_key || !this.available_widgets[widget_key]) {
+        return false;
+      }
+
+      // If widget_key is "title", log options and active_fields via console
+      if (widget_key === "title") {
+        const submissionFormFields =
+          this.fields?.submission_form_fields;
+
+        // Get active_widget_fields (added fields) from submission_form_fields
+        const activeWidgetFields =
+          submissionFormFields?.value?.fields ||
+          submissionFormFields?.fields ||
+          {};
+
+        // Check if tagline exists in activeWidgetFields
+        if (
+          activeWidgetFields &&
+          !activeWidgetFields.hasOwnProperty("tagline")
+        ) {
+          return false;
+        }
+      }
+
+      // Check if widget has options
+      const hasOptions = !!this.available_widgets[widget_key].options;
+
+      return hasOptions;
+    },
+
     // Edit Widget
     editWidget(key) {
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
         return;
       }
+
+      if (!this.hasWidgetOptions(key)) {
+        return;
+      }
+
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }

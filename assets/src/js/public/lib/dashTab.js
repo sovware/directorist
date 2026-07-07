@@ -31,8 +31,7 @@
 				queryStrings = queryStrings.filter((item) => `${item}`.length);
 				queryStrings = queryStrings.join('&');
 
-				window.location.hash = hashLink;
-				hash = window.location.hash;
+				hash = hashLink;
 			}
 
 			// Activate Current Navigation Item
@@ -91,7 +90,9 @@
 						event.preventDefault();
 						event.stopPropagation();
 
-						var ul = event.target.closest('.directorist-tab__nav'),
+						const currentLink = event.currentTarget;
+
+						var ul = currentLink.closest('.directorist-tab__nav'),
 							main = ul.nextElementSibling,
 							item_link = ul.querySelectorAll(
 								'.directorist-tab__nav__link'
@@ -108,7 +109,7 @@
 						});
 
 						const parentNavRef =
-							event.target.getAttribute('data-parent-nav');
+							currentLink.getAttribute('data-parent-nav');
 
 						if (parentNavRef) {
 							const parentNav =
@@ -119,10 +120,10 @@
 								);
 							}
 						} else {
-							event.target.classList.add(
+							currentLink.classList.add(
 								'directorist-tab__nav__active'
 							);
-							var dropDownToggler = event.target
+							var dropDownToggler = currentLink
 								.closest('.atbdp_tab_nav--has-child')
 								?.querySelector('.atbd-dash-nav-dropdown');
 							if (
@@ -144,14 +145,14 @@
 							);
 						});
 
-						const content_id = event.target.getAttribute('target');
+						const content_id = currentLink.getAttribute('target');
 						document
 							.getElementById(content_id)
 							.classList.add('directorist-tab__pane--active');
 
-						// Add Hash To Window Location
+						// Keep the active tab shareable without triggering hash navigation scroll.
 						let hashID = content_id;
-						const link = event.target.getAttribute('href');
+						const link = currentLink.getAttribute('href');
 
 						if (link) {
 							const matchLink = link.match(/#(.+)/);
@@ -161,11 +162,7 @@
 						const hasMatch = window.location.hash.match(
 							new RegExp(`^${link}$`)
 						);
-						window.location.hash = hasMatch
-							? hasMatch[0]
-							: '#' + hashID;
-
-						var newHash = window.location.hash;
+						var newHash = hasMatch ? hasMatch[0] : '#' + hashID;
 						var newUrl = window.location.pathname + newHash;
 
 						window.history.replaceState(null, null, newUrl);

@@ -1,64 +1,33 @@
 <template>
     <div class="settings-wrapper atbdp-settings-panel">
         <form action="#" @submit.prevent="updateData">
-            <div class="setting-top-bar">
-                
-                <div class="atbdp-setting-top-bar-left">
-                    <ul class="directorist_setting-panel__pages">
-                        <li v-for="( nav_item, nav_key ) in theBreadcrumbNav" :key="nav_key">
-                            <a href="#" class="directorist_setting-panel__pages--link" :class="{active: nav_item.active}">
-                                {{ nav_item.label }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="atbdp-setting-top-bar-right">
-                    <div class="setting-top-bar__search-field">
-                        <input 
-                            type="text" 
-                            class="setting-search-field__input" 
-                            placeholder="Search settings here..."
-                            v-model="search_query"
-                        >
-
-                        <div class="setting-search-suggestions" v-if="searchSuggestions">
-                            <ul class="search-suggestions-list">
-                                <li class="search-suggestions-list--list-item" v-for="( field_key, field_index ) in Object.keys( searchSuggestions )" :key="field_index">
-                                    <a href="#" class="search-suggestions-list--link" @click.prevent="jumpToSearchResult( searchSuggestions[ field_key ] )">
-                                        {{ searchSuggestions[ field_key ].label }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="setting-top-bar__search-actions">
-                        <div class="setting-response-feedback">
-                            <div class="" v-if="status_message">
-                                <span class="atbdp-icon atbdp-icon-fill"
-                                    :class="getIconClass( status_message.type )"
-                                    v-html="getIconHTML( status_message.type )"
-                                >
-                                </span>
-
-                                {{ status_message.message }}
-                            </div>
-                        </div>
-
-                        <button 
-                            type="submit" 
-                            class="settings-save-btn"
-                            :disabled="submit_button.is_disabled"
-                            v-html="submit_button.label">
-                        </button>
-                    </div>
-                </div>
-
-                
-                
-            </div>
+            <nav class="settings-panel-breadcrumb" aria-label="Settings breadcrumb">
+                <template v-for="( item, index ) in theBreadcrumbNav">
+                    <span
+                        :key="`settings-breadcrumb-${index}`"
+                        class="settings-panel-breadcrumb__item"
+                        :class="{ active: item.active }"
+                    >
+                        {{ item.label }}
+                    </span>
+                </template>
+            </nav>
 
             <div class="setting-body" @click="resetStates()">
-                <sidebar-navigation :menu="layouts" />
+                <sidebar-navigation
+                    :menu="layouts"
+                    :search-query="search_query"
+                    :search-results="quickSearchResults"
+                    :search-result-total="quickSearchResultTotal"
+                    :active-search-index="active_search_result_index"
+                    @update-search-query="updateSearchQuery"
+                    @jump-to-search-result="jumpToSearchResult"
+                    @quick-update-field="updateQuickSearchFieldValue"
+                    @move-search-result="moveQuickSearchResult"
+                    @set-active-search-index="setActiveSearchIndex"
+                    @submit-search-result="submitQuickSearchResult"
+                    @close-search="closeQuickSearch"
+                />
 
                 <div class="settings-contents">
                     <tabContents @do-action="doAction( $event )" />
@@ -77,10 +46,21 @@
                                 </div>
                             </div>
 
+                            <span
+                                class="settings-footer-unsaved"
+                                v-if="hasUnsavedChanges"
+                            >
+                                <span class="settings-footer-unsaved__dot" aria-hidden="true"></span>
+                                Unsaved changes
+                            </span>
+
                             <button 
                                 type="submit" 
                                 class="settings-save-btn"
-                                :disabled="submit_button.is_disabled"
+                                :class="{
+                                    'settings-save-btn--saved': 'saved' === saveFeedbackState,
+                                }"
+                                :disabled="saveButtonIsDisabled"
                                 v-html="submit_button.label">
                             </button>
                         </div>
@@ -88,6 +68,97 @@
                 </div>
             </div>
         </form>
+
+        <div
+            class="cptm-modal-container cptm-toggle-modal settings-leave-modal active"
+            v-if="leaveConfirmIsOpen"
+            @keydown.esc.prevent.stop="stayOnSettingsPage"
+        >
+            <div class="cptm-modal-wrap" @click.self="stayOnSettingsPage">
+                <div
+                    class="cptm-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="settings-leave-modal-title"
+                    aria-describedby="settings-leave-modal-description"
+                    @click.stop
+                >
+                    <div class="cptm-modal-content">
+                        <div class="cptm-modal-header">
+                            <h3
+                                id="settings-leave-modal-title"
+                                class="cptm-modal-header-title"
+                            >
+                                Unsaved changes
+                            </h3>
+
+                            <div class="cptm-modal-actions">
+                                <a
+                                    href="#"
+                                    class="cptm-modal-action-link"
+                                    ref="leaveConfirmClose"
+                                    aria-label="Stay on this page"
+                                    @click.prevent="stayOnSettingsPage"
+                                >
+                                    <span class="fa fa-times"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="cptm-modal-body cptm-center-content cptm-content-wide">
+                            <form
+                                action="#"
+                                method="post"
+                                class="cptm-import-directory-form"
+                                @submit.prevent="saveAndLeave"
+                            >
+                                <div
+                                    class="cptm-form-group-feedback cptm-text-center cptm-mb-10 settings-leave-modal__error"
+                                    v-if="leaveModalErrorMessage"
+                                >
+                                    {{ leaveModalErrorMessage }}
+                                </div>
+
+                                <h2
+                                    id="settings-leave-modal-description"
+                                    class="cptm-modal-confirmation-title"
+                                >
+                                    Save changes before leaving?
+                                </h2>
+
+                                <p class="settings-leave-modal__description">
+                                    Unsaved changes will be lost.
+                                </p>
+
+                                <div class="cptm-file-input-wrap">
+                                    <button
+                                        type="button"
+                                        class="cptm-btn cptm-btn-rounded cptm-btn-secondery"
+                                        :disabled="leaveSaveIsProcessing"
+                                        @click="leaveWithoutSaving"
+                                    >
+                                        Leave without saving
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        class="cptm-btn cptm-btn-rounded cptm-btn-primary"
+                                        :disabled="leaveSaveIsProcessing"
+                                    >
+                                        <span
+                                            class="settings-leave-modal__spinner"
+                                            v-if="leaveSaveIsProcessing"
+                                            aria-hidden="true"
+                                        ></span>
+                                        {{ leaveSaveButtonLabel }}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -96,8 +167,22 @@
 import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 import tabContents from './TabContents.vue';
+import {
+    applySettingsRedesignFieldOverrides,
+    buildSettingsRedesignLayout,
+    resolveSettingsHashTarget,
+} from './settings-redesign-map';
 
 const axios = require('axios').default;
+const CHECKBOX_ARRAY_ACCORDION_FIELDS = [
+    'listings_view_as_items',
+    'listings_sort_by_items',
+    'search_view_as_items',
+    'search_sort_by_items',
+    'search_filters',
+    'all_authors_contact',
+    'booking_type',
+];
 
 export default {
     name: 'settings-manager',
@@ -140,49 +225,93 @@ export default {
             return nav;
         },
 
-        searchSuggestions() {
-            if ( ! this.search_query.length ) {
-                return false;
+        quickSearchPayload() {
+            const query = this.search_query.trim();
+
+            if ( ! query.length ) {
+                return {
+                    results: [],
+                    total: 0,
+                };
             }
 
-            let search_suggestions = {};
-            let query = this.search_query.toLowerCase();
+            const results = this.buildQuickSearchResults( query );
 
-            for ( let field in this.cached_fields ) {
-                if ( ! this.cached_fields[ field ].label ) { continue; }
-                
-                let label = this.cached_fields[ field ].label.toLowerCase();
-                let match = label.match( query );
+            return {
+                results: results.slice( 0, 30 ),
+                total: results.length,
+            };
+        },
 
-                if ( match ) {
-                    search_suggestions[ field ] = this.cached_fields[ field ];
+        quickSearchResults() {
+            return this.quickSearchPayload.results;
+        },
+
+        quickSearchResultTotal() {
+            return this.quickSearchPayload.total;
+        },
+
+        hasUnsavedChanges() {
+            for ( let field_key in this.fields ) {
+                if ( ! this.cached_fields[ field_key ] ) { continue; }
+
+                if (
+                    ! this.settingsValuesAreSame(
+                        this.cached_fields[ field_key ].value,
+                        this.fields[ field_key ].value,
+                        field_key
+                    )
+                ) {
+                    return true;
                 }
             }
 
-            // console.log( {search_suggestions}, this.cached_fields );
+            return false;
+        },
 
-            if ( ! Object.keys( search_suggestions ) ) {
-                return false;
-            }
+        saveButtonIsDisabled() {
+            return this.submit_button.is_disabled || ! this.hasUnsavedChanges;
+        },
 
-            return search_suggestions;
+        leaveSaveButtonLabel() {
+            return this.leaveSaveIsProcessing ? 'Saving...' : 'Save & leave';
         }
     },
 
     mounted() {
-        // const self = this;
-        // this.$el.addEventListener( 'click', function( e ) {
-        //     // self.$store.commit( 'resetHighlightedFieldKey' );
-        // })
+        document.body.classList.add( 'directorist-settings-redesign-page' );
+        document.addEventListener( 'click', this.handleDocumentNavigationClick, true );
+        window.addEventListener( 'beforeunload', this.handleBeforeUnload );
+    },
+
+    beforeDestroy() {
+        document.body.classList.remove( 'directorist-settings-redesign-page' );
+        document.removeEventListener( 'click', this.handleDocumentNavigationClick, true );
+        window.removeEventListener( 'beforeunload', this.handleBeforeUnload );
+        this.clearSaveSuccessTimer();
+        this.cancelSearchHighlightFrame();
+    },
+
+    watch: {
+        hasUnsavedChanges( has_changes ) {
+            if ( has_changes && 'saved' === this.saveFeedbackState ) {
+                this.resetSaveButtonFeedback();
+            }
+        },
     },
 
     created() {
+        const redesignedFields = applySettingsRedesignFieldOverrides( this.$root.fields || {} );
+
         if ( this.$root.fields ) {
-            this.$store.commit( 'updateFields', this.$root.fields );
+            this.$store.commit( 'updateFields', redesignedFields );
         }
 
         if ( this.$root.layouts ) {
-            this.$store.commit( 'updatelayouts', this.$root.layouts );
+            this.$store.commit(
+                'updatelayouts',
+                buildSettingsRedesignLayout( this.$root.layouts, redesignedFields )
+            );
         }
 
         if ( this.$root.config ) {
@@ -202,11 +331,22 @@ export default {
 
             search_query: '',
             search_suggestions: false,
+            active_search_result_index: 0,
+            leaveConfirmIsOpen: false,
+            pendingNavigationUrl: '',
+            leaveGuardBypass: false,
+            leaveSaveIsProcessing: false,
+            leaveModalErrorMessage: '',
+            lastLeaveTrigger: null,
+            saveFeedbackState: '',
+            saveSuccessTimer: null,
+            searchHighlightFrame: null,
 
             submit_button: {
-                label_default: 'Save Changes',
+                label_default: 'Save changes',
                 label_on_progress: '<i class="fas fa-circle-notch fa-spin"></i> Saving...',
-                label: 'Save Changes',
+                label_saved: '<i class="fas fa-check"></i> Saved',
+                label: 'Save changes',
                 is_disabled: false,
             },
         }
@@ -232,6 +372,237 @@ export default {
             this.$store.commit( 'resetHighlightedFieldKey' );
         },
 
+        updateSearchQuery( value ) {
+            this.search_query = value;
+            this.active_search_result_index = 0;
+        },
+
+        buildQuickSearchResults( query ) {
+            const normalizedQuery = this.normalizeSearchText( query );
+            let results = [];
+
+            if ( ! normalizedQuery ) {
+                return results;
+            }
+
+            for ( let fieldKey in this.cached_fields ) {
+                const cachedField = this.cached_fields[ fieldKey ];
+                const liveField = this.fields[ fieldKey ];
+
+                if ( ! cachedField || ! cachedField.layout_path || ! liveField ) { continue; }
+
+                const label = this.toPlainSearchText( liveField.label || cachedField.label || '' );
+
+                if ( ! label ) { continue; }
+
+                const pathSegments = this.getQuickSearchPathSegments(
+                    cachedField.layout_path,
+                    fieldKey
+                );
+                const pathText = pathSegments.join( ' › ' );
+                const score = this.getQuickSearchScore({
+                    label,
+                    fieldKey,
+                    pathText,
+                    query: normalizedQuery,
+                });
+
+                if ( null === score ) { continue; }
+
+                results.push({
+                    field_key: fieldKey,
+                    fieldKey,
+                    label,
+                    path: pathSegments,
+                    pathText,
+                    layout_path: cachedField.layout_path,
+                    controlType: this.getQuickSearchControlType( liveField ),
+                    inputType: this.getQuickSearchInputType( liveField ),
+                    value: liveField.value,
+                    options: this.getQuickSearchOptions( liveField ),
+                    score,
+                });
+            }
+
+            return results.sort( ( a, b ) => {
+                if ( a.score !== b.score ) {
+                    return a.score - b.score;
+                }
+
+                return a.label.localeCompare( b.label );
+            });
+        },
+
+        getQuickSearchScore( { label, fieldKey, pathText, query } ) {
+            const labelText = this.normalizeSearchText( label );
+            const path = this.normalizeSearchText( pathText );
+            const key = this.normalizeSearchText( fieldKey );
+
+            if ( labelText === query ) { return 0; }
+            if ( labelText.indexOf( query ) === 0 ) { return 1; }
+            if ( labelText.indexOf( query ) > -1 ) { return 2; }
+            if ( path.indexOf( query ) > -1 ) { return 3; }
+            if ( key.indexOf( query ) > -1 ) { return 4; }
+
+            return null;
+        },
+
+        getQuickSearchPathSegments( layoutPath, fieldKey ) {
+            let segments = [];
+
+            if ( ! layoutPath || ! layoutPath.menu_key ) {
+                return segments;
+            }
+
+            const menu = this.layouts[ layoutPath.menu_key ];
+
+            if ( menu && menu.label ) {
+                segments.push( this.toPlainSearchText( menu.label ) );
+            }
+
+            const submenu = menu && menu.submenu && layoutPath.submenu_key
+                ? menu.submenu[ layoutPath.submenu_key ]
+                : null;
+
+            if ( submenu && submenu.label ) {
+                segments.push( this.toPlainSearchText( submenu.label ) );
+            }
+
+            const sectionRoot = submenu || menu;
+            const section = sectionRoot &&
+                sectionRoot.sections &&
+                layoutPath.section_key
+                    ? sectionRoot.sections[ layoutPath.section_key ]
+                    : null;
+
+            if ( section ) {
+                const sectionLabel = section.title || section.label || '';
+
+                if ( sectionLabel ) {
+                    segments.push( this.toPlainSearchText( sectionLabel ) );
+                }
+
+                if (
+                    Array.isArray( section.advancedFields ) &&
+                    section.advancedFields.includes( fieldKey )
+                ) {
+                    segments.push( this.toPlainSearchText( section.advancedLabel || 'Advanced' ) );
+                }
+            }
+
+            return segments.filter( Boolean );
+        },
+
+        getQuickSearchControlType( field ) {
+            if ( ! field || field.disable || field.disabled ) { return ''; }
+
+            if (
+                field.type === 'toggle' &&
+                ! field.confirmBeforeChange &&
+                ! field.confirmationModal &&
+                ! field.dataOnChange
+            ) {
+                return 'toggle';
+            }
+
+            if ( [ 'text', 'number', 'url', 'email' ].includes( field.type ) ) {
+                return 'input';
+            }
+
+            if (
+                field.type === 'select' &&
+                Array.isArray( field.options ) &&
+                field.options.length
+            ) {
+                return 'select';
+            }
+
+            return '';
+        },
+
+        getQuickSearchInputType( field ) {
+            if ( ! field || ! field.type ) { return 'text'; }
+
+            return [ 'number', 'url', 'email' ].includes( field.type )
+                ? field.type
+                : 'text';
+        },
+
+        getQuickSearchOptions( field ) {
+            if ( ! field || ! Array.isArray( field.options ) ) {
+                return [];
+            }
+
+            return field.options.map( option => ({
+                value: typeof option.value === 'undefined' ? '' : String( option.value ),
+                label: this.toPlainSearchText( option.label || '' ),
+            }));
+        },
+
+        updateQuickSearchFieldValue( payload ) {
+            if ( ! payload || ! payload.fieldKey ) { return; }
+            if ( ! this.fields[ payload.fieldKey ] ) { return; }
+
+            this.$store.commit( 'updateFieldValue', {
+                field_key: payload.fieldKey,
+                value: payload.value,
+            });
+        },
+
+        setActiveSearchIndex( index ) {
+            const maxIndex = this.quickSearchResults.length - 1;
+
+            if ( maxIndex < 0 ) {
+                this.active_search_result_index = 0;
+                return;
+            }
+
+            this.active_search_result_index = Math.min(
+                Math.max( Number( index ) || 0, 0 ),
+                maxIndex
+            );
+        },
+
+        moveQuickSearchResult( direction ) {
+            const count = this.quickSearchResults.length;
+
+            if ( ! count ) { return; }
+
+            const nextIndex =
+                ( this.active_search_result_index + Number( direction ) + count ) % count;
+
+            this.active_search_result_index = nextIndex;
+        },
+
+        submitQuickSearchResult() {
+            const result = this.quickSearchResults[ this.active_search_result_index ] ||
+                this.quickSearchResults[0];
+
+            if ( result ) {
+                this.jumpToSearchResult( result );
+            }
+        },
+
+        closeQuickSearch() {
+            this.search_query = '';
+            this.active_search_result_index = 0;
+        },
+
+        normalizeSearchText( value ) {
+            return this.toPlainSearchText( value ).toLowerCase();
+        },
+
+        toPlainSearchText( value ) {
+            if ( typeof value === 'undefined' || value === null ) {
+                return '';
+            }
+
+            return String( value )
+                .replace( /<[^>]*>/g, ' ' )
+                .replace( /\s+/g, ' ' )
+                .trim();
+        },
+
         jumpToSearchResult( field ) {
             if ( ! field.layout_path ) { return; }
 
@@ -242,6 +613,218 @@ export default {
             });
 
             this.search_query = '';
+            this.active_search_result_index = 0;
+            this.queueSearchResultHighlight( field.layout_path.field_key );
+        },
+
+        queueSearchResultHighlight( fieldKey ) {
+            if ( ! fieldKey ) { return; }
+
+            this.cancelSearchHighlightFrame();
+            this.$store.commit( 'setHighlightedFieldKey', '' );
+
+            this.$nextTick( () => {
+                this.runSearchResultHighlight( fieldKey, 0 );
+            });
+        },
+
+        runSearchResultHighlight( fieldKey, attempt ) {
+            const maxAttempts = 12;
+
+            this.searchHighlightFrame = window.requestAnimationFrame( () => {
+                this.searchHighlightFrame = null;
+                this.$store.commit( 'setHighlightedFieldKey', fieldKey );
+
+                this.$nextTick( () => {
+                    const target = this.getSearchHighlightTarget( fieldKey );
+
+                    if ( target ) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest',
+                        });
+
+                        return;
+                    }
+
+                    if ( attempt < maxAttempts ) {
+                        this.runSearchResultHighlight( fieldKey, attempt + 1 );
+                    }
+                });
+            });
+        },
+
+        getSearchHighlightTarget( fieldKey ) {
+            if ( ! this.$el || ! fieldKey ) { return null; }
+
+            const escapedFieldKey = this.escapeCssIdentifier( fieldKey );
+
+            return this.$el.querySelector(
+                `.cptm-field-wraper-key-${escapedFieldKey}`
+            );
+        },
+
+        escapeCssIdentifier( value ) {
+            const stringValue = String( value || '' );
+
+            if ( window.CSS && typeof window.CSS.escape === 'function' ) {
+                return window.CSS.escape( stringValue );
+            }
+
+            return stringValue.replace( /[^a-zA-Z0-9_-]/g, '\\$&' );
+        },
+
+        cancelSearchHighlightFrame() {
+            if ( ! this.searchHighlightFrame ) { return; }
+
+            window.cancelAnimationFrame( this.searchHighlightFrame );
+            this.searchHighlightFrame = null;
+        },
+
+        handleDocumentNavigationClick( event ) {
+            if ( this.leaveGuardBypass || ! this.hasUnsavedChanges ) { return; }
+            if ( this.leaveConfirmIsOpen ) { return; }
+            if ( event.defaultPrevented || 0 !== event.button ) { return; }
+            if ( event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ) { return; }
+            if ( ! event.target || ! event.target.closest ) { return; }
+
+            const link = event.target.closest( 'a[href]' );
+
+            if ( ! link ) { return; }
+            if ( this.$el && this.$el.contains( link ) ) { return; }
+            if ( this.linkShouldBypassLeaveGuard( link ) ) { return; }
+
+            const navigation_url = this.getNavigationUrlFromLink( link );
+
+            if ( ! navigation_url ) { return; }
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            this.openLeaveConfirm( navigation_url, link );
+        },
+
+        handleBeforeUnload( event ) {
+            if ( this.leaveGuardBypass || ! this.hasUnsavedChanges ) { return; }
+
+            event.preventDefault();
+            event.returnValue = '';
+
+            return '';
+        },
+
+        linkShouldBypassLeaveGuard( link ) {
+            const target = ( link.getAttribute( 'target' ) || '' ).toLowerCase();
+
+            if ( target && '_self' !== target ) { return true; }
+            if ( link.hasAttribute( 'download' ) ) { return true; }
+
+            return false;
+        },
+
+        getNavigationUrlFromLink( link ) {
+            let href = link.getAttribute( 'href' );
+
+            if ( ! href ) { return ''; }
+
+            href = href.trim();
+
+            if ( ! href || '#' === href || '#' === href.charAt( 0 ) ) { return ''; }
+
+            const lower_href = href.toLowerCase();
+
+            if (
+                0 === lower_href.indexOf( 'javascript:' ) ||
+                0 === lower_href.indexOf( 'mailto:' ) ||
+                0 === lower_href.indexOf( 'tel:' )
+            ) {
+                return '';
+            }
+
+            let target_url = null;
+
+            try {
+                target_url = new URL( href, window.location.href );
+            } catch ( error ) {
+                return '';
+            }
+
+            if ( target_url.href === window.location.href ) { return ''; }
+
+            const current_url = new URL( window.location.href );
+            const is_same_page_hash =
+                target_url.origin === current_url.origin &&
+                target_url.pathname === current_url.pathname &&
+                target_url.search === current_url.search &&
+                target_url.hash;
+
+            if ( is_same_page_hash ) { return ''; }
+
+            return target_url.href;
+        },
+
+        openLeaveConfirm( navigation_url, trigger ) {
+            this.pendingNavigationUrl = navigation_url;
+            this.lastLeaveTrigger = trigger || null;
+            this.leaveModalErrorMessage = '';
+            this.leaveConfirmIsOpen = true;
+
+            this.$nextTick( () => {
+                if ( this.$refs.leaveConfirmClose && this.$refs.leaveConfirmClose.focus ) {
+                    this.$refs.leaveConfirmClose.focus();
+                }
+            });
+        },
+
+        stayOnSettingsPage() {
+            if ( this.leaveSaveIsProcessing ) { return; }
+
+            this.leaveConfirmIsOpen = false;
+            this.pendingNavigationUrl = '';
+            this.leaveModalErrorMessage = '';
+            this.restoreLeaveTriggerFocus();
+        },
+
+        restoreLeaveTriggerFocus() {
+            const trigger = this.lastLeaveTrigger;
+            this.lastLeaveTrigger = null;
+
+            this.$nextTick( () => {
+                if ( trigger && document.body.contains( trigger ) && trigger.focus ) {
+                    trigger.focus();
+                }
+            });
+        },
+
+        leaveWithoutSaving() {
+            if ( ! this.pendingNavigationUrl ) { return; }
+
+            this.leaveGuardBypass = true;
+            window.location.href = this.pendingNavigationUrl;
+        },
+
+        saveAndLeave() {
+            if ( this.leaveSaveIsProcessing ) { return; }
+            if ( ! this.pendingNavigationUrl ) { return; }
+
+            this.leaveSaveIsProcessing = true;
+            this.leaveModalErrorMessage = '';
+
+            this.saveSettingsData({
+                    skip_success_feedback: true,
+                })
+                .then( () => {
+                    this.leaveSaveIsProcessing = false;
+                    this.leaveGuardBypass = true;
+                    window.location.href = this.pendingNavigationUrl;
+                })
+                .catch( error => {
+                    this.leaveSaveIsProcessing = false;
+                    this.leaveModalErrorMessage = error && error.message
+                        ? error.message
+                        : 'Could not save changes. Please try again.';
+                });
         },
 
         updateCurrentPage() {
@@ -250,53 +833,38 @@ export default {
             if ( typeof hash !== 'string' ) { return; }
 
             hash = hash.replace( /#/g, '' );
-            var pages = hash.split('__');
+            const swich_nav_args = resolveSettingsHashTarget(
+                hash,
+                this.layouts,
+                this.cached_fields
+            );
 
-            if ( ! pages ) { return; }
-            if ( ! Array.isArray( pages ) ) { return; }
-            
-            let menu_keys        = Object.keys( this.layouts );
-            let main_menu_key    = pages[0];
-            let submain_menu_key = ( pages.length > 1 ) ? pages[1] : null;
-
-            let swich_nav_args = { menu_key: '', submenu_key: '', hash: hash }; 
-
-            if ( menu_keys.includes( main_menu_key ) ) {
-                swich_nav_args.menu_key = main_menu_key;
-            }
-
-            if ( submain_menu_key && this.layouts[ main_menu_key ].submenu ) {
-                let submenu_keys = Object.keys( this.layouts[ main_menu_key ].submenu );
-
-                if ( submenu_keys.includes( submain_menu_key ) ) {
-                    swich_nav_args.submenu_key = submain_menu_key;
-                }
-            }
+            if ( ! swich_nav_args ) { return; }
 
             this.$store.commit( 'swichToNav', swich_nav_args );
 
         },
 
-        updateData( args ) {
-            if ( this.form_is_processing ) { console.log( 'Please wait...' ); return; }
-
-            let fields = this.getFieldsValue();
-
-            let submission_url  = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.url ) ? this.$store.state.config.submission.url : '';
-            let submission_with = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.with ) ? this.$store.state.config.submission.with : '';
-
-            let form_data = new FormData();
-
-            if ( submission_with && typeof submission_with === 'object' ) {
-                for ( let data_key in submission_with ) {
-                    form_data.append( data_key, submission_with[ data_key ] );
-                }
+        getSettingsSavePayload() {
+            if ( ! this.hasUnsavedChanges ) {
+                return {
+                    form_data: null,
+                    field_list: [],
+                    changed_fields: {},
+                    error_count: 0,
+                };
             }
 
+            let fields = this.getFieldsValue();
+            let form_data = new FormData();
             let field_list = [];
             let error_count = 0;
+            let changed_fields = {};
 
             for ( let field_key in fields ) {
+                if ( ! this.fields[ field_key ] ) { continue; }
+                if ( ! this.cached_fields[ field_key ] ) { continue; }
+
                 let new_value    = fields[ field_key ];
                 let cahced_value = this.cached_fields[ field_key ].value;
 
@@ -304,34 +872,83 @@ export default {
                     error_count++;
                 }
 
-                if ( ! this.fields[ field_key ].forceUpdate && cahced_value == new_value ) { continue; }
+                if (
+                    ! this.fields[ field_key ].forceUpdate &&
+                    this.settingsValuesAreSame( cahced_value, new_value, field_key )
+                ) {
+                    continue;
+                }
 
                 form_data.append( field_key, this.maybeJSON( [new_value] ) );
                 field_list.push( field_key );
-
-                this.$store.commit( 'updateCachedFieldData', {
-                    key: field_key,
-                    value: new_value,
-                });
+                changed_fields[ field_key ] = new_value;
             }
 
             form_data.append( 'field_list', this.maybeJSON( field_list ) );
 
-            if ( error_count ) {
+            return {
+                form_data,
+                field_list,
+                changed_fields,
+                error_count,
+            };
+        },
+
+        updateData( args ) {
+            this.saveSettingsData()
+                .then( () => {
+                    if ( args && args.reload_after_save ) {
+                        window.location.reload();
+                    }
+                })
+                .catch( () => {} );
+        },
+
+        saveSettingsData( args = {} ) {
+            if ( this.form_is_processing ) {
+                return Promise.reject( new Error( 'Please wait...' ) );
+            }
+
+            if ( ! this.hasUnsavedChanges ) {
+                this.status_message = null;
+
+                return Promise.resolve( { skipped: true } );
+            }
+
+            let submission_url  = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.url ) ? this.$store.state.config.submission.url : '';
+            let submission_with = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.with ) ? this.$store.state.config.submission.with : '';
+            let payload = this.getSettingsSavePayload();
+
+            if ( ! payload.field_list.length ) {
+                this.status_message = null;
+
+                return Promise.resolve( { skipped: true } );
+            }
+
+            if ( payload.error_count ) {
+                const message = 'The form has invalid data';
+
                 this.status_message = {
                     type: 'error',
-                    message: 'The form has invalid data',
+                    message,
                 };
 
                 let self = this;
                 setTimeout( function() {
                     self.status_message = null;
                 }, 5000 );
-                
-                return;
+
+                return Promise.reject( new Error( message ) );
+            }
+
+            if ( submission_with && typeof submission_with === 'object' ) {
+                for ( let data_key in submission_with ) {
+                    payload.form_data.append( data_key, submission_with[ data_key ] );
+                }
             }
 
             // Before submit the form
+            this.resetSaveButtonFeedback();
             this.form_is_processing        = true;
             this.submit_button.is_disabled = true;
             this.submit_button.label       = this.submit_button.label_on_progress;
@@ -340,38 +957,118 @@ export default {
             const self = this;
 
             // Submit the form
-            axios.post( submission_url, form_data )
+            return axios.post( submission_url, payload.form_data )
                 .then( response => {
                     self.form_is_processing        = false;
                     self.submit_button.is_disabled = false;
                     self.submit_button.label       = self.submit_button.label_default;
 
-                    if ( response.data.status && response.data.status.status_log ) {
-                        self.status_message = response.data.status.status_log;
+                    const response_status = response && response.data ? response.data.status : null;
+
+                    if ( ! response_status ) {
+                        const message = self.getSaveResponseMessage( response ? response.data : null );
+
+                        self.status_message = {
+                            type: 'error',
+                            message,
+                        };
+
+                        const error = new Error( message );
+                        error.directoristHandled = true;
+                        throw error;
+                    }
+
+                    if ( response_status && ! response_status.success ) {
+                        const message = response_status.status_log && response_status.status_log.message
+                            ? response_status.status_log.message
+                            : self.getSaveResponseMessage( response.data );
+
+                        self.status_message = {
+                            ...( response_status.status_log || {} ),
+                            type: 'error',
+                            message,
+                        };
+
+                        const error = new Error( message );
+                        error.directoristHandled = true;
+                        throw error;
+                    }
+
+                    if ( response_status && response_status.success ) {
+                        Object.keys( payload.changed_fields ).forEach( function( field_key ) {
+                            self.$store.commit( 'updateCachedFieldData', {
+                                key: field_key,
+                                value: payload.changed_fields[ field_key ],
+                            });
+                        });
+
+                        if ( ! args.skip_success_feedback ) {
+                            self.showSaveSuccessFeedback();
+                        }
+                    }
+
+                    if ( response_status && response_status.status_log ) {
+                        if ( 'success' === response_status.status_log.type ) {
+                            self.status_message = null;
+                        } else {
+                            self.status_message = response_status.status_log;
+
+                            setTimeout( function() {
+                                self.status_message = null;
+                            }, 5000 );
+                        }
+                    }
+
+                    return {
+                        success: true,
+                        response,
+                    };
+                })
+                .catch( error => {
+                    self.form_is_processing        = false;
+                    self.submit_button.is_disabled = false;
+                    self.submit_button.label       = self.submit_button.label_default;
+
+                    if ( ! error.directoristHandled ) {
+                        console.log( { error } );
+
+                        self.status_message = {
+                            type: 'error',
+                            message: self.getSaveErrorMessage( error ),
+                        };
 
                         setTimeout( function() {
                             self.status_message = null;
                         }, 5000 );
                     }
 
-                    if ( args && args.reload_after_save ) {
-                        window.location.reload();
-                    }
-
-                })
-                .catch( error => {
-                    console.log( { error } );
-
-                    self.form_is_processing        = false;
-                    self.submit_button.is_disabled = false;
-                    self.submit_button.label       = self.submit_button.label_default;
-
-                    self.status_message = { type: 'error', message: 'Something went wrong' };
-
-                    setTimeout( function() {
-                        self.status_message = null;
-                    }, 5000 );
+                    return Promise.reject( error );
                 });
+        },
+
+        clearSaveSuccessTimer() {
+            if ( ! this.saveSuccessTimer ) { return; }
+
+            clearTimeout( this.saveSuccessTimer );
+            this.saveSuccessTimer = null;
+        },
+
+        resetSaveButtonFeedback() {
+            this.clearSaveSuccessTimer();
+            this.saveFeedbackState = '';
+            this.submit_button.label = this.submit_button.label_default;
+        },
+
+        showSaveSuccessFeedback() {
+            this.clearSaveSuccessTimer();
+            this.saveFeedbackState = 'saved';
+            this.submit_button.label = this.submit_button.label_saved;
+
+            this.saveSuccessTimer = setTimeout( () => {
+                this.saveFeedbackState = '';
+                this.submit_button.label = this.submit_button.label_default;
+                this.saveSuccessTimer = null;
+            }, 1600 );
         },
 
         getIconClass( icon_type ) {
@@ -394,6 +1091,144 @@ export default {
             }
 
             return icon;
+        },
+
+        getSaveResponseMessage( response_data ) {
+            if ( response_data && response_data.status && response_data.status.status_log && response_data.status.status_log.message ) {
+                return response_data.status.status_log.message;
+            }
+
+            if ( response_data && response_data.status_log && response_data.status_log.message ) {
+                return response_data.status_log.message;
+            }
+
+            if ( response_data && response_data.message ) {
+                return response_data.message;
+            }
+
+            if ( typeof response_data === 'string' ) {
+                let message = response_data.replace( /<[^>]*>/g, ' ' ).replace( /\s+/g, ' ' ).trim();
+
+                if ( message.length ) {
+                    return message.substring( 0, 180 );
+                }
+            }
+
+            return 'Unexpected save response. Please refresh and try again.';
+        },
+
+        getSaveErrorMessage( error ) {
+            let response_data = error && error.response ? error.response.data : null;
+
+            if ( response_data && response_data.status && response_data.status.status_log ) {
+                return response_data.status.status_log.message || 'Something went wrong';
+            }
+
+            if ( response_data && response_data.message ) {
+                return response_data.message;
+            }
+
+            if ( typeof response_data === 'string' ) {
+                let message = response_data.replace( /<[^>]*>/g, ' ' ).replace( /\s+/g, ' ' ).trim();
+
+                if ( message.length ) {
+                    return message.substring( 0, 180 );
+                }
+            }
+
+            if ( error && error.message ) {
+                return error.message;
+            }
+
+            return 'Something went wrong';
+        },
+
+        settingsValuesAreSame( old_value, new_value, field_key = '' ) {
+            if ( this.isCheckboxArrayAccordionField( field_key ) ) {
+                return JSON.stringify( this.normalizeCheckboxArrayValue( old_value ) ) ===
+                    JSON.stringify( this.normalizeCheckboxArrayValue( new_value ) );
+            }
+
+            if ( this.isSelectFieldWithDefaultOption( field_key ) ) {
+                return this.normalizeSelectDefaultValue( old_value, field_key ) ==
+                    this.normalizeSelectDefaultValue( new_value, field_key );
+            }
+
+            const old_is_object = old_value && typeof old_value === 'object';
+            const new_is_object = new_value && typeof new_value === 'object';
+
+            if ( old_is_object || new_is_object ) {
+                return JSON.stringify( old_value || null ) === JSON.stringify( new_value || null );
+            }
+
+            return old_value == new_value;
+        },
+
+        isSelectFieldWithDefaultOption( field_key ) {
+            const field = this.fields[ field_key ] || this.cached_fields[ field_key ] || {};
+
+            return field.type === 'select' &&
+                ( !! field.showDefaultOption || !! field[ 'show-default-option' ] );
+        },
+
+        normalizeSelectDefaultValue( value, field_key ) {
+            if ( this.isSelectPlaceholderValue( value ) ) {
+                return this.getSelectDefaultValue( field_key );
+            }
+
+            return value;
+        },
+
+        isSelectPlaceholderValue( value ) {
+            return value === '' || value === 'select_option' || value === null ||
+                typeof value === 'undefined';
+        },
+
+        getSelectDefaultValue( field_key ) {
+            const field = this.fields[ field_key ] || this.cached_fields[ field_key ] || {};
+
+            if (
+                field.defaultOption &&
+                typeof field.defaultOption === 'object' &&
+                typeof field.defaultOption.value !== 'undefined'
+            ) {
+                return field.defaultOption.value;
+            }
+
+            return '';
+        },
+
+        isCheckboxArrayAccordionField( field_key ) {
+            return CHECKBOX_ARRAY_ACCORDION_FIELDS.includes( field_key ) ||
+                this.isDynamicExtensionCheckboxArrayField( field_key );
+        },
+
+        isDynamicExtensionCheckboxArrayField( field_key ) {
+            const field = this.fields[ field_key ] || {};
+            const cachedField = this.cached_fields[ field_key ] || {};
+            const layoutPath = cachedField.layout_path || [];
+            const layoutPathText = Array.isArray( layoutPath )
+                ? layoutPath.join( '__' )
+                : String( layoutPath || '' );
+            const isExtensionField =
+                layoutPathText.indexOf( 'extension_settings' ) > -1 ||
+                layoutPathText.indexOf( 'extensions_settings' ) > -1;
+
+            return isExtensionField &&
+                field.type === 'checkbox' &&
+                Array.isArray( field.options ) &&
+                field.options.length > 1;
+        },
+
+        normalizeCheckboxArrayValue( value ) {
+            if ( ! Array.isArray( value ) ) {
+                return [];
+            }
+
+            return value
+                .map( item => String( item ) )
+                .filter( ( item, index, values ) => values.indexOf( item ) === index )
+                .sort();
         },
 
         maybeJSON( data ) {

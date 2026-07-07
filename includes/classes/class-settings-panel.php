@@ -67,13 +67,13 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
             $fields['import_settings'] = [
                 'type'         => 'import',
                 'label'        => 'Import',
-                'button-label' => 'Upload Settings File',
+                'button-label' => __( 'Import JSON', 'directorist' ),
             ];
 
             $fields['export_settings'] = [
                 'type'             => 'export',
                 'label'            => 'Export',
-                'button-label'     => 'Download Settings File',
+                'button-label'     => __( 'Export JSON', 'directorist' ),
                 'export-file-name' => 'directory-settings',
             ];
 
@@ -92,7 +92,7 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
             $fields['restore_default_settings'] = [
                 'type'         => 'restore',
                 'label'        => 'Restore Default Settings',
-                'button-label' => 'Restore',
+                'button-label' => __( 'Restore defaults', 'directorist' ),
                 'restor-data'  => $this->get_simple_data_content( [ 'path' => 'directory/directory-settings.json' ] ),
             ];
 
@@ -125,6 +125,10 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
                 'button-label'               => 'Regenerate Pages',
                 'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
                 'data'                       => [],
+                'nonce'                      => [
+                    'key'   => 'directorist_nonce',
+                    'value' => wp_create_nonce( directorist_get_nonce_key() ),
+                ],
             ];
 
             $fields['listing_import_button'] = [
@@ -132,13 +136,13 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
                 'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                 'open-in-new-tab' => true,
                 'label'           => __( 'Import', 'directorist' ),
-                'button-label'    => __( 'Run Importer', 'directorist' ),
+                'button-label'    => __( 'Import CSV', 'directorist' ),
             ];
 
             $fields['listing_export_button'] = [
                 'type'                     => 'export-data',
                 'label'                    => __( 'Export', 'directorist' ),
-                'button-label'             => __( 'Download Export File', 'directorist' ),
+                'button-label'             => __( 'Export CSV', 'directorist' ),
                 'export-file-name'         => __( 'listings-export-data', 'directorist' ),
                 'prepare-export-file-from' => 'directorist_prepare_listings_export_file',
                 'nonce'                    => [
@@ -1044,6 +1048,10 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'value' => 'random',
                                 'label' => __( 'Random listings', 'directorist' ),
                             ],
+                            [
+                                'value' => 'nearby',
+                                'label' => __( 'Nearby', 'directorist' ),
+                            ],
                         ],
                     ],
                     'listings_view_as_items' => [
@@ -1089,10 +1097,28 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                     'all_listing_columns' => [
-                        'label' => __( 'Listings Columns', 'directorist' ),
-                        'type'  => 'number',
-                        'value' => 2,
-                        'placeholder' => '3',
+                        'label'   => __( 'Listings Grid Columns', 'directorist' ),
+                        'type'    => 'radio-images',
+                        'value'   => '2',
+                        'options' => [
+                            [
+                                'value' => '2',
+                                'label' => __( '2 Columns', 'directorist' ),
+                            ],
+                            [
+                                'value' => '3',
+                                'label' => __( '3 Columns', 'directorist' ),
+                            ],
+                            [
+                                'value' => '4',
+                                'label' => __( '4 Columns', 'directorist' ),
+                            ],
+                        ],
+                        'preview' => [
+                            '2' => DIRECTORIST_ASSETS . 'images/col2.svg',
+                            '3' => DIRECTORIST_ASSETS . 'images/col3.svg',
+                            '4' => DIRECTORIST_ASSETS . 'images/col4.svg',
+                        ],
                     ],
                     'preview_image_quality' => [
                         'label' => __( 'Image Quality', 'directorist' ),
@@ -1502,7 +1528,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'count_loggedin_user' => [
                         'type'          => 'toggle',
                         'label'         => __( 'Track Logged-In User Views', 'directorist' ),
-                        'description'   => __( 'Include visits from logged-in users in total listing view counts.', 'directorist' ),
                         'value'         => true,
                     ],
                     'dynamic_view_count_cache' => [
@@ -2196,6 +2221,10 @@ Please remember that your order may be canceled if you do not make your payment 
                             [
                                 'value' => 'random',
                                 'label' => __( 'Random listings', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'nearby',
+                                'label' => __( 'Nearby', 'directorist' ),
                             ],
                         ],
                     ],
@@ -3328,6 +3357,35 @@ Please remember that your order may be canceled if you do not make your payment 
                     Thanks,
                     The Administrator of ==SITE_NAME==
                     ", 'directorist'
+                        ),
+                    ],
+                    'email_sub_rejected_listing' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Email Subject', 'directorist' ),
+                        'description' => __( 'Edit the subject for sending to the user when a listing is rejected.', 'directorist' ),
+                        'value'       => __( 'Your listing was rejected', 'directorist' ),
+                    ],
+                    'email_tmpl_rejected_listing' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Email Body', 'directorist' ),
+                        'description' => __( 'Edit the email template for sending to the user when a listing is rejected. HTML content is allowed too. Use ==REJECTION_REASON== to include the reason.', 'directorist' ),
+                        'value'       => __(
+                            "Hello ==NAME==,
+
+Thank you for submitting your listing, \"==LISTING_TITLE==\".
+
+After review, we could not approve it at this time.
+
+Reason:
+==REJECTION_REASON==
+
+Please review the issue, update your listing, and submit it again for approval.
+
+You can edit your listing from your dashboard:
+==DASHBOARD_LINK==
+
+Best regards,
+==SITE_NAME==", 'directorist'
                         ),
                     ],
                     'email_sub_edit_listing'    => [
@@ -4810,6 +4868,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'listing_submitted',
                     'payment_received',
                     'listing_published',
+                    'listing_rejected',
                     'listing_to_expire',
                     'listing_expired',
                     'remind_to_renew',
@@ -4841,6 +4900,10 @@ Please remember that your order may be canceled if you do not make your payment 
                     [
                         'value' => 'remind_to_renew',
                         'label' => __( 'Remind to renew', 'directorist' ),
+                    ],
+                    [
+                        'value' => 'listing_rejected',
+                        'label' => __( 'Listing Rejected', 'directorist' ),
                     ],
                 ]
             );

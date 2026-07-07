@@ -253,6 +253,7 @@ window.addEventListener('load', () => {
 	$('.atbdp-tab__nav-link').on('click', function (e) {
 		e.preventDefault();
 		const data_target = $(this).data('target');
+		const data_parent = $(this).data('parent');
 		const current_item = $(this).parent();
 		// Active Nav Item
 		$('.atbdp-tab__nav-item').removeClass('active');
@@ -260,6 +261,24 @@ window.addEventListener('load', () => {
 		// Active Tab Content
 		$('.atbdp-tab__content').removeClass('active');
 		$(data_target).addClass('active');
+		// Persist active tab across page reloads
+		if (data_parent) {
+			sessionStorage.setItem('directorist_active_tab' + data_parent, data_target);
+		}
+	});
+
+	// Restore active tab after page reload
+	$('.atbdp-tab__nav-link').each(function () {
+		const data_parent = $(this).data('parent');
+		if (!data_parent) return;
+		const stored_target = sessionStorage.getItem('directorist_active_tab' + data_parent);
+		if (stored_target && $(this).data('target') === stored_target) {
+			const current_item = $(this).parent();
+			$('.atbdp-tab__nav-item').removeClass('active');
+			current_item.addClass('active');
+			$('.atbdp-tab__content').removeClass('active');
+			$(stored_target).addClass('active');
+		}
 	});
 
 	// Custom

@@ -509,6 +509,21 @@ class Listings_Controller extends Legacy_Listings_Controller {
                     $data['latitude']  = directorist_clean( get_post_meta( $listing->ID, '_manual_lat', true ) );
                     $data['longitude'] = directorist_clean( get_post_meta( $listing->ID, '_manual_lng', true ) );
                     break;
+                
+                case 'html':
+                    $field_value = get_post_meta( $listing->ID, '_' . $field_key, true );
+
+                    if ( 'view' === $context ) {
+                        $field_value = shortcode_unautop( wpautop( (string) $field_value ) );
+                        $field_value = do_shortcode( $field_value );
+                    }
+
+                    $data[ $field_key ] = wp_kses(
+                        (string) $field_value,
+                        \Directorist\Fields\HTML_Field::allowed_html()
+                    );
+                    break;
+
 
                 default:
                     $value              = get_post_meta( $listing->ID, '_' . $field_key, true );

@@ -1,15 +1,34 @@
 (function ($) {
-	window.addEventListener('load', () => {
+	$(function () {
 		var profileMediaUploader = null;
-		if ($('.directorist-profile-uploader').length) {
+		var profileUploaderInitialized = false;
+		var $profileForm = $('#user_profile_form');
+
+		var initProfileMediaUploader = function () {
+			if (
+				profileUploaderInitialized ||
+				!$('.directorist-profile-uploader').length ||
+				typeof EzMediaUploader === 'undefined'
+			) {
+				return;
+			}
+
 			profileMediaUploader = new EzMediaUploader({
 				containerClass: 'directorist-profile-uploader',
 			});
 			profileMediaUploader.init();
+			profileUploaderInitialized = true;
+		};
+
+		initProfileMediaUploader();
+
+		if (!profileUploaderInitialized) {
+			$(window).one('load', initProfileMediaUploader);
 		}
+
 		var is_processing = false;
 
-		$('#user_profile_form').on('submit', function (e) {
+		$profileForm.on('submit', function (e) {
 			// submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
 			e.preventDefault();
 

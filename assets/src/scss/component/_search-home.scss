@@ -512,7 +512,9 @@
 			}
 
 			.directorist-select select {
-				margin-inline-start: -5px;
+				margin:0;
+				padding: 0;
+				background-color: transparent;
 				color: var(--directorist-color-body);
 				font-size: 14px;
 				font-weight: 400;

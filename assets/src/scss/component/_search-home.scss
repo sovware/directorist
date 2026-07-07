@@ -511,6 +511,13 @@
 				border: 0 none;
 			}
 
+			.directorist-select select {
+				margin-inline-start: -5px;
+				color: var(--directorist-color-body);
+				font-size: 14px;
+				font-weight: 400;
+			}
+
 			.wp-picker-container {
 				display: flex;
 				.wp-picker-input-wrap {

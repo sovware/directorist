@@ -12,10 +12,8 @@ defined( 'ABSPATH' ) || exit;
 use Directorist\DTO\Order\DTO as OrderDTO;
 use Directorist\DTO\Payment\DTO as PaymentDTO;
 use Directorist\Enums\Order\Status as OrderStatus;
-use Directorist\Rest_Api\DateTime;
 use WP_Error;
 use WP_REST_Request;
-use WP_REST_Response;
 use WP_REST_Server;
 
 /**
@@ -85,7 +83,7 @@ class Orders_Controller extends Abstract_Controller {
         return is_user_logged_in();
     }
 
-    public function create_item( WP_REST_Request $request ) {
+    public function create_item( $request ) {
         if ( ! directorist_is_monetization_enabled() ) {
             return new WP_Error( 'invalid_request', __( 'Monetization disabled.', 'directorist' ), array( 'status' => 400 ) );
         }
@@ -173,7 +171,7 @@ class Orders_Controller extends Abstract_Controller {
         return apply_filters( 'directorist_rest_response', $response, 'create_order_item', $request );
     }
 
-    public function get_items( WP_REST_Request $request ) {
+    public function get_items( $request ) {
         $page     = max( 1, absint( $request->get_param( 'page' ) ) );
         $per_page = max( 1, absint( $request->get_param( 'per_page' ) ) );
         $query    = $this->get_order_query( $request );
@@ -203,7 +201,7 @@ class Orders_Controller extends Abstract_Controller {
         return apply_filters( 'directorist_rest_response', $response, 'get_order_items', $request );
     }
 
-    public function get_item( WP_REST_Request $request ) {
+    public function get_item( $request ) {
         $order = $this->get_order( absint( $request->get_param( 'id' ) ) );
 
         if ( ! $order ) {
@@ -215,7 +213,7 @@ class Orders_Controller extends Abstract_Controller {
         return apply_filters( 'directorist_rest_response', $response, 'get_order_item', $request, absint( $request->get_param( 'id' ) ) );
     }
 
-    protected function get_order_query( WP_REST_Request $request ) {
+    protected function get_order_query( $request ) {
         $query = directorist_order_repository()->get_query_builder()
             ->select( 'd_order.*' )
             ->with(

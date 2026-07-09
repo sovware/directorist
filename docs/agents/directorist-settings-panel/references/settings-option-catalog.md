@@ -241,12 +241,18 @@ Redesigned UI note: Notifications renders as `Channels` plus merged `Events & Te
 
 - `email_from_name`, `email_from_email`: sender name and sender email.
 - `disable_email_notification`: disables Directorist email notifications; the redesigned UI shows it as the inverse `Enable email notifications` toggle.
+- `web_push_notify_admin`, `web_push_notify_user`: Directorist Notifications Pro event arrays. When Notifications Pro is active, the redesigned UI shows these as the synthetic `Enable web push notifications` channel switch and as per-event Web Push toggles in `Events & Templates`. Notifications Pro has no separate delivery master option, so disabling the synthetic channel still clears these live arrays.
+- `directorist_web_push_notify_admin_backup`, `directorist_web_push_notify_user_backup`: hidden core backup arrays for the redesigned synthetic Web Push channel. They preserve the previous event selections while the live Notifications Pro arrays are empty, so disabled row switches can keep their old checked/unchecked state after reload and can be restored when the channel is enabled again.
+- `web_push_admin_subscription`, `web_push_log_note`: Directorist Notifications Pro browser setup and log-link notes. These render in the `Web push setup` card inside `Notifications > Channels`; browser setup is visually locked when both web-push event arrays are empty.
 - `admin_email_lists`: admin recipient list.
 - `allow_email_header`, `email_header_color`: email header visibility and color.
 
 ### Events & Templates
 
 - `notify_admin`, `notify_user`: event lists for admin/user notifications.
+- `web_push_admin_{event}_title`, `web_push_admin_{event}_message`: Directorist Notifications Pro admin push title/message templates.
+- `web_push_owner_{event}_title`, `web_push_owner_{event}_message`: Directorist Notifications Pro listing-owner push title/message templates.
+- `web_push_events_note`, `web_push_templates_note`: Directorist Notifications Pro explanatory notes represented by redesigned card copy/placeholders, not standalone rows.
 - `email_note`: placeholder note shown in template settings.
 - `email_sub_new_listing`, `email_tmpl_new_listing`: new listing email subject/body.
 - `email_sub_pub_listing`, `email_tmpl_pub_listing`: approved/published listing subject/body.

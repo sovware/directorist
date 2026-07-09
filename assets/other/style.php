@@ -230,7 +230,6 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
     }
 
     /*
-<<<<<<< HEAD
         Badge Colors
           - Badge Open
           - Badge Closed
@@ -281,8 +280,6 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
     }
 
     /*
-=======
->>>>>>> 769a30930b25aabc1ebc089c6bef986b161e156b
         Change default primary dark background
     */
     .ads-advanced .price-frequency .pf-btn input:checked+span,

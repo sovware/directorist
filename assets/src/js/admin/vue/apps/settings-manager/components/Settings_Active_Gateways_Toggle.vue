@@ -1,17 +1,40 @@
 <template>
   <div class="cptm-active-gateways-toggle">
-    <div class="cptm-active-gateways-toggle__content">
-      <label>{{ labelText }}</label>
-      <p v-if="descriptionText">{{ descriptionText }}</p>
-    </div>
+    <div
+      class="cptm-active-gateways-toggle__options"
+      role="group"
+      :aria-label="labelText"
+    >
+      <label
+        class="cptm-active-gateways-toggle__option"
+        v-for="option in gatewayOptions"
+        :key="option.value"
+      >
+        <span
+          class="cptm-active-gateways-toggle__label"
+          v-html="option.label"
+        ></span>
+        <span
+          class="cptm-active-gateways-toggle__switch"
+          :class="{ 'cptm-active-gateways-toggle__switch--active': isGatewayEnabled(option.value) }"
+          aria-hidden="true"
+        ></span>
+        <input
+          type="checkbox"
+          class="cptm-active-gateways-toggle__checkbox"
+          :value="option.value"
+          :checked="isGatewayEnabled(option.value)"
+          @change="toggleGateway(option.value)"
+        />
+      </label>
 
-    <button
-      type="button"
-      class="cptm-input-toggle"
-      :class="{ active: isBankTransferEnabled }"
-      :aria-pressed="isBankTransferEnabled ? 'true' : 'false'"
-      @click="toggleBankTransfer"
-    ></button>
+      <p
+        class="cptm-active-gateways-toggle__empty"
+        v-if="!gatewayOptions.length"
+      >
+        No payment gateways available.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -32,19 +55,25 @@ export default {
 
   computed: {
     labelText() {
-      return this.field.label || "Bank transfer";
-    },
-
-    descriptionText() {
-      return this.field.description || "";
+      return this.field.label || "Payment Methods";
     },
 
     currentValue() {
       return this.normalizeValue(this.field.value);
     },
 
-    isBankTransferEnabled() {
-      return this.currentValue.includes("bank_transfer");
+    gatewayOptions() {
+      if (!Array.isArray(this.field.options)) {
+        return [];
+      }
+
+      return this.field.options
+        .map((option) => ({
+          value:
+            typeof option.value === "undefined" ? "" : String(option.value),
+          label: option.label || "",
+        }))
+        .filter((option) => option.value);
     },
   },
 
@@ -61,13 +90,18 @@ export default {
       return [String(value)];
     },
 
-    toggleBankTransfer() {
+    isGatewayEnabled(gateway) {
+      return this.currentValue.includes(String(gateway));
+    },
+
+    toggleGateway(gateway) {
+      gateway = String(gateway);
       let nextValue = [...this.currentValue];
 
-      if (this.isBankTransferEnabled) {
-        nextValue = nextValue.filter((item) => item !== "bank_transfer");
+      if (this.isGatewayEnabled(gateway)) {
+        nextValue = nextValue.filter((item) => item !== gateway);
       } else {
-        nextValue.push("bank_transfer");
+        nextValue.push(gateway);
       }
 
       this.$emit("update-field", {

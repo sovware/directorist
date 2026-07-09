@@ -3,9 +3,15 @@
     <table class="cptm-notification-events__table">
       <thead>
         <tr>
-          <th>Event</th>
-          <th>Email</th>
-          <th>Action</th>
+          <th class="cptm-notification-events__event-column">Event</th>
+          <th class="cptm-notification-events__channel-column">Email</th>
+          <th
+            v-if="hasWebPushChannel"
+            class="cptm-notification-events__channel-column"
+          >
+            Web Push
+          </th>
+          <th class="cptm-notification-events__action-column">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -14,7 +20,7 @@
             :key="group.key"
             class="cptm-notification-events__group-row"
           >
-            <td colspan="3">{{ group.label }}</td>
+            <td :colspan="tableColumnCount">{{ group.label }}</td>
           </tr>
 
           <tr
@@ -31,7 +37,7 @@
                 </span>
               </div>
             </td>
-            <td>
+            <td class="cptm-notification-events__channel-cell">
               <span
                 v-if="event.templateOnly"
                 class="cptm-notification-events__template-only"
@@ -51,17 +57,33 @@
                 ></button>
               </span>
               <button
-                v-else
+                v-else-if="event.emailFieldKey"
                 type="button"
                 class="cptm-input-toggle"
-                :class="{ active: eventIsEnabled(event) }"
-                :aria-pressed="eventIsEnabled(event) ? 'true' : 'false'"
-                @click="toggleEvent(event.fieldKey, event.value)"
+                :class="{ active: eventIsEnabled(event, 'email') }"
+                :aria-pressed="eventIsEnabled(event, 'email') ? 'true' : 'false'"
+                @click="toggleEvent(event.emailFieldKey, event.value)"
               ></button>
+              <span v-else class="cptm-notification-events__unavailable">-</span>
             </td>
-            <td>
+            <td
+              v-if="hasWebPushChannel"
+              class="cptm-notification-events__channel-cell"
+            >
               <button
-                v-if="event.template"
+                v-if="event.webPushFieldKey"
+                type="button"
+                class="cptm-input-toggle"
+                :class="{ active: webPushSwitchIsActive(event) }"
+                :aria-pressed="webPushSwitchIsActive(event) ? 'true' : 'false'"
+                :disabled="webPushSwitchIsDisabled(event)"
+                @click="toggleWebPushEvent(event)"
+              ></button>
+              <span v-else class="cptm-notification-events__unavailable">-</span>
+            </td>
+            <td class="cptm-notification-events__action-cell">
+              <button
+                v-if="eventHasEditableTemplate(event)"
                 type="button"
                 class="cptm-notification-events__edit"
                 @click="openTemplateModal(event)"
@@ -110,43 +132,110 @@
         </div>
 
         <div class="cptm-notification-modal__body">
-          <div class="cptm-notification-modal__section-title">
-            <span>EMAIL TEMPLATE</span>
-          </div>
-
-          <div class="cptm-notification-modal__placeholders">
-            <p>Click a placeholder to insert it into the body.</p>
-            <div class="cptm-notification-modal__placeholder-list">
-              <button
-                v-for="placeholder in modalPlaceholders"
-                :key="placeholder"
-                type="button"
-                @click="insertPlaceholder(placeholder)"
-              >
-                {{ placeholder }}
-              </button>
+          <template v-if="modalEvent.template">
+            <div class="cptm-notification-modal__section-title">
+              <span>Email template</span>
             </div>
-          </div>
 
-          <label class="cptm-notification-modal__field">
-            <span>Subject</span>
-            <input
-              ref="subjectInput"
-              type="text"
-              v-model="modalDraft.subject"
-              @focus="activeDraftField = 'subject'"
-            />
-          </label>
+            <div class="cptm-notification-modal__placeholders">
+              <p>Click a placeholder to insert it into the active field.</p>
+              <div class="cptm-notification-modal__placeholder-list">
+                <button
+                  v-for="placeholder in modalPlaceholders"
+                  :key="placeholder"
+                  type="button"
+                  @click="insertPlaceholder(placeholder)"
+                >
+                  {{ placeholder }}
+                </button>
+              </div>
+            </div>
 
-          <label class="cptm-notification-modal__field">
-            <span>Body</span>
-            <small>HTML is allowed.</small>
-            <textarea
-              ref="bodyInput"
-              v-model="modalDraft.body"
-              @focus="activeDraftField = 'body'"
-            ></textarea>
-          </label>
+            <label class="cptm-notification-modal__field">
+              <span>Subject</span>
+              <input
+                ref="subjectInput"
+                type="text"
+                v-model="modalDraft.subject"
+                @focus="activeDraftField = 'subject'"
+              />
+            </label>
+
+            <label class="cptm-notification-modal__field">
+              <span>Body</span>
+              <small>HTML is allowed.</small>
+              <textarea
+                ref="bodyInput"
+                v-model="modalDraft.body"
+                @focus="activeDraftField = 'body'"
+              ></textarea>
+            </label>
+          </template>
+
+          <template v-if="modalEvent.webPushTemplate">
+            <div
+              class="cptm-notification-modal__section-title"
+              :class="{
+                'cptm-notification-modal__section-title--disabled':
+                  webPushTemplateDisabled,
+              }"
+            >
+              <span>Web push template</span>
+            </div>
+
+            <p
+              v-if="webPushTemplateDisabled"
+              class="cptm-notification-modal__disabled-note"
+            >
+              Enable web push notifications to edit this template.
+            </p>
+
+            <div class="cptm-notification-modal__grid">
+              <label
+                class="cptm-notification-modal__field"
+                :class="{
+                  'cptm-notification-modal__field--disabled':
+                    webPushTemplateDisabled,
+                }"
+              >
+                <span>
+                  Title
+                  <small>{{ webPushTitleLength }} / 60</small>
+                </span>
+                <input
+                  ref="webPushTitleInput"
+                  type="text"
+                  v-model="modalDraft.webPushTitle"
+                  :disabled="webPushTemplateDisabled"
+                  @focus="activeDraftField = 'webPushTitle'"
+                />
+              </label>
+
+              <label
+                class="cptm-notification-modal__field"
+                :class="{
+                  'cptm-notification-modal__field--disabled':
+                    webPushTemplateDisabled,
+                }"
+              >
+                <span>
+                  Message
+                  <small>{{ webPushMessageLength }} / 100</small>
+                </span>
+                <input
+                  ref="webPushMessageInput"
+                  type="text"
+                  v-model="modalDraft.webPushMessage"
+                  :disabled="webPushTemplateDisabled"
+                  @focus="activeDraftField = 'webPushMessage'"
+                />
+              </label>
+            </div>
+
+            <p class="cptm-notification-modal__hint">
+              Placeholders supported: ==SITE_NAME==, ==LISTING_TITLE==, ==NAME==.
+            </p>
+          </template>
         </div>
 
         <div class="cptm-notification-modal__footer">
@@ -300,6 +389,8 @@ export default {
       modalDraft: {
         subject: "",
         body: "",
+        webPushTitle: "",
+        webPushMessage: "",
       },
       activeDraftField: "body",
       placeholders: [
@@ -331,6 +422,14 @@ export default {
       return this.fields.notify_user || {};
     },
 
+    webPushAdminField() {
+      return this.fields.web_push_notify_admin || {};
+    },
+
+    webPushUserField() {
+      return this.fields.web_push_notify_user || {};
+    },
+
     adminValue() {
       return this.normalizeArray(this.adminField.value);
     },
@@ -339,12 +438,27 @@ export default {
       return this.normalizeArray(this.userField.value);
     },
 
-    adminOptions() {
-      return this.normalizeOptions(this.adminField.options);
+    webPushAdminValue() {
+      return this.normalizeArray(this.webPushAdminField.value);
     },
 
-    userOptions() {
-      return this.normalizeOptions(this.userField.options);
+    webPushUserValue() {
+      return this.normalizeArray(this.webPushUserField.value);
+    },
+
+    hasWebPushChannel() {
+      return !!(
+        this.fields.web_push_notify_admin ||
+        this.fields.web_push_notify_user
+      );
+    },
+
+    webPushChannelEnabled() {
+      return this.webPushAdminValue.length > 0 || this.webPushUserValue.length > 0;
+    },
+
+    tableColumnCount() {
+      return this.hasWebPushChannel ? 4 : 3;
     },
 
     eventGroups() {
@@ -352,12 +466,22 @@ export default {
         {
           key: "admin",
           label: "Admin notifications",
-          events: this.buildChannelEvents(ADMIN_EVENTS, "notify_admin"),
+          events: this.buildChannelEvents(
+            ADMIN_EVENTS,
+            "notify_admin",
+            "web_push_notify_admin",
+            "admin"
+          ),
         },
         {
           key: "owner",
           label: "Listing owner notifications",
-          events: this.buildChannelEvents(USER_EVENTS, "notify_user"),
+          events: this.buildChannelEvents(
+            USER_EVENTS,
+            "notify_user",
+            "web_push_notify_user",
+            "owner"
+          ),
         },
         {
           key: "account",
@@ -378,17 +502,30 @@ export default {
     modalPlaceholders() {
       const placeholders = [...this.placeholders];
 
-      if (this.modalDraft.subject) {
-        placeholders.push(...this.extractPlaceholders(this.modalDraft.subject));
-      }
-
-      if (this.modalDraft.body) {
-        placeholders.push(...this.extractPlaceholders(this.modalDraft.body));
-      }
+      Object.keys(this.modalDraft).forEach((fieldKey) => {
+        if (this.modalDraft[fieldKey]) {
+          placeholders.push(...this.extractPlaceholders(this.modalDraft[fieldKey]));
+        }
+      });
 
       return [...new Set(placeholders)];
     },
 
+    webPushTitleLength() {
+      return String(this.modalDraft.webPushTitle || "").length;
+    },
+
+    webPushMessageLength() {
+      return String(this.modalDraft.webPushMessage || "").length;
+    },
+
+    webPushTemplateDisabled() {
+      return !!(
+        this.modalEvent &&
+        this.modalEvent.webPushTemplate &&
+        !this.webPushChannelEnabled
+      );
+    },
   },
 
   beforeDestroy() {
@@ -437,10 +574,120 @@ export default {
         }));
     },
 
+    optionValues(fieldKey) {
+      const field =
+        fieldKey === "notify_admin"
+          ? this.adminField
+          : fieldKey === "notify_user"
+            ? this.userField
+            : fieldKey === "web_push_notify_admin"
+              ? this.webPushAdminField
+              : this.webPushUserField;
+
+      return this.normalizeOptions(field.options).map((option) => option.value);
+    },
+
+    valueForField(fieldKey) {
+      if (fieldKey === "notify_admin") {
+        return this.adminValue;
+      }
+
+      if (fieldKey === "notify_user") {
+        return this.userValue;
+      }
+
+      if (fieldKey === "web_push_notify_admin") {
+        return this.webPushAdminValue;
+      }
+
+      if (fieldKey === "web_push_notify_user") {
+        return this.webPushUserValue;
+      }
+
+      return [];
+    },
+
+    fieldByKey(fieldKey) {
+      if (fieldKey === "notify_admin") {
+        return this.adminField;
+      }
+
+      if (fieldKey === "notify_user") {
+        return this.userField;
+      }
+
+      if (fieldKey === "web_push_notify_admin") {
+        return this.webPushAdminField;
+      }
+
+      if (fieldKey === "web_push_notify_user") {
+        return this.webPushUserField;
+      }
+
+      return this.fields[fieldKey] || {};
+    },
+
+    disabledDisplayValueForField(fieldKey) {
+      return this.normalizeArray(this.fieldByKey(fieldKey).disabledDisplayValue);
+    },
+
+    backupFieldKeyForField(fieldKey) {
+      if (fieldKey === "web_push_notify_admin") {
+        return "directorist_web_push_notify_admin_backup";
+      }
+
+      if (fieldKey === "web_push_notify_user") {
+        return "directorist_web_push_notify_user_backup";
+      }
+
+      return "";
+    },
+
+    backupValueForField(fieldKey) {
+      const backupFieldKey = this.backupFieldKeyForField(fieldKey);
+
+      if (!backupFieldKey || !this.fields[backupFieldKey]) {
+        return [];
+      }
+
+      return this.normalizeArray(this.fields[backupFieldKey].value);
+    },
+
+    displayValueForField(fieldKey) {
+      const value = this.valueForField(fieldKey);
+
+      if (
+        this.webPushChannelEnabled ||
+        !["web_push_notify_admin", "web_push_notify_user"].includes(fieldKey) ||
+        value.length
+      ) {
+        return value;
+      }
+
+      const disabledDisplayValue = this.disabledDisplayValueForField(fieldKey);
+
+      return disabledDisplayValue.length
+        ? disabledDisplayValue
+        : this.backupValueForField(fieldKey);
+    },
+
     templateForEvent(eventKey) {
       const template = EVENT_TEMPLATE_MAP[eventKey];
 
       if (!template || !this.templateExists(template)) {
+        return null;
+      }
+
+      return template;
+    },
+
+    webPushTemplateForEvent(eventKey, recipient) {
+      const template = {
+        title: `web_push_${recipient}_${eventKey}_title`,
+        message: `web_push_${recipient}_${eventKey}_message`,
+      };
+
+      if (!this.webPushTemplateExists(template)) {
         return null;
       }
 
@@ -453,6 +700,18 @@ export default {
         this.fields[template.subject] &&
         this.fields[template.body]
       );
+    },
+
+    webPushTemplateExists(template) {
+      return !!(
+        template &&
+        this.fields[template.title] &&
+        this.fields[template.message]
+      );
+    },
+
+    eventHasEditableTemplate(event) {
+      return !!(event && (event.template || event.webPushTemplate));
     },
 
     buildExtensionTemplateGroups() {
@@ -498,10 +757,12 @@ export default {
         key: `extension-${sectionKey}`,
         value: sectionKey,
         badge: this.extensionTemplateBadge(sectionKey),
-        fieldKey: "",
+        emailFieldKey: "",
+        webPushFieldKey: "",
         label: this.cleanExtensionTemplateLabel(section.title || sectionKey),
         description: section.description || "",
         template,
+        webPushTemplate: null,
         alwaysOn: false,
         templateOnly: true,
       };
@@ -562,24 +823,32 @@ export default {
         .trim();
     },
 
-    buildChannelEvents(eventDefinitions, fieldKey) {
-      const availableValues =
-        fieldKey === "notify_admin"
-          ? this.adminOptions.map((option) => option.value)
-          : this.userOptions.map((option) => option.value);
+    buildChannelEvents(eventDefinitions, emailFieldKey, webPushFieldKey, recipient) {
+      const emailValues = this.optionValues(emailFieldKey);
+      const webPushValues = this.optionValues(webPushFieldKey);
+      const availableValues = [...new Set([...emailValues, ...webPushValues])];
 
       return eventDefinitions
         .filter(([value]) => availableValues.includes(value))
-        .map(([value, label, description]) => ({
-          key: `${fieldKey}-${value}`,
-          value,
-          fieldKey,
-          label,
-          description,
-          template: this.templateForEvent(value),
-          alwaysOn: false,
-          templateOnly: false,
-        }));
+        .map(([value, label, description]) => {
+          const hasEmail = emailValues.includes(value);
+          const hasWebPush = webPushValues.includes(value);
+
+          return {
+            key: `${emailFieldKey}-${value}`,
+            value,
+            emailFieldKey: hasEmail ? emailFieldKey : "",
+            webPushFieldKey: hasWebPush ? webPushFieldKey : "",
+            label,
+            description,
+            template: this.templateForEvent(value),
+            webPushTemplate: hasWebPush
+              ? this.webPushTemplateForEvent(value, recipient)
+              : null,
+            alwaysOn: false,
+            templateOnly: false,
+          };
+        });
     },
 
     buildAccountEvents() {
@@ -587,10 +856,12 @@ export default {
         ([value, label, description, template]) => ({
           key: `account-${value}`,
           value,
-          fieldKey: "",
+          emailFieldKey: "",
+          webPushFieldKey: "",
           label,
           description,
           template,
+          webPushTemplate: null,
           alwaysOn: true,
           templateOnly: false,
         })
@@ -600,10 +871,9 @@ export default {
     eventRowClass(event) {
       const classes = {};
 
-      if (event && event.template) {
-        classes[`cptm-field-wraper-key-${event.template.subject}`] = true;
-        classes[`cptm-field-wraper-key-${event.template.body}`] = true;
-      }
+      this.eventFieldKeys(event).forEach((fieldKey) => {
+        classes[`cptm-field-wraper-key-${fieldKey}`] = true;
+      });
 
       if (this.eventIncludesHighlightedField(event)) {
         classes["highlight-field"] = true;
@@ -612,25 +882,76 @@ export default {
       return classes;
     },
 
-    eventIncludesHighlightedField(event) {
-      if (!event || !event.template || !this.highlightedFieldKey) {
-        return false;
+    eventFieldKeys(event) {
+      const keys = [];
+
+      if (!event) {
+        return keys;
       }
 
-      return [
-        event.template.subject,
-        event.template.body,
-      ].includes(this.highlightedFieldKey);
+      if (event.emailFieldKey) {
+        keys.push(event.emailFieldKey);
+      }
+
+      if (event.webPushFieldKey) {
+        keys.push(event.webPushFieldKey);
+      }
+
+      if (event.template) {
+        keys.push(event.template.subject, event.template.body);
+      }
+
+      if (event.webPushTemplate) {
+        keys.push(event.webPushTemplate.title, event.webPushTemplate.message);
+      }
+
+      return keys.filter(Boolean);
     },
 
-    eventIsEnabled(event) {
-      if (!event || !event.fieldKey) {
+    eventIncludesHighlightedField(event) {
+      if (!event || !this.highlightedFieldKey) {
         return false;
       }
 
-      return event.fieldKey === "notify_admin"
-        ? this.adminValue.includes(event.value)
-        : this.userValue.includes(event.value);
+      return this.eventFieldKeys(event).includes(this.highlightedFieldKey);
+    },
+
+    eventIsEnabled(event, channel) {
+      if (!event) {
+        return false;
+      }
+
+      const fieldKey =
+        channel === "webPush" ? event.webPushFieldKey : event.emailFieldKey;
+
+      if (!fieldKey) {
+        return false;
+      }
+
+      return this.valueForField(fieldKey).includes(event.value);
+    },
+
+    eventIsDisplayedEnabled(event, channel) {
+      if (!event) {
+        return false;
+      }
+
+      const fieldKey =
+        channel === "webPush" ? event.webPushFieldKey : event.emailFieldKey;
+
+      if (!fieldKey) {
+        return false;
+      }
+
+      return this.displayValueForField(fieldKey).includes(event.value);
+    },
+
+    webPushSwitchIsActive(event) {
+      return this.eventIsDisplayedEnabled(event, "webPush");
+    },
+
+    webPushSwitchIsDisabled(event) {
+      return !!(event && event.webPushFieldKey && !this.webPushChannelEnabled);
     },
 
     toggleEvent(fieldKey, eventKey) {
@@ -638,9 +959,7 @@ export default {
         return;
       }
 
-      const currentValue =
-        fieldKey === "notify_admin" ? this.adminValue : this.userValue;
-      let nextValue = [...currentValue];
+      let nextValue = [...this.valueForField(fieldKey)];
 
       if (nextValue.includes(eventKey)) {
         nextValue = nextValue.filter((item) => item !== eventKey);
@@ -654,22 +973,42 @@ export default {
       });
     },
 
+    toggleWebPushEvent(event) {
+      if (this.webPushSwitchIsDisabled(event)) {
+        return;
+      }
+
+      this.toggleEvent(event.webPushFieldKey, event.value);
+    },
+
     openTemplateModal(event) {
-      if (!event || !event.template) {
+      if (!this.eventHasEditableTemplate(event)) {
         return;
       }
 
       this.modalEvent = event;
       this.modalDraft = {
-        subject: this.fields[event.template.subject]?.value || "",
-        body: this.fields[event.template.body]?.value || "",
+        subject: event.template
+          ? this.fields[event.template.subject]?.value || ""
+          : "",
+        body: event.template ? this.fields[event.template.body]?.value || "" : "",
+        webPushTitle: event.webPushTemplate
+          ? this.fields[event.webPushTemplate.title]?.value || ""
+          : "",
+        webPushMessage: event.webPushTemplate
+          ? this.fields[event.webPushTemplate.message]?.value || ""
+          : "",
       };
-      this.activeDraftField = "body";
+      this.activeDraftField = event.template ? "body" : "webPushMessage";
       this.setModalBodyClass();
 
       this.$nextTick(() => {
-        if (this.$refs.subjectInput && this.$refs.subjectInput.focus) {
-          this.$refs.subjectInput.focus();
+        const firstInput = event.template
+          ? this.$refs.subjectInput
+          : this.$refs.webPushTitleInput;
+
+        if (firstInput && firstInput.focus) {
+          firstInput.focus();
         }
       });
     },
@@ -679,25 +1018,41 @@ export default {
       this.modalDraft = {
         subject: "",
         body: "",
+        webPushTitle: "",
+        webPushMessage: "",
       };
       this.activeDraftField = "body";
       this.clearModalBodyClass();
     },
 
     saveTemplateModal() {
-      if (!this.modalEvent || !this.modalEvent.template) {
+      if (!this.modalEvent) {
         return;
       }
 
-      this.$emit("update-field", {
-        fieldKey: this.modalEvent.template.subject,
-        value: this.modalDraft.subject,
-      });
+      if (this.modalEvent.template) {
+        this.$emit("update-field", {
+          fieldKey: this.modalEvent.template.subject,
+          value: this.modalDraft.subject,
+        });
 
-      this.$emit("update-field", {
-        fieldKey: this.modalEvent.template.body,
-        value: this.modalDraft.body,
-      });
+        this.$emit("update-field", {
+          fieldKey: this.modalEvent.template.body,
+          value: this.modalDraft.body,
+        });
+      }
+
+      if (this.modalEvent.webPushTemplate && !this.webPushTemplateDisabled) {
+        this.$emit("update-field", {
+          fieldKey: this.modalEvent.webPushTemplate.title,
+          value: this.modalDraft.webPushTitle,
+        });
+
+        this.$emit("update-field", {
+          fieldKey: this.modalEvent.webPushTemplate.message,
+          value: this.modalDraft.webPushMessage,
+        });
+      }
 
       this.closeTemplateModal();
     },
@@ -709,20 +1064,34 @@ export default {
     },
 
     insertPlaceholder(placeholder) {
-      const fieldName = this.activeDraftField === "subject" ? "subject" : "body";
-      const refName = fieldName === "subject" ? "subjectInput" : "bodyInput";
+      const draftField = this.activeDraftField || "body";
+
+      if (
+        this.webPushTemplateDisabled &&
+        ["webPushTitle", "webPushMessage"].includes(draftField)
+      ) {
+        return;
+      }
+
+      const refByField = {
+        subject: "subjectInput",
+        body: "bodyInput",
+        webPushTitle: "webPushTitleInput",
+        webPushMessage: "webPushMessageInput",
+      };
+      const refName = refByField[draftField] || "bodyInput";
       const input = this.$refs[refName];
-      const currentValue = this.modalDraft[fieldName] || "";
+      const currentValue = this.modalDraft[draftField] || "";
 
       if (!input || typeof input.selectionStart !== "number") {
-        this.modalDraft[fieldName] = `${currentValue}${placeholder}`;
+        this.modalDraft[draftField] = `${currentValue}${placeholder}`;
         return;
       }
 
       const start = input.selectionStart;
       const end = input.selectionEnd;
 
-      this.modalDraft[fieldName] =
+      this.modalDraft[draftField] =
         currentValue.slice(0, start) + placeholder + currentValue.slice(end);
 
       this.$nextTick(() => {

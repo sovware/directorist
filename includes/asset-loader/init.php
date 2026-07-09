@@ -358,6 +358,10 @@ class Asset_Loader {
             );
             wp_enqueue_style( 'directorist-admin-style' );
         }
+
+        if ( 'at_biz_dir_page_directorist-notifications-pro-log' === $hook_suffix ) {
+            wp_enqueue_style( 'directorist-admin-style' );
+        }
     }
 
     public static function register_scripts() {

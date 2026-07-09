@@ -6,7 +6,8 @@
         !shouldSkipSection(section, section_key)
       "
       class="cptm-section"
-      :class="sectionClass(section)"
+      :class="sectionClass(section, section_key)"
+      :data-section-highlight-key="sectionHighlightKey(section_key)"
       v-for="(section, section_key) in sections"
       :key="section_key"
     >
@@ -111,6 +112,26 @@
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
             />
 
+            <settings-web-push-notification-toggle
+              v-else-if="shouldRenderWebPushNotificationToggle(field)"
+              :fields="fields"
+              @update-field="updateFieldValue($event.fieldKey, $event.value)"
+              @update-field-data="
+                updateFieldData($event.fieldKey, $event.optionKey, $event.value)
+              "
+            />
+
+            <settings-web-push-setup-card
+              v-else-if="shouldRenderWebPushSetupCard(field)"
+              :field="fields[field]"
+              :is-locked="!webPushNotificationsEnabled"
+            />
+
+            <settings-notification-log-link
+              v-else-if="shouldRenderNotificationLogLink(field)"
+              :field="fields[field]"
+            />
+
             <settings-extension-promotion
               v-else-if="shouldRenderExtensionPromotion(field)"
               :field="fields[field]"
@@ -149,7 +170,6 @@
               :field="fields[field]"
               :field-key="field"
               :is-highlighted="getHighlightState(field)"
-              :class="{ ['highlight-field']: getHighlightState(field) }"
               @update-field="updateFieldValue($event.fieldKey, $event.value)"
             />
 
@@ -160,7 +180,6 @@
               :fieldKey="field"
               :id="menuKey + '__' + section_key + '__' + field"
               :ref="field"
-              :class="{ ['highlight-field']: getHighlightState(field) }"
               :cached-data="cached_fields[field]"
               :listing_type_id="listing_type_id"
               :video="video"
@@ -302,9 +321,12 @@ import SettingsDefaultLocationAddress from "../apps/settings-manager/components/
 import SettingsEmailNotificationToggle from "../apps/settings-manager/components/Settings_Email_Notification_Toggle.vue";
 import SettingsExtensionPromotion from "../apps/settings-manager/components/Settings_Extension_Promotion.vue";
 import SettingsNotificationEvents from "../apps/settings-manager/components/Settings_Notification_Events.vue";
+import SettingsNotificationLogLink from "../apps/settings-manager/components/Settings_Notification_Log_Link.vue";
 import SettingsPageSetupRow from "../apps/settings-manager/components/Settings_Page_Setup_Row.vue";
 import SettingsRestrictedCountriesSelect from "../apps/settings-manager/components/Settings_Restricted_Countries_Select.vue";
 import SettingsSeoMetaFields from "../apps/settings-manager/components/Settings_SEO_Meta_Fields.vue";
+import SettingsWebPushNotificationToggle from "../apps/settings-manager/components/Settings_Web_Push_Notification_Toggle.vue";
+import SettingsWebPushSetupCard from "../apps/settings-manager/components/Settings_Web_Push_Setup_Card.vue";
 
 export default {
   name: "sections-module",
@@ -317,9 +339,12 @@ export default {
     SettingsEmailNotificationToggle,
     SettingsExtensionPromotion,
     SettingsNotificationEvents,
+    SettingsNotificationLogLink,
     SettingsPageSetupRow,
     SettingsRestrictedCountriesSelect,
     SettingsSeoMetaFields,
+    SettingsWebPushNotificationToggle,
+    SettingsWebPushSetupCard,
   },
   mixins: [helpers],
 
@@ -354,6 +379,7 @@ export default {
       layout: (state) => state.layouts,
       fields: (state) => state.fields,
       highlightedFieldKey: (state) => state.highlighted_field_key,
+      highlightedSectionKey: (state) => state.highlighted_section_key,
     }),
 
     containerClass() {
@@ -366,6 +392,15 @@ export default {
       };
     },
 
+    webPushNotificationsEnabled() {
+      const adminField = this.fields.web_push_notify_admin || {};
+      const userField = this.fields.web_push_notify_user || {};
+
+      return (
+        this.normalizeArray(adminField.value).length > 0 ||
+        this.normalizeArray(userField.value).length > 0
+      );
+    },
   },
 
   data() {
@@ -566,6 +601,42 @@ export default {
       return isNotificationChannels && field === "disable_email_notification";
     },
 
+    shouldRenderWebPushNotificationToggle(field) {
+      const isNotificationChannels =
+        this.menuKey === "email_settings__email_general" ||
+        this.tabKey === "email_general";
+
+      return isNotificationChannels && field === "web_push_notify_admin";
+    },
+
+    shouldRenderWebPushSetupCard(field) {
+      const isNotificationChannels =
+        this.menuKey === "email_settings__email_general" ||
+        this.tabKey === "email_general";
+
+      return isNotificationChannels && field === "web_push_admin_subscription";
+    },
+
+    shouldRenderNotificationLogLink(field) {
+      const isNotificationChannels =
+        this.menuKey === "email_settings__email_general" ||
+        this.tabKey === "email_general";
+
+      return isNotificationChannels && field === "web_push_log_note";
+    },
+
+    normalizeArray(value) {
+      if (Array.isArray(value)) {
+        return value.map((item) => String(item));
+      }
+
+      if (value === null || typeof value === "undefined" || value === "") {
+        return [];
+      }
+
+      return [String(value)];
+    },
+
     shouldRenderExtensionPromotion(field) {
       const isExtensionsSettings =
         this.menuKey.indexOf("extension_settings") === 0 ||
@@ -711,20 +782,26 @@ export default {
         : "";
     },
 
-    sectionClass(section) {
+    sectionHighlightKey(sectionKey) {
+      return `${this.menuKey}__${sectionKey}`;
+    },
+
+    getSectionHighlightState(sectionKey) {
+      return this.highlightedSectionKey === this.sectionHighlightKey(sectionKey);
+    },
+
+    sectionClass(section, sectionKey = "") {
       const firstField = section.fields[0];
       const isDisabled =
         firstField !== "disable_email_notification" &&
         this.fields[firstField]?.type === "toggle" &&
         this.fields[firstField].value !== true;
-      const classList = [
-        isDisabled ? "cptm-section--disabled" : "",
-        firstField,
-      ];
 
-      const sectionClass = classList.filter(Boolean).join(" ");
-
-      return sectionClass;
+      return {
+        "cptm-section--disabled": isDisabled,
+        "highlight-section": this.getSectionHighlightState(sectionKey),
+        [firstField]: !!firstField,
+      };
     },
 
     sectionTitleAreaClass(section) {
@@ -744,6 +821,7 @@ export default {
       return {
         [type_class]: true,
         [key_class]: true,
+        "highlight-field": this.getHighlightState(field_key),
         "cptm-field-wraper--checkbox-accordion":
           this.shouldRenderCheckboxArrayAccordion(field_key),
         "cptm-field-wraper--nested-advanced": this.isNestedAdvancedField(

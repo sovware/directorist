@@ -238,6 +238,7 @@ class Scripts {
             'directorist-dashboard' => [
                 'type' => 'js',
                 'path' => DIRECTORIST_BUILD_ASSETS . 'js/public/directorist-dashboard',
+                'dep'  => ['jquery', 'directorist-ez-media-uploader'],
             ],
             'directorist-all-authors' => [
                 'type' => 'js',

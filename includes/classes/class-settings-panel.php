@@ -32,6 +32,7 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
             add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
             add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
             add_filter( 'atbdp_listing_type_settings_field_list', [ $this, 'register_setting_fields' ] );
+            add_filter( 'elementor/editor-one/menu/theme_builder_url', [ $this, 'fix_elementor_theme_builder_url' ], 20 );
         }
 
         public function update_init_options() {
@@ -45,15 +46,63 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
                 return false;
             }
 
-            if ( ! isset( $_REQUEST['post_type'] ) && ! isset( $_REQUEST['page'] ) ) {
+            $post_type = isset( $_REQUEST['post_type'] ) ? sanitize_key( wp_unslash( $_REQUEST['post_type'] ) ) : '';
+            $page      = isset( $_REQUEST['page'] ) ? sanitize_key( wp_unslash( $_REQUEST['page'] ) ) : '';
+
+            if ( ! $post_type && ! $page ) {
                 return false;
             }
 
-            if ( 'at_biz_dir' !== $_REQUEST['post_type'] && 'atbdp-settings' !== $_REQUEST['page'] ) {
+            if ( 'at_biz_dir' !== $post_type && 'atbdp-settings' !== $page ) {
                 return false;
             }
 
             return true;
+        }
+
+        /**
+         * Fix Elementor Theme Builder URL when generated from Directorist settings.
+         *
+         * Elementor adds the current admin URL as return_to. From Directorist settings,
+         * that value contains an unencoded &page=atbdp-settings, which can override
+         * Elementor's own page=elementor-app query arg in WordPress admin routing.
+         *
+         * @param string $url Elementor Theme Builder URL.
+         * @return string
+         */
+        public function fix_elementor_theme_builder_url( $url ) {
+            if ( ! self::in_settings_page() || empty( $url ) || false === strpos( $url, 'elementor-app' ) ) {
+                return $url;
+            }
+
+            $hash_fragment = '';
+            $hash_position = strpos( $url, '#' );
+            $url_base      = $url;
+
+            if ( false !== $hash_position ) {
+                $hash_fragment = substr( $url, $hash_position );
+                $url_base      = substr( $url, 0, $hash_position );
+            }
+
+            $query_args = [];
+            $query      = wp_parse_url( $url_base, PHP_URL_QUERY );
+
+            if ( $query ) {
+                parse_str( $query, $query_args );
+            }
+
+            $fixed_url = admin_url( 'admin.php?page=elementor-app' );
+
+            if ( ! empty( $query_args['ver'] ) ) {
+                $fixed_url = add_query_arg( 'ver', sanitize_text_field( wp_unslash( $query_args['ver'] ) ), $fixed_url );
+            }
+
+            if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
+                $return_to = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+                $fixed_url .= '&return_to=' . rawurlencode( $return_to );
+            }
+
+            return $fixed_url . $hash_fragment;
         }
 
         // register_setting_fields
@@ -3727,6 +3776,8 @@ Best regards,
                 ]
             );
 
+            $this->register_web_push_backup_fields();
+
             $this->layouts = apply_filters(
                 'atbdp_listing_type_settings_layout', [
                     'listing_settings' => [
@@ -4636,6 +4687,38 @@ Best regards,
             ];
         }
 
+        /**
+         * Register hidden backup fields for the redesigned Notifications Pro web push master switch.
+         *
+         * Notifications Pro stores enabled delivery events in the web_push_notify_* arrays and does
+         * not expose a separate channel master option. These hidden fields let the redesigned core UI
+         * disable delivery by emptying the live arrays while preserving the previous event selection
+         * for reload display and one-click restore.
+         *
+         * @return void
+         */
+        private function register_web_push_backup_fields() {
+            if ( empty( $this->fields['web_push_notify_admin'] ) && empty( $this->fields['web_push_notify_user'] ) ) {
+                return;
+            }
+
+            $this->fields['directorist_web_push_notify_admin_backup'] = [
+                'type'       => 'hidden',
+                'label'      => __( 'Web push admin events backup', 'directorist' ),
+                'value'      => [],
+                'hidden'     => true,
+                'input_type' => 'hidden',
+            ];
+
+            $this->fields['directorist_web_push_notify_user_backup'] = [
+                'type'       => 'hidden',
+                'label'      => __( 'Web push listing owner events backup', 'directorist' ),
+                'value'      => [],
+                'hidden'     => true,
+                'input_type' => 'hidden',
+            ];
+        }
+
         // add_menu_pages
         public function add_menu_pages() {
             add_submenu_page(
@@ -4704,23 +4787,44 @@ Best regards,
                 foreach ( $field_args as $field_args_key => $field_args_value ) {
 
                     $type = isset( $field_args['type'] ) ? $field_args['type'] : 'text';
-
-                    if ( 'value' === $field_args_key && 'textarea' === $type ) {
-                        $fields[ $key ][ $field_args_key ] = sanitize_textarea_field( $field_args_value );
-                        continue;
-                    }
-
-                    if ( 'value' === $field_args_key && 'number' === $type ) {
-                        $fields[ $key ][ $field_args_key ] = floatval( sanitize_text_field( $field_args_value ) );
-                        continue;
-                    }
-
-                    $fields[ $key ][ $field_args_key ] = directorist_clean_post( $field_args_value );
+                    $fields[ $key ][ $field_args_key ] = $this->sanitize_field_arg_value( $field_args_key, $field_args_value, $type );
                 }
 
             }
 
             return $fields;
+        }
+
+        /**
+         * Sanitize a settings field argument while preserving non-string metadata types.
+         *
+         * @param string $field_args_key Field argument key.
+         * @param mixed  $field_args_value Field argument value.
+         * @param string $type Field type.
+         * @return mixed
+         */
+        private function sanitize_field_arg_value( $field_args_key, $field_args_value, $type ) {
+            if ( 'value' === $field_args_key && 'textarea' === $type ) {
+                return sanitize_textarea_field( $field_args_value );
+            }
+
+            if ( 'value' === $field_args_key && 'number' === $type ) {
+                return floatval( sanitize_text_field( $field_args_value ) );
+            }
+
+            if ( is_bool( $field_args_value ) ) {
+                return $field_args_value;
+            }
+
+            if ( is_array( $field_args_value ) ) {
+                foreach ( $field_args_value as $key => $value ) {
+                    $field_args_value[ $key ] = $this->sanitize_field_arg_value( $field_args_key, $value, $type );
+                }
+
+                return $field_args_value;
+            }
+
+            return directorist_clean_post( $field_args_value );
         }
 
         /**

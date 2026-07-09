@@ -421,29 +421,29 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function() {
 
 (function ($) {
-  window.addEventListener('load', function () {
+  $(function () {
     //dashboard content responsive fix
-    var tabContentWidth = $('.directorist-user-dashboard .directorist-user-dashboard__contents').innerWidth();
+    var $contents = $('.directorist-user-dashboard .directorist-user-dashboard__contents');
+    var $profileForm = $('#user_profile_form');
+    var tabContentWidth = $contents.innerWidth();
     if (tabContentWidth < 1399) {
-      $('.directorist-user-dashboard .directorist-user-dashboard__contents').addClass('directorist-tab-content-grid-fix');
+      $contents.addClass('directorist-tab-content-grid-fix');
     }
-    $(window).bind('resize', function () {
-      if ($(this).width() <= 1199) {
-        $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
-        $('.directorist-shade').removeClass('directorist-active');
+    var updateProfileResponsive = function updateProfileResponsive() {
+      if (!$profileForm.length) {
+        return;
       }
-    }).trigger('resize');
-    $('.directorist-dashboard__nav__close, .directorist-shade').on('click', function () {
-      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
-      $('.directorist-shade').removeClass('directorist-active');
-    });
-
-    // Profile Responsive
+      var profileWidth = $profileForm.width();
+      if (!profileWidth) {
+        return;
+      }
+      $profileForm.toggleClass('directorist-profile-responsive', profileWidth < 800);
+    };
+    updateProfileResponsive();
     $('.directorist-tab__nav__link').on('click', function () {
-      if ($('#user_profile_form').width() < 800 && $('#user_profile_form').width() !== 0) {
-        $('#user_profile_form').addClass('directorist-profile-responsive');
-      }
+      setTimeout(updateProfileResponsive, 0);
     });
+    $(window).on('resize', updateProfileResponsive);
   });
 })(jQuery);
 
@@ -456,17 +456,59 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function() {
 
 (function ($) {
-  window.addEventListener('load', function () {
-    //dashboard sidebar nav toggler
-    $('.directorist-user-dashboard__toggle__link').on('click', function (e) {
-      e.preventDefault();
-      $('.directorist-user-dashboard__nav').toggleClass('directorist-dashboard-nav-collapsed');
-      // $(".directorist-shade").toggleClass("directorist-active");
-    });
-    if ($(window).innerWidth() < 767) {
-      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
-      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed--fixed');
+  $(function () {
+    var $nav = $('.directorist-user-dashboard__nav');
+    var $shade = $('.directorist-shade');
+    var $toggle = $('.directorist-user-dashboard__toggle__link');
+    var $close = $('.directorist-dashboard__nav__close');
+    var collapsedClass = 'directorist-dashboard-nav-collapsed';
+    var fixedClass = 'directorist-dashboard-nav-collapsed--fixed';
+    var shadeActiveClass = 'directorist-active';
+    var compactWidth = 1199;
+    if (!$nav.length) {
+      return;
     }
+    var isCompact = function isCompact() {
+      return $(window).innerWidth() <= compactWidth;
+    };
+    var setCompactNavState = function setCompactNavState(isOpen) {
+      $nav.addClass(fixedClass);
+      $nav.toggleClass(collapsedClass, !isOpen);
+      $shade.toggleClass(shadeActiveClass, isOpen);
+      $toggle.attr('aria-expanded', isOpen ? 'true' : 'false');
+      $nav.attr('aria-hidden', isOpen ? 'false' : 'true');
+    };
+    var closeCompactNav = function closeCompactNav() {
+      if (isCompact()) {
+        setCompactNavState(false);
+      }
+    };
+    var syncNavState = function syncNavState() {
+      if (isCompact()) {
+        var isOpen = !$nav.hasClass(collapsedClass) && $shade.hasClass(shadeActiveClass);
+        setCompactNavState(isOpen);
+        return;
+      }
+      $nav.removeClass("".concat(collapsedClass, " ").concat(fixedClass));
+      $shade.removeClass(shadeActiveClass);
+      $toggle.attr('aria-expanded', 'true');
+      $nav.attr('aria-hidden', 'false');
+    };
+    $toggle.attr('aria-controls', $nav.attr('id') || 'directorist-dashboard-nav');
+    if (!$nav.attr('id')) {
+      $nav.attr('id', 'directorist-dashboard-nav');
+    }
+    $toggle.on('click', function (e) {
+      e.preventDefault();
+      if (isCompact()) {
+        setCompactNavState($nav.hasClass(collapsedClass));
+        return;
+      }
+      var shouldOpen = $nav.hasClass(collapsedClass);
+      $nav.toggleClass(collapsedClass);
+      $toggle.attr('aria-expanded', shouldOpen ? 'true' : 'false');
+      $nav.attr('aria-hidden', shouldOpen ? 'false' : 'true');
+    });
 
     //dashboard nav dropdown
     $('.directorist-tab__nav__link').on('click', function (e) {
@@ -478,17 +520,21 @@ __webpack_require__.r(__webpack_exports__);
         // Slide up all the dropdown contents while clicked item is not inside dropdown
         $('.atbd-dash-nav-dropdown').siblings('ul').slideUp();
       }
+      if (!$(this).hasClass('atbd-dash-nav-dropdown')) {
+        closeCompactNav();
+      }
     });
-    if ($(window).innerWidth() < 1199) {
-      $('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)').on('click', function () {
-        $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
-        $('.directorist-shade').removeClass('directorist-active');
-      });
-      $('.directorist-user-dashboard__toggle__link').on('click', function (e) {
+    $close.add($shade).on('click', function () {
+      closeCompactNav();
+    });
+    $close.on('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        $('.directorist-shade').toggleClass('directorist-active');
-      });
-    }
+        closeCompactNav();
+      }
+    });
+    $(window).on('resize', syncNavState);
+    syncNavState();
   });
 })(jQuery);
 
@@ -954,16 +1000,26 @@ window.addEventListener('load', function () {
 /***/ (function() {
 
 (function ($) {
-  window.addEventListener('load', function () {
+  $(function () {
     var profileMediaUploader = null;
-    if ($('.directorist-profile-uploader').length) {
+    var profileUploaderInitialized = false;
+    var $profileForm = $('#user_profile_form');
+    var initProfileMediaUploader = function initProfileMediaUploader() {
+      if (profileUploaderInitialized || !$('.directorist-profile-uploader').length || typeof EzMediaUploader === 'undefined') {
+        return;
+      }
       profileMediaUploader = new EzMediaUploader({
         containerClass: 'directorist-profile-uploader'
       });
       profileMediaUploader.init();
+      profileUploaderInitialized = true;
+    };
+    initProfileMediaUploader();
+    if (!profileUploaderInitialized) {
+      $(window).one('load', initProfileMediaUploader);
     }
     var is_processing = false;
-    $('#user_profile_form').on('submit', function (e) {
+    $profileForm.on('submit', function (e) {
       // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
       e.preventDefault();
       var submit_button = $('#update_user_profile');
@@ -1247,26 +1303,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	!function() {
-/******/ 		// define getter/value functions for harmony exports
+/******/ 		// define getter functions for harmony exports
 /******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			if(Array.isArray(definition)) {
-/******/ 				var i = 0;
-/******/ 				while(i < definition.length) {
-/******/ 					var key = definition[i++];
-/******/ 					var binding = definition[i++];
-/******/ 					if(!__webpack_require__.o(exports, key)) {
-/******/ 						if(binding === 0) {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
-/******/ 						} else {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
-/******/ 						}
-/******/ 					} else if(binding === 0) { i++; }
-/******/ 				}
-/******/ 			} else {
-/******/ 				for(var key in definition) {
-/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 					}
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};

@@ -282,6 +282,74 @@
 
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
+  var isHandlingBackButton = false;
+  var backButtonTouchStart = null;
+  var touchMoveThreshold = 10;
+  var getTouchPoint = function getTouchPoint(e) {
+    var touches = e.originalEvent.changedTouches || e.originalEvent.touches || [];
+    if (!touches.length) {
+      return null;
+    }
+    return {
+      x: touches[0].clientX,
+      y: touches[0].clientY
+    };
+  };
+  var didTouchMove = function didTouchMove(touchEnd) {
+    return Math.abs(touchEnd.x - backButtonTouchStart.x) > touchMoveThreshold || Math.abs(touchEnd.y - backButtonTouchStart.y) > touchMoveThreshold;
+  };
+  var shouldIgnoreTouchEnd = function shouldIgnoreTouchEnd(e, element) {
+    if (e.type !== 'touchend') {
+      return false;
+    }
+    var touchEnd = getTouchPoint(e);
+    if (!backButtonTouchStart || !touchEnd || backButtonTouchStart.element !== element) {
+      backButtonTouchStart = null;
+      return true;
+    }
+    var moved = didTouchMove(touchEnd);
+    backButtonTouchStart = null;
+    return moved;
+  };
+  var handleBackButton = function handleBackButton(e) {
+    if (shouldIgnoreTouchEnd(e, this)) {
+      return;
+    }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if (isHandlingBackButton) {
+      return;
+    }
+    isHandlingBackButton = true;
+    var currentUrl = window.location.href;
+    var fallbackUrl = this.href;
+    window.history.back();
+    if (fallbackUrl && fallbackUrl !== '#' && fallbackUrl !== currentUrl) {
+      setTimeout(function () {
+        if (window.location.href === currentUrl) {
+          window.location.href = fallbackUrl;
+        }
+      }, 300);
+    }
+    setTimeout(function () {
+      isHandlingBackButton = false;
+    }, 1000);
+  };
+
+  // Back Button to go back to the previous page
+  $('body').on('touchstart', '.directorist-btn__back', function (e) {
+    var touchStart = getTouchPoint(e);
+    if (!touchStart) {
+      backButtonTouchStart = null;
+      return;
+    }
+    backButtonTouchStart = {
+      x: touchStart.x,
+      y: touchStart.y,
+      element: this
+    };
+  });
+  $('body').on('click touchend', '.directorist-btn__back', handleBackButton);
   window.addEventListener('load', function () {
     if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
       $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
@@ -294,11 +362,6 @@
     if ($('.directorist-archive-grid-view').innerWidth() <= 500) {
       $('.directorist-archive-grid-view').addClass('directorist-archive-grid--fix');
     }
-
-    // Back Button to go back to the previous page
-    $('body').on('click', '.directorist-btn__back', function (e) {
-      window.history.back();
-    });
   });
 })(jQuery);
 
@@ -370,26 +433,11 @@ window.addEventListener('load', function () {
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	!function() {
-/******/ 		// define getter/value functions for harmony exports
+/******/ 		// define getter functions for harmony exports
 /******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			if(Array.isArray(definition)) {
-/******/ 				var i = 0;
-/******/ 				while(i < definition.length) {
-/******/ 					var key = definition[i++];
-/******/ 					var binding = definition[i++];
-/******/ 					if(!__webpack_require__.o(exports, key)) {
-/******/ 						if(binding === 0) {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
-/******/ 						} else {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
-/******/ 						}
-/******/ 					} else if(binding === 0) { i++; }
-/******/ 				}
-/******/ 			} else {
-/******/ 				for(var key in definition) {
-/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 					}
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};

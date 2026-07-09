@@ -1,1 +1,457 @@
-!function(){var t={696:function(){var t=jQuery;t(document).ready(function(){!function(){t(".atbdp_recovery_pass").on("click",function(e){e.preventDefault(),t("#recover-pass-modal").slideToggle().show()}),t("#atbdp-contact-modal").on("hidden.bs.modal",function(e){t("#atbdp-contact-message").val(""),t("#atbdp-contact-message-display").html("")});var e=new Map;function r(t){if(t&&e.has(t)){var r=e.get(t),i=r.parent;i&&document.body.contains(i)&&(r.nextSibling&&i.contains(r.nextSibling)?i.insertBefore(t,r.nextSibling):i.appendChild(t))}}t("body").on("click",".directorist-btn-modal-js",function(r){r.preventDefault();var i=t(this).attr("data-directorist_target"),o=document.querySelector(".".concat(i));o&&(o.parentElement!==document.body&&(e.has(o)||e.set(o,{parent:o.parentElement,nextSibling:o.nextSibling}),document.body.appendChild(o)),o.classList.add("directorist-show"))}),t("body").on("click",".directorist-modal-close-js",function(e){e.preventDefault();var i=t(this).closest(".directorist-modal-js");i.removeClass("directorist-show"),r(i[0])}),t("body").on("click",".directorist-modal-js",function(e){e.target===this&&t(this).hasClass("directorist-show")&&(t(this).removeClass("directorist-show"),r(this))})}()})},9573:function(){var t;t=jQuery,void 0===window.directorist_alert_executed&&(window.directorist_alert_executed=!0,window.addEventListener("load",function(){var e=window.location.href.replace("notice=1","");null!==t(".directorist-alert__close")&&t(".directorist-alert__close").each(function(r,i){t(i).on("click",function(r){r.preventDefault(),history.pushState({},null,e),t(this).closest(".directorist-alert").remove()})})}))},7406:function(){var t;t=jQuery,void 0===window.directorist_loginjs_executed&&(window.directorist_loginjs_executed=!0,document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".directorist-password-group").forEach(function(t){var e=t.querySelector(".directorist-password-group-input"),r=t.querySelector(".directorist-password-group-toggle"),i=t.querySelector(".directorist-password-group-eyeIcon");e&&r&&r.addEventListener("click",function(){var t="password"===e.getAttribute("type")?"text":"password";e.setAttribute("type",t),i&&(i.innerHTML="text"===t?'\n\t\t\t\t\t\t\t\t<path stroke="#888" stroke-width="2" d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"/>\n\t\t\t\t\t\t\t\t<circle cx="12" cy="12" r="3.5" stroke="#888" stroke-width="2"/>\n\t\t\t\t\t\t\t\t<line x1="5" y1="19" x2="19" y2="5" stroke="#888" stroke-width="2"/>\n\t\t\t\t\t\t\t':'\n\t\t\t\t\t\t\t\t<path stroke="#888" stroke-width="2" d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"/>\n\t\t\t\t\t\t\t\t<circle cx="12" cy="12" r="3.5" stroke="#888" stroke-width="2"/>\n\t\t\t\t\t\t\t')})})}),t(".directorist-authentication__btn").on("click",function(){t(".directorist__authentication__signin").each(function(){this.reset()}),t("#directorist__authentication__login p.status").hide().empty()}),window.addEventListener("load",function(){t("form#directorist__authentication__login").on("submit",function(e){e.preventDefault();var r=t(this),i=t(this).find(".directorist-authentication__form__btn");i.addClass("directorist-btn-loading"),t("#directorist__authentication__login p.status").show().html('<div class="directorist-alert directorist-alert-info"><span>'+directorist.loading_message+"</span></div>");var o={action:"ajaxlogin",username:r.find("#username").val(),password:r.find("#password").val(),rememberme:r.find("#keep_signed_in").is(":checked")?1:0,security:r.find("#security").val()};t.ajax({type:"POST",dataType:"json",url:directorist.ajax_url,data:o,success:function(e){setTimeout(function(){return i.removeClass("directorist-btn-loading")},1e3),"nonce_faild"in e&&e.nonce_faild&&t("p.status").html('<div class="directorist-alert directorist-alert-success"><span>'+e.message+"</span></div>"),1==e.loggedin?(t("p.status").html('<div class="directorist-alert directorist-alert-success"><span>'+e.message+"</span></div>"),document.location.href=directorist.redirect_url):t("p.status").html('<div class="directorist-alert directorist-alert-danger"><span>'+e.message+"</span></div>")},error:function(e){"nonce_faild"in e&&e.nonce_faild&&t("p.status").html('<div class="directorist-alert directorist-alert-success"><span>'+e.message+"</span></div>"),t("p.status").show().html('<div class="directorist-alert directorist-alert-danger"><span>'+directorist.login_error_message+"</span></div>")}}),e.preventDefault()}),t("form#directorist__authentication__login .status").on("click","a",function(e){e.preventDefault(),"#atbdp_recovery_pass"===t(this).attr("href")?(t("#recover-pass-modal").slideDown().show(),window.scrollTo({top:t("#recover-pass-modal").offset().top-100,behavior:"smooth"})):location.href=t(this).attr("href")}),t(".atbdp-require-login, .directorist-action-report-not-loggedin").on("click",function(t){return t.preventDefault(),alert(directorist.login_alert_message),!1});var e=location.href,r=new URL(e);r.searchParams.delete("registration_status"),r.searchParams.delete("errors"),r.searchParams.delete("password_reset"),r.searchParams.delete("confirm_mail"),r.searchParams.delete("verification"),r.searchParams.delete("send_verification_email"),window.history.pushState(null,null,r.toString()),t("body").on("click",".directorist-authentication__btn, .directorist-authentication__toggle",function(e){e.preventDefault(),t(".directorist-login-wrapper").toggleClass("active"),t(".directorist-registration-wrapper").toggleClass("active")})}))},413:function(){jQuery(function(t){t(".directorist-authentication__btn").on("click",function(){t(".directorist__authentication__signup").each(function(){this.reset()}),t(".directorist-alert ").hide().empty(),t(".directorist-register-error").hide().empty()}),t(".directorist__authentication__signup .directorist-authentication__form__btn").on("click",function(e){e.preventDefault(),$this=t(this),$this.addClass("directorist-btn-loading");var r=$this.closest(".directorist__authentication__signup")[0];if(!r.checkValidity())return r.reportValidity(),void $this.removeClass("directorist-btn-loading");var i=new FormData(r);i.append("action","directorist_register_form"),i.append("params",JSON.stringify(directorist_signin_signup_params)),t.ajax({url:directorist.ajaxurl,type:"POST",data:i,contentType:!1,processData:!1,cache:!1}).done(function(e){var r=e.data,i=e.success;setTimeout(function(){return $this.removeClass("directorist-btn-loading")},1e3),i?(t(".directorist-register-error").hide(),r.message&&t(".directorist-register-error").empty().show().append(r.message).css({color:"#009114","background-color":"#d9efdc"}),r.redirect_url&&setTimeout(function(){return window.location.href=r.redirect_url},500)):t(".directorist-register-error").empty().show().append(r.error)})})})},4032:function(){jQuery(function(t){t(".directorist-ResetPassword").on("submit",function(){var e=t(this);return e.find("#password_1").val()!=e.find("#password_2").val()?(e.find(".password-not-match").show(),!1):(e.find(".password-not-match").hide(),!0)})})}},e={};function r(i){var o=e[i];if(void 0!==o)return o.exports;var s=e[i]={exports:{}};return t[i](s,s.exports,r),s.exports}r.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return r.d(e,{a:e}),e},r.d=function(t,e){for(var i in e)r.o(e,i)&&!r.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:e[i]})},r.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},function(){"use strict";r(9573),r(7406),r(4032),r(413),r(696)}()}();
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./assets/src/js/global/components/modal.js":
+/*!**************************************************!*\
+  !*** ./assets/src/js/global/components/modal.js ***!
+  \**************************************************/
+/***/ (function() {
+
+var $ = jQuery;
+$(document).ready(function () {
+  modalToggle();
+});
+function modalToggle() {
+  $('.atbdp_recovery_pass').on('click', function (e) {
+    e.preventDefault();
+    $('#recover-pass-modal').slideToggle().show();
+  });
+
+  // Contact form [on modal closed]
+  $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
+    $('#atbdp-contact-message').val('');
+    $('#atbdp-contact-message-display').html('');
+  });
+
+  // Template Restructured
+  // Modal
+  // Store original parent references for modals
+  var modalOriginalParents = new Map();
+
+  // Function to restore modal to its original position
+  function restoreModalToOriginalPosition(modalElement) {
+    if (!modalElement || !modalOriginalParents.has(modalElement)) {
+      return;
+    }
+    var originalData = modalOriginalParents.get(modalElement);
+    var originalParent = originalData.parent;
+
+    // Only restore if original parent still exists in the DOM
+    if (originalParent && document.body.contains(originalParent)) {
+      // Restore to original position using nextSibling if available
+      if (originalData.nextSibling && originalParent.contains(originalData.nextSibling)) {
+        originalParent.insertBefore(modalElement, originalData.nextSibling);
+      } else {
+        originalParent.appendChild(modalElement);
+      }
+    }
+  }
+  $('body').on('click', '.directorist-btn-modal-js', function (e) {
+    e.preventDefault();
+    var data_target = $(this).attr('data-directorist_target');
+    var modalElement = document.querySelector(".".concat(data_target));
+    if (!modalElement) {
+      return;
+    }
+
+    // Move modal to body if not already a direct child of body
+    if (modalElement.parentElement !== document.body) {
+      // Store original parent if not already stored
+      if (!modalOriginalParents.has(modalElement)) {
+        modalOriginalParents.set(modalElement, {
+          parent: modalElement.parentElement,
+          nextSibling: modalElement.nextSibling
+        });
+      }
+
+      // Move to body
+      document.body.appendChild(modalElement);
+    }
+
+    // Show modal
+    modalElement.classList.add('directorist-show');
+  });
+  $('body').on('click', '.directorist-modal-close-js', function (e) {
+    e.preventDefault();
+    var modalElement = $(this).closest('.directorist-modal-js');
+
+    // Hide modal
+    modalElement.removeClass('directorist-show');
+
+    // Restore to original position
+    restoreModalToOriginalPosition(modalElement[0]);
+  });
+
+  // Close modal when clicking backdrop (not content inside)
+  $('body').on('click', '.directorist-modal-js', function (e) {
+    // Only close if clicking the backdrop itself, not children
+    if (e.target === this && $(this).hasClass('directorist-show')) {
+      $(this).removeClass('directorist-show');
+      restoreModalToOriginalPosition(this);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/directoristAlert.js":
+/*!*************************************************************!*\
+  !*** ./assets/src/js/public/components/directoristAlert.js ***!
+  \*************************************************************/
+/***/ (function() {
+
+(function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_alert_executed === 'undefined') {
+    window.directorist_alert_executed = true;
+  } else {
+    return;
+  }
+  window.addEventListener('load', function () {
+    /* Directorist alert dismiss */
+    var getUrl = window.location.href;
+    var newUrl = getUrl.replace('notice=1', '');
+    if ($('.directorist-alert__close') !== null) {
+      $('.directorist-alert__close').each(function (i, e) {
+        $(e).on('click', function (e) {
+          e.preventDefault();
+          history.pushState({}, null, newUrl);
+          $(this).closest('.directorist-alert').remove();
+        });
+      });
+    }
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/login.js":
+/*!**************************************************!*\
+  !*** ./assets/src/js/public/components/login.js ***!
+  \**************************************************/
+/***/ (function() {
+
+(function ($) {
+  // Make sure the codes in this file runs only once, even if enqueued twice
+  if (typeof window.directorist_loginjs_executed === 'undefined') {
+    window.directorist_loginjs_executed = true;
+  } else {
+    return;
+  }
+  function initPasswordToggle() {
+    var passwordGroups = document.querySelectorAll('.directorist-password-group');
+    passwordGroups.forEach(function (group) {
+      var passwordInput = group.querySelector('.directorist-password-group-input');
+      var togglePassword = group.querySelector('.directorist-password-group-toggle');
+      var eyeIcon = group.querySelector('.directorist-password-group-eyeIcon');
+      if (passwordInput && togglePassword) {
+        togglePassword.addEventListener('click', function () {
+          var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+
+          // Toggle eye icon (simple swap for open/closed)
+          if (eyeIcon) {
+            if (type === 'text') {
+              eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t\t<line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
+            } else {
+              eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // Call the function after DOM is ready
+  document.addEventListener('DOMContentLoaded', initPasswordToggle);
+
+  // Trigger reset on form change
+  $('.directorist-authentication__btn').on('click', function () {
+    // Reset all forms with the specified class
+    $('.directorist__authentication__signin').each(function () {
+      this.reset(); // Reset the individual form
+    });
+
+    // Reset error and warning messages
+    $('#directorist__authentication__login p.status').hide().empty();
+  });
+  window.addEventListener('load', function () {
+    // Perform AJAX login on form submit
+    $('form#directorist__authentication__login').on('submit', function (e) {
+      e.preventDefault();
+      var $this = $(this);
+      var $button = $(this).find('.directorist-authentication__form__btn');
+      $button.addClass('directorist-btn-loading'); // Added loading class
+
+      $('#directorist__authentication__login p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
+      var form_data = {
+        action: 'ajaxlogin',
+        username: $this.find('#username').val(),
+        password: $this.find('#password').val(),
+        rememberme: $this.find('#keep_signed_in').is(':checked') ? 1 : 0,
+        security: $this.find('#security').val()
+      };
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: directorist.ajax_url,
+        data: form_data,
+        success: function success(data) {
+          // Removed loading class
+          setTimeout(function () {
+            return $button.removeClass('directorist-btn-loading');
+          }, 1000);
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
+          }
+          if (data.loggedin == true) {
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
+            document.location.href = directorist.redirect_url;
+          } else {
+            $('p.status').html('<div class="directorist-alert directorist-alert-danger"><span>' + data.message + '</span></div>');
+          }
+        },
+        error: function error(data) {
+          if ('nonce_faild' in data && data.nonce_faild) {
+            $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
+          }
+          $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
+        }
+      });
+      e.preventDefault();
+    });
+    $('form#directorist__authentication__login .status').on('click', 'a', function (e) {
+      e.preventDefault();
+      if ($(this).attr('href') === '#atbdp_recovery_pass') {
+        $('#recover-pass-modal').slideDown().show();
+        window.scrollTo({
+          top: $('#recover-pass-modal').offset().top - 100,
+          behavior: 'smooth'
+        });
+      } else {
+        location.href = $(this).attr('href');
+      }
+    });
+
+    // Alert users to login (only if applicable)
+    $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
+      e.preventDefault();
+      alert(directorist.login_alert_message);
+      return false;
+    });
+
+    // Remove URL params to avoid show message again and again
+    var current_url = location.href;
+    var url = new URL(current_url);
+    url.searchParams.delete('registration_status');
+    url.searchParams.delete('errors');
+    // url.searchParams.delete('key');
+    url.searchParams.delete('password_reset');
+    url.searchParams.delete('confirm_mail');
+    // url.searchParams.delete('user');
+    url.searchParams.delete('verification');
+    url.searchParams.delete('send_verification_email');
+    window.history.pushState(null, null, url.toString());
+
+    // Authentication Form Toggle
+    $('body').on('click', '.directorist-authentication__btn, .directorist-authentication__toggle', function (e) {
+      e.preventDefault();
+      $('.directorist-login-wrapper').toggleClass('active');
+      $('.directorist-registration-wrapper').toggleClass('active');
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/register-form.js":
+/*!**********************************************************!*\
+  !*** ./assets/src/js/public/components/register-form.js ***!
+  \**********************************************************/
+/***/ (function() {
+
+jQuery(function ($) {
+  // Trigger reset on form change
+  $('.directorist-authentication__btn').on('click', function () {
+    // Reset the form values
+    $('.directorist__authentication__signup').each(function () {
+      this.reset(); // Reset the individual form
+    });
+
+    // Reset error and warning messages
+    $('.directorist-alert ').hide().empty();
+    $('.directorist-register-error').hide().empty();
+  });
+  $('.directorist__authentication__signup .directorist-authentication__form__btn').on('click', function (e) {
+    e.preventDefault();
+    $this = $(this);
+    $this.addClass('directorist-btn-loading'); // Added loading class
+    var form = $this.closest('.directorist__authentication__signup')[0];
+
+    // Trigger native validation
+    if (!form.checkValidity()) {
+      form.reportValidity(); // Display browser-native warnings for invalid fields
+      $this.removeClass('directorist-btn-loading'); // Removed loading class
+      return; // Stop submission if validation fails
+    }
+    var formData = new FormData(form);
+    formData.append('action', 'directorist_register_form');
+    formData.append('params', JSON.stringify(directorist_signin_signup_params));
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      cache: false
+    }).done(function (_ref) {
+      var data = _ref.data,
+        success = _ref.success;
+      // Removed loading class
+      setTimeout(function () {
+        return $this.removeClass('directorist-btn-loading');
+      }, 1000);
+      if (!success) {
+        $('.directorist-register-error').empty().show().append(data.error);
+        return;
+      }
+      $('.directorist-register-error').hide();
+      if (data.message) {
+        $('.directorist-register-error').empty().show().append(data.message).css({
+          color: '#009114',
+          'background-color': '#d9efdc'
+        });
+      }
+      if (data.redirect_url) {
+        setTimeout(function () {
+          return window.location.href = data.redirect_url;
+        }, 500);
+      }
+    });
+  });
+});
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/reset-password.js":
+/*!***********************************************************!*\
+  !*** ./assets/src/js/public/components/reset-password.js ***!
+  \***********************************************************/
+/***/ (function() {
+
+jQuery(function ($) {
+  $('.directorist-ResetPassword').on('submit', function () {
+    var form = $(this);
+    if (form.find('#password_1').val() != form.find('#password_2').val()) {
+      form.find('.password-not-match').show();
+      return false;
+    }
+    form.find('.password-not-match').hide();
+    return true;
+  });
+});
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+!function() {
+"use strict";
+/*!*************************************************!*\
+  !*** ./assets/src/js/public/modules/account.js ***!
+  \*************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
+/* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/login */ "./assets/src/js/public/components/login.js");
+/* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_reset_password__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/reset-password */ "./assets/src/js/public/components/reset-password.js");
+/* harmony import */ var _components_reset_password__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_reset_password__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_register_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/register-form */ "./assets/src/js/public/components/register-form.js");
+/* harmony import */ var _components_register_form__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_register_form__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_4__);
+// General Components
+
+
+
+
+
+}();
+/******/ })()
+;
+//# sourceMappingURL=account.js.map

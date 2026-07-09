@@ -15,6 +15,7 @@ export default new Vuex.Store({
 		cachedOptions: {},
 		config: {},
 		highlighted_field_key: '',
+		highlighted_section_key: '',
 		metaKeys: {},
 		deprecatedMetaKeys: [],
 		sidebarNavigation: {},
@@ -113,6 +114,14 @@ export default new Vuex.Store({
 			state.highlighted_field_key = field_key || '';
 		},
 
+		resetHighlightedSectionKey: (state) => {
+			state.highlighted_section_key = '';
+		},
+
+		setHighlightedSectionKey: (state, section_key) => {
+			state.highlighted_section_key = section_key || '';
+		},
+
 		updateCachedFieldData: (state, payload) => {
 			state.cached_fields[payload.key].value = payload.value;
 		},
@@ -122,6 +131,7 @@ export default new Vuex.Store({
 			let submenu_key = payload.submenu_key;
 
 			state.highlighted_field_key = '';
+			state.highlighted_section_key = '';
 
 			const highlight_active_field = function (hash) {
 				let hash_paths = hash.split('__');

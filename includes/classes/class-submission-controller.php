@@ -44,6 +44,438 @@ class SubmissionController {
         return ( $field->is_category_only() && ( is_null( self::$selected_categories ) || ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) );
     }
 
+    protected static function should_ignore_conditional_logic_field( &$field, &$posted_data ) {
+        $conditional_logic = self::get_field_conditional_logic( $field->get_props() );
+
+        if ( empty( $conditional_logic ) ) {
+            return false;
+        }
+
+        return ! self::evaluate_conditional_logic( $conditional_logic, $posted_data );
+    }
+
+    protected static function get_field_conditional_logic( $field_props ) {
+        if ( ! is_array( $field_props ) ) {
+            return [];
+        }
+
+        $conditional_logic = [];
+
+        if ( ! empty( $field_props['conditional_logic'] ) && is_array( $field_props['conditional_logic'] ) ) {
+            $conditional_logic = $field_props['conditional_logic'];
+        } elseif ( ! empty( $field_props['options']['conditional_logic']['value'] ) && is_array( $field_props['options']['conditional_logic']['value'] ) ) {
+            $conditional_logic = $field_props['options']['conditional_logic']['value'];
+        } elseif ( ! empty( $field_props['options']['conditional_logic'] ) && is_array( $field_props['options']['conditional_logic'] ) && ! isset( $field_props['options']['conditional_logic']['value'] ) ) {
+            $conditional_logic = $field_props['options']['conditional_logic'];
+        }
+
+        if ( empty( $conditional_logic ) || empty( $conditional_logic['groups'] ) || ! is_array( $conditional_logic['groups'] ) ) {
+            return [];
+        }
+
+        $enabled = isset( $conditional_logic['enabled'] ) ? filter_var( $conditional_logic['enabled'], FILTER_VALIDATE_BOOLEAN ) : false;
+
+        if ( ! $enabled ) {
+            return [];
+        }
+
+        $groups = [];
+        foreach ( $conditional_logic['groups'] as $group ) {
+            if ( empty( $group['conditions'] ) || ! is_array( $group['conditions'] ) ) {
+                continue;
+            }
+
+            $conditions = [];
+            foreach ( $group['conditions'] as $condition ) {
+                if ( empty( $condition['field'] ) || empty( $condition['operator'] ) ) {
+                    continue;
+                }
+
+                $conditions[] = $condition;
+            }
+
+            if ( empty( $conditions ) ) {
+                continue;
+            }
+
+            $groups[] = [
+                'operator'   => self::normalize_conditional_logic_group_operator( $group['operator'] ?? 'AND', 'AND' ),
+                'conditions' => $conditions,
+            ];
+        }
+
+        if ( empty( $groups ) ) {
+            return [];
+        }
+
+        return [
+            'enabled'        => true,
+            'action'         => ! empty( $conditional_logic['action'] ) && 'hide' === strtolower( trim( $conditional_logic['action'] ) ) ? 'hide' : 'show',
+            'globalOperator' => self::normalize_conditional_logic_group_operator( $conditional_logic['globalOperator'] ?? 'OR', 'OR' ),
+            'groups'         => $groups,
+        ];
+    }
+
+    protected static function normalize_conditional_logic_group_operator( $operator, $default = 'OR' ) {
+        $operator = is_string( $operator ) ? strtoupper( trim( $operator ) ) : '';
+
+        return in_array( $operator, [ 'AND', 'OR' ], true ) ? $operator : $default;
+    }
+
+    protected static function evaluate_conditional_logic( $conditional_logic, &$posted_data ) {
+        $group_results = [];
+
+        foreach ( $conditional_logic['groups'] as $group ) {
+            $condition_results = [];
+
+            foreach ( $group['conditions'] as $condition ) {
+                $field_key = isset( $condition['field'] ) ? trim( (string) $condition['field'] ) : '';
+                $operator  = isset( $condition['operator'] ) ? trim( (string) $condition['operator'] ) : '';
+
+                if ( '' === $field_key || '' === $operator ) {
+                    continue;
+                }
+
+                $field_value         = self::get_conditional_logic_field_value( $field_key, $posted_data );
+                $condition_results[] = self::evaluate_conditional_logic_condition( $condition, $field_value );
+            }
+
+            if ( empty( $condition_results ) ) {
+                continue;
+            }
+
+            $group_results[] = ( 'OR' === $group['operator'] )
+                ? in_array( true, $condition_results, true )
+                : ! in_array( false, $condition_results, true );
+        }
+
+        $result = true;
+
+        if ( ! empty( $group_results ) ) {
+            $result = ( 'AND' === $conditional_logic['globalOperator'] )
+                ? ! in_array( false, $group_results, true )
+                : in_array( true, $group_results, true );
+        }
+
+        return ( 'hide' === $conditional_logic['action'] ) ? ! $result : $result;
+    }
+
+    protected static function get_conditional_logic_field_value( $field_key, &$posted_data ) {
+        $field_key  = self::normalize_conditional_logic_field_key( $field_key );
+        $candidates = self::get_conditional_logic_field_key_candidates( $field_key );
+
+        foreach ( $candidates as $candidate ) {
+            $value = self::get_posted_data_value_by_key( $candidate, $posted_data, $exists );
+
+            if ( $exists ) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    protected static function normalize_conditional_logic_field_key( $field_key ) {
+        $field_key = trim( (string) $field_key );
+
+        $map = [
+            'title'       => 'listing_title',
+            'description' => 'listing_content',
+            'content'     => 'listing_content',
+        ];
+
+        return isset( $map[ $field_key ] ) ? $map[ $field_key ] : $field_key;
+    }
+
+    protected static function get_conditional_logic_field_key_candidates( $field_key ) {
+        $candidates = [ $field_key ];
+
+        if ( substr( $field_key, -2 ) === '[]' ) {
+            $candidates[] = substr( $field_key, 0, -2 );
+        }
+
+        switch ( $field_key ) {
+            case 'category':
+            case 'categories':
+            case 'admin_category_select':
+            case 'admin_category_select[]':
+            case 'tax_input[' . ATBDP_CATEGORY . '][]':
+            case 'in_cat':
+                $candidates = array_merge(
+                    $candidates,
+                    [
+                        'tax_input[' . ATBDP_CATEGORY . '][]',
+                        'admin_category_select[]',
+                        'admin_category_select',
+                        'category',
+                        'categories',
+                        'in_cat',
+                    ]
+                );
+                break;
+
+            case 'tag':
+            case 'tags':
+            case 'in_tag':
+            case 'in_tag[]':
+            case 'tax_input[' . ATBDP_TAGS . '][]':
+                $candidates = array_merge(
+                    $candidates,
+                    [
+                        'tax_input[' . ATBDP_TAGS . '][]',
+                        'tag',
+                        'tags',
+                        'in_tag[]',
+                        'in_tag',
+                    ]
+                );
+                break;
+
+            case 'location':
+            case 'locations':
+            case 'in_loc':
+            case 'tax_input[' . ATBDP_LOCATION . '][]':
+                $candidates = array_merge(
+                    $candidates,
+                    [
+                        'tax_input[' . ATBDP_LOCATION . '][]',
+                        'location',
+                        'locations',
+                        'in_loc',
+                    ]
+                );
+                break;
+
+            case 'listing_title':
+                $candidates[] = 'title';
+                $candidates[] = 'post_title';
+                break;
+
+            case 'listing_content':
+                $candidates[] = 'description';
+                $candidates[] = 'content';
+                break;
+        }
+
+        if ( $field_key && strpos( $field_key, 'custom-' ) !== 0 ) {
+            $candidates[] = 'custom-' . $field_key;
+            $candidates[] = 'custom-' . str_replace( '_', '-', $field_key );
+        }
+
+        return array_values( array_unique( array_filter( $candidates ) ) );
+    }
+
+    protected static function get_posted_data_value_by_key( $key, &$posted_data, &$exists ) {
+        $exists = false;
+
+        if ( array_key_exists( $key, $posted_data ) ) {
+            $exists = true;
+            return $posted_data[ $key ];
+        }
+
+        if ( substr( $key, -2 ) === '[]' ) {
+            $key_without_array_suffix = substr( $key, 0, -2 );
+
+            if ( array_key_exists( $key_without_array_suffix, $posted_data ) ) {
+                $exists = true;
+                return $posted_data[ $key_without_array_suffix ];
+            }
+        }
+
+        if ( preg_match( '/^tax_input\[([^\]]+)\](?:\[\])?$/', $key, $matches ) && isset( $posted_data['tax_input'] ) && is_array( $posted_data['tax_input'] ) && array_key_exists( $matches[1], $posted_data['tax_input'] ) ) {
+            $exists = true;
+            return $posted_data['tax_input'][ $matches[1] ];
+        }
+
+        if ( preg_match( '/^custom_field\[([^\]]+)\](?:\[\])?$/', $key, $matches ) && isset( $posted_data['custom_field'] ) && is_array( $posted_data['custom_field'] ) && array_key_exists( $matches[1], $posted_data['custom_field'] ) ) {
+            $exists = true;
+            return $posted_data['custom_field'][ $matches[1] ];
+        }
+
+        return null;
+    }
+
+    protected static function evaluate_conditional_logic_condition( $condition, $field_value ) {
+        $operator        = isset( $condition['operator'] ) ? strtolower( trim( (string) $condition['operator'] ) ) : '';
+        $condition_value = isset( $condition['value'] ) ? $condition['value'] : '';
+
+        if ( '' === $operator ) {
+            return false;
+        }
+
+        if ( 'uploaded' === strtolower( trim( self::conditional_logic_value_to_string( $condition_value ) ) ) ) {
+            if ( in_array( $operator, [ 'is', '==', '=' ], true ) ) {
+                return ! self::conditional_logic_value_is_empty( $field_value );
+            }
+
+            if ( in_array( $operator, [ 'is not', '!=', 'not' ], true ) ) {
+                return self::conditional_logic_value_is_empty( $field_value );
+            }
+        }
+
+        if ( in_array( $operator, [ 'empty', 'is empty' ], true ) ) {
+            return self::conditional_logic_value_is_empty( $field_value );
+        }
+
+        if ( in_array( $operator, [ 'not empty', 'is not empty' ], true ) ) {
+            return ! self::conditional_logic_value_is_empty( $field_value );
+        }
+
+        if ( is_array( $field_value ) ) {
+            return self::evaluate_conditional_logic_array_condition( $field_value, $condition_value, $operator );
+        }
+
+        $field_value       = strtolower( trim( self::conditional_logic_value_to_string( $field_value ) ) );
+        $condition_value   = strtolower( trim( self::conditional_logic_value_to_string( $condition_value ) ) );
+        $field_value_raw   = self::conditional_logic_value_to_string( $field_value );
+        $condition_raw     = self::conditional_logic_value_to_string( $condition_value );
+
+        switch ( $operator ) {
+            case 'is':
+            case '==':
+            case '=':
+                return $field_value_raw === $condition_raw;
+
+            case 'is not':
+            case '!=':
+            case 'not':
+                return $field_value_raw !== $condition_raw;
+
+            case 'contains':
+                return strpos( $field_value_raw, $condition_raw ) !== false;
+
+            case 'does not contain':
+                return strpos( $field_value_raw, $condition_raw ) === false;
+
+            case 'greater than':
+            case '>':
+                return is_numeric( $field_value_raw ) && is_numeric( $condition_raw ) && (float) $field_value_raw > (float) $condition_raw;
+
+            case 'less than':
+            case '<':
+                return is_numeric( $field_value_raw ) && is_numeric( $condition_raw ) && (float) $field_value_raw < (float) $condition_raw;
+
+            case 'greater than or equal':
+            case '>=':
+                return is_numeric( $field_value_raw ) && is_numeric( $condition_raw ) && (float) $field_value_raw >= (float) $condition_raw;
+
+            case 'less than or equal':
+            case '<=':
+                return is_numeric( $field_value_raw ) && is_numeric( $condition_raw ) && (float) $field_value_raw <= (float) $condition_raw;
+
+            case 'starts with':
+                return strpos( $field_value_raw, $condition_raw ) === 0;
+
+            case 'ends with':
+                if ( '' === $condition_raw ) {
+                    return true;
+                }
+
+                return substr( $field_value_raw, -strlen( $condition_raw ) ) === $condition_raw;
+        }
+
+        return false;
+    }
+
+    protected static function evaluate_conditional_logic_array_condition( $field_value, $condition_value, $operator ) {
+        $field_values     = array_map( [ __CLASS__, 'normalize_conditional_logic_array_value' ], $field_value );
+        $field_values     = array_filter( $field_values, 'strlen' );
+        $condition_value  = strtolower( trim( self::conditional_logic_value_to_string( $condition_value ) ) );
+        $has_field_values = ! empty( $field_values );
+
+        if ( ! $has_field_values ) {
+            if ( in_array( $operator, [ 'empty', 'is empty' ], true ) ) {
+                return true;
+            }
+
+            if ( in_array( $operator, [ 'not empty', 'is not empty', 'is', '==', '=', 'contains' ], true ) ) {
+                return false;
+            }
+
+            if ( in_array( $operator, [ 'is not', '!=', 'not', 'does not contain' ], true ) ) {
+                return true;
+            }
+
+            return false;
+        }
+
+        switch ( $operator ) {
+            case 'is':
+            case '==':
+            case '=':
+                return in_array( $condition_value, $field_values, true ) && 1 === count( array_unique( $field_values ) );
+
+            case 'contains':
+                foreach ( $field_values as $field_value ) {
+                    if ( $field_value === $condition_value || strpos( $field_value, $condition_value ) !== false ) {
+                        return true;
+                    }
+                }
+
+                return false;
+
+            case 'is not':
+            case '!=':
+            case 'not':
+            case 'does not contain':
+                foreach ( $field_values as $field_value ) {
+                    if ( $field_value === $condition_value || strpos( $field_value, $condition_value ) !== false ) {
+                        return false;
+                    }
+                }
+
+                return true;
+        }
+
+        return false;
+    }
+
+    protected static function normalize_conditional_logic_array_value( $value ) {
+        if ( is_array( $value ) ) {
+            foreach ( [ 'name', 'label', 'value', 'id' ] as $key ) {
+                if ( isset( $value[ $key ] ) ) {
+                    return strtolower( trim( self::conditional_logic_value_to_string( $value[ $key ] ) ) );
+                }
+            }
+        }
+
+        return strtolower( trim( self::conditional_logic_value_to_string( $value ) ) );
+    }
+
+    protected static function conditional_logic_value_is_empty( $value ) {
+        if ( is_null( $value ) ) {
+            return true;
+        }
+
+        if ( is_string( $value ) ) {
+            return trim( $value ) === '';
+        }
+
+        if ( is_array( $value ) ) {
+            return empty( array_filter( $value, function( $item ) {
+                return ! self::conditional_logic_value_is_empty( $item );
+            } ) );
+        }
+
+        return false;
+    }
+
+    protected static function conditional_logic_value_to_string( $value ) {
+        if ( is_bool( $value ) ) {
+            return $value ? 'true' : 'false';
+        }
+
+        if ( is_array( $value ) ) {
+            return implode( ',', array_map( [ __CLASS__, 'conditional_logic_value_to_string' ], $value ) );
+        }
+
+        if ( is_object( $value ) ) {
+            return method_exists( $value, '__toString' ) ? (string) $value : '';
+        }
+
+        return (string) $value;
+    }
+
     protected static function is_field_submission_empty( &$field, &$posted_data ) {
         return $field->is_value_empty( $posted_data );
     }
@@ -51,7 +483,7 @@ class SubmissionController {
     protected static function validate_field( &$field, &$posted_data ) {
         $should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
-        if ( self::should_ignore_category_custom_field( $field ) ) {
+        if ( self::should_ignore_category_custom_field( $field ) || self::should_ignore_conditional_logic_field( $field, $posted_data ) ) {
             $should_validate = false;
         }
 
@@ -516,8 +948,16 @@ class SubmissionController {
         return ( (int) $directory->term_id );
     }
 
-    protected static function validate_terms_and_conditions( $directory_id, &$posted_data ) {
+    protected static function validate_terms_and_conditions( $directory_id, &$posted_data, $form_fields = [] ) {
         $error = new WP_Error();
+
+        if ( ! empty( $form_fields['terms_privacy'] ) ) {
+            $terms_privacy_field = Fields::create( $form_fields['terms_privacy'] );
+
+            if ( self::should_ignore_conditional_logic_field( $terms_privacy_field, $posted_data ) ) {
+                return true;
+            }
+        }
 
         if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
             $error->add(
@@ -568,7 +1008,12 @@ class SubmissionController {
         }
         $posted_data['directory_id'] = $directory_id;
 
-        $terms_conditions_check = static::validate_terms_and_conditions( $directory_id, $posted_data );
+        /**
+         * Process form fields.
+         */
+        $form_fields = directorist_get_listing_form_fields( $directory_id );
+
+        $terms_conditions_check = static::validate_terms_and_conditions( $directory_id, $posted_data, $form_fields );
         if ( is_wp_error( $terms_conditions_check ) ) {
             return $terms_conditions_check;
         }
@@ -581,11 +1026,6 @@ class SubmissionController {
         $listing_data = array(
             'post_type' => ATBDP_POST_TYPE
         );
-
-        /**
-         * Process form fields.
-         */
-        $form_fields = directorist_get_listing_form_fields( $directory_id );
 
         foreach ( $form_fields as $form_field ) {
             $field = Fields::create( $form_field );
@@ -611,7 +1051,7 @@ class SubmissionController {
                 continue;
             }
 
-            if ( self::should_ignore_category_custom_field( $field ) ) {
+            if ( self::should_ignore_category_custom_field( $field ) || self::should_ignore_conditional_logic_field( $field, $posted_data ) ) {
                 continue;
             }
 

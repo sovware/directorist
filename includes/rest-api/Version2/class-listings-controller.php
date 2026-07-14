@@ -373,10 +373,10 @@ class Listings_Controller extends Legacy_Listings_Controller {
                     $base_data['featured'] = (bool) get_post_meta( $listing->ID, '_featured', true );
                     break;
                 case 'new':
-                    $base_data['new'] = (bool) Helper::is_new( $listing->ID );
+                    $base_data['new'] = (bool) Helper::display_badge( $listing->ID, 'new' );
                     break;
                 case 'popular':
-                    $base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
+                    $base_data['popular'] = (bool) Helper::display_badge( $listing->ID, 'popular' );
                     break;
                 case 'status':
                     $base_data['status'] = $listing->post_status;

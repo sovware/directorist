@@ -36,6 +36,15 @@ class Builder_Data {
             ],
         ];
 
+        $badge_builder_widgets = \Directorist\Helper::badge_builder_widgets();
+        $badge_toggle_label    = static function( $widget_key, $fallback ) use ( $badge_builder_widgets ) {
+            if ( empty( $badge_builder_widgets[ $widget_key ]['label'] ) ) {
+                return $fallback;
+            }
+
+            return sprintf( __( 'Display %s', 'directorist' ), $badge_builder_widgets[ $widget_key ]['label'] );
+        };
+
         $single_listings_contents_widgets = [
             'preset_widgets' => [
                 'title'         => __( 'Preset Fields', 'directorist' ),
@@ -1902,6 +1911,10 @@ class Builder_Data {
             ] 
         );
 
+        foreach ( $badge_builder_widgets as $badge_widget_key => $badge_widget ) {
+            $listing_card_widget[ $badge_widget_key ] = array_merge( $listing_card_widget[ $badge_widget_key ] ?? [], $badge_widget );
+        }
+
         $listing_card_conditional_widget = $listing_card_widget;
 
         if ( ! empty( $listing_card_conditional_widget['user_avatar'] ) ) {
@@ -2760,17 +2773,17 @@ class Builder_Data {
                                     'fields' => [
                                         'new_badge' => [
                                             'type' => "toggle",
-                                            'label' => __( "Display New Badge", "directorist" ),
+                                            'label' => $badge_toggle_label( 'new_badge', __( "Display New Badge", "directorist" ) ),
                                             'value' => true,
                                         ],
                                         'popular_badge' => [
                                             'type' => "toggle",
-                                            'label' => __( "Display Popular Badge", "directorist" ),
+                                            'label' => $badge_toggle_label( 'popular_badge', __( "Display Popular Badge", "directorist" ) ),
                                             'value' => true,
                                         ],
                                         'featured_badge' => [
                                             'type' => "toggle",
-                                            'label' => __( "Display Featured Badge", "directorist" ),
+                                            'label' => $badge_toggle_label( 'featured_badge', __( "Display Featured Badge", "directorist" ) ),
                                             'value' => true,
                                         ],
                                     ],
@@ -3204,6 +3217,8 @@ class Builder_Data {
         self::$fields = apply_filters( 'directorist/builder/fields', self::$fields );
 
         self::$layouts = apply_filters( 'directorist/builder/layouts', self::$layouts );
+        self::append_custom_badge_widgets_to_accepted_slots( self::$fields );
+        self::append_custom_badge_widgets_to_accepted_slots( self::$layouts );
 
         // Conditional Fields
         // -----------------------------
@@ -3298,6 +3313,32 @@ class Builder_Data {
         }
 
         return $options;
+    }
+
+    protected static function append_custom_badge_widgets_to_accepted_slots( &$data ) {
+        $custom_badge_keys = array_keys( \Directorist\Helper::custom_badge_definitions() );
+
+        if ( empty( $custom_badge_keys ) || ! is_array( $data ) ) {
+            return;
+        }
+
+        $core_badge_keys = [ 'popular_badge', 'featured_badge', 'new_badge' ];
+
+        self::append_badge_widgets_to_accepted_slots( $data, $custom_badge_keys, $core_badge_keys );
+    }
+
+    protected static function append_badge_widgets_to_accepted_slots( &$data, $custom_badge_keys, $core_badge_keys ) {
+        if ( ! is_array( $data ) ) {
+            return;
+        }
+
+        if ( ! empty( $data['acceptedWidgets'] ) && is_array( $data['acceptedWidgets'] ) && array_intersect( $core_badge_keys, $data['acceptedWidgets'] ) ) {
+            $data['acceptedWidgets'] = array_values( array_unique( array_merge( $data['acceptedWidgets'], $custom_badge_keys ) ) );
+        }
+
+        foreach ( $data as &$value ) {
+            self::append_badge_widgets_to_accepted_slots( $value, $custom_badge_keys, $core_badge_keys );
+        }
     }
 
     public function get_fields() {

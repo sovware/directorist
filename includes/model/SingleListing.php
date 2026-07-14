@@ -731,26 +731,40 @@ class Directorist_Single_Listing {
     }
 
     public function has_badge( $data ) {
-        if ( $data['new_badge'] || $data['featured_badge'] || $data['popular_badge'] ) {
-            if ( Helper::badge_exists( $this->id ) ) {
-                return true;
-            }
+        return ! empty( $this->matched_badges( $data ) );
+    }
+
+    public function matched_badges( $data ) {
+        $badge_keys = [];
+
+        if ( ! empty( $data['new_badge'] ) ) {
+            $badge_keys[] = 'new';
         }
 
-        return false;
+        if ( ! empty( $data['featured_badge'] ) ) {
+            $badge_keys[] = 'featured';
+        }
+
+        if ( ! empty( $data['popular_badge'] ) ) {
+            $badge_keys[] = 'popular';
+        }
+
+        $badge_keys = array_merge( $badge_keys, array_keys( Helper::custom_badge_definitions() ) );
+
+        return Helper::matched_badges( $this->id, $badge_keys );
     }
 
     public function display_new_badge( $data ) {
-        return $data['new_badge'] && Helper::is_new( $this->id );
+        return $data['new_badge'] && Helper::display_badge( $this->id, 'new' );
     }
 
     public function display_featured_badge( $data ) {
         $featured_badge = ! empty( $data['featured_badge'] ) ? $data['featured_badge'] : '';
-        return $featured_badge && Helper::is_featured( $this->id );
+        return $featured_badge && Helper::display_badge( $this->id, 'featured' );
     }
 
     public function display_popular_badge( $data ) {
-        return $data['popular_badge'] && Helper::is_popular( $this->id );
+        return $data['popular_badge'] && Helper::display_badge( $this->id, 'popular' );
     }
 
     public function has_price_range() {

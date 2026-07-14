@@ -1458,6 +1458,14 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                     // badge settings
+                    'directorist_badge_rules' => [
+                        'type'              => 'hidden',
+                        'label'             => __( 'Badge Rules', 'directorist' ),
+                        'value'             => '',
+                        'hidden'            => true,
+                        'input_type'        => 'hidden',
+                        'condition_sources' => $this->get_badge_rule_condition_sources(),
+                    ],
                     'badge_display_type' => [
                         'label'       => __( 'Badge Display Type', 'directorist' ),
                         'description' => __( 'Choose how badges should be displayed on listings', 'directorist' ),
@@ -3984,7 +3992,7 @@ Best regards,
                                                 'title'       => __( 'General', 'directorist' ),
                                                 'description' => '',
                                                 'fields'      => [
-                                                    'badge_display_type',
+                                                    'badge_display_type', 'directorist_badge_rules',
                                                 ],
                                             ],
                                             'new_badge' => [
@@ -4719,6 +4727,369 @@ Best regards,
             ];
         }
 
+        /**
+         * Get badge rule source metadata for the redesigned badge rule builder.
+         *
+         * @return array
+         */
+        private function get_badge_rule_condition_sources() {
+            return apply_filters(
+                'directorist_badge_rule_condition_sources',
+                [
+                    'general' => $this->get_badge_rule_general_condition_options(),
+                    'fields'  => $this->get_badge_rule_field_condition_options(),
+                    'pricing' => $this->get_badge_rule_pricing_plan_options(),
+                ]
+            );
+        }
+
+        /**
+         * Get core listing properties that can be used as badge rule conditions.
+         *
+         * @return array
+         */
+        private function get_badge_rule_general_condition_options() {
+            return apply_filters(
+                'directorist_badge_rule_general_condition_options',
+                [
+                    [
+                        'value'           => 'age_days',
+                        'label'           => __( 'Listing age (days)', 'directorist' ),
+                        'valueType'       => 'number',
+                        'defaultOperator' => '<=',
+                        'defaultValue'    => '3',
+                        'min'             => '0',
+                        'step'            => '1',
+                    ],
+                    [
+                        'value'           => 'view_count',
+                        'label'           => __( 'View count', 'directorist' ),
+                        'valueType'       => 'number',
+                        'defaultOperator' => '>=',
+                        'defaultValue'    => '5',
+                        'min'             => '0',
+                        'step'            => '1',
+                    ],
+                    [
+                        'value'           => 'average_rating',
+                        'label'           => __( 'Average rating', 'directorist' ),
+                        'valueType'       => 'number',
+                        'defaultOperator' => '>=',
+                        'defaultValue'    => '4',
+                        'min'             => '0',
+                        'max'             => '5',
+                        'step'            => '.5',
+                    ],
+                    [
+                        'value'           => 'review_count',
+                        'label'           => __( 'Review count', 'directorist' ),
+                        'valueType'       => 'number',
+                        'defaultOperator' => '>=',
+                        'defaultValue'    => '1',
+                        'min'             => '0',
+                        'step'            => '1',
+                    ],
+                    [
+                        'value'           => 'is_featured',
+                        'label'           => __( 'Is featured', 'directorist' ),
+                        'valueType'       => 'boolean',
+                        'defaultOperator' => 'is',
+                        'defaultValue'    => true,
+                    ],
+                    [
+                        'value'           => 'listing_status',
+                        'label'           => __( 'Listing status', 'directorist' ),
+                        'valueType'       => 'select',
+                        'defaultOperator' => 'is',
+                        'defaultValue'    => 'publish',
+                        'valueOptions'    => [
+                            [
+                                'value' => 'publish',
+                                'label' => __( 'Published', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'pending',
+                                'label' => __( 'Pending', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'private',
+                                'label' => __( 'Private', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'draft',
+                                'label' => __( 'Draft', 'directorist' ),
+                            ],
+                        ],
+                    ],
+                ]
+            );
+        }
+
+        /**
+         * Get listing form fields that can be used as badge rule conditions.
+         *
+         * @return array
+         */
+        private function get_badge_rule_field_condition_options() {
+            if ( ! function_exists( 'directorist_get_directories' ) || ! function_exists( 'directorist_get_listing_form_fields' ) ) {
+                return [];
+            }
+
+            $directories = directorist_get_directories( [ 'hide_empty' => false ] );
+
+            if ( is_wp_error( $directories ) || empty( $directories ) ) {
+                return [];
+            }
+
+            $field_options = [];
+            $seen_fields   = [];
+
+            foreach ( $directories as $directory ) {
+                $form_fields = directorist_get_listing_form_fields( $directory->term_id, [ 'type' => 'listing_submission_form' ] );
+
+                if ( empty( $form_fields ) || ! is_array( $form_fields ) ) {
+                    continue;
+                }
+
+                foreach ( $form_fields as $field ) {
+                    if ( empty( $field['field_key'] ) || empty( $field['widget_name'] ) ) {
+                        continue;
+                    }
+
+                    if ( ! $this->badge_rule_field_type_is_supported( $field['widget_name'] ) ) {
+                        continue;
+                    }
+
+                    $field_key = sanitize_key( $field['field_key'] );
+
+                    if ( empty( $field_key ) || isset( $seen_fields[ $field_key ] ) ) {
+                        continue;
+                    }
+
+                    $seen_fields[ $field_key ] = true;
+
+                    $field_options[] = [
+                        'value'         => $field_key,
+                        'label'         => $this->get_badge_rule_field_label( $field, $directory ),
+                        'valueType'     => $this->get_badge_rule_field_value_type( $field['widget_name'] ),
+                        'defaultValue'  => $this->get_badge_rule_field_default_value( $field['widget_name'] ),
+                        'valueOptions'  => $this->get_badge_rule_field_value_options( $field ),
+                        'directoryId'   => (string) $directory->term_id,
+                        'directoryName' => $directory->name,
+                    ];
+                }
+            }
+
+            return apply_filters( 'directorist_badge_rule_field_condition_options', $field_options );
+        }
+
+        /**
+         * Check whether a listing form field type is safe for badge rules.
+         *
+         * @param string $widget_name Field widget name.
+         * @return bool
+         */
+        private function badge_rule_field_type_is_supported( $widget_name ) {
+            return in_array(
+                $widget_name,
+                [
+                    'text',
+                    'textarea',
+                    'number',
+                    'url',
+                    'email',
+                    'date',
+                    'time',
+                    'color_picker',
+                    'select',
+                    'radio',
+                    'checkbox',
+                    'switch',
+                ],
+                true
+            );
+        }
+
+        /**
+         * Get badge rule field label.
+         *
+         * @param array   $field Field config.
+         * @param WP_Term $directory Directory term.
+         * @return string
+         */
+        private function get_badge_rule_field_label( $field, $directory ) {
+            $label = ! empty( $field['label'] ) ? $field['label'] : $field['field_key'];
+            $label = wp_strip_all_tags( (string) $label );
+
+            return sprintf( '%s (%s)', $label, $directory->name );
+        }
+
+        /**
+         * Get badge rule field value type.
+         *
+         * @param string $widget_name Field widget name.
+         * @return string
+         */
+        private function get_badge_rule_field_value_type( $widget_name ) {
+            if ( 'number' === $widget_name ) {
+                return 'number';
+            }
+
+            if ( 'switch' === $widget_name ) {
+                return 'boolean';
+            }
+
+            if ( in_array( $widget_name, [ 'select', 'radio', 'checkbox' ], true ) ) {
+                return 'select';
+            }
+
+            return 'text';
+        }
+
+        /**
+         * Get badge rule field default value.
+         *
+         * @param string $widget_name Field widget name.
+         * @return mixed
+         */
+        private function get_badge_rule_field_default_value( $widget_name ) {
+            if ( 'number' === $widget_name ) {
+                return 0;
+            }
+
+            if ( 'switch' === $widget_name ) {
+                return true;
+            }
+
+            return '';
+        }
+
+        /**
+         * Get select-style options for a listing field.
+         *
+         * @param array $field Field config.
+         * @return array
+         */
+        private function get_badge_rule_field_value_options( $field ) {
+            if ( empty( $field['options'] ) || ! is_array( $field['options'] ) ) {
+                return [];
+            }
+
+            $field_options = $field['options'];
+
+            if ( ! empty( $field_options['value']['options'] ) && is_array( $field_options['value']['options'] ) ) {
+                $field_options = $field_options['value']['options'];
+            }
+
+            $options = [];
+
+            foreach ( $field_options as $option ) {
+                if ( is_array( $option ) ) {
+                    if ( isset( $option['option_value'] ) ) {
+                        $value = $option['option_value'];
+                        $label = isset( $option['option_label'] ) ? $option['option_label'] : $value;
+                    } else {
+                        $value = isset( $option['value'] ) ? $option['value'] : ( isset( $option['label'] ) ? $option['label'] : '' );
+                        $label = isset( $option['label'] ) ? $option['label'] : $value;
+                    }
+                } else {
+                    $value = $option;
+                    $label = $option;
+                }
+
+                if ( '' === $value ) {
+                    continue;
+                }
+
+                $options[] = [
+                    'value' => (string) $value,
+                    'label' => wp_strip_all_tags( (string) $label ),
+                ];
+            }
+
+            return $options;
+        }
+
+        /**
+         * Get pricing plans that can be used as badge rule conditions.
+         *
+         * @return array
+         */
+        private function get_badge_rule_pricing_plan_options() {
+            $plans = [];
+
+            if ( post_type_exists( 'atbdp_pricing_plans' ) ) {
+                $plans = array_merge( $plans, $this->get_badge_rule_plan_options_by_post_type( 'atbdp_pricing_plans' ) );
+            }
+
+            if ( post_type_exists( 'product' ) ) {
+                $plans = array_merge( $plans, $this->get_badge_rule_woo_pricing_plan_options() );
+            }
+
+            return apply_filters( 'directorist_badge_rule_pricing_plan_options', $plans );
+        }
+
+        /**
+         * Get pricing plan options by post type.
+         *
+         * @param string $post_type Plan post type.
+         * @param array  $extra_args Extra query args.
+         * @return array
+         */
+        private function get_badge_rule_plan_options_by_post_type( $post_type, $extra_args = [] ) {
+            $query = new WP_Query(
+                array_merge(
+                    [
+                        'post_type'      => $post_type,
+                        'post_status'    => 'publish',
+                        'posts_per_page' => 100,
+                        'orderby'        => 'title',
+                        'order'          => 'ASC',
+                        'fields'         => 'ids',
+                    ],
+                    $extra_args
+                )
+            );
+
+            if ( empty( $query->posts ) ) {
+                return [];
+            }
+
+            return array_map(
+                static function( $plan_id ) {
+                    return [
+                        'value' => (string) $plan_id,
+                        'label' => get_the_title( $plan_id ),
+                    ];
+                },
+                $query->posts
+            );
+        }
+
+        /**
+         * Get WooCommerce pricing plan options.
+         *
+         * @return array
+         */
+        private function get_badge_rule_woo_pricing_plan_options() {
+            if ( ! taxonomy_exists( 'product_type' ) ) {
+                return [];
+            }
+
+            return $this->get_badge_rule_plan_options_by_post_type(
+                'product',
+                [
+                    'tax_query' => [
+                        [
+                            'taxonomy' => 'product_type',
+                            'field'    => 'slug',
+                            'terms'    => 'listing_pricing_plans',
+                        ],
+                    ],
+                ]
+            );
+        }
+
         // add_menu_pages
         public function add_menu_pages() {
             add_submenu_page(
@@ -4746,7 +5117,9 @@ Best regards,
                     continue;
                 }
 
-                $this->fields[ $field_key ]['value'] = $atbdp_options[ $field_key ];
+                $this->fields[ $field_key ]['value'] = 'directorist_badge_rules' === $field_key
+                    ? Directorist\Helper::normalize_badge_rules_setting_value( $atbdp_options[ $field_key ] )
+                    : $atbdp_options[ $field_key ];
             }
 
             $settings_builder_data = [

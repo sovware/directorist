@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.2.2
- * @version 8.5
+ * @version 8.8.6
  */
 
 use \Directorist\Helper;
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
             <input type="hidden" name='directory_type' value='<?php echo esc_attr( $listings->get_directory_type_slug() ); ?>'>
             <?php
-            foreach ( $searchform->form_data[0]['fields'] as $field ) {
+            foreach ( $searchform->get_basic_fields() as $field ) {
                 $searchform->field_template( $field );
             }
             ?>

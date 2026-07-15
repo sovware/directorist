@@ -63,10 +63,10 @@ Featured badge:
 - Field badge conditions read listing post meta by field key, first with the `_field_key` prefix and then unprefixed. The value can be adjusted with `directorist_badge_rule_field_value`.
 - Pricing badge conditions read the core listing plan meta key `_fm_plans` and can be adjusted with `directorist_badge_rule_pricing_plan_meta_keys` and `directorist_badge_rule_pricing_plan_ids`.
 - `Directorist\Directorist_Listings::render_badge_template()` maps the builder widget key back to a badge definition, checks `Helper::display_badge()`, then renders the existing archive badge template.
-- `Directorist\Directorist_Single_Listing::matched_badges()` loops the same matched badge definitions while preserving the existing single listing badge wrapper.
+- `Directorist\Directorist_Single_Listing::matched_badges()` loops the same matched badge definitions while preserving the existing single listing badge wrapper. Core badge toggles in the grouped single `Badges` widget stay enabled by default, but custom badge toggles are added to that widget settings panel disabled by default; a custom badge is included on single listing only when its matching toggle is enabled.
 - REST v1/v2 listing `new` and `popular` response fields use `Helper::display_badge()` for consistency with rendered badge visibility.
 - `includes/classes/class-stylesheet.php` reads the three badge color keys and prints dynamic CSS.
-- `includes/modules/multi-directory-setup/class-builder-data.php` keeps core builder widget keys and appends custom badge widgets only to badge-compatible accepted widget lists.
+- `includes/modules/multi-directory-setup/class-builder-data.php` keeps core builder widget keys, appends custom badge widgets only to badge-compatible archive/listing-card accepted widget lists, and appends disabled-by-default custom badge toggles to the grouped single listing `Badges` widget settings.
 - `templates/archive/fields/badge.php` switches archive badge markup based on normalized per-badge type and supports inline background, text, and border colors.
 - `templates/single/fields/badges.php` renders matched badge labels/icons with the same normalized colors while preserving the wrapper/span shape.
 

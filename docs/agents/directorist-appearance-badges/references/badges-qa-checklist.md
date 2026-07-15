@@ -26,6 +26,7 @@
 - Confirm Reset defaults preserves original core badge icons: `la la-bolt`, `la la-fire`, and `la la-star-o`.
 - Confirm old saved core rules without `typeEdited` follow global `badge_display_type`, and old saved New/Popular rules with an unedited generic star icon normalize back to `la la-bolt` and `la la-fire`, while rules with `typeEdited: true` or `iconEdited: true` keep the selected type/icon.
 - Confirm custom badge widgets are added only to badge-compatible builder accepted widget lists and do not change existing `maxWidget` values.
+- Confirm the grouped single listing `Badges` widget settings shows custom badge toggles disabled by default while New, Popular, and Featured remain enabled by default.
 - Confirm saved badge icons feed builder widget metadata, archive badges, and single listing badges. Badge colors and icon-only badge type must affect settings/frontend badges only; builder chips must keep the old neutral builder UI.
 - Confirm icon-only badge tooltip overrides save inside `directorist_badge_rules.badges.*.hover` and empty hover values fall back to visible label, badge background, and icon/text color without a migration.
 - Confirm new badge saves do not emit `showIcon`; old saved `showIcon` data loads without false dirty state.
@@ -34,7 +35,7 @@
 - Confirm removing a text badge icon saves `icon: ""` with `iconEdited: true`, and switching that badge to icon-only restores the default icon.
 - Confirm custom badges are not auto-inserted into existing builder layouts.
 - Confirm invalid or unsupported saved core rules fall back to legacy badge behavior, while invalid custom rules fail closed.
-- Confirm conditionless custom badges show wherever their builder widget is placed.
+- Confirm conditionless custom badges show on archive/listing-card only where their direct custom badge widget is placed, and on single listing only when their toggle inside the grouped `Badges` widget is enabled.
 - Confirm blank text or blank specific-plan condition values fail closed instead of matching every listing.
 - Confirm text `does not contain` summaries render human-readable labels, not raw operator keys.
 - Inspect `git diff` and keep generated build assets out of scope unless the user approved a build.
@@ -85,7 +86,7 @@ If Agent Browser redirects to `wp-login.php?reauth=1` and normal test credential
 
 - Check archive listing cards for New, Popular, Featured, and builder-placed custom badge labels/colors/borders/icons.
 - Toggle text/icon badge display in settings and verify archive badge behavior follows saved badge definitions.
-- Check single listing badge output for label/color regressions and confirm the wrapper/span structure remains compatible.
+- Check single listing badge output for label/color regressions and confirm the wrapper/span structure remains compatible. Custom badges should not show from the grouped `Badges` widget until the matching custom badge toggle is enabled in Directory Builder.
 - Verify REST v1/v2 listing `new` and `popular` fields match rendered badge visibility when rules are present.
 - Create or identify listings that satisfy Field and Pricing plan rules, then verify archive, single, and REST badge visibility use the same result.
 

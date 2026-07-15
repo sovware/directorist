@@ -749,9 +749,25 @@ class Directorist_Single_Listing {
             $badge_keys[] = 'popular';
         }
 
-        $badge_keys = array_merge( $badge_keys, array_keys( Helper::custom_badge_definitions() ) );
+        foreach ( array_keys( Helper::custom_badge_definitions() ) as $custom_badge_key ) {
+            if ( ! empty( $data[ $custom_badge_key ] ) && $this->builder_toggle_enabled( $data[ $custom_badge_key ] ) ) {
+                $badge_keys[] = $custom_badge_key;
+            }
+        }
 
         return Helper::matched_badges( $this->id, $badge_keys );
+    }
+
+    private function builder_toggle_enabled( $value ) {
+        if ( is_bool( $value ) ) {
+            return $value;
+        }
+
+        if ( is_numeric( $value ) ) {
+            return (bool) (int) $value;
+        }
+
+        return in_array( strtolower( trim( (string) $value ) ), [ '1', 'true', 'yes', 'on' ], true );
     }
 
     public function display_new_badge( $data ) {

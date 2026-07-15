@@ -44,6 +44,23 @@ class Builder_Data {
 
             return sprintf( __( 'Display %s', 'directorist' ), $badge_builder_widgets[ $widget_key ]['label'] );
         };
+        $custom_badge_toggle_fields = [];
+
+        foreach ( \Directorist\Helper::custom_badge_definitions() as $badge_key => $badge ) {
+            $badge_widget_key = \Directorist\Helper::badge_widget_key( $badge_key );
+
+            if ( empty( $badge_widget_key ) ) {
+                continue;
+            }
+
+            $fallback_label = ! empty( $badge['internalName'] ) ? $badge['internalName'] : ( ! empty( $badge['label'] ) ? $badge['label'] : __( 'Custom badge', 'directorist' ) );
+
+            $custom_badge_toggle_fields[ $badge_widget_key ] = [
+                'type'  => "toggle",
+                'label' => $badge_toggle_label( $badge_widget_key, sprintf( __( 'Display %s', 'directorist' ), $fallback_label ) ),
+                'value' => false,
+            ];
+        }
 
         $single_listings_contents_widgets = [
             'preset_widgets' => [
@@ -2770,7 +2787,7 @@ class Builder_Data {
                                 'icon' => 'la la-circle-notch',
                                 'options' => [
                                     'title' => __( "Badge Settings", "directorist" ),
-                                    'fields' => [
+                                    'fields' => array_merge( [
                                         'new_badge' => [
                                             'type' => "toggle",
                                             'label' => $badge_toggle_label( 'new_badge', __( "Display New Badge", "directorist" ) ),
@@ -2786,7 +2803,7 @@ class Builder_Data {
                                             'label' => $badge_toggle_label( 'featured_badge', __( "Display Featured Badge", "directorist" ) ),
                                             'value' => true,
                                         ],
-                                    ],
+                                    ], $custom_badge_toggle_fields ),
                                 ],
                             ],
                             'ratings_count' => [

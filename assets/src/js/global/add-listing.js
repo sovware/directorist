@@ -316,45 +316,190 @@ $(function () {
 	/**
 	 * Price field.
 	 */
-	function getPriceTypeInput(typeId) {
-		return $(`#${$(`[for="${typeId}"]`).data('option')}`);
+	function getPriceTypeInput(typeId, $pricingField) {
+		const $label = $pricingField
+			? $pricingField.find(`[for="${typeId}"]`)
+			: $(`[for="${typeId}"]`);
+		const option = $label.data('option');
+		return $pricingField ? $pricingField.find(`#${option}`) : $(`#${option}`);
 	}
+
+	function isPricingControlEmpty($control) {
+		const value = String($control.val() || '').trim();
+
+		if (!value) {
+			return true;
+		}
+
+		if ($control.attr('id') !== 'price') {
+			return false;
+		}
+
+		const numericValue = Number(value);
+		return !Number.isFinite(numericValue) || numericValue === 0;
+	}
+
+	function updatePricingControlValidity($control) {
+		const control = $control.get(0);
+
+		if (!control || typeof control.setCustomValidity !== 'function') {
+			return;
+		}
+
+		if (!$control.prop('required')) {
+			control.setCustomValidity('');
+			return;
+		}
+
+		control.setCustomValidity(
+			isPricingControlEmpty($control)
+				? $control.data('required-message') || ''
+				: ''
+		);
+	}
+
+	function setPricingControlRequirement($control, required) {
+		$control.prop('required', required);
+
+		if (required) {
+			$control.attr('required', 'required');
+		} else {
+			$control.removeAttr('required');
+		}
+
+		updatePricingControlValidity($control);
+	}
+
+	function updatePricingChoiceValidity($pricingField) {
+		const isRequired = $pricingField.data('required') === 1;
+		const $pricingOptions = $pricingField.find(
+			'.directorist-form-pricing-field__options input'
+		);
+		const $firstOption = $pricingOptions.first();
+		const firstOption = $firstOption.get(0);
+
+		$pricingOptions.prop('required', false).removeAttr('required');
+		$pricingOptions.each(function () {
+			if (typeof this.setCustomValidity === 'function') {
+				this.setCustomValidity('');
+			}
+		});
+
+		if (!firstOption || !isRequired || $pricingOptions.is(':checked')) {
+			return;
+		}
+
+		$firstOption.prop('required', true).attr('required', 'required');
+
+		if (typeof firstOption.setCustomValidity === 'function') {
+			firstOption.setCustomValidity(
+				$pricingField
+					.find('.directorist-form-pricing-field__options')
+					.data('required-message') || ''
+			);
+		}
+	}
+
+	function updatePricingFieldRequirement($pricingField) {
+		if (!$pricingField.hasClass('price-type-both')) {
+			return;
+		}
+
+		const isRequired = $pricingField.data('required') === 1;
+		const $pricingControls = $pricingField.find('#price, #price_range');
+		const $selectedPriceType = $pricingField.find(
+			'.directorist-form-pricing-field__options input:checked'
+		);
+
+		$pricingControls.each(function () {
+			setPricingControlRequirement($(this), false);
+		});
+
+		updatePricingChoiceValidity($pricingField);
+
+		if (!isRequired || !$selectedPriceType.length) {
+			return;
+		}
+
+		getPriceTypeInput($selectedPriceType.attr('id'), $pricingField).each(
+			function () {
+				setPricingControlRequirement($(this), true);
+			}
+		);
+	}
+
+	$('body').on(
+		'input change invalid',
+		'.directorist-form-pricing-field #price, .directorist-form-pricing-field #price_range',
+		function () {
+			updatePricingControlValidity($(this));
+		}
+	);
+
+	$('body').on(
+		'change invalid',
+		'.directorist-form-pricing-field__options input',
+		function () {
+			updatePricingFieldRequirement(
+				$(this).closest('.directorist-form-pricing-field')
+			);
+		}
+	);
 
 	$('.directorist-form-pricing-field__options').on(
 		'change',
 		'input',
 		function () {
+			const $pricingField = $(this).closest(
+				'.directorist-form-pricing-field'
+			);
 			const $otherOptions = $(this)
 				.parent()
 				.siblings('.directorist-checkbox')
 				.find('input');
 
 			$otherOptions.prop('checked', false);
-			getPriceTypeInput($otherOptions.attr('id')).hide();
+			getPriceTypeInput($otherOptions.attr('id'), $pricingField).hide();
 
 			if (this.checked) {
-				getPriceTypeInput(this.id).show();
+				getPriceTypeInput(this.id, $pricingField).show();
 			} else {
-				getPriceTypeInput(this.id).hide();
+				getPriceTypeInput(this.id, $pricingField).hide();
 			}
+
+			updatePricingFieldRequirement($pricingField);
 		}
 	);
 
-	if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
-		$('#price_range, #price').hide();
+	$('.directorist-form-pricing-field.price-type-both').each(function () {
+		const $pricingField = $(this);
 
-		const $selectedPriceType = $(
+		$pricingField.find('#price_range, #price').hide();
+
+		const $selectedPriceType = $pricingField.find(
 			'.directorist-form-pricing-field__options input:checked'
 		);
 
 		if ($selectedPriceType.length) {
-			getPriceTypeInput($selectedPriceType.attr('id')).show();
+			getPriceTypeInput($selectedPriceType.attr('id'), $pricingField).show();
 		} else {
-			$($('.directorist-form-pricing-field__options input').get(0))
+			$(
+				$pricingField
+					.find('.directorist-form-pricing-field__options input')
+					.get(0)
+			)
 				.prop('checked', true)
 				.trigger('change');
 		}
-	}
+
+		updatePricingFieldRequirement($pricingField);
+	});
+
+	$('.directorist-form-pricing-field #price, .directorist-form-pricing-field #price_range').each(
+		function () {
+			updatePricingControlValidity($(this));
+		}
+	);
 
 	const has_tagline = $('#has_tagline').val();
 	const has_excerpt = $('#has_excerpt').val();

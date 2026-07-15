@@ -263,6 +263,11 @@ return apply_filters(
                     ],
                     'value' => 'Price of this listing. Eg. 100',
                 ],
+                'required' => [
+                    'type'  => 'toggle',
+                    'label' => __( 'Required', 'directorist' ),
+                    'value' => false,
+                ],
                 'only_for_admin' => [
                     'type'  => 'toggle',
                     'label' => __( 'Admin Only', 'directorist' ),

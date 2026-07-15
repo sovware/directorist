@@ -221,6 +221,7 @@ class Multi_Directory_Migration {
                 "field_key"              => "pricing",
                 "pricing_type"           => "both",
                 "label"                  => get_directorist_option( 'pricing_label', 'Pricing' ),
+                "required"               => false,
                 "price_range_label"      => get_directorist_option( 'price_range_label', 'Select Price Range' ),
                 "price_range_options"    => "cheap",
                 "price_unit_field_type"  => "number",

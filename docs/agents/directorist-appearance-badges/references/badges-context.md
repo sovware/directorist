@@ -87,7 +87,8 @@ Featured badge:
 - Icon badge tooltip overrides live in `hover.text`, `hover.bg`, and `hover.textColor`. Empty tooltip values fall back to the visible label, badge background, and icon/text color so old rules do not need migration.
 - Frontend archive, single, and legacy badge output must match the Appearance preview chip tokens: 999px radius, 24px text-badge height, 28px icon-only badge height, 4px vertical padding, 10px text-badge horizontal padding, 6px icon/label gap, 12px/500 text, 13px text-badge icons, 14px icon-only icons, border color from `style.border`, and no mobile shrink away from the saved preview.
 - Runtime may tolerate old saved `showIcon` values, but new saves must not emit `showIcon` and must not render dot markers.
-- Add/Delete applies to custom badges only. Reset defaults restores core labels, colors, and icons, leaves core conditions empty for legacy behavior, and removes custom badges.
+- Add/Delete applies to custom badges only. Reset defaults restores core labels, colors, icons, and the default visible core condition rows, and removes custom badges. Empty condition arrays remain valid when an admin manually removes all conditions after reset.
+- Condition operators may pass through WordPress admin sanitization during save/load, so the UI must normalize encoded operator tokens such as `&lt;=`, `&lt;`, `&gt;=`, `&gt;`, and `&ne;` back to `<=`, `<`, `>=`, `>`, and `is_not` before rendering summaries, selects, or saved rules.
 - Do not add migration code or default backfills.
 
 ## Hidden Rule Schema
@@ -146,7 +147,7 @@ Featured badge:
 }
 ```
 
-The other core default icons are `la la-fire` for Popular and `la la-star-o` for Featured. Custom badge defaults use `la la-certificate` unless the admin chooses another icon. The saved icon feeds the builder widget icon class and text badge frontend/admin preview output when present. Badge colors and icon-only badge type do not change the builder chip UI. Removing a text badge icon saves an intentionally empty `icon` with `iconEdited: true`, and the badge renders label-only. The UI must allow `conditions: []`; Add condition is the only action that creates a default condition row.
+The other core default icons are `la la-fire` for Popular and `la la-star-o` for Featured. Custom badge defaults use `la la-certificate` unless the admin chooses another icon. The saved icon feeds the builder widget icon class and text badge frontend/admin preview output when present. Badge colors and icon-only badge type do not change the builder chip UI. Removing a text badge icon saves an intentionally empty `icon` with `iconEdited: true`, and the badge renders label-only. The UI must allow `conditions: []`; manual Add condition is the normal user action that creates a condition row, while Reset defaults recreates the default New, Popular, and Featured condition rows.
 
 Supported core General condition keys in PHP and UI are `age_days`, `view_count`, `average_rating`, `review_count`, `is_featured`, and `listing_status`; extra General options must register both metadata through `directorist_badge_rule_general_condition_options` and runtime values through `directorist_badge_rule_general_condition_value`. Field condition keys are discovered from supported listing submission fields and read listing meta. Pricing plan condition keys are `has_plan` and `plan_id`. The UI supports `all` and `any` matching and add/remove condition rows for core and custom badge cards. The first legacy-compatible New and Popular General condition rows also mirror back to `new_listing_day`, `listing_popular_by`, `views_for_popular`, and `average_review_for_popular`.
 

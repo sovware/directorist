@@ -5159,6 +5159,11 @@ Best regards,
 
                 foreach ( $field_args as $field_args_key => $field_args_value ) {
 
+                    if ( 'directorist_badge_rules' === $key && in_array( $field_args_key, [ 'value', 'condition_sources' ], true ) ) {
+                        $fields[ $key ][ $field_args_key ] = $this->sanitize_badge_rules_field_arg_value( $field_args_value );
+                        continue;
+                    }
+
                     $type = isset( $field_args['type'] ) ? $field_args['type'] : 'text';
                     $fields[ $key ][ $field_args_key ] = $this->sanitize_field_arg_value( $field_args_key, $field_args_value, $type );
                 }
@@ -5198,6 +5203,42 @@ Best regards,
             }
 
             return directorist_clean_post( $field_args_value );
+        }
+
+        /**
+         * Sanitize badge rule admin payload while preserving operator tokens.
+         *
+         * @param mixed  $value Badge rule value or metadata.
+         * @param string $data_key Current nested data key.
+         * @return mixed
+         */
+        private function sanitize_badge_rules_field_arg_value( $value, $data_key = '' ) {
+            if ( is_array( $value ) ) {
+                foreach ( $value as $key => $item ) {
+                    $value[ $key ] = $this->sanitize_badge_rules_field_arg_value( $item, $key );
+                }
+
+                return $value;
+            }
+
+            if ( is_bool( $value ) || is_int( $value ) || is_float( $value ) || null === $value ) {
+                return $value;
+            }
+
+            $value = directorist_clean_post( $value );
+
+            if ( in_array( $data_key, [ 'operator', 'defaultOperator', 'default_operator' ], true ) && is_string( $value ) ) {
+                return strtr(
+                    html_entity_decode( $value, ENT_QUOTES | ENT_HTML5, get_bloginfo( 'charset' ) ),
+                    [
+                        '≤' => '<=',
+                        '≥' => '>=',
+                        '≠' => '!=',
+                    ]
+                );
+            }
+
+            return $value;
         }
 
         /**

@@ -10,10 +10,11 @@
 - Confirm core internal name changes affect admin/builder labels only; core visible labels still mirror to `new_badge_text`, `popular_badge_text`, and `feature_badge_text`.
 - Confirm core background colors still mirror to `new_back_color`, `popular_back_color`, and `featured_back_color`; text and border colors remain in `directorist_badge_rules`.
 - Confirm match-condition rows save General, Field, and Pricing plan conditions in `directorist_badge_rules`.
-- Confirm badges can save `conditions: []`; Add condition is the only action that creates a default condition row.
+- Confirm badges can save `conditions: []`; Add condition manually creates condition rows, and Reset defaults recreates the core default condition rows.
 - Confirm first legacy-compatible New and Popular condition rows still mirror to `new_listing_day`, `listing_popular_by`, `views_for_popular`, and `average_review_for_popular`.
 - Confirm Field and Pricing plan condition rows do not mirror into legacy General badge keys.
 - Confirm Add condition, Remove condition, and All/Any match mode update only `directorist_badge_rules`.
+- Confirm encoded condition operators such as `&lt;=`, `&lt;`, `&gt;=`, `&gt;`, and `&ne;` normalize back to valid raw operators in summaries, selects, and future saved rules.
 - Confirm `directorist_badge_rules` resets to the cached value when visible badge edits are reverted.
 - Confirm Field source options come from supported listing submission fields and tolerate both `value`/`label` and `option_value`/`option_label` option shapes.
 - Confirm General source options come from `condition_sources.general` and unsupported mockup-only conditions are absent unless an extension registers metadata and a runtime value resolver.
@@ -21,7 +22,7 @@
 - Confirm Pricing plan specific-plan rows still render a valid exact-match operator when no plan options are available and the UI falls back to a text value.
 - Confirm Add badge creates a stable `custom_badge_*` definition in `directorist_badge_rules`.
 - Confirm Delete is available only for custom badges and does not remove core badge definitions.
-- Confirm Reset defaults restores core labels/colors/icons, leaves core conditions empty, and removes custom badges.
+- Confirm Reset defaults restores core labels/colors/icons, restores default visible core condition rows, and removes custom badges.
 - Confirm Reset defaults preserves original core badge icons: `la la-bolt`, `la la-fire`, and `la la-star-o`.
 - Confirm old saved core rules without `typeEdited` follow global `badge_display_type`, and old saved New/Popular rules with an unedited generic star icon normalize back to `la la-bolt` and `la la-fire`, while rules with `typeEdited: true` or `iconEdited: true` keep the selected type/icon.
 - Confirm custom badge widgets are added only to badge-compatible builder accepted widget lists and do not change existing `maxWidget` values.
@@ -59,7 +60,7 @@ Use Agent Browser when an authenticated admin session is available:
 15. Switch a row to Pricing plan, test both `Has pricing plan` and a specific `Pricing plan`, save, refresh, and verify persistence.
 16. Add a custom badge, set internal name, visible label, type/icon, colors, and conditions; save, refresh, and verify persistence.
 17. Delete the custom badge, save, refresh, and verify it is gone.
-18. Add a custom badge again, use Reset defaults, save, refresh, and verify core labels/colors/icons are restored, core conditions are empty, and custom badges are removed.
+18. Add a custom badge again, use Reset defaults, save, refresh, and verify core labels/colors/icons are restored, default core condition rows are visible with raw `<=` / `>=` operators, and custom badges are removed.
 19. Save and verify the request posts changed badge keys and, when badge settings changed, `directorist_badge_rules` to `save_settings_data`.
 20. Refresh and verify saved values persist and Save is disabled after load.
 21. Use settings search for a badge field and verify it opens the Badges tab and highlights/scrolls to the custom control.

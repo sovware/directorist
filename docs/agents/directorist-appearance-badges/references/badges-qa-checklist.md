@@ -14,11 +14,11 @@
 - Confirm first legacy-compatible New and Popular condition rows still mirror to `new_listing_day`, `listing_popular_by`, `views_for_popular`, and `average_review_for_popular`.
 - Confirm Field and Pricing plan condition rows do not mirror into legacy General badge keys.
 - Confirm Add condition, Remove condition, and All/Any match mode update only `directorist_badge_rules`.
-- Confirm encoded condition operators such as `&lt;=`, `&lt;`, `&gt;=`, `&gt;`, and `&ne;` normalize back to valid raw operators in summaries, selects, and future saved rules.
+- Confirm encoded condition operators such as `&lt;=`, `&lt;`, `&gt;=`, `&gt;`, and `&ne;` normalize back to valid raw operators in summaries, selects, future saved rules, and PHP frontend matching.
 - Confirm `directorist_badge_rules` resets to the cached value when visible badge edits are reverted.
-- Confirm Field source options come from supported listing submission fields and tolerate both `value`/`label` and `option_value`/`option_label` option shapes.
+- Confirm Field source options come from raw supported listing submission fields, are not hidden by Pricing Plans add-listing gating, and tolerate both `value`/`label` and `option_value`/`option_label` option shapes.
 - Confirm General source options come from `condition_sources.general` and unsupported mockup-only conditions are absent unless an extension registers metadata and a runtime value resolver.
-- Confirm Pricing plan source options include published core pricing plans and WooCommerce listing pricing products when those post types exist.
+- Confirm Pricing plan source options include published legacy core pricing plans, v4 Pricing Plans rows from `directorist_plans`, and WooCommerce listing pricing products when those sources exist.
 - Confirm Pricing plan specific-plan rows still render a valid exact-match operator when no plan options are available and the UI falls back to a text value.
 - Confirm Add badge creates a stable `custom_badge_*` definition in `directorist_badge_rules`.
 - Confirm Delete is available only for custom badges and does not remove core badge definitions.
@@ -88,7 +88,7 @@ If Agent Browser redirects to `wp-login.php?reauth=1` and normal test credential
 - Toggle text/icon badge display in settings and verify archive badge behavior follows saved badge definitions.
 - Check single listing badge output for label/color regressions and confirm the wrapper/span structure remains compatible. Custom badges should not show from the grouped `Badges` widget until the matching custom badge toggle is enabled in Directory Builder.
 - Verify REST v1/v2 listing `new` and `popular` fields match rendered badge visibility when rules are present.
-- Create or identify listings that satisfy Field and Pricing plan rules, then verify archive, single, and REST badge visibility use the same result.
+- Create or identify listings that satisfy Field and Pricing plan rules, then verify archive, single, and REST badge visibility use the same result. For Pricing Plans v4, test both listing `_plan_id` / package assignment and legacy `_fm_plans` compatibility.
 
 ## Negative QA
 

@@ -1221,11 +1221,15 @@ class Helper {
         }
 
         $source = ! empty( $condition['source'] ) ? sanitize_key( $condition['source'] ) : '';
-
         $key = ! empty( $condition['key'] ) ? sanitize_key( $condition['key'] ) : '';
-        $operator = ! empty( $condition['operator'] ) ? trim( (string) $condition['operator'] ) : '=';
+        $operator = self::normalize_badge_condition_operator( ! empty( $condition['operator'] ) ? $condition['operator'] : '=' );
         $expected = array_key_exists( 'value', $condition ) ? $condition['value'] : '';
-        $actual = self::badge_condition_value( $listing_id, $source, $key );
+
+        if ( 'field' === $source && ! self::badge_field_directory_matches( $listing_id, $condition ) ) {
+            return false;
+        }
+
+        $actual = self::badge_condition_value( $listing_id, $source, $key, $condition );
 
         if ( null === $actual ) {
             return null;
@@ -1234,13 +1238,40 @@ class Helper {
         return self::badge_compare_condition( $actual, $operator, $expected );
     }
 
-    private static function badge_condition_value( $listing_id, $source, $key ) {
+    private static function normalize_badge_condition_operator( $operator ) {
+        $operator = trim( (string) $operator );
+
+        for ( $i = 0; $i < 2; $i++ ) {
+            $decoded = html_entity_decode( $operator, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+            if ( $decoded === $operator ) {
+                break;
+            }
+
+            $operator = trim( $decoded );
+        }
+
+        $aliases = [
+            '&lt;'       => '<',
+            '&lt;='      => '<=',
+            '&gt;'       => '>',
+            '&gt;='      => '>=',
+            '&ne;'       => 'is_not',
+            '!='         => 'is_not',
+            '≠'          => 'is_not',
+            'not_equals' => 'is_not',
+        ];
+
+        return isset( $aliases[ $operator ] ) ? $aliases[ $operator ] : $operator;
+    }
+
+    private static function badge_condition_value( $listing_id, $source, $key, $condition = [] ) {
         switch ( $source ) {
             case 'general':
                 return self::badge_general_condition_value( $listing_id, $key );
 
             case 'field':
-                return self::badge_field_condition_value( $listing_id, $key );
+                return self::badge_field_condition_value( $listing_id, self::badge_condition_field_key( $condition, $key ), $condition );
 
             case 'pricing':
                 return self::badge_pricing_condition_value( $listing_id, $key );
@@ -1286,9 +1317,46 @@ class Helper {
         return apply_filters( 'directorist_badge_rule_general_condition_value', $value, $listing_id, $key );
     }
 
-    private static function badge_field_condition_value( $listing_id, $field_key ) {
+    private static function badge_field_condition_value( $listing_id, $field_key, $condition = [] ) {
         if ( empty( $field_key ) ) {
             return null;
+        }
+
+        switch ( $field_key ) {
+            case 'listing_title':
+            case 'title':
+                return get_the_title( $listing_id );
+
+            case 'listing_content':
+            case 'description':
+                return wp_strip_all_tags( (string) get_post_field( 'post_content', $listing_id ) );
+
+            case 'excerpt':
+                $excerpt = get_post_meta( $listing_id, '_excerpt', true );
+                return '' !== $excerpt && null !== $excerpt ? $excerpt : get_post_field( 'post_excerpt', $listing_id );
+
+            case 'category':
+                return self::badge_listing_term_values( $listing_id, ATBDP_CATEGORY, 'ids' );
+
+            case 'tag':
+                return self::badge_listing_term_values( $listing_id, ATBDP_TAGS, 'names_and_ids' );
+
+            case 'location':
+                return self::badge_listing_term_values( $listing_id, ATBDP_LOCATION, 'ids' );
+
+            case 'listing_img':
+            case 'image_upload':
+                return self::badge_listing_has_image( $listing_id ) ? 'uploaded' : '';
+
+            case 'videourl':
+            case 'video':
+                return '' !== trim( (string) get_post_meta( $listing_id, '_videourl', true ) ) ? 'provided' : '';
+
+            case 'map':
+                return self::badge_listing_map_values( $listing_id );
+
+            case 'privacy_policy':
+                return self::badge_bool_value( get_post_meta( $listing_id, '_privacy_policy', true ) ) ? 'checked' : 'unchecked';
         }
 
         $value = get_post_meta( $listing_id, '_' . $field_key, true );
@@ -1297,7 +1365,154 @@ class Helper {
             $value = get_post_meta( $listing_id, $field_key, true );
         }
 
+        $value_type = ! empty( $condition['valueType'] ) ? sanitize_key( $condition['valueType'] ) : '';
+
+        if ( 'html_text' === $value_type ) {
+            $value = wp_strip_all_tags( (string) $value );
+        }
+
+        if ( 'button' === $value_type ) {
+            $value = self::badge_button_condition_values( $value );
+        }
+
+        if ( 'presence' === $value_type ) {
+            $value = empty( $value ) ? '' : 'uploaded';
+        }
+
         return apply_filters( 'directorist_badge_rule_field_value', $value, $listing_id, $field_key );
+    }
+
+    private static function badge_condition_field_key( $condition, $fallback_key = '' ) {
+        if ( is_array( $condition ) && ! empty( $condition['fieldKey'] ) ) {
+            return sanitize_key( $condition['fieldKey'] );
+        }
+
+        if ( is_array( $condition ) && ! empty( $condition['field_key'] ) ) {
+            return sanitize_key( $condition['field_key'] );
+        }
+
+        $key = sanitize_key( $fallback_key );
+
+        if ( preg_match( '/^dir_[0-9]+__(.+)$/', $key, $matches ) ) {
+            return sanitize_key( $matches[1] );
+        }
+
+        return $key;
+    }
+
+    private static function badge_field_directory_matches( $listing_id, $condition ) {
+        if ( empty( $condition['directoryId'] ) && empty( $condition['directory_id'] ) ) {
+            return true;
+        }
+
+        $expected_directory = absint( ! empty( $condition['directoryId'] ) ? $condition['directoryId'] : $condition['directory_id'] );
+
+        if ( ! $expected_directory ) {
+            return true;
+        }
+
+        $directory_ids = array_filter( array_map( 'absint', (array) get_post_meta( $listing_id, '_directory_type', true ) ) );
+
+        if ( empty( $directory_ids ) ) {
+            $terms = wp_get_object_terms( $listing_id, ATBDP_TYPE, [ 'fields' => 'ids' ] );
+
+            if ( ! is_wp_error( $terms ) ) {
+                $directory_ids = array_filter( array_map( 'absint', (array) $terms ) );
+            }
+        }
+
+        return in_array( $expected_directory, $directory_ids, true );
+    }
+
+    private static function badge_listing_term_values( $listing_id, $taxonomy, $mode = 'ids' ) {
+        $terms = wp_get_object_terms( $listing_id, $taxonomy );
+
+        if ( is_wp_error( $terms ) || empty( $terms ) ) {
+            return [];
+        }
+
+        $values = [];
+
+        foreach ( $terms as $term ) {
+            if ( 'ids' === $mode || 'names_and_ids' === $mode ) {
+                $values[] = (string) $term->term_id;
+            }
+
+            if ( 'names' === $mode || 'names_and_ids' === $mode ) {
+                $values[] = (string) $term->name;
+                $values[] = (string) $term->slug;
+            }
+        }
+
+        return array_values( array_unique( array_filter( $values ) ) );
+    }
+
+    private static function badge_listing_has_image( $listing_id ) {
+        if ( has_post_thumbnail( $listing_id ) ) {
+            return true;
+        }
+
+        $preview_image = get_post_meta( $listing_id, '_listing_prv_img', true );
+
+        if ( ! empty( $preview_image ) ) {
+            return true;
+        }
+
+        $gallery_images = get_post_meta( $listing_id, '_listing_img', true );
+
+        if ( is_string( $gallery_images ) ) {
+            $maybe_json = self::maybe_json( $gallery_images );
+            $gallery_images = is_array( $maybe_json ) ? $maybe_json : $gallery_images;
+        }
+
+        return ! empty( $gallery_images );
+    }
+
+    private static function badge_listing_map_values( $listing_id ) {
+        $values = [];
+        $manual_lat = trim( (string) get_post_meta( $listing_id, '_manual_lat', true ) );
+        $manual_lng = trim( (string) get_post_meta( $listing_id, '_manual_lng', true ) );
+
+        if ( '' !== $manual_lat && '' !== $manual_lng ) {
+            $values[] = 'pin_added';
+        }
+
+        if ( self::badge_bool_value( get_post_meta( $listing_id, '_hide_map', true ) ) ) {
+            $values[] = 'map_hidden';
+        }
+
+        return $values;
+    }
+
+    private static function badge_button_condition_values( $value ) {
+        if ( is_string( $value ) ) {
+            $maybe_json = self::maybe_json( $value );
+            $value = is_array( $maybe_json ) ? $maybe_json : maybe_unserialize( $value );
+        }
+
+        if ( ! is_array( $value ) ) {
+            return empty( $value ) ? [] : [ (string) $value ];
+        }
+
+        $button_text = ! empty( $value['button_text'] ) ? trim( (string) $value['button_text'] ) : '';
+        $button_url  = ! empty( $value['button_url_label'] ) ? trim( (string) $value['button_url_label'] ) : '';
+        $values      = [];
+
+        if ( '' !== $button_text ) {
+            $values[] = 'button_text';
+            $values[] = $button_text;
+        }
+
+        if ( '' !== $button_url ) {
+            $values[] = 'button_url';
+            $values[] = $button_url;
+        }
+
+        if ( '' !== $button_text && '' !== $button_url ) {
+            $values[] = 'complete';
+        }
+
+        return $values;
     }
 
     private static function badge_pricing_condition_value( $listing_id, $key ) {
@@ -1315,9 +1530,19 @@ class Helper {
     }
 
     private static function listing_pricing_plan_ids( $listing_id ) {
+        $default_meta_keys = [ '_fm_plans' ];
+
+        if ( function_exists( 'directorist_plan_key' ) ) {
+            $plan_meta_key = \directorist_plan_key();
+
+            if ( ! empty( $plan_meta_key ) ) {
+                $default_meta_keys[] = $plan_meta_key;
+            }
+        }
+
         $meta_keys = apply_filters(
             'directorist_badge_rule_pricing_plan_meta_keys',
-            [ '_fm_plans' ],
+            array_values( array_unique( $default_meta_keys ) ),
             $listing_id
         );
         $plan_ids = [];
@@ -1326,9 +1551,52 @@ class Helper {
             $plan_ids = array_merge( $plan_ids, self::normalize_badge_rule_ids( get_post_meta( $listing_id, $meta_key, true ) ) );
         }
 
-        $plan_ids = array_values( array_unique( array_filter( array_map( 'absint', $plan_ids ) ) ) );
+        $plan_ids = array_merge( $plan_ids, self::listing_pricing_package_plan_ids( $listing_id ) );
+        $plan_ids = self::normalize_pricing_plan_ids( $plan_ids );
 
         return apply_filters( 'directorist_badge_rule_pricing_plan_ids', $plan_ids, $listing_id );
+    }
+
+    private static function listing_pricing_package_plan_ids( $listing_id ) {
+        if ( ! function_exists( 'directorist_user_package_repository' ) ) {
+            return [];
+        }
+
+        try {
+            $repository = \directorist_user_package_repository();
+
+            if ( ! is_object( $repository ) || ! method_exists( $repository, 'get_listings_package' ) ) {
+                return [];
+            }
+
+            $package = $repository->get_listings_package( (int) $listing_id );
+
+            if ( empty( $package->plan_id ) ) {
+                return [];
+            }
+
+            return [ $package->plan_id ];
+        } catch ( \Throwable $exception ) {
+            return [];
+        }
+    }
+
+    private static function normalize_pricing_plan_ids( $plan_ids ) {
+        $plan_ids = array_values( array_unique( array_filter( array_map( 'absint', $plan_ids ) ) ) );
+
+        if ( function_exists( 'directorist_pricing_plans_legacy_plan_id' ) ) {
+            $plan_ids = array_merge(
+                $plan_ids,
+                array_map(
+                    static function( $plan_id ) {
+                        return \directorist_pricing_plans_legacy_plan_id( $plan_id );
+                    },
+                    $plan_ids
+                )
+            );
+        }
+
+        return array_values( array_unique( array_filter( array_map( 'absint', $plan_ids ) ) ) );
     }
 
     private static function normalize_badge_rule_ids( $value ) {
@@ -1417,6 +1685,15 @@ class Helper {
 
     private static function badge_compare_scalar_to_array_condition( $actual, $operator, $expected ) {
         $actual = (string) $actual;
+
+        if ( 'is_empty' === $operator ) {
+            return '' === trim( $actual );
+        }
+
+        if ( 'is_not_empty' === $operator ) {
+            return '' !== trim( $actual );
+        }
+
         $expected = array_values(
             array_filter(
                 array_map( 'strval', $expected ),
@@ -1475,6 +1752,14 @@ class Helper {
     private static function badge_compare_array_condition( $actual, $operator, $expected ) {
         $actual = array_map( 'strval', $actual );
 
+        if ( 'is_empty' === $operator ) {
+            return empty( array_filter( $actual, 'strlen' ) );
+        }
+
+        if ( 'is_not_empty' === $operator ) {
+            return ! empty( array_filter( $actual, 'strlen' ) );
+        }
+
         if ( is_array( $expected ) ) {
             $expected = array_map( 'strval', $expected );
         } else {
@@ -1510,11 +1795,6 @@ class Helper {
             case 'not_contains':
                 return ! $matched;
 
-            case 'is_empty':
-                return empty( $actual );
-
-            case 'is_not_empty':
-                return ! empty( $actual );
         }
 
         return null;

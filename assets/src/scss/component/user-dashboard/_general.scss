@@ -202,7 +202,7 @@
 
 	.directorist-listing-table {
 		border-radius: 10px;
-		min-height: 420px;
+		min-height: 250px;
 
 		.directorist-table {
 			display: table;
@@ -323,22 +323,12 @@
 				}
 			}
 
-			&:first-child {
+			&:only-child{
 				.directorist-dropdown {
 					.directorist-dropdown-menu {
-						transform: translateY(0);
-					}
-				}
-			}
-
-			&:only-child,
-			&:first-child:nth-last-child(2) ~ tr:last-child,
-			&:first-child:nth-last-child(3) ~ tr:last-child {
-				.directorist-dropdown {
-					.directorist-dropdown-menu {
+						top: 100%;
 						bottom: auto;
-						top: 35px;
-						transform: translateY(0);
+						transform: translateY(0px);
 					}
 				}
 			}

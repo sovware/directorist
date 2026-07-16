@@ -1607,8 +1607,12 @@ class Directorist_Listings {
         $card = wp_json_encode( $this->openstreet_map_card_data() );
         $options = wp_json_encode( $this->map_options() );
         $style = 'height:' . $this->listings_map_height . 'px';
+        static $map_index = 0;
+        $map_index++;
+        $instance_id = wp_unique_id( 'directorist-map-' );
+        $map_id      = ( 1 === $map_index ) ? 'map' : $instance_id;
         ?>
-        <div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>">
+        <div id="<?php echo esc_attr( $map_id ); ?>" class="directorist-openstreet-map" style="<?php echo esc_attr( $style ); ?>" data-directorist-map-instance="<?php echo esc_attr( $instance_id ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>">
             <div id="gmap_full_screen_button">
                 <span class="fullscreen-enable"><?php directorist_icon( 'fas fa-expand' ); ?></span>
                 <span class="fullscreen-disable"><?php directorist_icon( 'fas fa-compress' ); ?></span>
@@ -1691,6 +1695,7 @@ class Directorist_Listings {
                 $this->set_loop_data();
                 $ls_data = [];
 
+                $ls_data['post_id']         = $listings_id;
                 $ls_data['manual_lat']      = get_post_meta( $listings_id, '_manual_lat', true );
                 $ls_data['manual_lng']      = get_post_meta( $listings_id, '_manual_lng', true );
                 $ls_data['listing_img']     = directorist_get_listing_gallery_images( $listings_id );
@@ -1728,6 +1733,7 @@ class Directorist_Listings {
 
                 $map_data[] = [
                     'content'   => $content,
+                    'listing_id' => $listings_id,
                     'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
                     'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
                     'cat_icon'  => $cat_icon,
@@ -1763,8 +1769,9 @@ class Directorist_Listings {
 
         Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
         $map_height = ! empty( $this->listings_map_height ) ? $this->listings_map_height : '';
+        $instance_id = wp_unique_id( 'directorist-map-' );
         ?>
-        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="<?php echo esc_attr( $this->options['marker_clustering'] ); ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
+        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-directorist-map-instance="<?php echo esc_attr( $instance_id ); ?>" data-type="<?php echo esc_attr( $this->options['marker_clustering'] ); ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
             <?php
             $listings = $this->query_results;
 

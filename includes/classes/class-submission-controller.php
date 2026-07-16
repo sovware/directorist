@@ -9,6 +9,7 @@ use WP_Error;
 use Exception;
 use ATBDP_Permalink;
 use Directorist\Helper;
+use Directorist\Fields\Conditional_Logic;
 use Directorist\Fields\Fields;
 
 class SubmissionController {
@@ -44,6 +45,10 @@ class SubmissionController {
         return ( $field->is_category_only() && ( is_null( self::$selected_categories ) || ! in_array( $field->get_assigned_category(), self::$selected_categories, true ) ) );
     }
 
+    protected static function should_ignore_conditional_logic_field( &$field, &$posted_data ) {
+        return ! Conditional_Logic::should_show_field( $field->get_props(), $posted_data );
+    }
+
     protected static function is_field_submission_empty( &$field, &$posted_data ) {
         return $field->is_value_empty( $posted_data );
     }
@@ -52,6 +57,10 @@ class SubmissionController {
         $should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
         if ( self::should_ignore_category_custom_field( $field ) ) {
+            $should_validate = false;
+        }
+
+        if ( self::should_ignore_conditional_logic_field( $field, $posted_data ) ) {
             $should_validate = false;
         }
 
@@ -611,7 +620,7 @@ class SubmissionController {
                 continue;
             }
 
-            if ( self::should_ignore_category_custom_field( $field ) ) {
+            if ( self::should_ignore_category_custom_field( $field ) || self::should_ignore_conditional_logic_field( $field, $posted_data ) ) {
                 continue;
             }
 

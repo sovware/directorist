@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.8.6
+Stable tag: 8.8.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,17 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.8.7 - Jul 16, 2026 =
+
+**Improved**
+ - FormGent email notifications now include the Directorist listing owner as a recipient. (#2916)
+
+**Security**
+ - Hardened custom file uploads with capability checks, guest token validation, file field validation, and server-side file size enforcement. (#2914)
+
+**Fixed**
+ - PHP warnings in the archive basic search form when configured search fields are unavailable for the current directory type. (#2919)
 
 = 8.8.6 - Jul 13, 2026 =
 

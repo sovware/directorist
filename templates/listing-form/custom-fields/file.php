@@ -20,6 +20,12 @@ if ( ! empty( $data['file_type'] ) ) {
 }
 
 $file_size         = ! empty( $data['file_size'] ) ? $data['file_size'] : '2mb';
+$upload_token      = wp_generate_password( 32, false );
+$upload_token_data = [
+    'directory' => (int) $data['form']->current_listing_type,
+    'field_key' => ! empty( $data['field_key'] ) ? $data['field_key'] : '',
+];
+set_transient( 'directorist_file_upload_' . $upload_token, $upload_token_data, HOUR_IN_SECONDS );
 
 // Get file type icon based on selected file type
 $file_type_icon = 'far fa-image'; // Default icon
@@ -84,6 +90,7 @@ $plupload_init = [
     'multipart_params'    => [
         '_ajax_nonce' => wp_create_nonce( 'atbdp_attachment_upload' ),   // will be added per uploader
         'action'      => 'atbdp_post_attachment_upload',                 // the ajax action name
+        'upload_token' => $upload_token,
         // Do not delete or modify 'imgid' we are running backend validation based on this id.
         'imgid'       => 0,                                              // will be added per uploader
         'directory'   => $data['form']->current_listing_type,

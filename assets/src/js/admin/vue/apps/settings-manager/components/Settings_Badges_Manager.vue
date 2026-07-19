@@ -1208,25 +1208,23 @@ export default {
           "",
           useCachedValues,
         );
-        const conditions = [];
+        const hasSavedViewThreshold = this.hasSavedBadgeFieldValue(
+          "views_for_popular",
+          useCachedValues,
+        );
+        const hasSavedRatingThreshold = this.hasSavedBadgeFieldValue(
+          "average_review_for_popular",
+          useCachedValues,
+        );
+        const hasSavedPopularMode = this.hasSavedBadgeFieldValue(
+          "listing_popular_by",
+          useCachedValues,
+        );
 
-        if (this.hasSavedBadgeFieldValue("views_for_popular", useCachedValues)) {
-          conditions.push(viewCondition);
-        }
-
-        if (
-          this.hasSavedBadgeFieldValue(
-            "average_review_for_popular",
-            useCachedValues,
-          )
-        ) {
-          conditions.push(ratingCondition);
-        }
-
-        if (conditions.length) {
+        if (hasSavedViewThreshold && hasSavedRatingThreshold) {
           return {
-            match: conditions.length > 1 ? "any" : "all",
-            conditions,
+            match: "any",
+            conditions: [viewCondition, ratingCondition],
           };
         }
 
@@ -1236,6 +1234,17 @@ export default {
 
         if (popularBy === "average_rating") {
           return { match: "all", conditions: [ratingCondition] };
+        }
+
+        if (
+          hasSavedViewThreshold ||
+          hasSavedRatingThreshold ||
+          hasSavedPopularMode
+        ) {
+          return {
+            match: "all",
+            conditions: [viewCondition, ratingCondition],
+          };
         }
 
         return this.factoryDefaultCoreConditionState("popular");

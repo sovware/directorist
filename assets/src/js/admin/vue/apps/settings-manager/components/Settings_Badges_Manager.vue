@@ -1296,125 +1296,50 @@ export default {
 
       return {
         version: 1,
-        badges: {
-          new: {
-            enabled: true,
-            internalName: getValue("new_badge_text", "New"),
-            label: getValue("new_badge_text", "New"),
-            type,
-            typeEdited: false,
-            icon: "la la-bolt",
-            iconEdited: false,
-            color: getValue("new_back_color", "#2C99FF"),
-            style: {
-              bg: getValue("new_back_color", "#2C99FF"),
-              text: "#ffffff",
-              border: getValue("new_back_color", "#2C99FF"),
-            },
-            hover: { text: "", bg: "", textColor: "" },
-            match: "all",
-            conditions: [],
-          },
-          popular: {
-            enabled: true,
-            internalName: getValue("popular_badge_text", "Popular"),
-            label: getValue("popular_badge_text", "Popular"),
-            type,
-            typeEdited: false,
-            icon: "la la-fire",
-            iconEdited: false,
-            color: getValue("popular_back_color", "#f51957"),
-            style: {
-              bg: getValue("popular_back_color", "#f51957"),
-              text: "#ffffff",
-              border: getValue("popular_back_color", "#f51957"),
-            },
-            hover: { text: "", bg: "", textColor: "" },
-            match: "all",
-            conditions: [],
-          },
-          featured: {
-            enabled: true,
-            internalName: getValue("feature_badge_text", "Featured"),
-            label: getValue("feature_badge_text", "Featured"),
-            type,
-            typeEdited: false,
-            icon: "la la-star-o",
-            iconEdited: false,
-            color: getValue("featured_back_color", "#fa8b0c"),
-            style: {
-              bg: getValue("featured_back_color", "#fa8b0c"),
-              text: "#ffffff",
-              border: getValue("featured_back_color", "#fa8b0c"),
-            },
-            hover: { text: "", bg: "", textColor: "" },
-            match: "all",
-            conditions: [],
-          },
-        },
+        badges: this.coreBadgeRuleDefaults(getValue, type, false),
       };
     },
 
     factoryDefaultBadgeRules() {
       return {
         version: 1,
-        badges: {
-          new: {
-            enabled: true,
-            internalName: "New",
-            label: "New",
-            type: "text",
-            typeEdited: false,
-            icon: "la la-bolt",
-            iconEdited: false,
-            color: "#2C99FF",
-            style: {
-              bg: "#2C99FF",
-              text: "#ffffff",
-              border: "#2C99FF",
-            },
-            hover: { text: "", bg: "", textColor: "" },
-            match: "all",
-            conditions: this.factoryDefaultCoreConditions("new"),
-          },
-          popular: {
-            enabled: true,
-            internalName: "Popular",
-            label: "Popular",
-            type: "text",
-            typeEdited: false,
-            icon: "la la-fire",
-            iconEdited: false,
-            color: "#f51957",
-            style: {
-              bg: "#f51957",
-              text: "#ffffff",
-              border: "#f51957",
-            },
-            hover: { text: "", bg: "", textColor: "" },
-            match: "any",
-            conditions: this.factoryDefaultCoreConditions("popular"),
-          },
-          featured: {
-            enabled: true,
-            internalName: "Featured",
-            label: "Featured",
-            type: "text",
-            typeEdited: false,
-            icon: "la la-star-o",
-            iconEdited: false,
-            color: "#fa8b0c",
-            style: {
-              bg: "#fa8b0c",
-              text: "#ffffff",
-              border: "#fa8b0c",
-            },
-            hover: { text: "", bg: "", textColor: "" },
-            match: "all",
-            conditions: this.factoryDefaultCoreConditions("featured"),
-          },
-        },
+        badges: this.coreBadgeRuleDefaults(
+          (fieldKey, fallback = "") => fallback,
+          "text",
+          true,
+        ),
       };
+    },
+
+    coreBadgeRuleDefaults(getValue, type, includeDefaultConditions = false) {
+      return this.coreBadgeMetas.reduce((badges, meta) => {
+        const label = getValue(meta.labelField, meta.defaultLabel);
+        const color = getValue(meta.colorField, meta.defaultColor);
+        const conditionState = includeDefaultConditions
+          ? this.factoryDefaultCoreConditionState(meta.key)
+          : { match: "all", conditions: [] };
+
+        badges[meta.key] = {
+          enabled: true,
+          internalName: label,
+          label,
+          type,
+          typeEdited: false,
+          icon: meta.defaultIcon,
+          iconEdited: false,
+          color,
+          style: {
+            bg: color,
+            text: "#ffffff",
+            border: color,
+          },
+          hover: { text: "", bg: "", textColor: "" },
+          match: conditionState.match,
+          conditions: conditionState.conditions,
+        };
+
+        return badges;
+      }, {});
     },
 
     factoryDefaultCoreConditions(badgeKey) {
@@ -2131,19 +2056,6 @@ export default {
       if (shouldRestoreIcon) {
         this.$nextTick(() => this.refreshIconPickers(true));
       }
-    },
-
-    removeBadgeIcon(badge) {
-      if (this.badgeType(badge) === "icon") {
-        return;
-      }
-
-      const rule = this.badgeRuleByKey(badge.key);
-
-      this.$set(rule, "icon", "");
-      this.$set(rule, "iconEdited", true);
-      this.syncBadgeRules();
-      this.$nextTick(() => this.refreshIconPickers(true));
     },
 
     refreshIconPickers(forceRebuild = false) {

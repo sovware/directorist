@@ -1540,6 +1540,115 @@ body.directorist-settings-redesign-page {
 	}
 }
 
+body.directorist-badge-reset-modal-open {
+	overflow: hidden;
+}
+
+body.directorist-settings-redesign-page .cptm-badge-reset-modal {
+	position: fixed;
+	z-index: 2147483000;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	background: rgba(17, 24, 39, 0.35);
+}
+
+body.directorist-settings-redesign-page .cptm-badge-reset-modal__dialog {
+	width: min(100%, 480px);
+	box-sizing: border-box;
+	padding: 20px;
+	background: #ffffff;
+	border: 1px solid #d9e4f5;
+	border-radius: 10px;
+	box-shadow: 0 20px 48px rgba(15, 23, 42, 0.18);
+}
+
+body.directorist-settings-redesign-page .cptm-badge-reset-modal__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 10px;
+
+	h3 {
+		margin: 0;
+		color: #111827;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1.35;
+	}
+}
+
+body.directorist-settings-redesign-page .cptm-badge-reset-modal__close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	color: #64748b;
+	background: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	box-shadow: none;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 14px;
+	line-height: 1;
+}
+
+body.directorist-settings-redesign-page .cptm-badge-reset-modal__dialog p {
+	margin: 0;
+	color: #475569;
+	font-size: 13px;
+	line-height: 1.55;
+}
+
+body.directorist-settings-redesign-page .cptm-badge-reset-modal__actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 18px;
+}
+
+body.directorist-settings-redesign-page
+	.cptm-badge-reset-modal
+	.cptm-badges-link-button,
+body.directorist-settings-redesign-page
+	.cptm-badge-reset-modal
+	.cptm-badges-primary-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
+	padding: 0 12px;
+	border-radius: 6px;
+	box-shadow: none;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 28px;
+}
+
+body.directorist-settings-redesign-page
+	.cptm-badge-reset-modal
+	.cptm-badges-link-button {
+	color: #3e62f5;
+	background: #ffffff;
+	border: 1px solid rgba(62, 98, 245, 0.25);
+}
+
+body.directorist-settings-redesign-page
+	.cptm-badge-reset-modal
+	.cptm-badges-primary-button {
+	color: #ffffff;
+	background: #4361f2;
+	border: 1px solid #4361f2;
+}
+
 body.directorist-settings-redesign-page .atbdp-settings-panel {
 	--settings-bg: #f3f4f6;
 	--settings-surface: #ffffff;
@@ -4033,6 +4142,75 @@ body.directorist-settings-redesign-page .atbdp-settings-panel {
 		color: #ffffff;
 		background: var(--settings-primary);
 		border: 1px solid var(--settings-primary);
+	}
+
+	.cptm-badge-reset-modal {
+		position: fixed;
+		z-index: 2147483000;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 24px;
+		background: rgba(17, 24, 39, 0.35);
+	}
+
+	.cptm-badge-reset-modal__dialog {
+		width: min(100%, 480px);
+		box-sizing: border-box;
+		padding: 20px;
+		background: #ffffff;
+		border: 1px solid #d9e4f5;
+		border-radius: 10px;
+		box-shadow: 0 20px 48px rgba(15, 23, 42, 0.18);
+	}
+
+	.cptm-badge-reset-modal__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 10px;
+
+		h3 {
+			margin: 0;
+			color: #111827;
+			font-size: 16px;
+			font-weight: 600;
+			line-height: 1.35;
+		}
+	}
+
+	.cptm-badge-reset-modal__close {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		padding: 0;
+		color: #64748b;
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-radius: 6px;
+		box-shadow: none;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 14px;
+		line-height: 1;
+	}
+
+	.cptm-badge-reset-modal__dialog p {
+		margin: 0;
+		color: #475569;
+		font-size: 13px;
+		line-height: 1.55;
+	}
+
+	.cptm-badge-reset-modal__actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 8px;
+		margin-top: 18px;
 	}
 
 	.cptm-badges-manager__display {

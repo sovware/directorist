@@ -18,7 +18,7 @@
           <button
             type="button"
             class="cptm-badges-link-button"
-            @click.stop="resetDefaults"
+            @click.stop="openResetConfirm"
           >
             Reset defaults
           </button>
@@ -554,6 +554,51 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-if="showResetConfirm"
+      ref="resetModal"
+      class="cptm-badge-reset-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cptm-badge-reset-title"
+      @click.self="closeResetConfirm"
+    >
+      <div class="cptm-badge-reset-modal__dialog">
+        <div class="cptm-badge-reset-modal__head">
+          <h3 id="cptm-badge-reset-title">Reset badge defaults?</h3>
+          <button
+            type="button"
+            class="cptm-badge-reset-modal__close"
+            aria-label="Close reset confirmation"
+            @click.stop="closeResetConfirm"
+          >
+            x
+          </button>
+        </div>
+        <p>
+          This will restore New, Popular, and Featured badge labels, colors,
+          icons, display type, and default conditions. Custom badges will be
+          removed. You can review the changes before saving.
+        </p>
+        <div class="cptm-badge-reset-modal__actions">
+          <button
+            type="button"
+            class="cptm-badges-link-button"
+            @click.stop="closeResetConfirm"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="cptm-badges-primary-button"
+            @click.stop="confirmResetDefaults"
+          >
+            Reset defaults
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -585,6 +630,7 @@ export default {
       },
       iconPickers: {},
       rulesDraft: null,
+      showResetConfirm: false,
     };
   },
 
@@ -840,6 +886,15 @@ export default {
     badgeRulesSignature() {
       this.syncBadgeRules();
     },
+
+    showResetConfirm(isVisible) {
+      if (isVisible) {
+        this.$nextTick(this.moveResetModalToBody);
+        return;
+      }
+
+      this.cleanupResetModal();
+    },
   },
 
   created() {
@@ -852,6 +907,7 @@ export default {
   },
 
   beforeDestroy() {
+    this.cleanupResetModal();
     this.destroyIconPickers();
   },
 
@@ -1187,7 +1243,7 @@ export default {
               border: "#f51957",
             },
             hover: { text: "", bg: "", textColor: "" },
-            match: "all",
+            match: "any",
             conditions: this.factoryDefaultCoreConditions("popular"),
           },
           featured: {
@@ -1231,6 +1287,12 @@ export default {
             key: "view_count",
             operator: ">=",
             value: "5",
+          },
+          {
+            source: "general",
+            key: "average_rating",
+            operator: ">=",
+            value: "4",
           },
         ];
       }
@@ -2226,11 +2288,11 @@ export default {
     },
 
     syncLegacyCondition(badge, index, condition) {
-      if (!badge.core || index !== 0 || condition.source !== "general") {
+      if (!badge.core || condition.source !== "general") {
         return;
       }
 
-      if (badge.key === "new" && condition.key === "age_days") {
+      if (badge.key === "new" && index === 0 && condition.key === "age_days") {
         this.updateField("new_listing_day", String(condition.value));
         return;
       }
@@ -2245,17 +2307,16 @@ export default {
       }
 
       if (condition.key === "average_rating") {
-        this.updateField("listing_popular_by", "average_rating");
         this.updateField("average_review_for_popular", String(condition.value));
       }
     },
 
     conditionLegacyFields(badge, condition, index) {
-      if (!badge.core || index !== 0 || condition.source !== "general") {
+      if (!badge.core || condition.source !== "general") {
         return [];
       }
 
-      if (badge.key === "new" && condition.key === "age_days") {
+      if (badge.key === "new" && index === 0 && condition.key === "age_days") {
         return ["new_listing_day"];
       }
 
@@ -2264,10 +2325,54 @@ export default {
       }
 
       if (badge.key === "popular" && condition.key === "average_rating") {
-        return ["listing_popular_by", "average_review_for_popular"];
+        return ["average_review_for_popular"];
       }
 
       return [];
+    },
+
+    openResetConfirm() {
+      this.showResetConfirm = true;
+    },
+
+    closeResetConfirm() {
+      this.showResetConfirm = false;
+    },
+
+    confirmResetDefaults() {
+      this.showResetConfirm = false;
+      this.resetDefaults();
+    },
+
+    moveResetModalToBody() {
+      if (
+        !this.showResetConfirm ||
+        typeof document === "undefined" ||
+        !this.$refs.resetModal
+      ) {
+        return;
+      }
+
+      document.body.classList.add("directorist-badge-reset-modal-open");
+
+      if (this.$refs.resetModal.parentNode !== document.body) {
+        document.body.appendChild(this.$refs.resetModal);
+      }
+    },
+
+    cleanupResetModal() {
+      if (typeof document === "undefined") {
+        return;
+      }
+
+      document.body.classList.remove("directorist-badge-reset-modal-open");
+
+      if (
+        this.$refs.resetModal &&
+        this.$refs.resetModal.parentNode === document.body
+      ) {
+        document.body.removeChild(this.$refs.resetModal);
+      }
     },
 
     addBadge() {

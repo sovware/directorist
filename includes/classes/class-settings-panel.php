@@ -1599,7 +1599,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'type'          => 'number',
                         'value'         => '4',
                         'min'           => '.5',
-                        'max'           => '4.5',
+                        'max'           => '5',
                         'step'          => '.5',
                     ],
 

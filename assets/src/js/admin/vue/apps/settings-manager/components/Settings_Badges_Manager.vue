@@ -1121,7 +1121,7 @@ export default {
         false,
       );
 
-      return savedRules || this.defaultBadgeRules(false);
+      return savedRules || this.defaultBadgeRulesForMissingStore(false);
     },
 
     baselineBadgeRules() {
@@ -1132,7 +1132,147 @@ export default {
         true,
       );
 
-      return cachedRules || this.defaultBadgeRules(true);
+      return cachedRules || this.defaultBadgeRulesForMissingStore(true);
+    },
+
+    defaultBadgeRulesForMissingStore(useCachedValues) {
+      const rules = this.defaultBadgeRules(useCachedValues);
+      const useLegacyConditions =
+        this.hasSavedLegacyBadgeOptions(useCachedValues);
+
+      ["new", "popular", "featured"].forEach((badgeKey) => {
+        if (!rules.badges[badgeKey]) {
+          return;
+        }
+
+        const conditionState = useLegacyConditions
+          ? this.legacyDefaultCoreConditionState(badgeKey, useCachedValues)
+          : this.factoryDefaultCoreConditionState(badgeKey);
+
+        rules.badges[badgeKey].conditions = conditionState.conditions;
+        rules.badges[badgeKey].match = conditionState.match;
+      });
+
+      return rules;
+    },
+
+    factoryDefaultCoreConditionState(badgeKey) {
+      return {
+        match: badgeKey === "popular" ? "any" : "all",
+        conditions: this.factoryDefaultCoreConditions(badgeKey),
+      };
+    },
+
+    legacyDefaultCoreConditionState(badgeKey, useCachedValues) {
+      if (badgeKey === "new") {
+        return {
+          match: "all",
+          conditions: [
+            {
+              source: "general",
+              key: "age_days",
+              operator: "<=",
+              value: this.savedBadgeFieldValue(
+                "new_listing_day",
+                "3",
+                useCachedValues,
+              ),
+            },
+          ],
+        };
+      }
+
+      if (badgeKey === "popular") {
+        const viewCondition = {
+          source: "general",
+          key: "view_count",
+          operator: ">=",
+          value: this.savedBadgeFieldValue(
+            "views_for_popular",
+            "5",
+            useCachedValues,
+          ),
+        };
+        const ratingCondition = {
+          source: "general",
+          key: "average_rating",
+          operator: ">=",
+          value: this.savedBadgeFieldValue(
+            "average_review_for_popular",
+            "4",
+            useCachedValues,
+          ),
+        };
+        const popularBy = this.savedBadgeFieldValue(
+          "listing_popular_by",
+          "",
+          useCachedValues,
+        );
+        const conditions = [];
+
+        if (this.hasSavedBadgeFieldValue("views_for_popular", useCachedValues)) {
+          conditions.push(viewCondition);
+        }
+
+        if (
+          this.hasSavedBadgeFieldValue(
+            "average_review_for_popular",
+            useCachedValues,
+          )
+        ) {
+          conditions.push(ratingCondition);
+        }
+
+        if (conditions.length) {
+          return {
+            match: conditions.length > 1 ? "any" : "all",
+            conditions,
+          };
+        }
+
+        if (popularBy === "view_count") {
+          return { match: "all", conditions: [viewCondition] };
+        }
+
+        if (popularBy === "average_rating") {
+          return { match: "all", conditions: [ratingCondition] };
+        }
+
+        return this.factoryDefaultCoreConditionState("popular");
+      }
+
+      if (badgeKey === "featured") {
+        return {
+          match: "all",
+          conditions: this.factoryDefaultCoreConditions("featured"),
+        };
+      }
+
+      return { match: "all", conditions: [] };
+    },
+
+    hasSavedLegacyBadgeOptions(useCachedValues) {
+      return this.badgeRuleSourceKeys().some((fieldKey) =>
+        this.hasSavedBadgeFieldValue(fieldKey, useCachedValues),
+      );
+    },
+
+    hasSavedBadgeFieldValue(fieldKey, useCachedValues) {
+      const field = useCachedValues
+        ? this.cachedField(fieldKey)
+        : this.field(fieldKey);
+
+      return !!field && field.forceUpdate !== true;
+    },
+
+    savedBadgeFieldValue(fieldKey, fallback = "", useCachedValues = false) {
+      if (!this.hasSavedBadgeFieldValue(fieldKey, useCachedValues)) {
+        return fallback;
+      }
+
+      return useCachedValues
+        ? this.cachedFieldValue(fieldKey, fallback)
+        : this.fieldValue(fieldKey, fallback);
     },
 
     defaultBadgeRules(useCachedValues) {

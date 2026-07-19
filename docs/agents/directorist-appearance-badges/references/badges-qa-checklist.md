@@ -11,6 +11,8 @@
 - Confirm core background colors still mirror to `new_back_color`, `popular_back_color`, and `featured_back_color`; text and border colors remain in `directorist_badge_rules`.
 - Confirm match-condition rows save General, Field, and Pricing plan conditions in `directorist_badge_rules`.
 - Confirm badges can save `conditions: []`; Add condition manually creates condition rows, and Reset defaults recreates the core default condition rows.
+- Confirm a fresh install or WP reset with no saved `directorist_badge_rules` loads the default core condition rows without marking the page dirty.
+- Confirm an old site with legacy badge options but no `directorist_badge_rules` loads condition rows from those legacy option values without marking the page dirty. Popular should show both `views_for_popular` and `average_review_for_popular` rows with `Any (OR)` when both saved thresholds exist.
 - Confirm Reset defaults opens a warning confirmation before changing draft data, Cancel leaves data unchanged, and confirming does not auto-save.
 - Confirm Reset defaults creates Popular with `Any (OR)`, `View count >= 5`, and `Average rating >= 4`.
 - Confirm legacy-compatible New and Popular condition rows still mirror to `new_listing_day`, `listing_popular_by`, `views_for_popular`, and `average_review_for_popular`; Popular reset keeps `listing_popular_by` as `view_count`.
@@ -49,25 +51,27 @@ Use Agent Browser when an authenticated admin session is available:
 
 1. Open `https://directorist-core.local/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings#style_settings__badges`.
 2. Fresh load should open Appearance > Badges, show no unsaved warning, and keep Save disabled.
-3. Change `badge_display_type`; verify the UI switches between text and icon wording without duplicate old rows.
-4. Edit core internal names and verify Save enables; after save, builder widget labels should change while frontend visible labels remain unchanged.
-5. Change a badge icon through the badge icon picker; verify the chip preview uses the selected icon class, not a text fallback.
-6. Switch a badge to icon mode and change Icon color; verify the admin chip, archive badge, and single badge use that color for the icon, while the builder badge widget keeps the old neutral builder chip style.
-7. Change icon badge Hover tooltip, Tooltip background, and tooltip text color; save, refresh, and verify archive/single tooltip text and colors match.
-8. Remove a text badge icon; verify the admin chip, archive badge, and single badge render label-only with no dot marker, then switch to icon mode and verify the default icon is restored.
-9. Edit New visible label, duration, background, text, and border color; Save should enable.
-10. Edit Popular visible label, popularity rule, threshold, background, text, and border color; Save should enable.
-11. Edit Featured visible label, background, text, and border color; Save should enable.
-12. Edit General match-condition row keys/operators/values, Add condition, Remove condition, and All/Any mode; verify Save enables and no duplicate old generic rows appear.
-13. Remove the final condition row, save, refresh, and verify `conditions: []` persists.
-14. Switch a row to Field, choose a real listing field, set operator/value, save, refresh, and verify the saved source/key/operator/value persist without changing legacy threshold keys.
-15. Switch a row to Pricing plan, test both `Has pricing plan` and a specific `Pricing plan`, save, refresh, and verify persistence.
-16. Add a custom badge, set internal name, visible label, type/icon, colors, and conditions; save, refresh, and verify persistence.
-17. Delete the custom badge, save, refresh, and verify it is gone.
-18. Add a custom badge again, click Reset defaults, verify the warning popup copy, cancel once, then confirm reset; save, refresh, and verify core labels/colors/icons are restored, custom badges are removed, New shows `Listing age (days) <= 3`, Popular shows `Any (OR)` with `View count >= 5` and `Average rating >= 4`, and Featured shows `Is featured is true`.
-19. Save and verify the request posts changed badge keys and, when badge settings changed, `directorist_badge_rules` to `save_settings_data`.
-20. Refresh and verify saved values persist and Save is disabled after load.
-21. Use settings search for a badge field and verify it opens the Badges tab and highlights/scrolls to the custom control.
+3. On a fresh install or after a WP reset where `directorist_badge_rules` is absent, verify New shows `Listing age (days) <= 3`, Popular shows `Any (OR)` with `View count >= 5` and `Average rating >= 4`, Featured shows `Is featured is true`, and Save stays disabled.
+4. On an upgraded old site where `directorist_badge_rules` is absent but legacy badge options are saved, verify New, Popular, Featured labels/colors/type and condition rows match the legacy option values, not hardcoded product defaults. If both legacy Popular thresholds are saved, verify `View count >= {views_for_popular} OR Average rating >= {average_review_for_popular}`.
+5. Change `badge_display_type`; verify the UI switches between text and icon wording without duplicate old rows.
+6. Edit core internal names and verify Save enables; after save, builder widget labels should change while frontend visible labels remain unchanged.
+7. Change a badge icon through the badge icon picker; verify the chip preview uses the selected icon class, not a text fallback.
+8. Switch a badge to icon mode and change Icon color; verify the admin chip, archive badge, and single badge use that color for the icon, while the builder badge widget keeps the old neutral builder chip style.
+9. Change icon badge Hover tooltip, Tooltip background, and tooltip text color; save, refresh, and verify archive/single tooltip text and colors match.
+10. Remove a text badge icon; verify the admin chip, archive badge, and single badge render label-only with no dot marker, then switch to icon mode and verify the default icon is restored.
+11. Edit New visible label, duration, background, text, and border color; Save should enable.
+12. Edit Popular visible label, popularity rule, threshold, background, text, and border color; Save should enable.
+13. Edit Featured visible label, background, text, and border color; Save should enable.
+14. Edit General match-condition row keys/operators/values, Add condition, Remove condition, and All/Any mode; verify Save enables and no duplicate old generic rows appear.
+15. Remove the final condition row, save, refresh, and verify `conditions: []` persists.
+16. Switch a row to Field, choose a real listing field, set operator/value, save, refresh, and verify the saved source/key/operator/value persist without changing legacy threshold keys.
+17. Switch a row to Pricing plan, test both `Has pricing plan` and a specific `Pricing plan`, save, refresh, and verify persistence.
+18. Add a custom badge, set internal name, visible label, type/icon, colors, and conditions; save, refresh, and verify persistence.
+19. Delete the custom badge, save, refresh, and verify it is gone.
+20. Add a custom badge again, click Reset defaults, verify the warning popup copy, cancel once, then confirm reset; save, refresh, and verify core labels/colors/icons are restored, custom badges are removed, New shows `Listing age (days) <= 3`, Popular shows `Any (OR)` with `View count >= 5` and `Average rating >= 4`, and Featured shows `Is featured is true`.
+21. Save and verify the request posts changed badge keys and, when badge settings changed, `directorist_badge_rules` to `save_settings_data`.
+22. Refresh and verify saved values persist and Save is disabled after load.
+23. Use settings search for a badge field and verify it opens the Badges tab and highlights/scrolls to the custom control.
 
 ### LocalWP Auth Fallback
 

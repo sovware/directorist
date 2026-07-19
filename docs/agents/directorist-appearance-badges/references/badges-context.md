@@ -1,6 +1,6 @@
 # Appearance Badges Context
 
-Last reviewed: 2026-07-14
+Last reviewed: 2026-07-19
 
 ## Design Reference
 
@@ -31,7 +31,7 @@ Inspect these files before changing badge settings:
 Global display:
 
 - `badge_display_type`: `text_badge` or `icon_badge`; applies to archive badge rendering.
-- `directorist_badge_rules`: hidden JSON-like badge rule store. Empty by default on existing sites; when core badge conditions are empty or invalid, runtime falls back to the legacy `New`, `Popular`, and `Featured` checks. Custom badges with empty conditions show wherever their builder widget is placed; invalid custom conditions fail closed. When present, the store may contain core badge overrides and custom badge definitions.
+- `directorist_badge_rules`: hidden JSON-like badge rule store. Empty by default on existing sites; when no saved rule store exists, the Badges UI hydrates from existing legacy badge option values. Fresh/WP-reset sites with no saved legacy badge values use product default condition rows. When a saved rule store exists and core badge conditions are empty or invalid, runtime falls back to the legacy `New`, `Popular`, and `Featured` checks. Custom badges with empty conditions show wherever their builder widget is placed; invalid custom conditions fail closed. When present, the store may contain core badge overrides and custom badge definitions.
   - The setting field also carries `condition_sources.general`, `condition_sources.fields`, and `condition_sources.pricing` metadata for the custom Vue condition builder.
 
 New badge:
@@ -87,7 +87,7 @@ Featured badge:
 - Icon badge tooltip overrides live in `hover.text`, `hover.bg`, and `hover.textColor`. Empty tooltip values fall back to the visible label, badge background, and icon/text color so old rules do not need migration.
 - Frontend archive, single, and legacy badge output must match the Appearance preview chip tokens: 999px radius, 24px text-badge height, 28px icon-only badge height, 4px vertical padding, 10px text-badge horizontal padding, 6px icon/label gap, 12px/500 text, 13px text-badge icons, 14px icon-only icons, border color from `style.border`, and no mobile shrink away from the saved preview.
 - Runtime may tolerate old saved `showIcon` values, but new saves must not emit `showIcon` and must not render dot markers.
-- Add/Delete applies to custom badges only. Reset defaults first shows a confirmation warning, then restores core labels, colors, icons, and the default visible core condition rows, and removes custom badges. Empty condition arrays remain valid when an admin manually removes all conditions after reset. Popular reset uses `Any (OR)` with `View count >= 5` and `Average rating >= 4`.
+- Add/Delete applies to custom badges only. Fresh installs and WP-reset sites with no saved legacy badge values seed core labels, colors, icons, and product default visible core condition rows. Old upgraded sites with no saved `directorist_badge_rules` seed labels, colors, type, and condition rows from legacy badge options so opening the new UI does not change existing badge behavior. Migrated Popular rows should include both `views_for_popular` and `average_review_for_popular` when both legacy values are saved, using `Any (OR)`; if only one threshold exists, show that one row. Reset defaults first shows a confirmation warning, then restores product defaults and removes custom badges. Empty condition arrays remain valid when an admin manually removes all conditions after reset. Popular reset uses `Any (OR)` with `View count >= 5` and `Average rating >= 4`.
 - Condition operators may pass through WordPress admin sanitization during save/load, so both the UI and PHP runtime must normalize encoded operator tokens such as `&lt;=`, `&lt;`, `&gt;=`, `&gt;`, and `&ne;` back to `<=`, `<`, `>=`, `>`, and `is_not` before rendering summaries, selects, saved rules, or frontend badge matching.
 - Do not add migration code or default backfills.
 

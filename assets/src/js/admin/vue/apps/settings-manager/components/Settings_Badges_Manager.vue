@@ -770,19 +770,6 @@ export default {
           defaultOperator: "is",
           defaultValue: true,
         },
-        {
-          value: "listing_status",
-          label: "Listing status",
-          valueType: "select",
-          defaultOperator: "is",
-          defaultValue: "publish",
-          valueOptions: [
-            { value: "publish", label: "Published" },
-            { value: "pending", label: "Pending" },
-            { value: "private", label: "Private" },
-            { value: "draft", label: "Draft" },
-          ],
-        },
       ];
     },
 
@@ -1102,10 +1089,7 @@ export default {
           style,
           hover: this.normalizedHover(rule.hover),
           match: rule.match === "any" ? "any" : "all",
-          conditions: this.normalizedConditions(
-            rule.conditions,
-            this.defaultConditionKey(badge),
-          ),
+          conditions: this.savableConditions(rule.conditions),
         };
       });
 
@@ -1620,10 +1604,19 @@ export default {
         source,
         this.stringifyValue(condition.key),
       );
+      const hasRequestedKey = !!requestedKey;
       const definition = this.conditionDefinition(
         source,
-        requestedKey || this.defaultConditionKeyForSource(source),
+        hasRequestedKey
+          ? requestedKey
+          : this.defaultConditionKeyForSource(source),
+        !hasRequestedKey,
       );
+
+      if (!definition) {
+        return this.unsupportedCondition(source, requestedKey, condition);
+      }
+
       const operator = this.operatorAlias(condition.operator);
       const normalizedOperator = this.operatorIsAllowed(
         source,
@@ -1644,6 +1637,40 @@ export default {
               condition.value,
             )
           : "",
+      };
+    },
+
+    savableConditions(conditions) {
+      return this.normalizedConditions(conditions).map((condition) => ({
+        source: condition.source,
+        key: condition.key,
+        operator: condition.operator,
+        value: condition.value,
+      }));
+    },
+
+    unsupportedCondition(source, key, condition) {
+      if (!key) {
+        return null;
+      }
+
+      return {
+        source,
+        key,
+        operator: this.operatorAlias(condition.operator),
+        value: this.stringifyValue(condition.value),
+        unsupported: true,
+      };
+    },
+
+    unsupportedConditionDefinition(condition) {
+      return {
+        value: condition.key,
+        label: "Unsupported condition",
+        valueType: "text",
+        defaultOperator: condition.operator,
+        defaultValue: condition.value,
+        valueOptions: [],
       };
     },
 
@@ -1678,7 +1705,6 @@ export default {
           avgRating: "average_rating",
           reviewCount: "review_count",
           isFeatured: "is_featured",
-          status: "listing_status",
         },
         pricing: {
           hasAnyPlan: "has_plan",
@@ -1715,7 +1741,7 @@ export default {
       return this.generalConditionOptions;
     },
 
-    conditionDefinition(source, key) {
+    conditionDefinition(source, key, useFallback = true) {
       const conditionKey = String(key || "");
       const options = this.conditionOptionsForSource(source);
       const definition =
@@ -1738,14 +1764,22 @@ export default {
         );
       }
 
-      return options[0] || this.generalConditionOptions[0];
+      return useFallback ? options[0] || this.generalConditionOptions[0] : null;
     },
 
-    conditionKeyOptions(source, key = "") {
+    conditionKeyOptions(source, key = "", includeUnsupported = false) {
       const options = this.conditionOptionsForSource(source).map((option) => ({
         value: option.value,
         label: option.label,
       }));
+
+      if (
+        includeUnsupported &&
+        key &&
+        !options.some((option) => option.value === key)
+      ) {
+        options.push({ value: key, label: "Unsupported condition" });
+      }
 
       if (
         source === "field" &&
@@ -2182,20 +2216,22 @@ export default {
       );
 
       return conditions.map((condition, index) => {
-        const definition = this.conditionDefinition(
-          condition.source,
-          condition.key,
-        );
+        const definition = condition.unsupported
+          ? this.unsupportedConditionDefinition(condition)
+          : this.conditionDefinition(condition.source, condition.key);
 
         return {
           ...condition,
           id: `${badge.key}-${index}-${condition.source}-${condition.key}`,
           canRemove: true,
-          keyOptions: this.conditionKeyOptions(condition.source, condition.key),
-          operatorOptions: this.operatorOptions(
+          keyOptions: this.conditionKeyOptions(
             condition.source,
             condition.key,
+            condition.unsupported,
           ),
+          operatorOptions: condition.unsupported
+            ? [{ value: condition.operator, label: "unsupported" }]
+            : this.operatorOptions(condition.source, condition.key),
           valueType: definition.valueType,
           value:
             definition.valueType === "boolean"
@@ -2296,6 +2332,10 @@ export default {
       const condition = { ...conditions[index] };
       const normalizedOperator = this.operatorAlias(operator);
 
+      if (condition.unsupported) {
+        return;
+      }
+
       if (
         !this.operatorIsAllowed(
           condition.source,
@@ -2325,11 +2365,9 @@ export default {
       );
       const condition = { ...conditions[index] };
 
-      condition.value = this.normalizeConditionValue(
-        condition.source,
-        condition.key,
-        value,
-      );
+      condition.value = condition.unsupported
+        ? this.stringifyValue(value)
+        : this.normalizeConditionValue(condition.source, condition.key, value);
       conditions.splice(index, 1, condition);
       this.$set(rule, "conditions", conditions);
       this.syncLegacyCondition(badge, index, condition);
@@ -2625,6 +2663,12 @@ export default {
     },
 
     conditionSummaryText(condition) {
+      if (condition.unsupported) {
+        return `${this.conditionSourceLabel(
+          condition.source,
+        )}: Unsupported condition`;
+      }
+
       const definition = this.conditionDefinition(
         condition.source,
         condition.key,

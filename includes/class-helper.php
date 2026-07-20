@@ -1308,10 +1308,6 @@ class Helper {
             case 'is_featured':
                 $value = (bool) get_post_meta( $listing_id, '_featured', true );
                 break;
-
-            case 'listing_status':
-                $value = get_post_status( $listing_id );
-                break;
         }
 
         return apply_filters( 'directorist_badge_rule_general_condition_value', $value, $listing_id, $key );

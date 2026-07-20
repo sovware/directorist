@@ -4796,31 +4796,6 @@ Best regards,
                         'defaultOperator' => 'is',
                         'defaultValue'    => true,
                     ],
-                    [
-                        'value'           => 'listing_status',
-                        'label'           => __( 'Listing status', 'directorist' ),
-                        'valueType'       => 'select',
-                        'defaultOperator' => 'is',
-                        'defaultValue'    => 'publish',
-                        'valueOptions'    => [
-                            [
-                                'value' => 'publish',
-                                'label' => __( 'Published', 'directorist' ),
-                            ],
-                            [
-                                'value' => 'pending',
-                                'label' => __( 'Pending', 'directorist' ),
-                            ],
-                            [
-                                'value' => 'private',
-                                'label' => __( 'Private', 'directorist' ),
-                            ],
-                            [
-                                'value' => 'draft',
-                                'label' => __( 'Draft', 'directorist' ),
-                            ],
-                        ],
-                    ],
                 ]
             );
         }

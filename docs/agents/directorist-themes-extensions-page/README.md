@@ -36,6 +36,7 @@ This skill must not store site-specific runtime data. Product counts, installed 
 - `SKILL.md`: required agent workflow and safety rules
 - `references/page-architecture-map.md`: code, templates, assets, hooks, endpoints, and remote dependencies
 - `references/api-data-flow-report.md`: step-by-step source/API flow from page load to rendered sections and product actions
+- `references/licensing-system-prd.md`: to-the-point product/system requirements for account, license, extension, and theme setup
 - `references/dynamic-data-contract.md`: dynamic data shapes and collection methods
 - `references/account-license-journey-map.md`: account, license, subscription, and product-action journeys
 - `references/performance-improvement-guide.md`: reload-heavy behavior and safe no-reload strategy

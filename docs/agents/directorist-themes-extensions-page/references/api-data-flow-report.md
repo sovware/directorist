@@ -381,6 +381,146 @@ Themes tab uses:
 - Remote calls mix REST-style Directorist endpoints and EDD action endpoints.
 - Some remote calls set `sslverify` to `false`; future hardening must be planned carefully for existing customers.
 
+## Future API Improvement Feedback
+
+Use these notes when changing the Themes & Extensions API layer. They are design constraints and improvement targets, not current runtime data.
+
+### Browser Boundary
+
+- Keep browser JavaScript calling local WordPress AJAX only.
+- Do not call Directorist.com, EDD, or package download URLs directly from the browser.
+- Let PHP own remote authentication, license activation, product catalog reads, package URL resolution, filesystem work, and canonical WordPress state checks.
+- Preserve existing `wp_ajax_atbdp_*` action names and request fields; add new response fields in a backward-compatible way.
+
+### Response Contract
+
+Create one normalized response formatter for all page actions while preserving legacy fields that current JavaScript or third-party code may expect.
+
+Recommended response fields:
+
+```json
+{
+  "success": true,
+  "code": "plugin_activated",
+  "message": "Plugin activated.",
+  "action": "activate_plugin",
+  "item_key": "directorist-extension-slug",
+  "type": "plugin",
+  "next_state": "active",
+  "requires_reload": false,
+  "state": {},
+  "html": {}
+}
+```
+
+Rules:
+
+- `success` must be the canonical boolean for new code.
+- `code` must be machine-readable and stable for UI handling, logs, and tests.
+- `message` must be safe for display and translatable when generated locally.
+- `requires_reload` must be explicit, especially for filesystem, update, theme switch, and unreconciled remote failures.
+- `state` may include a fresh canonical state summary, but docs must never store example site-specific values from it.
+- `html` may include rendered row/card partials when that is safer than duplicating template logic in JavaScript.
+
+### State Summary Endpoint
+
+Add a read-only state endpoint before removing reloads from mutation flows.
+
+Recommended local action:
+
+- `atbdp_get_themes_extensions_state`
+
+Recommended state groups:
+
+- `account`: connected/disconnected capability and refresh/logout availability.
+- `statistics`: counts and update flags generated at request time only.
+- `extensions`: installed, active, inactive, outdated, subscribed, required, promo, and action availability.
+- `themes`: active, installed, inactive, subscribed, update availability, and action availability.
+- `notices`: non-sensitive connection, license, update, and remote API messages.
+- `html`: optional server-rendered partials for rows/cards/counters.
+
+Rules:
+
+- Keep it capability and nonce protected.
+- Return no passwords, raw licenses, subscription secrets, or user-identifying account data.
+- Generate state from canonical server reads each time; do not let the browser invent final install/update/activation state.
+- Use this endpoint after successful mutations and after recoverable API failures that may leave the UI stale.
+
+### Error Codes And Failure Shape
+
+Map mixed Directorist REST, EDD, WordPress, and filesystem failures into stable local error codes.
+
+Recommended code categories:
+
+- `capability_denied`
+- `nonce_invalid`
+- `account_disconnected`
+- `auth_failed`
+- `subscription_missing`
+- `license_missing`
+- `license_activation_failed`
+- `remote_unreachable`
+- `remote_invalid_response`
+- `download_unavailable`
+- `download_host_invalid`
+- `filesystem_unavailable`
+- `package_invalid`
+- `install_failed`
+- `update_failed`
+- `activation_failed`
+- `theme_switch_failed`
+- `requires_reload`
+
+Rules:
+
+- Never show false success when WordPress returns `WP_Error`.
+- Include developer-safe diagnostic context only when it does not expose passwords, raw licenses, or private account data.
+- Prefer inline recoverable errors in the UI over browser `alert()` calls.
+
+### Product Catalog API
+
+Future product catalog API changes should be versioned and optional-field friendly.
+
+Recommended additions:
+
+- `schema_version`
+- `catalog_version` or another cache-busting marker.
+- `badge` object for `new`, `beta`, `popular`, `sale`, or similar labels.
+- `status` or `availability` only when it has a clear UI meaning separate from EDD/WordPress `post_status`.
+- stable product key/slug, item ID, product type, link, thumbnail, description, plugin base, demo link, and active promo flag.
+
+Rules:
+
+- Merge API product fields over local defaults by product key.
+- Keep local fallback for non-badge fields when API data is unavailable or incomplete.
+- Render badge/status only from API data or explicit filters.
+- Do not infer badges from product name, slug, order, install date, or local hardcoded lists.
+- Account for product catalog cache delay when adding time-sensitive badge behavior.
+
+### Cache And Freshness
+
+- Keep product catalog caching separate from account/subscription state.
+- Do not cache user subscription/license state as if it were public catalog data.
+- Prefer shorter or version-busted cache behavior for badge/status metadata than for long-lived product copy when product marketing needs faster updates.
+- Add explicit cache invalidation or refresh behavior for support/debug flows if remote product data appears stale.
+- Keep EDD version-check caching scoped enough to avoid cross-product contamination.
+
+### Credential And Transport Safety
+
+- Do not store account passwords after a request finishes.
+- Do not log passwords, raw licenses, or raw subscription payloads.
+- Prefer remote account authentication over `POST` for future API work; keep compatibility with current behavior until Directorist.com supports the safer contract.
+- Review every `sslverify => false` path. Harden with compatibility filters and actionable error messages rather than silently breaking older customer sites.
+- Use reasonable remote timeouts and map timeout failures to recoverable UI messages.
+
+### Mutation Safety
+
+- Add per-item action locking or request IDs for install, update, activate, uninstall, refresh, and theme switch to reduce duplicate-click and concurrent-request risk.
+- Do not mark UI state final until the server accepts the action and a canonical state recheck confirms the result.
+- For install/update, validate download URL, host, package structure, unzip result, copy result, and final plugin/theme presence before returning success.
+- For theme switch, require explicit UI confirmation before AJAX and re-check `get_option( 'stylesheet' )` after success.
+- For uninstall, require explicit UI confirmation and re-check plugin filesystem/active state after success.
+
 ## Redesign Guidance
 
 For no-reload or page-speed improvements:

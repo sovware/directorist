@@ -172,6 +172,7 @@ Primary areas:
 - Existing remote flows mix Directorist REST endpoints and EDD action endpoints; keep response normalization server-side.
 - Review `sslverify => false` usages carefully. Harden only with a compatibility plan and useful error handling for customer sites.
 - Never log or store account passwords beyond the current request. Keep account connection and refresh purchase flows careful around credentials.
+- Before changing API behavior, read `api-data-flow-report.md#future-api-improvement-feedback` and apply its guidance for normalized responses, state-summary refresh, stable error codes, product catalog versioning, cache freshness, credential handling, and mutation safety.
 
 ## Rewrite Fix Order
 

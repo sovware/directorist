@@ -45,6 +45,7 @@ Load reference files as needed:
 
 - Architecture and file map: `references/page-architecture-map.md`
 - API/source flow report: `references/api-data-flow-report.md`
+- Licensing system PRD: `references/licensing-system-prd.md`
 - Runtime state and data shapes: `references/dynamic-data-contract.md`
 - Account/license journeys: `references/account-license-journey-map.md`
 - Performance and no-reload guidance: `references/performance-improvement-guide.md`

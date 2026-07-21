@@ -22,20 +22,58 @@ The approved direction is a full UI rewrite of this page, not a staged old/new U
 - React should only be considered after an explicit larger admin UI migration decision, because it requires a new state/API layer and broader QA.
 - This architecture is the lowest-risk default for the 20k customer base: fewer moving parts, easier rollback, existing server-rendered fallback, and stable public contracts.
 
+## Locked Reference Design Behavior
+
+When implementing from the approved HTML demo design, match the behavior as well as the static visuals. Do not store demo product rows or local runtime values as truth.
+
+- Use a compact admin-app layout: resource topbar, page head, optional account/connect panel, update banner, type tabs, status segmented control, list rows, upsell, and footer.
+- Keep the core sizing rhythm from the reference: 1200px max content container, 24px desktop gutters, 62px topbar, 42px type tabs, 41px list header, and 66px dense desktop rows. Adapt only for WordPress admin chrome and responsive constraints.
+- Top resource navigation should include Dashboard, Themes & Extensions, Docs, Tutorials, and Support. Docs, Tutorials, and Support are external handoff links; the active Themes & Extensions item should not duplicate the WordPress sidebar as the primary navigation source.
+- On narrow screens, resource navigation can become a horizontal scroll area. Do not create page-level horizontal overflow.
+- Filtering is cumulative: product type tab, product status segment, and search query combine together. A search query should continue to apply when switching tabs or status.
+- Visible add-on count updates after filtering. If no rows match, show an inline empty state instead of leaving a blank list.
+- The upsell/library banner shows only in the unfiltered default catalog view. Hide it during search, type filtering, or status filtering.
+- Update banner visibility depends on update availability in the current type scope. Hide the banner while rows are selected.
+- Row selection should visually set a selected row state and reveal a sticky bulk-action bar with `N selected`, plus Clear and Escape reset behavior.
+- Preserve real safety constraints: only rows backed by safe existing bulk contracts should be selectable for bulk management. In the disconnected marketplace-only state, do not invent bulk management actions only to match the static demo.
+- Master select applies to visible selectable rows only, and should show all/some/none visual states.
+- Kebab menus open one at a time, outside click closes them, and destructive actions remain inside the overflow/danger path rather than primary row buttons.
+- Safe read-only actions such as `View Details` and `Demo` should be visible row actions instead of being hidden only inside the overflow menu. Keep the overflow menu for secondary alternatives and protected/destructive actions.
+- Do not render duplicate visible links to the same destination with different labels such as `Get It Now` and `View Details`. If disconnected marketplace rows only have a product details URL, show `View Details` as the single product link. Use `Get It Now` only when it points to a distinct purchase/checkout flow or when it is the single intended purchase CTA.
+- Do not trigger Install, Update, Activate, Deactivate, Uninstall, Logout, Refresh Purchase, or theme switch during design QA without explicit confirmation.
+
 ## Disconnected Account Policy
 
 - Preserve current disconnected-account behavior by default.
+- Treat `logout` in this page context as Directorist account disconnect, not WordPress admin logout.
 - When `_atbdp_has_subscriptions_sassion` is empty, the page should render the account-connect form and the marketplace/promo discovery section.
 - Do not expose installed premium product management in the disconnected state by default.
 - Do not show Settings, Active status, Activate, Deactivate, Update, or local management actions for installed premium plugins/themes while disconnected unless a future task explicitly changes this policy.
+- Do not show disconnected users management-only UI affordances such as header account utilities, Installed/Updates status filters, master select checkboxes, row selection, or bulk-action controls. Keep browsing affordances such as add-on search, type tabs, counts, product detail links, and Get It Now links.
+- In the disconnected marketplace catalog, place add-on search with the catalog toolbar/count area instead of the hero. On desktop, keep type tabs, search, and visible count in one horizontal toolbar when space allows. Search controls the product list, so it should stay visually near the list it filters.
+- In the disconnected marketplace catalog, do not show a top page menu for Dashboard or Themes & Extensions. The WordPress admin sidebar owns page navigation. Keep only right-aligned resource links for Docs, Tutorials, and Support.
 - Existing installed/active premium extensions can continue working elsewhere in WordPress, but the Themes & Extensions page should not manage them while disconnected.
 - License-backed actions must remain gated behind connected account/subscription data: new premium install, premium package download, premium update, refresh purchase, and any server-side license validation flow.
-- Improve disconnected-state messaging without changing behavior. Recommended helper copy: `Already installed extensions will keep working. Connect your Directorist account to manage subscriptions, installs, and updates.`
+- Improve disconnected-state messaging without changing behavior. If no official Directorist products are installed locally, use normal subscription-management copy. If official Directorist extensions/themes are installed locally while the account is disconnected, use installed-product copy such as `We found Directorist products installed on this site. They will keep working. Connect your Directorist account to verify subscriptions, install new products, receive updates, and manage license-backed product actions.`
 - The intent is to keep a clear account-first product-management surface, avoid license/update confusion, and reduce support risk for existing customer sites.
 - Connected-state page model can still group products as:
   - `Installed`: local WordPress plugin/theme state rendered after account connection.
   - `Available in your account`: subscription/license data rendered after account connection.
   - `Marketplace`: external product discovery, visible regardless of connection state.
+
+## Disconnected UX And Accessibility Recommendations
+
+- Keep the disconnected state browse-first and connect-when-needed. Do not force login as the only first action.
+- Do not autofocus the username field on normal page load. Autofocus can steal keyboard/screen-reader context and opens the mobile keyboard immediately. Username should remain first in the natural tab order.
+- Focus the username field only after explicit user intent, such as a future `Connect account` CTA or a `#connect-account` deep link.
+- Keep the account-connect form as a real form so pressing Enter inside username/password submits the connect request.
+- Keep the password visibility toggle on the account password field. It must update the input type, icon, `aria-label`, and `aria-pressed` state.
+- Show inline form feedback for empty username, empty password, wrong credentials, unavailable API, nonce/capability failure, and unexpected errors. Avoid browser-only alert feedback for normal validation failures.
+- On connect submit, disable the username/password inputs and submit button only while the request is active. Show an immediate loading state such as `Connecting...`, and restore controls on failure.
+- Keep Docs, Tutorials, and Support as simple right-aligned resource links in disconnected state. External links should use `target="_blank"` with `rel="noopener noreferrer"` and clear accessible text where needed.
+- Keep disconnected marketplace actions read-only unless they are distinct external purchase/detail actions. Prefer `View Details` and `Demo`; use `Get It Now` only when it points to a real distinct purchase/checkout destination.
+- If search/filter returns no results, show an inline empty state with a clear/reset affordance instead of a blank product list.
+- On mobile, keep the connect form one-column, avoid autofocus, keep search near the product list, and verify there is no page-level horizontal overflow.
 
 ## Remote Product Badge Policy
 
@@ -91,6 +129,18 @@ Primary areas:
 - Do not remove reloads blindly. They currently force canonical server-rendered state.
 - Add progressive no-reload behavior behind existing AJAX actions. Use a small page-state adapter, loading states, normalized error handling, and canonical state refresh before claiming completion.
 - Keep full reload fallback for high-risk actions and unreconciled states.
+
+### Legacy Design CSS Cleanup
+
+- A full UI rewrite should not leave old page-specific design styles in place when they are no longer used.
+- After replacing an old section or selector set, audit legacy styles in `assets/src/scss/layout/admin/admin-style.scss`, generated/admin CSS, and any new page-specific stylesheet.
+- Remove unused old design-specific rules only after confirming they are not used by:
+  - the rewritten Themes & Extensions page;
+  - compatibility selector shims kept for existing users;
+  - theme/template overrides;
+  - other Directorist admin screens that share the same classes.
+- Prefer scoped new page styles over broad global overrides. If a legacy rule must stay for compatibility, document why it stays and isolate new styles with page-specific selectors.
+- Verify the cleanup with source search, desktop/mobile Agent Browser checks, and console/page-error checks. Do not remove old classes that existing JavaScript still reads unless the JS is migrated or a shim remains.
 
 ### Dead Login Continuation Flow
 
@@ -185,13 +235,14 @@ Primary areas:
 7. Build a response formatter for all page AJAX handlers: success, error, message, action, item key, canonical state needed, reload fallback.
 8. Add a small page-specific JavaScript state adapter around existing AJAX calls.
 9. Replace fragile table layout with responsive rows/cards while preserving old selectors or compatibility wrappers.
-10. Fix low-risk no-reload flows first: account-connect feedback, refresh purchase errors, tabs, filtering/search, inline errors, and button states.
-11. Harden single plugin activation and bulk result handling.
-12. Harden install/update/download services before changing their UI behavior.
-13. Keep uninstall for compatibility, but move it behind a protected danger action with confirmation and canonical plugin-state revalidation.
-14. Require confirmation modal for every theme switch, then revalidate canonical active-theme state or use reload fallback.
-15. Treat plugin/theme update and filesystem replacement as conservative flows with server revalidation and reload fallback.
-16. Remove or rebuild stale/dead code only after verifying no custom integration depends on old selectors or action names.
+10. Audit and remove unused old design-specific CSS after confirming compatibility selectors and other admin screens do not depend on it.
+11. Fix low-risk no-reload flows first: account-connect feedback, refresh purchase errors, tabs, filtering/search, inline errors, and button states.
+12. Harden single plugin activation and bulk result handling.
+13. Harden install/update/download services before changing their UI behavior.
+14. Keep uninstall for compatibility, but move it behind a protected danger action with confirmation and canonical plugin-state revalidation.
+15. Require confirmation modal for every theme switch, then revalidate canonical active-theme state or use reload fallback.
+16. Treat plugin/theme update and filesystem replacement as conservative flows with server revalidation and reload fallback.
+17. Remove or rebuild stale/dead code only after verifying no custom integration depends on old selectors or action names.
 
 ## Regression Checklist For Full Rewrite
 
@@ -203,6 +254,7 @@ Primary areas:
 - Product badges render only from API/filter-provided badge data and disappear safely when absent or expired.
 - Existing installed active, installed inactive, subscribed-not-installed, outdated, required, promo-only, active theme, inactive theme, and update-available states are all represented.
 - No page-level horizontal overflow on mobile admin widths.
+- Old design-specific CSS that is no longer used by this page, compatibility shims, overrides, or shared admin screens has been removed or explicitly documented as intentionally retained.
 - No action leaves buttons permanently disabled after failure.
 - No local action uses `alert()` as the only feedback.
 - Uninstall is not exposed as a one-click primary action; it requires explicit confirmation and recovers cleanly on failure.

@@ -281,7 +281,9 @@ class Asset_Loader {
             wp_enqueue_media();
         } elseif ( Helper::is_admin_page( 'extensions' ) ) {
             wp_enqueue_style( 'directorist-admin-style' );
+            wp_enqueue_style( 'directorist-themes-extensions', DIRECTORIST_ASSETS . 'css/directorist-themes-extensions.css', [ 'directorist-admin-style' ], ATBDP_VERSION );
             wp_enqueue_script( 'directorist-admin-script' );
+            wp_enqueue_script( 'directorist-themes-extensions', DIRECTORIST_ASSETS . 'js/directorist-themes-extensions.js', [ 'jquery', 'directorist-admin-script' ], ATBDP_VERSION, true );
             wp_enqueue_script( 'directorist-tooltip' );
 
             // Inline styles

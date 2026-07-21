@@ -14,6 +14,9 @@ Use this checklist for Themes & Extensions page work. Current runtime data must 
 - Confirm product names, descriptions, thumbnails, and links use API values when present and local defaults when API fields are missing or invalid.
 - Confirm product badges/status render only from product API/filter-provided fields and do not rely on hardcoded product slugs or product order.
 - Confirm no old/new UI feature flag or rollout toggle was added unless explicitly requested.
+- Confirm disconnected-state username is first in tab order but is not autofocused on normal page load.
+- Confirm disconnected-state resource links are plain Docs, Tutorials, and Support links with external-link safety attributes.
+- Confirm disconnected-state account copy changes based on local official Directorist product detection: normal subscription copy when none are installed, installed-product copy when local Directorist extensions/themes are present.
 
 ## Agent Browser Checks
 
@@ -80,6 +83,17 @@ Use categories only in docs. Do not preserve observed counts or product lists.
 - Confirm full reload fallback still works.
 - Compare desktop and mobile interaction latency.
 - Check console and page errors after each tested journey.
+
+## Disconnected Accessibility Checks
+
+- Confirm the disconnected page remains browse-first: account connect form plus marketplace catalog are both reachable without forced focus.
+- Confirm username and password fields have visible labels.
+- Confirm pressing Enter inside username/password submits the account-connect form.
+- Confirm password visibility toggle changes the input type, icon, `aria-label`, and `aria-pressed`.
+- Confirm connect loading state disables controls only during the active request and restores them after failure.
+- Confirm empty username, empty password, wrong credentials, API unavailable, nonce failure, and unexpected errors render inline form feedback.
+- Confirm disconnected search no-result state shows an inline empty state and a clear/reset affordance.
+- Confirm mobile disconnected view uses a one-column connect form, does not open the keyboard on load, and has no horizontal page overflow.
 
 ## Destructive-Action Safeguards
 

@@ -949,14 +949,62 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     throw new \Exception( __( 'Invalid directory type!', 'directorist' ), 400 );
                 }
 
-                $fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? directorist_clean( wp_unslash( $_FILES[ $field_id . 'async-upload' ] ) ) : '';
+                if ( empty( $post_id ) ) {
+                    $upload_token = isset( $_POST['upload_token'] ) ? sanitize_text_field( wp_unslash( $_POST['upload_token'] ) ) : '';
+                    $token_data   = $upload_token ? get_transient( 'directorist_file_upload_' . $upload_token ) : false;
+
+                    if (
+                        empty( $token_data )
+                        || ! is_array( $token_data )
+                        || (int) ( $token_data['directory'] ?? 0 ) !== $directory
+                        || (string) ( $token_data['field_key'] ?? '' ) !== $field_id
+                    ) {
+                        throw new \Exception( __( 'Invalid upload request!', 'directorist' ), 403 );
+                    }
+                }
+
+                if ( ! empty( $post_id ) ) {
+                    $post_type        = get_post_type( $post_id );
+                    $post_type_object = $post_type ? get_post_type_object( $post_type ) : null;
+
+                    if ( ! $post_type_object || ! current_user_can( $post_type_object->cap->edit_post, $post_id ) ) {
+                        throw new \Exception( __( 'You are not allowed to upload files for this post.', 'directorist' ), 403 );
+                    }
+                }
 
                 $form_fields  = get_term_meta( $directory, 'submission_form_fields', true );
-                $field_config = array_values( wp_list_filter( $form_fields['fields'], [ 'field_key' => $field_id ] ) );
-                $field_config = current( $field_config );
+                $field_config = [];
+
+                if ( ! empty( $form_fields['fields'] ) && is_array( $form_fields['fields'] ) ) {
+                    $field_config = array_values( wp_list_filter( $form_fields['fields'], [ 'field_key' => $field_id ] ) );
+                    $field_config = current( $field_config );
+                }
+
+                if ( empty( $field_config ) || ! is_array( $field_config ) || empty( $field_config['field_key'] ) || 'file' !== ( $field_config['type'] ?? '' ) ) {
+                    throw new \Exception( __( 'Invalid upload field!', 'directorist' ), 400 );
+                }
+
+                $field_id   = sanitize_text_field( $field_config['field_key'] );
+                $fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? directorist_clean( wp_unslash( $_FILES[ $field_id . 'async-upload' ] ) ) : '';
+
+                if ( empty( $fixed_file ) ) {
+                    throw new \Exception( __( 'No file supplied.', 'directorist' ), 400 );
+                }
 
                 $file_type = ! empty( $field_config['file_type'] ) ? $field_config['file_type'] : 'image';
                 $file_size = ! empty( $field_config['file_size'] ) ? $field_config['file_size'] : '2mb';
+                $max_size  = wp_convert_hr_to_bytes( $file_size );
+
+                if ( $max_size > 0 && ! empty( $fixed_file['size'] ) && (int) $fixed_file['size'] > $max_size ) {
+                    throw new \Exception(
+                        sprintf(
+                            /* translators: %s: maximum file size */
+                            __( 'Uploaded file is larger than the allowed size of %s.', 'directorist' ),
+                            size_format( $max_size )
+                        ),
+                        400
+                    );
+                }
 
                 if ( in_array( $file_type, [ '', 'all_types', 'all' ], true ) ) {
                     $file_types = directorist_get_supported_file_types();

@@ -34,6 +34,7 @@
       <div
         class="settings-command-palette"
         v-if="searchQuery.length && searchResults.length"
+        :style="paletteStyle"
         @click.stop
       >
         <div class="settings-command-palette__header">
@@ -63,6 +64,12 @@
               <span
                 class="settings-command-palette__label"
                 v-html="highlightText(result.label)"
+              ></span>
+
+              <span
+                class="settings-command-palette__match"
+                v-if="result.matchText"
+                v-html="highlightText(result.matchText)"
               ></span>
 
               <span class="settings-command-palette__path">
@@ -99,6 +106,20 @@
                 @click="$emit('quick-update-field', {
                   fieldKey: result.fieldKey,
                   value: !quickBooleanValue(result.value),
+                })"
+              >
+                <span class="settings-command-palette__toggle-knob"></span>
+              </button>
+
+              <button
+                v-else-if="result.controlType === 'checkbox-option'"
+                type="button"
+                class="settings-command-palette__toggle"
+                :class="{ 'settings-command-palette__toggle--active': quickBooleanValue(result.value) }"
+                :aria-pressed="quickBooleanValue(result.value) ? 'true' : 'false'"
+                @click="$emit('quick-update-field', {
+                  fieldKey: result.parentFieldKey || result.fieldKey,
+                  value: toggleCheckboxOptionValue(result),
                 })"
               >
                 <span class="settings-command-palette__toggle-knob"></span>
@@ -151,6 +172,7 @@
         v-else-if="searchQuery.length"
         role="status"
         aria-live="polite"
+        :style="paletteStyle"
         @click.stop
       >
         <div class="settings-command-palette__empty">
@@ -238,21 +260,106 @@ export default {
     },
   },
 
+  data() {
+    return {
+      paletteStyle: {},
+      paletteFrame: null,
+    };
+  },
+
   computed: {
     trimmedSearchQuery() {
       return this.searchQuery.trim();
     },
   },
 
+  watch: {
+    searchQuery() {
+      this.schedulePalettePosition();
+    },
+
+    searchResults() {
+      this.schedulePalettePosition();
+    },
+  },
+
   mounted() {
     document.addEventListener("click", this.handleOutsideClick);
+    window.addEventListener("resize", this.schedulePalettePosition);
+    window.addEventListener("scroll", this.schedulePalettePosition, true);
+    this.schedulePalettePosition();
   },
 
   beforeDestroy() {
     document.removeEventListener("click", this.handleOutsideClick);
+    window.removeEventListener("resize", this.schedulePalettePosition);
+    window.removeEventListener("scroll", this.schedulePalettePosition, true);
+    this.cancelPaletteFrame();
   },
 
   methods: {
+    schedulePalettePosition() {
+      this.cancelPaletteFrame();
+
+      this.paletteFrame = window.requestAnimationFrame(() => {
+        this.paletteFrame = null;
+        this.updatePalettePosition();
+      });
+    },
+
+    cancelPaletteFrame() {
+      if (!this.paletteFrame) {
+        return;
+      }
+
+      window.cancelAnimationFrame(this.paletteFrame);
+      this.paletteFrame = null;
+    },
+
+    updatePalettePosition() {
+      if (!this.searchQuery.length || !this.$refs.searchRoot) {
+        this.paletteStyle = {};
+        return;
+      }
+
+      const input = this.$refs.searchRoot.querySelector(
+        ".settings-sidebar-search__input"
+      );
+
+      if (!input) {
+        this.paletteStyle = {};
+        return;
+      }
+
+      const inputRect = input.getBoundingClientRect();
+      const viewportWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+      const viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+      const gutter = viewportWidth <= 480 ? 16 : 24;
+      const top = Math.round(inputRect.bottom + 6);
+      const maxWidth = Math.max(0, viewportWidth - gutter * 2);
+      const width = Math.min(440, maxWidth);
+      const left = Math.min(
+        Math.max(gutter, inputRect.left),
+        Math.max(gutter, viewportWidth - gutter - width)
+      );
+      const maxHeight = Math.max(0, viewportHeight - top - 16);
+      const headerHeight = viewportWidth <= 767 ? 36 : 39;
+      const listMaxHeight = Math.max(0, maxHeight - headerHeight);
+
+      this.paletteStyle = {
+        top: `${top}px`,
+        left: `${Math.round(left)}px`,
+        width: `${Math.round(width)}px`,
+        maxWidth: `${Math.round(width)}px`,
+        maxHeight: `${Math.round(maxHeight)}px`,
+        "--settings-command-palette-list-max-height": `${Math.round(
+          listMaxHeight
+        )}px`,
+      };
+    },
+
     handleOutsideClick(event) {
       if (!this.searchQuery.length || !this.$refs.searchRoot) {
         return;
@@ -270,6 +377,21 @@ export default {
 
     quickBooleanValue(value) {
       return value === true || value === "true" || value === 1 || value === "1";
+    },
+
+    toggleCheckboxOptionValue(result) {
+      const optionValue = String(result.optionValue);
+      let nextValue = Array.isArray(result.fieldValue)
+        ? result.fieldValue.map((item) => String(item))
+        : [];
+
+      if (this.quickBooleanValue(result.value)) {
+        nextValue = nextValue.filter((item) => item !== optionValue);
+      } else if (!nextValue.includes(optionValue)) {
+        nextValue.push(optionValue);
+      }
+
+      return nextValue;
     },
 
     highlightText(value) {

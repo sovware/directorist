@@ -103,7 +103,7 @@ class Listings_Controller extends Posts_Controller {
                 [
                     'methods'             => WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'update_status' ],
-                    'permission_callback' => [ $this, 'get_item_permissions_check' ],
+                    'permission_callback' => [ $this, 'update_status_permissions_check' ],
                     'args'                => [
                         'context' => $this->get_context_param(
                             [
@@ -114,6 +114,46 @@ class Listings_Controller extends Posts_Controller {
                 ],
             ]
         );
+    }
+
+    /**
+     * Check if a given request has access to update a listing status.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return bool|WP_Error
+     */
+    public function update_status_permissions_check( WP_REST_Request $request ) {
+        $listing = $this->get_status_update_listing( (int) $request->get_param( 'id' ) );
+
+        if ( is_wp_error( $listing ) ) {
+            return $listing;
+        }
+
+        if ( ! current_user_can( 'edit_post', $listing->ID ) ) {
+            return new WP_Error(
+                'directorist_rest_cannot_edit',
+                __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ),
+                [ 'status' => rest_authorization_required_code() ]
+            );
+        }
+
+        $status = $this->validate_status_for_update( $request->get_param( 'status' ) );
+
+        if ( is_wp_error( $status ) ) {
+            return $status;
+        }
+
+        $post_type_object = get_post_type_object( $this->post_type );
+
+        if ( ! $post_type_object || ! current_user_can( $post_type_object->cap->publish_posts ) ) {
+            return new WP_Error(
+                'directorist_rest_cannot_publish',
+                __( 'Sorry, you are not allowed to change this listing status.', 'directorist' ),
+                [ 'status' => rest_authorization_required_code() ]
+            );
+        }
+
+        return true;
     }
 
     /**
@@ -553,12 +593,16 @@ class Listings_Controller extends Posts_Controller {
 
     public function update_status( WP_REST_Request $request ) {
         $id     = (int) $request->get_param( 'id' );
-        $status = $request->get_param( 'status' );
+        $status = $this->validate_status_for_update( $request->get_param( 'status' ) );
 
-        $listing = get_post( $id );
+        if ( is_wp_error( $status ) ) {
+            return $status;
+        }
 
-        if ( ! $listing ) {
-            return new WP_Error( 'rest_not_found', __( 'The listing was not found' ) );
+        $listing = $this->get_status_update_listing( $id );
+
+        if ( is_wp_error( $listing ) ) {
+            return $listing;
         }
 
         do_action( 'directorist_before_update_listing_status', $id, $status );
@@ -572,6 +616,46 @@ class Listings_Controller extends Posts_Controller {
                 'message' => esc_html__( 'The listing status was updated successfully', 'directorist-pricing-plans' )
             ]
         );
+    }
+
+    /**
+     * Get a listing for status update requests.
+     *
+     * @param int $id Listing ID.
+     * @return \WP_Post|WP_Error
+     */
+    protected function get_status_update_listing( int $id ) {
+        $listing = get_post( $id );
+
+        if ( ! $listing || $this->post_type !== $listing->post_type ) {
+            return new WP_Error(
+                'directorist_rest_invalid_listing_id',
+                __( 'Invalid listing ID.', 'directorist' ),
+                [ 'status' => 404 ]
+            );
+        }
+
+        return $listing;
+    }
+
+    /**
+     * Validate listing status update value.
+     *
+     * @param string $status Listing status.
+     * @return string|WP_Error
+     */
+    protected function validate_status_for_update( $status ) {
+        $status = is_string( $status ) ? sanitize_key( $status ) : '';
+
+        if ( ! in_array( $status, [ 'publish', 'private' ], true ) ) {
+            return new WP_Error(
+                'directorist_rest_invalid_listing_status',
+                __( 'Invalid listing status.', 'directorist' ),
+                [ 'status' => 400 ]
+            );
+        }
+
+        return $status;
     }
 
     /**

@@ -1,14 +1,17 @@
 /**
  * WordPress dependencies
  */
+import apiFetch from '@wordpress/api-fetch';
+import { Button, DropdownMenu, Modal } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { moreVertical } from '@wordpress/icons';
-import { DropdownMenu } from '@wordpress/components';
 
 /**
  * External dependencies
  */
 import { Column } from '@shamim-ahmed/components/build-types/gutenberg/table/types';
+import { registerCrudStore, useCrudStore } from '@shamim-ahmed/data';
 import { Table } from '@shamim-ahmed/dashboard';
 import moment from 'moment';
 
@@ -23,7 +26,10 @@ import { OrderTableContainer } from './style';
 import { ActionsDropdownWrapper } from './style';
 
 const checkoutPageUrl = directorist_admin_order.checkout_page_url;
-const columns: Column[] = [
+const orderStoreName = 'directorist/orders';
+const orderStorePath = '/directorist/v1/orders';
+
+const baseColumns: Column[] = [
 	{
 		id: 'id',
 		label: __('Order Id', 'directorist'),
@@ -98,50 +104,131 @@ const columns: Column[] = [
 			);
 		},
 	},
-	{
-		id: 'actions',
-		label: __('Actions', 'directorist'),
-		render: ({ item }) => {
-			const controls: any[] = [];
-
-			if (item?.status === 'pending') {
-				controls.push({
-					title: __('Pay', 'directorist'),
-					onClick: () => {
-						window.location.href = `${checkoutPageUrl}?checkout_type=payment&order_id=${item?.id}`;
-					},
-				});
-			}
-
-			return (
-				<ActionsDropdownWrapper>
-					<DropdownMenu
-						icon={moreVertical}
-						label={__('Actions', 'directorist')}
-						controls={controls}
-						placement="right-end"
-						toggleProps={{
-							'aria-label': __('Package actions', 'directorist'),
-						}}
-					/>
-				</ActionsDropdownWrapper>
-			);
-		},
-	},
 ];
 
 export default function App() {
+	registerCrudStore({ name: orderStoreName, path: orderStorePath });
+	const { updateItem } = useCrudStore({ name: orderStoreName });
+	const [cancelItem, setCancelItem] = useState<any>(null);
+	const [isCancelling, setIsCancelling] = useState(false);
+	const [cancelError, setCancelError] = useState('');
+
+	const handleCancelOrder = async () => {
+		if (!cancelItem?.id) return;
+
+		setIsCancelling(true);
+		setCancelError('');
+
+		try {
+			await apiFetch({
+				path: `/directorist/v1/orders/${cancelItem.id}/cancel`,
+				method: 'POST',
+			});
+			updateItem(cancelItem.id, { status: 'cancelled' });
+			setCancelItem(null);
+		} catch (error) {
+			setCancelError(
+				error?.message ||
+					__('Failed to cancel order. Please try again.', 'directorist')
+			);
+		} finally {
+			setIsCancelling(false);
+		}
+	};
+
+	const columns: Column[] = [
+		...baseColumns,
+		{
+			id: 'actions',
+			label: __('Actions', 'directorist'),
+			render: ({ item }) => {
+				if (item?.status !== 'pending') {
+					return <span className="directorist-table-text-light">—</span>;
+				}
+
+				const controls: any[] = [
+					{
+						title: __('Pay', 'directorist'),
+						onClick: () => {
+							window.location.href = `${checkoutPageUrl}?checkout_type=payment&order_id=${item?.id}`;
+						},
+					},
+					{
+						title: __('Cancel', 'directorist'),
+						onClick: () => {
+							setCancelError('');
+							setCancelItem(item);
+						},
+					},
+				];
+
+				return (
+					<ActionsDropdownWrapper>
+						<DropdownMenu
+							icon={moreVertical}
+							label={__('Actions', 'directorist')}
+							controls={controls}
+							placement="right-end"
+							toggleProps={{
+								'aria-label': __('Order actions', 'directorist'),
+							}}
+						/>
+					</ActionsDropdownWrapper>
+				);
+			},
+		},
+	];
+
 	return (
 		<OrderTableContainer>
 			<Table
 				heading="Orders"
-				storeName="directorist/orders"
-				path="/directorist/v1/orders"
+				storeName={orderStoreName}
+				path={orderStorePath}
 				columns={columns}
 				create={{ status: false }}
 				edit={{ status: false }}
 				destroy={{ status: false }}
 			/>
+
+			{cancelItem && (
+				<Modal
+					title={__('Cancel Order', 'directorist')}
+					size="small"
+					isDismissible={!isCancelling}
+					onRequestClose={() => {
+						if (!isCancelling) setCancelItem(null);
+					}}
+				>
+					<p>
+						{__(
+							'Are you sure you want to cancel this pending order?',
+							'directorist'
+						)}
+					</p>
+					{cancelError && (
+						<p className="directorist-error__msg">{cancelError}</p>
+					)}
+					<div className="directorist-payment-action directorist-flex directorist-justify-content-between">
+						<Button
+							variant="secondary"
+							onClick={() => setCancelItem(null)}
+							disabled={isCancelling}
+						>
+							{__('Keep Order', 'directorist')}
+						</Button>
+						<Button
+							variant="primary"
+							isDestructive
+							isBusy={isCancelling}
+							disabled={isCancelling}
+							onClick={handleCancelOrder}
+						>
+							{__('Cancel Order', 'directorist')}
+						</Button>
+					</div>
+				</Modal>
+			)}
 		</OrderTableContainer>
 	);
 }

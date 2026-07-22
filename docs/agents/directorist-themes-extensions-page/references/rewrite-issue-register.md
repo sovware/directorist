@@ -22,6 +22,16 @@ The approved direction is a full UI rewrite of this page, not a staged old/new U
 - React should only be considered after an explicit larger admin UI migration decision, because it requires a new state/API layer and broader QA.
 - This architecture is the lowest-risk default for the 20k customer base: fewer moving parts, easier rollback, existing server-rendered fallback, and stable public contracts.
 
+## Current Styling Source Note
+
+- The current rewritten Themes & Extensions page styles are in the direct page stylesheet `assets/css/directorist-themes-extensions.css`.
+- They are not currently authored in `assets/src/scss/`.
+- The stylesheet is enqueued directly for the `atbdp-extension` admin page from the asset loader.
+- Styles for this page must remain scoped to the Themes & Extensions root/classes, such as `#directorist.directorist-te-page` and `.directorist-te-*`. Avoid broad selectors like `.wrap`, `.button`, `.notice`, `table`, or shared Directorist admin classes unless the change is intentionally global and verified across affected admin screens.
+- Keep page-only design tokens and custom properties under the Themes & Extensions page root so they do not override other Directorist admin screens.
+- Future rewrite or hardening work should decide explicitly whether to keep this page-specific direct CSS file or migrate the styles into the SCSS/build pipeline.
+- Do not commit generated `assets/build/*` changes as part of this decision unless a build output update is intentionally requested.
+
 ## Locked Reference Design Behavior
 
 When implementing from the approved HTML demo design, match the behavior as well as the static visuals. Do not store demo product rows or local runtime values as truth.
@@ -44,9 +54,11 @@ When implementing from the approved HTML demo design, match the behavior as well
 
 ## Disconnected Account Policy
 
+- Locked decision, 2026-07-22: disconnected view is done. Do not change it in future rewrite work unless the user explicitly requests disconnected-view changes in the current task.
 - Preserve current disconnected-account behavior by default.
 - Treat `logout` in this page context as Directorist account disconnect, not WordPress admin logout.
 - When `_atbdp_has_subscriptions_sassion` is empty, the page should render the account-connect form and the marketplace/promo discovery section.
+- Keep disconnected-view PHP markup, copy, resource links, search/tabs/count placement, product-row actions, page-scoped CSS/responsive behavior, and JS behavior stable by default.
 - Do not expose installed premium product management in the disconnected state by default.
 - Do not show Settings, Active status, Activate, Deactivate, Update, or local management actions for installed premium plugins/themes while disconnected unless a future task explicitly changes this policy.
 - Do not show disconnected users management-only UI affordances such as header account utilities, Installed/Updates status filters, master select checkboxes, row selection, or bulk-action controls. Keep browsing affordances such as add-on search, type tabs, counts, product detail links, and Get It Now links.
@@ -82,14 +94,17 @@ When implementing from the approved HTML demo design, match the behavior as well
 - Preferred remote API shape is a structured optional field:
 
 ```json
-"badge": {
-  "type": "new",
-  "label": "New",
-  "expires_at": "2026-09-01"
-}
+"badges": [
+  {
+    "type": "new",
+    "label": "New",
+    "expires_at": "2026-09-01"
+  }
+]
 ```
 
-- `type` should be a machine-readable enum such as `new`, `beta`, `popular`, `sale`, or `featured`.
+- `badge` as a single object or scalar label may remain supported for filters and backward compatibility.
+- `type` should be a machine-readable enum such as `new`, `beta`, `popular`, `trending`, `sale`, or `featured`.
 - `label` should be the display text from the API and escaped/translated safely where applicable.
 - `expires_at` should be optional and handled server-side or client-side so expired badges do not render.
 - The core plugin UI should read badge/status values from the product API. EDD product meta, custom taxonomy, or a dedicated badge setting can be the upstream source on Directorist.com, but the Themes & Extensions page should depend on the API field, not direct EDD assumptions.
@@ -98,6 +113,51 @@ When implementing from the approved HTML demo design, match the behavior as well
 - Local filters `atbdp_extension_list` and `atbdp_theme_list` should still be able to add or override badge data for compatibility and testing.
 - Do not infer `New` from product order, product name, local install date, or a hardcoded slug list.
 - Because the product catalog is cached, badge changes from the API must account for cache invalidation or acceptable cache delay.
+
+### Public Marketing Page Badge Scrape
+
+Last refreshed scrape: 2026-07-22.
+
+Scraped from:
+
+- `https://directorist.com/extensions/`
+- `https://directorist.com/themes/`
+
+This scrape is a temporary implementation reference only. Do not treat these product-to-badge mappings as canonical product data in the plugin. Re-scrape the marketing pages and, more importantly, re-check the product API before implementing or shipping badge behavior.
+
+Observed markup pattern:
+
+- Product cards expose badge machine values through `data-badges`, for example `data-badges="new trending"`.
+- Visible badges render as spans such as `.badge-new`, `.badge-trending`, and `.badge-popular`.
+- Observed badge labels: `New`, `Trending`, `Popular`.
+
+Observed extension badges:
+
+- Directorist Notifications Pro: `New`
+- Directorist Divi Integration: `New`
+- Directorist AI Search: `New`
+- Directorist Listing Importer: `New`, `Trending`
+- Directorist Search Alert: `New`
+- Directorist Announcement: `New`
+- AddonsKit for Bricks: `New`
+- HelpGent Integration: `New`
+- Digital Marketplace: `Trending`
+- Job Manager: `Trending`
+- Booking (Reservation & Appointment): `Popular`
+- Listings with Map: `Popular`
+- Business Hours: `Popular`
+- WooCommerce Pricing Plans: `Popular`
+- PayPal Payment Gateway: `Popular`
+- Pricing Plans: `Popular`, `Trending`
+
+Observed theme badges:
+
+- dJobs: `New`
+- dHotels: `Popular`
+- dClassified: `Trending`
+- OneListing Pro: `Popular`, `Trending`
+- dCar: `Popular`
+- dDoctors: `Popular`
 
 ## Product Copy Source Policy
 

@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="account-connect__form-group">
-                            <input type="text" placeholder="Username" name="username" id="username">
+                            <input type="text" placeholder="Username or email address, e.g. name@example.com" name="username" id="username" autocomplete="username">
                             <span class="la la-user"></span>
                         </div>
                     </div>

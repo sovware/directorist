@@ -27,6 +27,8 @@ Performance opportunity: replace unconditional reload with a state refresh/rende
 
 When the account is not connected, preserve the current page behavior: render the Directorist account-connect form and the promo marketplace/discovery section only.
 
+- Locked as of 2026-07-22: the disconnected view is complete and should be treated as out of scope for future Themes & Extensions work unless the user explicitly asks for disconnected-view changes in that task.
+- Do not alter disconnected-view layout, account-connect copy, resource links, search/tabs/count placement, product row/card actions, CSS/responsive behavior, or page-specific JS behavior by accident while working on connected-state, badge, API, licensing, install/update, or theme-management features.
 - Do not expose installed premium product management in the disconnected page state by default.
 - Do not show Settings, Active status, Activate, Deactivate, Update, or local management actions for installed premium products while disconnected unless a future task explicitly changes this policy.
 - Already installed premium products can continue working in WordPress, but this page should not manage them while the Directorist account session is disconnected.

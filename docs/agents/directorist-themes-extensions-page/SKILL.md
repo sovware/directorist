@@ -50,6 +50,7 @@ Load reference files as needed:
 - Account/license journeys: `references/account-license-journey-map.md`
 - Performance and no-reload guidance: `references/performance-improvement-guide.md`
 - Full rewrite issue register and fix priorities: `references/rewrite-issue-register.md`
+- Current implementation changes and locked UI decisions: `references/current-implementation-change-notes.md`
 - Verification checklist: `references/qa-checklist.md`
 
 ## Live Inspection Requirement
@@ -73,10 +74,12 @@ agent-browser --session directorist-themes-extensions close
 ## Safety Rules
 
 - Never click or automate Install, Update, Activate, Deactivate, Uninstall, Logout, Refresh Purchase, or theme switch actions on a real/client site without explicit confirmation for that exact action.
+- Treat the disconnected view as locked as of 2026-07-22. Unless the user explicitly asks for disconnected-view changes in the current task, do not change disconnected-view PHP markup, copy, header/resource links, connect-card UX, marketplace/search/tab layout, product-row actions, CSS/responsive behavior, or JS behavior that only affects disconnected users.
 - Preserve the page slug `atbdp-extension`, parent post type `at_biz_dir`, capability `manage_options`, existing AJAX action names, nonce expectations, response compatibility, settings links, filters, aliases, and legacy user meta keys.
 - Preserve legacy misspellings that are part of stored data or public contracts, including `_atbdp_has_subscriptions_sassion` and `atbdp_close_subscriptions_sassion`.
 - Do not remove or repurpose old selectors, classes, template paths, filters, or action hooks without a compatibility shim and explicit migration plan.
 - After a new UI replaces an old page section, audit old design-specific CSS and remove unused rules after verifying they are not used by the rewritten page, legacy compatibility shims, template overrides, or other Directorist admin screens.
+- Keep new Themes & Extensions styles page-scoped. Do not add broad global admin selectors or shared Directorist selectors for this page unless a reusable design-system change is explicitly requested and verified across affected screens.
 - Treat install, update, download, uninstall, and theme activation as high-risk operations. Use read-only inspection by default.
 - Keep this page separate from installed extension settings. Settings-panel work belongs to `docs/agents/directorist-settings-panel/SKILL.md`.
 - Treat Figma/design input as design intent. Do not rewrite backend product/install logic only to match a visual design.

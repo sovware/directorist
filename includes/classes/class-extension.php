@@ -236,8 +236,39 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
         }
 
+        private static function get_product_badge( $type, $label, $expires_at = null ) {
+            $badge = [
+                'type'  => $type,
+                'label' => $label,
+            ];
+
+            if ( null !== $expires_at ) {
+                $badge['expires_at'] = $expires_at;
+            }
+
+            return $badge;
+        }
+
         public static function get_default_extensions() {
             return [
+                'directorist-notifications-pro' => [
+                    'name'        => 'Directorist Notifications Pro',
+                    'description' => __( 'Send instant browser push notifications for listings, payments, reviews, renewals, and other important directory events.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-notifications-pro/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-notifications-pro.jpg',
+                    'active'      => true,
+                    'item_id'     => 371698,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
+                ],
+                'directorist-divi-integration' => [
+                    'name'        => 'Directorist Divi Integration',
+                    'description' => __( 'Build and customize your directory visually with native Divi 5 modules.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-divi-integration/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-divi-integration.jpg',
+                    'active'      => true,
+                    'item_id'     => 371246,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
+                ],
                 'directorist-ai-search' => [
                     'name'        => 'Directorist AI Search',
                     'description' => __( 'AI-powered directory search that understands intent and improves listing discovery.', 'directorist' ),
@@ -245,6 +276,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/AI-Search-Preview.jpg',
                     'active'      => true,
                     'item_id'     => 370908,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-listing-importer' => [
                     'name'        => 'Directorist Listing Importer',
@@ -253,6 +285,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-listing-importer.png',
                     'active'      => true,
                     'item_id'     => 370853,
+                    'badges'      => [
+                        self::get_product_badge( 'new', __( 'New', 'directorist' ) ),
+                        self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ),
+                    ],
                 ],
 
                 'directorist-analytics' => [
@@ -289,6 +325,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-search-alert.png',
                     'active'      => true,
                     'item_id'     => 323908,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
 
                 'directorist-announcement' => [
@@ -298,6 +335,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-announcement.svg',
                     'active'      => true,
                     'item_id'     => 308031,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
 
                 'addonskit-for-bricks' => [
@@ -307,6 +345,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/addonskit-bricks.svg',
                     'active'      => true,
                     'item_id'     => 307581,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
 
                 'directorist-coupon' => [
@@ -333,6 +372,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'base'        => 'directorist-listings-with-map/directorist-listings-map.php',
                     'active'      => true,
                     'item_id'     => 13794,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-pricing-plans' => [
                     'name'        => 'Pricing Plans',
@@ -341,6 +381,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13776,
+                    'badges'      => [
+                        self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ),
+                        self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ),
+                    ],
                 ],
                 'directorist-woocommerce-pricing-plans' => [
                     'name'        => 'WooCommerce Pricing Plans',
@@ -349,6 +393,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/woo-pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13784,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-paypal' => [
                     'name'        => 'PayPal Payment Gateway',
@@ -357,6 +402,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/paypal-gateway.png',
                     'active'      => true,
                     'item_id'     => 13702,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-stripe' => [
                     'name'        => 'Stripe Payment Gateway',
@@ -414,6 +460,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'base'        => 'directorist-business-hours/bd-business-hour.php',
                     'active'      => true,
                     'item_id'     => 13714,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-slider-carousel' => [
                     'name'        => 'Listings Slider & Carousel',
@@ -439,6 +486,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/booking.png',
                     'active'      => true,
                     'item_id'     => 21718,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-gallery' => [
                     'name'        => 'Image Gallery',
@@ -504,6 +552,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/jobs-manager.svg',
                     'active'      => true,
                     'item_id'     => 134332,
+                    'badges'      => [ self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ) ],
                 ],
                 'directorist-mailchimp-integration' => [
                     'name'        => 'Mailchimp Integration',
@@ -520,6 +569,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/helpgent.svg',
                     'active'      => true,
                     'item_id'     => 188735,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-wpml-integration' => [
                     'name'        => 'WPML Integration',
@@ -536,6 +586,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/marketplace.svg',
                     'active'      => true,
                     'item_id'     => 148417,
+                    'badges'      => [ self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ) ],
                 ],
                 'directorist-gamipress-integration' => [
                     'name'        => 'Gamipress Integration',
@@ -558,6 +609,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/djobs/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/djobs.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'dhotels' => [
                     'name'        => 'dHotels',
@@ -566,6 +618,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/dhotels/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/dhotels.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'dclassified' => [
                     'name'        => 'dClassified',
@@ -574,6 +627,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/dclassified/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/dclassified.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ) ],
                 ],
                 'onelisting' => [
                     'name'        => 'OneListing',
@@ -590,6 +644,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/onelisting-pro/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/onelisting.png',
                     'active'      => true,
+                    'badges'      => [
+                        self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ),
+                        self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ),
+                    ],
                 ],
                 'dplace' => [
                     'name'        => 'dPlace',
@@ -622,6 +680,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/dcar/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/dcar.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'dlist' => [
                     'name'        => 'dList',
@@ -646,6 +705,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/ddoctors/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/ddoctors.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'dlawyers' => [
                     'name'        => 'dLawyers',
@@ -2646,7 +2706,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $sovware_themes       = ( is_array( $this->themes ) ) ? array_keys( $this->themes ) : [];
             $theme_updates        = get_site_transient( 'update_themes' );
-            $outdated_themes      = $theme_updates->response;
+            $outdated_themes      = ( is_object( $theme_updates ) && isset( $theme_updates->response ) && is_array( $theme_updates->response ) ) ? $theme_updates->response : array();
             $outdated_themes_keys = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
 
             $all_themes            = wp_get_themes();
@@ -2660,13 +2720,29 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 if ( in_array( $theme_base, $sovware_themes ) ) {
                     $customizer_link = "customize.php?theme={$theme_data->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
                     $customizer_link = admin_url( $customizer_link );
+                    $has_theme_update  = isset( $outdated_themes[ $theme_data->stylesheet ] );
+                    $theme_update_info = $has_theme_update ? $outdated_themes[ $theme_data->stylesheet ] : array();
+                    $theme_new_version = '';
+
+                    if ( is_object( $theme_update_info ) ) {
+                        $theme_update_info = get_object_vars( $theme_update_info );
+                    }
+
+                    if ( is_array( $theme_update_info ) ) {
+                        if ( ! empty( $theme_update_info['new_version'] ) && is_scalar( $theme_update_info['new_version'] ) ) {
+                            $theme_new_version = sanitize_text_field( $theme_update_info['new_version'] );
+                        } elseif ( ! empty( $theme_update_info['version'] ) && is_scalar( $theme_update_info['version'] ) ) {
+                            $theme_new_version = sanitize_text_field( $theme_update_info['version'] );
+                        }
+                    }
 
                     $installed_theme_list[ $theme_base ] = [
                         'name'            => $theme_data->name,
                         'version'         => $theme_data->version,
                         'thumbnail'       => $theme_data->get_screenshot(),
                         'customizer_link' => $customizer_link,
-                        'has_update'      => ( in_array( $theme_data->stylesheet, $outdated_themes_keys ) ) ? true : false,
+                        'has_update'      => $has_theme_update,
+                        'new_version'     => $theme_new_version,
                         'stylesheet'      => $theme_data->stylesheet,
                     ];
 
@@ -2674,7 +2750,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                         $total_active_themes++;
                     }
 
-                    if ( in_array( $theme_base, $outdated_themes_keys ) ) {
+                    if ( $has_theme_update ) {
                         $total_outdated_themes++;
                     }
                 }
@@ -2755,7 +2831,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $customizer_link      = admin_url( $customizer_link );
 
             // Check form theme update
-            $has_update = isset( $args['installed_theme_list'][ $current_active_theme->stylesheet ] ) ? $args['installed_theme_list'][ $current_active_theme->stylesheet ]['has_update'] : '';
+            $active_theme_state = isset( $args['installed_theme_list'][ $current_active_theme->stylesheet ] ) ? $args['installed_theme_list'][ $current_active_theme->stylesheet ] : array();
+            $has_update         = isset( $active_theme_state['has_update'] ) ? $active_theme_state['has_update'] : '';
+            $new_version        = isset( $active_theme_state['new_version'] ) ? $active_theme_state['new_version'] : '';
 
             $active_theme_info = [
                 'name'            => $current_active_theme->name,
@@ -2763,6 +2841,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'thumbnail'       => $current_active_theme->get_screenshot(),
                 'customizer_link' => $customizer_link,
                 'has_update'      => $has_update,
+                'new_version'     => $new_version,
                 'stylesheet'      => $current_active_theme->stylesheet,
             ];
 
@@ -2877,6 +2956,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             return $status;
         }
 
+        private static function get_remote_auth_connection_error_message() {
+            return __( 'Could not reach Directorist.com. Please try again.', 'directorist' );
+        }
+
+        private static function get_remote_auth_invalid_credentials_message() {
+            return __( 'The username, email address, or password is incorrect. Please check your details and try again.', 'directorist' );
+        }
+
         // remote_authenticate_user
         public static function remote_authenticate_user( $user_credentials = [] ) {
             $status = [ 'success' => true ];
@@ -2903,14 +2990,20 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $response = wp_remote_get( $url, $config );
 
                 if ( is_wp_error( $response ) ) {
-                    $status['success'] = false;
-                    $status['message'] = Directorist\Helper::get_first_wp_error_message( $response );
+                    $status['success']    = false;
+                    $status['error_code'] = $response->get_error_code();
+                    $status['message']    = self::get_remote_auth_connection_error_message();
                 } else {
+                    $response_code = wp_remote_retrieve_response_code( $response );
                     $response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
+
+                    if ( empty( $response_body ) && in_array( $response_code, [ 401, 403 ], true ) ) {
+                        $status['message'] = self::get_remote_auth_invalid_credentials_message();
+                    }
                 }
             } catch ( Exception $e ) {
                 $status['success'] = false;
-                $status['message'] = $e->getMessage();
+                $status['message'] = self::get_remote_auth_connection_error_message();
             }
 
             if ( is_array( $response_body ) ) {
@@ -2919,6 +3012,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( empty( $response_body['success'] ) ) {
                 $status['success'] = false;
+
+                if ( empty( $status['message'] ) && empty( $status['log'] ) ) {
+                    $status['message'] = self::get_remote_auth_invalid_credentials_message();
+                }
             }
 
             $status['response'] = $response_body;

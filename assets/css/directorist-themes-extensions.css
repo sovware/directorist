@@ -13,14 +13,19 @@
     --bg: #f3f4f6;
     --bg-soft: #f8fafc;
     --success: #16a34a;
+    --success-tint: #eafaf0;
     --warning: #d97706;
     --warning-tint: #fff7ed;
     --danger: #dc2626;
     --danger-tint: #fef2f2;
+    --info: #2c99ff;
+    --info-tint: #e9f4ff;
     --r-xs: 6px;
     --r-sm: 8px;
     --r-md: 10px;
-    --shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.04);
+    --shadow-hover: 0 12px 32px rgba(16, 24, 40, 0.1), 0 2px 4px rgba(16, 24, 40, 0.06);
+    --shadow: var(--shadow-card);
     --shadow-pop: 0 10px 26px rgba(15, 23, 42, 0.1);
     color: var(--text);
     background: var(--bg);
@@ -69,6 +74,12 @@
     border-bottom: 1px solid var(--border);
 }
 
+.directorist-te-page--connected .directorist-te-header {
+    position: static;
+    top: auto;
+    z-index: auto;
+}
+
 .directorist-te-brand,
 .directorist-te-nav,
 .directorist-te-resource-links,
@@ -76,14 +87,15 @@
 .directorist-te-top-search,
 .directorist-te-header-icon,
 .directorist-te-avatar,
+.directorist-te-account-menu__item,
 .directorist-te-hero,
 .directorist-te-search,
 .directorist-te-update-banner,
 .directorist-te-toolbar-row,
 .directorist-te-segmented,
 .directorist-te-bulkbar,
+.directorist-te-refresh-form,
 .directorist-te-row__title,
-.directorist-te-row__meta,
 .directorist-te-row__actions,
 .directorist-te-upsell,
 .directorist-te-footer {
@@ -124,7 +136,8 @@
     flex: 1;
 }
 
-.directorist-te-nav a {
+.directorist-te-nav a,
+.directorist-te-nav button {
     padding: 8px 10px;
     border: 0;
     border-radius: var(--r-xs);
@@ -132,14 +145,19 @@
     color: var(--muted);
     font-size: 13px;
     font-weight: 500;
+    font-family: inherit;
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .directorist-te-nav a:hover,
 .directorist-te-nav a:focus,
-.directorist-te-nav a.active {
+.directorist-te-nav a.active,
+.directorist-te-nav button:hover,
+.directorist-te-nav button:focus,
+.directorist-te-nav button.active {
     color: var(--accent);
     background: var(--accent-tint);
     box-shadow: none;
@@ -165,6 +183,11 @@
 .directorist-te-resource-links a:focus {
     color: var(--accent);
     outline: none;
+}
+
+.directorist-te-page--connected .directorist-te-top-right .directorist-te-resource-links {
+    gap: 18px;
+    margin-left: 0;
 }
 
 .directorist-te-top-right {
@@ -233,17 +256,120 @@
 .directorist-te-avatar {
     height: 34px;
     gap: 6px;
+    margin: 0;
     padding: 0 7px 0 3px;
     border: 1px solid var(--border);
     border-radius: 999px;
     background: var(--surface);
     color: var(--muted);
+    cursor: pointer;
 }
 
 .directorist-te-avatar img {
     width: 28px;
     height: 28px;
     border-radius: 50%;
+}
+
+.directorist-te-avatar:hover,
+.directorist-te-avatar:focus {
+    border-color: var(--accent);
+    color: var(--accent);
+    outline: none;
+}
+
+.directorist-te-avatar[aria-expanded="true"] {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(62, 98, 245, 0.1);
+}
+
+.directorist-te-account-menu {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.directorist-te-account-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 80;
+    width: 326px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+}
+
+.directorist-te-account-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 2px 2px 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.directorist-te-account-summary strong,
+.directorist-te-account-summary span {
+    display: block;
+}
+
+.directorist-te-account-summary strong {
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.directorist-te-account-summary span {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.directorist-te-account-dropdown__actions {
+    display: grid;
+    gap: 6px;
+    padding-top: 8px;
+}
+
+.directorist-te-account-dropdown__item {
+    width: 100%;
+    min-height: 34px;
+    justify-content: flex-start;
+    gap: 8px;
+    margin: 0;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: var(--r-sm);
+    background: transparent;
+    color: var(--text);
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.directorist-te-account-dropdown__item:hover,
+.directorist-te-account-dropdown__item:focus {
+    background: var(--accent-tint);
+    color: var(--accent);
+    outline: none;
+}
+
+.directorist-te-account-dropdown__item--danger {
+    color: var(--danger);
+}
+
+.directorist-te-account-dropdown__item--danger:hover,
+.directorist-te-account-dropdown__item--danger:focus {
+    background: var(--danger-tint);
+    color: var(--danger);
 }
 
 .directorist-te-hero {
@@ -282,8 +408,7 @@
     background: var(--bg-soft);
 }
 
-.directorist-te-connect,
-.directorist-te-account {
+.directorist-te-connect {
     margin: 0 0 16px;
     padding: 16px 18px;
     border: 1px solid var(--border-card);
@@ -502,10 +627,18 @@
     color: var(--text);
 }
 
+.directorist-te-btn--soft {
+    border-color: transparent;
+    background: var(--accent-tint);
+    color: var(--accent);
+}
+
 .directorist-te-btn--secondary:hover,
 .directorist-te-btn--secondary:focus,
 .directorist-te-btn--ghost:hover,
 .directorist-te-btn--ghost:focus,
+.directorist-te-btn--soft:hover,
+.directorist-te-btn--soft:focus,
 .directorist-te-bulk-action:hover,
 .directorist-te-bulk-action:focus {
     border-color: var(--accent);
@@ -559,41 +692,688 @@
     color: var(--danger);
 }
 
-.directorist-te-account {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 160px)) minmax(320px, 1fr);
-    gap: 18px;
-    align-items: center;
-}
-
-.directorist-te-stat span {
-    display: block;
-    color: var(--text);
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1;
-}
-
-.directorist-te-stat p {
-    margin: 5px 0 0;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.directorist-te-account__actions {
-    justify-content: flex-end;
-    gap: 10px;
-    min-width: 0;
-}
-
 .directorist-te-refresh-panel {
-    width: 0;
     overflow: hidden;
 }
 
+.directorist-te-refresh-panel[hidden] {
+    width: 0 !important;
+}
+
 .directorist-te-refresh-form {
-    width: 330px;
+    width: 100%;
     gap: 8px;
+}
+
+.directorist-te-view:not([hidden]) {
+    animation: directoristTeFade 0.2s ease;
+}
+
+@keyframes directoristTeFade {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.directorist-te-dashboard {
+    margin-top: 26px;
+}
+
+.directorist-te-dashboard-welcome,
+.directorist-te-dashboard-nudge,
+.directorist-te-dashboard-card,
+.directorist-te-dashboard-recommendations {
+    border: 1px solid var(--border-card);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.directorist-te-dashboard-welcome {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    overflow: hidden;
+    padding: 22px 24px;
+}
+
+.directorist-te-dashboard-welcome::before {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(820px 200px at 90% -40%, rgba(62, 98, 245, 0.08), transparent 70%);
+    content: "";
+    pointer-events: none;
+}
+
+.directorist-te-dashboard-welcome > * {
+    position: relative;
+    z-index: 1;
+}
+
+.directorist-te-dashboard-welcome h1 {
+    margin: 0 0 3px;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.directorist-te-dashboard-welcome p,
+.directorist-te-dashboard-nudge p,
+.directorist-te-dashboard-recommendations > p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+.directorist-te-dashboard-welcome__actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.directorist-te-dashboard-nudge {
+    margin-top: 18px;
+    padding: 16px 18px;
+    background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+}
+
+.directorist-te-dashboard-nudge__top {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 13px;
+}
+
+.directorist-te-dashboard-ring {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    color: var(--accent);
+}
+
+.directorist-te-dashboard-ring svg {
+    display: block;
+    transform: rotate(-90deg);
+}
+
+.directorist-te-dashboard-ring span {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.directorist-te-dashboard-nudge h2,
+.directorist-te-dashboard-card__head h2,
+.directorist-te-dashboard-recommendations__head h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.directorist-te-dashboard-nudge__dismiss {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-xs);
+    background: transparent;
+    color: var(--faint);
+    cursor: pointer;
+}
+
+.directorist-te-dashboard-nudge__dismiss:hover,
+.directorist-te-dashboard-nudge__dismiss:focus {
+    background: var(--surface);
+    color: var(--muted);
+    outline: none;
+}
+
+.directorist-te-dashboard-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 9px;
+}
+
+.directorist-te-dashboard-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-xs);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+}
+
+.directorist-te-dashboard-step:hover,
+.directorist-te-dashboard-step:focus {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    outline: none;
+}
+
+.directorist-te-dashboard-step > span {
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 20px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    color: transparent;
+    font-size: 12px;
+}
+
+.directorist-te-dashboard-step.is-done {
+    color: var(--faint);
+    opacity: 0.75;
+    text-decoration: line-through;
+}
+
+.directorist-te-dashboard-step.is-done > span {
+    border-color: var(--success);
+    background: var(--success);
+    color: #fff;
+}
+
+.directorist-te-dashboard-step > .la-angle-right {
+    margin-left: auto;
+    color: var(--faint);
+}
+
+.directorist-te-dashboard-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.directorist-te-dashboard-metric {
+    position: relative;
+    overflow: hidden;
+    padding: 17px;
+    border: 1px solid var(--border-card);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.directorist-te-dashboard-metric:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.directorist-te-dashboard-metric--attention {
+    border-color: #f5d9a8;
+    background: linear-gradient(180deg, #fff, #fffaf2);
+}
+
+.directorist-te-dashboard-metric__top {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 13px;
+}
+
+.directorist-te-dashboard-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 38px;
+    border-radius: 9px;
+    color: #fff;
+    font-size: 19px;
+}
+
+.directorist-te-dashboard-icon--blue {
+    background: linear-gradient(135deg, #4f6ef7, #7d93ff);
+}
+
+.directorist-te-dashboard-icon--teal {
+    background: linear-gradient(135deg, #0ea5b7, #34c7d6);
+}
+
+.directorist-te-dashboard-icon--amber {
+    background: linear-gradient(135deg, #f08a24, #ffb15c);
+}
+
+.directorist-te-dashboard-icon--violet {
+    background: linear-gradient(135deg, #7c5cff, #a98bff);
+}
+
+.directorist-te-dashboard-metric strong {
+    display: block;
+    color: var(--text);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.1;
+}
+
+.directorist-te-dashboard-metric__top div > span {
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 500;
+}
+
+.directorist-te-dashboard-metric__foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 11px;
+    padding-top: 11px;
+    border-top: 1px solid var(--border-soft);
+    color: var(--faint);
+    font-size: 11.5px;
+}
+
+.directorist-te-dashboard-metric__foot > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: #eafaf0;
+    color: var(--success);
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.directorist-te-dashboard-metric__foot a {
+    margin-left: auto;
+    color: var(--warning);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.directorist-te-dashboard-metric-spark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 96px;
+    height: 42px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.directorist-te-dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.directorist-te-dashboard-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.directorist-te-dashboard-card__head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.directorist-te-dashboard-card__head > i,
+.directorist-te-dashboard-recommendations__head > i {
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.directorist-te-dashboard-card__head a {
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 12.5px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.directorist-te-dashboard-actions {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 2px;
+    padding: 7px;
+}
+
+.directorist-te-dashboard-action {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr) 16px;
+    grid-template-areas:
+        "icon title arrow"
+        "icon meta arrow";
+    align-items: center;
+    gap: 0 12px;
+    padding: 10px 11px;
+    border-radius: var(--r-xs);
+    text-decoration: none;
+}
+
+.directorist-te-dashboard-action:hover,
+.directorist-te-dashboard-action:focus {
+    background: var(--bg-soft);
+    outline: none;
+}
+
+.directorist-te-dashboard-action > span {
+    grid-area: icon;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--r-sm);
+    background: var(--accent-tint);
+    color: var(--accent);
+    font-size: 17px;
+}
+
+.directorist-te-dashboard-action:nth-child(2) > span {
+    background: #eafaf0;
+    color: var(--success);
+}
+
+.directorist-te-dashboard-action:nth-child(3) > span {
+    background: #fef3e6;
+    color: var(--warning);
+}
+
+.directorist-te-dashboard-action:nth-child(4) > span {
+    background: #f3eeff;
+    color: #7c5cff;
+}
+
+.directorist-te-dashboard-action:nth-child(5) > span {
+    background: #e9f4ff;
+    color: #2c99ff;
+}
+
+.directorist-te-dashboard-action strong {
+    grid-area: title;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.directorist-te-dashboard-action em {
+    grid-area: meta;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 12px;
+    font-style: normal;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.directorist-te-dashboard-action > .la-angle-right {
+    grid-area: arrow;
+    color: var(--faint);
+    font-size: 16px;
+}
+
+.directorist-te-dashboard-action:hover > .la-angle-right,
+.directorist-te-dashboard-action:focus > .la-angle-right {
+    color: var(--accent);
+    transform: translateX(2px);
+}
+
+.directorist-te-dashboard-activity {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 0;
+    padding: 7px;
+}
+
+.directorist-te-dashboard-activity > div {
+    display: grid;
+    grid-template-columns: 33px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 11px;
+    border-radius: var(--r-xs);
+}
+
+.directorist-te-dashboard-activity > div + div {
+    border-top: 1px solid var(--border-soft);
+}
+
+.directorist-te-dashboard-activity > div:hover {
+    background: var(--bg-soft);
+}
+
+.directorist-te-dashboard-activity p {
+    min-width: 0;
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.35;
+}
+
+.directorist-te-dashboard-activity strong,
+.directorist-te-dashboard-activity small {
+    display: block;
+}
+
+.directorist-te-dashboard-activity strong {
+    margin-bottom: 1px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.directorist-te-dashboard-activity b {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.directorist-te-dashboard-activity strong span {
+    display: inline-flex;
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--info-tint);
+    color: var(--info);
+    font-size: 10px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.directorist-te-dashboard-activity small {
+    margin-top: 2px;
+    color: var(--faint);
+    font-size: 11.5px;
+}
+
+.directorist-te-dashboard-activity-icon {
+    width: 33px;
+    height: 33px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 33px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.directorist-te-dashboard-activity-icon--blue {
+    background: var(--accent-tint);
+    color: var(--accent);
+}
+
+.directorist-te-dashboard-activity-icon--green {
+    background: var(--success-tint);
+    color: var(--success);
+}
+
+.directorist-te-dashboard-activity-icon--amber {
+    background: var(--warning-tint);
+    color: var(--warning);
+}
+
+.directorist-te-dashboard-activity-icon--violet {
+    background: #f3eeff;
+    color: #7c5cff;
+}
+
+.directorist-te-dashboard-activity-icon--info {
+    background: var(--info-tint);
+    color: var(--info);
+}
+
+.directorist-te-dashboard-activity .directorist-te-btn {
+    align-self: center;
+    min-height: 32px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+}
+
+.directorist-te-dashboard-recommendations {
+    margin-top: 18px;
+    padding: 18px 20px 8px;
+}
+
+.directorist-te-dashboard-recommendations__head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 2px;
+}
+
+.directorist-te-dashboard-recommendations__head span {
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.directorist-te-dashboard-recommendations > p {
+    max-width: 640px;
+    margin-bottom: 6px;
+}
+
+.directorist-te-dashboard-recommendations__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.directorist-te-dashboard-recommendations__grid > div {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 18px;
+    border-left: 1px solid var(--border-soft);
+}
+
+.directorist-te-dashboard-recommendations__grid > div:first-child {
+    border-left: 0;
+    padding-left: 2px;
+}
+
+.directorist-te-dashboard-recommendation-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+}
+
+.directorist-te-dashboard-recommendation-icon {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 30px;
+    border-radius: var(--r-sm);
+    color: #fff;
+    font-size: 15px;
+}
+
+.directorist-te-dashboard-recommendation-icon--green {
+    background: var(--success);
+}
+
+.directorist-te-dashboard-recommendation-icon--orange {
+    background: #f08a24;
+}
+
+.directorist-te-dashboard-recommendation-icon--violet {
+    background: #7c5cff;
+}
+
+.directorist-te-dashboard-recommendations__grid h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.directorist-te-dashboard-recommendations__grid p {
+    flex: 1;
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.directorist-te-dashboard-recommendations__grid .directorist-te-btn {
+    align-self: flex-start;
+    min-height: 32px;
+    padding: 8px 16px;
+    border-color: transparent;
+    background: var(--accent-tint);
+    color: var(--accent);
+}
+
+.directorist-te-dashboard-footer {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin: 22px 0 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    color: var(--faint);
+    font-size: 12px;
+    text-align: center;
+}
+
+.directorist-te-dashboard-footer a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
 }
 
 .directorist-te-update-banner {
@@ -703,6 +1483,20 @@
     color: var(--accent);
 }
 
+.directorist-te-segmented .directorist-te-update-count,
+.directorist-te-segmented button.is-active .directorist-te-update-count {
+    min-width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 6px;
+    border-radius: 99px;
+    background: var(--warning);
+    color: #fff;
+    font-size: 10px;
+}
+
 .directorist-te-toolbar-row {
     justify-content: space-between;
     gap: 12px;
@@ -802,10 +1596,45 @@
     background: var(--border);
 }
 
+.directorist-te-bulkbar__empty {
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.directorist-te-bulkbar__notice {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.directorist-te-bulkbar__empty[hidden],
+.directorist-te-bulkbar__notice[hidden] {
+    display: none !important;
+}
+
 .directorist-te-bulk-action {
     min-height: 31px;
     padding: 6px 10px;
     font-size: 12.5px;
+}
+
+.directorist-te-bulk-action__count {
+    min-width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--accent-tint);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+.directorist-te-bulk-action--danger .directorist-te-bulk-action__count {
+    background: var(--danger-tint);
+    color: var(--danger);
 }
 
 .directorist-te-bulk-action--danger:hover,
@@ -875,6 +1704,10 @@
     grid-template-columns: 40px minmax(0, 1fr) 150px 180px;
 }
 
+.directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] {
+    grid-template-columns: 64px minmax(0, 1fr) 150px 180px;
+}
+
 .directorist-te-page--disconnected .directorist-te-list-head__addon {
     grid-column: 1 / 3;
 }
@@ -938,6 +1771,17 @@
     opacity: 0;
 }
 
+.directorist-te-checkbox--disabled {
+    border-color: var(--border);
+    background: var(--bg-soft);
+    cursor: not-allowed;
+    opacity: 0.58;
+}
+
+.directorist-te-checkbox--disabled input {
+    cursor: not-allowed;
+}
+
 .directorist-te-checkbox:has(input:checked),
 .directorist-te-checkbox.is-checked {
     border-color: var(--accent);
@@ -964,6 +1808,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] .directorist-te-row__media {
+    width: 64px;
+    height: 42px;
 }
 
 .directorist-te-row__content {
@@ -1003,16 +1852,19 @@
     white-space: nowrap;
 }
 
-.directorist-te-row__meta {
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 5px;
+.directorist-te-page .directorist-te-search-highlight {
+    padding: 0 1px;
+    border-radius: 3px;
+    color: inherit;
+    background: #fef3c7;
+    font: inherit;
 }
 
 .directorist-te-type,
 .directorist-te-badge {
     display: inline-flex;
     align-items: center;
+    flex: 0 0 auto;
     min-height: 18px;
     padding: 2px 7px;
     border-radius: 5px;
@@ -1025,14 +1877,40 @@
     white-space: nowrap;
 }
 
-.directorist-te-type--theme {
+.directorist-te-type--theme,
+.directorist-te-type--directorist-theme {
     color: #166534;
     background: #dcfce7;
 }
 
+.directorist-te-type--wordpress-theme {
+    color: #475569;
+    background: #f1f5f9;
+}
+
 .directorist-te-badge {
-    color: #7c2d12;
-    background: #ffedd5;
+    min-height: 15px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: #64748b;
+    background: #f8fafc;
+    font-size: 8.5px;
+    font-weight: 700;
+}
+
+.directorist-te-badge--new {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.directorist-te-badge--trending {
+    color: #7c3aed;
+    background: #f5f3ff;
+}
+
+.directorist-te-badge--popular {
+    color: #059669;
+    background: #ecfdf5;
 }
 
 .directorist-te-row__status {
@@ -1069,6 +1947,7 @@
 
 .directorist-te-status--update {
     color: var(--warning);
+    font-weight: 600;
 }
 
 .directorist-te-status--update::before,
@@ -1228,7 +2107,8 @@
 }
 
 @media (max-width: 1120px) {
-    .directorist-te-top-right {
+    .directorist-te-top-search,
+    .directorist-te-header-icon {
         display: none;
     }
 
@@ -1241,19 +2121,34 @@
     .directorist-te-page--disconnected .directorist-te-row {
         grid-template-columns: 40px minmax(0, 1fr) 132px 180px;
     }
+
+    .directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] {
+        grid-template-columns: 64px minmax(0, 1fr) 132px 180px;
+    }
+}
+
+@media (max-width: 980px) {
+    .directorist-te-dashboard-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .directorist-te-dashboard-grid,
+    .directorist-te-dashboard-recommendations__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .directorist-te-dashboard-recommendations__grid > div {
+        border-top: 1px solid var(--border-soft);
+        border-left: 0;
+        padding-left: 2px;
+    }
+
+    .directorist-te-dashboard-recommendations__grid > div:first-child {
+        border-top: 0;
+    }
 }
 
 @media (max-width: 960px) {
-    .directorist-te-account {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .directorist-te-account__actions {
-        grid-column: 1 / -1;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
     .directorist-te-connect {
         grid-template-columns: 1fr;
     }
@@ -1270,6 +2165,11 @@
         margin: 20px 0 36px;
     }
 
+    .directorist-te-page--disconnected .directorist-te-header {
+        position: static;
+        top: auto;
+    }
+
     .directorist-te-header {
         height: auto;
         min-height: 62px;
@@ -1279,11 +2179,49 @@
         padding: 12px 16px;
     }
 
+    .directorist-te-page--connected .directorist-te-header {
+        align-items: flex-start;
+    }
+
+    .directorist-te-account-dropdown {
+        width: min(326px, calc(100vw - 36px));
+    }
+
     .directorist-te-nav {
         order: 3;
         width: 100%;
         overflow-x: auto;
         flex-wrap: nowrap;
+    }
+
+    .directorist-te-page--connected .directorist-te-nav {
+        flex: 0 0 100%;
+        padding-top: 2px;
+    }
+
+    .directorist-te-dashboard {
+        margin-top: 20px;
+    }
+
+    .directorist-te-dashboard-welcome {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .directorist-te-dashboard-welcome__actions {
+        width: 100%;
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
+
+    .directorist-te-dashboard-recommendations__head {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .directorist-te-dashboard-recommendations__head span {
+        flex: 0 0 100%;
+        margin-left: 0;
     }
 
     .directorist-te-resource-links {
@@ -1310,7 +2248,6 @@
     .directorist-te-connect,
     .directorist-te-connect.account-connect,
     #directorist.atbd_wrapper.directorist-te-page .directorist-te-connect.account-connect,
-    .directorist-te-account,
     .directorist-te-update-banner,
     .directorist-te-toolbar,
     .directorist-te-upsell {
@@ -1326,11 +2263,18 @@
     }
 
     .directorist-te-toolbar-catalog {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
         width: 100%;
         margin-left: 0;
         padding-bottom: 12px;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: stretch;
+    }
+
+    .directorist-te-count {
+        align-self: center;
+        justify-self: end;
+        white-space: nowrap;
     }
 
     .directorist-te-products {
@@ -1344,17 +2288,12 @@
         flex-direction: column;
     }
 
-    .directorist-te-field-row,
-    .directorist-te-account {
+    .directorist-te-field-row {
         grid-template-columns: 1fr;
     }
 
-    .directorist-te-account__actions {
-        grid-column: auto;
-    }
-
     .directorist-te-refresh-form {
-        width: min(330px, calc(100vw - 64px));
+        width: 100%;
     }
 
     .directorist-te-bulkbar {
@@ -1377,6 +2316,10 @@
         grid-template-columns: 36px minmax(0, 1fr) auto;
     }
 
+    .directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] {
+        grid-template-columns: 64px minmax(0, 1fr) auto;
+    }
+
     .directorist-te-list-head__status,
     .directorist-te-row__status {
         display: none;
@@ -1397,6 +2340,49 @@
 }
 
 @media (max-width: 520px) {
+    .directorist-te-nav {
+        gap: 2px;
+    }
+
+    .directorist-te-nav a,
+    .directorist-te-nav button {
+        padding: 7px 6px;
+        font-size: 12px;
+    }
+
+    .directorist-te-dashboard-metrics {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .directorist-te-dashboard-welcome,
+    .directorist-te-dashboard-nudge,
+    .directorist-te-dashboard-recommendations {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .directorist-te-dashboard-welcome__actions .directorist-te-btn {
+        width: 100%;
+    }
+
+    .directorist-te-dashboard-nudge__top {
+        align-items: flex-start;
+    }
+
+    .directorist-te-dashboard-activity > div {
+        grid-template-columns: 33px minmax(0, 1fr);
+    }
+
+    .directorist-te-dashboard-activity .directorist-te-btn {
+        grid-column: 2;
+        justify-self: flex-start;
+        align-self: flex-start;
+    }
+
+    .directorist-te-dashboard-action em {
+        white-space: normal;
+    }
+
     .directorist-te-list-head,
     .directorist-te-row {
         grid-template-columns: 22px minmax(0, 1fr);
@@ -1434,6 +2420,18 @@
         grid-column: 2;
     }
 
+    .directorist-te-page--connected .directorist-te-row__title {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .directorist-te-page--connected .directorist-te-row__title h2 {
+        flex: 0 0 100%;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+    }
+
     .directorist-te-page--disconnected .directorist-te-row__content,
     .directorist-te-page--disconnected .directorist-te-row__actions {
         grid-column: 1;
@@ -1445,9 +2443,18 @@
         row-gap: 10px;
     }
 
+    .directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] {
+        grid-template-columns: 64px minmax(0, 1fr);
+    }
+
     .directorist-te-page--disconnected .directorist-te-row__media {
         grid-column: 1;
         display: flex;
+    }
+
+    .directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] .directorist-te-row__media {
+        width: 64px;
+        height: 42px;
     }
 
     .directorist-te-page--disconnected .directorist-te-row__content {
@@ -1468,6 +2475,16 @@
     }
 
     .directorist-te-page--disconnected .directorist-te-row__actions > .directorist-te-btn {
+        width: 100%;
+    }
+
+    .directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] .directorist-te-row__actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+    }
+
+    .directorist-te-page--disconnected .directorist-te-row[data-product-type="theme"] .directorist-te-row__actions > .directorist-te-btn {
         width: 100%;
     }
 

@@ -50,11 +50,13 @@ Theme catalog items commonly include:
 - Badge/status fields do not use hardcoded local fallback. Render badge/status only when provided by product API data or explicit filters.
 - Do not store the current merged catalog output in this skill.
 
-Optional product badge/status shape for future rewrite:
+Optional product badge/status shape:
 
-- `badge.type`: machine-readable badge type such as `new`, `beta`, `popular`, `sale`, or `featured`
-- `badge.label`: display label such as `New`
-- `badge.expires_at`: optional expiration date/time; expired badges must not render
+- Preferred API field: `badges`, an array of badge objects.
+- Legacy/filter-compatible field: `badge`, a single badge object or scalar label.
+- `type`: machine-readable badge type such as `new`, `beta`, `popular`, `sale`, `trending`, or `featured`
+- `label`: display label such as `New`
+- `expires_at`: optional expiration date/time; expired badges must not render
 
 Badge/status data should come from Directorist.com product API data. EDD product meta, a dedicated product badge setting, or taxonomy can be the upstream source on Directorist.com, but the core plugin should consume the API field. Local product-list filters may add or override badge data for compatibility/testing. Do not infer badges from product order, names, slugs, or local runtime state.
 

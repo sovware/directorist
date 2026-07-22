@@ -10,10 +10,12 @@ Use this checklist for Themes & Extensions page work. Current runtime data must 
 - Confirm new code preserves existing nonce usage or provides compatibility.
 - Confirm new copy is escaped and translatable in PHP.
 - Confirm changed selectors/classes do not remove legacy hooks without shims.
+- Confirm page styles are scoped to the Themes & Extensions page root/classes and do not introduce broad global admin or shared Directorist selector changes.
 - Confirm docs/copy claims against `README.md`, `readme.txt`, and official Directorist docs.
 - Confirm product names, descriptions, thumbnails, and links use API values when present and local defaults when API fields are missing or invalid.
 - Confirm product badges/status render only from product API/filter-provided fields and do not rely on hardcoded product slugs or product order.
 - Confirm no old/new UI feature flag or rollout toggle was added unless explicitly requested.
+- Confirm disconnected-view files/selectors/styles were not changed unless the current task explicitly requested disconnected-view changes.
 - Confirm disconnected-state username is first in tab order but is not autofocused on normal page load.
 - Confirm disconnected-state resource links are plain Docs, Tutorials, and Support links with external-link safety attributes.
 - Confirm disconnected-state account copy changes based on local official Directorist product detection: normal subscription copy when none are installed, installed-product copy when local Directorist extensions/themes are present.

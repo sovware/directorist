@@ -57,17 +57,60 @@ Product copy/source policy for rewrite:
 
 Future badge/status support should be added to this catalog contract as optional API data. EDD product meta or a dedicated product badge setting on Directorist.com can feed the API, but the core plugin UI should consume the product API field. Do not use normal EDD/WordPress `post_status` as the badge source because it represents product availability, not display labels such as `New`.
 
-Recommended optional badge object:
+Recommended optional badge payload:
 
 ```json
 {
-  "type": "new",
-  "label": "New",
-  "expires_at": "2026-09-01"
+  "badges": [
+    {
+      "type": "new",
+      "label": "New",
+      "expires_at": "2026-09-01"
+    }
+  ]
 }
 ```
 
 Render no badge when this field is absent, expired, malformed, or disabled by filters.
+
+Directorist.com API implementation sketch:
+
+```php
+function directorist_get_product_api_badges( $product_id ) {
+    $raw_badges = get_post_meta( $product_id, '_directorist_product_badges', true );
+    $raw_badges = is_array( $raw_badges ) ? $raw_badges : [];
+    $badges     = [];
+    $now        = time();
+
+    foreach ( $raw_badges as $raw_badge ) {
+        $type       = isset( $raw_badge['type'] ) ? sanitize_key( $raw_badge['type'] ) : '';
+        $label      = isset( $raw_badge['label'] ) ? sanitize_text_field( $raw_badge['label'] ) : '';
+        $expires_at = isset( $raw_badge['expires_at'] ) ? sanitize_text_field( $raw_badge['expires_at'] ) : '';
+
+        if ( '' === $type || '' === $label ) {
+            continue;
+        }
+
+        if ( '' !== $expires_at ) {
+            $expires_timestamp = strtotime( $expires_at );
+
+            if ( false !== $expires_timestamp && $expires_timestamp < $now ) {
+                continue;
+            }
+        }
+
+        $badges[] = [
+            'type'       => $type,
+            'label'      => $label,
+            'expires_at' => '' !== $expires_at ? $expires_at : null,
+        ];
+    }
+
+    return $badges;
+}
+```
+
+When building each product item for `v1/get-remote-products`, only include `badges` when `directorist_get_product_api_badges( $product_id )` returns a non-empty array.
 
 ## Account Connection API
 

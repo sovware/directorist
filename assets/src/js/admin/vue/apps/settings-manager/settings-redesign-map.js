@@ -677,7 +677,7 @@ const FIELD_OVERRIDES = {
 	extension_promotion: {
 		title: 'Installed extensions',
 		description:
-			'No extensions installed yet. Each extension you install will add its own section here.',
+			'No extension settings available yet. Each extension you install can add its own settings section here.',
 		browseTitle: 'Browse extensions',
 		browseDescription:
 			'30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.',
@@ -2147,6 +2147,7 @@ const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
 		submenu[submenuKey] = {
 			label: rawSubmenu.label || rawSubmenu.title || 'Payment gateway',
 			icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.gateways,
+			extensionSettings: true,
 			sections,
 		};
 	});
@@ -2192,6 +2193,7 @@ const buildExtensionSettingsMenu = (rawLayouts, fields, usedFields) => {
 		submenu[submenuKey] = {
 			label: rawSubmenu.label || 'Extension',
 			icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.extensions,
+			extensionSettings: submenuKey !== 'extensions_general',
 			sections,
 		};
 	});

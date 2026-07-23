@@ -149,7 +149,7 @@ const baseColumns: Column[] = [
 ];
 
 export default function Orders() {
-	registerCrudStore({ name: 'directorist/orders', path: '/directorist/v1/admin/orders' });
+	registerCrudStore({ name: 'directorist/orders', path: '/directorist/v2/admin/orders' });
 	const { destroy } = useCrudStore({ name: 'directorist/orders' });
 
 	const [ deleteItem, setDeleteItem ] = useState< any >( null );
@@ -213,7 +213,7 @@ export default function Orders() {
 			<Table
 				heading="Orders"
 				storeName="directorist/orders"
-				path="/directorist/v1/admin/orders"
+				path="/directorist/v2/admin/orders"
 				columns={ columns }
 				actions={ [] }
 				create={ { status: false } }

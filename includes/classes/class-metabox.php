@@ -390,6 +390,12 @@ class ATBDP_Metabox {
         $all_types      = directory_types();
         $default        = default_directory_type();
         $current_type   = directorist_get_listing_directory( $post->ID );
+        $requested_type = isset( $_GET['directory_type'] ) ? absint( wp_unslash( $_GET['directory_type'] ) ) : 0;
+
+        if ( ! $current_type && $requested_type && term_exists( $requested_type, ATBDP_TYPE ) ) {
+            $current_type = $requested_type;
+        }
+
         $value          = $current_type ? $current_type : $default;
         wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 

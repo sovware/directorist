@@ -11,8 +11,26 @@ $outdated_plugins      = ! empty( $args['outdated_plugin_list'] ) && is_array( $
 $outdated_keys         = array_keys( $outdated_plugins );
 $is_logged_in          = ! empty( $args['is_logged_in'] );
 $is_beta               = ! empty( $args['is_beta'] );
+$requested_view        = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] ) ? sanitize_key( wp_unslash( $_GET['te_view'] ) ) : '';
+$requested_type        = isset( $_GET['te_type'] ) && is_scalar( $_GET['te_type'] ) ? sanitize_key( wp_unslash( $_GET['te_type'] ) ) : '';
+$initial_view          = $is_logged_in && in_array( $requested_view, [ 'dashboard', 'addons' ], true ) ? $requested_view : ( $is_logged_in ? 'dashboard' : 'addons' );
+$initial_type          = $is_logged_in && in_array( $requested_type, [ 'all', 'extension', 'theme' ], true ) ? $requested_type : 'all';
 $installed_extensions  = ! empty( $args['installed_extension_list'] ) && is_array( $args['installed_extension_list'] ) ? $args['installed_extension_list'] : [];
 $installed_themes      = ! empty( $args['installed_theme_list'] ) && is_array( $args['installed_theme_list'] ) ? $args['installed_theme_list'] : [];
+$dashboard_welcome     = ! empty( $args['dashboard_welcome'] ) && is_array( $args['dashboard_welcome'] ) ? $args['dashboard_welcome'] : [];
+$dashboard_quick_actions = ! empty( $args['dashboard_quick_actions'] ) && is_array( $args['dashboard_quick_actions'] ) ? $args['dashboard_quick_actions'] : [];
+$dashboard_metrics     = ! empty( $args['dashboard_metrics'] ) && is_array( $args['dashboard_metrics'] ) ? $args['dashboard_metrics'] : [];
+$dashboard_setup       = ! empty( $args['dashboard_setup'] ) && is_array( $args['dashboard_setup'] ) ? $args['dashboard_setup'] : [];
+$dashboard_activity    = ! empty( $args['dashboard_activity'] ) && is_array( $args['dashboard_activity'] ) ? $args['dashboard_activity'] : [];
+$dashboard_activity_items = ! empty( $dashboard_activity['items'] ) && is_array( $dashboard_activity['items'] ) ? $dashboard_activity['items'] : [];
+$dashboard_recommendations = ! empty( $args['dashboard_recommendations'] ) && is_array( $args['dashboard_recommendations'] ) ? $args['dashboard_recommendations'] : [];
+$account_name          = ! empty( $dashboard_welcome['account_name'] ) ? (string) $dashboard_welcome['account_name'] : '';
+$account_avatar_url    = ! empty( $dashboard_welcome['account_avatar_url'] ) ? (string) $dashboard_welcome['account_avatar_url'] : '';
+$account_initials      = ! empty( $dashboard_welcome['account_initials'] ) ? (string) $dashboard_welcome['account_initials'] : 'D';
+$connection_method     = ! empty( $dashboard_welcome['connection_method'] ) && 'access_key' === $dashboard_welcome['connection_method'] ? 'access_key' : 'account';
+$plugin_version        = ! empty( $dashboard_welcome['plugin_version'] ) ? (string) $dashboard_welcome['plugin_version'] : '';
+$account_plan_label    = ! empty( $dashboard_welcome['plan_label'] ) ? (string) $dashboard_welcome['plan_label'] : __( 'Connected account', 'directorist' );
+$whats_new_url         = ! empty( $dashboard_welcome['whats_new_url'] ) ? (string) $dashboard_welcome['whats_new_url'] : 'https://directorist.com/changelog/';
 $has_local_products    = ! empty( $installed_extensions ) || ! empty( $installed_themes );
 $connect_title         = $has_local_products
     ? __( 'Connect to manage installed Directorist products', 'directorist' )
@@ -306,10 +324,32 @@ if ( ! empty( $args['required_extensions_list'] ) && is_array( $args['required_e
         $required_base   = ! empty( $required_extension['base'] ) ? $required_extension['base'] : "{$extension_key}/{$extension_key}.php";
 
         foreach ( array_filter( [ $extension_key, $extension_alias, $required_base, preg_replace( '/\/.+/', '', $required_base ) ] ) as $required_lookup_key ) {
-            $required_lookup[ $required_lookup_key ] = $required_extension;
+            $required_lookup[ $required_lookup_key ] = $extension_key;
         }
     }
 }
+
+$get_required_extension_key = static function( $extension_key, $extension_base = '' ) use ( $required_lookup, $args ) {
+    $extension_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_key );
+    $lookup_keys     = array_filter(
+        [
+            $extension_key,
+            $extension_alias,
+            $extension_base,
+            $extension_base ? preg_replace( '/\/.+/', '', $extension_base ) : '',
+        ]
+    );
+
+    foreach ( $lookup_keys as $lookup_key ) {
+        if ( isset( $required_lookup[ $lookup_key ] ) ) {
+            return (string) $required_lookup[ $lookup_key ];
+        }
+    }
+
+    return '';
+};
+
+$represented_required_extensions = [];
 
 if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( $args['installed_extension_list'] ) ) {
     foreach ( $args['installed_extension_list'] as $extension_base => $extension ) {
@@ -321,7 +361,8 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
         $has_update    = in_array( $extension_base, $outdated_keys, true );
         $update_version = $get_update_version( $outdated_plugins[ $extension_base ] ?? null );
         $is_active     = is_plugin_active( $extension_base );
-        $is_required   = isset( $required_lookup[ $extension_base ] ) || isset( $required_lookup[ $extension_key ] );
+        $required_key  = $get_required_extension_key( $extension_key, $extension_base );
+        $is_required   = '' !== $required_key;
         $status        = $has_update ? 'update installed active' : ( $is_active ? 'active installed' : 'installed' );
         $status_label  = $has_update ? $get_update_status_label( $update_version ) : ( $is_active ? __( 'Active', 'directorist' ) : __( 'Installed', 'directorist' ) );
         $primary       = $has_update
@@ -379,7 +420,9 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
 
         $badges = $get_product_badges( $product );
         if ( $is_required ) {
+            $status .= ' required';
             $badges[] = __( 'Required', 'directorist' );
+            $represented_required_extensions[ $required_key ] = true;
         }
 
         $bulk_actions = [];
@@ -458,17 +501,25 @@ if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) 
         $name        = $product['title'] ?? $product['name'] ?? $extension_key;
         $description = $product['description'] ?? '';
         $is_purchased = ! empty( $extension['purchased'] );
+        $required_key = $get_required_extension_key( $extension_key );
+        $is_required  = '' !== $required_key;
+        $badges       = $get_product_badges( $product );
+
+        if ( $is_required ) {
+            $badges[] = __( 'Required', 'directorist' );
+            $represented_required_extensions[ $required_key ] = true;
+        }
 
         $add_row(
             [
                 'key'         => 'extension-subscription-' . $extension_key,
                 'type'        => 'extension',
-                'status'      => 'not-installed',
+                'status'      => $is_required ? 'required not-installed' : 'not-installed',
                 'name'        => $name,
                 'description' => $description,
                 'image'       => $get_image( $product ),
-                'badges'      => $get_product_badges( $product ),
-                'statusLabel' => __( 'Not installed', 'directorist' ),
+                'badges'      => $badges,
+                'statusLabel' => $is_required ? __( 'Required', 'directorist' ) : __( 'Not installed', 'directorist' ),
                 'primary'     => [
                     'label' => $is_beta ? __( 'Install Beta', 'directorist' ) : __( 'Install', 'directorist' ),
                     'class' => 'directorist-te-btn directorist-te-btn--primary file-install-btn',
@@ -490,7 +541,7 @@ if ( $is_logged_in && ! empty( $args['required_extensions_list'] ) && is_array( 
     foreach ( $args['required_extensions_list'] as $extension_key => $required_extension ) {
         $required_base = ! empty( $required_extension['base'] ) ? $required_extension['base'] : "{$extension_key}/{$extension_key}.php";
 
-        if ( isset( $seen_rows[ 'extension-installed-' . $required_base ] ) || ! empty( $required_extension['installed'] ) ) {
+        if ( isset( $represented_required_extensions[ $extension_key ] ) || isset( $seen_rows[ 'extension-installed-' . $required_base ] ) || ! empty( $required_extension['installed'] ) ) {
             continue;
         }
 
@@ -530,6 +581,8 @@ if ( $is_logged_in && ! empty( $args['required_extensions_list'] ) && is_array( 
                 'bulk'        => $is_purchased ? $get_bulk_control( 'directorist-te-required-install-' . sanitize_html_class( $extension_key ), $extension_key, 'plugin', [ 'install' ] ) : null,
             ]
         );
+
+        $represented_required_extensions[ $extension_key ] = true;
     }
 }
 
@@ -587,12 +640,17 @@ if ( $is_logged_in && ! empty( $args['themes_available_in_subscriptions'] ) && i
     }
 }
 
-$promo_extensions = ! empty( $args['extensions_promo_list'] ) && is_array( $args['extensions_promo_list'] ) ? $args['extensions_promo_list'] : [];
-if ( ! $is_logged_in && empty( $promo_extensions ) && ! empty( $extensions ) ) {
-    $promo_extensions = $extensions;
-}
+$promo_extensions = ! $is_logged_in
+    ? $extensions
+    : ( ! empty( $args['extensions_promo_list'] ) && is_array( $args['extensions_promo_list'] ) ? $args['extensions_promo_list'] : [] );
 
 foreach ( $promo_extensions as $extension_key => $extension ) {
+    $required_key = $get_required_extension_key( $extension_key );
+
+    if ( $required_key && isset( $represented_required_extensions[ $required_key ] ) ) {
+        continue;
+    }
+
     $product = is_array( $extension ) ? $extension : [];
     $add_row(
         [
@@ -611,10 +669,9 @@ foreach ( $promo_extensions as $extension_key => $extension ) {
     );
 }
 
-$promo_themes = ! empty( $args['themes_promo_list'] ) && is_array( $args['themes_promo_list'] ) ? $args['themes_promo_list'] : [];
-if ( ! $is_logged_in && empty( $promo_themes ) && ! empty( $themes ) ) {
-    $promo_themes = $themes;
-}
+$promo_themes = ! $is_logged_in
+    ? $themes
+    : ( ! empty( $args['themes_promo_list'] ) && is_array( $args['themes_promo_list'] ) ? $args['themes_promo_list'] : [] );
 
 foreach ( $promo_themes as $theme_key => $theme ) {
     $product = is_array( $theme ) ? $theme : [];
@@ -638,8 +695,10 @@ foreach ( $promo_themes as $theme_key => $theme ) {
     );
 }
 
-$total_updates = (int) ( $args['total_outdated_extensions'] ?? 0 ) + (int) ( $args['total_outdated_themes'] ?? 0 );
-$total_rows    = count( $rows );
+$extension_update_count = max( 0, (int) ( $args['total_outdated_extensions'] ?? 0 ) );
+$theme_update_count     = max( 0, (int) ( $args['total_outdated_themes'] ?? 0 ) );
+$total_updates          = $extension_update_count + $theme_update_count;
+$total_rows             = count( $rows );
 $extension_rows = count(
     array_filter(
         $rows,
@@ -664,9 +723,45 @@ $update_rows = count(
         }
     )
 );
+$installed_rows = count(
+    array_filter(
+        $rows,
+        static function( $row ) {
+            $status = ! empty( $row['status'] ) ? preg_split( '/\s+/', (string) $row['status'] ) : [];
+
+            return (bool) array_intersect( [ 'installed', 'active', 'update' ], $status );
+        }
+    )
+);
+$not_installed_rows = count(
+    array_filter(
+        $rows,
+        static function( $row ) {
+            $status = ! empty( $row['status'] ) ? preg_split( '/\s+/', (string) $row['status'] ) : [];
+
+            return (bool) array_intersect( [ 'not-installed', 'marketplace' ], $status );
+        }
+    )
+);
+$required_rows = count(
+    array_filter(
+        $rows,
+        static function( $row ) {
+            $status = ! empty( $row['status'] ) ? preg_split( '/\s+/', (string) $row['status'] ) : [];
+
+            return in_array( 'required', $status, true );
+        }
+    )
+);
+$notification_count = $total_updates + $required_rows;
 ?>
 
-<div id="directorist" class="wrap atbd_wrapper directorist-te-page <?php echo esc_attr( $is_logged_in ? 'directorist-te-page--connected' : 'directorist-te-page--disconnected' ); ?>">
+<div
+    id="directorist"
+    class="wrap atbd_wrapper directorist-te-page <?php echo esc_attr( $is_logged_in ? 'directorist-te-page--connected' : 'directorist-te-page--disconnected' ); ?>"
+    data-initial-view="<?php echo esc_attr( $initial_view ); ?>"
+    data-initial-type="<?php echo esc_attr( $initial_type ); ?>"
+>
     <div id="my-themes-extensions" class="atbdp-tab-content active">
         <div class="directorist-te-shell">
             <header class="directorist-te-header">
@@ -678,8 +773,8 @@ $update_rows = count(
                 </div>
                 <?php if ( $is_logged_in ) : ?>
                     <nav class="directorist-te-nav" aria-label="<?php esc_attr_e( 'Directorist sections', 'directorist' ); ?>">
-                        <button type="button" data-directorist-te-view-target="dashboard" aria-controls="directorist-te-dashboard-view"><?php esc_html_e( 'Dashboard', 'directorist' ); ?></button>
-                        <button type="button" class="active" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" aria-current="page"><?php esc_html_e( 'Add-ons', 'directorist' ); ?></button>
+                        <button type="button" class="<?php echo esc_attr( 'dashboard' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="dashboard" aria-controls="directorist-te-dashboard-view" <?php if ( 'dashboard' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Dashboard', 'directorist' ); ?></button>
+                        <button type="button" class="<?php echo esc_attr( 'addons' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" <?php if ( 'addons' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Add-ons', 'directorist' ); ?></button>
                     </nav>
                     <div class="directorist-te-top-right">
                         <nav class="directorist-te-resource-links" aria-label="<?php esc_attr_e( 'Directorist resources', 'directorist' ); ?>">
@@ -687,12 +782,123 @@ $update_rows = count(
                             <a href="https://www.youtube.com/@wpdirectorist" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Tutorials, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Tutorials', 'directorist' ); ?></a>
                             <a href="https://directorist.com/contact/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Support, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Support', 'directorist' ); ?></a>
                         </nav>
-                        <label class="directorist-te-top-search">
-                            <span class="screen-reader-text"><?php esc_html_e( 'Search Directorist', 'directorist' ); ?></span>
-                            <i class="la la-search" aria-hidden="true"></i>
-                            <input type="search" placeholder="<?php esc_attr_e( 'Search...', 'directorist' ); ?>">
-                        </label>
-                        <span class="directorist-te-header-icon" aria-hidden="true"><i class="la la-bell"></i><span></span></span>
+                        <div class="directorist-te-notification-menu">
+                            <button
+                                type="button"
+                                class="directorist-te-header-icon directorist-te-notification-toggle"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                aria-controls="directorist-te-notification-dropdown"
+                            >
+                                <i class="la la-bell" aria-hidden="true"></i>
+                                <?php if ( $notification_count ) : ?>
+                                    <span class="directorist-te-notification-badge" aria-hidden="true">
+                                        <?php echo esc_html( $notification_count > 99 ? '99+' : $notification_count ); ?>
+                                    </span>
+                                <?php endif; ?>
+                                <span class="screen-reader-text">
+                                    <?php
+                                    if ( $notification_count ) {
+                                        printf(
+                                            /* translators: %d: Number of Themes & Extensions items needing attention. */
+                                            esc_html( _n( 'Open notifications, %d item needs attention', 'Open notifications, %d items need attention', $notification_count, 'directorist' ) ),
+                                            absint( $notification_count )
+                                        );
+                                    } else {
+                                        esc_html_e( 'Open notifications, no items need attention', 'directorist' );
+                                    }
+                                    ?>
+                                </span>
+                            </button>
+                            <div
+                                class="directorist-te-notification-dropdown"
+                                id="directorist-te-notification-dropdown"
+                                hidden
+                                aria-hidden="true"
+                                aria-labelledby="directorist-te-notification-title"
+                            >
+                                <div class="directorist-te-notification-dropdown__header">
+                                    <strong id="directorist-te-notification-title"><?php esc_html_e( 'Notifications', 'directorist' ); ?></strong>
+                                    <?php if ( $notification_count ) : ?>
+                                        <span>
+                                            <?php
+                                            printf(
+                                                /* translators: %d: Number of Themes & Extensions items needing attention. */
+                                                esc_html( _n( '%d item', '%d items', $notification_count, 'directorist' ) ),
+                                                absint( $notification_count )
+                                            );
+                                            ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="directorist-te-notification-list">
+                                    <?php if ( $extension_update_count ) : ?>
+                                        <button type="button" class="directorist-te-notification-item" data-notification-type="extension" data-notification-status="update">
+                                            <span class="directorist-te-notification-item__icon directorist-te-notification-item__icon--update" aria-hidden="true"><i class="la la-plug"></i></span>
+                                            <span class="directorist-te-notification-item__content">
+                                                <strong>
+                                                    <?php
+                                                    printf(
+                                                        /* translators: %d: Number of extension updates. */
+                                                        esc_html( _n( '%d extension update', '%d extension updates', $extension_update_count, 'directorist' ) ),
+                                                        absint( $extension_update_count )
+                                                    );
+                                                    ?>
+                                                </strong>
+                                                <span><?php esc_html_e( 'Review available extension updates.', 'directorist' ); ?></span>
+                                            </span>
+                                            <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
+                                        </button>
+                                    <?php endif; ?>
+
+                                    <?php if ( $theme_update_count ) : ?>
+                                        <button type="button" class="directorist-te-notification-item" data-notification-type="theme" data-notification-status="update">
+                                            <span class="directorist-te-notification-item__icon directorist-te-notification-item__icon--update" aria-hidden="true"><i class="la la-paint-brush"></i></span>
+                                            <span class="directorist-te-notification-item__content">
+                                                <strong>
+                                                    <?php
+                                                    printf(
+                                                        /* translators: %d: Number of theme updates. */
+                                                        esc_html( _n( '%d theme update', '%d theme updates', $theme_update_count, 'directorist' ) ),
+                                                        absint( $theme_update_count )
+                                                    );
+                                                    ?>
+                                                </strong>
+                                                <span><?php esc_html_e( 'Review available theme updates.', 'directorist' ); ?></span>
+                                            </span>
+                                            <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
+                                        </button>
+                                    <?php endif; ?>
+
+                                    <?php if ( $required_rows ) : ?>
+                                        <button type="button" class="directorist-te-notification-item" data-notification-type="extension" data-notification-status="required">
+                                            <span class="directorist-te-notification-item__icon directorist-te-notification-item__icon--required" aria-hidden="true"><i class="la la-exclamation-circle"></i></span>
+                                            <span class="directorist-te-notification-item__content">
+                                                <strong>
+                                                    <?php
+                                                    printf(
+                                                        /* translators: %d: Number of required extensions. */
+                                                        esc_html( _n( '%d required extension', '%d required extensions', $required_rows, 'directorist' ) ),
+                                                        absint( $required_rows )
+                                                    );
+                                                    ?>
+                                                </strong>
+                                                <span><?php esc_html_e( 'Review products required by your active theme.', 'directorist' ); ?></span>
+                                            </span>
+                                            <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
+                                        </button>
+                                    <?php endif; ?>
+
+                                    <?php if ( ! $notification_count ) : ?>
+                                        <div class="directorist-te-notification-empty">
+                                            <span aria-hidden="true"><i class="la la-check-circle"></i></span>
+                                            <strong><?php esc_html_e( 'You are all caught up', 'directorist' ); ?></strong>
+                                            <p><?php esc_html_e( 'No add-on updates or required extensions need attention.', 'directorist' ); ?></p>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
                         <div class="directorist-te-account-menu">
                             <button
                                 type="button"
@@ -701,11 +907,47 @@ $update_rows = count(
                                 aria-expanded="false"
                                 aria-controls="directorist-te-account-dropdown"
                             >
-                                <?php echo get_avatar( get_current_user_id(), 32 ); ?>
-                                <span class="screen-reader-text"><?php esc_html_e( 'Open Directorist account menu', 'directorist' ); ?></span>
+                                <?php if ( $account_avatar_url ) : ?>
+                                    <img src="<?php echo esc_url( $account_avatar_url ); ?>" alt="">
+                                <?php else : ?>
+                                    <span class="directorist-te-avatar__initials" aria-hidden="true"><?php echo esc_html( $account_initials ); ?></span>
+                                <?php endif; ?>
+                                <span class="screen-reader-text">
+                                    <?php
+                                    echo esc_html(
+                                        $account_name
+                                            ? sprintf(
+                                                /* translators: %s: Connected Directorist account owner's display name. */
+                                                __( 'Open Directorist account menu for %s', 'directorist' ),
+                                                $account_name
+                                            )
+                                            : __( 'Open Directorist account menu', 'directorist' )
+                                    );
+                                    ?>
+                                </span>
                                 <i class="la la-angle-down" aria-hidden="true"></i>
                             </button>
-                            <div class="directorist-te-account-dropdown" id="directorist-te-account-dropdown" hidden aria-hidden="true">
+                            <div
+                                class="directorist-te-account-dropdown"
+                                id="directorist-te-account-dropdown"
+                                hidden
+                                aria-hidden="true"
+                                aria-labelledby="directorist-te-account-dropdown-title"
+                            >
+                                <div class="directorist-te-account-dropdown__header">
+                                    <div class="directorist-te-account-dropdown__identity">
+                                        <strong id="directorist-te-account-dropdown-title">
+                                            <?php echo esc_html( $account_name ?: __( 'Directorist account', 'directorist' ) ); ?>
+                                        </strong>
+                                        <?php if ( $account_name ) : ?>
+                                            <span><?php esc_html_e( 'Directorist account', 'directorist' ); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <span class="directorist-te-account-dropdown__status">
+                                        <i class="la la-check-circle" aria-hidden="true"></i>
+                                        <?php esc_html_e( 'Connected', 'directorist' ); ?>
+                                    </span>
+                                </div>
                                 <div class="directorist-te-account-summary" aria-label="<?php esc_attr_e( 'Directorist account product summary', 'directorist' ); ?>">
                                     <div>
                                         <strong><?php echo esc_html( $args['total_active_extensions'] ?? 0 ); ?></strong>
@@ -723,28 +965,68 @@ $update_rows = count(
                                 <div class="directorist-te-account-dropdown__actions">
                                     <div class="et-auth-section directorist-te-refresh-panel" hidden aria-hidden="true">
                                         <form id="purchase-refresh-form" action="#" method="post">
-                                            <div class="directorist-te-refresh-form">
-                                                <input type="password" class="atbdp-form-control" placeholder="<?php esc_attr_e( 'Confirm password', 'directorist' ); ?>" id="password" name="password">
-                                                <button type="submit" class="directorist-te-icon-btn" aria-label="<?php esc_attr_e( 'Refresh purchase', 'directorist' ); ?>">
-                                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                                </button>
-                                                <button class="directorist-te-icon-btn directorist-te-icon-btn--danger et-close-auth-btn" aria-label="<?php esc_attr_e( 'Close refresh form', 'directorist' ); ?>">
-                                                    <i class="fas fa-times" aria-hidden="true"></i>
+                                            <div class="directorist-te-refresh-panel__header">
+                                                <strong><?php esc_html_e( 'Refresh purchases', 'directorist' ); ?></strong>
+                                                <button type="button" class="directorist-te-refresh-close et-close-auth-btn" aria-label="<?php esc_attr_e( 'Close refresh form', 'directorist' ); ?>">
+                                                    <i class="la la-times" aria-hidden="true"></i>
                                                 </button>
                                             </div>
-                                            <div class="atbdp-form-feedback directorist-te-feedback"></div>
+                                            <label class="directorist-te-refresh-panel__label" for="directorist-te-refresh-credential">
+                                                <?php
+                                                echo esc_html(
+                                                    'access_key' === $connection_method
+                                                        ? __( 'Directorist access key', 'directorist' )
+                                                        : __( 'Directorist password', 'directorist' )
+                                                );
+                                                ?>
+                                            </label>
+                                            <div class="directorist-te-refresh-form">
+                                                <span class="directorist-te-password-control">
+                                                    <input
+                                                        type="password"
+                                                        class="atbdp-form-control"
+                                                        id="directorist-te-refresh-credential"
+                                                        name="password"
+                                                        autocomplete="<?php echo esc_attr( 'access_key' === $connection_method ? 'off' : 'current-password' ); ?>"
+                                                        required
+                                                        aria-describedby="directorist-te-refresh-feedback"
+                                                    >
+                                                    <button
+                                                        type="button"
+                                                        class="directorist-te-password-toggle"
+                                                        aria-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                                        aria-pressed="false"
+                                                        data-show-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                                        data-hide-label="<?php esc_attr_e( 'Hide password', 'directorist' ); ?>"
+                                                    >
+                                                        <i class="la la-eye" aria-hidden="true"></i>
+                                                    </button>
+                                                </span>
+                                                <button type="submit" class="directorist-te-refresh-submit">
+                                                    <i class="la la-refresh" aria-hidden="true"></i>
+                                                    <?php esc_html_e( 'Refresh', 'directorist' ); ?>
+                                                </button>
+                                            </div>
+                                            <div id="directorist-te-refresh-feedback" class="atbdp-form-feedback directorist-te-feedback" role="status" aria-live="polite"></div>
                                         </form>
                                     </div>
                                     <div class="purchase-refresh-btn-wrapper">
                                         <button type="button" class="directorist-te-account-dropdown__item purchase-refresh-btn">
-                                            <i class="la la-refresh" aria-hidden="true"></i>
-                                            <?php esc_html_e( 'Refresh purchases', 'directorist' ); ?>
+                                            <span class="directorist-te-account-dropdown__item-icon" aria-hidden="true">
+                                                <i class="la la-refresh"></i>
+                                            </span>
+                                            <span><?php esc_html_e( 'Refresh purchases', 'directorist' ); ?></span>
+                                            <i class="la la-angle-right directorist-te-account-dropdown__item-arrow" aria-hidden="true"></i>
                                         </button>
                                     </div>
-                                    <a href="#" class="directorist-te-account-dropdown__item directorist-te-account-dropdown__item--danger subscriptions-logout-btn" data-hard-logout="<?php echo esc_attr( $args['hard_logout'] ?? 0 ); ?>">
-                                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                                        <?php esc_html_e( 'Disconnect', 'directorist' ); ?>
-                                    </a>
+                                    <div class="directorist-te-account-dropdown__danger">
+                                        <a href="#" class="directorist-te-account-dropdown__item directorist-te-account-dropdown__item--danger subscriptions-logout-btn" data-hard-logout="<?php echo esc_attr( $args['hard_logout'] ?? 0 ); ?>">
+                                            <span class="directorist-te-account-dropdown__item-icon" aria-hidden="true">
+                                                <i class="la la-sign-out-alt"></i>
+                                            </span>
+                                            <span><?php esc_html_e( 'Disconnect account', 'directorist' ); ?></span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -761,149 +1043,476 @@ $update_rows = count(
             <?php if ( $is_logged_in ) : ?>
                 <h1 class="screen-reader-text directorist-te-notice-heading"><?php esc_html_e( 'Directorist dashboard', 'directorist' ); ?></h1>
 
-                <section class="directorist-te-view directorist-te-dashboard" id="directorist-te-dashboard-view" data-directorist-te-view="dashboard" hidden aria-hidden="true">
+                <section class="directorist-te-view directorist-te-dashboard <?php echo esc_attr( 'dashboard' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-dashboard-view" data-directorist-te-view="dashboard" <?php if ( 'dashboard' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'dashboard' === $initial_view ? 'false' : 'true' ); ?>">
                     <section class="directorist-te-dashboard-welcome">
                         <div>
-                            <h1><?php esc_html_e( 'Good morning, Olivia', 'directorist' ); ?></h1>
-                            <p><?php esc_html_e( 'Your plan is active until Jan 22, 2027, so every theme and extension is unlocked.', 'directorist' ); ?></p>
+                            <h1><?php echo esc_html( $dashboard_welcome['title'] ?? __( 'Welcome back', 'directorist' ) ); ?></h1>
+                            <p><?php echo esc_html( $dashboard_welcome['description'] ?? __( 'Your Directorist account is connected.', 'directorist' ) ); ?></p>
                         </div>
                         <div class="directorist-te-dashboard-welcome__actions">
-                            <a class="directorist-te-btn directorist-te-btn--secondary" href="<?php echo esc_url( home_url( '/' ) ); ?>" target="_blank" rel="noopener noreferrer">
-                                <i class="la la-external-link-alt" aria-hidden="true"></i>
-                                <?php esc_html_e( 'View directory', 'directorist' ); ?>
-                            </a>
-                            <a class="directorist-te-btn directorist-te-btn--primary" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=at_biz_dir' ) ); ?>">
-                                <i class="la la-plus" aria-hidden="true"></i>
-                                <?php esc_html_e( 'Add listing', 'directorist' ); ?>
+                            <?php if ( ! empty( $dashboard_welcome['has_directories'] ) ) : ?>
+                                <a class="directorist-te-btn directorist-te-btn--secondary" href="<?php echo esc_url( $dashboard_welcome['view_listings_url'] ?? home_url( '/' ) ); ?>" target="_blank" rel="noopener noreferrer">
+                                    <i class="la la-external-link-alt" aria-hidden="true"></i>
+                                    <?php esc_html_e( 'View listings', 'directorist' ); ?>
+                                </a>
+                            <?php endif; ?>
+                            <a class="directorist-te-btn directorist-te-btn--primary" href="<?php echo esc_url( $dashboard_welcome['primary_action_url'] ?? home_url( '/' ) ); ?>">
+                                <i class="<?php echo esc_attr( ! empty( $dashboard_welcome['has_directories'] ) ? 'la la-plus' : 'la la-folder-plus' ); ?>" aria-hidden="true"></i>
+                                <?php echo esc_html( $dashboard_welcome['primary_action_text'] ?? __( 'Add listing', 'directorist' ) ); ?>
                             </a>
                         </div>
                     </section>
 
+                    <?php
+                    $dashboard_setup_progress    = min( 100, max( 0, (int) ( $dashboard_setup['progress'] ?? 0 ) ) );
+                    $dashboard_setup_ring_length = 119.4;
+                    $dashboard_setup_ring_offset = $dashboard_setup_ring_length * ( 1 - ( $dashboard_setup_progress / 100 ) );
+                    $dashboard_setup_steps       = ! empty( $dashboard_setup['steps'] ) && is_array( $dashboard_setup['steps'] ) ? $dashboard_setup['steps'] : [];
+                    ?>
                     <section class="directorist-te-dashboard-nudge" id="directorist-te-dashboard-nudge">
                         <div class="directorist-te-dashboard-nudge__top">
-                            <div class="directorist-te-dashboard-ring" aria-label="<?php esc_attr_e( 'Setup progress 66 percent', 'directorist' ); ?>">
+                            <div
+                                class="directorist-te-dashboard-ring"
+                                aria-label="<?php echo esc_attr( sprintf( __( 'Setup progress %d percent', 'directorist' ), $dashboard_setup_progress ) ); ?>"
+                            >
                                 <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" focusable="false">
                                     <circle cx="23" cy="23" r="19" fill="none" stroke="#e5e7eb" stroke-width="4.5"></circle>
-                                    <circle cx="23" cy="23" r="19" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="40.6"></circle>
+                                    <circle cx="23" cy="23" r="19" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="<?php echo esc_attr( $dashboard_setup_ring_length ); ?>" stroke-dashoffset="<?php echo esc_attr( $dashboard_setup_ring_offset ); ?>"></circle>
                                 </svg>
-                                <span><?php esc_html_e( '66%', 'directorist' ); ?></span>
+                                <span><?php echo esc_html( $dashboard_setup_progress . '%' ); ?></span>
                             </div>
                             <div>
-                                <h2><?php esc_html_e( 'A few steps to your first paid listing', 'directorist' ); ?></h2>
-                                <p><?php esc_html_e( 'Setup is done. These turn your directory into a working business.', 'directorist' ); ?></p>
+                                <h2><?php echo esc_html( $dashboard_setup['title'] ?? __( 'A few steps to launch your directory', 'directorist' ) ); ?></h2>
+                                <p><?php echo esc_html( $dashboard_setup['description'] ?? __( 'Complete the remaining setup tasks before accepting live submissions.', 'directorist' ) ); ?></p>
                             </div>
                             <button type="button" class="directorist-te-dashboard-nudge__dismiss" aria-label="<?php esc_attr_e( 'Dismiss setup steps', 'directorist' ); ?>">
                                 <i class="la la-times" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="directorist-te-dashboard-steps">
-                            <button type="button" class="directorist-te-dashboard-step is-done">
-                                <span><i class="la la-check" aria-hidden="true"></i></span>
-                                <?php esc_html_e( 'Import demo content', 'directorist' ); ?>
-                            </button>
-                            <button type="button" class="directorist-te-dashboard-step is-done">
-                                <span><i class="la la-check" aria-hidden="true"></i></span>
-                                <?php esc_html_e( 'Add your real categories', 'directorist' ); ?>
-                            </button>
-                            <button type="button" class="directorist-te-dashboard-step">
-                                <span><i class="la la-check" aria-hidden="true"></i></span>
-                                <?php esc_html_e( 'Connect Stripe to take payments', 'directorist' ); ?>
-                                <i class="la la-angle-right" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="directorist-te-dashboard-step">
-                                <span><i class="la la-check" aria-hidden="true"></i></span>
-                                <?php esc_html_e( 'Publish your first real listing', 'directorist' ); ?>
-                                <i class="la la-angle-right" aria-hidden="true"></i>
-                            </button>
+                            <?php foreach ( $dashboard_setup_steps as $dashboard_setup_step ) : ?>
+                                <a
+                                    class="directorist-te-dashboard-step <?php echo ! empty( $dashboard_setup_step['complete'] ) ? 'is-done' : ''; ?>"
+                                    href="<?php echo esc_url( $dashboard_setup_step['url'] ?? '#' ); ?>"
+                                >
+                                    <span><i class="la la-check" aria-hidden="true"></i></span>
+                                    <?php echo esc_html( $dashboard_setup_step['label'] ?? '' ); ?>
+                                    <i class="la la-angle-right" aria-hidden="true"></i>
+                                </a>
+                            <?php endforeach; ?>
                         </div>
                     </section>
 
+                    <?php
+                    $revenue_symbol = html_entity_decode(
+                        atbdp_currency_symbol( $dashboard_metrics['currency'] ?? atbdp_get_payment_currency() ),
+                        ENT_QUOTES,
+                        get_bloginfo( 'charset' )
+                    );
+                    ?>
                     <section class="directorist-te-dashboard-metrics" aria-label="<?php esc_attr_e( 'Directory metrics', 'directorist' ); ?>">
                         <div class="directorist-te-dashboard-metric">
                             <div class="directorist-te-dashboard-metric__top">
                                 <span class="directorist-te-dashboard-icon directorist-te-dashboard-icon--blue"><i class="la la-th-large" aria-hidden="true"></i></span>
-                                <div><strong><?php esc_html_e( '12,900', 'directorist' ); ?></strong><span><?php esc_html_e( 'Published listings', 'directorist' ); ?></span></div>
+                                <div><strong><?php echo esc_html( number_format_i18n( (int) ( $dashboard_metrics['published_listings'] ?? 0 ) ) ); ?></strong><span><?php esc_html_e( 'Published listings', 'directorist' ); ?></span></div>
                             </div>
-                            <div class="directorist-te-dashboard-metric__foot"><span><i class="la la-arrow-up" aria-hidden="true"></i><?php esc_html_e( '8.2%', 'directorist' ); ?></span><?php esc_html_e( 'vs last 30 days', 'directorist' ); ?></div>
-                            <svg class="directorist-te-dashboard-metric-spark" viewBox="0 0 96 42" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0,34 L13,29 L26,31 L40,22 L53,24 L66,15 L80,17 L96,7" fill="none" stroke="#4f6ef7" stroke-width="2.2"></path></svg>
+                            <div class="directorist-te-dashboard-metric__foot"><?php esc_html_e( 'Currently live in your directory', 'directorist' ); ?></div>
                         </div>
                         <div class="directorist-te-dashboard-metric">
                             <div class="directorist-te-dashboard-metric__top">
                                 <span class="directorist-te-dashboard-icon directorist-te-dashboard-icon--teal"><i class="la la-eye" aria-hidden="true"></i></span>
-                                <div><strong><?php esc_html_e( '86,420', 'directorist' ); ?></strong><span><?php esc_html_e( 'Listing views', 'directorist' ); ?></span></div>
+                                <div><strong><?php echo esc_html( number_format_i18n( (int) ( $dashboard_metrics['listing_views'] ?? 0 ) ) ); ?></strong><span><?php esc_html_e( 'Listing views', 'directorist' ); ?></span></div>
                             </div>
-                            <div class="directorist-te-dashboard-metric__foot"><span><i class="la la-arrow-up" aria-hidden="true"></i><?php esc_html_e( '14%', 'directorist' ); ?></span><?php esc_html_e( 'vs last 30 days', 'directorist' ); ?></div>
-                            <svg class="directorist-te-dashboard-metric-spark" viewBox="0 0 96 42" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0,32 L13,28 L26,30 L40,20 L53,22 L66,18 L80,11 L96,9" fill="none" stroke="#0ea5b7" stroke-width="2.2"></path></svg>
+                            <div class="directorist-te-dashboard-metric__foot"><?php esc_html_e( 'Across published listings', 'directorist' ); ?></div>
                         </div>
                         <div class="directorist-te-dashboard-metric directorist-te-dashboard-metric--attention">
                             <div class="directorist-te-dashboard-metric__top">
                                 <span class="directorist-te-dashboard-icon directorist-te-dashboard-icon--amber"><i class="la la-clock" aria-hidden="true"></i></span>
-                                <div><strong><?php esc_html_e( '7', 'directorist' ); ?></strong><span><?php esc_html_e( 'Pending review', 'directorist' ); ?></span></div>
+                                <div><strong><?php echo esc_html( number_format_i18n( (int) ( $dashboard_metrics['pending_listings'] ?? 0 ) ) ); ?></strong><span><?php esc_html_e( 'Pending review', 'directorist' ); ?></span></div>
                             </div>
-                            <div class="directorist-te-dashboard-metric__foot"><?php esc_html_e( '3 listings expire this week', 'directorist' ); ?><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=at_biz_dir' ) ); ?>"><?php esc_html_e( 'Review now', 'directorist' ); ?></a></div>
+                            <div class="directorist-te-dashboard-metric__foot">
+                                <?php
+                                printf(
+                                    /* translators: %s: Number of listings expiring this week. */
+                                    esc_html( _n( '%s listing expires this week', '%s listings expire this week', (int) ( $dashboard_metrics['expiring_this_week'] ?? 0 ), 'directorist' ) ),
+                                    esc_html( number_format_i18n( (int) ( $dashboard_metrics['expiring_this_week'] ?? 0 ) ) )
+                                );
+                                ?>
+                                <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=at_biz_dir&post_status=pending' ) ); ?>"><?php esc_html_e( 'Review now', 'directorist' ); ?></a>
+                            </div>
                         </div>
                         <div class="directorist-te-dashboard-metric">
                             <div class="directorist-te-dashboard-metric__top">
                                 <span class="directorist-te-dashboard-icon directorist-te-dashboard-icon--violet"><i class="la la-dollar" aria-hidden="true"></i></span>
-                                <div><strong><?php esc_html_e( '$2,400', 'directorist' ); ?></strong><span><?php esc_html_e( 'Revenue', 'directorist' ); ?></span></div>
+                                <div><strong><?php echo esc_html( $revenue_symbol . number_format_i18n( (float) ( $dashboard_metrics['revenue'] ?? 0 ), 2 ) ); ?></strong><span><?php esc_html_e( 'Revenue', 'directorist' ); ?></span></div>
                             </div>
-                            <div class="directorist-te-dashboard-metric__foot"><span><i class="la la-arrow-up" aria-hidden="true"></i><?php esc_html_e( '18%', 'directorist' ); ?></span><?php esc_html_e( 'last 30 days', 'directorist' ); ?></div>
-                            <svg class="directorist-te-dashboard-metric-spark" viewBox="0 0 96 42" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0,38 L13,34 L26,28 L40,30 L53,20 L66,16 L80,12 L96,5" fill="none" stroke="#7c5cff" stroke-width="2.2"></path></svg>
+                            <div class="directorist-te-dashboard-metric__foot">
+                                <?php
+                                printf(
+                                    /* translators: %s: Number of paid orders in the last 30 days. */
+                                    esc_html( _n( '%s paid order in the last 30 days', '%s paid orders in the last 30 days', (int) ( $dashboard_metrics['paid_orders'] ?? 0 ), 'directorist' ) ),
+                                    esc_html( number_format_i18n( (int) ( $dashboard_metrics['paid_orders'] ?? 0 ) ) )
+                                );
+                                ?>
+                            </div>
                         </div>
                     </section>
 
                     <section class="directorist-te-dashboard-grid">
-                        <div class="directorist-te-dashboard-card">
-                            <div class="directorist-te-dashboard-card__head"><i class="la la-bolt" aria-hidden="true"></i><h2><?php esc_html_e( 'Quick actions', 'directorist' ); ?></h2></div>
+                        <?php
+                        $quick_action_directories = ! empty( $dashboard_quick_actions['directories'] ) && is_array( $dashboard_quick_actions['directories'] )
+                            ? $dashboard_quick_actions['directories']
+                            : [];
+                        $quick_action_default_id  = (string) ( $dashboard_quick_actions['default_id'] ?? '' );
+                        $quick_action_directory   = $quick_action_directories ? $quick_action_directories[0] : [];
+
+                        foreach ( $quick_action_directories as $quick_action_directory_item ) {
+                            if ( (string) ( $quick_action_directory_item['id'] ?? '' ) === $quick_action_default_id ) {
+                                $quick_action_directory = $quick_action_directory_item;
+                                break;
+                            }
+                        }
+
+                        $quick_action_items = ! empty( $quick_action_directory['actions'] ) && is_array( $quick_action_directory['actions'] )
+                            ? array_values( $quick_action_directory['actions'] )
+                            : [];
+
+                        if ( empty( $quick_action_items ) && ! empty( $dashboard_quick_actions['create_directory'] ) ) {
+                            $quick_action_items[] = $dashboard_quick_actions['create_directory'];
+                        }
+
+                        if ( ! empty( $dashboard_quick_actions['email'] ) ) {
+                            $quick_action_items[] = $dashboard_quick_actions['email'];
+                        }
+                        ?>
+                        <div
+                            class="directorist-te-dashboard-card"
+                            data-directorist-te-quick-actions
+                            data-directory-change-message="<?php echo esc_attr( __( 'Quick actions now use %s.', 'directorist' ) ); ?>"
+                        >
+                            <div class="directorist-te-dashboard-card__head directorist-te-dashboard-card__head--quick-actions">
+                                <i class="la la-bolt" aria-hidden="true"></i>
+                                <h2><?php esc_html_e( 'Quick actions', 'directorist' ); ?></h2>
+                                <?php if ( count( $quick_action_directories ) > 1 ) : ?>
+                                    <div class="directorist-te-dashboard-directory-control">
+                                        <label for="directorist-te-quick-actions-directory"><?php esc_html_e( 'Directory', 'directorist' ); ?></label>
+                                        <select id="directorist-te-quick-actions-directory" data-quick-actions-directory-select>
+                                            <?php foreach ( $quick_action_directories as $quick_action_directory_item ) : ?>
+                                                <?php $directory_actions = $quick_action_directory_item['actions'] ?? []; ?>
+                                                <option
+                                                    value="<?php echo esc_attr( $quick_action_directory_item['id'] ?? '' ); ?>"
+                                                    data-directory-name="<?php echo esc_attr( $quick_action_directory_item['name'] ?? '' ); ?>"
+                                                    data-add-listing-url="<?php echo esc_url( $directory_actions['add-listing']['url'] ?? '' ); ?>"
+                                                    data-add-listing-description="<?php echo esc_attr( $directory_actions['add-listing']['description'] ?? '' ); ?>"
+                                                    data-add-listing-aria-label="<?php echo esc_attr( $directory_actions['add-listing']['aria_label'] ?? '' ); ?>"
+                                                    data-manage-categories-url="<?php echo esc_url( $directory_actions['manage-categories']['url'] ?? '' ); ?>"
+                                                    data-manage-categories-aria-label="<?php echo esc_attr( $directory_actions['manage-categories']['aria_label'] ?? '' ); ?>"
+                                                    data-listing-layout-url="<?php echo esc_url( $directory_actions['listing-layout']['url'] ?? '' ); ?>"
+                                                    data-listing-layout-aria-label="<?php echo esc_attr( $directory_actions['listing-layout']['aria_label'] ?? '' ); ?>"
+                                                    data-submission-form-url="<?php echo esc_url( $directory_actions['submission-form']['url'] ?? '' ); ?>"
+                                                    data-submission-form-aria-label="<?php echo esc_attr( $directory_actions['submission-form']['aria_label'] ?? '' ); ?>"
+                                                    <?php selected( (string) ( $quick_action_directory_item['id'] ?? '' ), $quick_action_default_id ); ?>
+                                                >
+                                                    <?php echo esc_html( $quick_action_directory_item['name'] ?? '' ); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <span class="screen-reader-text" data-quick-actions-live role="status" aria-live="polite"></span>
+                                <?php endif; ?>
+                            </div>
                             <div class="directorist-te-dashboard-actions">
-                                <a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=at_biz_dir' ) ); ?>" class="directorist-te-dashboard-action"><span><i class="la la-plus" aria-hidden="true"></i></span><strong><?php esc_html_e( 'Add a listing', 'directorist' ); ?></strong><em><?php esc_html_e( 'Create a new directory entry', 'directorist' ); ?></em><i class="la la-angle-right" aria-hidden="true"></i></a>
-                                <a href="<?php echo esc_url( admin_url( 'edit-tags.php?taxonomy=at_biz_dir-category&post_type=at_biz_dir' ) ); ?>" class="directorist-te-dashboard-action"><span><i class="la la-tags" aria-hidden="true"></i></span><strong><?php esc_html_e( 'Manage categories', 'directorist' ); ?></strong><em><?php esc_html_e( 'Organize how listings are grouped', 'directorist' ); ?></em><i class="la la-angle-right" aria-hidden="true"></i></a>
-                                <a href="#" class="directorist-te-dashboard-action"><span><i class="la la-paint-roller" aria-hidden="true"></i></span><strong><?php esc_html_e( 'Customize listing layout', 'directorist' ); ?></strong><em><?php esc_html_e( 'Design the single listing page', 'directorist' ); ?></em><i class="la la-angle-right" aria-hidden="true"></i></a>
-                                <a href="#" class="directorist-te-dashboard-action"><span><i class="la la-file-alt" aria-hidden="true"></i></span><strong><?php esc_html_e( 'Submission form settings', 'directorist' ); ?></strong><em><?php esc_html_e( 'Control what users can submit', 'directorist' ); ?></em><i class="la la-angle-right" aria-hidden="true"></i></a>
-                                <a href="#" class="directorist-te-dashboard-action"><span><i class="la la-envelope" aria-hidden="true"></i></span><strong><?php esc_html_e( 'Email notifications', 'directorist' ); ?></strong><em><?php esc_html_e( 'Set who gets notified, and when', 'directorist' ); ?></em><i class="la la-angle-right" aria-hidden="true"></i></a>
+                                <?php foreach ( $quick_action_items as $quick_action_item ) : ?>
+                                    <?php
+                                    $quick_action_key = sanitize_key( $quick_action_item['key'] ?? '' );
+
+                                    if ( ! $quick_action_key || empty( $quick_action_item['url'] ) ) {
+                                        continue;
+                                    }
+                                    ?>
+                                    <a
+                                        href="<?php echo esc_url( $quick_action_item['url'] ); ?>"
+                                        class="directorist-te-dashboard-action directorist-te-dashboard-action--<?php echo esc_attr( sanitize_html_class( $quick_action_key ) ); ?>"
+                                        data-quick-action="<?php echo esc_attr( $quick_action_key ); ?>"
+                                        aria-label="<?php echo esc_attr( $quick_action_item['aria_label'] ?? $quick_action_item['label'] ?? '' ); ?>"
+                                    >
+                                        <span><i class="<?php echo esc_attr( $quick_action_item['icon'] ?? 'la la-angle-right' ); ?>" aria-hidden="true"></i></span>
+                                        <strong><?php echo esc_html( $quick_action_item['label'] ?? '' ); ?></strong>
+                                        <em><?php echo esc_html( $quick_action_item['description'] ?? '' ); ?></em>
+                                        <i class="la la-angle-right" aria-hidden="true"></i>
+                                    </a>
+                                <?php endforeach; ?>
                             </div>
                         </div>
 
-                        <div class="directorist-te-dashboard-card">
+                        <div class="directorist-te-dashboard-card" data-directorist-te-activity-card>
                             <div class="directorist-te-dashboard-card__head">
                                 <i class="la la-history" aria-hidden="true"></i>
                                 <h2><?php esc_html_e( 'Recent activity', 'directorist' ); ?></h2>
-                                <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=at_biz_dir' ) ); ?>"><?php esc_html_e( 'View all', 'directorist' ); ?></a>
+                                <button
+                                    type="button"
+                                    class="directorist-te-dashboard-activity-view-all"
+                                    data-activity-drawer-open
+                                    aria-haspopup="dialog"
+                                    aria-controls="directorist-te-activity-drawer"
+                                >
+                                    <?php esc_html_e( 'View all', 'directorist' ); ?>
+                                </button>
                             </div>
                             <div class="directorist-te-dashboard-activity">
-                                <div><span class="directorist-te-dashboard-activity-icon directorist-te-dashboard-activity-icon--blue"><i class="la la-plus" aria-hidden="true"></i></span><p><strong><?php esc_html_e( 'New listing submitted', 'directorist' ); ?></strong><b><?php esc_html_e( 'The Cozy Corner', 'directorist' ); ?></b><?php esc_html_e( ' added by Sunny Cafe', 'directorist' ); ?><small><?php esc_html_e( '4 minutes ago', 'directorist' ); ?></small></p><button type="button" class="directorist-te-btn directorist-te-btn--soft"><?php esc_html_e( 'Review', 'directorist' ); ?></button></div>
-                                <div><span class="directorist-te-dashboard-activity-icon directorist-te-dashboard-activity-icon--green"><i class="la la-star" aria-hidden="true"></i></span><p><strong><?php esc_html_e( 'New review received', 'directorist' ); ?></strong><?php esc_html_e( '5-star review on ', 'directorist' ); ?><b><?php esc_html_e( 'Spice Route Restaurant', 'directorist' ); ?></b><small><?php esc_html_e( 'Today, 2:30 PM', 'directorist' ); ?></small></p></div>
-                                <div><span class="directorist-te-dashboard-activity-icon directorist-te-dashboard-activity-icon--violet"><i class="la la-dollar" aria-hidden="true"></i></span><p><strong><?php esc_html_e( 'Payment received', 'directorist' ); ?></strong><b><?php esc_html_e( '$15.00', 'directorist' ); ?></b><?php esc_html_e( ' from Kenji Tanaka for a featured listing', 'directorist' ); ?><small><?php esc_html_e( 'Yesterday, 10:00 PM', 'directorist' ); ?></small></p><button type="button" class="directorist-te-btn directorist-te-btn--secondary"><?php esc_html_e( 'Receipt', 'directorist' ); ?></button></div>
-                                <div><span class="directorist-te-dashboard-activity-icon directorist-te-dashboard-activity-icon--info"><i class="la la-user-plus" aria-hidden="true"></i></span><p><strong><?php esc_html_e( 'New user registered', 'directorist' ); ?></strong><b><?php esc_html_e( 'Namrid Mova', 'directorist' ); ?></b><?php esc_html_e( ' signed up as a listing owner', 'directorist' ); ?><small><?php esc_html_e( 'Today, 11:00 AM', 'directorist' ); ?></small></p></div>
-                                <div><span class="directorist-te-dashboard-activity-icon directorist-te-dashboard-activity-icon--amber"><i class="la la-hourglass-half" aria-hidden="true"></i></span><p><strong><?php esc_html_e( 'Listing expiring soon', 'directorist' ); ?> <span><?php esc_html_e( 'Sample', 'directorist' ); ?></span></strong><b><?php esc_html_e( 'Sunny Cafe', 'directorist' ); ?></b><?php esc_html_e( ' expires in 3 days', 'directorist' ); ?><small><?php esc_html_e( '12 May, 9:00 PM', 'directorist' ); ?></small></p><button type="button" class="directorist-te-btn directorist-te-btn--secondary"><?php esc_html_e( 'Renew', 'directorist' ); ?></button></div>
+                                <?php if ( $dashboard_activity_items ) : ?>
+                                    <?php foreach ( $dashboard_activity_items as $activity_item ) : ?>
+                                        <article class="directorist-te-dashboard-activity-item">
+                                            <span class="directorist-te-dashboard-activity-icon directorist-te-dashboard-activity-icon--<?php echo esc_attr( $activity_item['tone'] ?? 'blue' ); ?>">
+                                                <i class="<?php echo esc_attr( $activity_item['icon'] ?? 'la la-history' ); ?>" aria-hidden="true"></i>
+                                            </span>
+                                            <div class="directorist-te-dashboard-activity-copy">
+                                                <strong><?php echo esc_html( $activity_item['title'] ?? '' ); ?></strong>
+                                                <span class="directorist-te-dashboard-activity-summary">
+                                                    <?php if ( ! empty( $activity_item['subject'] ) ) : ?>
+                                                        <b><?php echo esc_html( $activity_item['subject'] ); ?></b>
+                                                    <?php endif; ?>
+                                                    <?php if ( ! empty( $activity_item['context'] ) ) : ?>
+                                                        <span><?php echo esc_html( $activity_item['context'] ); ?></span>
+                                                    <?php endif; ?>
+                                                </span>
+                                                <small>
+                                                    <i class="la la-clock" aria-hidden="true"></i>
+                                                    <?php echo esc_html( $activity_item['time_label'] ?? '' ); ?>
+                                                </small>
+                                            </div>
+                                            <?php if ( ! empty( $activity_item['action_url'] ) && ! empty( $activity_item['action_label'] ) ) : ?>
+                                                <a class="directorist-te-btn directorist-te-btn--soft" href="<?php echo esc_url( $activity_item['action_url'] ); ?>">
+                                                    <?php echo esc_html( $activity_item['action_label'] ); ?>
+                                                </a>
+                                            <?php endif; ?>
+                                        </article>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <div class="directorist-te-dashboard-activity-empty">
+                                        <i class="la la-check-circle" aria-hidden="true"></i>
+                                        <p><?php esc_html_e( 'No recent Directorist activity was found.', 'directorist' ); ?></p>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </section>
 
-                    <section class="directorist-te-dashboard-recommendations">
-                        <div class="directorist-te-dashboard-recommendations__head">
-                            <i class="la la-magic" aria-hidden="true"></i>
-                            <h2><?php esc_html_e( 'Recommended for your restaurant directory', 'directorist' ); ?></h2>
-                            <span><?php esc_html_e( "Based on what you're building", 'directorist' ); ?></span>
-                        </div>
-                        <p><?php esc_html_e( "You're running paid, food-focused listings. These three add-ons match what your directory needs next, so owners can do more and you can earn more.", 'directorist' ); ?></p>
-                        <div class="directorist-te-dashboard-recommendations__grid">
-                            <div><div class="directorist-te-dashboard-recommendation-top"><span class="directorist-te-dashboard-recommendation-icon directorist-te-dashboard-recommendation-icon--green"><i class="la la-clock" aria-hidden="true"></i></span><h3><?php esc_html_e( 'Business Hours', 'directorist' ); ?></h3></div><p><?php esc_html_e( 'Show open and closed times on every listing, so visitors know when to go.', 'directorist' ); ?></p><button type="button" class="directorist-te-btn directorist-te-btn--soft"><i class="la la-download" aria-hidden="true"></i><?php esc_html_e( 'Install', 'directorist' ); ?></button></div>
-                            <div><div class="directorist-te-dashboard-recommendation-top"><span class="directorist-te-dashboard-recommendation-icon directorist-te-dashboard-recommendation-icon--orange"><i class="la la-images" aria-hidden="true"></i></span><h3><?php esc_html_e( 'Image Gallery', 'directorist' ); ?></h3></div><p><?php esc_html_e( 'Add several photos per listing, so restaurants look far more appealing.', 'directorist' ); ?></p><button type="button" class="directorist-te-btn directorist-te-btn--soft"><i class="la la-download" aria-hidden="true"></i><?php esc_html_e( 'Install', 'directorist' ); ?></button></div>
-                            <div><div class="directorist-te-dashboard-recommendation-top"><span class="directorist-te-dashboard-recommendation-icon directorist-te-dashboard-recommendation-icon--violet"><i class="la la-comments" aria-hidden="true"></i></span><h3><?php esc_html_e( 'Live Chat', 'directorist' ); ?></h3></div><p><?php esc_html_e( 'Let visitors ask questions on a listing, so more of them book a table.', 'directorist' ); ?></p><button type="button" class="directorist-te-btn directorist-te-btn--soft"><i class="la la-download" aria-hidden="true"></i><?php esc_html_e( 'Install', 'directorist' ); ?></button></div>
-                        </div>
-                    </section>
+                    <?php if ( ! empty( $dashboard_recommendations['directories'] ) ) : ?>
+                        <?php
+                        $recommendation_directories = $dashboard_recommendations['directories'];
+                        $recommendation_default_id  = (string) ( $dashboard_recommendations['default_id'] ?? $recommendation_directories[0]['id'] );
+                        $recommendation_default     = $recommendation_directories[0];
+
+                        foreach ( $recommendation_directories as $recommendation_directory ) {
+                            if ( (string) ( $recommendation_directory['id'] ?? '' ) === $recommendation_default_id ) {
+                                $recommendation_default = $recommendation_directory;
+                                break;
+                            }
+                        }
+
+                        $recommendation_default_name = (string) ( $recommendation_default['name'] ?? __( 'your directory', 'directorist' ) );
+                        ?>
+                        <section
+                            class="directorist-te-dashboard-recommendations"
+                            data-directorist-te-recommendations
+                            data-default-directory="<?php echo esc_attr( $recommendation_default_id ); ?>"
+                            data-heading-template="<?php echo esc_attr( __( 'Recommended for %s', 'directorist' ) ); ?>"
+                            data-rotation-interval="6000"
+                            role="region"
+                            aria-roledescription="<?php esc_attr_e( 'carousel', 'directorist' ); ?>"
+                            aria-label="<?php esc_attr_e( 'Directory extension recommendations', 'directorist' ); ?>"
+                        >
+                            <div class="directorist-te-dashboard-recommendations__head">
+                                <div class="directorist-te-dashboard-recommendations__heading">
+                                    <i class="la la-magic" aria-hidden="true"></i>
+                                    <div>
+                                        <h2 data-recommendation-heading>
+                                            <?php
+                                            printf(
+                                                /* translators: %s: Directory type name. */
+                                                esc_html__( 'Recommended for %s', 'directorist' ),
+                                                esc_html( $recommendation_default_name )
+                                            );
+                                            ?>
+                                        </h2>
+                                        <p data-recommendation-description><?php echo esc_html( $recommendation_default['description'] ?? '' ); ?></p>
+                                    </div>
+                                </div>
+                                <div class="directorist-te-dashboard-recommendations__tools">
+                                    <span><?php esc_html_e( "Based on what you're building", 'directorist' ); ?></span>
+                                    <div class="directorist-te-recommendation-directory-controls">
+                                        <label for="directorist-te-recommendation-directory">
+                                            <?php esc_html_e( 'Directory', 'directorist' ); ?>
+                                        </label>
+                                        <select
+                                            id="directorist-te-recommendation-directory"
+                                            class="directorist-te-recommendation-directory-select"
+                                            data-recommendation-directory-select
+                                        >
+                                            <?php foreach ( $recommendation_directories as $recommendation_directory ) : ?>
+                                                <option
+                                                    value="<?php echo esc_attr( $recommendation_directory['id'] ?? '' ); ?>"
+                                                    <?php selected( (string) ( $recommendation_directory['id'] ?? '' ), $recommendation_default_id ); ?>
+                                                >
+                                                    <?php echo esc_html( $recommendation_directory['name'] ?? '' ); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="directorist-te-recommendation-directory-navigation">
+                                            <button
+                                                type="button"
+                                                class="directorist-te-recommendation-control"
+                                                data-recommendation-previous
+                                                aria-label="<?php esc_attr_e( 'Previous directory', 'directorist' ); ?>"
+                                                title="<?php esc_attr_e( 'Previous directory', 'directorist' ); ?>"
+                                            >
+                                                <i class="la la-angle-left" aria-hidden="true"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="directorist-te-recommendation-control"
+                                                data-recommendation-next
+                                                aria-label="<?php esc_attr_e( 'Next directory', 'directorist' ); ?>"
+                                                title="<?php esc_attr_e( 'Next directory', 'directorist' ); ?>"
+                                            >
+                                                <i class="la la-angle-right" aria-hidden="true"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="directorist-te-recommendation-control"
+                                                data-recommendation-autoplay
+                                                aria-pressed="false"
+                                                aria-label="<?php esc_attr_e( 'Pause automatic recommendations', 'directorist' ); ?>"
+                                                title="<?php esc_attr_e( 'Pause automatic recommendations', 'directorist' ); ?>"
+                                            >
+                                                <i class="la la-pause" aria-hidden="true"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="screen-reader-text" data-recommendation-live role="status" aria-live="polite"></div>
+                            <div class="directorist-te-dashboard-recommendations__grid">
+                                <?php foreach ( $recommendation_directories as $recommendation_directory ) : ?>
+                                    <div
+                                        class="directorist-te-dashboard-recommendation-group"
+                                        data-recommendation-group="<?php echo esc_attr( $recommendation_directory['id'] ?? '' ); ?>"
+                                        data-directory-name="<?php echo esc_attr( $recommendation_directory['name'] ?? '' ); ?>"
+                                        data-directory-description="<?php echo esc_attr( $recommendation_directory['description'] ?? '' ); ?>"
+                                        <?php echo (string) ( $recommendation_directory['id'] ?? '' ) === $recommendation_default_id ? '' : 'hidden'; ?>
+                                    >
+                                        <?php foreach ( $recommendation_directory['items'] as $recommendation_index => $recommendation_item ) : ?>
+                                            <article
+                                                class="directorist-te-dashboard-recommendation"
+                                                data-recommendation-card="<?php echo esc_attr( $recommendation_index ); ?>"
+                                                <?php echo $recommendation_index < 3 ? '' : 'hidden'; ?>
+                                            >
+                                                <div class="directorist-te-dashboard-recommendation-top">
+                                                    <span class="directorist-te-dashboard-recommendation-icon">
+                                                        <?php if ( ! empty( $recommendation_item['image'] ) ) : ?>
+                                                            <img src="<?php echo esc_url( $recommendation_item['image'] ); ?>" alt="">
+                                                        <?php else : ?>
+                                                            <i class="la la-puzzle-piece" aria-hidden="true"></i>
+                                                        <?php endif; ?>
+                                                    </span>
+                                                    <h3><?php echo esc_html( $recommendation_item['name'] ?? '' ); ?></h3>
+                                                </div>
+                                                <p><?php echo esc_html( $recommendation_item['reason'] ?? '' ); ?></p>
+                                                <div class="directorist-te-dashboard-recommendation__footer">
+                                                    <span class="directorist-te-dashboard-recommendation__status directorist-te-dashboard-recommendation__status--<?php echo esc_attr( $recommendation_item['status'] ?? 'marketplace' ); ?>">
+                                                        <i aria-hidden="true"></i>
+                                                        <?php echo esc_html( $recommendation_item['label'] ?? '' ); ?>
+                                                    </span>
+                                                    <?php
+                                                    if ( ! empty( $recommendation_item['action'] ) ) {
+                                                        $render_action( $recommendation_item['action'] );
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </article>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </section>
+                    <?php endif; ?>
 
                     <footer class="directorist-te-dashboard-footer">
-                        <?php esc_html_e( 'Directorist 8.0', 'directorist' ); ?>
+                        <?php
+                        echo esc_html(
+                            $plugin_version
+                                ? sprintf(
+                                    /* translators: %s: Installed Directorist plugin version. */
+                                    __( 'Directorist %s', 'directorist' ),
+                                    $plugin_version
+                                )
+                                : __( 'Directorist', 'directorist' )
+                        );
+                        ?>
                         <span aria-hidden="true">·</span>
-                        <?php esc_html_e( 'Agency plan', 'directorist' ); ?>
+                        <?php echo esc_html( $account_plan_label ); ?>
                         <span aria-hidden="true">·</span>
-                        <a href="https://directorist.com/changelog/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'What\'s new', 'directorist' ); ?></a>
+                        <a href="<?php echo esc_url( $whats_new_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'What\'s new', 'directorist' ); ?></a>
                     </footer>
                 </section>
 
-                <section class="directorist-te-view directorist-te-view--addons is-active" id="directorist-te-addons-view" data-directorist-te-view="addons" aria-hidden="false">
+                <div
+                    class="directorist-te-activity-drawer"
+                    id="directorist-te-activity-drawer"
+                    data-directorist-te-activity-drawer
+                    data-loading-label="<?php esc_attr_e( 'Loading activity...', 'directorist' ); ?>"
+                    data-loading-more-label="<?php esc_attr_e( 'Loading more activity...', 'directorist' ); ?>"
+                    data-empty-title="<?php esc_attr_e( 'No activity found', 'directorist' ); ?>"
+                    data-empty-message="<?php esc_attr_e( 'There is no Directorist activity in this category yet.', 'directorist' ); ?>"
+                    data-error-title="<?php esc_attr_e( 'Unable to load activity', 'directorist' ); ?>"
+                    data-error-message="<?php esc_attr_e( 'Activity could not be loaded. Close the panel and try again.', 'directorist' ); ?>"
+                    hidden
+                    aria-hidden="true"
+                >
+                    <div
+                        class="directorist-te-activity-drawer__backdrop"
+                        data-activity-drawer-close
+                        aria-hidden="true"
+                    ></div>
+                    <section
+                        class="directorist-te-activity-drawer__panel"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="directorist-te-activity-drawer-title"
+                    >
+                        <header class="directorist-te-activity-drawer__header">
+                            <div>
+                                <span class="directorist-te-eyebrow"><?php esc_html_e( 'Directorist', 'directorist' ); ?></span>
+                                <h2 id="directorist-te-activity-drawer-title"><?php esc_html_e( 'Activity', 'directorist' ); ?></h2>
+                            </div>
+                            <button
+                                type="button"
+                                class="directorist-te-activity-drawer__close"
+                                data-activity-drawer-close
+                                aria-label="<?php esc_attr_e( 'Close activity panel', 'directorist' ); ?>"
+                            >
+                                <i class="la la-times" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="directorist-te-activity-drawer__filters" role="group" aria-label="<?php esc_attr_e( 'Filter activity', 'directorist' ); ?>">
+                            <button type="button" class="is-active" data-activity-filter="all" aria-pressed="true"><?php esc_html_e( 'All', 'directorist' ); ?></button>
+                            <button type="button" data-activity-filter="listing" aria-pressed="false"><?php esc_html_e( 'Listings', 'directorist' ); ?></button>
+                            <button type="button" data-activity-filter="review" aria-pressed="false"><?php esc_html_e( 'Reviews', 'directorist' ); ?></button>
+                            <button type="button" data-activity-filter="payment" aria-pressed="false"><?php esc_html_e( 'Payments', 'directorist' ); ?></button>
+                            <button type="button" data-activity-filter="user" aria-pressed="false"><?php esc_html_e( 'Users', 'directorist' ); ?></button>
+                        </div>
+                        <div class="directorist-te-activity-drawer__body" data-activity-drawer-list></div>
+                        <div class="directorist-te-activity-drawer__state" data-activity-drawer-state role="status" aria-live="polite"></div>
+                        <footer class="directorist-te-activity-drawer__footer">
+                            <button type="button" class="directorist-te-btn directorist-te-btn--secondary" data-activity-load-more hidden>
+                                <?php esc_html_e( 'Load more', 'directorist' ); ?>
+                            </button>
+                        </footer>
+                    </section>
+                </div>
+
+                <section class="directorist-te-view directorist-te-view--addons <?php echo esc_attr( 'addons' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-addons-view" data-directorist-te-view="addons" <?php if ( 'addons' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'addons' === $initial_view ? 'false' : 'true' ); ?>">
             <?php endif; ?>
 
             <section class="directorist-te-hero">
@@ -928,32 +1537,71 @@ $update_rows = count(
                         data-connecting-label="<?php esc_attr_e( 'Connecting...', 'directorist' ); ?>"
                         data-username-required="<?php esc_attr_e( 'Enter your Directorist account username or email address.', 'directorist' ); ?>"
                         data-password-required="<?php esc_attr_e( 'Enter your Directorist account password.', 'directorist' ); ?>"
+                        data-access-key-required="<?php esc_attr_e( 'Enter your Directorist account access key.', 'directorist' ); ?>"
+                        data-invalid-access-key="<?php esc_attr_e( 'The access key is invalid. Check the key in your Directorist account and try again.', 'directorist' ); ?>"
                         data-invalid-credentials="<?php esc_attr_e( 'The username, email address, or password is incorrect. Please check your details and try again.', 'directorist' ); ?>"
                         data-unexpected-error="<?php esc_attr_e( 'Could not connect. Please check your details and try again.', 'directorist' ); ?>"
                         data-network-error="<?php esc_attr_e( 'Could not reach Directorist.com. Please try again.', 'directorist' ); ?>"
                     >
                         <div class="atbdp-form-page">
-                            <div class="directorist-te-field-row">
-                                <label>
-                                    <span><?php esc_html_e( 'Username or email address', 'directorist' ); ?></span>
-                                    <input type="text" name="username" id="username" autocomplete="username" placeholder="<?php esc_attr_e( 'name@example.com', 'directorist' ); ?>" aria-describedby="directorist-te-connect-feedback">
-                                </label>
-                                <label>
-                                    <span><?php esc_html_e( 'Password', 'directorist' ); ?></span>
-                                    <span class="directorist-te-password-control">
-                                        <input type="password" name="password" id="password" autocomplete="current-password" aria-describedby="directorist-te-connect-feedback">
-                                        <button
-                                            type="button"
-                                            class="directorist-te-password-toggle"
-                                            aria-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
-                                            aria-pressed="false"
-                                            data-show-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
-                                            data-hide-label="<?php esc_attr_e( 'Hide password', 'directorist' ); ?>"
-                                        >
-                                            <i class="la la-eye" aria-hidden="true"></i>
-                                        </button>
-                                    </span>
-                                </label>
+                            <input type="hidden" name="auth_method" value="account">
+                            <div class="directorist-te-auth-methods" role="tablist" aria-label="<?php esc_attr_e( 'Choose a Directorist account connection method', 'directorist' ); ?>">
+                                <button type="button" class="is-active" role="tab" aria-selected="true" aria-controls="directorist-te-auth-account" data-auth-method="account">
+                                    <?php esc_html_e( 'Account login', 'directorist' ); ?>
+                                </button>
+                                <button type="button" role="tab" aria-selected="false" aria-controls="directorist-te-auth-access-key" data-auth-method="access_key">
+                                    <?php esc_html_e( 'Access key', 'directorist' ); ?>
+                                </button>
+                            </div>
+                            <div id="directorist-te-auth-account" class="directorist-te-auth-panel" role="tabpanel" data-auth-panel="account">
+                                <div class="directorist-te-field-row">
+                                    <label>
+                                        <span><?php esc_html_e( 'Username or email address', 'directorist' ); ?></span>
+                                        <input type="text" name="username" id="username" autocomplete="username" placeholder="<?php esc_attr_e( 'name@example.com', 'directorist' ); ?>" aria-describedby="directorist-te-connect-feedback">
+                                    </label>
+                                    <label>
+                                        <span><?php esc_html_e( 'Password', 'directorist' ); ?></span>
+                                        <span class="directorist-te-password-control">
+                                            <input type="password" name="password" id="password" autocomplete="current-password" aria-describedby="directorist-te-connect-feedback">
+                                            <button
+                                                type="button"
+                                                class="directorist-te-password-toggle"
+                                                aria-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                                aria-pressed="false"
+                                                data-show-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                                data-hide-label="<?php esc_attr_e( 'Hide password', 'directorist' ); ?>"
+                                            >
+                                                <i class="la la-eye" aria-hidden="true"></i>
+                                            </button>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="directorist-te-auth-access-key" class="directorist-te-auth-panel" role="tabpanel" data-auth-panel="access_key" hidden>
+                                <div class="directorist-te-field-row directorist-te-field-row--single">
+                                    <label>
+                                        <span><?php esc_html_e( 'Directorist access key', 'directorist' ); ?></span>
+                                        <span class="directorist-te-password-control">
+                                            <input type="password" name="access_key" id="directorist-te-access-key" autocomplete="off" placeholder="<?php esc_attr_e( 'Paste your access key', 'directorist' ); ?>" aria-describedby="directorist-te-access-key-help directorist-te-connect-feedback" disabled>
+                                            <button
+                                                type="button"
+                                                class="directorist-te-password-toggle"
+                                                aria-label="<?php esc_attr_e( 'Show access key', 'directorist' ); ?>"
+                                                aria-pressed="false"
+                                                data-show-label="<?php esc_attr_e( 'Show access key', 'directorist' ); ?>"
+                                                data-hide-label="<?php esc_attr_e( 'Hide access key', 'directorist' ); ?>"
+                                            >
+                                                <i class="la la-eye" aria-hidden="true"></i>
+                                            </button>
+                                        </span>
+                                        <small id="directorist-te-access-key-help">
+                                            <?php esc_html_e( 'Use the access key from your', 'directorist' ); ?>
+                                            <a href="<?php echo esc_url( apply_filters( 'directorist_access_key_dashboard_url', 'https://directorist.com/dashboard/' ) ); ?>" target="_blank" rel="noopener noreferrer">
+                                                <?php esc_html_e( 'Directorist account dashboard', 'directorist' ); ?>
+                                            </a>
+                                        </small>
+                                    </label>
+                                </div>
                             </div>
                             <div id="directorist-te-connect-feedback" class="atbdp-form-feedback directorist-te-feedback" role="status" aria-live="polite"></div>
                             <button type="submit" class="account-connect__btn directorist-te-btn directorist-te-btn--primary">
@@ -990,9 +1638,9 @@ $update_rows = count(
             <section class="directorist-te-toolbar" id="atbdp-themes-extensions-contents">
                 <div class="directorist-te-toolbar-main">
                     <div class="directorist-te-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Product type', 'directorist' ); ?>">
-                        <button type="button" class="directorist-te-tab is-active" data-filter-type="all"><?php esc_html_e( 'All', 'directorist' ); ?> <span><?php echo esc_html( $total_rows ); ?></span></button>
-                        <button type="button" class="directorist-te-tab" data-filter-type="extension"><?php esc_html_e( 'Extensions', 'directorist' ); ?> <span><?php echo esc_html( $extension_rows ); ?></span></button>
-                        <button type="button" class="directorist-te-tab" data-filter-type="theme"><?php esc_html_e( 'Themes', 'directorist' ); ?> <span><?php echo esc_html( $theme_rows ); ?></span></button>
+                        <button type="button" class="directorist-te-tab <?php echo esc_attr( 'all' === $initial_type ? 'is-active' : '' ); ?>" data-filter-type="all"><?php esc_html_e( 'All', 'directorist' ); ?> <span><?php echo esc_html( $total_rows ); ?></span></button>
+                        <button type="button" class="directorist-te-tab <?php echo esc_attr( 'extension' === $initial_type ? 'is-active' : '' ); ?>" data-filter-type="extension"><?php esc_html_e( 'Extensions', 'directorist' ); ?> <span><?php echo esc_html( $extension_rows ); ?></span></button>
+                        <button type="button" class="directorist-te-tab <?php echo esc_attr( 'theme' === $initial_type ? 'is-active' : '' ); ?>" data-filter-type="theme"><?php esc_html_e( 'Themes', 'directorist' ); ?> <span><?php echo esc_html( $theme_rows ); ?></span></button>
                     </div>
                     <div class="directorist-te-toolbar-catalog">
                         <label class="directorist-te-search directorist-te-toolbar-search">
@@ -1004,11 +1652,14 @@ $update_rows = count(
                     </div>
                 </div>
                 <?php if ( $is_logged_in ) : ?>
-                    <div class="directorist-te-toolbar-row directorist-te-toolbar-row--filters">
+                    <div class="directorist-te-toolbar-row directorist-te-toolbar-row--filters" id="atbdp-required-extensions-form" tabindex="-1">
                         <div class="directorist-te-segmented" aria-label="<?php esc_attr_e( 'Product status', 'directorist' ); ?>">
                             <button type="button" class="is-active" data-filter-status="all"><?php esc_html_e( 'All', 'directorist' ); ?></button>
-                            <button type="button" data-filter-status="installed"><?php esc_html_e( 'Installed', 'directorist' ); ?></button>
-                            <button type="button" data-filter-status="not-installed"><?php esc_html_e( 'Not installed', 'directorist' ); ?></button>
+                            <button type="button" data-filter-status="installed"><?php esc_html_e( 'Installed', 'directorist' ); ?> <span class="directorist-te-status-count" data-status-count="installed"><?php echo esc_html( $installed_rows ); ?></span></button>
+                            <button type="button" data-filter-status="not-installed"><?php esc_html_e( 'Not installed', 'directorist' ); ?> <span class="directorist-te-status-count" data-status-count="not-installed"><?php echo esc_html( $not_installed_rows ); ?></span></button>
+                            <?php if ( $required_rows ) : ?>
+                                <button type="button" data-filter-status="required"><?php esc_html_e( 'Required', 'directorist' ); ?> <span class="directorist-te-status-count directorist-te-status-count--required" data-status-count="required"><?php echo esc_html( $required_rows ); ?></span></button>
+                            <?php endif; ?>
                             <button type="button" data-filter-status="update"><?php esc_html_e( 'Updates', 'directorist' ); ?><?php if ( $update_rows ) : ?> <span class="directorist-te-update-count"><?php echo esc_html( $update_rows ); ?></span><?php endif; ?></button>
                         </div>
                     </div>

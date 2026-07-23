@@ -117,26 +117,42 @@ When building each product item for `v1/get-remote-products`, only include `badg
 Browser action:
 
 - Form: `#atbdp-directorist-license-login-form`
-- JavaScript file: `assets/src/js/admin/components/subscriptionManagement.js`
+- Current submit owner: `assets/js/directorist-themes-extensions.js`
+- Legacy compatibility handler: `assets/src/js/admin/components/subscriptionManagement.js`
 - Local AJAX URL: `directorist_admin.ajaxurl`
 - AJAX action: `atbdp_authenticate_the_customer`
-- Request fields: `username`, `password`, `nonce`
+- Account request fields: `auth_method=account`, `username`, `password`, `nonce`
+- Access-key request fields: `auth_method=access_key`, `access_key`, `nonce`
 
 Server handler:
 
 - `ATBDP_Extensions::authenticate_the_customer()`
 - Remote method: `ATBDP_Extensions::remote_authenticate_user()`
-- Remote endpoint: `https://directorist.com/wp-json/directorist/v1/licencing`
-- Method in code: `wp_remote_get()`
-- Request body: `user`, `password`
+- Preferred remote endpoint: `POST https://directorist.com/wp-json/directorist-license-manager/user-login`
+- Preferred request fields: `email` (accepts username or email), `pass`, `domain`
+- Access-key method: `ATBDP_Extensions::remote_authenticate_user_by_access_key()`
+- Access-key endpoint: `POST https://directorist.com/wp-json/directorist-license-manager/user-connect`
+- Access-key request fields: `access_key`, `domain`
+- Compatibility fallback endpoint: `GET https://directorist.com/wp-json/directorist/v1/licencing`
+- Legacy request body: `user`, `password`
 - Headers include a Directorist user-agent and `Accept: application/json`.
+- The POST password remains raw only for the request lifetime. The legacy fallback retains its existing encoded password contract.
+- A `422` response for an email login is treated as an invalid-credentials result. A username rejected with `422` falls back to the legacy endpoint so core remains compatible while the older email-only License Manager is still deployed.
+- Transport errors, missing routes, other non-2xx responses, or malformed successful payloads also fall back to the legacy endpoint.
+- The preferred response is accepted only when both `plan_data.downloads.templates` and `plan_data.downloads.extensions` are arrays. A partial success response falls back instead of clearing or replacing existing entitlement state.
+- Credential-bearing POST requests do not follow HTTP redirects.
+- Access-key authentication has no legacy fallback. A `422` response is an invalid-key result; transport/non-2xx failures use the safe connection error.
+- The access key is a bearer credential. Core uses it for the current HTTPS request only, whitelists non-secret identity fields from `account_data`, discards any echoed `account_data.access_key`, never stores the key in WordPress options/user meta, never returns it in local AJAX responses, and asks for it again during Refresh Purchases.
+- The Directorist.com License Manager must protect `user-connect` with transport security, rate limiting/failed-attempt controls, key rotation/revocation, request logging that redacts the key, and a cryptographically secure key generator. Its response should omit `account_data.access_key`. Do not copy PR #2440's permissive local REST route or plaintext option storage into core.
 
-Successful response is normalized into `license_data`, then stored under current user meta:
+The preferred API returns `account_data` and `plan_data`. Core maps `plan_data.downloads.templates` and `plan_data.downloads.extensions` to the existing `license_data.themes` and `license_data.plugins` contract before storing current user meta:
 
 - `_atbdp_subscribed_username`
 - `_atbdp_has_subscriptions_sassion`
 - `_themes_available_in_subscriptions`
 - `_plugins_available_in_subscriptions`
+- `_atbdp_account_summary` when optional authoritative summary data exists
+- `_atbdp_subscription_connection_method` with `account` or `access_key`
 
 Keep the `sassion` spelling because it is part of the existing data/action contract.
 
@@ -174,7 +190,7 @@ Server flow:
 
 1. `handle_refresh_purchase_status_request()` validates capability and nonce.
 2. `refresh_purchase_status()` reads `_atbdp_subscribed_username`.
-3. It calls `remote_authenticate_user()` again against `https://directorist.com/wp-json/directorist/v1/licencing`.
+3. It calls `remote_authenticate_user()` again, preferring the License Manager POST endpoint and falling back to the legacy licensing GET endpoint when the new route is unavailable or malformed.
 4. It rewrites `_themes_available_in_subscriptions` and `_plugins_available_in_subscriptions`.
 5. If the username/session is missing, it deletes `_atbdp_has_subscriptions_sassion` and returns a reload-required status.
 
@@ -552,9 +568,21 @@ Rules:
 
 - Do not store account passwords after a request finishes.
 - Do not log passwords, raw licenses, or raw subscription payloads.
-- Prefer remote account authentication over `POST` for future API work; keep compatibility with current behavior until Directorist.com supports the safer contract.
+- Use the License Manager POST endpoint for account authentication and keep the legacy GET endpoint as a compatibility fallback.
+- Never include credentials in a URL or log a request payload that contains `pass` or `password`.
+- The License Manager `valid_request()` middleware currently allows every request and does not provide application-level throttling. This predates the account-summary API work. Harden the preferred and legacy authentication endpoints together so attackers cannot bypass protection through the fallback endpoint.
 - Review every `sslverify => false` path. Harden with compatibility filters and actionable error messages rather than silently breaking older customer sites.
 - Use reasonable remote timeouts and map timeout failures to recoverable UI messages.
+
+### License Manager Release Gate
+
+- Build an installable archive with one top-level `directorist-license-manager/` directory and the runtime Composer dependencies required by the plugin.
+- Do not deploy a raw repository archive. Exclude `.git`, `.env`, `node_modules`, development dependencies, test fixtures, logs, database dumps, private keys, and source maps.
+- Bump the plugin version for every live replacement so WordPress and support diagnostics can identify the deployed code.
+- Before upload, lint changed PHP files, test the archive, verify required files exist, and compare the changed source hashes with the files inside the archive.
+- After upload, confirm both `/directorist-license-manager/user-login` and `/directorist/v1/licencing` remain registered.
+- Send an invalid credential request and confirm it returns a generic failure without account, entitlement, password, or license data.
+- Run one authorized account check after upload without logging the request or full response. Confirm the response keeps the established plan/download fields and adds only the optional `account_summary`.
 
 ### Mutation Safety
 

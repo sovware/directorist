@@ -16,9 +16,41 @@ Use this checklist for Themes & Extensions page work. Current runtime data must 
 - Confirm product badges/status render only from product API/filter-provided fields and do not rely on hardcoded product slugs or product order.
 - Confirm no old/new UI feature flag or rollout toggle was added unless explicitly requested.
 - Confirm disconnected-view files/selectors/styles were not changed unless the current task explicitly requested disconnected-view changes.
+- Confirm connected Dashboard recommendations show at most three cards, rotate through real directory types, and never expose the full catalog under an unknown/general type.
+- Confirm recommendation autoplay pauses on hover, keyboard focus, explicit Pause, hidden browser tabs, and reduced-motion preference.
+- Confirm previous, next, native directory selection, and pause/resume work without triggering product AJAX actions.
+- Confirm Quick Actions re-collect current directory terms and do not rely on stored documentation/runtime snapshots.
+- Confirm zero-directory state shows Create directory and Email notifications without dead directory-specific links.
+- Confirm one-directory state hides the selector and binds Add Listing, Categories, Listing Layout, and Submission Form to that directory.
+- Confirm multiple-directory selection updates all four directory-specific links, descriptions, and accessible labels without changing the global Email Notifications link.
+- Confirm the selected Quick Actions directory is selected in the new-listing admin metabox and loads that directory's `submission_form_fields`.
+- Confirm an existing listing's saved directory overrides any `directory_type` query parameter.
+- Confirm a valid remembered Quick Actions directory is restored for the browser session and a deleted/stale directory falls back to the current default.
+- Confirm `#submission_form` and `#single_page_layout__contents` override saved Builder tab state and open the requested layout/submenu.
+- Confirm a connected clean sidebar URL opens Dashboard with All as the default product type.
+- Confirm Add-ons with Extensions or Themes updates `te_view`/`te_type` without a reload and restores the same state after reload.
+- Confirm switching to Dashboard retains `te_type`, and returning to Add-ons restores the same All/Extensions/Themes selection.
+- Confirm invalid `te_view` and `te_type` values fall back to Dashboard and All and are removed from the canonical URL.
+- Confirm `#atbdp-required-extensions-form` still forces Add-ons, Extensions, and Required regardless of initial URL state.
+- Confirm disconnected rendering ignores connected `te_view`/`te_type` parameters.
 - Confirm disconnected-state username is first in tab order but is not autofocused on normal page load.
 - Confirm disconnected-state resource links are plain Docs, Tutorials, and Support links with external-link safety attributes.
 - Confirm disconnected-state account copy changes based on local official Directorist product detection: normal subscription copy when none are installed, installed-product copy when local Directorist extensions/themes are present.
+- Confirm legacy theme links to `#atbdp-required-extensions-form` select Add-ons, Extensions, and Required without submitting or triggering a product action.
+- Confirm required products render once and keep the correct Install, Activate, or Get It Now action for current ownership/install state.
+- Confirm the connected header has no search control and the Add-ons toolbar remains the only catalog search.
+- Confirm the notification count and items derive from current extension updates, theme updates, and required-extension state.
+- Confirm clicking an extension/theme update notification opens Add-ons, selects the matching product type and Updates, focuses the Updates filter, and sends no update request.
+- Confirm clicking a required-extension notification opens Add-ons, selects Extensions and Required, focuses the Required filter, and sends no install request.
+- Confirm the notification empty state, Escape close, outside-click close, account-menu mutual exclusion, keyboard focus restoration, and 390px dropdown containment.
+- Confirm connected WordPress sidebar Dashboard is the first Directorist submenu and the clean route opens Dashboard.
+- Confirm connected Themes & Extensions sidebar opens `te_view=addons` and selects Add-ons in both the header and WordPress sidebar.
+- Confirm header Dashboard/Add-ons switches update the matching WordPress submenu current state without reload.
+- Confirm disconnected users still receive one Themes & Extensions submenu and no connected Dashboard.
+- Confirm the Recent Activity card renders no more than five current dynamic items and contains no reference-design names, dates, amounts, or listing titles.
+- Confirm opening View all makes one lazy `directorist_te_get_activity` request, returns focus on close, traps Tab while open, closes on Escape/backdrop, and has no mobile overflow.
+- Confirm activity filters reset pagination, Load more appends without duplicates, and empty/error states remain usable.
+- Confirm the activity endpoint rejects missing/invalid nonce and non-admin capability requests.
 
 ## Agent Browser Checks
 
@@ -89,11 +121,16 @@ Use categories only in docs. Do not preserve observed counts or product lists.
 ## Disconnected Accessibility Checks
 
 - Confirm the disconnected page remains browse-first: account connect form plus marketplace catalog are both reachable without forced focus.
-- Confirm username and password fields have visible labels.
-- Confirm pressing Enter inside username/password submits the account-connect form.
-- Confirm password visibility toggle changes the input type, icon, `aria-label`, and `aria-pressed`.
+- Confirm Account login remains the selected default and username/password fields have visible labels.
+- Confirm Access key is an explicit secondary tab, and only the selected method's controls are enabled or reachable by keyboard.
+- Confirm Left/Right/Home/End keys change the selected authentication tab and move focus with it.
+- Confirm pressing Enter inside username/password or access key submits the account-connect form exactly once.
+- Confirm password and access-key visibility toggles change the input type, icon, `aria-label`, and `aria-pressed`.
 - Confirm connect loading state disables controls only during the active request and restores them after failure.
-- Confirm empty username, empty password, wrong credentials, API unavailable, nonce failure, and unexpected errors render inline form feedback.
+- Confirm empty username, empty password, empty/invalid access key, wrong account credentials, API unavailable, nonce failure, capability failure, and unexpected errors render inline form feedback.
+- Confirm a submitted access key never appears in the URL, local/session storage, AJAX response, user meta, options, logs, or documentation.
+- Confirm an existing account-login connection with no `_atbdp_subscription_connection_method` value still refreshes with a password.
+- Confirm an access-key connection stores only `_atbdp_subscription_connection_method=access_key` and asks for the key again during Refresh Purchases.
 - Confirm disconnected search no-result state shows an inline empty state and a clear/reset affordance.
 - Confirm mobile disconnected view uses a one-column connect form, does not open the keyboard on load, and has no horizontal page overflow.
 

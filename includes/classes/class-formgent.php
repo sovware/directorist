@@ -10,9 +10,18 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'ATBDP_Formgent' ) ) {
     class ATBDP_Formgent
     {
+        protected static $hooks_registered = false;
         public function __construct() {
+            if ( self::$hooks_registered ) {
+                return;
+            }
+
+            self::$hooks_registered = true;
+
             add_action( 'formgent_after_create_form_response_token', [ $this, 'after_create_form_response_token' ], 10, 3 );
             add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+
+            add_filter( 'formgent_email_send_to', [ $this, 'route_email_to_listing_owner' ], 10, 5 );
         }
 
         public function after_create_form_response_token( $response_token, $dto, \WP_REST_Request $wp_rest_request ) {
@@ -26,6 +35,161 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             $response_repository->add_meta( $dto->get_id(), 'listing_id', absint( $external_data['listing_id'] ) );
         }
 
+        public function route_email_to_listing_owner( $send_to, $email, $response, $form_answers_data, $queue ) {
+            $response_id = is_object( $queue ) && ! empty( $queue->response_id ) ? absint( $queue->response_id ) : 0;
+
+            if ( empty( $response_id ) ) {
+                return $send_to;
+            }
+
+            $listing_id = absint( formgent_response_repository()->get_meta_value( $response_id, 'listing_id' ) );
+
+            if ( empty( $listing_id ) ) {
+                return $send_to;
+            }
+
+            $should_route = ! $this->recipient_matches_form_email_answer( $send_to, $form_answers_data );
+
+            $should_route = (bool) apply_filters(
+                'directorist_formgent_route_email_to_listing_owner',
+                $should_route,
+                $listing_id,
+                $send_to,
+                $email,
+                $response,
+                $form_answers_data,
+                $queue
+            );
+
+            if ( ! $should_route ) {
+                return $send_to;
+            }
+
+            $recipient = $this->get_listing_owner_email_recipient( $listing_id );
+
+            $recipient = apply_filters(
+                'directorist_formgent_listing_owner_email_recipient',
+                $recipient,
+                $listing_id,
+                $send_to,
+                $email,
+                $response,
+                $form_answers_data,
+                $queue
+            );
+
+            $listing_owner_recipients = $this->normalize_email_recipients( $recipient );
+
+            if ( empty( $listing_owner_recipients ) ) {
+                return $send_to;
+            }
+
+            $send_to_recipients = $this->normalize_email_recipients( $send_to );
+            $recipients         = array_values( array_unique( array_merge( $send_to_recipients, $listing_owner_recipients ) ) );
+
+            return count( $recipients ) > 1 ? $recipients : reset( $recipients );
+        }
+
+        protected function get_listing_owner_email_recipient( $listing_id ) {
+            $post_author_id = absint( get_post_field( 'post_author', $listing_id ) );
+
+            if ( empty( $post_author_id ) ) {
+                return '';
+            }
+
+            $contact_recipient = get_user_meta( $post_author_id, 'directorist_contact_owner_recipient', true );
+            $recipient_type    = ! empty( $contact_recipient ) ? $contact_recipient : 'author';
+
+            if ( 'listing_email' === $recipient_type ) {
+                $listing_email = sanitize_email( get_post_meta( $listing_id, '_email', true ) );
+
+                if ( is_email( $listing_email ) ) {
+                    return $listing_email;
+                }
+            }
+
+            $user = get_userdata( $post_author_id );
+
+            if ( empty( $user->user_email ) ) {
+                return '';
+            }
+
+            return sanitize_email( $user->user_email );
+        }
+
+        protected function recipient_matches_form_email_answer( $send_to, $form_answers_data ) {
+            $send_to_emails = $this->normalize_email_recipients( $send_to );
+
+            if ( empty( $send_to_emails ) || empty( $form_answers_data ) || ! is_array( $form_answers_data ) ) {
+                return false;
+            }
+
+            foreach ( $form_answers_data as $answer ) {
+                $field_type = '';
+                $value      = '';
+
+                if ( is_object( $answer ) ) {
+                    if ( method_exists( $answer, 'get_field_type' ) ) {
+                        $field_type = $answer->get_field_type();
+                    }
+
+                    if ( method_exists( $answer, 'get_value' ) ) {
+                        $value = $answer->get_value();
+                    }
+                } elseif ( is_array( $answer ) ) {
+                    $field_type = $answer['field_type'] ?? '';
+                    $value      = $answer['value'] ?? '';
+                }
+
+                if ( 'email' !== $field_type ) {
+                    continue;
+                }
+
+                $answer_emails = $this->normalize_email_recipients( $value );
+
+                if ( array_intersect( $send_to_emails, $answer_emails ) ) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected function normalize_email_recipients( $emails ) {
+            if ( empty( $emails ) ) {
+                return [];
+            }
+
+            if ( is_array( $emails ) ) {
+                $normalized = [];
+
+                foreach ( $emails as $email ) {
+                    $normalized = array_merge( $normalized, $this->normalize_email_recipients( $email ) );
+                }
+
+                return array_values( array_unique( $normalized ) );
+            }
+
+            if ( ! is_string( $emails ) ) {
+                return [];
+            }
+
+            preg_match_all( '/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/i', $emails, $matches );
+            $emails = ! empty( $matches[0] ) ? $matches[0] : preg_split( '/[,;]/', $emails );
+
+            $normalized = [];
+
+            foreach ( $emails as $email ) {
+                $email = sanitize_email( trim( $email ) );
+
+                if ( is_email( $email ) ) {
+                    $normalized[] = strtolower( $email );
+                }
+            }
+
+            return array_values( array_unique( $normalized ) );
+        }
+
         public function rest_api_init() {
             register_rest_route(
                 'directorist', '/formgent/responses', [
@@ -34,7 +198,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-        
+
             register_rest_route(
                 'directorist', '/formgent/responses/kpis', [
                     'methods' => 'GET',
@@ -42,7 +206,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-        
+
             register_rest_route(
                 'directorist', '/formgent/responses', [
                     'methods' => 'DELETE',
@@ -50,7 +214,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-        
+
             register_rest_route(
                 'directorist', '/formgent/responses/read', [
                     'methods' => 'POST',
@@ -58,7 +222,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     'permission_callback' => [ $this, 'check_permission' ],
                 ]
             );
-        
+
             register_rest_route(
                 'directorist', '/formgent/responses/single', [
                     'methods' => 'GET',
@@ -76,7 +240,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
          */
         public function check_permission( $request ) {
             $user_id = get_current_user_id();
-            
+
             // If user ID is 0, try to authenticate from cookies
             if ( empty( $user_id ) && isset( $_COOKIE[ LOGGED_IN_COOKIE ] ) ) {
                 // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- wp_validate_auth_cookie() handles sanitization
@@ -86,7 +250,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     wp_set_current_user( $user_id );
                 }
             }
-            
+
             return ! empty( $user_id );
         }
 
@@ -120,8 +284,8 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 $listing_permalink = ATBDP_Permalink::get_listing_permalink( $listing_id, get_the_permalink( $listing_id ) );
             }
 
-            return rest_ensure_response( 
-                [ 
+            return rest_ensure_response(
+                [
                     'success'           => true,
                     'response'          => $response,
                     'fields'            => $fields,
@@ -174,16 +338,16 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
         public function get_responses( $request ) {
             $page = absint( $request->get_param( 'page' ) );
             $per_page = absint( $request->get_param( 'per_page' ) );
-        
+
             $query = $this->get_responses_query();
             $count_query = clone $query;
-        
+
             $responses = $query->select( 'response.*', 'post.post_title as listing_title', 'post.post_author as listing_owner' )->with(
                 'user', function( $query ) {
                     $query->select( 'ID', 'user_email', 'display_name' );
                 }
             )->pagination( $page, $per_page );
-        
+
             $responses = array_map(
                 function( $response ) {
                     // Handle cases where user might be null (non-logged-in submissions)
@@ -201,7 +365,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                     return $response;
                 }, $responses
             );
-        
+
             return [
                 'total' => $count_query->count(),
                 'responses' => $responses
@@ -347,11 +511,11 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
 
         protected function get_responses_query() {
             $user_id = get_current_user_id();
-            
+
             if ( empty( $user_id ) ) {
                 return Response::query( 'response' )->where( 'response.id', 0 );
             }
-            
+
             return Response::query( 'response' )
                 ->join(
                     ResponseMeta::get_table_name() . ' as response_meta', function( $join ) {

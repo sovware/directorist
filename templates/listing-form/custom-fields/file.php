@@ -20,6 +20,12 @@ if ( ! empty( $data['file_type'] ) ) {
 }
 
 $file_size         = ! empty( $data['file_size'] ) ? $data['file_size'] : '2mb';
+$upload_token      = wp_generate_password( 32, false );
+$upload_token_data = [
+    'directory' => (int) $data['form']->current_listing_type,
+    'field_key' => ! empty( $data['field_key'] ) ? $data['field_key'] : '',
+];
+set_transient( 'directorist_file_upload_' . $upload_token, $upload_token_data, HOUR_IN_SECONDS );
 
 // Get file type icon based on selected file type
 $file_type_icon = 'far fa-image'; // Default icon
@@ -84,6 +90,7 @@ $plupload_init = [
     'multipart_params'    => [
         '_ajax_nonce' => wp_create_nonce( 'atbdp_attachment_upload' ),   // will be added per uploader
         'action'      => 'atbdp_post_attachment_upload',                 // the ajax action name
+        'upload_token' => $upload_token,
         // Do not delete or modify 'imgid' we are running backend validation based on this id.
         'imgid'       => 0,                                              // will be added per uploader
         'directory'   => $data['form']->current_listing_type,
@@ -165,7 +172,8 @@ $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data
                     echo 'plupload-upload-uic-multiple';
                 }
                 ?>
-                " id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
+                " id="<?php echo esc_attr( $id ); ?>plupload-upload-ui"
+                data-upload-token="<?php echo esc_attr( $upload_token ); ?>">
                 <input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="file"
                        value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn"/>
                 <label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-browse-button-label"><?php directorist_icon( $file_type_icon ); ?></label>

@@ -56,23 +56,6 @@ class Asset_Loader {
         wp_enqueue_style( 'directorist-ez-media-uploader-style' );
         wp_enqueue_style( 'directorist-swiper-style' );
         wp_enqueue_style( 'directorist-sweetalert-style' );
-
-        Enqueue::style( 'directorist/frontend', 'build/css/public/app', ['wp-components'] );
-        Enqueue::register_script( 'directorist-payment-receipt', 'build/js/react/frontend/payment-receipt.js', ['jquery', 'wp-api-fetch'] );
-        Enqueue::script( 'directorist-listing-owner-dashboard', 'build/js/react/frontend/listing-owner-dashboard' );
-
-        $c_position   = directorist_get_currency_position();
-        $currency = directorist_get_currency();
-        $symbol   = atbdp_currency_symbol( $currency );
-            
-        wp_localize_script(
-            'directorist-listing-owner-dashboard', 'directorist_admin_order', [
-                'checkout_page_url' => get_permalink( get_directorist_option( 'checkout_page', 0 ) ),
-                'symbol_position'   => $c_position,
-                'currency'          => $currency,
-                'symbol'            => $symbol,
-            ] 
-        );
     }
 
     /**
@@ -154,6 +137,21 @@ class Asset_Loader {
                 wp_enqueue_script( 'directorist-select2-script' );
                 wp_enqueue_script( 'directorist-formgent-integration' );
                 wp_enqueue_style( 'directorist-formgent-integration-style' );
+                Enqueue::style( 'directorist/frontend', 'build/css/public/app', ['wp-components'] );
+                Enqueue::script( 'directorist-listing-owner-dashboard', 'build/js/react/frontend/listing-owner-dashboard' );
+
+                $currency = directorist_get_currency();
+
+                wp_localize_script(
+                    'directorist-listing-owner-dashboard',
+                    'directorist_admin_order',
+                    [
+                        'checkout_page_url' => get_permalink( get_directorist_option( 'checkout_page', 0 ) ),
+                        'symbol_position'   => directorist_get_currency_position(),
+                        'currency'          => $currency,
+                        'symbol'            => atbdp_currency_symbol( $currency ),
+                    ]
+                );
                 break;
 
             // All Authors
@@ -358,10 +356,15 @@ class Asset_Loader {
             );
             wp_enqueue_style( 'directorist-admin-style' );
         }
+
+        if ( 'at_biz_dir_page_directorist-notifications-pro-log' === $hook_suffix ) {
+            wp_enqueue_style( 'directorist-admin-style' );
+        }
     }
 
     public static function register_scripts() {
         Helper::register_all_scripts( Scripts::get_all_scripts() );
+        Enqueue::register_script( 'directorist-payment-receipt', 'build/js/react/frontend/payment-receipt.js', ['jquery', 'wp-api-fetch'] );
 
         // Inline styles
         if ( apply_filters( 'directorist_load_inline_style', true ) ) {

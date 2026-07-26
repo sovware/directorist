@@ -96,7 +96,7 @@ class Plans_Controller extends Posts_Controller {
             return $this->active_plugin_type;
         }
 
-        if ( $this->has_pricing_plan_provider() ) {
+        if ( $this->is_active_pricing_plans() ) {
             $this->active_plugin_type = 'dpp';
             return $this->active_plugin_type;
         }
@@ -113,7 +113,7 @@ class Plans_Controller extends Posts_Controller {
         return $this->active_plugin_type;
     }
 
-    protected function has_pricing_plan_provider() {
+    protected function is_active_pricing_plans() {
         return (bool) apply_filters( 'directorist_is_active_pricing_plans', false );
     }
 

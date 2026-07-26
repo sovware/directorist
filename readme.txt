@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.8.7
+Stable tag: 8.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,25 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.9 - Jul 26, 2026 =
+
+**Added**
+ - Introduced custom badges with configurable rules, styles, icons, colors, and tooltips. (#2920)
+ - Pending order cancellation flow from the user dashboard. (#2930)
+ - Business Hours always-open and timezone support in the v2 Listings API, including timezone options and validation. (#2903)
+ - Directorist map bridge lifecycle events for map ready, viewport changes, and marker clicks to support Listings With Map sync. (#2928)
+
+**Improved**
+ - Legacy orders API compatibility by moving current order, checkout, and payment endpoints to v2 while restoring v1 orders routes. (#2907)
+ - Extension settings empty state messaging when active extension settings are available elsewhere in the settings panel. (#2923)
+ - Dashboard listing action menu behavior for short listing tables. (#2922)
+
+**Fixed**
+ - Admin orders list and order details for guest, missing, or deleted customer accounts. (#2906)
+ - Required hidden conditional fields blocking listing submissions. (#2927)
+ - Multiple custom File Upload fields failing with invalid upload requests. (#2929)
+ - REST API password reset PIN validation and temp media upload authentication for Application Password requests. (#2903)
 
 = 8.8.7 - Jul 16, 2026 =
 

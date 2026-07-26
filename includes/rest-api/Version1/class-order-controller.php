@@ -120,6 +120,26 @@ class Order_Controller extends Abstract_Controller {
                 ],
             ]
         );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/(?P<id>[\d]+)/cancel',
+            [
+                [
+                    'methods'             => WP_REST_Server::CREATABLE,
+                    'callback'            => [ $this, 'cancel' ],
+                    'permission_callback' => [ $this, 'auth_permissions_check' ],
+                    'args'                => [
+                        'id' => [
+                            'description'       => __( 'The order ID.' ),
+                            'type'              => 'integer',
+                            'sanitize_callback' => 'absint',
+                            'required'          => true,
+                        ],
+                    ],
+                ],
+            ]
+        );
     }
 
     public function admin_index( WP_REST_Request $request ) {
@@ -221,6 +241,34 @@ class Order_Controller extends Abstract_Controller {
         return rest_ensure_response( [
             'message' => esc_html__("Status updated successfully")
         ] );
+    }
+
+    public function cancel( WP_REST_Request $request ) {
+        $repository = directorist_order_repository();
+        $order      = $repository->get_by_id( $request->get_param( 'id' ) );
+
+        if ( ! $order ) {
+            return new WP_Error( 'rest_not_found', __( 'The order was not found' ), [ 'status' => 404 ] );
+        }
+
+        if ( (int) $order->user_id !== get_current_user_id() ) {
+            return new WP_Error( 'rest_forbidden', __( 'You are not authorized to cancel this order.' ), [ 'status' => 403 ] );
+        }
+
+        if ( OrderStatus::PENDING !== $order->status ) {
+            return new WP_Error( 'rest_invalid_status', __( 'Only pending orders can be cancelled.' ), [ 'status' => 400 ] );
+        }
+
+        $dto = $repository->to_dto( $order );
+        $dto->set_status( OrderStatus::CANCELLED );
+
+        $repository->update( $dto );
+
+        return rest_ensure_response(
+            [
+                'message' => esc_html__( 'Order was cancelled successfully' ),
+            ]
+        );
     }
 
     protected function store_args(): array {

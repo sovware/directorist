@@ -78,28 +78,42 @@ function register_controllers() {
     $directories = new \Directorist\Rest_Api\Controllers\Version1\Directories_Controller();
     $directories->register_routes();
 
+    // Legacy orders
+    require_once $dir . 'Version1/class-orders-controller.php';
+
+    $legacy_orders = new \Directorist\Rest_Api\Controllers\Version1\Orders_Controller();
+    $legacy_orders->register_routes();
+
     // Checkout
     require_once $dir . 'Version1/class-checkout-controller.php';
 
-    $checkout = new \Directorist\Rest_Api\Controllers\Version1\Checkout_Controller();
+    require_once $dir . 'Version2/class-checkout-controller.php';
+
+    $checkout = new \Directorist\Rest_Api\Controllers\Version2\Checkout_Controller();
     $checkout->register_routes();
 
     // Orders
     require_once $dir . 'Version1/class-order-controller.php';
 
-    $orders = new \Directorist\Rest_Api\Controllers\Version1\Order_Controller();
+    require_once $dir . 'Version2/class-order-controller.php';
+
+    $orders = new \Directorist\Rest_Api\Controllers\Version2\Order_Controller();
     $orders->register_routes();
 
     // Order Refunds
     require_once $dir . 'Version1/class-order-refund-controller.php';
 
-    $order_refunds = new \Directorist\Rest_Api\Controllers\Version1\Order_Refund_Controller();
+    require_once $dir . 'Version2/class-order-refund-controller.php';
+
+    $order_refunds = new \Directorist\Rest_Api\Controllers\Version2\Order_Refund_Controller();
     $order_refunds->register_routes();
 
     // Payments
     require_once $dir . 'Version1/class-payments-controller.php';
 
-    $payments = new \Directorist\Rest_Api\Controllers\Version1\Payments_Controller();
+    require_once $dir . 'Version2/class-payments-controller.php';
+
+    $payments = new \Directorist\Rest_Api\Controllers\Version2\Payments_Controller();
     $payments->register_routes();
     
     // Directory builder

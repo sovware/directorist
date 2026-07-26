@@ -202,6 +202,7 @@
 
 	.directorist-listing-table {
 		border-radius: 10px;
+		min-height: 250px;
 
 		.directorist-table {
 			display: table;
@@ -322,10 +323,12 @@
 				}
 			}
 
-			&:first-child {
+			&:only-child{
 				.directorist-dropdown {
 					.directorist-dropdown-menu {
-						transform: translateY(0);
+						top: 100%;
+						bottom: auto;
+						transform: translateY(0px);
 					}
 				}
 			}

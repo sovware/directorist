@@ -35,8 +35,7 @@ class Plans_Controller extends Posts_Controller {
 
     /**
      * Active pricing plan plugin type.
-     * 'dpp' for the new directorist-pricing-plans, 'atbdp' for legacy
-     * directorist-pricing-plans, 'dwpp' for directorist-woocommerce-pricing-plans.
+     * 'dpp' for directorist-pricing-plans, 'dwpp' for directorist-woocommerce-pricing-plans.
      *
      * @var string
      */
@@ -89,25 +88,18 @@ class Plans_Controller extends Posts_Controller {
 
     /**
      * Get active pricing plan plugin type.
-     * Priority: new directorist-pricing-plans > legacy directorist-pricing-plans > directorist-woocommerce-pricing-plans.
+     * Priority: directorist-pricing-plans > directorist-woocommerce-pricing-plans.
      *
-     * @return string 'dpp', 'atbdp', 'dwpp' or null.
+     * @return string 'dpp' or 'dwpp' or null.
      */
     protected function get_active_plugin_type() {
         if ( null !== $this->active_plugin_type ) {
             return $this->active_plugin_type;
         }
 
-        if ( function_exists( 'directorist_pricing_plan_repository' ) && $this->is_fee_manager_enabled() && $this->new_pricing_plan_table_exists() ) {
+        if ( $this->has_pricing_plan_provider() ) {
             $this->active_plugin_type = 'dpp';
             return $this->active_plugin_type;
-        }
-
-        if ( class_exists( 'ATBDP_Pricing_Plans' ) ) {
-            if ( $this->is_fee_manager_enabled() ) {
-                $this->active_plugin_type = 'atbdp';
-                return $this->active_plugin_type;
-            }
         }
 
         if ( class_exists( 'DWPP_Pricing_Plans' ) ) {
@@ -122,35 +114,18 @@ class Plans_Controller extends Posts_Controller {
         return $this->active_plugin_type;
     }
 
-    protected function is_fee_manager_enabled() {
-        return (bool) get_directorist_option( 'fee_manager_enable', 1 );
-    }
-
-    protected function is_pricing_plan_extension_loaded() {
-        return function_exists( 'directorist_pricing_plan_repository' ) || class_exists( 'ATBDP_Pricing_Plans' ) || class_exists( 'DWPP_Pricing_Plans' );
-    }
-
-    protected function new_pricing_plan_table_exists() {
-        global $wpdb;
-
-        $table = $this->get_new_pricing_plan_table_name();
-
-        return $table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+    protected function has_pricing_plan_provider() {
+        return (bool) apply_filters( 'directorist_rest_pricing_plans_provider_available', false );
     }
 
     public function get_items_permissions_check( $request ) {
         $plugin_type = $this->get_active_plugin_type();
-
         if ( ! $plugin_type ) {
-            $message = $this->is_pricing_plan_extension_loaded()
-                ? __( 'Pricing plan extension disabled.', 'directorist' )
-                : __( 'Pricing plan extension inactive.', 'directorist' );
-
-            return new WP_Error( 'extension_inactive', $message, array( 'status' => 400 ) );
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
         }
 
         if ( 'dpp' === $plugin_type ) {
-            return true;
+            return apply_filters( 'directorist_rest_pricing_plans_permissions_check', true, $request );
         }
 
         // Verify post type is registered
@@ -163,22 +138,17 @@ class Plans_Controller extends Posts_Controller {
             );
         }
         
-        return parent::get_items_permissions_check( $request );
+        return true;
     }
 
     public function get_item_permissions_check( $request ) {
         $plugin_type = $this->get_active_plugin_type();
-
         if ( ! $plugin_type ) {
-            $message = $this->is_pricing_plan_extension_loaded()
-                ? __( 'Pricing plan extension disabled.', 'directorist' )
-                : __( 'Pricing plan extension inactive.', 'directorist' );
-
-            return new WP_Error( 'extension_inactive', $message, array( 'status' => 400 ) );
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
         }
 
         if ( 'dpp' === $plugin_type ) {
-            return true;
+            return apply_filters( 'directorist_rest_pricing_plan_permissions_check', true, $request );
         }
 
         // Verify post type is registered
@@ -188,7 +158,7 @@ class Plans_Controller extends Posts_Controller {
             return new WP_Error( 'post_type_not_registered', sprintf( __( 'Pricing plans post type "%s" is not registered.', 'directorist' ), esc_html( $post_type ) ), array( 'status' => 500 ) );
         }
         
-        return parent::get_item_permissions_check( $request );
+        return true;
     }
 
     /**
@@ -199,7 +169,7 @@ class Plans_Controller extends Posts_Controller {
      */
     public function get_items( $request ) {
         if ( 'dpp' === $this->get_active_plugin_type() ) {
-            return $this->get_new_pricing_plan_items( $request );
+            return $this->get_pricing_plan_items_from_provider( $request );
         }
 
         $query_args = $this->prepare_objects_query( $request );
@@ -251,6 +221,16 @@ class Plans_Controller extends Posts_Controller {
         return $response;
     }
 
+    protected function get_pricing_plan_items_from_provider( $request ) {
+        $response = apply_filters( 'directorist_rest_pricing_plans_data', null, $request );
+
+        if ( null === $response ) {
+            return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
+        }
+
+        return rest_ensure_response( $response );
+    }
+
     protected function get_plans( $query_args ) {
         $query  = new WP_Query();
         $result = $query->query( $query_args );
@@ -269,108 +249,6 @@ class Plans_Controller extends Posts_Controller {
             'total'   => (int) $total_posts,
             'pages'   => (int) ceil( $total_posts / (int) $query->query_vars['posts_per_page'] ),
         );
-    }
-
-    protected function get_new_pricing_plan_items( $request ) {
-        $query_args = $this->prepare_new_pricing_plan_query( $request );
-
-        do_action( 'directorist_rest_before_query', 'get_plan_items', $request, $query_args );
-
-        $query_results = $this->get_new_pricing_plans( $query_args );
-        $objects       = array();
-
-        foreach ( $query_results['objects'] as $object ) {
-            $data      = $this->prepare_item_for_response( $object, $request );
-            $objects[] = $this->prepare_response_for_collection( $data );
-        }
-
-        $page      = (int) $query_args['page'];
-        $max_pages = (int) $query_results['pages'];
-        $response  = rest_ensure_response( $objects );
-
-        $response->header( 'X-WP-Total', (int) $query_results['total'] );
-        $response->header( 'X-WP-TotalPages', $max_pages );
-
-        $base = add_query_arg( $request->get_query_params(), rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ) );
-
-        if ( $page > 1 ) {
-            $prev_page = min( $page - 1, $max_pages );
-            $response->link_header( 'prev', add_query_arg( 'page', $prev_page, $base ) );
-        }
-
-        if ( $max_pages > $page ) {
-            $response->link_header( 'next', add_query_arg( 'page', $page + 1, $base ) );
-        }
-
-        do_action( 'directorist_rest_after_query', 'get_plan_items', $request, $query_args );
-
-        return apply_filters( 'directorist_rest_response', $response, 'get_plan_items', $request, $query_args );
-    }
-
-    protected function prepare_new_pricing_plan_query( $request ) {
-        $page     = max( 1, (int) ( $request['page'] ? $request['page'] : 1 ) );
-        $per_page = max( 1, min( 100, (int) ( $request['per_page'] ? $request['per_page'] : 10 ) ) );
-
-        $args = array(
-            'directory' => $this->get_new_pricing_plan_directory_filter( $request ),
-            'page'      => $page,
-            'per_page'  => $per_page,
-            'offset'    => ( $page - 1 ) * $per_page,
-            'order'     => ( 'asc' === strtolower( (string) $request['order'] ) ) ? 'ASC' : 'DESC',
-            'orderby'   => ( 'date' === $request['orderby'] ) ? 'created_at' : 'title',
-        );
-
-        return apply_filters( 'directorist_rest_directorist_plan_object_query', $args, $request );
-    }
-
-    protected function get_new_pricing_plan_directory_filter( $request ) {
-        if ( directorist_is_multi_directory_enabled() ) {
-            return absint( $request['directory'] );
-        }
-
-        return (int) directorist_get_default_directory();
-    }
-
-    protected function get_new_pricing_plans( $query_args ) {
-        global $wpdb;
-
-        $table      = $this->get_new_pricing_plan_table_name();
-        $where      = array( 'is_published = 1' );
-        $parameters = array();
-
-        if ( ! empty( $query_args['directory'] ) ) {
-            $where[]      = 'directory_type_id = %d';
-            $parameters[] = (int) $query_args['directory'];
-        }
-
-        $where_sql = implode( ' AND ', $where );
-        $count_sql = "SELECT COUNT(*) FROM {$table} WHERE {$where_sql}";
-
-        // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
-        if ( ! empty( $parameters ) ) {
-            $total = (int) $wpdb->get_var( $wpdb->prepare( $count_sql, $parameters ) );
-        } else {
-            $total = (int) $wpdb->get_var( $count_sql );
-        }
-
-        $orderby = ( 'created_at' === $query_args['orderby'] ) ? 'created_at' : 'title';
-        $order   = ( 'ASC' === $query_args['order'] ) ? 'ASC' : 'DESC';
-        $sql     = "SELECT * FROM {$table} WHERE {$where_sql} ORDER BY {$orderby} {$order}, id {$order} LIMIT %d OFFSET %d";
-        $params  = array_merge( $parameters, array( (int) $query_args['per_page'], (int) $query_args['offset'] ) );
-        $objects = $wpdb->get_results( $wpdb->prepare( $sql, $params ) );
-        // phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
-
-        return array(
-            'objects' => $objects ? $objects : array(),
-            'total'   => $total,
-            'pages'   => (int) ceil( $total / (int) $query_args['per_page'] ),
-        );
-    }
-
-    protected function get_new_pricing_plan_table_name() {
-        global $wpdb;
-
-        return $wpdb->prefix . 'directorist_plans';
     }
 
     /**
@@ -447,21 +325,11 @@ class Plans_Controller extends Posts_Controller {
     public function get_item( $request ) {
         $id = (int) $request['id'];
 
-        do_action( 'directorist_rest_before_query', 'get_plan_item', $request, $id );
-
         if ( 'dpp' === $this->get_active_plugin_type() ) {
-            $plan = $this->get_new_pricing_plan( $id );
-
-            if ( ! $plan ) {
-                return new WP_Error( "directorist_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'directorist' ), array( 'status' => 404 ) );
-            }
-
-            $response = $this->prepare_item_for_response( $plan, $request );
-
-            do_action( 'directorist_rest_after_query', 'get_plan_item', $request, (int) $plan->id );
-
-            return apply_filters( 'directorist_rest_response', $response, 'get_plan_item', $request, (int) $plan->id );
+            return $this->get_pricing_plan_item_from_provider( $request, $id );
         }
+
+        do_action( 'directorist_rest_before_query', 'get_plan_item', $request, $id );
 
         $post               = get_post( $id );
         $plugin_type        = $this->get_active_plugin_type();
@@ -489,35 +357,14 @@ class Plans_Controller extends Posts_Controller {
         return $response;
     }
 
-    protected function get_new_pricing_plan( $id ) {
-        global $wpdb;
+    protected function get_pricing_plan_item_from_provider( $request, $id ) {
+        $response = apply_filters( 'directorist_rest_pricing_plan_data', null, $request, $id );
 
-        $id = $this->get_new_pricing_plan_id( $id );
-
-        if ( ! $id ) {
-            return null;
+        if ( null === $response ) {
+            return new WP_Error( "directorist_rest_invalid_{$this->post_type}_id", __( 'Invalid ID.', 'directorist' ), array( 'status' => 404 ) );
         }
 
-        $table = $this->get_new_pricing_plan_table_name();
-
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is constructed from the WP prefix and a known extension table.
-        $plan = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d AND is_published = 1", $id ) );
-
-        return $plan ? $plan : null;
-    }
-
-    protected function get_new_pricing_plan_id( $id ) {
-        $id = absint( $id );
-
-        if ( ! $id ) {
-            return 0;
-        }
-
-        if ( function_exists( 'directorist_pricing_plans_legacy_plan_id' ) ) {
-            return absint( directorist_pricing_plans_legacy_plan_id( $id ) );
-        }
-
-        return $id;
+        return rest_ensure_response( $response );
     }
 
     /**
@@ -606,10 +453,6 @@ class Plans_Controller extends Posts_Controller {
      * @return array
      */
     protected function get_plan_data( $plan, $request, $context = 'view' ) {
-        if ( 'dpp' === $this->get_active_plugin_type() ) {
-            return $this->get_new_pricing_plan_data( $plan, $request );
-        }
-
         $fields = $this->get_fields_for_response( $request );
 
         $base_data = array();
@@ -721,403 +564,6 @@ class Plans_Controller extends Posts_Controller {
         }
 
         return $base_data;
-    }
-
-    protected function get_new_pricing_plan_data( $plan, $request ) {
-        $fields = $this->get_fields_for_response( $request );
-        $data   = array();
-
-        foreach ( $fields as $field ) {
-            switch ( $field ) {
-                case 'id':
-                    $data['id'] = (int) $plan->id;
-                    break;
-                case 'name':
-                    $data['name'] = (string) $plan->title;
-                    break;
-                case 'slug':
-                    $data['slug'] = sanitize_title( $plan->title );
-                    break;
-                case 'date_created':
-                    $data['date_created'] = $this->format_new_pricing_plan_date( isset( $plan->created_at ) ? $plan->created_at : '', false );
-                    break;
-                case 'date_created_gmt':
-                    $data['date_created_gmt'] = $this->format_new_pricing_plan_date( isset( $plan->created_at ) ? $plan->created_at : '', true );
-                    break;
-                case 'date_modified':
-                    $data['date_modified'] = $this->format_new_pricing_plan_date( isset( $plan->updated_at ) ? $plan->updated_at : '', false );
-                    break;
-                case 'date_modified_gmt':
-                    $data['date_modified_gmt'] = $this->format_new_pricing_plan_date( isset( $plan->updated_at ) ? $plan->updated_at : '', true );
-                    break;
-                case 'description':
-                    $data['description'] = (string) ( isset( $plan->description ) ? $plan->description : '' );
-                    break;
-                case 'hide_description_from_plan':
-                    $data['hide_description_from_plan'] = false;
-                    break;
-                case 'directory':
-                    $data['directory'] = (int) $plan->directory_type_id;
-                    break;
-                case 'status':
-                    $data['status'] = ! empty( $plan->is_published ) ? 'publish' : 'draft';
-                    break;
-                case 'is_recommended':
-                    $data['is_recommended'] = (bool) $plan->is_marked_as_recommended;
-                    break;
-                case 'is_hidden':
-                    $data['is_hidden'] = (bool) $plan->is_hidden_from_plans_list;
-                    break;
-                case 'type':
-                    $data['type'] = $this->get_new_pricing_plan_type( $plan );
-                    break;
-                case 'type_label':
-                    $data['type_label'] = ( 'package' === $this->get_new_pricing_plan_type( $plan ) ) ? esc_html__( 'Per Package', 'directorist' ) : esc_html__( 'Per Listing', 'directorist' );
-                    break;
-                case 'currency':
-                    $data['currency'] = atbdp_get_payment_currency();
-                    break;
-                case 'currency_symbol':
-                    $data['currency_symbol'] = html_entity_decode( atbdp_currency_symbol( atbdp_get_payment_currency() ) );
-                    break;
-                case 'is_free':
-                    $data['is_free'] = ( 'free' === ( isset( $plan->fee_type ) ? $plan->fee_type : '' ) );
-                    break;
-                case 'price':
-                    $data['price'] = ( 'free' === ( isset( $plan->fee_type ) ? $plan->fee_type : '' ) ) ? 0 : (float) $plan->price;
-                    break;
-                case 'is_taxable':
-                    $data['is_taxable'] = (bool) $plan->is_taxable;
-                    break;
-                case 'tax_type':
-                    $data['tax_type'] = ( 'percent' === ( isset( $plan->tax_type ) ? $plan->tax_type : '' ) ) ? 'percentage' : 'fixed';
-                    break;
-                case 'tax':
-                    $data['tax'] = (float) $plan->tax_rate;
-                    break;
-                case 'validity_period':
-                    $data['validity_period'] = ( 'lifetime' === ( isset( $plan->interval_type ) ? $plan->interval_type : '' ) ) ? 0 : (int) $plan->interval_count;
-                    break;
-                case 'validity_period_unit':
-                    $data['validity_period_unit'] = $this->get_new_pricing_plan_validity_period_unit( $plan );
-                    break;
-                case 'validity_period_label':
-                    $data['validity_period_label'] = $this->get_new_pricing_plan_validity_period_label( $plan );
-                    break;
-                case 'is_non_expiring':
-                    $data['is_non_expiring'] = ( 'lifetime' === ( isset( $plan->interval_type ) ? $plan->interval_type : '' ) );
-                    break;
-                case 'playstore_product_id':
-                case 'playstore_product_price':
-                case 'appstore_product_id':
-                case 'appstore_product_price':
-                    $data[ $field ] = $this->get_new_pricing_plan_app_configuration_value( (int) $plan->id, $field );
-                    break;
-                case 'features':
-                    $data['features'] = $this->get_new_pricing_plan_features_data( $plan );
-                    break;
-                case 'fields':
-                    $data['fields'] = $this->get_new_pricing_plan_fields_data( $plan );
-                    break;
-            }
-        }
-
-        return $data;
-    }
-
-    protected function format_new_pricing_plan_date( $date, $gmt ) {
-        if ( '' === $date || '0000-00-00 00:00:00' === $date ) {
-            return null;
-        }
-
-        return directorist_rest_prepare_date_response( $date, $gmt );
-    }
-
-    protected function get_new_pricing_plan_type( $plan ) {
-        return ( 'pay_per_listing' === ( isset( $plan->type ) ? $plan->type : '' ) ) ? 'pay_per_listing' : 'package';
-    }
-
-    protected function get_new_pricing_plan_validity_period_unit( $plan ) {
-        $unit = (string) ( isset( $plan->interval_type ) ? $plan->interval_type : 'day' );
-
-        return in_array( $unit, array( 'day', 'week', 'month', 'year' ), true ) ? $unit : 'day';
-    }
-
-    protected function get_new_pricing_plan_validity_period_label( $plan ) {
-        if ( 'lifetime' === ( isset( $plan->interval_type ) ? $plan->interval_type : '' ) ) {
-            return esc_html__( 'Lifetime', 'directorist' );
-        }
-
-        $validity_period = max( 0, (int) $plan->interval_count );
-        $translations    = array(
-            /* translators: %d: Number of days */
-            'day'   => _n( '%d day', '%d days', $validity_period, 'directorist' ),
-            /* translators: %d: Number of weeks */
-            'week'  => _n( '%d week', '%d weeks', $validity_period, 'directorist' ),
-            /* translators: %d: Number of months */
-            'month' => _n( '%d month', '%d months', $validity_period, 'directorist' ),
-            /* translators: %d: Number of years */
-            'year'  => _n( '%d year', '%d years', $validity_period, 'directorist' ),
-        );
-
-        return sprintf( $translations[ $this->get_new_pricing_plan_validity_period_unit( $plan ) ], $validity_period );
-    }
-
-    protected function get_new_pricing_plan_app_configuration_value( $plan_id, $field ) {
-        static $cache = array();
-
-        if ( ! isset( $cache[ $plan_id ] ) ) {
-            $cache[ $plan_id ] = $this->get_new_pricing_plan_app_configurations( $plan_id );
-        }
-
-        $field_map = array(
-            'playstore_product_id'    => array( 'playstore', 'product_id' ),
-            'playstore_product_price' => array( 'playstore', 'product_price' ),
-            'appstore_product_id'     => array( 'appstore', 'product_id' ),
-            'appstore_product_price'  => array( 'appstore', 'product_price' ),
-        );
-
-        if ( ! isset( $field_map[ $field ] ) ) {
-            return '';
-        }
-
-        list( $type, $property ) = $field_map[ $field ];
-
-        foreach ( $cache[ $plan_id ] as $configuration ) {
-            if ( $type === ( isset( $configuration->type ) ? $configuration->type : '' ) ) {
-                return isset( $configuration->$property ) ? $configuration->$property : '';
-            }
-        }
-
-        return '';
-    }
-
-    protected function get_new_pricing_plan_app_configurations( $plan_id ) {
-        global $wpdb;
-
-        $table = $wpdb->prefix . 'directorist_plan_app_configurations';
-
-        if ( $table !== $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) ) {
-            return array();
-        }
-
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is constructed from the WP prefix and a known extension table.
-        $configurations = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} WHERE plan_id = %d", $plan_id ) );
-
-        return $configurations ? $configurations : array();
-    }
-
-    protected function get_new_pricing_plan_features_data( $plan ) {
-        $features = array(
-            array(
-                'key'            => 'auto_renewal',
-                'label'          => esc_html__( 'Auto renewing', 'directorist' ),
-                'is_active'      => (bool) $plan->is_subscription_enabled,
-                'hide_from_plan' => false,
-            ),
-        );
-
-        if ( 'package' === $this->get_new_pricing_plan_type( $plan ) ) {
-            $features[] = array(
-                'key'            => 'regular_listings',
-                'label'          => $this->get_new_pricing_plan_listing_limit_label( 'regular', (int) $plan->allowed_listings, (bool) $plan->is_allowed_unlimited_listings ),
-                'is_active'      => true,
-                'hide_from_plan' => false,
-                'limit'          => (bool) $plan->is_allowed_unlimited_listings ? -1 : (int) $plan->allowed_listings,
-            );
-            $features[] = array(
-                'key'            => 'featured_listings',
-                'label'          => $this->get_new_pricing_plan_listing_limit_label( 'featured', (int) $plan->allowed_featured_listings, (bool) $plan->is_allowed_unlimited_featured_listings ),
-                'is_active'      => true,
-                'hide_from_plan' => false,
-                'limit'          => (bool) $plan->is_allowed_unlimited_featured_listings ? -1 : (int) $plan->allowed_featured_listings,
-            );
-        } else {
-            $features[] = array(
-                'key'            => 'featured_listing',
-                'label'          => esc_html__( 'Listing as featured', 'directorist' ),
-                'is_active'      => (bool) $plan->is_featured,
-                'hide_from_plan' => false,
-            );
-        }
-
-        return array_merge( $features, $this->get_new_pricing_plan_extra_features_data( $plan ) );
-    }
-
-    protected function get_new_pricing_plan_extra_features_data( $plan ) {
-        $features = array();
-        $map      = array(
-            'contact_listings_owner'  => array( 'contact_listing_owner', esc_html__( 'Contact Owner', 'directorist' ) ),
-            'review'                  => array( 'reviews_allowed', esc_html__( 'Allow Customer Review', 'directorist' ) ),
-            'claim_listing'           => array( 'claim_badge_included', esc_html__( 'Claim Badge Included', 'directorist' ) ),
-            'bdb'                     => array( 'booking_included', esc_html__( 'Booking Included', 'directorist' ) ),
-            'live_chat'               => array( 'live_chat_included', esc_html__( 'Live Chat Included', 'directorist' ) ),
-            'sold_badge'              => array( 'mark_as_sold_included', esc_html__( 'Mark as Sold Included', 'directorist' ) ),
-            'admin_category_select[]' => array( 'categories_included', esc_html__( 'All Categories', 'directorist' ) ),
-        );
-
-        foreach ( $this->get_new_pricing_plan_features( $plan ) as $feature ) {
-            $key = (string) ( isset( $feature->key ) ? $feature->key : '' );
-
-            if ( ! isset( $map[ $key ] ) ) {
-                continue;
-            }
-
-            $features[] = array(
-                'key'            => $map[ $key ][0],
-                'label'          => $map[ $key ][1],
-                'is_active'      => (bool) ( isset( $feature->is_enabled ) ? $feature->is_enabled : false ),
-                'hide_from_plan' => ! (bool) ( isset( $feature->is_show_in_pricing_table ) ? $feature->is_show_in_pricing_table : false ),
-            );
-        }
-
-        return $features;
-    }
-
-    protected function get_new_pricing_plan_listing_limit_label( $type, $count, $unlimited ) {
-        if ( 'regular' === $type ) {
-            return $unlimited
-                ? __( 'Unlimited Regular Listings', 'directorist' )
-                : sprintf( _n( '%s Regular Listing', '%s Regular Listings', $count, 'directorist' ), $count );
-        }
-
-        return $unlimited
-            ? __( 'Unlimited Featured Listings', 'directorist' )
-            : sprintf( _n( '%s Featured Listing', '%s Featured Listings', $count, 'directorist' ), $count );
-    }
-
-    protected function get_new_pricing_plan_fields_data( $plan ) {
-        $field_data = array();
-        $skip_keys  = array( 'review', 'contact_listings_owner', 'claim_listing', 'bdb', 'live_chat', 'sold_badge' );
-
-        foreach ( $this->get_new_pricing_plan_features( $plan ) as $feature ) {
-            $key = (string) ( isset( $feature->key ) ? $feature->key : '' );
-
-            if ( in_array( $key, $skip_keys, true ) ) {
-                continue;
-            }
-
-            $data = array(
-                'key'            => $key,
-                'label'          => (string) ( isset( $feature->name ) ? $feature->name : $key ),
-                'is_preset'      => $this->is_new_pricing_plan_preset_field( $key ),
-                'is_active'      => (bool) ( isset( $feature->is_enabled ) ? $feature->is_enabled : false ),
-                'hide_from_plan' => ! (bool) ( isset( $feature->is_show_in_pricing_table ) ? $feature->is_show_in_pricing_table : false ),
-            );
-
-            $feature_data = array();
-            if ( isset( $feature->data ) ) {
-                $feature_data = is_array( $feature->data ) ? $feature->data : (array) $feature->data;
-            }
-
-            if ( ! empty( $feature_data['is_unlimited'] ) ) {
-                $data['label'] = sprintf( __( '%s (unlimited)', 'directorist' ), $data['label'] );
-                $data['limit'] = -1;
-            } elseif ( isset( $feature_data['limit'] ) && '' !== $feature_data['limit'] ) {
-                $data['limit'] = (int) $feature_data['limit'];
-            }
-
-            $field_data[] = $data;
-        }
-
-        return $field_data;
-    }
-
-    protected function get_new_pricing_plan_features( $plan ) {
-        static $cache = array();
-
-        $plan_id = (int) $plan->id;
-
-        if ( isset( $cache[ $plan_id ] ) ) {
-            return $cache[ $plan_id ];
-        }
-
-        $cache[ $plan_id ] = $this->get_new_pricing_plan_features_from_repository( $plan );
-
-        if ( null === $cache[ $plan_id ] ) {
-            $cache[ $plan_id ] = $this->get_new_pricing_plan_features_from_table( $plan );
-        }
-
-        return $cache[ $plan_id ];
-    }
-
-    protected function get_new_pricing_plan_features_from_repository( $plan ) {
-        if ( ! function_exists( 'directorist_pricing_plans_singleton' ) || ! class_exists( 'DirectoristPricingPlan\App\Repositories\Admin\PlanFeatureRepository' ) ) {
-            return null;
-        }
-
-        try {
-            $repository = directorist_pricing_plans_singleton( 'DirectoristPricingPlan\App\Repositories\Admin\PlanFeatureRepository' );
-
-            if ( is_object( $repository ) && method_exists( $repository, 'get' ) ) {
-                return $repository->get( $plan );
-            }
-        } catch ( \Throwable $exception ) {
-            return null;
-        }
-
-        return null;
-    }
-
-    protected function get_new_pricing_plan_features_from_table( $plan ) {
-        global $wpdb;
-
-        $registered_features = $this->get_new_pricing_plan_registered_features( (int) $plan->directory_type_id );
-        $features            = array();
-        $table               = $wpdb->prefix . 'directorist_plan_features';
-
-        if ( $table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) ) {
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is constructed from the WP prefix and a known extension table.
-            $db_features = $wpdb->get_results( $wpdb->prepare( "SELECT feature_key, is_enabled, is_show_in_pricing_table, data FROM {$table} WHERE plan_id = %d ORDER BY sort_order ASC, id ASC", (int) $plan->id ) );
-
-            foreach ( $db_features as $feature ) {
-                $key  = (string) $feature->feature_key;
-                $data = isset( $registered_features[ $key ] ) ? (object) $registered_features[ $key ] : new \stdClass();
-
-                $data->key                      = $key;
-                $data->name                     = isset( $data->name ) ? $data->name : $key;
-                $data->is_enabled               = (bool) $feature->is_enabled;
-                $data->is_show_in_pricing_table = (bool) $feature->is_show_in_pricing_table;
-                $data->data                     = ! empty( $feature->data ) ? json_decode( $feature->data, true ) : array();
-                $features[]                     = $data;
-
-                unset( $registered_features[ $key ] );
-            }
-        }
-
-        foreach ( $registered_features as $key => $feature ) {
-            $data      = (object) $feature;
-            $data->key = (string) $key;
-
-            $features[] = $data;
-        }
-
-        return $features;
-    }
-
-    protected function get_new_pricing_plan_registered_features( $directory_id ) {
-        if ( function_exists( 'directorist_plan_registered_features' ) ) {
-            return directorist_plan_registered_features( $directory_id );
-        }
-
-        return array();
-    }
-
-    protected function is_new_pricing_plan_preset_field( $key ) {
-        return in_array(
-            $key,
-            array(
-                'tax_input[at_biz_dir-location][]',
-                'admin_category_select[]',
-                'tax_input[at_biz_dir-tags][]',
-                'listing_content',
-                'excerpt',
-                'listing_img',
-                'price',
-                'price_range',
-            ),
-            true
-        );
     }
 
     protected function get_validity_period_label( $plan ) {
@@ -1381,11 +827,9 @@ class Plans_Controller extends Posts_Controller {
      * @return array Links for the given post.
      */
     protected function prepare_links( $object, $request ) {
-        $object_id = isset( $object->ID ) ? (int) $object->ID : (int) $object->id;
-
         $links = array(
             'self'       => array(
-				'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $object_id ) ),  // @codingStandardsIgnoreLine.
+				'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $object->ID ) ),  // @codingStandardsIgnoreLine.
             ),
             'collection' => array(
 				'href' => rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ),  // @codingStandardsIgnoreLine.

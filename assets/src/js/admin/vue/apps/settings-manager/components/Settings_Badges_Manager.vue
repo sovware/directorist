@@ -1205,19 +1205,29 @@ export default {
           useCachedValues,
         );
 
-        if (hasSavedViewThreshold && hasSavedRatingThreshold) {
-          return {
-            match: "any",
-            conditions: [viewCondition, ratingCondition],
-          };
-        }
-
         if (popularBy === "view_count") {
           return { match: "all", conditions: [viewCondition] };
         }
 
         if (popularBy === "average_rating") {
           return { match: "all", conditions: [ratingCondition] };
+        }
+
+        const fallbackConditions = [];
+
+        if (hasSavedViewThreshold) {
+          fallbackConditions.push(viewCondition);
+        }
+
+        if (hasSavedRatingThreshold) {
+          fallbackConditions.push(ratingCondition);
+        }
+
+        if (fallbackConditions.length) {
+          return {
+            match: "all",
+            conditions: fallbackConditions,
+          };
         }
 
         if (
@@ -2260,12 +2270,55 @@ export default {
         this.defaultConditionKey(badge),
         "general",
       );
+      const nextKey = this.nextGeneralConditionKey(badge, conditions);
 
-      conditions.push(
-        this.createCondition("general", this.defaultConditionKey(badge)),
-      );
+      conditions.push(this.createCondition("general", nextKey));
       this.$set(rule, "conditions", conditions);
       this.syncBadgeRules();
+    },
+
+    nextGeneralConditionKey(badge, conditions = []) {
+      const options = this.conditionOptionsForSource("general")
+        .map((option) => option.value)
+        .filter((value) => !!value);
+      const fallbackKey = this.defaultConditionKey(badge);
+
+      if (!options.length) {
+        return fallbackKey;
+      }
+
+      const generalConditions = conditions.filter(
+        (condition) =>
+          condition &&
+          !condition.unsupported &&
+          condition.source === "general" &&
+          options.includes(condition.key),
+      );
+
+      if (
+        !generalConditions.length &&
+        fallbackKey &&
+        options.includes(fallbackKey)
+      ) {
+        return fallbackKey;
+      }
+
+      const usedKeys = generalConditions.map((condition) => condition.key);
+      const usedSet = new Set(usedKeys);
+      const usedIndexes = usedKeys
+        .map((key) => options.indexOf(key))
+        .filter((index) => index >= 0);
+      const fallbackIndex = options.indexOf(fallbackKey);
+      const lastIndex = usedIndexes.length
+        ? Math.max(...usedIndexes)
+        : fallbackIndex;
+      const startIndex = lastIndex >= 0 ? lastIndex + 1 : 0;
+      const orderedKeys = options
+        .slice(startIndex)
+        .concat(options.slice(0, startIndex));
+      const nextUnusedKey = orderedKeys.find((key) => !usedSet.has(key));
+
+      return nextUnusedKey || orderedKeys[0] || fallbackKey || options[0];
     },
 
     removeCondition(badge, index) {

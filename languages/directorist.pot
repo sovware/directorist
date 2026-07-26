@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-26 08:17+0000\n"
+"POT-Creation-Date: 2026-07-26 09:57+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -8241,7 +8241,7 @@ msgstr ""
 msgid "Name for the resource."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:80, ../includes/rest-api/Version1/class-categories-controller.php:113, ../includes/rest-api/Version1/class-directories-controller.php:104, ../includes/rest-api/Version1/class-listing-reviews-controller.php:53, ../includes/rest-api/Version1/class-listing-reviews-controller.php:402, ../includes/rest-api/Version1/class-listings-controller.php:68, ../includes/rest-api/Version1/class-listings-controller.php:94, ../includes/rest-api/Version1/class-listings-controller.php:1091, ../includes/rest-api/Version1/class-locations-controller.php:110, ../includes/rest-api/Version1/class-plans-controller.php:832, ../includes/rest-api/Version1/class-tags-controller.php:83, ../includes/rest-api/Version1/class-users-controller.php:73, ../includes/rest-api/Version1/class-users-controller.php:756, ../includes/rest-api/Version2/class-listings-controller.php:90, ../includes/rest-api/Version2/class-listings-controller.php:1015
+#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:80, ../includes/rest-api/Version1/class-categories-controller.php:113, ../includes/rest-api/Version1/class-directories-controller.php:104, ../includes/rest-api/Version1/class-listing-reviews-controller.php:53, ../includes/rest-api/Version1/class-listing-reviews-controller.php:402, ../includes/rest-api/Version1/class-listings-controller.php:68, ../includes/rest-api/Version1/class-listings-controller.php:94, ../includes/rest-api/Version1/class-listings-controller.php:1091, ../includes/rest-api/Version1/class-locations-controller.php:110, ../includes/rest-api/Version1/class-plans-controller.php:857, ../includes/rest-api/Version1/class-tags-controller.php:83, ../includes/rest-api/Version1/class-users-controller.php:73, ../includes/rest-api/Version1/class-users-controller.php:756, ../includes/rest-api/Version2/class-listings-controller.php:90, ../includes/rest-api/Version2/class-listings-controller.php:1015
 msgid "Unique identifier for the resource."
 msgstr ""
 
@@ -8281,7 +8281,7 @@ msgstr ""
 msgid "Offset the result set by a specific number of items. Applies to hierarchical taxonomies only."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:775, ../includes/rest-api/Version1/class-listing-reviews-controller.php:526, ../includes/rest-api/Version1/class-listings-controller.php:1524, ../includes/rest-api/Version1/class-orders-controller.php:356, ../includes/rest-api/Version1/class-plans-controller.php:1066, ../includes/rest-api/Version1/class-users-controller.php:1025
+#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:775, ../includes/rest-api/Version1/class-listing-reviews-controller.php:526, ../includes/rest-api/Version1/class-listings-controller.php:1524, ../includes/rest-api/Version1/class-orders-controller.php:356, ../includes/rest-api/Version1/class-plans-controller.php:1091, ../includes/rest-api/Version1/class-users-controller.php:1025
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
@@ -8333,7 +8333,7 @@ msgstr ""
 msgid "The value must not be empty."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-builder-controller.php:39, ../includes/rest-api/Version1/class-builder-controller.php:69, ../includes/rest-api/Version1/class-plans-controller.php:865, ../includes/rest-api/Version2/class-listings-controller.php:49, ../includes/rest-api/Version2/class-listings-controller.php:1064
+#: ../includes/rest-api/Version1/class-builder-controller.php:39, ../includes/rest-api/Version1/class-builder-controller.php:69, ../includes/rest-api/Version1/class-plans-controller.php:890, ../includes/rest-api/Version2/class-listings-controller.php:49, ../includes/rest-api/Version2/class-listings-controller.php:1064
 msgid "Directory id."
 msgstr ""
 
@@ -8526,7 +8526,7 @@ msgstr ""
 msgid "Offset the result set by a specific number of items."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:535, ../includes/rest-api/Version1/class-listings-controller.php:1532, ../includes/rest-api/Version1/class-orders-controller.php:363, ../includes/rest-api/Version1/class-plans-controller.php:1072, ../includes/rest-api/Version1/class-users-controller.php:1033
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:535, ../includes/rest-api/Version1/class-listings-controller.php:1532, ../includes/rest-api/Version1/class-orders-controller.php:363, ../includes/rest-api/Version1/class-plans-controller.php:1097, ../includes/rest-api/Version1/class-users-controller.php:1033
 msgid "Sort collection by object attribute."
 msgstr ""
 
@@ -8602,7 +8602,7 @@ msgstr ""
 msgid "Sorry, you are not allowed to change this listing status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-controller.php:577, ../includes/rest-api/Version1/class-orders-controller.php:208, ../includes/rest-api/Version1/class-plans-controller.php:327, ../includes/rest-api/Version1/class-plans-controller.php:334
+#: ../includes/rest-api/Version1/class-listings-controller.php:577, ../includes/rest-api/Version1/class-orders-controller.php:208, ../includes/rest-api/Version1/class-plans-controller.php:342, ../includes/rest-api/Version1/class-plans-controller.php:349, ../includes/rest-api/Version1/class-plans-controller.php:367
 msgid "Invalid ID."
 msgstr ""
 
@@ -8926,290 +8926,286 @@ msgstr ""
 msgid "Limit result set to specific customer id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:68, ../includes/rest-api/Version2/class-listings-controller.php:55
+#: ../includes/rest-api/Version1/class-plans-controller.php:67, ../includes/rest-api/Version2/class-listings-controller.php:55
 msgid "Plan id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:129, ../includes/rest-api/Version1/class-plans-controller.php:152
-msgid "Pricing plan extension disabled."
-msgstr ""
-
-#: ../includes/rest-api/Version1/class-plans-controller.php:134, ../includes/rest-api/Version1/class-plans-controller.php:157
+#: ../includes/rest-api/Version1/class-plans-controller.php:124, ../includes/rest-api/Version1/class-plans-controller.php:149, ../includes/rest-api/Version1/class-plans-controller.php:231
 msgid "Pricing plan extension inactive."
 msgstr ""
 
 #. translators: %s: Post type name
-#: ../includes/rest-api/Version1/class-plans-controller.php:142, ../includes/rest-api/Version1/class-plans-controller.php:164
+#: ../includes/rest-api/Version1/class-plans-controller.php:137, ../includes/rest-api/Version1/class-plans-controller.php:161
 msgid "Pricing plans post type \"%s\" is not registered."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:482
+#: ../includes/rest-api/Version1/class-plans-controller.php:507
 msgid "Per Package"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:482
+#: ../includes/rest-api/Version1/class-plans-controller.php:507
 msgid "Per Listing"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:551
+#: ../includes/rest-api/Version1/class-plans-controller.php:576
 msgid "Lifetime"
 msgstr ""
 
 #. translators: %d: Number of days
-#: ../includes/rest-api/Version1/class-plans-controller.php:558
+#: ../includes/rest-api/Version1/class-plans-controller.php:583
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: Number of weeks
-#: ../includes/rest-api/Version1/class-plans-controller.php:560
+#: ../includes/rest-api/Version1/class-plans-controller.php:585
 msgid "%d week"
 msgid_plural "%d weeks"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: Number of months
-#: ../includes/rest-api/Version1/class-plans-controller.php:562
+#: ../includes/rest-api/Version1/class-plans-controller.php:587
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: Number of years
-#: ../includes/rest-api/Version1/class-plans-controller.php:564
+#: ../includes/rest-api/Version1/class-plans-controller.php:589
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:604
+#: ../includes/rest-api/Version1/class-plans-controller.php:629
 msgid "Auto renewing"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:649
+#: ../includes/rest-api/Version1/class-plans-controller.php:674
 msgid "Listing as featured"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:616
+#: ../includes/rest-api/Version1/class-plans-controller.php:641
 msgid "%s Regular Listing"
 msgid_plural "%s Regular Listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:614
+#: ../includes/rest-api/Version1/class-plans-controller.php:639
 msgid "Unlimited Regular Listings"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:634
+#: ../includes/rest-api/Version1/class-plans-controller.php:659
 msgid "%s Featured Listing"
 msgid_plural "%s Featured Listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:632
+#: ../includes/rest-api/Version1/class-plans-controller.php:657
 msgid "Unlimited Featured Listings"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:658
+#: ../includes/rest-api/Version1/class-plans-controller.php:683
 msgid "Contact Owner"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:666
+#: ../includes/rest-api/Version1/class-plans-controller.php:691
 msgid "Allow Customer Review"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:674
+#: ../includes/rest-api/Version1/class-plans-controller.php:699
 msgid "Claim Badge Included"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:682
+#: ../includes/rest-api/Version1/class-plans-controller.php:707
 msgid "Booking Included"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:690
+#: ../includes/rest-api/Version1/class-plans-controller.php:715
 msgid "Live Chat Included"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:698
+#: ../includes/rest-api/Version1/class-plans-controller.php:723
 msgid "Mark as Sold Included"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:706
+#: ../includes/rest-api/Version1/class-plans-controller.php:731
 msgid "All Categories"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:717, ../includes/rest-api/Version1/class-plans-controller.php:718, ../includes/rest-api/Version1/class-plans-controller.php:719, ../includes/rest-api/Version1/class-plans-controller.php:724
+#: ../includes/rest-api/Version1/class-plans-controller.php:742, ../includes/rest-api/Version1/class-plans-controller.php:743, ../includes/rest-api/Version1/class-plans-controller.php:744, ../includes/rest-api/Version1/class-plans-controller.php:749
 msgid "%s (maximum %d item)"
 msgid_plural "%s (maximum %d items)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:720
+#: ../includes/rest-api/Version1/class-plans-controller.php:745
 msgid "%s (maximum %d)"
 msgid_plural "%s (maximum %d)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:721, ../includes/rest-api/Version1/class-plans-controller.php:722, ../includes/rest-api/Version1/class-plans-controller.php:723
+#: ../includes/rest-api/Version1/class-plans-controller.php:746, ../includes/rest-api/Version1/class-plans-controller.php:747, ../includes/rest-api/Version1/class-plans-controller.php:748
 msgid "%s (maximum %d character)"
 msgid_plural "%s (maximum %d characters)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:777
+#: ../includes/rest-api/Version1/class-plans-controller.php:802
 msgid "%s (unlimited)"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:838
+#: ../includes/rest-api/Version1/class-plans-controller.php:863
 msgid "plan name."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:843
+#: ../includes/rest-api/Version1/class-plans-controller.php:868
 msgid "The date the plan was created, in the site's timezone."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:849
+#: ../includes/rest-api/Version1/class-plans-controller.php:874
 msgid "The date the plan was last modified, in the site's timezone."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:855
+#: ../includes/rest-api/Version1/class-plans-controller.php:880
 msgid "Plan description."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:860
+#: ../includes/rest-api/Version1/class-plans-controller.php:885
 msgid "Hide description from plan."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:870
+#: ../includes/rest-api/Version1/class-plans-controller.php:895
 msgid "Plan status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:875
+#: ../includes/rest-api/Version1/class-plans-controller.php:900
 msgid "Plan recommendation status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:880
+#: ../includes/rest-api/Version1/class-plans-controller.php:905
 msgid "Plan hidden during plan selection."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:885
+#: ../includes/rest-api/Version1/class-plans-controller.php:910
 msgid "Plan type."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:891
+#: ../includes/rest-api/Version1/class-plans-controller.php:916
 msgid "Plan type label."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:896
+#: ../includes/rest-api/Version1/class-plans-controller.php:921
 msgid "Plan currency."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:901
+#: ../includes/rest-api/Version1/class-plans-controller.php:926
 msgid "Plan currency symbol."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:906
+#: ../includes/rest-api/Version1/class-plans-controller.php:931
 msgid "Is plan free?."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:911
+#: ../includes/rest-api/Version1/class-plans-controller.php:936
 msgid "Plan price."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:916
+#: ../includes/rest-api/Version1/class-plans-controller.php:941
 msgid "Is plan taxable?"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:921
+#: ../includes/rest-api/Version1/class-plans-controller.php:946
 msgid "Plan tax type"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:927
+#: ../includes/rest-api/Version1/class-plans-controller.php:952
 msgid "Plan tax amount."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:932
+#: ../includes/rest-api/Version1/class-plans-controller.php:957
 msgid "Plan validity period."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:937
+#: ../includes/rest-api/Version1/class-plans-controller.php:962
 msgid "Plan validity period unit."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:942
+#: ../includes/rest-api/Version1/class-plans-controller.php:967
 msgid "Plan validity period label."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:947
+#: ../includes/rest-api/Version1/class-plans-controller.php:972
 msgid "Is plan non expiring?"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:952
+#: ../includes/rest-api/Version1/class-plans-controller.php:977
 msgid "PlayStore product Id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:957
+#: ../includes/rest-api/Version1/class-plans-controller.php:982
 msgid "PlayStore product price."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:962
+#: ../includes/rest-api/Version1/class-plans-controller.php:987
 msgid "AppStore product Id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:967
+#: ../includes/rest-api/Version1/class-plans-controller.php:992
 msgid "AppStore product price."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:972
+#: ../includes/rest-api/Version1/class-plans-controller.php:997
 msgid "Features data."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:979
+#: ../includes/rest-api/Version1/class-plans-controller.php:1004
 msgid "Feature key."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:985
+#: ../includes/rest-api/Version1/class-plans-controller.php:1010
 msgid "Feature label."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:990
+#: ../includes/rest-api/Version1/class-plans-controller.php:1015
 msgid "Feature active status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:995
+#: ../includes/rest-api/Version1/class-plans-controller.php:1020
 msgid "Feature visibility status from plan package."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1000, ../includes/rest-api/Version1/class-plans-controller.php:1041
+#: ../includes/rest-api/Version1/class-plans-controller.php:1025, ../includes/rest-api/Version1/class-plans-controller.php:1066
 msgid "Feature limited to number of times (-1 indicates unlimited)."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1008, ../includes/rest-api/Version2/class-listings-controller.php:1162
+#: ../includes/rest-api/Version1/class-plans-controller.php:1033, ../includes/rest-api/Version2/class-listings-controller.php:1162
 msgid "Fields data."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1015, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:278
+#: ../includes/rest-api/Version1/class-plans-controller.php:1040, ../includes/rest-api/Version1/class-temporary-media-upload-controller.php:278
 msgid "Field key."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1021
+#: ../includes/rest-api/Version1/class-plans-controller.php:1046
 msgid "Field label."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1026
+#: ../includes/rest-api/Version1/class-plans-controller.php:1051
 msgid "Preset or custom field status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1031
+#: ../includes/rest-api/Version1/class-plans-controller.php:1056
 msgid "Field active status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1036
+#: ../includes/rest-api/Version1/class-plans-controller.php:1061
 msgid "Field visibility status from plan package."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-plans-controller.php:1081
+#: ../includes/rest-api/Version1/class-plans-controller.php:1106
 msgid "Query plans by directory id."
 msgstr ""
 

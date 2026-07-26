@@ -27,7 +27,7 @@ import { ActionsDropdownWrapper } from './style';
 
 const checkoutPageUrl = directorist_admin_order.checkout_page_url;
 const orderStoreName = 'directorist/orders';
-const orderStorePath = '/directorist/v1/orders';
+const orderStorePath = '/directorist/v2/orders';
 
 const baseColumns: Column[] = [
 	{
@@ -121,7 +121,7 @@ export default function App() {
 
 		try {
 			await apiFetch({
-				path: `/directorist/v1/orders/${cancelItem.id}/cancel`,
+				path: `${orderStorePath}/${cancelItem.id}/cancel`,
 				method: 'POST',
 			});
 			updateItem(cancelItem.id, { status: 'cancelled' });

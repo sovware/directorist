@@ -106,15 +106,30 @@ const baseColumns: Column[] = [
 		id: 'user_id',
 		label: __('Customer', 'directorist'),
 		render: ({ item }) => {
+			const hasCustomer = !!(
+				item?.user_id &&
+				(item?.user_display_name || item?.user_email)
+			);
+			const customerName =
+				item?.user_display_name ||
+				item?.user_email ||
+				__('Guest customer', 'directorist');
+			const customerEmail =
+				item?.user_email || __('No user account', 'directorist');
+
 			return (
 				<UserInfoContainer>
-					<UserLink
-						href={`${getAdminUrl()}user-edit.php?user_id=${item.user_id}`}
-					>
-						{item.user_display_name}
-					</UserLink>
+					{hasCustomer ? (
+						<UserLink
+							href={`${getAdminUrl()}user-edit.php?user_id=${item.user_id}`}
+						>
+							{customerName}
+						</UserLink>
+					) : (
+						<span>{customerName}</span>
+					)}
 					<span className="directorist-table-text-light">
-						{item.user_email}
+						{customerEmail}
 					</span>
 				</UserInfoContainer>
 			);
@@ -134,7 +149,7 @@ const baseColumns: Column[] = [
 ];
 
 export default function Orders() {
-	registerCrudStore({ name: 'directorist/orders', path: '/directorist/v1/admin/orders' });
+	registerCrudStore({ name: 'directorist/orders', path: '/directorist/v2/admin/orders' });
 	const { destroy } = useCrudStore({ name: 'directorist/orders' });
 
 	const [ deleteItem, setDeleteItem ] = useState< any >( null );
@@ -198,7 +213,7 @@ export default function Orders() {
 			<Table
 				heading="Orders"
 				storeName="directorist/orders"
-				path="/directorist/v1/admin/orders"
+				path="/directorist/v2/admin/orders"
 				columns={ columns }
 				actions={ [] }
 				create={ { status: false } }

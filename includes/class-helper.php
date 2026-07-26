@@ -497,11 +497,55 @@ class Helper {
 
     public static function badge_exists( $listing_id ) {
         // @cache @kowsar
-        if ( self::is_new( $listing_id ) || self::is_featured( $listing_id ) || self::is_popular( $listing_id ) ) {
-            return true;
-        } else {
+        return ! empty( self::matched_badges( $listing_id ) );
+    }
+
+    public static function display_badge( $listing_id, $badge_key ) {
+        $badge_key = self::normalize_badge_key( $badge_key );
+
+        if ( empty( $listing_id ) || empty( $badge_key ) ) {
             return false;
         }
+
+        $rule = self::get_badge_rule( $badge_key );
+
+        if ( ! empty( $rule ) ) {
+            $rule_result = self::badge_rule_matches( $listing_id, $rule );
+
+            if ( null !== $rule_result ) {
+                return (bool) $rule_result;
+            }
+        }
+
+        if ( self::badge_key_is_custom( $badge_key ) ) {
+            return self::badge_rule_has_no_conditions( $rule );
+        }
+
+        return self::legacy_badge_matches( $listing_id, $badge_key );
+    }
+
+    public static function matched_badges( $listing_id, $badge_keys = [] ) {
+        if ( empty( $listing_id ) ) {
+            return [];
+        }
+
+        $definitions = self::badge_definitions();
+        $badge_keys  = ! empty( $badge_keys ) && is_array( $badge_keys ) ? $badge_keys : array_keys( $definitions );
+        $matched     = [];
+
+        foreach ( $badge_keys as $badge_key ) {
+            $badge_key = self::normalize_badge_key( $badge_key );
+
+            if ( empty( $badge_key ) || empty( $definitions[ $badge_key ] ) ) {
+                continue;
+            }
+
+            if ( self::display_badge( $listing_id, $badge_key ) ) {
+                $matched[ $badge_key ] = $definitions[ $badge_key ];
+            }
+        }
+
+        return $matched;
     }
 
     public static function is_new( $listing_id ) {
@@ -543,6 +587,1281 @@ class Helper {
 
     public static function is_featured( $listing_id ) {
         return get_post_meta( $listing_id, '_featured', true );
+    }
+
+    public static function badge_definitions() {
+        $rules       = self::badge_rules();
+        $rule_badges = ! empty( $rules['badges'] ) && is_array( $rules['badges'] ) ? $rules['badges'] : [];
+        $definitions = [];
+
+        foreach ( self::core_badge_defaults() as $badge_key => $default ) {
+            $definitions[ $badge_key ] = self::normalize_badge_definition(
+                $badge_key,
+                ! empty( $rule_badges[ $badge_key ] ) && is_array( $rule_badges[ $badge_key ] ) ? $rule_badges[ $badge_key ] : [],
+                $default
+            );
+        }
+
+        foreach ( $rule_badges as $badge_key => $rule ) {
+            $badge_key = self::normalize_badge_key( $badge_key );
+
+            if ( empty( $badge_key ) || ! self::badge_key_is_custom( $badge_key ) || ! is_array( $rule ) ) {
+                continue;
+            }
+
+            $definitions[ $badge_key ] = self::normalize_badge_definition(
+                $badge_key,
+                $rule,
+                [
+                    'internalName' => __( 'Custom badge', 'directorist' ),
+                    'label'        => __( 'Badge', 'directorist' ),
+                    'type'         => self::default_badge_type(),
+                    'icon'         => self::default_badge_icon(),
+	                    'style'        => [
+	                        'bg'     => '#3e62f5',
+	                        'text'   => '#ffffff',
+	                        'border' => '#3e62f5',
+	                    ],
+	                    'hover'        => [
+	                        'text'      => '',
+	                        'bg'        => '',
+	                        'textColor' => '',
+	                    ],
+	                ]
+	            );
+	        }
+
+        return apply_filters( 'directorist_badge_definitions', $definitions, $rules );
+    }
+
+	public static function custom_badge_definitions() {
+		return array_filter(
+			self::badge_definitions(),
+			static function( $badge ) {
+				return ! empty( $badge['key'] ) && self::badge_key_is_custom( $badge['key'] );
+			}
+		);
+	}
+
+	public static function normalize_badge_rules_setting_value( $rules ) {
+		if ( empty( $rules ) ) {
+			return $rules;
+		}
+
+		$raw_rules = $rules;
+		$rules     = self::maybe_json( $rules, true );
+
+		if ( empty( $rules['badges'] ) || ! is_array( $rules['badges'] ) ) {
+			return $raw_rules;
+		}
+
+		foreach ( [ 'new', 'popular', 'featured' ] as $badge_key ) {
+			if ( empty( $rules['badges'][ $badge_key ] ) || ! is_array( $rules['badges'][ $badge_key ] ) ) {
+				continue;
+			}
+
+			if ( self::core_badge_uses_global_type( $badge_key, $rules['badges'][ $badge_key ] ) ) {
+				$rules['badges'][ $badge_key ]['type'] = self::default_badge_type();
+			}
+		}
+
+		foreach ( [ 'new', 'popular' ] as $badge_key ) {
+			if ( empty( $rules['badges'][ $badge_key ] ) || ! is_array( $rules['badges'][ $badge_key ] ) ) {
+				continue;
+			}
+
+			$icon = isset( $rules['badges'][ $badge_key ]['icon'] ) ? $rules['badges'][ $badge_key ]['icon'] : '';
+
+			if ( self::core_badge_uses_unedited_star_fallback( $badge_key, $rules['badges'][ $badge_key ], $icon ) ) {
+				$rules['badges'][ $badge_key ]['icon'] = self::default_badge_icon( $badge_key );
+			}
+		}
+
+		return is_string( $raw_rules ) ? wp_json_encode( $rules ) : $rules;
+	}
+
+	public static function badge_definition( $badge_key ) {
+        $badge_key   = self::normalize_badge_key( $badge_key );
+        $definitions = self::badge_definitions();
+
+        return ! empty( $definitions[ $badge_key ] ) ? $definitions[ $badge_key ] : [];
+    }
+
+    public static function badge_template_data( $badge_key, $field = [] ) {
+        $definition = self::badge_definition( $badge_key );
+
+        if ( empty( $definition ) ) {
+            return [];
+        }
+
+        $field['badge_key']          = $definition['key'];
+        $field['class']              = $definition['class'];
+        $field['icon']               = $definition['icon'];
+        $field['tooltip_class']      = 'directorist-badge-tooltip__' . $definition['class'];
+        $field['tooltip_label']      = ! empty( $definition['hover']['text'] ) ? $definition['hover']['text'] : $definition['label'];
+        $field['label']              = $definition['label'];
+		$field['badge_display_type'] = 'icon' === $definition['type'] ? 'icon_badge' : 'text_badge';
+		$field['badge_show_icon']    = self::badge_should_show_icon( $definition );
+		$field['badge_show_dot']     = false;
+		$field['badge_text_class']   = self::badge_template_classes( $field );
+		$field['badge_style_attr']   = self::badge_style_attr( $definition );
+		$field['badge_icon_color']   = ! empty( $definition['style']['text'] ) ? $definition['style']['text'] : '#ffffff';
+		$field['badge_icon_html']    = $field['badge_show_icon'] ? self::badge_icon_markup( $definition['icon'], $definition ) : '';
+		if ( ! empty( $field['badge_show_icon'] ) && empty( $field['badge_icon_html'] ) ) {
+			$field['badge_show_icon'] = false;
+			$field['badge_text_class'] = self::badge_template_classes( $field );
+		}
+		$field['badge_dot_html']     = '';
+		$field['badge_marker_html']  = $field['badge_icon_html'];
+
+        if ( 'featured' === $definition['key'] ) {
+            $field['featured_badge_type'] = $field['badge_display_type'];
+        }
+
+        if ( 'new' === $definition['key'] ) {
+            $field['new_badge_type']  = $field['badge_display_type'];
+            $field['new_badge_class'] = $field['badge_text_class'];
+        }
+
+        return apply_filters( 'directorist_badge_template_data', $field, $definition );
+    }
+
+	private static function badge_should_show_icon( $badge ) {
+		if ( ! empty( $badge['type'] ) && 'icon' === $badge['type'] ) {
+			return true;
+		}
+
+		return ! empty( $badge['icon'] );
+	}
+
+	private static function badge_template_classes( $field ) {
+		$classes = [];
+
+		if ( ! empty( $field['badge_display_type'] ) && 'text_badge' === $field['badge_display_type'] ) {
+			$classes[] = 'directorist-badge--only-text';
+			if ( ! empty( $field['badge_show_icon'] ) ) {
+				$classes[] = 'directorist-badge--has-icon';
+			}
+		} else {
+			$classes[] = 'directorist-badge--icon-only';
+			$classes[] = 'directorist-badge--has-icon';
+		}
+
+		return implode( ' ', $classes );
+	}
+
+	public static function badge_style_attr( $badge ) {
+        if ( empty( $badge['style'] ) || ! is_array( $badge['style'] ) ) {
+            return '';
+        }
+
+        $background = ! empty( $badge['style']['bg'] ) ? sanitize_hex_color( $badge['style']['bg'] ) : '';
+        $text       = ! empty( $badge['style']['text'] ) ? sanitize_hex_color( $badge['style']['text'] ) : '';
+        $border     = ! empty( $badge['style']['border'] ) ? sanitize_hex_color( $badge['style']['border'] ) : '';
+
+        if ( empty( $background ) ) {
+            return '';
+        }
+
+        $text   = ! empty( $text ) ? $text : '#ffffff';
+        $border = ! empty( $border ) ? $border : $background;
+
+		$hover_bg         = ! empty( $badge['hover']['bg'] ) ? sanitize_hex_color( $badge['hover']['bg'] ) : $background;
+		$hover_text_color = ! empty( $badge['hover']['textColor'] ) ? sanitize_hex_color( $badge['hover']['textColor'] ) : $text;
+
+		return sprintf(
+			'--directorist-badge-bg:%1$s;--directorist-badge-border:%2$s;--directorist-badge-color:%3$s;--directorist-badge-icon-color:%3$s;--directorist-badge-tooltip-bg:%4$s;--directorist-badge-tooltip-color:%5$s;',
+			esc_attr( $background ),
+			esc_attr( $border ),
+			esc_attr( $text ),
+			esc_attr( $hover_bg ? $hover_bg : $background ),
+			esc_attr( $hover_text_color ? $hover_text_color : $text )
+		);
+	}
+
+	public static function badge_icon_markup( $icon, $badge = [] ) {
+		$icon = self::sanitize_badge_icon( $icon );
+
+		if ( empty( $icon ) ) {
+			return '';
+		}
+
+		$icon_src = self::get_icon_src( $icon );
+
+		if ( empty( $icon_src ) ) {
+			return '';
+		}
+
+		$style = sprintf( '--directorist-icon:url(%1$s);', esc_url( $icon_src ) );
+		$color = '';
+
+		if ( ! empty( $badge['style']['text'] ) ) {
+			$color = sanitize_hex_color( $badge['style']['text'] );
+		} elseif ( ! empty( $badge['badge_icon_color'] ) ) {
+			$color = sanitize_hex_color( $badge['badge_icon_color'] );
+		}
+
+		if ( $color ) {
+			$style .= sprintf( '--directorist-badge-icon-color:%1$s;color:%1$s;', esc_attr( $color ) );
+		}
+
+		return sprintf(
+			'<i class="directorist-icon-mask directorist-badge-icon-mask" aria-hidden="true" style="%1$s"></i>',
+			esc_attr( $style )
+		);
+	}
+
+    public static function badge_builder_widgets() {
+        $widgets = [];
+
+        foreach ( self::badge_definitions() as $badge_key => $badge ) {
+            $widget_key = self::badge_widget_key( $badge_key );
+
+            if ( empty( $widget_key ) ) {
+                continue;
+            }
+
+            $widgets[ $widget_key ] = [
+                'type'        => 'badge',
+                'label'       => ! empty( $badge['internalName'] ) ? $badge['internalName'] : $badge['label'],
+                'icon'        => ! empty( $badge['icon'] ) ? $badge['icon'] : '',
+                'hook'        => 'atbdp_' . str_replace( '-', '_', $badge['class'] ) . '_badge',
+                'widget_name' => $widget_key,
+                'widget_key'  => $widget_key,
+            ];
+        }
+
+        return apply_filters( 'directorist_badge_builder_widgets', $widgets );
+    }
+
+    public static function badge_widget_key( $badge_key ) {
+        $badge_key = self::normalize_badge_key( $badge_key );
+
+        switch ( $badge_key ) {
+            case 'new':
+                return 'new_badge';
+
+            case 'popular':
+                return 'popular_badge';
+
+            case 'featured':
+                return 'featured_badge';
+        }
+
+        return self::badge_key_is_custom( $badge_key ) ? $badge_key : '';
+    }
+
+    public static function badge_key_from_widget_key( $widget_key ) {
+        return self::normalize_badge_key( $widget_key );
+    }
+
+    private static function get_badge_rule( $badge_key ) {
+        $rules = self::badge_rules();
+
+        if ( empty( $rules['badges'] ) || ! is_array( $rules['badges'] ) ) {
+            return [];
+        }
+
+        if ( empty( $rules['badges'][ $badge_key ] ) || ! is_array( $rules['badges'][ $badge_key ] ) ) {
+            return [];
+        }
+
+        return $rules['badges'][ $badge_key ];
+    }
+
+    private static function badge_rules() {
+        $rules = get_directorist_option( 'directorist_badge_rules', [] );
+
+        if ( empty( $rules ) ) {
+            return [];
+        }
+
+        $rules = self::maybe_json( $rules, true );
+
+        return is_array( $rules ) ? $rules : [];
+    }
+
+    private static function core_badge_defaults() {
+        $type            = self::default_badge_type();
+        $new_label       = self::new_badge_text();
+        $popular_label   = self::popular_badge_text();
+        $featured_label  = self::featured_badge_text();
+        $new_color       = get_directorist_option( 'new_back_color', '#2C99FF' );
+        $popular_color   = get_directorist_option( 'popular_back_color', '#f51957' );
+        $featured_color  = get_directorist_option( 'featured_back_color', '#fa8b0c' );
+
+        return [
+            'new'      => [
+                'internalName' => $new_label,
+                'label'        => $new_label,
+                'type'         => $type,
+                'icon'         => self::default_badge_icon( 'new' ),
+	                'style'        => [
+	                    'bg'     => $new_color,
+	                    'text'   => '#ffffff',
+	                    'border' => $new_color,
+	                ],
+	                'hover'        => [
+	                    'text'      => '',
+	                    'bg'        => '',
+	                    'textColor' => '',
+	                ],
+	            ],
+            'popular'  => [
+                'internalName' => $popular_label,
+                'label'        => $popular_label,
+                'type'         => $type,
+                'icon'         => self::default_badge_icon( 'popular' ),
+	                'style'        => [
+	                    'bg'     => $popular_color,
+	                    'text'   => '#ffffff',
+	                    'border' => $popular_color,
+	                ],
+	                'hover'        => [
+	                    'text'      => '',
+	                    'bg'        => '',
+	                    'textColor' => '',
+	                ],
+	            ],
+            'featured' => [
+                'internalName' => $featured_label,
+                'label'        => $featured_label,
+                'type'         => $type,
+                'icon'         => self::default_badge_icon( 'featured' ),
+	                'style'        => [
+	                    'bg'     => $featured_color,
+	                    'text'   => '#ffffff',
+	                    'border' => $featured_color,
+	                ],
+	                'hover'        => [
+	                    'text'      => '',
+	                    'bg'        => '',
+	                    'textColor' => '',
+	                ],
+	            ],
+        ];
+    }
+
+    private static function default_badge_type() {
+        return 'icon_badge' === get_directorist_option( 'badge_display_type', 'text_badge' ) ? 'icon' : 'text';
+    }
+
+    private static function normalize_badge_definition( $badge_key, $rule, $fallback ) {
+        $fallback_style = ! empty( $fallback['style'] ) && is_array( $fallback['style'] ) ? $fallback['style'] : [];
+        $rule_style     = ! empty( $rule['style'] ) && is_array( $rule['style'] ) ? $rule['style'] : [];
+        $background     = self::normalize_badge_color(
+            isset( $rule_style['bg'] ) ? $rule_style['bg'] : ( isset( $rule['color'] ) ? $rule['color'] : '' ),
+            ! empty( $fallback_style['bg'] ) ? $fallback_style['bg'] : '#3e62f5'
+        );
+        $text_color     = self::normalize_badge_color(
+            isset( $rule_style['text'] ) ? $rule_style['text'] : '',
+            ! empty( $fallback_style['text'] ) ? $fallback_style['text'] : '#ffffff'
+        );
+        $border_color   = self::normalize_badge_color(
+            isset( $rule_style['border'] ) ? $rule_style['border'] : '',
+            ! empty( $fallback_style['border'] ) ? $fallback_style['border'] : $background
+        );
+        $label          = self::sanitize_badge_label(
+            isset( $rule['label'] ) ? $rule['label'] : '',
+            ! empty( $fallback['label'] ) ? $fallback['label'] : __( 'Badge', 'directorist' )
+        );
+        $internal_name  = self::sanitize_badge_label(
+            isset( $rule['internalName'] ) ? $rule['internalName'] : ( isset( $rule['internal_name'] ) ? $rule['internal_name'] : '' ),
+            ! empty( $fallback['internalName'] ) ? $fallback['internalName'] : $label
+        );
+		$type           = self::normalize_badge_definition_type( $badge_key, $rule, ! empty( $fallback['type'] ) ? $fallback['type'] : 'text' );
+
+        $hover = self::normalize_badge_hover(
+            isset( $rule['hover'] ) && is_array( $rule['hover'] ) ? $rule['hover'] : [],
+            ! empty( $fallback['hover'] ) && is_array( $fallback['hover'] ) ? $fallback['hover'] : [],
+            $label,
+            $background,
+            $text_color
+        );
+
+        return [
+			'key'          => $badge_key,
+			'class'        => self::badge_class_name( $badge_key ),
+			'enabled'      => ! array_key_exists( 'enabled', $rule ) || self::badge_bool_value( $rule['enabled'] ),
+			'internalName' => $internal_name,
+			'label'        => $label,
+			'type'         => $type,
+			'icon'         => self::normalize_badge_definition_icon( $badge_key, $rule, ! empty( $fallback['icon'] ) ? $fallback['icon'] : self::default_badge_icon( $badge_key ), $type ),
+			'style'        => [
+				'bg'     => $background,
+				'text'   => $text_color,
+                'border' => $border_color ? $border_color : $background,
+            ],
+            'hover'        => $hover,
+        ];
+    }
+
+    private static function normalize_badge_hover( $hover, $fallback_hover, $label, $background, $text_color ) {
+        $fallback_text       = ! empty( $fallback_hover['text'] ) ? $fallback_hover['text'] : $label;
+        $fallback_bg         = ! empty( $fallback_hover['bg'] ) ? $fallback_hover['bg'] : $background;
+        $fallback_text_color = ! empty( $fallback_hover['textColor'] ) ? $fallback_hover['textColor'] : $text_color;
+
+        return [
+            'text'      => self::sanitize_badge_label(
+                isset( $hover['text'] ) ? $hover['text'] : '',
+                $fallback_text
+            ),
+            'bg'        => self::normalize_badge_color(
+                isset( $hover['bg'] ) ? $hover['bg'] : '',
+                $fallback_bg
+            ),
+            'textColor' => self::normalize_badge_color(
+                isset( $hover['textColor'] ) ? $hover['textColor'] : ( isset( $hover['text_color'] ) ? $hover['text_color'] : '' ),
+                $fallback_text_color
+            ),
+        ];
+    }
+
+    private static function normalize_badge_color( $color, $fallback ) {
+        $color = sanitize_hex_color( $color );
+
+        if ( $color ) {
+            return $color;
+        }
+
+        $fallback = sanitize_hex_color( $fallback );
+
+        return $fallback ? $fallback : '#3e62f5';
+    }
+
+    private static function sanitize_badge_label( $value, $fallback ) {
+        $value = trim( wp_strip_all_tags( (string) $value ) );
+
+        return '' !== $value ? $value : $fallback;
+    }
+
+    private static function sanitize_badge_icon( $icon ) {
+        $icon = trim( wp_strip_all_tags( (string) $icon ) );
+
+        return '' !== $icon ? $icon : '';
+    }
+
+	private static function normalize_badge_icon( $icon, $fallback = '' ) {
+		$icon     = self::sanitize_badge_icon( $icon );
+		$fallback = self::sanitize_badge_icon( $fallback );
+		$default  = self::default_badge_icon();
+
+        if ( self::badge_icon_is_supported( $icon ) ) {
+            return $icon;
+        }
+
+        if ( self::badge_icon_is_supported( $fallback ) ) {
+            return $fallback;
+        }
+
+		return $default;
+	}
+
+	private static function normalize_badge_definition_icon( $badge_key, $rule, $fallback, $type ) {
+		$icon = isset( $rule['icon'] ) ? $rule['icon'] : '';
+
+		if ( self::core_badge_uses_unedited_star_fallback( $badge_key, $rule, $icon ) ) {
+			$icon = '';
+		}
+
+		$icon = self::sanitize_badge_icon( $icon );
+
+		if ( empty( $icon ) && 'text' === self::normalize_badge_type( $type ) && self::badge_icon_was_edited( $rule ) ) {
+			return '';
+		}
+
+		return self::normalize_badge_icon( $icon, $fallback );
+	}
+
+	private static function badge_icon_was_edited( $rule ) {
+		return is_array( $rule ) && ( ! empty( $rule['iconEdited'] ) || ! empty( $rule['icon_edited'] ) );
+	}
+
+	private static function core_badge_uses_unedited_star_fallback( $badge_key, $rule, $icon ) {
+		if ( ! in_array( $badge_key, [ 'new', 'popular' ], true ) || ! is_array( $rule ) || empty( $icon ) ) {
+			return false;
+		}
+
+		if ( ! empty( $rule['iconEdited'] ) || ! empty( $rule['icon_edited'] ) ) {
+			return false;
+		}
+
+		return in_array( self::sanitize_badge_icon( $icon ), self::legacy_generic_star_icons(), true );
+	}
+
+    private static function badge_icon_is_supported( $icon ) {
+        if ( empty( $icon ) ) {
+            return false;
+        }
+
+        $icon_src = self::get_icon_src( $icon );
+
+        if ( empty( $icon_src ) ) {
+            return false;
+        }
+
+        $icon_base_url = ATBDP_URL . 'assets/icons/';
+
+        if ( 0 === strpos( $icon_src, $icon_base_url ) ) {
+            $relative_icon_path = ltrim( substr( $icon_src, strlen( $icon_base_url ) ), '/' );
+
+            return file_exists( DIRECTORIST_ICON_PATH . $relative_icon_path );
+        }
+
+        return true;
+    }
+
+	private static function default_badge_icons() {
+		return [
+			'new'      => 'la la-bolt',
+			'popular'  => 'la la-fire',
+			'featured' => 'la la-star-o',
+		];
+	}
+
+	private static function legacy_generic_star_icons() {
+		return [
+			'la la-star-o',
+			'las la-star',
+			'far fa-star',
+			'fas fa-star',
+		];
+	}
+
+    private static function default_badge_icon( $badge_key = '' ) {
+        $badge_key = self::normalize_badge_key( $badge_key );
+        $icons     = self::default_badge_icons();
+
+        return ! empty( $icons[ $badge_key ] ) ? $icons[ $badge_key ] : 'la la-certificate';
+    }
+
+	private static function normalize_badge_type( $type ) {
+		return in_array( $type, [ 'icon', 'icon_badge' ], true ) ? 'icon' : 'text';
+	}
+
+	private static function normalize_badge_definition_type( $badge_key, $rule, $fallback ) {
+		if ( self::core_badge_uses_global_type( $badge_key, $rule ) ) {
+			return self::normalize_badge_type( $fallback );
+		}
+
+		return self::normalize_badge_type( isset( $rule['type'] ) ? $rule['type'] : $fallback );
+	}
+
+	private static function core_badge_uses_global_type( $badge_key, $rule ) {
+		if ( ! in_array( $badge_key, [ 'new', 'popular', 'featured' ], true ) || ! is_array( $rule ) ) {
+			return false;
+		}
+
+		return empty( $rule['typeEdited'] ) && empty( $rule['type_edited'] );
+	}
+
+    private static function badge_class_name( $badge_key ) {
+        if ( in_array( $badge_key, [ 'new', 'popular', 'featured' ], true ) ) {
+            return $badge_key;
+        }
+
+        $class = preg_replace( '/^custom_badge_/', 'custom-', $badge_key );
+        $class = str_replace( '_', '-', $class );
+
+        return sanitize_html_class( $class ? $class : 'custom-badge' );
+    }
+
+    private static function badge_rule_matches( $listing_id, $rule ) {
+        if ( ! is_array( $rule ) ) {
+            return null;
+        }
+
+        if ( array_key_exists( 'enabled', $rule ) && ! self::badge_bool_value( $rule['enabled'] ) ) {
+            return false;
+        }
+
+        if ( empty( $rule['conditions'] ) || ! is_array( $rule['conditions'] ) ) {
+            return null;
+        }
+
+        $match = ( ! empty( $rule['match'] ) && 'any' === $rule['match'] ) ? 'any' : 'all';
+        $has_valid_condition = false;
+
+        foreach ( $rule['conditions'] as $condition ) {
+            $condition_result = self::badge_condition_matches( $listing_id, $condition );
+
+            if ( null === $condition_result ) {
+                return null;
+            }
+
+            $has_valid_condition = true;
+
+            if ( 'any' === $match && $condition_result ) {
+                return true;
+            }
+
+            if ( 'all' === $match && ! $condition_result ) {
+                return false;
+            }
+        }
+
+        return $has_valid_condition ? 'all' === $match : null;
+    }
+
+    private static function badge_rule_has_no_conditions( $rule ) {
+        if ( ! is_array( $rule ) ) {
+            return false;
+        }
+
+        if ( ! array_key_exists( 'conditions', $rule ) ) {
+            return true;
+        }
+
+        return is_array( $rule['conditions'] ) && empty( $rule['conditions'] );
+    }
+
+    private static function badge_condition_matches( $listing_id, $condition ) {
+        if ( ! is_array( $condition ) ) {
+            return null;
+        }
+
+        $source = ! empty( $condition['source'] ) ? sanitize_key( $condition['source'] ) : '';
+        $key = ! empty( $condition['key'] ) ? sanitize_key( $condition['key'] ) : '';
+        $operator = self::normalize_badge_condition_operator( ! empty( $condition['operator'] ) ? $condition['operator'] : '=' );
+        $expected = array_key_exists( 'value', $condition ) ? $condition['value'] : '';
+
+        if ( 'field' === $source && ! self::badge_field_directory_matches( $listing_id, $condition ) ) {
+            return false;
+        }
+
+        $actual = self::badge_condition_value( $listing_id, $source, $key, $condition );
+
+        if ( null === $actual ) {
+            return null;
+        }
+
+        return self::badge_compare_condition( $actual, $operator, $expected );
+    }
+
+    private static function normalize_badge_condition_operator( $operator ) {
+        $operator = trim( (string) $operator );
+
+        for ( $i = 0; $i < 2; $i++ ) {
+            $decoded = html_entity_decode( $operator, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+            if ( $decoded === $operator ) {
+                break;
+            }
+
+            $operator = trim( $decoded );
+        }
+
+        $aliases = [
+            '&lt;'       => '<',
+            '&lt;='      => '<=',
+            '&gt;'       => '>',
+            '&gt;='      => '>=',
+            '&ne;'       => 'is_not',
+            '!='         => 'is_not',
+            '≠'          => 'is_not',
+            'not_equals' => 'is_not',
+        ];
+
+        return isset( $aliases[ $operator ] ) ? $aliases[ $operator ] : $operator;
+    }
+
+    private static function badge_condition_value( $listing_id, $source, $key, $condition = [] ) {
+        switch ( $source ) {
+            case 'general':
+                return self::badge_general_condition_value( $listing_id, $key );
+
+            case 'field':
+                return self::badge_field_condition_value( $listing_id, self::badge_condition_field_key( $condition, $key ), $condition );
+
+            case 'pricing':
+                return self::badge_pricing_condition_value( $listing_id, $key );
+        }
+
+        return null;
+    }
+
+    private static function badge_general_condition_value( $listing_id, $key ) {
+        $value = null;
+
+        switch ( $key ) {
+            case 'age_days':
+                $value = self::listing_age_days( $listing_id );
+                break;
+
+            case 'view_count':
+                $value = (int) directorist_get_listing_views_count( $listing_id );
+                break;
+
+            case 'average_rating':
+                $value = (float) directorist_get_listing_rating( $listing_id );
+                break;
+
+            case 'review_count':
+                if ( function_exists( 'directorist_get_listing_review_count' ) ) {
+                    $value = (int) directorist_get_listing_review_count( $listing_id );
+                    break;
+                }
+
+                $value = 0;
+                break;
+
+            case 'is_featured':
+                $value = (bool) get_post_meta( $listing_id, '_featured', true );
+                break;
+        }
+
+        return apply_filters( 'directorist_badge_rule_general_condition_value', $value, $listing_id, $key );
+    }
+
+    private static function badge_field_condition_value( $listing_id, $field_key, $condition = [] ) {
+        if ( empty( $field_key ) ) {
+            return null;
+        }
+
+        switch ( $field_key ) {
+            case 'listing_title':
+            case 'title':
+                return get_the_title( $listing_id );
+
+            case 'listing_content':
+            case 'description':
+                return wp_strip_all_tags( (string) get_post_field( 'post_content', $listing_id ) );
+
+            case 'excerpt':
+                $excerpt = get_post_meta( $listing_id, '_excerpt', true );
+                return '' !== $excerpt && null !== $excerpt ? $excerpt : get_post_field( 'post_excerpt', $listing_id );
+
+            case 'category':
+                return self::badge_listing_term_values( $listing_id, ATBDP_CATEGORY, 'ids' );
+
+            case 'tag':
+                return self::badge_listing_term_values( $listing_id, ATBDP_TAGS, 'names_and_ids' );
+
+            case 'location':
+                return self::badge_listing_term_values( $listing_id, ATBDP_LOCATION, 'ids' );
+
+            case 'listing_img':
+            case 'image_upload':
+                return self::badge_listing_has_image( $listing_id ) ? 'uploaded' : '';
+
+            case 'videourl':
+            case 'video':
+                return '' !== trim( (string) get_post_meta( $listing_id, '_videourl', true ) ) ? 'provided' : '';
+
+            case 'map':
+                return self::badge_listing_map_values( $listing_id );
+
+            case 'privacy_policy':
+                return self::badge_bool_value( get_post_meta( $listing_id, '_privacy_policy', true ) ) ? 'checked' : 'unchecked';
+        }
+
+        $value = get_post_meta( $listing_id, '_' . $field_key, true );
+
+        if ( '' === $value || null === $value ) {
+            $value = get_post_meta( $listing_id, $field_key, true );
+        }
+
+        $value_type = ! empty( $condition['valueType'] ) ? sanitize_key( $condition['valueType'] ) : '';
+
+        if ( 'html_text' === $value_type ) {
+            $value = wp_strip_all_tags( (string) $value );
+        }
+
+        if ( 'button' === $value_type ) {
+            $value = self::badge_button_condition_values( $value );
+        }
+
+        if ( 'presence' === $value_type ) {
+            $value = empty( $value ) ? '' : 'uploaded';
+        }
+
+        return apply_filters( 'directorist_badge_rule_field_value', $value, $listing_id, $field_key );
+    }
+
+    private static function badge_condition_field_key( $condition, $fallback_key = '' ) {
+        if ( is_array( $condition ) && ! empty( $condition['fieldKey'] ) ) {
+            return sanitize_key( $condition['fieldKey'] );
+        }
+
+        if ( is_array( $condition ) && ! empty( $condition['field_key'] ) ) {
+            return sanitize_key( $condition['field_key'] );
+        }
+
+        $key = sanitize_key( $fallback_key );
+
+        if ( preg_match( '/^dir_[0-9]+__(.+)$/', $key, $matches ) ) {
+            return sanitize_key( $matches[1] );
+        }
+
+        return $key;
+    }
+
+    private static function badge_field_directory_matches( $listing_id, $condition ) {
+        if ( empty( $condition['directoryId'] ) && empty( $condition['directory_id'] ) ) {
+            return true;
+        }
+
+        $expected_directory = absint( ! empty( $condition['directoryId'] ) ? $condition['directoryId'] : $condition['directory_id'] );
+
+        if ( ! $expected_directory ) {
+            return true;
+        }
+
+        $directory_ids = array_filter( array_map( 'absint', (array) get_post_meta( $listing_id, '_directory_type', true ) ) );
+
+        if ( empty( $directory_ids ) ) {
+            $terms = wp_get_object_terms( $listing_id, ATBDP_TYPE, [ 'fields' => 'ids' ] );
+
+            if ( ! is_wp_error( $terms ) ) {
+                $directory_ids = array_filter( array_map( 'absint', (array) $terms ) );
+            }
+        }
+
+        return in_array( $expected_directory, $directory_ids, true );
+    }
+
+    private static function badge_listing_term_values( $listing_id, $taxonomy, $mode = 'ids' ) {
+        $terms = wp_get_object_terms( $listing_id, $taxonomy );
+
+        if ( is_wp_error( $terms ) || empty( $terms ) ) {
+            return [];
+        }
+
+        $values = [];
+
+        foreach ( $terms as $term ) {
+            if ( 'ids' === $mode || 'names_and_ids' === $mode ) {
+                $values[] = (string) $term->term_id;
+            }
+
+            if ( 'names' === $mode || 'names_and_ids' === $mode ) {
+                $values[] = (string) $term->name;
+                $values[] = (string) $term->slug;
+            }
+        }
+
+        return array_values( array_unique( array_filter( $values ) ) );
+    }
+
+    private static function badge_listing_has_image( $listing_id ) {
+        if ( has_post_thumbnail( $listing_id ) ) {
+            return true;
+        }
+
+        $preview_image = get_post_meta( $listing_id, '_listing_prv_img', true );
+
+        if ( ! empty( $preview_image ) ) {
+            return true;
+        }
+
+        $gallery_images = get_post_meta( $listing_id, '_listing_img', true );
+
+        if ( is_string( $gallery_images ) ) {
+            $maybe_json = self::maybe_json( $gallery_images );
+            $gallery_images = is_array( $maybe_json ) ? $maybe_json : $gallery_images;
+        }
+
+        return ! empty( $gallery_images );
+    }
+
+    private static function badge_listing_map_values( $listing_id ) {
+        $values = [];
+        $manual_lat = trim( (string) get_post_meta( $listing_id, '_manual_lat', true ) );
+        $manual_lng = trim( (string) get_post_meta( $listing_id, '_manual_lng', true ) );
+
+        if ( '' !== $manual_lat && '' !== $manual_lng ) {
+            $values[] = 'pin_added';
+        }
+
+        if ( self::badge_bool_value( get_post_meta( $listing_id, '_hide_map', true ) ) ) {
+            $values[] = 'map_hidden';
+        }
+
+        return $values;
+    }
+
+    private static function badge_button_condition_values( $value ) {
+        if ( is_string( $value ) ) {
+            $maybe_json = self::maybe_json( $value );
+            $value = is_array( $maybe_json ) ? $maybe_json : maybe_unserialize( $value );
+        }
+
+        if ( ! is_array( $value ) ) {
+            return empty( $value ) ? [] : [ (string) $value ];
+        }
+
+        $button_text = ! empty( $value['button_text'] ) ? trim( (string) $value['button_text'] ) : '';
+        $button_url  = ! empty( $value['button_url_label'] ) ? trim( (string) $value['button_url_label'] ) : '';
+        $values      = [];
+
+        if ( '' !== $button_text ) {
+            $values[] = 'button_text';
+            $values[] = $button_text;
+        }
+
+        if ( '' !== $button_url ) {
+            $values[] = 'button_url';
+            $values[] = $button_url;
+        }
+
+        if ( '' !== $button_text && '' !== $button_url ) {
+            $values[] = 'complete';
+        }
+
+        return $values;
+    }
+
+    private static function badge_pricing_condition_value( $listing_id, $key ) {
+        $plan_ids = self::listing_pricing_plan_ids( $listing_id );
+
+        switch ( $key ) {
+            case 'has_plan':
+                return ! empty( $plan_ids );
+
+            case 'plan_id':
+                return $plan_ids;
+        }
+
+        return null;
+    }
+
+    private static function listing_pricing_plan_ids( $listing_id ) {
+        $default_meta_keys = [ '_fm_plans' ];
+
+        if ( function_exists( 'directorist_plan_key' ) ) {
+            $plan_meta_key = \directorist_plan_key();
+
+            if ( ! empty( $plan_meta_key ) ) {
+                $default_meta_keys[] = $plan_meta_key;
+            }
+        }
+
+        $meta_keys = apply_filters(
+            'directorist_badge_rule_pricing_plan_meta_keys',
+            array_values( array_unique( $default_meta_keys ) ),
+            $listing_id
+        );
+        $plan_ids = [];
+
+        foreach ( $meta_keys as $meta_key ) {
+            $plan_ids = array_merge( $plan_ids, self::normalize_badge_rule_ids( get_post_meta( $listing_id, $meta_key, true ) ) );
+        }
+
+        $plan_ids = array_merge( $plan_ids, self::listing_pricing_package_plan_ids( $listing_id ) );
+        $plan_ids = self::normalize_pricing_plan_ids( $plan_ids );
+
+        return apply_filters( 'directorist_badge_rule_pricing_plan_ids', $plan_ids, $listing_id );
+    }
+
+    private static function listing_pricing_package_plan_ids( $listing_id ) {
+        if ( ! function_exists( 'directorist_user_package_repository' ) ) {
+            return [];
+        }
+
+        try {
+            $repository = \directorist_user_package_repository();
+
+            if ( ! is_object( $repository ) || ! method_exists( $repository, 'get_listings_package' ) ) {
+                return [];
+            }
+
+            $package = $repository->get_listings_package( (int) $listing_id );
+
+            if ( empty( $package->plan_id ) ) {
+                return [];
+            }
+
+            return [ $package->plan_id ];
+        } catch ( \Throwable $exception ) {
+            return [];
+        }
+    }
+
+    private static function normalize_pricing_plan_ids( $plan_ids ) {
+        $plan_ids = array_values( array_unique( array_filter( array_map( 'absint', $plan_ids ) ) ) );
+
+        if ( function_exists( 'directorist_pricing_plans_legacy_plan_id' ) ) {
+            $plan_ids = array_merge(
+                $plan_ids,
+                array_map(
+                    static function( $plan_id ) {
+                        return \directorist_pricing_plans_legacy_plan_id( $plan_id );
+                    },
+                    $plan_ids
+                )
+            );
+        }
+
+        return array_values( array_unique( array_filter( array_map( 'absint', $plan_ids ) ) ) );
+    }
+
+    private static function normalize_badge_rule_ids( $value ) {
+        if ( empty( $value ) ) {
+            return [];
+        }
+
+        if ( is_string( $value ) ) {
+            $maybe_json = self::maybe_json( $value );
+
+            if ( is_array( $maybe_json ) ) {
+                $value = $maybe_json;
+            } elseif ( false !== strpos( $value, ',' ) ) {
+                $value = explode( ',', $value );
+            }
+        }
+
+        if ( ! is_array( $value ) ) {
+            $value = [ $value ];
+        }
+
+        return $value;
+    }
+
+    private static function badge_compare_condition( $actual, $operator, $expected ) {
+        if ( is_array( $actual ) ) {
+            return self::badge_compare_array_condition( $actual, $operator, $expected );
+        }
+
+        if ( is_array( $expected ) ) {
+            return self::badge_compare_scalar_to_array_condition( $actual, $operator, $expected );
+        }
+
+        if ( is_bool( $actual ) || is_bool( $expected ) ) {
+            $actual = self::badge_bool_value( $actual );
+            $expected = self::badge_bool_value( $expected );
+        }
+
+        switch ( $operator ) {
+            case 'is':
+            case '=':
+            case '==':
+            case 'equals':
+                return $actual == $expected;
+
+            case '!=':
+            case 'is_not':
+            case 'not_equals':
+                return $actual != $expected;
+
+            case '>':
+                return (float) $actual > (float) $expected;
+
+            case '>=':
+                return (float) $actual >= (float) $expected;
+
+            case '<':
+                return (float) $actual < (float) $expected;
+
+            case '<=':
+                return (float) $actual <= (float) $expected;
+
+            case 'contains':
+                if ( '' === (string) $expected ) {
+                    return false;
+                }
+
+                return false !== strpos( (string) $actual, (string) $expected );
+
+            case 'not_contains':
+                if ( '' === (string) $expected ) {
+                    return false;
+                }
+
+                return false === strpos( (string) $actual, (string) $expected );
+
+            case 'is_empty':
+                return '' === trim( (string) $actual );
+
+            case 'is_not_empty':
+                return '' !== trim( (string) $actual );
+        }
+
+        return null;
+    }
+
+    private static function badge_compare_scalar_to_array_condition( $actual, $operator, $expected ) {
+        $actual = (string) $actual;
+
+        if ( 'is_empty' === $operator ) {
+            return '' === trim( $actual );
+        }
+
+        if ( 'is_not_empty' === $operator ) {
+            return '' !== trim( $actual );
+        }
+
+        $expected = array_values(
+            array_filter(
+                array_map( 'strval', $expected ),
+                static function( $value ) {
+                    return '' !== $value;
+                }
+            )
+        );
+
+        if ( empty( $expected ) ) {
+            return false;
+        }
+
+        $matched = in_array( $actual, $expected, true );
+
+        switch ( $operator ) {
+            case 'is':
+            case '=':
+            case '==':
+            case 'equals':
+                return $matched;
+
+            case '!=':
+            case 'is_not':
+            case 'not_equals':
+                return ! $matched;
+
+            case 'contains':
+                foreach ( $expected as $value ) {
+                    if ( false !== strpos( $actual, $value ) ) {
+                        return true;
+                    }
+                }
+
+                return false;
+
+            case 'not_contains':
+                foreach ( $expected as $value ) {
+                    if ( false !== strpos( $actual, $value ) ) {
+                        return false;
+                    }
+                }
+
+                return true;
+
+            case 'is_empty':
+                return '' === trim( $actual );
+
+            case 'is_not_empty':
+                return '' !== trim( $actual );
+        }
+
+        return null;
+    }
+
+    private static function badge_compare_array_condition( $actual, $operator, $expected ) {
+        $actual = array_map( 'strval', $actual );
+
+        if ( 'is_empty' === $operator ) {
+            return empty( array_filter( $actual, 'strlen' ) );
+        }
+
+        if ( 'is_not_empty' === $operator ) {
+            return ! empty( array_filter( $actual, 'strlen' ) );
+        }
+
+        if ( is_array( $expected ) ) {
+            $expected = array_map( 'strval', $expected );
+        } else {
+            $expected = [ (string) $expected ];
+        }
+
+        $expected = array_values(
+            array_filter(
+                $expected,
+                static function( $value ) {
+                    return '' !== $value;
+                }
+            )
+        );
+
+        if ( empty( $expected ) ) {
+            return false;
+        }
+
+        $matched = (bool) array_intersect( $actual, $expected );
+
+        switch ( $operator ) {
+            case 'is':
+            case '=':
+            case '==':
+            case 'equals':
+            case 'contains':
+                return $matched;
+
+            case '!=':
+            case 'is_not':
+            case 'not_equals':
+            case 'not_contains':
+                return ! $matched;
+
+        }
+
+        return null;
+    }
+
+    private static function listing_age_days( $listing_id ) {
+        $post = get_post( $listing_id ); // @cache @kowsar
+
+        if ( ! $post ) {
+            return null;
+        }
+
+        $each_hours = 60 * 60 * 24;
+        $s_date1 = strtotime( current_time( 'mysql' ) );
+        $s_date2 = strtotime( $post->post_date );
+        $s_date_diff = abs( $s_date1 - $s_date2 );
+
+        return (int) round( $s_date_diff / $each_hours );
+    }
+
+    private static function badge_bool_value( $value ) {
+        if ( is_bool( $value ) ) {
+            return $value;
+        }
+
+        if ( is_numeric( $value ) ) {
+            return (bool) (int) $value;
+        }
+
+        return in_array( strtolower( trim( (string) $value ) ), [ '1', 'true', 'yes', 'on' ], true );
+    }
+
+    private static function normalize_badge_key( $badge_key ) {
+        $badge_key = sanitize_key( $badge_key );
+
+        if ( 'new_badge' === $badge_key ) {
+            return 'new';
+        }
+
+        if ( 'popular_badge' === $badge_key ) {
+            return 'popular';
+        }
+
+        if ( 'featured_badge' === $badge_key || 'feature_badge' === $badge_key ) {
+            return 'featured';
+        }
+
+        if ( self::badge_key_is_custom( $badge_key ) ) {
+            return $badge_key;
+        }
+
+        return in_array( $badge_key, [ 'new', 'popular', 'featured' ], true ) ? $badge_key : '';
+    }
+
+    private static function badge_key_is_custom( $badge_key ) {
+        return (bool) preg_match( '/^custom_badge_[a-z0-9_]+$/', sanitize_key( $badge_key ) );
+    }
+
+    private static function legacy_badge_matches( $listing_id, $badge_key ) {
+        switch ( $badge_key ) {
+            case 'new':
+                return self::is_new( $listing_id );
+
+            case 'popular':
+                return self::is_popular( $listing_id );
+
+            case 'featured':
+                return (bool) self::is_featured( $listing_id );
+        }
+
+        return false;
     }
 
     public static function new_badge_text() {

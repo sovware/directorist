@@ -322,9 +322,9 @@ window.IconPicker = function (args) {
 				iconPicker.classList.remove('icon-picker-visible');
 			}
 
-			const selectIconButtons = document.querySelectorAll(
-				'.icon-picker-selector .icon-picker-selector__btn'
-			);
+				const selectIconButtons = self.container.querySelectorAll(
+					'.icon-picker-selector .icon-picker-selector__btn'
+				);
 
 			if (selectIconButtons.length) {
 				for (const selectIconButton of selectIconButtons) {
@@ -335,9 +335,9 @@ window.IconPicker = function (args) {
 				}
 			}
 
-			const selectIconInputs = document.querySelectorAll(
-				'.icon-picker-selector .icon-picker-selector__icon input'
-			);
+				const selectIconInputs = self.container.querySelectorAll(
+					'.icon-picker-selector .icon-picker-selector__icon input'
+				);
 
 			if (selectIconInputs.length) {
 				for (const selectIconInput of selectIconInputs) {
@@ -353,9 +353,9 @@ window.IconPicker = function (args) {
 				}
 			}
 
-			const resetBtns = document.querySelectorAll(
-				'.icon-picker-selector__icon__reset'
-			);
+				const resetBtns = self.container.querySelectorAll(
+					'.icon-picker-selector__icon__reset'
+				);
 			if (resetBtns.length) {
 				for (const resetBtn of resetBtns) {
 					const parent = resetBtn.parentElement;

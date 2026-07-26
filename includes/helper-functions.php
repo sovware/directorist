@@ -1756,19 +1756,18 @@ function atbdp_get_remove_favourites_page_link( $listing_id ) {
 
 if ( ! function_exists( 'new_badge' ) ) {
     function new_badge() {
-        global $post;
-        $new_listing_time = get_directorist_option( 'new_listing_day' );
-        $new_badge_text = get_directorist_option( 'new_badge_text', 'New' );
-        $each_hours = 60 * 60 * 24; // seconds in a day
-        $s_date1 = strtotime( current_time( 'mysql' ) ); // seconds for date 1
-        $s_date2 = strtotime( $post->post_date ); // seconds for date 2
-        $s_date_diff = abs( $s_date1 - $s_date2 ); // different of the two dates in seconds
-        $days = round( $s_date_diff / $each_hours ); // divided the different with second in a day
-        $new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
-        if ( $days <= (int) $new_listing_time ) {
-             return $new;
-
+        if ( ! \Directorist\Helper::display_badge( get_the_ID(), 'new' ) ) {
+            return;
         }
+
+        $badge      = \Directorist\Helper::badge_definition( 'new' );
+        $style_attr = \Directorist\Helper::badge_style_attr( $badge );
+
+        return sprintf(
+            '<span class="atbd_badge atbd_badge_new"%1$s>%2$s</span>',
+            $style_attr ? ' style="' . esc_attr( $style_attr ) . '"' : '',
+            esc_html( $badge['label'] )
+        );
     }
 }
 

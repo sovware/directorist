@@ -13,7 +13,6 @@ defined( 'ABSPATH' ) || exit;
 use WP_Error;
 use WP_Query;
 use WP_REST_Server;
-use Directorist\Helper;
 
 /**
  * Plans controller class.
@@ -115,11 +114,12 @@ class Plans_Controller extends Posts_Controller {
     }
 
     protected function has_pricing_plan_provider() {
-        return (bool) apply_filters( 'directorist_rest_pricing_plans_provider_available', false );
+        return (bool) apply_filters( 'directorist_is_active_pricing_plans', false );
     }
 
     public function get_items_permissions_check( $request ) {
         $plugin_type = $this->get_active_plugin_type();
+
         if ( ! $plugin_type ) {
             return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
         }
@@ -130,6 +130,7 @@ class Plans_Controller extends Posts_Controller {
 
         // Verify post type is registered
         $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
+
         if ( ! post_type_exists( $post_type ) ) {
             return new WP_Error( 
                 'post_type_not_registered', 
@@ -143,6 +144,7 @@ class Plans_Controller extends Posts_Controller {
 
     public function get_item_permissions_check( $request ) {
         $plugin_type = $this->get_active_plugin_type();
+
         if ( ! $plugin_type ) {
             return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
         }
@@ -153,6 +155,7 @@ class Plans_Controller extends Posts_Controller {
 
         // Verify post type is registered
         $post_type = ( 'dwpp' === $plugin_type ) ? 'product' : $this->post_type;
+
         if ( ! post_type_exists( $post_type ) ) {
             /* translators: %s: Post type name */
             return new WP_Error( 'post_type_not_registered', sprintf( __( 'Pricing plans post type "%s" is not registered.', 'directorist' ), esc_html( $post_type ) ), array( 'status' => 500 ) );
